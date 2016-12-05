@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,6 +13,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="160dp"
+            android:contentDescription="@null"
             android:src="@drawable/logo_sporting" />
 
         <RelativeLayout
@@ -23,7 +25,7 @@
                 android:id="@+id/login_slide_text_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bringing fans together"
+                android:text="@string/login_slider_text_1"
                 android:textColor="@android:color/white"
                 android:textSize="48sp" />
 
@@ -31,7 +33,7 @@
                 android:id="@+id/login_slide_text_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Coming soon"
+                android:text="@string/login_slider_text_2"
                 android:textColor="@android:color/white"
                 android:textSize="48sp"
                 android:visibility="gone" />
@@ -84,6 +86,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:contentDescription="@null"
             android:src="@drawable/logo_ssk" />
     </LinearLayout>
 

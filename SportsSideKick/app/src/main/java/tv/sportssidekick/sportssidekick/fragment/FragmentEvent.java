@@ -16,7 +16,8 @@ public class FragmentEvent extends BusEvent {
         NEWS,
         VIDEO_CHAT,
         RUMOURS,
-        STORE
+        STORE,
+        LOGIN
     }
 
     private Type type;
