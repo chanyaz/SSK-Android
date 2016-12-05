@@ -1,9 +1,11 @@
-package tv.sportssidekick.sportssidekick;
+package tv.sportssidekick.sportssidekick.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import tv.sportssidekick.sportssidekick.R;
+
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="button_login_main">
+        <item name="android:textColor">@drawable/button_change_text_color</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/button_login_main</item>
+        <item name="android:padding">4dp</item>
+    </style>
 </resources>
