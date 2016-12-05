@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.fragment;
+package tv.sportssidekick.sportssidekick.fragment.instance;
 
 /**
  * Created by Djordje Krutil on 5.12.2016..

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/gradient_bg"
+    tools:context="tv.sportssidekick.sportssidekick.activity.LoungeActivity">
+
+    <View
+        android:id="@+id/middle_split"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/left_top_bar_container"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="@dimen/full_margin"
+        android:layout_marginEnd="@dimen/half_margin"
+        android:layout_marginTop="@dimen/full_margin"
+        android:layout_toStartOf="@+id/middle_split">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sportingportugal"
+            android:contentDescription="@string/demo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/scrolling_news_title"
+            android:layout_toEndOf="@+id/logo"
+            android:paddingBottom="8dp"
+            android:text="@string/sporting_cp_title"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/scrolling_news_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/logo"
+            android:layout_toEndOf="@+id/logo"
+            android:paddingBottom="8dp"
+            android:text="@string/scrolling_news_demo_value"
+
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/right_top_bar_container"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="@dimen/full_margin"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_marginEnd="@dimen/full_margin"
+        android:layout_marginTop="@dimen/full_margin"
+        android:layout_toEndOf="@+id/middle_split"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/liga"
+            android:contentDescription="@string/demo" />
+
+    </RelativeLayout>
+
+
+
+        <RadioGroup
+            android:id="@+id/left_tab_selector"
+
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/left_top_bar_container"
+            android:gravity="top"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/wall_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/wall_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/video_chat_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/video_chat_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/news_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/news_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/roumors_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/rumours_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/shop_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/shop_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+        </RadioGroup>
+
+
+        <RadioGroup
+            android:id="@+id/right_tab_selector"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/right_top_bar_container"
+            android:gravity="top"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/chat_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/chat_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/stats_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/statistics_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/fantasy_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/fantasy_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+        </RadioGroup>
+
+
+
+    <RelativeLayout
+        android:id="@+id/tabs_container_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/left_top_bar_container"
+        android:layout_marginBottom="@dimen/full_margin"
+        android:layout_marginEnd="@dimen/half_margin"
+        android:layout_toStartOf="@+id/middle_split"
+        android:layout_toEndOf="@+id/left_tab_selector"
+        android:padding="@dimen/full_margin"
+        android:background="@color/colorPrimary">
+
+    </RelativeLayout>
+
+    <!---  This should be fixed height?-->
+    <LinearLayout
+        android:id="@+id/video_player_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_toStartOf="@+id/right_tab_selector"
+        android:layout_toEndOf="@+id/middle_split"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:contentDescription="@string/demo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:adjustViewBounds="true"
+            android:background="@color/colorPrimary"
+            android:scaleType="fitEnd"
+            android:src="@drawable/video_placeholder" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/video_tab_radio_group"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/video_player_container"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/club_tv_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/tab_radio_button_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/club_tv_caption"
+            android:textColor="@drawable/tab_radio_text_color_selector" />
+
+        <RadioButton
+            android:id="@+id/club_radio_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/tab_radio_button_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/club_radio_caption"
+            android:textColor="@drawable/tab_radio_text_color_selector" />
+    </RadioGroup>
+
+
+    <RelativeLayout
+        android:id="@+id/tabs_container_top_right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/video_player_container"
+        android:layout_below="@+id/right_top_bar_container"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_toStartOf="@+id/right_tab_selector"
+        android:layout_toEndOf="@+id/middle_split"
+        android:background="@color/colorPrimary">
+
+    </RelativeLayout>
+
+</RelativeLayout>
