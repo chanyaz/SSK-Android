@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import tv.sportssidekick.sportssidekick.fragment.instance.LoginMainFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ForgotPasswordFrament;
+import tv.sportssidekick.sportssidekick.fragment.instance.InitialFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.LoginFrament;
 
 /**
  * Created by Djordje Krutil on 5.12.2016..
@@ -24,8 +26,14 @@ public class LoginFragmentOrganizer extends FragmentOrganizer {
             arguments.putString(BaseFragment.PRIMARY_ARG_TAG, fragmentEvent.getId());
             BaseFragment fragment = null;
             switch (fragmentEvent.getType()) {
+                case INITIAL:
+                    fragment = new InitialFragment();
+                    break;
                 case LOGIN:
-                    fragment = new LoginMainFragment();
+                    fragment = new LoginFrament();
+                    break;
+                case FORGOT_PASSWORD:
+                    fragment = new ForgotPasswordFrament();
                     break;
             }
             openFragment(fragment, arguments);
@@ -34,13 +42,13 @@ public class LoginFragmentOrganizer extends FragmentOrganizer {
 
     @Override
     protected Fragment getInitialFragment() {
-        return  new LoginMainFragment();
+        return  new InitialFragment();
     }
 
     @Override
     public boolean handleBackNavigation() {
         Fragment fragment = getOpenFragment();
-        if (fragment instanceof LoginMainFragment) {
+        if (fragment instanceof InitialFragment) {
             return false;
         } else {
             fragmentManager.popBackStack();

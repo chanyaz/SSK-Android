@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:contentDescription="@null"
+            android:src="@drawable/logo_sporting" />
+
+        <include layout="@layout/slide_text_login"/>
+
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/login_login_email"
+                style="@style/edit_text_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_login_email"
+                android:text="test@t.com"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/login_login_password"
+                style="@style/edit_text_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="asdfgh"
+                android:hint="@string/login_login_password"
+                android:inputType="textPassword" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/login_login_button"
+                    style="@style/button_login_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_login_login" />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/login_login_progress_bar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:elevation="2dp"
+                    app:indicatorName="LineSpinFadeLoaderIndicator"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/login_login_forgot_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_login_forgot_text"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/lightGrey"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_margin="@dimen/login_logo_ssk"
+            android:contentDescription="@null"
+            android:src="@drawable/logo_ssk" />
+    </LinearLayout>
+
+</RelativeLayout>

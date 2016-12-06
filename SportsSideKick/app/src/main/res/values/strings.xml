@@ -7,6 +7,18 @@
     <string name="login_login">Log in</string>
     <string name="login_slider_text_1">Bringing fans together</string>
     <string name="login_slider_text_2">Coming soon</string>
+    <string name="login_login_email">Email</string>
+    <string name="login_login_password">Password</string>
+    <string name="login_login_login">Login</string>
+    <string name="login_login_forgot_text">Forgot your password?</string>
+    <string name="login_login_message_login_failed">Login failed. Try again later!</string>
+    <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
+    <string name="forgot_password_text">Reset your password</string>
+    <string name="forgot_password_button_text">Reset</string>
+
+    <string name="dialog_ok">Ok</string>
+    <string name="dialog_warning">Warning</string>
+    <string name="dialog_message">You must enter your </string>
 
     <string name="wall_fragment_caption">Wall</string>
     <string name="video_chat_fragment_caption">Video Chat</string>

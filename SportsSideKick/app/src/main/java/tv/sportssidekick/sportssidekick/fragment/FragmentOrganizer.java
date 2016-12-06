@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import tv.sportssidekick.sportssidekick.fragment.instance.LoginMainFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.NewsFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.RumoursFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
@@ -59,9 +58,6 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
                     break;
                 case STORE:
                     fragment = new StoreFragment();
-                    break;
-                case LOGIN:
-                    fragment = new LoginMainFragment();
                     break;
             }
             openFragment(fragment, arguments);

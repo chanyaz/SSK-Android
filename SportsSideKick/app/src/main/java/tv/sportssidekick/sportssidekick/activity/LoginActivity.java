@@ -2,12 +2,8 @@ package tv.sportssidekick.sportssidekick.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.LoginFragmentOrganizer;
 
 /**
@@ -17,16 +13,20 @@ import tv.sportssidekick.sportssidekick.fragment.LoginFragmentOrganizer;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    LoginFragmentOrganizer loginFragmentOrganizer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        LoginFragmentOrganizer loginFragmentOrganizer = new LoginFragmentOrganizer(getSupportFragmentManager(), R.id.login_container);
+        loginFragmentOrganizer = new LoginFragmentOrganizer(getSupportFragmentManager(), R.id.login_container);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        if (!loginFragmentOrganizer.handleBackNavigation())
+        {
+            finish();
+        }
     }
 }
