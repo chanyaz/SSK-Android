@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import tv.sportssidekick.sportssidekick.fragment.instance.ForgotPasswordFrament;
 import tv.sportssidekick.sportssidekick.fragment.instance.InitialFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.LoginFrament;
+import tv.sportssidekick.sportssidekick.fragment.instance.SignUpFragment;
 
 /**
  * Created by Djordje Krutil on 5.12.2016..
@@ -34,6 +35,9 @@ public class LoginFragmentOrganizer extends FragmentOrganizer {
                     break;
                 case FORGOT_PASSWORD:
                     fragment = new ForgotPasswordFrament();
+                    break;
+                case SIGN_UP:
+                    fragment = new SignUpFragment();
                     break;
             }
             openFragment(fragment, arguments);

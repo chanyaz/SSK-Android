@@ -56,6 +56,15 @@ public class InitialFragment extends BaseFragment {
             }
         });
         signUpButton = (Button) view.findViewById(R.id.login_sign_up_button);
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentEvent fragmentEvent = new FragmentEvent(FragmentEvent.Type.SIGN_UP);
+                if(fragmentEvent!=null){
+                    EventBus.getDefault().post(fragmentEvent);
+                }
+            }
+        });
 
         slideTextOne = (TextView) view.findViewById(R.id.login_slide_text_1);
         slideTextTwo = (TextView) view.findViewById(R.id.login_slide_text_2);

@@ -19,7 +19,8 @@ public class FragmentEvent extends BusEvent {
         STORE,
         INITIAL,
         LOGIN,
-        FORGOT_PASSWORD
+        FORGOT_PASSWORD,
+        SIGN_UP
     }
 
     private Type type;
