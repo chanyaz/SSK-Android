@@ -24,9 +24,9 @@
     <string name="quiz_caption">Quiz</string>
 
     <!-- URLs for store, fantasy, quiz -->
-    <string name="store_url">https://lojaverde.sporting.pt/en</string>
+    <string name="store_url">"http://lojaverde.sporting.pt</string>
     <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
-    <string name="quiz_url">https://snack-media.com/sidekick/quiz-list-en.html</string>
-    <string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-en.html</string>
+    <string name="quiz_url">https://snack-media.com/sidekick/quiz-list-pt.html</string>
+    <string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-pt.html</string>
 
 </resources>

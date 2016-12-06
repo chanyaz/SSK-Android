@@ -12,24 +12,20 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 
 /**
- * Created by Filip on 12/5/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
- *
  * A simple {@link BaseFragment} subclass.
  */
+public class FantasyFragment extends BaseFragment {
 
-public class StoreFragment extends BaseFragment {
 
-
-    public StoreFragment() {
+    public FantasyFragment() {
         // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_store, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_fantasy, container, false);
         WebView webView = (WebView) view.findViewById(R.id.web_view);
 
         webView.getSettings().setJavaScriptEnabled(true);
@@ -42,10 +38,10 @@ public class StoreFragment extends BaseFragment {
                 // page loaded successfully!
             }
         });
-        String url = getResources().getString(R.string.store_url);
+        String url = getResources().getString(R.string.fantasy_url);
         webView.loadUrl(url);
-
         return view;
+
     }
 
 }

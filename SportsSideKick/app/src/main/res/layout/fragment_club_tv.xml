@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment">
+
+
+    <ImageView
+        android:contentDescription="@string/demo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@color/colorPrimary"
+        android:scaleType="fitEnd"
+        android:src="@drawable/video_placeholder" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        android:text="@string/club_tv_caption" />
+
+</RelativeLayout>
