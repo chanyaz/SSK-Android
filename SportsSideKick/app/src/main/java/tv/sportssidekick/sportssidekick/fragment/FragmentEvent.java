@@ -11,28 +11,18 @@ import tv.sportssidekick.sportssidekick.service.BusEvent;
 
 public class FragmentEvent extends BusEvent {
 
-    public enum Type {
-        WALL, // Add all types of Fragments here
-        NEWS,
-        VIDEO_CHAT,
-        RUMOURS,
-        STORE,
-        INITIAL,
-        LOGIN,
-        FORGOT_PASSWORD,
-        SIGN_UP
+    public Class getType() {
+        return classType;
     }
 
-    private Type type;
-     Type getType() {
-        return type;
-    }
-    public void setType(Type type) {
-        this.type = type;
+    public void setType(Class type) {
+        this.classType = type;
     }
 
-    public FragmentEvent(Type type) {
+    Class classType;
+
+    public FragmentEvent(Class type) {
         super(null);
-        this.type = type;
+        this.classType = type;
     }
 }

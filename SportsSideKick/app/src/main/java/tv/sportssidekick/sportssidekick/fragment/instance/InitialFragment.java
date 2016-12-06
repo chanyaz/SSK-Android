@@ -49,7 +49,7 @@ public class InitialFragment extends BaseFragment {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(FragmentEvent.Type.LOGIN);
+                FragmentEvent fragmentEvent = new FragmentEvent(LoginFragment.class);
                 if(fragmentEvent!=null){
                     EventBus.getDefault().post(fragmentEvent);
                 }

@@ -8,28 +8,36 @@ import android.support.v4.app.FragmentTransaction;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.lang.reflect.Constructor;
+
 /**
  * Created by Filip on 12/5/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  *
- * Abstract fragment organizer, implement it for each container separately
+ * Abstract fragment organizer
  */
+
 
 abstract class AbstractFragmentOrganizer {
 
     FragmentManager fragmentManager;
-    private int containerId;
 
-
-    AbstractFragmentOrganizer(FragmentManager fragmentManager, int containerId){
+    AbstractFragmentOrganizer(FragmentManager fragmentManager){
         this.fragmentManager = fragmentManager;
-        this.containerId = containerId;
-        openFragment(getInitialFragment());
         EventBus.getDefault().register(this);
+//        openFragment(createFragment(initialFragment), containerId);
     }
 
-    protected abstract Fragment getInitialFragment();
+    protected Fragment createFragment(Class fragmentClass){
+        try {
+            Constructor constructor = fragmentClass.getConstructor();
+            return (Fragment)constructor.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Subscribe
     protected abstract void onEvent(Object event);
@@ -72,25 +80,22 @@ abstract class AbstractFragmentOrganizer {
         return stringBuilder.toString();
     }
 
-    String openFragment(Fragment fragment, Bundle arguments) {
+    String openFragment(Fragment fragment, Bundle arguments , int containerId) {
         if(arguments!=null){
             fragment.setArguments(arguments);
         }
-        return openFragment(fragment);
+        return openFragment(fragment, containerId);
     }
 
-    private String openFragment(Fragment fragment) {
+    private String openFragment(Fragment fragment, int containerId) {
         if(isFragmentOpen(fragment)&&containerId<0){
             return "";
         }
-
         String fragmentTag = createFragmentTag(fragment, true);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.addToBackStack(fragmentTag);
         transaction.commit();
-
         return fragmentTag;
     }
 }

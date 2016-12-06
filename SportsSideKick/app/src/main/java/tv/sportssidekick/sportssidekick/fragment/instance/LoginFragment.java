@@ -37,7 +37,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class LoginFrament extends BaseFragment {
+public class LoginFragment extends BaseFragment {
 
     private static final String TAG = "Login fragment";
     AlertDialog alertDialog;
@@ -125,7 +125,7 @@ public class LoginFrament extends BaseFragment {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(FragmentEvent.Type.FORGOT_PASSWORD);
+                FragmentEvent fragmentEvent = new FragmentEvent(ForgotPasswordFramegnt.class);
                 if(fragmentEvent!=null){
                     EventBus.getDefault().post(fragmentEvent);
                 }

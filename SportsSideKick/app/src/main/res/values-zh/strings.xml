@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">SportsSideKick</string>
+
+    <string name="wall_fragment_caption">Wall</string>
+    <string name="video_chat_fragment_caption">Video Chat</string>
+    <string name="news_fragment_caption">News</string>
+    <string name="rumors_fragment_caption">Rumors</string>
+    <string name="shop_fragment_caption">Shop</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="club_radio_caption">Club Radio</string>
+    <string name="sporting_cp_title">Sporting CP</string>
+    <string name="demo">demo</string>
+    <string name="club_tv_caption">Club TV</string>
+    <string name="fantasy_caption">Fantasy</string>
+    <string name="statistics_caption">Statistics</string>
+    <string name="chat_caption">Chat</string>
+    <string name="shop_caption">Shop</string>
+    <string name="rumours_caption">Rumours</string>
+    <string name="video_chat_caption">Video Chat</string>
+    <string name="wall_caption">Wall</string>
+    <string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>
+    <string name="news_caption">News</string>
+    <string name="quiz_caption">Quiz</string>
+
+    <!-- URLs for store, fantasy, quiz -->
+    <string name="store_url">"http://lojaverde.sporting.cn</string>
+    <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
+    <string name="quiz_url">https://snack-media.com/sidekick/quiz-list-cn.html</string>
+    <string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-cn.html</string>
+</resources>

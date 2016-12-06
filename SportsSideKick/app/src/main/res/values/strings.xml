@@ -50,4 +50,12 @@
     <string name="wall_caption">Wall</string>
     <string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>
     <string name="news_caption">News</string>
+    <string name="quiz_caption">Quiz</string>
+
+    <!-- URLs for store, fantasy, quiz -->
+    <string name="store_url">https://lojaverde.sporting.pt/en</string>
+    <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
+    <string name="quiz_url">https://snack-media.com/sidekick/quiz-list-en.html</string>
+    <string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-en.html</string>
+
 </resources>
