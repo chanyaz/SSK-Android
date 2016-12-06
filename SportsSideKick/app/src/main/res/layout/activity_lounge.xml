@@ -150,7 +150,9 @@
         android:layout_marginEnd="@dimen/half_margin"
         android:layout_toEndOf="@+id/left_tab_selector"
         android:layout_toStartOf="@+id/middle_split"
-        android:background="@color/colorPrimary"></RelativeLayout>
+        android:background="@color/green_dark_1">
+    </RelativeLayout>
+
 
 
     <RelativeLayout
@@ -163,7 +165,8 @@
         android:layout_marginStart="@dimen/half_margin"
         android:layout_toEndOf="@+id/middle_split"
         android:layout_toStartOf="@+id/right_tab_selector"
-        android:background="@color/colorPrimary"></RelativeLayout>
+        android:background="@color/green_dark_1">
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/bottom_right_container"
@@ -174,8 +177,9 @@
         android:layout_marginStart="4dp"
         android:layout_toEndOf="@+id/middle_split"
         android:layout_toStartOf="@+id/right_tab_selector"
-        android:background="@color/colorPrimary"
-        android:padding="@dimen/full_margin"></RelativeLayout>
+        android:background="@color/green_dark_1"
+        android:padding="@dimen/full_margin">
+    </RelativeLayout>
 
     <RadioGroup
         android:id="@+id/left_tab_selector"

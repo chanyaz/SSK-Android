@@ -5,8 +5,8 @@
     android:insetRight="-4dp">
 
     <shape android:shape="rectangle">
-        <stroke android:width="2dp" android:color="@color/colorAccentLight" />
-        <solid android:color="@color/colorPrimaryDark" />
+        <stroke android:width="2dp" android:color="@color/light_green_2" />
+        <solid android:color="@color/green_dark_2" />
     </shape>
 
 </inset>

@@ -8,14 +8,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,7 +28,7 @@ import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.enitity.Ticker;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.fragment.LoungeFragmentOrganizer;
+import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment;
@@ -43,6 +40,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.StatisticsFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
+import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 public class LoungeActivity extends AppCompatActivity {
@@ -91,7 +89,7 @@ public class LoungeActivity extends AppCompatActivity {
     @BindView(R.id.logo_second_team)
     ImageView logoOfSecondTeam;
 
-    LoungeFragmentOrganizer fragmentOrganizer;
+    FragmentOrganizer fragmentOrganizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +97,7 @@ public class LoungeActivity extends AppCompatActivity {
         ButterKnife.setDebug(true);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
-        fragmentOrganizer = new LoungeFragmentOrganizer(getSupportFragmentManager());
+        fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager());
 
         ArrayList<Class> leftContainerFragments = new ArrayList<>();
         leftContainerFragments.add(WallFragment.class);
@@ -125,7 +123,7 @@ public class LoungeActivity extends AppCompatActivity {
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
 
-        loadTickerData();
+        Model.getInstance().requestTickerInfo();
 
         radioButtonWall.setChecked(true);
         radioButtonChat.setChecked(true);
@@ -136,6 +134,13 @@ public class LoungeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     public void onRadioButtonClicked(View view) {
@@ -192,40 +197,23 @@ public class LoungeActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    DatabaseReference ref;
 
-    private void loadTickerData(){
-        // Get a reference to our posts
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        ref = database.getReference("ticker");
 
-        // Attach a listener to read the data at our ticker reference
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Ticker ticker = dataSnapshot.getValue(Ticker.class);
-                ticker.getTitle();
-                ticker.getNews();
-                newsLabel.setText(ticker.getNews().get(0));
-                long timestamp = Long.valueOf(ticker.getMatchDate());
-                timeOfMatch.setText(getDate(timestamp));
-                long getDaysUntilMatch = getDaysUntilMatch(timestamp);
-                Resources res = getResources();
-                String daysValue = res.getQuantityString(R.plurals.days_until_match, (int)getDaysUntilMatch, (int)getDaysUntilMatch);
-                daysUntilMatchLabel.setText(daysValue);
-                captionLabel.setText(ticker.getTitle());
-                ImageLoader.getInstance().displayImage(ticker.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
-                ImageLoader.getInstance().displayImage(ticker.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
-
-                startNewsTimer(ticker);
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTickerUpdate(Ticker ticker){
+        newsLabel.setText(ticker.getNews().get(0));
+        long timestamp = Long.valueOf(ticker.getMatchDate());
+        timeOfMatch.setText(getDate(timestamp));
+        long getDaysUntilMatch = getDaysUntilMatch(timestamp);
+        Resources res = getResources();
+        String daysValue = res.getQuantityString(R.plurals.days_until_match, (int)getDaysUntilMatch, (int)getDaysUntilMatch);
+        daysUntilMatchLabel.setText(daysValue);
+        captionLabel.setText(ticker.getTitle());
+        ImageLoader.getInstance().displayImage(ticker.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
+        ImageLoader.getInstance().displayImage(ticker.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
+        startNewsTimer(ticker);
     }
+
 
     Timer newsTimer;
     int count;

@@ -182,8 +182,19 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        stopTImerSlideText();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
+        stopTImerSlideText();
+    }
+
+    void stopTImerSlideText()
+    {
         if (slideText!=null)
         {
             slideText.cancel();

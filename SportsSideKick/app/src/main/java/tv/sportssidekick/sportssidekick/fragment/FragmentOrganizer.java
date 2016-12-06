@@ -19,11 +19,11 @@ import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
  * www.hypercubesoft.com
  */
 
-public class LoungeFragmentOrganizer extends AbstractFragmentOrganizer {
+public class FragmentOrganizer extends AbstractFragmentOrganizer {
 
     HashMap<Integer, List<Class>> containersMap;
 
-    public LoungeFragmentOrganizer(FragmentManager fragmentManager) {
+    public FragmentOrganizer(FragmentManager fragmentManager) {
         super(fragmentManager);
         containersMap = new HashMap<>();
     }

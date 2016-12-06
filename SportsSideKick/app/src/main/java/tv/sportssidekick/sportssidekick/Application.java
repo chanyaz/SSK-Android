@@ -8,6 +8,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
 
+import tv.sportssidekick.sportssidekick.model.Model;
+
 /**
  * Created by Djordje Krutil on 5.12.2016..
  * Copyright by Hypercube d.o.o.
@@ -19,6 +21,7 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         initImageLoader(getApplicationContext());
+        Model.getInstance();
     }
 
     //region AppImage Loader

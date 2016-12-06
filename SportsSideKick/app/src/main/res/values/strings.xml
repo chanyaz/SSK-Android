@@ -14,7 +14,17 @@
     <string name="login_login_message_login_failed">Login failed. Try again later!</string>
     <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
     <string name="forgot_password_text">Reset your password</string>
-    <string name="forgot_password_button_text">Reset</string>
+    <string name="forgot_password_button_text">Reset Password</string>
+    <string name="sign_up_facebook">Sign up with Facebook</string>
+    <string name="sign_up_or">OR</string>
+    <string name="sign_up_firstname">First name</string>
+    <string name="sign_up_lastname">Last name</string>
+    <string name="sign_up_username">User name</string>
+    <string name="sign_up_email">Email</string>
+    <string name="sign_up_phone">Phone</string>
+    <string name="sign_up_passwoed">Password</string>
+    <string name="sign_up_sign_up">Sign up</string>
+    <string name="sign_up_text">By singing up, you are agree to SportsSidekick s Terms and Conditions of Use and Privacy Policy.</string>
 
     <string name="dialog_ok">Ok</string>
     <string name="dialog_warning">Warning</string>
