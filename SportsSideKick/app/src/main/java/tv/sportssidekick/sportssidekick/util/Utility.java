@@ -1,9 +1,14 @@
 package tv.sportssidekick.sportssidekick.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import tv.sportssidekick.sportssidekick.R;
 
@@ -14,7 +19,7 @@ import tv.sportssidekick.sportssidekick.R;
  */
 public class Utility {
 
-    public void slideText (TextView slideTextOne, TextView slideTextTwo, View circleOne, View circleTwo, boolean visibleTextOne, Context context)
+    public static void slideText (TextView slideTextOne, TextView slideTextTwo, View circleOne, View circleTwo, boolean visibleTextOne, Context context)
     {
         SlideTextAnimation animation = new SlideTextAnimation(context);
         if (animation!=null)
@@ -39,5 +44,29 @@ public class Utility {
                     circleTwo.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_white));
                 }
         }
+    }
+
+    private static DisplayImageOptions options;
+
+
+    public static DisplayImageOptions imageOptionsImageLoader() {
+        if (options != null) {
+            return options;
+        }
+        options = new DisplayImageOptions.Builder()
+                //TODO change when we have placeholder
+//                .showImageOnLoading(R.drawable.booking_top_image) // resource or drawable
+//                .showImageForEmptyUri(R.drawable.booking_top_image) // resource or drawable
+//                .showImageOnFail(R.drawable.booking_top_image) // resource or drawable
+                .delayBeforeLoading(0) //delay
+                .resetViewBeforeLoading(true)  // default
+                .considerExifParams(false)
+                .cacheInMemory(true) // default
+                .cacheOnDisk(true) // default
+                .bitmapConfig(Bitmap.Config.RGB_565) // default
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
+                .build();
+        return options;
     }
 }

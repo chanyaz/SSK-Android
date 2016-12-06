@@ -67,7 +67,6 @@ public class LoginFragment extends BaseFragment {
         slideTextTwo = (TextView) view.findViewById(R.id.login_slide_text_2);
         circleOne = (View) view.findViewById(R.id.login_circle_one);
         circleTwo = (View) view.findViewById(R.id.login_circle_two);
-        final Utility utility = new Utility();
 
         slideText = new Timer();
         slideText.scheduleAtFixedRate(new TimerTask() {
@@ -80,11 +79,11 @@ public class LoginFragment extends BaseFragment {
                             switch (postion) {
                                 case 0:
                                     postion = 1;
-                                    utility.slideText(slideTextOne, slideTextTwo, circleOne, circleTwo,  true, context);
+                                    Utility.slideText(slideTextOne, slideTextTwo, circleOne, circleTwo,  true, context);
                                     break;
                                 case 1:
                                     postion = 0;
-                                    utility.slideText(slideTextOne, slideTextTwo, circleOne, circleTwo,  false, context);
+                                    Utility.slideText(slideTextOne, slideTextTwo, circleOne, circleTwo,  false, context);
                                     break;
                                 default:
                                     break;

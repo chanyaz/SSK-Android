@@ -1,17 +1,35 @@
 package tv.sportssidekick.sportssidekick.activity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.enitity.Ticker;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.LoungeFragmentOrganizer;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
@@ -25,6 +43,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.StatisticsFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
+import tv.sportssidekick.sportssidekick.util.Utility;
 
 public class LoungeActivity extends AppCompatActivity {
 
@@ -55,14 +74,29 @@ public class LoungeActivity extends AppCompatActivity {
     RadioButton radioButtonQuiz;
     @BindView(R.id.club_tv_radio_button)
     RadioButton radioButtonClubTV;
-    @BindView(R.id.chat_radio_button)
+    @BindView(R.id.club_radio_radio_button)
     RadioButton radioButtonClubRadio;
+
+    @BindView(R.id.scrolling_news_title)
+    TextView newsLabel;
+    @BindView(R.id.caption)
+    TextView captionLabel;
+
+    @BindView(R.id.days_until_match_label)
+    TextView daysUntilMatchLabel;
+    @BindView(R.id.time_of_match_label)
+    TextView timeOfMatch;
+    @BindView(R.id.logo_first_team)
+    ImageView logoOfFirstTeam;
+    @BindView(R.id.logo_second_team)
+    ImageView logoOfSecondTeam;
 
     LoungeFragmentOrganizer fragmentOrganizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.setDebug(true);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
         fragmentOrganizer = new LoungeFragmentOrganizer(getSupportFragmentManager());
@@ -87,11 +121,15 @@ public class LoungeActivity extends AppCompatActivity {
         bottomRightContainerFragments.add(ClubRadioFragment.class);
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container,bottomRightContainerFragments);
 
-
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
 
+        loadTickerData();
+
+        radioButtonWall.setChecked(true);
+        radioButtonChat.setChecked(true);
+        radioButtonClubTV.setChecked(true);
     }
 
 
@@ -152,5 +190,87 @@ public class LoungeActivity extends AppCompatActivity {
     public void onDestroy() {
         fragmentOrganizer.freeUpResources();
         super.onDestroy();
+    }
+
+    DatabaseReference ref;
+
+    private void loadTickerData(){
+        // Get a reference to our posts
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        ref = database.getReference("ticker");
+
+        // Attach a listener to read the data at our ticker reference
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Ticker ticker = dataSnapshot.getValue(Ticker.class);
+                ticker.getTitle();
+                ticker.getNews();
+                newsLabel.setText(ticker.getNews().get(0));
+                long timestamp = Long.valueOf(ticker.getMatchDate());
+                timeOfMatch.setText(getDate(timestamp));
+                long getDaysUntilMatch = getDaysUntilMatch(timestamp);
+                Resources res = getResources();
+                String daysValue = res.getQuantityString(R.plurals.days_until_match, (int)getDaysUntilMatch, (int)getDaysUntilMatch);
+                daysUntilMatchLabel.setText(daysValue);
+                captionLabel.setText(ticker.getTitle());
+                ImageLoader.getInstance().displayImage(ticker.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
+                ImageLoader.getInstance().displayImage(ticker.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
+
+                startNewsTimer(ticker);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    Timer newsTimer;
+    int count;
+    private void startNewsTimer(final Ticker ticker){
+        count = 0;
+        if(newsTimer!=null){
+            newsTimer.cancel();
+        }
+        newsTimer = new Timer();
+        newsTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                    runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        newsLabel.setText(ticker.getNews().get(count));
+                        if(++count == ticker.getNews().size()){
+                            count = 0;
+                        }
+                    }
+                });
+            }
+        }, 0, Constant.LOGIN_TEXT_TIME);
+
+    }
+
+    private long getDaysUntilMatch(long timeStamp){
+        Date netDate = (new Date(timeStamp*1000));
+        Date date = new Date();
+        long diff = date.getTime() - netDate.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    private String getDate(long timeStamp){
+        try{
+            DateFormat sdf = new SimpleDateFormat("EEE dd MMM");
+            Date netDate = (new Date(timeStamp*1000));
+            Date date = new Date();
+            long diff = date.getTime() - netDate.getTime();
+            long daysTo = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            StringBuilder sb = new StringBuilder(String.valueOf(daysTo));
+            return sdf.format(diff);
+        }
+        catch(Exception ex){
+            return "xx";
+        }
     }
 }

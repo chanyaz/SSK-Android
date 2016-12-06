@@ -47,5 +47,12 @@
     <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
     <string name="quiz_url">https://snack-media.com/sidekick/quiz-list-en.html</string>
     <string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-en.html</string>
+    <string name="days">" Days "</string>
+
+    <plurals name="days_until_match">
+        <item quantity="zero">TODAY</item>
+        <item quantity="one">%d Day</item>
+        <item quantity="other">%d Days</item>
+    </plurals>
 
 </resources>
