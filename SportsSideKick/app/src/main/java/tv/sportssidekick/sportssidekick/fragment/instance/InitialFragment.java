@@ -42,7 +42,6 @@ public class InitialFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         context = getActivity();
 
         logInButton = (Button) view.findViewById(R.id.login_log_in_button);
@@ -59,7 +58,7 @@ public class InitialFragment extends BaseFragment {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(FragmentEvent.Type.SIGN_UP);
+                FragmentEvent fragmentEvent = new FragmentEvent(SignUpFragment.class);
                 if(fragmentEvent!=null){
                     EventBus.getDefault().post(fragmentEvent);
                 }

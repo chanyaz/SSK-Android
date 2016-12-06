@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,7 +10,9 @@
         android:layout_centerInParent="true"
         android:background="@drawable/sign_up_background"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp">
 
         <Button
             android:id="@+id/sign_up_facebook"
@@ -52,34 +55,70 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/sign_up_firstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/sign_up_firstname"
-                    android:textAlignment="center"
-                    android:textColorHint="@android:color/white" />
+                    android:inputType="text"
+                    style="@style/sign_up_edit_text" />
 
-                <View
+                <EditText
+                    android:id="@+id/sign_up_lastname"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/light_green_1" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_lastname"
+                    android:inputType="text"
+                    style="@style/sign_up_edit_text" />
 
+                <EditText
+                    android:id="@+id/sign_up_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_username"
+                    android:inputType="text"
+                    style="@style/sign_up_edit_text" />
+
+                <EditText
+                    android:id="@+id/sign_up_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_email"
+                    android:inputType="textEmailAddress"
+                    style="@style/sign_up_edit_text" />
+
+                <EditText
+                    android:id="@+id/sign_up_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_phone"
+                    android:inputType="phone"
+                    style="@style/sign_up_edit_text" />
+
+                <EditText
+                    android:id="@+id/sign_up_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_passwoed"
+                    android:inputType="textPassword"
+                    style="@style/sign_up_edit_text"
+                    android:layout_marginBottom="20dp" />
             </LinearLayout>
         </ScrollView>
 
         <Button
-            android:id="@+id/forgot_password_resert_button"
+            android:id="@+id/sign_up_button"
             style="@style/button_login_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,6 +128,17 @@
             android:layout_marginTop="20dp"
             android:text="@string/sign_up_sign_up"
             android:textAllCaps="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_text"
+            android:textAlignment="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="0dp"
+            android:textColor="@color/lightGrey"/>
 
     </LinearLayout>
 

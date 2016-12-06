@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.fragment.LoungeFragmentOrganizer;
+import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment;
@@ -58,14 +58,14 @@ public class LoungeActivity extends AppCompatActivity {
     @BindView(R.id.chat_radio_button)
     RadioButton radioButtonClubRadio;
 
-    LoungeFragmentOrganizer fragmentOrganizer;
+    FragmentOrganizer fragmentOrganizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
-        fragmentOrganizer = new LoungeFragmentOrganizer(getSupportFragmentManager());
+        fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager());
 
         ArrayList<Class> leftContainerFragments = new ArrayList<>();
         leftContainerFragments.add(WallFragment.class);
