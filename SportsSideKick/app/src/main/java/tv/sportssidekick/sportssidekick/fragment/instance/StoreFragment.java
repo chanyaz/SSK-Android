@@ -107,7 +107,7 @@ public class StoreFragment extends BaseFragment {
     View.OnClickListener shareToWallOnClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-            // TODO
+            // TODO Share to wall
         }
     };
 }

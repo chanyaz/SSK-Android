@@ -22,8 +22,8 @@ public class QuizFragment extends StoreFragment {
         // Required empty public constructor
     }
 
+    @Override
     protected void setupFragment(){
-
         // TODO Fill with proper data when User data is ready
         String userId = "123456789";
         String firstName = "123456789";

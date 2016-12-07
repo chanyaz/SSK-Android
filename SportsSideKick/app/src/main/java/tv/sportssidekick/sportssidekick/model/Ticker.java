@@ -1,5 +1,5 @@
 
-package tv.sportssidekick.sportssidekick.enitity;
+package tv.sportssidekick.sportssidekick.model;
 
 import java.util.List;
 

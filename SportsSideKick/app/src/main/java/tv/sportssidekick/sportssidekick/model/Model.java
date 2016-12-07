@@ -8,8 +8,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 
-import tv.sportssidekick.sportssidekick.enitity.Ticker;
-
 public class Model {
 
     private static Model instance;
@@ -23,7 +21,7 @@ public class Model {
 
     private Model() {}
 
-    DatabaseReference tickerReference;
+    private DatabaseReference tickerReference;
     public void requestTickerInfo(){
         // Get a reference to our posts
         tickerReference = FirebaseDatabase.getInstance().getReference("ticker");
