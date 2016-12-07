@@ -32,6 +32,10 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
+import static tv.sportssidekick.sportssidekick.util.Utility.isEditTextEmpty;
+import static tv.sportssidekick.sportssidekick.util.Utility.isValidEmail;
+import static tv.sportssidekick.sportssidekick.util.Utility.showAlertDialog;
+
 /**
  * Created by Djordje Krutil on 6.12.2016..
  * Copyright by Hypercube d.o.o.
@@ -111,9 +115,14 @@ public class LoginFragment extends BaseFragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isEmpty(email, " email"))
+                if (isEditTextEmpty(email, " email", alertDialog, context))
                     return;
-                if (isEmpty(password, " password"))
+                if (!isValidEmail(email.getText().toString()))
+                {
+                    showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_message_not_valid_email), context);
+                    return;
+                }
+                if (isEditTextEmpty(password, " password", alertDialog, context))
                     return;
                 loginButtonChangeLayout(true);
                 signInToFirebase(email.getText().toString(), password.getText().toString());
@@ -152,8 +161,7 @@ public class LoginFragment extends BaseFragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                alertDialog.setMessage(getString(R.string.login_login_message_authentication_failed));
-                                alertDialog.show();
+                                showAlertDialog(getString(R.string.dialog_warning), getString(R.string.login_login_message_authentication_failed), context);
                                 loginButtonChangeLayout(false);
                             }
                             else
@@ -168,17 +176,6 @@ public class LoginFragment extends BaseFragment {
             loginButtonChangeLayout(false);
             alertDialog.setMessage(getString(R.string.login_login_message_login_failed));
         }
-    }
-
-    private boolean isEmpty(EditText text, String filedName) {
-        if ("".compareTo(text.getText().toString()) == 0) {
-            if (alertDialog != null) {
-                alertDialog.setMessage(getString(R.string.dialog_message) + filedName + "!");
-                alertDialog.show();
-            }
-            return true;
-        }
-        return false;
     }
 
     @Override

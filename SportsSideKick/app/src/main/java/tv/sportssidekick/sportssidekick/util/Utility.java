@@ -1,15 +1,20 @@
 package tv.sportssidekick.sportssidekick.util;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-
 import tv.sportssidekick.sportssidekick.R;
 
 /**
@@ -68,5 +73,55 @@ public class Utility {
                 .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
                 .build();
         return options;
+    }
+
+    public final static boolean isValidEmail(String target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
+
+    public static boolean isEditTextEmpty(EditText text, String filedName, AlertDialog alertDialog, Context context) {
+        if ("".compareTo(text.getText().toString()) == 0) {
+            if (alertDialog != null) {
+                alertDialog.setMessage(context.getString(R.string.dialog_message) + " " + filedName + "!");
+                alertDialog.show();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean internetAvaiable(Context context) {
+        boolean connected = false;
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            connected = networkInfo != null && networkInfo.isAvailable() &&
+                    networkInfo.isConnected();
+            return connected;
+        } catch (Exception e) {
+            Log.v("connectivity", e.toString());
+        }
+        return connected;
+    }
+
+    public static void showAlertDialog(String title, String message, Context context)
+    {
+        AlertDialog alertDialog;
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, context.getString(R.string.dialog_ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }
