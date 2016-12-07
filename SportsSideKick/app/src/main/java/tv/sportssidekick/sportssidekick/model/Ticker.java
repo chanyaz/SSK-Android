@@ -1,6 +1,14 @@
 
 package tv.sportssidekick.sportssidekick.model;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 public class Ticker {
@@ -33,6 +41,24 @@ public class Ticker {
         this.news = news;
         this.secondClubUrl = secondClubUrl;
         this.title = title;
+    }
+
+    public static void initializeTicker(FirebaseDatabase database){
+        // Get a reference to our posts
+        DatabaseReference tickerReference = database.getReference("ticker");
+
+        // Attach a listener to read the data at our ticker reference
+        tickerReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Ticker ticker = dataSnapshot.getValue(Ticker.class);
+                EventBus.getDefault().post(ticker);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
     }
 
     /**

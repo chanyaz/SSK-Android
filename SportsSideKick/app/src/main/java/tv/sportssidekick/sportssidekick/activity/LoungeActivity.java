@@ -123,7 +123,7 @@ public class LoungeActivity extends AppCompatActivity {
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
 
-        Model.getInstance().requestTickerInfo();
+        Ticker.initializeTicker(Model.getInstance().getDatabase());
 
         radioButtonWall.setChecked(true);
         radioButtonChat.setChecked(true);

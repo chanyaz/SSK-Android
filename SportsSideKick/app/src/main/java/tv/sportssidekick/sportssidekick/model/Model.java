@@ -1,16 +1,12 @@
 package tv.sportssidekick.sportssidekick.model;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class Model {
 
     private static Model instance;
+
+    FirebaseDatabase ref;
 
     public static Model getInstance(){
         if(instance==null){
@@ -19,24 +15,13 @@ public class Model {
         return instance;
     }
 
-    private Model() {}
-
-    private DatabaseReference tickerReference;
-    public void requestTickerInfo(){
-        // Get a reference to our posts
-        tickerReference = FirebaseDatabase.getInstance().getReference("ticker");
-
-        // Attach a listener to read the data at our ticker reference
-        tickerReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Ticker ticker = dataSnapshot.getValue(Ticker.class);
-                EventBus.getDefault().post(ticker);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+    private Model() {
+        ref = FirebaseDatabase.getInstance();
     }
+
+
+    public FirebaseDatabase getDatabase(){
+        return ref;
+    }
+
 }
