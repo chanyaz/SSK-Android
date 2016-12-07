@@ -2,6 +2,8 @@ package tv.sportssidekick.sportssidekick;
 
 import android.content.Context;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -22,6 +24,9 @@ public class Application extends android.app.Application {
         super.onCreate();
         initImageLoader(getApplicationContext());
         Model.getInstance();
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
     //region AppImage Loader

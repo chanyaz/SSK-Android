@@ -10,6 +10,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Constructor;
 
+import tv.sportssidekick.sportssidekick.R;
+
 /**
  * Created by Filip on 12/5/2016.
  * Copyright by Hypercube d.o.o.
@@ -22,9 +24,11 @@ import java.lang.reflect.Constructor;
 abstract class AbstractFragmentOrganizer {
 
     FragmentManager fragmentManager;
+    int enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation;
 
     AbstractFragmentOrganizer(FragmentManager fragmentManager){
         this.fragmentManager = fragmentManager;
+        setAnimation(0,0, 0, 0);
         EventBus.getDefault().register(this);
 //        openFragment(createFragment(initialFragment), containerId);
     }
@@ -48,7 +52,8 @@ abstract class AbstractFragmentOrganizer {
         EventBus.getDefault().unregister(this);
     }
 
-    Fragment getOpenFragment(){
+    //TODO change to be private
+    public Fragment getOpenFragment(){
         String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() -1).getName();
         return fragmentManager.findFragmentByTag(tag);
     }
@@ -87,12 +92,24 @@ abstract class AbstractFragmentOrganizer {
         return openFragment(fragment, containerId);
     }
 
+    public void setAnimation (int enter, int exit, int popEnter, int popExit)
+    {
+        enterAnimation = enter;
+        exitAnimation = exit;
+        popEnterAnimation = popEnter;
+        popExitAnimation = popExit;
+    }
+
     private String openFragment(Fragment fragment, int containerId) {
         if(isFragmentOpen(fragment)&&containerId<0){
             return "";
         }
         String fragmentTag = createFragmentTag(fragment, true);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (enterAnimation !=0 && exitAnimation !=0 && popEnterAnimation !=0 && popExitAnimation !=0)
+        {
+            transaction.setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation,  popExitAnimation);
+        }
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.addToBackStack(fragmentTag);
         transaction.commit();

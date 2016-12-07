@@ -97,7 +97,7 @@ public class LoungeActivity extends AppCompatActivity {
         ButterKnife.setDebug(true);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
-        fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager());
+        fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);
 
         ArrayList<Class> leftContainerFragments = new ArrayList<>();
         leftContainerFragments.add(WallFragment.class);

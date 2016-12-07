@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">SportsSideKick</string>
-
+    <string name="facebook_app_id">11111111111111</string>
+    <string name="fb_login_protocol_scheme">fb11111111111111</string>
 
     <!-- Login scree -->
+    <string name="terms_and_conditions">http://www.sortdirectkick.tv/terms</string>
     <string name="login_sign_up">Sign up</string>
     <string name="login_login">Log in</string>
     <string name="login_slider_text_1">Bringing fans together</string>
@@ -24,11 +26,14 @@
     <string name="sign_up_phone">Phone</string>
     <string name="sign_up_passwoed">Password</string>
     <string name="sign_up_sign_up">Sign up</string>
-    <string name="sign_up_text">By singing up, you are agree to SportsSidekick s Terms and Conditions of Use and Privacy Policy.</string>
+    <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
     <string name="dialog_ok">Ok</string>
     <string name="dialog_warning">Warning</string>
     <string name="dialog_message">You must enter your </string>
+    <string name="dialog_message_not_valid_email">Not valid email address.</string>
+    <string name="dialog_interner_connection_falied">No interner connection. Try again later.</string>
+    <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
 
     <string name="wall_fragment_caption">Wall</string>
     <string name="video_chat_fragment_caption">Video Chat</string>
