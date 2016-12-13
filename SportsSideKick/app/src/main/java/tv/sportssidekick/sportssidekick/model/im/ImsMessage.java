@@ -2,6 +2,9 @@ package tv.sportssidekick.sportssidekick.model.im;
 
 import java.util.List;
 
+import tv.sportssidekick.sportssidekick.model.FirebseObject;
+import tv.sportssidekick.sportssidekick.model.Model;
+
 /**
  * Created by Filip on 12/7/2016.
  * Copyright by Hypercube d.o.o.
@@ -11,6 +14,30 @@ import java.util.List;
 public class ImsMessage extends FirebseObject {
 
     private String text;
+    private String senderId;
+    private float imageAspectRatio; // TODO default is  = 0.5625;
+    private String timestamp;
+    private List<String> wasReadBy;
+    private boolean readFlag = false;
+    private String imageUrl;
+    private String vidUrl;
+
+    public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {
+        this.text = text;
+        this.senderId = senderId;
+        this.timestamp = timestamp;
+        this.imageUrl = imageUrl;
+    }
+
+    // TODO ReadBy - detect if read by this user?
+    public void determineSelfReadFlag(){
+        String userId = Model.getInstance().getUserInfo().getUserId();
+        for(String key : wasReadBy){
+            if(userId.equals(key)){
+                readFlag = true;
+            }
+        }
+    }
 
     public String getSenderId() {
         return senderId;
@@ -83,23 +110,4 @@ public class ImsMessage extends FirebseObject {
         this.text = text;
         return this;
     }
-
-    private String senderId;
-    private float imageAspectRatio;
-    private String timestamp;
-    private List<String> wasReadBy;
-    private boolean readFlag = false;
-    private String imageUrl;
-    private String vidUrl;
-
-
-    public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {
-        this.text = text;
-        this.senderId = senderId;
-        this.timestamp = timestamp;
-        this.imageUrl = imageUrl;
-    }
-
-
-
 }

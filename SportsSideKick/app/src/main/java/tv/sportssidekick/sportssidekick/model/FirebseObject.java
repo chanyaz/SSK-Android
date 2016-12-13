@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.model.im;
+package tv.sportssidekick.sportssidekick.model;
 
 import com.google.firebase.database.DatabaseReference;
 

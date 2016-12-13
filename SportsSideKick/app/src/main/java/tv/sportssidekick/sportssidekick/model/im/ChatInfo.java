@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import java.util.List;
 
+import tv.sportssidekick.sportssidekick.model.FirebseObject;
+import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 
 /**
@@ -14,22 +16,22 @@ import tv.sportssidekick.sportssidekick.model.UserInfo;
 
 public class ChatInfo extends FirebseObject {
 
-    String name;
-    List<String> usersIds;
-    String avatarUrl;
-    String owner;
-    boolean isPublic;
-    List<String> userIdsBlackList;
-    List<ImsMessage> messages;
-    boolean isMuted;
-    List<UserInfo> chatUsers;
+    private String name;
+    private List<String> usersIds;
+    private String avatarUrl;
+    private String owner;
+    private boolean isPublic;
+    private List<String> userIdsBlackList;
+    private List<ImsMessage> messages;
+    private boolean isMuted;
+    private List<UserInfo> chatUsers;
 
 
     public ChatInfo(String name, List<String> userIds, String avatarUrl, boolean isPublic) {
-        this.name = name;
-        this.usersIds = userIds;
-        this.avatarUrl = avatarUrl;
-        this.isPublic = isPublic;
+        this.setName(name);
+        this.setUsersIds(userIds);
+        this.setAvatarUrl(avatarUrl);
+        this.setPublic(isPublic);
     }
 
     /**
@@ -39,20 +41,21 @@ public class ChatInfo extends FirebseObject {
      * @return the chat name
      */
     public String getChatTitle(){
-        if (!TextUtils.isEmpty(name)){
-            return name;
+        if (!TextUtils.isEmpty(getName())){
+            return getName();
         }else{
-            if (usersIds.size() == 2){
-//                if (usersIds[0] != ImModel.instance.userId){
-//                if let nic = Model.instance.getCachedUserInfoById(usersIds[0])?.nicName{
-//                    return nic
-//                }
-//                }else{
-//                    if let nic = Model.instance.getCachedUserInfoById(usersIds[1])?.nicName{
-//                        return nic
-//                    }
-//                }
-                return "TBA"; // TODO Finish after cached users are present
+            if (getUsersIds().size() == 2){
+                if(usersIds.get(0)!=ImModel.getInstance().getUserId()){
+                    String nic = Model.getInstance().getCachedUserInfoById(usersIds.get(0)).getNicName();
+                    if(nic!=null){
+                        return nic;
+                    }
+                } else {
+                    String nic = Model.getInstance().getCachedUserInfoById(usersIds.get(1)).getNicName();
+                    if(nic!=null){
+                        return nic;
+                    }
+                }
             }
         }
         return null;
@@ -66,20 +69,21 @@ public class ChatInfo extends FirebseObject {
      * @return avatar url
      */
     public String getChatAvatarUrl(){
-        if (!TextUtils.isEmpty(avatarUrl)){
-            return avatarUrl;
+        if (!TextUtils.isEmpty(getAvatarUrl())){
+            return getAvatarUrl();
         }else{
-            if (usersIds.size() == 2){
-//                if usersIds[0] != ImModel.instance.userId!{
-//                if let avatar = Model.instance.getCachedUserInfoById(usersIds[0])?.avatarUrl{
-//                    return avatar
-//                }
-//                }else{
-//                    if let avatar = Model.instance.getCachedUserInfoById(usersIds[1])?.avatarUrl{
-//                        return avatar
-//                    }
-//                }
-                return ""; // TODO Finish after cached users are present
+            if (getUsersIds().size() == 2){
+                if(usersIds.get(0)!=ImModel.getInstance().getUserId()){
+                    String avatar = Model.getInstance().getCachedUserInfoById(usersIds.get(0)).getAvatarUrl();
+                    if(avatar!=null){
+                        return avatar;
+                    }
+                } else {
+                    String avatar = Model.getInstance().getCachedUserInfoById(usersIds.get(1)).getAvatarUrl();
+                    if(avatar!=null){
+                        return avatar;
+                    }
+                }
             }
         }
         return "";
@@ -114,7 +118,7 @@ public class ChatInfo extends FirebseObject {
      *
      * @return void
      */
-    private void loadMessages(){
+    public void loadMessages(){
 //        if (AddMessagelistener == nil){
 //            self.messages = [ImsMessage]()
 //
@@ -162,7 +166,7 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void sendMessage(ImsMessage message){
-//        ImModel.instance.imsSendMessageToChat(self, message: message)
+           ImModel.getInstance().imsSendMessageToChat(this, message);
     }
 
     /**
@@ -172,16 +176,16 @@ public class ChatInfo extends FirebseObject {
      */
     public int unreadMessageCount(){
         int count = 0;
-//        let uid = ImModel.instance.userId!
-//        if (messages == nil){
-//            print("*** error need to load chat messages befor asking for unreadMessageCount")
-//            return -1
-//        }
-//        for msg in messages!{
-//        if (msg.senderId != uid && msg.readFlag == false){
-//            count += 1
-//        }
-//        }
+        String uid = ImModel.getInstance().getUserId();
+        if (messages == null){
+            // ("*** error need to load chat messages befor asking for unreadMessageCount")
+            return -1;
+        }
+        for(ImsMessage message : messages){
+        if (!message.getSenderId().equals(uid) && !message.isReadFlag()){
+            count += 1;
+        }
+        }
         return count;
     }
 
@@ -192,18 +196,18 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void markMessageAsRead(ImsMessage message){
-//        ImModel.instance.imsMarkMessageAsRead(self, message: message)
+        ImModel.getInstance().imsMarkMessageAsRead(this, message);
     }
 
 
     public void addUser(UserInfo uinfo){
-//        if(self.owner == ImModel.instance.userId!){
-//            self.usersIds.append(uinfo.userId)
-//            self.chatUsers!.append(uinfo)
-//            self.updateChatInfo()
-//        }else{
-//            print("*** Error - cant add user to a chat that you are not the owner of!")
-//        }
+        if(owner == ImModel.getInstance().getUserId()){
+            usersIds.add(uinfo.getUserId());
+            chatUsers.add(uinfo);
+            updateChatInfo();
+        }else{
+            // ("*** Error - cant add user to a chat that you are not the owner of!")
+        }
     }
 
     /**
@@ -213,7 +217,7 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void updateChatInfo(){
-       // ImModel.instance.updateChat(self)
+        ImModel.getInstance().updateChat(this);
     }
 
     /**
@@ -223,17 +227,17 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void deleteChat(){
-//        if (self.owner == ImModel.instance.userId!){
-//            for uid in self.usersIds{
-//                ImModel.instance.deleteUserFromChat(self,uid: uid)
-//            }
-//            ImModel.instance.deleteChat(self)
-//        }else{// if im not the owner i remove myself from the chat
-//            ImModel.instance.removeChatFromChatList(self)
-//            ImModel.instance.deleteUserFromChat(self,uid: ImModel.instance.userId!)
-//        }
-//        messages?.removeAll()
-//        self.notifyChatUpdate.emit()
+        if (owner == ImModel.getInstance().getUserId()){
+            for(String uid : usersIds) {
+                ImModel.getInstance().deleteUserFromChat(this,uid);
+            }
+            ImModel.getInstance().deleteChat(this);
+        }else{// if im not the owner i remove myself from the chat
+            ImModel.getInstance().removeChatFromChatList(this);
+            ImModel.getInstance().deleteUserFromChat(this,ImModel.getInstance().getUserId());
+        }
+        messages.clear();
+        // TODO notifyChatUpdate.emit()
     }
 
     /**
@@ -242,9 +246,9 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void wasRemovedByOwner(){
-//        ImModel.instance.removeChatObservers(self)
-//        messages?.removeAll()
-//        self.notifyChatUpdate.emit()
+        ImModel.getInstance().removeChatObservers(this);
+        messages.clear();
+        // TODO notifyChatUpdate.emit()
     }
 
     /**
@@ -253,25 +257,25 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void removeUserFromChat(String uid){
-//        if (self.owner == ImModel.instance.userId! && uid != ImModel.instance.userId!){
-//            var shouldRemove = false
-//            for index in 0...(self.usersIds.count-1){
-//                if (self.usersIds[index] == uid){
-//                    self.usersIds.remove(at: index)
-//                    shouldRemove = true
-//                    break;
-//                }
-//            }
-//            for index in 0...self.chatUsers!.count-1{
-//                if (self.chatUsers![index].userId == uid){
-//                    self.chatUsers!.remove(at: index)
-//                    break;
-//                }
-//            }
-//            if(shouldRemove == true){
-//                ImModel.instance.deleteUserFromChat(self,uid: uid)
-//            }
-//        }
+        if (owner == ImModel.getInstance().getUserId() && uid != ImModel.getInstance().getUserId()){
+            boolean shouldRemove = false;
+            for(int i = 0; i< usersIds.size()-1; i++){
+                if (usersIds.get(i).equals(uid)){
+                    usersIds.remove(i);
+                    shouldRemove = true;
+                    break;
+                }
+            }
+            for(int i = 0; i< chatUsers.size()-1; i++){
+                if (chatUsers.get(i).getUserId().equals(uid)){
+                    chatUsers.remove(i);
+                    break;
+                }
+            }
+            if(shouldRemove){
+                ImModel.getInstance().deleteUserFromChat(this,uid);
+            }
+        }
     }
 
     /**
@@ -280,9 +284,9 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void joinChat(){
-//        if(self.isPublic && self.isUserBlockedFromThisChat(ImModel.instance.userId!) == false){
-//            ImModel.instance.joinChat(self, uid: ImModel.instance.userId!)
-//        }
+        if(isPublic && !isUserBlockedFromThisChat(ImModel.getInstance().getUserId())){
+            ImModel.getInstance().joinChat(this, ImModel.getInstance().getUserId());
+        }
     }
 
     /**
@@ -292,20 +296,20 @@ public class ChatInfo extends FirebseObject {
      */
     public boolean isUserBlockedFromThisChat(String userId){
         boolean blocked = false;
-//        if(self.isPublic == true && self.usersIdsBlackList != nil){
-//            for uid in self.usersIdsBlackList!{
-//            if (uid == userId){
-//                blocked = true
-//            }
-//            }
-//        }
+        if(isPublic && userIdsBlackList != null){
+            for (String id : userIdsBlackList){
+                if (id.equals(userId)){
+                    blocked = true;
+                }
+            }
+        }
         return blocked;
     }
 
     // set the state of typing of this user - should be switch on when starting to type and off after pressing send
     // use the notifyUserIsTyping to get the list of users that are currently typing
     public void setUserIsTyping(boolean val){
-    //    ImModel.instance.setUserIsTypingValue(val, sender: ImModel.instance.userId!, inChatId: self.chatId)
+        ImModel.getInstance().setUserIsTypingValue(val, ImModel.getInstance().getUserId(), getId());
     }
 
     /**
@@ -316,13 +320,12 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void blockUserFromJoinningThisChat(String userId){
-//        if(self.isPublic && self.owner == ImModel.instance.userId!){
-//            //first remove this user from this chat if he is a member
-//            removeUserFromChat(userId)
-//
-//            //add the user to the black list
-//            ImModel.instance.blockUserFromJoinningChat(self, userIdToBlock: userId)
-//        }
+        if(isPublic && owner == ImModel.getInstance().getUserId()){
+            //first remove this user from this chat if he is a member
+            removeUserFromChat(userId);
+            //add the user to the black list
+            ImModel.getInstance().blockUserFromJoinningChat(userId);
+        }
     }
     /**
      * Un Block user, this func unblock the given user in this public chat, you must be the owner
@@ -332,12 +335,12 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void unblockUserInThisChat(String userId){
-//        if(self.isPublic && self.owner == ImModel.instance.userId!){
-//            //check if the user is actully blocked then unblock
-//            if (self.isUserBlockedFromThisChat(userId)){
-//                ImModel.instance.unblockUserInThisChat(self, userIdToUnBlock: userId)
-//            }
-//        }
+        if(isPublic && owner == ImModel.getInstance().getUserId()){
+            //check if the user is actully blocked then unblock
+            if (isUserBlockedFromThisChat(userId)){
+                ImModel.getInstance().unblockUserInThisChat(this, userId);
+            }
+        }
     }
 
     /**
@@ -347,11 +350,80 @@ public class ChatInfo extends FirebseObject {
      * @return void
      */
     public void setMuteChat(boolean isMuted){
-        this.isMuted = isMuted;
-//        ImModel.instance.setMuteChat(self,isMuted:isMuted)
+        this.setMuted(isMuted);
+        ImModel.getInstance().setMuteChat(this,isMuted);
     }
 
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public List<String> getUsersIds() {
+        return usersIds;
+    }
+
+    public void setUsersIds(List<String> usersIds) {
+        this.usersIds = usersIds;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public List<String> getUserIdsBlackList() {
+        return userIdsBlackList;
+    }
+
+    public void setUserIdsBlackList(List<String> userIdsBlackList) {
+        this.userIdsBlackList = userIdsBlackList;
+    }
+
+    public List<ImsMessage> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<ImsMessage> messages) {
+        this.messages = messages;
+    }
+
+    public boolean isMuted() {
+        return isMuted;
+    }
+
+    public void setMuted(boolean muted) {
+        isMuted = muted;
+    }
+
+    public List<UserInfo> getChatUsers() {
+        return chatUsers;
+    }
+
+    public void setChatUsers(List<UserInfo> chatUsers) {
+        this.chatUsers = chatUsers;
+    }
 }

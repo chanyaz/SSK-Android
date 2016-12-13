@@ -30,6 +30,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.util.Utility.isEditTextEmpty;
@@ -134,21 +135,17 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 FragmentEvent fragmentEvent = new FragmentEvent(ForgotPasswordFramegnt.class);
-                if(fragmentEvent!=null){
-                    EventBus.getDefault().post(fragmentEvent);
-                }
+                EventBus.getDefault().post(fragmentEvent);
             }
         });
     }
 
     private void loginButtonChangeLayout(boolean isTaskInProgress) {
-        if (isTaskInProgress)
-        {
+        if (isTaskInProgress) {
             loginButton.setText("");
             progressBar.setVisibility(View.VISIBLE);
         }
-        else
-        {
+        else {
             loginButton.setText(getString(R.string.login_login_login));
             progressBar.setVisibility(View.GONE);
         }
@@ -156,20 +153,17 @@ public class LoginFragment extends BaseFragment {
 
     private void signInToFirebase(String email, String password) {
         if (mAuth != null) {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+            mAuth.addAuthStateListener(Model.getInstance().getAuthStateListener());
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
                                 showAlertDialog(getString(R.string.dialog_warning), getString(R.string.login_login_message_authentication_failed), context);
-                                loginButtonChangeLayout(false);
-                            }
-                            else
-                            {
+                            } else {
                                 Intent main = new Intent(getActivity(), LoungeActivity.class);
                                 getActivity().startActivity(main);
-                                loginButtonChangeLayout(false);
                             }
+                            loginButtonChangeLayout(false);
                         }
                     });
         } else {
@@ -192,8 +186,7 @@ public class LoginFragment extends BaseFragment {
 
     void stopTImerSlideText()
     {
-        if (slideText!=null)
-        {
+        if (slideText!=null) {
             slideText.cancel();
         }
     }

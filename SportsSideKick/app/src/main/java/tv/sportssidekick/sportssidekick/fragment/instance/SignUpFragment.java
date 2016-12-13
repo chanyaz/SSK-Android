@@ -204,13 +204,13 @@ public class SignUpFragment extends BaseFragment {
                                                 {
                                                     myRef.setValue(userInfo);
                                                     Intent main = new Intent(getActivity(), LoungeActivity.class);
-                                                    getActivity().startActivity(main);                                                }
+                                                    getActivity().startActivity(main);
+                                                }
                                             }
                                         }
                                     }
                                     if (!task.isSuccessful()) {
-//                                        Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-//                                                Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(EmailPasswordActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

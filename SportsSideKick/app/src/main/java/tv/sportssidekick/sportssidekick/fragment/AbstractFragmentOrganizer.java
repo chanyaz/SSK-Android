@@ -106,8 +106,7 @@ abstract class AbstractFragmentOrganizer {
         }
         String fragmentTag = createFragmentTag(fragment, true);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (enterAnimation !=0 && exitAnimation !=0 && popEnterAnimation !=0 && popExitAnimation !=0)
-        {
+        if (enterAnimation !=0 && exitAnimation !=0 && popEnterAnimation !=0 && popExitAnimation !=0){
             transaction.setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation,  popExitAnimation);
         }
         transaction.replace(containerId, fragment, fragmentTag);
