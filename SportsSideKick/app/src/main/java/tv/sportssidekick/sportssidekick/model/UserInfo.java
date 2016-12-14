@@ -6,7 +6,7 @@ package tv.sportssidekick.sportssidekick.model;
  */
 public class UserInfo extends FirebseObject {
 
-    private String userId = "";
+    private String userId;
     private String firstName;
     private String lastName;
     private String nicName;
@@ -18,6 +18,20 @@ public class UserInfo extends FirebseObject {
     private String fantasyToken;
     private boolean isOnline;
 
+
+    public void setEqualsTo(UserInfo userInfo) {
+        setUserId(userInfo.getUserId());
+        setFirstName(userInfo.getFirstName());
+        setLastName(userInfo.getLastName());
+        setNicName(userInfo.getNicName());
+        setPhone(userInfo.getPhone());
+        setAvatarUrl(userInfo.getAvatarUrl());
+        setCircularAvatarUrl(userInfo.getCircularAvatarUrl());
+        setLanguage(userInfo.getLanguage());
+        setFantasyUUID(userInfo.getFantasyUUID());
+        setFantasyToken(userInfo.getFantasyToken());
+        setOnline(userInfo.isOnline());
+    }
 
     public String getUserId() {
         return userId;
@@ -116,4 +130,5 @@ public class UserInfo extends FirebseObject {
     public void setFantasyUUID(String fantasyUUID) {
         this.fantasyUUID = fantasyUUID;
     }
+
 }

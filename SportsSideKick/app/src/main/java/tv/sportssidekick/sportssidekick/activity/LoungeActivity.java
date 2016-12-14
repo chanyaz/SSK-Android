@@ -42,6 +42,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ImModel;
+import tv.sportssidekick.sportssidekick.model.im.ImTest;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 public class LoungeActivity extends AppCompatActivity {
@@ -136,7 +137,8 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        ImModel.getInstance().getAllPublicChats();
+        ImTest test = new ImTest();
+        test.beginTest();
     }
 
     @Override
