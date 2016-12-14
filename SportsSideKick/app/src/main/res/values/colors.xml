@@ -9,7 +9,7 @@
     <color name="colorAccent">#ffe324</color>
     <color name="lightGrey">#9ba1a3</color>
     <color name="white">#ffffff</color>
-    <color name="demo_white_semitransparent">#5fffffff</color>
+    <color name="white_semitransparent">#5fffffff</color>
     <color name="demo_yellow_semitransparent">#70ffef14</color>
     <color name="demo_green_semitransparent">#7a3ec722</color>
     <color name="demo_blue_semitransparent">#71002df4</color>

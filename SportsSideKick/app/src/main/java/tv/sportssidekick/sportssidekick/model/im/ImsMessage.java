@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.model.im;
 
+import java.util.HashMap;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.FirebseObject;
@@ -17,7 +18,7 @@ public class ImsMessage extends FirebseObject {
     private String senderId;
     private float imageAspectRatio; // TODO default is  = 0.5625;
     private String timestamp;
-    private List<String> wasReadBy;
+    private HashMap<String, Boolean> wasReadBy;
     private boolean readFlag = false;
     private String imageUrl;
     private String vidUrl;
@@ -29,10 +30,13 @@ public class ImsMessage extends FirebseObject {
         this.imageUrl = imageUrl;
     }
 
+    public ImsMessage() {
+    }
+
     // TODO ReadBy - detect if read by this user?
     public void determineSelfReadFlag(){
         String userId = Model.getInstance().getUserInfo().getUserId();
-        for(String key : wasReadBy){
+        for(String key : wasReadBy.keySet()){
             if(userId.equals(key)){
                 readFlag = true;
             }
@@ -66,11 +70,11 @@ public class ImsMessage extends FirebseObject {
         return this;
     }
 
-    public List<String> getWasReadBy() {
+    public HashMap<String, Boolean> getWasReadBy() {
         return wasReadBy;
     }
 
-    public ImsMessage setWasReadBy(List<String> wasReadBy) {
+    public ImsMessage setWasReadBy(HashMap<String, Boolean> wasReadBy) {
         this.wasReadBy = wasReadBy;
         return this;
     }

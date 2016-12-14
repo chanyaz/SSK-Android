@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.model.im;
 import android.text.TextUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class ChatInfo extends FirebseObject {
         this.setName(name);
         this.setUsersIds(userIds);
         this.setAvatarUrl(avatarUrl);
-        this.setPublic(isPublic);
+        this.setIsPublic(isPublic);
         currentUserId = ImModel.getInstance().getUserId();
     }
 
@@ -52,7 +53,7 @@ public class ChatInfo extends FirebseObject {
         setUsersIds(info.getUsersIds());
         setAvatarUrl(info.getAvatarUrl());
         setOwner(info.getOwner());
-        setPublic(info.isPublic());
+        setIsPublic(info.isPublic());
         setUserIdsBlackList(info.getUserIdsBlackList());
     }
 
@@ -116,7 +117,6 @@ public class ChatInfo extends FirebseObject {
         return "";
     }
 
-
     // dont use that, it is called on login
     public List<UserInfo> loadChatUsers(){
         chatUsers = new ArrayList<>();
@@ -131,7 +131,7 @@ public class ChatInfo extends FirebseObject {
 
     /**
      * Do NOT use this function
-     * Load all chat data ioncluding messages and sets the observers on chat message changes
+     * Load all chat data including messages and sets the observers on chat message changes
      * This func must be called once to follow the chat messages
      * the chat messages will be returned by listenning to the following events:
      *   notifyChatUpdate - will return an updated array of the chat messages when a new message
@@ -139,33 +139,27 @@ public class ChatInfo extends FirebseObject {
      *   notifyUserIsTyping - will return an array of the users which are currently typing
      */
     public void loadMessages(){
-        // TODO Completely different logic need here
-//        if (AddMessagelistener == nil){
-//            self.messages = [ImsMessage]()
-//
-//            AddMessagelistener = ImModel.instance.chatMessages.on(self){(msg) in
-//                self.messages?.append(msg)
-//                print("--- chat info - got message add")
-//                self.notifyChatUpdate.emit()
-//
-//            }
-//
-//            ChangedMessagelistener = ImModel.instance.messageUpdate.on(self){(msg) in
-//                for index in 0...self.messages!.count-1{
-//                    if (self.messages![index].id == msg.id){
-//                        self.messages![index] = msg
-//                    }
-//                }
-//                print("--- chat info - got message changed")
-//                self.notifyChatUpdate.emit()
-//            }
-//
-//            ImModel.instance.imsSetMessageObserverForChat(self)
-//            ImModel.instance.imsObserveMessageStatusChange(self)
-//            ImModel.instance.imsUserTypingObserverForChat(sender: ImModel.instance.userId!, inChatId: self.chatId) { (isTyping) in
-//                self.notifyUserIsTyping.emit(isTyping)
-//            }
-//        }
+        messages = new ArrayList<>();
+        ImModel.getInstance().imsSetMessageObserverForChat(this);
+        ImModel.getInstance().imsObserveMessageStatusChange(this);
+        ImModel.getInstance().imsUserTypingObserverForChat(Model.getInstance().getUserInfo().getUserId(), getId());
+        // TODO  notifyUserIsTyping
+    }
+
+    @Subscribe
+    public void onNewMessagesEvent(List<ImsMessage> newMessages){
+        messages.addAll(newMessages);
+        // TODO  notifyChatUpdate
+    }
+
+    @Subscribe
+    public void onMessagesChangedEventonMessagesChangedEvent(ImsMessage changedMessage){
+        for(ImsMessage message : messages){
+            if(message.getId().equals(changedMessage.getId())){
+                message = changedMessage;
+                // TODO notifyChatUpdate
+            }
+        }
     }
 
     /**
@@ -392,7 +386,7 @@ public class ChatInfo extends FirebseObject {
         return isPublic;
     }
 
-    public void setPublic(boolean aPublic) {
+    public void setIsPublic(boolean aPublic) {
         isPublic = aPublic;
     }
 

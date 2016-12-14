@@ -2,15 +2,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment"
-    android:background="@color/demo_white_semitransparent">
+    android:background="@color/white_semitransparent"
+    tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="36sp"
-        android:textColor="@color/white"
-        android:layout_centerInParent="true"
-        android:text="@string/chat_caption" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/chat_background" />
+
+    <RelativeLayout
+        android:id="@+id/chats_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/green_dark_1">
+
+        <ListView
+            android:id="@+id/chats_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none|vertical">
+        </ListView>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/message_container"
+        android:layout_below="@+id/chats_container"
+        android:layout_above="@+id/input_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/input_container"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/green_dark_2">
+
+        <RelativeLayout
+            android:id="@+id/button_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/green_dark_1"
+            android:minWidth="80dp">
+
+            <Button
+                android:id="@+id/mic_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:background="@mipmap/button_voice" />
+
+            <Button
+                android:id="@+id/cam_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:layout_toEndOf="@+id/mic_button"
+                android:background="@mipmap/button_camera" />
+
+            <Button
+                android:id="@+id/pic_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:layout_toEndOf="@id/cam_button"
+                android:background="@mipmap/button_image" />
+        </RelativeLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_toEndOf="@+id/button_container"
+            android:gravity="start|center_vertical"
+            android:hint="Enter your message here."
+            android:background="@android:color/transparent"
+            android:maxLines="5"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_semitransparent"
+            android:textSize="10sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

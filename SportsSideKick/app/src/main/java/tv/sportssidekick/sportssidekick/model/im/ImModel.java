@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
@@ -169,10 +170,12 @@ public class ImModel {
 
     private void newChatWasAddedToTheUserChatsList(final String chatId, final Boolean isMuted) {
         DatabaseReference chatRef = imsChatsInfoRef.child(chatId);
+        Log.d(TAG, "New Chat Was Added To The User Chats List: " + chatId + " MUTED: " + isMuted);
         chatRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ChatInfo info = dataSnapshot.getValue(ChatInfo.class);
+                info.setId(dataSnapshot.getKey());
                 if(info!=null){
                     info.setMuted(isMuted);
                 }
@@ -184,29 +187,25 @@ public class ImModel {
                     }
                 }
                 ChatInfo chatInfo = userChatsInfo.get(chatId);
-                if (chatInfo != null) {
-                    if(iAmIn){
-                        EventBus.getDefault().post(new FirebaseEvent("Chat detected.", FirebaseEvent.Type.USER_CHAT_DETECTED, chatId));
-                        if(chatInfo.getId()!=null) {
-                            chatInfo.setEqualTo(info); // *** Got new chat with key that is already set
-                        } else {
-                            userChatsInfo.put(chatId,info);
-                        }
-                        info.loadChatUsers();
-                        info.loadMessages();
+                if(iAmIn){
+                    EventBus.getDefault().post(new FirebaseEvent("Chat detected.", FirebaseEvent.Type.USER_CHAT_DETECTED, chatId));
+                    if(chatInfo != null && chatInfo.getId()!=null) {
+                        chatInfo.setEqualTo(info); // *** Got new chat with key that is already set
                     } else {
-                        EventBus.getDefault().post(new FirebaseEvent("Removed from chat.", FirebaseEvent.Type.CHAT_REMOVED, chatId));
-                        if(chatInfo.getId()!=null){
-                            chatInfo.wasRemovedByOwner();
-                            userChatsInfo.remove(chatId);
-                        } else {
-                            info.wasRemovedByOwner();
-                        }
+                        userChatsInfo.put(chatId,info);
                     }
+                    Log.d(TAG, "Loading chat users and messages for " + chatId);
+                    info.loadChatUsers();
+                    info.loadMessages();
                 } else {
-                    Log.d(TAG, "Chat is null!");
+                    EventBus.getDefault().post(new FirebaseEvent("Removed from chat.", FirebaseEvent.Type.CHAT_REMOVED, chatId));
+                    if(chatInfo != null && chatInfo.getId()!=null){
+                        chatInfo.wasRemovedByOwner();
+                        userChatsInfo.remove(chatId);
+                    } else {
+                        info.wasRemovedByOwner();
+                    }
                 }
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) { }
@@ -322,10 +321,10 @@ public class ImModel {
 
     private final static int K_MESSAGES_PER_PAGE = 5;
     //use chat notifyChatUpdate signal to track chat messages!
-    private void imsSetMessageObserverForChat(final ChatInfo chatInfo){
+    public void imsSetMessageObserverForChat(final ChatInfo chatInfo){
+        Log.d(TAG, "Loading messages for " + chatInfo.getId());
         //Load the first K_MESSAGES_PER_PAGE messages
-        Query messageQuerry = imsChatsMessagesRef.child(chatInfo.getId())
-                .child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE);
+        Query messageQuerry = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE);
 
         messageQuerry.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -420,6 +419,32 @@ public class ImModel {
         typingIndicatorRef.setValue(val);
         typingIndicatorRef.onDisconnect().removeValue();
     }
+
+    // do not use this function, call the chat info one!
+    // returnes the list of users info that are currently typing
+
+    public void imsUserTypingObserverForChat(String senderId,String chatId) {
+        DatabaseReference typingIndicatorRef =  imsChatsMessagesRef.child(chatId).child("typing");
+        typingIndicatorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<UserInfo> usersTyping = new ArrayList<>();
+                HashMap<String,Boolean> temp2 = (HashMap<String, Boolean>) dataSnapshot.getValue();
+                if(temp2!=null){
+                    for(Map.Entry<String,Boolean> entry : temp2.entrySet()){
+                        if(entry.getValue() && !entry.getKey().equals(userId)){
+                            UserInfo info = Model.getInstance().getCachedUserInfoById(entry.getKey());
+                            usersTyping.add(info);
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+
     // do not use this function, call the chat info one!
     // add the given uid to the chat black list
     public void blockUserFromJoinningChat(ChatInfo chatInfo, String userIdToBlock){
