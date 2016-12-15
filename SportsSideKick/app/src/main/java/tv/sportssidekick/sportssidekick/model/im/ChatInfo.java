@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.im;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -8,6 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.FirebseObject;
 import tv.sportssidekick.sportssidekick.model.Model;
@@ -22,6 +24,7 @@ import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
 
 public class ChatInfo extends FirebseObject {
 
+    private static final String TAG = "CHAT INFO";
     private String name;
     private HashMap<String, Boolean> usersIds;
 
@@ -43,8 +46,7 @@ public class ChatInfo extends FirebseObject {
         currentUserId = ImModel.getInstance().getUserId();
     }
 
-    public ChatInfo() {
-    }
+    public ChatInfo() { }
 
 
     void setEqualTo(ChatInfo info) {
@@ -53,7 +55,7 @@ public class ChatInfo extends FirebseObject {
         setUsersIds(info.getUsersIds());
         setAvatarUrl(info.getAvatarUrl());
         setOwner(info.getOwner());
-        setIsPublic(info.isPublic());
+        setIsPublic(info.getIsPublic());
         setUserIdsBlackList(info.getUserIdsBlackList());
     }
 
@@ -72,12 +74,12 @@ public class ChatInfo extends FirebseObject {
                 String firstUserId = (String) getUsersIds().keySet().toArray()[0];
                 String secondUserId = (String) getUsersIds().keySet().toArray()[1];
                 if(!userId.equals(firstUserId)){
-                    String nic = Model.getInstance().getCachedUserInfoById(firstUserId).getNicName();
+                    String nic = Model.getInstance().getCachedUserInfoById(firstUserId).getNicName(); // TODO Use users from chatUsers list.
                     if(nic!=null){
                         return nic;
                     }
                 } else {
-                    String nic = Model.getInstance().getCachedUserInfoById(secondUserId).getNicName();
+                    String nic = Model.getInstance().getCachedUserInfoById(secondUserId).getNicName(); // TODO Use users from chatUsers list.
                     if(nic!=null){
                         return nic;
                     }
@@ -90,7 +92,6 @@ public class ChatInfo extends FirebseObject {
     /**
      * Get the chat avatar URL, if non is set and this chat between two users it returns
      * the second user avatar url
-     *
      * @return avatar url
      */
     public String getChatAvatarUrl(){
@@ -102,12 +103,12 @@ public class ChatInfo extends FirebseObject {
                 String firstUserId = (String) getUsersIds().keySet().toArray()[0];
                 String secondUserId = (String) getUsersIds().keySet().toArray()[1];
                 if(!userId.equals(firstUserId)){
-                    String avatar = Model.getInstance().getCachedUserInfoById(firstUserId).getAvatarUrl();
+                    String avatar = Model.getInstance().getCachedUserInfoById(firstUserId).getAvatarUrl(); // TODO Use users from chatUsers list.
                     if(avatar!=null){
                         return avatar;
                     }
                 } else {
-                    String avatar = Model.getInstance().getCachedUserInfoById(secondUserId).getAvatarUrl();
+                    String avatar = Model.getInstance().getCachedUserInfoById(secondUserId).getAvatarUrl(); // TODO Use users from chatUsers list.
                     if(avatar!=null){
                         return avatar;
                     }
@@ -118,16 +119,31 @@ public class ChatInfo extends FirebseObject {
     }
 
     // dont use that, it is called on login
-    public List<UserInfo> loadChatUsers(){
+    public void loadChatUsers(){
+        Log.d(TAG, "Requesting Load of chat users");
         chatUsers = new ArrayList<>();
+        EventBus.getDefault().register(this);
         for(String uid : getUsersIds().keySet()){
+            Log.d(TAG, "Getting User Info for chat user " + uid);
             Model.getInstance().getUserInfoById(uid);
-            // TODO Event listener that adds user to list?
-            // chatUsers.add(info);
         }
-        return chatUsers;
     }
 
+    @Subscribe
+    public void onChatUserReceived(FirebaseEvent event){
+        if(event.getEventType().equals(FirebaseEvent.Type.USER_INFO_BY_ID)){
+            UserInfo info = (UserInfo) event.getData();
+            Log.d(TAG, "Got User Info for user " + info.getUserId());
+            if(getUsersIds().containsKey(info.getUserId())){
+                Log.d(TAG, "User is member of this chat. add it (chat ID): " + getId());
+                chatUsers.add(info);
+            }
+        }
+//        // if we got all users, unsubscribe
+//        if(getUsersIds().size()==getChatUsers().size()){
+//            EventBus.getDefault().unregister(this);
+//        }
+    }
 
     /**
      * Do NOT use this function
@@ -143,8 +159,28 @@ public class ChatInfo extends FirebseObject {
         ImModel.getInstance().imsSetMessageObserverForChat(this);
         ImModel.getInstance().imsObserveMessageStatusChange(this);
         ImModel.getInstance().imsUserTypingObserverForChat(Model.getInstance().getUserInfo().getUserId(), getId());
-        // TODO  notifyUserIsTyping
     }
+
+    @Subscribe
+    public void onNewMessagesEvent(FirebaseEvent event){
+        ImsMessage message;
+        switch (event.getEventType()){
+            case NEW_MESSAGE:
+                message = (ImsMessage) event.getData();
+                Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId());
+                messages.add(message);
+                break;
+            case MESSAGE_UPDATED:
+                message = (ImsMessage) event.getData();
+                Log.d(TAG, "MESSAGE UPDATED EVENT : " + message.getId());
+            break;
+            case NEW_MESSAGE_ADDED:
+                message = (ImsMessage) event.getData();
+                Log.d(TAG, "NEW MESSAGE ADDED EVENT : " + message.getId());
+            break;
+        }
+    }
+
 
     @Subscribe
     public void onNewMessagesEvent(List<ImsMessage> newMessages){
@@ -190,7 +226,7 @@ public class ChatInfo extends FirebseObject {
         int count = 0;
         String uid = currentUserId;
         if (messages == null){
-            // ("*** error need to load chat messages befor asking for unreadMessageCount")
+            // ("*** error need to load chat messages before asking for unreadMessageCount")
             return -1;
         }
         for(ImsMessage message : messages){
@@ -260,9 +296,9 @@ public class ChatInfo extends FirebseObject {
     public void removeUserFromChat(String uid){
         if (owner.equals(currentUserId) && !uid.equals(currentUserId)){
             boolean shouldRemove = false;
-            for(int i = 0; i< getUsersIds().size()-1; i++){
-                if (getUsersIds().get(i).equals(uid)){
-                    getUsersIds().remove(i);
+            for(Map.Entry entry : getUsersIds().entrySet()) {
+                if (entry.getKey().equals(uid)) {
+                    getUsersIds().remove(entry.getKey());
                     shouldRemove = true;
                     break;
                 }
@@ -382,7 +418,7 @@ public class ChatInfo extends FirebseObject {
         this.owner = owner;
     }
 
-    public boolean isPublic() {
+    public boolean getIsPublic() {
         return isPublic;
     }
 

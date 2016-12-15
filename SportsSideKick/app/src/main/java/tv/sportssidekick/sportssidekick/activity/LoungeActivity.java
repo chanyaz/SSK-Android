@@ -26,7 +26,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
@@ -41,7 +40,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.im.ImModel;
+import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.model.im.ImTest;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
@@ -99,6 +98,16 @@ public class LoungeActivity extends AppCompatActivity {
         ButterKnife.setDebug(true);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
+
+
+        Ticker.initializeTicker(Model.getInstance().getDatabase());
+
+        radioButtonWall.setChecked(true);
+        radioButtonChat.setChecked(true);
+        radioButtonClubTV.setChecked(true);
+    }
+
+    private void setupFragments(){
         fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);
 
         ArrayList<Class> leftContainerFragments = new ArrayList<>();
@@ -123,13 +132,7 @@ public class LoungeActivity extends AppCompatActivity {
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
-        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
-
-        Ticker.initializeTicker(Model.getInstance().getDatabase());
-
-        radioButtonWall.setChecked(true);
-        radioButtonChat.setChecked(true);
-        radioButtonClubTV.setChecked(true);
+//        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
     }
 
 
@@ -137,6 +140,9 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+
+        setupFragments();
+
         ImTest test = new ImTest();
         test.beginTest();
     }

@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -9,6 +10,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import tv.sportssidekick.sportssidekick.model.Model;
 
@@ -25,8 +27,17 @@ public class Application extends android.app.Application {
         initImageLoader(getApplicationContext());
         Model.getInstance();
 
+        // Facebook initialization
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+
+        // Shared prefs initialization
+        new Prefs.Builder()
+                .setContext(this)
+                .setMode(ContextWrapper.MODE_PRIVATE)
+                .setPrefsName(getPackageName())
+                .setUseDefaultSharedPreference(true)
+                .build();
     }
 
     //region AppImage Loader

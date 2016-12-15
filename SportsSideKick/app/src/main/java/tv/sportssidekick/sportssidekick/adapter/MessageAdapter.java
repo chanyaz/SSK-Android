@@ -5,9 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
-import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -48,6 +49,8 @@ public class MessageAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = inflater.inflate(R.layout.message_item, parent, false);
+        TextView textView = (TextView)view.findViewById(R.id.text);
+        textView.setText(chatInfo.getMessages().get(position).getText());
         return view;
     }
 }

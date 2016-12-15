@@ -49,7 +49,6 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
             return false;
         } else {
             fragmentManager.popBackStack();
-
             return true;
         }
     }

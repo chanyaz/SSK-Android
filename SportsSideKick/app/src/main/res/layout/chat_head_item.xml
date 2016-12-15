@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<tv.sportssidekick.sportssidekick.util.SquareRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/profile_image_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/demo_green_semitransparent" />
+
+            <ImageView
+                android:id="@+id/profile_image_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/demo_red_semitransparent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/profile_image_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/demo_blue_semitransparent" />
+
+            <ImageView
+                android:id="@+id/profile_image_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/demo_yellow_semitransparent" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/mask"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/chat_head_mask"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:scaleType="centerCrop"
+        android:id="@+id/selected"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/chat_head_selected"/>
+
+</tv.sportssidekick.sportssidekick.util.SquareRelativeLayout>

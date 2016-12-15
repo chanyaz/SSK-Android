@@ -65,7 +65,7 @@ public class StoreFragment extends BaseFragment {
 
         webView.loadUrl(url);
 
-        progressBar = (AVLoadingIndicatorView) view.findViewById(R.id.login_login_progress_bar);
+        progressBar = (AVLoadingIndicatorView) view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
 
         refreshButton = (Button) view.findViewById(R.id.refresh_button);

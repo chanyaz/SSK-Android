@@ -133,6 +133,7 @@ public class Model {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     UserInfo uInfo = dataSnapshot.getValue(UserInfo.class);
+                    uInfo.setUserId(dataSnapshot.getKey());
                     UserInfo cachedInfo = userCache.get(uInfo.getUserId());
                     if(cachedInfo!=null){
                         cachedInfo.setEqualsTo(uInfo);
@@ -147,6 +148,7 @@ public class Model {
         }
     }
 
+    // TODO Hide this to internal method
     public UserInfo getCachedUserInfoById(String userId) {
         UserInfo info = userCache.get(userId);
         if(info==null){

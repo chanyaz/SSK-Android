@@ -118,8 +118,9 @@ public class ImModel {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 ChatInfo chatInfo = dataSnapshot.getValue(ChatInfo.class);
                                 if(chatInfo!=null){
+                                    chatInfo.setId(dataSnapshot.getKey());
                                     userChatsInfo.put(chatId,chatInfo);
-                                    if(chatInfo.isPublic()&& !chatInfo.isUserBlockedFromThisChat(getUserId())){
+                                    if(chatInfo.getIsPublic()&& !chatInfo.isUserBlockedFromThisChat(getUserId())){
                                         publicChatsInfo.add(chatInfo);
                                         EventBus.getDefault().post(new FirebaseEvent("Public chat detected.", FirebaseEvent.Type.PUBLIC_CHAT_DETECTED, chatInfo));
                                     }
@@ -188,23 +189,23 @@ public class ImModel {
                 }
                 ChatInfo chatInfo = userChatsInfo.get(chatId);
                 if(iAmIn){
-                    EventBus.getDefault().post(new FirebaseEvent("Chat detected.", FirebaseEvent.Type.USER_CHAT_DETECTED, chatId));
                     if(chatInfo != null && chatInfo.getId()!=null) {
                         chatInfo.setEqualTo(info); // *** Got new chat with key that is already set
                     } else {
                         userChatsInfo.put(chatId,info);
                     }
+                    EventBus.getDefault().post(new FirebaseEvent("Chat detected.", FirebaseEvent.Type.USER_CHAT_DETECTED, chatId));
                     Log.d(TAG, "Loading chat users and messages for " + chatId);
                     info.loadChatUsers();
                     info.loadMessages();
                 } else {
-                    EventBus.getDefault().post(new FirebaseEvent("Removed from chat.", FirebaseEvent.Type.CHAT_REMOVED, chatId));
                     if(chatInfo != null && chatInfo.getId()!=null){
                         chatInfo.wasRemovedByOwner();
                         userChatsInfo.remove(chatId);
                     } else {
                         info.wasRemovedByOwner();
                     }
+                    EventBus.getDefault().post(new FirebaseEvent("Removed from chat.", FirebaseEvent.Type.CHAT_REMOVED, chatId));
                 }
             }
             @Override
@@ -238,7 +239,7 @@ public class ImModel {
         userChatsInfo.put(chatInfo.getId(),chatInfo);
         chatInfo.loadChatUsers();
         chatInfo.loadMessages();
-        if(chatInfo.isPublic()){
+        if(chatInfo.getIsPublic()){
             DatabaseReference publicIndexRef  = imsPublicChatsIndexRef.child(chatInfo.getId());
             publicIndexRef.setValue(true);
         }
@@ -247,9 +248,7 @@ public class ImModel {
 
 
     /***
-     *
      *          DO NOT USE THE FUNCTIONS BELOW DIRECTLY! USE CHATINFO API
-     *
      **/
 
     //you shouldnt use this function directly, call update chat on the chatInfo object
@@ -332,6 +331,7 @@ public class ImModel {
                String lastKey = null;
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                    ImsMessage message = child.getValue(ImsMessage.class);
+                    message.setId(child.getKey());
                     EventBus.getDefault().post(new FirebaseEvent("New message detected.", FirebaseEvent.Type.NEW_MESSAGE, message));
                    lastKey = child.getKey();
                }

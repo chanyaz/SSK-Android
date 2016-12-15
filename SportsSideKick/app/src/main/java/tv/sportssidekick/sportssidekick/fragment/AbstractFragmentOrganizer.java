@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Constructor;
-
-import tv.sportssidekick.sportssidekick.R;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -23,6 +22,7 @@ import tv.sportssidekick.sportssidekick.R;
 
 abstract class AbstractFragmentOrganizer {
 
+    private static final String TAG = "FRAGMENT ORGANIZER";
     FragmentManager fragmentManager;
     int enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation;
 
@@ -101,7 +101,7 @@ abstract class AbstractFragmentOrganizer {
     }
 
     private String openFragment(Fragment fragment, int containerId) {
-        if(isFragmentOpen(fragment)&&containerId<0){
+        if(isFragmentOpen(fragment)||containerId<=0){
             return "";
         }
         String fragmentTag = createFragmentTag(fragment, true);
@@ -109,6 +109,9 @@ abstract class AbstractFragmentOrganizer {
         if (enterAnimation !=0 && exitAnimation !=0 && popEnterAnimation !=0 && popExitAnimation !=0){
             transaction.setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation,  popExitAnimation);
         }
+        Log.d(TAG,"OPEN FRAGMENT: " + fragmentTag);
+        Log.d(TAG,"OPEN IN : " + containerId);
+
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.addToBackStack(fragmentTag);
         transaction.commit();
