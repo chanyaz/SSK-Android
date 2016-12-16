@@ -14,13 +14,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -213,8 +209,8 @@ public class LoungeActivity extends AppCompatActivity {
     public void onTickerUpdate(Ticker ticker){
         newsLabel.setText(ticker.getNews().get(0));
         long timestamp = Long.valueOf(ticker.getMatchDate());
-        timeOfMatch.setText(getDate(timestamp));
-        long getDaysUntilMatch = getDaysUntilMatch(timestamp);
+        timeOfMatch.setText(Utility.getDate(timestamp));
+        long getDaysUntilMatch = Utility.getDaysUntilMatch(timestamp);
         Resources res = getResources();
         String daysValue = res.getQuantityString(R.plurals.days_until_match, (int)getDaysUntilMatch, (int)getDaysUntilMatch);
         daysUntilMatchLabel.setText(daysValue);
@@ -250,25 +246,5 @@ public class LoungeActivity extends AppCompatActivity {
 
     }
 
-    private long getDaysUntilMatch(long timeStamp){
-        Date netDate = (new Date(timeStamp*1000));
-        Date date = new Date();
-        long diff = date.getTime() - netDate.getTime();
-        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-    }
 
-    private String getDate(long timeStamp){
-        try{
-            DateFormat sdf = new SimpleDateFormat("EEE dd MMM");
-            Date netDate = (new Date(timeStamp*1000));
-            Date date = new Date();
-            long diff = date.getTime() - netDate.getTime();
-            long daysTo = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-            StringBuilder sb = new StringBuilder(String.valueOf(daysTo));
-            return sdf.format(diff);
-        }
-        catch(Exception ex){
-            return "xx";
-        }
-    }
 }

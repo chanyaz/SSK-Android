@@ -53,7 +53,7 @@ public class Application extends android.app.Application {
         config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
         config.diskCacheExtraOptions(480, 320, null);
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        // config.writeDebugLogs(); //
+        config.writeDebugLogs(); //
         L.writeLogs(false);
         ImageLoader.getInstance().init(config.build());
     }

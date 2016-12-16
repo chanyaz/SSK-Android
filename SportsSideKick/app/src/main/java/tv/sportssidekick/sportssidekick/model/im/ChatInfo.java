@@ -34,9 +34,9 @@ public class ChatInfo extends FirebseObject {
     private List<String> userIdsBlackList;
     private List<ImsMessage> messages;
     private boolean isMuted;
-    private List<UserInfo> chatUsers;
 
     private String currentUserId;
+    public boolean MESSAGES_ARE_LOADED;
 
     public ChatInfo(String name, HashMap<String, Boolean> userIds, String avatarUrl, boolean isPublic) {
         this.setName(name);
@@ -44,9 +44,13 @@ public class ChatInfo extends FirebseObject {
         this.setAvatarUrl(avatarUrl);
         this.setIsPublic(isPublic);
         currentUserId = ImModel.getInstance().getUserId();
+        MESSAGES_ARE_LOADED = false;
     }
 
-    public ChatInfo() { }
+    public ChatInfo() {
+        MESSAGES_ARE_LOADED = false;
+
+    }
 
 
     void setEqualTo(ChatInfo info) {
@@ -57,6 +61,8 @@ public class ChatInfo extends FirebseObject {
         setOwner(info.getOwner());
         setIsPublic(info.getIsPublic());
         setUserIdsBlackList(info.getUserIdsBlackList());
+        setMessages(info.getMessages());
+        currentUserId = ImModel.getInstance().getUserId();
     }
 
     /**
@@ -121,28 +127,11 @@ public class ChatInfo extends FirebseObject {
     // dont use that, it is called on login
     public void loadChatUsers(){
         Log.d(TAG, "Requesting Load of chat users");
-        chatUsers = new ArrayList<>();
         EventBus.getDefault().register(this);
         for(String uid : getUsersIds().keySet()){
             Log.d(TAG, "Getting User Info for chat user " + uid);
             Model.getInstance().getUserInfoById(uid);
         }
-    }
-
-    @Subscribe
-    public void onChatUserReceived(FirebaseEvent event){
-        if(event.getEventType().equals(FirebaseEvent.Type.USER_INFO_BY_ID)){
-            UserInfo info = (UserInfo) event.getData();
-            Log.d(TAG, "Got User Info for user " + info.getUserId());
-            if(getUsersIds().containsKey(info.getUserId())){
-                Log.d(TAG, "User is member of this chat. add it (chat ID): " + getId());
-                chatUsers.add(info);
-            }
-        }
-//        // if we got all users, unsubscribe
-//        if(getUsersIds().size()==getChatUsers().size()){
-//            EventBus.getDefault().unregister(this);
-//        }
     }
 
     /**
@@ -155,7 +144,9 @@ public class ChatInfo extends FirebseObject {
      *   notifyUserIsTyping - will return an array of the users which are currently typing
      */
     public void loadMessages(){
+        Log.d(TAG, "New array created for messages for chat with id " + getId());
         messages = new ArrayList<>();
+        MESSAGES_ARE_LOADED = true;
         ImModel.getInstance().imsSetMessageObserverForChat(this);
         ImModel.getInstance().imsObserveMessageStatusChange(this);
         ImModel.getInstance().imsUserTypingObserverForChat(Model.getInstance().getUserInfo().getUserId(), getId());
@@ -164,20 +155,22 @@ public class ChatInfo extends FirebseObject {
     @Subscribe
     public void onNewMessagesEvent(FirebaseEvent event){
         ImsMessage message;
-        switch (event.getEventType()){
-            case NEW_MESSAGE:
-                message = (ImsMessage) event.getData();
-                Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId());
-                messages.add(message);
-                break;
-            case MESSAGE_UPDATED:
-                message = (ImsMessage) event.getData();
-                Log.d(TAG, "MESSAGE UPDATED EVENT : " + message.getId());
-            break;
-            case NEW_MESSAGE_ADDED:
-                message = (ImsMessage) event.getData();
-                Log.d(TAG, "NEW MESSAGE ADDED EVENT : " + message.getId());
-            break;
+        if(getId().equals(event.getFilterId())){
+            switch (event.getEventType()){
+                case NEW_MESSAGE:
+                    message = (ImsMessage) event.getData();
+                    Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId() + " for chat: " + getId());
+                    messages.add(message);
+                    break;
+                case MESSAGE_UPDATED:
+                    message = (ImsMessage) event.getData();
+                    Log.d(TAG, "MESSAGE UPDATED EVENT : " + message.getId());
+                    break;
+                case NEW_MESSAGE_ADDED:
+                    message = (ImsMessage) event.getData();
+                    Log.d(TAG, "NEW MESSAGE ADDED EVENT : " + message.getId());
+                    break;
+            }
         }
     }
 
@@ -249,7 +242,6 @@ public class ChatInfo extends FirebseObject {
     public void addUser(UserInfo uinfo){
         if(owner.equals(currentUserId)){
             getUsersIds().put(uinfo.getUserId(), true);
-            chatUsers.add(uinfo);
             updateChatInfo();
         }else{
             // ("*** Error - cant add user to a chat that you are not the owner of!")
@@ -300,12 +292,6 @@ public class ChatInfo extends FirebseObject {
                 if (entry.getKey().equals(uid)) {
                     getUsersIds().remove(entry.getKey());
                     shouldRemove = true;
-                    break;
-                }
-            }
-            for(int i = 0; i< chatUsers.size()-1; i++){
-                if (chatUsers.get(i).getUserId().equals(uid)){
-                    chatUsers.remove(i);
                     break;
                 }
             }
@@ -385,6 +371,18 @@ public class ChatInfo extends FirebseObject {
         ImModel.getInstance().setMuteChat(this,isMuted);
     }
 
+    public ArrayList<String> getProfileImagesUrls(){
+       ArrayList<String> urls = new ArrayList<>();
+      String myId = Model.getInstance().getUserInfo().getUserId();
+        for(Map.Entry<String, Boolean> entry : usersIds.entrySet()){
+            UserInfo info = Model.getInstance().getCachedUserInfoById(entry.getKey());
+            if(info!=null && !myId.equals(info.getUserId())){
+                urls.add(info.getAvatarUrl());
+            }
+        }
+        return urls;
+    }
+
 
     public String getName() {
         return name;
@@ -448,14 +446,6 @@ public class ChatInfo extends FirebseObject {
 
     public void setMuted(boolean muted) {
         isMuted = muted;
-    }
-
-    public List<UserInfo> getChatUsers() {
-        return chatUsers;
-    }
-
-    public void setChatUsers(List<UserInfo> chatUsers) {
-        this.chatUsers = chatUsers;
     }
 
 }

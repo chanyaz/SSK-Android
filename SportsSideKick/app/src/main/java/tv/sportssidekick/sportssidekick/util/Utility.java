@@ -15,6 +15,12 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import tv.sportssidekick.sportssidekick.R;
 
 /**
@@ -123,5 +129,27 @@ public class Utility {
                     }
                 });
         alertDialog.show();
+    }
+
+    public static long getDaysUntilMatch(long timeStamp){
+        Date netDate = (new Date(timeStamp*1000));
+        Date date = new Date();
+        long diff = date.getTime() - netDate.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    public static String getDate(long timeStamp){
+        try{
+            DateFormat sdf = new SimpleDateFormat("EEE dd MMM");
+            Date netDate = (new Date(timeStamp*1000));
+            Date date = new Date();
+            long diff = date.getTime() - netDate.getTime();
+            long daysTo = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            StringBuilder sb = new StringBuilder(String.valueOf(daysTo));
+            return sdf.format(diff);
+        }
+        catch(Exception ex){
+            return "xx";
+        }
     }
 }

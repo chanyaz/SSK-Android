@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_login_email"
-                android:text="filip@hypercubesoft.com"
+                android:text="android@development.com"
                 android:inputType="textEmailAddress" />
 
             <EditText
@@ -38,7 +38,7 @@
                 style="@style/edit_text_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="123123"
+                android:text="123456"
                 android:hint="@string/login_login_password"
                 android:inputType="textPassword" />
 

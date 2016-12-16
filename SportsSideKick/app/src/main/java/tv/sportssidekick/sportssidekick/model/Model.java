@@ -152,7 +152,7 @@ public class Model {
     public UserInfo getCachedUserInfoById(String userId) {
         UserInfo info = userCache.get(userId);
         if(info==null){
-            getUserInfoById(userId); // TODO Requested, what happens when null is returned?
+            // getUserInfoById(userId); // TODO Requested, what happens when null is returned?
             return null;
         } else {
             return info;

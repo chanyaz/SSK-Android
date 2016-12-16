@@ -41,7 +41,7 @@ public class ImModel {
     private DatabaseReference imsPublicChatsIndexRef;
     private DatabaseReference imsUserChatsIndexRef;
     private DatabaseReference imsNotificationQueueRef;
-    private HashMap<String, ChatInfo> userChatsInfo;
+    private HashMap<String, ChatInfo> chatInfoCache;
     private List<ChatInfo> publicChatsInfo;
 
     private ImModel() {
@@ -52,9 +52,13 @@ public class ImModel {
         imsPublicChatsIndexRef = imsChatsRef.child("publicChatsIndex");
         imsUserChatsIndexRef = imsChatsRef.child("usersChatsIndex");//root for all user chat activity
         imsNotificationQueueRef = ref.getReference("queue-notify-im/tasks"); // notification queue
-        userChatsInfo = new HashMap<>();
+        chatInfoCache = new HashMap<>();
         publicChatsInfo = new ArrayList<>();
-        userId = Model.getInstance().getUserInfo().getUserId();
+        UserInfo userInfo = Model.getInstance().getUserInfo();
+        if(userInfo!=null){
+           userId = userInfo.getUserId();
+        }
+
         EventBus.getDefault().register(this);
     }
 
@@ -71,7 +75,7 @@ public class ImModel {
     }
 
     public void clear(){
-        userChatsInfo.clear();
+        chatInfoCache.clear();
         publicChatsInfo = null;
     }
 
@@ -93,7 +97,7 @@ public class ImModel {
      */
 
     public HashMap<String, ChatInfo> getUserChats() {
-        return userChatsInfo;
+        return chatInfoCache;
     }
 
     /**
@@ -105,7 +109,7 @@ public class ImModel {
      * and generally breaking because of race conditions with ASYNC Firebase requests
      */
     public void getAllPublicChats() {
-        publicChatsInfo = new ArrayList<ChatInfo>();
+        publicChatsInfo = new ArrayList<>();
         imsPublicChatsIndexRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -116,15 +120,18 @@ public class ImModel {
                         chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                ChatInfo chatInfo = dataSnapshot.getValue(ChatInfo.class);
-                                if(chatInfo!=null){
-                                    chatInfo.setId(dataSnapshot.getKey());
-                                    userChatsInfo.put(chatId,chatInfo);
-                                    if(chatInfo.getIsPublic()&& !chatInfo.isUserBlockedFromThisChat(getUserId())){
-                                        publicChatsInfo.add(chatInfo);
-                                        EventBus.getDefault().post(new FirebaseEvent("Public chat detected.", FirebaseEvent.Type.PUBLIC_CHAT_DETECTED, chatInfo));
-                                    }
-                                }
+                                // TODO Rewrite logic for public chats
+//                                ChatInfo chatInfo = dataSnapshot.getValue(ChatInfo.class);
+//                                if(chatInfo!=null){
+//                                    chatInfo.setId(dataSnapshot.getKey());
+//                                    chatInfoCache.put(chatId,chatInfo);
+//
+//                                    if(chatInfo.getIsPublic()&& !chatInfo.isUserBlockedFromThisChat(getUserId())){
+//                                        publicChatsInfo.add(chatInfo);
+//                                        newChatWasAddedToTheUserChatsList(chatId,false);
+//                                        EventBus.getDefault().post(new FirebaseEvent("Public chat detected.", FirebaseEvent.Type.PUBLIC_CHAT_DETECTED, chatInfo));
+//                                    }
+//                                }
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {}
@@ -139,35 +146,42 @@ public class ImModel {
 
     private void loadUserChats() {
         final DatabaseReference userChatsRef = imsUserChatsIndexRef.child(getUserId());
-        Log.d(TAG, "userId: " + getUserId() );
-        userChatsRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String chatId = dataSnapshot.getKey();
-                Log.d(TAG, "Child added: " + chatId );
-                Log.d(TAG, "Child added: " + s );
-                Log.d(TAG, "Child added: " + dataSnapshot.getValue().toString() );
-                boolean muted = MUTE.equals(dataSnapshot.getValue(String.class));
-                newChatWasAddedToTheUserChatsList(chatId,muted);
-            }
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                String chatId = dataSnapshot.getKey();
-                ChatInfo info = userChatsInfo.get(chatId);
-                if(info!=null){
-                    info.wasRemovedByOwner();
-                    userChatsInfo.remove(info);
-                }
-                EventBus.getDefault().post(new FirebaseEvent("Chat removed.", FirebaseEvent.Type.CHAT_REMOVED, chatId));
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
+        Log.d(TAG, "userId: " + getUserId());
+        userChatsRef.removeEventListener(userChatsEventListener);
+        userChatsRef.addChildEventListener(userChatsEventListener);
     }
+
+
+    ChildEventListener userChatsEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            String chatId = dataSnapshot.getKey();
+            String value = dataSnapshot.getValue(String.class); // can be notify or mute
+            Log.d(TAG, "Child added: " + chatId );
+            Log.d(TAG, "Child added: " + s );
+            Log.d(TAG, "Child added: " + value );
+            newChatWasAddedToTheUserChatsList(chatId,MUTE.equals(value));
+        }
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            String chatId = dataSnapshot.getKey();
+            ChatInfo info = chatInfoCache.get(chatId);
+            if(info!=null){
+                info.wasRemovedByOwner();
+                if(chatInfoCache.containsValue(info)){
+                    chatInfoCache.remove(info);
+                }
+            }
+            EventBus.getDefault().post(new FirebaseEvent("Chat removed.", FirebaseEvent.Type.CHAT_REMOVED, chatId));
+        }
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+        @Override
+        public void onCancelled(DatabaseError databaseError) {}
+    };
+
 
     private void newChatWasAddedToTheUserChatsList(final String chatId, final Boolean isMuted) {
         DatabaseReference chatRef = imsChatsInfoRef.child(chatId);
@@ -177,31 +191,35 @@ public class ImModel {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ChatInfo info = dataSnapshot.getValue(ChatInfo.class);
                 info.setId(dataSnapshot.getKey());
-                if(info!=null){
-                    info.setMuted(isMuted);
-                }
+                info.setMuted(isMuted);
                 boolean iAmIn = false;
-                for(String uin : info.getUsersIds().keySet()){
-                    if(getUserId().equals(uin)){
-                        iAmIn = true;
-                        break;
+                if(info.getUsersIds()!=null){
+                    for(String uin : info.getUsersIds().keySet()){
+                        if(getUserId().equals(uin)){
+                            iAmIn = true;
+                            break;
+                        }
                     }
+                } else {
+                    Log.d(TAG,"There are no users in this chat, ignore it!");
+                    return;
                 }
-                ChatInfo chatInfo = userChatsInfo.get(chatId);
+
+                ChatInfo existingChatInfo = chatInfoCache.get(chatId);
                 if(iAmIn){
-                    if(chatInfo != null && chatInfo.getId()!=null) {
-                        chatInfo.setEqualTo(info); // *** Got new chat with key that is already set
-                    } else {
-                        userChatsInfo.put(chatId,info);
+                    if(existingChatInfo != null && existingChatInfo.getId()!=null) {   // Got new chat with key that is already set
+                        existingChatInfo.setEqualTo(info);
+                    } else { // its not cached yet.
+                        chatInfoCache.put(chatId,info);
                     }
                     EventBus.getDefault().post(new FirebaseEvent("Chat detected.", FirebaseEvent.Type.USER_CHAT_DETECTED, chatId));
                     Log.d(TAG, "Loading chat users and messages for " + chatId);
                     info.loadChatUsers();
                     info.loadMessages();
                 } else {
-                    if(chatInfo != null && chatInfo.getId()!=null){
-                        chatInfo.wasRemovedByOwner();
-                        userChatsInfo.remove(chatId);
+                    if(existingChatInfo != null && existingChatInfo.getId()!=null){
+                        existingChatInfo.wasRemovedByOwner();
+                        chatInfoCache.remove(chatId);
                     } else {
                         info.wasRemovedByOwner();
                     }
@@ -236,7 +254,7 @@ public class ImModel {
             DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(key);
             userChatsRef.setValue("notify");
         }
-        userChatsInfo.put(chatInfo.getId(),chatInfo);
+        chatInfoCache.put(chatInfo.getId(),chatInfo);
         chatInfo.loadChatUsers();
         chatInfo.loadMessages();
         if(chatInfo.getIsPublic()){
@@ -288,7 +306,7 @@ public class ImModel {
 
     //you shouldnt use this function !!
     public void removeChatFromChatList(ChatInfo chatInfo){
-        userChatsInfo.remove(chatInfo.getId());
+        chatInfoCache.remove(chatInfo.getId());
     }
 
     /**
@@ -318,34 +336,40 @@ public class ImModel {
         notificationRef.setValue(notificationRef);
     }
 
-    private final static int K_MESSAGES_PER_PAGE = 5;
+    private final static int K_MESSAGES_PER_PAGE = 25;
     //use chat notifyChatUpdate signal to track chat messages!
-    public void imsSetMessageObserverForChat(final ChatInfo chatInfo){
+    public void imsSetMessageObserverForChat(ChatInfo chatInfo){
         Log.d(TAG, "Loading messages for " + chatInfo.getId());
         //Load the first K_MESSAGES_PER_PAGE messages
-        Query messageQuerry = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE);
-
-        messageQuerry.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query messageQuery = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE);
+        final String chatInfoId = chatInfo.getId();
+        messageQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                String lastKey = null;
                 for(DataSnapshot child : dataSnapshot.getChildren()){
-                   ImsMessage message = child.getValue(ImsMessage.class);
-                    message.setId(child.getKey());
-                    EventBus.getDefault().post(new FirebaseEvent("New message detected.", FirebaseEvent.Type.NEW_MESSAGE, message));
-                   lastKey = child.getKey();
+                    ImsMessage message = child.getValue(ImsMessage.class);
+                    String messageId = child.getKey();
+                    message.setId(messageId);
+                    FirebaseEvent fe = new FirebaseEvent("New message detected.", FirebaseEvent.Type.NEW_MESSAGE, message);
+                    fe.setFilterId(chatInfoId);
+                    EventBus.getDefault().post(fe);
+                    lastKey = messageId;
                }
                 if (lastKey == null){
                     lastKey = "";
                 }
                 final String lastKeyFinal = lastKey;
-                Query messagesRef = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").limitToLast(1);
+                // TODO Why add listener for every message to wait for last message?
+                Query messagesRef = imsChatsMessagesRef.child(chatInfoId).child("messages").limitToLast(1);
                 messagesRef.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         if (!dataSnapshot.getKey().equals(lastKeyFinal)){
                             ImsMessage message = dataSnapshot.getValue(ImsMessage.class);
-                            EventBus.getDefault().post(new FirebaseEvent("New message added.", FirebaseEvent.Type.NEW_MESSAGE_ADDED, message));
+                            FirebaseEvent fe = new FirebaseEvent("New message added.", FirebaseEvent.Type.NEW_MESSAGE_ADDED, message);
+                            fe.setFilterId(chatInfoId);
+                            EventBus.getDefault().post(fe);
                         }
                     }
                     @Override
@@ -361,6 +385,8 @@ public class ImModel {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+
+
     }
 
     // load next page of messages

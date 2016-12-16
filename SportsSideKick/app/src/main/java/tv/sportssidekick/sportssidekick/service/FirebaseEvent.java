@@ -1,7 +1,5 @@
 package tv.sportssidekick.sportssidekick.service;
 
-import tv.sportssidekick.sportssidekick.service.BusEvent;
-
 /**
  * Created by Filip on 12/14/2016.
  * Copyright by Hypercube d.o.o.
@@ -11,6 +9,7 @@ import tv.sportssidekick.sportssidekick.service.BusEvent;
 public class FirebaseEvent extends BusEvent {
 
     private String message;
+    private String filterId;
 
     public String getMessage() {
         return message;
@@ -43,6 +42,15 @@ public class FirebaseEvent extends BusEvent {
         this.message = message;
         this.eventType = eventType;
         this.data = data;
+    }
+
+    public String getFilterId() {
+        return filterId;
+    }
+
+    public FirebaseEvent setFilterId(String filterId) {
+        this.filterId = filterId;
+        return this;
     }
 
     public enum Type {

@@ -19,7 +19,6 @@ public class ImTest {
         public void beginTest(){
             EventBus.getDefault().register(this);
             Model.getInstance().getAllUsersInfo();
-            //Model.getInstance().getUserInfoById("7oY7ljIUvEVgxGT35RfpS1RSYfJ2"); // Chris Wright
             ImModel.getInstance().reload(Model.getInstance().getUserInfo().getUserId());
             ImModel.getInstance().getAllPublicChats();
         }

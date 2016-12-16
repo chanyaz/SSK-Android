@@ -63,6 +63,7 @@
     <string name="quiz_url">https://snack-media.com/sidekick/quiz-list-en.html</string>
     <string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-en.html</string>
     <string name="days">" Days "</string>
+    <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
 
     <plurals name="days_until_match">
         <item quantity="zero">TODAY</item>
