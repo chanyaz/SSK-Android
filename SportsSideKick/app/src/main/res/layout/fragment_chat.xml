@@ -16,8 +16,8 @@
         android:id="@+id/outer_chats_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/input_container">
+        android:layout_above="@+id/input_container"
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:id="@+id/chats_container"
@@ -26,23 +26,22 @@
             android:layout_alignParentTop="true"
             android:background="@color/green_dark_1">
 
-                <android.support.v7.widget.RecyclerView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/chat_heads_view"
                 android:layout_width="match_parent"
-                android:layout_alignParentTop="true"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"/>
+                android:layout_alignParentTop="true"
+                android:scrollbars="none" />
         </RelativeLayout>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/message_container"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
-        android:layout_above="@+id/input_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/input_container"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"></android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
         android:id="@+id/input_container"
@@ -54,9 +53,9 @@
         <Button
             android:id="@+id/mic_button"
             android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
             android:background="@mipmap/button_voice" />
@@ -91,12 +90,12 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
             android:layout_toEndOf="@+id/settings_button"
+            android:background="@color/green_dark_2"
             android:gravity="start|center_vertical"
             android:hint="Enter your message here."
-            android:background="@color/green_dark_2"
             android:maxLines="5"
+            android:padding="8dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white_semitransparent"
             android:textSize="10sp" />
@@ -104,46 +103,48 @@
 
     <RelativeLayout
         android:id="@+id/bottom_create_chat_container"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:animateLayoutChanges="true"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
+        android:animateLayoutChanges="true"
         android:background="@color/green_dark_2"
-        android:layout_height="48dp">
+        android:visibility="gone">
+
         <ImageView
             android:id="@+id/create_new_chat_icon"
             android:layout_width="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_centerVertical="true"
             android:layout_height="40dp"
-        android:src="@mipmap/create_chat_button"
-       />
-        <TextView
-            android:text="Create or join chat" android:layout_width="wrap_content"
-            android:layout_toEndOf="@+id/create_new_chat_icon"
             android:layout_centerVertical="true"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content" />
+            android:layout_margin="10dp"
+            android:src="@mipmap/create_chat_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/create_new_chat_icon"
+            android:text="Create or join chat"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/down_arrow"
-        android:layout_alignTop="@+id/message_container"
-        android:layout_centerHorizontal="true"
         android:layout_width="20dp"
         android:layout_height="50dp"
+        android:layout_alignTop="@+id/message_container"
+        android:layout_centerHorizontal="true"
         android:paddingBottom="40dp"
-        android:src="@mipmap/down_arrow"/>
+        android:src="@mipmap/down_arrow" />
 
     <TextView
         android:id="@+id/info_message"
-        android:textColor="@color/white"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:textSize="10sp"
-        android:gravity="center"
         android:layout_height="wrap_content"
-        android:text="@string/no_message_text"/>
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/no_message_text"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
@@ -153,4 +154,49 @@
         android:elevation="2dp"
         android:visibility="gone"
         app:indicatorName="LineSpinFadeLoaderIndicator" />
+
+    <RelativeLayout
+        android:id="@+id/full_screen_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_fullscreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/green_dark_2_semitransparent"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/close_image_button"
+            android:layout_margin="8dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@mipmap/video_close_button"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/download_image_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:src="@mipmap/download_button"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter" />
+    </RelativeLayout>
+
+
+    <VideoView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
 </RelativeLayout>

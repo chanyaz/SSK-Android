@@ -38,6 +38,18 @@
             android:scaleType="centerInside"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/play_button"
+            android:maxHeight="80dp"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/play_button_icon"/>
+
+
     </RelativeLayout>
 
     <TextView

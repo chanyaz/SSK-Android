@@ -3,7 +3,6 @@ package tv.sportssidekick.sportssidekick.adapter;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -15,6 +14,8 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,6 +24,8 @@ import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
+import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
+import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -41,11 +44,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.text) public TextView textView;
-        @Nullable @BindView(R.id.timestamp) public TextView timeTextView;
-        @Nullable @BindView(R.id.sender) public TextView senderTextView;
-        @Nullable @BindView(R.id.profile_image) public CircleImageView senderImageView;
-        @Nullable @BindView(R.id.content_image) public ImageView contentImage;
+        @BindView(R.id.text) public TextView textView;
+        @BindView(R.id.timestamp) public TextView timeTextView;
+        @BindView(R.id.sender) public TextView senderTextView;
+        @BindView(R.id.profile_image) public CircleImageView senderImageView;
+        @BindView(R.id.content_image) public ImageView contentImage;
+        @BindView(R.id.play_button) public ImageView playButton;
 
         public ViewHolder(View v) {
             super(v);
@@ -84,34 +88,45 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         final String imageUrl = message.getImageUrl();
         String videoUrl = message.getVidUrl();
         if(imageUrl!=null){
+            holder.textView.setVisibility(View.GONE);
             if(imageUrl.contains("jpg") || imageUrl.contains("png")){
+                holder.contentImage.setVisibility(View.VISIBLE);
                 ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,imageOptions);
-                holder.contentImage.setVisibility(View.VISIBLE);
-                holder.textView.setVisibility(View.GONE);
-            } else { // TODO its audio file?
-                holder.contentImage.setVisibility(View.VISIBLE);
-                holder.textView.setVisibility(View.GONE);
-                holder.contentImage.setImageResource(R.mipmap.play_audio_button);
-                final ImageView contentView = holder.contentImage;
+                if(videoUrl!=null){ // its video, show play button and prepare player
+                    holder.playButton.setVisibility(View.VISIBLE);
+                    final String fVideoUrl = videoUrl;
+                    holder.contentImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            EventBus.getDefault().post(new PlayVideoEvent(fVideoUrl));
+                        }
+                    });
+                } else {
+                    holder.playButton.setVisibility(View.GONE);
+                    holder.contentImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            EventBus.getDefault().post(new FullScreenImageEvent(imageUrl));
+                        }
+                    });
+                }
+            } else { // its audio file
+                holder.playButton.setVisibility(View.VISIBLE);
+                holder.contentImage.setVisibility(View.GONE);
+                final ImageView contentView = holder.playButton;
                 holder.view.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View view) {
                         setupAudioPlayButton(imageUrl,contentView);
                    }
                });
-
-
             }
-        } else if(videoUrl!=null){ // TODO Show player?
-            holder.contentImage.setVisibility(View.VISIBLE);
-            holder.textView.setVisibility(View.GONE);
-            holder.contentImage.setImageResource(R.mipmap.play_audio_button);
         } else {
+            holder.playButton.setVisibility(View.GONE);
             holder.contentImage.setVisibility(View.GONE);
             holder.textView.setVisibility(View.VISIBLE);
             holder.textView.setText(message.getText());
         }
-
     }
 
 
@@ -122,12 +137,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             player.setDataSource(url);
             player.prepare();
             player.start();
-            button.setImageResource(R.mipmap.pause_audio_button);
+            button.setImageResource(R.mipmap.pause_button_icon);
 
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
-                    button.setImageResource(R.mipmap.play_audio_button);
+                    button.setImageResource(R.mipmap.play_button_icon);
                 }
             });
         } catch (Exception e) {

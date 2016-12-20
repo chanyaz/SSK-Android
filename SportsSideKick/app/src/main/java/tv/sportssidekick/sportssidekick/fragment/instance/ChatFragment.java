@@ -2,6 +2,8 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 
 import android.animation.LayoutTransition;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,7 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,6 +39,8 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImModel;
 import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
+import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
+import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
 import tv.sportssidekick.sportssidekick.util.OnSwipeTouchListener;
 
@@ -67,9 +74,21 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.mic_button)
     Button micButton;
 
+    @BindView(R.id.video_view)
+    VideoView videoView;
+    @BindView(R.id.image_fullscreen)
+    ImageView imageViewFullScreen;
+
+    @BindView(R.id.full_screen_container)
+    RelativeLayout fullScreenContainer;
+
+    @BindView(R.id.close_image_button)
+    ImageView imageCloseButton;
+    @BindView(R.id.download_image_button)
+    ImageView imageDownloadButton;
+
+
     boolean isExpanded;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,6 +101,20 @@ public class ChatFragment extends BaseFragment {
         messageListView.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         infoMessage.setVisibility(View.GONE);
+
+        imageCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fullScreenContainer.setVisibility(View.GONE);
+            }
+        });
+
+        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"Image is downloaded.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         EventBus.getDefault().register(this);
         initializeUI();
@@ -182,6 +215,26 @@ public class ChatFragment extends BaseFragment {
         String chatId = event.getId();
         Log.d(TAG, "Displaying Chat with id:" + chatId);
         displayChat(allUserChats.get(chatId));
+    }
+
+    @Subscribe
+    public void playVideo(PlayVideoEvent event){
+        videoView.setVisibility(View.VISIBLE);
+        videoView.setVideoURI(Uri.parse(event.getId()));
+        videoView.start();
+
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                videoView.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    @Subscribe
+    public void showImageFullScreen(FullScreenImageEvent event){
+        fullScreenContainer.setVisibility(View.VISIBLE);
+        ImageLoader.getInstance().displayImage(event.getId(),imageViewFullScreen);
     }
 
     private void displayChat(ChatInfo info){
