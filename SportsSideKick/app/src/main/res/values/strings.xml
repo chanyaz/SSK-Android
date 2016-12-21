@@ -64,6 +64,11 @@
     <string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-en.html</string>
     <string name="days">" Days "</string>
     <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+    <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
+    <string name="button_allow">Allow</string>
+    <string name="button_deny">Deny</string>
+    <string name="permission_microphone_denied">You need to enable micrphone in settings to send audio messages.</string>
+    <string name="permission_microphone_neverask">Never ask for audio recording permission again.</string>
 
     <plurals name="days_until_match">
         <item quantity="zero">TODAY</item>

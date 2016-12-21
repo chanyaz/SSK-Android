@@ -2,10 +2,8 @@ package tv.sportssidekick.sportssidekick.model.im;
 
 import android.util.Log;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
 
 /**
@@ -17,10 +15,7 @@ import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
 public class ImTest {
 
         public void beginTest(){
-            EventBus.getDefault().register(this);
-            Model.getInstance().getAllUsersInfo();
-            ImModel.getInstance().reload(Model.getInstance().getUserInfo().getUserId());
-            ImModel.getInstance().getAllPublicChats();
+
         }
 
         @Subscribe

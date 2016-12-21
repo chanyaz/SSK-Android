@@ -1,11 +1,16 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
 
+import android.Manifest;
 import android.animation.LayoutTransition;
-import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +18,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,16 +35,26 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.ChatHeadsAdapter;
 import tv.sportssidekick.sportssidekick.adapter.MessageAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImModel;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
@@ -51,6 +67,8 @@ import tv.sportssidekick.sportssidekick.util.OnSwipeTouchListener;
 /**
  * A simple {@link BaseFragment} subclass.
  */
+
+@RuntimePermissions
 public class ChatFragment extends BaseFragment {
 
     private static final String TAG = "CHAT Fragment";
@@ -92,19 +110,9 @@ public class ChatFragment extends BaseFragment {
         infoMessage.setVisibility(View.GONE);
         sendButton.setVisibility(View.GONE);
 
-        imageCloseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fullScreenContainer.setVisibility(View.GONE);
-            }
-        });
+        imageCloseButton.setOnClickListener(v -> fullScreenContainer.setVisibility(View.GONE));
 
-        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),"Image is downloaded.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        imageDownloadButton.setOnClickListener(v -> Toast.makeText(getContext(),"Image is downloaded.", Toast.LENGTH_SHORT).show());
 
         EventBus.getDefault().register(this);
         initializeUI();
@@ -151,25 +159,31 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImsMessage message = ImsMessage.getDefaultMessage();
-                message.setText(inputEditText.getText().toString().trim());
-                activeChatInfo.sendMessage(message);
-                inputEditText.setText("");
+        sendButton.setOnClickListener(v -> {
+            ImsMessage message = ImsMessage.getDefaultMessage();
+            message.setText(inputEditText.getText().toString().trim());
+            activeChatInfo.sendMessage(message);
+            inputEditText.setText("");
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            if(activeChatInfo!=null){
+                activeChatInfo.loadPreviouseMessagesPage();
+            } else {
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if(activeChatInfo!=null){
-                    activeChatInfo.loadPreviouseMessagesPage();
-                } else {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
+        micButton.setOnTouchListener((v, event) -> {
+            switch(event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    ChatFragmentPermissionsDispatcher.startRecordingWithCheck(ChatFragment.this);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    stopRecording();
+                    break;
             }
+            return false;
         });
 
         return view;
@@ -223,6 +237,12 @@ public class ChatFragment extends BaseFragment {
                 messageListView.getAdapter().notifyDataSetChanged();
                 messageListView.smoothScrollToPosition(0);
                 break;
+            case FILE_UPLOADED:
+                String downloadUrl = (String) event.getData();
+                ImsMessage message = ImsMessage.getDefaultMessage();
+                message.setImageUrl(downloadUrl);
+                activeChatInfo.sendMessage(message);
+                break;
         }
     }
 
@@ -270,13 +290,9 @@ public class ChatFragment extends BaseFragment {
         videoView.setVideoURI(Uri.parse(event.getId()));
         videoView.start();
 
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                videoView.setVisibility(View.GONE);
-            }
-        });
+        videoView.setOnCompletionListener(mp -> videoView.setVisibility(View.GONE));
     }
+
 
     @Subscribe
     public void showImageFullScreen(FullScreenImageEvent event){
@@ -311,5 +327,101 @@ public class ChatFragment extends BaseFragment {
         swipeRefreshLayout.setEnabled(false);
         infoMessage.setVisibility(View.VISIBLE);
         messageListView.setVisibility(View.INVISIBLE);
+    }
+
+    private MediaRecorder recorder = null;
+    private String filename = null;
+
+    public String getAudioFileName() {
+        filename = Environment.getExternalStorageDirectory().getAbsolutePath();
+        filename += "/audiorecordtest.wav";
+        return filename;
+    }
+
+    @NeedsPermission({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void startRecording() {
+        Toast.makeText(getContext(),"Hold down to record!", Toast.LENGTH_SHORT).show();
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            recorder = new MediaRecorder();
+            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+            recorder.setOutputFile(getAudioFileName());
+            try {
+                recorder.prepare();
+                recorder.start();
+            } catch (Exception e) {
+                Log.e(TAG, "startRecording failed");
+            }
+        }, 250);
+    }
+
+    private void stopRecording() {
+        if(recorder!=null){
+            try {
+                recorder.stop();
+                recorder.release();
+                Toast.makeText(getContext(),"Recording stopped.", Toast.LENGTH_SHORT).show();
+                playAudio(filename);
+                recorder = null;
+            } catch (Exception e) {
+                Log.e(TAG, "stopRecording failed!");
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (recorder != null) {
+            recorder.release();
+            recorder = null;
+        }
+    }
+
+    private void playAudio(String url){
+//        try {
+//            MediaPlayer player = new MediaPlayer();
+//            player.setDataSource(url);
+//            player.prepare();
+//            player.start();
+//
+//            player.setOnCompletionListener(MediaPlayer::release);
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//        }
+        try {
+            InputStream inputStream = new FileInputStream(filename);
+            Model.getInstance().saveDataFile("ANDROID_FILE_UPLOAD" + System.currentTimeMillis() + ".aac",inputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnShowRationale({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showRationaleForCamera(final PermissionRequest request) {
+        new AlertDialog.Builder(getContext())
+                .setMessage(R.string.permission_microphone_rationale)
+                .setPositiveButton(R.string.button_allow, (dialog, button) -> request.proceed())
+                .setNegativeButton(R.string.button_deny, (dialog, button) -> request.cancel())
+                .show();
+    }
+
+    @OnPermissionDenied({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showDeniedForCamera() {
+        Toast.makeText(getContext(), R.string.permission_microphone_denied, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnNeverAskAgain({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showNeverAskForCamera() {
+        Toast.makeText(getContext(), R.string.permission_microphone_neverask, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // NOTE: delegate the permission handling to generated method
+        ChatFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 }

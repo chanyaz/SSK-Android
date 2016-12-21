@@ -54,7 +54,9 @@ public class FirebaseEvent extends BusEvent {
     }
 
     public enum Type {
-        ALL_USERS_ACQUIRED,
+        LOGIN_SUCCESSFUL,
+        LOGIN_FAILED,
+        ALL_DATA_ACQUIRED,
         NEW_MESSAGE,
         NEW_MESSAGE_ADDED,
         NEXT_PAGE_LOADED,
@@ -67,7 +69,7 @@ public class FirebaseEvent extends BusEvent {
         CHAT_DELETED_PROCESSED,
         USER_INFO_BY_ID,
         PUBLIC_CHAT_DETECTED,
-        USER_CHAT_DETECTED,
+        USER_CHAT_DETECTED, SIGNED_OUT, FILE_UPLOADED,
     }
 
 }

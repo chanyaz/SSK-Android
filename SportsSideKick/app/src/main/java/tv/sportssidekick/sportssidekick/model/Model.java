@@ -1,8 +1,12 @@
 package tv.sportssidekick.sportssidekick.model;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -10,13 +14,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import tv.sportssidekick.sportssidekick.model.im.ImModel;
 import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
 
 public class Model {
@@ -32,67 +42,80 @@ public class Model {
         }
         return instance;
     }
-    private FirebaseAuth.AuthStateListener authStateListener;
 
     public UserInfo getUserInfo() {
         return userInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
-
     private UserInfo userInfo;
-    HashMap<String, UserInfo> userCache;
-    DatabaseReference userInfoRef;
-    DatabaseReference onlineUserIndexRef;
+    private HashMap<String, UserInfo> userCache;
+    private DatabaseReference userInfoRef;
+    //private DatabaseReference onlineUserIndexRef;
 
+    private StorageReference storageRef;
+    FirebaseAuth mAuth;
     private Model() {
+        mAuth = FirebaseAuth.getInstance();
         ref = FirebaseDatabase.getInstance();
         userCache = new HashMap<>();
         userInfoRef = ref.getReference("usersInfo");
-        onlineUserIndexRef = ref.getReference("onlineUsersIndex");
+        //onlineUserIndexRef = ref.getReference("onlineUsersIndex");
+        FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                final FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // Attach a listener to read the data at our User Info reference
-                    String userId = user.getUid();
-                    ref.getReference("usersInfo").child(userId).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Log.d(TAG, "The read is successful: " + dataSnapshot);
-                            userInfo = dataSnapshot.getValue(UserInfo.class);
-                            userInfo.setUserId(dataSnapshot.getKey());
-                            EventBus.getDefault().post(userInfo);
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.d(TAG, "The read failed: " + databaseError.getCode());
-                        }
-                    });
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        String storageURL = firebaseRemoteConfig.getString("storageURL");
+        if(TextUtils.isEmpty(storageURL)){
+            storageURL = "gs://sportssidekickdev.appspot.com";
+        }
+        storageRef = storage.getReferenceFromUrl(storageURL);
+    }
+
+    private FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            final FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                Log.d(TAG, "onAuthStateChanged: signed_in:" + user.getUid());
+                final String userId = user.getUid();
+                ImModel.getInstance().getAllPublicChats();
+                getAllUsersInfo();
+                // Attach a listener to read the data at our User Info reference
+                userInfoRef.child(userId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        userInfo = dataSnapshot.getValue(UserInfo.class);
+                        userInfo.setUserId(userId);
+                        EventBus.getDefault().post(new FirebaseEvent("Login successful!", FirebaseEvent.Type.LOGIN_SUCCESSFUL, userInfo));
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        EventBus.getDefault().post(new FirebaseEvent("Login failed (canceled)!", FirebaseEvent.Type.LOGIN_FAILED, null));
+                    }
+                });
+            } else {
+                EventBus.getDefault().post(new FirebaseEvent("Signed out.", FirebaseEvent.Type.SIGNED_OUT, null));
             }
-        };
+        }
+    };
 
+    public void attachAuthStateListener(){
+        mAuth.addAuthStateListener(authStateListener);
+    }
 
+    public void signIn(String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                EventBus.getDefault().post(new FirebaseEvent("Login failed (Error)!", FirebaseEvent.Type.LOGIN_FAILED, null));
+            }
+        });
     }
 
     public FirebaseDatabase getDatabase(){
         return ref;
     }
 
-    public FirebaseAuth.AuthStateListener getAuthStateListener() {
-        return authStateListener;
-    }
-
-    // TODO DO we really need this?
-    public void getAllUsersInfo(){
+    private void getAllUsersInfo(){
         userInfoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,7 +131,8 @@ public class Model {
                     usersInfo.add(cachedInfo);
 
                 }
-                EventBus.getDefault().post(new FirebaseEvent("All users downloaded", FirebaseEvent.Type.ALL_USERS_ACQUIRED, usersInfo));
+                ImModel.getInstance().reload(userInfo.getUserId());
+                EventBus.getDefault().post(new FirebaseEvent("All users downloaded", FirebaseEvent.Type.ALL_DATA_ACQUIRED, usersInfo));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
@@ -121,7 +145,6 @@ public class Model {
      * so the notification my be fired before this call returnes.
      *
      * @param  userId user id
-     * @return void
      **/
     public void getUserInfoById(String userId) {
         UserInfo info = userCache.get(userId);
@@ -157,5 +180,28 @@ public class Model {
         } else {
             return info;
         }
+    }
+
+    /////////////
+    /// FILES ///
+    /////////////
+
+    public void saveDataFile(String filename, InputStream stream){
+        StorageReference filesRef = storageRef.child("images").child(filename);
+        UploadTask uploadTask = filesRef.putStream(stream);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                EventBus.getDefault().post(new FirebaseEvent("File uploaded!", FirebaseEvent.Type.FILE_UPLOADED, downloadUrl.toString()));
+            }
+        });
+
     }
 }
