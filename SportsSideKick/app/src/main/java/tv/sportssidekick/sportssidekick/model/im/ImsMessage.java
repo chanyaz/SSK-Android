@@ -1,7 +1,8 @@
 package tv.sportssidekick.sportssidekick.model.im;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.HashMap;
-import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.FirebseObject;
 import tv.sportssidekick.sportssidekick.model.Model;
@@ -14,14 +15,34 @@ import tv.sportssidekick.sportssidekick.model.Model;
 
 public class ImsMessage extends FirebseObject {
 
+    private static final float ASPECT_RATIO_DEFAULT = 0.5625f;
     private String text;
     private String senderId;
-    private float imageAspectRatio; // TODO default is  = 0.5625;
+    private float imageAspectRatio;
     private String timestamp;
     private HashMap<String, Boolean> wasReadBy;
+    @Exclude
     private boolean readFlag = false;
     private String imageUrl;
     private String vidUrl;
+
+
+    @Exclude
+    public long getTimestampEpoh() {
+        return timestampEpoh;
+    }
+
+    @Exclude
+    private long timestampEpoh;
+
+
+    public void initializeTimestamp(){
+        if(timestamp!=null){
+            timestampEpoh = Long.valueOf(timestamp.replace(".",""))/100;
+        } else {
+            timestampEpoh = 0;
+        }
+    }
 
     public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {
         this.text = text;
@@ -30,7 +51,17 @@ public class ImsMessage extends FirebseObject {
         this.imageUrl = imageUrl;
     }
 
-    public ImsMessage() {
+    public ImsMessage(){}
+
+    public static ImsMessage getDefaultMessage() {
+        ImsMessage message = new ImsMessage();
+        message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
+        long currentTime = System.currentTimeMillis();
+        String str = String.valueOf(currentTime);
+        str = new StringBuilder(str).insert(str.length()-2, ".").append("33").toString();
+        message.setTimestamp(str);
+        message.setSenderId(Model.getInstance().getUserInfo().getUserId());
+        return message;
     }
 
     // TODO ReadBy - detect if read by this user?
@@ -79,7 +110,8 @@ public class ImsMessage extends FirebseObject {
         return this;
     }
 
-    public boolean isReadFlag() {
+    @Exclude
+    public boolean getReadFlag() {
         return readFlag;
     }
 

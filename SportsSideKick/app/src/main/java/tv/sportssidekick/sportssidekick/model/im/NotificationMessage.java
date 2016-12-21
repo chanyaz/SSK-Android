@@ -14,6 +14,14 @@ public class NotificationMessage {
     private String senderName;
     private String message;
 
+    public NotificationMessage(String chatId, boolean newIM, String senderId, String senderName, String message) {
+        this.chatId = chatId;
+        this.newIM = newIM;
+        this.senderId = senderId;
+        this.senderName = senderName;
+        this.message = message;
+    }
+
     public String getChatId() {
         return chatId;
     }

@@ -316,11 +316,11 @@ public class ImModel {
     // do not use this function, call the chat info one!
     public void imsSendMessageToChat(ChatInfo chatInfo,ImsMessage message){
         // create a child reference with a unique key.
-        DatabaseReference messageRef = imsChatsInfoRef.child(chatInfo.getId()).child("messages").push();
+        DatabaseReference messageRef = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").push();
         message.setId(messageRef.getKey());
         messageRef.setValue(message);
 
-        UserInfo uinfo = Model.getInstance().getCachedUserInfoById(getUserId());
+        UserInfo uinfo = Model.getInstance().getCachedUserInfoById(message.getSenderId());
         if(TextUtils.isEmpty(message.getText())){
             message.setText("");
         }
@@ -328,12 +328,12 @@ public class ImModel {
         NotificationMessage notificationQueueMessage = new NotificationMessage();
         notificationQueueMessage.setChatId(chatInfo.getId());
         notificationQueueMessage.setNewIM(true);
-        notificationQueueMessage.setSenderId(getUserId());
+        notificationQueueMessage.setSenderId(message.getSenderId());
         notificationQueueMessage.setSenderName(uinfo.getNicName());
         notificationQueueMessage.setMessage(message.getText());
 
         DatabaseReference notificationRef = imsNotificationQueueRef.push();
-        notificationRef.setValue(notificationRef);
+        notificationRef.setValue(notificationQueueMessage);
     }
 
     private final static int K_MESSAGES_PER_PAGE = 25;
@@ -351,6 +351,7 @@ public class ImModel {
                     ImsMessage message = child.getValue(ImsMessage.class);
                     String messageId = child.getKey();
                     message.setId(messageId);
+                    message.initializeTimestamp();
                     FirebaseEvent fe = new FirebaseEvent("New message detected.", FirebaseEvent.Type.NEW_MESSAGE, message);
                     fe.setFilterId(chatInfoId);
                     EventBus.getDefault().post(fe);
@@ -367,6 +368,8 @@ public class ImModel {
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         if (!dataSnapshot.getKey().equals(lastKeyFinal)){
                             ImsMessage message = dataSnapshot.getValue(ImsMessage.class);
+                            message.setId(dataSnapshot.getKey());
+                            message.initializeTimestamp();
                             FirebaseEvent fe = new FirebaseEvent("New message added.", FirebaseEvent.Type.NEW_MESSAGE_ADDED, message);
                             fe.setFilterId(chatInfoId);
                             EventBus.getDefault().post(fe);
@@ -393,17 +396,21 @@ public class ImModel {
     public void imsLoadNextPageOfMessages(ChatInfo chatInfo){
         List<ImsMessage> messages = chatInfo.getMessages();
         String lastMessageId = messages.get(0).getId();
-        Query messagesQuery = imsChatsMessagesRef.child(chatInfo.getId()).child("messages")
-                .orderByKey().limitToLast(K_MESSAGES_PER_PAGE+1).endAt(lastMessageId);
+        Query messagesQuery = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE+1).endAt(lastMessageId);
+        final String chatInfoId = chatInfo.getId();
         messagesQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<ImsMessage> messagesNewPage = new ArrayList<>();
                 for(DataSnapshot snap : dataSnapshot.getChildren()){
                     ImsMessage message = snap.getValue(ImsMessage.class);
+                    message.setId(snap.getKey());
+                    message.initializeTimestamp();
                     messagesNewPage.add(message);
                 }
-                EventBus.getDefault().post(new FirebaseEvent("Next messages page loaded.", FirebaseEvent.Type.NEXT_PAGE_LOADED, messagesNewPage));
+                FirebaseEvent fe = new FirebaseEvent("Next messages page loaded.", FirebaseEvent.Type.NEXT_PAGE_LOADED, messagesNewPage);
+                fe.setFilterId(chatInfoId);
+                EventBus.getDefault().post(fe);
             }
 
             @Override
@@ -420,6 +427,8 @@ public class ImModel {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 ImsMessage message = dataSnapshot.getValue(ImsMessage.class);
+                message.setId(dataSnapshot.getKey());
+                message.initializeTimestamp();
                 EventBus.getDefault().post(new FirebaseEvent("Message is changed/updated.", FirebaseEvent.Type.MESSAGE_UPDATED, message));
             }
             @Override

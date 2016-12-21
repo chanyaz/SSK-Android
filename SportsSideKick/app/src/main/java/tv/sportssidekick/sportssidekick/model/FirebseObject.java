@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick.model;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -9,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
  */
 public class FirebseObject {
 
+    @Exclude
     public String getId() {
         return id;
     }
@@ -18,6 +20,7 @@ public class FirebseObject {
         return this;
     }
 
+    @Exclude
     private String id;
 
     public void loadKey(DatabaseReference reference){

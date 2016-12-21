@@ -5,15 +5,18 @@ import android.animation.LayoutTransition;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.GestureDetectorCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,6 +41,7 @@ import tv.sportssidekick.sportssidekick.adapter.MessageAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImModel;
+import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
 import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
 import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
@@ -50,45 +54,30 @@ import tv.sportssidekick.sportssidekick.util.OnSwipeTouchListener;
 public class ChatFragment extends BaseFragment {
 
     private static final String TAG = "CHAT Fragment";
-
-    private GestureDetectorCompat mDetector;
-
-    public ChatFragment() {
-        // Required empty public constructor
-    }
-
     @BindView(R.id.message_container) RecyclerView messageListView;
     @BindView(R.id.chat_heads_view) RecyclerView chatHeadsView;
     @BindView(R.id.progress_bar) AVLoadingIndicatorView progressBar;
-
     @BindView(R.id.input_container) View inputContainer;
     @BindView(R.id.chats_container) RelativeLayout chatHeadsContainer;
     @BindView(R.id.outer_chats_container) RelativeLayout chatHeadsContainerOuter;
     @BindView(R.id.bottom_create_chat_container) RelativeLayout bottomCreateChatContainer;
-    @BindView(R.id.info_message)
-    TextView infoMessage;
+    @BindView(R.id.info_message) TextView infoMessage;
+    @BindView(R.id.down_arrow) ImageView downArrow;
+    @BindView(R.id.messenger_send_button) Button sendButton;
+    @BindView(R.id.mic_button) Button micButton;
+    @BindView(R.id.video_view) VideoView videoView;
+    @BindView(R.id.image_fullscreen) ImageView imageViewFullScreen;
+    @BindView(R.id.full_screen_container) RelativeLayout fullScreenContainer;
+    @BindView(R.id.close_image_button) ImageView imageCloseButton;
+    @BindView(R.id.input_edit_text) EditText inputEditText;
+    @BindView(R.id.download_image_button) ImageView imageDownloadButton;
+    @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
 
-    @BindView(R.id.down_arrow)
-    ImageView downArrow;
+    ChatInfo activeChatInfo;
 
-    @BindView(R.id.mic_button)
-    Button micButton;
-
-    @BindView(R.id.video_view)
-    VideoView videoView;
-    @BindView(R.id.image_fullscreen)
-    ImageView imageViewFullScreen;
-
-    @BindView(R.id.full_screen_container)
-    RelativeLayout fullScreenContainer;
-
-    @BindView(R.id.close_image_button)
-    ImageView imageCloseButton;
-    @BindView(R.id.download_image_button)
-    ImageView imageDownloadButton;
-
-
-    boolean isExpanded;
+    public ChatFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,6 +90,7 @@ public class ChatFragment extends BaseFragment {
         messageListView.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         infoMessage.setVisibility(View.GONE);
+        sendButton.setVisibility(View.GONE);
 
         imageCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +108,7 @@ public class ChatFragment extends BaseFragment {
 
         EventBus.getDefault().register(this);
         initializeUI();
-        isExpanded = false;
+      //  isExpanded = false;
 
         LayoutTransition layoutTransition = new LayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
@@ -137,10 +127,56 @@ public class ChatFragment extends BaseFragment {
                 hideGridChats();
             }
         });
+
+         //Add textWatcher to notify the user
+        inputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Before user enters the text
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //On user changes the text
+                if(s.toString().trim().length()==0) {
+                    sendButton.setVisibility(View.GONE);
+                } else {
+                    sendButton.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //After user is done entering the text
+
+            }
+        });
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImsMessage message = ImsMessage.getDefaultMessage();
+                message.setText(inputEditText.getText().toString().trim());
+                activeChatInfo.sendMessage(message);
+                inputEditText.setText("");
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(activeChatInfo!=null){
+                    activeChatInfo.loadPreviouseMessagesPage();
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
+
         return view;
     }
 
     private void hideGridChats(){
+        swipeRefreshLayout.setEnabled(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         final float scale = getContext().getResources().getDisplayMetrics().density;
         int pixels = (int) (60 * scale + 0.5f); // 60dp
@@ -149,17 +185,16 @@ public class ChatFragment extends BaseFragment {
         bottomCreateChatContainer.setVisibility(View.GONE);
         messageListView.setVisibility(View.VISIBLE);
         downArrow.setVisibility(View.VISIBLE);
-        isExpanded = false;
     }
 
     private void showGridChats(){
+        swipeRefreshLayout.setEnabled(false);
         chatHeadsContainer.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
         chatHeadsView.setLayoutManager(layoutManager);
         bottomCreateChatContainer.setVisibility(View.VISIBLE);
         messageListView.setVisibility(View.GONE);
         downArrow.setVisibility(View.GONE);
-        isExpanded = true;
     }
 
     @Override
@@ -170,12 +205,24 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void onChatEventDetected(FirebaseEvent event){
-        if( event.getEventType().equals(FirebaseEvent.Type.USER_CHAT_DETECTED)){
-            Log.d(TAG, "USER_CHAT_DETECTED event received.");
-            initializeUI();
-        } else if (event.getEventType().equals(FirebaseEvent.Type.PUBLIC_CHAT_DETECTED)){
-            Log.d(TAG, "PUBLIC_CHAT_DETECTED event received.");
-            initializeUI();
+        Log.d(TAG, "event received: " + event.getEventType());
+        switch (event.getEventType()){
+            case USER_CHAT_DETECTED:
+                initializeUI();
+                break;
+            case PUBLIC_CHAT_DETECTED:
+                initializeUI();
+                break;
+            case NEW_MESSAGE_ADDED:
+                messageListView.getAdapter().notifyDataSetChanged();
+                int lastMessagePosition = messageListView.getAdapter().getItemCount() == 0 ? 0 : messageListView.getAdapter().getItemCount();
+                messageListView.smoothScrollToPosition(lastMessagePosition);
+                break;
+            case NEXT_PAGE_LOADED:
+                swipeRefreshLayout.setRefreshing(false);
+                messageListView.getAdapter().notifyDataSetChanged();
+                messageListView.smoothScrollToPosition(0);
+                break;
         }
     }
 
@@ -238,9 +285,12 @@ public class ChatFragment extends BaseFragment {
     }
 
     private void displayChat(ChatInfo info){
+        activeChatInfo = info;
         if(info.getMessages()!=null){
             // Message container initialization
             if(info.getMessages().size()>0){
+                swipeRefreshLayout.setEnabled(true);
+                messageListView.setVisibility(View.VISIBLE);
                 infoMessage.setVisibility(View.INVISIBLE);
                 Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
 
@@ -257,7 +307,9 @@ public class ChatFragment extends BaseFragment {
         } else {
             Log.d(TAG, "Message array is null!");
         }
+        swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setEnabled(false);
         infoMessage.setVisibility(View.VISIBLE);
-
+        messageListView.setVisibility(View.INVISIBLE);
     }
 }

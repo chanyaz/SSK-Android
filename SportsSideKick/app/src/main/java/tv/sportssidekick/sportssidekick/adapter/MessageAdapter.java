@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.adapter;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -40,26 +41,29 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private ChatInfo chatInfo;
     private Context context;
     private static LayoutInflater inflater = null;
+    private static final int VIEW_TYPE_MESSAGE_THIS_USER = 0;
+    private static final int VIEW_TYPE_MESSAGE_OTHER_USERS = 1;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public View view;
-        @BindView(R.id.text) public TextView textView;
-        @BindView(R.id.timestamp) public TextView timeTextView;
-        @BindView(R.id.sender) public TextView senderTextView;
-        @BindView(R.id.profile_image) public CircleImageView senderImageView;
-        @BindView(R.id.content_image) public ImageView contentImage;
-        @BindView(R.id.play_button) public ImageView playButton;
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ViewHolder(View v) {
-            super(v);
-            view = v;
+        View view;
+        @BindView(R.id.text) TextView textView;
+        @BindView(R.id.timestamp) TextView timeTextView;
+        @BindView(R.id.sender) TextView senderTextView;
+        @Nullable @BindView(R.id.profile_image) CircleImageView senderImageView;
+        @BindView(R.id.content_image) ImageView contentImage;
+        @BindView(R.id.play_button) ImageView playButton;
+
+        ViewHolder(View view) {
+            super(view);
+            this.view = view;
             ButterKnife.bind(this, view);
         }
     }
 
 
     public MessageAdapter(Context context, ChatInfo chatInfo) {
+        setHasStableIds(true);
         this.chatInfo = chatInfo;
         this.context = context;
         if (context != null) {
@@ -69,7 +73,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.message_item, parent, false);
+        View view;
+        if (viewType == VIEW_TYPE_MESSAGE_THIS_USER) {
+            view = inflater.inflate(R.layout.message_item_user, parent, false);
+        } else {
+            view = inflater.inflate(R.layout.message_item, parent, false);
+        }
         return new ViewHolder(view);
     }
 
@@ -78,11 +87,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         ImsMessage message = chatInfo.getMessages().get(position);
 
-        UserInfo info = Model.getInstance().getCachedUserInfoById(message.getSenderId());
-        String senderImageUrl = info.getCircularAvatarUrl();
-        ImageLoader.getInstance().displayImage(senderImageUrl,holder.senderImageView,imageOptions);
-        holder.senderTextView.setText(info.getNicName());
-        String timeago = DateUtils.getRelativeTimeSpanString(Long.valueOf(message.getTimestamp().replace(".",""))/1000).toString();
+        if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS){
+            UserInfo info = Model.getInstance().getCachedUserInfoById(message.getSenderId());
+            String senderImageUrl = info.getCircularAvatarUrl();
+            ImageLoader.getInstance().displayImage(senderImageUrl,holder.senderImageView,imageOptions);
+            holder.senderTextView.setText(info.getNicName());
+        }
+        String timeago = DateUtils.getRelativeTimeSpanString(message.getTimestampEpoh()).toString();
         holder.timeTextView.setText(timeago);
 
         final String imageUrl = message.getImageUrl();
@@ -152,12 +163,23 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return chatInfo.getMessages().get(i).getTimestampEpoh();
     }
 
     @Override
     public int getItemCount() {
         return chatInfo.getMessages().size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        ImsMessage message = chatInfo.getMessages().get(position);
+        UserInfo info = Model.getInstance().getUserInfo();
+        if(info.getUserId().equals(message.getSenderId())){
+           return VIEW_TYPE_MESSAGE_THIS_USER;
+        } else {
+            return VIEW_TYPE_MESSAGE_OTHER_USERS;
+        }
     }
 
 }
