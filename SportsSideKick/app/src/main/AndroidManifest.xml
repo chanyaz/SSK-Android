@@ -3,7 +3,7 @@
     package="tv.sportssidekick.sportssidekick">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
@@ -44,6 +44,16 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="tv.sportssidekick.sportssidekick.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
 
     </application>
 

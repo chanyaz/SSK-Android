@@ -69,7 +69,12 @@ public class FirebaseEvent extends BusEvent {
         CHAT_DELETED_PROCESSED,
         USER_INFO_BY_ID,
         PUBLIC_CHAT_DETECTED,
-        USER_CHAT_DETECTED, SIGNED_OUT, FILE_UPLOADED,
+        USER_CHAT_DETECTED,
+        SIGNED_OUT,
+        AUDIO_FILE_UPLOADED,
+        MESSAGE_IMAGE_FILE_UPLOADED,
+        VIDEO_IMAGE_FILE_UPLOADED,
+        VIDEO_FILE_UPLOADED,
     }
 
 }

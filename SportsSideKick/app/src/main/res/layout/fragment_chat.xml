@@ -137,10 +137,8 @@
             android:id="@+id/mic_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
             android:background="@mipmap/button_voice" />
 
         <Button
@@ -148,25 +146,22 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
             android:layout_toEndOf="@+id/mic_button"
             android:background="@mipmap/button_camera" />
 
         <Button
             android:id="@+id/pic_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_margin="8dp"
             android:layout_toEndOf="@id/cam_button"
             android:background="@mipmap/button_image" />
 
         <Button
-            android:id="@+id/settings_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:id="@+id/vid_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_margin="8dp"
             android:layout_toEndOf="@id/pic_button"
             android:background="@mipmap/button_image" />
 
@@ -174,7 +169,7 @@
             android:id="@+id/input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/settings_button"
+            android:layout_toEndOf="@+id/vid_button"
             android:layout_toStartOf="@+id/messenger_send_button"
             android:background="@color/green_dark_2"
             android:gravity="start|center_vertical"

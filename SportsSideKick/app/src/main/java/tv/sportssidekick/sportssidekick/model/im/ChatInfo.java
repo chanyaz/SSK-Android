@@ -8,7 +8,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -189,12 +188,7 @@ public class ChatInfo extends FirebseObject {
                         }
                     }
 
-                    Collections.sort(messages, new Comparator<ImsMessage>() {
-                        @Override
-                        public int compare(ImsMessage lhs, ImsMessage rhs) {
-                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
-                        }
-                    });
+                    Collections.sort(messages, (lhs, rhs) -> lhs.getTimestamp().compareTo(rhs.getTimestamp()));
                     break;
             }
         }

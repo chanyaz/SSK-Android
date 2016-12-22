@@ -1,5 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.im;
 
+import android.text.format.DateUtils;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
@@ -44,6 +46,18 @@ public class ImsMessage extends FirebseObject {
         }
     }
 
+    @Exclude
+    public String getTimeAgo(){
+        String timeago = DateUtils.getRelativeTimeSpanString(timestampEpoh).toString();
+        if(timeago.equals("0 minutes ago")){
+            timeago = "Just Now";
+        } else {
+            timeago = timeago.replace(" minutes","m");
+            timeago = timeago.replace(" minute","m");
+        }
+        return timeago;
+    }
+
     public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {
         this.text = text;
         this.senderId = senderId;
@@ -58,7 +72,7 @@ public class ImsMessage extends FirebseObject {
         message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
         long currentTime = System.currentTimeMillis();
         String str = String.valueOf(currentTime);
-        str = new StringBuilder(str).insert(str.length()-2, ".").append("33").toString();
+        str = new StringBuilder(str).insert(str.length()-3, ".").append("33").toString();
         message.setTimestamp(str);
         message.setSenderId(Model.getInstance().getUserInfo().getUserId());
         return message;

@@ -5,7 +5,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +40,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  */
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
+    private static final String TAG = "Message Adapter";
     private ChatInfo chatInfo;
     private Context context;
     private static LayoutInflater inflater = null;
@@ -93,8 +96,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             ImageLoader.getInstance().displayImage(senderImageUrl,holder.senderImageView,imageOptions);
             holder.senderTextView.setText(info.getNicName());
         }
-        String timeago = DateUtils.getRelativeTimeSpanString(message.getTimestampEpoh()).toString();
-        holder.timeTextView.setText(timeago);
+        holder.timeTextView.setText(message.getTimeAgo());
 
         final String imageUrl = message.getImageUrl();
         String videoUrl = message.getVidUrl();
@@ -168,7 +170,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return chatInfo.getMessages().size();
+        List messages = chatInfo.getMessages();
+        if(messages!=null){
+            return messages.size();
+        } else {
+            Log.d(TAG, "List of messages is null for chat: " + chatInfo.getId());
+            return 0;
+        }
     }
 
     @Override

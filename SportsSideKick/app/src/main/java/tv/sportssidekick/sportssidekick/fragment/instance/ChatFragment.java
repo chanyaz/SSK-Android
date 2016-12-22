@@ -3,12 +3,15 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 import android.Manifest;
 import android.animation.LayoutTransition;
+import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
@@ -35,9 +38,8 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,6 +74,9 @@ import tv.sportssidekick.sportssidekick.util.OnSwipeTouchListener;
 public class ChatFragment extends BaseFragment {
 
     private static final String TAG = "CHAT Fragment";
+    public static final int REQUEST_CODE_IMAGE_CAPTURE = 201;
+    public static final int REQUEST_CODE_IMAGE_PICK = 301;
+    public static final int REQUEST_CODE_VIDEO_CAPTURE = 401;
     @BindView(R.id.message_container) RecyclerView messageListView;
     @BindView(R.id.chat_heads_view) RecyclerView chatHeadsView;
     @BindView(R.id.progress_bar) AVLoadingIndicatorView progressBar;
@@ -83,6 +88,9 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.down_arrow) ImageView downArrow;
     @BindView(R.id.messenger_send_button) Button sendButton;
     @BindView(R.id.mic_button) Button micButton;
+    @BindView(R.id.cam_button) Button camButton;
+    @BindView(R.id.pic_button) Button picButton;
+    @BindView(R.id.vid_button) Button vidButton;
     @BindView(R.id.video_view) VideoView videoView;
     @BindView(R.id.image_fullscreen) ImageView imageViewFullScreen;
     @BindView(R.id.full_screen_container) RelativeLayout fullScreenContainer;
@@ -116,7 +124,6 @@ public class ChatFragment extends BaseFragment {
 
         EventBus.getDefault().register(this);
         initializeUI();
-      //  isExpanded = false;
 
         LayoutTransition layoutTransition = new LayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
@@ -124,14 +131,12 @@ public class ChatFragment extends BaseFragment {
 
         downArrow.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
             public void onSwipeBottom() {
-                Log.d(TAG, "onSwipeBottom - showGridChats");
                 showGridChats();
             }
         });
 
         bottomCreateChatContainer.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
             public void onSwipeTop() {
-                Log.d(TAG, "onSwipeTop - hideGridChats");
                 hideGridChats();
             }
         });
@@ -139,13 +144,10 @@ public class ChatFragment extends BaseFragment {
          //Add textWatcher to notify the user
         inputEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //Before user enters the text
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //On user changes the text
                 if(s.toString().trim().length()==0) {
                     sendButton.setVisibility(View.GONE);
                 } else {
@@ -153,10 +155,7 @@ public class ChatFragment extends BaseFragment {
                 }
             }
             @Override
-            public void afterTextChanged(Editable s) {
-                //After user is done entering the text
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
         sendButton.setOnClickListener(v -> {
@@ -186,8 +185,43 @@ public class ChatFragment extends BaseFragment {
             return false;
         });
 
+        camButton.setOnClickListener((v) -> {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                File photoFile = null;
+                try {
+                    photoFile = Model.createImageFile(getContext());
+                    currentPath = photoFile.getAbsolutePath();
+                } catch (IOException ex) {
+                    // Error occurred while creating the File
+                }
+                if (photoFile != null) {
+                    Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                }
+                startActivityForResult(takePictureIntent, REQUEST_CODE_IMAGE_CAPTURE);
+            }
+
+        });
+        picButton.setOnClickListener((v) -> {
+            Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(pickPhoto , REQUEST_CODE_IMAGE_PICK);//one can be replaced with any action code
+        });
+
+        vidButton .setOnClickListener((v) -> {
+            Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(takeVideoIntent, REQUEST_CODE_VIDEO_CAPTURE);
+            }
+        });
+
         return view;
     }
+
+    private MediaRecorder recorder = null;
+    private String audioFilepath = null;
+    String currentPath;
+    String videoDownloadUrl;
 
     private void hideGridChats(){
         swipeRefreshLayout.setEnabled(true);
@@ -237,13 +271,48 @@ public class ChatFragment extends BaseFragment {
                 messageListView.getAdapter().notifyDataSetChanged();
                 messageListView.smoothScrollToPosition(0);
                 break;
-            case FILE_UPLOADED:
+            case MESSAGE_IMAGE_FILE_UPLOADED:
+            case AUDIO_FILE_UPLOADED:
                 String downloadUrl = (String) event.getData();
                 ImsMessage message = ImsMessage.getDefaultMessage();
                 message.setImageUrl(downloadUrl);
                 activeChatInfo.sendMessage(message);
                 break;
+            case VIDEO_FILE_UPLOADED:
+                videoDownloadUrl = (String) event.getData();
+                Model.getInstance().uploadVideoRecordingThumbnail(currentPath);
+                break;
+            case VIDEO_IMAGE_FILE_UPLOADED:
+                String videoThumbnailDownloadUrl = (String) event.getData();
+                ImsMessage messageVideo = ImsMessage.getDefaultMessage();
+                messageVideo.setVidUrl(videoDownloadUrl);
+                messageVideo.setImageUrl(videoThumbnailDownloadUrl);
+                activeChatInfo.sendMessage(messageVideo);
+                break;
         }
+    }
+
+    @Subscribe
+    public void onUIChatEventDetected(UIEvent event){
+        HashMap<String, ChatInfo> allUserChats = ImModel.getInstance().getUserChats();
+        String chatId = event.getId();
+        Log.d(TAG, "Displaying Chat with id:" + chatId);
+        displayChat(allUserChats.get(chatId));
+    }
+
+    @Subscribe
+    public void playVideo(PlayVideoEvent event){
+        videoView.setVisibility(View.VISIBLE);
+        videoView.setVideoURI(Uri.parse(event.getId()));
+        videoView.start();
+        videoView.setOnCompletionListener(mp -> videoView.setVisibility(View.GONE));
+    }
+
+    @Subscribe
+    public void showImageFullScreen(FullScreenImageEvent event){
+        fullScreenContainer.setVisibility(View.VISIBLE);
+        String uri = event.getId();
+        ImageLoader.getInstance().displayImage(uri,imageViewFullScreen);
     }
 
     public void initializeUI(){
@@ -276,30 +345,6 @@ public class ChatFragment extends BaseFragment {
         displayChat(initialChatInfo);
     }
 
-    @Subscribe
-    public void onUIChatEventDetected(UIEvent event){
-        HashMap<String, ChatInfo> allUserChats = ImModel.getInstance().getUserChats();
-        String chatId = event.getId();
-        Log.d(TAG, "Displaying Chat with id:" + chatId);
-        displayChat(allUserChats.get(chatId));
-    }
-
-    @Subscribe
-    public void playVideo(PlayVideoEvent event){
-        videoView.setVisibility(View.VISIBLE);
-        videoView.setVideoURI(Uri.parse(event.getId()));
-        videoView.start();
-
-        videoView.setOnCompletionListener(mp -> videoView.setVisibility(View.GONE));
-    }
-
-
-    @Subscribe
-    public void showImageFullScreen(FullScreenImageEvent event){
-        fullScreenContainer.setVisibility(View.VISIBLE);
-        ImageLoader.getInstance().displayImage(event.getId(),imageViewFullScreen);
-    }
-
     private void displayChat(ChatInfo info){
         activeChatInfo = info;
         if(info.getMessages()!=null){
@@ -329,15 +374,6 @@ public class ChatFragment extends BaseFragment {
         messageListView.setVisibility(View.INVISIBLE);
     }
 
-    private MediaRecorder recorder = null;
-    private String filename = null;
-
-    public String getAudioFileName() {
-        filename = Environment.getExternalStorageDirectory().getAbsolutePath();
-        filename += "/audiorecordtest.wav";
-        return filename;
-    }
-
     @NeedsPermission({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void startRecording() {
         Toast.makeText(getContext(),"Hold down to record!", Toast.LENGTH_SHORT).show();
@@ -345,9 +381,10 @@ public class ChatFragment extends BaseFragment {
         handler.postDelayed(() -> {
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-            recorder.setOutputFile(getAudioFileName());
+            audioFilepath = Model.getAudioFileName();
+            recorder.setOutputFile(audioFilepath);
             try {
                 recorder.prepare();
                 recorder.start();
@@ -363,7 +400,7 @@ public class ChatFragment extends BaseFragment {
                 recorder.stop();
                 recorder.release();
                 Toast.makeText(getContext(),"Recording stopped.", Toast.LENGTH_SHORT).show();
-                playAudio(filename);
+                Model.getInstance().uploadAudioRecording(audioFilepath);
                 recorder = null;
             } catch (Exception e) {
                 Log.e(TAG, "stopRecording failed!");
@@ -377,25 +414,6 @@ public class ChatFragment extends BaseFragment {
         if (recorder != null) {
             recorder.release();
             recorder = null;
-        }
-    }
-
-    private void playAudio(String url){
-//        try {
-//            MediaPlayer player = new MediaPlayer();
-//            player.setDataSource(url);
-//            player.prepare();
-//            player.start();
-//
-//            player.setOnCompletionListener(MediaPlayer::release);
-//        } catch (Exception e) {
-//            // TODO: handle exception
-//        }
-        try {
-            InputStream inputStream = new FileInputStream(filename);
-            Model.getInstance().saveDataFile("ANDROID_FILE_UPLOAD" + System.currentTimeMillis() + ".aac",inputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
@@ -421,7 +439,31 @@ public class ChatFragment extends BaseFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // NOTE: delegate the permission handling to generated method
         ChatFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if(resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_IMAGE_CAPTURE:
+                    Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
+                    Model.getInstance().uploadImageForMessage(currentPath);
+                    break;
+                case REQUEST_CODE_IMAGE_PICK:
+                    Uri selectedImageURI = intent.getData();
+                    Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
+                    String realPath = Model.getRealPathFromURI(getContext(),selectedImageURI);
+                    Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
+                    Model.getInstance().uploadImageForMessage(realPath);
+                    break;
+                case REQUEST_CODE_VIDEO_CAPTURE:
+                    Uri videoUri = intent.getData();
+                    Log.d(TAG, "VIDEO URI IS: " + videoUri.toString());
+                    currentPath = Model.getRealPathFromURI(getContext(),videoUri);
+                    Model.getInstance().uploadVideoRecording(currentPath);
+                    break;
+            }
+        }
     }
 }

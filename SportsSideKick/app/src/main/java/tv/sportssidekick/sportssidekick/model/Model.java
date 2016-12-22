@@ -1,6 +1,12 @@
 package tv.sportssidekick.sportssidekick.model;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +27,12 @@ import com.google.firebase.storage.UploadTask;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -186,7 +198,104 @@ public class Model {
     /// FILES ///
     /////////////
 
-    public void saveDataFile(String filename, InputStream stream){
+    //user_photo_square_jtRp5Be3N3OuV1IH7m7FxfMhT6Q21480609791.59482.png
+    //user_photo_rounded_H9g3RugXkzLcvqCn1aKSnWm9KIC31480012799.68699.png
+    //_groupChatAvatar_1481051718.21099.png
+
+
+    //video_sLqHBMbL3BQNgddTK0a4wmPfuA531480240655.74631.mov
+    public void uploadVideoRecording(String filepath){
+        String filename =
+                "video_" +
+                userInfo.getUserId() +
+                System.currentTimeMillis() +
+                ".mov";
+        try {
+            InputStream inputStream = new FileInputStream(filepath);
+            saveDataFile(filename,inputStream, FirebaseEvent.Type.VIDEO_FILE_UPLOADED);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //video_thumb_sLqHBMbL3BQNgddTK0a4wmPfuA531480240556.36911.jpg
+    public void uploadVideoRecordingThumbnail(String filepath){
+
+        String filename = "video_thumb_" + userInfo.getUserId() +  System.currentTimeMillis() + ".jpg";
+        Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.MINI_KIND);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        ByteArrayInputStream bs = new ByteArrayInputStream(bitmapdata);
+
+        saveDataFile(filename,bs, FirebaseEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
+    }
+
+    //photo_sLqHBMbL3BQNgddTK0a4wmPfuA531480082543.52176.jpg
+    public void uploadImageForMessage(String filepath){
+        String filename =
+                "photo_" +
+                userInfo.getUserId() +
+                System.currentTimeMillis() +
+                ".jpg";
+        try {
+            InputStream inputStream = new FileInputStream(filepath);
+            saveDataFile(filename,inputStream, FirebaseEvent.Type.MESSAGE_IMAGE_FILE_UPLOADED);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //voiceRecording_jtRp5Be3N3OuV1IH7m7FxfMhT6Q21481227362.30166.caf
+    public void uploadAudioRecording(String filepath){
+        String filename =
+                "voiceRecording_" +
+                userInfo.getUserId() +
+                System.currentTimeMillis() +
+                ".caf";
+        try {
+            InputStream inputStream = new FileInputStream(filepath);
+            saveDataFile(filename,inputStream, FirebaseEvent.Type.AUDIO_FILE_UPLOADED);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getAudioFileName() {
+        String filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        filepath += "/audiorecord.aac";
+        return filepath;
+    }
+
+    public static File createImageFile(Context context) throws IOException {
+        // Create an image file name
+        String imageFileName = "JPEG_" + System.currentTimeMillis() + "_";
+        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+    }
+
+    public static String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return  cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+    private void saveDataFile(String filename, InputStream stream, FirebaseEvent.Type type){
         StorageReference filesRef = storageRef.child("images").child(filename);
         UploadTask uploadTask = filesRef.putStream(stream);
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -199,7 +308,7 @@ public class Model {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                EventBus.getDefault().post(new FirebaseEvent("File uploaded!", FirebaseEvent.Type.FILE_UPLOADED, downloadUrl.toString()));
+                EventBus.getDefault().post(new FirebaseEvent("File uploaded!", type, downloadUrl.toString()));
             }
         });
 

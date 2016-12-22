@@ -100,6 +100,8 @@ public class LoungeActivity extends AppCompatActivity {
         radioButtonWall.setChecked(true);
         radioButtonChat.setChecked(true);
         radioButtonClubTV.setChecked(true);
+
+        setupFragments();
     }
 
     private void setupFragments(){
@@ -135,7 +137,6 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        setupFragments();
     }
 
     @Override
