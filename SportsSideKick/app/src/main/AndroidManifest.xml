@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".activity.LoungeActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustNothing">
+            android:windowSoftInputMode="adjustPan">
         </activity>
 
         <activity

@@ -284,7 +284,7 @@ public class ChatInfo extends FirebseObject {
             }
             ImModel.getInstance().deleteChat(this);
         }else{ // if im not the owner I remove myself from the chat
-            ImModel.getInstance().removeChatFromChatList(this);
+            ImModel.getInstance().removeChatInfoWithId(getId());
             ImModel.getInstance().deleteUserFromChat(this,currentUserId);
         }
         messages.clear();

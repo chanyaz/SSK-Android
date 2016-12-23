@@ -40,8 +40,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -294,10 +292,9 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void onUIChatEventDetected(UIEvent event){
-        HashMap<String, ChatInfo> allUserChats = ImModel.getInstance().getUserChats();
-        String chatId = event.getId();
-        Log.d(TAG, "Displaying Chat with id:" + chatId);
-        displayChat(allUserChats.get(chatId));
+        int currentPosition = event.getPosition();
+        displayChat(ImModel.getInstance().getUserChatsList().get(currentPosition));
+
     }
 
     @Subscribe
@@ -317,7 +314,7 @@ public class ChatFragment extends BaseFragment {
 
     public void initializeUI(){
         Log.d(TAG, "Initialize Chat UI");
-        HashMap<String, ChatInfo> allUserChats = ImModel.getInstance().getUserChats();
+        List<ChatInfo> allUserChats = ImModel.getInstance().getUserChatsList();
 
         if(allUserChats.size()==0){
             Log.d(TAG, "There are no chats, leaving...");
@@ -332,17 +329,13 @@ public class ChatFragment extends BaseFragment {
         messageListView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
 
-        List<ChatInfo> chats = new ArrayList<>();
-        chats.addAll(allUserChats.values());
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         chatHeadsView.setLayoutManager(layoutManager);
 
-        ChatHeadsAdapter chatHeadsAdapter = new ChatHeadsAdapter(chats, getContext());
+        ChatHeadsAdapter chatHeadsAdapter = new ChatHeadsAdapter();
         chatHeadsView.setAdapter(chatHeadsAdapter);
 
-        ChatInfo initialChatInfo = chats.get(0);
-        displayChat(initialChatInfo);
+        displayChat(allUserChats.get(0));
     }
 
     private void displayChat(ChatInfo info){

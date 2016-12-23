@@ -42,6 +42,7 @@ public class ImModel {
     private DatabaseReference imsUserChatsIndexRef;
     private DatabaseReference imsNotificationQueueRef;
     private HashMap<String, ChatInfo> chatInfoCache;
+    List<ChatInfo> chatInfoCacheList;
     private List<ChatInfo> publicChatsInfo;
 
     private ImModel() {
@@ -53,6 +54,7 @@ public class ImModel {
         imsUserChatsIndexRef = imsChatsRef.child("usersChatsIndex");//root for all user chat activity
         imsNotificationQueueRef = ref.getReference("queue-notify-im/tasks"); // notification queue
         chatInfoCache = new HashMap<>();
+        chatInfoCacheList = new ArrayList<>();
         publicChatsInfo = new ArrayList<>();
         UserInfo userInfo = Model.getInstance().getUserInfo();
         if(userInfo!=null){
@@ -76,6 +78,7 @@ public class ImModel {
 
     public void clear(){
         chatInfoCache.clear();
+        chatInfoCacheList.clear();
         publicChatsInfo = null;
     }
 
@@ -96,10 +99,31 @@ public class ImModel {
      * @return [String : ChatInfo] chats info list
      */
 
-    public HashMap<String, ChatInfo> getUserChats() {
-        return chatInfoCache;
+//    public HashMap<String, ChatInfo> getUserChats() {
+//        return chatInfoCache;
+//    }
+
+    public List<ChatInfo> getUserChatsList() {
+        return chatInfoCacheList;
     }
 
+    public ChatInfo getChatInfoById(String chatId){
+        return  chatInfoCache.get(chatId);
+    }
+
+    public boolean removeChatInfoWithId(String chatId){
+        if(chatInfoCache.containsKey(chatId)){
+            ChatInfo info = chatInfoCache.remove(chatId);
+            chatInfoCacheList.remove(info);
+            return true;
+        }
+        return false;
+    }
+
+    private void addChatInfoToCache(ChatInfo info){
+        chatInfoCache.put(info.getId(),info);
+        chatInfoCacheList.add(info);
+    }
     /**
      * getAllPublicChats returnes a list of all public chats in the system. you will need to listen to notifyGetAllPublicChats
      * to receive the updated list of public chats
@@ -152,6 +176,7 @@ public class ImModel {
     }
 
 
+
     ChildEventListener userChatsEventListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -165,12 +190,10 @@ public class ImModel {
         @Override
         public void onChildRemoved(DataSnapshot dataSnapshot) {
             String chatId = dataSnapshot.getKey();
-            ChatInfo info = chatInfoCache.get(chatId);
+            ChatInfo info = getChatInfoById(chatId);
             if(info!=null){
                 info.wasRemovedByOwner();
-                if(chatInfoCache.containsValue(info)){
-                    chatInfoCache.remove(info);
-                }
+                removeChatInfoWithId(chatId);
             }
             EventBus.getDefault().post(new FirebaseEvent("Chat removed.", FirebaseEvent.Type.CHAT_REMOVED, chatId));
         }
@@ -205,12 +228,12 @@ public class ImModel {
                     return;
                 }
 
-                ChatInfo existingChatInfo = chatInfoCache.get(chatId);
+                ChatInfo existingChatInfo = getChatInfoById(chatId);
                 if(iAmIn){
                     if(existingChatInfo != null && existingChatInfo.getId()!=null) {   // Got new chat with key that is already set
                         existingChatInfo.setEqualTo(info);
                     } else { // its not cached yet.
-                        chatInfoCache.put(chatId,info);
+                        addChatInfoToCache(info);
                     }
                     EventBus.getDefault().post(new FirebaseEvent("Chat detected.", FirebaseEvent.Type.USER_CHAT_DETECTED, chatId));
                     Log.d(TAG, "Loading chat users and messages for " + chatId);
@@ -219,7 +242,7 @@ public class ImModel {
                 } else {
                     if(existingChatInfo != null && existingChatInfo.getId()!=null){
                         existingChatInfo.wasRemovedByOwner();
-                        chatInfoCache.remove(chatId);
+                        removeChatInfoWithId(chatId);
                     } else {
                         info.wasRemovedByOwner();
                     }
@@ -254,7 +277,7 @@ public class ImModel {
             DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(key);
             userChatsRef.setValue("notify");
         }
-        chatInfoCache.put(chatInfo.getId(),chatInfo);
+        addChatInfoToCache(chatInfo);
         chatInfo.loadChatUsers();
         chatInfo.loadMessages();
         if(chatInfo.getIsPublic()){
@@ -299,14 +322,9 @@ public class ImModel {
 
     //you shouldnt use this function directly, call delete on the chatInfo object
     public void deleteChat(ChatInfo chatInfo){
-        removeChatFromChatList(chatInfo);
+        removeChatInfoWithId(chatInfo.getId());
         DatabaseReference chatRef = imsChatsInfoRef.child(chatInfo.getId());
         chatRef.removeValue();
-    }
-
-    //you shouldnt use this function !!
-    public void removeChatFromChatList(ChatInfo chatInfo){
-        chatInfoCache.remove(chatInfo.getId());
     }
 
     /**

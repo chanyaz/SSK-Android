@@ -1,9 +1,9 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
+import tv.sportssidekick.sportssidekick.model.im.ImModel;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
@@ -38,68 +39,104 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     private static final int VIEW_TYPE_FOOTER = 1;
     private static final int VIEW_TYPE_CELL = 2;
     private static final String TAG = "Chat Heads Adapter";
-    private List<ChatInfo> dataset;
-    private Context context;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    // Start with first item selected
+    private int focusedItem = 0;
+    private List<ChatInfo> values;
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.profile_image_1) public ImageView firstImage;
-        @Nullable @BindView(R.id.profile_image_2) public ImageView secondImage;
-        @Nullable @BindView(R.id.profile_image_3) public ImageView thirdImage;
-        @Nullable @BindView(R.id.profile_image_4)  public ImageView fourthImage;
-        @Nullable @BindView(R.id.second_container)  public View secondContainer;
+        @Nullable @BindView(R.id.profile_image_1) ImageView firstImage;
+        @Nullable @BindView(R.id.profile_image_2) ImageView secondImage;
+        @Nullable @BindView(R.id.profile_image_3) ImageView thirdImage;
+        @Nullable @BindView(R.id.profile_image_4) ImageView fourthImage;
+        @Nullable @BindView(R.id.second_container) View secondContainer;
+        @Nullable @BindView(R.id.selected) View selectedRingView;
 
-        @Nullable @BindView(R.id.caption) public TextView chatCaption;
-        @Nullable @BindView(R.id.people_count_value) public TextView userCount;
+        @Nullable @BindView(R.id.caption) TextView chatCaption;
+        @Nullable @BindView(R.id.people_count_value) TextView userCount;
 
-        public ViewHolder(View v) {
+        ViewHolder(View v) {
             super(v);
             view = v;
             ButterKnife.bind(this, view);
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public ChatHeadsAdapter(List<ChatInfo> dataset, Context context) {
-        this.context = context;
-        this.dataset = dataset;
+    public ChatHeadsAdapter() {
+        values = ImModel.getInstance().getUserChatsList();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(final RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        // Handle key up and key down and attempt to move selection
+        recyclerView.setOnKeyListener((v, keyCode, event) -> {
+            RecyclerView.LayoutManager lm = recyclerView.getLayoutManager();
+
+            // Return false if scrolled to the bounds and allow focus to move off the list
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    return tryMoveSelection(lm, 1);
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    return tryMoveSelection(lm, -1);
+                }
+            }
+            return false;
+        });
+    }
+
+    private boolean tryMoveSelection(RecyclerView.LayoutManager lm, int direction) {
+        int tryFocusItem = focusedItem + direction;
+        // If still within valid bounds, move the selection, notify to redraw, and scroll
+        if (tryFocusItem >= 0 && tryFocusItem < getItemCount()) {
+            notifyItemChanged(focusedItem);
+            focusedItem = tryFocusItem;
+            notifyItemChanged(focusedItem);
+            lm.scrollToPosition(focusedItem);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return (position == dataset.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_CELL;
+        return (position == values.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_CELL;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public ChatHeadsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        ViewHolder viewHolder;
         if (viewType == VIEW_TYPE_CELL) {
             // create a new view
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_head_item, parent, false);
-            return  new ViewHolder(view);
+            viewHolder = new ViewHolder(view);
+            view.setOnClickListener(v -> {
+                notifyItemChanged(focusedItem);
+                focusedItem = viewHolder.getLayoutPosition();
+                notifyItemChanged(focusedItem);
+                EventBus.getDefault().post(new UIEvent(focusedItem));
+            });
+            return  viewHolder;
         }
         else {
-            //Create view holder for your footer view
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_chat_button, parent, false);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(parent.getContext(), "To be implemented (create chat).", Toast.LENGTH_SHORT).show();
-                }
-            });
-            return new ViewHolder(view);
+            viewHolder = new ViewHolder(view);
+            view.setOnClickListener(
+                    view1 -> Toast.makeText(parent.getContext(),
+                            "To be implemented (create chat).", Toast.LENGTH_SHORT
+                    ).show());
+            return viewHolder;
         }
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        if (position < dataset.size()) { // don't take the last element!
-            final ChatInfo info = dataset.get(position);
+        if (position < values.size()) { // don't take the last element!
+            final ChatInfo info = values.get(position);
             int size = -1;
             if(info.getUsersIds()!=null){
                 size = info.getUsersIds().size();
@@ -158,18 +195,18 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             holder.userCount.setText(String.valueOf(size));
             holder.chatCaption.setText(info.getChatTitle());
 
-            holder.view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    EventBus.getDefault().post(new UIEvent(info.getId()));
-                }
-            });
+            holder.view.setTag(position);
+
+           if(focusedItem==position){
+               holder.selectedRingView.setVisibility(View.VISIBLE);
+           } else {
+               holder.selectedRingView.setVisibility(View.GONE);
+           }
         }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return dataset.size() + 1;
+        return values.size() + 1;
     }
 }

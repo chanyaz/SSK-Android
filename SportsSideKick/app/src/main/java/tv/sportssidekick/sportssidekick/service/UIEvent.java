@@ -8,7 +8,14 @@ package tv.sportssidekick.sportssidekick.service;
 
 public class UIEvent extends BusEvent {
 
-    public UIEvent(String id) {
-        super(id);
+    int position;
+
+    public UIEvent(int position) {
+        super(null);
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
     }
 }
