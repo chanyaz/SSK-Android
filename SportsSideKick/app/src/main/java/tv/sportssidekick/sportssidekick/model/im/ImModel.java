@@ -379,7 +379,7 @@ public class ImModel {
                     lastKey = "";
                 }
                 final String lastKeyFinal = lastKey;
-                // TODO Why add listener for every message to wait for last message?
+                // Add listener for new child in Chat
                 Query messagesRef = imsChatsMessagesRef.child(chatInfoId).child("messages").limitToLast(1);
                 messagesRef.addChildEventListener(new ChildEventListener() {
                     @Override

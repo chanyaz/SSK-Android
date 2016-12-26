@@ -33,13 +33,11 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
      */
     @Subscribe
     @Override
-    public void onEvent(Object event) {
-        if (event instanceof FragmentEvent) {
+    public void onEvent(FragmentEvent event) {
             FragmentEvent fragmentEvent = (FragmentEvent) event;
             Bundle arguments = new Bundle();
             arguments.putString(BaseFragment.PRIMARY_ARG_TAG, fragmentEvent.getId());
             openFragment(createFragment(fragmentEvent.getType()), arguments, getFragmentContainer(fragmentEvent.getType())); // TODO clean up
-        }
     }
 
     @Override

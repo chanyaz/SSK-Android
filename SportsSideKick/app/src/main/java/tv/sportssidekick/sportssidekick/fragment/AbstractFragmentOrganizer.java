@@ -44,7 +44,7 @@ abstract class AbstractFragmentOrganizer {
     }
 
     @Subscribe
-    protected abstract void onEvent(Object event);
+    protected abstract void onEvent(FragmentEvent event);
 
     public abstract boolean handleBackNavigation();
 

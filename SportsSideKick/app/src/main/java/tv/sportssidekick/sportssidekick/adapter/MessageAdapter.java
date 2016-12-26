@@ -66,7 +66,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
 
     public MessageAdapter(Context context, ChatInfo chatInfo) {
-        setHasStableIds(true);
         this.chatInfo = chatInfo;
         this.context = context;
         if (context != null) {
