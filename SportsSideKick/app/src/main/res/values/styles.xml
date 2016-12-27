@@ -4,7 +4,7 @@
     <style name="Theme.AppCompat.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorAccentLight</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryLight</item>
         <item name="colorControlNormal">@color/light_green_1</item>
         <item name="colorControlActivated">@color/light_green_1</item>
         <item name="colorControlHighlight">@color/light_green_1</item>

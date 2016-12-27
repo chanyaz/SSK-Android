@@ -11,6 +11,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.left.runner.AndroidJUnitRunner"
 
+        renderscriptTargetApi 17
+        renderscriptSupportModeEnabled true
+
         jackOptions {
             enabled true
         }
@@ -62,6 +65,6 @@ dependencies {
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.0'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.0'
 
-
+    compile 'com.kyleduo.switchbutton:library:1.4.4'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -335,5 +335,13 @@
             android:textColor="@drawable/tab_radio_text_color_selector" />
     </RadioGroup>
 
+    <RelativeLayout
+        android:id="@+id/popup_holder"
+        android:visibility="gone"
+        android:clickable="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </RelativeLayout>
 
 </RelativeLayout>

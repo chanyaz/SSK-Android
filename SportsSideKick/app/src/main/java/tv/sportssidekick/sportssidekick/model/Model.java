@@ -46,6 +46,10 @@ public class Model {
     private static final String TAG = "MODEL";
     private static Model instance;
 
+    public FirebaseDatabase getRef() {
+        return ref;
+    }
+
     private FirebaseDatabase ref;
 
     public static Model getInstance(){
@@ -61,11 +65,17 @@ public class Model {
 
     private UserInfo userInfo;
     private HashMap<String, UserInfo> userCache;
+
+    public DatabaseReference getUserInfoRef() {
+        return userInfoRef;
+    }
+
     private DatabaseReference userInfoRef;
     //private DatabaseReference onlineUserIndexRef;
 
     private StorageReference storageRef;
     FirebaseAuth mAuth;
+
     private Model() {
         mAuth = FirebaseAuth.getInstance();
         ref = FirebaseDatabase.getInstance();
@@ -308,7 +318,11 @@ public class Model {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                EventBus.getDefault().post(new FirebaseEvent("File uploaded!", type, downloadUrl.toString()));
+                if(downloadUrl!=null){
+                    EventBus.getDefault().post(new FirebaseEvent("File uploaded!", type, downloadUrl.toString()));
+                } else {
+                    EventBus.getDefault().post(new FirebaseEvent("Something went wrong, file not uploaded!", type, null));
+                }
             }
         });
 

@@ -1,6 +1,8 @@
 package tv.sportssidekick.sportssidekick.activity;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,11 +37,20 @@ import tv.sportssidekick.sportssidekick.fragment.instance.StatisticsFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
+import tv.sportssidekick.sportssidekick.util.BlurBuilder;
+import tv.sportssidekick.sportssidekick.util.BlurEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 public class LoungeActivity extends AppCompatActivity {
+
+    @BindView(R.id.activity_main)
+    View rootView;
+
+    @BindView(R.id.popup_holder)
+    View popupHolder;
 
     @BindView(R.id.tabs_container_1)
     View fragmentContainerLeft;
@@ -87,6 +98,8 @@ public class LoungeActivity extends AppCompatActivity {
 
     FragmentOrganizer fragmentOrganizer;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +115,24 @@ public class LoungeActivity extends AppCompatActivity {
         radioButtonClubTV.setChecked(true);
 
         setupFragments();
+    }
+
+    @Subscribe
+    public void onEvent(BlurEvent event){
+        if(event.isDisplayBlur()){
+            popupHolder.setVisibility(View.VISIBLE);
+            if (rootView.getWidth() > 0) {
+                Bitmap image = BlurBuilder.blur(rootView);
+                popupHolder.setBackground(new BitmapDrawable(this.getResources(), image));
+            } else {
+                rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+                    Bitmap image = BlurBuilder.blur(rootView);
+                    popupHolder.setBackground(new BitmapDrawable(LoungeActivity.this.getResources(), image));
+                });
+            }
+        } else {
+            popupHolder.setVisibility(View.GONE);
+        }
     }
 
     private void setupFragments(){
@@ -126,6 +157,11 @@ public class LoungeActivity extends AppCompatActivity {
         bottomRightContainerFragments.add(ClubTVFragment.class);
         bottomRightContainerFragments.add(ClubRadioFragment.class);
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container,bottomRightContainerFragments);
+
+        ArrayList<Class> popupContainerFragments = new ArrayList<>();
+        popupContainerFragments.add(CreateChatFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments);
+
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));

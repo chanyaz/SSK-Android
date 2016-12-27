@@ -1,4 +1,7 @@
 package tv.sportssidekick.sportssidekick.model;
+
+import java.util.List;
+
 /**
  * Created by Djordje Krutil on 6.12.2016.
  * Copyright by Hypercube d.o.o.
@@ -16,6 +19,7 @@ public class UserInfo extends FirebseObject {
     private String language;
     private String fantasyUUID;
     private String fantasyToken;
+    private List<String> friendshipRequests;
     private boolean isOnline;
 
 
@@ -31,6 +35,7 @@ public class UserInfo extends FirebseObject {
         setFantasyUUID(userInfo.getFantasyUUID());
         setFantasyToken(userInfo.getFantasyToken());
         setOnline(userInfo.isOnline());
+        setFriendshipRequests(userInfo.getFriendshipRequests());
     }
 
     public String getUserId() {
@@ -131,4 +136,12 @@ public class UserInfo extends FirebseObject {
         this.fantasyUUID = fantasyUUID;
     }
 
+    public List<String> getFriendshipRequests() {
+        return friendshipRequests;
+    }
+
+    public UserInfo setFriendshipRequests(List<String> friendshipRequests) {
+        this.friendshipRequests = friendshipRequests;
+        return this;
+    }
 }
