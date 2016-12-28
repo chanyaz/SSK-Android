@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,8 +27,11 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.ChatFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
+import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
+import tv.sportssidekick.sportssidekick.model.im.ImModel;
 import tv.sportssidekick.sportssidekick.util.BlurEvent;
 
 /**
@@ -41,9 +46,14 @@ public class CreateChatFragment extends BaseFragment {
     RecyclerView friendsRecyclerView;
     @BindView(R.id.confirm_button)
     Button confirmButton;
+    @BindView(R.id.chat_name_edit_text)
+    EditText chatNameEditText;
+
     @BindView(R.id.search_edit_text)
     EditText searchEditText;
-    ChatFriendsAdapter chatHeadsAdapter;
+    @BindView(R.id.private_chat_switch)
+    Switch privateChatSwitch;
+    ChatFriendsAdapter chatFriendsAdapter;
 
     List<UserInfo> userInfoList;
 
@@ -61,7 +71,7 @@ public class CreateChatFragment extends BaseFragment {
 
 
         confirmButton.setOnClickListener(v -> {
-            getActivity().onBackPressed();
+            createNewChat();
         });
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
@@ -69,10 +79,16 @@ public class CreateChatFragment extends BaseFragment {
 
         Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends();
         task.addOnSuccessListener(userInfos -> {
-            chatHeadsAdapter = new ChatFriendsAdapter();
-            chatHeadsAdapter.add(userInfos);
+            chatFriendsAdapter = new ChatFriendsAdapter(getContext());
+            for(int i = 0; i <20; i++){
+                UserInfo info = new UserInfo();
+                info.setEqualsTo(userInfos.get(0));
+                info.setUserId("TEST" + i);
+                userInfos.add(info); // for demo!
+            }
+            chatFriendsAdapter.add(userInfos);
             userInfoList = userInfos;
-            friendsRecyclerView.setAdapter(chatHeadsAdapter);
+            friendsRecyclerView.setAdapter(chatFriendsAdapter);
         });
 
         searchEditText.addTextChangedListener(textWatcher);
@@ -81,13 +97,10 @@ public class CreateChatFragment extends BaseFragment {
     }
 
     public void performSearch() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final List<UserInfo> filteredModelList = filter(userInfoList, searchEditText.getText().toString());
-                chatHeadsAdapter.replaceAll(filteredModelList);
-                friendsRecyclerView.scrollToPosition(0);
-            }
+        getActivity().runOnUiThread(() -> {
+            final List<UserInfo> filteredModelList = filter(userInfoList, searchEditText.getText().toString());
+            chatFriendsAdapter.replaceAll(filteredModelList);
+            friendsRecyclerView.scrollToPosition(0);
         });
     }
 
@@ -138,4 +151,23 @@ public class CreateChatFragment extends BaseFragment {
         return filteredModelList;
     }
 
+    public void createNewChat(){
+        List<UserInfo> selectedUsers = chatFriendsAdapter.getSelectedValues();
+        String chatName = chatNameEditText.getText().toString();
+        boolean isPrivate = privateChatSwitch.isChecked();
+
+        ChatInfo newChatInfo = new ChatInfo();
+        newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
+        newChatInfo.setIsPublic(isPrivate);
+        newChatInfo.setName(chatName);
+        HashMap<String,Boolean> userIds = new HashMap<>();
+        for(UserInfo info : selectedUsers){
+            userIds.put(info.getUserId(), true);
+        }
+        userIds.put(newChatInfo.getOwner(),true);
+        newChatInfo.setUsersIds(userIds);
+
+        ImModel.getInstance().createNewChat(newChatInfo);
+        getActivity().onBackPressed();
+    }
 }

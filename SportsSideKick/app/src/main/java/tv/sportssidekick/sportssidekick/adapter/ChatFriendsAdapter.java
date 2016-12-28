@@ -1,9 +1,11 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
+import android.content.Context;
+import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -36,8 +39,13 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
     private static final int VIEW_TYPE_CELL = 2;
     private static final String TAG = "Chat Friends Adapter";
 
-    // Start with first item selected
-    private int focusedItem = 0;
+    Context context;
+
+    public List<UserInfo> getSelectedValues() {
+        return selectedValues;
+    }
+
+    private List<UserInfo> selectedValues;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -53,46 +61,16 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
         }
     }
 
-    public ChatFriendsAdapter() {
+    public ChatFriendsAdapter(Context context) {
+        selectedValues = new ArrayList<>();
+        this.context = context;
     }
 
-    @Override
-    public void onAttachedToRecyclerView(final RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-
-        // Handle key up and key down and attempt to move selection
-        recyclerView.setOnKeyListener((v, keyCode, event) -> {
-            RecyclerView.LayoutManager lm = recyclerView.getLayoutManager();
-
-            // Return false if scrolled to the bounds and allow focus to move off the list
-            if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                    return tryMoveSelection(lm, 1);
-                } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                    return tryMoveSelection(lm, -1);
-                }
-            }
-            return false;
-        });
-    }
-
-    private boolean tryMoveSelection(RecyclerView.LayoutManager lm, int direction) {
-        int tryFocusItem = focusedItem + direction;
-        // If still within valid bounds, move the selection, notify to redraw, and scroll
-        if (tryFocusItem >= 0 && tryFocusItem < getItemCount()) {
-            notifyItemChanged(focusedItem);
-            focusedItem = tryFocusItem;
-            notifyItemChanged(focusedItem);
-            lm.scrollToPosition(focusedItem);
-            return true;
-        }
-
-        return false;
-    }
 
     @Override
     public int getItemViewType(int position) {
-        return (position == values.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_CELL;
+//        return (position == values.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_CELL;
+        return VIEW_TYPE_CELL;
     }
 
     @Override
@@ -103,10 +81,14 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_friend_item, parent, false);
             viewHolder = new ViewHolder(view);
             view.setOnClickListener(v -> {
-//                notifyItemChanged(focusedItem);
-//                focusedItem = viewHolder.getLayoutPosition();
-//                notifyItemChanged(focusedItem);
-//                EventBus.getDefault().post(new UIEvent(focusedItem));
+                int focusedItem = viewHolder.getLayoutPosition();
+                UserInfo info = values.get(focusedItem);
+                if(selectedValues.contains(info)){
+                    selectedValues.remove(info);
+                } else {
+                    selectedValues.add(info);
+                }
+                notifyItemChanged(focusedItem);
             });
             return  viewHolder;
         }
@@ -127,13 +109,21 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
                     DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
                     ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.image,imageOptions);
             holder.chatCaption.setText(info.getFirstName()  + " " + info.getLastName());
+
+            if(selectedValues.contains(info)){
+                holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
+            } else {
+                holder.image.setColorFilter(null);
+            }
+
             holder.view.setTag(position);
         }
     }
 
     @Override
     public int getItemCount() {
-        return values.size() + 1;
+//        return values.size() + 1;
+        return values.size();
     }
 
 
@@ -141,7 +131,7 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
         @Override
         public int compare(UserInfo a, UserInfo b) {
             return (a.getFirstName()+a.getLastName()+a.getNicName()).compareTo
-                    (b.getFirstName()+b.getLastName()+b.getNicName());
+                (b.getFirstName()+b.getLastName()+b.getNicName());
         }
     };
 

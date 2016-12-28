@@ -3,7 +3,6 @@ package tv.sportssidekick.sportssidekick.adapter;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,39 +67,6 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
         values = ImModel.getInstance().getUserChatsList();
     }
 
-    @Override
-    public void onAttachedToRecyclerView(final RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-
-        // Handle key up and key down and attempt to move selection
-        recyclerView.setOnKeyListener((v, keyCode, event) -> {
-            RecyclerView.LayoutManager lm = recyclerView.getLayoutManager();
-
-            // Return false if scrolled to the bounds and allow focus to move off the list
-            if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                    return tryMoveSelection(lm, 1);
-                } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-                    return tryMoveSelection(lm, -1);
-                }
-            }
-            return false;
-        });
-    }
-
-    private boolean tryMoveSelection(RecyclerView.LayoutManager lm, int direction) {
-        int tryFocusItem = focusedItem + direction;
-        // If still within valid bounds, move the selection, notify to redraw, and scroll
-        if (tryFocusItem >= 0 && tryFocusItem < getItemCount()) {
-            notifyItemChanged(focusedItem);
-            focusedItem = tryFocusItem;
-            notifyItemChanged(focusedItem);
-            lm.scrollToPosition(focusedItem);
-            return true;
-        }
-
-        return false;
-    }
 
     @Override
     public int getItemViewType(int position) {
@@ -115,9 +81,9 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_head_item, parent, false);
             viewHolder = new ViewHolder(view);
             view.setOnClickListener(v -> {
-                notifyItemChanged(focusedItem);
+                notifyItemChanged(focusedItem);  // notify previous item!
                 focusedItem = viewHolder.getLayoutPosition();
-                notifyItemChanged(focusedItem);
+                notifyItemChanged(focusedItem); // notify new item
                 EventBus.getDefault().post(new UIEvent(focusedItem));
             });
             return  viewHolder;

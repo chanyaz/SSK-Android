@@ -263,28 +263,28 @@ public class ImModel {
      */
 
     public void createNewChat(ChatInfo chatInfo){
-//        DatabaseReference newChatRef = imsChatsInfoRef.push();
-//        String key = newChatRef.getKey();
-//        chatInfo.setId(key);
-//        chatInfo.setOwner(getUserId());
-//        if(chatInfo.getUsersIds().size()==0){
-//            HashMap<String, Boolean> userIds = new HashMap<>();
-//            userIds.put(getUserId(), true);
-//            chatInfo.setUsersIds(userIds);
-//        }
-//        newChatRef.setValue(chatInfo);
-//        for(String uid : chatInfo.getUsersIds().keySet()){
-//            DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(key);
-//            userChatsRef.setValue("notify");
-//        }
-//        addChatInfoToCache(chatInfo);
-//        chatInfo.loadChatUsers();
-//        chatInfo.loadMessages();
-//        if(chatInfo.getIsPublic()){
-//            DatabaseReference publicIndexRef  = imsPublicChatsIndexRef.child(chatInfo.getId());
-//            publicIndexRef.setValue(true);
-//        }
-//        EventBus.getDefault().post(new FirebaseEvent("Chat created.", FirebaseEvent.Type.CHAT_CREATED, key));
+        DatabaseReference newChatRef = imsChatsInfoRef.push();
+        String key = newChatRef.getKey();
+        chatInfo.setId(key);
+        chatInfo.setOwner(getUserId());
+        if(chatInfo.getUsersIds().size()==0){
+            HashMap<String, Boolean> userIds = new HashMap<>();
+            userIds.put(getUserId(), true);
+            chatInfo.setUsersIds(userIds);
+        }
+        newChatRef.setValue(chatInfo);
+        for(String uid : chatInfo.getUsersIds().keySet()){
+            DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(key);
+            userChatsRef.setValue("notify");
+        }
+        addChatInfoToCache(chatInfo);
+        chatInfo.loadChatUsers();
+        chatInfo.loadMessages();
+        if(chatInfo.getIsPublic()){
+            DatabaseReference publicIndexRef  = imsPublicChatsIndexRef.child(chatInfo.getId());
+            publicIndexRef.setValue(true);
+        }
+        EventBus.getDefault().post(new FirebaseEvent("Chat created.", FirebaseEvent.Type.CHAT_CREATED, key));
     }
 
 
