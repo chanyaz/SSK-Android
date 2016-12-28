@@ -2,6 +2,9 @@ package tv.sportssidekick.sportssidekick.model.friendship;
 
 import android.text.TextUtils;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -41,13 +44,15 @@ public class PeopleSearchManager {
      *
      */
 
-    public void searchPeople(String searchString){
+    public Task<List<UserInfo>> searchPeople(String searchString){
         lastSearchKey = searchString.toLowerCase();
+        TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+        List<UserInfo> usersInfo = new ArrayList<>();
 
         if(TextUtils.isEmpty(searchString)){
-            return;
+            source.setResult(usersInfo);
+            return source.getTask();
         }
-        List<UserInfo> usersInfo = new ArrayList<>();
 
         Model.getInstance().getRef()
                 .getReference("userSearchKeys")
@@ -58,11 +63,20 @@ public class PeopleSearchManager {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<Task<UserInfo>> tasks = new ArrayList<>();
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             String uid = child.getKey();
-                            UserInfo info = Model.getInstance().getCachedUserInfoById(uid);
-                            // TODO Emit results?
+                            Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
+                            tasks.add(task);
                         }
+                        Tasks.whenAll(tasks).addOnSuccessListener(aVoid -> {
+                            List<UserInfo> userInfoList = new ArrayList<>();
+                            for(Task t : tasks){
+                                userInfoList.add((UserInfo) t.getResult());
+                            }
+                            usersInfo.addAll(userInfoList);
+                            source.setResult(usersInfo);
+                        });
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) { }
@@ -77,11 +91,20 @@ public class PeopleSearchManager {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<Task<UserInfo>> tasks = new ArrayList<>();
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             String uid = child.getKey();
-                            UserInfo info = Model.getInstance().getCachedUserInfoById(uid);
-                            // TODO Emit results?
+                            Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
+                            tasks.add(task);
                         }
+                        Tasks.whenAll(tasks).addOnSuccessListener(aVoid -> {
+                            List<UserInfo> userInfoList = new ArrayList<>();
+                            for(Task t : tasks){
+                                userInfoList.add((UserInfo) t.getResult());
+                            }
+                            usersInfo.addAll(userInfoList);
+                            source.setResult(usersInfo);
+                        });
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) { }
@@ -96,14 +119,25 @@ public class PeopleSearchManager {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<Task<UserInfo>> tasks = new ArrayList<>();
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             String uid = child.getKey();
-                            UserInfo info = Model.getInstance().getCachedUserInfoById(uid);
-                            // TODO Emit results?
+                            Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
+                            tasks.add(task);
                         }
+                        Tasks.whenAll(tasks).addOnSuccessListener(aVoid -> {
+                            List<UserInfo> userInfoList = new ArrayList<>();
+                            for(Task t : tasks){
+                                userInfoList.add((UserInfo) t.getResult());
+                            }
+                            usersInfo.addAll(userInfoList);
+                            source.setResult(usersInfo);
+                        });
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) { }
                 });
+
+        return source.getTask();
     }
 }

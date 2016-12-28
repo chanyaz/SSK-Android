@@ -13,6 +13,8 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -100,7 +102,6 @@ public class Model {
                 Log.d(TAG, "onAuthStateChanged: signed_in:" + user.getUid());
                 final String userId = user.getUid();
                 ImModel.getInstance().getAllPublicChats();
-                getAllUsersInfo();
                 // Attach a listener to read the data at our User Info reference
                 userInfoRef.child(userId).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -114,6 +115,14 @@ public class Model {
                         EventBus.getDefault().post(new FirebaseEvent("Login failed (canceled)!", FirebaseEvent.Type.LOGIN_FAILED, null));
                     }
                 });
+                Task<List<UserInfo>> getAllUserInfoTask = getAllUsersInfo();
+
+                getAllUserInfoTask.addOnSuccessListener(userInfos -> {
+                    ImModel.getInstance().reload(userInfo.getUserId());
+                    EventBus.getDefault().post(new FirebaseEvent("All users downloaded", FirebaseEvent.Type.ALL_DATA_ACQUIRED, userInfos));
+                });
+
+
             } else {
                 EventBus.getDefault().post(new FirebaseEvent("Signed out.", FirebaseEvent.Type.SIGNED_OUT, null));
             }
@@ -137,14 +146,17 @@ public class Model {
         return ref;
     }
 
-    private void getAllUsersInfo(){
-        userInfoRef.addValueEventListener(new ValueEventListener() {
+
+
+    private Task<List<UserInfo>> getAllUsersInfo(){
+        TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+        userInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<UserInfo> usersInfo = new ArrayList<>();
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     UserInfo userInfo = child.getValue(UserInfo.class);
-                    UserInfo cachedInfo = userCache.get(userInfo.getUserId());
+                    UserInfo cachedInfo = getCachedUserInfoById(userInfo.getUserId());
                     if(cachedInfo!=null){
                         cachedInfo.setEqualsTo(userInfo);
                     } else {
@@ -153,56 +165,97 @@ public class Model {
                     usersInfo.add(cachedInfo);
 
                 }
-                ImModel.getInstance().reload(userInfo.getUserId());
-                EventBus.getDefault().post(new FirebaseEvent("All users downloaded", FirebaseEvent.Type.ALL_DATA_ACQUIRED, usersInfo));
+                source.setResult(usersInfo);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+        return source.getTask();
+    }
+
+
+
+    /**
+     * this func return the userInfo related to the given user ID, it first
+     * tryes to retrieve the info from cache if not found it will be fetched from DB
+     * so the notification my be fired before this call returns.
+     *
+     * @param  userId user id
+     * @return Task<UserInfo> task that will be run on complete
+     *
+     **/
+    public Task<UserInfo> getUserInfoById(String userId) {
+        TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+        UserInfo info = getCachedUserInfoById(userId);
+        if(info!=null){
+            source.setResult(info);
+            return source.getTask();
+        } else {
+            userInfoRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    UserInfo info = parseAndCacheUserInfo(dataSnapshot);
+                    source.setResult(info);
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    source.setException(new Exception("Database Error"));
+                }
+            });
+            return source.getTask();
+        }
+    }
+
+    private UserInfo parseAndCacheUserInfo(DataSnapshot dataSnapshot) {
+        UserInfo info = dataSnapshot.getValue(UserInfo.class);
+        info.setUserId(dataSnapshot.getKey());
+        UserInfo cachedInfo = getCachedUserInfoById(info.getUserId());
+        if (cachedInfo != null) {
+            cachedInfo.setEqualsTo(info);
+        } else {
+            userCache.put(info.getUserId(), info);
+        }
+        return info;
     }
 
     /**
      * this func return the userInfo related to the given user ID, it first
      * tryes to retrieve the info from cache if not found it will be fetched from DB
-     * so the notification my be fired before this call returnes.
+     * so the notification my be fired before this call returns.
      *
-     * @param  userId user id
+     * @callback  to receive the userInfo
+     * @return Task<UserInfo> task that will be run on complete
      **/
-    public void getUserInfoById(String userId) {
-        UserInfo info = userCache.get(userId);
+    public Task<UserInfo> fetchOnceUserInfoById(String userId) {
+        UserInfo info = getCachedUserInfoById(userId);
+        TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         if(info!=null){
-            EventBus.getDefault().post(new FirebaseEvent("User Info found in cache.", FirebaseEvent.Type.USER_INFO_BY_ID, info));
+            source.setResult(info);
+            return source.getTask();
         } else {
-            DatabaseReference thisUserInfoRef = userInfoRef.child(userId);
-            thisUserInfoRef.addValueEventListener(new ValueEventListener() {
+            userInfoRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    UserInfo uInfo = dataSnapshot.getValue(UserInfo.class);
-                    uInfo.setUserId(dataSnapshot.getKey());
-                    UserInfo cachedInfo = userCache.get(uInfo.getUserId());
-                    if(cachedInfo!=null){
-                        cachedInfo.setEqualsTo(uInfo);
-                    } else {
-                        userCache.put(uInfo.getUserId(), uInfo);
-                    }
-                    EventBus.getDefault().post(new FirebaseEvent("User Info downloaded", FirebaseEvent.Type.USER_INFO_BY_ID, uInfo));
+                    UserInfo info = parseAndCacheUserInfo(dataSnapshot);
+                    source.setResult(info);
                 }
                 @Override
-                public void onCancelled(DatabaseError databaseError) {}
+                public void onCancelled(DatabaseError databaseError) {  }
             });
         }
+        return source.getTask();
     }
 
-    // TODO Hide this to internal method
+
+
     public UserInfo getCachedUserInfoById(String userId) {
-        UserInfo info = userCache.get(userId);
-        if(info==null){
-            // getUserInfoById(userId); // TODO Requested, what happens when null is returned?
-            return null;
-        } else {
-            return info;
+        if(userCache.containsKey(userId)){
+            return userCache.get(userId);
         }
+        return null;
     }
+
+
 
     /////////////
     /// FILES ///
@@ -325,6 +378,7 @@ public class Model {
                 }
             }
         });
-
     }
+
+
 }

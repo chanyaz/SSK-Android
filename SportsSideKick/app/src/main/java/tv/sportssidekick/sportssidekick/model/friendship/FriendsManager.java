@@ -13,19 +13,19 @@ package tv.sportssidekick.sportssidekick.model.friendship;
 //--                                                                                     --//
 //-----------------------------------------------------------------------------------------//
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
-import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
 
 /**
  * Friendship relations are stored under the path:  /friendshipIndex/<user id> -<friend user id>: true
@@ -70,9 +70,11 @@ public class FriendsManager {
      *
      * @return the user friends list
      */
-    public void getFriends(){
+    public Task<List<UserInfo>> getFriends(){
+        TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
         UserInfo info = Model.getInstance().getUserInfo();
         DatabaseReference ref = Model.getInstance().getRef().getReference("friendshipIndex").child(info.getUserId());
+
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -80,13 +82,25 @@ public class FriendsManager {
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     String userInfoId = child.getKey();
                     friendsIds.add(userInfoId);
-                    // TODO Get user info for id?
                 }
-                EventBus.getDefault().post(new FirebaseEvent("All friends Ids downloaded", FirebaseEvent.Type.FRIEND_DOWNLOADED, friendsIds));
+                List<Task<UserInfo>> tasks = new ArrayList<>();
+                for(String id : friendsIds){
+                    Task<UserInfo> task = Model.getInstance().getUserInfoById(id);
+                    tasks.add(task);
+                }
+                Tasks.whenAll(tasks).addOnSuccessListener(aVoid -> {
+                    List<UserInfo> userInfoList = new ArrayList<>();
+                    for(Task t : tasks){
+                        userInfoList.add((UserInfo) t.getResult());
+                    }
+                    source.setResult(userInfoList);
+                });
             }
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
+
+        return source.getTask();
     }
 
     public boolean checkIfFriend(String uid) {
@@ -136,7 +150,7 @@ public class FriendsManager {
         List<UserInfo> openRequests = new ArrayList<>();
         UserInfo info = Model.getInstance().getUserInfo();
 
-        for(String userId : info.getFriendshipRequests()){
+        for(String userId : info.getFriendshipRequests().keySet()){
             openRequests.add(Model.getInstance().getCachedUserInfoById(userId));
         }
         return  openRequests;

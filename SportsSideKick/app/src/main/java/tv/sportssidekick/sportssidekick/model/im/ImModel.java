@@ -177,7 +177,7 @@ public class ImModel {
 
 
 
-    ChildEventListener userChatsEventListener = new ChildEventListener() {
+    private ChildEventListener userChatsEventListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             String chatId = dataSnapshot.getKey();
@@ -263,28 +263,28 @@ public class ImModel {
      */
 
     public void createNewChat(ChatInfo chatInfo){
-        DatabaseReference newChatRef = imsChatsInfoRef.push();
-        String key = newChatRef.getKey();
-        chatInfo.setId(key);
-        chatInfo.setOwner(getUserId());
-        if(chatInfo.getUsersIds().size()==0){
-            HashMap<String, Boolean> userIds = new HashMap<>();
-            userIds.put(getUserId(), true);
-            chatInfo.setUsersIds(userIds);
-        }
-        newChatRef.setValue(chatInfo);
-        for(String uid : chatInfo.getUsersIds().keySet()){
-            DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(key);
-            userChatsRef.setValue("notify");
-        }
-        addChatInfoToCache(chatInfo);
-        chatInfo.loadChatUsers();
-        chatInfo.loadMessages();
-        if(chatInfo.getIsPublic()){
-            DatabaseReference publicIndexRef  = imsPublicChatsIndexRef.child(chatInfo.getId());
-            publicIndexRef.setValue(true);
-        }
-        EventBus.getDefault().post(new FirebaseEvent("Chat created.", FirebaseEvent.Type.CHAT_CREATED, key));
+//        DatabaseReference newChatRef = imsChatsInfoRef.push();
+//        String key = newChatRef.getKey();
+//        chatInfo.setId(key);
+//        chatInfo.setOwner(getUserId());
+//        if(chatInfo.getUsersIds().size()==0){
+//            HashMap<String, Boolean> userIds = new HashMap<>();
+//            userIds.put(getUserId(), true);
+//            chatInfo.setUsersIds(userIds);
+//        }
+//        newChatRef.setValue(chatInfo);
+//        for(String uid : chatInfo.getUsersIds().keySet()){
+//            DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(key);
+//            userChatsRef.setValue("notify");
+//        }
+//        addChatInfoToCache(chatInfo);
+//        chatInfo.loadChatUsers();
+//        chatInfo.loadMessages();
+//        if(chatInfo.getIsPublic()){
+//            DatabaseReference publicIndexRef  = imsPublicChatsIndexRef.child(chatInfo.getId());
+//            publicIndexRef.setValue(true);
+//        }
+//        EventBus.getDefault().post(new FirebaseEvent("Chat created.", FirebaseEvent.Type.CHAT_CREATED, key));
     }
 
 
@@ -356,7 +356,7 @@ public class ImModel {
 
     private final static int K_MESSAGES_PER_PAGE = 25;
     //use chat notifyChatUpdate signal to track chat messages!
-    public void imsSetMessageObserverForChat(ChatInfo chatInfo){
+    public void loadFirstPageOfMessagesForChat(ChatInfo chatInfo){
         Log.d(TAG, "Loading messages for " + chatInfo.getId());
         //Load the first K_MESSAGES_PER_PAGE messages
         Query messageQuery = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE);
@@ -437,7 +437,7 @@ public class ImModel {
     }
 
     //use chat notifyChatUpdate signal to track chat messages!
-    public void imsObserveMessageStatusChange(ChatInfo chatInfo){
+    public void observeMessageStatusChange(ChatInfo chatInfo){
         DatabaseReference msgref = imsChatsMessagesRef.child(chatInfo.getId()).child("messages");
         msgref.addChildEventListener(new ChildEventListener() {
             @Override

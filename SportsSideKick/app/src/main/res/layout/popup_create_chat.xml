@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="544dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"  android:layout_width="544dp"
     android:layout_height="match_parent"
 
     android:background="@color/colorPrimarySemiLight"
@@ -27,7 +27,7 @@
         android:layout_toEndOf="@+id/top_vertical_spliter"
         android:background="@color/colorAccentLight"
         android:gravity="center"
-        android:text="Create Chat"
+        android:text="Join Chat"
         android:textColor="@color/white_semitransparent" />
 
 
@@ -87,6 +87,8 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:layout_below="@+id/add_friends_label"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_split_line">
@@ -107,16 +109,18 @@
         android:background="@android:color/black"/>
 
     <EditText
-        android:id="@+id/input_edit_text"
+        android:id="@+id/search_edit_text"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:paddingStart="40dp"
         android:layout_toStartOf="@+id/private_chat_switch"
+        android:lines="1"
         android:layout_alignParentBottom="true"
+        android:inputType="text"
         android:background="@color/green_dark_2"
         android:gravity="start|center_vertical"
         android:hint="Search for a member"
-        android:imeOptions="flagNoExtractUi"
+        android:imeOptions="flagNoExtractUi|actionSearch"
         android:maxLines="1"
         android:textColor="@color/white"
         android:textColorHint="@color/white_semitransparent"

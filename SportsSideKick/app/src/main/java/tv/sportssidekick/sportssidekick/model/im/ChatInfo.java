@@ -3,6 +3,9 @@ package tv.sportssidekick.sportssidekick.model.im;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -129,10 +132,22 @@ public class ChatInfo extends FirebseObject {
     public void loadChatUsers(){
         Log.d(TAG, "Requesting Load of chat users");
         EventBus.getDefault().register(this);
+        ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
         for(String uid : getUsersIds().keySet()){
             Log.d(TAG, "Getting User Info for chat user " + uid);
-            Model.getInstance().getUserInfoById(uid);
+            Task task = Model.getInstance().getUserInfoById(uid);
+            tasks.add(task);
         }
+        Task  allUsersTask = Tasks.whenAll(tasks);
+        allUsersTask.addOnSuccessListener(aVoid -> {
+            Log.e(TAG, "ALL USERS DOWNLOADED!");
+            for(Task t : tasks){
+                UserInfo info = (UserInfo) t.getResult();
+                Log.e(TAG, "USER ID : " + info.getUserId());
+            }
+        });
+
+
     }
 
     /**
@@ -148,8 +163,8 @@ public class ChatInfo extends FirebseObject {
         Log.d(TAG, "New array created for messages for chat with id " + getId());
         messages = new ArrayList<>();
         MESSAGES_ARE_LOADED = true;
-        ImModel.getInstance().imsSetMessageObserverForChat(this);
-        ImModel.getInstance().imsObserveMessageStatusChange(this);
+        ImModel.getInstance().loadFirstPageOfMessagesForChat(this);
+        ImModel.getInstance().observeMessageStatusChange(this);
         ImModel.getInstance().imsUserTypingObserverForChat(Model.getInstance().getUserInfo().getUserId(), getId());
     }
 
@@ -174,7 +189,6 @@ public class ChatInfo extends FirebseObject {
                     break;
                 case NEXT_PAGE_LOADED:
                     List<ImsMessage> messagesNewPage = (ArrayList<ImsMessage>)event.getData();
-
                     for(ImsMessage m : messagesNewPage){
                         boolean exists = false;
                         for(ImsMessage mOld : messages){
