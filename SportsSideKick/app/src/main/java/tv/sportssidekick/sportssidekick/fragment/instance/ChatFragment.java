@@ -95,7 +95,7 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.input_edit_text) EditText inputEditText;
     @BindView(R.id.download_image_button) ImageView imageDownloadButton;
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
-
+    ChatHeadsAdapter chatHeadsAdapter;
     ChatInfo activeChatInfo;
 
     public ChatFragment() {
@@ -108,6 +108,10 @@ public class ChatFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, view);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        chatHeadsView.setLayoutManager(layoutManager);
+        chatHeadsAdapter = new ChatHeadsAdapter();
+        chatHeadsView.setAdapter(chatHeadsAdapter);
         inputContainer.setVisibility(View.GONE);
         chatHeadsContainer.setVisibility(View.GONE);
         messageListView.setVisibility(View.GONE);
@@ -308,26 +312,15 @@ public class ChatFragment extends BaseFragment {
         Log.d(TAG, "Initialize Chat UI");
         List<ChatInfo> allUserChats = ImModel.getInstance().getUserChatsList();
 
-        if(allUserChats.size()==0){
-            Log.d(TAG, "There are no chats, leaving...");
-            // There are no chats - waiting for them to download.
-            return;
-        } else {
-            Log.d(TAG, "There are " + allUserChats.size() + " in Model!");
-        }
+        chatHeadsAdapter.setValues(allUserChats);
+        chatHeadsAdapter.notifyDataSetChanged();
 
         inputContainer.setVisibility(View.VISIBLE);
         chatHeadsContainer.setVisibility(View.VISIBLE);
         messageListView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        chatHeadsView.setLayoutManager(layoutManager);
-
-        ChatHeadsAdapter chatHeadsAdapter = new ChatHeadsAdapter();
-        chatHeadsView.setAdapter(chatHeadsAdapter);
-
-        displayChat(allUserChats.get(0));
+//        displayChat(allUserChats.get(0));
     }
 
     private void displayChat(ChatInfo info){

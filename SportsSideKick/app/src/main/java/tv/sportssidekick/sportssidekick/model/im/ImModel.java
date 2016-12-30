@@ -173,6 +173,7 @@ public class ImModel {
 
                                     if(chatInfo.getIsPublic()&& !chatInfo.isUserBlockedFromThisChat(getUserId())){
                                         publicChatsInfo.add(chatInfo);
+                                        Log.d(TAG, "getAllPublicChats: " + chatId);
                                         newChatWasAddedToTheUserChatsList(chatId,false);
                                         EventBus.getDefault().post(new FirebaseEvent("Public chat detected.", FirebaseEvent.Type.PUBLIC_CHAT_DETECTED, chatInfo));
                                     }
@@ -234,6 +235,9 @@ public class ImModel {
         chatRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){ // chat removed
+                    return;
+                }
                 ChatInfo info = dataSnapshot.getValue(ChatInfo.class);
                 info.setId(dataSnapshot.getKey());
                 info.setMuted(isMuted);
@@ -252,7 +256,9 @@ public class ImModel {
 
                 ChatInfo existingChatInfo = getChatInfoById(chatId);
                 if(iAmIn){
+                    Log.d(TAG, "User is in chat: " + chatId);
                     if(existingChatInfo != null && existingChatInfo.getId()!=null) {   // Got new chat with key that is already set
+                        Log.d(TAG, "Chat is already in cache:" + chatId);
                         existingChatInfo.setEqualTo(info);
                     } else { // its not cached yet.
                         addChatInfoToCache(info);
@@ -262,6 +268,7 @@ public class ImModel {
                     info.loadChatUsers();
                     info.loadMessages();
                 } else {
+                    Log.d(TAG, "User not in chat: " + chatId);
                     if(existingChatInfo != null && existingChatInfo.getId()!=null){
                         existingChatInfo.wasRemovedByOwner();
                         removeChatInfoWithId(chatId);

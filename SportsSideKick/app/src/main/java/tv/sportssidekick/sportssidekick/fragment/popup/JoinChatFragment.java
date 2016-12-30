@@ -120,13 +120,17 @@ public class JoinChatFragment extends BaseFragment {
     private static List<ChatInfo> filter(List<ChatInfo> models, String query) {
         final String lowerCaseQuery = query.toLowerCase();
         final List<ChatInfo> filteredModelList = new ArrayList<>();
-        for (ChatInfo model : models) {
-            final String text =model.getChatTitle();
-            if (text.contains(lowerCaseQuery)) {
-                filteredModelList.add(model);
+        if (models != null)
+        {
+            for (ChatInfo model : models) {
+                final String text = model.getChatTitle();
+                if (text.contains(lowerCaseQuery)) {
+                    filteredModelList.add(model);
+                }
             }
         }
         return filteredModelList;
+
     }
 
     public void joinChat(){

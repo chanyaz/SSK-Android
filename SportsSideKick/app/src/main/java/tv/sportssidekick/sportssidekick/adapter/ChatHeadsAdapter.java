@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,7 +23,6 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.model.im.ImModel;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
@@ -42,6 +42,16 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
 
     // Start with first item selected
     private int focusedItem = 0;
+
+    public List<ChatInfo> getValues() {
+        return values;
+    }
+
+    public ChatHeadsAdapter setValues(List<ChatInfo> values) {
+        this.values = values;
+        return this;
+    }
+
     private List<ChatInfo> values;
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -64,7 +74,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     }
 
     public ChatHeadsAdapter() {
-        values = ImModel.getInstance().getUserChatsList();
+        values = new ArrayList<>();
     }
 
 
