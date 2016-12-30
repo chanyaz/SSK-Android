@@ -11,8 +11,10 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by Djordje Krutil on 27.12.2016..
@@ -34,7 +36,12 @@ public class NewsModel {
     String lastPubDate;
     boolean isLoading;
     boolean firstPageLoaded;
+private Map<String, NewsItem> newsCache;
 
+
+    public NewsItem getCachedItemById(String id){
+        return newsCache.get(id);
+    }
     public NewsModel() {}
 
     private NewsModel(NewsItem.NewsType type, int pageLength)
@@ -49,6 +56,7 @@ public class NewsModel {
         firstPageLoaded = false;
         resetPageCount();
         addObservers();
+        newsCache = new HashMap<>();
     }
 
     public static NewsModel getDefault(){
@@ -105,6 +113,7 @@ public class NewsModel {
                     isFirst = false;
                     lastPubDate = newsItem.getPubDate();
                 }
+                newsCache.put(newsItem.getId(),newsItem);
                 items.add(newsItem);
             }
         }

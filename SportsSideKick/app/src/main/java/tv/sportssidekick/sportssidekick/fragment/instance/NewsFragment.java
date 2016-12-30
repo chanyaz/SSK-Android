@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -26,7 +27,7 @@ import tv.sportssidekick.sportssidekick.model.news.NewsItem;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 
 /**
- * Created by Filip on 12/5/2016.
+ * Created by Djordje on 12/29/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  * <p>
@@ -40,6 +41,8 @@ public class NewsFragment extends BaseFragment {
     SwipyRefreshLayout swipeRefreshLayout;
     @BindView(R.id.news_recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.progress_bar)
+    AVLoadingIndicatorView progres;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -71,6 +74,7 @@ public class NewsFragment extends BaseFragment {
 
     @Subscribe
     public void onNewsReceived(List<NewsItem> list) {
+        progres.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
         adapter.getValues().addAll(list);
         adapter.notifyDataSetChanged();
