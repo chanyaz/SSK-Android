@@ -66,5 +66,7 @@ dependencies {
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.0'
 
     compile 'com.kyleduo.switchbutton:library:1.4.4'
+    compile 'com.github.orangegangsters:swipy:1.2.3@aar'
+
 }
 apply plugin: 'com.google.gms.google-services'
