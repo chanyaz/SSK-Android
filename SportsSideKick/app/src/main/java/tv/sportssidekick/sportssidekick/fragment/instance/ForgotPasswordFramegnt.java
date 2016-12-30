@@ -1,7 +1,6 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.util.Utility.isValidEmail;
 import static tv.sportssidekick.sportssidekick.util.Utility.showAlertDialog;
@@ -68,7 +66,6 @@ public class ForgotPasswordFramegnt extends BaseFragment {
 
                     resetEmail.setText(getString(R.string.forgot_password_button_text));
                     progressBar.setVisibility(View.GONE);
-                    return;
                 }
                 else
                 {

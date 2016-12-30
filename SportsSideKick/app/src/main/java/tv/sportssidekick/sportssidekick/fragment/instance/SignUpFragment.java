@@ -45,7 +45,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
-import static tv.sportssidekick.sportssidekick.util.Utility.internetAvaiable;
+import static tv.sportssidekick.sportssidekick.util.Utility.internetAvailable;
 import static tv.sportssidekick.sportssidekick.util.Utility.isEditTextEmpty;
 import static tv.sportssidekick.sportssidekick.util.Utility.showAlertDialog;
 
@@ -174,7 +174,7 @@ public class SignUpFragment extends BaseFragment {
                 if (isEditTextEmpty(password, getString(R.string.sign_up_passwoed), alertDialog, context))
                     return;
 
-                if (!internetAvaiable(context))
+                if (!internetAvailable(context))
                 {
                     showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_interner_connection_falied), context);
                     return;

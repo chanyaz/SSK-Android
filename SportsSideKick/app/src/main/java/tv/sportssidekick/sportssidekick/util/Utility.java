@@ -33,31 +33,26 @@ public class Utility {
     public static void slideText (TextView slideTextOne, TextView slideTextTwo, View circleOne, View circleTwo, boolean visibleTextOne, Context context)
     {
         SlideTextAnimation animation = new SlideTextAnimation(context);
-        if (animation!=null)
-        {
-            if(slideTextOne!=null && slideTextTwo!=null && circleOne!=null && circleTwo!=null)
-                if(visibleTextOne)
-                {
-                    slideTextOne.startAnimation(animation.moveLeft());
-                    slideTextOne.setVisibility(View.VISIBLE);
-                    slideTextTwo.startAnimation(animation.moveRight());
-                    slideTextTwo.setVisibility(View.GONE);
-                    circleOne.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_white));
-                    circleTwo.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_green));
-                }
-                else
-                {
-                    slideTextTwo.startAnimation(animation.moveLeft());
-                    slideTextTwo.setVisibility(View.VISIBLE);
-                    slideTextOne.startAnimation(animation.moveRight());
-                    slideTextOne.setVisibility(View.GONE);
-                    circleOne.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_green));
-                    circleTwo.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_white));
-                }
+        if(slideTextOne!=null && slideTextTwo!=null && circleOne!=null && circleTwo!=null) {
+            if (visibleTextOne) {
+                slideTextOne.startAnimation(animation.moveLeft());
+                slideTextOne.setVisibility(View.VISIBLE);
+                slideTextTwo.startAnimation(animation.moveRight());
+                slideTextTwo.setVisibility(View.GONE);
+                circleOne.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_white));
+                circleTwo.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_green));
+            } else {
+                slideTextTwo.startAnimation(animation.moveLeft());
+                slideTextTwo.setVisibility(View.VISIBLE);
+                slideTextOne.startAnimation(animation.moveRight());
+                slideTextOne.setVisibility(View.GONE);
+                circleOne.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_green));
+                circleTwo.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_white));
+            }
         }
     }
 
-    private static DisplayImageOptions options;
+    private  static volatile DisplayImageOptions options;
 
 
     public static DisplayImageOptions imageOptionsImageLoader() {
@@ -81,7 +76,7 @@ public class Utility {
         return options;
     }
 
-    public final static boolean isValidEmail(String target) {
+    public static boolean isValidEmail(String target) {
         if (target == null) {
             return false;
         } else {
@@ -101,19 +96,18 @@ public class Utility {
         return false;
     }
 
-    public static boolean internetAvaiable(Context context) {
-        boolean connected = false;
+    public static boolean internetAvailable(Context context) {
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-            connected = networkInfo != null && networkInfo.isAvailable() &&
+            boolean connected = networkInfo != null && networkInfo.isAvailable() &&
                     networkInfo.isConnected();
             return connected;
         } catch (Exception e) {
             Log.v("connectivity", e.toString());
         }
-        return connected;
+        return false;
     }
 
     public static void showAlertDialog(String title, String message, Context context)

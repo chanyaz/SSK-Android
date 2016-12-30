@@ -19,7 +19,7 @@ import tv.sportssidekick.sportssidekick.model.Model;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class Application extends android.app.Application {
+public class SSKApplication extends android.app.Application {
 
     @Override
     public void onCreate() {

@@ -43,7 +43,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private static final String TAG = "Message Adapter";
     private ChatInfo chatInfo;
     private Context context;
-    private static LayoutInflater inflater = null;
+    private LayoutInflater inflater = null;
     private static final int VIEW_TYPE_MESSAGE_THIS_USER = 0;
     private static final int VIEW_TYPE_MESSAGE_OTHER_USERS = 1;
 

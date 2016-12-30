@@ -7,6 +7,9 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import tv.sportssidekick.sportssidekick.service.BusEvent;
 
 
@@ -41,6 +44,7 @@ public abstract class BaseFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    @Subscribe
     public void onEvent(BusEvent event){
         Log.d(TAG, "Base Fragment - onEvent triggered with id : " + event.getId());
     }
@@ -55,5 +59,18 @@ public abstract class BaseFragment extends Fragment {
 
     public FirebaseAuth getmAuth() {
         return mAuth;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }

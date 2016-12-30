@@ -101,7 +101,6 @@ public class Model {
             if (user != null) {
                 Log.d(TAG, "onAuthStateChanged: signed_in:" + user.getUid());
                 final String userId = user.getUid();
-                ImModel.getInstance().getAllPublicChats();
                 // Attach a listener to read the data at our User Info reference
                 userInfoRef.child(userId).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -115,11 +114,9 @@ public class Model {
                         EventBus.getDefault().post(new FirebaseEvent("Login failed (canceled)!", FirebaseEvent.Type.LOGIN_FAILED, null));
                     }
                 });
-                Task<List<UserInfo>> getAllUserInfoTask = getAllUsersInfo();
-
-                getAllUserInfoTask.addOnSuccessListener(userInfos -> {
+                getAllUsersInfo().addOnSuccessListener(userInfos -> {
                     ImModel.getInstance().reload(userInfo.getUserId());
-                    EventBus.getDefault().post(new FirebaseEvent("All users downloaded", FirebaseEvent.Type.ALL_DATA_ACQUIRED, userInfos));
+                    EventBus.getDefault().post(new FirebaseEvent("All user data downloaded", FirebaseEvent.Type.ALL_DATA_ACQUIRED, userInfos));
                 });
 
 

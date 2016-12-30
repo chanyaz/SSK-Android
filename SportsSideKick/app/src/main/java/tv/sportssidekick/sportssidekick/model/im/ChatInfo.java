@@ -40,7 +40,6 @@ public class ChatInfo extends FirebseObject {
     private boolean isMuted;
 
     private String currentUserId;
-    public boolean MESSAGES_ARE_LOADED;
 
     public ChatInfo(String name, HashMap<String, Boolean> userIds, String avatarUrl, boolean isPublic) {
         this.setName(name);
@@ -48,12 +47,10 @@ public class ChatInfo extends FirebseObject {
         this.setAvatarUrl(avatarUrl);
         this.setIsPublic(isPublic);
         currentUserId = ImModel.getInstance().getUserId();
-        MESSAGES_ARE_LOADED = false;
     }
 
     public ChatInfo() {
-        MESSAGES_ARE_LOADED = false;
-
+        currentUserId = ImModel.getInstance().getUserId();
     }
 
 
@@ -162,7 +159,6 @@ public class ChatInfo extends FirebseObject {
     public void loadMessages(){
         Log.d(TAG, "New array created for messages for chat with id " + getId());
         messages = new ArrayList<>();
-        MESSAGES_ARE_LOADED = true;
         ImModel.getInstance().loadFirstPageOfMessagesForChat(this);
         ImModel.getInstance().observeMessageStatusChange(this);
         ImModel.getInstance().imsUserTypingObserverForChat(Model.getInstance().getUserInfo().getUserId(), getId());
@@ -309,8 +305,10 @@ public class ChatInfo extends FirebseObject {
      * This user was removed from this chat by the chat owner
      **/
     public void wasRemovedByOwner(){
-        messages.clear();
-        EventBus.getDefault().post(new FirebaseEvent("This user was removed from this chat by the chat owner.", FirebaseEvent.Type.CHAT_REMOVED_PROCESSED, getId()));
+        if(messages!=null){
+            messages.clear();
+            EventBus.getDefault().post(new FirebaseEvent("This user was removed from this chat by the chat owner.", FirebaseEvent.Type.CHAT_REMOVED_PROCESSED, getId()));
+        }
     }
 
     /**

@@ -132,15 +132,6 @@ public class LoginFragment extends BaseFragment {
                 EventBus.getDefault().post(fragmentEvent);
             }
         });
-        EventBus.getDefault().register(this);
-    }
-
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        EventBus.getDefault().unregister(this);
-
     }
 
     private void loginButtonChangeLayout(boolean isTaskInProgress) {

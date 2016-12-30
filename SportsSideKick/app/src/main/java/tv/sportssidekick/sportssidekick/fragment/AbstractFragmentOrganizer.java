@@ -10,6 +10,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -24,16 +26,18 @@ abstract class AbstractFragmentOrganizer {
 
     private static final String TAG = "FRAGMENT ORGANIZER";
     FragmentManager fragmentManager;
-    int enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation;
+    protected List<Integer> containersWithoutBackStack;
+
+    private int enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation;
 
     AbstractFragmentOrganizer(FragmentManager fragmentManager){
         this.fragmentManager = fragmentManager;
-        setAnimation(0,0, 0, 0);
+        setAnimations(0,0, 0, 0);
         EventBus.getDefault().register(this);
-//        openFragment(createFragment(initialFragment), containerId);
+        containersWithoutBackStack = new ArrayList<>();
     }
 
-    protected Fragment createFragment(Class fragmentClass){
+    Fragment createFragment(Class fragmentClass){
         try {
             Constructor constructor = fragmentClass.getConstructor();
             return (Fragment)constructor.newInstance();
@@ -67,7 +71,7 @@ abstract class AbstractFragmentOrganizer {
         if (fragmentManager.getBackStackEntryCount() != 0) {
             String name = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
             if(!useArgs) {
-                name = name.substring(0, name.indexOf("-"));
+                name = name.substring(0, name.indexOf('-'));
             }
             return name.equals(fragmentTag);
         }
@@ -92,13 +96,15 @@ abstract class AbstractFragmentOrganizer {
         return openFragment(fragment, containerId);
     }
 
-    public void setAnimation (int enter, int exit, int popEnter, int popExit)
-    {
+    public void setAnimations(int enter, int exit, int popEnter, int popExit) {
         enterAnimation = enter;
         exitAnimation = exit;
         popEnterAnimation = popEnter;
         popExitAnimation = popExit;
     }
+
+    protected abstract int getFragmentContainer(Class fragment);
+
 
     private String openFragment(Fragment fragment, int containerId) {
         if(isFragmentOpen(fragment)||containerId<=0){
@@ -112,6 +118,12 @@ abstract class AbstractFragmentOrganizer {
         Log.d(TAG,"OPEN FRAGMENT: " + fragmentTag);
         Log.d(TAG,"OPEN IN : " + containerId);
 
+        if(containersWithoutBackStack.contains(containerId)){ // this container is without back stack
+            Fragment currentFragment = getOpenFragment();
+            if(currentFragment!=null && containerId==getFragmentContainer(currentFragment.getClass())){ // if currentFragment is member of the same container, remove it!
+                transaction.remove(currentFragment); // remove current fragment
+            }
+        }
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.addToBackStack(fragmentTag);
         transaction.commit();

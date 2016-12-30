@@ -38,10 +38,10 @@ import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
-import tv.sportssidekick.sportssidekick.util.BlurEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 public class LoungeActivity extends AppCompatActivity {
@@ -98,7 +98,7 @@ public class LoungeActivity extends AppCompatActivity {
 
     FragmentOrganizer fragmentOrganizer;
 
-
+    ArrayList<Class> popupContainerFragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +118,8 @@ public class LoungeActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onEvent(BlurEvent event){
-        if(event.isDisplayBlur()){
+    public void onFragmentEvent(FragmentEvent event){
+        if(popupContainerFragments.contains(event.getType())){
             popupHolder.setVisibility(View.VISIBLE);
             if (rootView.getWidth() > 0) {
                 Bitmap image = BlurBuilder.blur(rootView);
@@ -158,9 +158,10 @@ public class LoungeActivity extends AppCompatActivity {
         bottomRightContainerFragments.add(ClubRadioFragment.class);
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container,bottomRightContainerFragments);
 
-        ArrayList<Class> popupContainerFragments = new ArrayList<>();
+        popupContainerFragments = new ArrayList<>();
         popupContainerFragments.add(CreateChatFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments);
+        popupContainerFragments.add(JoinChatFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
@@ -235,7 +236,13 @@ public class LoungeActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        onFragmentEvent(new FragmentEvent(null)); // hide blurred view;
+        if (!fragmentOrganizer.handleBackNavigation()) {
+            finish();
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTickerUpdate(Ticker ticker){

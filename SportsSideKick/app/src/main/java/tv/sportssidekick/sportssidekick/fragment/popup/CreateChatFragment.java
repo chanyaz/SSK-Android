@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.Task;
 
@@ -27,12 +28,12 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.ChatFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImModel;
-import tv.sportssidekick.sportssidekick.util.BlurEvent;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -48,7 +49,8 @@ public class CreateChatFragment extends BaseFragment {
     Button confirmButton;
     @BindView(R.id.chat_name_edit_text)
     EditText chatNameEditText;
-
+    @BindView(R.id.join_a_chat)
+    TextView joinChatTextView;
     @BindView(R.id.search_edit_text)
     EditText searchEditText;
     @BindView(R.id.private_chat_switch)
@@ -65,13 +67,15 @@ public class CreateChatFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        EventBus.getDefault().post(new BlurEvent(true));
         View view = inflater.inflate(R.layout.popup_create_chat, container, false);
         ButterKnife.bind(this, view);
 
-
         confirmButton.setOnClickListener(v -> {
             createNewChat();
+        });
+
+        joinChatTextView.setOnClickListener(v -> {
+            EventBus.getDefault().post(new FragmentEvent(JoinChatFragment.class));
         });
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
@@ -106,7 +110,7 @@ public class CreateChatFragment extends BaseFragment {
 
 
     TextWatcher textWatcher = new TextWatcher() {
-        private final long DELAY = 500; // milliseconds
+        private static final long DELAY = 500; // milliseconds
         private Timer timer = new Timer();
 
         @Override
@@ -133,12 +137,6 @@ public class CreateChatFragment extends BaseFragment {
         }
     };
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        EventBus.getDefault().post(new BlurEvent(false));
-    }
-
     private static List<UserInfo> filter(List<UserInfo> models, String query) {
         final String lowerCaseQuery = query.toLowerCase();
         final List<UserInfo> filteredModelList = new ArrayList<>();
@@ -158,7 +156,7 @@ public class CreateChatFragment extends BaseFragment {
 
         ChatInfo newChatInfo = new ChatInfo();
         newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
-        newChatInfo.setIsPublic(isPrivate);
+        newChatInfo.setIsPublic(!isPrivate);
         newChatInfo.setName(chatName);
         HashMap<String,Boolean> userIds = new HashMap<>();
         for(UserInfo info : selectedUsers){

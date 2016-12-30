@@ -35,7 +35,6 @@ import android.widget.VideoView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wang.avi.AVLoadingIndicatorView;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
@@ -120,7 +119,6 @@ public class ChatFragment extends BaseFragment {
 
         imageDownloadButton.setOnClickListener(v -> Toast.makeText(getContext(),"Image is downloaded.", Toast.LENGTH_SHORT).show());
 
-        EventBus.getDefault().register(this);
         initializeUI();
 
         LayoutTransition layoutTransition = new LayoutTransition();
@@ -241,12 +239,6 @@ public class ChatFragment extends BaseFragment {
         bottomCreateChatContainer.setVisibility(View.VISIBLE);
         messageListView.setVisibility(View.GONE);
         downArrow.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Subscribe

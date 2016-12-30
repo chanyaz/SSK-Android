@@ -3,13 +3,12 @@ package tv.sportssidekick.sportssidekick.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.SparseArray;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -19,13 +18,13 @@ import java.util.Set;
 
 public class FragmentOrganizer extends AbstractFragmentOrganizer {
 
-    HashMap<Integer, List<Class>> containersMap;
-    Class baseFragment;
+    private SparseArray<List<Class>> containersMap;
+    private Class initialFragment;
 
-    public FragmentOrganizer(FragmentManager fragmentManager, Class baseFragment) {
+    public FragmentOrganizer(FragmentManager fragmentManager, Class fragment) {
         super(fragmentManager);
-        containersMap = new HashMap<>();
-        this.baseFragment = baseFragment;
+        containersMap = new SparseArray<>();
+        this.initialFragment = fragment;
     }
 
     /**
@@ -34,16 +33,15 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
     @Subscribe
     @Override
     public void onEvent(FragmentEvent event) {
-            FragmentEvent fragmentEvent = (FragmentEvent) event;
             Bundle arguments = new Bundle();
-            arguments.putString(BaseFragment.PRIMARY_ARG_TAG, fragmentEvent.getId());
-            openFragment(createFragment(fragmentEvent.getType()), arguments, getFragmentContainer(fragmentEvent.getType())); // TODO clean up
+            arguments.putString(BaseFragment.PRIMARY_ARG_TAG, event.getId());
+            openFragment(createFragment(event.getType()), arguments, getFragmentContainer(event.getType()));
     }
 
     @Override
     public boolean handleBackNavigation() {
         Fragment fragment = getOpenFragment();
-        if (fragment.getClass().equals(baseFragment)) {
+        if (fragment.getClass().equals(initialFragment)) {
             return false;
         } else {
             fragmentManager.popBackStack();
@@ -52,9 +50,9 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
     }
 
 
-    private int getFragmentContainer(Class fragment) {
-        Set<Integer> keys = containersMap.keySet();
-        for (Integer key : keys) {
+    protected int getFragmentContainer(Class fragment) {
+        for(int i = 0; i < containersMap.size(); i++) {
+            int key = containersMap.keyAt(i);
             List<Class> fragments = containersMap.get(key);
             for (Class f : fragments) {
                 if (f.equals(fragment)) {
@@ -65,7 +63,14 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         return -1;
     }
 
-    public void setUpContainer(int tabs_container_1, ArrayList<Class> leftContainerFragments) {
-        containersMap.put(tabs_container_1, leftContainerFragments);
+    public void setUpContainer(int containerResourceId, ArrayList<Class> containerFragments){
+        setUpContainer(containerResourceId, containerFragments, false);
+    }
+
+    public void setUpContainer(int containerResourceId, ArrayList<Class> containerFragments, boolean withoutBackStack) {
+        containersMap.put(containerResourceId, containerFragments);
+        if(withoutBackStack){
+            containersWithoutBackStack.add(containerResourceId);
+        }
     }
 }

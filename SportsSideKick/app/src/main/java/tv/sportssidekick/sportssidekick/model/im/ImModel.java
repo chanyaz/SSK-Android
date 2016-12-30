@@ -45,6 +45,25 @@ public class ImModel {
     List<ChatInfo> chatInfoCacheList;
     private List<ChatInfo> publicChatsInfo;
 
+    public List<ChatInfo> getPublicChatsInfo() {
+        return publicChatsInfo;
+    }
+
+    public List<ChatInfo> getNonMemberPublicChatsInfo(){
+        List<ChatInfo> filteredList = new ArrayList<>();
+        for(ChatInfo info : publicChatsInfo){
+            if(!info.getUsersIds().keySet().contains(getUserId())){
+                filteredList.add(info);
+            }
+        }
+        return filteredList;
+    }
+
+    public ImModel setPublicChatsInfo(List<ChatInfo> publicChatsInfo) {
+        this.publicChatsInfo = publicChatsInfo;
+        return this;
+    }
+
     private ImModel() {
         FirebaseDatabase ref = FirebaseDatabase.getInstance();
         DatabaseReference imsChatsRef = ref.getReference("imsChats"); //root of all chats
@@ -79,7 +98,7 @@ public class ImModel {
     public void clear(){
         chatInfoCache.clear();
         chatInfoCacheList.clear();
-        publicChatsInfo = null;
+        publicChatsInfo.clear();
     }
 
     public void reload(String userId){
@@ -125,18 +144,20 @@ public class ImModel {
         chatInfoCacheList.add(info);
     }
     /**
-     * getAllPublicChats returnes a list of all public chats in the system. you will need to listen to notifyGetAllPublicChats
-     * to receive the updated list of public chats
+     * getAllPublicChats returns a list of all public chats in the system. you will need
+     * to listen to notifyGetAllPublicChats to receive the updated list of public chats
      * this list does not include chats that the user is blocked from
      * <p>
      * cjw -- re-worked this slightly to fix issue where it's always returning a zero length array
      * and generally breaking because of race conditions with ASYNC Firebase requests
      */
     public void getAllPublicChats() {
-        publicChatsInfo = new ArrayList<>();
         imsPublicChatsIndexRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot==null){
+                    return;
+                }
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     if(child.getValue(Boolean.class)){
                         final String chatId = child.getKey();
@@ -145,17 +166,17 @@ public class ImModel {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 // TODO Rewrite logic for public chats
-//                                ChatInfo chatInfo = dataSnapshot.getValue(ChatInfo.class);
-//                                if(chatInfo!=null){
-//                                    chatInfo.setId(dataSnapshot.getKey());
-//                                    chatInfoCache.put(chatId,chatInfo);
-//
-//                                    if(chatInfo.getIsPublic()&& !chatInfo.isUserBlockedFromThisChat(getUserId())){
-//                                        publicChatsInfo.add(chatInfo);
-//                                        newChatWasAddedToTheUserChatsList(chatId,false);
-//                                        EventBus.getDefault().post(new FirebaseEvent("Public chat detected.", FirebaseEvent.Type.PUBLIC_CHAT_DETECTED, chatInfo));
-//                                    }
-//                                }
+                                ChatInfo chatInfo = dataSnapshot.getValue(ChatInfo.class);
+                                if(chatInfo!=null){
+                                    chatInfo.setId(dataSnapshot.getKey());
+                                    chatInfoCache.put(chatId,chatInfo);
+
+                                    if(chatInfo.getIsPublic()&& !chatInfo.isUserBlockedFromThisChat(getUserId())){
+                                        publicChatsInfo.add(chatInfo);
+                                        newChatWasAddedToTheUserChatsList(chatId,false);
+                                        EventBus.getDefault().post(new FirebaseEvent("Public chat detected.", FirebaseEvent.Type.PUBLIC_CHAT_DETECTED, chatInfo));
+                                    }
+                                }
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {}
@@ -171,6 +192,7 @@ public class ImModel {
     private void loadUserChats() {
         final DatabaseReference userChatsRef = imsUserChatsIndexRef.child(getUserId());
         Log.d(TAG, "userId: " + getUserId());
+        getAllPublicChats();
         userChatsRef.removeEventListener(userChatsEventListener);
         userChatsRef.addChildEventListener(userChatsEventListener);
     }

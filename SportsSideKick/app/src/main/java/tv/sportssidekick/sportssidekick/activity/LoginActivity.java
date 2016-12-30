@@ -78,13 +78,14 @@ public class LoginActivity extends AppCompatActivity {
             case ALL_DATA_ACQUIRED:
                 Intent main = new Intent(this, LoungeActivity.class);
                 startActivity(main);
+                finish();
                 break;
         }
     }
 
     private void showLoginForms(){
         loginFragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), InitialFragment.class);
-        loginFragmentOrganizer.setAnimation(R.anim.slide_left, R.anim.slide_right, R.anim.left, R.anim.right);
+        loginFragmentOrganizer.setAnimations(R.anim.slide_left, R.anim.slide_right, R.anim.left, R.anim.right);
         ArrayList<Class> loginFragments = new ArrayList<>();
         loginFragments.add(LoginFragment.class);
         loginFragments.add(InitialFragment.class);

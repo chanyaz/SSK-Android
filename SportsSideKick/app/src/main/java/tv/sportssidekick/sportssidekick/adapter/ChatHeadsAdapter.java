@@ -105,56 +105,10 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             final ChatInfo info = values.get(position);
             int size = -1;
             if(info.getUsersIds()!=null){
-                size = info.getUsersIds().size();
-                List<String> urls = info.getProfileImagesUrls();
-                if(urls.size()==size-1){
-                    DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-                    switch (size){
-                        case 0:
-                        case 1:
-                            // TODO This should never happen?
-                            // since its only me, add avatar image
-                            break;
-                        case 2:
-                            // its 1 on 1 chat, get profile image of other guy
-                            ImageLoader.getInstance().displayImage(info.getAvatarUrl(),holder.firstImage,imageOptions);
-                            holder.secondImage.setVisibility(View.GONE);
-                            holder.secondContainer.setVisibility(View.GONE);
-                            break;
-                        case 3:
-                            // its 3p chat, get profile image of other 2 guys
-                            ImageLoader.getInstance().displayImage(urls.get(0),holder.firstImage,imageOptions);
-                            ImageLoader.getInstance().displayImage(urls.get(1),holder.thirdImage,imageOptions);
-                            holder.secondImage.setVisibility(View.GONE);
-                            holder.fourthImage.setVisibility(View.GONE);
-                            holder.secondContainer.setVisibility(View.VISIBLE);
-                            break;
-                        case 4:
-                            // its 4p chat, get profile image of other  3 guys
-                            ImageLoader.getInstance().displayImage(urls.get(0),holder.firstImage,imageOptions);
-                            ImageLoader.getInstance().displayImage(urls.get(1),holder.secondImage,imageOptions);
-                            ImageLoader.getInstance().displayImage(urls.get(2),holder.thirdImage,imageOptions);
-                            holder.secondImage.setVisibility(View.VISIBLE);
-                            holder.thirdImage.setVisibility(View.VISIBLE);
-                            holder.secondContainer.setVisibility(View.VISIBLE);
-                            break;
-                        default:
-                        case 5:
-                            // its 4+ chat, get profile image of other  4 guys
-                            ImageLoader.getInstance().displayImage(urls.get(0),holder.firstImage,imageOptions);
-                            ImageLoader.getInstance().displayImage(urls.get(1),holder.secondImage,imageOptions);
-                            ImageLoader.getInstance().displayImage(urls.get(2),holder.thirdImage,imageOptions);
-                            ImageLoader.getInstance().displayImage(urls.get(3),holder.fourthImage,imageOptions);
-                            holder.secondImage.setVisibility(View.VISIBLE);
-                            holder.thirdImage.setVisibility(View.VISIBLE);
-                            holder.fourthImage.setVisibility(View.VISIBLE);
-                            holder.secondContainer.setVisibility(View.VISIBLE);
-                            break;
-                    }
-                } else {
-                    Log.d(TAG, "Urls size is " + urls.size() + ", while chat size is: " + size);
-                }
-
+                DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+                ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.firstImage,imageOptions);
+                holder.secondImage.setVisibility(View.GONE);
+                holder.secondContainer.setVisibility(View.GONE);
             } else {
                 Log.d(TAG, "Have no chatUsers yet!");
             }
