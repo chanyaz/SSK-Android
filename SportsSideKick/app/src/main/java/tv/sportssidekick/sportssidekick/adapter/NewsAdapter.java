@@ -81,10 +81,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         final NewsItem info = values.get(position);
         ImageLoader.getInstance().displayImage(info.getImage(), holder.image, imageOptions);
         holder.caption.setText(info.getTitle());
-        holder.view.setOnClickListener(v -> {
-            FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-            fe.setId(info.getId());
-            EventBus.getDefault().post(fe);
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
+                fe.setId(info.getId());
+                EventBus.getDefault().post(fe);
+            }
         });
     }
 
