@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.model.im;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 
@@ -11,6 +12,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,22 +129,25 @@ public class ChatInfo extends FirebseObject {
     void loadChatUsers(){
         Log.d(TAG, "Requesting Load of chat users");
         EventBus.getDefault().register(this);
-        ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
+        final ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
         for(String uid : getUsersIds().keySet()){
             Log.d(TAG, "Getting User Info for chat user " + uid);
             Task task = Model.getInstance().getUserInfoById(uid);
             tasks.add(task);
         }
-        Task  allUsersTask = Tasks.whenAll(tasks);
-        allUsersTask.addOnSuccessListener(aVoid -> {
-            Log.e(TAG, "ALL USERS DOWNLOADED!");
-            for(Task t : tasks){
-                UserInfo info = (UserInfo) t.getResult();
-                Log.e(TAG, "USER ID : " + info.getUserId());
+        Task allUsersTask = Tasks.whenAll(tasks);
+        allUsersTask.addOnSuccessListener(
+            new OnSuccessListener() {
+                @Override
+                public void onSuccess(Object o) {
+                    Log.e(TAG, "ALL USERS DOWNLOADED!");
+                    for(Task t : tasks){
+                        UserInfo info = (UserInfo) t.getResult();
+                        Log.e(TAG, "USER ID : " + info.getUserId());
+                    }
+                }
             }
-        });
-
-
+        );
     }
 
     /**
@@ -195,7 +200,12 @@ public class ChatInfo extends FirebseObject {
                         }
                     }
 
-                    Collections.sort(messages, (lhs, rhs) -> lhs.getTimestamp().compareTo(rhs.getTimestamp()));
+                    Collections.sort(messages, new Comparator<ImsMessage>() {
+                        @Override
+                        public int compare(ImsMessage lhs, ImsMessage rhs) {
+                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
+                        }
+                    });
                     break;
             }
         }
@@ -209,7 +219,7 @@ public class ChatInfo extends FirebseObject {
     }
 
     @Subscribe
-    public void onMessagesChangedEventonMessagesChangedEvent(ImsMessage changedMessage){
+    public void onMessagesChangedEvent(ImsMessage changedMessage){
         for(ImsMessage message : messages){
             if(message.getId().equals(changedMessage.getId())){
                 message = changedMessage;

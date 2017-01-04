@@ -45,10 +45,6 @@ public class ImModel {
     private List<ChatInfo> chatInfoCacheList;
     private List<ChatInfo> publicChatsInfo;
 
-    public List<ChatInfo> getPublicChatsInfo() {
-        return publicChatsInfo;
-    }
-
     public List<ChatInfo> getNonMemberPublicChatsInfo(){
         List<ChatInfo> filteredList = new ArrayList<>();
         for(ChatInfo info : publicChatsInfo){
@@ -121,7 +117,7 @@ public class ImModel {
         return chatInfoCacheList;
     }
 
-    ChatInfo getChatInfoById(String chatId){
+    public ChatInfo getChatInfoById(String chatId){
         return  chatInfoCache.get(chatId);
     }
 
@@ -315,7 +311,7 @@ public class ImModel {
      **/
 
     //you shouldnt use this function directly, call update chat on the chatInfo object
-    public void updateChat(ChatInfo chatInfo){
+    void updateChat(ChatInfo chatInfo){
         DatabaseReference chatRef = imsChatsInfoRef.child(chatInfo.getId());
         chatRef.setValue(chatInfo);
         for(String uid : chatInfo.getUsersIds().keySet()){
@@ -325,7 +321,7 @@ public class ImModel {
     }
 
     //you shouldnt use this function directly, call join chat on the chatInfo object
-    public void joinChat(ChatInfo chatInfo, String uid){
+    void joinChat(ChatInfo chatInfo, String uid){
         DatabaseReference chatUserRef = imsChatsInfoRef.child(chatInfo.getId()).child("usersIds").child(uid);
         chatUserRef.setValue(true);
         DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(chatInfo.getId());
@@ -333,7 +329,7 @@ public class ImModel {
     }
 
     //you shouldnt use this function directly, call delete user on the chatInfo object
-    public void deleteUserFromChat(ChatInfo chatInfo, String uid){
+    void deleteUserFromChat(ChatInfo chatInfo, String uid){
         DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(chatInfo.getId());
         userChatsRef.removeValue();
 
@@ -343,7 +339,7 @@ public class ImModel {
     }
 
     //you shouldnt use this function directly, call delete on the chatInfo object
-    public void deleteChat(ChatInfo chatInfo){
+    void deleteChat(ChatInfo chatInfo){
         removeChatInfoWithId(chatInfo.getId());
         DatabaseReference chatRef = imsChatsInfoRef.child(chatInfo.getId());
         chatRef.removeValue();
@@ -354,7 +350,7 @@ public class ImModel {
      **/
 
     // do not use this function, call the chat info one!
-    public void imsSendMessageToChat(ChatInfo chatInfo,ImsMessage message){
+    void imsSendMessageToChat(ChatInfo chatInfo,ImsMessage message){
         // create a child reference with a unique key.
         DatabaseReference messageRef = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").push();
         message.setId(messageRef.getKey());
@@ -378,7 +374,7 @@ public class ImModel {
 
     private final static int K_MESSAGES_PER_PAGE = 25;
     //use chat notifyChatUpdate signal to track chat messages!
-    public void loadFirstPageOfMessagesForChat(ChatInfo chatInfo){
+    void loadFirstPageOfMessagesForChat(ChatInfo chatInfo){
         Log.d(TAG, "Loading messages for " + chatInfo.getId());
         //Load the first K_MESSAGES_PER_PAGE messages
         Query messageQuery = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE);
@@ -433,7 +429,7 @@ public class ImModel {
     }
 
     // load next page of messages
-    public void imsLoadNextPageOfMessages(ChatInfo chatInfo){
+    void imsLoadNextPageOfMessages(ChatInfo chatInfo){
         List<ImsMessage> messages = chatInfo.getMessages();
         String lastMessageId = messages.get(0).getId();
         Query messagesQuery = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE+1).endAt(lastMessageId);
@@ -459,7 +455,7 @@ public class ImModel {
     }
 
     //use chat notifyChatUpdate signal to track chat messages!
-    public void observeMessageStatusChange(ChatInfo chatInfo){
+    void observeMessageStatusChange(ChatInfo chatInfo){
         DatabaseReference msgref = imsChatsMessagesRef.child(chatInfo.getId()).child("messages");
         msgref.addChildEventListener(new ChildEventListener() {
             @Override
@@ -481,7 +477,7 @@ public class ImModel {
     }
 
     // do not use this function, call the chat info one!
-    public void imsMarkMessageAsRead(ChatInfo chatInfo, ImsMessage message){
+    void imsMarkMessageAsRead(ChatInfo chatInfo, ImsMessage message){
         DatabaseReference msgref = imsChatsMessagesRef.child(chatInfo.getId()).child("messages").child(message.getId()).child("wasReadBy");
         HashMap<String, Object> newValue = new HashMap<>();
         newValue.put(getUserId(),true);
@@ -489,7 +485,7 @@ public class ImModel {
     }
 
     // do not use this function, call the chat info one!
-    public void setUserIsTypingValue(boolean val, String senderId, String chatId){
+    void setUserIsTypingValue(boolean val, String senderId, String chatId){
         DatabaseReference typingIndicatorRef = imsChatsMessagesRef.child(chatId).child("typing").child(senderId);
         typingIndicatorRef.setValue(val);
         typingIndicatorRef.onDisconnect().removeValue();
@@ -498,7 +494,7 @@ public class ImModel {
     // do not use this function, call the chat info one!
     // returnes the list of users info that are currently typing
 
-    public void imsUserTypingObserverForChat(String senderId,String chatId) {
+    void imsUserTypingObserverForChat(String senderId,String chatId) {
         DatabaseReference typingIndicatorRef =  imsChatsMessagesRef.child(chatId).child("typing");
         typingIndicatorRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -522,7 +518,7 @@ public class ImModel {
 
     // do not use this function, call the chat info one!
     // add the given uid to the chat black list
-    public void blockUserFromJoinningChat(ChatInfo chatInfo, String userIdToBlock){
+    void blockUserFromJoinningChat(ChatInfo chatInfo, String userIdToBlock){
         DatabaseReference chatInfoRef = imsChatsMessagesRef.child(chatInfo.getId())
                 .child("usersIdsBlackList").child(userIdToBlock);
         chatInfoRef.setValue(true);
@@ -530,14 +526,14 @@ public class ImModel {
 
     // do not use this function, call the chat info one!
     // remove the given uid from the chat black list
-    public void unblockUserInThisChat(ChatInfo chatInfo, String userIdToBlock){
+    void unblockUserInThisChat(ChatInfo chatInfo, String userIdToBlock){
         DatabaseReference chatInfoRef = imsChatsMessagesRef.child(chatInfo.getId())
                 .child("usersIdsBlackList").child(userIdToBlock);
         chatInfoRef.removeValue();
     }
 
     // do not use this function, call the chat info one!
-    public void setMuteChat(ChatInfo chatInfo,boolean isMuted){
+    void setMuteChat(ChatInfo chatInfo,boolean isMuted){
         String mute = "notify";
         if (isMuted){
             mute = "mute";
@@ -546,7 +542,7 @@ public class ImModel {
         userChatRef.setValue(mute);
     }
 
-    public String getUserId() {
+    String getUserId() {
         return userId;
     }
 }

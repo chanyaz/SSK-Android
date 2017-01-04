@@ -13,6 +13,7 @@ package tv.sportssidekick.sportssidekick.model.friendship;
 //--                                                                                     --//
 //-----------------------------------------------------------------------------------------//
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
@@ -71,7 +72,7 @@ public class FriendsManager {
      * @return the user friends list
      */
     public Task<List<UserInfo>> getFriends(){
-        TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
         UserInfo info = Model.getInstance().getUserInfo();
         DatabaseReference ref = Model.getInstance().getRef().getReference("friendshipIndex").child(info.getUserId());
 
@@ -83,17 +84,20 @@ public class FriendsManager {
                     String userInfoId = child.getKey();
                     friendsIds.add(userInfoId);
                 }
-                List<Task<UserInfo>> tasks = new ArrayList<>();
+                final List<Task<UserInfo>> tasks = new ArrayList<>();
                 for(String id : friendsIds){
                     Task<UserInfo> task = Model.getInstance().getUserInfoById(id);
                     tasks.add(task);
                 }
-                Tasks.whenAll(tasks).addOnSuccessListener(aVoid -> {
-                    List<UserInfo> userInfoList = new ArrayList<>();
-                    for(Task t : tasks){
-                        userInfoList.add((UserInfo) t.getResult());
+                Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        List<UserInfo> userInfoList = new ArrayList<>();
+                        for(Task t : tasks){
+                            userInfoList.add((UserInfo) t.getResult());
+                        }
+                        source.setResult(userInfoList);
                     }
-                    source.setResult(userInfoList);
                 });
             }
             @Override

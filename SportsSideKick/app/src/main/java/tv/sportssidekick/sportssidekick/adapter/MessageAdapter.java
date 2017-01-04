@@ -107,16 +107,32 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 if(videoUrl!=null){ // its video, show play button and prepare player
                     holder.playButton.setVisibility(View.VISIBLE);
                     final String fVideoUrl = videoUrl;
-                    holder.contentImage.setOnClickListener(view -> EventBus.getDefault().post(new PlayVideoEvent(fVideoUrl)));
+                    holder.contentImage.setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    EventBus.getDefault().post(new PlayVideoEvent(fVideoUrl));
+                                }
+                            });
                 } else {
                     holder.playButton.setVisibility(View.GONE);
-                    holder.contentImage.setOnClickListener(view -> EventBus.getDefault().post(new FullScreenImageEvent(imageUrl)));
+                    holder.contentImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            EventBus.getDefault().post(new FullScreenImageEvent(imageUrl));
+                        }
+                    });
                 }
             } else { // its audio file
                 holder.playButton.setVisibility(View.VISIBLE);
                 holder.contentImage.setVisibility(View.GONE);
                 final ImageView contentView = holder.playButton;
-                holder.view.setOnClickListener(view -> setupAudioPlayButton(imageUrl,contentView));
+                holder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        setupAudioPlayButton(imageUrl,contentView);
+                    }
+                });
             }
         } else {
             holder.playButton.setVisibility(View.GONE);

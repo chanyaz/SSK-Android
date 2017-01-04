@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,10 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
@@ -56,7 +59,8 @@ public class CreateChatFragment extends BaseFragment {
     @BindView(R.id.private_chat_switch)
     Switch privateChatSwitch;
     ChatFriendsAdapter chatFriendsAdapter;
-
+    @BindView(R.id.private_chat_label)
+    TextView privateChatTextView;
     List<UserInfo> userInfoList;
 
     public CreateChatFragment() {
@@ -70,41 +74,68 @@ public class CreateChatFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_create_chat, container, false);
         ButterKnife.bind(this, view);
 
-        confirmButton.setOnClickListener(v -> {
-            createNewChat();
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createNewChat();
+            }
         });
 
-        joinChatTextView.setOnClickListener(v -> {
-            EventBus.getDefault().post(new FragmentEvent(JoinChatFragment.class));
+        joinChatTextView.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EventBus.getDefault().post(new FragmentEvent(JoinChatFragment.class));
+                }
         });
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
         friendsRecyclerView.setLayoutManager(layoutManager);
 
         Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends();
-        task.addOnSuccessListener(userInfos -> {
-            chatFriendsAdapter = new ChatFriendsAdapter(getContext());
-            for(int i = 0; i <20; i++){
-                UserInfo info = new UserInfo();
-                info.setEqualsTo(userInfos.get(0));
-                info.setUserId("TEST" + i);
-                userInfos.add(info); // for demo!
-            }
-            chatFriendsAdapter.add(userInfos);
-            userInfoList = userInfos;
-            friendsRecyclerView.setAdapter(chatFriendsAdapter);
-        });
+        task.addOnSuccessListener(
+            new OnSuccessListener<List<UserInfo>>() {
+                @Override
+                public void onSuccess(List<UserInfo> userInfos) {
+                    chatFriendsAdapter = new ChatFriendsAdapter(getContext());
+                    for (int i = 0; i < 20; i++) {
+                        UserInfo info = new UserInfo();
+                        info.setEqualsTo(userInfos.get(0));
+                        info.setUserId("TEST" + i);
+                        userInfos.add(info); // for demo!
+                    }
+                    chatFriendsAdapter.add(userInfos);
+                    userInfoList = userInfos;
+                    friendsRecyclerView.setAdapter(chatFriendsAdapter);
+                }
+            });
 
         searchEditText.addTextChangedListener(textWatcher);
+
+        final Resources res = getResources();
+        privateChatSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String switchText;
+                if(isChecked){
+                    switchText = res.getString(R.string.this_chat_is_private);
+                } else {
+                    switchText = res.getString(R.string.this_chat_is_public);
+                }
+                privateChatTextView.setText(switchText);
+            }
+        });
 
         return view;
     }
 
     public void performSearch() {
-        getActivity().runOnUiThread(() -> {
-            final List<UserInfo> filteredModelList = filter(userInfoList, searchEditText.getText().toString());
-            chatFriendsAdapter.replaceAll(filteredModelList);
-            friendsRecyclerView.scrollToPosition(0);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run(){
+                final List<UserInfo> filteredModelList = filter(userInfoList, searchEditText.getText().toString());
+                chatFriendsAdapter.replaceAll(filteredModelList);
+                friendsRecyclerView.scrollToPosition(0);
+            }
         });
     }
 

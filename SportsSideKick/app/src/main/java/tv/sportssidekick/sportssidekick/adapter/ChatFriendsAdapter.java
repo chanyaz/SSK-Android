@@ -39,7 +39,7 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
     private static final int VIEW_TYPE_CELL = 2;
     private static final String TAG = "Chat Friends Adapter";
 
-    Context context;
+    private Context context;
 
     public List<UserInfo> getSelectedValues() {
         return selectedValues;
@@ -47,7 +47,7 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
 
     private List<UserInfo> selectedValues;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
         @Nullable @BindView(R.id.profile_image) ImageView image;
@@ -69,18 +69,18 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
 
     @Override
     public int getItemViewType(int position) {
-//        return (position == values.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_CELL;
         return VIEW_TYPE_CELL;
     }
 
     @Override
     public ChatFriendsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        ViewHolder viewHolder;
-        if (viewType == VIEW_TYPE_CELL) {
-            // create a new view
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_friend_item, parent, false);
-            viewHolder = new ViewHolder(view);
-            view.setOnClickListener(v -> {
+       final ViewHolder viewHolder;
+        // create a new view
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_friend_item, parent, false);
+        viewHolder = new ViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 int focusedItem = viewHolder.getLayoutPosition();
                 UserInfo info = values.get(focusedItem);
                 if(selectedValues.contains(info)){
@@ -89,16 +89,9 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
                     selectedValues.add(info);
                 }
                 notifyItemChanged(focusedItem);
-            });
-            return  viewHolder;
-        }
-        else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_chat_button, parent, false);
-            viewHolder = new ViewHolder(view);
-//            view.setOnClickListener( view1 -> EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class)));
-
-            return viewHolder;
-        }
+            }
+        });
+        return  viewHolder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -122,7 +115,6 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
 
     @Override
     public int getItemCount() {
-//        return values.size() + 1;
         return values.size();
     }
 

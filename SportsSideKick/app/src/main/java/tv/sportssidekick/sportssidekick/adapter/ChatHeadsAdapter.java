@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -56,14 +57,10 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.profile_image_1) ImageView firstImage;
-        @Nullable @BindView(R.id.profile_image_2) ImageView secondImage;
-        @Nullable @BindView(R.id.profile_image_3) ImageView thirdImage;
-        @Nullable @BindView(R.id.profile_image_4) ImageView fourthImage;
-        @Nullable @BindView(R.id.second_container) View secondContainer;
+        @Nullable @BindView(R.id.image) ImageView imageView;
         @Nullable @BindView(R.id.selected) View selectedRingView;
-
         @Nullable @BindView(R.id.caption) TextView chatCaption;
+        @Nullable @BindView(R.id.edit_button) TextView editButton;
         @Nullable @BindView(R.id.people_count_value) TextView userCount;
 
         ViewHolder(View v) {
@@ -85,25 +82,44 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
 
     @Override
     public ChatHeadsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         if (viewType == VIEW_TYPE_CELL) {
             // create a new view
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_head_item, parent, false);
             viewHolder = new ViewHolder(view);
-            view.setOnClickListener(v -> {
-                notifyItemChanged(focusedItem);  // notify previous item!
-                focusedItem = viewHolder.getLayoutPosition();
-                notifyItemChanged(focusedItem); // notify new item
-                EventBus.getDefault().post(new UIEvent(focusedItem));
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notifyItemChanged(focusedItem);  // notify previous item!
+                    focusedItem = viewHolder.getLayoutPosition();
+                    notifyItemChanged(focusedItem); // notify new item
+                    EventBus.getDefault().post(new UIEvent(focusedItem));
+                }
             });
+
+            viewHolder.editButton.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentEvent fragmentEvent = new FragmentEvent(ManageChatFragment.class);
+                    int position = viewHolder.getLayoutPosition();
+                    fragmentEvent.setId(values.get(position).getId());
+                    EventBus.getDefault().post(fragmentEvent);
+                }
+            });
+
             return  viewHolder;
         }
         else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_chat_button, parent, false);
             viewHolder = new ViewHolder(view);
             view.setOnClickListener(
-                    view1 -> EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class)));
-
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+                        }
+                    });
             return viewHolder;
         }
     }
@@ -121,9 +137,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             }
             holder.userCount.setText(String.valueOf(size));
             DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.firstImage,imageOptions);
-            holder.secondImage.setVisibility(View.GONE);
-            holder.secondContainer.setVisibility(View.GONE);
+            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.imageView,imageOptions);
 
             holder.chatCaption.setText(info.getChatTitle());
 

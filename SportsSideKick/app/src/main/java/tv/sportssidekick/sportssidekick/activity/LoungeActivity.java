@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
@@ -125,9 +127,12 @@ public class LoungeActivity extends AppCompatActivity {
                 Bitmap image = BlurBuilder.blur(rootView);
                 popupHolder.setBackground(new BitmapDrawable(this.getResources(), image));
             } else {
-                rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-                    Bitmap image = BlurBuilder.blur(rootView);
-                    popupHolder.setBackground(new BitmapDrawable(LoungeActivity.this.getResources(), image));
+                rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        Bitmap image = BlurBuilder.blur(rootView);
+                        popupHolder.setBackground(new BitmapDrawable(LoungeActivity.this.getResources(), image));
+                    }
                 });
             }
         } else {
@@ -161,6 +166,7 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments = new ArrayList<>();
         popupContainerFragments.add(CreateChatFragment.class);
         popupContainerFragments.add(JoinChatFragment.class);
+        popupContainerFragments.add(ManageChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
 

@@ -2,6 +2,7 @@ package tv.sportssidekick.sportssidekick.model.friendship;
 
 import android.text.TextUtils;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
@@ -46,8 +47,8 @@ public class PeopleSearchManager {
 
     public Task<List<UserInfo>> searchPeople(String searchString){
         lastSearchKey = searchString.toLowerCase();
-        TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
-        List<UserInfo> usersInfo = new ArrayList<>();
+        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+        final List<UserInfo> usersInfo = new ArrayList<>();
 
         if(TextUtils.isEmpty(searchString)){
             source.setResult(usersInfo);
@@ -63,19 +64,22 @@ public class PeopleSearchManager {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<Task<UserInfo>> tasks = new ArrayList<>();
+                        final List<Task<UserInfo>> tasks = new ArrayList<>();
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             String uid = child.getKey();
                             Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
                             tasks.add(task);
                         }
-                        Tasks.whenAll(tasks).addOnSuccessListener(aVoid -> {
-                            List<UserInfo> userInfoList = new ArrayList<>();
-                            for(Task t : tasks){
-                                userInfoList.add((UserInfo) t.getResult());
+                        Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                List<UserInfo> userInfoList = new ArrayList<>();
+                                for(Task t : tasks){
+                                    userInfoList.add((UserInfo) t.getResult());
+                                }
+                                usersInfo.addAll(userInfoList);
+                                source.setResult(usersInfo);
                             }
-                            usersInfo.addAll(userInfoList);
-                            source.setResult(usersInfo);
                         });
                     }
                     @Override
@@ -91,19 +95,22 @@ public class PeopleSearchManager {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<Task<UserInfo>> tasks = new ArrayList<>();
+                        final List<Task<UserInfo>> tasks = new ArrayList<>();
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             String uid = child.getKey();
                             Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
                             tasks.add(task);
                         }
-                        Tasks.whenAll(tasks).addOnSuccessListener(aVoid -> {
-                            List<UserInfo> userInfoList = new ArrayList<>();
-                            for(Task t : tasks){
-                                userInfoList.add((UserInfo) t.getResult());
+                        Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                List<UserInfo> userInfoList = new ArrayList<>();
+                                for(Task t : tasks){
+                                    userInfoList.add((UserInfo) t.getResult());
+                                }
+                                usersInfo.addAll(userInfoList);
+                                source.setResult(usersInfo);
                             }
-                            usersInfo.addAll(userInfoList);
-                            source.setResult(usersInfo);
                         });
                     }
                     @Override
@@ -119,19 +126,22 @@ public class PeopleSearchManager {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<Task<UserInfo>> tasks = new ArrayList<>();
+                        final List<Task<UserInfo>> tasks = new ArrayList<>();
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             String uid = child.getKey();
                             Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
                             tasks.add(task);
                         }
-                        Tasks.whenAll(tasks).addOnSuccessListener(aVoid -> {
-                            List<UserInfo> userInfoList = new ArrayList<>();
-                            for(Task t : tasks){
-                                userInfoList.add((UserInfo) t.getResult());
+                        Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                List<UserInfo> userInfoList = new ArrayList<>();
+                                for(Task t : tasks){
+                                    userInfoList.add((UserInfo) t.getResult());
+                                }
+                                usersInfo.addAll(userInfoList);
+                                source.setResult(usersInfo);
                             }
-                            usersInfo.addAll(userInfoList);
-                            source.setResult(usersInfo);
                         });
                     }
                     @Override

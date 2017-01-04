@@ -75,19 +75,21 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
 
     @Override
     public PublicChatsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         if (viewType == VIEW_TYPE_CELL) {
             // create a new view
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_friend_item, parent, false);
             viewHolder = new ViewHolder(view);
-            view.setOnClickListener(v -> {
-                if(focusedItem>=0){
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (focusedItem >= 0) {
+                        notifyItemChanged(focusedItem);
+                    }
+                    focusedItem = viewHolder.getLayoutPosition();
+                    selectedValue = values.get(focusedItem);
                     notifyItemChanged(focusedItem);
-                }
-                focusedItem = viewHolder.getLayoutPosition();
-                selectedValue = values.get(focusedItem);
-                notifyItemChanged(focusedItem);
-            });
+                }});
             return  viewHolder;
         }
         else {

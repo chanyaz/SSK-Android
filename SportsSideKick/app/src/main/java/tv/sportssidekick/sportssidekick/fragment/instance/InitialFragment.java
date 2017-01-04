@@ -45,14 +45,20 @@ public class InitialFragment extends BaseFragment {
         context = getActivity();
 
         logInButton = (Button) view.findViewById(R.id.login_log_in_button);
-        logInButton.setOnClickListener(v -> {
-            FragmentEvent fragmentEvent = new FragmentEvent(LoginFragment.class);
-            EventBus.getDefault().post(fragmentEvent);
+        logInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentEvent fragmentEvent = new FragmentEvent(LoginFragment.class);
+                EventBus.getDefault().post(fragmentEvent);
+            }
         });
         signUpButton = (Button) view.findViewById(R.id.login_sign_up_button);
-        signUpButton.setOnClickListener(v -> {
-            FragmentEvent fragmentEvent = new FragmentEvent(SignUpFragment.class);
-            EventBus.getDefault().post(fragmentEvent);
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentEvent fragmentEvent = new FragmentEvent(SignUpFragment.class);
+                EventBus.getDefault().post(fragmentEvent);
+            }
         });
 
         slideTextOne = (TextView) view.findViewById(R.id.login_slide_text_1);
@@ -65,20 +71,24 @@ public class InitialFragment extends BaseFragment {
             @Override
             public void run() {
                 if (getActivity() != null) {
-                getActivity().runOnUiThread(() -> {
-                    switch (postion) {
-                        case 0:
-                            postion = 1;
-                            Utility.slideText(slideTextOne, slideTextTwo, circleOne, circleTwo,  true, context);
-                            break;
-                        case 1:
-                            postion = 0;
-                            Utility.slideText(slideTextOne, slideTextTwo, circleOne, circleTwo,  false, context);
-                            break;
-                        default:
-                            break;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (postion) {
+                            case 0:
+                                postion = 1;
+                                Utility.slideText(slideTextOne, slideTextTwo, circleOne, circleTwo,  true, context);
+                                break;
+                            case 1:
+                                postion = 0;
+                                Utility.slideText(slideTextOne, slideTextTwo, circleOne, circleTwo,  false, context);
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 });
+
             }
             }
         }, 0, Constant.LOGIN_TEXT_TIME);

@@ -4,7 +4,9 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 import android.Manifest;
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -119,8 +122,18 @@ public class ChatFragment extends BaseFragment {
         infoMessage.setVisibility(View.GONE);
         sendButton.setVisibility(View.GONE);
 
-        imageCloseButton.setOnClickListener(v -> fullScreenContainer.setVisibility(View.GONE));
-        imageDownloadButton.setOnClickListener(v -> Toast.makeText(getContext(),"Image is downloaded.", Toast.LENGTH_SHORT).show());
+        imageCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fullScreenContainer.setVisibility(View.GONE);
+            }
+        });
+        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"Image is downloaded.", Toast.LENGTH_SHORT).show();
+            }
+        });
         initializeUI();
 
         LayoutTransition layoutTransition = new LayoutTransition();
@@ -156,60 +169,77 @@ public class ChatFragment extends BaseFragment {
             public void afterTextChanged(Editable s) {}
         });
 
-        sendButton.setOnClickListener(v -> {
-            ImsMessage message = ImsMessage.getDefaultMessage();
-            message.setText(inputEditText.getText().toString().trim());
-            activeChatInfo.sendMessage(message);
-            inputEditText.setText("");
-        });
-
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            if(activeChatInfo!=null){
-                activeChatInfo.loadPreviouseMessagesPage();
-            } else {
-                swipeRefreshLayout.setRefreshing(false);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImsMessage message = ImsMessage.getDefaultMessage();
+                message.setText(inputEditText.getText().toString().trim());
+                activeChatInfo.sendMessage(message);
+                inputEditText.setText("");
             }
         });
 
-        micButton.setOnTouchListener((v, event) -> {
-            switch(event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    ChatFragmentPermissionsDispatcher.startRecordingWithCheck(ChatFragment.this);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    stopRecording();
-                    break;
-            }
-            return false;
-        });
-
-        camButton.setOnClickListener((v) -> {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                File photoFile = null;
-                try {
-                    photoFile = Model.createImageFile(getContext());
-                    currentPath = photoFile.getAbsolutePath();
-                } catch (IOException ex) {
-                    // Error occurred while creating the File
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(activeChatInfo!=null){
+                    activeChatInfo.loadPreviouseMessagesPage();
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
                 }
-                if (photoFile != null) {
-                    Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                }
-                startActivityForResult(takePictureIntent, REQUEST_CODE_IMAGE_CAPTURE);
             }
-
-        });
-        picButton.setOnClickListener((v) -> {
-            Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(pickPhoto , REQUEST_CODE_IMAGE_PICK);//one can be replaced with any action code
         });
 
-        vidButton .setOnClickListener((v) -> {
-            Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-            if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                startActivityForResult(takeVideoIntent, REQUEST_CODE_VIDEO_CAPTURE);
+        micButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        ChatFragmentPermissionsDispatcher.startRecordingWithCheck(ChatFragment.this);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        stopRecording();
+                        break;
+                }
+                return false;
+            }
+        } );
+
+        camButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    File photoFile = null;
+                    try {
+                        photoFile = Model.createImageFile(getContext());
+                        currentPath = photoFile.getAbsolutePath();
+                    } catch (IOException ex) {
+                        // Error occurred while creating the File
+                    }
+                    if (photoFile != null) {
+                        Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    }
+                    startActivityForResult(takePictureIntent, REQUEST_CODE_IMAGE_CAPTURE);
+                }
+            }
+        });
+        picButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto, REQUEST_CODE_IMAGE_PICK);//one can be replaced with any action code
+            }
+        });
+
+        vidButton .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takeVideoIntent, REQUEST_CODE_VIDEO_CAPTURE);
+                }
             }
         });
 
@@ -299,7 +329,12 @@ public class ChatFragment extends BaseFragment {
         videoView.setVisibility(View.VISIBLE);
         videoView.setVideoURI(Uri.parse(event.getId()));
         videoView.start();
-        videoView.setOnCompletionListener(mp -> videoView.setVisibility(View.GONE));
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                videoView.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Subscribe
@@ -355,20 +390,24 @@ public class ChatFragment extends BaseFragment {
     public void startRecording() {
         Toast.makeText(getContext(),"Hold down to record!", Toast.LENGTH_SHORT).show();
         final Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            recorder = new MediaRecorder();
-            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-            audioFilepath = Model.getAudioFileName();
-            recorder.setOutputFile(audioFilepath);
-            try {
-                recorder.prepare();
-                recorder.start();
-            } catch (Exception e) {
-                Log.e(TAG, "startRecording failed");
+        handler.postDelayed(new TimerTask() {
+            @Override
+            public void run() {
+                recorder = new MediaRecorder();
+                recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+                recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+                audioFilepath = Model.getAudioFileName();
+                recorder.setOutputFile(audioFilepath);
+                try {
+                    recorder.prepare();
+                    recorder.start();
+                } catch (Exception e) {
+                    Log.e(TAG, "startRecording failed");
+                }
             }
-        }, 250);
+            }
+        , 250);
     }
 
     private void stopRecording() {
@@ -398,8 +437,18 @@ public class ChatFragment extends BaseFragment {
     void showRationaleForCamera(final PermissionRequest request) {
         new AlertDialog.Builder(getContext())
                 .setMessage(R.string.permission_microphone_rationale)
-                .setPositiveButton(R.string.button_allow, (dialog, button) -> request.proceed())
-                .setNegativeButton(R.string.button_deny, (dialog, button) -> request.cancel())
+                .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        request.proceed();
+                    }
+                })
+                .setNegativeButton(R.string.button_deny, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        request.cancel();
+                    }
+                })
                 .show();
     }
 

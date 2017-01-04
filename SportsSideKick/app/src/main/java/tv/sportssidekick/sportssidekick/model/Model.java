@@ -37,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -114,10 +115,14 @@ public class Model {
                         EventBus.getDefault().post(new FirebaseEvent("Login failed (canceled)!", FirebaseEvent.Type.LOGIN_FAILED, null));
                     }
                 });
-                getAllUsersInfo().addOnSuccessListener(userInfos -> {
-                    ImModel.getInstance().reload(userInfo.getUserId());
-                    EventBus.getDefault().post(new FirebaseEvent("All user data downloaded", FirebaseEvent.Type.ALL_DATA_ACQUIRED, userInfos));
-                });
+                getAllUsersInfo().addOnSuccessListener(
+                    new OnSuccessListener<List<UserInfo>>() {
+                       @Override
+                       public void onSuccess(List<UserInfo> userInfos) {
+                           ImModel.getInstance().reload(userInfo.getUserId());
+                           EventBus.getDefault().post(new FirebaseEvent("All user data downloaded", FirebaseEvent.Type.ALL_DATA_ACQUIRED, userInfos));
+                       }
+               });
 
 
             } else {
@@ -146,7 +151,7 @@ public class Model {
 
 
     private Task<List<UserInfo>> getAllUsersInfo(){
-        TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
         userInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -182,7 +187,7 @@ public class Model {
      *
      **/
     public Task<UserInfo> getUserInfoById(String userId) {
-        TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         UserInfo info = getCachedUserInfoById(userId);
         if(info!=null){
             source.setResult(info);
@@ -225,7 +230,7 @@ public class Model {
      **/
     public Task<UserInfo> fetchOnceUserInfoById(String userId) {
         UserInfo info = getCachedUserInfoById(userId);
-        TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         if(info!=null){
             source.setResult(info);
             return source.getTask();
@@ -243,7 +248,16 @@ public class Model {
         return source.getTask();
     }
 
-
+    public List<UserInfo> getCachedUserInfoById(Collection<String> userIds) {
+        List<UserInfo> userInfos = new ArrayList<>();
+        for(String id : userIds){
+            UserInfo info = getCachedUserInfoById(id);
+            if(info!=null){
+                userInfos.add(info);
+            }
+        }
+        return userInfos;
+    }
 
     public UserInfo getCachedUserInfoById(String userId) {
         if(userCache.containsKey(userId)){
@@ -355,7 +369,7 @@ public class Model {
         }
     }
 
-    private void saveDataFile(String filename, InputStream stream, FirebaseEvent.Type type){
+    private void saveDataFile(String filename, InputStream stream, final FirebaseEvent.Type type){
         StorageReference filesRef = storageRef.child("images").child(filename);
         UploadTask uploadTask = filesRef.putStream(stream);
         uploadTask.addOnFailureListener(new OnFailureListener() {

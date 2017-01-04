@@ -61,13 +61,22 @@ public class JoinChatFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_join_chat, container, false);
         ButterKnife.bind(this, view);
 
-        confirmButton.setOnClickListener(v -> {
-            joinChat();
-        });
+        confirmButton.setOnClickListener(
+            new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                     joinChat();
+                 }
+             }
+        );
 
-        createChatTextView.setOnClickListener(v -> {
-            EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
-        });
+        createChatTextView.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+                }
+            });
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
         recyclerView.setLayoutManager(layoutManager);
@@ -81,10 +90,13 @@ public class JoinChatFragment extends BaseFragment {
     }
 
     public void performSearch() {
-        getActivity().runOnUiThread(() -> {
-            final List<ChatInfo> filteredModelList = filter(chatInfos, searchEditText.getText().toString());
-            chatsAdapter.replaceAll(filteredModelList);
-            recyclerView.scrollToPosition(0);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final List<ChatInfo> filteredModelList = filter(chatInfos, searchEditText.getText().toString());
+                chatsAdapter.replaceAll(filteredModelList);
+                recyclerView.scrollToPosition(0);
+            }
         });
     }
 
