@@ -1,9 +1,7 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,14 +13,15 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
+import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -34,22 +33,26 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  */
 
 
-public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.ViewHolder> {
-    private static final String TAG = "Chat Friends Adapter";
+public class ChatMembersAdapter extends RecyclerView.Adapter<ChatMembersAdapter.ViewHolder> {
+    private static final String TAG = "Chat Members Adapter";
 
     private Context context;
+    private ChatInfo chatInfo;
+    List<UserInfo> membersList;
 
-    public List<UserInfo> getSelectedValues() {
-        return selectedValues;
+    public void setChatInfo(ChatInfo chatInfo) {
+        this.chatInfo = chatInfo;
     }
 
-    private List<UserInfo> selectedValues;
+    private void reloadChatMembers(){
+        membersList = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds().keySet());
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
         @Nullable @BindView(R.id.profile_image) ImageView image;
-        @Nullable @BindView(R.id.selected) View selectedRingView;
+        @Nullable @BindView(R.id.remove_icon) ImageView removeIcon;
         @Nullable @BindView(R.id.caption) TextView name;
 
         ViewHolder(View v) {
@@ -59,8 +62,7 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
         }
     }
 
-    public ChatFriendsAdapter(Context context) {
-        selectedValues = new ArrayList<>();
+    public ChatMembersAdapter(Context context) {
         this.context = context;
     }
 
@@ -71,16 +73,24 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
     }
 
     @Override
-    public ChatFriendsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public ChatMembersAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
        final ViewHolder viewHolder;
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_friend_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_member_item, parent, false);
         viewHolder = new ViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
+        viewHolder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = viewHolder.getLayoutPosition();
                 updateUser(position);
+                notifyItemChanged(position);
+            }
+        });
+        viewHolder.removeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = viewHolder.getLayoutPosition();
+                blockUser(position);
                 notifyItemChanged(position);
             }
         });
@@ -89,10 +99,24 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
 
     private void updateUser(int position){
         UserInfo info = values.get(position);
-        if(selectedValues.contains(info)){
-            selectedValues.remove(info);
+        if(isMemberOfChat(info)) {
+            // remove from chat
+            chatInfo.removeUserFromChat(info.getUserId());
         } else {
-            selectedValues.add(info);
+            // add to chat
+            chatInfo.addUser(info);
+        }
+    }
+
+    private void blockUser(int position){
+        UserInfo info = values.get(position);
+        if(isBlocked(info)) {
+            chatInfo.unblockUserInThisChat(info.getUserId());
+            // remove from chat
+        } else {
+            // block
+            chatInfo.blockUserFromJoinningThisChat(info.getUserId());
+
         }
     }
 
@@ -104,13 +128,29 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
         ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.image,imageOptions);
         holder.name.setText(info.getFirstName()  + " " + info.getLastName());
 
-        if(selectedValues.contains(info)){
-            holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
-        } else {
-            holder.image.setColorFilter(null);
+        // TODO Set user appearance
+        if(isMemberOfChat(info)){ // this is member of a chat
+            holder.image.setAlpha(1.0f);
+            holder.name.setAlpha(1.0f);
+        } else { // this one is not yet member of a chat
+            holder.image.setAlpha(0.5f);
+            holder.name.setAlpha(0.5f);
         }
+//        if(selectedValues.contains(info)){
+//            holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
+//        } else {
+//            holder.image.setColorFilter(null);
+//        }
 
         holder.view.setTag(position);
+    }
+
+    private boolean isMemberOfChat(UserInfo info){
+       return chatInfo.getUsersIds().containsKey(info.getUserId());
+    }
+
+    private boolean isBlocked(UserInfo info){
+        return chatInfo.isUserBlockedFromThisChat(info.getUserId());
     }
 
     @Override

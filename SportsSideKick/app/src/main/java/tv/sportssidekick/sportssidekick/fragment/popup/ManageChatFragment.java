@@ -1,6 +1,5 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,16 +14,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.adapter.ChatFriendsAdapter;
+import tv.sportssidekick.sportssidekick.adapter.ChatMembersAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
@@ -51,11 +48,9 @@ public class ManageChatFragment extends BaseFragment {
     @BindView(R.id.private_chat_label)
     TextView privateChatTextView;
 
-    ChatFriendsAdapter chatFriendsAdapter;
-
-    List<UserInfo> membersList;
-    List<UserInfo> friendsList;
+    ChatMembersAdapter chatMembersAdapter;
     ChatInfo chatInfo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -71,57 +66,64 @@ public class ManageChatFragment extends BaseFragment {
 
         String chatId = getPrimaryArgument();
         chatInfo = ImModel.getInstance().getChatInfoById(chatId);
-        membersList = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds().keySet());
 
-        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends();
-        task.addOnSuccessListener(
+        FriendsManager.getInstance().getFriends().addOnSuccessListener(
                 new OnSuccessListener<List<UserInfo>>() {
                     @Override
                     public void onSuccess(List<UserInfo> userInfos) {
-                        chatFriendsAdapter = new ChatFriendsAdapter(getContext());
-                        chatFriendsAdapter.add(userInfos);
-                        friendsList = userInfos;
-                        chatFriendsAdapter.add(membersList);
-                        recyclerView.setAdapter(chatFriendsAdapter);
+                        chatMembersAdapter = new ChatMembersAdapter(getContext());
+                        chatMembersAdapter.add(userInfos);
+                        chatMembersAdapter.setChatInfo(chatInfo);
+                        recyclerView.setAdapter(chatMembersAdapter);
                     }
                 });
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
         recyclerView.setLayoutManager(layoutManager);
 
-        chatFriendsAdapter = new ChatFriendsAdapter(getContext());
-        chatFriendsAdapter.add(membersList);
-        recyclerView.setAdapter(chatFriendsAdapter);
-
-        final Resources res = getResources();
-        String captionText = String.format(res.getString(R.string.manage_public_chat_caption), chatInfo.getChatTitle());
-        topCaptionTextView.setText(captionText);
-
         privateChatSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                String switchText;
-                if(isChecked){
-                    switchText = res.getString(R.string.this_chat_is_private);
-                } else {
-                    switchText = res.getString(R.string.this_chat_is_public);
-                }
-                privateChatTextView.setText(switchText);
+                setIsPublicText(!isChecked);
             }
         });
 
-        privateChatSwitch.setChecked(chatInfo.getIsPublic());
         return view;
     }
 
-    private void submitChanges(){
-        List<UserInfo> selectedUsers = chatFriendsAdapter.getSelectedValues();
-        String chatName = chatNameEditText.getText().toString();
-        boolean isPrivate = privateChatSwitch.isChecked();
-
-        // TODO
-
-        if(!TextUtils.isEmpty(chatName)){
-            // new chat name is added // TODO Validation?
+    private void setIsPublicText(boolean isPublic) {
+        String switchText;
+        if(isPublic){
+            switchText = getResources().getString(R.string.this_chat_is_public);
+        } else {
+            switchText = getResources().getString(R.string.this_chat_is_private);
         }
+        privateChatTextView.setText(switchText);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        privateChatSwitch.setChecked(!chatInfo.getIsPublic());
+        setIsPublicText(chatInfo.getIsPublic());
+        String captionText = String.format(getResources().getString(R.string.manage_public_chat_caption), chatInfo.getChatTitle());
+        topCaptionTextView.setText(captionText);
+    }
+
+    private void submitChanges(){
+        String newChatName = chatNameEditText.getText().toString();
+        boolean isPublic = !privateChatSwitch.isChecked();
+        boolean shouldUpdate = false;
+        if(!TextUtils.isEmpty(newChatName)){ // chat name is changed
+            shouldUpdate = true;
+            chatInfo.setName(newChatName);
+        }
+        if(isPublic !=chatInfo.getIsPublic()){ // Chat changed privacy state
+            shouldUpdate = true;
+            chatInfo.setIsPublic(isPublic);
+        }
+        if(shouldUpdate){
+            chatInfo.updateChatInfo();
+        }
+        getActivity().onBackPressed();
     }
 }

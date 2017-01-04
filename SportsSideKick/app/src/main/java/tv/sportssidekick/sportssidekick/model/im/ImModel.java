@@ -519,8 +519,7 @@ public class ImModel {
     // do not use this function, call the chat info one!
     // add the given uid to the chat black list
     void blockUserFromJoinningChat(ChatInfo chatInfo, String userIdToBlock){
-        DatabaseReference chatInfoRef = imsChatsMessagesRef.child(chatInfo.getId())
-                .child("usersIdsBlackList").child(userIdToBlock);
+        DatabaseReference chatInfoRef = imsChatsMessagesRef.child(chatInfo.getId()).child("usersIdsBlackList").child(userIdToBlock);
         chatInfoRef.setValue(true);
     }
 
