@@ -120,9 +120,7 @@ public class ChatFragment extends BaseFragment {
         sendButton.setVisibility(View.GONE);
 
         imageCloseButton.setOnClickListener(v -> fullScreenContainer.setVisibility(View.GONE));
-
         imageDownloadButton.setOnClickListener(v -> Toast.makeText(getContext(),"Image is downloaded.", Toast.LENGTH_SHORT).show());
-
         initializeUI();
 
         LayoutTransition layoutTransition = new LayoutTransition();
@@ -230,9 +228,10 @@ public class ChatFragment extends BaseFragment {
         int pixels = (int) (60 * scale + 0.5f); // 60dp
         chatHeadsContainer.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, pixels));
         chatHeadsView.setLayoutManager(layoutManager);
+
         bottomCreateChatContainer.setVisibility(View.GONE);
-        messageListView.setVisibility(View.VISIBLE);
         downArrow.setVisibility(View.VISIBLE);
+        displayChat(activeChatInfo);
     }
 
     private void showGridChats(){
@@ -243,6 +242,8 @@ public class ChatFragment extends BaseFragment {
         bottomCreateChatContainer.setVisibility(View.VISIBLE);
         messageListView.setVisibility(View.GONE);
         downArrow.setVisibility(View.GONE);
+        infoMessage.setVisibility(View.GONE);
+
     }
 
     @Subscribe
@@ -319,18 +320,16 @@ public class ChatFragment extends BaseFragment {
         chatHeadsContainer.setVisibility(View.VISIBLE);
         messageListView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
-
-//        displayChat(allUserChats.get(0));
     }
 
     private void displayChat(ChatInfo info){
         activeChatInfo = info;
-        if(info.getMessages()!=null){
+        if(activeChatInfo!=null && info.getMessages()!=null){
             // Message container initialization
             if(info.getMessages().size()>0){
                 swipeRefreshLayout.setEnabled(true);
                 messageListView.setVisibility(View.VISIBLE);
-                infoMessage.setVisibility(View.INVISIBLE);
+                infoMessage.setVisibility(View.GONE);
                 Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

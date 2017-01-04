@@ -81,12 +81,12 @@ public class ChatInfo extends FirebseObject {
                 String firstUserId = (String) getUsersIds().keySet().toArray()[0];
                 String secondUserId = (String) getUsersIds().keySet().toArray()[1];
                 if(!userId.equals(firstUserId)){
-                    String nic = Model.getInstance().getCachedUserInfoById(firstUserId).getNicName(); // TODO Use users from chatUsers list.
+                    String nic = Model.getInstance().getCachedUserInfoById(firstUserId).getNicName();
                     if(nic!=null){
                         return nic;
                     }
                 } else {
-                    String nic = Model.getInstance().getCachedUserInfoById(secondUserId).getNicName(); // TODO Use users from chatUsers list.
+                    String nic = Model.getInstance().getCachedUserInfoById(secondUserId).getNicName();
                     if(nic!=null){
                         return nic;
                     }
@@ -109,16 +109,14 @@ public class ChatInfo extends FirebseObject {
                 String userId = currentUserId;
                 String firstUserId = (String) getUsersIds().keySet().toArray()[0];
                 String secondUserId = (String) getUsersIds().keySet().toArray()[1];
+                String avatar;
                 if(!userId.equals(firstUserId)){
-                    String avatar = Model.getInstance().getCachedUserInfoById(firstUserId).getAvatarUrl(); // TODO Use users from chatUsers list.
-                    if(avatar!=null){
-                        return avatar;
-                    }
+                    avatar = Model.getInstance().getCachedUserInfoById(firstUserId).getAvatarUrl();
                 } else {
-                    String avatar = Model.getInstance().getCachedUserInfoById(secondUserId).getAvatarUrl(); // TODO Use users from chatUsers list.
-                    if(avatar!=null){
-                        return avatar;
-                    }
+                    avatar = Model.getInstance().getCachedUserInfoById(secondUserId).getAvatarUrl();
+                }
+                if(avatar!=null){
+                    return avatar;
                 }
             }
         }
@@ -126,7 +124,7 @@ public class ChatInfo extends FirebseObject {
     }
 
     // dont use that, it is called on login
-    public void loadChatUsers(){
+    void loadChatUsers(){
         Log.d(TAG, "Requesting Load of chat users");
         EventBus.getDefault().register(this);
         ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
@@ -156,8 +154,7 @@ public class ChatInfo extends FirebseObject {
      *                      is received or message status was changed
      *   notifyUserIsTyping - will return an array of the users which are currently typing
      */
-    public void loadMessages(){
-        Log.d(TAG, "New array created for messages for chat with id " + getId());
+    void loadMessages(){
         messages = new ArrayList<>();
         ImModel.getInstance().loadFirstPageOfMessagesForChat(this);
         ImModel.getInstance().observeMessageStatusChange(this);

@@ -130,12 +130,13 @@ public class JoinChatFragment extends BaseFragment {
             }
         }
         return filteredModelList;
-
     }
 
     public void joinChat(){
         ChatInfo selectedChat = chatsAdapter.getSelectedValue();
-        selectedChat.joinChat();
-        getActivity().onBackPressed();
+        if(selectedChat!=null){
+            selectedChat.joinChat();
+            getActivity().onBackPressed();
+        }
     }
 }

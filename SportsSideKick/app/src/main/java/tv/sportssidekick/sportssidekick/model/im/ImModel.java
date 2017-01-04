@@ -42,7 +42,7 @@ public class ImModel {
     private DatabaseReference imsUserChatsIndexRef;
     private DatabaseReference imsNotificationQueueRef;
     private HashMap<String, ChatInfo> chatInfoCache;
-    List<ChatInfo> chatInfoCacheList;
+    private List<ChatInfo> chatInfoCacheList;
     private List<ChatInfo> publicChatsInfo;
 
     public List<ChatInfo> getPublicChatsInfo() {
@@ -57,11 +57,6 @@ public class ImModel {
             }
         }
         return filteredList;
-    }
-
-    public ImModel setPublicChatsInfo(List<ChatInfo> publicChatsInfo) {
-        this.publicChatsInfo = publicChatsInfo;
-        return this;
     }
 
     private ImModel() {
@@ -126,11 +121,11 @@ public class ImModel {
         return chatInfoCacheList;
     }
 
-    public ChatInfo getChatInfoById(String chatId){
+    ChatInfo getChatInfoById(String chatId){
         return  chatInfoCache.get(chatId);
     }
 
-    public boolean removeChatInfoWithId(String chatId){
+    boolean removeChatInfoWithId(String chatId){
         if(chatInfoCache.containsKey(chatId)){
             ChatInfo info = chatInfoCache.remove(chatId);
             chatInfoCacheList.remove(info);
@@ -151,7 +146,7 @@ public class ImModel {
      * cjw -- re-worked this slightly to fix issue where it's always returning a zero length array
      * and generally breaking because of race conditions with ASYNC Firebase requests
      */
-    public void getAllPublicChats() {
+    void getAllPublicChats() {
         imsPublicChatsIndexRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -166,12 +161,10 @@ public class ImModel {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 // TODO Rewrite logic for public chats
-                                ChatInfo chatInfo = dataSnapshot.getValue(ChatInfo.class);
-                                if(chatInfo!=null){
+                                if(dataSnapshot.exists()){
+                                    ChatInfo chatInfo = dataSnapshot.getValue(ChatInfo.class);
                                     chatInfo.setId(dataSnapshot.getKey());
-                                    chatInfoCache.put(chatId,chatInfo);
-
-                                    if(chatInfo.getIsPublic()&& !chatInfo.isUserBlockedFromThisChat(getUserId())){
+                                    if(!chatInfo.isUserBlockedFromThisChat(getUserId())){
                                         publicChatsInfo.add(chatInfo);
                                         Log.d(TAG, "getAllPublicChats: " + chatId);
                                         newChatWasAddedToTheUserChatsList(chatId,false);

@@ -113,16 +113,18 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     public void onBindViewHolder(ViewHolder holder, final int position) {
         if (position < values.size()) { // don't take the last element!
             final ChatInfo info = values.get(position);
-            int size = -1;
+            int size = 1;
             if(info.getUsersIds()!=null){
-                DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-                ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.firstImage,imageOptions);
-                holder.secondImage.setVisibility(View.GONE);
-                holder.secondContainer.setVisibility(View.GONE);
+                size =  info.getUsersIds().size();
             } else {
                 Log.d(TAG, "Have no chatUsers yet!");
             }
             holder.userCount.setText(String.valueOf(size));
+            DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.firstImage,imageOptions);
+            holder.secondImage.setVisibility(View.GONE);
+            holder.secondContainer.setVisibility(View.GONE);
+
             holder.chatCaption.setText(info.getChatTitle());
 
             holder.view.setTag(position);
