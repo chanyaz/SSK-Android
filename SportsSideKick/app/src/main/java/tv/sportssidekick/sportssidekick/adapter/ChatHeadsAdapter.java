@@ -58,6 +58,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
         // each data item is just a string in this case
         public View view;
         @Nullable @BindView(R.id.image) ImageView imageView;
+        @Nullable @BindView(R.id.notification_icon) ImageView notificationView;
         @Nullable @BindView(R.id.selected) View selectedRingView;
         @Nullable @BindView(R.id.caption) TextView chatCaption;
         @Nullable @BindView(R.id.edit_button) TextView editButton;
@@ -138,10 +139,17 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             holder.userCount.setText(String.valueOf(size));
             DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
             ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.imageView,imageOptions);
-
             holder.chatCaption.setText(info.getChatTitle());
-
             holder.view.setTag(position);
+
+            int unreadMessageCount = info.unreadMessageCount();
+            Log.d(TAG, " *** Unread Message Count for chat" + info.getName() + " : " + unreadMessageCount);
+
+            if(unreadMessageCount>0){
+                holder.notificationView.setVisibility(View.VISIBLE);
+            } else {
+                holder.notificationView.setVisibility(View.GONE);
+            }
 
            if(focusedItem==position){
                holder.selectedRingView.setVisibility(View.VISIBLE);

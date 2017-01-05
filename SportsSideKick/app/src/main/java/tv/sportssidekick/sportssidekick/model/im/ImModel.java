@@ -109,10 +109,6 @@ public class ImModel {
      * @return [String : ChatInfo] chats info list
      */
 
-//    public HashMap<String, ChatInfo> getUserChats() {
-//        return chatInfoCache;
-//    }
-
     public List<ChatInfo> getUserChatsList() {
         return chatInfoCacheList;
     }
@@ -388,6 +384,7 @@ public class ImModel {
                     String messageId = child.getKey();
                     message.setId(messageId);
                     message.initializeTimestamp();
+                    message.determineSelfReadFlag();
                     FirebaseEvent fe = new FirebaseEvent("New message detected.", FirebaseEvent.Type.NEW_MESSAGE, message);
                     fe.setFilterId(chatInfoId);
                     EventBus.getDefault().post(fe);
@@ -406,6 +403,7 @@ public class ImModel {
                             ImsMessage message = dataSnapshot.getValue(ImsMessage.class);
                             message.setId(dataSnapshot.getKey());
                             message.initializeTimestamp();
+                            message.determineSelfReadFlag();
                             FirebaseEvent fe = new FirebaseEvent("New message added.", FirebaseEvent.Type.NEW_MESSAGE_ADDED, message);
                             fe.setFilterId(chatInfoId);
                             EventBus.getDefault().post(fe);
@@ -442,6 +440,7 @@ public class ImModel {
                     ImsMessage message = snap.getValue(ImsMessage.class);
                     message.setId(snap.getKey());
                     message.initializeTimestamp();
+                    message.determineSelfReadFlag();
                     messagesNewPage.add(message);
                 }
                 FirebaseEvent fe = new FirebaseEvent("Next messages page loaded.", FirebaseEvent.Type.NEXT_PAGE_LOADED, messagesNewPage);
@@ -465,6 +464,7 @@ public class ImModel {
                 ImsMessage message = dataSnapshot.getValue(ImsMessage.class);
                 message.setId(dataSnapshot.getKey());
                 message.initializeTimestamp();
+                message.determineSelfReadFlag();
                 EventBus.getDefault().post(new FirebaseEvent("Message is changed/updated.", FirebaseEvent.Type.MESSAGE_UPDATED, message));
             }
             @Override
@@ -496,31 +496,34 @@ public class ImModel {
 
     void imsUserTypingObserverForChat(String senderId,String chatId) {
         DatabaseReference typingIndicatorRef =  imsChatsMessagesRef.child(chatId).child("typing");
-        typingIndicatorRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<UserInfo> usersTyping = new ArrayList<>();
-                HashMap<String,Boolean> temp2 = (HashMap<String, Boolean>) dataSnapshot.getValue();
-                if(temp2!=null){
-                    for(Map.Entry<String,Boolean> entry : temp2.entrySet()){
-                        if(entry.getValue() && !entry.getKey().equals(userId)){
-                            UserInfo info = Model.getInstance().getCachedUserInfoById(entry.getKey());
-                            usersTyping.add(info);
-                        }
+        typingIndicatorRef.removeEventListener(typingListener);
+        typingIndicatorRef.addValueEventListener(typingListener);
+    }
+
+    private ValueEventListener typingListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            List<UserInfo> usersTyping = new ArrayList<>();
+            HashMap<String,Boolean> temp2 = (HashMap<String, Boolean>) dataSnapshot.getValue();
+            if(temp2!=null){
+                for(Map.Entry<String,Boolean> entry : temp2.entrySet()){
+                    if(entry.getValue() && !entry.getKey().equals(userId)){
+                        UserInfo info = Model.getInstance().getCachedUserInfoById(entry.getKey());
+                        usersTyping.add(info);
                     }
                 }
+                EventBus.getDefault().post(new FirebaseEvent("Somebody is typing", FirebaseEvent.Type.TYPING, usersTyping));
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-    }
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {}
+    };
 
 
     // do not use this function, call the chat info one!
     // add the given uid to the chat black list
     void blockUserFromJoinningChat(ChatInfo chatInfo, String userIdToBlock){
-        DatabaseReference chatInfoRef = imsChatsMessagesRef.child(chatInfo.getId())
-                .child("usersIdsBlackList").child(userIdToBlock);
+        DatabaseReference chatInfoRef = imsChatsMessagesRef.child(chatInfo.getId()).child("usersIdsBlackList").child(userIdToBlock);
         chatInfoRef.setValue(true);
     }
 

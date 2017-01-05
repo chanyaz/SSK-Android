@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.database.Exclude;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -64,7 +65,12 @@ public class ChatInfo extends FirebseObject {
         setOwner(info.getOwner());
         setIsPublic(info.getIsPublic());
         setUserIdsBlackList(info.getUserIdsBlackList());
-        setMessages(info.getMessages());
+        if(info.getMessages()!=null){
+            setMessages(info.getMessages());
+        } else {
+            setMessages(new ArrayList<ImsMessage>());
+        }
+
         currentUserId = ImModel.getInstance().getUserId();
     }
 
@@ -74,6 +80,7 @@ public class ChatInfo extends FirebseObject {
      *
      * @return the chat name
      */
+    @Exclude
     public String getChatTitle(){
         if (!TextUtils.isEmpty(getName())){
             return getName();
@@ -103,6 +110,7 @@ public class ChatInfo extends FirebseObject {
      * the second user avatar url
      * @return avatar url
      */
+    @Exclude
     public String getChatAvatarUrl(){
         if (!TextUtils.isEmpty(getAvatarUrl())){
             return getAvatarUrl();
@@ -253,7 +261,7 @@ public class ChatInfo extends FirebseObject {
         int count = 0;
         String uid = currentUserId;
         if (messages == null){
-            // ("*** error need to load chat messages before asking for unreadMessageCount")
+            Log.d(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
             return -1;
         }
         for(ImsMessage message : messages){
@@ -406,19 +414,6 @@ public class ChatInfo extends FirebseObject {
         this.setMuted(isMuted);
         ImModel.getInstance().setMuteChat(this,isMuted);
     }
-
-    public ArrayList<String> getProfileImagesUrls(){
-       ArrayList<String> urls = new ArrayList<>();
-      String myId = Model.getInstance().getUserInfo().getUserId();
-        for(Map.Entry<String, Boolean> entry : usersIds.entrySet()){
-            UserInfo info = Model.getInstance().getCachedUserInfoById(entry.getKey());
-            if(info!=null && !myId.equals(info.getUserId())){
-                urls.add(info.getAvatarUrl());
-            }
-        }
-        return urls;
-    }
-
 
     public String getName() {
         return name;

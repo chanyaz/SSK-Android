@@ -78,7 +78,6 @@ public class ImsMessage extends FirebseObject {
         return message;
     }
 
-    // TODO ReadBy - detect if read by this user?
     public void determineSelfReadFlag(){
         String userId = Model.getInstance().getUserInfo().getUserId();
         for(String key : wasReadBy.keySet()){
