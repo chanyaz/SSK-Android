@@ -57,6 +57,7 @@ import tv.sportssidekick.sportssidekick.adapter.ChatHeadsAdapter;
 import tv.sportssidekick.sportssidekick.adapter.MessageAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImModel;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
@@ -155,7 +156,7 @@ public class ChatFragment extends BaseFragment {
          //Add textWatcher to notify the user
         inputEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -163,6 +164,9 @@ public class ChatFragment extends BaseFragment {
                     sendButton.setVisibility(View.GONE);
                 } else {
                     sendButton.setVisibility(View.VISIBLE);
+                }
+                if(activeChatInfo!=null){
+                    activeChatInfo.setUserIsTyping(true);
                 }
             }
             @Override
@@ -176,6 +180,9 @@ public class ChatFragment extends BaseFragment {
                 message.setText(inputEditText.getText().toString().trim());
                 activeChatInfo.sendMessage(message);
                 inputEditText.setText("");
+                if(activeChatInfo!=null){
+                    activeChatInfo.setUserIsTyping(false);
+                }
             }
         });
 
@@ -277,9 +284,16 @@ public class ChatFragment extends BaseFragment {
     }
 
     @Subscribe
+    @SuppressWarnings("Unchecked cast")
     public void onChatEventDetected(FirebaseEvent event){
         Log.d(TAG, "event received: " + event.getEventType());
         switch (event.getEventType()){
+            case TYPING:
+                    if ((event.getData() != null)) {
+                        List<UserInfo> usersTyping = (List<UserInfo>) event.getData();
+                        Log.d(TAG, "Count of usersTyping: " + usersTyping.size());
+                    }
+                break;
             case USER_CHAT_DETECTED:
                 initializeUI();
                 break;

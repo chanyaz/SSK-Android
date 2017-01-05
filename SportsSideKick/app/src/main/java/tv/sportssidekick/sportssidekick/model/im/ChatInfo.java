@@ -261,7 +261,7 @@ public class ChatInfo extends FirebseObject {
         int count = 0;
         String uid = currentUserId;
         if (messages == null){
-            // ("*** error need to load chat messages before asking for unreadMessageCount")
+            Log.d(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
             return -1;
         }
         for(ImsMessage message : messages){
