@@ -1,5 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.news;
 
+import android.util.Log;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Djordje Krutil on 27.12.2016..
@@ -36,22 +39,22 @@ public class NewsModel {
     String lastPubDate;
     boolean isLoading;
     boolean firstPageLoaded;
-private Map<String, NewsItem> newsCache;
+    private Map<String, NewsItem> newsCache;
 
 
-    public NewsItem getCachedItemById(String id){
+    public NewsItem getCachedItemById(String id) {
         return newsCache.get(id);
     }
-    public NewsModel() {}
 
-    private NewsModel(NewsItem.NewsType type, int pageLength)
-    {
+    public NewsModel() {
+    }
+
+    private NewsModel(NewsItem.NewsType type, int pageLength) {
         this.ref = FirebaseDatabase.getInstance();
         this.newsRef = ref.getReference("news").child("en").child("portugal").child("1680").child(type.toString()); // TODO Adjust for multilanguage support
         this.type = type;
         this.itemsPerPage = pageLength;
         this.language = Locale.getDefault().getDisplayLanguage();
-        resetPageCount();
         isLoading = false;
         firstPageLoaded = false;
         resetPageCount();
@@ -59,22 +62,24 @@ private Map<String, NewsItem> newsCache;
         newsCache = new HashMap<>();
     }
 
-    public static NewsModel getDefault(){
-        if(instance==null){
+    public static NewsModel getDefault() {
+        if (instance == null) {
             instance = new NewsModel(NewsItem.NewsType.OFFICIAL, DEFAULT_PAGE_LENGTH);
         }
         return instance;
     }
 
-    public NewsModel initialze(NewsItem.NewsType type, int pageLength){
+    public NewsModel initialze(NewsItem.NewsType type, int pageLength) {
         this.type = type;
         this.itemsPerPage = pageLength;
         return this;
     }
 
-    private void addObservers(){
+    private void addObservers() {
+        String currentTime = String.valueOf(System.currentTimeMillis() / 1000L) + ".000";
         newsRef.orderByChild("pubDate")
-                .startAt(String.valueOf(System.currentTimeMillis())) // TODO Change to custom format
+                .startAt(currentTime)
+                .limitToLast(itemsPerPage + 1)
                 .addChildEventListener(childEventListener);
     }
 
@@ -89,31 +94,38 @@ private Map<String, NewsItem> newsCache;
         }
 
         @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
+
         @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) { }
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+        }
+
         @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        }
+
         @Override
-        public void onCancelled(DatabaseError databaseError) { }
+        public void onCancelled(DatabaseError databaseError) {
+        }
     };
 
     // We get the data back in ascending order, so it we need to reverse sort for the expected behaviour
     // of newest items first, first though, we grab the pubDate
     // to use as a query constraint
-    private List<NewsItem> processSnapshot( DataSnapshot dataSnapshot)  {
+    private List<NewsItem> processSnapshot(DataSnapshot dataSnapshot) {
         List<NewsItem> items = new ArrayList<>();
         boolean isFirst = true;
 
-        for(DataSnapshot child : dataSnapshot.getChildren()){
+        for (DataSnapshot child : dataSnapshot.getChildren()) {
             NewsItem newsItem = child.getValue(NewsItem.class);
             newsItem.setId(child.getKey());
-            if(newsItem!=null) {
+            if (newsItem != null) {
                 if (isFirst == true) {
                     isFirst = false;
                     lastPubDate = newsItem.getPubDate();
                 }
-                newsCache.put(newsItem.getId(),newsItem);
+                newsCache.put(newsItem.getId(), newsItem);
                 items.add(newsItem);
             }
         }
@@ -127,39 +139,39 @@ private Map<String, NewsItem> newsCache;
         return items;
     }
 
-    public void resetPageCount()
-    {
-        this.lastPubDate ="";
+    public void resetPageCount() {
+        this.lastPubDate = String.valueOf(System.currentTimeMillis() / 1000L);
         this.page = 0;
     }
 
     // This method auto-increments the 'page' of data we're loading, saves having two methods
-    public void loadPage()
-    {
-        if (!isLoading)
-        {
-            isLoading =true;
-            List<NewsItem> items = new ArrayList<>();
-            newsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(!dataSnapshot.exists()){
-                        return;
-                    }
-                    List<NewsItem> newsItems = processSnapshot(dataSnapshot);
-                    EventBus.getDefault().post(newsItems); // onPageLoaded
-                    isLoading = false;
-                    if(!firstPageLoaded) {
-                        firstPageLoaded = true;
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+    public void loadPage() {
+        if (!isLoading) {
+            isLoading = true;
 
-                }
-            });
-        }
-        else {
+            newsRef.orderByChild("pubDate")
+                    .endAt(lastPubDate)
+                    .limitToLast(itemsPerPage + 1)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (!dataSnapshot.exists()) {
+                                return;
+                            }
+                            List<NewsItem> newsItems = processSnapshot(dataSnapshot);
+                            EventBus.getDefault().post(newsItems); // onPageLoaded
+                            isLoading = false;
+                            if (!firstPageLoaded) {
+                                firstPageLoaded = true;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        } else {
             return;
         }
     }

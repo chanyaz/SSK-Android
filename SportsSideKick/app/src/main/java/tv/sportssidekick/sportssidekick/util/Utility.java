@@ -9,7 +9,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -144,6 +147,22 @@ public class Utility {
         }
         catch(Exception ex){
             return "xx";
+        }
+    }
+
+
+    public static void setListViewHeight(ListView listView, BaseAdapter baseAdapter) {
+        if (listView != null) {
+            int totalHeight = 0;
+            for (int size = 0; size < baseAdapter.getCount(); size++) {
+                View listItem = baseAdapter.getView(size, null, listView);
+                listItem.measure(0, 0);
+                totalHeight += listItem.getMeasuredHeight();
+            }
+
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalHeight + (listView.getDividerHeight() * (baseAdapter.getCount() - 1));
+            listView.setLayoutParams(params);
         }
     }
 }
