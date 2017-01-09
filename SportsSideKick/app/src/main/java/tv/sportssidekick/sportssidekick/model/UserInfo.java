@@ -22,7 +22,7 @@ public class UserInfo extends FirebseObject {
     private HashMap<String, Boolean> following;
     private HashMap<String, Boolean> followers;
     private HashMap<String, Boolean> tokens;
-//    private HashMap<String, Long> friendshipRequests;
+    private HashMap<String, Long> friendshipRequests;
     private boolean isOnline;
 
     public void setEqualsTo(UserInfo userInfo) {
@@ -37,7 +37,7 @@ public class UserInfo extends FirebseObject {
         setFantasyUUID(userInfo.getFantasyUUID());
         setFantasyToken(userInfo.getFantasyToken());
         setOnline(userInfo.getIsOnline());
-//        setFriendshipRequests(userInfo.getFriendshipRequests());
+        setFriendshipRequests(userInfo.getFriendshipRequests());
         setFollowing(userInfo.getFollowing());
         setTokens(userInfo.getTokens());
         setFollowers(userInfo.getFollowers());
@@ -141,13 +141,13 @@ public class UserInfo extends FirebseObject {
         this.fantasyUUID = fantasyUUID;
     }
 
-//    public HashMap<String, Long> getFriendshipRequests() {
-//        return friendshipRequests;
-//    }
-//
-//    public void setFriendshipRequests(HashMap<String, Long> friendshipRequests) {
-//        this.friendshipRequests = friendshipRequests;
-//    }
+    public HashMap<String, Long> getFriendshipRequests() {
+        return friendshipRequests;
+    }
+
+    public void setFriendshipRequests(HashMap<String, Long> friendshipRequests) {
+        this.friendshipRequests = friendshipRequests;
+    }
 
     public HashMap<String, Boolean> getFollowing() {
         return following;
@@ -209,8 +209,7 @@ public class UserInfo extends FirebseObject {
             return false;
         if (tokens != null ? !tokens.equals(userInfo.tokens) : userInfo.tokens != null)
             return false;
-       // return friendshipRequests != null ? friendshipRequests.equals(userInfo.friendshipRequests) : userInfo.friendshipRequests == null;
-        return true;
+        return friendshipRequests != null ? friendshipRequests.equals(userInfo.friendshipRequests) : userInfo.friendshipRequests == null;
     }
 
     @Override
@@ -228,7 +227,7 @@ public class UserInfo extends FirebseObject {
         result = 31 * result + (following != null ? following.hashCode() : 0);
         result = 31 * result + (followers != null ? followers.hashCode() : 0);
         result = 31 * result + (tokens != null ? tokens.hashCode() : 0);
-//        result = 31 * result + (friendshipRequests != null ? friendshipRequests.hashCode() : 0);
+        result = 31 * result + (friendshipRequests != null ? friendshipRequests.hashCode() : 0);
         result = 31 * result + (isOnline ? 1 : 0);
         return result;
     }
