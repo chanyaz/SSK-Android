@@ -174,7 +174,7 @@ public class LoungeActivity extends AppCompatActivity {
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
-//        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
     }
 
 

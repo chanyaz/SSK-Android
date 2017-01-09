@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment">
 
-
     <ImageView
         android:contentDescription="@string/demo"
         android:layout_width="match_parent"

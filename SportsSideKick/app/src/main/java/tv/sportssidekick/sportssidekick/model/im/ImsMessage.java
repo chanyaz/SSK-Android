@@ -80,9 +80,11 @@ public class ImsMessage extends FirebseObject {
 
     public void determineSelfReadFlag(){
         String userId = Model.getInstance().getUserInfo().getUserId();
-        for(String key : wasReadBy.keySet()){
-            if(userId.equals(key)){
-                readFlag = true;
+        if(wasReadBy!=null){
+            for(String key : wasReadBy.keySet()){
+                if(userId.equals(key)){
+                    readFlag = true;
+                }
             }
         }
     }
