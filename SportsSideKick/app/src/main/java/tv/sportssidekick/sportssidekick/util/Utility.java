@@ -3,13 +3,16 @@ package tv.sportssidekick.sportssidekick.util;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -150,7 +153,6 @@ public class Utility {
         }
     }
 
-
     public static void setListViewHeight(ListView listView, BaseAdapter baseAdapter) {
         if (listView != null) {
             int totalHeight = 0;
@@ -164,5 +166,21 @@ public class Utility {
             params.height = totalHeight + (listView.getDividerHeight() * (baseAdapter.getCount() - 1));
             listView.setLayoutParams(params);
         }
+    }
+
+    public static int getDisplayWidth(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
+    }
+
+    public static int getDisplayHeight(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.y;
     }
 }

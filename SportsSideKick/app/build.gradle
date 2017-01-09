@@ -56,5 +56,6 @@ dependencies {
     compile 'com.kyleduo.switchbutton:library:1.4.4'
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'
     compile 'rongi.rotate-layout:rotate-layout:2.0.0'
+    compile 'com.github.lzyzsd:circleprogress:+'
 }
 apply plugin: 'com.google.gms.google-services'

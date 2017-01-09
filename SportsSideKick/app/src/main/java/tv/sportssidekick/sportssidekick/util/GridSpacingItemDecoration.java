@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by Djordje on 04/01/2017.
+ * Created by Djordje Krutil on 05/01/2017.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
