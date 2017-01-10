@@ -3,7 +3,10 @@ package tv.sportssidekick.sportssidekick.model.wall;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +30,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import tv.sportssidekick.sportssidekick.model.FirebaseDateUtils;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GetCommentsCompleteEvent;
@@ -44,6 +48,7 @@ import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
 
 public class WallModel {
 
+    public static final String TIMESTAMP_TAG = "timestamp";
     private WallModel instance;
 
     private DatabaseReference mbPostRef;
@@ -51,9 +56,9 @@ public class WallModel {
     private DatabaseReference mbCommentsRef;
     private DatabaseReference mbNotificationQueueRef;
 
-    private double deltaTimeIntervalForPaging  = 60*60;
-    private Date oldestFetchIntervalTimestamp;
-    private Date oldestFetchIntervalTimestampBound;
+    private long deltaTimeIntervalForPaging  = 60*60;
+    private Date oldestFetchDate;
+    private Date oldestFetchIntervalDateBound;
 
     private Map<String, Set<String>> likesIdIndex ; // wall id -> post Id
     private int postsTotalFetchCount;
@@ -73,10 +78,11 @@ public class WallModel {
     private WallModel(){
         mbWallListeners = new ArrayList<>();
         mbWallListenersQ = new ArrayList<>();
-        oldestFetchIntervalTimestamp = new Date();
+        likesIdIndex = new HashMap<>();
+        oldestFetchDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
-            oldestFetchIntervalTimestampBound = sdf.parse("2016-10-15");
+            oldestFetchIntervalDateBound = sdf.parse("2016-10-15");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -99,7 +105,7 @@ public class WallModel {
         mbWallListenersQ.clear();
     }
 
-    //user loged out so clearing all content.
+    //user logged out so clearing all content.
     public void clear(){
         clearWallListeners();
         likesIdIndex.clear();
@@ -109,8 +115,10 @@ public class WallModel {
         minNumberOfPostsForIntervalLoad = 10;
     }
 
-    private void mbListenerToUserPosts(String uid, Date since){
-        Query mbUserPostsRef = mbPostRef.child(uid).orderByChild("timestamp").startAt("" /*since.toFirebase()*/); // TODO Date to string ?
+    private Task<Void> mbListenerToUserPosts(String uid, Date since){
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        String sinceValue = FirebaseDateUtils.dateToFirebaseDate(since);
+        Query mbUserPostsRef = mbPostRef.child(uid).orderByChild(TIMESTAMP_TAG).startAt(sinceValue);
 
         mbUserPostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -118,15 +126,15 @@ public class WallModel {
                 for(DataSnapshot snap : dataSnapshot.getChildren()){
                     WallBase post = WallBase.postFactory(snap);
                     if(post!=null){
-                        boolean like = likesIdIndex.get(post.getWallId()).contains(post.getPostId());
-                        if(like){ // TODO Do we need this check?
-                            post.setLikedByUser(like);
+                        Set<String> likedPostsIds = likesIdIndex.get(post.getWallId());
+                        if(likedPostsIds!=null){
+                            post.setLikedByUser(likedPostsIds.contains(post.getPostId())); // update liked status
                         }
                         postsTotalFetchCount++;
                         EventBus.getDefault().post(new PostUpdateEvent(post));
                     }
                 }
-//                completeBlock()      TODO Task.complete?
+                source.setResult(null);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) { }
@@ -139,17 +147,19 @@ public class WallModel {
         DatabaseReference mbUserRef2 = mbPostRef.child(uid);
         mbUserRef2.addChildEventListener(postChangedListener);
         mbWallListeners.add(mbUserRef2);
+
+        return source.getTask();
     }
 
-    private ChildEventListener postAddedListener =  new ChildEventListener() {
+    private ChildEventListener postAddedListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             WallBase post = WallBase.postFactory(dataSnapshot);
             if(post!=null){
-                if(oldestFetchIntervalTimestamp.compareTo(new Date(post.getTimestamp()))>0){ // TODO Check how to compare this and what compare result returns!
-                    boolean like = likesIdIndex.get(post.getWallId()).contains(post.getPostId());
-                    if(like){ // TODO Do we need this check?
-                        post.setLikedByUser(like);
+                if(oldestFetchDate.compareTo(new Date(post.getTimestamp()))>0){ // Check how to compare this and what compare result returns ?
+                    Set<String> likedPostsIds = likesIdIndex.get(post.getWallId());
+                    if(likedPostsIds!=null){
+                        post.setLikedByUser(likedPostsIds.contains(post.getPostId())); // update liked status
                     }
                     EventBus.getDefault().post(new PostUpdateEvent(post));
                 }
@@ -173,13 +183,15 @@ public class WallModel {
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             WallBase post = WallBase.postFactory(dataSnapshot);
-            boolean like = likesIdIndex.get(post.getWallId()).contains(post.getPostId());
-            if(like){ // TODO Do we need this check?
-                post.setLikedByUser(like);
+            Set<String> likedPostsIds = null;
+            if (post != null) {
+                likedPostsIds = likesIdIndex.get(post.getWallId());
+            }
+            if(likedPostsIds!=null){
+                post.setLikedByUser(likedPostsIds.contains(post.getPostId())); // update liked status
             }
             EventBus.getDefault().post(new PostUpdateEvent(post));
         }
-
         @Override
         public void onChildRemoved(DataSnapshot dataSnapshot) {}
         @Override
@@ -188,29 +200,32 @@ public class WallModel {
         public void onCancelled(DatabaseError databaseError) {}
     };
 
-    private void mbListenerToUserPosts(String uid, Date since, Date until){
-        Query mbUserPostsRef = mbPostRef.child(uid).orderByChild("timestamp").startAt("" /*since.toFirebase()*/).endAt("" /*until.toFirebase()*/ ); // TODO Date to string ?
-
+    private Task<Void> mbListenerToUserPosts(String uid, Date since, Date until){
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        String sinceValue = FirebaseDateUtils.dateToFirebaseDate(since);
+        String untilValue = FirebaseDateUtils.dateToFirebaseDate(until);
+        Query mbUserPostsRef = mbPostRef.child(uid).orderByChild(TIMESTAMP_TAG).startAt(sinceValue).endAt(untilValue);
         mbUserPostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snap : dataSnapshot.getChildren()){
                     WallBase post = WallBase.postFactory(snap);
                     if(post!=null){
-                        boolean like = likesIdIndex.get(post.getWallId()).contains(post.getPostId());
-                        if(like){ // TODO Do we need this check?
-                            post.setLikedByUser(like);
+                        Set<String> likedPostsIds = likesIdIndex.get(post.getWallId());
+                        if(likedPostsIds!=null){
+                            post.setLikedByUser(likedPostsIds.contains(post.getPostId())); // update liked status
                         }
                         postsTotalFetchCount++;
                         postsIntervalFetchCount++;
                         EventBus.getDefault().post(new PostUpdateEvent(post));
                     }
                 }
-//                completeBlock()      TODO Task.complete?
+                source.setResult(null);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
+        return source.getTask();
     }
 
     /**
@@ -255,31 +270,30 @@ public class WallModel {
                     }
                 }
                 UserInfo uInfo = Model.getInstance().getUserInfo();
-//              oldestFetchIntervalTimestamp = oldestFetchIntervalTimestamp + deltaTimeIntervalForPaging; TODO Date Addition?
+                oldestFetchDate = new Date(oldestFetchDate.getTime() + deltaTimeIntervalForPaging);
 
-                // TODO What is DispatchGroup?
-//                let serviceGroup = DispatchGroup();
-
-//                serviceGroup.enter();
-                mbListenerToUserPosts(uInfo.getUserId(), oldestFetchIntervalTimestamp); // TODO Task ?
-//                {
-//                    serviceGroup.leave();
-//                }
+                ArrayList<Task<Void>> tasks = new ArrayList<>();
+                tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate));
 
                 HashMap<String, Boolean> following = uInfo.getFollowing();
                 for(Map.Entry<String,Boolean> entry : following.entrySet()){
-//                    serviceGroup.enter();
-                    mbListenerToUserPosts(entry.getKey(), oldestFetchIntervalTimestamp); // TODO Task ?
-//                    {
-//                        serviceGroup.leave();
-//                    }
+                    tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate));
                 }
-//                serviceGroup.notify(queue: DispatchQueue.main, execute: {
-                    if(postsTotalFetchCount < 20){
-                    fetchPreviousePageOfPosts(0);
-                } else {
-                    EventBus.getDefault().post(new PostLoadCompleteEvent());
-                }
+
+                Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
+                serviceGroupTask.addOnSuccessListener(
+                    new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void o) {
+                            if(postsTotalFetchCount < 20){
+                                fetchPreviousPageOfPosts(0);
+                            } else {
+                                EventBus.getDefault().post(new PostLoadCompleteEvent());
+                            }
+                        }
+                    }
+                );
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
@@ -292,47 +306,43 @@ public class WallModel {
      * the posts are not ordered and may contain duplicated posts.
      *
      */
-    private void fetchPreviousePageOfPosts(int initialFetchCount) {
+    private void fetchPreviousPageOfPosts(int initialFetchCount) {
         postsIntervalFetchCount = initialFetchCount;
         UserInfo uInfo = Model.getInstance().getUserInfo();
-//        let serviceGroup = DispatchGroup();
+        ArrayList<Task<Void>> tasks = new ArrayList<>();
 
-//        let newDate = Date(timeIntervalSinceReferenceDate: 1 + self.oldestFetchIntervalTimestamp.timeIntervalSinceReferenceDate)
-//        self.oldestFetchIntervalTimestamp = self.oldestFetchIntervalTimestamp.addingTimeInterval(-self.deltaTimeIntervalForPaging)
-        Date newDate = new Date(); // TODO Implement above!
+        oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
+//        let newDate = Date(timeIntervalSinceReferenceDate: 1 + self.oldestFetchDate.timeIntervalSinceReferenceDate)
+//        self.oldestFetchDate = self.oldestFetchDate.addingTimeInterval(-self.deltaTimeIntervalForPaging)
+        Date newDate = new Date();
 
-        // cjw -- these were spelled wrong, so I've corrected that, BUT
-        // things *appeared* to be working anyway...so who knows what is actually going on here...
-//         serviceGroup.enter();
-        mbListenerToUserPosts(uInfo.getUserId(), oldestFetchIntervalTimestamp, newDate);
-//        {
-//            serviceGroup.leave();
-//        }
-
+        tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
 
         HashMap<String, Boolean> following = uInfo.getFollowing();
         for(Map.Entry<String,Boolean> entry : following.entrySet()) {
-//                    serviceGroup.enter();
-            mbListenerToUserPosts(entry.getKey(), oldestFetchIntervalTimestamp, newDate); // TODO Task ?
-//                    {
-//                        serviceGroup.leave();
-//                    }
+            tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate, newDate));
         }
 
-//        serviceGroup.notify(queue: DispatchQueue.main, execute: {
-            if (postsTotalFetchCount < minNumberOfPostsForInitialLoad || postsIntervalFetchCount < minNumberOfPostsForIntervalLoad){
-                if (deltaTimeIntervalForPaging < 365*24*60*60){
-                    deltaTimeIntervalForPaging *= 2;
+        Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
+        serviceGroupTask.addOnSuccessListener(
+            new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void o) {
+                    if (postsTotalFetchCount < minNumberOfPostsForInitialLoad || postsIntervalFetchCount < minNumberOfPostsForIntervalLoad){
+                        if (deltaTimeIntervalForPaging < 365*24*60*60){
+                            deltaTimeIntervalForPaging *= 2;
+                        }
+                        if(oldestFetchDate.compareTo(oldestFetchIntervalDateBound)>0){
+                            fetchPreviousPageOfPosts(postsIntervalFetchCount);
+                        }else{
+                            EventBus.getDefault().post(new PostLoadCompleteEvent());
+                        }
+                    }else{
+                        EventBus.getDefault().post(new PostLoadCompleteEvent());
+                    }
                 }
-                if(oldestFetchIntervalTimestamp.compareTo(oldestFetchIntervalTimestampBound)>0){ // TODO Check how to compare this and what compare result returns!
-                    fetchPreviousePageOfPosts(postsIntervalFetchCount);
-                }else{
-                    EventBus.getDefault().post(new PostLoadCompleteEvent());
-                }
-            }else{
-                EventBus.getDefault().post(new PostLoadCompleteEvent());
             }
-//        })
+        );
     }
 
     /**
@@ -355,7 +365,7 @@ public class WallModel {
         });
     }
 
-    public void setlikeVal(final WallBase post, final boolean val /*complBlock:@escaping ((NSError?) -> Void)*/){
+    public Task<DatabaseError> setlikeVal(final WallBase post, final boolean val){
         int increase = -1;
         if(val){
             increase = 1;
@@ -378,7 +388,7 @@ public class WallModel {
         }else{
             unsetLikesIdIndex(post.getWallId(),post.getPostId());
         }
-
+        final TaskCompletionSource<DatabaseError> source = new TaskCompletionSource<>();
         final int finalIncrement = increase;
         DatabaseReference postRef = mbPostRef.child(post.getWallId()).child(post.getPostId()).child("likeCount");
         postRef.runTransaction(new Transaction.Handler() {
@@ -389,22 +399,21 @@ public class WallModel {
                 mutableData.setValue(count);
                 return Transaction.success(mutableData);
             }
-
             @Override
             public void onComplete(DatabaseError databaseError, boolean committed, DataSnapshot dataSnapshot) {
-                if(databaseError!=null){
-//                    complBlock(error as NSError?) TODO return Task ?
+                if(databaseError==null){
                 } else if (committed){
                     DatabaseReference postLikeRef = mbLikesRef.child(userInfo.getUserId()).child(post.getWallId()).child(post.getPostId());
                     if(val){
-//                        postLikeRef.setValue(Date().toFirebase()); TODO Implement Date transformation
+                        postLikeRef.setValue(FirebaseDateUtils.currentTimeToFirebaseDate());
                     }else{
                         postLikeRef.removeValue();
                     }
-//                    complBlock(nil) TODO return Task ?
                 }
+                source.setResult(databaseError);
             }
         });
+        return source.getTask();
     }
 
     /**
@@ -433,9 +442,10 @@ public class WallModel {
      * the post comments count will be increeased by 1
      *
      */
-    public void postComment(final WallBase post, final PostComment comment){
+    public Task<DatabaseError> postComment(final WallBase post, final PostComment comment){
         DatabaseReference commentRef = mbCommentsRef.child(post.getWallId()).child(post.getPostId()).push();
         comment.setCommentId(commentRef.getKey());
+        final TaskCompletionSource<DatabaseError> source = new TaskCompletionSource<>();
         commentRef.setValue(comment).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -453,7 +463,7 @@ public class WallModel {
                     @Override
                     public void onComplete(DatabaseError databaseError, boolean committed, DataSnapshot dataSnapshot) {
                         if(databaseError!=null){
-//                      complBlock(error as NSError?) TODO return Task ?
+                            source.setResult(databaseError);
                         } else if (committed){
                             UserInfo userInfo = Model.getInstance().getUserInfo();
 
@@ -468,12 +478,14 @@ public class WallModel {
 
                             DatabaseReference notificationRef = mbNotificationQueueRef.push();
                             notificationRef.setValue(notificationQueueMessage);
+                            source.setResult(null);
                         }
                         EventBus.getDefault().post(new PostCommentCompleteEvent(databaseError));
                     }
                 });
             }
         });
+        return source.getTask();
     }
 
     /**

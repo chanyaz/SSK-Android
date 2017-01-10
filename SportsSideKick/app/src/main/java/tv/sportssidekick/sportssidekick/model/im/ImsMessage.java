@@ -6,6 +6,7 @@ import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
 
+import tv.sportssidekick.sportssidekick.model.FirebaseDateUtils;
 import tv.sportssidekick.sportssidekick.model.FirebseObject;
 import tv.sportssidekick.sportssidekick.model.Model;
 
@@ -39,11 +40,7 @@ public class ImsMessage extends FirebseObject {
 
 
     public void initializeTimestamp(){
-        if(timestamp!=null){
-            timestampEpoh = Long.valueOf(timestamp.replace(".",""))/100;
-        } else {
-            timestampEpoh = 0;
-        }
+        timestampEpoh = FirebaseDateUtils.getTimestampFromFirebaseDate(timestamp);
     }
 
     @Exclude
@@ -70,10 +67,7 @@ public class ImsMessage extends FirebseObject {
     public static ImsMessage getDefaultMessage() {
         ImsMessage message = new ImsMessage();
         message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
-        long currentTime = System.currentTimeMillis();
-        String str = String.valueOf(currentTime);
-        str = new StringBuilder(str).insert(str.length()-3, ".").append("33").toString();
-        message.setTimestamp(str);
+        message.setTimestamp(FirebaseDateUtils.currentTimeToFirebaseDate());
         message.setSenderId(Model.getInstance().getUserInfo().getUserId());
         return message;
     }

@@ -225,7 +225,7 @@ public class Model {
      * tryes to retrieve the info from cache if not found it will be fetched from DB
      * so the notification my be fired before this call returns.
      *
-     * @callback  to receive the userInfo
+     * @param  userId of User to receive the userInfo
      * @return Task<UserInfo> task that will be run on complete
      **/
     public Task<UserInfo> fetchOnceUserInfoById(String userId) {
