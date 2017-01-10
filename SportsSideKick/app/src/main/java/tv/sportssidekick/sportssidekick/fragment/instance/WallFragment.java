@@ -4,10 +4,13 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +22,9 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.TemporaryModel;
+import tv.sportssidekick.sportssidekick.model.wall.WallModel;
+import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
+import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
 import tv.sportssidekick.sportssidekick.util.StaggeredLayoutManagerItemDecoration;
 
 /**
@@ -31,6 +37,7 @@ import tv.sportssidekick.sportssidekick.util.StaggeredLayoutManagerItemDecoratio
 
 public class WallFragment extends BaseFragment {
 
+    private static final String TAG = "WALL FRAGMENT";
     WallAdapter adapter;
 
     @BindView(R.id.fragment_wall_new_post)
@@ -67,8 +74,21 @@ public class WallFragment extends BaseFragment {
             wallRecyclerView.setLayoutManager(layoutManager);
         }
 
+        WallModel.getInstance().setupEliavAsUserAndInitialize();
         return view;
     }
+
+    @Subscribe
+    public void onPostUpdate(PostUpdateEvent event){
+        Log.d(TAG,"GOT POST:" + WallModel.getInstance().getPostsTotalFetchCount());
+    }
+
+
+    @Subscribe
+    public void onPostsLoaded(PostLoadCompleteEvent event){
+        Log.d(TAG,"ALL POSTS LOADED:" + WallModel.getInstance().getPostsTotalFetchCount());
+    }
+
 
     private void populateFakeList(){
         fakeModelList = new ArrayList<>();

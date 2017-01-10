@@ -108,6 +108,7 @@ public class Model {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         userInfo = dataSnapshot.getValue(UserInfo.class);
                         userInfo.setUserId(userId);
+                        userInfo.setUserId("sLqHBMbL3BQNgddTK0a4wmPfuA53");
                         EventBus.getDefault().post(new FirebaseEvent("Login successful!", FirebaseEvent.Type.LOGIN_SUCCESSFUL, userInfo));
                     }
                     @Override
@@ -123,8 +124,6 @@ public class Model {
                            EventBus.getDefault().post(new FirebaseEvent("All user data downloaded", FirebaseEvent.Type.ALL_DATA_ACQUIRED, userInfos));
                        }
                });
-
-
             } else {
                 EventBus.getDefault().post(new FirebaseEvent("Signed out.", FirebaseEvent.Type.SIGNED_OUT, null));
             }
@@ -165,7 +164,6 @@ public class Model {
                         userCache.put(userInfo.getUserId(),userInfo);
                     }
                     usersInfo.add(cachedInfo);
-
                 }
                 source.setResult(usersInfo);
             }
@@ -380,13 +378,13 @@ public class Model {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                if(downloadUrl!=null){
-                    EventBus.getDefault().post(new FirebaseEvent("File uploaded!", type, downloadUrl.toString()));
-                } else {
-                    EventBus.getDefault().post(new FirebaseEvent("Something went wrong, file not uploaded!", type, null));
-                }
+            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            if(downloadUrl!=null){
+                EventBus.getDefault().post(new FirebaseEvent("File uploaded!", type, downloadUrl.toString()));
+            } else {
+                EventBus.getDefault().post(new FirebaseEvent("Something went wrong, file not uploaded!", type, null));
+            }
             }
         });
     }

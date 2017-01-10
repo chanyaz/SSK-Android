@@ -39,11 +39,11 @@ public class WallBase {
         this.postId = postId;
     }
 
-    public long getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -81,7 +81,7 @@ public class WallBase {
 
     protected String wallId;
     protected String postId;
-    protected long timestamp;
+    protected String timestamp;
     protected int likeCount;
     protected boolean likedByUser;
     protected int commentsCount;
@@ -111,7 +111,7 @@ public class WallBase {
         }
         int typeCode = snapshot.child("type").getValue(Integer.class);
 
-        PostType postType = PostType.values()[typeCode];
+        PostType postType = PostType.values()[typeCode-1];
 
         switch (postType) {
             case post:

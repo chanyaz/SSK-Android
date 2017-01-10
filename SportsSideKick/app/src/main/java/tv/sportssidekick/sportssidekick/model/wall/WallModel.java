@@ -49,7 +49,7 @@ import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
 public class WallModel {
 
     public static final String TIMESTAMP_TAG = "timestamp";
-    private WallModel instance;
+    private static WallModel instance;
 
     private DatabaseReference mbPostRef;
     private DatabaseReference mbLikesRef;
@@ -61,6 +61,11 @@ public class WallModel {
     private Date oldestFetchIntervalDateBound;
 
     private Map<String, Set<String>> likesIdIndex ; // wall id -> post Id
+
+    public int getPostsTotalFetchCount() {
+        return postsTotalFetchCount;
+    }
+
     private int postsTotalFetchCount;
     private int postsIntervalFetchCount;
     private int minNumberOfPostsForInitialLoad;
@@ -68,7 +73,7 @@ public class WallModel {
     private List<DatabaseReference> mbWallListeners;
     private List<Query> mbWallListenersQ;
 
-    WallModel getInstance(){
+    public static WallModel getInstance(){
         if(instance==null){
             instance = new WallModel();
         }
@@ -118,8 +123,8 @@ public class WallModel {
     private Task<Void> mbListenerToUserPosts(String uid, Date since){
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         String sinceValue = FirebaseDateUtils.dateToFirebaseDate(since);
-        Query mbUserPostsRef = mbPostRef.child(uid).orderByChild(TIMESTAMP_TAG).startAt(sinceValue);
-
+        Query mbUserPostsRef = mbPostRef.child(uid);
+       // .orderByChild(TIMESTAMP_TAG).startAt(sinceValue) // TODO Investigate
         mbUserPostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -156,7 +161,7 @@ public class WallModel {
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             WallBase post = WallBase.postFactory(dataSnapshot);
             if(post!=null){
-                if(oldestFetchDate.compareTo(new Date(post.getTimestamp()))>0){ // Check how to compare this and what compare result returns ?
+                if(oldestFetchDate.compareTo(new Date(FirebaseDateUtils.getTimestampFromFirebaseDate(post.getTimestamp())))>0){ // Check how to compare this and what compare result returns ?
                     Set<String> likedPostsIds = likesIdIndex.get(post.getWallId());
                     if(likedPostsIds!=null){
                         post.setLikedByUser(likedPostsIds.contains(post.getPostId())); // update liked status
@@ -253,11 +258,12 @@ public class WallModel {
 
     // we first read the likes list of that user to set the right values to  the relevant posts. then we load the posts...
     public void mbListenerToUserWall() {
-        if (Model.getInstance().getUserInfo() == null){
+        final UserInfo uInfo = getCurrentUser();
+        if (uInfo == null){
             return;
         }
         clearWallListeners();
-        DatabaseReference postLikeRef = mbLikesRef.child(Model.getInstance().getUserInfo().getUserId());
+        DatabaseReference postLikeRef = mbLikesRef.child(uInfo.getUserId());
         likesIdIndex.clear();
         postsTotalFetchCount = 0;
 
@@ -269,17 +275,18 @@ public class WallModel {
                         setLikesIdIndex(wall.getKey(),post.getKey());
                     }
                 }
-                UserInfo uInfo = Model.getInstance().getUserInfo();
+
                 oldestFetchDate = new Date(oldestFetchDate.getTime() + deltaTimeIntervalForPaging);
 
                 ArrayList<Task<Void>> tasks = new ArrayList<>();
                 tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate));
 
                 HashMap<String, Boolean> following = uInfo.getFollowing();
-                for(Map.Entry<String,Boolean> entry : following.entrySet()){
-                    tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate));
+                if(following!=null){
+                    for(Map.Entry<String,Boolean> entry : following.entrySet()){
+                        tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate));
+                    }
                 }
-
                 Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
                 serviceGroupTask.addOnSuccessListener(
                     new OnSuccessListener<Void>() {
@@ -308,7 +315,7 @@ public class WallModel {
      */
     private void fetchPreviousPageOfPosts(int initialFetchCount) {
         postsIntervalFetchCount = initialFetchCount;
-        UserInfo uInfo = Model.getInstance().getUserInfo();
+        UserInfo uInfo = getCurrentUser();
         ArrayList<Task<Void>> tasks = new ArrayList<>();
 
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
@@ -319,8 +326,10 @@ public class WallModel {
         tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
 
         HashMap<String, Boolean> following = uInfo.getFollowing();
-        for(Map.Entry<String,Boolean> entry : following.entrySet()) {
-            tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate, newDate));
+        if(following!=null){
+            for(Map.Entry<String,Boolean> entry : following.entrySet()) {
+                tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate, newDate));
+            }
         }
 
         Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
@@ -352,7 +361,7 @@ public class WallModel {
      * @param  post to post
      */
     public void mbPost(WallBase post){
-        post.setWallId(Model.getInstance().getUserInfo().getUserId());
+        post.setWallId(getCurrentUser().getUserId());
         DatabaseReference postRef = mbPostRef.child(post.wallId).push();
         post.setPostId(postRef.getKey());
 
@@ -370,7 +379,7 @@ public class WallModel {
         if(val){
             increase = 1;
         }
-        final UserInfo userInfo = Model.getInstance().getUserInfo();
+        final UserInfo userInfo = getCurrentUser();
 
         if(val){
             setLikesIdIndex(post.getWallId(),post.getPostId());
@@ -465,7 +474,7 @@ public class WallModel {
                         if(databaseError!=null){
                             source.setResult(databaseError);
                         } else if (committed){
-                            UserInfo userInfo = Model.getInstance().getUserInfo();
+                            UserInfo userInfo = getCurrentUser();
 
                             // post a notification re: like
                             HashMap<String, Object> notificationQueueMessage = new HashMap<>();
@@ -495,7 +504,7 @@ public class WallModel {
     public void facebookShare(WallBase post)
     {
         // post a notification re: comment
-        UserInfo userInfo = Model.getInstance().getUserInfo();
+        UserInfo userInfo = getCurrentUser();
         HashMap<String, Object> notificationQueueMessage = new HashMap<>();
         notificationQueueMessage.put("wallId",post.getWallId());
         notificationQueueMessage.put("postId",post.getPostId());
@@ -513,7 +522,7 @@ public class WallModel {
     public void twitterShare(WallBase post)
     {
         // post a notification re: comment
-        UserInfo userInfo = Model.getInstance().getUserInfo();
+        UserInfo userInfo = getCurrentUser();
         HashMap<String, Object> notificationQueueMessage = new HashMap<>();
         notificationQueueMessage.put("wallId",post.getWallId());
         notificationQueueMessage.put("postId",post.getPostId());
@@ -541,5 +550,21 @@ public class WallModel {
         });
     }
 
+    public void setupEliavAsUserAndInitialize(){
+       Task<UserInfo> task = Model.getInstance().getUserInfoById("sLqHBMbL3BQNgddTK0a4wmPfuA53");
+        task.addOnSuccessListener(new OnSuccessListener<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo info) {
+                userInfo = info;
+                mbListenerToUserWall();
+            }
+        });
+    }
+
+    UserInfo userInfo;
+    private UserInfo getCurrentUser(){
+//        return Model.getInstance().getUserInfo();
+        return userInfo;
+    }
 }
 
