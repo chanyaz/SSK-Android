@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,14 +50,15 @@ import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
 public class WallModel {
 
     public static final String TIMESTAMP_TAG = "timestamp";
+    private static final String TAG = " WallModel";
     private static WallModel instance;
 
     private DatabaseReference mbPostRef;
     private DatabaseReference mbLikesRef;
     private DatabaseReference mbCommentsRef;
     private DatabaseReference mbNotificationQueueRef;
-
-    private long deltaTimeIntervalForPaging  = 60*60;
+    private static final long ONE_HOUR = 3600000;
+    private long deltaTimeIntervalForPaging  = ONE_HOUR; // One day
     private Date oldestFetchDate;
     private Date oldestFetchIntervalDateBound;
 
@@ -68,11 +70,11 @@ public class WallModel {
 
     private int postsTotalFetchCount;
     private int postsIntervalFetchCount;
-    private int minNumberOfPostsForInitialLoad;
-    private int minNumberOfPostsForIntervalLoad;
+    private int minNumberOfPostsForInitialLoad = 20;
+    private int minNumberOfPostsForIntervalLoad = 10;
     private List<DatabaseReference> mbWallListeners;
     private List<Query> mbWallListenersQ;
-
+    private SimpleDateFormat sdf;
     public static WallModel getInstance(){
         if(instance==null){
             instance = new WallModel();
@@ -85,9 +87,9 @@ public class WallModel {
         mbWallListenersQ = new ArrayList<>();
         likesIdIndex = new HashMap<>();
         oldestFetchDate = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
         try {
-            oldestFetchIntervalDateBound = sdf.parse("2016-10-15");
+            oldestFetchIntervalDateBound = sdf.parse("2016-10-15 00:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -116,15 +118,12 @@ public class WallModel {
         likesIdIndex.clear();
         postsTotalFetchCount = 0;
         postsIntervalFetchCount = 0;
-        minNumberOfPostsForInitialLoad = 20;
-        minNumberOfPostsForIntervalLoad = 10;
     }
 
     private Task<Void> mbListenerToUserPosts(String uid, Date since){
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         String sinceValue = FirebaseDateUtils.dateToFirebaseDate(since);
-        Query mbUserPostsRef = mbPostRef.child(uid);
-       // .orderByChild(TIMESTAMP_TAG).startAt(sinceValue) // TODO Investigate
+        Query mbUserPostsRef = mbPostRef.child(uid).orderByChild(TIMESTAMP_TAG).startAt(sinceValue); // TODO Investigate
         mbUserPostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -275,8 +274,9 @@ public class WallModel {
                         setLikesIdIndex(wall.getKey(),post.getKey());
                     }
                 }
-
-                oldestFetchDate = new Date(oldestFetchDate.getTime() + deltaTimeIntervalForPaging);
+                Log.d(TAG,"mbListenerToUserWall (BEFORE)" + sdf.format(oldestFetchDate));
+                oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
+                Log.d(TAG,"mbListenerToUserWall (AFTER)" + sdf.format(oldestFetchDate));
 
                 ArrayList<Task<Void>> tasks = new ArrayList<>();
                 tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate));
@@ -318,10 +318,13 @@ public class WallModel {
         UserInfo uInfo = getCurrentUser();
         ArrayList<Task<Void>> tasks = new ArrayList<>();
 
+        Log.d(TAG,"fetchPreviousPageOfPosts oldestFetchDate(BEFORE)" + sdf.format(oldestFetchDate));
+
+        Date newDate =new Date(oldestFetchDate.getTime() + 1000); // Add one second to exclude oldest post from last page
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
-//        let newDate = Date(timeIntervalSinceReferenceDate: 1 + self.oldestFetchDate.timeIntervalSinceReferenceDate)
-//        self.oldestFetchDate = self.oldestFetchDate.addingTimeInterval(-self.deltaTimeIntervalForPaging)
-        Date newDate = new Date();
+
+        Log.d(TAG,"fetchPreviousPageOfPosts newDate(AFTER)" + sdf.format(newDate));
+        Log.d(TAG,"fetchPreviousPageOfPosts oldestFetchDate(AFTER)" + sdf.format(oldestFetchDate));
 
         tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
 
@@ -338,7 +341,7 @@ public class WallModel {
                 @Override
                 public void onSuccess(Void o) {
                     if (postsTotalFetchCount < minNumberOfPostsForInitialLoad || postsIntervalFetchCount < minNumberOfPostsForIntervalLoad){
-                        if (deltaTimeIntervalForPaging < 365*24*60*60){
+                        if (deltaTimeIntervalForPaging < 365*24* ONE_HOUR){
                             deltaTimeIntervalForPaging *= 2;
                         }
                         if(oldestFetchDate.compareTo(oldestFetchIntervalDateBound)>0){
