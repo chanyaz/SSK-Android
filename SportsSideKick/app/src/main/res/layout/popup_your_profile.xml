@@ -4,7 +4,16 @@
     android:layout_margin="60dp"
     android:layout_height="match_parent">
 
-        <!-- TOP BUTTONS CONTAINER -->
+    <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
+    <View
+        android:id="@+id/center_split"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"/>
+
+
+
+    <!-- TOP BUTTONS CONTAINER -->
         <LinearLayout
             android:id="@+id/top_buttons_container"
             android:layout_width="match_parent"
@@ -375,18 +384,18 @@
                 </RelativeLayout>
 
             </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/profile_stats_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_margin="30dp"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/center_split_line"
-                android:layout_height="wrap_content">
-
-            </android.support.v7.widget.RecyclerView>
-
         </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/profile_stats_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_margin="30dp"
+        android:layout_below="@+id/top_split_line"
+        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_toEndOf="@+id/center_split"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
         <!-- BOTTOM BUTTONS CONTAINER -->
         <RelativeLayout
@@ -424,6 +433,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="30dp"
+                android:onClick="confirmOnClick"
                 android:layout_marginStart="20dp"
                 android:background="@null"
                 android:scaleType="centerInside"

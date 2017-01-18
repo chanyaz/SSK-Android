@@ -344,4 +344,12 @@
         android:layout_height="match_parent">
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/profile_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:onClick="onProfileButtonClick"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"/>
 </RelativeLayout>

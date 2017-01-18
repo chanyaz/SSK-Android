@@ -48,6 +48,12 @@ public class YourProfileFragment  extends BaseFragment {
 
         UserStatsAdapter adapter = new UserStatsAdapter();
         adapter.getValues().addAll(values);
+        statsRecyclerView.setAdapter(adapter);
         return view;
+    }
+
+    public void confirmOnClick(View view){
+        getActivity().onBackPressed();
+
     }
 }

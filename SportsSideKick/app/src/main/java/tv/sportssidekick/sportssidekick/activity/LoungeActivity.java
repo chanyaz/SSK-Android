@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -99,6 +100,10 @@ public class LoungeActivity extends AppCompatActivity {
     ImageView logoOfFirstTeam;
     @BindView(R.id.logo_second_team)
     ImageView logoOfSecondTeam;
+
+    @BindView(R.id.profile_button)
+    Button profileButton;
+
 
     FragmentOrganizer fragmentOrganizer;
 
@@ -295,4 +300,7 @@ public class LoungeActivity extends AppCompatActivity {
     }
 
 
+    public void onProfileButtonClick(View view) {
+        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+    }
 }
