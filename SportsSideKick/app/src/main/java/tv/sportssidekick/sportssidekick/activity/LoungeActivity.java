@@ -42,6 +42,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
@@ -169,8 +170,8 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(CreateChatFragment.class);
         popupContainerFragments.add(JoinChatFragment.class);
         popupContainerFragments.add(ManageChatFragment.class);
+        popupContainerFragments.add(YourProfileFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
-
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));

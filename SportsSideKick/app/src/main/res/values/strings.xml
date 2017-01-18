@@ -73,6 +73,15 @@
     <string name="this_chat_is_public">this_chat_is_public</string>
     <string name="this_chat_is_private">this_chat_is_private</string>
     <string name="manage_public_chat_caption">manage_public_chat_caption</string>
+    <string name="create_chat">Create Chat</string>
+    <string name="join_chat">Join Chat</string>
+    <string name="your_stash">Your Stash</string>
+    <string name="your_wallet">Your Wallet -</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="contact_info">Contact info</string>
+    <string name="subscribed_since">Subscribed since</string>
+    <string name="location_caption">Location</string>
+    <string name="password_caption">Password</string>
 
     <plurals name="days_until_match">
         <item quantity="zero">TODAY</item>
