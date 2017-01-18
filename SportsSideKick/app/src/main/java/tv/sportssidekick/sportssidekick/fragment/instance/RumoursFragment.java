@@ -2,28 +2,34 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.wang.avi.AVLoadingIndicatorView;
+
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.adapter.RumoursBigAdapter;
-import tv.sportssidekick.sportssidekick.adapter.RumoursSmallAdapter;
+import tv.sportssidekick.sportssidekick.adapter.RumoursNewsListAdapter;
+import tv.sportssidekick.sportssidekick.adapter.RumoursTopFourNewsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.model.news.NewsItem;
+import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.util.GridSpacingItemDecoration;
-import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
  * Created by Djordje on 01/03/2017.
@@ -35,11 +41,13 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 
 public class RumoursFragment extends BaseFragment {
 
-    RumoursSmallAdapter listViewAdapter;
-    RumoursBigAdapter recyclerViewAdapte;
+    RumoursNewsListAdapter rumoursSmallAdapter;
+    RumoursTopFourNewsAdapter top4newsAdapter;
 
-    @BindView(R.id.fragment_rumors_list_view)
-    ListView rumourListView;
+    @BindView(R.id.fragment_rumors_all_single_rumours_container)
+    RelativeLayout singleRumoursContainer;
+    @BindView(R.id.fragment_rumors_recycler_view)
+    RecyclerView rumourRecyclerView;
     @BindView(R.id.fragment_rumors_single_rumour_info_1)
     TextView rumourDescription1;
     @BindView(R.id.fragment_rumors_single_rumour_info_2)
@@ -61,9 +69,13 @@ public class RumoursFragment extends BaseFragment {
     @BindView(R.id.fragment_rumors_top_image)
     ImageView image;
     @BindView(R.id.fragment_rumors_all_big_list)
-    RecyclerView rumourBigList;
+    RecyclerView top4news;
+    @BindView(R.id.rumours_swipe_refresh_layout)
+    SwipyRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.progress_bar)
+    AVLoadingIndicatorView progressBar;
     @BindView(R.id.fragment_rumors_root)
-    ScrollView root;
+    ScrollView fragmentContainer;
 
     public RumoursFragment() {
         // Required empty public constructor
@@ -74,16 +86,58 @@ public class RumoursFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rumours, container, false);
         ButterKnife.bind(this, view);
-        listViewAdapter = new RumoursSmallAdapter(getActivity());
-        rumourListView.setAdapter(listViewAdapter);
-        Utility.setListViewHeight(rumourListView,listViewAdapter);
 
-        recyclerViewAdapte = new RumoursBigAdapter(getActivity());
-        rumourBigList.setAdapter(recyclerViewAdapte);
+        hideElements(true);
+
+        NewsModel.getDefault().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();
+
+        rumourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        rumoursSmallAdapter = new RumoursNewsListAdapter();
+        rumourRecyclerView.setAdapter(rumoursSmallAdapter);
+
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
-        rumourBigList.addItemDecoration(new GridSpacingItemDecoration(2,16,true));
-        rumourBigList.setLayoutManager(layoutManager);
+        top4news.addItemDecoration(new GridSpacingItemDecoration(2,16,true));
+        top4news.setLayoutManager(layoutManager);
+
+        top4newsAdapter = new RumoursTopFourNewsAdapter();
+        top4news.setAdapter(top4newsAdapter);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                NewsModel.getDefault().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();
+            }
+        });
+
         return view;
     }
 
+    @Subscribe
+    public void onNewsReceived(List<NewsItem> list) {
+        swipeRefreshLayout.setRefreshing(false);
+        if (!list.isEmpty() && list.size()>3)
+        {
+            top4newsAdapter.getValues().addAll(list.subList(0,4));
+            rumoursSmallAdapter.getValues().addAll(list.subList(4, list.size()-1));
+
+            top4newsAdapter.notifyDataSetChanged();
+            rumoursSmallAdapter.notifyDataSetChanged();
+        }
+        hideElements(false);
+    }
+
+    private void hideElements(boolean hide)
+    {
+        if (hide)
+        {
+            fragmentContainer.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            fragmentContainer.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        }
+    }
 }
