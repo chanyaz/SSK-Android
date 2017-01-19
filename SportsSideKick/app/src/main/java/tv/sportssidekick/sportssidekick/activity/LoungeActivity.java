@@ -43,6 +43,8 @@ import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
@@ -176,6 +178,8 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(JoinChatFragment.class);
         popupContainerFragments.add(ManageChatFragment.class);
         popupContainerFragments.add(YourProfileFragment.class);
+        popupContainerFragments.add(StashFragment.class);
+        popupContainerFragments.add(WalletFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
@@ -301,6 +305,6 @@ public class LoungeActivity extends AppCompatActivity {
 
 
     public void onProfileButtonClick(View view) {
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
     }
 }

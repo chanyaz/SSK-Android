@@ -8,13 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.UserStatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -43,7 +48,7 @@ public class YourProfileFragment  extends BaseFragment {
 
         ArrayList<Pair<String,String>> values = new ArrayList<>();
         for(int i = 0; i< 100; i++){
-            values.add(new Pair<String, String>("Caption " + i,"Value " + i));
+            values.add(new Pair<>("Caption " + i,"Value " + i));
         }
 
         UserStatsAdapter adapter = new UserStatsAdapter();
@@ -52,8 +57,28 @@ public class YourProfileFragment  extends BaseFragment {
         return view;
     }
 
-    public void confirmOnClick(View view){
+    @OnClick(R.id.confirm_button)
+    public void confirmOnClick(){
         getActivity().onBackPressed();
+    }
 
+    @OnClick(R.id.edit_button)
+    public void editOnClick(){
+        getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.your_wallet_button)
+    public void walletOnClick(){
+        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
+    }
+
+    @OnClick(R.id.your_stash_button)
+    public void stashOnClick(){
+        EventBus.getDefault().post(new FragmentEvent(StashFragment.class));
+    }
+
+    @OnClick(R.id.your_profile_button)
+    public void profileOnClick(){
+        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
     }
 }

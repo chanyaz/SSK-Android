@@ -82,6 +82,7 @@
     <string name="subscribed_since">Subscribed since</string>
     <string name="location_caption">Location</string>
     <string name="password_caption">Password</string>
+    <string name="image">image</string>
 
     <plurals name="days_until_match">
         <item quantity="zero">TODAY</item>

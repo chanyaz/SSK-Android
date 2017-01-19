@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="60dp"
+    android:layout_marginEnd="90dp"
+    android:layout_marginStart="90dp"
+    android:layout_marginTop="60dp">
+
+    <!-- BACKGROUND -->
+    <RelativeLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_below="@+id/top_buttons_container"
+        android:background="@color/colorPrimarySemiLight">
+
+    </RelativeLayout>
+
+    <!-- TOP BUTTONS CONTAINER -->
+    <LinearLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/your_profile_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccentLight"
+            android:gravity="center"
+            android:text="@string/your_profile"
+            android:textColor="@color/white_semitransparent" />
+
+        <TextView
+            android:id="@+id/your_wallet_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccentLight"
+            android:gravity="center"
+            android:text="@string/your_wallet"
+            android:textColor="@color/white_semitransparent" />
+
+        <TextView
+            android:id="@+id/your_stash_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimarySemiLight"
+            android:gravity="center"
+            android:text="@string/your_stash"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+
+    <!-- TOP BUTTONS INDICATOR LINES -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryLight" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryLight" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccent" />
+    </LinearLayout>
+
+
+
+
+
+    <!-- SPLITTERS -->
+    <View
+        android:id="@+id/top_split_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/top_buttons_container"
+        android:background="@android:color/black" />
+
+    <!-- STATEMENTS -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/stash_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_split_line"
+        android:layout_margin="20dp"
+        />
+
+    <!-- BOTTOM BUTTONS CONTAINER -->
+    <RelativeLayout
+        android:id="@+id/bottom_buttons_container"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_height="60dp"
+        android:background="@drawable/popup_bottom_background">
+
+        <View
+            android:id="@+id/bottom_split_line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
+
+        <ImageButton
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="10dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/popup_confirmation_button" />
+    </RelativeLayout>
+</RelativeLayout>
