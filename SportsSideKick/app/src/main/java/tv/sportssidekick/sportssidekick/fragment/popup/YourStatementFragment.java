@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -16,6 +18,7 @@ import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.StatementAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 
 /**
  * Created by Filip on 1/19/2017.
@@ -54,7 +57,7 @@ public class YourStatementFragment extends BaseFragment {
 
     @OnClick(R.id.close)
     public void closeOnClick() {
-        getActivity().onBackPressed();
+        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
     }
 
 }

@@ -8,7 +8,6 @@
         android:id="@+id/caption"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_weight="1"
         android:gravity="center"
         android:text="@string/your_statement"
         android:textColor="@color/colorAccent" />

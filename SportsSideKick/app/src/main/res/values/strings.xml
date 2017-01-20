@@ -85,6 +85,10 @@
     <string name="image">image</string>
     <string name="chosen_language">Chosen lanugage</string>
     <string name="your_statement">Your Statement</string>
+    <string name="choose_your_language">Choose your language</string>
+    <string name="english">English</string>
+    <string name="chinese">Chinese</string>
+    <string name="portuguese">Portugese</string>
 
     <plurals name="days_until_match">
         <item quantity="zero">TODAY</item>

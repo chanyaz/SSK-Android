@@ -7,6 +7,8 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -19,7 +21,6 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.UserStatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -31,6 +32,12 @@ public class YourProfileFragment  extends BaseFragment {
 
     @BindView(R.id.profile_stats_recycler_view)
     RecyclerView statsRecyclerView;
+
+    @BindView(R.id.chosen_language_value)
+    TextView languageValueTextView;
+
+    @BindView(R.id.language_icon)
+    ImageView languageIcon;
 
     public YourProfileFragment() {
         // Required empty public constructor
@@ -81,4 +88,10 @@ public class YourProfileFragment  extends BaseFragment {
     public void profileOnClick(){
         EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
     }
+
+    @OnClick(R.id.chosen_language_value)
+    public void languageOnClick(){
+        EventBus.getDefault().post(new FragmentEvent(LanguageFragment.class));
+    }
+
 }
