@@ -183,7 +183,8 @@
             </RelativeLayout>
 
             <!-- PROFILE CONTAINER - TEXT VIEWS -->
-            <LinearLayout
+            <RelativeLayout
+               android:id="@+id/profile_data_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/profile_container"
@@ -192,108 +193,120 @@
                 android:layout_toStartOf="@+id/center_split_line"
                 android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1">
-
+                <View
+                    android:id="@+id/text_center"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true"/>
                     <TextView
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
                         android:id="@+id/contact_info_caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="10dp"
                         android:text="@string/contact_info"
                         android:textColor="@color/colorAccent" />
-
                     <TextView
                         android:id="@+id/contact_info_email"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/contact_info_caption"
+                        android:layout_alignParentStart="true"
                         android:layout_below="@+id/contact_info_caption"
                         android:text="email@email.com"
                         android:textColor="@color/white" />
-
                     <TextView
                         android:id="@+id/contact_info_phone"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/contact_info_caption"
+                        android:layout_alignParentStart="true"
                         android:layout_below="@+id/contact_info_email"
                         android:text="01234 567 890"
                         android:textColor="@color/white" />
-
+                    <TextView
+                        android:id="@+id/subscribed_since_caption"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/contact_info_phone"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/subscribed_since"
+                        android:textColor="@color/colorAccent" />
                     <TextView
                         android:id="@+id/subscribed_since_value"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/contact_info_caption"
                         android:layout_below="@+id/subscribed_since_caption"
                         android:text="07.12.16"
                         android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/subscribed_since_caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/subscribed_since_value"
-                        android:layout_below="@+id/contact_info_phone"
-                        android:layout_marginTop="11dp"
-                        android:text="@string/subscribed_since"
-                        android:textColor="@color/colorAccent" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
                     <TextView
                         android:id="@+id/location_caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/text_center"
                         android:text="@string/location_caption"
                         android:textColor="@color/colorAccent" />
-
                     <TextView
                         android:id="@+id/location_value"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/location_caption"
                         android:layout_below="@+id/location_caption"
                         android:text="Perth, AU"
                         android:textColor="@color/white" />
-
                     <TextView
                         android:id="@+id/password_caption"
+                        android:layout_alignTop="@+id/subscribed_since_caption"
                         android:layout_width="wrap_content"
+                        android:layout_toEndOf="@+id/text_center"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/location_value"
-                        android:layout_marginTop="10dp"
                         android:text="@string/password_caption"
                         android:textColor="@color/colorAccent" />
-
                     <TextView
                         android:id="@+id/password_value"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/password_caption"
                         android:layout_below="@+id/password_caption"
                         android:text="*******"
                         android:textColor="@color/white" />
-
-                </RelativeLayout>
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/chosen_language_caption"
+                        android:layout_below="@+id/subscribed_since_value"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chosen_language"
+                        android:textColor="@color/colorAccent" />
+                    <ImageView
+                        android:id="@+id/language_icon"
+                        android:layout_width="20dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/chosen_language_caption"
+                        android:src="@drawable/english"
+                        android:layout_height="20dp" />
+                    <TextView
+                        android:id="@+id/chosen_language_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@+id/language_icon"
+                        android:layout_below="@+id/chosen_language_caption"
+                        android:text="English"
+                        android:textColor="@color/white" />
+            </RelativeLayout>
 
             <!-- LEFT HORIZONTAL SPLITTER -->
             <View
                 android:id="@+id/left_horizontal_split_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/profile_container"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/profile_data_container"
                 android:layout_toStartOf="@+id/center_split_line"
                 android:background="@android:color/black" />
 

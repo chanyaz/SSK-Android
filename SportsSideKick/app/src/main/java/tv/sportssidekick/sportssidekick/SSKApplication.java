@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.utils.L;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import tv.sportssidekick.sportssidekick.model.Model;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by Djordje Krutil on 5.12.2016..
@@ -38,6 +39,12 @@ public class SSKApplication extends android.app.Application {
                 .setPrefsName(getPackageName())
                 .setUseDefaultSharedPreference(true)
                 .build();
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/TitilliumWeb-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
 
     //region AppImage Loader

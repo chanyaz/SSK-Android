@@ -83,6 +83,8 @@
     <string name="location_caption">Location</string>
     <string name="password_caption">Password</string>
     <string name="image">image</string>
+    <string name="chosen_language">Chosen lanugage</string>
+    <string name="your_statement">Your Statement</string>
 
     <plurals name="days_until_match">
         <item quantity="zero">TODAY</item>

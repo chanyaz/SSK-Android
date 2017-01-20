@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.activity;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,10 +47,12 @@ import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
 import tv.sportssidekick.sportssidekick.util.Utility;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoungeActivity extends AppCompatActivity {
 
@@ -110,6 +113,11 @@ public class LoungeActivity extends AppCompatActivity {
     FragmentOrganizer fragmentOrganizer;
 
     ArrayList<Class> popupContainerFragments;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +187,7 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(ManageChatFragment.class);
         popupContainerFragments.add(YourProfileFragment.class);
         popupContainerFragments.add(StashFragment.class);
+        popupContainerFragments.add(YourStatementFragment.class);
         popupContainerFragments.add(WalletFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 

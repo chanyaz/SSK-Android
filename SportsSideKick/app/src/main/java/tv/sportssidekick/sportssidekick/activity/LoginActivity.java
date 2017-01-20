@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.LoginFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.SignUpFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by Djordje Krutil on 5.12.2016..
@@ -33,6 +35,11 @@ public class LoginActivity extends AppCompatActivity {
     FragmentOrganizer loginFragmentOrganizer;
     @BindView(R.id.login_container) View fragmentContainer;
     @BindView(R.id.progress_bar) View progressBar;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

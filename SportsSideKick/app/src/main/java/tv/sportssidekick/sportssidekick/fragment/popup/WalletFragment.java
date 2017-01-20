@@ -1,22 +1,15 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.adapter.UserStatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 
@@ -28,9 +21,6 @@ import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 
 public class WalletFragment extends BaseFragment{
 
-    @BindView(R.id.stats_recycler_view)
-    RecyclerView statsRecyclerView;
-
     public WalletFragment() {
         // Required empty public constructor
     }
@@ -40,18 +30,6 @@ public class WalletFragment extends BaseFragment{
 
         View view = inflater.inflate(R.layout.popup_your_wallet, container, false);
         ButterKnife.bind(this, view);
-
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
-        statsRecyclerView.setLayoutManager(layoutManager);
-
-        ArrayList<Pair<String,String>> values = new ArrayList<>();
-        for(int i = 0; i< 100; i++){
-            values.add(new Pair<>("Caption " + i,"Value " + i));
-        }
-
-        UserStatsAdapter adapter = new UserStatsAdapter();
-        adapter.getValues().addAll(values);
-        statsRecyclerView.setAdapter(adapter);
         return view;
     }
 
@@ -62,7 +40,7 @@ public class WalletFragment extends BaseFragment{
 
     @OnClick(R.id.edit_button)
     public void editOnClick(){
-        getActivity().onBackPressed();
+        EventBus.getDefault().post(new FragmentEvent(YourStatementFragment.class));
     }
 
     @OnClick(R.id.your_wallet_button)

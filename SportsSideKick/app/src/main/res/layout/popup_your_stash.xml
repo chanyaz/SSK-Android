@@ -87,10 +87,6 @@
             android:background="@color/colorAccent" />
     </LinearLayout>
 
-
-
-
-
     <!-- SPLITTERS -->
     <View
         android:id="@+id/top_split_line"
@@ -99,13 +95,36 @@
         android:layout_below="@+id/top_buttons_container"
         android:background="@android:color/black" />
 
+    <TextView
+        android:id="@+id/your_stash_caption"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/top_split_line"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        style="@style/boldText"
+        android:text="YOUR STASH"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/your_stash_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/your_stash_caption"
+        android:text="Rewards and items recieved from Gym Bags"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+
     <!-- STATEMENTS -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/stash_recycler_view"
         android:layout_width="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top_split_line"
+        android:layout_below="@+id/your_stash_description"
         android:layout_margin="20dp"
         />
 

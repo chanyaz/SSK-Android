@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:tools=" http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="60dp"
@@ -99,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_buttons_container"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp">
+        android:layout_margin="15dp">
 
         <ImageView
             android:id="@+id/coin_image"
@@ -139,8 +142,31 @@
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         android:layout_below="@+id/coin_indicator_split_line">
+
+        <RelativeLayout
+            android:layout_alignStart="@+id/bundle_5"
+            android:layout_alignEnd="@+id/bundle_5"
+            android:layout_above="@+id/bundle_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/bundles_gym_bag_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:padding="3dp"
+                style="@style/boldText"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/gym_bag_button_background"
+                android:text="+ BONUS GYM BAG"/>
+        </RelativeLayout>
+
+
 
         <TextView
             android:id="@+id/ssk_bundles_caption"
@@ -148,14 +174,15 @@
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:text="$$K BUNDLES"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
             android:textSize="15sp"
             android:layout_alignParentTop="true"
             android:textColor="@color/white"
             android:textStyle="bold"/>
         <ImageView
             android:id="@+id/bundle_1"
-            android:layout_width="140dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_below="@+id/ssk_bundles_caption"
@@ -169,7 +196,7 @@
         <ImageView
             android:id="@+id/bundle_2"
             android:layout_below="@+id/ssk_bundles_caption"
-            android:layout_width="140dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
@@ -178,7 +205,7 @@
             android:src="@drawable/bundle_2"/>
         <ImageView
             android:id="@+id/bundle_3"
-            android:layout_width="140dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
@@ -189,7 +216,7 @@
         <ImageView
             android:id="@+id/bundle_4"
             android:layout_marginEnd="20dp"
-            android:layout_width="140dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
@@ -198,7 +225,7 @@
             android:src="@drawable/bundle_4"/>
         <ImageView
             android:id="@+id/bundle_5"
-            android:layout_width="140dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
@@ -212,7 +239,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginStart="15dp"
             android:text="10 $$K"
             android:layout_alignStart="@+id/bundle_1"
@@ -224,7 +251,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginEnd="15dp"
             android:text="Watch promo"
             android:layout_alignEnd="@+id/bundle_1"
@@ -236,7 +263,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginStart="15dp"
             android:text="100 $$K"
             android:layout_alignStart="@+id/bundle_2"
@@ -248,7 +275,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginEnd="15dp"
             android:text="$1"
             android:layout_alignEnd="@+id/bundle_2"
@@ -260,7 +287,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginStart="15dp"
             android:text="500 $$K"
             android:layout_alignStart="@+id/bundle_3"
@@ -272,7 +299,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginEnd="15dp"
             android:text="$4"
             android:layout_alignEnd="@+id/bundle_3"
@@ -284,7 +311,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginStart="15dp"
             android:text="1000 $$K"
             android:layout_alignStart="@+id/bundle_4"
@@ -296,7 +323,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginEnd="15dp"
             android:text="$7"
             android:layout_alignEnd="@+id/bundle_4"
@@ -308,7 +335,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginStart="15dp"
             android:text="1500 $$K"
             android:layout_alignStart="@+id/bundle_5"
@@ -320,124 +347,108 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginEnd="15dp"
             android:text="$10"
             android:layout_alignEnd="@+id/bundle_5"
             android:layout_alignBottom="@+id/bundle_5"
             android:textColor="@color/black"/>
+
+
+        <TextView
+            android:id="@+id/bundle_5_best_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="\u2605 BEST VALUE \u2605"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_alignEnd="@+id/bundle_5"
+            android:layout_alignStart="@+id/bundle_5"
+            android:layout_below="@+id/bundle_5"
+            android:textColor="@color/colorAccent"/>
     </RelativeLayout>
 
-    <!-- ONE MONTH -->
     <RelativeLayout
-        android:id="@+id/monthly_container"
-        android:layout_below="@+id/ssk_bundles_split_line"
-
+        android:id="@+id/kit_bags_container"
+        android:layout_below="@+id/bundles_container"
+        android:layout_above="@+id/bottom_buttons_container"
         android:layout_alignStart="@+id/bundles_container"
-        android:layout_toStartOf="@+id/statement_split_line"
-        android:layout_margin="20dp"
+        android:layout_alignEnd="@+id/bundles_container"
         android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content">
-
+        <!-- ONE MONTH -->
         <ImageView
             android:id="@+id/montly_bag_image"
-            android:layout_width="140dp"
-            android:adjustViewBounds="true"   android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
             android:src="@drawable/fan_special_1"/>
-        <TextView
-            android:id="@+id/monthly_image_caption"
-            android:layout_width="wrap_content"
-            android:textSize="11sp"
-            android:layout_height="25dp"
-            android:gravity="center_vertical"
-            android:paddingStart="10dp"
-            android:textColor="@color/white"
-            android:layout_alignStart="@+id/montly_bag_image"
-            android:layout_alignEnd="@+id/montly_bag_image"
-            android:text="December 2016"
-            android:background="@color/colorPrimaryLight"
-            android:layout_below="@+id/montly_bag_image"/>
-        <TextView
-            android:id="@+id/monthly_price"
-            android:layout_width="wrap_content"
-            android:textSize="11sp"
-            android:layout_height="25dp"
-            android:textColor="@color/white"
-            android:gravity="center_vertical"
-            android:paddingEnd="10dp"
-            android:layout_alignEnd="@+id/montly_bag_image"
-            android:text="$2"
-            android:layout_below="@+id/montly_bag_image"/>
-    </RelativeLayout>
-    <!-- SUBSCRIPTIONS -->
-    <RelativeLayout
-        android:background="@color/colorPrimary"
-        android:id="@+id/subscribe_container"
-        android:padding="20dp"
-        android:layout_alignStart="@+id/bundles_container"
-        android:layout_toStartOf="@+id/statement_split_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/monthly_container">
-
+        <!-- SUBSCRIPTIONS -->
         <ImageView
             android:id="@+id/subscribe_image"
-            android:layout_width="140dp"
-
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
             android:adjustViewBounds="true"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scaleType="centerInside"
-            android:src="@drawable/fan_special_2"/>
+            android:src="@drawable/fan_special_2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
         <TextView
-            android:id="@+id/subscribe_monthly_image_caption"
+           android:id="@+id/kit_bags_label_1"
             android:layout_width="wrap_content"
-            android:textSize="11sp"
-            android:layout_height="25dp"
-            android:gravity="center_vertical"
+            android:layout_marginBottom="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:text="$$K"
+            android:layout_above="@+id/kit_bags_label_2"/>
+        <TextView
+            android:id="@+id/kit_bags_label_2"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:text="Kit Bags"
+            android:layout_above="@+id/kit_gym_bag_button"/>
+
+        <TextView
+            android:id="@+id/kit_gym_bag_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            style="@style/boldText"
             android:paddingStart="10dp"
-            android:layout_alignStart="@+id/subscribe_image"
-            android:layout_alignEnd="@+id/subscribe_image"
-            android:text="Monthly"
-            android:background="@color/colorAccent"
-            android:layout_below="@+id/subscribe_image"/>
-        <TextView
-            android:id="@+id/subscribe_monthly_price"
-            android:layout_width="wrap_content"
-            android:textSize="11sp"
-            android:layout_height="25dp"
-            android:gravity="center_vertical"
             android:paddingEnd="10dp"
-            android:layout_alignEnd="@+id/subscribe_image"
-            android:text="$3"
-            android:layout_below="@+id/subscribe_image"/>
-
-
-
-
+            android:gravity="center"
+            android:textSize="10sp"
+            android:background="@drawable/gym_bag_button_background"
+            android:text="+ BONUS GYM BAG"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
-
-    <!-- STATEMENTS -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/stats_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_buttons_container"
-        android:layout_below="@+id/ssk_bundles_split_line"
-        android:layout_alignEnd="@+id/bundles_container"
-        android:layout_margin="20dp"
-        android:layout_toEndOf="@+id/statement_split_line"
-        />
-
     <!-- SPLITTERS -->
     <View
         android:id="@+id/top_split_line"
         android:layout_alignStart="@+id/bundles_container"
-        android:layout_alignEnd="@+id/bundles_container"    android:layout_width="match_parent"
+        android:layout_alignEnd="@+id/bundles_container"
+        android:layout_width="match_parent"
         android:layout_below="@+id/top_buttons_container"
         android:layout_height="1dp"
-        android:background="@android:color/black" />
+        android:background="@color/black" />
 
     <View
         android:id="@+id/center_offset_splitter"
@@ -449,44 +460,20 @@
     <View
         android:id="@+id/coin_indicator_split_line"
         android:layout_alignStart="@+id/bundles_container"
-        android:layout_alignEnd="@+id/bundles_container"   android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/coin_indicator_container"
-        android:background="@android:color/black" />
-
-    <View
-        android:id="@+id/ssk_bundles_split_line"
-        android:layout_alignStart="@+id/bundles_container"
-        android:layout_alignEnd="@+id/bundles_container"   android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/bundles_container"
-        android:background="@android:color/black" />
-
-    <View
-        android:id="@+id/monthly_split_line"
-        android:layout_toStartOf="@+id/statement_split_line"
-        android:layout_alignStart="@+id/bundles_container"
+        android:layout_alignEnd="@+id/bundles_container"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/monthly_container"
-        android:background="@android:color/black" />
-
-    <View
-        android:id="@+id/statement_split_line"
-        android:layout_width="1dp"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/center_offset_splitter"
-        android:layout_alignTop="@+id/ssk_bundles_split_line"
-        android:layout_alignBottom="@+id/subscribe_container"
-        android:background="@android:color/black" />
+        android:layout_below="@+id/coin_indicator_container"
+        android:background="@color/black" />
 
     <!-- BOTTOM BUTTONS CONTAINER -->
     <RelativeLayout
         android:id="@+id/bottom_buttons_container"
         android:layout_width="wrap_content"
         android:layout_alignStart="@+id/bundles_container"
-        android:layout_alignEnd="@+id/bundles_container" android:layout_height="60dp"
-        android:layout_below="@+id/subscribe_container"
+        android:layout_alignEnd="@+id/bundles_container"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/popup_bottom_background">
 
         <View
@@ -496,7 +483,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:background="@android:color/black" />
+            android:background="@color/black" />
 
         <ImageButton
             android:id="@+id/confirm_button"
@@ -521,5 +508,17 @@
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/popup_settings_button" />
+
+        <TextView
+            android:id="@+id/your_statment_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:text="YOUR STATEMENT"
+            android:layout_toEndOf="@+id/edit_button"/>
     </RelativeLayout>
 </RelativeLayout>

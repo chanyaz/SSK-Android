@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="400dp"
+    android:background="@drawable/popup_bottom_background"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/your_statement"
+        android:textColor="@color/colorAccent" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorAccent" />
+    <View
+        android:id="@+id/top_split_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/caption"
+        android:background="@android:color/black" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/stats_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/caption"
+        android:layout_margin="20dp" />
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/top_split_line"
+        android:layout_alignParentEnd="true"
+        android:src="@mipmap/video_close_button"/>
+</RelativeLayout>
