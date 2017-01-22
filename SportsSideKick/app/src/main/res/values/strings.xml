@@ -89,6 +89,10 @@
     <string name="english">English</string>
     <string name="chinese">Chinese</string>
     <string name="portuguese">Portugese</string>
+    <string name="friend_profile">Friend Profile</string>
+    <string name="member_since">Member since</string>
+    <string name="follows_you">Follows you</string>
+    <string name="following_member">Following member</string>
 
     <plurals name="days_until_match">
         <item quantity="zero">TODAY</item>
