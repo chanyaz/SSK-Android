@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -42,11 +44,13 @@ import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsPopup;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
@@ -106,10 +110,16 @@ public class LoungeActivity extends AppCompatActivity {
     ImageView logoOfFirstTeam;
     @BindView(R.id.logo_second_team)
     ImageView logoOfSecondTeam;
+    @BindView(R.id.your_coins)
+    LinearLayout yourCoinsContainer;
+    @BindView(R.id.your_coins_value)
+    TextView yourCoinsValue;
 
     @BindView(R.id.profile_button)
-    Button profileButton;
+    RelativeLayout profileButton;
 
+    @BindView(R.id.notification_number)
+    TextView notificationNumber;
 
     FragmentOrganizer fragmentOrganizer;
 
@@ -133,6 +143,17 @@ public class LoungeActivity extends AppCompatActivity {
         radioButtonWall.setChecked(true);
         radioButtonChat.setChecked(true);
         radioButtonClubTV.setChecked(true);
+
+        yourCoinsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO open dialog
+            }
+        });
+
+        setYourCoinsValue("2,539"); //TODO get value from server
+
+        setNumberOfNotification("4");
 
         setupFragments();
     }
@@ -191,7 +212,9 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(YourStatementFragment.class);
         popupContainerFragments.add(WalletFragment.class);
         popupContainerFragments.add(LanguageFragment.class);
-         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
+        popupContainerFragments.add(YourFriendsFragment.class);
+        popupContainerFragments.add(FriendRequestsPopup.class);
+        fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
@@ -314,8 +337,21 @@ public class LoungeActivity extends AppCompatActivity {
 
     }
 
+    private void setYourCoinsValue (String value)
+    {
+        yourCoinsValue.setText(value + " $$K");
+    }
 
     public void onProfileButtonClick(View view) {
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class)); //FriendRequestsPopup
+    }
+
+    public void onFriendsButtonClick(View view) {
+        EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class));
+    }
+
+    private void setNumberOfNotification(String number)
+    {
+        notificationNumber.setText(number);
     }
 }

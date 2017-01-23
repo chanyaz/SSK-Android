@@ -1,4 +1,10 @@
+
 <resources>
+
+    <string name="follows_you">Follows you</string>
+    <string name="following_member">Following member</string>
+    <string name="friend_requests">Friend Requests</string>
+
     <string name="app_name">SportsSideKick</string>
     <string name="facebook_app_id">11111111111111</string>
     <string name="fb_login_protocol_scheme">fb11111111111111</string>
@@ -56,6 +62,7 @@
     <string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>
     <string name="news_caption">News</string>
     <string name="quiz_caption">Quiz</string>
+    <string name="coins_caption">YOU HAVE</string>
 
     <!-- URLs for store, fantasy, quiz -->
     <string name="store_url">https://lojaverde.sporting.pt/en</string>
@@ -89,6 +96,11 @@
     <string name="english">English</string>
     <string name="chinese">Chinese</string>
     <string name="portuguese">Portugese</string>
+
+    <!-- your friends-->
+    <string name="your_friends_title">Your Friends</string>
+    <string name="your_friends_search_hint">Search your friends</string>
+    <string name="your_friends_request">Friend requests</string>
 
     <plurals name="days_until_match">
         <item quantity="zero">TODAY</item>

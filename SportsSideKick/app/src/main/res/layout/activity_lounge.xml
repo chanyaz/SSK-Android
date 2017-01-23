@@ -48,9 +48,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
             android:layout_toEndOf="@+id/logo"
+            android:layout_toStartOf="@+id/days_until_match_label"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:paddingBottom="@dimen/half_margin"
-            android:textColor="@color/white" />
+            android:textColor="@color/light_green_1" />
 
         <ImageView
             android:id="@+id/logo_first_team"
@@ -127,18 +131,44 @@
         android:layout_marginEnd="@dimen/full_margin"
         android:layout_marginStart="@dimen/half_margin"
         android:layout_marginTop="@dimen/full_margin"
-        android:layout_toEndOf="@+id/middle_split"
-        android:background="@color/white">
+        android:layout_toEndOf="@+id/middle_split">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
+            android:layout_toRightOf="@+id/notification_container"
             android:adjustViewBounds="true"
             android:background="@color/white"
             android:contentDescription="@string/demo"
             android:scaleType="fitCenter"
             android:src="@drawable/liga" />
+
+        <RelativeLayout
+            android:id="@+id/notification_container"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:src="@drawable/notification"
+                android:layout_centerInParent="true"
+                android:paddingLeft="8dp"
+                android:adjustViewBounds="true"/>
+
+            <TextView
+                android:id="@+id/notification_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -150,9 +180,7 @@
         android:layout_marginEnd="@dimen/half_margin"
         android:layout_toEndOf="@+id/left_tab_selector"
         android:layout_toStartOf="@+id/middle_split"
-        android:background="@color/green_dark_1">
-    </RelativeLayout>
-
+        android:background="@color/green_dark_1"></RelativeLayout>
 
 
     <RelativeLayout
@@ -165,8 +193,7 @@
         android:layout_marginStart="@dimen/half_margin"
         android:layout_toEndOf="@+id/middle_split"
         android:layout_toStartOf="@+id/right_tab_selector"
-        android:background="@color/green_dark_1">
-    </RelativeLayout>
+        android:background="@color/green_dark_1"></RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/bottom_right_container"
@@ -178,14 +205,12 @@
         android:layout_toEndOf="@+id/middle_split"
         android:layout_toStartOf="@+id/right_tab_selector"
         android:background="@color/green_dark_1"
-        android:padding="@dimen/full_margin">
-    </RelativeLayout>
+        android:padding="@dimen/full_margin"></RelativeLayout>
 
     <RadioGroup
         android:id="@+id/left_tab_selector"
-
         android:layout_width="80dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/left_top_bar_container"
         android:gravity="top"
@@ -247,11 +272,160 @@
             android:textColor="@drawable/tab_radio_text_color_selector" />
     </RadioGroup>
 
+    <RelativeLayout
+        android:id="@+id/left_profile_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignEnd="@id/left_tab_selector"
+        android:layout_below="@id/left_tab_selector">
+
+        <LinearLayout
+            android:id="@+id/your_coins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/skk_coin_large" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@string/coins_caption"
+                android:textColor="@android:color/white"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/your_coins_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/your_coins"
+            android:layout_marginBottom="15dp"
+            android:onClick="onProfileButtonClick">
+
+            <RelativeLayout
+                android:id="@+id/profile_image_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/image"
+                    android:padding="2dp"
+                    android:src="@drawable/demo_profile_image" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/profile_image"
+                    android:layout_alignEnd="@id/profile_image"
+                    android:layout_alignStart="@id/profile_image"
+                    android:layout_alignTop="@id/profile_image"
+                    android:layout_centerInParent="true">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/circle_shape"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="65"
+                        android:progressDrawable="@drawable/circular_progress_bar" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/profile_image_container"
+                android:layout_marginTop="-20dp"
+                android:contentDescription="@string/image"
+                android:src="@drawable/next_level_marker" />
+
+            <TextView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/profile_image_container"
+                android:layout_marginTop="-19dp"
+                android:gravity="center"
+                android:text="99"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/profile_image_container"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lineSpacingExtra="-5dp"
+                android:maxLines="2"
+                android:text="Football Fann Name"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <!--<Button-->
+        <!--android:id="@+id/profile_button"-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:onClick="onProfileButtonClick"-->
+        <!--android:layout_above="@+id/your_coins"-->
+        <!--android:layout_centerHorizontal="true" />-->
+
+    </RelativeLayout>
+
 
     <RadioGroup
         android:id="@+id/right_tab_selector"
         android:layout_width="80dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/right_top_bar_container"
         android:gravity="top"
@@ -306,7 +480,7 @@
     <RadioGroup
         android:id="@+id/video_tab_radio_group"
         android:layout_width="80dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/bottom_right_container"
         android:gravity="top"
@@ -336,20 +510,47 @@
     </RadioGroup>
 
     <RelativeLayout
-        android:id="@+id/popup_holder"
-        android:visibility="gone"
-        android:clickable="true"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignStart="@id/video_tab_radio_group"
+        android:layout_below="@id/video_tab_radio_group">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/your_friends_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/icon_your_friends"
+                android:onClick="onFriendsButtonClick"/>
+
+            <ImageView
+                android:id="@+id/your_followers_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/icon_followers" />
+        </LinearLayout>
+
+
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/profile_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:onClick="onProfileButtonClick"
-        android:layout_margin="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"/>
+    <RelativeLayout
+        android:id="@+id/popup_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone"></RelativeLayout>
 </RelativeLayout>
