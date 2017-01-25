@@ -22,7 +22,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
  * www.hypercubesoft.com
  */
 
-public class YoutubePlayerFragment  extends BaseFragment {
+public class YoutubePlayerFragment extends BaseFragment {
 
     private static final String API_KEY = "AIzaSyAVYoyvyouNeFJBvlLG9yQMfIuQ3EaNadY";
     private static String VIDEO_ID = "EGy39OMyHzw";
@@ -66,6 +66,4 @@ public class YoutubePlayerFragment  extends BaseFragment {
 
         return view;
     }
-
-
 }

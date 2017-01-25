@@ -1,13 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
 
-    <FrameLayout
-        android:id="@+id/youtube_layout"
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/youtube_layout_container"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_toStartOf="@+id/controls_container"
         android:layout_width="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/youtube_layout"
+            app:layout_widthPercent="100%"
+            app:layout_aspectRatio="178%"
+            android:layout_centerHorizontal="true"
+            android:visibility="visible" />
+    </android.support.percent.PercentRelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/controls_container"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/time_info"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/playlist_button"
+            android:layout_width="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="PLAYLIST"
+            android:background="@drawable/rounded_button_press"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/play_button"
+            android:layout_width="20dp"
+            android:layout_margin="10dp"
+            android:layout_height="20dp"
+            android:background="@drawable/radio_play"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+        <View
+            android:id="@+id/center"
+            android:layout_centerHorizontal="true"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+        <Button
+            android:id="@+id/mute_button"
+            android:layout_below="@+id/play_button"
+            android:layout_margin="10dp"
+            android:layout_width="20dp"
+            android:background="@drawable/sound_icon"
+            android:layout_height="20dp"
+            android:layout_toStartOf="@+id/center"/>
+        <Button
+            android:id="@+id/fullscreen_button"
+            android:layout_width="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_bar_expand"
+            android:layout_toEndOf="@+id/center"
+            android:layout_below="@+id/play_button"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/time_info"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:visibility="visible" />
+        android:background="@color/colorPrimary"
+        android:layout_alignStart="@+id/controls_container"
+        android:lines="1"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/youtube_layout_container"
+        android:padding="8dp"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:textColor="@color/lightGrey"
+        android:text="00:00 / 18:21"/>
 
 </RelativeLayout>
