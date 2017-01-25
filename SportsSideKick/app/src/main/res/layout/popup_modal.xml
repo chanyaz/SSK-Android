@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="360dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popup_bottom_background_dark"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/caption"
+        android:layout_marginEnd="40dp"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"/>
+
+
+    <!-- BOTTOM BUTTONS CONTAINER -->
+    <RelativeLayout
+        android:id="@+id/bottom_buttons_container"
+        android:layout_below="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="60dp">
+        <ImageButton
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="30dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/popup_cancel_button" />
+        <ImageButton
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/cancel_button"
+            android:layout_marginBottom="30dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/popup_confirmation_button" />
+    </RelativeLayout>
+</RelativeLayout>

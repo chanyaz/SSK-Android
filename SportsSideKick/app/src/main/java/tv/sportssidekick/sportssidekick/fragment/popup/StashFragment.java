@@ -26,7 +26,7 @@ import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
  * www.hypercubesoft.com
  */
 
-public class StashFragment  extends BaseFragment {
+public class StashFragment extends BaseFragment {
 
     @BindView(R.id.stash_recycler_view)
     RecyclerView stashRecyclerView;

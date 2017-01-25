@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.model.radio;
+package tv.sportssidekick.sportssidekick.model.club;
 
 import java.util.Date;
 

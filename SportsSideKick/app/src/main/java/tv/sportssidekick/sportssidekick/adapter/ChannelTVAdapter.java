@@ -1,0 +1,113 @@
+package tv.sportssidekick.sportssidekick.adapter;
+
+import android.content.Context;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.fragment.instance.TVChannelFragment;
+import tv.sportssidekick.sportssidekick.model.club.TvChannel;
+import tv.sportssidekick.sportssidekick.util.Utility;
+
+/**
+ * Created by Filip on 1/17/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
+ */
+
+public class ChannelTVAdapter extends RecyclerView.Adapter<ChannelTVAdapter.ViewHolder> {
+
+    private static final String TAG = "Channel TV Adapter";
+
+    private List<TvChannel> values;
+    private Context context;
+    SimpleDateFormat sdf;
+
+    public List<TvChannel> getValues() {
+        return values;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public View view;
+        @Nullable
+        @BindView(R.id.image)
+        ImageView image;
+        @BindView(R.id.caption)
+        TextView caption;
+        @BindView(R.id.date)
+        TextView date;
+
+        ViewHolder(View v) {
+            super(v);
+            view = v;
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public ChannelTVAdapter(Context context) {
+        values= new ArrayList<>();
+        this.context = context;
+        sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return 0;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        final ViewHolder viewHolder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tv_channel_item, parent, false);
+        viewHolder = new ViewHolder(view);
+        //setup click listener
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentEvent fragmentEvent = new FragmentEvent(TVChannelFragment.class);
+                int position = viewHolder.getLayoutPosition();
+                fragmentEvent.setId(values.get(position).getId());
+                EventBus.getDefault().post(fragmentEvent);
+            }
+        });
+
+        return viewHolder;
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final TvChannel info = values.get(position);
+        // setup caption
+        holder.caption.setText(info.getName());
+        holder.date.setText(sdf.format(new Date()));
+
+        // display image
+        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+    }
+
+    @Override
+    public int getItemCount() {
+        if (values==null)
+            return 0;
+        return values.size();
+    }
+}

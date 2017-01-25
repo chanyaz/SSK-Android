@@ -1,11 +1,7 @@
 package tv.sportssidekick.sportssidekick.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,7 +22,6 @@ public abstract class BaseFragment extends Fragment {
     public static final String PRIMARY_ARG_TAG = "PRIMARY_ARG_TAG";
     private static final String TAG = "Base Fragment";
 
-    private FirebaseAuth mAuth;
 
     public Object getData() {
         return data;
@@ -37,12 +32,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     Object data;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
-    }
 
     @Subscribe
     public void onEvent(BusEvent event){
@@ -55,10 +44,6 @@ public abstract class BaseFragment extends Fragment {
 
     protected String getPrimaryArgument(){
         return getArguments().getString(BaseFragment.PRIMARY_ARG_TAG);
-    }
-
-    public FirebaseAuth getmAuth() {
-        return mAuth;
     }
 
 

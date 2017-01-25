@@ -149,7 +149,7 @@
         android:layout_height="30dp"
         android:layout_marginBottom="15dp"
         android:layout_marginStart="30dp"
-        android:background="@drawable/rounded_button_press"
+        android:background="@drawable/popup_confirmation_button"
         android:layout_marginEnd="20dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
