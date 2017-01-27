@@ -22,7 +22,7 @@ import tv.sportssidekick.sportssidekick.model.club.TvCategory;
  */
 public class TVChannelFragment extends BaseFragment {
 
-    @BindView(R.id.stash_recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
     @BindView(R.id.caption)
@@ -31,7 +31,6 @@ public class TVChannelFragment extends BaseFragment {
     public TVChannelFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.left.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
         renderscriptTargetApi 17
         renderscriptSupportModeEnabled true
@@ -60,5 +61,8 @@ dependencies {
     compile 'com.github.lzyzsd:circleprogress:+'
     compile 'com.android.support:percent:25.1.0'
     compile files('libs/YoutubeAndroidPlayerApi.jar')
+    compile 'com.google.apis:google-api-services-youtube:v3-rev181-1.22.0'
+    compile 'com.android.support:multidex:1.0.1'
+
 }
 apply plugin: 'com.google.gms.google-services'

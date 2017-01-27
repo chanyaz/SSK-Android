@@ -20,7 +20,7 @@ import tv.sportssidekick.sportssidekick.model.club.ClubTVModel;
  */
 public class ClubTVFragment extends BaseFragment {
 
-    @BindView(R.id.stash_recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
     public ClubTVFragment() {

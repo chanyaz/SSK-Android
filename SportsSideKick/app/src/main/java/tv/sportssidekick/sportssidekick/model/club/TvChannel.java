@@ -12,7 +12,7 @@ public class TvChannel {
 
     String id;
     String name;
-    String url;
+    String videoId;
     Date date;
     String imageUrl;
 
@@ -20,7 +20,7 @@ public class TvChannel {
 
         this.id = id;
         this.name = name;
-        this.url = url;
+        this.videoId = url;
         this.date = date;
         this.imageUrl = imageUrl;
     }
@@ -43,12 +43,12 @@ public class TvChannel {
         return this;
     }
 
-    public String getUrl() {
-        return url;
+    public String getVideoId() {
+        return videoId;
     }
 
-    public TvChannel setUrl(String url) {
-        this.url = url;
+    public TvChannel setVideoId(String videoId) {
+        this.videoId = videoId;
         return this;
     }
 

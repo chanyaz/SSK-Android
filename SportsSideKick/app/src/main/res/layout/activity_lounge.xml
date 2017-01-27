@@ -10,18 +10,18 @@
     <!-- TOP CONTAINER -->
     <LinearLayout
         android:id="@+id/top_container"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
 
         <!-- TICKER -->
         <RelativeLayout
             android:id="@+id/left_top_bar_container"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="80dp"
-            android:layout_marginEnd="@dimen/half_margin">
+            android:layout_marginEnd="@dimen/half_margin"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/logo"
@@ -126,10 +126,10 @@
         <!-- ADS CONTAINER -->
         <RelativeLayout
             android:id="@+id/right_top_bar_container"
-            android:layout_height="80dp"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginStart="@dimen/half_margin">
+            android:layout_height="80dp"
+            android:layout_marginStart="@dimen/half_margin"
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -146,16 +146,16 @@
                 android:id="@+id/notification_container"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:src="@drawable/notification"
                     android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
                     android:paddingLeft="8dp"
-                    android:adjustViewBounds="true"/>
+                    android:src="@drawable/notification" />
 
                 <TextView
                     android:id="@+id/notification_number"
@@ -163,19 +163,19 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="5"
-                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:textSize="12sp"
-                    android:textColor="@color/white"/>
+                    android:textStyle="bold" />
 
             </RelativeLayout>
         </RelativeLayout>
 
-        </LinearLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_below="@+id/top_container"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_container">
 
         <!-- MIDDLE SPLITTER -->
         <View
@@ -194,137 +194,117 @@
             android:layout_marginEnd="@dimen/half_margin"
             android:layout_toEndOf="@+id/left_tab_selector"
             android:layout_toStartOf="@+id/middle_split"
-            android:background="@color/green_dark_1">
-        </RelativeLayout>
+            android:background="@color/green_dark_1"/>
 
-        <!-- RIGHT CONTAINER -->
-        <LinearLayout
-            android:id="@+id/right_container"
-            android:orientation="vertical"
-            android:layout_marginBottom="8dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/middle_split"
-            android:layout_marginStart="@dimen/half_margin"
-            android:layout_toStartOf="@+id/right_radio_buttons_container"
-            android:layout_alignParentTop="true"
+        <!-- CHAT CONTAINER -->
+        <RelativeLayout
+            android:id="@+id/tabs_container_top_right"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!-- CHAT CONTAINER -->
-            <RelativeLayout
-                android:id="@+id/tabs_container_top_right"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/green_dark_1"/>
-
-            <!-- RADIO CONTAINER -->
-            <RelativeLayout
-                android:id="@+id/bottom_right_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/green_dark_1"
-                android:padding="@dimen/full_margin"/>
-        </LinearLayout>
-
-        <!-- RIGHT RADIO CONTAINER -->
-        <LinearLayout
-            android:id="@+id/right_radio_buttons_container"
-            android:orientation="vertical"
-            android:layout_alignParentEnd="true"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_right_container"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="8dp"
+            android:layout_toEndOf="@+id/middle_split"
+            android:layout_toStartOf="@+id/right_tab_selector"
+            android:background="@color/green_dark_1" />
+
+        <!-- CLUB CONTAINER -->
+        <RelativeLayout
+            android:id="@+id/bottom_right_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:layout_toEndOf="@+id/middle_split"
+            android:layout_toStartOf="@+id/right_tab_selector"
+            android:background="@color/green_dark_1" />
+
+        <!-- TOP RIGHT RADIO GROUP -->
+        <RadioGroup
+            android:id="@+id/right_tab_selector"
             android:layout_width="80dp"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="top">
 
-            <!-- TOP RIGHT RADIO GROUP -->
-            <RadioGroup
-                android:id="@+id/right_tab_selector"
+            <RadioButton
+                android:id="@+id/chat_radio_button"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="top"
-                android:orientation="vertical">
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/chat_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
 
-                <RadioButton
-                    android:id="@+id/chat_radio_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/tab_radio_button_selector_right"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/chat_caption"
-                    android:textColor="@drawable/tab_radio_text_color_selector" />
-
-                <RadioButton
-                    android:id="@+id/stats_radio_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/tab_radio_button_selector_right"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/statistics_caption"
-                    android:textColor="@drawable/tab_radio_text_color_selector" />
-
-                <RadioButton
-                    android:id="@+id/fantasy_radio_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/tab_radio_button_selector_right"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/fantasy_caption"
-                    android:textColor="@drawable/tab_radio_text_color_selector" />
-
-
-                <RadioButton
-                    android:id="@+id/quiz_radio_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/tab_radio_button_selector_right"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/quiz_caption"
-                    android:textColor="@drawable/tab_radio_text_color_selector" />
-            </RadioGroup>
-
-            <!-- BOTTOM RIGHT RADIO GROUP -->
-            <RadioGroup
-                android:id="@+id/video_tab_radio_group"
+            <RadioButton
+                android:id="@+id/stats_radio_button"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="top"
-                android:orientation="vertical">
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/statistics_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
 
-                <RadioButton
-                    android:id="@+id/club_tv_radio_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/tab_radio_button_selector_right"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/club_tv_caption"
-                    android:textColor="@drawable/tab_radio_text_color_selector" />
+            <RadioButton
+                android:id="@+id/fantasy_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/fantasy_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
 
-                <RadioButton
-                    android:id="@+id/club_radio_radio_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/tab_radio_button_selector_right"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/club_radio_caption"
-                    android:textColor="@drawable/tab_radio_text_color_selector" />
-            </RadioGroup>
 
-            </LinearLayout>
+            <RadioButton
+                android:id="@+id/quiz_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/quiz_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+        </RadioGroup>
+
+        <!-- BOTTOM RIGHT RADIO GROUP -->
+        <RadioGroup
+            android:id="@+id/video_tab_radio_group"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/bottom_right_container"
+            android:gravity="top"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/club_tv_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/club_tv_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/club_radio_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/club_radio_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+        </RadioGroup>
 
         <!-- TOP LEFT RADIO GROUP -->
         <RadioGroup
@@ -390,8 +370,6 @@
                 android:text="@string/shop_caption"
                 android:textColor="@drawable/tab_radio_text_color_selector" />
         </RadioGroup>
-
-
 
         <!-- COIN & PROFILE -->
         <RelativeLayout
@@ -545,6 +523,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/your_friends_button"
                 android:layout_width="match_parent"
@@ -554,7 +533,7 @@
                 android:layout_marginRight="20dp"
                 android:adjustViewBounds="true"
                 android:onClick="onFriendsButtonClick"
-                android:src="@mipmap/icon_your_friends"/>
+                android:src="@mipmap/icon_your_friends" />
 
             <ImageView
                 android:id="@+id/your_followers_button"
@@ -574,7 +553,7 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:gravity="center"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </RelativeLayout>
 
 </RelativeLayout>

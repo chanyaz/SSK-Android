@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.fragment.instance.TVChannelFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
 import tv.sportssidekick.sportssidekick.model.club.TvChannel;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
@@ -82,7 +82,7 @@ public class ChannelTVAdapter extends RecyclerView.Adapter<ChannelTVAdapter.View
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(TVChannelFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(YoutubePlayerFragment.class);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setId(values.get(position).getId());
                 EventBus.getDefault().post(fragmentEvent);
