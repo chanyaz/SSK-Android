@@ -7,10 +7,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -20,7 +16,6 @@ import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.UserStatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 
 /**
  * Created by Filip on 12/20/2016.

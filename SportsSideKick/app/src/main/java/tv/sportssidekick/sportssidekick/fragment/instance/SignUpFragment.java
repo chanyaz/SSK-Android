@@ -185,9 +185,9 @@ public class SignUpFragment extends BaseFragment {
                         lastName.getText().toString(),
                         userName.getText().toString(),
                         phone.getText().toString());
-
-                if (getmAuth() != null) {
-                    getmAuth().createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                if (auth != null) {
+                    auth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {

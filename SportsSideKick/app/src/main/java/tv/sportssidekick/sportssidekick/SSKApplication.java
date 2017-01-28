@@ -2,6 +2,7 @@ package tv.sportssidekick.sportssidekick;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -20,7 +21,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class SSKApplication extends android.app.Application {
+public class SSKApplication extends MultiDexApplication {
 
     @Override
     public void onCreate() {

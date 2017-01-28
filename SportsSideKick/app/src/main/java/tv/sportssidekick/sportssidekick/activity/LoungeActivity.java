@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -41,8 +40,10 @@ import tv.sportssidekick.sportssidekick.fragment.instance.QuizFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.RumoursFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StatisticsFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.TVChannelFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsPopup;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
@@ -200,7 +201,9 @@ public class LoungeActivity extends AppCompatActivity {
 
         ArrayList<Class> bottomRightContainerFragments = new ArrayList<>();
         bottomRightContainerFragments.add(ClubTVFragment.class);
+        bottomRightContainerFragments.add(TVChannelFragment.class);
         bottomRightContainerFragments.add(ClubRadioFragment.class);
+        bottomRightContainerFragments.add(YoutubePlayerFragment.class);
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container,bottomRightContainerFragments);
 
         popupContainerFragments = new ArrayList<>();

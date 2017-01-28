@@ -103,6 +103,7 @@
     <string name="your_friends_title">Your Friends</string>
     <string name="your_friends_search_hint">Search your friends</string>
     <string name="your_friends_request">Friend requests</string>
+    <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
 
     <plurals name="days_until_match">
         <item quantity="zero">TODAY</item>

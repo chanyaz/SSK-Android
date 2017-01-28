@@ -1,21 +1,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/colorAccentLight"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioFragment">
-    <ImageView
-        android:contentDescription="@string/demo"
+
+    <!--  \/\/\/\/\/\/\/ FIXME Dummy View to make sure container is the size of Video player fragment -->
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/video_player_dummy_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:background="@color/green_dark_1"
-        android:scaleType="fitEnd"
-        android:src="@drawable/radio_placeholder" />
+        android:layout_marginEnd="105dp">
+        <View
+            android:id="@+id/youtube_layout"
+            android:layout_marginBottom="16dp"
+            android:visibility="invisible"
+            app:layout_aspectRatio="178%"
+            app:layout_widthPercent="100%"/>
+    </android.support.percent.PercentRelativeLayout>
+    <!--  /\/\/\/\/\/\/\ -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="36sp"
-        android:textColor="@color/white"
         android:layout_centerInParent="true"
-        android:text="@string/club_radio_caption" />
+        android:text="@string/club_radio_caption"
+        android:textColor="@color/white"
+        android:textSize="36sp" />
 </RelativeLayout>
