@@ -19,10 +19,12 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.api.services.youtube.model.Video;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.club.ClubTVModel;
@@ -36,7 +38,6 @@ import tv.sportssidekick.sportssidekick.model.club.TvChannel;
 
 public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer.OnInitializedListener, YouTubePlayer.PlaybackEventListener, YouTubePlayer.OnFullscreenListener, YouTubePlayer.PlayerStateChangeListener {
 
-    private static final String API_KEY = "AIzaSyAVYoyvyouNeFJBvlLG9yQMfIuQ3EaNadY";
     private static final String TAG = "YOUTUBE PLAYER";
     private static final int SEEK_BAR_MAX = 10000;
     public YoutubePlayerFragment() {
@@ -71,11 +72,11 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
         YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.youtube_layout, youTubePlayerFragment).commit();
-        youTubePlayerFragment.initialize(API_KEY,this);
+        youTubePlayerFragment.initialize(Constant.YOUTUBE_API_KEY,this);
         ButterKnife.bind(this, view);
 
-        TvChannel tvChannel = ClubTVModel.getInstance().getTvChannelById(getPrimaryArgument());
-        videoId = tvChannel.getVideoId();
+        Video video = ClubTVModel.getInstance().getVideoById(getPrimaryArgument());
+        videoId = video.getId();
 
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         mute = (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)==0);

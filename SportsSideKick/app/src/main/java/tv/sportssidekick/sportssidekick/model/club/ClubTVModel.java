@@ -1,6 +1,24 @@
 package tv.sportssidekick.sportssidekick.model.club;
 
+import android.util.Pair;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.Playlist;
+import com.google.api.services.youtube.model.Video;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+
+import tv.sportssidekick.sportssidekick.Constant;
+import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
+
 
 /**
  * Created by Filip on 1/25/2017.
@@ -12,65 +30,75 @@ public class ClubTVModel {
 
     private static ClubTVModel instance;
 
-    public ArrayList<TvCategory> getTvCategories() {
-        return tvCategories;
-    }
-
-    public ArrayList<TvChannel> getTvChannels() {
-        return tvChannels;
-    }
-
-    ArrayList<TvCategory> tvCategories;
-    ArrayList<TvChannel> tvChannels;
-
     public static ClubTVModel getInstance(){
         if(instance==null){
             instance = new ClubTVModel();
         }
         return instance;
     }
-//    private static YouTube youtube;
-//    private final HttpTransport mTransport = AndroidHttp.newCompatibleTransport();
-//    private final GsonFactory mJsonFactory = new GsonFactory();
+    private final HttpTransport transport = AndroidHttp.newCompatibleTransport();
+    private final GsonFactory jsonFactory = new GsonFactory();
 
 
+    private List<Playlist> playlists;
+    private List<Video> videos;
+    private HashMap<String,List<Video>> videosHashMap;
+    private  YouTube youtubeDataApi;
     private ClubTVModel(){
-//        tvCategories = new ArrayList<>();
-//        tvChannels = new ArrayList<>();
-//        for(int i = 0; i< 30; i++){
-//            ArrayList<TvChannel> demoTvChannels = new ArrayList<>();
-//            for(int j=0; j<30; j++){
-//                TvChannel demoChannel = new TvChannel("tv_channel_" + i + "_" + j, "TV Channel caption " + j,"www.videoId.com",new Date(),"www.videoId.com");
-//                demoTvChannels.add(demoChannel);
-//                tvChannels.add(demoChannel);
-//            }
-//            tvCategories.add(new TvCategory("This is demo caption of TV Channel cell " + i,"channel_" + i,demoTvChannels));
-//        }
-//
-//        YouTube youtubeDataApi = new YouTube.Builder(mTransport, new JacksonFactory(), null)
-//                .setApplicationName(getResources().getString(R.string.app_name))
-//                .build();
-//        // TODO NEED CONTEXT
-//        // TODO THEN PULL DATA LIKE HERE : https://github.com/akoscz/YouTubePlaylist/blob/master/app/src/main/java/com/akoscz/youtube/GetPlaylistTitlesAsyncTask.java
-//        // https://developers.google.com/youtube/v3/docs/search/list
+        playlists = new ArrayList<>();
+        videos = new ArrayList<>();
+        videosHashMap = new HashMap<>();
+        youtubeDataApi = new YouTube.Builder(transport, jsonFactory, null).setApplicationName("tv.sportssidekick.sportssidekick").build();
 
+//        // This will get all videos of a playlist!
+
+
+        new GetChannelPlaylistsAsyncTask(youtubeDataApi) {
+            @Override
+            protected void onPostExecute(Pair<String, List<Playlist>> stringListPair) {
+                super.onPostExecute(stringListPair);
+                playlists.addAll(stringListPair.second);
+                EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
+            }
+        }.execute(Constant.YOUTUBE_CHANNEL_ID);
     }
 
-    public TvCategory getTVCategoryById(String id){
-        for(TvCategory category : tvCategories){
-            if(id.equals(category.getId())){
-                return category;
+    public void requestPlaylist(final String playlistId){
+            new GetPlaylistAsyncTask(youtubeDataApi) {
+            @Override
+            protected void onPostExecute(Pair<String, List<Video>> stringListPair) {
+                super.onPostExecute(stringListPair);
+                List<Video> receivedVideos = stringListPair.second;
+                videosHashMap.put(playlistId,receivedVideos);
+                videos.addAll(receivedVideos);
+                EventBus.getDefault().post(new ClubTVEvent(playlistId, ClubTVEvent.Type.PLAYLIST_DOWNLOADED));
+            }
+        }.execute(playlistId);
+    }
+
+    public Playlist getPlaylistById(String id){
+        for(Playlist playlist : playlists){
+            if(id.equals(playlist.getId())){
+                return playlist;
             }
         }
         return null;
     }
-    public TvChannel getTvChannelById(String id){
-        for(TvChannel channel : tvChannels){
-            if(id.equals(channel.getId())){
-                return channel;
+    public Video getVideoById(String id){
+        for(Video video : videos){
+            if(id.equals(video.getId())){
+                return video;
             }
         }
         return null;
+    }
+
+    public List<Video> getPlaylistsVideos(String id) {
+        return videosHashMap.get(id);
+    }
+
+    public List<Playlist> getPlaylists() {
+        return playlists;
     }
 
 }

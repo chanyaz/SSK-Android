@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.api.services.youtube.model.Video;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -37,11 +39,11 @@ public class ChannelTVAdapter extends RecyclerView.Adapter<ChannelTVAdapter.View
 
     private static final String TAG = "Channel TV Adapter";
 
-    private List<TvChannel> values;
+    private List<Video> values;
     private Context context;
     SimpleDateFormat sdf;
 
-    public List<TvChannel> getValues() {
+    public List<Video> getValues() {
         return values;
     }
 
@@ -95,13 +97,14 @@ public class ChannelTVAdapter extends RecyclerView.Adapter<ChannelTVAdapter.View
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final TvChannel info = values.get(position);
+        final Video info = values.get(position);
         // setup caption
-        holder.caption.setText(info.getName());
-        holder.date.setText(sdf.format(new Date()));
-
+        holder.caption.setText(info.getSnippet().getTitle());
+        holder.date.setText(sdf.format(new Date(info.getSnippet().getPublishedAt().getValue())));
         // display image
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
+        ImageLoader.getInstance().displayImage(imageUrl, holder.image, imageOptions);
     }
 
     @Override

@@ -8,4 +8,7 @@ package tv.sportssidekick.sportssidekick;
 public class Constant {
 
     public static final int LOGIN_TEXT_TIME= 3000;
+    public static final String YOUTUBE_API_KEY = "AIzaSyAVYoyvyouNeFJBvlLG9yQMfIuQ3EaNadY";
+    public static final String YOUTUBE_CHANNEL_ID = "UCnJj6L93JX3Jrhzv81ayywA";
+
 }

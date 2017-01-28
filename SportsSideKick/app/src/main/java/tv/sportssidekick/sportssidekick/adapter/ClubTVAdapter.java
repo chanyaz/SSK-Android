@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.api.services.youtube.model.Playlist;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -37,10 +39,10 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
 
     private static final String TAG = "Club Adapter";
 
-    private List<TvCategory> values;
+    private List<Playlist> values;
     private Context context;
 
-    public List<TvCategory> getValues() {
+    public List<Playlist> getValues() {
         return values;
     }
 
@@ -90,10 +92,10 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final TvCategory info = values.get(position);
+        final Playlist info = values.get(position);
         // setup caption - with count at the end in lighter color
-        String originalCaption = info.getName();
-        int count = info.getTvChannels().size();
+        String originalCaption = info.getSnippet().getTitle();
+        long count = info.getContentDetails().getItemCount();
         int startIndex = originalCaption.length();
         String countExtension = " (" + count + ")";
         int endIndex = startIndex + countExtension.length();
@@ -105,6 +107,8 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         spannable.setSpan(thinSpan,startIndex,endIndex,Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         // display image
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
+        ImageLoader.getInstance().displayImage(imageUrl, holder.image, imageOptions);
     }
 
     @Override
