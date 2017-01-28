@@ -7,10 +7,10 @@
     <TextView
         android:id="@+id/caption"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginStart="@dimen/margin_80"
+        android:layout_marginEnd="@dimen/margin_80"
         android:gravity="center"
         android:textAllCaps="true"
         android:textColor="@color/colorAccent" />
@@ -23,10 +23,10 @@
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="@dimen/margin_40"
+        android:layout_marginTop="@dimen/margin_20"
         android:layout_below="@+id/caption"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="@dimen/margin_40"
         android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"/>
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="@dimen/margin_30"
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/popup_cancel_button" />
@@ -52,10 +52,10 @@
             android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/margin_20"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/cancel_button"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="@dimen/margin_20"
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/popup_confirmation_button" />

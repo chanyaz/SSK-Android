@@ -16,7 +16,7 @@
     <RelativeLayout
         android:id="@+id/left_top_bar_container"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/top_bar_height"
         android:layout_marginBottom="@dimen/full_margin"
         android:layout_marginEnd="@dimen/half_margin"
         android:layout_marginTop="@dimen/full_margin"
@@ -24,10 +24,10 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="80dp"
+            android:layout_width="@dimen/top_bar_logo_width"
             android:layout_height="match_parent"
             android:contentDescription="@string/demo"
-            android:padding="8dp"
+            android:padding="@dimen/padding_8"
             android:scaleType="fitCenter"
             android:src="@drawable/sportingportugal" />
 
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/margin_10"
             android:layout_toEndOf="@+id/logo"
             android:layout_toStartOf="@+id/days_until_match_label"
             android:ellipsize="end"
@@ -58,8 +58,8 @@
 
         <ImageView
             android:id="@+id/logo_first_team"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="@dimen/top_bar_logo_tema_size"
+            android:layout_height="@dimen/top_bar_logo_tema_size"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/vs_label"
             android:contentDescription="@string/demo"
@@ -68,8 +68,8 @@
 
         <ImageView
             android:id="@+id/logo_second_team"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="@dimen/top_bar_logo_tema_size"
+            android:layout_height="@dimen/top_bar_logo_tema_size"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/demo"
@@ -125,7 +125,7 @@
     <RelativeLayout
         android:id="@+id/right_top_bar_container"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/top_bar_height"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="@dimen/full_margin"
         android:layout_marginEnd="@dimen/full_margin"
@@ -136,7 +136,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_8"
             android:layout_toRightOf="@+id/notification_container"
             android:adjustViewBounds="true"
             android:background="@color/white"
@@ -146,17 +146,17 @@
 
         <RelativeLayout
             android:id="@+id/notification_container"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/top_bar_notification_container_width"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="@dimen/top_bar_notification_image_size"
                 android:src="@drawable/notification"
                 android:layout_centerInParent="true"
-                android:paddingLeft="8dp"
+                android:paddingLeft="@dimen/padding_8"
                 android:adjustViewBounds="true"/>
 
             <TextView
@@ -189,7 +189,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_right_container"
         android:layout_below="@+id/right_top_bar_container"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/margin_8"
         android:layout_marginStart="@dimen/half_margin"
         android:layout_toEndOf="@+id/middle_split"
         android:layout_toStartOf="@+id/right_tab_selector"
@@ -200,8 +200,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:layout_marginStart="@dimen/half_margin"
         android:layout_toEndOf="@+id/middle_split"
         android:layout_toStartOf="@+id/right_tab_selector"
         android:background="@color/green_dark_1"
@@ -209,7 +209,7 @@
 
     <RadioGroup
         android:id="@+id/left_tab_selector"
-        android:layout_width="80dp"
+        android:layout_width="@dimen/main_buttons_bar_width"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/left_top_bar_container"
@@ -219,7 +219,7 @@
         <RadioButton
             android:id="@+id/wall_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/standard_button_height"
             android:background="@drawable/tab_radio_button_selector_left"
             android:button="@null"
             android:gravity="center"
@@ -230,7 +230,7 @@
         <RadioButton
             android:id="@+id/video_chat_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/standard_button_height"
             android:background="@drawable/tab_radio_button_selector_left"
             android:button="@null"
             android:gravity="center"
@@ -241,7 +241,7 @@
         <RadioButton
             android:id="@+id/news_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/standard_button_height"
             android:background="@drawable/tab_radio_button_selector_left"
             android:button="@null"
             android:gravity="center"
@@ -252,7 +252,7 @@
         <RadioButton
             android:id="@+id/roumors_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/standard_button_height"
             android:background="@drawable/tab_radio_button_selector_left"
             android:button="@null"
             android:gravity="center"
@@ -263,7 +263,7 @@
         <RadioButton
             android:id="@+id/shop_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/main_buttons_bar_height"
             android:background="@drawable/tab_radio_button_selector_left"
             android:button="@null"
             android:gravity="center"
@@ -291,9 +291,9 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginBottom="@dimen/coin_bottom_margin"
+                android:layout_marginLeft="@dimen/coin_lateral_margin"
+                android:layout_marginRight="@dimen/coin_lateral_margin"
                 android:adjustViewBounds="true"
                 android:src="@drawable/skk_coin_large" />
 
@@ -311,8 +311,8 @@
                 android:id="@+id/your_coins_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
                 android:ellipsize="end"
                 android:inputType="text"
                 android:maxLines="1"
@@ -326,7 +326,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/your_coins"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="@dimen/padding_16"
             android:onClick="onProfileButtonClick">
 
             <RelativeLayout
@@ -339,9 +339,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="@dimen/padding_16"
+                    android:layout_marginLeft="@dimen/padding_16"
+                    android:layout_marginRight="@dimen/padding_16"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/image"
                     android:padding="2dp"
@@ -371,8 +371,8 @@
             </RelativeLayout>
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="@dimen/profile_level_marker_size"
+                android:layout_height="@dimen/profile_level_marker_size"
                 android:layout_alignEnd="@id/profile_image_container"
                 android:layout_alignStart="@id/profile_image_container"
                 android:layout_below="@id/profile_image_container"
@@ -381,8 +381,8 @@
                 android:src="@drawable/next_level_marker" />
 
             <TextView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="@dimen/profile_level_marker_size"
+                android:layout_height="@dimen/profile_level_marker_size"
                 android:layout_alignEnd="@id/profile_image_container"
                 android:layout_alignStart="@id/profile_image_container"
                 android:layout_below="@id/profile_image_container"
@@ -398,9 +398,9 @@
                 android:layout_alignEnd="@id/profile_image_container"
                 android:layout_alignStart="@id/profile_image_container"
                 android:layout_below="@id/profile_image_container"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_marginRight="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_10"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:lineSpacingExtra="-5dp"
@@ -424,7 +424,7 @@
 
     <RadioGroup
         android:id="@+id/right_tab_selector"
-        android:layout_width="80dp"
+        android:layout_width="@dimen/main_buttons_bar_width"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/right_top_bar_container"
@@ -434,7 +434,7 @@
         <RadioButton
             android:id="@+id/chat_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/main_buttons_bar_height"
             android:background="@drawable/tab_radio_button_selector_right"
             android:button="@null"
             android:gravity="center"
@@ -445,7 +445,7 @@
         <RadioButton
             android:id="@+id/stats_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/main_buttons_bar_height"
             android:background="@drawable/tab_radio_button_selector_right"
             android:button="@null"
             android:gravity="center"
@@ -456,7 +456,7 @@
         <RadioButton
             android:id="@+id/fantasy_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/main_buttons_bar_height"
             android:background="@drawable/tab_radio_button_selector_right"
             android:button="@null"
             android:gravity="center"
@@ -468,7 +468,7 @@
         <RadioButton
             android:id="@+id/quiz_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/main_buttons_bar_height"
             android:background="@drawable/tab_radio_button_selector_right"
             android:button="@null"
             android:gravity="center"
@@ -479,7 +479,7 @@
 
     <RadioGroup
         android:id="@+id/video_tab_radio_group"
-        android:layout_width="80dp"
+        android:layout_width="@dimen/main_buttons_bar_width"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/bottom_right_container"
@@ -489,7 +489,7 @@
         <RadioButton
             android:id="@+id/club_tv_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/main_buttons_bar_height"
             android:background="@drawable/tab_radio_button_selector_right"
             android:button="@null"
             android:gravity="center"
@@ -500,7 +500,7 @@
         <RadioButton
             android:id="@+id/club_radio_radio_button"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/main_buttons_bar_height"
             android:background="@drawable/tab_radio_button_selector_right"
             android:button="@null"
             android:gravity="center"
@@ -525,9 +525,9 @@
                 android:id="@+id/your_friends_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
                 android:adjustViewBounds="true"
                 android:src="@mipmap/icon_your_friends"
                 android:onClick="onFriendsButtonClick"/>
@@ -536,9 +536,9 @@
                 android:id="@+id/your_followers_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
                 android:adjustViewBounds="true"
                 android:src="@mipmap/icon_followers" />
         </LinearLayout>

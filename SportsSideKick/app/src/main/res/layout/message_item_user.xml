@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="5dp">
+    android:paddingTop="@dimen/margin_5">
 
 
     <RelativeLayout
@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="@dimen/margin_5"
         android:background="@drawable/chat_bubble_user">
 
         <TextView
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/content_container"
-        android:layout_marginEnd="14dp"
+        android:layout_marginEnd="@dimen/margin_15"
         android:alpha="0.5"
         android:text="7 mins ago"
         android:textColor="@color/white"

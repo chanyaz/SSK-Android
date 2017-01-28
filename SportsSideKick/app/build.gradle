@@ -58,5 +58,6 @@ dependencies {
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'
     compile 'rongi.rotate-layout:rotate-layout:2.0.0'
     compile 'com.github.lzyzsd:circleprogress:+'
+    compile 'com.twilio:video-android:1.0.0-beta6'
 }
 apply plugin: 'com.google.gms.google-services'

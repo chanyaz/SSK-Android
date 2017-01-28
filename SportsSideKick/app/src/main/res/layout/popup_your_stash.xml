@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="60dp"
-    android:layout_marginEnd="90dp"
-    android:layout_marginStart="90dp"
-    android:layout_marginTop="60dp">
+    android:layout_marginBottom="@dimen/margin_60"
+    android:layout_marginEnd="@dimen/margin_90"
+    android:layout_marginStart="@dimen/margin_90"
+    android:layout_marginTop="@dimen/margin_60">
 
     <!-- BACKGROUND -->
     <RelativeLayout
@@ -22,7 +22,7 @@
     <LinearLayout
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
         android:orientation="horizontal">
 
@@ -100,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_below="@+id/top_split_line"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_20"
         android:layout_centerHorizontal="true"
         style="@style/boldText"
         android:text="YOUR STASH"
@@ -125,7 +125,7 @@
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_height="match_parent"
         android:layout_below="@+id/your_stash_description"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margin_20"
         />
 
     <!-- BOTTOM BUTTONS CONTAINER -->
@@ -151,8 +151,8 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:layout_marginEnd="@dimen/margin_10"
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/popup_confirmation_button" />
