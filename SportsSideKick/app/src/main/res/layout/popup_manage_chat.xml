@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="544dp"
+    android:layout_width="@dimen/popup_manage_chat_width"
     android:layout_height="match_parent"
     android:background="@color/colorPrimarySemiLight"
     android:orientation="vertical">
+
     <View
         android:id="@+id/top_vertical_spliter"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/standard_button_height"
         android:layout_centerHorizontal="true" />
+
     <TextView
         android:id="@+id/top_caption"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/standard_button_height"
         android:gravity="center"
         android:textColor="@color/colorAccent" />
 
     <View
         android:layout_width="match_parent"
-        android:background="@color/colorAccent"
-        android:layout_alignParentTop="true"
         android:layout_height="2dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent" />
+
     <View
         android:layout_width="match_parent"
-        android:layout_toEndOf="@+id/top_caption"
-        android:background="@color/colorPrimaryLight"
-        android:layout_alignParentTop="true"
         android:layout_height="2dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_toEndOf="@+id/top_caption"
+        android:background="@color/colorPrimaryLight" />
 
     <TextView
         android:id="@+id/chat_name_label"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/popup_manage_chat_elemnt_height"
         android:layout_below="@+id/top_caption"
         android:layout_toStartOf="@+id/top_vertical_spliter"
         android:background="@color/colorPrimary"
         android:foregroundGravity="right"
         android:gravity="center_vertical|end"
-        android:paddingEnd="70dp"
+        android:paddingEnd="@dimen/margin_70"
         android:text="Rename your chat"
         android:textColor="@color/white" />
 
     <EditText
         android:id="@+id/chat_name_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/popup_manage_chat_elemnt_height"
         android:layout_below="@+id/top_caption"
         android:layout_marginStart="-30dp"
         android:layout_toEndOf="@+id/chat_name_label"
@@ -62,7 +65,7 @@
     <TextView
         android:id="@+id/caption_label"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/popup_manage_chat_caption_label_height"
         android:layout_below="@+id/chat_name_label"
         android:gravity="center"
         android:text="People in this chat"
@@ -71,11 +74,11 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_below="@+id/caption_label"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_split_line">
+        android:layout_above="@+id/bottom_split_line"
+        android:layout_below="@+id/caption_label"
+        android:layout_marginEnd="@dimen/margin_20"
+        android:layout_marginStart="@dimen/margin_20">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/friends_recycler_view"
@@ -87,41 +90,40 @@
     <View
         android:id="@+id/bottom_split_line"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
         android:layout_height="1dp"
-        android:background="@android:color/black"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_60"
+        android:background="@android:color/black" />
 
     <Switch
         android:id="@+id/private_chat_switch"
+        android:layout_width="@dimen/popup_manage_chat_private_chat_switch_width"
+        android:layout_height="@dimen/popup_manage_chat_elemnt_height"
         android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:gravity="center_vertical|center_horizontal"
         android:layout_alignParentStart="true"
-        android:layout_width="80dp"
-        android:layout_height="60dp"/>
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical|center_horizontal" />
 
     <TextView
         android:id="@+id/private_chat_label"
         android:layout_width="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="@dimen/popup_manage_chat_elemnt_height"
         android:layout_alignParentBottom="true"
-        android:layout_height="60dp"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginStart="@dimen/margin_10"
         android:layout_toEndOf="@+id/private_chat_switch"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="@color/white" />
 
     <Button
         android:id="@+id/confirm_button"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="30dp"
-        android:background="@drawable/rounded_button_press"
-        android:layout_marginEnd="20dp"
+        android:layout_width="@dimen/popup_manage_chat_private_confirm_button_width"
+        android:layout_height="@dimen/popup_manage_chat_private_confirm_button_height"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        />
+        android:layout_marginBottom="@dimen/margin_15"
+        android:layout_marginEnd="@dimen/margin_20"
+        android:layout_marginStart="@dimen/margin_30"
+        android:background="@drawable/rounded_button_press" />
 
 </RelativeLayout>
