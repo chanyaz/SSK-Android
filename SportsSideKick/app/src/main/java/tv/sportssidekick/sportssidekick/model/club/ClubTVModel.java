@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
@@ -49,31 +50,39 @@ public class ClubTVModel {
         videos = new ArrayList<>();
         videosHashMap = new HashMap<>();
         youtubeDataApi = new YouTube.Builder(transport, jsonFactory, null).setApplicationName("tv.sportssidekick.sportssidekick").build();
+    }
 
-//        // This will get all videos of a playlist!
-
-
-        new GetChannelPlaylistsAsyncTask(youtubeDataApi) {
-            @Override
-            protected void onPostExecute(Pair<String, List<Playlist>> stringListPair) {
-                super.onPostExecute(stringListPair);
-                playlists.addAll(stringListPair.second);
-                EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
-            }
-        }.execute(Constant.YOUTUBE_CHANNEL_ID);
+    public void requestAllPlaylists() {
+        if (playlists.size()>0) {
+            EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
+        } else {
+            new GetChannelPlaylistsAsyncTask(youtubeDataApi) {
+                @Override
+                protected void onPostExecute(Pair<String, List<Playlist>> stringListPair) {
+                    super.onPostExecute(stringListPair);
+                    playlists.addAll(stringListPair.second);
+                    EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
+                }
+            }.execute(Constant.YOUTUBE_CHANNEL_ID);
+        }
     }
 
     public void requestPlaylist(final String playlistId){
+        if(videosHashMap.containsKey(playlistId)){
+            EventBus.getDefault().post(new ClubTVEvent(playlistId, ClubTVEvent.Type.PLAYLIST_DOWNLOADED));
+        } else {
             new GetPlaylistAsyncTask(youtubeDataApi) {
-            @Override
-            protected void onPostExecute(Pair<String, List<Video>> stringListPair) {
-                super.onPostExecute(stringListPair);
-                List<Video> receivedVideos = stringListPair.second;
-                videosHashMap.put(playlistId,receivedVideos);
-                videos.addAll(receivedVideos);
-                EventBus.getDefault().post(new ClubTVEvent(playlistId, ClubTVEvent.Type.PLAYLIST_DOWNLOADED));
-            }
-        }.execute(playlistId);
+                @Override
+                protected void onPostExecute(Pair<String, List<Video>> stringListPair) {
+                    super.onPostExecute(stringListPair);
+                    List<Video> receivedVideos = stringListPair.second;
+                    videosHashMap.put(playlistId,receivedVideos);
+                    videos.addAll(receivedVideos);
+                    EventBus.getDefault().post(new ClubTVEvent(playlistId, ClubTVEvent.Type.PLAYLIST_DOWNLOADED));
+                }
+            }.execute(playlistId);
+        }
+
     }
 
     public Playlist getPlaylistById(String id){
@@ -88,6 +97,15 @@ public class ClubTVModel {
         for(Video video : videos){
             if(id.equals(video.getId())){
                 return video;
+            }
+        }
+        return null;
+    }
+
+    public String getPlaylistId(Video video){
+        for(Map.Entry<String,List<Video>> entry : videosHashMap.entrySet()){
+            if(entry.getValue().contains(video)){
+                return entry.getKey();
             }
         }
         return null;

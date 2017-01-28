@@ -25,8 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.fragment.instance.TVChannelFragment;
-import tv.sportssidekick.sportssidekick.model.club.TvCategory;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubTvPlaylistFragment;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -79,7 +78,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(TVChannelFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(ClubTvPlaylistFragment.class);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setId(values.get(position).getId());
                 EventBus.getDefault().post(fragmentEvent);

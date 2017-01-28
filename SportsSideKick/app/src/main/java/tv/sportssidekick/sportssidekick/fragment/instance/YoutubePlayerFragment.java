@@ -21,12 +21,15 @@ import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.api.services.youtube.model.Video;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.club.ClubTVModel;
 import tv.sportssidekick.sportssidekick.model.club.TvChannel;
 
@@ -63,7 +66,7 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
     @BindView(R.id.seek_bar)
     SeekBar seekBar;
 
-    private String videoId;
+    Video video;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,8 +78,7 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
         youTubePlayerFragment.initialize(Constant.YOUTUBE_API_KEY,this);
         ButterKnife.bind(this, view);
 
-        Video video = ClubTVModel.getInstance().getVideoById(getPrimaryArgument());
-        videoId = video.getId();
+        video = ClubTVModel.getInstance().getVideoById(getPrimaryArgument());
 
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         mute = (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)==0);
@@ -112,7 +114,7 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
         if (!wasRestored) {
             player.setFullscreen(false);
             player.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS);
-            player.cueVideo(videoId);
+            player.cueVideo(video.getId());
             this.player = player;
             player.setOnFullscreenListener(this);
             player.setPlaybackEventListener(this);
@@ -243,5 +245,23 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
         float total = player.getDurationMillis();
         float percentage = current/total;
         seekBar.setProgress((int) (percentage*SEEK_BAR_MAX));
+    }
+
+    @OnClick(R.id.playlist_button)
+    public void goBackToPlaylist(){
+        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
+        FragmentEvent fragmentEvent = new FragmentEvent(ClubTvPlaylistFragment.class);
+        fragmentEvent.setId(ClubTVModel.getInstance().getPlaylistId(video));
+        EventBus.getDefault().post(fragmentEvent);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (player != null) {
+            player.release();
+            player = null;
+        }
+        super.onDestroy();
     }
 }

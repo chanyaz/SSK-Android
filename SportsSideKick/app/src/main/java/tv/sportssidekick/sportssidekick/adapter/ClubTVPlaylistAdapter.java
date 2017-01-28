@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
-import tv.sportssidekick.sportssidekick.model.club.TvChannel;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -35,7 +34,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * www.hypercubesoft.com
  */
 
-public class ChannelTVAdapter extends RecyclerView.Adapter<ChannelTVAdapter.ViewHolder> {
+public class ClubTVPlaylistAdapter extends RecyclerView.Adapter<ClubTVPlaylistAdapter.ViewHolder> {
 
     private static final String TAG = "Channel TV Adapter";
 
@@ -64,7 +63,7 @@ public class ChannelTVAdapter extends RecyclerView.Adapter<ChannelTVAdapter.View
         }
     }
 
-    public ChannelTVAdapter(Context context) {
+    public ClubTVPlaylistAdapter(Context context) {
         values= new ArrayList<>();
         this.context = context;
         sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());

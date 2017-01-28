@@ -30,7 +30,8 @@ public class ClubTVFragment extends BaseFragment {
     RecyclerView recyclerView;
 
     ClubTVAdapter adapter;
-
+    @BindView(R.id.back_button)
+    View backButton;
     public ClubTVFragment() {
         // Required empty public constructor
     }
@@ -49,8 +50,14 @@ public class ClubTVFragment extends BaseFragment {
         adapter = new ClubTVAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
-        ClubTVModel.getInstance(); // This is first time we request club tv instance and playlists too
+        backButton.setVisibility(View.GONE);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ClubTVModel.getInstance().requestAllPlaylists(); // This is first time we request club tv instance and playlists too
     }
 
     @Subscribe(threadMode= ThreadMode.MAIN)

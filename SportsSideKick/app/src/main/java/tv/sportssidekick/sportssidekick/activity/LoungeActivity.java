@@ -40,7 +40,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.QuizFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.RumoursFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StatisticsFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.TVChannelFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubTvPlaylistFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
@@ -201,7 +201,7 @@ public class LoungeActivity extends AppCompatActivity {
 
         ArrayList<Class> bottomRightContainerFragments = new ArrayList<>();
         bottomRightContainerFragments.add(ClubTVFragment.class);
-        bottomRightContainerFragments.add(TVChannelFragment.class);
+        bottomRightContainerFragments.add(ClubTvPlaylistFragment.class);
         bottomRightContainerFragments.add(ClubRadioFragment.class);
         bottomRightContainerFragments.add(YoutubePlayerFragment.class);
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container,bottomRightContainerFragments);

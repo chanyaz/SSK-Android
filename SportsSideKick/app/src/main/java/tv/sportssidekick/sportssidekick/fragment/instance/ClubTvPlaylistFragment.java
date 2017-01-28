@@ -11,21 +11,24 @@ import android.widget.TextView;
 
 import com.google.api.services.youtube.model.Playlist;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.adapter.ChannelTVAdapter;
+import tv.sportssidekick.sportssidekick.adapter.ClubTVPlaylistAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.club.ClubTVModel;
 import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
 
 /**
  * A simple {@link BaseFragment} subclass.
  */
-public class TVChannelFragment extends BaseFragment {
+public class ClubTvPlaylistFragment extends BaseFragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -33,8 +36,9 @@ public class TVChannelFragment extends BaseFragment {
     @BindView(R.id.caption)
     TextView captionTextView;
 
-    ChannelTVAdapter adapter;
-    public TVChannelFragment() {
+    ClubTVPlaylistAdapter adapter;
+    Playlist playlist;
+    public ClubTvPlaylistFragment() {
         // Required empty public constructor
     }
 
@@ -43,17 +47,23 @@ public class TVChannelFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_club_tv, container, false);
         ButterKnife.bind(this, view);
-        Playlist playlist = ClubTVModel.getInstance().getPlaylistById(getPrimaryArgument());
+        playlist = ClubTVModel.getInstance().getPlaylistById(getPrimaryArgument());
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ChannelTVAdapter(getContext());
+        adapter = new ClubTVPlaylistAdapter(getContext());
         recyclerView.setAdapter(adapter);
         captionTextView.setText(playlist.getSnippet().getTitle());
 
-        ClubTVModel.getInstance().requestPlaylist(playlist.getId());
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ClubTVModel.getInstance().requestPlaylist(playlist.getId());
+    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void displayPlaylist(ClubTVEvent event){
@@ -63,4 +73,8 @@ public class TVChannelFragment extends BaseFragment {
         }
     }
 
+    @OnClick(R.id.back_button)
+    public void goBack(){
+        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
+    }
 }
