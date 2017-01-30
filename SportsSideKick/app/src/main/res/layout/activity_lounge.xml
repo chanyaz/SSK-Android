@@ -202,7 +202,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_right_container"
-        android:layout_below="@+id/right_top_bar_container"
         android:layout_marginBottom="@dimen/margin_8"
         android:layout_marginStart="@dimen/half_margin"
         android:layout_toEndOf="@+id/middle_split"
@@ -220,14 +219,7 @@
             android:layout_toStartOf="@+id/right_tab_selector"
             android:background="@color/green_dark_1" />
 
-    <RadioGroup
-        android:id="@+id/left_tab_selector"
-        android:layout_width="@dimen/main_buttons_bar_width"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/left_top_bar_container"
-        android:gravity="top"
-        android:orientation="vertical">
+
         <!-- TOP RIGHT RADIO GROUP -->
         <RadioGroup
             android:id="@+id/right_tab_selector"
@@ -554,14 +546,14 @@
                 android:src="@mipmap/icon_followers" />
         </LinearLayout>
 
-        <!-- POPUP HOLDER -->
-        <RelativeLayout
-            android:id="@+id/popup_holder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:gravity="center"
-            android:visibility="gone" />
-    </RelativeLayout>
 
+    </RelativeLayout>
+    <!-- POPUP HOLDER -->
+    <RelativeLayout
+        android:id="@+id/popup_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone" />
 </RelativeLayout>

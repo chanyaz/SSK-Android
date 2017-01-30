@@ -12,7 +12,6 @@ import com.google.api.services.youtube.model.Video;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,10 +40,12 @@ public class ClubTVModel {
     private final GsonFactory jsonFactory = new GsonFactory();
 
 
+
     private List<Playlist> playlists;
     private List<Video> videos;
     private HashMap<String,List<Video>> videosHashMap;
     private  YouTube youtubeDataApi;
+
     private ClubTVModel(){
         playlists = new ArrayList<>();
         videos = new ArrayList<>();
@@ -118,5 +119,7 @@ public class ClubTVModel {
     public List<Playlist> getPlaylists() {
         return playlists;
     }
+
+
 
 }
