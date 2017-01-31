@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +34,9 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * www.hypercubesoft.com
  */
 
-public class ClubRadioStationFragment extends BaseFragment {
+public class ClubRadioStationFragment extends BaseFragment implements MediaPlayer.OnPreparedListener {
 
+    private static final String TAG = "Radio Station Fragment";
     @BindView(R.id.play_button)
     ImageView playButton;
 
@@ -81,7 +83,7 @@ public class ClubRadioStationFragment extends BaseFragment {
             stopPlaying();
         } else {
             playButton.setSelected(true);
-            startPlaying();
+            initializeMediaPlayer();
         }
     }
 
@@ -94,21 +96,17 @@ public class ClubRadioStationFragment extends BaseFragment {
         player = new MediaPlayer();
         try {
             player.setDataSource(station.getUrl());
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            player.setOnPreparedListener(this);
+            player.prepareAsync();
+        } catch (IllegalArgumentException | IllegalStateException | IOException e) {
+            Log.d(TAG,"Initialization failed.");
         }
 
         player.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
             public void onBufferingUpdate(MediaPlayer mp, int percent) {
-                //
+                Log.d(TAG,"Buffered to:" + percent );
             }
         });
-
-        startPlaying();
     }
 
     @Override
@@ -123,17 +121,12 @@ public class ClubRadioStationFragment extends BaseFragment {
         if (player.isPlaying()) {
             player.stop();
             player.release();
-            initializeMediaPlayer();
         }
     }
 
-    private void startPlaying() {
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
         player.start();
-//        player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            public void onPrepared(MediaPlayer mp) {
-//                player.start();
-//            }
-//        });
-//        player.prepareAsync();
+        playButton.setSelected(true);
     }
 }
