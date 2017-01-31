@@ -32,6 +32,7 @@ import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioStationFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.FantasyFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.NewsFragment;
@@ -204,6 +205,7 @@ public class LoungeActivity extends AppCompatActivity {
         bottomRightContainerFragments.add(ClubTvPlaylistFragment.class);
         bottomRightContainerFragments.add(ClubRadioFragment.class);
         bottomRightContainerFragments.add(YoutubePlayerFragment.class);
+        bottomRightContainerFragments.add(ClubRadioStationFragment.class);
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container,bottomRightContainerFragments);
 
         popupContainerFragments = new ArrayList<>();

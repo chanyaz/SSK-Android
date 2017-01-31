@@ -2,7 +2,6 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 
 import android.os.Bundle;
-import android.support.annotation.MainThread;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.ClubTVAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.model.club.ClubTVModel;
+import tv.sportssidekick.sportssidekick.model.club.ClubModel;
 import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
 
 /**
@@ -57,13 +56,13 @@ public class ClubTVFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ClubTVModel.getInstance().requestAllPlaylists(); // This is first time we request club tv instance and playlists too
+        ClubModel.getInstance().requestAllPlaylists(); // This is first time we request club tv instance and playlists too
     }
 
     @Subscribe(threadMode= ThreadMode.MAIN)
     public void displayPlaylists(ClubTVEvent event){
         if(event.getEventType().equals(ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED)){
-            adapter.getValues().addAll(ClubTVModel.getInstance().getPlaylists());
+            adapter.getValues().addAll(ClubModel.getInstance().getPlaylists());
             adapter.notifyDataSetChanged();
         }
     }

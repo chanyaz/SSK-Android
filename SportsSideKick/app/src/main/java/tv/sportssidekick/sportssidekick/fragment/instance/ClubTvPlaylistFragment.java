@@ -22,7 +22,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.ClubTVPlaylistAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.model.club.ClubTVModel;
+import tv.sportssidekick.sportssidekick.model.club.ClubModel;
 import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
 
 /**
@@ -47,7 +47,7 @@ public class ClubTvPlaylistFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_club_tv, container, false);
         ButterKnife.bind(this, view);
-        playlist = ClubTVModel.getInstance().getPlaylistById(getPrimaryArgument());
+        playlist = ClubModel.getInstance().getPlaylistById(getPrimaryArgument());
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ClubTVPlaylistAdapter(getContext());
@@ -61,14 +61,14 @@ public class ClubTvPlaylistFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ClubTVModel.getInstance().requestPlaylist(playlist.getId());
+        ClubModel.getInstance().requestPlaylist(playlist.getId());
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void displayPlaylist(ClubTVEvent event){
         if(event.getEventType().equals(ClubTVEvent.Type.PLAYLIST_DOWNLOADED)){
-            adapter.getValues().addAll(ClubTVModel.getInstance().getPlaylistsVideos(event.getId()));
+            adapter.getValues().addAll(ClubModel.getInstance().getPlaylistsVideos(event.getId()));
             adapter.notifyDataSetChanged();
         }
     }
