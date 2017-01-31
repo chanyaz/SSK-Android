@@ -43,10 +43,12 @@ public class ClubModel {
     private final GsonFactory jsonFactory = new GsonFactory();
     List<Station> stations;
 
+
     private List<Playlist> playlists;
     private List<Video> videos;
     private HashMap<String,List<Video>> videosHashMap;
     private  YouTube youtubeDataApi;
+
     private ClubModel(){
         playlists = new ArrayList<>();
         videos = new ArrayList<>();
@@ -141,4 +143,6 @@ public class ClubModel {
         }
         return null;
     }
+
+
 }

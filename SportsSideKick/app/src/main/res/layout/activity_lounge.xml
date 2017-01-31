@@ -547,14 +547,14 @@
                 android:src="@mipmap/icon_followers" />
         </LinearLayout>
 
-        <!-- POPUP HOLDER -->
-        <RelativeLayout
-            android:id="@+id/popup_holder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:gravity="center"
-            android:visibility="gone" />
-    </RelativeLayout>
 
+    </RelativeLayout>
+    <!-- POPUP HOLDER -->
+    <RelativeLayout
+        android:id="@+id/popup_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone" />
 </RelativeLayout>
