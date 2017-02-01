@@ -30,8 +30,7 @@ import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.model.club.ClubTVModel;
-import tv.sportssidekick.sportssidekick.model.club.TvChannel;
+import tv.sportssidekick.sportssidekick.model.club.ClubModel;
 
 /**
  * Created by Filip on 1/25/2017.
@@ -78,7 +77,7 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
         youTubePlayerFragment.initialize(Constant.YOUTUBE_API_KEY,this);
         ButterKnife.bind(this, view);
 
-        video = ClubTVModel.getInstance().getVideoById(getPrimaryArgument());
+        video = ClubModel.getInstance().getVideoById(getPrimaryArgument());
 
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         mute = (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)==0);
@@ -251,7 +250,7 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
     public void goBackToPlaylist(){
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
         FragmentEvent fragmentEvent = new FragmentEvent(ClubTvPlaylistFragment.class);
-        fragmentEvent.setId(ClubTVModel.getInstance().getPlaylistId(video));
+        fragmentEvent.setId(ClubModel.getInstance().getPlaylistId(video));
         EventBus.getDefault().post(fragmentEvent);
     }
 

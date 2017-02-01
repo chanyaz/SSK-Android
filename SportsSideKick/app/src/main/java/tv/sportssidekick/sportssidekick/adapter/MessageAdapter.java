@@ -152,12 +152,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             player.setDataSource(url);
             player.prepare();
             player.start();
-            button.setImageResource(R.mipmap.pause_button_icon);
+            button.setImageResource(R.drawable.pause_button_icon);
 
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
-                    button.setImageResource(R.mipmap.play_button_icon);
+                    button.setImageResource(R.drawable.play_button_icon);
                 }
             });
         } catch (Exception e) {

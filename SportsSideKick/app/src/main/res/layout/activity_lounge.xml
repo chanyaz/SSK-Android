@@ -206,7 +206,7 @@
         android:layout_marginStart="@dimen/half_margin"
         android:layout_toEndOf="@+id/middle_split"
         android:layout_toStartOf="@+id/right_tab_selector"
-        android:background="@color/green_dark_1"></RelativeLayout>
+        android:background="@color/green_dark_1"/>
 
         <!-- CLUB CONTAINER -->
         <RelativeLayout
@@ -534,7 +534,7 @@
                 android:layout_marginRight="@dimen/margin_20"
                 android:adjustViewBounds="true"
                 android:onClick="onFriendsButtonClick"
-                android:src="@mipmap/icon_your_friends" />
+                android:src="@drawable/icon_your_friends" />
 
             <ImageView
                 android:id="@+id/your_followers_button"
@@ -544,7 +544,7 @@
                 android:layout_marginLeft="@dimen/margin_20"
                 android:layout_marginRight="@dimen/margin_20"
                 android:adjustViewBounds="true"
-                android:src="@mipmap/icon_followers" />
+                android:src="@drawable/icon_followers" />
         </LinearLayout>
 
 

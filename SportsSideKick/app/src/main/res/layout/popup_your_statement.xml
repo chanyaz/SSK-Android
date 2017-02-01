@@ -38,5 +38,5 @@
         android:layout_alignParentTop="true"
         android:layout_alignBottom="@+id/top_split_line"
         android:layout_alignParentEnd="true"
-        android:src="@mipmap/video_close_button"/>
+        android:src="@drawable/video_close_button"/>
 </RelativeLayout>
