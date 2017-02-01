@@ -49,6 +49,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsPopup;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
@@ -217,6 +218,7 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(LanguageFragment.class);
         popupContainerFragments.add(YourFriendsFragment.class);
         popupContainerFragments.add(FriendRequestsPopup.class);
+        popupContainerFragments.add(StartingNewCallFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
