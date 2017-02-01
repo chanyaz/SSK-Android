@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * Created by Djordje Krutil on 6.12.2016.
  * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
+ * www.hypercubesoft.com eliav
  */
 public class UserInfo extends FirebseObject {
 

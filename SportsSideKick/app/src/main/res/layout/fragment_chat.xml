@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@mipmap/chat_background" />
+        android:src="@drawable/chat_background" />
 
     <TextView
         android:id="@+id/info_message"
@@ -70,7 +70,7 @@
         android:layout_alignTop="@+id/swipe_refresh_layout"
         android:layout_centerHorizontal="true"
         android:paddingBottom="@dimen/padding_40"
-        android:src="@mipmap/down_arrow" />
+        android:src="@drawable/down_arrow" />
 
 
 
@@ -106,7 +106,7 @@
             android:layout_alignParentTop="true"
             android:layout_margin="8dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/video_close_button" />
+            android:src="@drawable/video_close_button" />
 
         <ImageView
             android:id="@+id/download_image_button"
@@ -116,7 +116,7 @@
             android:layout_alignParentStart="true"
             android:layout_margin="8dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/download_button" />
+            android:src="@drawable/download_button" />
     </RelativeLayout>
 
 
@@ -141,7 +141,7 @@
             android:layout_height="@dimen/chat_button_message_size"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:background="@mipmap/button_voice" />
+            android:background="@drawable/button_voice" />
 
         <Button
             android:id="@+id/cam_button"
@@ -149,7 +149,7 @@
             android:layout_height="@dimen/chat_button_message_size"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/mic_button"
-            android:background="@mipmap/button_camera" />
+            android:background="@drawable/button_camera" />
 
         <Button
             android:id="@+id/pic_button"
@@ -157,7 +157,7 @@
             android:layout_height="@dimen/chat_button_message_size"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/cam_button"
-            android:background="@mipmap/button_image" />
+            android:background="@drawable/button_image" />
 
         <Button
             android:id="@+id/vid_button"
@@ -165,7 +165,7 @@
             android:layout_height="@dimen/chat_button_message_size"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/pic_button"
-            android:background="@mipmap/button_image" />
+            android:background="@drawable/button_image" />
 
         <EditText
             android:id="@+id/input_edit_text"
@@ -190,7 +190,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/margin_8"
-            android:background="@mipmap/btn_send" />
+            android:background="@drawable/btn_send" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -208,7 +208,7 @@
             android:layout_height="@dimen/chat_create_chat_button_height"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/margin_10"
-            android:src="@mipmap/create_chat_button" />
+            android:src="@drawable/create_chat_button" />
 
         <TextView
             android:layout_width="wrap_content"

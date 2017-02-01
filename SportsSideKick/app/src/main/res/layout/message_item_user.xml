@@ -37,7 +37,7 @@
             android:adjustViewBounds="true"
             android:maxHeight="80dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/play_button_icon" />
+            android:src="@drawable/play_button_icon" />
 
 
     </RelativeLayout>

@@ -9,7 +9,7 @@
             android:layout_width="40dp"
             android:layout_margin="10dp"
             android:layout_height="40dp"
-            android:background="@mipmap/create_chat_button"
+            android:background="@drawable/create_chat_button"
             android:scaleType="centerInside"
             />
     <TextView

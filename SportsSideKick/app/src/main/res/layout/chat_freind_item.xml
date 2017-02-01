@@ -66,7 +66,7 @@
         android:scaleType="centerCrop"
         android:id="@+id/mask"
         android:layout_centerInParent="true"
-        android:src="@mipmap/chat_head_mask"/>
+        android:src="@drawable/chat_head_mask"/>
     <ImageView
         android:id="@+id/selected"
         android:layout_width="60dp"
@@ -75,7 +75,7 @@
         android:visibility="gone"
         android:scaleType="centerCrop"
         android:layout_centerInParent="true"
-        android:src="@mipmap/chat_head_selected"/>
+        android:src="@drawable/chat_head_selected"/>
 
     <TextView
         android:layout_below="@+id/container"
@@ -95,7 +95,7 @@
         android:layout_width="15dp"
         android:layout_below="@+id/caption"
     android:layout_centerHorizontal="true"
-        android:src="@mipmap/user_count_icon"
+        android:src="@drawable/user_count_icon"
         android:layout_height="15dp" />
     <TextView
         android:layout_width="wrap_content"

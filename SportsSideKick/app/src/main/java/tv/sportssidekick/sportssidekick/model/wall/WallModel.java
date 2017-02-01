@@ -553,6 +553,7 @@ public class WallModel {
         });
     }
 
+    // TODO FIXME Remove this after backend is properly implemented!
     public void setupEliavAsUserAndInitialize(){
        Task<UserInfo> task = Model.getInstance().getUserInfoById("sLqHBMbL3BQNgddTK0a4wmPfuA53");
         task.addOnSuccessListener(new OnSuccessListener<UserInfo>() {

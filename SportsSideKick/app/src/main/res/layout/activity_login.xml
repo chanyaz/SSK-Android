@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@mipmap/background_login" />
+        android:src="@drawable/background_login" />
 
     <RelativeLayout
         android:id="@+id/login_container"
