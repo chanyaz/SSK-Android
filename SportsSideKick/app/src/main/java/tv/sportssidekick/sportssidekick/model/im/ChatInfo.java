@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.FirebseObject;
@@ -38,8 +37,8 @@ public class ChatInfo extends FirebseObject {
     private String avatarUrl;
     private String owner;
     private boolean isPublic = false;
-    private List<String> userIdsBlackList;
-    private List<ImsMessage> messages;
+    private ArrayList<String> userIdsBlackList;
+    private ArrayList<ImsMessage> messages;
     private boolean isMuted;
 
     private String currentUserId;
@@ -168,7 +167,7 @@ public class ChatInfo extends FirebseObject {
      *   notifyUserIsTyping - will return an array of the users which are currently typing
      */
     void loadMessages(){
-        messages = new ArrayList<>();
+        messages = new ArrayList<ImsMessage>();
         ImModel.getInstance().loadFirstPageOfMessagesForChat(this);
         ImModel.getInstance().observeMessageStatusChange(this);
         ImModel.getInstance().imsUserTypingObserverForChat(Model.getInstance().getUserInfo().getUserId(), getId());
@@ -194,7 +193,7 @@ public class ChatInfo extends FirebseObject {
                     messages.add(message);
                     break;
                 case NEXT_PAGE_LOADED:
-                    List<ImsMessage> messagesNewPage = (ArrayList<ImsMessage>)event.getData();
+                    ArrayList<ImsMessage> messagesNewPage = (ArrayList<ImsMessage>)event.getData();
                     for(ImsMessage m : messagesNewPage){
                         boolean exists = false;
                         for(ImsMessage mOld : messages){
@@ -220,9 +219,9 @@ public class ChatInfo extends FirebseObject {
     }
 
 
-    @Subscribe
-    public void onNewMessagesEvent(List<ImsMessage> newMessages){
-        messages.addAll(newMessages);
+    @Subscribe // TODO REMOVE GENERICS
+    public void onNewMessagesEvent(NewMessagesEvent event){
+        messages.addAll(event.getValues());
         // TODO  notifyChatUpdate
     }
 
@@ -265,9 +264,9 @@ public class ChatInfo extends FirebseObject {
             return -1;
         }
         for(ImsMessage message : messages){
-        if (!message.getSenderId().equals(uid) && !message.getReadFlag()){
-            count += 1;
-        }
+            if (!message.getSenderId().equals(uid) && !message.getReadFlag()){
+                count += 1;
+            }
         }
         return count;
     }
@@ -455,19 +454,19 @@ public class ChatInfo extends FirebseObject {
         isPublic = aPublic;
     }
 
-    public List<String> getUserIdsBlackList() {
+    public ArrayList<String> getUserIdsBlackList() {
         return userIdsBlackList;
     }
 
-    public void setUserIdsBlackList(List<String> userIdsBlackList) {
+    public void setUserIdsBlackList(ArrayList<String> userIdsBlackList) {
         this.userIdsBlackList = userIdsBlackList;
     }
 
-    public List<ImsMessage> getMessages() {
+    public ArrayList<ImsMessage> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<ImsMessage> messages) {
+    public void setMessages(ArrayList<ImsMessage> messages) {
         this.messages = messages;
     }
 

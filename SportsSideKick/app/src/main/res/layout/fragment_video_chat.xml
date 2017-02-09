@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@mipmap/background_login" />
+        android:src="@drawable/background_login" />
 
     <ImageView
         android:layout_width="match_parent"

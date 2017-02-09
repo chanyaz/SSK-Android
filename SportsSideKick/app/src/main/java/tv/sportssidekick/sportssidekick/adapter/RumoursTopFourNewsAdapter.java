@@ -11,7 +11,6 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,9 +28,9 @@ import tv.sportssidekick.sportssidekick.model.news.NewsItem;
 public class RumoursTopFourNewsAdapter extends RecyclerView.Adapter<RumoursTopFourNewsAdapter.ViewHolder> {
     private static final String TAG = "RumoursTopFourNewsAdapter";
 
-    private List<NewsItem> values;
+    private ArrayList<NewsItem> values;
 
-    public List<NewsItem> getValues() {
+    public ArrayList<NewsItem> getValues() {
         return values;
     }
 

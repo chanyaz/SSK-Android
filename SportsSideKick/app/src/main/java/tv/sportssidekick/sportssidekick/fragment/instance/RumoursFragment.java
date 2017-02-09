@@ -19,8 +19,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
@@ -29,6 +27,7 @@ import tv.sportssidekick.sportssidekick.adapter.RumoursTopFourNewsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.news.NewsItem;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
+import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
 import tv.sportssidekick.sportssidekick.util.GridSpacingItemDecoration;
 
 /**
@@ -89,7 +88,7 @@ public class RumoursFragment extends BaseFragment {
 
         hideElements(true);
 
-        NewsModel.getDefault().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();
+        NewsModel.getDefault().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();  // TODO This will delete news model - we need two singletons?
 
         rumourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -114,12 +113,12 @@ public class RumoursFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onNewsReceived(List<NewsItem> list) {
+    public void onNewsReceived(NewsPageEvent event) {
         swipeRefreshLayout.setRefreshing(false);
-        if (!list.isEmpty() && list.size()>3)
+        if (!event.getValues().isEmpty() && event.getValues().size()>3)
         {
-            top4newsAdapter.getValues().addAll(list.subList(0,4));
-            rumoursSmallAdapter.getValues().addAll(list.subList(4, list.size()-1));
+            top4newsAdapter.getValues().addAll(event.getValues().subList(0,4));
+            rumoursSmallAdapter.getValues().addAll(event.getValues().subList(4, event.getValues().size()-1));
 
             top4newsAdapter.notifyDataSetChanged();
             rumoursSmallAdapter.notifyDataSetChanged();

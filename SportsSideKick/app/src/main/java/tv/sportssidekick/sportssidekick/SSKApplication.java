@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.utils.L;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -46,6 +47,8 @@ public class SSKApplication extends MultiDexApplication {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+        SoundEffects.getDefault().init(this);
     }
 
     //region AppImage Loader

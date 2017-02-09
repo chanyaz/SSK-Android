@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,6 +22,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
@@ -37,6 +39,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 public class ClubRadioStationFragment extends BaseFragment implements MediaPlayer.OnPreparedListener {
 
     private static final String TAG = "Radio Station Fragment";
+    private static final int AUDIO_BAR_MAX = 1000;
     @BindView(R.id.play_button)
     ImageView playButton;
 
@@ -72,6 +75,22 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
         ImageLoader.getInstance().displayImage(imageUrl, backgroundImage, imageOptions);
 
         initializeMediaPlayer();
+        float volume = Prefs.getFloat(Constant.RADIO_VOLUME,0.5f);
+
+        audioSeekBar.setMax(AUDIO_BAR_MAX);
+        audioSeekBar.setProgress((int) (volume*AUDIO_BAR_MAX));
+        audioSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                float percentage = ((float)seekBar.getProgress()/(float)seekBar.getMax());
+                if(player!=null){
+                    Prefs.putFloat(Constant.RADIO_VOLUME,percentage);
+                    player.setVolume(percentage,percentage);
+                }
+            }
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+        });
 
         return view;
     }
@@ -89,7 +108,7 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
 
     @OnClick(R.id.close_button)
     public void closeButtonOnClick(){
-        EventBus.getDefault().post(new FragmentEvent(ClubRadioFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(ClubRadioFragment.class, true));
     }
     MediaPlayer player;
     private void initializeMediaPlayer() {
@@ -117,6 +136,12 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        player.release();
+    }
+
     private void stopPlaying() {
         if (player.isPlaying()) {
             player.stop();
@@ -126,6 +151,8 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
 
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
+        float volume = Prefs.getFloat(Constant.RADIO_VOLUME,0.5f);
+        player.setVolume(volume, volume);
         player.start();
         playButton.setSelected(true);
     }

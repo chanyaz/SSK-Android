@@ -18,7 +18,9 @@ import java.util.List;
 
 public class FragmentOrganizer extends AbstractFragmentOrganizer {
 
+    private static final String TAG = "FRAGMENT ORGANIZER";
     private SparseArray<List<Class>> containersMap;
+
     private Class initialFragment;
 
     public FragmentOrganizer(FragmentManager fragmentManager, Class fragment) {
@@ -33,20 +35,24 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
     @Subscribe
     @Override
     public void onEvent(FragmentEvent event) {
-            Bundle arguments = new Bundle();
-            arguments.putString(BaseFragment.PRIMARY_ARG_TAG, event.getId());
-            openFragment(createFragment(event.getType()), arguments, getFragmentContainer(event.getType()));
+        Bundle arguments = new Bundle();
+        arguments.putString(BaseFragment.PRIMARY_ARG_TAG, event.getId());
+        openFragment(createFragment(event.getType()), arguments, getFragmentContainer(event.getType()));
     }
 
     @Override
     public boolean handleBackNavigation() {
         Fragment fragment = getOpenFragment();
+        if(fragment.getClass().isAnnotationPresent(IgnoreBackHandling.class)){
+            return true;
+        }
         if (fragment.getClass().equals(initialFragment)) {
             return false;
         } else {
             fragmentManager.popBackStack();
             return true;
         }
+
     }
 
 

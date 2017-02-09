@@ -19,10 +19,27 @@ public class FragmentEvent extends BusEvent {
         this.classType = type;
     }
 
-    Class classType;
+    private Class classType;
+    private boolean isReturning;
 
     public FragmentEvent(Class type) {
         super(null);
         this.classType = type;
+        isReturning = false;
+    }
+
+    public FragmentEvent(Class type, boolean isReturning) {
+        super(null);
+        this.classType = type;
+        this.isReturning = isReturning;
+    }
+
+    public boolean isReturning() {
+        return isReturning;
+    }
+
+    public FragmentEvent setReturning(boolean returning) {
+        isReturning = returning;
+        return this;
     }
 }

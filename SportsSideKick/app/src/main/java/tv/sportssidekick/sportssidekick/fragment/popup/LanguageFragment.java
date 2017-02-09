@@ -64,7 +64,7 @@ public class LanguageFragment extends BaseFragment {
 
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
     }
 
 }

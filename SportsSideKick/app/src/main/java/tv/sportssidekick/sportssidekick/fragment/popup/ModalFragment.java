@@ -17,9 +17,9 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
  */
 
 
-public class ModalPopup extends BaseFragment {
+public class ModalFragment extends BaseFragment {
 
-    public ModalPopup() {
+    public ModalFragment() {
         // Required empty public constructor
     }
 

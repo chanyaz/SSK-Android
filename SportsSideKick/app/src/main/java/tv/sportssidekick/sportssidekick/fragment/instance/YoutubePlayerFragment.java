@@ -37,8 +37,11 @@ import tv.sportssidekick.sportssidekick.model.club.ClubModel;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
-public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer.OnInitializedListener, YouTubePlayer.PlaybackEventListener, YouTubePlayer.OnFullscreenListener, YouTubePlayer.PlayerStateChangeListener {
+public class YoutubePlayerFragment extends BaseFragment implements
+        YouTubePlayer.OnInitializedListener,
+        YouTubePlayer.PlaybackEventListener,
+        YouTubePlayer.OnFullscreenListener,
+        YouTubePlayer.PlayerStateChangeListener {
 
     private static final String TAG = "YOUTUBE PLAYER";
     private static final int SEEK_BAR_MAX = 10000;
@@ -55,9 +58,6 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
 
     @BindView(R.id.play_button)
     ImageView playButton;
-
-//    @BindView(R.id.progress_bar)
-//    AVLoadingIndicatorView progressBar;
 
     @BindView(R.id.time_info)
     TextView timeInfo;
@@ -188,11 +188,14 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
     }
 
     @Override
-    public void onFullscreen(boolean b) {}
+    public void onFullscreen(boolean fullscreen) {
+        if(fullscreen){
+            player.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
+        } else {
+            player.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS);
+        }
+    }
 
-
-    @Override
-    public void onLoading() {}
 
     @Override
     public void onLoaded(String s) {
@@ -200,11 +203,7 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
         player.play();
     }
 
-    @Override
-    public void onAdStarted() {}
 
-    @Override
-    public void onVideoStarted() {}
 
     @Override
     public void onVideoEnded() {
@@ -248,8 +247,7 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
 
     @OnClick(R.id.playlist_button)
     public void goBackToPlaylist(){
-        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
-        FragmentEvent fragmentEvent = new FragmentEvent(ClubTvPlaylistFragment.class);
+        FragmentEvent fragmentEvent = new FragmentEvent(ClubTvPlaylistFragment.class, true);
         fragmentEvent.setId(ClubModel.getInstance().getPlaylistId(video));
         EventBus.getDefault().post(fragmentEvent);
     }
@@ -263,4 +261,11 @@ public class YoutubePlayerFragment extends BaseFragment implements YouTubePlayer
         }
         super.onDestroy();
     }
+
+    @Override
+    public void onLoading() {}
+    @Override
+    public void onAdStarted() {}
+    @Override
+    public void onVideoStarted() {}
 }

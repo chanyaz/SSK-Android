@@ -14,6 +14,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,35 +32,12 @@ import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
-import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioStationFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.FantasyFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.NewsFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.NewsItemFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.QuizFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.RumoursFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.StatisticsFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.ClubTvPlaylistFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
-import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsPopup;
-import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.*;
+import tv.sportssidekick.sportssidekick.fragment.popup.*;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
+import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -76,30 +55,6 @@ public class LoungeActivity extends AppCompatActivity {
     View fragmentContainerTopRight;
     @BindView(R.id.bottom_right_container)
     View fragmentContainerBottomRight;
-
-    @BindView(R.id.wall_radio_button)
-    RadioButton radioButtonWall;
-    @BindView(R.id.video_chat_radio_button)
-    RadioButton radioButtonVideoChat;
-    @BindView(R.id.news_radio_button)
-    RadioButton radioButtonNews;
-    @BindView(R.id.roumors_radio_button)
-    RadioButton radioButtonRumours;
-    @BindView(R.id.shop_radio_button)
-    RadioButton radioButtonShop;
-    @BindView(R.id.chat_radio_button)
-    RadioButton radioButtonChat;
-    @BindView(R.id.stats_radio_button)
-    RadioButton radioButtonStatistics;
-    @BindView(R.id.fantasy_radio_button)
-    RadioButton radioButtonFantasy;
-    @BindView(R.id.quiz_radio_button)
-    RadioButton radioButtonQuiz;
-    @BindView(R.id.club_tv_radio_button)
-    RadioButton radioButtonClubTV;
-    @BindView(R.id.club_radio_radio_button)
-    RadioButton radioButtonClubRadio;
-
     @BindView(R.id.scrolling_news_title)
     TextView newsLabel;
     @BindView(R.id.caption)
@@ -127,7 +82,7 @@ public class LoungeActivity extends AppCompatActivity {
     FragmentOrganizer fragmentOrganizer;
 
     ArrayList<Class> popupContainerFragments;
-
+    BiMap<Integer,Class> radioButtonsFragmentMap;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -140,17 +95,12 @@ public class LoungeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
 
-
         Ticker.initializeTicker(Model.getInstance().getDatabase());
-
-        radioButtonWall.setChecked(true);
-        radioButtonChat.setChecked(true);
-        radioButtonClubTV.setChecked(true);
 
         yourCoinsContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO open dialog
+                //TODO open dialog ?
             }
         });
 
@@ -161,9 +111,8 @@ public class LoungeActivity extends AppCompatActivity {
         setupFragments();
     }
 
-    @Subscribe
-    public void onFragmentEvent(FragmentEvent event){
-        if(popupContainerFragments.contains(event.getType())){
+    private void toggleBlur(boolean visible){ // TODO Extract to popup base class ?
+        if(visible){
             popupHolder.setVisibility(View.VISIBLE);
             if (rootView.getWidth() > 0) {
                 Bitmap image = BlurBuilder.blur(rootView);
@@ -219,15 +168,57 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(WalletFragment.class);
         popupContainerFragments.add(LanguageFragment.class);
         popupContainerFragments.add(YourFriendsFragment.class);
-        popupContainerFragments.add(FriendRequestsPopup.class);
+        popupContainerFragments.add(FriendRequestsFragment.class);
         popupContainerFragments.add(StartingNewCallFragment.class);
+        popupContainerFragments.add(EditProfileFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
+
+        radioButtonsFragmentMap =  HashBiMap.create();
+        radioButtonsFragmentMap.put(R.id.wall_radio_button,WallFragment.class);
+        radioButtonsFragmentMap.put(R.id.video_chat_radio_button,VideoChatFragment.class);
+        radioButtonsFragmentMap.put(R.id.news_radio_button,NewsFragment.class);
+        radioButtonsFragmentMap.put(R.id.roumors_radio_button,RumoursFragment.class);
+        radioButtonsFragmentMap.put(R.id.chat_radio_button,ChatFragment.class);
+        radioButtonsFragmentMap.put(R.id.stats_radio_button,StatisticsFragment.class);
+        radioButtonsFragmentMap.put(R.id.fantasy_radio_button,FantasyFragment.class);
+        radioButtonsFragmentMap.put(R.id.quiz_radio_button,QuizFragment.class);
+        radioButtonsFragmentMap.put(R.id.club_tv_radio_button,ClubTVFragment.class);
+        radioButtonsFragmentMap.put(R.id.club_radio_radio_button,ClubRadioFragment.class);
+        radioButtonsFragmentMap.put(R.id.shop_radio_button,StoreFragment.class);
+
+        // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
+        ((RadioButton)ButterKnife.findById(this,R.id.wall_radio_button)).setChecked(true);
+        ((RadioButton)ButterKnife.findById(this,R.id.chat_radio_button)).setChecked(true);
+        ((RadioButton)ButterKnife.findById(this,R.id.club_tv_radio_button)).setChecked(true);
     }
 
+    @Subscribe
+    public void onFragmentEvent(FragmentEvent event){
+        if(event.isReturning()){
+            SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
+        } else {
+            SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
+        }
+        if(popupContainerFragments.contains(event.getType())){
+            // this is popup event
+            toggleBlur(true);
+        } else {
+            if(radioButtonsFragmentMap.inverse().containsKey(event.getType())){
+                // Detect which radio button was clicked and fetch what Fragment should be opened
+                int radioButtonId = radioButtonsFragmentMap.inverse().get(event.getType());
+                for(int id : radioButtonsFragmentMap.keySet()){
+                    RadioButton button = ButterKnife.findById(this,radioButtonId);
+                    if(radioButtonId == id){
+                        button.setChecked(true);
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -245,47 +236,10 @@ public class LoungeActivity extends AppCompatActivity {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 
-        // Check which radio button was clicked
-        FragmentEvent fragmentEvent = null;
-        if(checked){
-            switch (view.getId()) {
-                case R.id.wall_radio_button:
-                    fragmentEvent = new FragmentEvent(WallFragment.class);
-                    break;
-                case R.id.video_chat_radio_button:
-                    fragmentEvent = new FragmentEvent(VideoChatFragment.class);
-                    break;
-                case R.id.news_radio_button:
-                    fragmentEvent = new FragmentEvent(NewsFragment.class);
-                    break;
-                case R.id.roumors_radio_button:
-                    fragmentEvent = new FragmentEvent(RumoursFragment.class);
-                    break;
-                case R.id.shop_radio_button:
-                    fragmentEvent = new FragmentEvent(StoreFragment.class);
-                    break;
-                case R.id.chat_radio_button:
-                    fragmentEvent = new FragmentEvent(ChatFragment.class);
-                    break;
-                case R.id.stats_radio_button:
-                    fragmentEvent = new FragmentEvent(StatisticsFragment.class);
-                    break;
-                case R.id.fantasy_radio_button:
-                    fragmentEvent = new FragmentEvent(FantasyFragment.class);
-                    break;
-                case R.id.quiz_radio_button:
-                    fragmentEvent = new FragmentEvent(QuizFragment.class);
-                    break;
-                case R.id.club_tv_radio_button:
-                    fragmentEvent = new FragmentEvent(ClubTVFragment.class);
-                    break;
-                case R.id.club_radio_radio_button:
-                    fragmentEvent = new FragmentEvent(ClubRadioFragment.class);
-                    break;
-            }
-        }
-        if(fragmentEvent!=null){
-            EventBus.getDefault().post(fragmentEvent);
+        // Detect which radio button was clicked and fetch what Fragment should be opened
+        if(checked && radioButtonsFragmentMap.containsKey(view.getId())){
+            Class fragmentType = radioButtonsFragmentMap.get(view.getId());
+            EventBus.getDefault().post(new FragmentEvent(fragmentType));
         }
     }
 
@@ -297,7 +251,8 @@ public class LoungeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        onFragmentEvent(new FragmentEvent(null)); // hide blurred view;
+        toggleBlur(false); // hide blurred view;
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         if (!fragmentOrganizer.handleBackNavigation()) {
             finish();
         }
@@ -306,7 +261,7 @@ public class LoungeActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTickerUpdate(Ticker ticker){
         newsLabel.setText(ticker.getNews().get(0));
-        long timestamp = Long.valueOf(ticker.getMatchDate());
+        long timestamp = Long.parseLong(ticker.getMatchDate());
         timeOfMatch.setText(Utility.getDate(timestamp));
         long getDaysUntilMatch = Utility.getDaysUntilMatch(timestamp);
         Resources res = getResources();
@@ -350,15 +305,14 @@ public class LoungeActivity extends AppCompatActivity {
     }
 
     public void onProfileButtonClick(View view) {
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class)); //FriendRequestsPopup
+        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class)); //FriendRequestsFragment
     }
 
     public void onFriendsButtonClick(View view) {
         EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class));
     }
 
-    private void setNumberOfNotification(String number)
-    {
+    private void setNumberOfNotification(String number){
         notificationNumber.setText(number);
     }
 }

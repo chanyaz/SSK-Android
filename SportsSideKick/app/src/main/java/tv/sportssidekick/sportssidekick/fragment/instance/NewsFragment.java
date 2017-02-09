@@ -1,11 +1,8 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
-import android.animation.LayoutTransition;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +13,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
@@ -25,6 +20,7 @@ import tv.sportssidekick.sportssidekick.adapter.NewsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.news.NewsItem;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
+import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
 
 /**
  * Created by Djordje on 12/29/2016.
@@ -73,10 +69,10 @@ public class NewsFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onNewsReceived(List<NewsItem> list) {
+    public void onNewsReceived(NewsPageEvent event) {
         progres.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
-        adapter.getValues().addAll(list);
+        adapter.getValues().addAll(event.getValues());
         adapter.notifyDataSetChanged();
     }
 

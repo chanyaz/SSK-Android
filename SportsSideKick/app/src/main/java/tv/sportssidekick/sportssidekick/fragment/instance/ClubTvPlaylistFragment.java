@@ -75,6 +75,6 @@ public class ClubTvPlaylistFragment extends BaseFragment {
 
     @OnClick(R.id.back_button)
     public void goBack(){
-        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class, true));
     }
 }

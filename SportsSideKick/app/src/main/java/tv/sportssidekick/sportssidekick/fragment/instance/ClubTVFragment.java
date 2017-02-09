@@ -17,12 +17,14 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.ClubTVAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.club.ClubModel;
 import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
 
 /**
  * A simple {@link BaseFragment} subclass.
  */
+@IgnoreBackHandling
 public class ClubTVFragment extends BaseFragment {
 
     @BindView(R.id.recycler_view)

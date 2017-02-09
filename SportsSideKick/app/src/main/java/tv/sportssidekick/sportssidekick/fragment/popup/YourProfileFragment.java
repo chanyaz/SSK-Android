@@ -71,7 +71,7 @@ public class YourProfileFragment extends BaseFragment {
 
     @OnClick(R.id.edit_button)
     public void editOnClick(){
-        getActivity().onBackPressed();
+        EventBus.getDefault().post(new FragmentEvent(EditProfileFragment.class));
     }
 
     @OnClick(R.id.your_wallet_button)

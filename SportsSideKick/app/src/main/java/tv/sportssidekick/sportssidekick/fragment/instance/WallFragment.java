@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.TemporaryModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
@@ -35,6 +36,7 @@ import tv.sportssidekick.sportssidekick.util.StaggeredLayoutManagerItemDecoratio
  * A simple {@link BaseFragment} subclass.
  */
 
+@IgnoreBackHandling
 public class WallFragment extends BaseFragment {
 
     private static final String TAG = "WALL FRAGMENT";

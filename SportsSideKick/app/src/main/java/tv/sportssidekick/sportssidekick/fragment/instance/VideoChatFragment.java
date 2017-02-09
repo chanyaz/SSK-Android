@@ -15,7 +15,6 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 
 /**
  * Created by Djordje on 01/31/2016.

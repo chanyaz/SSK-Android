@@ -3,7 +3,7 @@
 
     <string name="friend_requests">Friend Requests</string>
 
-    <string name="app_name">SportsSideKick</string>
+    <string name="app_name">Sidekick</string>
     <string name="facebook_app_id">11111111111111</string>
     <string name="fb_login_protocol_scheme">fb11111111111111</string>
 
@@ -111,6 +111,13 @@
     <string name="video_chat_button_text">Being your call</string>
     <string name="starting_new_call_search_hint">Search public chats</string>
     <string name="starting_new_call_search_title">Starting New Call</string>
+    <string name="edit_information">Edit Information</string>
+    <string name="edit_photo">Edit Photo</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="nickname">Nickname</string>
+    <string name="email_address">Email Address</string>
+    <string name="telephone_no">Telephone No</string>
 
 
     <plurals name="days_until_match">

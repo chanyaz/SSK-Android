@@ -23,6 +23,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
  * A simple {@link BaseFragment} subclass.
  */
 
+
 public class StoreFragment extends BaseFragment {
 
     String url;

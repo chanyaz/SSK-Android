@@ -1,7 +1,5 @@
 package tv.sportssidekick.sportssidekick.model.news;
 
-import android.util.Log;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,10 +12,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Djordje Krutil on 27.12.2016..
@@ -28,17 +24,16 @@ public class NewsModel {
 
     private static NewsModel instance;
 
-    NewsItem.NewsType type;
-    FirebaseDatabase ref;
-    int itemsPerPage;
-    public static int DEFAULT_PAGE_LENGTH = 25;
-    int page = 0;
-    String language;
-    String ID;
-    DatabaseReference newsRef;
-    String lastPubDate;
-    boolean isLoading;
-    boolean firstPageLoaded;
+    private NewsItem.NewsType type;
+    private FirebaseDatabase ref;
+    private int itemsPerPage;
+    private static final int DEFAULT_PAGE_LENGTH = 25;
+    private int page = 0;
+    private String language;
+    private DatabaseReference newsRef;
+    private String lastPubDate;
+    private boolean isLoading;
+    private boolean firstPageLoaded;
     private Map<String, NewsItem> newsCache;
 
 
@@ -89,8 +84,8 @@ public class NewsModel {
             if (!firstPageLoaded) {
                 return;
             }
-            List<NewsItem> newsItems = processSnapshot(dataSnapshot);
-            EventBus.getDefault().post(newsItems); //onNewItems
+            ArrayList<NewsItem> newsItems = processSnapshot(dataSnapshot);
+            EventBus.getDefault().post(new NewsPageEvent(newsItems)); //onNewItems
         }
 
         @Override
@@ -113,21 +108,19 @@ public class NewsModel {
     // We get the data back in ascending order, so it we need to reverse sort for the expected behaviour
     // of newest items first, first though, we grab the pubDate
     // to use as a query constraint
-    private List<NewsItem> processSnapshot(DataSnapshot dataSnapshot) {
-        List<NewsItem> items = new ArrayList<>();
+    private ArrayList<NewsItem> processSnapshot(DataSnapshot dataSnapshot) {
+        ArrayList<NewsItem> items = new ArrayList<>();
         boolean isFirst = true;
 
         for (DataSnapshot child : dataSnapshot.getChildren()) {
             NewsItem newsItem = child.getValue(NewsItem.class);
             newsItem.setId(child.getKey());
-            if (newsItem != null) {
-                if (isFirst == true) {
-                    isFirst = false;
-                    lastPubDate = newsItem.getPubDate();
-                }
-                newsCache.put(newsItem.getId(), newsItem);
-                items.add(newsItem);
+            if (isFirst) {
+                isFirst = false;
+                lastPubDate = newsItem.getPubDate();
             }
+            newsCache.put(newsItem.getId(), newsItem);
+            items.add(newsItem);
         }
         if (items.size() > 0) {
             page++;
@@ -158,8 +151,8 @@ public class NewsModel {
                             if (!dataSnapshot.exists()) {
                                 return;
                             }
-                            List<NewsItem> newsItems = processSnapshot(dataSnapshot);
-                            EventBus.getDefault().post(newsItems); // onPageLoaded
+                            ArrayList<NewsItem> newsItems = processSnapshot(dataSnapshot);
+                            EventBus.getDefault().post(new NewsPageEvent(newsItems)); // onPageLoaded
                             isLoading = false;
                             if (!firstPageLoaded) {
                                 firstPageLoaded = true;

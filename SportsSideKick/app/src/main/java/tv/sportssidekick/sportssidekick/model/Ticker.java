@@ -45,7 +45,7 @@ public class Ticker {
 
     public static void initializeTicker(FirebaseDatabase database){
         // Get a reference to our posts
-        DatabaseReference tickerReference = database.getReference("ticker");
+        DatabaseReference tickerReference = database.getReference("ticker").child("en");
 
         // Attach a listener to read the data at our ticker reference
         tickerReference.addValueEventListener(new ValueEventListener() {

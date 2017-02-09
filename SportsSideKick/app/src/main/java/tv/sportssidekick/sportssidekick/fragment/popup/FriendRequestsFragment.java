@@ -28,12 +28,12 @@ import tv.sportssidekick.sportssidekick.model.friendship.FriendRequest;
  */
 
 
-public class FriendRequestsPopup extends BaseFragment {
+public class FriendRequestsFragment extends BaseFragment {
 
     @BindView(R.id.requests_recycler_view)
     RecyclerView requestsRecyclerView;
 
-    public FriendRequestsPopup() {
+    public FriendRequestsFragment() {
         // Required empty public constructor
     }
 
@@ -61,7 +61,7 @@ public class FriendRequestsPopup extends BaseFragment {
     @OnClick(R.id.confirm_button)
     public void confirmOnClick(){
         getActivity().onBackPressed();
-        EventBus.getDefault().post(new FragmentEvent(FriendRequestsPopup.class));
+        EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class, true));
     }
 
 }

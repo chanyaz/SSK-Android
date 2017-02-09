@@ -56,6 +56,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.ChatHeadsAdapter;
 import tv.sportssidekick.sportssidekick.adapter.MessageAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
@@ -72,6 +73,7 @@ import tv.sportssidekick.sportssidekick.util.OnSwipeTouchListener;
  */
 
 @RuntimePermissions
+@IgnoreBackHandling
 public class ChatFragment extends BaseFragment {
 
     private static final String TAG = "CHAT Fragment";
@@ -180,9 +182,7 @@ public class ChatFragment extends BaseFragment {
                 message.setText(inputEditText.getText().toString().trim());
                 activeChatInfo.sendMessage(message);
                 inputEditText.setText("");
-                if(activeChatInfo!=null){
-                    activeChatInfo.setUserIsTyping(false);
-                }
+                activeChatInfo.setUserIsTyping(false);
             }
         });
 
@@ -448,7 +448,7 @@ public class ChatFragment extends BaseFragment {
     }
 
     @OnShowRationale({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void showRationaleForCamera(final PermissionRequest request) {
+    void showRationaleForMicrophone(final PermissionRequest request) {
         new AlertDialog.Builder(getContext())
                 .setMessage(R.string.permission_microphone_rationale)
                 .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
@@ -467,12 +467,12 @@ public class ChatFragment extends BaseFragment {
     }
 
     @OnPermissionDenied({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void showDeniedForCamera() {
+    void showDeniedForMicrophone() {
         Toast.makeText(getContext(), R.string.permission_microphone_denied, Toast.LENGTH_SHORT).show();
     }
 
     @OnNeverAskAgain({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void showNeverAskForCamera() {
+    void showNeverAskForMicrophone() {
         Toast.makeText(getContext(), R.string.permission_microphone_neverask, Toast.LENGTH_SHORT).show();
     }
 

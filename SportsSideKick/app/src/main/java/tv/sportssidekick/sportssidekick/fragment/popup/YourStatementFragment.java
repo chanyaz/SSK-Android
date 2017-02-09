@@ -57,7 +57,7 @@ public class YourStatementFragment extends BaseFragment {
 
     @OnClick(R.id.close)
     public void closeOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class, true));
     }
 
 }
