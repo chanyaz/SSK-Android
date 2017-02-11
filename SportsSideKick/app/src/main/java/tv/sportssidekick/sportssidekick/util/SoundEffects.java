@@ -40,7 +40,7 @@ public class SoundEffects {
 
     private int volume;
 
-    public void init(Context context) {
+    public void initialize(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             soundPool = new SoundPool.Builder()
                     .setMaxStreams(10)

@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,8 +33,33 @@ import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
-import tv.sportssidekick.sportssidekick.fragment.instance.*;
-import tv.sportssidekick.sportssidekick.fragment.popup.*;
+import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioStationFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubTvPlaylistFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.FantasyFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.NewsFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.NewsItemFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.QuizFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.RumoursFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.StatisticsFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
@@ -94,6 +120,7 @@ public class LoungeActivity extends AppCompatActivity {
         ButterKnife.setDebug(true);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
+
 
         Ticker.initializeTicker(Model.getInstance().getDatabase());
 
@@ -194,6 +221,14 @@ public class LoungeActivity extends AppCompatActivity {
         ((RadioButton)ButterKnife.findById(this,R.id.wall_radio_button)).setChecked(true);
         ((RadioButton)ButterKnife.findById(this,R.id.chat_radio_button)).setChecked(true);
         ((RadioButton)ButterKnife.findById(this,R.id.club_tv_radio_button)).setChecked(true);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        GSAndroidPlatform.gs().stop();
+        GSAndroidPlatform.gs().start();
     }
 
     @Subscribe
