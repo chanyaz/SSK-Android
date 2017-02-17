@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.analytics;
+package tv.sportssidekick.sportssidekick.gs;
 
 import android.content.Context;
 
@@ -79,5 +79,4 @@ public class Analytics {
     public static void initialize(Context context) {
         GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, false, true);
     }
-
 }

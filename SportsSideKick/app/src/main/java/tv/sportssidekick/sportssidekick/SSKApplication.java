@@ -13,7 +13,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import tv.sportssidekick.sportssidekick.analytics.Analytics;
+import tv.sportssidekick.sportssidekick.gs.Analytics;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;

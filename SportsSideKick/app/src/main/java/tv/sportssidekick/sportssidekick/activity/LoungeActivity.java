@@ -60,6 +60,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
+import tv.sportssidekick.sportssidekick.gs.Auth;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
@@ -259,6 +260,9 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        //Analytics.registrationRequest("Filip","Filip123abc","filip@hypercubesoft.com");
+        Auth.authenticationRequest("Filip123abc","filip@hypercubesoft.com");
+        //Analytics.registerForPushNotifications();
     }
 
     @Override
