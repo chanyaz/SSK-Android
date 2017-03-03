@@ -19,41 +19,23 @@ import tv.sportssidekick.sportssidekick.model.Model;
 public class ImsMessage extends FirebseObject {
 
     private static final float ASPECT_RATIO_DEFAULT = 0.5625f;
+
     private String text;
     private String senderId;
     private float imageAspectRatio;
     private String timestamp;
-    private HashMap<String, Boolean> wasReadBy;
-    @Exclude
-    private boolean readFlag = false;
     private String imageUrl;
     private String vidUrl;
+    private HashMap<String, Boolean> wasReadBy;
 
+    // Upload info
+    private String localPath;
+    private String uploadStatus;
 
-    @Exclude
-    public long getTimestampEpoh() {
-        return timestampEpoh;
-    }
+    // Message type
+    private String type;
 
-    @Exclude
-    private long timestampEpoh;
-
-
-    public void initializeTimestamp(){
-        timestampEpoh = FirebaseDateUtils.getTimestampFromFirebaseDate(timestamp);
-    }
-
-    @Exclude
-    public String getTimeAgo(){
-        String timeago = DateUtils.getRelativeTimeSpanString(timestampEpoh).toString();
-        if(timeago.equals("0 minutes ago")){
-            timeago = "Just Now";
-        } else {
-            timeago = timeago.replace(" minutes","m");
-            timeago = timeago.replace(" minute","m");
-        }
-        return timeago;
-    }
+    public ImsMessage(){}
 
     public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {
         this.text = text;
@@ -62,13 +44,12 @@ public class ImsMessage extends FirebseObject {
         this.imageUrl = imageUrl;
     }
 
-    public ImsMessage(){}
-
     public static ImsMessage getDefaultMessage() {
         ImsMessage message = new ImsMessage();
         message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
         message.setTimestamp(FirebaseDateUtils.currentTimeToFirebaseDate());
         message.setSenderId(Model.getInstance().getUserInfo().getUserId());
+        message.setReadFlag(false);
         return message;
     }
 
@@ -154,5 +135,55 @@ public class ImsMessage extends FirebseObject {
     public ImsMessage setText(String text) {
         this.text = text;
         return this;
+    }
+
+
+    public String getLocalPath() {
+        return localPath;
+    }
+
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
+    }
+
+    public String getUploadStatus() {
+        return uploadStatus;
+    }
+
+    public void setUploadStatus(String uploadStatus) {
+        this.uploadStatus = uploadStatus;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Exclude
+    private boolean readFlag = false;
+    @Exclude
+    private long timestampEpoch;
+    @Exclude
+    public long getTimestampEpoch() {
+        return timestampEpoch;
+    }
+
+    public void initializeTimestamp(){
+        timestampEpoch = FirebaseDateUtils.getTimestampFromFirebaseDate(timestamp);
+    }
+
+    @Exclude
+    public String getTimeAgo(){
+        String timeAgo = DateUtils.getRelativeTimeSpanString(timestampEpoch).toString();
+        if(timeAgo.equals("0 minutes ago")){
+            timeAgo = "Just Now";
+        } else {
+            timeAgo = timeAgo.replace(" minutes","m");
+            timeAgo = timeAgo.replace(" minute","m");
+        }
+        return timeAgo;
     }
 }

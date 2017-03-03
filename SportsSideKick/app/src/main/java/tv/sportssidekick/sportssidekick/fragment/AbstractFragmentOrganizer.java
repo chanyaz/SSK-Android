@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -115,8 +114,8 @@ abstract class AbstractFragmentOrganizer {
         if (enterAnimation !=0 && exitAnimation !=0 && popEnterAnimation !=0 && popExitAnimation !=0){
             transaction.setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation,  popExitAnimation);
         }
-        Log.d(TAG,"OPEN FRAGMENT: " + fragmentTag);
-        Log.d(TAG,"OPEN IN : " + containerId);
+//        Log.d(TAG,"OPEN FRAGMENT: " + fragmentTag);
+//        Log.d(TAG,"OPEN IN : " + containerId);
 
         if(containersWithoutBackStack.contains(containerId)){ // this container is without back stack
             Fragment currentFragment = getOpenFragment();

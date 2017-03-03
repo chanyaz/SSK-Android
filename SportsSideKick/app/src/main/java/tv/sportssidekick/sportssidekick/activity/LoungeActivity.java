@@ -118,7 +118,7 @@ public class LoungeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.setDebug(true);
+        //ButterKnife.setDebug(true);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
 
@@ -260,8 +260,10 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        //Analytics.registrationRequest("Filip","Filip123abc","filip@hypercubesoft.com");
-        Auth.authenticationRequest("Filip123abc","filip@hypercubesoft.com");
+        //Auth.registrationRequest("Filip","Filip123abc","filip@hypercubesoft.com");
+        //Auth.authenticationRequest("Filip123abc","filip@hypercubesoft.com");
+        Auth.authenticationRequest("password","chris@chrisweight.com");
+
         //Analytics.registerForPushNotifications();
     }
 

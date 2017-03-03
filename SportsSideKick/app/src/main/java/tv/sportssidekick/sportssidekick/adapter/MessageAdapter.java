@@ -167,7 +167,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public long getItemId(int i) {
-        return chatInfo.getMessages().get(i).getTimestampEpoh();
+        return chatInfo.getMessages().get(i).getTimestampEpoch();
     }
 
     @Override
@@ -176,7 +176,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         if(messages!=null){
             return messages.size();
         } else {
-            Log.d(TAG, "List of messages is null for chat: " + chatInfo.getId());
+            Log.d(TAG, "List of messages is null for chat: " + chatInfo.getChatId());
             return 0;
         }
     }

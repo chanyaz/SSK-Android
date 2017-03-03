@@ -22,9 +22,4 @@ public class FirebseObject {
 
     @Exclude
     private String id;
-
-    public void loadKey(DatabaseReference reference){
-        id = reference.getKey();
-    }
-
 }

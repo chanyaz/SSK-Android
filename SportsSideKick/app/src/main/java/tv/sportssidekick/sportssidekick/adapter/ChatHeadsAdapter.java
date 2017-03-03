@@ -104,7 +104,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                 public void onClick(View view) {
                     FragmentEvent fragmentEvent = new FragmentEvent(ManageChatFragment.class);
                     int position = viewHolder.getLayoutPosition();
-                    fragmentEvent.setId(values.get(position).getId());
+                    fragmentEvent.setId(values.get(position).getChatId());
                     EventBus.getDefault().post(fragmentEvent);
                 }
             });

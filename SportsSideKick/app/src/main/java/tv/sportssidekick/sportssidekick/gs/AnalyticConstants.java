@@ -8,8 +8,9 @@ package tv.sportssidekick.sportssidekick.gs;
 
 public class AnalyticConstants {
 
-    public static final String API_KEY = "S305375qf6um";
-    public static final String API_SECRET  = "TNdbKwgWsVgmuzjol25Ps5ayhw69cp0y";
+    public static final String API_KEY = "Z306867fEYlY";
+    public static final String API_SECRET  = "Rx34NFmkNwSah80VZFGPmTXmCesdK5Sy";
+    public static final String API_CREDENTIAL  = "NjRwKd9BcogVNccd9dt4RlUAZb3n2tUM";
 
 
     //PAGES - fragments

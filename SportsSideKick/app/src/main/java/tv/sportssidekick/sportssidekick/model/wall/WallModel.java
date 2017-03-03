@@ -274,10 +274,7 @@ public class WallModel {
                         setLikesIdIndex(wall.getKey(),post.getKey());
                     }
                 }
-                Log.d(TAG,"mbListenerToUserWall (BEFORE)" + sdf.format(oldestFetchDate));
                 oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
-                Log.d(TAG,"mbListenerToUserWall (AFTER)" + sdf.format(oldestFetchDate));
-
                 ArrayList<Task<Void>> tasks = new ArrayList<>();
                 tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate));
 
@@ -317,15 +314,8 @@ public class WallModel {
         postsIntervalFetchCount = initialFetchCount;
         UserInfo uInfo = getCurrentUser();
         ArrayList<Task<Void>> tasks = new ArrayList<>();
-
-        Log.d(TAG,"fetchPreviousPageOfPosts oldestFetchDate(BEFORE)" + sdf.format(oldestFetchDate));
-
         Date newDate =new Date(oldestFetchDate.getTime() + 1000); // Add one second to exclude oldest post from last page
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
-
-        Log.d(TAG,"fetchPreviousPageOfPosts newDate(AFTER)" + sdf.format(newDate));
-        Log.d(TAG,"fetchPreviousPageOfPosts oldestFetchDate(AFTER)" + sdf.format(oldestFetchDate));
-
         tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
 
         HashMap<String, Boolean> following = uInfo.getFollowing();

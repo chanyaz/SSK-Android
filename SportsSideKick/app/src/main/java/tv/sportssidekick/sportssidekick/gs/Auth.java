@@ -73,8 +73,8 @@ public class Auth {
                         GSData scriptData = response.getScriptData();
                         GSTypes.Player switchSummary = response.getSwitchSummary();
                         String userId = response.getUserId();
-                        Log.d(TAG, "AUTHENTIFICATION authToken:" + authToken);
-                        Log.d(TAG, "AUTHENTIFICATION userId:" + userId);
+                        Log.d(TAG, "AUTHENTICATION authToken:" + authToken);
+                        Log.d(TAG, "AUTHENTICATION userId:" + userId);
                         registerForPushNotifications(userId);
                     }
                 });

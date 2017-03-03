@@ -28,18 +28,19 @@ import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
  * www.hypercubesoft.com
  */
 
-public class ChatInfo extends FirebseObject {
+public class ChatInfo {
 
     private static final String TAG = "CHAT INFO";
+
+    private String chatId;
     private String name;
     private HashMap<String, Boolean> usersIds;
-
     private String avatarUrl;
     private String owner;
     private boolean isPublic = false;
-    private ArrayList<String> userIdsBlackList;
+    private ArrayList<String> userIdsBlackList;  //only availbale for public chats
     private ArrayList<ImsMessage> messages;
-    private boolean isMuted;
+    private boolean isMuted = false;
 
     private String currentUserId;
 
@@ -57,7 +58,7 @@ public class ChatInfo extends FirebseObject {
 
 
     void setEqualTo(ChatInfo info) {
-        setId(info.getId());
+        setChatId(info.getChatId());
         setName(info.getName());
         setUsersIds(info.getUsersIds());
         setAvatarUrl(info.getAvatarUrl());
@@ -170,17 +171,17 @@ public class ChatInfo extends FirebseObject {
         messages = new ArrayList<ImsMessage>();
         ImModel.getInstance().loadFirstPageOfMessagesForChat(this);
         ImModel.getInstance().observeMessageStatusChange(this);
-        ImModel.getInstance().imsUserTypingObserverForChat(Model.getInstance().getUserInfo().getUserId(), getId());
+        ImModel.getInstance().imsUserTypingObserverForChat(Model.getInstance().getUserInfo().getUserId(), getChatId());
     }
 
     @Subscribe
     public void onNewMessagesEvent(FirebaseEvent event){
         ImsMessage message;
-        if(getId().equals(event.getFilterId())){
+        if(getChatId().equals(event.getFilterId())){
             switch (event.getEventType()){
                 case NEW_MESSAGE:
                     message = (ImsMessage) event.getData();
-                    Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId() + " for chat: " + getId());
+                    Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId() + " for chat: " + getChatId());
                     messages.add(message);
                     break;
                 case MESSAGE_UPDATED:
@@ -289,6 +290,29 @@ public class ChatInfo extends FirebseObject {
         }
     }
 
+    //TODO Implement this
+    public void addUserIfChatIsGlobal(UserInfo uinfo){
+//        GSImsManager.instance.getGlobalChats { (chatsInfo) in
+//            if (chatsInfo != nil){
+//                for chatInfo in chatsInfo!{
+//                if chatInfo.chatId == self.chatId {
+//                    if chatInfo.usersIds.contains(uinfo.userId) {
+//                        print("ERROR - User already added to Global chat")
+//                    }else{
+//                        self.loadChatUsers {
+//                            self.usersIds.append(uinfo.userId)
+//                            self.chatUsers!.append(uinfo)
+//                            self.updateChatInfo()
+//                        }
+//                    }
+//                }else{
+//                    print("ERROR - Trying ot add user to not Global chat")
+//                }
+//                }
+//            }
+//        }
+    }
+
     /**
      * Update the chat info, this is good for update the name and avatar, do not use this
      * function to update users!
@@ -298,7 +322,7 @@ public class ChatInfo extends FirebseObject {
     }
 
     /**
-     * Delete a chat! this will be p[erformed inly if the current user is the chat owner
+     * Delete a chat! this will be performed only if the current user is the chat owner
      * once deleted it will remove the chat from all user following this chat
      **/
     public void deleteChat(){
@@ -308,11 +332,11 @@ public class ChatInfo extends FirebseObject {
             }
             ImModel.getInstance().deleteChat(this);
         }else{ // if im not the owner I remove myself from the chat
-            ImModel.getInstance().removeChatInfoWithId(getId());
+            ImModel.getInstance().removeChatInfoWithId(getChatId());
             ImModel.getInstance().deleteUserFromChat(this,currentUserId);
         }
         messages.clear();
-        EventBus.getDefault().post(new FirebaseEvent("Chat Deleted and processed.", FirebaseEvent.Type.CHAT_DELETED_PROCESSED, getId()));
+        EventBus.getDefault().post(new FirebaseEvent("Chat Deleted and processed.", FirebaseEvent.Type.CHAT_DELETED_PROCESSED, getChatId()));
     }
 
     /**
@@ -321,7 +345,7 @@ public class ChatInfo extends FirebseObject {
     public void wasRemovedByOwner(){
         if(messages!=null){
             messages.clear();
-            EventBus.getDefault().post(new FirebaseEvent("This user was removed from this chat by the chat owner.", FirebaseEvent.Type.CHAT_REMOVED_PROCESSED, getId()));
+            EventBus.getDefault().post(new FirebaseEvent("This user was removed from this chat by the chat owner.", FirebaseEvent.Type.CHAT_REMOVED_PROCESSED, getChatId()));
         }
     }
 
@@ -372,8 +396,30 @@ public class ChatInfo extends FirebseObject {
     // set the state of typing of this user - should be switch on when starting to type and off after pressing send
     // use the notifyUserIsTyping to get the list of users that are currently typing
     public void setUserIsTyping(boolean val){
-        ImModel.getInstance().setUserIsTypingValue(val, currentUserId, getId());
+        ImModel.getInstance().setUserIsTypingValue(val, currentUserId, getChatId());
     }
+
+    //TODO Implement this
+//    var usersTypingInfo = [UserInfo]()
+//    func updateUserIsTyping(_ userId:String, _ isTypingValue:Bool){
+//        if isTypingValue{
+//            if let uinfo = GSModel.instance.getCachedUserInfoById(userId){
+//                usersTypingInfo.append(uinfo)
+//            }else{
+//                GSModel.instance.getUserInfoById(userId, callback: { (user) in
+//                    // cache his data for the next time...
+//                })
+//            }
+//        }else{
+//            for (index, element) in usersTypingInfo.enumerated() {
+//                if element.userId == userId {
+//                    usersTypingInfo.remove(at: index)
+//                    break;
+//                }
+//            }
+//        }
+//        notifyUserIsTyping.emit(usersTypingInfo)
+//    }
 
     /**
      * Block user, this func block the given user from joinning a public chat, you must be the owner
@@ -389,6 +435,7 @@ public class ChatInfo extends FirebseObject {
             ImModel.getInstance().blockUserFromJoinningChat(this, userId);
         }
     }
+
     /**
      * Un Block user, this func unblock the given user in this public chat, you must be the owner
      * of the chat to perform this operation
@@ -412,6 +459,14 @@ public class ChatInfo extends FirebseObject {
     public void setMuteChat(boolean isMuted){
         this.setMuted(isMuted);
         ImModel.getInstance().setMuteChat(this,isMuted);
+    }
+
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
     }
 
     public String getName() {
@@ -477,5 +532,7 @@ public class ChatInfo extends FirebseObject {
     public void setMuted(boolean muted) {
         isMuted = muted;
     }
+
+
 
 }

@@ -1,7 +1,6 @@
 package tv.sportssidekick.sportssidekick.fragment;
 
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -37,7 +36,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Subscribe
     public void onEvent(BusEvent event){
-        Log.d(TAG, "Base Fragment - onEvent triggered with id : " + event.getId());
+       // Log.d(TAG, "Base Fragment - onEvent triggered with id : " + event.getId());
     }
 
     protected boolean hasPrimaryArgument(){

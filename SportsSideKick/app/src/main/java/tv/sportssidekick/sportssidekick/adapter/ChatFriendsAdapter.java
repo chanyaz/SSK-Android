@@ -101,8 +101,11 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-        ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.image,imageOptions);
-        holder.name.setText(info.getFirstName()  + " " + info.getLastName());
+        if(holder.image!=null){
+            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.image,imageOptions);
+            holder.name.setText(info.getFirstName()  + " " + info.getLastName());
+        }
+
 
         if(selectedValues.contains(info)){
             holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);

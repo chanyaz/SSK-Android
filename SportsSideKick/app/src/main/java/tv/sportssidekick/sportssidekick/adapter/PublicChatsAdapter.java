@@ -167,7 +167,7 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
 
         @Override
         public boolean areItemsTheSame(ChatInfo item1, ChatInfo item2) {
-            return item1.getId() == item2.getId();
+            return item1.getChatId() == item2.getChatId();
         }
     };
 
