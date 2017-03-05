@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -189,11 +188,11 @@ public class CreateChatFragment extends BaseFragment {
         newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
         newChatInfo.setIsPublic(!isPrivate);
         newChatInfo.setName(chatName);
-        HashMap<String,Boolean> userIds = new HashMap<>();
+        ArrayList<String> userIds = new ArrayList<>();
         for(UserInfo info : selectedUsers){
-            userIds.put(info.getUserId(), true);
+            userIds.add(info.getUserId());
         }
-        userIds.put(newChatInfo.getOwner(),true);
+        userIds.add(newChatInfo.getOwner());
         newChatInfo.setUsersIds(userIds);
 
         ImModel.getInstance().createNewChat(newChatInfo);

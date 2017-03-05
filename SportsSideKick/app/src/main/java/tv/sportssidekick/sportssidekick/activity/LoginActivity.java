@@ -2,10 +2,7 @@ package tv.sportssidekick.sportssidekick.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.BatteryManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,7 +22,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.InitialFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.LoginFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.SignUpFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -75,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onFirebaseEvent(FirebaseEvent event){
+    public void onFirebaseEvent(GameSparksEvent event){
         switch (event.getEventType()){
             case SIGNED_OUT:
                 progressBar.setVisibility(View.GONE);

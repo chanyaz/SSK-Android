@@ -260,11 +260,7 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        //Auth.registrationRequest("Filip","Filip123abc","filip@hypercubesoft.com");
-        //Auth.authenticationRequest("Filip123abc","filip@hypercubesoft.com");
         Auth.authenticationRequest("user2@user2.com","qwerty");
-
-        //Analytics.registerForPushNotifications();
     }
 
     @Override

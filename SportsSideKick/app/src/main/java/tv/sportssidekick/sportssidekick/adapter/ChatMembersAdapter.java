@@ -45,7 +45,7 @@ public class ChatMembersAdapter extends RecyclerView.Adapter<ChatMembersAdapter.
     }
 
     private void reloadChatMembers(){
-        membersList = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds().keySet());
+        membersList = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -146,7 +146,7 @@ public class ChatMembersAdapter extends RecyclerView.Adapter<ChatMembersAdapter.
     }
 
     private boolean isMemberOfChat(UserInfo info){
-       return chatInfo.getUsersIds().containsKey(info.getUserId());
+       return chatInfo.getUsersIds().contains(info.getUserId());
     }
 
     private boolean isBlocked(UserInfo info){

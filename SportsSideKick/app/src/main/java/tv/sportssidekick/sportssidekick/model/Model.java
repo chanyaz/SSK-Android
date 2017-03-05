@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.im.ImModel;
-import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 public class Model {
 
@@ -109,11 +109,11 @@ public class Model {
                         userInfo = dataSnapshot.getValue(UserInfo.class);
                         userInfo.setUserId(userId);
                         userInfo.setUserId("sLqHBMbL3BQNgddTK0a4wmPfuA53");
-                        EventBus.getDefault().post(new FirebaseEvent("Login successful!", FirebaseEvent.Type.LOGIN_SUCCESSFUL, userInfo));
+                        EventBus.getDefault().post(new GameSparksEvent("Login successful!", GameSparksEvent.Type.LOGIN_SUCCESSFUL, userInfo));
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        EventBus.getDefault().post(new FirebaseEvent("Login failed (canceled)!", FirebaseEvent.Type.LOGIN_FAILED, null));
+                        EventBus.getDefault().post(new GameSparksEvent("Login failed (canceled)!", GameSparksEvent.Type.LOGIN_FAILED, null));
                     }
                 });
                 getAllUsersInfo().addOnSuccessListener(
@@ -121,11 +121,11 @@ public class Model {
                        @Override
                        public void onSuccess(List<UserInfo> userInfos) {
                            ImModel.getInstance().reload(userInfo.getUserId());
-                           EventBus.getDefault().post(new FirebaseEvent("All user data downloaded", FirebaseEvent.Type.ALL_DATA_ACQUIRED, userInfos));
+                           EventBus.getDefault().post(new GameSparksEvent("All user data downloaded", GameSparksEvent.Type.ALL_DATA_ACQUIRED, userInfos));
                        }
                });
             } else {
-                EventBus.getDefault().post(new FirebaseEvent("Signed out.", FirebaseEvent.Type.SIGNED_OUT, null));
+                EventBus.getDefault().post(new GameSparksEvent("Signed out.", GameSparksEvent.Type.SIGNED_OUT, null));
             }
         }
     };
@@ -138,7 +138,7 @@ public class Model {
         mAuth.signInWithEmailAndPassword(email, password).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                EventBus.getDefault().post(new FirebaseEvent("Login failed (Error)!", FirebaseEvent.Type.LOGIN_FAILED, null));
+                EventBus.getDefault().post(new GameSparksEvent("Login failed (Error)!", GameSparksEvent.Type.LOGIN_FAILED, null));
             }
         });
     }
@@ -207,15 +207,16 @@ public class Model {
     }
 
     private UserInfo parseAndCacheUserInfo(DataSnapshot dataSnapshot) {
-        UserInfo info = dataSnapshot.getValue(UserInfo.class);
-        info.setUserId(dataSnapshot.getKey());
-        UserInfo cachedInfo = getCachedUserInfoById(info.getUserId());
-        if (cachedInfo != null) {
-            cachedInfo.setEqualsTo(info);
-        } else {
-            userCache.put(info.getUserId(), info);
-        }
-        return info;
+//        UserInfo info = dataSnapshot.getValue(UserInfo.class);
+//        info.setUserId(dataSnapshot.getKey());
+//        UserInfo cachedInfo = getCachedUserInfoById(info.getUserId());
+//        if (cachedInfo != null) {
+//            cachedInfo.setEqualsTo(info);
+//        } else {
+//            userCache.put(info.getUserId(), info);
+//        }
+//        return info;
+        return null;
     }
 
     /**
@@ -284,7 +285,7 @@ public class Model {
                 ".mov";
         try {
             InputStream inputStream = new FileInputStream(filepath);
-            saveDataFile(filename,inputStream, FirebaseEvent.Type.VIDEO_FILE_UPLOADED);
+            saveDataFile(filename,inputStream, GameSparksEvent.Type.VIDEO_FILE_UPLOADED);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -300,7 +301,7 @@ public class Model {
         byte[] bitmapdata = bos.toByteArray();
         ByteArrayInputStream bs = new ByteArrayInputStream(bitmapdata);
 
-        saveDataFile(filename,bs, FirebaseEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
+        saveDataFile(filename,bs, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
     }
 
     //photo_sLqHBMbL3BQNgddTK0a4wmPfuA531480082543.52176.jpg
@@ -312,7 +313,7 @@ public class Model {
                 ".jpg";
         try {
             InputStream inputStream = new FileInputStream(filepath);
-            saveDataFile(filename,inputStream, FirebaseEvent.Type.MESSAGE_IMAGE_FILE_UPLOADED);
+            saveDataFile(filename,inputStream, GameSparksEvent.Type.MESSAGE_IMAGE_FILE_UPLOADED);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -328,7 +329,7 @@ public class Model {
                 ".caf";
         try {
             InputStream inputStream = new FileInputStream(filepath);
-            saveDataFile(filename,inputStream, FirebaseEvent.Type.AUDIO_FILE_UPLOADED);
+            saveDataFile(filename,inputStream, GameSparksEvent.Type.AUDIO_FILE_UPLOADED);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -367,7 +368,7 @@ public class Model {
         }
     }
 
-    private void saveDataFile(String filename, InputStream stream, final FirebaseEvent.Type type){
+    private void saveDataFile(String filename, InputStream stream, final GameSparksEvent.Type type){
         StorageReference filesRef = storageRef.child("images").child(filename);
         UploadTask uploadTask = filesRef.putStream(stream);
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -381,9 +382,9 @@ public class Model {
             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
             Uri downloadUrl = taskSnapshot.getDownloadUrl();
             if(downloadUrl!=null){
-                EventBus.getDefault().post(new FirebaseEvent("File uploaded!", type, downloadUrl.toString()));
+                EventBus.getDefault().post(new GameSparksEvent("File uploaded!", type, downloadUrl.toString()));
             } else {
-                EventBus.getDefault().post(new FirebaseEvent("Something went wrong, file not uploaded!", type, null));
+                EventBus.getDefault().post(new GameSparksEvent("Something went wrong, file not uploaded!", type, null));
             }
             }
         });

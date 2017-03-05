@@ -62,7 +62,7 @@ import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImModel;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
-import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
 import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
@@ -285,7 +285,7 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     @SuppressWarnings("Unchecked cast")
-    public void onChatEventDetected(FirebaseEvent event){
+    public void onChatEventDetected(GameSparksEvent event){
         Log.d(TAG, "event received: " + event.getEventType());
         switch (event.getEventType()){
             case TYPING:

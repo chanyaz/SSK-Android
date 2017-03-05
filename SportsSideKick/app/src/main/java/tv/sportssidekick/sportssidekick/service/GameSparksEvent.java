@@ -6,7 +6,7 @@ package tv.sportssidekick.sportssidekick.service;
  * www.hypercubesoft.com
  */
 
-public class FirebaseEvent extends BusEvent {
+public class GameSparksEvent extends BusEvent {
 
     private String message;
     private String filterId;
@@ -26,18 +26,18 @@ public class FirebaseEvent extends BusEvent {
     private Type eventType;
     private Object data;
 
-    public FirebaseEvent(String message, Type eventType) {
+    public GameSparksEvent(String message, Type eventType) {
         super("");
         this.message = message;
         this.eventType = eventType;
     }
 
-    public FirebaseEvent(String message) {
+    public GameSparksEvent(String message) {
         super("");
         this.message = message;
     }
 
-    public FirebaseEvent(String message, Type eventType, Object data) {
+    public GameSparksEvent(String message, Type eventType, Object data) {
         super("");
         this.message = message;
         this.eventType = eventType;
@@ -48,7 +48,7 @@ public class FirebaseEvent extends BusEvent {
         return filterId;
     }
 
-    public FirebaseEvent setFilterId(String filterId) {
+    public GameSparksEvent setFilterId(String filterId) {
         this.filterId = filterId;
         return this;
     }

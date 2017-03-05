@@ -25,7 +25,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.util.Utility.isEditTextEmpty;
@@ -171,7 +171,7 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onFirebaseEvent(FirebaseEvent event){
+    public void onFirebaseEvent(GameSparksEvent event){
         switch (event.getEventType()){
             case LOGIN_FAILED:
                 showAlertDialog(getString(R.string.dialog_warning), getString(R.string.login_login_message_authentication_failed), context);

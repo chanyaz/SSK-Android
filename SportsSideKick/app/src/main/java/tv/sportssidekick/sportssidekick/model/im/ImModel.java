@@ -1,11 +1,12 @@
 package tv.sportssidekick.sportssidekick.model.im;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.android.GSAndroidPlatform;
+import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -13,11 +14,10 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
-import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -27,8 +27,14 @@ import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
 
 public class ImModel {
 
-    private static final String MUTE = "mute";
-    private static final String TAG = "ImModel";
+    private static final String IMS_GET_CHAT_GROUPS_MESSAGES = "imsGetChatGroupsMessages";
+    private static final String OFFSET = "offset";
+    private static final String ENTRY_COUNT = "entryCount";
+    private static final String CHAT_INFO = "chatInfo";
+    private static final String IMS_GROUP_ID = "imsGroupId";
+    private static final String IMS_JOIN_CHAT_GROUP = "imsJoinChatGroup";
+    private static final String GROUP_ID = "groupId";
+    private static final String MESSAGES = "messages";
     private static ImModel instance;
 
     private String userId;
@@ -40,14 +46,15 @@ public class ImModel {
     public List<ChatInfo> getNonMemberPublicChatsInfo(){
         List<ChatInfo> filteredList = new ArrayList<>();
         for(ChatInfo info : publicChatsInfo){
-            if(!info.getUsersIds().keySet().contains(getUserId())){
+            if(!info.getUsersIds().contains(userId)){
                 filteredList.add(info);
             }
         }
         return filteredList;
     }
-
+    private final ObjectMapper mapper; // jackson's object mapper
     private ImModel() {
+        mapper  = new ObjectMapper();
         chatInfoCache = new HashMap<>();
         chatInfoCacheList = new ArrayList<>();
         publicChatsInfo = new ArrayList<>();
@@ -78,6 +85,8 @@ public class ImModel {
 
     public void reload(String userId){
         this.userId = userId;
+        getAllPublicChats();
+        getGlobalChats();
         loadUserChats();
     }
 
@@ -118,178 +127,55 @@ public class ImModel {
      * getAllPublicChats returns a list of all public chats in the system.
      */
 
-    void getGlobalChats() {
+    private void getGlobalChats() {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
             .setEventKey("imsGetGlobalChatGroupsList")
-            .setEventAttribute("offset",0)
-            .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-                @Override
-                public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                    if(!response.hasErrors()){
-                        Map<String,Object> data = response.getScriptData().getBaseData();
-                        // TODO Parse response?
-                    } else {
-                        //TODO Handle errors
-                    }
-                }
-            });
+            .setEventAttribute(OFFSET,0)
+            .send(null); // TODO Not implemented yet in iOS
     }
 
-    void getAllPublicChats() {
+    private void getAllPublicChats() {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
             .setEventKey("imsGetPublicChatGroupList")
-            .setEventAttribute("offset",0)
-            .setEventAttribute("entryCount",30)
-            .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-                @Override
-                public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                    if(!response.hasErrors()){
-                        Map<String,Object> data = response.getScriptData().getBaseData();
-                        // TODO Parse response?
-                    } else {
-                        //TODO Handle errors
-                    }
-                }
-            });
-//        imsPublicChatsIndexRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if(dataSnapshot==null){
-//                    return;
-//                }
-//                for(DataSnapshot child : dataSnapshot.getChildren()){
-//                    if(child.getValue(Boolean.class)){
-//                        final String chatId = child.getKey();
-//                        DatabaseReference chatRef = imsChatsInfoRef.child(chatId);
-//                        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//                                // TODO Rewrite logic for public chats
-//                                if(dataSnapshot.exists()){
-//                                    ChatInfo chatInfo = dataSnapshot.getValue(ChatInfo.class);
-//                                    chatInfo.setChatId(dataSnapshot.getKey());
-//                                    if(!chatInfo.isUserBlockedFromThisChat(getUserId())){
-//                                        publicChatsInfo.add(chatInfo);
-//                                        Log.d(TAG, "getAllPublicChats: " + chatId);
-//                                        newChatWasAddedToTheUserChatsList(chatId,false);
-//                                        EventBus.getDefault().post(new FirebaseEvent("Public chat detected.", FirebaseEvent.Type.PUBLIC_CHAT_DETECTED, chatInfo));
-//                                    }
-//                                }
-//                            }
-//                            @Override
-//                            public void onCancelled(DatabaseError databaseError) {}
-//                        });
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
+            .setEventAttribute(OFFSET,0)
+            .setEventAttribute(ENTRY_COUNT,30)
+            .send(null); // TODO Not implemented yet in iOS
+    }
+
+
+    private static GSRequestBuilder.LogEventRequest createRequest(String key){
+        return GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest().setEventKey(key);
+    }
+
+    private String toJson(Object object){
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void loadUserChats() {
-//        Log.d(TAG, "userId: " + getUserId());
-        getAllPublicChats();
-        getGlobalChats();
-
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("imsGetUserChatGroupsList")
-                .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-                    @Override
-                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                        if(!response.hasErrors()){
-                            Map<String,Object> data = response.getScriptData().getBaseData();
-                            // TODO Parse response?
-                            // Go trough all ChatInfo objects and load users and messages
-                        } else {
-                            //TODO Handle errors
-                        }
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get("chatsInfo");
+                    List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
+                    // Go trough all ChatInfo objects and load users and messages
+                    for (ChatInfo chat : chats) {
+                        String chatId = chat.getChatId();
+                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.USER_CHAT_DETECTED, chatId));
+                        chatInfoCache.put(chatId, chat);
+                        chat.loadChatUsers();
+                        chat.loadMessages();
                     }
-                });
-
-    }
-
-//    private ChildEventListener userChatsEventListener = new ChildEventListener() {
-//        @Override
-//        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//            String chatId = dataSnapshot.getKey();
-//            String value = dataSnapshot.getValue(String.class); // can be notify or mute
-//            Log.d(TAG, "Child added: " + chatId );
-//            Log.d(TAG, "Child added: " + s );
-//            Log.d(TAG, "Child added: " + value );
-//            newChatWasAddedToTheUserChatsList(chatId,MUTE.equals(value));
-//        }
-//        @Override
-//        public void onChildRemoved(DataSnapshot dataSnapshot) {
-//            String chatId = dataSnapshot.getKey();
-//            ChatInfo info = getChatInfoById(chatId);
-//            if(info!=null){
-//                info.wasRemovedByOwner();
-//                removeChatInfoWithId(chatId);
-//            }
-//            EventBus.getDefault().post(new FirebaseEvent("Chat removed.", FirebaseEvent.Type.CHAT_REMOVED, chatId));
-//        }
-//        @Override
-//        public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-//        @Override
-//        public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-//        @Override
-//        public void onCancelled(DatabaseError databaseError) {}
-//    };
-
-
-    private void newChatWasAddedToTheUserChatsList(final String chatId, final Boolean isMuted) {
-//        DatabaseReference chatRef = imsChatsInfoRef.child(chatId);
-//        Log.d(TAG, "New Chat Was Added To The User Chats List: " + chatId + " MUTED: " + isMuted);
-//        chatRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if(!dataSnapshot.exists()){ // chat removed
-//                    return;
-//                }
-//                ChatInfo info = dataSnapshot.getValue(ChatInfo.class);
-//                info.setChatId(dataSnapshot.getKey());
-//                info.setMuted(isMuted);
-//                boolean iAmIn = false;
-//                if(info.getUsersIds()!=null){
-//                    for(String uin : info.getUsersIds().keySet()){
-//                        if(getUserId().equals(uin)){
-//                            iAmIn = true;
-//                            break;
-//                        }
-//                    }
-//                } else {
-//                    Log.d(TAG,"There are no users in this chat, ignore it!");
-//                    return;
-//                }
-//
-//                ChatInfo existingChatInfo = getChatInfoById(chatId);
-//                if(iAmIn){
-//                    Log.d(TAG, "User is in chat: " + chatId);
-//                    if(existingChatInfo != null && existingChatInfo.getChatId()!=null) {   // Got new chat with key that is already set
-//                        Log.d(TAG, "Chat is already in cache:" + chatId);
-//                        existingChatInfo.setEqualTo(info);
-//                    } else { // its not cached yet.
-//                        addChatInfoToCache(info);
-//                    }
-//                    EventBus.getDefault().post(new FirebaseEvent("Chat detected.", FirebaseEvent.Type.USER_CHAT_DETECTED, chatId));
-//                    Log.d(TAG, "Loading chat users and messages for " + chatId);
-//                    info.loadChatUsers();
-//                    info.loadMessages();
-//                } else {
-//                    Log.d(TAG, "User not in chat: " + chatId);
-//                    if(existingChatInfo != null && existingChatInfo.getChatId()!=null){
-//                        existingChatInfo.wasRemovedByOwner();
-//                        removeChatInfoWithId(chatId);
-//                    } else {
-//                        info.wasRemovedByOwner();
-//                    }
-//                    EventBus.getDefault().post(new FirebaseEvent("Removed from chat.", FirebaseEvent.Type.CHAT_REMOVED, chatId));
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) { }
-//        });
+                }
+            }
+        };
+        createRequest("imsGetUserChatGroupsList").send(consumer);
     }
 
     /**
@@ -300,29 +186,25 @@ public class ImModel {
      * @param  chatInfo - the chat info to create (do not set the chat id)
      */
 
-    public void createNewChat(ChatInfo chatInfo){
-//        DatabaseReference newChatRef = imsChatsInfoRef.push();
-//        String key = newChatRef.getKey();
-//        chatInfo.setChatId(key);
-//        chatInfo.setOwner(getUserId());
-//        if(chatInfo.getUsersIds().size()==0){
-//            HashMap<String, Boolean> userIds = new HashMap<>();
-//            userIds.put(getUserId(), true);
-//            chatInfo.setUsersIds(userIds);
-//        }
-//        newChatRef.setValue(chatInfo);
-//        for(String uid : chatInfo.getUsersIds().keySet()){
-//            DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(key);
-//            userChatsRef.setValue("notify");
-//        }
-//        addChatInfoToCache(chatInfo);
-//        chatInfo.loadChatUsers();
-//        chatInfo.loadMessages();
-//        if(chatInfo.getIsPublic()){
-//            DatabaseReference publicIndexRef  = imsPublicChatsIndexRef.child(chatInfo.getChatId());
-//            publicIndexRef.setValue(true);
-//        }
-//        EventBus.getDefault().post(new FirebaseEvent("Chat created.", FirebaseEvent.Type.CHAT_CREATED, key));
+    public void createNewChat(final ChatInfo chatInfo){
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
+                    ChatInfo newChatInfo = mapper.convertValue(object,ChatInfo.class);
+                    chatInfo.setEqualTo(newChatInfo);
+                    addChatInfoToCache(chatInfo);
+                    chatInfo.loadMessages();
+                    EventBus.getDefault().post(new GameSparksEvent("Chat created.", GameSparksEvent.Type.CHAT_CREATED, chatInfo.getChatId()));
+                }
+            }
+        };
+
+        createRequest("imsCreateChatGroup")
+                .setEventAttribute(CHAT_INFO,toJson(chatInfo))
+                .send(consumer);
     }
 
 
@@ -330,39 +212,72 @@ public class ImModel {
      *          DO NOT USE THE FUNCTIONS BELOW DIRECTLY! USE CHATINFO API
      **/
 
-    //you shouldnt use this function directly, call update chat on the chatInfo object
-    void updateChat(ChatInfo chatInfo){
-//        DatabaseReference chatRef = imsChatsInfoRef.child(chatInfo.getChatId());
-//        chatRef.setValue(chatInfo);
-//        for(String uid : chatInfo.getUsersIds().keySet()){
-//            DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(chatInfo.getChatId());
-//            userChatsRef.setValue("notify");
-//        }
+    //you shouldn't use this function directly, call update chat on the chatInfo object
+    void updateChat(final ChatInfo chatInfo){
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
+                    ChatInfo newChatInfo = mapper.convertValue(object,ChatInfo.class);
+                    chatInfo.setEqualTo(newChatInfo);
+                    addChatInfoToCache(chatInfo);
+                }
+            }
+        };
+
+        createRequest("imsUpdateChatGroup")
+            .setEventAttribute("imsGroupInfo",toJson(chatInfo))
+            .send(consumer);
     }
 
-    //you shouldnt use this function directly, call join chat on the chatInfo object
-    void joinChat(ChatInfo chatInfo, String uid){
-//        DatabaseReference chatUserRef = imsChatsInfoRef.child(chatInfo.getChatId()).child("usersIds").child(uid);
-//        chatUserRef.setValue(true);
-//        DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(chatInfo.getChatId());
-//        userChatsRef.setValue("notify");
+    //you shouldn't use this function directly, call join chat on the chatInfo object
+    void joinChat(final ChatInfo chatInfo){
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
+                    ChatInfo newChatInfo = mapper.convertValue(object,ChatInfo.class);
+                    chatInfo.setEqualTo(newChatInfo);
+                    addChatInfoToCache(chatInfo);
+                    chatInfo.loadMessages();
+                }
+            }
+        };
+
+        createRequest(IMS_JOIN_CHAT_GROUP)
+                .setEventAttribute(IMS_GROUP_ID,chatInfo.getChatId())
+                .send(consumer);
     }
 
-    //you shouldnt use this function directly, call delete user on the chatInfo object
-    void deleteUserFromChat(ChatInfo chatInfo, String uid){
-//        DatabaseReference userChatsRef = imsUserChatsIndexRef.child(uid).child(chatInfo.getChatId());
-//        userChatsRef.removeValue();
-//
-//        //delete the user from chat info users list
-//        DatabaseReference chatRef = imsChatsInfoRef.child(chatInfo.getChatId()).child("usersIds").child(uid);
-//        chatRef.removeValue();
+    //you shouldn't use this function directly, call delete on the chatInfo object
+    void deleteChat(final ChatInfo chatInfo){
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    removeChatInfoWithId(chatInfo.getChatId());
+                }
+            }
+        };
+        createRequest("imsDeleteChatGroup")
+            .setEventAttribute(IMS_GROUP_ID,chatInfo.getChatId())
+            .send(consumer);
     }
 
-    //you shouldnt use this function directly, call delete on the chatInfo object
-    void deleteChat(ChatInfo chatInfo){
-//        removeChatInfoWithId(chatInfo.getChatId());
-//        DatabaseReference chatRef = imsChatsInfoRef.child(chatInfo.getChatId());
-//        chatRef.removeValue();
+    public void leaveChat(final ChatInfo chatInfo){ // TODO Check where this should be used?
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    removeChatInfoWithId(chatInfo.getChatId());
+                }
+            }
+        };
+        createRequest("imsLeaveChatGroup")
+            .setEventAttribute(IMS_GROUP_ID,chatInfo.getChatId())
+            .send(consumer);
     }
 
     /**
@@ -371,205 +286,109 @@ public class ImModel {
 
     // do not use this function, call the chat info one!
     void imsSendMessageToChat(ChatInfo chatInfo,ImsMessage message){
-        // create a child reference with a unique key.
-//        DatabaseReference messageRef = imsChatsMessagesRef.child(chatInfo.getChatId()).child("messages").push();
-//        message.setId(messageRef.getKey());
-//        messageRef.setValue(message);
-//
-//        UserInfo uinfo = Model.getInstance().getCachedUserInfoById(message.getSenderId());
-//        if(TextUtils.isEmpty(message.getText())){
-//            message.setText("");
-//        }
-//
-//        NotificationMessage notificationQueueMessage = new NotificationMessage();
-//        notificationQueueMessage.setChatId(chatInfo.getChatId());
-//        notificationQueueMessage.setNewIM(true);
-//        notificationQueueMessage.setSenderId(message.getSenderId());
-//        notificationQueueMessage.setSenderName(uinfo.getNicName());
-//        notificationQueueMessage.setMessage(message.getText());
-//
-//        DatabaseReference notificationRef = imsNotificationQueueRef.push();
-//        notificationRef.setValue(notificationQueueMessage);
+        GSRequestBuilder.SendTeamChatMessageRequest request = GSAndroidPlatform.gs().getRequestBuilder().createSendTeamChatMessageRequest();
+        request.setTeamId(chatInfo.getChatId());
+        request.setMessage(toJson(message));
+        request.send(null);
     }
 
-    private final static int K_MESSAGES_PER_PAGE = 25;
     //use chat notifyChatUpdate signal to track chat messages!
-    void loadFirstPageOfMessagesForChat(ChatInfo chatInfo){
-//        Log.d(TAG, "Loading messages for " + chatInfo.getChatId());
-//        //Load the first K_MESSAGES_PER_PAGE messages
-//        Query messageQuery = imsChatsMessagesRef.child(chatInfo.getChatId()).child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE);
-//        final String chatInfoId = chatInfo.getChatId();
-//        messageQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//               String lastKey = null;
-//                for(DataSnapshot child : dataSnapshot.getChildren()){
-//                    ImsMessage message = child.getValue(ImsMessage.class);
-//                    String messageId = child.getKey();
-//                    message.setId(messageId);
-//                    message.initializeTimestamp();
-//                    message.determineSelfReadFlag();
-//                    FirebaseEvent fe = new FirebaseEvent("New message detected.", FirebaseEvent.Type.NEW_MESSAGE, message);
-//                    fe.setFilterId(chatInfoId);
-//                    EventBus.getDefault().post(fe);
-//                    lastKey = messageId;
-//               }
-//                if (lastKey == null){
-//                    lastKey = "";
-//                }
-//                final String lastKeyFinal = lastKey;
-//                // Add listener for new child in Chat
-//                Query messagesRef = imsChatsMessagesRef.child(chatInfoId).child("messages").limitToLast(1);
-//                messagesRef.addChildEventListener(new ChildEventListener() {
-//                    @Override
-//                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                        if (!dataSnapshot.getKey().equals(lastKeyFinal)){
-//                            ImsMessage message = dataSnapshot.getValue(ImsMessage.class);
-//                            message.setId(dataSnapshot.getKey());
-//                            message.initializeTimestamp();
-//                            message.determineSelfReadFlag();
-//                            FirebaseEvent fe = new FirebaseEvent("New message added.", FirebaseEvent.Type.NEW_MESSAGE_ADDED, message);
-//                            fe.setFilterId(chatInfoId);
-//                            EventBus.getDefault().post(fe);
-//                        }
+    void imsSetMessageObserverForChat(final ChatInfo chatInfo){
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    // Parse response
+                    // TODO Implement proper parsing FIXME!!!
+//                    Object object = response.getScriptData().getBaseData().get(MESSAGES);
+//                    List<ImsMessage> messages = mapper.convertValue(object, new TypeReference<List<ImsMessage>>(){});
+//                    // Go trough all messages objects and load users and messages
+//                    for (ImsMessage message : messages) {
+//                        message.initializeTimestamp();
+//                        message.determineSelfReadFlag();
+//                        GameSparksEvent fe = new GameSparksEvent("New message detected.", GameSparksEvent.Type.NEW_MESSAGE, message);
+//                        fe.setFilterId(chatInfo.getChatId());
+//                        EventBus.getDefault().post(fe);
 //                    }
-//                    @Override
-//                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-//                    @Override
-//                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
-//                    @Override
-//                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {}
-//                });
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-
-
+                }
+            }
+        };
+        createRequest(IMS_GET_CHAT_GROUPS_MESSAGES)
+                .setEventAttribute(OFFSET,"0")
+                .setEventAttribute(ENTRY_COUNT,"3")
+                .setEventAttribute(GROUP_ID,chatInfo.getChatId())
+                .send(consumer);
     }
 
     // load next page of messages
-    void imsLoadNextPageOfMessages(ChatInfo chatInfo){
-//        List<ImsMessage> messages = chatInfo.getMessages();
-//        String lastMessageId = messages.get(0).getId();
-//        Query messagesQuery = imsChatsMessagesRef.child(chatInfo.getChatId()).child("messages").orderByKey().limitToLast(K_MESSAGES_PER_PAGE+1).endAt(lastMessageId);
-//        final String chatInfoId = chatInfo.getChatId();
-//        messagesQuery.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                List<ImsMessage> messagesNewPage = new ArrayList<>();
-//                for(DataSnapshot snap : dataSnapshot.getChildren()){
-//                    ImsMessage message = snap.getValue(ImsMessage.class);
-//                    message.setId(snap.getKey());
-//                    message.initializeTimestamp();
-//                    message.determineSelfReadFlag();
-//                    messagesNewPage.add(message);
-//                }
-//                FirebaseEvent fe = new FirebaseEvent("Next messages page loaded.", FirebaseEvent.Type.NEXT_PAGE_LOADED, messagesNewPage);
-//                fe.setFilterId(chatInfoId);
-//                EventBus.getDefault().post(fe);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-    }
-
-    //use chat notifyChatUpdate signal to track chat messages!
-    void observeMessageStatusChange(ChatInfo chatInfo){
-//        DatabaseReference msgref = imsChatsMessagesRef.child(chatInfo.getChatId()).child("messages");
-//        msgref.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {}
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                ImsMessage message = dataSnapshot.getValue(ImsMessage.class);
-//                message.setId(dataSnapshot.getKey());
-//                message.initializeTimestamp();
-//                message.determineSelfReadFlag();
-//                EventBus.getDefault().post(new FirebaseEvent("Message is changed/updated.", FirebaseEvent.Type.MESSAGE_UPDATED, message));
-//            }
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-    }
-
-    // do not use this function, call the chat info one!
-    void imsMarkMessageAsRead(ChatInfo chatInfo, ImsMessage message){
-//        DatabaseReference msgref = imsChatsMessagesRef.child(chatInfo.getChatId()).child("messages").child(message.getId()).child("wasReadBy");
-//        HashMap<String, Object> newValue = new HashMap<>();
-//        newValue.put(getUserId(),true);
-//        msgref.updateChildren(newValue);
-    }
-
-    // do not use this function, call the chat info one!
-    void setUserIsTypingValue(boolean val, String senderId, String chatId){
-//        DatabaseReference typingIndicatorRef = imsChatsMessagesRef.child(chatId).child("typing").child(senderId);
-//        typingIndicatorRef.setValue(val);
-//        typingIndicatorRef.onDisconnect().removeValue();
-    }
-
-    // do not use this function, call the chat info one!
-    // returnes the list of users info that are currently typing
-
-    void imsUserTypingObserverForChat(String senderId,String chatId) {
-//        DatabaseReference typingIndicatorRef =  imsChatsMessagesRef.child(chatId).child("typing");
-//        typingIndicatorRef.removeEventListener(typingListener);
-//        typingIndicatorRef.addValueEventListener(typingListener);
-    }
-
-    private ValueEventListener typingListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            List<UserInfo> usersTyping = new ArrayList<>();
-            HashMap<String,Boolean> temp2 = (HashMap<String, Boolean>) dataSnapshot.getValue();
-            if(temp2!=null){
-                for(Map.Entry<String,Boolean> entry : temp2.entrySet()){
-                    if(entry.getValue() && !entry.getKey().equals(userId)){
-                        UserInfo info = Model.getInstance().getCachedUserInfoById(entry.getKey());
-                        usersTyping.add(info);
+    void loadNextPageOfMessages(final ChatInfo chatInfo){
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get(MESSAGES);
+                    List<ImsMessage> messages = mapper.convertValue(object, new TypeReference<List<ImsMessage>>(){});
+                    // Go trough all messages objects and load users and messages
+                    for (ImsMessage message : messages) {
+                        message.initializeTimestamp();
+                        message.determineSelfReadFlag();
+                        GameSparksEvent fe = new GameSparksEvent("Next messages page loaded.", GameSparksEvent.Type.NEXT_PAGE_LOADED, messages);
+                        fe.setFilterId(chatInfo.getChatId());
+                        EventBus.getDefault().post(fe);
                     }
                 }
-                EventBus.getDefault().post(new FirebaseEvent("Somebody is typing", FirebaseEvent.Type.TYPING, usersTyping));
             }
-        }
-        @Override
-        public void onCancelled(DatabaseError databaseError) {}
-    };
-
-
-    // do not use this function, call the chat info one!
-    // add the given uid to the chat black list
-    void blockUserFromJoinningChat(ChatInfo chatInfo, String userIdToBlock){
-//        DatabaseReference chatInfoRef = imsChatsMessagesRef.child(chatInfo.getChatId()).child("usersIdsBlackList").child(userIdToBlock);
-//        chatInfoRef.setValue(true);
+        };
+        createRequest(IMS_GET_CHAT_GROUPS_MESSAGES)
+                .setEventAttribute(OFFSET,chatInfo.getMessages().size())
+                .setEventAttribute(ENTRY_COUNT,"3")
+                .setEventAttribute(GROUP_ID,chatInfo.getChatId())
+                .send(consumer);
     }
 
     // do not use this function, call the chat info one!
-    // remove the given uid from the chat black list
-    void unblockUserInThisChat(ChatInfo chatInfo, String userIdToBlock){
-//        DatabaseReference chatInfoRef = imsChatsMessagesRef.child(chatInfo.getChatId())
-//                .child("usersIdsBlackList").child(userIdToBlock);
-//        chatInfoRef.removeValue();
+    void setUserIsTypingValue(boolean val, String chatId){
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {    }
+        };
+        createRequest("imsUpdateUserIsTypingState")
+                .setEventAttribute("muteValue",String.valueOf(val).toLowerCase())
+                .setEventAttribute(GROUP_ID,chatId)
+                .send(consumer);
     }
+
+
 
     // do not use this function, call the chat info one!
     void setMuteChat(ChatInfo chatInfo,boolean isMuted){
-//        String mute = "notify";
-//        if (isMuted){
-//            mute = "mute";
-//        }
-//        DatabaseReference userChatRef = imsUserChatsIndexRef.child(getUserId()).child(chatInfo.getChatId());
-//        userChatRef.setValue(mute);
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {    }
+        };
+        createRequest("imsSetChatMuteValue")
+                .setEventAttribute("isTypingValue",String.valueOf(isMuted).toLowerCase())
+                .setEventAttribute(GROUP_ID,chatInfo.getChatId())
+                .send(consumer);
     }
 
-    String getUserId() {
-        return userId;
-    }
+    // TODO Should be removed? Not used on iOS
+    //use chat notifyChatUpdate signal to track chat messages!
+    void observeMessageStatusChange(ChatInfo chatInfo){ }
+
+    // do not use this function, call the chat info one!
+    void markMessageAsRead(ChatInfo chatInfo, ImsMessage message){ }
+
+    // do not use this function, call the chat info one!
+    // returns the list of users info that are currently typing
+    void imsUserTypingObserverForChat(String senderId,String chatId) { }
+
+    // do not use this function, call the chat info one!
+    // add the given uid to the chat black list
+    void blockUserFromJoiningChat(ChatInfo chatInfo, String userIdToBlock){ }
+
+    // do not use this function, call the chat info one!
+    // remove the given uid from the chat black list
+    void unblockUserInThisChat(ChatInfo chatInfo, String userIdToBlock){ }
 }

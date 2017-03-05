@@ -4,7 +4,7 @@ import android.util.Log;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import tv.sportssidekick.sportssidekick.service.FirebaseEvent;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -19,7 +19,7 @@ public class ImTest {
         }
 
         @Subscribe
-        public void onEvent(FirebaseEvent event){
+        public void onEvent(GameSparksEvent event){
             Log.d("firebase-testing", event.getMessage());
         }
 
