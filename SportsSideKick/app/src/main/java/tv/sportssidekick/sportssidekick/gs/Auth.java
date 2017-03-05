@@ -60,10 +60,10 @@ public class Auth {
                 });
     }
 
-    public static void authenticationRequest(String password, String userName){
+    public static void authenticationRequest(String userName, String password){
         GSAndroidPlatform.gs().getRequestBuilder().createAuthenticationRequest()
-                .setPassword(password)
                 .setUserName(userName)
+                .setPassword(password)
                 .send(new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.AuthenticationResponse response) {
