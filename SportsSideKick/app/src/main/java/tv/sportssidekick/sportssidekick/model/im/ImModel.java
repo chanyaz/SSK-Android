@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
@@ -37,6 +38,7 @@ public class ImModel {
     private static final String IMS_JOIN_CHAT_GROUP = "imsJoinChatGroup";
     private static final String GROUP_ID = "groupId";
     private static final String MESSAGES = "messages";
+    private static final String CHAT_ID = "chatId";
     private static ImModel instance;
 
     private String userId;
@@ -85,8 +87,8 @@ public class ImModel {
         publicChatsInfo.clear();
     }
 
-    public void reload(String userId){
-        this.userId = userId;
+    public void reload(){
+        clear();
         getAllPublicChats();
         getGlobalChats();
         loadUserChats();
@@ -133,7 +135,7 @@ public class ImModel {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
             .setEventKey("imsGetGlobalChatGroupsList")
             .setEventAttribute(OFFSET,0)
-            .send(null); // TODO Not implemented yet in iOS
+            .send(null); // TODO Implement this
     }
 
     private void getAllPublicChats() {
@@ -141,7 +143,7 @@ public class ImModel {
             .setEventKey("imsGetPublicChatGroupList")
             .setEventAttribute(OFFSET,0)
             .setEventAttribute(ENTRY_COUNT,30)
-            .send(null); // TODO Not implemented yet in iOS
+            .send(null); // TODO Implement this
     }
 
 
@@ -288,10 +290,12 @@ public class ImModel {
 
     // do not use this function, call the chat info one!
     void imsSendMessageToChat(ChatInfo chatInfo,ImsMessage message){
-        GSRequestBuilder.SendTeamChatMessageRequest request = GSAndroidPlatform.gs().getRequestBuilder().createSendTeamChatMessageRequest();
-        request.setTeamId(chatInfo.getChatId());
-        request.setMessage(toJson(message));
-        request.send(null);
+        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+            .setEventKey("imsSendMessage")
+            .setEventAttribute(GROUP_ID,chatInfo.getChatId())
+            .setEventAttribute("message",toJson(message))
+            .setEventAttribute("senderNic",Model.getInstance().getUserInfo().getNicName())
+            .send(null);
     }
 
     //use chat notifyChatUpdate signal to track chat messages!
@@ -364,12 +368,10 @@ public class ImModel {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {    }
         };
         createRequest("imsUpdateUserIsTypingState")
-                .setEventAttribute("muteValue",String.valueOf(val).toLowerCase())
+                .setEventAttribute("isTypingValue",String.valueOf(val).toLowerCase())
                 .setEventAttribute(GROUP_ID,chatId)
                 .send(consumer);
     }
-
-
 
     // do not use this function, call the chat info one!
     void setMuteChat(ChatInfo chatInfo,boolean isMuted){
@@ -378,17 +380,53 @@ public class ImModel {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {    }
         };
         createRequest("imsSetChatMuteValue")
-                .setEventAttribute("isTypingValue",String.valueOf(isMuted).toLowerCase())
+                .setEventAttribute("muteValue",String.valueOf(isMuted).toLowerCase())
                 .setEventAttribute(GROUP_ID,chatInfo.getChatId())
                 .send(consumer);
     }
 
+    // do not use this function, call the chat info one!
+    void markMessageAsRead(final ChatInfo chatInfo, ImsMessage message){
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                // Parse response
+                Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
+                ChatInfo updatedChatInfo = mapper.convertValue(object,ChatInfo.class);
+                chatInfo.setEqualTo(updatedChatInfo);
+                // TODO Notify chat info updates for this chat!
+            }
+        };
+        createRequest("imsMarkMessageAsRead")
+                .setEventAttribute(GROUP_ID,chatInfo.getChatId())
+                .setEventAttribute("messageIf",message.getId())
+                .send(consumer);
+    }
+
+
+    public void onGSScriptMessage(String type, Map<String,String> data){
+        if("ImsUpdateChatInfo".equals(type)){
+//            GSImsManager.instance.notifyChatsInfoUpdates.emit([String:GSChatInfo]()) TODO Notify chat info updates for this chat
+            reload();
+        } else if("ImsUpdateUserIsTypingState".equals(type)){
+            String chatId = data.get(CHAT_ID);
+            String sender = data.get("sender");
+            String isTyping = data.get("isTypingValue");
+            if(chatId!=null && sender!=null && isTyping!=null){
+                if(!sender.equals(Model.getInstance().getUserInfo().getUserId())){
+                    ChatInfo chatInfo = getChatInfoById(chatId);
+                    if(chatInfo!=null){
+                        chatInfo.updateUserIsTyping(sender,isTyping.equals("true"));
+                    }
+                }
+            }
+        }
+    }
+
+
     // TODO Should be removed? Not used on iOS
     //use chat notifyChatUpdate signal to track chat messages!
     void observeMessageStatusChange(ChatInfo chatInfo){ }
-
-    // do not use this function, call the chat info one!
-    void markMessageAsRead(ChatInfo chatInfo, ImsMessage message){ }
 
     // do not use this function, call the chat info one!
     // returns the list of users info that are currently typing
