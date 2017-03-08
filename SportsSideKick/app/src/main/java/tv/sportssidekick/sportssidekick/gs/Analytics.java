@@ -1,7 +1,5 @@
 package tv.sportssidekick.sportssidekick.gs;
 
-import android.content.Context;
-
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
@@ -76,7 +74,4 @@ public class Analytics {
         trackEvent(null, pageKey, false, false);
     }
 
-    public static void initialize(Context context) {
-        GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, false, true);
-    }
 }

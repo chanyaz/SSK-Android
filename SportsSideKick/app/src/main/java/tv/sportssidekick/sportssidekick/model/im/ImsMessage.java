@@ -1,12 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.im;
-
-import android.text.format.DateUtils;
-
-import com.google.firebase.database.Exclude;
-
 import java.util.HashMap;
 
-import tv.sportssidekick.sportssidekick.model.FirebaseDateUtils;
+import tv.sportssidekick.sportssidekick.model.DateUtils;
 import tv.sportssidekick.sportssidekick.model.Model;
 
 /**
@@ -63,7 +58,7 @@ public class ImsMessage {
     public static ImsMessage getDefaultMessage() {
         ImsMessage message = new ImsMessage();
         message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
-        message.setTimestamp(FirebaseDateUtils.currentTimeToFirebaseDate());
+        message.setTimestamp(DateUtils.currentTimeToFirebaseDate());
         message.setSenderId(Model.getInstance().getUserInfo().getUserId());
         message.setReadFlag(false);
         return message;
@@ -116,7 +111,6 @@ public class ImsMessage {
         return this;
     }
 
-    @Exclude
     public boolean getReadFlag() {
         return readFlag;
     }
@@ -178,22 +172,18 @@ public class ImsMessage {
         this.type = type;
     }
 
-    @Exclude
     private boolean readFlag = false;
-    @Exclude
     private long timestampEpoch;
-    @Exclude
     public long getTimestampEpoch() {
         return timestampEpoch;
     }
 
     public void initializeTimestamp(){
-        timestampEpoch = FirebaseDateUtils.getTimestampFromFirebaseDate(timestamp);
+        timestampEpoch = DateUtils.getTimestampFromFirebaseDate(timestamp);
     }
 
-    @Exclude
     public String getTimeAgo(){
-        String timeAgo = DateUtils.getRelativeTimeSpanString(timestampEpoch).toString();
+        String timeAgo = android.text.format.DateUtils.getRelativeTimeSpanString(timestampEpoch).toString();
         if(timeAgo.equals("0 minutes ago")){
             timeAgo = "Just Now";
         } else {

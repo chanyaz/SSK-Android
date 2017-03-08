@@ -170,10 +170,12 @@ public class CreateChatFragment extends BaseFragment {
     private static List<UserInfo> filter(List<UserInfo> models, String query) {
         final String lowerCaseQuery = query.toLowerCase();
         final List<UserInfo> filteredModelList = new ArrayList<>();
-        for (UserInfo model : models) {
-            final String text =(model.getFirstName() + model.getLastName() + model.getNicName()).toLowerCase();
-            if (text.contains(lowerCaseQuery)) {
-                filteredModelList.add(model);
+        if(models!=null){
+            for (UserInfo model : models) {
+                final String text =(model.getFirstName() + model.getLastName() + model.getNicName()).toLowerCase();
+                if (text.contains(lowerCaseQuery)) {
+                    filteredModelList.add(model);
+                }
             }
         }
         return filteredModelList;

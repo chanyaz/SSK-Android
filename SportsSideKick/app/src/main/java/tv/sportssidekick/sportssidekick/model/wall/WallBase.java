@@ -1,9 +1,6 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
 import android.support.annotation.Nullable;
-
-import com.google.firebase.database.DataSnapshot;
-
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 
 /**
@@ -105,28 +102,30 @@ public class WallBase {
     }
 
     @Nullable
-    static WallBase postFactory(DataSnapshot snapshot) {
-        if(!snapshot.exists()){
-            return null;
-        }
-        int typeCode = snapshot.child("type").getValue(Integer.class);
-
-        PostType postType = PostType.values()[typeCode-1];
-
-        switch (postType) {
-            case post:
-                break;
-            case news:
-                break;
-            case betting:
-                break;
-            case stats:
-                break;
-            case rumor:
-                break;
-            case wallStoreItem:
-                break;
-        }
-        return snapshot.getValue(WallPost.class);
+    static WallBase postFactory(Object snapshot) {
+        // TODO Rewrite to GS
+        throw new UnsupportedOperationException("Implement first with GS!");
+//        if(!snapshot.exists()){
+//            return null;
+//        }
+//        int typeCode = snapshot.child("type").getValue(Integer.class);
+//
+//        PostType postType = PostType.values()[typeCode-1];
+//
+//        switch (postType) {
+//            case post:
+//                break;
+//            case news:
+//                break;
+//            case betting:
+//                break;
+//            case stats:
+//                break;
+//            case rumor:
+//                break;
+//            case wallStoreItem:
+//                break;
+//        }
+//        return snapshot.getValue(WallPost.class);
     }
 }

@@ -10,7 +10,9 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.simple.JSONArray;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -299,17 +301,25 @@ public class ImModel {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
-                    // TODO Implement proper parsing FIXME!!!
-//                    Object object = response.getScriptData().getBaseData().get(MESSAGES);
-//                    List<ImsMessage> messages = mapper.convertValue(object, new TypeReference<List<ImsMessage>>(){});
-//                    // Go trough all messages objects and load users and messages
-//                    for (ImsMessage message : messages) {
-//                        message.initializeTimestamp();
-//                        message.determineSelfReadFlag();
-//                        GameSparksEvent fe = new GameSparksEvent("New message detected.", GameSparksEvent.Type.NEW_MESSAGE, message);
-//                        fe.setFilterId(chatInfo.getChatId());
-//                        EventBus.getDefault().post(fe);
-//                    }
+                    JSONArray jsonArray = (JSONArray) response.getScriptData().getBaseData().get(MESSAGES);
+                    List<ImsMessage> messages = new ArrayList<>();
+                    try {
+                        for(Object value : jsonArray){
+                            ImsMessage message = null;
+                            message = mapper.readValue((String)value,ImsMessage.class);
+                            messages.add(message);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    // Go trough all messages objects and load users and messages
+                    for (ImsMessage message : messages) {
+                        message.initializeTimestamp();
+                        message.determineSelfReadFlag();
+                        GameSparksEvent fe = new GameSparksEvent("New message detected.", GameSparksEvent.Type.NEW_MESSAGE, message);
+                        fe.setFilterId(chatInfo.getChatId());
+                        EventBus.getDefault().post(fe);
+                    }
                 }
             }
         };

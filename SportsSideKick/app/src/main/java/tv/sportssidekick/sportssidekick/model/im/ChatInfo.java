@@ -3,7 +3,9 @@ package tv.sportssidekick.sportssidekick.model.im;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.firebase.database.Exclude;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -76,7 +78,6 @@ public class ChatInfo {
      *
      * @return the chat name
      */
-    @Exclude
     public String getChatTitle(){
         if (!TextUtils.isEmpty(getName())){
             return getName();
@@ -106,7 +107,6 @@ public class ChatInfo {
      * the second user avatar url
      * @return avatar url
      */
-    @Exclude
     public String getChatAvatarUrl(){
         if (!TextUtils.isEmpty(getAvatarUrl())){
             return getAvatarUrl();
@@ -131,27 +131,27 @@ public class ChatInfo {
 
     // dont use that, it is called on login
     void loadChatUsers(){
-//        Log.d(TAG, "Requesting Load of chat users");
-//        EventBus.getDefault().register(this);
-//        final ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
-//        for(String uid : getUsersIds()){
-//            Log.d(TAG, "Getting User Info for chat user " + uid);
-//            Task task = Model.getInstance().getUserInfoById(uid);
-//            tasks.add(task);
-//        }
-//        Task allUsersTask = Tasks.whenAll(tasks);
-//        allUsersTask.addOnSuccessListener(
-//            new OnSuccessListener() {
-//                @Override
-//                public void onSuccess(Object o) {
-//                    Log.e(TAG, "ALL USERS DOWNLOADED!");
-//                    for(Task t : tasks){
-//                        UserInfo info = (UserInfo) t.getResult();
-//                        Log.e(TAG, "USER ID : " + info.getUserId());
-//                    }
-//                }
-//            }
-//        );
+        Log.d(TAG, "Requesting Load of chat users");
+        EventBus.getDefault().register(this);
+        final ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
+        for(String uid : getUsersIds()){
+            Log.d(TAG, "Getting User Info for chat user " + uid);
+            Task task = Model.getInstance().getUserInfoById(uid);
+            tasks.add(task);
+        }
+        Task allUsersTask = Tasks.whenAll(tasks);
+        allUsersTask.addOnSuccessListener(
+            new OnSuccessListener() {
+                @Override
+                public void onSuccess(Object o) {
+                    Log.e(TAG, "ALL USERS DOWNLOADED!");
+                    for(Task t : tasks){
+                        UserInfo info = (UserInfo) t.getResult();
+                        Log.e(TAG, "USER ID : " + info.getUserId());
+                    }
+                }
+            }
+        );
     }
 
     /**
@@ -216,7 +216,7 @@ public class ChatInfo {
     }
 
 
-    @Subscribe // TODO REMOVE GENERICS
+    @Subscribe
     public void onNewMessagesEvent(NewMessagesEvent event){
         messages.addAll(event.getValues());
         // TODO  notifyChatUpdate

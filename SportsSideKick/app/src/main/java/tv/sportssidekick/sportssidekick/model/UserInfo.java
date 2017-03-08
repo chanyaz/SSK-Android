@@ -7,7 +7,7 @@ import java.util.HashMap;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com eliav
  */
-public class UserInfo extends FirebseObject {
+public class UserInfo {
 
     private String userId;
     private String firstName;

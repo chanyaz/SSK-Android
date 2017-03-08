@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -32,11 +31,6 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.gamesparks.sdk.api.autogen.GSTypes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +39,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 
@@ -81,12 +74,6 @@ public class SignUpFragment extends BaseFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        GSAndroidPlatform.initialise(getActivity(),"S305375qf6um","TNdbKwgWsVgmuzjol25Ps5ayhw69cp0y", null, false, true);
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -108,55 +95,6 @@ public class SignUpFragment extends BaseFragment {
                 onFacebbokClick();
             }
         });
-//        facebookButton.setReadPermissions(facebookPermissions);
-//        facebookButton.setFragment(this);
-//        // Callback registration
-//        facebookButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                GraphRequest request = GraphRequest.newMeRequest(
-//                        loginResult.getAccessToken(),
-//                        new GraphRequest.GraphJSONObjectCallback() {
-//                            @Override
-//                            public void onCompleted(JSONObject object, GraphResponse response) {
-//                                Log.v(TAG, response.toString());
-//                                try {
-//                                    String id = object.getString("id");
-//                                    String name = object.getString("name");
-//                                    String first_name = object.getString("first_name");
-//                                    String last_name = object.getString("last_name");
-//                                    String email = object.getString("email");
-//                                    String friends = object.getString("friends");
-//                                    String birthday = object.getString("birthday");
-//                                    String age_range = object.getString("age_range");
-//                                    String location = object.getString("email");
-//                                    String gender = object.getString("birthday");
-//                                    String imageURL = "http://graph.facebook.com/"+id+"/picture?type=large";
-//                                    //TODO send data to FIREBASE
-//
-//                                    LoginManager.getInstance().logOut();
-//
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        });
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "id, name, first_name, last_name, picture.type(large), email, friends, birthday, age_range, location, gender");
-//                request.setParameters(parameters);
-//                request.executeAsync();
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_message_facebook_error), context);
-//            }
-//
-//            @Override
-//            public void onError(FacebookException exception) {
-//                showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_message_facebook_error), context);
-//            }
-//        });
 
         firstName = (EditText) view.findViewById(R.id.sign_up_firstname);
         lastName = (EditText) view.findViewById(R.id.sign_up_lastname);
@@ -165,7 +103,7 @@ public class SignUpFragment extends BaseFragment {
         phone = (EditText) view.findViewById(R.id.sign_up_phone);
         password = (EditText) view.findViewById(R.id.sign_up_password);
 
-        termsText = (TextView)view.findViewById(R.id.sign_up_terms_text);
+        termsText = (TextView) view.findViewById(R.id.sign_up_terms_text);
         termsText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,8 +129,7 @@ public class SignUpFragment extends BaseFragment {
                 if (isEditTextEmpty(password, getString(R.string.sign_up_passwoed), alertDialog, context))
                     return;
 
-                if (!internetAvailable(context))
-                {
+                if (!internetAvailable(context)) {
                     showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_interner_connection_falied), context);
                     return;
                 }
@@ -202,36 +139,7 @@ public class SignUpFragment extends BaseFragment {
                         lastName.getText().toString(),
                         userName.getText().toString(),
                         phone.getText().toString());
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                if (auth != null) {
-                    auth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    if (user != null) {
-                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                        if (userInfo!= null)
-                                        {
-                                            if (database != null)
-                                            {
-                                                DatabaseReference myRef = database.getReference("usersInfo").child(user.getUid());
-                                                if (myRef!=null)
-                                                {
-                                                    myRef.setValue(userInfo);
-                                                    Intent main = new Intent(getActivity(), LoungeActivity.class);
-                                                    getActivity().startActivity(main);
-                                                }
-                                            }
-                                        }
-                                    }
-                                    if (!task.isSuccessful()) {
-//                                        Toast.makeText(EmailPasswordActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
+                        // TODO Implement in GS!
             }
         });
     }
