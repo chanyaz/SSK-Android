@@ -18,6 +18,7 @@ import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,7 +54,9 @@ import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.LoginFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.SignUpFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
@@ -199,6 +202,8 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(FriendRequestsFragment.class);
         popupContainerFragments.add(StartingNewCallFragment.class);
         popupContainerFragments.add(EditProfileFragment.class);
+        popupContainerFragments.add(LoginFragment.class);
+        popupContainerFragments.add(SignUpFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
 
@@ -225,8 +230,7 @@ public class LoungeActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
         GSAndroidPlatform.gs().stop();
         GSAndroidPlatform.gs().start();
@@ -342,7 +346,7 @@ public class LoungeActivity extends AppCompatActivity {
     }
 
     public void onProfileButtonClick(View view) {
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class)); //FriendRequestsFragment
+        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
     public void onFriendsButtonClick(View view) {

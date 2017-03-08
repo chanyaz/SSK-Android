@@ -49,7 +49,7 @@
     <dimen name="chat_create_chat_button_height">40dp</dimen>
 
     <dimen name="login_logo_height">160dp</dimen>
-    <dimen name="login_conteiner_width">220dp</dimen>
+    <dimen name="login_conteiner_width">350dp</dimen>
     <dimen name="rumours_top_image_heihgt">120dp</dimen>
     <dimen name="sign_up_container_width">280dp</dimen>
     <dimen name="wall_button_size">30dp</dimen>

@@ -25,6 +25,11 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.android.GSAndroidPlatform;
+import com.gamesparks.sdk.api.GSData;
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+import com.gamesparks.sdk.api.autogen.GSTypes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -76,6 +81,12 @@ public class SignUpFragment extends BaseFragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        GSAndroidPlatform.initialise(getActivity(),"S305375qf6um","TNdbKwgWsVgmuzjol25Ps5ayhw69cp0y", null, false, true);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -91,55 +102,61 @@ public class SignUpFragment extends BaseFragment {
                 });
 
         facebookButton = (LoginButton)view.findViewById(R.id.sign_up_facebook);
-        facebookButton.setReadPermissions(facebookPermissions);
-        facebookButton.setFragment(this);
-        // Callback registration
-        facebookButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v(TAG, response.toString());
-                                try {
-                                    String id = object.getString("id");
-                                    String name = object.getString("name");
-                                    String first_name = object.getString("first_name");
-                                    String last_name = object.getString("last_name");
-                                    String email = object.getString("email");
-                                    String friends = object.getString("friends");
-                                    String birthday = object.getString("birthday");
-                                    String age_range = object.getString("age_range");
-                                    String location = object.getString("email");
-                                    String gender = object.getString("birthday");
-                                    String imageURL = "http://graph.facebook.com/"+id+"/picture?type=large";
-                                    //TODO send data to FIREBASE
-
-                                    LoginManager.getInstance().logOut();
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, name, first_name, last_name, picture.type(large), email, friends, birthday, age_range, location, gender");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-                showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_message_facebook_error), context);
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_message_facebook_error), context);
+            public void onClick(View v) {
+                onFacebbokClick();
             }
         });
+//        facebookButton.setReadPermissions(facebookPermissions);
+//        facebookButton.setFragment(this);
+//        // Callback registration
+//        facebookButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                GraphRequest request = GraphRequest.newMeRequest(
+//                        loginResult.getAccessToken(),
+//                        new GraphRequest.GraphJSONObjectCallback() {
+//                            @Override
+//                            public void onCompleted(JSONObject object, GraphResponse response) {
+//                                Log.v(TAG, response.toString());
+//                                try {
+//                                    String id = object.getString("id");
+//                                    String name = object.getString("name");
+//                                    String first_name = object.getString("first_name");
+//                                    String last_name = object.getString("last_name");
+//                                    String email = object.getString("email");
+//                                    String friends = object.getString("friends");
+//                                    String birthday = object.getString("birthday");
+//                                    String age_range = object.getString("age_range");
+//                                    String location = object.getString("email");
+//                                    String gender = object.getString("birthday");
+//                                    String imageURL = "http://graph.facebook.com/"+id+"/picture?type=large";
+//                                    //TODO send data to FIREBASE
+//
+//                                    LoginManager.getInstance().logOut();
+//
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        });
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id, name, first_name, last_name, picture.type(large), email, friends, birthday, age_range, location, gender");
+//                request.setParameters(parameters);
+//                request.executeAsync();
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_message_facebook_error), context);
+//            }
+//
+//            @Override
+//            public void onError(FacebookException exception) {
+//                showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_message_facebook_error), context);
+//            }
+//        });
 
         firstName = (EditText) view.findViewById(R.id.sign_up_firstname);
         lastName = (EditText) view.findViewById(R.id.sign_up_lastname);
@@ -223,5 +240,21 @@ public class SignUpFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void onFacebbokClick()
+    {
+        GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest()
+                .send(new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.AuthenticationResponse response) {
+                        String authToken = response.getAuthToken();
+                        String displayName = response.getDisplayName();
+                        Boolean newPlayer = response.getNewPlayer();
+                        GSData scriptData = response.getScriptData();
+                        GSTypes.Player switchSummary = response.getSwitchSummary();
+                        String userId = response.getUserId();
+                    }
+                });
     }
 }

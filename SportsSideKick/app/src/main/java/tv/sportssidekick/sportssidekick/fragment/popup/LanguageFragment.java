@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +33,7 @@ public class LanguageFragment extends BaseFragment {
     ImageView chineseSelectionView;
     @BindView(R.id.portuguese_background)
     ImageView portugueseSelectionView;
+    String languageToLoad  = "en";
 
     public LanguageFragment() {
         // Required empty public constructor
@@ -52,12 +56,15 @@ public class LanguageFragment extends BaseFragment {
         switch (view.getId()){
             case R.id.english_icon:
                 englishSelectionView.setVisibility(View.VISIBLE);
+                languageToLoad  = "en";
                 break;
             case R.id.portuguese_icon:
                 portugueseSelectionView.setVisibility(View.VISIBLE);
+                languageToLoad  = "pt";
                 break;
             case R.id.chinese_icon:
                 chineseSelectionView.setVisibility(View.VISIBLE);
+                languageToLoad  = "zh";
                 break;
         }
     }
@@ -65,6 +72,11 @@ public class LanguageFragment extends BaseFragment {
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
         EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getActivity().recreate();
     }
 
 }

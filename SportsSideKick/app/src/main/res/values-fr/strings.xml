@@ -1,0 +1,116 @@
+<resources>
+    <!--<string name="friend_requests">Demandes d'ami</string>-->
+    <!--<string name="app_name">SportsSideKick</string>-->
+
+    <!--&lt;!&ndash; Login scree &ndash;&gt;-->
+    <!--<string name="terms_and_conditions">http://www.sortdirectkick.tv/terms</string>-->
+    <!--<string name="login_sign_up">INSCRIPTION</string>-->
+    <!--<string name="login_login">CONNEXION</string>-->
+    <!--<string name="login_slider_text_1">Bringing fans together</string>-->
+    <!--<string name="login_slider_text_2">Coming soon</string>-->
+    <!--<string name="login_login_email">"E-mail</string>-->
+    <!--<string name="login_login_password">MOT DE PASSE</string>-->
+    <!--<string name="login_login_login">CONNEXION</string>-->
+    <!--<string name="login_login_forgot_text">Mot de passe oublié ?</string>-->
+    <!--<string name="login_login_message_login_failed">Échec de la connexion !</string>-->
+    <!--<string name="login_login_message_authentication_failed">Veuillez saisir votre mot de passe à nouveau et réessayer.</string>-->
+    <!--<string name="forgot_password_text">Réinitialiser votre mot de passe</string>-->
+    <!--<string name="forgot_password_button_text">Réinitialiser le mot de passe</string>-->
+    <!--<string name="sign_up_facebook">Inscription avec Facebook</string>-->
+    <!--<string name="sign_up_or">OU</string>-->
+    <!--<string name="sign_up_firstname">Prénom</string>-->
+    <!--<string name="sign_up_lastname">Nom</string>-->
+    <!--<string name="sign_up_username">Nom d'utilisateur</string>-->
+    <!--<string name="sign_up_email">E-mail</string>-->
+    <!--<string name="sign_up_phone">Téléphone</string>-->
+    <!--<string name="sign_up_passwoed">Mot de passe</string>-->
+    <!--<string name="sign_up_sign_up">Inscription</string>-->
+    <!--<string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>-->
+
+    <!--<string name="dialog_ok">Ok</string>-->
+    <!--<string name="dialog_warning">Warning</string>-->
+    <!--<string name="dialog_message">Vous devez saisir votre </string>-->
+    <!--<string name="dialog_message_not_valid_email">Veuillez saisir une adresse e-mail valide.</string>-->
+    <!--<string name="dialog_interner_connection_falied">Vous devez être connecté à Internet pour utiliser Sports Sidekick</string>-->
+    <!--<string name="dialog_message_facebook_error">"Nous n'avons pas reçu votre profil public. Veuillez réessayer !</string>-->
+
+    <!--<string name="wall_fragment_caption">Mur</string>-->
+    <!--<string name="video_chat_fragment_caption">Discussion vidéo</string>-->
+    <!--<string name="news_fragment_caption">Actualités</string>-->
+    <!--<string name="rumors_fragment_caption">Rumeurs</string>-->
+    <!--<string name="shop_fragment_caption">Boutique</string>-->
+
+    <!--<string name="club_radio_caption">Radio du club</string>-->
+    <!--<string name="sporting_cp_title">Sporting CP</string>-->
+    <!--<string name="demo">demo</string>-->
+    <!--<string name="club_tv_caption">Chaîne du club</string>-->
+    <!--<string name="fantasy_caption">Fantasy</string>-->
+    <!--<string name="statistics_caption">Statistiques</string>-->
+    <!--<string name="chat_caption">Messagerie</string>-->
+    <!--<string name="shop_caption">Boutique</string>-->
+    <!--<string name="rumours_caption">Rumeurs</string>-->
+    <!--<string name="video_chat_caption">Discussion vidéo</string>-->
+    <!--<string name="wall_caption">Mur</string>-->
+    <!--<string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>-->
+    <!--<string name="news_caption">Actualités</string>-->
+    <!--<string name="quiz_caption">Quiz</string>-->
+    <!--<string name="coins_caption">VOUS AVEZ</string>-->
+
+    <!--&lt;!&ndash; URLs for store, fantasy, quiz &ndash;&gt;-->
+    <!--<string name="store_url">https://lojaverde.sporting.pt/en</string>-->
+    <!--<string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>-->
+    <!--<string name="quiz_url">https://snack-media.com/sidekick/quiz-list-en.html</string>-->
+    <!--<string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-en.html</string>-->
+    <!--<string name="days">" Jours "</string>-->
+    <!--<string name="no_message_text">Personne n'a encore commencé à discuter ! Souhaitez-vous être le premier ?</string>-->
+    <!--<string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>-->
+    <!--<string name="button_allow">Allow</string>-->
+    <!--<string name="button_deny">Deny</string>-->
+    <!--<string name="permission_microphone_denied">You need to enable micrphone in settings to send audio messages.</string>-->
+    <!--<string name="permission_microphone_neverask">Never ask for audio recording permission again.</string>-->
+
+    <!--<string name="this_chat_is_public">this_chat_is_public</string>-->
+    <!--<string name="this_chat_is_private">this_chat_is_private</string>-->
+    <!--<string name="manage_public_chat_caption">manage_public_chat_caption</string>-->
+    <!--<string name="create_chat">Créer une nouvelle discussion</string>-->
+    <!--<string name="join_chat">Rejoindre une discussion</string>-->
+    <!--<string name="your_stash">VOTRE BUTIN</string>-->
+    <!--<string name="your_wallet">Your Wallet -</string>-->
+    <!--<string name="your_profile">Votre profil</string>-->
+    <!--<string name="contact_info">Coordonnées</string>-->
+    <!--<string name="subscribed_since">Inscrit depuis since</string>-->
+    <!--<string name="location_caption">Lieu</string>-->
+    <!--<string name="password_caption">Mot de passe</string>-->
+    <!--<string name="image">image</string>-->
+    <!--<string name="chosen_language">Langue choisie</string>-->
+    <!--<string name="your_statement">Your Statement</string>-->
+    <!--<string name="choose_your_language">Choisissez votre langue</string>-->
+    <!--<string name="english">English</string>-->
+    <!--<string name="chinese">Chinese</string>-->
+    <!--<string name="portuguese">Portugese</string>-->
+    <!--<string name="friend_profile">Informations sur l'ami</string>-->
+    <!--<string name="member_since">Member since</string>-->
+    <!--<string name="follows_you">Vous suit</string>-->
+    <!--<string name="following_member">Suivre cet ami</string>-->
+
+    <!--&lt;!&ndash; your friends&ndash;&gt;-->
+    <!--<string name="your_friends_title">Vos amis</string>-->
+    <!--<string name="your_friends_search_hint">Chercher vos amis</string>-->
+    <!--<string name="your_friends_request">Demandes d'ami</string>-->
+    <!--<string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>-->
+
+    <!--&lt;!&ndash; video chat &ndash;&gt;-->
+    <!--<string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>-->
+    <!--<string name="video_chat_text_2">Video chat allows you yo call up to 3 friends for group video chat, so you can experience the action with the poeple you love wherever you are!</string>-->
+    <!--<string name="video_chat_button_text">Being your call</string>-->
+    <!--<string name="starting_new_call_search_hint">Chercher dans les discussions publiques</string>-->
+    <!--<string name="starting_new_call_search_title">Démarrage d'un nouvel appel</string>-->
+
+
+    <!--<plurals name="days_until_match">-->
+        <!--<item quantity="zero">AUJOURD'HUI</item>-->
+        <!--<item quantity="one">%d Jour</item>-->
+        <!--<item quantity="other">%d Jours</item>-->
+    <!--</plurals>-->
+
+</resources>

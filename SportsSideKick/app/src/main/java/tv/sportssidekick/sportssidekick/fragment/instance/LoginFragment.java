@@ -110,14 +110,14 @@ public class LoginFragment extends BaseFragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isEditTextEmpty(email, " email", alertDialog, context))
+                if (isEditTextEmpty(email, getResources().getString(R.string.login_login_email), alertDialog, context))
                     return;
                 if (!isValidEmail(email.getText().toString()))
                 {
                     showAlertDialog(getString(R.string.dialog_warning), getString(R.string.dialog_message_not_valid_email), context);
                     return;
                 }
-                if (isEditTextEmpty(password, " password", alertDialog, context))
+                if (isEditTextEmpty(password,  getResources().getString(R.string.login_login_password), alertDialog, context))
                     return;
                 loginButtonChangeLayout(true);
                 signInToFirebase(email.getText().toString(), password.getText().toString());
