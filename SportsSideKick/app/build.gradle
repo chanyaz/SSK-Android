@@ -48,11 +48,6 @@ dependencies {
     compile 'com.android.support:percent:25.2.0'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.google.firebase:firebase-core:10.0.1'
-    compile 'com.google.firebase:firebase-database:10.0.1'
-    compile 'com.google.firebase:firebase-auth:10.0.1'
-    compile 'com.google.firebase:firebase-config:10.0.1'
-    compile 'com.google.firebase:firebase-storage:10.0.1'
     compile 'com.google.http-client:google-http-client-android:1.20.0'
     compile 'com.google.api-client:google-api-client-android:1.20.0'
     compile 'com.google.api-client:google-api-client-gson:1.20.0'

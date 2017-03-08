@@ -13,14 +13,8 @@ package tv.sportssidekick.sportssidekick.model.friendship;
 //--                                                                                     --//
 //-----------------------------------------------------------------------------------------//
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,35 +68,35 @@ public class FriendsManager {
     public Task<List<UserInfo>> getFriends(){
         final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
         UserInfo info = Model.getInstance().getUserInfo();
-        DatabaseReference ref = Model.getInstance().getRef().getReference("friendshipIndex").child(info.getUserId());
-
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                friendsIds = new ArrayList<>();
-                for(DataSnapshot child : dataSnapshot.getChildren()){
-                    String userInfoId = child.getKey();
-                    friendsIds.add(userInfoId);
-                }
-                final List<Task<UserInfo>> tasks = new ArrayList<>();
-                for(String id : friendsIds){
-                    Task<UserInfo> task = Model.getInstance().getUserInfoById(id);
-                    tasks.add(task);
-                }
-                Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        List<UserInfo> userInfoList = new ArrayList<>();
-                        for(Task t : tasks){
-                            userInfoList.add((UserInfo) t.getResult());
-                        }
-                        source.setResult(userInfoList);
-                    }
-                });
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
+        // TODO Rewrite to GS
+//        DatabaseReference ref = Model.getInstance().getRef().getReference("friendshipIndex").child(info.getUserId());
+//        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                friendsIds = new ArrayList<>();
+//                for(DataSnapshot child : dataSnapshot.getChildren()){
+//                    String userInfoId = child.getKey();
+//                    friendsIds.add(userInfoId);
+//                }
+//                final List<Task<UserInfo>> tasks = new ArrayList<>();
+//                for(String id : friendsIds){
+//                    Task<UserInfo> task = Model.getInstance().getUserInfoById(id);
+//                    tasks.add(task);
+//                }
+//                Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        List<UserInfo> userInfoList = new ArrayList<>();
+//                        for(Task t : tasks){
+//                            userInfoList.add((UserInfo) t.getResult());
+//                        }
+//                        source.setResult(userInfoList);
+//                    }
+//                });
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) { }
+//        });
 
         return source.getTask();
     }
@@ -118,13 +112,14 @@ public class FriendsManager {
      */
     public void sendFriendRequest(UserInfo user){
         UserInfo info = Model.getInstance().getUserInfo();
-        Model
-            .getInstance()
-            .getUserInfoRef()
-            .child(user.getUserId())
-            .child("friendshipRequests")
-            .child(info.getUserId())
-            .setValue(true);
+        // TODO Rewrite to GS
+//        Model
+//            .getInstance()
+//            .getUserInfoRef()
+//            .child(user.getUserId())
+//            .child("friendshipRequests")
+//            .child(info.getUserId())
+//            .setValue(true);
     }
 
     /**
@@ -136,13 +131,14 @@ public class FriendsManager {
     public void rejectFriendRequest(UserInfo user){
         // Just remove request
         UserInfo info = Model.getInstance().getUserInfo();
-        Model
-            .getInstance()
-            .getUserInfoRef()
-            .child(info.getUserId())
-            .child("friendshipRequests")
-            .child(user.getUserId())
-            .removeValue();
+        // TODO Rewrite to GS
+//        Model
+//            .getInstance()
+//            .getUserInfoRef()
+//            .child(info.getUserId())
+//            .child("friendshipRequests")
+//            .child(user.getUserId())
+//            .removeValue();
     }
 
 

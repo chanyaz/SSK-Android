@@ -60,8 +60,6 @@ import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
-import tv.sportssidekick.sportssidekick.gs.Auth;
-import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.Ticker;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
@@ -123,7 +121,7 @@ public class LoungeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        Ticker.initializeTicker(Model.getInstance().getDatabase());
+        Ticker.initializeTicker();
 
         yourCoinsContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,7 +258,6 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        Auth.authenticationRequest("user2@user2.com","qwerty");
     }
 
     @Override

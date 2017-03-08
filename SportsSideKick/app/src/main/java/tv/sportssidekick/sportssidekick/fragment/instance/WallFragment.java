@@ -21,7 +21,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
-import tv.sportssidekick.sportssidekick.model.TemporaryModel;
+import tv.sportssidekick.sportssidekick.model.TemporaryWallModel;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
 import tv.sportssidekick.sportssidekick.util.StaggeredLayoutManagerItemDecoration;
@@ -59,7 +59,7 @@ public class WallFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    List<TemporaryModel> fakeModelList;
+    List<TemporaryWallModel> fakeModelList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -94,17 +94,17 @@ public class WallFragment extends BaseFragment {
         fakeModelList = new ArrayList<>();
         for(int i=0;i<50;i++){
             //add video
-            fakeModelList.add(new TemporaryModel(WallAdapter.VIEW_TYPE_POST_IMAGE,0));
+            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_POST_IMAGE,0));
             //add small cell
-            fakeModelList.add(new TemporaryModel(WallAdapter.VIEW_TYPE_SMALL_CELL,0));
-            fakeModelList.add(new TemporaryModel(WallAdapter.VIEW_TYPE_SMALL_CELL,1));
-            fakeModelList.add(new TemporaryModel(WallAdapter.VIEW_TYPE_SMALL_CELL,3));
+            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SMALL_CELL,0));
+            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SMALL_CELL,1));
+            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SMALL_CELL,3));
             //add small cell with progress bar
-            fakeModelList.add(new TemporaryModel(WallAdapter.VIEW_TYPE_SMALL_CELL_WITH_CIRCLE_PROGRESS,0));
+            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SMALL_CELL_WITH_CIRCLE_PROGRESS,0));
             //add shop
-            fakeModelList.add(new TemporaryModel(WallAdapter.VIEW_TYPE_SHOP,0));
+            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SHOP,0));
             //add comment
-            fakeModelList.add(new TemporaryModel(WallAdapter.VIEW_TYPE_COMMENT,0));
+            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_COMMENT,0));
 
         }
         Collections.shuffle(fakeModelList);

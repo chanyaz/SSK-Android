@@ -21,7 +21,6 @@ import tv.sportssidekick.sportssidekick.fragment.instance.ForgotPasswordFramegnt
 import tv.sportssidekick.sportssidekick.fragment.instance.InitialFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.LoginFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.SignUpFragment;
-import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -48,7 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         progressBar.setVisibility(View.VISIBLE);
         EventBus.getDefault().register(this);
-        Model.getInstance().attachAuthStateListener();
+        // TODO REMOVE THIS WHEN CHANGING LOGIN WORKFLOW
+        onEvent(new GameSparksEvent("DEMO",GameSparksEvent.Type.ALL_DATA_ACQUIRED));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onFirebaseEvent(GameSparksEvent event){
+    public void onEvent(GameSparksEvent event){
         switch (event.getEventType()){
             case SIGNED_OUT:
                 progressBar.setVisibility(View.GONE);

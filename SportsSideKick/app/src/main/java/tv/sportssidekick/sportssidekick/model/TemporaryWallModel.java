@@ -7,15 +7,15 @@ package tv.sportssidekick.sportssidekick.model;
  */
 
 //TODO this class will be deleted
-public class TemporaryModel {
+public class TemporaryWallModel {
 
     private int type;
     private int category;
 
-    public TemporaryModel() {
+    public TemporaryWallModel() {
     }
 
-    public TemporaryModel(int type, int category) {
+    public TemporaryWallModel(int type, int category) {
         this.type = type;
         this.category = category;
     }

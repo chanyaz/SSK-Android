@@ -1,13 +1,6 @@
 package tv.sportssidekick.sportssidekick.model.news;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,12 +18,10 @@ public class NewsModel {
     private static NewsModel instance;
 
     private NewsItem.NewsType type;
-    private FirebaseDatabase ref;
     private int itemsPerPage;
     private static final int DEFAULT_PAGE_LENGTH = 25;
     private int page = 0;
     private String language;
-    private DatabaseReference newsRef;
     private String lastPubDate;
     private boolean isLoading;
     private boolean firstPageLoaded;
@@ -45,8 +36,9 @@ public class NewsModel {
     }
 
     private NewsModel(NewsItem.NewsType type, int pageLength) {
-        this.ref = FirebaseDatabase.getInstance();
-        this.newsRef = ref.getReference("news").child("en").child("portugal").child("1680").child(type.toString()); // TODO Adjust for multilanguage support
+        // TODO Rewrite to GS
+//        this.ref = FirebaseDatabase.getInstance();
+//        this.newsRef = ref.getReference("news").child("en").child("portugal").child("1680").child(type.toString());
         this.type = type;
         this.itemsPerPage = pageLength;
         this.language = Locale.getDefault().getDisplayLanguage();
@@ -72,56 +64,59 @@ public class NewsModel {
 
     private void addObservers() {
         String currentTime = String.valueOf(System.currentTimeMillis() / 1000L) + ".000";
-        newsRef.orderByChild("pubDate")
-                .startAt(currentTime)
-                .limitToLast(itemsPerPage + 1)
-                .addChildEventListener(childEventListener);
+        // TODO Rewrite to GS
+//        newsRef.orderByChild("pubDate")
+//                .startAt(currentTime)
+//                .limitToLast(itemsPerPage + 1)
+//                .addChildEventListener(childEventListener);
     }
 
-    ChildEventListener childEventListener = new ChildEventListener() {
-        @Override
-        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-            if (!firstPageLoaded) {
-                return;
-            }
-            ArrayList<NewsItem> newsItems = processSnapshot(dataSnapshot);
-            EventBus.getDefault().post(new NewsPageEvent(newsItems)); //onNewItems
-        }
-
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        }
-
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-        }
-
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-        }
-    };
+    // TODO Rewrite to GS
+//    ChildEventListener childEventListener = new ChildEventListener() {
+//        @Override
+//        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//            if (!firstPageLoaded) {
+//                return;
+//            }
+//            ArrayList<NewsItem> newsItems = processSnapshot(dataSnapshot);
+//            EventBus.getDefault().post(new NewsPageEvent(newsItems)); //onNewItems
+//        }
+//
+//        @Override
+//        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//        }
+//
+//        @Override
+//        public void onChildRemoved(DataSnapshot dataSnapshot) {
+//        }
+//
+//        @Override
+//        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//        }
+//
+//        @Override
+//        public void onCancelled(DatabaseError databaseError) {
+//        }
+//    };
 
     // We get the data back in ascending order, so it we need to reverse sort for the expected behaviour
     // of newest items first, first though, we grab the pubDate
     // to use as a query constraint
-    private ArrayList<NewsItem> processSnapshot(DataSnapshot dataSnapshot) {
+    private ArrayList<NewsItem> processSnapshot(Object data) {
         ArrayList<NewsItem> items = new ArrayList<>();
         boolean isFirst = true;
 
-        for (DataSnapshot child : dataSnapshot.getChildren()) {
-            NewsItem newsItem = child.getValue(NewsItem.class);
-            newsItem.setId(child.getKey());
-            if (isFirst) {
-                isFirst = false;
-                lastPubDate = newsItem.getPubDate();
-            }
-            newsCache.put(newsItem.getId(), newsItem);
-            items.add(newsItem);
-        }
+        // TODO Rewrite to GS
+//        for (DataSnapshot child : dataSnapshot.getChildren()) {
+//            NewsItem newsItem = child.getValue(NewsItem.class);
+//            newsItem.setId(child.getKey());
+//            if (isFirst) {
+//                isFirst = false;
+//                lastPubDate = newsItem.getPubDate();
+//            }
+//            newsCache.put(newsItem.getId(), newsItem);
+//            items.add(newsItem);
+//        }
         if (items.size() > 0) {
             page++;
         }
@@ -141,29 +136,29 @@ public class NewsModel {
     public void loadPage() {
         if (!isLoading) {
             isLoading = true;
-
-            newsRef.orderByChild("pubDate")
-                    .endAt(lastPubDate)
-                    .limitToLast(itemsPerPage + 1)
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (!dataSnapshot.exists()) {
-                                return;
-                            }
-                            ArrayList<NewsItem> newsItems = processSnapshot(dataSnapshot);
-                            EventBus.getDefault().post(new NewsPageEvent(newsItems)); // onPageLoaded
-                            isLoading = false;
-                            if (!firstPageLoaded) {
-                                firstPageLoaded = true;
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+            // TODO Rewrite to GS
+//            newsRef.orderByChild("pubDate")
+//                    .endAt(lastPubDate)
+//                    .limitToLast(itemsPerPage + 1)
+//                    .addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            if (!dataSnapshot.exists()) {
+//                                return;
+//                            }
+//                            ArrayList<NewsItem> newsItems = processSnapshot(dataSnapshot);
+//                            EventBus.getDefault().post(new NewsPageEvent(newsItems)); // onPageLoaded
+//                            isLoading = false;
+//                            if (!firstPageLoaded) {
+//                                firstPageLoaded = true;
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
         } else {
             return;
         }

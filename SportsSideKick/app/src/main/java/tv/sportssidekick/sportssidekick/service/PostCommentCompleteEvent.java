@@ -1,7 +1,5 @@
 package tv.sportssidekick.sportssidekick.service;
 
-import com.google.firebase.database.DatabaseError;
-
 /**
  * Created by Filip on 1/7/2017.
  * Copyright by Hypercube d.o.o.
@@ -10,13 +8,13 @@ import com.google.firebase.database.DatabaseError;
 
 public class PostCommentCompleteEvent extends BusEvent {
 
-    public DatabaseError getError() {
+    public Object getError() {
         return error;
     }
 
-    DatabaseError error;
+    Object error;
 
-    public PostCommentCompleteEvent(DatabaseError error) {
+    public PostCommentCompleteEvent(Object error) {
         super("");
         this.error = error;
     }

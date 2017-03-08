@@ -120,7 +120,7 @@ public class LoginFragment extends BaseFragment {
                 if (isEditTextEmpty(password, " password", alertDialog, context))
                     return;
                 loginButtonChangeLayout(true);
-                signInToFirebase(email.getText().toString(), password.getText().toString());
+                Model.getInstance().login(email.getText().toString(),password.getText().toString());
             }
         });
 
@@ -145,12 +145,6 @@ public class LoginFragment extends BaseFragment {
         }
     }
 
-    private void signInToFirebase(String email, String password) {
-        Model.getInstance().signIn(email,password);
-    }
-
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -171,7 +165,7 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onFirebaseEvent(GameSparksEvent event){
+    public void onEvent(GameSparksEvent event){
         switch (event.getEventType()){
             case LOGIN_FAILED:
                 showAlertDialog(getString(R.string.dialog_warning), getString(R.string.login_login_message_authentication_failed), context);

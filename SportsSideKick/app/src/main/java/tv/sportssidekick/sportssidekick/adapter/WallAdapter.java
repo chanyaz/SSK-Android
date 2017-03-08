@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.model.TemporaryModel;
+import tv.sportssidekick.sportssidekick.model.TemporaryWallModel;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -37,7 +37,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     private static final String TAG = "WallAdapter";
 
-    private List<TemporaryModel> fakeModelList;
+    private List<TemporaryWallModel> fakeModelList;
 
     public static final int VIEW_TYPE_POST_IMAGE = 0;
     public static final int VIEW_TYPE_SMALL_CELL = 1;
@@ -133,7 +133,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    public WallAdapter(Context context, List<TemporaryModel> fakeModelList) {
+    public WallAdapter(Context context, List<TemporaryWallModel> fakeModelList) {
         this.context = context;
         this.fakeModelList = fakeModelList;
     }

@@ -13,7 +13,6 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import tv.sportssidekick.sportssidekick.gs.Analytics;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -30,7 +29,7 @@ public class SSKApplication extends MultiDexApplication {
         super.onCreate();
         initImageLoader(getApplicationContext());
 
-        // Initialize firebase and get all data that we need - TODO will be changed for GS
+        // Initialize model and get all data that we need - TODO will be changed for GS
         Model.getInstance();
 
         // Facebook initialization TODO - update?
@@ -53,7 +52,7 @@ public class SSKApplication extends MultiDexApplication {
         );
 
         SoundEffects.getDefault().initialize(this);
-        Analytics.initialize(this);
+        Model.getInstance().initialize(this);
     }
 
     //region AppImage Loader

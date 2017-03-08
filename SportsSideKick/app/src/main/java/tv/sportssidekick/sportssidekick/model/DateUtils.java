@@ -8,7 +8,7 @@ import java.util.Date;
  * www.hypercubesoft.com
  */
 
-public class FirebaseDateUtils {
+public class DateUtils {
 
     /**
      * @param value custom formatted string representing timestamp
