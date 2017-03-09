@@ -295,12 +295,12 @@ public class WallModel {
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
         tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
 
-        HashMap<String, Boolean> following = uInfo.getFollowing();
-        if(following!=null){
-            for(Map.Entry<String,Boolean> entry : following.entrySet()) {
-                tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate, newDate));
-            }
-        }
+//        HashMap<String, Boolean> following = uInfo.getFollowing();
+//        if(following!=null){
+//            for(Map.Entry<String,Boolean> entry : following.entrySet()) {
+//                tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate, newDate));
+//            }
+//        }
 
         Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
         serviceGroupTask.addOnSuccessListener(

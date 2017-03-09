@@ -150,9 +150,9 @@ public class FriendsManager {
         List<UserInfo> openRequests = new ArrayList<>();
         UserInfo info = Model.getInstance().getUserInfo();
 
-        for(String userId : info.getFriendshipRequests().keySet()){
-            openRequests.add(Model.getInstance().getCachedUserInfoById(userId));
-        }
+//        for(String userId : info.getFriendshipRequests().keySet()){
+//            openRequests.add(Model.getInstance().getCachedUserInfoById(userId));
+//        }
         return  openRequests;
     }
 

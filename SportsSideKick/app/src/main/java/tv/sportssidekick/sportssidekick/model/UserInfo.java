@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gamesparks.sdk.api.autogen.GSTypes;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.List;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com eliav
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfo {
 
    public static enum UserType {

@@ -52,7 +52,7 @@ public class SSKApplication extends MultiDexApplication {
         );
 
         SoundEffects.getDefault().initialize(this);
-        Model.getInstance().initialize(this);
+
     }
 
     //region AppImage Loader

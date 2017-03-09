@@ -2,11 +2,15 @@ package tv.sportssidekick.sportssidekick.model.news;
 
 
 
+import com.gamesparks.sdk.GS;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import tv.sportssidekick.sportssidekick.model.Model;
 
 /**
  * Created by Djordje Krutil on 27.12.2016..
@@ -26,6 +30,7 @@ public class NewsModel {
     private boolean isLoading;
     private boolean firstPageLoaded;
     private Map<String, NewsItem> newsCache;
+    private Model gs;
 
 
     public NewsItem getCachedItemById(String id) {
@@ -37,6 +42,7 @@ public class NewsModel {
 
     private NewsModel(NewsItem.NewsType type, int pageLength) {
         // TODO Rewrite to GS
+        this.gs = Model.getInstance();
 //        this.ref = FirebaseDatabase.getInstance();
 //        this.newsRef = ref.getReference("news").child("en").child("portugal").child("1680").child(type.toString());
         this.type = type;

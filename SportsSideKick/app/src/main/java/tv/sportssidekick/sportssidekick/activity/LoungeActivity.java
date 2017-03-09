@@ -18,7 +18,6 @@ import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,7 +62,9 @@ import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
-import tv.sportssidekick.sportssidekick.model.Ticker;
+import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
+import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -123,8 +124,7 @@ public class LoungeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
 
-
-        Ticker.initializeTicker();
+        Model.getInstance().initialize(this);
 
         yourCoinsContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,6 +262,7 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        NextMatchModel.getInstance().getNextMatchInfo();
     }
 
     @Override
@@ -296,25 +297,25 @@ public class LoungeActivity extends AppCompatActivity {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onTickerUpdate(Ticker ticker){
-        newsLabel.setText(ticker.getNews().get(0));
-        long timestamp = Long.parseLong(ticker.getMatchDate());
+    @Subscribe
+    public void onTickerUpdate(NewsTickerInfo newsTickerInfo){
+        newsLabel.setText(newsTickerInfo.getNews().get(0));
+        long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
         timeOfMatch.setText(Utility.getDate(timestamp));
         long getDaysUntilMatch = Utility.getDaysUntilMatch(timestamp);
         Resources res = getResources();
         String daysValue = res.getQuantityString(R.plurals.days_until_match, (int)getDaysUntilMatch, (int)getDaysUntilMatch);
         daysUntilMatchLabel.setText(daysValue);
-        captionLabel.setText(ticker.getTitle());
-        ImageLoader.getInstance().displayImage(ticker.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
-        ImageLoader.getInstance().displayImage(ticker.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
-        startNewsTimer(ticker);
+        captionLabel.setText(newsTickerInfo.getTitle());
+        ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
+        ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
+        startNewsTimer(newsTickerInfo);
     }
 
 
     Timer newsTimer;
     int count;
-    private void startNewsTimer(final Ticker ticker){
+    private void startNewsTimer(final NewsTickerInfo newsTickerInfo){
         count = 0;
         if(newsTimer!=null){
             newsTimer.cancel();
@@ -326,8 +327,8 @@ public class LoungeActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        newsLabel.setText(ticker.getNews().get(count));
-                        if(++count == ticker.getNews().size()){
+                        newsLabel.setText(newsTickerInfo.getNews().get(count));
+                        if(++count == newsTickerInfo.getNews().size()){
                             count = 0;
                         }
                     }
