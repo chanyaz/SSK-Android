@@ -1,6 +1,9 @@
 package tv.sportssidekick.sportssidekick.model;
 
-import java.util.HashMap;
+import com.gamesparks.sdk.api.autogen.GSTypes;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Djordje Krutil on 6.12.2016.
@@ -9,21 +12,84 @@ import java.util.HashMap;
  */
 public class UserInfo {
 
+   public static enum UserType {
+        fan, player, special
+    }
+
+    private UserType userType = UserType.fan;
+
     private String userId;
+    private String email;
+    private String nicName;
+    private String language;
+    private String phone;
     private String firstName;
     private String lastName;
-    private String nicName;
-    private String phone;
+    private Date subscribedDate;
+    private String location;
+    private String authToken;
+
     private String avatarUrl;
     private String circularAvatarUrl;
-    private String language;
+
     private String fantasyUUID;
     private String fantasyToken;
-    private HashMap<String, Boolean> following;
-    private HashMap<String, Boolean> followers;
-    private HashMap<String, Boolean> tokens;
-    private HashMap<String, Long> friendshipRequests;
+
     private boolean isOnline;
+    private Model.UserState userState;
+
+    //TODO Hook up with GS
+    private int wallPosts=0;
+    private int comments=0;
+    private int likes=0;
+    private int videosWatched=0;
+    private int chats=0;
+    private int videoChats=0;
+    private int publicChats=0;
+    private int matchesHome=0;
+    private int matchesAway=0;
+
+    private int capsValue=0;
+    private int currency=0;
+    private int level=20;
+    private float progress=0.65f;
+    private int wallPins= 11;
+    private int friendsCount = 11;
+    // --
+
+    // read only
+    private boolean aFriend;
+    private boolean isFriendPendingRequest;
+    private boolean followsMe;
+    private boolean iFollowHim;
+    private int followingCount = 0; //read only
+    private int followersCount = 0; //read only
+
+    List<String> messagingTokens;
+
+    public void setUserState(Model.UserState newState){
+        this.userState = newState;
+    }
+
+    public Model.UserState getUserState(){
+        if(isOnline){
+            if(userState!=null){
+                return userState;
+            } else {
+                return Model.UserState.online;
+            }
+        } else {
+            return Model.UserState.offline;
+        }
+    }
+
+    public String getLocationAsString(GSTypes.Location location){
+        String result = "";
+        if(location!=null){
+            result += location.getCountry();
+        }
+        return result;
+    }
 
     public void setEqualsTo(UserInfo userInfo) {
         setUserId(userInfo.getUserId());
@@ -37,10 +103,46 @@ public class UserInfo {
         setFantasyUUID(userInfo.getFantasyUUID());
         setFantasyToken(userInfo.getFantasyToken());
         setOnline(userInfo.getIsOnline());
-        setFriendshipRequests(userInfo.getFriendshipRequests());
-        setFollowing(userInfo.getFollowing());
-        setTokens(userInfo.getTokens());
-        setFollowers(userInfo.getFollowers());
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getSubscribedDate() {
+        return subscribedDate;
+    }
+
+    public void setSubscribedDate(Date subscribedDate) {
+        this.subscribedDate = subscribedDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 
     public String getUserId() {
@@ -141,39 +243,12 @@ public class UserInfo {
         this.fantasyUUID = fantasyUUID;
     }
 
-    public HashMap<String, Long> getFriendshipRequests() {
-        return friendshipRequests;
+    public List<String> getMessagingTokens() {
+        return messagingTokens;
     }
 
-    public void setFriendshipRequests(HashMap<String, Long> friendshipRequests) {
-        this.friendshipRequests = friendshipRequests;
-    }
-
-    public HashMap<String, Boolean> getFollowing() {
-        return following;
-    }
-
-    public UserInfo setFollowing(HashMap<String, Boolean> following) {
-        this.following = following;
-        return this;
-    }
-
-    public HashMap<String, Boolean> getFollowers() {
-        return followers;
-    }
-
-    public UserInfo setFollowers(HashMap<String, Boolean> followers) {
-        this.followers = followers;
-        return this;
-    }
-
-    public HashMap<String, Boolean> getTokens() {
-        return tokens;
-    }
-
-    public UserInfo setTokens(HashMap<String, Boolean> tokens) {
-        this.tokens = tokens;
-        return this;
+    public void setMessagingTokens(List<String> messagingTokens) {
+        this.messagingTokens = messagingTokens;
     }
 
     @Override
@@ -203,13 +278,7 @@ public class UserInfo {
             return false;
         if (fantasyToken != null ? !fantasyToken.equals(userInfo.fantasyToken) : userInfo.fantasyToken != null)
             return false;
-        if (following != null ? !following.equals(userInfo.following) : userInfo.following != null)
-            return false;
-        if (followers != null ? !followers.equals(userInfo.followers) : userInfo.followers != null)
-            return false;
-        if (tokens != null ? !tokens.equals(userInfo.tokens) : userInfo.tokens != null)
-            return false;
-        return friendshipRequests != null ? friendshipRequests.equals(userInfo.friendshipRequests) : userInfo.friendshipRequests == null;
+        return true;
     }
 
     @Override
@@ -224,10 +293,6 @@ public class UserInfo {
         result = 31 * result + (language != null ? language.hashCode() : 0);
         result = 31 * result + (fantasyUUID != null ? fantasyUUID.hashCode() : 0);
         result = 31 * result + (fantasyToken != null ? fantasyToken.hashCode() : 0);
-        result = 31 * result + (following != null ? following.hashCode() : 0);
-        result = 31 * result + (followers != null ? followers.hashCode() : 0);
-        result = 31 * result + (tokens != null ? tokens.hashCode() : 0);
-        result = 31 * result + (friendshipRequests != null ? friendshipRequests.hashCode() : 0);
         result = 31 * result + (isOnline ? 1 : 0);
         return result;
     }

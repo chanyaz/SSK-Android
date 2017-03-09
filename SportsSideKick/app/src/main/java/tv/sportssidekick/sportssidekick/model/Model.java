@@ -5,8 +5,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -30,22 +32,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.gs.AnalyticConstants;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.NONE;
+import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.REAL;
 
 public class Model {
 
     private static final String TAG = "MODEL";
     private final ObjectMapper mapper; // jackson's object mapper
 
-    public enum LoggedInUserType {
+    enum LoggedInUserType {
         NONE, ANONYMOUS, REAL
     }
 
-    public enum UserState {
+    enum UserState {
         online,
         away,
         busy,
@@ -67,7 +71,26 @@ public class Model {
         return currentUserInfo;
     }
 
+    public LoggedInUserType getLoggedInUserType() {
+        return loggedInUserType;
+    }
+
     private LoggedInUserType loggedInUserType = NONE;
+
+    public void setLoggedInUserType(LoggedInUserType type){
+        loggedInUserType = type;
+        switch (type){
+            case NONE:
+//              UserEvents.onLogout.emit()  Event-TBA
+                break;
+            case ANONYMOUS:
+//              UserEvents.onLoginAnonymously.emit() Event-TBA
+                registerForPushNotifications();
+                break;
+            case REAL:
+                break;
+        }
+    }
 
     private HashMap<String, UserInfo> userCache;
 
@@ -76,32 +99,37 @@ public class Model {
         mapper  = new ObjectMapper();
     }
 
+    private String deviceToken; // TODO Not sure how this works!
 
-    public static void registerForPushNotifications(String pushId){
+    public void registerForPushNotifications(){
 //        String authorizedEntity = PROJECT_ID; // Project id from Google Developer Console
 //        String scope = "GCM"; // e.g. communicating using GCM, but you can use any
 //        // URL-safe characters up to a maximum of 1000, or
 //        // you can also leave it blank.
 //        String token = InstanceID.getInstance(context).getToken(authorizedEntity,scope);
+        deviceToken = ""; // TODO How to initialize?
 
         Log.d(TAG, "Registering for push notifications");
         GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
-                .setDeviceOS("android")
-                .setPushId(pushId)
-                .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
-                    @Override
-                    public void onEvent(GSResponseBuilder.PushRegistrationResponse pushRegistrationResponse) {
-                        String registrationId = pushRegistrationResponse.getRegistrationId();
-                        Log.d(TAG, "Registration id is:" + registrationId);
-                        GSData scriptData = pushRegistrationResponse.getScriptData();
-                    }
-                });
+            .setDeviceOS("android")
+            .setPushId(deviceToken)
+            .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
+                @Override
+                public void onEvent(GSResponseBuilder.PushRegistrationResponse pushRegistrationResponse) {
+                    String registrationId = pushRegistrationResponse.getRegistrationId();
+                    Log.d(TAG, "Registration id is:" + registrationId);
+                    GSData scriptData = pushRegistrationResponse.getScriptData();
+                }
+            });
     }
 
+    String androidId;
 
     public void initialize(Context context){
-        GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, false, true);
 
+        androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, false, true);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
             public void onEvent(Boolean available) {
@@ -113,34 +141,48 @@ public class Model {
                 }
             }
         });
-        GSAndroidPlatform.gs().setOnAuthenticated(onAuthenticatedConsumer);
-
-        // TODO WHATS THIS FOR???
-//        self.gs.setMessageListener(self.onMessage)
-
+        GSAndroidPlatform.gs().setOnAuthenticated( new GSEventConsumer<String>() {
+            @Override
+            public void onEvent(String response) {
+                if(response != null) {
+                    if (response.contains("error")) { // TODO How to check if there is an error when response is of type String?
+//                    UserEvents.onLoginError.emit(nil); Event-TBA
+                    } else {
+                        getAccountDetails(completeLogin);
+                    }
+                }
+            }
+        });
+//      self.gs.setMessageListener(self.onMessage) // TODO Investigate and implement
     }
 
-    GSEventConsumer<GSResponseBuilder.AuthenticationResponse> onAuthenticated = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
+    private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> onAuthenticated = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
         @Override
         public void onEvent(GSResponseBuilder.AuthenticationResponse authenticationResponse) {
-            //TODO
-        }
-    };
-
-    GSEventConsumer<String> onAuthenticatedConsumer = new GSEventConsumer<String>() {
-        @Override
-        public void onEvent(String response) {
-            if(response != null) {
-                if (hasErrors(response)) {
-//                    UserEvents.onLoginError.emit(nil); TODO Throw Login error!
+            if(authenticationResponse != null) {
+                if (authenticationResponse.hasErrors()) {
+//                    UserEvents.onLoginError.emit(nil); Event-TBA
                 } else {
-//                   getAccountDetails(completion: self.completeLogin); TODO call getAccountDetails ?
+                   getAccountDetails(completeLogin);
                 }
             }
         }
     };
 
-    private void getAccountDetails(GSEventConsumer completion) {
+    private GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completeLogin = new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
+        @Override
+        public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
+            if(response != null) {
+                if (!response.hasErrors()) {
+                    setUser(response);
+                    String dn = response.getDisplayName();
+                    loggedInUserType = dn !=null && "".equals(dn) && " ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS;
+                }
+            }
+        }
+    };
+
+    private void getAccountDetails(GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completion) {
        GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createAccountDetailsRequest();
         if(completion!=null){
             request.send(completion);
@@ -158,14 +200,14 @@ public class Model {
      private void onAccountDetails(GSResponseBuilder.AccountDetailsResponse response){
         if(response != null) {
             if (response.hasErrors()) {
-               // UserEvents.onDetailsUpdateError.emit(nil) TODO Throw Details Update error!
+               // UserEvents.onDetailsUpdateError.emit(nil) Event-TBA
             } else {
-               // self.setUser(response: response)
+              setUser(response);
             }
         }
     }
 
-    public static void registrationRequest(String displayName, String password, String userName){
+    public void registrationRequest(String displayName, String password, String userName){
         GSAndroidPlatform.gs().getRequestBuilder().createRegistrationRequest()
                 .setDisplayName(displayName)
                 .setPassword(password)
@@ -173,26 +215,23 @@ public class Model {
                 .send(new GSEventConsumer<GSResponseBuilder.RegistrationResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.RegistrationResponse response) {
-                        // TODO Implement!
-//                        if response != nil {
-//                            if self.hasErrored(response: response!) {
-//                                UserEvents.onRegisterError.emit(nil)
-//                                return
-//                            }
-//
-//                            UserEvents.onRegister.emit()
-//
-//                            self.getAccountDetails() {
-//                                response in
-//
-//                                if self.hasErrored(response: response!) {
-//                                    return
-//                                }
-//
-//                                self.setUser(response: response)
-//                                self.loggedInUserType = .real
-//                            }
-//                        }
+
+                        if(response!=null){
+                            if(response.hasErrors()){
+//                                UserEvents.onRegisterError.emit(nil) Event-TBA
+                            } else {
+//                                UserEvents.onRegister.emit() Event-TBA
+                                getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
+                                    @Override
+                                    public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
+                                        if(!response.hasErrors()){
+                                            setUser(response);
+                                            loggedInUserType = REAL;
+                                        }
+                                    }
+                                });
+                            }
+                        }
                     }
                 });
     }
@@ -200,10 +239,10 @@ public class Model {
 
     public void login() {
         GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
-        request.setDeviceId("id"); // TODO Fill with proper info!
-        request.setDeviceModel("model");
-        request.setDeviceName("device name");
-        request.setDeviceOS("Android");
+        request.setDeviceId(androidId);
+        request.setDeviceModel(Build.MANUFACTURER);
+        request.setDeviceName(Build.MODEL);
+        request.setDeviceOS("ANDROID");
         request.send(onAuthenticated);
     }
 
@@ -240,16 +279,20 @@ public class Model {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if(response!=null){
                     if(response.hasErrors()){
-//                        UserEvents.onPasswordResetRequestError.emit(nil) TODO Throw Reset Request Error error!
+//                        UserEvents.onPasswordResetRequestError.emit(nil) Event-TBA
                     } else {
-//                        UserEvents.onPasswordResetRequest.emit() TODO Throw Reset Request Error event!
+//                        UserEvents.onPasswordResetRequest.emit() Event-TBA
                     }
                 }
             }
         });
     }
 
-    public void getOfficialAccounts(int offset){
+    /**
+     * RETURN ALL THE OFFICIAL USER ACCOUNTS! (PLAYERS and SPECIALS)
+     */
+    public Task<List<UserInfo>> getOfficialAccounts(int offset){
+        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersGetSpecialUsers");
         request.setEventAttribute("offset", offset);
@@ -261,46 +304,71 @@ public class Model {
                 if (!response.hasErrors()) {
                     // Parse response
                     Object object = response.getScriptData().getBaseData().get("usersInfo");
-                    List<UserInfo> chats = mapper.convertValue(object, new TypeReference<List<UserInfo>>(){});
-                    //TODO Emit Chats or return trough task?
+                    List<UserInfo> officialAccounts = mapper.convertValue(object, new TypeReference<List<UserInfo>>(){});
+                    source.setResult(officialAccounts);
                 }
             }
         });
+        return source.getTask();
     }
 
     public void setEmail(String email){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        // TODO Implement update of user details
+        request.setUserName(email);
+        request.send(onDetailsUpdated);
     }
 
     public void setPassword(String password, String oldPassword){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        // TODO Implement update of user details
+        request.setNewPassword(password);
+        request.setOldPassword(oldPassword);
+        request.send(onDetailsUpdated);
     }
 
     public void setLanguage(String language){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        // TODO Implement update of user details
+        request.setLanguage(language);
+        request.send(onDetailsUpdated);
     }
 
     public void setDisplayName(String displayName){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        // TODO Implement update of user details
+        request.setDisplayName(displayName);
+        request.send(onDetailsUpdated);
     }
 
     public void setUserState(UserState state){
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        // TODO Implement update of user details
+        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
+        request.setEventKey("setUserState");
+        request.setEventAttribute("state", state.toString());
+        request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                setState(response);
+            }
+        });
+
     }
 
     public void setProfileImageUrl(String profileImageUrl, boolean isCircular){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        // TODO Implement update of user details
+        String key = isCircular ? "circularAvatarUrl" : "avatarUrl";
+        request.getBaseData().put(key,profileImageUrl);
+        request.send(onDetailsUpdated);
     }
 
-    public void setDetails(){
+    public void setDetails(Map<String,String> details){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        // TODO Implement update of user details
+        if(!details.get("email").equals(currentUserInfo.getEmail())){
+            request.setUserName(details.get("email"));
+        }
+        if(!details.get("nicname").equals(currentUserInfo.getNicName())){
+            request.setUserName(details.get("nicname"));
+        }
+        request.getBaseData().put("firstName",details.get("firstName"));
+        request.getBaseData().put("lastName",details.get("lastName"));
+        request.getBaseData().put("phone",details.get("phone"));
+        request.send(onDetailsUpdated);
     }
 
     private void setUser(GSResponseBuilder.AccountDetailsResponse response) {
@@ -309,16 +377,27 @@ public class Model {
            Log.d(TAG,"GSModel.setUser() -> Couldn't retrieve User ID! Aborting!!");
             return;
         }
-        UserInfo userInfo = mapper.convertValue(response.getScriptData(), UserInfo.class);
-        this.currentUserInfo = userInfo;
-//        UserEvents.onDetailsUpdated.emit(self.currentUserInfo!)  TODO Throw Details Update error!
+        this.currentUserInfo = mapper.convertValue(response.getScriptData(), UserInfo.class);
+//        UserEvents.onDetailsUpdated.emit(self.currentUserInfo!)  Event-TBA
     }
 
+    private GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> onDetailsUpdated = new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
+        @Override
+        public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse response) {
+            if(response!=null){
+                if(response.hasErrors()){
+//                    UserEvents.onDetailsUpdateError.emit(nil)  Event-TBA
+                } else {
+                    getAccountDetails(null);
+                }
+            }
+        }
+    };
 
     private void setState(GSResponseBuilder.LogEventResponse response) {
         if(response != null){
             if(response.hasErrors()) {
-                // UserEvents.onStateUpdateError.emit(nil)  TODO Throw State Update error!
+                // UserEvents.onStateUpdateError.emit(nil)  Event-TBA
                 return;
             }
             if(response.getScriptData()==null){
@@ -326,7 +405,7 @@ public class Model {
                 return;
             }
             if(response.getScriptData().getBaseData()==null){
-                Log.d(TAG,"GSModel.setState() -> No state data returned");
+                Log.d(TAG,"GSModel.setState() -> No base data returned");
                 return;
             }
             String state = (String) response.getScriptData().getBaseData().get("state");
@@ -334,8 +413,8 @@ public class Model {
                 Log.d(TAG,"GSModel.setState() -> No state data returned");
                 return;
             }
-           // currentUserInfo.setState(state); Add state to UserInfo and update it here!
-           // UserEvents.onStateUpdated.emit(state)  TODO Throw State Update event!
+           currentUserInfo.setUserState(UserState.valueOf(state));
+           // UserEvents.onStateUpdated.emit(state)  Event-TBA
         }
     }
 
@@ -343,41 +422,10 @@ public class Model {
         currentUserInfo = null;
     }
 
-    // WTF ?!?
-    private boolean hasErrors(String response){
-//            if let _:[AnyHashable:Any] = response.getErrors() {
-//                return true
-//            }
-        return false;
-    }
-
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
     /** --- --- --- --- --- --- --- -     USERS         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
-    private Task<List<UserInfo>> getAllUsersInfo(){
-        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
-        //TODO Rewrite to GS
-//        userInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                List<UserInfo> usersInfo = new ArrayList<>();
-//                for(DataSnapshot child : dataSnapshot.getChildren()){
-//                    UserInfo userInfo = child.getValue(UserInfo.class);
-//                    UserInfo cachedInfo = getCachedUserInfoById(userInfo.getUserId());
-//                    if(cachedInfo!=null){
-//                        cachedInfo.setEqualsTo(userInfo);
-//                    } else {
-//                        userCache.put(userInfo.getUserId(),userInfo);
-//                    }
-//                    usersInfo.add(cachedInfo);
-//                }
-//                source.setResult(usersInfo);
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-        return source.getTask();
-    }
+
 
 
 
@@ -397,62 +445,23 @@ public class Model {
             source.setResult(info);
             return source.getTask();
         } else {
-            //TODO Rewrite to GS
-//            userInfoRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    UserInfo info = parseAndCacheUserInfo(dataSnapshot);
-//                    source.setResult(info);
-//                }
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                    source.setException(new Exception("Database Error"));
-//                }
-//            });
-            return source.getTask();
+            return refreshUserInfo(userId);
         }
     }
 
-    private UserInfo parseAndCacheUserInfo(Object data) {
-        //TODO Rewrite to GS
-//        UserInfo info = dataSnapshot.getValue(UserInfo.class);
-//        info.setUserId(dataSnapshot.getKey());
-//        UserInfo cachedInfo = getCachedUserInfoById(info.getUserId());
-//        if (cachedInfo != null) {
-//            cachedInfo.setEqualsTo(info);
-//        } else {
-//            userCache.put(info.getUserId(), info);
-//        }
-//        return info;
-        return null;
-    }
-
-    /**
-     * this func return the userInfo related to the given user ID, it first
-     * tryes to retrieve the info from cache if not found it will be fetched from DB
-     * so the notification my be fired before this call returns.
-     *
-     * @param  userId of User to receive the userInfo
-     * @return Task<UserInfo> task that will be run on complete
-     **/
-    public Task<UserInfo> fetchOnceUserInfoById(String userId) {
+    private Task<UserInfo> refreshUserInfo(String userId){
         final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
-        UserInfo info = getCachedUserInfoById(userId);
-        if(info!=null){
-            source.setResult(info);
-            return source.getTask();
-        } else {
-            //TODO Rewrite to GS
-//            userInfoRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    UserInfo info = parseAndCacheUserInfo(dataSnapshot);
-//                    source.setResult(info);
-//                }
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {  }
-//            });
-        }
+        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
+        request.setEventKey("getUserInfoById");
+        request.setEventAttribute("userId", userId);
+        request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                UserInfo userInfo = mapper.convertValue(response.getScriptData(), UserInfo.class);
+                userCache.put(userInfo.getUserId(), userInfo);
+                source.setResult(userInfo);
+            }
+        });
         return source.getTask();
     }
 
