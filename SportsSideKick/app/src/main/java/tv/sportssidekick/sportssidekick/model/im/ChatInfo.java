@@ -150,7 +150,7 @@ public class ChatInfo {
                 @Override
                 public void onSuccess(Object o) {
                     Log.e(TAG, "ALL USERS DOWNLOADED!");
-                    //! TODO Notify about update - Emit event ?
+                    //! TBA Event! Notify about update - Emit event ?
                     for(Task t : tasks){
                         UserInfo info = (UserInfo) t.getResult();
                         Log.e(TAG, "USER ID : " + info.getUserId());
@@ -172,7 +172,7 @@ public class ChatInfo {
     void loadMessages(){
         messages = new ArrayList<>();
         // Observer pattern here? TODO Implement like in iOS
-        ImModel.getInstance().imsSetMessageObserverForChat(this);
+        ImsManager.getInstance().imsSetMessageObserverForChat(this);
     }
 
     @Subscribe
@@ -224,7 +224,7 @@ public class ChatInfo {
     @Subscribe
     public void onNewMessagesEvent(NewMessagesEvent event){
         messages.addAll(event.getValues());
-        // TODO  notifyChatUpdate
+        // TBA Event!  notifyChatUpdate
     }
 
     @Subscribe
@@ -232,7 +232,7 @@ public class ChatInfo {
         for(ImsMessage message : messages){
             if(message.getId().equals(changedMessage.getId())){
                 message = changedMessage;
-                // TODO notifyChatUpdate
+                // TBA Event! notifyChatUpdate
             }
         }
     }
@@ -240,8 +240,8 @@ public class ChatInfo {
     /**
      * Load Message history, this func load the previusly archived messages in this chat
      */
-    public void loadPreviouseMessagesPage(){
-        ImModel.getInstance().loadNextPageOfMessages(this);
+    public void loadPreviousMessagesPage(){
+        ImsManager.getInstance().loadNextPageOfMessages(this);
     }
 
 
@@ -251,7 +251,7 @@ public class ChatInfo {
      * @param  message to send
      */
     public void sendMessage(ImsMessage message){
-           ImModel.getInstance().imsSendMessageToChat(this, message);
+           ImsManager.getInstance().imsSendMessageToChat(this, message);
     }
 
     /**
@@ -278,7 +278,7 @@ public class ChatInfo {
      * @param  message to update
      */
     public void markMessageAsRead(ImsMessage message){
-        ImModel.getInstance().markMessageAsRead(this, message);
+        ImsManager.getInstance().markMessageAsRead(this, message);
     }
 
 
@@ -287,31 +287,29 @@ public class ChatInfo {
             getUsersIds().add(uinfo.getUserId());
             updateChatInfo();
         }else{
-            // ("*** Error - cant add user to a chat that you are not the owner of!")
+            Log.e(TAG,"Error - cant add user to a chat that you are not the owner of!");
         }
     }
 
     public void addUserIfChatIsGlobal(UserInfo uinfo){
-        //TODO Implement this
-//        GSImsManager.instance.getGlobalChats { (chatsInfo) in
-//            if (chatsInfo != nil){
-//                for chatInfo in chatsInfo!{
-//                if chatInfo.chatId == self.chatId {
-//                    if chatInfo.usersIds.contains(uinfo.userId) {
-//                        print("ERROR - User already added to Global chat")
-//                    }else{
-//                        self.loadChatUsers {
-//                            self.usersIds.append(uinfo.userId)
-//                            self.chatUsers!.append(uinfo)
-//                            self.updateChatInfo()
-//                        }
-//                    }
-//                }else{
-//                    print("ERROR - Trying ot add user to not Global chat")
-//                }
-//                }
-//            }
-//        }
+        Task<List<ChatInfo>> task = ImsManager.getInstance().getGlobalChats();
+        task.addOnSuccessListener(new OnSuccessListener<List<ChatInfo>>() {
+            @Override
+            public void onSuccess(List<ChatInfo> chatInfos) {
+                for(ChatInfo chatInfo : chatInfos){
+                    if(chatInfo.getChatId().equals(chatId)){
+                        if(chatInfo.getUsersIds().contains(currentUserId)){
+                            Log.e(TAG,"ERROR - User already added to Global chat");
+                        } else {
+                            loadChatUsers();
+                            updateChatInfo();
+                        }
+                    } else {
+                        Log.e(TAG,"ERROR - Trying to add user to not-global chat");
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -319,7 +317,7 @@ public class ChatInfo {
      * function to update users!
      **/
     public void updateChatInfo(){
-        ImModel.getInstance().updateChat(this);
+        ImsManager.getInstance().updateChat(this);
     }
 
     /**
@@ -328,13 +326,9 @@ public class ChatInfo {
      **/
     public void deleteChat(){
         if (owner.equals(currentUserId)){
-            for(String uid : getUsersIds()) {
-              //  ImModel.getInstance().deleteUserFromChat(this,uid);
-            }
-            ImModel.getInstance().deleteChat(this);
+            ImsManager.getInstance().deleteChat(this);
         }else{ // if im not the owner I remove myself from the chat
-            ImModel.getInstance().removeChatInfoWithId(getChatId());
-            //ImModel.getInstance().deleteUserFromChat(this,currentUserId);
+            ImsManager.getInstance().leaveChat(this);
         }
         messages.clear();
         EventBus.getDefault().post(new GameSparksEvent("Chat Deleted and processed.", GameSparksEvent.Type.CHAT_DELETED_PROCESSED, getChatId()));
@@ -344,7 +338,6 @@ public class ChatInfo {
      * This user was removed from this chat by the chat owner
      **/
     public void wasRemovedByOwner(){
-        //TODO
         if(messages!=null){
             messages.clear();
             EventBus.getDefault().post(new GameSparksEvent("This user was removed from this chat by the chat owner.", GameSparksEvent.Type.CHAT_REMOVED_PROCESSED, getChatId()));
@@ -365,7 +358,6 @@ public class ChatInfo {
                 }
             }
             if(shouldRemove){
-               // ImModel.getInstance().deleteUserFromChat(this,uid);
                 updateChatInfo();
             }
         }
@@ -376,7 +368,7 @@ public class ChatInfo {
      **/
     public void joinChat(){
         if(isPublic && !isUserBlockedFromThisChat(currentUserId)){
-            ImModel.getInstance().joinChat(this);
+            ImsManager.getInstance().joinChat(this);
         }
     }
 
@@ -399,29 +391,26 @@ public class ChatInfo {
     // set the state of typing of this user - should be switch on when starting to type and off after pressing send
     // use the notifyUserIsTyping to get the list of users that are currently typing
     public void setUserIsTyping(boolean val){
-        ImModel.getInstance().setUserIsTypingValue(val, getChatId());
+        ImsManager.getInstance().setUserIsTypingValue(val, getChatId());
     }
 
     private List<UserInfo> usersTypingInfo = new ArrayList<>();
-    public void updateUserIsTyping(String userId, boolean isTypingValue){
-        //TODO Implement this
-//        if isTypingValue{
-//            if let uinfo = GSModel.instance.getCachedUserInfoById(userId){
-//                usersTypingInfo.append(uinfo)
-//            }else{
-//                GSModel.instance.getUserInfoById(userId, callback: { (user) in
-//                    // cache his data for the next time...
-//                })
-//            }
-//        }else{
-//            for (index, element) in usersTypingInfo.enumerated() {
-//                if element.userId == userId {
-//                    usersTypingInfo.remove(at: index)
-//                    break;
-//                }
-//            }
-//        }
-//        notifyUserIsTyping.emit(usersTypingInfo)
+    void updateUserIsTyping(String userId, boolean isTypingValue){
+        if(isTypingValue){
+            UserInfo info = Model.getInstance().getCachedUserInfoById(userId);
+            if(info!=null){
+                usersTypingInfo.add(info);
+            } else {
+                Model.getInstance().getUserInfoById(userId);
+            }
+        } else {
+            for(UserInfo info : new ArrayList<>(usersTypingInfo)){
+                if(info.getUserId().equals(userId)){
+                    usersTypingInfo.remove(info);
+                }
+            }
+        }
+//        notifyUserIsTyping.emit(usersTypingInfo) TBA Event!
     }
 
     /**
@@ -432,10 +421,11 @@ public class ChatInfo {
      */
     public void blockUserFromJoinningThisChat(String userId){
         if(isPublic && owner.equals(currentUserId)){
-            //first remove this user from this chat if he is a member
-            removeUserFromChat(userId);
-            //add the user to the black list
-            ImModel.getInstance().blockUserFromJoiningChat(this, userId);
+            if(!blackList.contains(userId)){
+               blackList.add(userId);
+            }
+            usersIds.remove(userId);
+            updateChatInfo();
         }
     }
 
@@ -447,9 +437,9 @@ public class ChatInfo {
      */
     public void unblockUserInThisChat(String userId){
         if(isPublic && owner.equals(currentUserId)){
-            //check if the user is actully blocked then unblock
+            //check if the user is actually blocked then unblock
             if (isUserBlockedFromThisChat(userId)){
-                ImModel.getInstance().unblockUserInThisChat(this, userId);
+                updateChatInfo();
             }
         }
     }
@@ -461,7 +451,7 @@ public class ChatInfo {
      */
     public void setMuteChat(boolean isMuted){
         this.setIsMuted(isMuted);
-        ImModel.getInstance().setMuteChat(this,isMuted);
+        ImsManager.getInstance().setMuteChat(this,isMuted);
     }
 
     public void addRecievedMessage(ImsMessage message){
@@ -469,22 +459,22 @@ public class ChatInfo {
             this.messages = new ArrayList<>();
         }
         this.messages.add(message);
-//        self.notifyChatUpdate.emit() TODO Event!
+//        self.notifyChatUpdate.emit() TBA Event!
     }
     public void addRecievedMessage(List<ImsMessage> messages){
         if(this.messages==null) {
             this.messages = new ArrayList<>();
         }
         this.messages.addAll(messages);
-        //self.notifyChatUpdate.emit() TODO Event!
+        //self.notifyChatUpdate.emit() TBA Event!
     }
 
 
-    public String getCurrentUserId() {
+    private String getCurrentUserId() {
         return currentUserId;
     }
 
-    public void setCurrentUserId(String currentUserId) {
+    private void setCurrentUserId(String currentUserId) {
         this.currentUserId = currentUserId;
     }
 
@@ -492,7 +482,7 @@ public class ChatInfo {
         return chatId;
     }
 
-    public void setChatId(String chatId) {
+    private void setChatId(String chatId) {
         this.chatId = chatId;
     }
 
@@ -512,11 +502,11 @@ public class ChatInfo {
         this.usersIds = usersIds;
     }
 
-    public String getAvatarUrl() {
+    private String getAvatarUrl() {
         return avatarUrl;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
+    private void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
 
@@ -536,11 +526,11 @@ public class ChatInfo {
         isPublic = aPublic;
     }
 
-    public ArrayList<String> getBlackList() {
+    private ArrayList<String> getBlackList() {
         return blackList;
     }
 
-    public void setBlackList(ArrayList<String> blackList) {
+    private void setBlackList(ArrayList<String> blackList) {
         this.blackList = blackList;
     }
 
@@ -548,24 +538,24 @@ public class ChatInfo {
         return messages;
     }
 
-    public void setMessages(ArrayList<ImsMessage> messages) {
+    private void setMessages(ArrayList<ImsMessage> messages) {
         this.messages = messages;
     }
 
-    public boolean getIsMuted() {
+    private boolean getIsMuted() {
         return isMuted;
     }
 
-    public void setIsMuted(boolean muted) {
+    private void setIsMuted(boolean muted) {
         isMuted = muted;
     }
 
 
-    public int getUnreadCount() {
+    private int getUnreadCount() {
         return unreadCount;
     }
 
-    public void setUnreadCount(int unreadCount) {
+    private void setUnreadCount(int unreadCount) {
         this.unreadCount = unreadCount;
     }
 }

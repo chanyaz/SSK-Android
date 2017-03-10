@@ -1,15 +1,22 @@
 package tv.sportssidekick.sportssidekick.model.im;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.android.GSAndroidPlatform;
+import com.gamesparks.sdk.api.autogen.GSMessageHandler;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
@@ -28,7 +35,7 @@ import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
  * www.hypercubesoft.com
  */
 
-public class ImModel {
+public class ImsManager {
 
     private static final String IMS_GET_CHAT_GROUPS_MESSAGES = "imsGetChatGroupsMessages";
     private static final String OFFSET = "offset";
@@ -39,7 +46,11 @@ public class ImModel {
     private static final String GROUP_ID = "groupId";
     private static final String MESSAGES = "messages";
     private static final String CHAT_ID = "chatId";
-    private static ImModel instance;
+    private static final String CHATS_INFO = "chatsInfo";
+    private static final String IS_TYPING_VALUE = "isTypingValue";
+    private static final String TAG = "ImsManager";
+    private static final String MESSAGE = "message";
+    private static ImsManager instance;
 
     private String userId;
 
@@ -57,7 +68,7 @@ public class ImModel {
         return filteredList;
     }
     private final ObjectMapper mapper; // jackson's object mapper
-    private ImModel() {
+    private ImsManager() {
         mapper  = new ObjectMapper();
         chatInfoCache = new HashMap<>();
         chatInfoCacheList = new ArrayList<>();
@@ -74,9 +85,9 @@ public class ImModel {
         userId = info.getUserId();
     }
 
-    public static ImModel getInstance(){
+    public static ImsManager getInstance(){
         if(instance==null){
-            instance = new ImModel();
+            instance = new ImsManager();
         }
         return instance;
     }
@@ -87,7 +98,7 @@ public class ImModel {
         publicChatsInfo.clear();
     }
 
-    public void reload(){
+    private void reload(){
         clear();
         getAllPublicChats();
         getGlobalChats();
@@ -114,7 +125,7 @@ public class ImModel {
         return  chatInfoCache.get(chatId);
     }
 
-    boolean removeChatInfoWithId(String chatId){
+    private boolean removeChatInfoWithId(String chatId){
         if(chatInfoCache.containsKey(chatId)){
             ChatInfo info = chatInfoCache.remove(chatId);
             chatInfoCacheList.remove(info);
@@ -131,19 +142,57 @@ public class ImModel {
      * getAllPublicChats returns a list of all public chats in the system.
      */
 
-    private void getGlobalChats() {
+    Task<List<ChatInfo>> getGlobalChats() {
+        final TaskCompletionSource<List<ChatInfo>> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
+                    List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
+                    // Go trough all ChatInfo objects and load users and messages
+                    for (ChatInfo chat : chats) {
+                        String chatId = chat.getChatId();
+                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.PUBLIC_CHAT_DETECTED, chatId));
+                        chatInfoCache.put(chatId, chat);
+                    }
+                    source.setResult(chats);
+                }
+            }
+        };
+
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
             .setEventKey("imsGetGlobalChatGroupsList")
             .setEventAttribute(OFFSET,0)
-            .send(null); // TODO Implement this
+            .send(consumer);
+        return source.getTask();
     }
 
-    private void getAllPublicChats() {
+    private Task<List<ChatInfo>> getAllPublicChats() {
+        final TaskCompletionSource<List<ChatInfo>> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
+                    List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
+                    // Go trough all ChatInfo objects and load users and messages
+                    for (ChatInfo chat : chats) {
+                        String chatId = chat.getChatId();
+                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.PUBLIC_CHAT_DETECTED, chatId));
+                        chatInfoCache.put(chatId, chat);
+                    }
+                    source.setResult(chats);
+                }
+            }
+        };
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
             .setEventKey("imsGetPublicChatGroupList")
             .setEventAttribute(OFFSET,0)
-            .setEventAttribute(ENTRY_COUNT,30)
-            .send(null); // TODO Implement this
+            .send(consumer);
+        return source.getTask();
     }
 
 
@@ -166,7 +215,7 @@ public class ImModel {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
-                    Object object = response.getScriptData().getBaseData().get("chatsInfo");
+                    Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
                     List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
                     // Go trough all ChatInfo objects and load users and messages
                     for (ChatInfo chat : chats) {
@@ -270,7 +319,7 @@ public class ImModel {
             .send(consumer);
     }
 
-    public void leaveChat(final ChatInfo chatInfo){ // TODO Check where this should be used?
+    void leaveChat(final ChatInfo chatInfo){
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -293,7 +342,7 @@ public class ImModel {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
             .setEventKey("imsSendMessage")
             .setEventAttribute(GROUP_ID,chatInfo.getChatId())
-            .setEventAttribute("message",toJson(message))
+            .setEventAttribute(MESSAGE,toJson(message))
             .setEventAttribute("senderNic",Model.getInstance().getUserInfo().getNicName())
             .send(null);
     }
@@ -309,8 +358,7 @@ public class ImModel {
                     List<ImsMessage> messages = new ArrayList<>();
                     try {
                         for(Object value : jsonArray){
-                            ImsMessage message = null;
-                            message = mapper.readValue((String)value,ImsMessage.class);
+                            ImsMessage message = mapper.readValue((String)value,ImsMessage.class);
                             messages.add(message);
                         }
                     } catch (IOException e) {
@@ -368,7 +416,7 @@ public class ImModel {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {    }
         };
         createRequest("imsUpdateUserIsTypingState")
-                .setEventAttribute("isTypingValue",String.valueOf(val).toLowerCase())
+                .setEventAttribute(IS_TYPING_VALUE,String.valueOf(val).toLowerCase())
                 .setEventAttribute(GROUP_ID,chatId)
                 .send(consumer);
     }
@@ -394,7 +442,7 @@ public class ImModel {
                 Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
                 ChatInfo updatedChatInfo = mapper.convertValue(object,ChatInfo.class);
                 chatInfo.setEqualTo(updatedChatInfo);
-                // TODO Notify chat info updates for this chat!
+                // TBA Event! Notify chat info updates for this chat!
             }
         };
         createRequest("imsMarkMessageAsRead")
@@ -403,15 +451,29 @@ public class ImModel {
                 .send(consumer);
     }
 
+    public void setupMessageListeners(){
+        GSAndroidPlatform.gs().getMessageHandler().setScriptMessageListener(new GSEventConsumer<GSMessageHandler.ScriptMessage>() {
+            @Override
+            public void onEvent(GSMessageHandler.ScriptMessage scriptMessage) {
+                onGSScriptMessage(scriptMessage);
+            }
+        });
+    }
 
-    public void onGSScriptMessage(String type, Map<String,String> data){
+    public void onGSTeamChatMessage(GSMessageHandler.TeamChatMessage message){
+        // TODO Implement and link
+    }
+
+    private void onGSScriptMessage(GSMessageHandler.ScriptMessage scriptMessage){
+        String type = scriptMessage.getExtCode(); //  if let type = data["type"] as? String{ <---- TODO
+        Map<String,Object> data = scriptMessage.getBaseData();
         if("ImsUpdateChatInfo".equals(type)){
-//            GSImsManager.instance.notifyChatsInfoUpdates.emit([String:GSChatInfo]()) TODO Notify chat info updates for this chat
+//          GSImsManager.instance.notifyChatsInfoUpdates.emit([String:GSChatInfo]()) TBA Event! Notify chat info updates for this chat
             reload();
         } else if("ImsUpdateUserIsTypingState".equals(type)){
-            String chatId = data.get(CHAT_ID);
-            String sender = data.get("sender");
-            String isTyping = data.get("isTypingValue");
+            String chatId = (String) data.get(CHAT_ID);
+            String sender = (String) data.get("sender");
+            String isTyping = (String) data.get(IS_TYPING_VALUE);
             if(chatId!=null && sender!=null && isTyping!=null){
                 if(!sender.equals(Model.getInstance().getUserInfo().getUserId())){
                     ChatInfo chatInfo = getChatInfoById(chatId);
@@ -420,23 +482,17 @@ public class ImModel {
                     }
                 }
             }
+        } else if("ImsMessage".equals(type)){
+             try{
+                ImsMessage message = mapper.readValue((String) data.get(MESSAGE),ImsMessage.class);
+                JSONObject json = new JSONObject((String)data.get(MESSAGE));
+                ChatInfo chatInfo = ImsManager.getInstance().getChatInfoById(json.getString(CHAT_ID));
+                chatInfo.addRecievedMessage(message);
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.d(TAG,"onGSScriptMessage " + type + data);
         }
     }
-
-
-    // TODO Should be removed? Not used on iOS
-    //use chat notifyChatUpdate signal to track chat messages!
-    void observeMessageStatusChange(ChatInfo chatInfo){ }
-
-    // do not use this function, call the chat info one!
-    // returns the list of users info that are currently typing
-    void imsUserTypingObserverForChat(String senderId,String chatId) { }
-
-    // do not use this function, call the chat info one!
-    // add the given uid to the chat black list
-    void blockUserFromJoiningChat(ChatInfo chatInfo, String userIdToBlock){ }
-
-    // do not use this function, call the chat info one!
-    // remove the given uid from the chat black list
-    void unblockUserInThisChat(ChatInfo chatInfo, String userIdToBlock){ }
 }
