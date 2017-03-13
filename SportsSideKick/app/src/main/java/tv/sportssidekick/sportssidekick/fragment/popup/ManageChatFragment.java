@@ -25,7 +25,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.model.im.ImModel;
+import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 
 /**
  * Created by Filip on 1/4/2017.
@@ -65,7 +65,7 @@ public class ManageChatFragment extends BaseFragment {
         });
 
         String chatId = getPrimaryArgument();
-        chatInfo = ImModel.getInstance().getChatInfoById(chatId);
+        chatInfo = ImsManager.getInstance().getChatInfoById(chatId);
 
         FriendsManager.getInstance().getFriends().addOnSuccessListener(
                 new OnSuccessListener<List<UserInfo>>() {

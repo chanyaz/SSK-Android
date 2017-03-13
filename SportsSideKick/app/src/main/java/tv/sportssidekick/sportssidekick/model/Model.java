@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.gs.AnalyticConstants;
+import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.NONE;
@@ -101,7 +102,7 @@ public class Model {
 
     private String deviceToken; // TODO Not sure how this works!
 
-    public void registerForPushNotifications(){
+    private void registerForPushNotifications(){
 //        String authorizedEntity = PROJECT_ID; // Project id from Google Developer Console
 //        String scope = "GCM"; // e.g. communicating using GCM, but you can use any
 //        // URL-safe characters up to a maximum of 1000, or
@@ -123,12 +124,10 @@ public class Model {
             });
     }
 
-    String androidId;
+    private String androidId;
 
     public void initialize(Context context){
-
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-
         GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, false, true);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
@@ -141,19 +140,7 @@ public class Model {
                 }
             }
         });
-        GSAndroidPlatform.gs().setOnAuthenticated( new GSEventConsumer<String>() {
-            @Override
-            public void onEvent(String response) {
-                if(response != null) {
-                    if (response.contains("error")) { // TODO How to check if there is an error when response is of type String?
-//                    UserEvents.onLoginError.emit(nil); Event-TBA
-                    } else {
-                        getAccountDetails(completeLogin);
-                    }
-                }
-            }
-        });
-//      self.gs.setMessageListener(self.onMessage) // TODO Investigate and implement
+        ImsManager.getInstance().setupMessageListeners();
     }
 
     private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> onAuthenticated = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {

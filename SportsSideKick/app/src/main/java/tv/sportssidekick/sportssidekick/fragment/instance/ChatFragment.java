@@ -60,7 +60,7 @@ import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.model.im.ImModel;
+import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
@@ -190,7 +190,7 @@ public class ChatFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 if(activeChatInfo!=null){
-                    activeChatInfo.loadPreviouseMessagesPage();
+                    activeChatInfo.loadPreviousMessagesPage();
                 } else {
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -334,7 +334,7 @@ public class ChatFragment extends BaseFragment {
     @Subscribe
     public void onUIChatEventDetected(UIEvent event){
         int currentPosition = event.getPosition();
-        displayChat(ImModel.getInstance().getUserChatsList().get(currentPosition));
+        displayChat(ImsManager.getInstance().getUserChatsList().get(currentPosition));
 
     }
 
@@ -360,7 +360,7 @@ public class ChatFragment extends BaseFragment {
 
     public void initializeUI(){
         Log.d(TAG, "Initialize Chat UI");
-        List<ChatInfo> allUserChats = ImModel.getInstance().getUserChatsList();
+        List<ChatInfo> allUserChats = ImsManager.getInstance().getUserChatsList();
 
         chatHeadsAdapter.setValues(allUserChats);
         chatHeadsAdapter.notifyDataSetChanged();

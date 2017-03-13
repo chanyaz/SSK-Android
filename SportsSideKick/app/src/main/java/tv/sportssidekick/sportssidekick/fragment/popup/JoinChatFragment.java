@@ -26,7 +26,7 @@ import tv.sportssidekick.sportssidekick.adapter.PublicChatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.model.im.ImModel;
+import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -82,7 +82,7 @@ public class JoinChatFragment extends BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
 
         chatsAdapter = new PublicChatsAdapter(getContext());
-        chatsAdapter.add(ImModel.getInstance().getNonMemberPublicChatsInfo());
+        chatsAdapter.add(ImsManager.getInstance().getNonMemberPublicChatsInfo());
         searchEditText.addTextChangedListener(textWatcher);
         recyclerView.setAdapter(chatsAdapter);
 

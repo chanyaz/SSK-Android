@@ -35,7 +35,7 @@ import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.UserInfo;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.model.im.ImModel;
+import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -197,7 +197,7 @@ public class CreateChatFragment extends BaseFragment {
         userIds.add(newChatInfo.getOwner());
         newChatInfo.setUsersIds(userIds);
 
-        ImModel.getInstance().createNewChat(newChatInfo);
+        ImsManager.getInstance().createNewChat(newChatInfo);
         getActivity().onBackPressed();
     }
 }
