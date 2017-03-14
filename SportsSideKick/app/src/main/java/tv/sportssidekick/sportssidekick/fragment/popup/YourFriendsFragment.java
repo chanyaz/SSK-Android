@@ -19,7 +19,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.FriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.model.UserInfo;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
  * Created by Djordje on 1/21/2017.

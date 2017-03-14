@@ -21,7 +21,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -230,7 +229,6 @@ public class LoungeActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        GSAndroidPlatform.gs().stop();
         GSAndroidPlatform.gs().start();
     }
 

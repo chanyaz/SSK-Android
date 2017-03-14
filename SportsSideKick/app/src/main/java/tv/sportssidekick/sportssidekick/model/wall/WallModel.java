@@ -19,7 +19,7 @@ import java.util.Set;
 
 import tv.sportssidekick.sportssidekick.model.DateUtils;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.UserInfo;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
 
 /**

@@ -1,7 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
 import android.support.annotation.Nullable;
-import tv.sportssidekick.sportssidekick.model.UserInfo;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
  * Created by Filip on 1/6/2017.

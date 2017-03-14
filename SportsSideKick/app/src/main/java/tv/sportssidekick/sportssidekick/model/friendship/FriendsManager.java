@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.UserInfo;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
  * Friendship relations are stored under the path:  /friendshipIndex/<user id> -<friend user id>: true

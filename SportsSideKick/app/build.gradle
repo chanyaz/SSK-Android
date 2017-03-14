@@ -58,7 +58,7 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.twilio:video-android:1.0.0-beta6'
     compile 'com.gamesparks.sdk:gamesparks-android-client-sdk:+'
-    compile 'com.facebook.android:facebook-android-sdk:4.+'
+    compile 'com.facebook.android:facebook-android-sdk:4.20.0'
     compile 'com.github.lzyzsd:circleprogress:+'
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'

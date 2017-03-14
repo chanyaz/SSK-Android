@@ -1,10 +1,12 @@
-package tv.sportssidekick.sportssidekick.model;
+package tv.sportssidekick.sportssidekick.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gamesparks.sdk.api.autogen.GSTypes;
 
 import java.util.Date;
 import java.util.List;
+
+import tv.sportssidekick.sportssidekick.model.Model;
 
 /**
  * Created by Djordje Krutil on 6.12.2016.

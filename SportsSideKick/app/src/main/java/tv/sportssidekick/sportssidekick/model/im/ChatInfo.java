@@ -16,7 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.UserInfo;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 /**
@@ -171,7 +171,6 @@ public class ChatInfo {
      */
     void loadMessages(){
         messages = new ArrayList<>();
-        // Observer pattern here? TODO Implement like in iOS
         ImsManager.getInstance().imsSetMessageObserverForChat(this);
     }
 

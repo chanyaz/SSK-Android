@@ -36,6 +36,9 @@ import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.gs.AnalyticConstants;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
+import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
+import tv.sportssidekick.sportssidekick.model.user.MessageHandler;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.NONE;
@@ -50,7 +53,7 @@ public class Model {
         NONE, ANONYMOUS, REAL
     }
 
-    enum UserState {
+    public enum UserState {
         online,
         away,
         busy,
@@ -100,6 +103,11 @@ public class Model {
         mapper  = new ObjectMapper();
     }
 
+    public void setMessageHandlerDelegate(GSMessageHandlerAbstract delegate){
+        MessageHandler.getInstance().addDelegate(delegate);
+    }
+
+
     private String deviceToken; // TODO Not sure how this works!
 
     private void registerForPushNotifications(){
@@ -128,7 +136,7 @@ public class Model {
 
     public void initialize(Context context){
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, false, true);
+        GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, true, true);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
             public void onEvent(Boolean available) {

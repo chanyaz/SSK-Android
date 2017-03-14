@@ -26,7 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.UserInfo;
+import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 /**
@@ -35,7 +36,7 @@ import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
  * www.hypercubesoft.com
  */
 
-public class ImsManager {
+public class ImsManager extends GSMessageHandlerAbstract{
 
     private static final String IMS_GET_CHAT_GROUPS_MESSAGES = "imsGetChatGroupsMessages";
     private static final String OFFSET = "offset";
@@ -78,6 +79,7 @@ public class ImsManager {
            userId = userInfo.getUserId();
         }
         EventBus.getDefault().register(this);
+        Model.getInstance().setMessageHandlerDelegate(this);
     }
 
     @Subscribe
@@ -92,7 +94,7 @@ public class ImsManager {
         return instance;
     }
 
-    public void clear(){
+    private void clear(){
         chatInfoCache.clear();
         chatInfoCacheList.clear();
         publicChatsInfo.clear();
@@ -104,7 +106,6 @@ public class ImsManager {
         getGlobalChats();
         loadUserChats();
     }
-
 
     /////////////////////////////////////
     ///   IMS   API  - Chat Info API  ///
@@ -452,24 +453,40 @@ public class ImsManager {
     }
 
     public void setupMessageListeners(){
-        GSAndroidPlatform.gs().getMessageHandler().setScriptMessageListener(new GSEventConsumer<GSMessageHandler.ScriptMessage>() {
+        GSMessageHandler messageHandler = GSAndroidPlatform.gs().getMessageHandler();
+        messageHandler.setScriptMessageListener(new GSEventConsumer<GSMessageHandler.ScriptMessage>() {
             @Override
             public void onEvent(GSMessageHandler.ScriptMessage scriptMessage) {
-                onGSScriptMessage(scriptMessage);
+                Map<String,Object> data = scriptMessage.getData().getBaseData();
+                if(data.containsKey("type")){
+                    String type = (String) data.get("type");
+                    onGSScriptMessage(type,data);
+                }
             }
         });
+
+
     }
 
-    public void onGSTeamChatMessage(GSMessageHandler.TeamChatMessage message){
-        // TODO Implement and link
+    @Override
+    public void onGSTeamChatMessage(GSMessageHandler.TeamChatMessage msg){
+        String data = (String)msg.getBaseData().get("imsGroups");
+        try {
+            ImsMessage message = mapper.readValue(data,ImsMessage.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        JSONObject json = new JSONObject((String).get(MESSAGE));
+//        ChatInfo chatInfo = ImsManager.getInstance().getChatInfoById(json.getString(CHAT_ID));
+//        chatInfo.addRecievedMessage(message);
     }
 
-    private void onGSScriptMessage(GSMessageHandler.ScriptMessage scriptMessage){
-        String type = scriptMessage.getExtCode(); //  if let type = data["type"] as? String{ <---- TODO
-        Map<String,Object> data = scriptMessage.getBaseData();
+    @Override
+    public void onGSScriptMessage(String type, Map<String,Object> data){
         if("ImsUpdateChatInfo".equals(type)){
-//          GSImsManager.instance.notifyChatsInfoUpdates.emit([String:GSChatInfo]()) TBA Event! Notify chat info updates for this chat
             reload();
+//            EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.CHAT_UPDATED, chatId));
+//          GSImsManager.instance.notifyChatsInfoUpdates.emit([String:GSChatInfo]()) TBA Event! Notify chat info updates for this chat
         } else if("ImsUpdateUserIsTypingState".equals(type)){
             String chatId = (String) data.get(CHAT_ID);
             String sender = (String) data.get("sender");
