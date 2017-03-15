@@ -1,11 +1,12 @@
 package tv.sportssidekick.sportssidekick.gs;
 
 import com.gamesparks.sdk.GSEventConsumer;
-import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 
 
 /**

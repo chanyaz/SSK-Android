@@ -34,6 +34,15 @@ android {
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
+
+    allprojects {
+        repositories {
+            jcenter()
+            flatDir {
+                dirs 'libs'
+            }
+        }
+    }
 }
 
 dependencies {
@@ -57,9 +66,10 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.twilio:video-android:1.0.0-beta6'
-    compile 'com.gamesparks.sdk:gamesparks-android-client-sdk:+'
     compile 'com.facebook.android:facebook-android-sdk:4.20.0'
+
     compile 'com.github.lzyzsd:circleprogress:+'
+    compile 'com.gamesparks.sdk:gamesparks-java-sdk:+'
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.0'

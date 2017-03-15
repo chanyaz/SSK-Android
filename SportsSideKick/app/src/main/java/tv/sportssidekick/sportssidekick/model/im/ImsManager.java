@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
-import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.gamesparks.sdk.api.autogen.GSMessageHandler;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
@@ -28,6 +27,7 @@ import java.util.Map;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 /**

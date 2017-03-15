@@ -2,11 +2,12 @@ package tv.sportssidekick.sportssidekick.model.ticker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
-import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 
 import org.greenrobot.eventbus.EventBus;
+
+import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 
 
 /**

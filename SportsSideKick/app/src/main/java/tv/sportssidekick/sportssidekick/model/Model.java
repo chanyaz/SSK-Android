@@ -14,7 +14,6 @@ import android.util.Log;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
-import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
@@ -39,6 +38,7 @@ import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.MessageHandler;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.NONE;
@@ -83,6 +83,7 @@ public class Model {
 
     public void setLoggedInUserType(LoggedInUserType type){
         loggedInUserType = type;
+        Log.d(TAG, "Logged in user type: " + loggedInUserType.name());
         switch (type){
             case NONE:
 //              UserEvents.onLogout.emit()  Event-TBA
@@ -92,6 +93,8 @@ public class Model {
                 registerForPushNotifications();
                 break;
             case REAL:
+//              UserEvents.onLogin.emit(self.currentUserInfo!)
+                registerForPushNotifications();
                 break;
         }
     }
@@ -101,6 +104,7 @@ public class Model {
     private Model() {
         userCache = new HashMap<>();
         mapper  = new ObjectMapper();
+        loggedInUserType = NONE;
     }
 
     public void setMessageHandlerDelegate(GSMessageHandlerAbstract delegate){
@@ -136,14 +140,17 @@ public class Model {
 
     public void initialize(Context context){
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, true, true);
+        GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, false, true);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
             public void onEvent(Boolean available) {
                 if(available) {
-                    if (GSAndroidPlatform.gs().isAuthenticated()) {
-                        Log.d(TAG, "onAvailable(): connected but not authenticated, logging in anonymously");
+                    Log.d(TAG, "GS Available: " + available);
+                    if (!GSAndroidPlatform.gs().isAuthenticated()) {
+                        Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
                         login();
+                    } else {
+                        Log.d(TAG, "isAuthenticated(): authenticated, do nothing.");
                     }
                 }
             }
@@ -156,7 +163,8 @@ public class Model {
         public void onEvent(GSResponseBuilder.AuthenticationResponse authenticationResponse) {
             if(authenticationResponse != null) {
                 if (authenticationResponse.hasErrors()) {
-//                    UserEvents.onLoginError.emit(nil); Event-TBA
+                    Log.d(TAG, "AuthenticationResponse: " + authenticationResponse.toString());
+//                  UserEvents.onLoginError.emit(nil); Event-TBA
                 } else {
                    getAccountDetails(completeLogin);
                 }
@@ -171,7 +179,7 @@ public class Model {
                 if (!response.hasErrors()) {
                     setUser(response);
                     String dn = response.getDisplayName();
-                    loggedInUserType = dn !=null && "".equals(dn) && " ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS;
+                    setLoggedInUserType(dn !=null && "".equals(dn) && " ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
                 }
             }
         }
@@ -210,18 +218,19 @@ public class Model {
                 .send(new GSEventConsumer<GSResponseBuilder.RegistrationResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.RegistrationResponse response) {
-
                         if(response!=null){
                             if(response.hasErrors()){
+                                Log.d(TAG,"Registration Request error!");
 //                                UserEvents.onRegisterError.emit(nil) Event-TBA
                             } else {
 //                                UserEvents.onRegister.emit() Event-TBA
+                                Log.d(TAG,"Registration Request successful!");
                                 getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
                                     @Override
                                     public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
                                         if(!response.hasErrors()){
                                             setUser(response);
-                                            loggedInUserType = REAL;
+                                            setLoggedInUserType(REAL);
                                         }
                                     }
                                 });
@@ -257,7 +266,7 @@ public class Model {
                         Log.d(TAG,"Model.onSessionEnded() -> Error ending session!");
                     } else {
                         clearUser();
-                        loggedInUserType = NONE;
+                        setLoggedInUserType(NONE);
                         login();
                     }
                 }

@@ -1,12 +1,13 @@
 package tv.sportssidekick.sportssidekick.model.user;
 
 import com.gamesparks.sdk.GSEventConsumer;
-import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.gamesparks.sdk.api.autogen.GSMessageHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 
 /**
  * Created by Filip on 3/13/2017.

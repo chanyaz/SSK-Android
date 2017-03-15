@@ -14,7 +14,6 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -64,6 +63,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
+import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;

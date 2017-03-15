@@ -18,7 +18,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
 import com.gamesparks.sdk.GSEventConsumer;
-import com.gamesparks.sdk.android.GSAndroidPlatform;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.gamesparks.sdk.api.autogen.GSTypes;
@@ -29,6 +28,7 @@ import java.util.List;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static tv.sportssidekick.sportssidekick.util.Utility.internetAvailable;
