@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_login_email"
-                android:text="android@development.com"
+                android:text="user2@user2.com"
                 android:textAlignment="textStart"
                 android:inputType="textEmailAddress" />
 
@@ -124,7 +124,7 @@
                 style="@style/edit_text_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="123456"
+                android:text="qwerty"
                 android:textAlignment="textStart"
                 android:hint="@string/login_login_password"
                 android:inputType="textPassword" />

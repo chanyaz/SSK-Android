@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -11,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -81,11 +85,18 @@ public class JoinChatFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
         recyclerView.setLayoutManager(layoutManager);
 
-        chatsAdapter = new PublicChatsAdapter(getContext());
-        chatsAdapter.add(ImsManager.getInstance().getNonMemberPublicChatsInfo());
-        searchEditText.addTextChangedListener(textWatcher);
-        recyclerView.setAdapter(chatsAdapter);
-
+        Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChats();
+        task.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<ChatInfo>> task) {
+                if(task.isSuccessful()){
+                    chatsAdapter = new PublicChatsAdapter(getContext());
+                    chatsAdapter.add(task.getResult());
+                    searchEditText.addTextChangedListener(textWatcher);
+                    recyclerView.setAdapter(chatsAdapter);
+                }
+            }
+        });
         return view;
     }
 

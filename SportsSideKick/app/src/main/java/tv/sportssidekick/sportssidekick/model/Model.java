@@ -20,6 +20,8 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -72,7 +74,10 @@ public class Model {
 
     private UserInfo currentUserInfo;
     public UserInfo getUserInfo() {
-        return currentUserInfo;
+        if(currentUserInfo!=null){
+            return currentUserInfo;
+        }
+        return null;
     }
 
     public LoggedInUserType getLoggedInUserType() {
@@ -91,10 +96,12 @@ public class Model {
             case ANONYMOUS:
 //              UserEvents.onLoginAnonymously.emit() Event-TBA
                 registerForPushNotifications();
+                ImsManager.getInstance().reload();
                 break;
             case REAL:
-//              UserEvents.onLogin.emit(self.currentUserInfo!)
+                EventBus.getDefault().post(currentUserInfo); // TODO ON LOGIN EVENT ?
                 registerForPushNotifications();
+                ImsManager.getInstance().reload();
                 break;
         }
     }
@@ -121,7 +128,6 @@ public class Model {
 //        // you can also leave it blank.
 //        String token = InstanceID.getInstance(context).getToken(authorizedEntity,scope);
         deviceToken = ""; // TODO How to initialize?
-
         Log.d(TAG, "Registering for push notifications");
         GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
             .setDeviceOS("android")
@@ -144,18 +150,21 @@ public class Model {
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
             public void onEvent(Boolean available) {
+                Log.d(TAG, "GS Available: " + available);
                 if(available) {
-                    Log.d(TAG, "GS Available: " + available);
                     if (!GSAndroidPlatform.gs().isAuthenticated()) {
                         Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
+                        ImsManager.getInstance().setupMessageListeners();
                         login();
                     } else {
+                        // Same entry point as onAuthenticationCheck - escaping from deadloop!
                         Log.d(TAG, "isAuthenticated(): authenticated, do nothing.");
+                        getAccountDetails(completeLogin);
                     }
                 }
             }
         });
-        ImsManager.getInstance().setupMessageListeners();
+
     }
 
     private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> onAuthenticated = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
@@ -179,7 +188,7 @@ public class Model {
                 if (!response.hasErrors()) {
                     setUser(response);
                     String dn = response.getDisplayName();
-                    setLoggedInUserType(dn !=null && "".equals(dn) && " ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
+                    setLoggedInUserType(dn !=null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
                 }
             }
         }
@@ -240,7 +249,6 @@ public class Model {
                 });
     }
 
-
     public void login() {
         GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
         request.setDeviceId(androidId);
@@ -261,15 +269,15 @@ public class Model {
         GSAndroidPlatform.gs().getRequestBuilder().createEndSessionRequest().send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
-                if(endSessionResponse!=null){
-                    if(endSessionResponse.hasErrors()){
-                        Log.d(TAG,"Model.onSessionEnded() -> Error ending session!");
-                    } else {
-                        clearUser();
-                        setLoggedInUserType(NONE);
-                        login();
-                    }
+            if(endSessionResponse!=null){
+                if(endSessionResponse.hasErrors()){
+                    Log.d(TAG,"Model.onSessionEnded() -> Error ending session!");
+                } else {
+                    clearUser();
+                    setLoggedInUserType(NONE);
+                    login();
                 }
+            }
             }
         });
     }
@@ -283,9 +291,9 @@ public class Model {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if(response!=null){
                     if(response.hasErrors()){
-//                        UserEvents.onPasswordResetRequestError.emit(nil) Event-TBA
+//                      UserEvents.onPasswordResetRequestError.emit(nil) Event-TBA
                     } else {
-//                        UserEvents.onPasswordResetRequest.emit() Event-TBA
+//                      UserEvents.onPasswordResetRequest.emit() Event-TBA
                     }
                 }
             }
@@ -381,8 +389,17 @@ public class Model {
            Log.d(TAG,"GSModel.setUser() -> Couldn't retrieve User ID! Aborting!!");
             return;
         }
-        this.currentUserInfo = mapper.convertValue(response.getScriptData(), UserInfo.class);
-//        UserEvents.onDetailsUpdated.emit(self.currentUserInfo!)  Event-TBA
+        GSData scriptData = response.getScriptData();
+        Map<String,Object> data;
+        if(scriptData!=null){
+            data = scriptData.getBaseData();
+            currentUserInfo = mapper.convertValue(data, UserInfo.class);
+        } else {
+            currentUserInfo = mapper.convertValue(response, UserInfo.class);
+        }
+
+        userCache.put(currentUserInfo.getUserId(), currentUserInfo);
+        EventBus.getDefault().post(currentUserInfo);
     }
 
     private GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> onDetailsUpdated = new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
@@ -461,7 +478,8 @@ public class Model {
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                UserInfo userInfo = mapper.convertValue(response.getScriptData(), UserInfo.class);
+                Map<String,Object> data = response.getScriptData().getObject("userInfo").getBaseData();
+                UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
                 userCache.put(userInfo.getUserId(), userInfo);
                 source.setResult(userInfo);
             }
@@ -483,8 +501,10 @@ public class Model {
     public UserInfo getCachedUserInfoById(String userId) {
         if(userCache.containsKey(userId)){
             return userCache.get(userId);
+        } else {
+            Log.e(TAG,"There is no user in cache with id: " + userId);
+            return null;
         }
-        return null;
     }
 
 

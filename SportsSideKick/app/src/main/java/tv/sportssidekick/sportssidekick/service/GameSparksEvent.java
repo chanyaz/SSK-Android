@@ -69,6 +69,7 @@ public class GameSparksEvent extends BusEvent {
             CHAT_DELETED_PROCESSED,
             USER_INFO_BY_ID,
             PUBLIC_CHAT_DETECTED,
+            GLOBAL_CHAT_DETECTED,
             USER_CHAT_DETECTED,
             SIGNED_OUT,
             AUDIO_FILE_UPLOADED,

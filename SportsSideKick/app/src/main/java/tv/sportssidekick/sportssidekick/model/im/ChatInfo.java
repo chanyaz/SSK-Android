@@ -58,7 +58,6 @@ public class ChatInfo {
        currentUserId = Model.getInstance().getUserInfo().getUserId();
     }
 
-
     void setEqualTo(ChatInfo info) {
         setChatId(info.getChatId());
         setName(info.getName());
@@ -69,11 +68,13 @@ public class ChatInfo {
         setBlackList(info.getBlackList());
         setIsMuted(info.getIsMuted());
         setUnreadCount(info.getUnreadCount());
-        setCurrentUserId(info.getCurrentUserId()); // Check against this!
+        setCurrentUserId(info.getCurrentUserId()); // TODO Check this!
         if(info.getMessages()!=null){
-            setMessages(info.getMessages());
+            if(info.getMessages().size()>0){
+                setMessages(info.getMessages());
+            }
         } else {
-            setMessages(new ArrayList<ImsMessage>());
+            //setMessages(new ArrayList<ImsMessage>());  // TODO Check this!
         }
     }
 
@@ -87,24 +88,8 @@ public class ChatInfo {
         if (!TextUtils.isEmpty(getName())){
             return getName();
         }else{
-            if (getUsersIds().size() == 2){
-                String userId = currentUserId;
-                String firstUserId = getUsersIds().get(0);
-                String secondUserId = getUsersIds().get(1);
-                if(!userId.equals(firstUserId)){
-                    String nic = Model.getInstance().getCachedUserInfoById(firstUserId).getNicName();
-                    if(nic!=null){
-                        return nic;
-                    }
-                } else {
-                    String nic = Model.getInstance().getCachedUserInfoById(secondUserId).getNicName();
-                    if(nic!=null){
-                        return nic;
-                    }
-                }
-            }
+           return "Unknown";
         }
-        return null;
     }
 
     /**
@@ -115,27 +100,37 @@ public class ChatInfo {
     public String getChatAvatarUrl(){
         if (!TextUtils.isEmpty(getAvatarUrl())){
             return getAvatarUrl();
-        }else{
-            if (getUsersIds().size() == 2){
-                String userId = currentUserId;
-                String firstUserId = getUsersIds().get(0);
-                String secondUserId = getUsersIds().get(1);
-                String avatar;
-                if(!userId.equals(firstUserId)){
-                    avatar = Model.getInstance().getCachedUserInfoById(firstUserId).getAvatarUrl();
-                } else {
-                    avatar = Model.getInstance().getCachedUserInfoById(secondUserId).getAvatarUrl();
-                }
-                if(avatar!=null){
-                    return avatar;
-                }
-            }
+        } else {
+            return "";
         }
-        return "";
     }
 
+    private void setupChatNicAndAvatar(){
+        if (getUsersIds().size() == 2){
+            String firstUserId = getUsersIds().get(0);
+            String secondUserId = getUsersIds().get(1);
+            UserInfo info;
+            if(!currentUserId.equals(firstUserId)){
+                info = Model.getInstance().getCachedUserInfoById(firstUserId);
+            } else {
+                info = Model.getInstance().getCachedUserInfoById(secondUserId);
+            }
+            if(info!=null){
+                String nic = info.getNicName();
+                String avatar = info.getAvatarUrl();
+                if(nic!=null){
+                    setName(nic);
+                }
+                if(avatar!=null){
+                    setAvatarUrl(avatar);
+                }
+            }
+
+        }
+    }
     // don't use that, it is called on login
-    void loadChatUsers(){
+    void loadChatUsers(String userId) {
+        currentUserId = userId;
         Log.d(TAG, "Requesting Load of chat users");
         EventBus.getDefault().register(this);
         final ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
@@ -149,12 +144,13 @@ public class ChatInfo {
             new OnSuccessListener() {
                 @Override
                 public void onSuccess(Object o) {
-                    Log.e(TAG, "ALL USERS DOWNLOADED!");
-                    //! TBA Event! Notify about update - Emit event ?
                     for(Task t : tasks){
                         UserInfo info = (UserInfo) t.getResult();
                         Log.e(TAG, "USER ID : " + info.getUserId());
                     }
+                    setupChatNicAndAvatar();
+                    Log.e(TAG, "ALL USERS DOWNLOADED!");
+                    //! TBA Event! Notify about update - Emit event ?
                 }
             }
         );
@@ -300,7 +296,7 @@ public class ChatInfo {
                         if(chatInfo.getUsersIds().contains(currentUserId)){
                             Log.e(TAG,"ERROR - User already added to Global chat");
                         } else {
-                            loadChatUsers();
+                            loadChatUsers(null);
                             updateChatInfo();
                         }
                     } else {

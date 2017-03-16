@@ -1,4 +1,8 @@
 package tv.sportssidekick.sportssidekick.model.im;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.HashMap;
 
 import tv.sportssidekick.sportssidekick.model.DateUtils;
@@ -10,10 +14,12 @@ import tv.sportssidekick.sportssidekick.model.Model;
  * www.hypercubesoft.com
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ImsMessage {
 
     private static final float ASPECT_RATIO_DEFAULT = 0.5625f;
 
+    @JsonProperty("_id")
     private String id;
     private String text;
     private String senderId;
@@ -193,10 +199,12 @@ public class ImsMessage {
         return timeAgo;
     }
 
+    @JsonProperty("_id")
     public String getId() {
         return id;
     }
 
+    @JsonProperty("_id")
     public void setId(String id) {
         this.id = id;
     }

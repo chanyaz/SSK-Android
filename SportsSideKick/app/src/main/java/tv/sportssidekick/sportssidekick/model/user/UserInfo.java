@@ -16,13 +16,13 @@ import tv.sportssidekick.sportssidekick.model.Model;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfo {
 
-   public static enum UserType {
+    public static enum UserType {
         fan, player, special
     }
 
     private UserType userType = UserType.fan;
-
     private String userId;
+
     private String email;
     private String nicName;
     private String language;
@@ -30,7 +30,7 @@ public class UserInfo {
     private String firstName;
     private String lastName;
     private Date subscribedDate;
-    private String location;
+    private Location location;
     private String authToken;
 
     private String avatarUrl;
@@ -109,6 +109,14 @@ public class UserInfo {
         setOnline(userInfo.getIsOnline());
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
     public UserType getUserType() {
         return userType;
     }
@@ -131,14 +139,6 @@ public class UserInfo {
 
     public void setSubscribedDate(Date subscribedDate) {
         this.subscribedDate = subscribedDate;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getAuthToken() {
@@ -253,6 +253,178 @@ public class UserInfo {
 
     public void setMessagingTokens(List<String> messagingTokens) {
         this.messagingTokens = messagingTokens;
+    }
+
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    public int getWallPosts() {
+        return wallPosts;
+    }
+
+    public void setWallPosts(int wallPosts) {
+        this.wallPosts = wallPosts;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getVideosWatched() {
+        return videosWatched;
+    }
+
+    public void setVideosWatched(int videosWatched) {
+        this.videosWatched = videosWatched;
+    }
+
+    public int getChats() {
+        return chats;
+    }
+
+    public void setChats(int chats) {
+        this.chats = chats;
+    }
+
+    public int getVideoChats() {
+        return videoChats;
+    }
+
+    public void setVideoChats(int videoChats) {
+        this.videoChats = videoChats;
+    }
+
+    public int getPublicChats() {
+        return publicChats;
+    }
+
+    public void setPublicChats(int publicChats) {
+        this.publicChats = publicChats;
+    }
+
+    public int getMatchesHome() {
+        return matchesHome;
+    }
+
+    public void setMatchesHome(int matchesHome) {
+        this.matchesHome = matchesHome;
+    }
+
+    public int getMatchesAway() {
+        return matchesAway;
+    }
+
+    public void setMatchesAway(int matchesAway) {
+        this.matchesAway = matchesAway;
+    }
+
+    public int getCapsValue() {
+        return capsValue;
+    }
+
+    public void setCapsValue(int capsValue) {
+        this.capsValue = capsValue;
+    }
+
+    public int getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(int currency) {
+        this.currency = currency;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public float getProgress() {
+        return progress;
+    }
+
+    public void setProgress(float progress) {
+        this.progress = progress;
+    }
+
+    public int getWallPins() {
+        return wallPins;
+    }
+
+    public void setWallPins(int wallPins) {
+        this.wallPins = wallPins;
+    }
+
+    public int getFriendsCount() {
+        return friendsCount;
+    }
+
+    public void setFriendsCount(int friendsCount) {
+        this.friendsCount = friendsCount;
+    }
+
+    public boolean isaFriend() {
+        return aFriend;
+    }
+
+    public void setaFriend(boolean aFriend) {
+        this.aFriend = aFriend;
+    }
+
+    public boolean isFriendPendingRequest() {
+        return isFriendPendingRequest;
+    }
+
+    public void setFriendPendingRequest(boolean friendPendingRequest) {
+        isFriendPendingRequest = friendPendingRequest;
+    }
+
+    public boolean isFollowsMe() {
+        return followsMe;
+    }
+
+    public void setFollowsMe(boolean followsMe) {
+        this.followsMe = followsMe;
+    }
+
+    public boolean isiFollowHim() {
+        return iFollowHim;
+    }
+
+    public void setiFollowHim(boolean iFollowHim) {
+        this.iFollowHim = iFollowHim;
+    }
+
+    public int getFollowingCount() {
+        return followingCount;
+    }
+
+    public void setFollowingCount(int followingCount) {
+        this.followingCount = followingCount;
+    }
+
+    public int getFollowersCount() {
+        return followersCount;
+    }
+
+    public void setFollowersCount(int followersCount) {
+        this.followersCount = followersCount;
     }
 
     @Override

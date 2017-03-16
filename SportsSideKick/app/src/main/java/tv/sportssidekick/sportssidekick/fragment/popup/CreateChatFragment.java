@@ -131,9 +131,11 @@ public class CreateChatFragment extends BaseFragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run(){
-                final List<UserInfo> filteredModelList = filter(userInfoList, searchEditText.getText().toString());
-                chatFriendsAdapter.replaceAll(filteredModelList);
-                friendsRecyclerView.scrollToPosition(0);
+                if(chatFriendsAdapter!=null){
+                    final List<UserInfo> filteredModelList = filter(userInfoList, searchEditText.getText().toString());
+                    chatFriendsAdapter.replaceAll(filteredModelList);
+                    friendsRecyclerView.scrollToPosition(0);
+                }
             }
         });
     }
@@ -182,22 +184,27 @@ public class CreateChatFragment extends BaseFragment {
     }
 
     public void createNewChat(){
-        List<UserInfo> selectedUsers = chatFriendsAdapter.getSelectedValues();
-        String chatName = chatNameEditText.getText().toString();
-        boolean isPrivate = privateChatSwitch.isChecked();
+        if(chatFriendsAdapter!=null){
+            List<UserInfo> selectedUsers = chatFriendsAdapter.getSelectedValues();
+            String chatName = chatNameEditText.getText().toString();
+            boolean isPrivate = privateChatSwitch.isChecked();
 
-        ChatInfo newChatInfo = new ChatInfo();
-        newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
-        newChatInfo.setIsPublic(!isPrivate);
-        newChatInfo.setName(chatName);
-        ArrayList<String> userIds = new ArrayList<>();
-        for(UserInfo info : selectedUsers){
-            userIds.add(info.getUserId());
+            ChatInfo newChatInfo = new ChatInfo();
+            newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
+            newChatInfo.setIsPublic(!isPrivate);
+            newChatInfo.setName(chatName);
+            ArrayList<String> userIds = new ArrayList<>();
+            for(UserInfo info : selectedUsers){
+                userIds.add(info.getUserId());
+            }
+            userIds.add(newChatInfo.getOwner());
+            newChatInfo.setUsersIds(userIds);
+
+            ImsManager.getInstance().createNewChat(newChatInfo);
+            getActivity().onBackPressed();
+        } else {
+            // TODO - Display error - no users to be selected!
         }
-        userIds.add(newChatInfo.getOwner());
-        newChatInfo.setUsersIds(userIds);
 
-        ImsManager.getInstance().createNewChat(newChatInfo);
-        getActivity().onBackPressed();
     }
 }

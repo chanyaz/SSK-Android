@@ -79,10 +79,8 @@ public class NextMatchModel {
         }
     };
 
-    private void fallback()
-    {
-        if (DEFAULT_LENGUAGE.compareTo(this.language)==0)
-        {
+    private void fallback(){
+        if(DEFAULT_LENGUAGE.equals(this.language)){
             return;
         }
         changeLanguage(DEFAULT_LENGUAGE);

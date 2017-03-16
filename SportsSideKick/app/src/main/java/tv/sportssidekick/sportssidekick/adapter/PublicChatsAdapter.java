@@ -34,11 +34,10 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 
 
 public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.ViewHolder> {
-    private static final int VIEW_TYPE_FOOTER = 1;
-    private static final int VIEW_TYPE_CELL = 2;
+    private static final int VIEW_TYPE_CELL = 1;
     private static final String TAG = "Chat Friends Adapter";
 
-    Context context;
+    private Context context;
 
     public ChatInfo getSelectedValue() {
         return selectedValue;
@@ -49,7 +48,7 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.profile_image) ImageView image;
+        @Nullable @BindView(R.id.image) ImageView image;
         @Nullable @BindView(R.id.selected) View selectedRingView;
         @Nullable @BindView(R.id.caption) TextView chatCaption;
 
@@ -66,61 +65,52 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
         focusedItem = -1;
     }
 
-
     @Override
     public int getItemViewType(int position) {
-//        return (position == values.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_CELL;
         return VIEW_TYPE_CELL;
     }
 
     @Override
     public PublicChatsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final ViewHolder viewHolder;
-        if (viewType == VIEW_TYPE_CELL) {
-            // create a new view
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_friend_item, parent, false);
-            viewHolder = new ViewHolder(view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (focusedItem >= 0) {
-                        notifyItemChanged(focusedItem);
-                    }
-                    focusedItem = viewHolder.getLayoutPosition();
-                    selectedValue = values.get(focusedItem);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_public_item, parent, false);
+        viewHolder = new ViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (focusedItem >= 0) {
                     notifyItemChanged(focusedItem);
-                }});
-            return  viewHolder;
-        }
-        else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_chat_button, parent, false);
-            viewHolder = new ViewHolder(view);
-//            view.setOnClickListener( view1 -> EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class)));
-
-            return viewHolder;
-        }
+                }
+                focusedItem = viewHolder.getLayoutPosition();
+                selectedValue = values.get(focusedItem);
+                notifyItemChanged(focusedItem);
+            }});
+        return viewHolder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        if (position < values.size()) { // don't take the last element!
-            final ChatInfo info = values.get(position);
-            DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        final ChatInfo info = values.get(position);
+        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        if(holder.image!=null){
             ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.image,imageOptions);
+        }
+        if(holder.chatCaption!=null){
             holder.chatCaption.setText(info.getChatTitle());
-            if(selectedValue!=null && selectedValue.equals(info)){
-                holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
-            } else {
+        }
+        if(selectedValue!=null && selectedValue.equals(info)){
+            holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
+        } else {
+            if(holder.image!=null){
                 holder.image.setColorFilter(null);
             }
-            holder.view.setTag(position);
         }
+        holder.view.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-//        return values.size() + 1;
         return values.size();
     }
 
@@ -167,7 +157,7 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
 
         @Override
         public boolean areItemsTheSame(ChatInfo item1, ChatInfo item2) {
-            return item1.getChatId() == item2.getChatId();
+            return item1.getChatId().equals(item2.getChatId());
         }
     };
 

@@ -51,29 +51,19 @@ public class ImsManager extends GSMessageHandlerAbstract{
     private static final String IS_TYPING_VALUE = "isTypingValue";
     private static final String TAG = "ImsManager";
     private static final String MESSAGE = "message";
+    private static final String MESSAGE_PAGE_SIZE = "10";
     private static ImsManager instance;
 
     private String userId;
 
     private HashMap<String, ChatInfo> chatInfoCache;
     private List<ChatInfo> chatInfoCacheList;
-    private List<ChatInfo> publicChatsInfo;
 
-    public List<ChatInfo> getNonMemberPublicChatsInfo(){
-        List<ChatInfo> filteredList = new ArrayList<>();
-        for(ChatInfo info : publicChatsInfo){
-            if(!info.getUsersIds().contains(userId)){
-                filteredList.add(info);
-            }
-        }
-        return filteredList;
-    }
     private final ObjectMapper mapper; // jackson's object mapper
     private ImsManager() {
         mapper  = new ObjectMapper();
         chatInfoCache = new HashMap<>();
         chatInfoCacheList = new ArrayList<>();
-        publicChatsInfo = new ArrayList<>();
         UserInfo userInfo = Model.getInstance().getUserInfo();
         if(userInfo!=null){
            userId = userInfo.getUserId();
@@ -97,13 +87,10 @@ public class ImsManager extends GSMessageHandlerAbstract{
     private void clear(){
         chatInfoCache.clear();
         chatInfoCacheList.clear();
-        publicChatsInfo.clear();
     }
 
-    private void reload(){
+    public void reload(){
         clear();
-        getAllPublicChats();
-        getGlobalChats();
         loadUserChats();
     }
 
@@ -136,6 +123,9 @@ public class ImsManager extends GSMessageHandlerAbstract{
     }
 
     private void addChatInfoToCache(ChatInfo info){
+        if(chatInfoCache.containsKey(info.getChatId())){
+            chatInfoCacheList.remove(info);
+        }
         chatInfoCache.put(info.getChatId(),info);
         chatInfoCacheList.add(info);
     }
@@ -155,8 +145,8 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     // Go trough all ChatInfo objects and load users and messages
                     for (ChatInfo chat : chats) {
                         String chatId = chat.getChatId();
-                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.PUBLIC_CHAT_DETECTED, chatId));
-                        chatInfoCache.put(chatId, chat);
+                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.GLOBAL_CHAT_DETECTED, chatId));
+                        addChatInfoToCache(chat);
                     }
                     source.setResult(chats);
                 }
@@ -170,7 +160,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
         return source.getTask();
     }
 
-    private Task<List<ChatInfo>> getAllPublicChats() {
+    public Task<List<ChatInfo>> getAllPublicChats() {
         final TaskCompletionSource<List<ChatInfo>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -183,7 +173,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     for (ChatInfo chat : chats) {
                         String chatId = chat.getChatId();
                         EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.PUBLIC_CHAT_DETECTED, chatId));
-                        chatInfoCache.put(chatId, chat);
+                        addChatInfoToCache(chat);
                     }
                     source.setResult(chats);
                 }
@@ -222,8 +212,8 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     for (ChatInfo chat : chats) {
                         String chatId = chat.getChatId();
                         EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.USER_CHAT_DETECTED, chatId));
-                        chatInfoCache.put(chatId, chat);
-                        chat.loadChatUsers();
+                        addChatInfoToCache(chat);
+                        chat.loadChatUsers(userId);
                         chat.loadMessages();
                     }
                 }
@@ -357,13 +347,9 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     // Parse response
                     JSONArray jsonArray = (JSONArray) response.getScriptData().getBaseData().get(MESSAGES);
                     List<ImsMessage> messages = new ArrayList<>();
-                    try {
-                        for(Object value : jsonArray){
-                            ImsMessage message = mapper.readValue((String)value,ImsMessage.class);
-                            messages.add(message);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    for(Object value : jsonArray){
+                        ImsMessage message = mapper.convertValue(value,ImsMessage.class);
+                        messages.add(message);
                     }
                     // Go trough all messages objects and load users and messages
                     for (ImsMessage message : messages) {
@@ -378,7 +364,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
         };
         createRequest(IMS_GET_CHAT_GROUPS_MESSAGES)
                 .setEventAttribute(OFFSET,"0")
-                .setEventAttribute(ENTRY_COUNT,"3")
+                .setEventAttribute(ENTRY_COUNT,MESSAGE_PAGE_SIZE)
                 .setEventAttribute(GROUP_ID,chatInfo.getChatId())
                 .send(consumer);
     }
@@ -405,7 +391,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
         };
         createRequest(IMS_GET_CHAT_GROUPS_MESSAGES)
                 .setEventAttribute(OFFSET,chatInfo.getMessages().size())
-                .setEventAttribute(ENTRY_COUNT,"3")
+                .setEventAttribute(ENTRY_COUNT,MESSAGE_PAGE_SIZE)
                 .setEventAttribute(GROUP_ID,chatInfo.getChatId())
                 .send(consumer);
     }
@@ -439,16 +425,17 @@ public class ImsManager extends GSMessageHandlerAbstract{
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                // Parse response
-                Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
-                ChatInfo updatedChatInfo = mapper.convertValue(object,ChatInfo.class);
-                chatInfo.setEqualTo(updatedChatInfo);
-                // TBA Event! Notify chat info updates for this chat!
+                if(!response.hasErrors()){
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
+                    ChatInfo updatedChatInfo = mapper.convertValue(object,ChatInfo.class);
+                    chatInfo.setEqualTo(updatedChatInfo);
+                }
             }
         };
         createRequest("imsMarkMessageAsRead")
                 .setEventAttribute(GROUP_ID,chatInfo.getChatId())
-                .setEventAttribute("messageIf",message.getId())
+                .setEventAttribute("messageId",message.getId())
                 .send(consumer);
     }
 
@@ -476,23 +463,20 @@ public class ImsManager extends GSMessageHandlerAbstract{
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        JSONObject json = new JSONObject((String).get(MESSAGE));
-//        ChatInfo chatInfo = ImsManager.getInstance().getChatInfoById(json.getString(CHAT_ID));
-//        chatInfo.addRecievedMessage(message);
     }
 
     @Override
     public void onGSScriptMessage(String type, Map<String,Object> data){
         if("ImsUpdateChatInfo".equals(type)){
             reload();
-//            EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.CHAT_UPDATED, chatId));
+//          EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.CHAT_UPDATED, chatId));
 //          GSImsManager.instance.notifyChatsInfoUpdates.emit([String:GSChatInfo]()) TBA Event! Notify chat info updates for this chat
         } else if("ImsUpdateUserIsTypingState".equals(type)){
             String chatId = (String) data.get(CHAT_ID);
             String sender = (String) data.get("sender");
             String isTyping = (String) data.get(IS_TYPING_VALUE);
             if(chatId!=null && sender!=null && isTyping!=null){
-                if(!sender.equals(Model.getInstance().getUserInfo().getUserId())){
+                if(!sender.equals(userId)){
                     ChatInfo chatInfo = getChatInfoById(chatId);
                     if(chatInfo!=null){
                         chatInfo.updateUserIsTyping(sender,isTyping.equals("true"));

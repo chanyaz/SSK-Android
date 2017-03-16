@@ -300,6 +300,9 @@ public class ChatFragment extends BaseFragment {
             case PUBLIC_CHAT_DETECTED:
                 initializeUI();
                 break;
+            case GLOBAL_CHAT_DETECTED: // TODO Check on this - same logic as for public chats?
+                initializeUI();
+                break;
             case NEW_MESSAGE_ADDED:
                 messageListView.getAdapter().notifyDataSetChanged();
                 int lastMessagePosition = messageListView.getAdapter().getItemCount() == 0 ? 0 : messageListView.getAdapter().getItemCount();
@@ -333,8 +336,10 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void onUIChatEventDetected(UIEvent event){
+        Log.d(TAG, "event received: " + event.getId());
         int currentPosition = event.getPosition();
-        displayChat(ImsManager.getInstance().getUserChatsList().get(currentPosition));
+        List<ChatInfo> infos = ImsManager.getInstance().getUserChatsList();
+        displayChat(infos.get(currentPosition));
 
     }
 

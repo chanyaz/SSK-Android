@@ -141,16 +141,16 @@ public class SignUpFragment extends BaseFragment {
     private void onFacebbokClick()
     {
         GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest()
-                .send(new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
-                    @Override
-                    public void onEvent(GSResponseBuilder.AuthenticationResponse response) {
-                        String authToken = response.getAuthToken();
-                        String displayName = response.getDisplayName();
-                        Boolean newPlayer = response.getNewPlayer();
-                        GSData scriptData = response.getScriptData();
-                        GSTypes.Player switchSummary = response.getSwitchSummary();
-                        String userId = response.getUserId();
-                    }
-                });
+            .send(new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
+                @Override
+                public void onEvent(GSResponseBuilder.AuthenticationResponse response) {
+                String authToken = response.getAuthToken();
+                String displayName = response.getDisplayName();
+                Boolean newPlayer = response.getNewPlayer();
+                GSData scriptData = response.getScriptData();
+                GSTypes.Player switchSummary = response.getSwitchSummary();
+                String userId = response.getUserId();
+                }
+            });
     }
 }

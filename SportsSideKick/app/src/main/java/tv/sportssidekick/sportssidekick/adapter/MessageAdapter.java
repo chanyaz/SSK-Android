@@ -42,7 +42,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private static final String TAG = "Message Adapter";
     private ChatInfo chatInfo;
-    private Context context;
     private LayoutInflater inflater = null;
     private static final int VIEW_TYPE_MESSAGE_THIS_USER = 0;
     private static final int VIEW_TYPE_MESSAGE_OTHER_USERS = 1;
@@ -67,7 +66,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public MessageAdapter(Context context, ChatInfo chatInfo) {
         this.chatInfo = chatInfo;
-        this.context = context;
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -88,14 +86,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         ImsMessage message = chatInfo.getMessages().get(position);
-
         chatInfo.markMessageAsRead(message);
-
         if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS){
             UserInfo info = Model.getInstance().getCachedUserInfoById(message.getSenderId());
-            String senderImageUrl = info.getCircularAvatarUrl();
+            String senderImageUrl=null;
+            String nicName="Unknown";
+            if(info!=null){
+                senderImageUrl = info.getCircularAvatarUrl();
+            }
             ImageLoader.getInstance().displayImage(senderImageUrl,holder.senderImageView,imageOptions);
-            holder.senderTextView.setText(info.getNicName());
+            holder.senderTextView.setText(nicName);
         }
         holder.timeTextView.setText(message.getTimeAgo());
 
