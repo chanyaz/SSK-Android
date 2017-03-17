@@ -51,7 +51,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
     private static final String IS_TYPING_VALUE = "isTypingValue";
     private static final String TAG = "ImsManager";
     private static final String MESSAGE = "message";
-    private static final String MESSAGE_PAGE_SIZE = "10";
+    private static final String MESSAGE_PAGE_SIZE = "3";
     private static ImsManager instance;
 
     private String userId;
@@ -382,10 +382,10 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     for (ImsMessage message : messages) {
                         message.initializeTimestamp();
                         message.determineSelfReadFlag();
-                        GameSparksEvent fe = new GameSparksEvent("Next messages page loaded.", GameSparksEvent.Type.NEXT_PAGE_LOADED, messages);
-                        fe.setFilterId(chatInfo.getChatId());
-                        EventBus.getDefault().post(fe);
                     }
+                    GameSparksEvent fe = new GameSparksEvent("Next messages page loaded.", GameSparksEvent.Type.NEXT_PAGE_LOADED, messages);
+                    fe.setFilterId(chatInfo.getChatId());
+                    EventBus.getDefault().post(fe);
                 }
             }
         };
@@ -469,8 +469,6 @@ public class ImsManager extends GSMessageHandlerAbstract{
     public void onGSScriptMessage(String type, Map<String,Object> data){
         if("ImsUpdateChatInfo".equals(type)){
             reload();
-//          EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.CHAT_UPDATED, chatId));
-//          GSImsManager.instance.notifyChatsInfoUpdates.emit([String:GSChatInfo]()) TBA Event! Notify chat info updates for this chat
         } else if("ImsUpdateUserIsTypingState".equals(type)){
             String chatId = (String) data.get(CHAT_ID);
             String sender = (String) data.get("sender");

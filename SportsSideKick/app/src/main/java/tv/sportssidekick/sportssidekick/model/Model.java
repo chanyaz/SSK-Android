@@ -157,7 +157,7 @@ public class Model {
                         ImsManager.getInstance().setupMessageListeners();
                         login();
                     } else {
-                        // Same entry point as onAuthenticationCheck - escaping from deadloop!
+                        // Same entry point as onAuthenticationCheck - escaping from dead loop!
                         Log.d(TAG, "isAuthenticated(): authenticated, do nothing.");
                         getAccountDetails(completeLogin);
                     }
@@ -173,7 +173,7 @@ public class Model {
             if(authenticationResponse != null) {
                 if (authenticationResponse.hasErrors()) {
                     Log.d(TAG, "AuthenticationResponse: " + authenticationResponse.toString());
-//                  UserEvents.onLoginError.emit(nil); Event-TBA
+                    EventBus.getDefault().post(new GameSparksEvent("Login error:" + authenticationResponse.toString(), GameSparksEvent.Type.LOGIN_FAILED, null));
                 } else {
                    getAccountDetails(completeLogin);
                 }
@@ -212,7 +212,7 @@ public class Model {
      private void onAccountDetails(GSResponseBuilder.AccountDetailsResponse response){
         if(response != null) {
             if (response.hasErrors()) {
-               // UserEvents.onDetailsUpdateError.emit(nil) Event-TBA
+                EventBus.getDefault().post(new GameSparksEvent("Login error:" + response.toString(), GameSparksEvent.Type.ACCOUNT_DETAILS_ERROR, null));
             } else {
               setUser(response);
             }
@@ -230,10 +230,10 @@ public class Model {
                         if(response!=null){
                             if(response.hasErrors()){
                                 Log.d(TAG,"Registration Request error!");
-//                                UserEvents.onRegisterError.emit(nil) Event-TBA
+                                EventBus.getDefault().post(new GameSparksEvent("Registration error:" + response.toString(), GameSparksEvent.Type.REGISTRATION_ERROR, null));
                             } else {
-//                                UserEvents.onRegister.emit() Event-TBA
                                 Log.d(TAG,"Registration Request successful!");
+                                EventBus.getDefault().post(new GameSparksEvent("Registration successful:" + response.toString(), GameSparksEvent.Type.REGISTRATION_SUCCESSFUL, null));
                                 getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
                                     @Override
                                     public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
@@ -291,9 +291,9 @@ public class Model {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if(response!=null){
                     if(response.hasErrors()){
-//                      UserEvents.onPasswordResetRequestError.emit(nil) Event-TBA
+                        EventBus.getDefault().post(new GameSparksEvent("Password recovery request error:" + response.toString(), GameSparksEvent.Type.PASSWORD_RECOVERY_ERROR, null));
                     } else {
-//                      UserEvents.onPasswordResetRequest.emit() Event-TBA
+                        EventBus.getDefault().post(new GameSparksEvent("Password recovery request error:" + response.toString(), GameSparksEvent.Type.PASSWORD_RECOVERY_SUCCESSFUL, null));
                     }
                 }
             }
@@ -407,7 +407,7 @@ public class Model {
         public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse response) {
             if(response!=null){
                 if(response.hasErrors()){
-//                    UserEvents.onDetailsUpdateError.emit(nil)  Event-TBA
+                    EventBus.getDefault().post(new GameSparksEvent("Update account details error:" + response.toString(), GameSparksEvent.Type.ACCOUNT_DETAILS_ERROR, null));
                 } else {
                     getAccountDetails(null);
                 }
@@ -418,7 +418,7 @@ public class Model {
     private void setState(GSResponseBuilder.LogEventResponse response) {
         if(response != null){
             if(response.hasErrors()) {
-                // UserEvents.onStateUpdateError.emit(nil)  Event-TBA
+                EventBus.getDefault().post(new GameSparksEvent("Update user state error:" + response.toString(), GameSparksEvent.Type.USER_STATE_UPDATE_ERROR, null));
                 return;
             }
             if(response.getScriptData()==null){
@@ -435,7 +435,7 @@ public class Model {
                 return;
             }
            currentUserInfo.setUserState(UserState.valueOf(state));
-           // UserEvents.onStateUpdated.emit(state)  Event-TBA
+           EventBus.getDefault().post(new GameSparksEvent("Updated user state:" + response.toString(), GameSparksEvent.Type.USER_STATE_UPDATE_SUCCESSFUL, null));
         }
     }
 

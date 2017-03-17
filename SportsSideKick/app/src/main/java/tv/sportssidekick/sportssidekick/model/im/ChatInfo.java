@@ -150,7 +150,7 @@ public class ChatInfo {
                     }
                     setupChatNicAndAvatar();
                     Log.e(TAG, "ALL USERS DOWNLOADED!");
-                    //! TBA Event! Notify about update - Emit event ?
+                    EventBus.getDefault().post(new GameSparksEvent("All users downloaded for chat " + getChatId(), GameSparksEvent.Type.CHAT_USERS_DOWNLOADED, getChatId()));
                 }
             }
         );
@@ -227,7 +227,8 @@ public class ChatInfo {
         for(ImsMessage message : messages){
             if(message.getId().equals(changedMessage.getId())){
                 message = changedMessage;
-                // TBA Event! notifyChatUpdate
+                EventBus.getDefault().post(new GameSparksEvent("Chat updated - message changed for chat: " + getChatId(), GameSparksEvent.Type.CHAT_UPDATED, getChatId()));
+
             }
         }
     }
@@ -405,7 +406,7 @@ public class ChatInfo {
                 }
             }
         }
-//        notifyUserIsTyping.emit(usersTypingInfo) TBA Event!
+        EventBus.getDefault().post(new GameSparksEvent("Chat updated - users typing in chat: " + getChatId(), GameSparksEvent.Type.TYPING, usersTypingInfo));
     }
 
     /**
@@ -454,14 +455,14 @@ public class ChatInfo {
             this.messages = new ArrayList<>();
         }
         this.messages.add(message);
-//        self.notifyChatUpdate.emit() TBA Event!
+        EventBus.getDefault().post(new GameSparksEvent("Chat updated - message received in chat: " + getChatId(), GameSparksEvent.Type.CHAT_UPDATED, message));
     }
     public void addRecievedMessage(List<ImsMessage> messages){
         if(this.messages==null) {
             this.messages = new ArrayList<>();
         }
         this.messages.addAll(messages);
-        //self.notifyChatUpdate.emit() TBA Event!
+        EventBus.getDefault().post(new GameSparksEvent("Chat updated - message list received in chat: " + getChatId(), GameSparksEvent.Type.CHAT_UPDATED, messages));
     }
 
 
