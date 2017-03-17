@@ -68,6 +68,9 @@ dependencies {
     compile 'com.twilio:video-android:1.0.0-beta6'
     compile 'com.facebook.android:facebook-android-sdk:4.20.0'
 
+    compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
+    compile 'com.amazonaws:aws-android-sdk-s3:2.2.+'
+
     compile 'com.github.lzyzsd:circleprogress:+'
     compile 'com.gamesparks.sdk:gamesparks-java-sdk:+'
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'

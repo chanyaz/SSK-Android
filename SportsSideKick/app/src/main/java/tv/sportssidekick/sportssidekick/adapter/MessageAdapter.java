@@ -86,7 +86,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         ImsMessage message = chatInfo.getMessages().get(position);
-        chatInfo.markMessageAsRead(message);
+        if(!message.getReadFlag()){
+            chatInfo.markMessageAsRead(message);
+        }
         if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS){
             UserInfo info = Model.getInstance().getCachedUserInfoById(message.getSenderId());
             String senderImageUrl=null;

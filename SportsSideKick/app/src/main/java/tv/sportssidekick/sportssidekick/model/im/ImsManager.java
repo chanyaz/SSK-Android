@@ -1,11 +1,13 @@
 package tv.sportssidekick.sportssidekick.model.im;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSMessageHandler;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
@@ -14,8 +16,6 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
     private static final String IS_TYPING_VALUE = "isTypingValue";
     private static final String TAG = "ImsManager";
     private static final String MESSAGE = "message";
-    private static final String MESSAGE_PAGE_SIZE = "3";
+    private static final String MESSAGE_PAGE_SIZE = "10";
     private static ImsManager instance;
 
     private String userId;
@@ -330,11 +330,17 @@ public class ImsManager extends GSMessageHandlerAbstract{
 
     // do not use this function, call the chat info one!
     void imsSendMessageToChat(ChatInfo chatInfo,ImsMessage message){
+        String nic = Model.getInstance().getUserInfo().getNicName();
+        if(TextUtils.isEmpty(nic)){
+            nic = Model.getInstance().getUserInfo().getFirstName();
+        }
+        Object map = mapper.convertValue(message, Map.class);
+
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
             .setEventKey("imsSendMessage")
             .setEventAttribute(GROUP_ID,chatInfo.getChatId())
-            .setEventAttribute(MESSAGE,toJson(message))
-            .setEventAttribute("senderNic",Model.getInstance().getUserInfo().getNicName())
+            .setEventAttribute(MESSAGE,new GSData((Map<String, Object>) map))
+            .setEventAttribute("senderNic",nic)
             .send(null);
     }
 
@@ -459,6 +465,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
     public void onGSTeamChatMessage(GSMessageHandler.TeamChatMessage msg){
         String data = (String)msg.getBaseData().get("imsGroups");
         try {
+            Log.e(TAG,"UNHANDLED TeamChatMessage DATA: " + data);
             ImsMessage message = mapper.readValue(data,ImsMessage.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -467,31 +474,33 @@ public class ImsManager extends GSMessageHandlerAbstract{
 
     @Override
     public void onGSScriptMessage(String type, Map<String,Object> data){
-        if("ImsUpdateChatInfo".equals(type)){
-            reload();
-        } else if("ImsUpdateUserIsTypingState".equals(type)){
-            String chatId = (String) data.get(CHAT_ID);
-            String sender = (String) data.get("sender");
-            String isTyping = (String) data.get(IS_TYPING_VALUE);
-            if(chatId!=null && sender!=null && isTyping!=null){
-                if(!sender.equals(userId)){
-                    ChatInfo chatInfo = getChatInfoById(chatId);
-                    if(chatInfo!=null){
-                        chatInfo.updateUserIsTyping(sender,isTyping.equals("true"));
+        switch (type){
+            case "ImsUpdateChatInfo":
+                reload();
+                break;
+            case "ImsUpdateUserIsTypingState":
+                String chatId = (String) data.get(CHAT_ID);
+                String sender = (String) data.get("sender");
+                String isTyping = (String) data.get(IS_TYPING_VALUE);
+                if(chatId!=null && sender!=null && isTyping!=null){
+                    if(!sender.equals(userId)){
+                        ChatInfo chatInfo = getChatInfoById(chatId);
+                        if(chatInfo!=null){
+                            chatInfo.updateUserIsTyping(sender,isTyping.equals("true"));
+                        }
                     }
                 }
-            }
-        } else if("ImsMessage".equals(type)){
-             try{
-                ImsMessage message = mapper.readValue((String) data.get(MESSAGE),ImsMessage.class);
-                JSONObject json = new JSONObject((String)data.get(MESSAGE));
-                ChatInfo chatInfo = ImsManager.getInstance().getChatInfoById(json.getString(CHAT_ID));
+                break;
+            case "ImsMessage":
+            case "ImsMesssage": // TODO REMOVE WHEN TYPO IS FIXED!
+                ImsMessage message = mapper.convertValue(data.get(MESSAGE),ImsMessage.class);
+                ChatInfo chatInfo = ImsManager.getInstance().getChatInfoById((String)data.get(CHAT_ID));
                 chatInfo.addRecievedMessage(message);
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Log.d(TAG,"onGSScriptMessage " + type + data);
+                break;
+            default:
+                Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
+                break;
         }
+
     }
 }

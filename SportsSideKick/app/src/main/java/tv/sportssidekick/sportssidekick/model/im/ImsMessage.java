@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.im;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.HashMap;
@@ -14,7 +15,8 @@ import tv.sportssidekick.sportssidekick.model.Model;
  * www.hypercubesoft.com
  */
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true,value={"imageAspectRatio","timestampEpoch","timeAgo"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ImsMessage {
 
     private static final float ASPECT_RATIO_DEFAULT = 0.5625f;

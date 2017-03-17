@@ -2,8 +2,6 @@ package tv.sportssidekick.sportssidekick.model;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -22,26 +20,21 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tv.sportssidekick.sportssidekick.gs.AnalyticConstants;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.MessageHandler;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.util.AWSFileUploader;
 
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.NONE;
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.REAL;
@@ -186,9 +179,11 @@ public class Model {
         public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
             if(response != null) {
                 if (!response.hasErrors()) {
-                    setUser(response);
-                    String dn = response.getDisplayName();
-                    setLoggedInUserType(dn !=null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
+                    if(!loggedInUserType.equals(REAL)){
+                        setUser(response);
+                        String dn = response.getDisplayName();
+                        setLoggedInUserType(dn !=null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
+                    }
                 }
             }
         }
@@ -391,14 +386,15 @@ public class Model {
         }
         GSData scriptData = response.getScriptData();
         Map<String,Object> data;
+        UserInfo info;
         if(scriptData!=null){
             data = scriptData.getBaseData();
-            currentUserInfo = mapper.convertValue(data, UserInfo.class);
+            info = mapper.convertValue(data, UserInfo.class);
         } else {
-            currentUserInfo = mapper.convertValue(response, UserInfo.class);
+            info = mapper.convertValue(response, UserInfo.class);
         }
-
-        userCache.put(currentUserInfo.getUserId(), currentUserInfo);
+        currentUserInfo = info; // TODO Test if the same and discard event in that case?
+        userCache.put(info.getUserId(), info);
         EventBus.getDefault().post(currentUserInfo);
     }
 
@@ -516,66 +512,39 @@ public class Model {
     //user_photo_square_jtRp5Be3N3OuV1IH7m7FxfMhT6Q21480609791.59482.png
     //user_photo_rounded_H9g3RugXkzLcvqCn1aKSnWm9KIC31480012799.68699.png
     //_groupChatAvatar_1481051718.21099.png
-
-
     //video_sLqHBMbL3BQNgddTK0a4wmPfuA531480240655.74631.mov
+
     public void uploadVideoRecording(String filepath){
         String filename =
                 "video_" +
                 currentUserInfo.getUserId() +
                 System.currentTimeMillis() +
                 ".mov";
-        try {
-            InputStream inputStream = new FileInputStream(filepath);
-            saveDataFile(filename,inputStream, GameSparksEvent.Type.VIDEO_FILE_UPLOADED);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.VIDEO_FILE_UPLOADED);
     }
 
     //video_thumb_sLqHBMbL3BQNgddTK0a4wmPfuA531480240556.36911.jpg
     public void uploadVideoRecordingThumbnail(String filepath){
-
         String filename = "video_thumb_" + currentUserInfo.getUserId() +  System.currentTimeMillis() + ".jpg";
-        Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.MINI_KIND);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);
-        byte[] bitmapdata = bos.toByteArray();
-        ByteArrayInputStream bs = new ByteArrayInputStream(bitmapdata);
-
-        saveDataFile(filename,bs, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
+        AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
     }
 
-    //photo_sLqHBMbL3BQNgddTK0a4wmPfuA531480082543.52176.jpg
     public void uploadImageForMessage(String filepath){
         String filename =
                 "photo_" +
                 currentUserInfo.getUserId() +
                 System.currentTimeMillis() +
                 ".jpg";
-        try {
-            InputStream inputStream = new FileInputStream(filepath);
-            saveDataFile(filename,inputStream, GameSparksEvent.Type.MESSAGE_IMAGE_FILE_UPLOADED);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.MESSAGE_IMAGE_FILE_UPLOADED);
     }
 
-    //voiceRecording_jtRp5Be3N3OuV1IH7m7FxfMhT6Q21481227362.30166.caf
     public void uploadAudioRecording(String filepath){
         String filename =
                 "voiceRecording_" +
                         currentUserInfo.getUserId() +
                 System.currentTimeMillis() +
                 ".caf";
-        try {
-            InputStream inputStream = new FileInputStream(filepath);
-            saveDataFile(filename,inputStream, GameSparksEvent.Type.AUDIO_FILE_UPLOADED);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.AUDIO_FILE_UPLOADED);
     }
 
     public static String getAudioFileName() {
@@ -609,29 +578,4 @@ public class Model {
             }
         }
     }
-
-    private void saveDataFile(String filename, InputStream stream, final GameSparksEvent.Type type){
-        //TODO Rewrite to GS
-//        StorageReference filesRef = storageRef.child("images").child(filename);
-//        UploadTask uploadTask = filesRef.putStream(stream);
-//        uploadTask.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                // Handle unsuccessful uploads
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-//            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-//            if(downloadUrl!=null){
-//                EventBus.getDefault().post(new GameSparksEvent("File uploaded!", type, downloadUrl.toString()));
-//            } else {
-//                EventBus.getDefault().post(new GameSparksEvent("Something went wrong, file not uploaded!", type, null));
-//            }
-//            }
-//        });
-    }
-
-
 }

@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.gs;
+package tv.sportssidekick.sportssidekick.model;
 
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;

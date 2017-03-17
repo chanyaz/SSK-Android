@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.gs;
+package tv.sportssidekick.sportssidekick.model;
 
 /**
  * Created by Filip Jovanovic on 09/02/2017.
