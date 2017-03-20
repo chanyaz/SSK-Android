@@ -84,11 +84,11 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.chat_heads_view) RecyclerView chatHeadsView;
     @BindView(R.id.progress_bar) AVLoadingIndicatorView progressBar;
     @BindView(R.id.input_container) View inputContainer;
-    @BindView(R.id.chats_container) RelativeLayout chatHeadsContainer;
-    @BindView(R.id.outer_chats_container) RelativeLayout chatHeadsContainerOuter;
     @BindView(R.id.bottom_create_chat_container) RelativeLayout bottomCreateChatContainer;
     @BindView(R.id.info_message) TextView infoMessage;
     @BindView(R.id.down_arrow) ImageView downArrow;
+    @BindView(R.id.chat_info_line) View chatInfoLine;
+
     @BindView(R.id.messenger_send_button) Button sendButton;
     @BindView(R.id.mic_button) Button micButton;
     @BindView(R.id.cam_button) Button camButton;
@@ -119,7 +119,6 @@ public class ChatFragment extends BaseFragment {
         chatHeadsAdapter = new ChatHeadsAdapter();
         chatHeadsView.setAdapter(chatHeadsAdapter);
         inputContainer.setVisibility(View.GONE);
-        chatHeadsContainer.setVisibility(View.GONE);
         messageListView.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         infoMessage.setVisibility(View.GONE);
@@ -141,9 +140,9 @@ public class ChatFragment extends BaseFragment {
 
         LayoutTransition layoutTransition = new LayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-        chatHeadsContainer.setLayoutTransition(layoutTransition);
+//        chatHeadsContainer.setLayoutTransition(layoutTransition);
 
-        downArrow.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+        chatInfoLine.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
             public void onSwipeBottom() {
                 showGridChats();
             }
@@ -261,25 +260,19 @@ public class ChatFragment extends BaseFragment {
     private void hideGridChats(){
         swipeRefreshLayout.setEnabled(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        final float scale = getContext().getResources().getDisplayMetrics().density;
-        int pixels = (int) (60 * scale + 0.5f); // 60dp
-        chatHeadsContainer.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, pixels));
         chatHeadsView.setLayoutManager(layoutManager);
-
         bottomCreateChatContainer.setVisibility(View.GONE);
-        downArrow.setVisibility(View.VISIBLE);
+        inputContainer.setVisibility(View.VISIBLE);
         displayChat(activeChatInfo);
     }
 
     private void showGridChats(){
         swipeRefreshLayout.setEnabled(false);
-        chatHeadsContainer.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
         chatHeadsView.setLayoutManager(layoutManager);
         bottomCreateChatContainer.setVisibility(View.VISIBLE);
-        messageListView.setVisibility(View.GONE);
-        downArrow.setVisibility(View.GONE);
         infoMessage.setVisibility(View.GONE);
+        inputContainer.setVisibility(View.GONE);
 
     }
 
@@ -371,7 +364,7 @@ public class ChatFragment extends BaseFragment {
         chatHeadsAdapter.notifyDataSetChanged();
 
         inputContainer.setVisibility(View.VISIBLE);
-        chatHeadsContainer.setVisibility(View.VISIBLE);
+//        chatHeadsContainer.setVisibility(View.VISIBLE);
         messageListView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }

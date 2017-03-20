@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="60dp"
     android:layout_height="wrap_content"
-    android:background="@color/colorAccentLight"
-    >
+    android:background="@color/colorAccentLight">
 
     <ImageView
         android:id="@+id/image"
@@ -17,8 +15,6 @@
         android:scaleType="centerCrop" />
 
 
-
-
     <ImageView
         android:id="@+id/mask"
         android:layout_width="60dp"
@@ -26,7 +22,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/chat_head_mask"/>
+        android:src="@drawable/chat_head_mask" />
+
     <ImageView
         android:id="@+id/selected"
         android:layout_width="60dp"
@@ -35,7 +32,7 @@
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
         android:src="@drawable/chat_head_selected"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/notification_icon"
@@ -58,15 +55,16 @@
         android:maxLines="2"
         android:text="Demo caption Demo caption Demo caption Demo caption"
         android:textColor="@color/white"
-        android:textSize="9sp"
-        />
+        android:textSize="9sp" />
+
     <ImageView
         android:id="@+id/people_icon"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-    android:layout_below="@+id/caption"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_below="@+id/caption"
         android:layout_centerHorizontal="true"
         android:src="@drawable/user_count_icon" />
+
     <TextView
         android:id="@+id/people_count_value"
         android:layout_width="wrap_content"
@@ -75,18 +73,5 @@
         android:layout_toEndOf="@+id/people_icon"
         android:text="3"
         android:textColor="@color/white"
-        android:textSize="12sp"/>
-    <TextView
-        android:id="@+id/edit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/people_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="6dp"
-        android:text="Edit"
-        android:textColor="@color/colorAccent"
-        android:textSize="11sp"/>
-
-
-
+        android:textSize="12sp" />
 </RelativeLayout>

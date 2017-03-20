@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.utils.L;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.util.AWSFileUploader;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -52,7 +53,7 @@ public class SSKApplication extends MultiDexApplication {
         );
 
         SoundEffects.getDefault().initialize(this);
-
+        AWSFileUploader.getInstance().initialize(getApplicationContext());
     }
 
     //region AppImage Loader

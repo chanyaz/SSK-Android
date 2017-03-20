@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.provider.MediaStore;
@@ -21,8 +22,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Filip on 3/17/2017.
@@ -54,22 +53,22 @@ public class AWSFileUploader {
         return instance;
     }
 
-    private AWSFileUploader(){
-        poolId = AWSFileUploader.EUWest_PoolId;
-        baseUrl = AWSFileUploader.EUWest_BaseUrl;
-        bucket = AWSFileUploader.EUWest_Bucket;
-
+    public void initialize(Context context){
         Regions regionType = Regions.EU_WEST_1;
-
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                getApplicationContext(),    /* get the context for the application */
+                context,    /* get the context for the application */
                 poolId,    /* Identity Pool ID */
                 regionType           /* Region for your identity pool--US_EAST_1 or EU_WEST_1*/
         );
 
         AmazonS3Client s3 = new AmazonS3Client(credentialsProvider);
-        transferUtility = new TransferUtility(s3, getApplicationContext());
+        transferUtility = new TransferUtility(s3, context);
+    }
 
+    private AWSFileUploader(){
+        poolId = AWSFileUploader.EUWest_PoolId;
+        baseUrl = AWSFileUploader.EUWest_BaseUrl;
+        bucket = AWSFileUploader.EUWest_Bucket;
     }
 
     public void upload(final String filename, String filepath, final GameSparksEvent.Type event){

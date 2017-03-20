@@ -6,12 +6,14 @@
     android:background="@color/white_semitransparent"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment">
 
+    <!-- Background image -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/chat_background" />
 
+    <!-- Empty chat info text -->
     <TextView
         android:id="@+id/info_message"
         android:layout_width="wrap_content"
@@ -22,37 +24,54 @@
         android:textColor="@color/white"
         android:textSize="10sp" />
 
+
+
     <RelativeLayout
-        android:id="@+id/outer_chats_container"
+        android:id="@+id/chat_info_line"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/input_container"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_button_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/green_dark_2">
 
-        <RelativeLayout
-            android:id="@+id/chats_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/chat_container_height"
+        <!-- Chat heads recycler view -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chat_heads_view"
+            android:focusableInTouchMode="true"
             android:layout_alignParentTop="true"
-            android:background="@color/green_dark_1">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/chat_heads_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:scrollbars="none" />
-        </RelativeLayout>
+            android:background="@color/green_dark_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none" />
+        <ImageView
+            android:id="@+id/down_arrow"
+            android:layout_width="@dimen/margin_20"
+            android:background="@color/colorPrimarySemiLight"
+            android:layout_height="@dimen/margin_20"
+            android:padding="4dp"
+            android:layout_below="@+id/chat_heads_view"
+            android:tint="@color/colorPrimaryLight"
+            android:src="@drawable/down_arrow" />
+        <TextView
+            android:id="@+id/chat_info_line_text"
+            android:layout_toEndOf="@+id/down_arrow"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/chat_heads_view"
+            android:textSize="10sp"
+            android:layout_height="@dimen/margin_20"
+            android:gravity="center"
+            android:textColor="@color/white_semitransparent"
+            android:text="Demo text, demo text 2, DEMO TEXT 3, deEMO text ..."/>
     </RelativeLayout>
 
-
+    <!-- Messages container -->
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/input_container"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/margin_60">
+        android:layout_marginTop="-48dp"
+        android:layout_below="@+id/chat_info_line"
+        android:layout_above="@+id/input_container">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/message_container"
@@ -60,19 +79,6 @@
             android:layout_height="match_parent" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
-
-
-    <ImageView
-        android:id="@+id/down_arrow"
-        android:layout_width="@dimen/chat_down_arrow_width"
-        android:layout_height="@dimen/chat_down_arrow_height"
-        android:layout_alignTop="@+id/swipe_refresh_layout"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="@dimen/padding_40"
-        android:src="@drawable/down_arrow" />
-
-
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
@@ -82,7 +88,6 @@
         android:elevation="2dp"
         android:visibility="gone"
         app:indicatorName="LineSpinFadeLoaderIndicator" />
-
     <RelativeLayout
         android:id="@+id/full_screen_container"
         android:layout_width="match_parent"
@@ -118,8 +123,6 @@
             android:scaleType="fitCenter"
             android:src="@drawable/download_button" />
     </RelativeLayout>
-
-
     <VideoView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
@@ -127,6 +130,7 @@
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
+    <!-- Input container -->
     <RelativeLayout
         android:id="@+id/input_container"
         android:layout_width="match_parent"
@@ -193,12 +197,12 @@
             android:background="@drawable/btn_send" />
     </RelativeLayout>
 
+    <!-- Container that appears when grid layout is visible -->
     <RelativeLayout
         android:id="@+id/bottom_create_chat_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentBottom="true"
-        android:animateLayoutChanges="true"
         android:background="@color/green_dark_2"
         android:visibility="gone">
 

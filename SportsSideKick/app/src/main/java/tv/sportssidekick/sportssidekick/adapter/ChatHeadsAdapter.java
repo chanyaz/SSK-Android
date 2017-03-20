@@ -22,7 +22,6 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -98,16 +97,16 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                 }
             });
 
-            viewHolder.editButton.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FragmentEvent fragmentEvent = new FragmentEvent(ManageChatFragment.class);
-                    int position = viewHolder.getLayoutPosition();
-                    fragmentEvent.setId(values.get(position).getChatId());
-                    EventBus.getDefault().post(fragmentEvent);
-                }
-            });
+//            viewHolder.editButton.setOnClickListener(
+//            new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    FragmentEvent fragmentEvent = new FragmentEvent(ManageChatFragment.class);
+//                    int position = viewHolder.getLayoutPosition();
+//                    fragmentEvent.setId(values.get(position).getChatId());
+//                    EventBus.getDefault().post(fragmentEvent);
+//                }
+//            });
 
             return  viewHolder;
         }
@@ -158,6 +157,17 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
            }
         }
     }
+
+    @Override
+    public long getItemId(int position) {
+        if (getItemViewType(position) == VIEW_TYPE_CELL) {
+            return values.get(position).getChatId().hashCode();
+        } else {
+            return 0;
+        }
+    }
+
+
 
     @Override
     public int getItemCount() {
