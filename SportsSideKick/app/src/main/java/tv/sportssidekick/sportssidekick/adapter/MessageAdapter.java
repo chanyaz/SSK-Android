@@ -187,11 +187,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public int getItemViewType(int position) {
         ImsMessage message = chatInfo.getMessages().get(position);
         UserInfo info = Model.getInstance().getUserInfo();
-        if(info.getUserId().equals(message.getSenderId())){
-           return VIEW_TYPE_MESSAGE_THIS_USER;
-        } else {
-            return VIEW_TYPE_MESSAGE_OTHER_USERS;
+        String userId = info.getUserId();
+        if(userId!=null){
+            if(info.getUserId().equals(message.getSenderId())) {
+                return VIEW_TYPE_MESSAGE_THIS_USER;
+            }
         }
+        return VIEW_TYPE_MESSAGE_OTHER_USERS;
     }
 
 }

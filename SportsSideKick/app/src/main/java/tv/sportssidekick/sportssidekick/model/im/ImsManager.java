@@ -30,6 +30,8 @@ import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
+import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
+
 /**
  * Created by Filip on 12/7/2016.
  * Copyright by Hypercube d.o.o.
@@ -186,19 +188,14 @@ public class ImsManager extends GSMessageHandlerAbstract{
         return source.getTask();
     }
 
-
-    private static GSRequestBuilder.LogEventRequest createRequest(String key){
-        return GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest().setEventKey(key);
-    }
-
-    private String toJson(Object object){
-        try {
-            return mapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    private String toJson(Object object){
+//        try {
+//            return mapper.writeValueAsString(object);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     private void loadUserChats() {
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -210,11 +207,16 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
                     // Go trough all ChatInfo objects and load users and messages
                     for (ChatInfo chat : chats) {
-                        String chatId = chat.getChatId();
-                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.USER_CHAT_DETECTED, chatId));
-                        addChatInfoToCache(chat);
-                        chat.loadChatUsers(userId);
-                        chat.loadMessages();
+                        if(chat!=null){
+                            String chatId = chat.getChatId();
+                            EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.USER_CHAT_DETECTED, chatId));
+                            addChatInfoToCache(chat);
+                            chat.loadChatUsers(userId);
+                            chat.loadMessages();
+                        } else {
+                            Log.e(TAG,"Chat is null!");
+                        }
+
                     }
                 }
             }
@@ -246,8 +248,11 @@ public class ImsManager extends GSMessageHandlerAbstract{
             }
         };
 
+        Map<String, Object> map = mapper.convertValue(chatInfo, new TypeReference<Map<String, Object>>(){});
+        GSData data = new GSData(map);
+
         createRequest("imsCreateChatGroup")
-                .setEventAttribute(CHAT_INFO,toJson(chatInfo))
+                .setEventAttribute(CHAT_INFO,data)
                 .send(consumer);
     }
 
@@ -270,8 +275,10 @@ public class ImsManager extends GSMessageHandlerAbstract{
             }
         };
 
+        Map<String, Object> map = mapper.convertValue(chatInfo, new TypeReference<Map<String, Object>>(){});
+        GSData data = new GSData(map);
         createRequest("imsUpdateChatGroup")
-            .setEventAttribute("imsGroupInfo",toJson(chatInfo))
+            .setEventAttribute("imsGroupInfo",data)
             .send(consumer);
     }
 
@@ -334,12 +341,13 @@ public class ImsManager extends GSMessageHandlerAbstract{
         if(TextUtils.isEmpty(nic)){
             nic = Model.getInstance().getUserInfo().getFirstName();
         }
-        Object map = mapper.convertValue(message, Map.class);
+        Map<String, Object> map = mapper.convertValue(message, new TypeReference<Map<String, Object>>(){});
+        GSData data = new GSData(map);
 
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
             .setEventKey("imsSendMessage")
             .setEventAttribute(GROUP_ID,chatInfo.getChatId())
-            .setEventAttribute(MESSAGE,new GSData((Map<String, Object>) map))
+            .setEventAttribute(MESSAGE,data)
             .setEventAttribute("senderNic",nic)
             .send(null);
     }
@@ -495,7 +503,11 @@ public class ImsManager extends GSMessageHandlerAbstract{
             case "ImsMesssage": // TODO REMOVE WHEN TYPO IS FIXED!
                 ImsMessage message = mapper.convertValue(data.get(MESSAGE),ImsMessage.class);
                 ChatInfo chatInfo = ImsManager.getInstance().getChatInfoById((String)data.get(CHAT_ID));
-                chatInfo.addRecievedMessage(message);
+                if(chatInfo!=null){
+                    chatInfo.addRecievedMessage(message);
+                } else {
+                    Log.e(TAG,"UNHANDLED ImsMessage " + message + " Error: chat not found with id:" + (String)data.get(CHAT_ID));
+                }
                 break;
             default:
                 Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);

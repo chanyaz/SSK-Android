@@ -578,4 +578,8 @@ public class Model {
             }
         }
     }
+
+    public static GSRequestBuilder.LogEventRequest createRequest(String key){
+        return GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest().setEventKey(key);
+    }
 }

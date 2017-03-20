@@ -51,7 +51,7 @@ public class ChatMembersAdapter extends RecyclerView.Adapter<ChatMembersAdapter.
     class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.profile_image) ImageView image;
+        @Nullable @BindView(R.id.image) ImageView image;
         @Nullable @BindView(R.id.remove_icon) ImageView removeIcon;
         @Nullable @BindView(R.id.caption) TextView name;
 

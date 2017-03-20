@@ -48,7 +48,7 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
     class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.profile_image) ImageView image;
+        @Nullable @BindView(R.id.image) ImageView image;
         @Nullable @BindView(R.id.selected) View selectedRingView;
         @Nullable @BindView(R.id.caption) TextView name;
 
@@ -104,15 +104,12 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
         if(holder.image!=null){
             ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.image,imageOptions);
             holder.name.setText(info.getFirstName()  + " " + info.getLastName());
+            if(selectedValues.contains(info)){
+                holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
+            } else {
+                holder.image.setColorFilter(null);
+            }
         }
-
-
-        if(selectedValues.contains(info)){
-            holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
-        } else {
-            holder.image.setColorFilter(null);
-        }
-
         holder.view.setTag(position);
     }
 

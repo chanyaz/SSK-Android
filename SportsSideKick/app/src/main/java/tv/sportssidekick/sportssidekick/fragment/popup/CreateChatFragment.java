@@ -91,18 +91,12 @@ public class CreateChatFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
         friendsRecyclerView.setLayoutManager(layoutManager);
 
-        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends();
+        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
             new OnSuccessListener<List<UserInfo>>() {
                 @Override
                 public void onSuccess(List<UserInfo> userInfos) {
                     chatFriendsAdapter = new ChatFriendsAdapter(getContext());
-                    for (int i = 0; i < 20; i++) {
-                        UserInfo info = new UserInfo();
-                        info.setEqualsTo(userInfos.get(0));
-                        info.setUserId("TEST" + i);
-                        userInfos.add(info); // for demo!
-                    }
                     chatFriendsAdapter.add(userInfos);
                     userInfoList = userInfos;
                     friendsRecyclerView.setAdapter(chatFriendsAdapter);

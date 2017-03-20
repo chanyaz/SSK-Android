@@ -67,7 +67,7 @@ public class ManageChatFragment extends BaseFragment {
         String chatId = getPrimaryArgument();
         chatInfo = ImsManager.getInstance().getChatInfoById(chatId);
 
-        FriendsManager.getInstance().getFriends().addOnSuccessListener(
+        FriendsManager.getInstance().getFriends(0).addOnSuccessListener(
                 new OnSuccessListener<List<UserInfo>>() {
                     @Override
                     public void onSuccess(List<UserInfo> userInfos) {

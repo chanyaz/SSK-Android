@@ -13,6 +13,10 @@ package tv.sportssidekick.sportssidekick.model.friendship;
 //--                                                                                     --//
 //-----------------------------------------------------------------------------------------//
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
@@ -22,19 +26,16 @@ import java.util.List;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
-/**
- * Friendship relations are stored under the path:  /friendshipIndex/<user id> -<friend user id>: true
- * and the same goes for the friend user.. /friendshipIndex/<friend user id>  -<user id>: true
- *
- *
- * Friends request are stored in the user info.
- **/
-
+import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
 
 public class FriendsManager {
 
+    private static final String OFFSET = "offset";
+    private static final String ENTRY_COUNT = "entryCount";
+
     private static FriendsManager instance;
+    private final ObjectMapper mapper; // jackson's object mapper
 
     public static FriendsManager getInstance(){
         if(instance==null){
@@ -45,6 +46,7 @@ public class FriendsManager {
 
     private FriendsManager(){
         friendsIds = new ArrayList<>();
+        mapper  = new ObjectMapper();
     }
 
     private List<String> friendsIds;
@@ -65,39 +67,26 @@ public class FriendsManager {
      *
      * @return the user friends list
      */
-    public Task<List<UserInfo>> getFriends(){
+    public Task<List<UserInfo>> getFriends(int offset){
         final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
-        UserInfo info = Model.getInstance().getUserInfo();
-        // TODO Rewrite to GS
-//        DatabaseReference ref = Model.getInstance().getRef().getReference("friendshipIndex").child(info.getUserId());
-//        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                friendsIds = new ArrayList<>();
-//                for(DataSnapshot child : dataSnapshot.getChildren()){
-//                    String userInfoId = child.getKey();
-//                    friendsIds.add(userInfoId);
-//                }
-//                final List<Task<UserInfo>> tasks = new ArrayList<>();
-//                for(String id : friendsIds){
-//                    Task<UserInfo> task = Model.getInstance().getUserInfoById(id);
-//                    tasks.add(task);
-//                }
-//                Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        List<UserInfo> userInfoList = new ArrayList<>();
-//                        for(Task t : tasks){
-//                            userInfoList.add((UserInfo) t.getResult());
-//                        }
-//                        source.setResult(userInfoList);
-//                    }
-//                });
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) { }
-//        });
 
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get("friends");
+                    List<UserInfo> friends = mapper.convertValue(object, new TypeReference<List<UserInfo>>(){});
+                    while(friends.contains(null)){
+                        friends.remove(null);
+                    }
+                    source.setResult(friends);
+                }
+            }
+        };
+        createRequest("friendGetFriendsList")
+                .setEventAttribute(ENTRY_COUNT,"50")
+                .setEventAttribute(OFFSET,"50")
+                .send(consumer);
         return source.getTask();
     }
 

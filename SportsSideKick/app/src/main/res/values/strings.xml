@@ -72,12 +72,12 @@
     <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
     <string name="button_allow">Allow</string>
     <string name="button_deny">Deny</string>
-    <string name="permission_microphone_denied">You need to enable micrphone in settings to send audio messages.</string>
+    <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
     <string name="permission_microphone_neverask">Never ask for audio recording permission again.</string>
 
-    <string name="this_chat_is_public">this_chat_is_public</string>
-    <string name="this_chat_is_private">this_chat_is_private</string>
-    <string name="manage_public_chat_caption">manage_public_chat_caption</string>
+    <string name="this_chat_is_public">This chat is public</string>
+    <string name="this_chat_is_private">This chat is private</string>
+    <string name="manage_public_chat_caption">Manage chat %1s</string>
     <string name="create_chat">Create Chat</string>
     <string name="join_chat">Join Chat</string>
     <string name="your_stash">Your Stash</string>
@@ -88,12 +88,12 @@
     <string name="location_caption">Location</string>
     <string name="password_caption">Password</string>
     <string name="image">image</string>
-    <string name="chosen_language">Chosen lanugage</string>
+    <string name="chosen_language">Chosen language</string>
     <string name="your_statement">Your Statement</string>
     <string name="choose_your_language">Choose your language</string>
     <string name="english">English</string>
     <string name="chinese">Chinese</string>
-    <string name="portuguese">Portugese</string>
+    <string name="portuguese">Portuguese</string>
     <string name="friend_profile">Friend Profile</string>
     <string name="member_since">Member since</string>
     <string name="follows_you">Follows you</string>

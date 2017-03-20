@@ -68,9 +68,9 @@
     <string name="permission_microphone_denied">You need to enable micrphone in settings to send audio messages.</string>
     <string name="permission_microphone_neverask">Never ask for audio recording permission again.</string>
 
-    <string name="this_chat_is_public">this_chat_is_public</string>
-    <string name="this_chat_is_private">this_chat_is_private</string>
-    <string name="manage_public_chat_caption">manage_public_chat_caption</string>
+    <string name="this_chat_is_public">This chat is public</string>
+    <string name="this_chat_is_private">This chat is private</string>
+    <string name="manage_public_chat_caption">Manage chat %1s</string>
     <string name="create_chat">创建新聊天</string>
     <string name="join_chat">加入聊天</string>
     <string name="your_stash">您的宝藏</string>
