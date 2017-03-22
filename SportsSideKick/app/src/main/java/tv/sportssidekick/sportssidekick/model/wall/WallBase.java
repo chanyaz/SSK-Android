@@ -1,7 +1,6 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
 import android.support.annotation.Nullable;
-import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -19,6 +18,16 @@ public class WallBase {
         rumor,
         wallStoreItem
     }
+
+    private String wallId;
+    private String postId;
+    private String timestamp;
+    private int likeCount;
+    private boolean likedByUser;
+    private int commentsCount;
+    private int shareCount;
+    private PostType type;
+
 
     public String getWallId() {
         return wallId;
@@ -68,30 +77,25 @@ public class WallBase {
         this.commentsCount = commentsCount;
     }
 
-    public UserInfo getPoster() {
-        return poster;
-    }
 
-    public void setPoster(UserInfo poster) {
-        this.poster = poster;
-    }
 
-    protected String wallId;
-    protected String postId;
-    protected String timestamp;
-    protected int likeCount;
-    protected boolean likedByUser;
-    protected int commentsCount;
-
-    protected UserInfo poster;
 
     public void toggleLike(){
+        likedByUser = !likedByUser;
         if(likedByUser){
-            likedByUser = false;
-            likeCount -= 1;
+            likeCount += 1;
         } else {
-
+            likeCount -= 1;
         }
+        // TODO
+//        WallModel.instance.setlikeVal(self, val: self.likedByUser) {
+//            error in
+//
+//            if error != nil {
+//                print("WallBase.toggleLike() -> Error: \(error)")
+//                return
+//            }
+//        }
     }
 
     public void setEqualTo(WallBase item){
@@ -99,6 +103,8 @@ public class WallBase {
         this.likeCount = item.likeCount;
         this.likedByUser = item.likedByUser;
         this.commentsCount = item.commentsCount;
+        this.shareCount = item.shareCount;
+        this.type = item.type;
     }
 
     @Nullable

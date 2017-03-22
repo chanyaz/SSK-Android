@@ -1,55 +1,27 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by Filip on 1/10/2017.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
 
-public class WallRumor extends WallBase {
+public class WallRumor extends WallNews {
 
-    public String getTitle() {
-        return title;
-    }
+    // TODO - Same as News?
 
-    public WallRumor setTitle(String title) {
-        this.title = title;
-        return this;
-    }
+    @JsonProperty("url")
+    private String url;
 
-    public String getSubTitle() {
-        return subTitle;
-    }
-
-    public WallRumor setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-        return this;
-    }
-
+    @JsonProperty("url")
     public String getUrl() {
         return url;
     }
 
-    public WallRumor setUrl(String url) {
+    @JsonProperty("url")
+    public void setUrl(String url) {
         this.url = url;
-        return this;
-    }
-
-    private String title;
-    private String subTitle;
-    private String url;
-
-    public WallRumor(){
-        super();
-    }
-
-    public void setEqualTo(WallBase item){
-        if (item instanceof WallRumor) {
-            WallRumor bet = (WallRumor) item;
-            this.title = bet.getTitle();
-            this.subTitle = bet.getSubTitle();
-            this.url = bet.getUrl();
-            super.setEqualTo(item);
-        }
     }
 }

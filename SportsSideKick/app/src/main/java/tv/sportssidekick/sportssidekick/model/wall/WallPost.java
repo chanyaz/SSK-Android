@@ -6,86 +6,96 @@ package tv.sportssidekick.sportssidekick.model.wall;
  * www.hypercubesoft.com
  */
 
-public class WallPost extends WallBase{
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public String getTitle() {
-        return title;
+import tv.sportssidekick.sportssidekick.model.Id;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class WallPost extends WallBase {
+
+    @JsonProperty("_id")
+    private Id id;
+    @JsonProperty("coverAspectRatio")
+    private Float coverAspectRatio;
+    @JsonProperty("bodyText")
+    private String bodyText;
+    @JsonProperty("coverImageUrl")
+    private String coverImageUrl;
+    @JsonProperty("title")
+    private String title;
+    @JsonProperty("subTitle")
+    private String subTitle;
+    @JsonProperty("vidUrl")
+    private String vidUrl;
+
+    @JsonProperty("_id")
+    public Id getId() {
+        return id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    @JsonProperty("_id")
+    public void setId(Id id) {
+        this.id = id;
     }
 
-    public String getSubTitle() {
-        return subTitle;
+    @JsonProperty("coverAspectRatio")
+    public Float getCoverAspectRatio() {
+        return coverAspectRatio;
     }
 
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
+    @JsonProperty("coverAspectRatio")
+    public void setCoverAspectRatio(Float coverAspectRatio) {
+        this.coverAspectRatio = coverAspectRatio;
     }
 
+    @JsonProperty("bodyText")
     public String getBodyText() {
         return bodyText;
     }
 
+    @JsonProperty("bodyText")
     public void setBodyText(String bodyText) {
         this.bodyText = bodyText;
     }
 
+    @JsonProperty("coverImageUrl")
     public String getCoverImageUrl() {
         return coverImageUrl;
     }
 
+    @JsonProperty("coverImageUrl")
     public void setCoverImageUrl(String coverImageUrl) {
         this.coverImageUrl = coverImageUrl;
     }
 
-    public float getCoverAspectRatio() {
-        return coverAspectRatio;
+    @JsonProperty("title")
+    public String getTitle() {
+        return title;
     }
 
-    public void setCoverAspectRatio(float coverAspectRatio) {
-        this.coverAspectRatio = coverAspectRatio;
+    @JsonProperty("title")
+    public void setTitle(String title) {
+        this.title = title;
     }
 
+    @JsonProperty("subTitle")
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    @JsonProperty("subTitle")
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+    @JsonProperty("vidUrl")
     public String getVidUrl() {
         return vidUrl;
     }
 
+    @JsonProperty("vidUrl")
     public void setVidUrl(String vidUrl) {
         this.vidUrl = vidUrl;
-    }
-
-    private String title;
-    private String subTitle;
-    private String bodyText;
-    private String coverImageUrl;
-    private float coverAspectRatio = 0.5625f;
-    private String vidUrl;
-
-    public WallPost(){
-        super();
-    }
-
-    public WallPost(String title, String subTitle, String bodyText, String coverImageUrl, float coverAspectRatio, String vidUrl) {
-        this.title = title;
-        this.subTitle = subTitle;
-        this.bodyText = bodyText;
-        this.coverImageUrl = coverImageUrl;
-        this.coverAspectRatio = coverAspectRatio;
-        this.vidUrl = vidUrl;
-    }
-
-    public void setEqualTo(WallBase item){
-        if(item instanceof WallPost){
-            WallPost post = (WallPost) item;
-            this.title = post.getTitle();
-            this.subTitle = post.getSubTitle();
-            this.bodyText = post.getBodyText();
-            this.coverImageUrl = post.getCoverImageUrl();
-            this.coverAspectRatio = post.getCoverAspectRatio();
-            this.vidUrl = post.getVidUrl();
-            super.setEqualTo(item);
-        }
     }
 }

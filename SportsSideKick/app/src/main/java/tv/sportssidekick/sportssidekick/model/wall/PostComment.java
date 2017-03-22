@@ -1,57 +1,84 @@
+
+
 package tv.sportssidekick.sportssidekick.model.wall;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import tv.sportssidekick.sportssidekick.model.Model;
-
-/**
- * Created by Filip on 1/7/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
- */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostComment {
 
-    public String getCommentId() {
-        return commentId;
+    @JsonProperty("_id")
+    private String id;
+    @JsonProperty("comment")
+    private String comment;
+    @JsonProperty("posterId")
+    private String posterId;
+    @JsonProperty("wallId")
+    private String wallId;
+    @JsonProperty("postId")
+    private String postId;
+    @JsonProperty("timestamp")
+    private String timestamp;
+
+    @JsonProperty("_id")
+    public String getId() {
+        return id;
     }
 
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
+    @JsonProperty("_id")
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getPosterId() {
-        return posterId;
-    }
-
-    public void setPosterId(String posterId) {
-        this.posterId = posterId;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
+    @JsonProperty("comment")
     public String getComment() {
         return comment;
     }
 
+    @JsonProperty("comment")
     public void setComment(String comment) {
         this.comment = comment;
     }
 
-    private String commentId;
-    private String posterId;
-    private Date timestamp;
-    private String comment;
+    @JsonProperty("posterId")
+    public String getPosterId() {
+        return posterId;
+    }
 
-    public PostComment(String comment) {
-        this.commentId = "";
-        this.posterId = Model.getInstance().getUserInfo().getUserId();
-        this.timestamp = new Date();
-        this.comment = comment;
+    @JsonProperty("posterId")
+    public void setPosterId(String posterId) {
+        this.posterId = posterId;
+    }
+
+    @JsonProperty("wallId")
+    public String getWallId() {
+        return wallId;
+    }
+
+    @JsonProperty("wallId")
+    public void setWallId(String wallId) {
+        this.wallId = wallId;
+    }
+
+    @JsonProperty("postId")
+    public String getPostId() {
+        return postId;
+    }
+
+    @JsonProperty("postId")
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    @JsonProperty("timestamp")
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    @JsonProperty("timestamp")
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }
+

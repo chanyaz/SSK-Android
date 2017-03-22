@@ -6,62 +6,59 @@ package tv.sportssidekick.sportssidekick.model.wall;
  * www.hypercubesoft.com
  */
 
-public class WallBetting extends WallBase {
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    String betName;
-    Float odds;
-    String outcome;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class WallBetting {
 
-    public WallBetting(){
-        super();
-    }
+    @JsonProperty("betName")
+    private String betName;
+    @JsonProperty("odds")
+    private Float odds;
+    @JsonProperty("outcome")
+    private String outcome;
+    @JsonProperty("percentage")
+    private Float percentage;
 
-    public Float getPercentage() {
-        return percentage;
-    }
-
-    public WallBetting setPercentage(Float percentage) {
-        this.percentage = percentage;
-        return this;
-    }
-
-    public String getOutcome() {
-        return outcome;
-    }
-
-    public WallBetting setOutcome(String outcome) {
-        this.outcome = outcome;
-        return this;
-    }
-
-    public Float getOdds() {
-        return odds;
-    }
-
-    public WallBetting setOdds(Float odds) {
-        this.odds = odds;
-        return this;
-    }
-
+    @JsonProperty("betName")
     public String getBetName() {
         return betName;
     }
 
-    public WallBetting setBetName(String betName) {
+    @JsonProperty("betName")
+    public void setBetName(String betName) {
         this.betName = betName;
-        return this;
     }
 
-    Float percentage;
-
-    public void setEqualTo(WallBase item){
-        if (item instanceof WallBetting) {
-            WallBetting bet = (WallBetting) item;
-            this.betName = bet.getBetName();
-            this.odds = bet.getOdds();
-            this.outcome = bet.getOutcome();
-            this.percentage = bet.getPercentage();
-            super.setEqualTo(item);
-        }
+    @JsonProperty("odds")
+    public Float getOdds() {
+        return odds;
     }
+
+    @JsonProperty("odds")
+    public void setOdds(Float odds) {
+        this.odds = odds;
+    }
+
+    @JsonProperty("outcome")
+    public String getOutcome() {
+        return outcome;
+    }
+
+    @JsonProperty("outcome")
+    public void setOutcome(String outcome) {
+        this.outcome = outcome;
+    }
+
+    @JsonProperty("percentage")
+    public Float getPercentage() {
+        return percentage;
+    }
+
+    @JsonProperty("percentage")
+    public void setPercentage(Float percentage) {
+        this.percentage = percentage;
+    }
+
 }

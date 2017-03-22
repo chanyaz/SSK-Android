@@ -6,84 +6,84 @@ package tv.sportssidekick.sportssidekick.model.wall;
  * www.hypercubesoft.com
  */
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class WallNews extends WallBase {
 
-    String title;
-    String subTitle;
-    String bodyText;
-    String coverImageUrl;
+    @JsonProperty("title")
+    private String title;
+    @JsonProperty("subTitle")
+    private String subTitle;
+    @JsonProperty("bodyText")
+    private String bodyText;
+    @JsonProperty("coverImageUrl")
+    private String coverImageUrl;
+    @JsonProperty("vidUrl")
+    private String vidUrl;
+    @JsonProperty("coverAspectRatio")
+    private Float coverAspectRatio;
 
+    @JsonProperty("title")
     public String getTitle() {
         return title;
     }
 
-    public WallNews setTitle(String title) {
+    @JsonProperty("title")
+    public void setTitle(String title) {
         this.title = title;
-        return this;
     }
 
+    @JsonProperty("subTitle")
     public String getSubTitle() {
         return subTitle;
     }
 
-    public WallNews setSubTitle(String subTitle) {
+    @JsonProperty("subTitle")
+    public void setSubTitle(String subTitle) {
         this.subTitle = subTitle;
-        return this;
     }
 
+    @JsonProperty("bodyText")
     public String getBodyText() {
         return bodyText;
     }
 
-    public WallNews setBodyText(String bodyText) {
+    @JsonProperty("bodyText")
+    public void setBodyText(String bodyText) {
         this.bodyText = bodyText;
-        return this;
     }
 
+    @JsonProperty("coverImageUrl")
     public String getCoverImageUrl() {
         return coverImageUrl;
     }
 
-    public WallNews setCoverImageUrl(String coverImageUrl) {
+    @JsonProperty("coverImageUrl")
+    public void setCoverImageUrl(String coverImageUrl) {
         this.coverImageUrl = coverImageUrl;
-        return this;
     }
 
-    public float getCoverAspectRatio() {
-        return coverAspectRatio;
-    }
-
-    public WallNews setCoverAspectRatio(float coverAspectRatio) {
-        this.coverAspectRatio = coverAspectRatio;
-        return this;
-    }
-
+    @JsonProperty("vidUrl")
     public String getVidUrl() {
         return vidUrl;
     }
 
-    public WallNews setVidUrl(String vidUrl) {
+    @JsonProperty("vidUrl")
+    public void setVidUrl(String vidUrl) {
         this.vidUrl = vidUrl;
-        return this;
     }
 
-    float coverAspectRatio;
-    String vidUrl;
-
-    public WallNews(){
-        super();
+    @JsonProperty("coverAspectRatio")
+    public Float getCoverAspectRatio() {
+        return coverAspectRatio;
     }
 
-    public void setEqualTo(WallBase item){
-        if (item instanceof WallNews) {
-            WallNews bet = (WallNews) item;
-            this.title = bet.getTitle();
-            this.subTitle = bet.getSubTitle();
-            this.bodyText = bet.getBodyText();
-            this.coverImageUrl = bet.getCoverImageUrl();
-            this.coverAspectRatio = bet.getCoverAspectRatio();
-            this.vidUrl = bet.getVidUrl();
-            super.setEqualTo(item);
-        }
+    @JsonProperty("coverAspectRatio")
+    public void setCoverAspectRatio(Float coverAspectRatio) {
+        this.coverAspectRatio = coverAspectRatio;
     }
+
 }
+
