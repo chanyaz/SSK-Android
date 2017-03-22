@@ -55,13 +55,16 @@
         <TextView
             android:id="@+id/chat_info_line_text"
             android:layout_toEndOf="@+id/down_arrow"
+            android:layout_marginStart="@dimen/margin_60"
+            android:layout_marginEnd="@dimen/margin_60"
             android:layout_width="match_parent"
             android:layout_below="@+id/chat_heads_view"
             android:textSize="10sp"
+            android:lines="1"
+            android:ellipsize="marquee"
             android:layout_height="@dimen/margin_20"
             android:gravity="center"
-            android:textColor="@color/white_semitransparent"
-            android:text="Demo text, demo text 2, DEMO TEXT 3, deEMO text ..."/>
+            android:textColor="@color/white_semitransparent"/>
     </RelativeLayout>
 
     <!-- Messages container -->

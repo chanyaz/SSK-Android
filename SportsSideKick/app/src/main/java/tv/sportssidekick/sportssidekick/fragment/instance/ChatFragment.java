@@ -257,7 +257,6 @@ public class ChatFragment extends BaseFragment {
                 showGridChats();
             }
         });
-
         return view;
     }
 
