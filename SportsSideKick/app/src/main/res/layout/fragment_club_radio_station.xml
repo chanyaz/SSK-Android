@@ -1,0 +1,130 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment">
+
+    <!--  \/\/\/\/\/\/\/ FIXME Dummy View to make sure container is the size of Video player fragment -->
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/video_player_dummy_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="105dp">
+        <View
+            android:id="@+id/youtube_layout"
+            android:layout_marginBottom="16dp"
+            android:visibility="invisible"
+            app:layout_aspectRatio="178%"
+            app:layout_widthPercent="100%"/>
+    </android.support.percent.PercentRelativeLayout>
+    <!--  /\/\/\/\/\/\/\ -->
+
+    <!-- Items -->
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_alignBottom="@+id/video_player_dummy_container"/>
+
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_close"/>
+
+    <TextView
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/close_button"
+        android:layout_centerHorizontal="true"
+        android:background="@color/green_dark_2_semitransparent"
+        android:gravity="start|center_vertical"
+        android:paddingStart="@dimen/padding_16"
+        android:text="@string/club_radio_caption"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:id="@+id/controls_container"
+        android:layout_alignBottom="@+id/video_player_dummy_container"
+        android:background="@color/green_dark_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/play_button"
+            android:layout_width="@dimen/standard_button_width_half"
+            android:layout_height="@dimen/standard_button_width_half"
+            android:layout_margin="@dimen/margin_15"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/switch_play" />
+        <ImageView
+            android:id="@+id/live_dot"
+            android:layout_width="@dimen/margin_10"
+            android:layout_height="@dimen/margin_10"
+            android:layout_toEndOf="@+id/play_button"
+            android:layout_centerVertical="true"
+            android:src="@drawable/radio_live" />
+        <TextView
+            android:id="@+id/live_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/live_dot"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:text="LIVE" />
+
+        <View
+            android:id="@+id/center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"/>
+        <ImageView
+            android:id="@+id/mute_button"
+            android:layout_width="@dimen/standard_button_width_half"
+            android:layout_height="@dimen/standard_button_width_half"
+            android:layout_margin="@dimen/margin_15"
+            android:button="@null"
+            android:gravity="center"
+            android:layout_toEndOf="@+id/center"
+            android:src="@drawable/switch_mute"
+            android:thumb="@null" />
+
+        <SeekBar
+            android:id="@+id/seek_bar_audio"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:thumb="@null"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/mute_button"
+            android:thumbOffset="0px"
+            android:progress="50"
+            android:progressDrawable="@drawable/seek_bar_audio" />
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/seek_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_alignEnd="@+id/controls_container"
+        android:layout_alignStart="@+id/controls_container"
+        android:layout_above="@+id/controls_container"
+        android:thumb="@null"
+        android:layout_marginEnd="-18dp"
+        android:layout_marginStart="-16dp"
+        android:thumbOffset="0px"
+        android:progress="100"
+        android:progressDrawable="@drawable/seek_bar_custom" />
+
+</RelativeLayout>

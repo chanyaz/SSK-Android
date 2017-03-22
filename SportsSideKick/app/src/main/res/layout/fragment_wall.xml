@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tv.sportssidekick.sportssidekick.fragment.instance.WallFragment"
+    android:background="@color/colorAccentLight">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_wall_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/fragment_wall_bottom_bar"/>
+
+    <RelativeLayout
+        android:id="@+id/fragment_wall_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:id="@+id/fragment_wall_new_post"
+            android:layout_width="@dimen/wall_button_size"
+            android:layout_height="@dimen/wall_button_size"
+            android:background="@drawable/wall_new_post_selector"
+            android:layout_marginStart="@dimen/padding_16"
+            android:layout_marginEnd="@dimen/padding_8"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/fragment_wall_notification"
+            android:layout_width="@dimen/wall_button_size"
+            android:layout_height="@dimen/wall_button_size"
+            android:background="@drawable/wall_notification_selector"
+            android:layout_toEndOf="@id/fragment_wall_new_post"
+            android:layout_marginStart="@dimen/padding_8"
+            android:layout_marginEnd="@dimen/padding_8"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/fragment_wall_filter"
+            android:layout_width="@dimen/wall_button_size"
+            android:layout_height="@dimen/wall_button_size"
+            android:background="@drawable/wall_filter_selector"
+            android:layout_toEndOf="@id/fragment_wall_notification"
+            android:layout_marginStart="@dimen/padding_8"
+            android:layout_marginEnd="@dimen/padding_8"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/fragment_wall_following"
+            android:layout_width="@dimen/wall_button_size"
+            android:layout_height="@dimen/wall_button_size"
+            android:background="@drawable/wall_following_selector"
+            android:layout_toEndOf="@id/fragment_wall_filter"
+            android:layout_marginStart="@dimen/padding_8"
+            android:layout_marginEnd="@dimen/padding_8"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/fragment_wall_search"
+            android:layout_width="@dimen/wall_button_size"
+            android:layout_height="@dimen/wall_button_size"
+            android:background="@drawable/wall_search_selector"
+            android:layout_toEndOf="@id/fragment_wall_following"
+            android:layout_marginStart="@dimen/padding_8"
+            android:layout_marginEnd="@dimen/padding_16"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/fragment_wall_full_screen"
+            android:layout_width="@dimen/wall_button_size"
+            android:layout_height="@dimen/wall_button_size"
+            android:background="@drawable/ic_fullscreen"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/padding_16"
+            android:layout_marginEnd="@dimen/padding_16"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

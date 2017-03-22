@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ssk_app_bg"
+    tools:context="tv.sportssidekick.sportssidekick.activity.LoungeActivity">
+
+    <!-- TOP CONTAINER -->
+    <LinearLayout
+        android:id="@+id/top_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <!-- TICKER -->
+        <RelativeLayout
+            android:id="@+id/left_top_bar_container"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/top_bar_height"
+            android:layout_marginEnd="@dimen/half_margin"
+            android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/top_bar_logo_width"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/demo"
+            android:padding="@dimen/padding_8"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sportingportugal" />
+
+            <TextView
+                android:id="@+id/caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/scrolling_news_title"
+                android:layout_toEndOf="@+id/logo"
+                android:paddingBottom="@dimen/half_margin"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/scrolling_news_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_toEndOf="@+id/logo"
+            android:layout_toStartOf="@+id/days_until_match_label"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/half_margin"
+            android:textColor="@color/light_green_1" />
+
+        <ImageView
+            android:id="@+id/logo_first_team"
+            android:layout_width="@dimen/top_bar_logo_tema_size"
+            android:layout_height="@dimen/top_bar_logo_tema_size"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/vs_label"
+            android:contentDescription="@string/demo"
+            android:padding="@dimen/half_margin"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/logo_second_team"
+            android:layout_width="@dimen/top_bar_logo_tema_size"
+            android:layout_height="@dimen/top_bar_logo_tema_size"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/demo"
+            android:padding="@dimen/half_margin"
+            android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/vs_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/logo_second_team"
+                android:text="VS"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/days_until_match_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/time_of_match_label"
+                android:paddingBottom="@dimen/half_margin"
+                android:paddingEnd="@dimen/half_margin"
+                android:textColor="@color/colorAccentLight"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time_of_match_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:paddingBottom="@dimen/half_margin"
+                android:paddingEnd="@dimen/half_margin"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/up_next_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_below="@+id/logo_second_team"
+                android:paddingEnd="@dimen/half_margin"
+                android:text="UP NEXT"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <!-- ADS CONTAINER -->
+        <RelativeLayout
+            android:id="@+id/right_top_bar_container"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/top_bar_height"
+            android:layout_marginStart="@dimen/half_margin"
+            android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_8"
+            android:layout_toRightOf="@+id/notification_container"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:contentDescription="@string/demo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/liga" />
+
+        <RelativeLayout
+            android:id="@+id/notification_container"
+            android:layout_width="@dimen/top_bar_notification_container_width"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/top_bar_notification_image_size"
+                android:src="@drawable/notification"
+                android:layout_centerInParent="true"
+                android:paddingLeft="@dimen/padding_8"
+                android:adjustViewBounds="true"/>
+
+                <TextView
+                    android:id="@+id/notification_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="5"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_container">
+
+        <!-- MIDDLE SPLITTER -->
+        <View
+            android:id="@+id/middle_split"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true" />
+
+        <!-- LEFT CONTAINER -->
+        <RelativeLayout
+            android:id="@+id/tabs_container_1"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/full_margin"
+            android:layout_marginEnd="@dimen/half_margin"
+            android:layout_toEndOf="@+id/left_tab_selector"
+            android:layout_toStartOf="@+id/middle_split"
+            android:background="@color/green_dark_1"/>
+
+
+    <RelativeLayout
+        android:id="@+id/tabs_container_top_right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_right_container"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_toEndOf="@+id/middle_split"
+        android:layout_toStartOf="@+id/right_tab_selector"
+        android:background="@color/green_dark_1"/>
+
+        <!-- CLUB CONTAINER -->
+        <RelativeLayout
+            android:id="@+id/bottom_right_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginStart="@dimen/half_margin"
+            android:layout_toEndOf="@+id/middle_split"
+            android:layout_toStartOf="@+id/right_tab_selector"
+            android:background="@color/green_dark_1" />
+
+
+        <!-- TOP RIGHT RADIO GROUP -->
+        <RadioGroup
+            android:id="@+id/right_tab_selector"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="top">
+
+            <RadioButton
+                android:id="@+id/chat_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/chat_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/stats_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/statistics_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/fantasy_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/fantasy_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+
+            <RadioButton
+                android:id="@+id/quiz_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/quiz_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+        </RadioGroup>
+
+        <!-- BOTTOM RIGHT RADIO GROUP -->
+        <RadioGroup
+            android:id="@+id/video_tab_radio_group"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/bottom_right_container"
+            android:gravity="top"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/club_tv_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/club_tv_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+
+            <RadioButton
+                android:id="@+id/club_radio_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/tab_radio_button_selector_right"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/club_radio_caption"
+                android:textColor="@drawable/tab_radio_text_color_selector" />
+        </RadioGroup>
+
+        <!-- TOP LEFT RADIO GROUP -->
+        <RadioGroup
+            android:id="@+id/left_tab_selector"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:gravity="top"
+            android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/wall_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:background="@drawable/tab_radio_button_selector_left"
+            android:button="@null"
+            android:gravity="center"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/wall_caption"
+            android:textColor="@drawable/tab_radio_text_color_selector" />
+
+        <RadioButton
+            android:id="@+id/video_chat_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:background="@drawable/tab_radio_button_selector_left"
+            android:button="@null"
+            android:gravity="center"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/video_chat_caption"
+            android:textColor="@drawable/tab_radio_text_color_selector" />
+
+        <RadioButton
+            android:id="@+id/news_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:background="@drawable/tab_radio_button_selector_left"
+            android:button="@null"
+            android:gravity="center"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/news_caption"
+            android:textColor="@drawable/tab_radio_text_color_selector" />
+
+        <RadioButton
+            android:id="@+id/roumors_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:background="@drawable/tab_radio_button_selector_left"
+            android:button="@null"
+            android:gravity="center"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/rumours_caption"
+            android:textColor="@drawable/tab_radio_text_color_selector" />
+
+        <RadioButton
+            android:id="@+id/shop_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_buttons_bar_height"
+            android:background="@drawable/tab_radio_button_selector_left"
+            android:button="@null"
+            android:gravity="center"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/shop_caption"
+            android:textColor="@drawable/tab_radio_text_color_selector" />
+    </RadioGroup>
+
+        <!-- COIN & PROFILE -->
+        <RelativeLayout
+            android:id="@+id/left_profile_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@id/left_tab_selector"
+            android:layout_below="@id/left_tab_selector">
+
+            <!-- COIN ICON CONTAINER -->
+            <LinearLayout
+                android:id="@+id/your_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/coin_bottom_margin"
+                android:layout_marginLeft="@dimen/coin_lateral_margin"
+                android:layout_marginRight="@dimen/coin_lateral_margin"
+                android:adjustViewBounds="true"
+                android:src="@drawable/skk_coin_large" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@string/coins_caption"
+                    android:textColor="@android:color/white"
+                    android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/your_coins_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
+                android:ellipsize="end"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" />
+
+            </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/your_coins"
+            android:layout_marginBottom="@dimen/padding_16"
+            android:onClick="onProfileButtonClick">
+
+                <RelativeLayout
+                    android:id="@+id/profile_image_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/padding_16"
+                    android:layout_marginLeft="@dimen/padding_16"
+                    android:layout_marginRight="@dimen/padding_16"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/image"
+                    android:padding="2dp"
+                    android:src="@drawable/demo_profile_image" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/profile_image"
+                        android:layout_alignEnd="@id/profile_image"
+                        android:layout_alignStart="@id/profile_image"
+                        android:layout_alignTop="@id/profile_image"
+                        android:layout_centerInParent="true">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/circle_shape"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="65"
+                            android:progressDrawable="@drawable/circular_progress_bar" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            <ImageView
+                android:layout_width="@dimen/profile_level_marker_size"
+                android:layout_height="@dimen/profile_level_marker_size"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/profile_image_container"
+                android:layout_marginTop="-20dp"
+                android:contentDescription="@string/image"
+                android:src="@drawable/next_level_marker" />
+
+            <TextView
+                android:layout_width="@dimen/profile_level_marker_size"
+                android:layout_height="@dimen/profile_level_marker_size"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/profile_image_container"
+                android:layout_marginTop="-19dp"
+                android:gravity="center"
+                android:text="99"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/profile_image_container"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_marginRight="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_10"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lineSpacingExtra="-5dp"
+                android:maxLines="2"
+                android:text="Football Fann Name"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <!-- FOLLOWERS AND FRIENDS BUTTONS -->
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/your_friends_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:adjustViewBounds="true"
+                android:onClick="onFriendsButtonClick"
+                android:src="@drawable/icon_your_friends" />
+
+            <ImageView
+                android:id="@+id/your_followers_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_followers" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <!-- POPUP HOLDER -->
+    <RelativeLayout
+        android:id="@+id/popup_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone" />
+</RelativeLayout>

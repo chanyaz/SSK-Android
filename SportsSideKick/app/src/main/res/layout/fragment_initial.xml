@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/login_logo_height"
+            android:contentDescription="@null"
+            android:src="@drawable/logo_sporting" />
+
+        <include layout="@layout/slide_text_login"/>
+
+        <LinearLayout
+            android:layout_width="@dimen/login_conteiner_width"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/login_sign_up_button"
+                style="@style/button_login_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_sign_up"/>
+
+            <Button
+                android:id="@+id/login_log_in_button"
+                style="@style/button_login_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_login" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/standard_button_height"
+            android:contentDescription="@null"
+            android:src="@drawable/logo_ssk"
+            android:layout_margin="@dimen/margin_15"/>
+    </LinearLayout>
+
+</RelativeLayout>
