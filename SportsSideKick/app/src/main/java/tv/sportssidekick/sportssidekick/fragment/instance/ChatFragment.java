@@ -20,6 +20,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -88,6 +89,7 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.info_message) TextView infoMessage;
     @BindView(R.id.down_arrow) ImageView downArrow;
     @BindView(R.id.chat_info_line) View chatInfoLine;
+    @BindView(R.id.chat_info_line_text) TextView infoLineTextView;
 
     @BindView(R.id.messenger_send_button) Button sendButton;
     @BindView(R.id.mic_button) Button micButton;
@@ -249,6 +251,13 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
+        downArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showGridChats();
+            }
+        });
+
         return view;
     }
 
@@ -264,6 +273,8 @@ public class ChatFragment extends BaseFragment {
         bottomCreateChatContainer.setVisibility(View.GONE);
         inputContainer.setVisibility(View.VISIBLE);
         displayChat(activeChatInfo);
+        chatHeadsAdapter.setInGrid(false);
+        chatHeadsAdapter.notifyDataSetChanged();
     }
 
     private void showGridChats(){
@@ -273,6 +284,8 @@ public class ChatFragment extends BaseFragment {
         bottomCreateChatContainer.setVisibility(View.VISIBLE);
         infoMessage.setVisibility(View.GONE);
         inputContainer.setVisibility(View.GONE);
+        chatHeadsAdapter.setInGrid(true);
+        chatHeadsAdapter.notifyDataSetChanged();
 
     }
 
@@ -359,6 +372,15 @@ public class ChatFragment extends BaseFragment {
     public void initializeUI(){
         Log.d(TAG, "Initialize Chat UI");
         List<ChatInfo> allUserChats = ImsManager.getInstance().getUserChatsList();
+
+        StringBuilder chatNames = new StringBuilder("");
+        for(ChatInfo chatInfo : allUserChats){
+            String chatName = chatInfo.getName();
+            if(!TextUtils.isEmpty(chatName)){
+                chatNames.append(chatInfo.getName()).append(", ");
+            }
+        }
+        infoLineTextView.setText(chatNames);
 
         chatHeadsAdapter.setValues(allUserChats);
         chatHeadsAdapter.notifyDataSetChanged();

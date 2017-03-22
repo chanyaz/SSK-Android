@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -42,6 +43,12 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
 
     // Start with first item selected
     private int focusedItem = 0;
+    private int focusedItemToEdit = -1;
+
+    private boolean isInGrid;
+    public void setInGrid(boolean inGrid) {
+        isInGrid = inGrid;
+    }
 
     public List<ChatInfo> getValues() {
         return values;
@@ -57,6 +64,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
         // each data item is just a string in this case
         public View view;
         @Nullable @BindView(R.id.image) ImageView imageView;
+        @Nullable @BindView(R.id.people_icon) ImageView peopleIcon;
         @Nullable @BindView(R.id.notification_icon) ImageView notificationView;
         @Nullable @BindView(R.id.selected) View selectedRingView;
         @Nullable @BindView(R.id.caption) TextView chatCaption;
@@ -72,6 +80,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
 
     public ChatHeadsAdapter() {
         values = new ArrayList<>();
+        isInGrid = false;
     }
 
 
@@ -90,24 +99,25 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    notifyItemChanged(focusedItem);  // notify previous item!
-                    focusedItem = viewHolder.getLayoutPosition();
-                    notifyItemChanged(focusedItem); // notify new item
-                    EventBus.getDefault().post(new UIEvent(focusedItem));
+                    if(isInGrid){
+                        if(focusedItemToEdit>-1 && focusedItemToEdit == focusedItem){
+                            FragmentEvent fragmentEvent = new FragmentEvent(ManageChatFragment.class);
+                            int position = viewHolder.getLayoutPosition();
+                            fragmentEvent.setId(values.get(position).getChatId());
+                            EventBus.getDefault().post(fragmentEvent);
+                        } else {
+                            focusedItemToEdit = viewHolder.getLayoutPosition();
+                            notifyItemChanged(focusedItem); // notify new item
+                        }
+                    } else {
+                        notifyItemChanged(focusedItem);  // notify previous item!
+                        focusedItem = viewHolder.getLayoutPosition();
+                        notifyItemChanged(focusedItem); // notify new item
+                        EventBus.getDefault().post(new UIEvent(focusedItem));
+                    }
+
                 }
             });
-
-//            viewHolder.editButton.setOnClickListener(
-//            new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    FragmentEvent fragmentEvent = new FragmentEvent(ManageChatFragment.class);
-//                    int position = viewHolder.getLayoutPosition();
-//                    fragmentEvent.setId(values.get(position).getChatId());
-//                    EventBus.getDefault().post(fragmentEvent);
-//                }
-//            });
-
             return  viewHolder;
         }
         else {
@@ -123,6 +133,9 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             return viewHolder;
         }
     }
+
+
+
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
@@ -150,11 +163,23 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                 holder.notificationView.setVisibility(View.GONE);
             }
 
-           if(focusedItem==position){
+            if(focusedItem==position){
                holder.selectedRingView.setVisibility(View.VISIBLE);
-           } else {
+            } else {
                holder.selectedRingView.setVisibility(View.GONE);
-           }
+            }
+            int inGridVisibility = View.GONE;
+            if(isInGrid){
+                inGridVisibility = View.VISIBLE;
+            }
+            holder.userCount.setVisibility(inGridVisibility);
+            holder.peopleIcon.setVisibility(inGridVisibility);
+        } else {
+            if(isInGrid){
+                holder.chatCaption.setVisibility(View.VISIBLE);
+            } else {
+                holder.chatCaption.setVisibility(View.GONE);
+            }
         }
     }
 
