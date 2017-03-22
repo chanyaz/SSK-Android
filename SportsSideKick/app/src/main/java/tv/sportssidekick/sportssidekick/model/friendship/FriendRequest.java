@@ -1,55 +1,55 @@
 package tv.sportssidekick.sportssidekick.model.friendship;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import tv.sportssidekick.sportssidekick.model.GSConstants;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
  * Created by Djordje on 21/01/2017.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FriendRequest {
 
-    String id;
-    String displayedName;
-    String imageUrl;
-    Date date;
+    @JsonProperty("_id")
+    private String id;
+    @JsonProperty(GSConstants.TIMESTAMP_TAG)
+    private String timestamp;
+    @JsonProperty("foo")
+    private UserInfo sender;
 
-    public FriendRequest(String id, String displayedName, String imageUrl, Date date) {
-        this.id = id;
-        this.displayedName = displayedName;
-        this.imageUrl = imageUrl;
-        this.date = date;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
+    @JsonProperty("_id")
     public String getId() {
         return id;
     }
 
+    @JsonProperty("_id")
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getDisplayedName() {
-        return displayedName;
+    @JsonProperty(GSConstants.TIMESTAMP_TAG)
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setDisplayedName(String displayedName) {
-        this.displayedName = displayedName;
+    @JsonProperty(GSConstants.TIMESTAMP_TAG)
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public Date getDate() {
-        return date;
+    @JsonProperty(GSConstants.SENDER)
+    public UserInfo getSender() {
+        return sender;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    @JsonProperty(GSConstants.SENDER)
+    public void setSender(UserInfo sender) {
+        this.sender = sender;
     }
 }
+

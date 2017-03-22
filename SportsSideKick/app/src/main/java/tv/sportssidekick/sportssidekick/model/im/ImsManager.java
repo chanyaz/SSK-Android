@@ -3,13 +3,11 @@ package tv.sportssidekick.sportssidekick.model.im;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSMessageHandler;
-import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -24,12 +22,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
+import static tv.sportssidekick.sportssidekick.model.GSConstants.CHATS_INFO;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.CHAT_ID;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.CHAT_INFO;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.ENTRY_COUNT;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.GROUP_ID;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.IMS_GET_CHAT_GROUPS_MESSAGES;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.IMS_GROUP_ID;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.IMS_JOIN_CHAT_GROUP;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.IS_TYPING_VALUE;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGE;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGES;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGE_PAGE_SIZE;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.OFFSET;
 import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
 /**
@@ -40,20 +52,8 @@ import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
 public class ImsManager extends GSMessageHandlerAbstract{
 
-    private static final String IMS_GET_CHAT_GROUPS_MESSAGES = "imsGetChatGroupsMessages";
-    private static final String OFFSET = "offset";
-    private static final String ENTRY_COUNT = "entryCount";
-    private static final String CHAT_INFO = "chatInfo";
-    private static final String IMS_GROUP_ID = "imsGroupId";
-    private static final String IMS_JOIN_CHAT_GROUP = "imsJoinChatGroup";
-    private static final String GROUP_ID = "groupId";
-    private static final String MESSAGES = "messages";
-    private static final String CHAT_ID = "chatId";
-    private static final String CHATS_INFO = "chatsInfo";
-    private static final String IS_TYPING_VALUE = "isTypingValue";
-    private static final String TAG = "ImsManager";
-    private static final String MESSAGE = "message";
-    private static final String MESSAGE_PAGE_SIZE = "10";
+    public static final String TAG = "ImsManager";
+
     private static ImsManager instance;
 
     private String userId;
@@ -488,7 +488,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 break;
             case "ImsUpdateUserIsTypingState":
                 String chatId = (String) data.get(CHAT_ID);
-                String sender = (String) data.get("sender");
+                String sender = (String) data.get(GSConstants.SENDER);
                 String isTyping = (String) data.get(IS_TYPING_VALUE);
                 if(chatId!=null && sender!=null && isTyping!=null){
                     if(!sender.equals(userId)){

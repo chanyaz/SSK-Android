@@ -2,13 +2,20 @@ package tv.sportssidekick.sportssidekick.model.friendship;
 
 import android.text.TextUtils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+
+import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
 /**
  * Created by Filip on 12/27/2016.
@@ -19,6 +26,7 @@ import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 public class PeopleSearchManager {
 
     private static PeopleSearchManager instance;
+    private final ObjectMapper mapper; // jackson's object mapper
 
     public static PeopleSearchManager getInstance(){
         if(instance==null){
@@ -28,10 +36,8 @@ public class PeopleSearchManager {
     }
 
     private PeopleSearchManager(){
-
+        mapper  = new ObjectMapper();
     }
-
-    private String lastSearchKey;
 
     /**
      * SearchPeople - get a matching list of SSK users that matches the search string
@@ -39,8 +45,7 @@ public class PeopleSearchManager {
      *
      */
 
-    public Task<List<UserInfo>> searchPeople(String searchString){
-        lastSearchKey = searchString.toLowerCase();
+    public Task<List<UserInfo>> searchPeople(String searchString, int firstUserIndex){
         final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
         final List<UserInfo> usersInfo = new ArrayList<>();
 
@@ -48,100 +53,27 @@ public class PeopleSearchManager {
             source.setResult(usersInfo);
             return source.getTask();
         }
-        // TODO Rewrite to GS
-//        Model.getInstance().getRef()
-//                .getReference("userSearchKeys")
-//                .orderByChild("firstNameL")
-//                .startAt(lastSearchKey)
-//                .endAt(lastSearchKey + "\\u{f8ff}")
-//                .limitToFirst(10)
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        final List<Task<UserInfo>> tasks = new ArrayList<>();
-//                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-//                            String uid = child.getKey();
-//                            Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
-//                            tasks.add(task);
-//                        }
-//                        Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                List<UserInfo> userInfoList = new ArrayList<>();
-//                                for(Task t : tasks){
-//                                    userInfoList.add((UserInfo) t.getResult());
-//                                }
-//                                usersInfo.addAll(userInfoList);
-//                                source.setResult(usersInfo);
-//                            }
-//                        });
-//                    }
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) { }
-//                });
-//
-//        Model.getInstance().getRef()
-//                .getReference("userSearchKeys")
-//                .orderByChild("lastNameL")
-//                .startAt(lastSearchKey)
-//                .endAt(lastSearchKey + "\\u{f8ff}")
-//                .limitToFirst(10)
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        final List<Task<UserInfo>> tasks = new ArrayList<>();
-//                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-//                            String uid = child.getKey();
-//                            Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
-//                            tasks.add(task);
-//                        }
-//                        Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                List<UserInfo> userInfoList = new ArrayList<>();
-//                                for(Task t : tasks){
-//                                    userInfoList.add((UserInfo) t.getResult());
-//                                }
-//                                usersInfo.addAll(userInfoList);
-//                                source.setResult(usersInfo);
-//                            }
-//                        });
-//                    }
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) { }
-//                });
-//
-//        Model.getInstance().getRef()
-//                .getReference("userSearchKeys")
-//                .orderByChild("nicNameL")
-//                .startAt(lastSearchKey)
-//                .endAt(lastSearchKey + "\\u{f8ff}")
-//                .limitToFirst(10)
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        final List<Task<UserInfo>> tasks = new ArrayList<>();
-//                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-//                            String uid = child.getKey();
-//                            Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
-//                            tasks.add(task);
-//                        }
-//                        Tasks.whenAll(tasks).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                List<UserInfo> userInfoList = new ArrayList<>();
-//                                for(Task t : tasks){
-//                                    userInfoList.add((UserInfo) t.getResult());
-//                                }
-//                                usersInfo.addAll(userInfoList);
-//                                source.setResult(usersInfo);
-//                            }
-//                        });
-//                    }
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) { }
-//                });
 
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.PLAYER);
+                    List<UserInfo> friends = mapper.convertValue(object, new TypeReference<List<UserInfo>>(){});
+                    while(friends.contains(null)){
+                        friends.remove(null);
+                    }
+                    source.setResult(friends);
+                }  else {
+                    source.setException(new Exception());
+                }
+            }
+        };
+        createRequest("searchUsers")
+                .setEventAttribute(GSConstants.ENTRY_COUNT,"50")
+                .setEventAttribute(GSConstants.OFFSET,firstUserIndex)
+                .setEventAttribute(GSConstants.SEARCH_PATTERN,firstUserIndex)
+                .send(consumer);
         return source.getTask();
     }
 }

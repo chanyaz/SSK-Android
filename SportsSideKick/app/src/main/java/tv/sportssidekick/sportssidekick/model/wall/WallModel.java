@@ -30,7 +30,6 @@ import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
 
 public class WallModel {
 
-    public static final String TIMESTAMP_TAG = "timestamp";
     private static final String TAG = " WallModel";
     private static WallModel instance;
 

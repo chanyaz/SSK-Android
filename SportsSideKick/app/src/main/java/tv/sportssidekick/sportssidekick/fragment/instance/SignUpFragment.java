@@ -27,6 +27,7 @@ import java.util.List;
 
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 
@@ -65,7 +66,7 @@ public class SignUpFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        facebookPermissions = Arrays.asList("public_profile", "email", "user_friends","user_birthday","user_photos");
+        facebookPermissions = Arrays.asList("public_profile", GSConstants.EMAIL, "user_friends","user_birthday","user_photos");
 
         alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setTitle(getString(R.string.dialog_warning));

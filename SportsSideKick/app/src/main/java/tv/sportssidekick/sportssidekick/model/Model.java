@@ -123,7 +123,7 @@ public class Model {
         deviceToken = ""; // TODO How to initialize?
         Log.d(TAG, "Registering for push notifications");
         GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
-            .setDeviceOS("android")
+            .setDeviceOS("ANDROID")
             .setPushId(deviceToken)
             .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
                 @Override
@@ -280,7 +280,7 @@ public class Model {
     public void resetPassword(String email){
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("passwordRecoveryRequest");
-        request.setEventAttribute("email", email);
+        request.setEventAttribute(GSConstants.EMAIL, email);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -302,8 +302,8 @@ public class Model {
         final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersGetSpecialUsers");
-        request.setEventAttribute("offset", offset);
-        request.setEventAttribute("entryCount", 50);
+        request.setEventAttribute(GSConstants.OFFSET, offset);
+        request.setEventAttribute(GSConstants.ENTRY_COUNT, 50);
 
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -347,7 +347,7 @@ public class Model {
     public void setUserState(UserState state){
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("setUserState");
-        request.setEventAttribute("state", state.toString());
+        request.setEventAttribute(GSConstants.STATE, state.toString());
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -366,15 +366,15 @@ public class Model {
 
     public void setDetails(Map<String,String> details){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        if(!details.get("email").equals(currentUserInfo.getEmail())){
-            request.setUserName(details.get("email"));
+        if(!details.get(GSConstants.EMAIL).equals(currentUserInfo.getEmail())){
+            request.setUserName(details.get(GSConstants.EMAIL));
         }
-        if(!details.get("nicname").equals(currentUserInfo.getNicName())){
-            request.setUserName(details.get("nicname"));
+        if(!details.get(GSConstants.NICNAME).equals(currentUserInfo.getNicName())){
+            request.setUserName(details.get(GSConstants.NICNAME));
         }
-        request.getBaseData().put("firstName",details.get("firstName"));
-        request.getBaseData().put("lastName",details.get("lastName"));
-        request.getBaseData().put("phone",details.get("phone"));
+        request.getBaseData().put(GSConstants.FIRST_NAME,details.get(GSConstants.FIRST_NAME));
+        request.getBaseData().put(GSConstants.LAST_NAME,details.get(GSConstants.LAST_NAME));
+        request.getBaseData().put(GSConstants.PHONE,details.get(GSConstants.PHONE));
         request.send(onDetailsUpdated);
     }
 
@@ -425,8 +425,8 @@ public class Model {
                 Log.d(TAG,"GSModel.setState() -> No base data returned");
                 return;
             }
-            String state = (String) response.getScriptData().getBaseData().get("state");
-            if(response.getScriptData().getBaseData().get("state")==null){
+            String state = (String) response.getScriptData().getBaseData().get(GSConstants.STATE);
+            if(response.getScriptData().getBaseData().get(GSConstants.STATE)==null){
                 Log.d(TAG,"GSModel.setState() -> No state data returned");
                 return;
             }
@@ -470,11 +470,11 @@ public class Model {
         final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("getUserInfoById");
-        request.setEventAttribute("userId", userId);
+        request.setEventAttribute(GSConstants.USER_ID, userId);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                Map<String,Object> data = response.getScriptData().getObject("userInfo").getBaseData();
+                Map<String,Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
                 UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
                 userCache.put(userInfo.getUserId(), userInfo);
                 source.setResult(userInfo);

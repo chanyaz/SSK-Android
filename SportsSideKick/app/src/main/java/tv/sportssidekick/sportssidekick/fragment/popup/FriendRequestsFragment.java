@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,9 +47,8 @@ public class FriendRequestsFragment extends BaseFragment {
         requestsRecyclerView.setLayoutManager(layoutManager);
 
         ArrayList<FriendRequest> values = new ArrayList<>();
-        for(int i = 0; i< 100; i++){
-            values.add(new FriendRequest("","Cheistofer Ogden","",new Date()));
-        }
+
+        // TODO Load friend requests!
 
         FriendRequestsAdapter adapter = new FriendRequestsAdapter();
         adapter.getValues().addAll(values);

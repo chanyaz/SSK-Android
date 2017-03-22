@@ -1,6 +1,5 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -79,8 +76,8 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
     public void onBindViewHolder(ViewHolder holder, final int position) {
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         final FriendRequest info = values.get(position);
-        holder.name.setText(info.getDisplayedName());
-        holder.date.setText(sdf.format(info.getDate()));
+        holder.name.setText(info.getSender().getNicName());
+        holder.date.setText(sdf.format(info.getTimestamp()));
         //ImageLoader.getInstance().displayImage(info.getImageUrl(),holder.profileImage,imageOptions);
     }
 

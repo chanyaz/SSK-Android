@@ -51,7 +51,14 @@ public class MessageHandler {
                 }
             }
         });
-
+        messageHandler.setTeamChatMessageListener(new GSEventConsumer<GSMessageHandler.TeamChatMessage>() {
+            @Override
+            public void onEvent(GSMessageHandler.TeamChatMessage teamChatMessage) {
+              for(GSMessageHandlerAbstract delegate : delegates) {
+                  delegate.onGSTeamChatMessage(teamChatMessage);
+              }
+            }
+        });
     }
 
 }
