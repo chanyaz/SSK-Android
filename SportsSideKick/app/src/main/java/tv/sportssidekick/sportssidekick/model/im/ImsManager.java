@@ -453,21 +453,6 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 .send(consumer);
     }
 
-    public void setupMessageListeners(){
-        GSMessageHandler messageHandler = GSAndroidPlatform.gs().getMessageHandler();
-        messageHandler.setScriptMessageListener(new GSEventConsumer<GSMessageHandler.ScriptMessage>() {
-            @Override
-            public void onEvent(GSMessageHandler.ScriptMessage scriptMessage) {
-                Map<String,Object> data = scriptMessage.getData().getBaseData();
-                if(data.containsKey("type")){
-                    String type = (String) data.get("type");
-                    onGSScriptMessage(type,data);
-                }
-            }
-        });
-
-
-    }
 
     @Override
     public void onGSTeamChatMessage(GSMessageHandler.TeamChatMessage msg){

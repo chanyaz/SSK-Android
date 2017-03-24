@@ -32,6 +32,7 @@ import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.MessageHandler;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
@@ -89,11 +90,13 @@ public class Model {
 //              UserEvents.onLoginAnonymously.emit() Event-TBA
                 registerForPushNotifications();
                 ImsManager.getInstance().reload();
+                WallModel.getInstance().fetchPosts();
                 break;
             case REAL:
                 EventBus.getDefault().post(currentUserInfo); // TODO ON LOGIN EVENT ?
                 registerForPushNotifications();
                 ImsManager.getInstance().reload();
+                WallModel.getInstance().fetchPosts();
                 break;
         }
     }
@@ -146,7 +149,6 @@ public class Model {
                 if(available) {
                     if (!GSAndroidPlatform.gs().isAuthenticated()) {
                         Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
-                        ImsManager.getInstance().setupMessageListeners();
                         login();
                     } else {
                         // Same entry point as onAuthenticationCheck - escaping from dead loop!

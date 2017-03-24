@@ -29,6 +29,7 @@ import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.DateUtils;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
+import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
@@ -50,6 +51,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
 
     private FriendsManager(){
         mapper  = new ObjectMapper();
+        Model.getInstance().setMessageHandlerDelegate(this);
     }
 
     /**
@@ -389,7 +391,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
     public void onGSScriptMessage(String type, Map<String,Object> data){
         switch (type){
             case "UserInfo":
-                String operation = (String) data.get("operation");
+                String operation = (String) data.get(GSConstants.OPERATION);
                 if(operation!=null){
                     if(!operation.equals("update")){
                         if(data.containsKey(GSConstants.USER_INFO)) {

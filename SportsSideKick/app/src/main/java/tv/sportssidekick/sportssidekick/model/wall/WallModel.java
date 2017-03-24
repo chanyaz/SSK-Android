@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,7 +33,11 @@ import tv.sportssidekick.sportssidekick.model.DateUtils;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
+import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.service.GetCommentsCompleteEvent;
+import tv.sportssidekick.sportssidekick.service.GetPostByIdEvent;
+import tv.sportssidekick.sportssidekick.service.PostCommentCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
@@ -45,7 +50,7 @@ import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
  * www.hypercubesoft.com
  */
 
-public class WallModel {
+public class WallModel extends GSMessageHandlerAbstract {
 
     private static final String TAG = " WallModel";
     private static WallModel instance;
@@ -64,8 +69,6 @@ public class WallModel {
     private int minNumberOfPostsForInitialLoad = 20;
     private int minNumberOfPostsForIntervalLoad = 10;
 
-    private SimpleDateFormat sdf;
-
     public static WallModel getInstance(){
         if(instance==null){
             instance = new WallModel();
@@ -77,12 +80,13 @@ public class WallModel {
         likesIdIndex = new HashMap<>();
         oldestFetchDate = new Date();
         mapper  = new ObjectMapper();
-        sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
         try {
             oldestFetchIntervalDateBound = sdf.parse("2016-10-15 00:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Model.getInstance().setMessageHandlerDelegate(this);
     }
 
     private void clearWallListeners(){}
@@ -154,10 +158,13 @@ public class WallModel {
     }
 
     // we first read the likes list of that user to set the right values to the relevant posts. then we load the posts...
-    public void mbListenerToUserWall() {
-        final UserInfo uInfo = getCurrentUser();
-        if (uInfo == null){
+    public void fetchPosts() {
+        final String userId;
+        if (getCurrentUser() == null){
+            Log.e(TAG, "There is no current user info - aborting Post fetch!");
             return;
+        } else {
+            userId = getCurrentUser().getUserId();
         }
         clearWallListeners();
         likesIdIndex.clear();
@@ -171,7 +178,7 @@ public class WallModel {
 
                     oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
                     final ArrayList<Task<Void>> tasks = new ArrayList<>();
-                    tasks.add(getUserPosts(uInfo.getUserId(), oldestFetchDate,null));
+                    tasks.add(getUserPosts(userId, oldestFetchDate,null));
 
 
                    Task<List<UserInfo>> followingTask = FriendsManager.getInstance().getUserFollowingList(Model.getInstance().getUserInfo().getUserId(),0);
@@ -290,56 +297,37 @@ public class WallModel {
                 .send(consumer);
     }
 
-    public Task setlikeVal(final WallBase post, final boolean val){
+    public Task<Void> setlikeVal(final WallBase post, final boolean val){
         int increase = -1;
         if(val){
             increase = 1;
         }
-        final UserInfo userInfo = getCurrentUser();
 
         if(val){
             setLikesIdIndex(post.getWallId(),post.getPostId());
-
-            // post a notification re: like
-            HashMap<String, Object> notificationQueueMessage = new HashMap<>();
-            notificationQueueMessage.put("wallId",post.getWallId());
-            notificationQueueMessage.put("postId",post.getPostId());
-            notificationQueueMessage.put("newLike",true);
-            notificationQueueMessage.put("likerId",userInfo.getUserId());
-            notificationQueueMessage.put("likerName",userInfo.getNicName());
-
-            // TODO Rewrite to GS
-//            DatabaseReference notificationRef = mbNotificationQueueRef.push();
-//            notificationRef.setValue(notificationQueueMessage);
         }else{
             unsetLikesIdIndex(post.getWallId(),post.getPostId());
         }
-        final TaskCompletionSource source = new TaskCompletionSource<>();
-        final int finalIncrement = increase;
-        // TODO Rewrite to GS
-//        DatabaseReference postRef = mbPostRef.child(post.getWallId()).child(post.getPostId()).child("likeCount");
-//        postRef.runTransaction(new Transaction.Handler() {
-//            @Override
-//            public Transaction.Result doTransaction(MutableData mutableData) {
-//                int count = mutableData.getValue(Integer.class);
-//                count = count + finalIncrement;
-//                mutableData.setValue(count);
-//                return Transaction.success(mutableData);
-//            }
-//            @Override
-//            public void onComplete(DatabaseError databaseError, boolean committed, DataSnapshot dataSnapshot) {
-//                if(databaseError==null){
-//                } else if (committed){
-//                    DatabaseReference postLikeRef = mbLikesRef.child(userInfo.getUserId()).child(post.getWallId()).child(post.getPostId());
-//                    if(val){
-//                        postLikeRef.setValue(DateUtils.currentTimeToFirebaseDate());
-//                    }else{
-//                        postLikeRef.removeValue();
-//                    }
-//                }
-//                source.setResult(databaseError);
-//            }
-//        });
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
+                    // TODO Convert to post and set local object to be equal to this one
+                    WallBase post = new WallBase();
+                    EventBus.getDefault().post(new PostUpdateEvent(post));
+                } else {
+                    EventBus.getDefault().post(new PostUpdateEvent(null));
+                }
+                source.setResult(null);
+            }
+        };
+        createRequest("wallUpdatePostLike")
+                .setEventAttribute(GSConstants.WALL_ID,post.getWallId())
+                .setEventAttribute(GSConstants.POST_ID,post.getPostId())
+                .setEventAttribute(GSConstants.INCREASE,increase)
+                .send(consumer);
         return source.getTask();
     }
 
@@ -348,21 +336,25 @@ public class WallModel {
      *
      */
     public void getCommentsForPost(WallBase post){
-        // TODO Rewrite to GS
-//        DatabaseReference commentsRef = mbCommentsRef.child(post.getWallId()).child(post.getPostId());
-//        commentsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                ArrayList<PostComment> comments = new ArrayList<>();
-//                for(DataSnapshot snap : dataSnapshot.getChildren()){
-//                    PostComment comment = snap.getValue(PostComment.class);
-//                    comments.add(comment);
-//                }
-//                EventBus.getDefault().post(new GetCommentsCompleteEvent(comments));
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.COMMENTS);
+                    // TODO Convert to post and set local object to be equal to this one
+                    List<PostComment> comments = new ArrayList<>();
+                    EventBus.getDefault().post(new GetCommentsCompleteEvent(comments));
+                } else {
+                    // TODO What to do in case of error?
+                }
+            }
+        };
+        createRequest("wallGetPostComments")
+            .setEventAttribute(GSConstants.WALL_ID,post.getWallId())
+            .setEventAttribute(GSConstants.POST_ID,post.getPostId())
+            .setEventAttribute(GSConstants.OFFSET,0)
+            .setEventAttribute(GSConstants.ENTRY_COUNT,30)
+            .send(consumer);
     }
 
     /**
@@ -373,122 +365,97 @@ public class WallModel {
     public Task postComment(final WallBase post, final PostComment comment){
         // TODO Rewrite to GS
         final TaskCompletionSource source = new TaskCompletionSource<>();
-//        DatabaseReference commentRef = mbCommentsRef.child(post.getWallId()).child(post.getPostId()).push();
-//        comment.setCommentId(commentRef.getKey());
-//        commentRef.setValue(comment).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                DatabaseReference postRef = mbPostRef.child(post.getWallId()).child(post.getPostId()).child("commentsCount");
-//
-//                postRef.runTransaction(new Transaction.Handler() {
-//                    @Override
-//                    public Transaction.Result doTransaction(MutableData mutableData) {
-//                        int count = mutableData.getValue(Integer.class);
-//                        count = count + 1;
-//                        mutableData.setValue(count);
-//                        return Transaction.success(mutableData);
-//                    }
-//
-//                    @Override
-//                    public void onComplete(DatabaseError databaseError, boolean committed, DataSnapshot dataSnapshot) {
-//                        if(databaseError!=null){
-//                            source.setResult(databaseError);
-//                        } else if (committed){
-//                            UserInfo userInfo = getCurrentUser();
-//
-//                            // post a notification re: like
-//                            HashMap<String, Object> notificationQueueMessage = new HashMap<>();
-//                            notificationQueueMessage.put("wallId",post.getWallId());
-//                            notificationQueueMessage.put("postId",post.getPostId());
-//                            notificationQueueMessage.put("newComment",true);
-//                            notificationQueueMessage.put("comment",comment);
-//                            notificationQueueMessage.put("commenterId",userInfo.getUserId());
-//                            notificationQueueMessage.put("commenterName",userInfo.getNicName());
-//
-//                            DatabaseReference notificationRef = mbNotificationQueueRef.push();
-//                            notificationRef.setValue(notificationQueueMessage);
-//                            source.setResult(null);
-//                        }
-//                        EventBus.getDefault().post(new PostCommentCompleteEvent(databaseError));
-//                    }
-//                });
-//            }
-//        });
+
+        //TODO - post notification
+        comment.setId(DateUtils.currentTimeToFirebaseDate() + AWSFileUploader.generateRandName(10));
+
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.COMMENT);
+                    // TODO Convert to post and set local object to be equal to this one
+                    PostComment comment = new PostComment();
+                    EventBus.getDefault().post(new PostCommentCompleteEvent(comment));
+                    source.setResult(null);
+                } else {
+                    source.setException(null);
+                    // TODO What to do in case of error?
+                }
+            }
+        };
+        Map<String, Object> map = mapper.convertValue(comment, new TypeReference<Map<String, Object>>(){});
+        GSData data = new GSData(map);
+        createRequest("wallAddPostComment")
+                .setEventAttribute(GSConstants.COMMENT,data)
+                .send(consumer);
         return source.getTask();
     }
 
+    // TODO: Notify GS of successful share, increment count, callback to app to allow state and UI updates
     /**
      * post was shared on facebook
      *
      **/
-    public void facebookShare(WallBase post)
-    {
-        // post a notification re: comment
-        UserInfo userInfo = getCurrentUser();
-        HashMap<String, Object> notificationQueueMessage = new HashMap<>();
-        notificationQueueMessage.put("wallId",post.getWallId());
-        notificationQueueMessage.put("postId",post.getPostId());
-        notificationQueueMessage.put("facebookShare",true);
-        notificationQueueMessage.put("sharerId",userInfo.getUserId());
-        notificationQueueMessage.put("sharerName",userInfo.getNicName());
-        // TODO Rewrite to GS
-//        DatabaseReference notificationRef = mbNotificationQueueRef.push();
-//        notificationRef.setValue(notificationQueueMessage);
-    }
+    public void facebookShare(WallBase post) {}
 
     /**
      * post was shared on twitter
      *
      **/
-    public void twitterShare(WallBase post)
-    {
-        // post a notification re: comment
-        UserInfo userInfo = getCurrentUser();
-        HashMap<String, Object> notificationQueueMessage = new HashMap<>();
-        notificationQueueMessage.put("wallId",post.getWallId());
-        notificationQueueMessage.put("postId",post.getPostId());
-        notificationQueueMessage.put("twitterShare",true);
-        notificationQueueMessage.put("sharerId",userInfo.getUserId());
-        notificationQueueMessage.put("sharerName",userInfo.getNicName());
-        // TODO Rewrite to GS
-//        DatabaseReference notificationRef = mbNotificationQueueRef.push();
-//        notificationRef.setValue(notificationQueueMessage);
-    }
+    public void twitterShare(WallBase post) {}
 
     /**
      * get post by its id
      *
      */
     public void getPostById(String wallId, String postId){
-        // TODO Rewrite to GS
-//        DatabaseReference pRef = mbPostRef.child(wallId).child(postId);
-//        pRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                WallBase post = WallBase.postFactory(dataSnapshot);
-//                EventBus.getDefault().post(new GetPostByIdEvent(post));
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-    }
-
-    // TODO FIXME Remove this after backend is properly implemented!
-    public void setupEliavAsUserAndInitialize(){
-       Task<UserInfo> task = Model.getInstance().getUserInfoById("sLqHBMbL3BQNgddTK0a4wmPfuA53");
-        task.addOnSuccessListener(new OnSuccessListener<UserInfo>() {
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
-            public void onSuccess(UserInfo info) {
-                userInfo = info;
-                mbListenerToUserWall();
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
+                    // TODO Convert to post and set local object to be equal to this one
+                    EventBus.getDefault().post(new GetPostByIdEvent(new WallPost()));
+                } else {
+                    // TODO What to do in case of error?
+                    EventBus.getDefault().post(new GetPostByIdEvent(null));
+                }
             }
-        });
+        };
+        createRequest("wallGetPostById")
+                .setEventAttribute(GSConstants.WALL_ID,wallId)
+                .setEventAttribute(GSConstants.POST_ID,postId)
+                .send(consumer);
+
     }
 
-    UserInfo userInfo;
     private UserInfo getCurrentUser(){
-//        return Model.getInstance().getUserInfo();
-        return userInfo;
+        return Model.getInstance().getUserInfo();
+    }
+
+    @Override
+    public void onGSScriptMessage(String type, Map<String,Object> data){
+        switch (type){
+            case "Wall":
+                String operation = (String) data.get(GSConstants.OPERATION);
+                if(operation!=null){
+                    if(operation.equals("new_post") ||operation.equals("update_post") ){
+                        Object object = data.get(GSConstants.POST);
+                        // TODO Convert to post and set local object to be equal to this one
+                        EventBus.getDefault().post(new PostUpdateEvent(new WallPost()));
+                    } else if (operation.equals(GSConstants.COMMENT)){ // WTF - Same code?
+                        Object object = data.get(GSConstants.POST);
+                        // TODO Convert to post and set local object to be equal to this one
+                        EventBus.getDefault().post(new PostUpdateEvent(new WallPost()));
+                    }
+                }
+                break;
+            default:
+                Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
+                break;
+        }
+
     }
 }
 

@@ -39,4 +39,10 @@ public class GSConstants {
     public static final String POST = "post";
     public static final String SINCE_DATE = "sinceDate";
     public static final String TO_DATE = "toDate";
+    public static final String WALL_ID = "wallId";
+    public static final String POST_ID = "postId";
+    public static final String INCREASE = "increase";
+    public static final String COMMENTS = "comments";
+    public static final String COMMENT = "comment";
+    public static final String OPERATION = "operation";
 }
