@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.util;
+package tv.sportssidekick.sportssidekick.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Random;
 
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
@@ -106,5 +107,17 @@ public class AWSFileUploader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String generateRandName(int length){
+        String letters = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String randomString = "";
+        Random random = new Random();
+        for(int i = 0; i<length;i++){
+            int rand = random.nextInt(letters.length());
+            char nextChar = letters.charAt(rand);
+            randomString += nextChar;
+        }
+        return randomString;
     }
 }

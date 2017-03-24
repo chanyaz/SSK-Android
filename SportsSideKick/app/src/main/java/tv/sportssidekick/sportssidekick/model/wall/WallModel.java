@@ -1,5 +1,14 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
+import android.support.annotation.NonNull;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.GSData;
+import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -13,14 +22,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import tv.sportssidekick.sportssidekick.model.AWSFileUploader;
 import tv.sportssidekick.sportssidekick.model.DateUtils;
+import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.service.PostCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
+import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
+
+import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -39,16 +56,16 @@ public class WallModel {
     private Date oldestFetchIntervalDateBound;
 
     private Map<String, Set<String>> likesIdIndex ; // wall id -> post Id
+    private final ObjectMapper mapper; // jackson's object mapper
 
-    public int getPostsTotalFetchCount() {
-        return postsTotalFetchCount;
-    }
 
-    private int postsTotalFetchCount;
-    private int postsIntervalFetchCount;
+    private int postsTotalFetchCount = 0;
+    private int postsIntervalFetchCount = 0;
     private int minNumberOfPostsForInitialLoad = 20;
     private int minNumberOfPostsForIntervalLoad = 10;
+
     private SimpleDateFormat sdf;
+
     public static WallModel getInstance(){
         if(instance==null){
             instance = new WallModel();
@@ -59,31 +76,16 @@ public class WallModel {
     private WallModel(){
         likesIdIndex = new HashMap<>();
         oldestFetchDate = new Date();
+        mapper  = new ObjectMapper();
         sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
         try {
             oldestFetchIntervalDateBound = sdf.parse("2016-10-15 00:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-// TODO Rewrite to GS
-//        DatabaseReference mbRef = FirebaseDatabase.getInstance().getReference().child("microBlogs");//root of all MB
-//        mbPostRef = mbRef.child("posts");
-//        mbLikesRef = mbRef.child("likes");
-//        mbCommentsRef = mbRef.child("comments");
-//        mbNotificationQueueRef = FirebaseDatabase.getInstance().getReference().child("queue-notify-mb/tasks");
     }
 
-    private void clearWallListeners(){
-        // TODO Rewrite to GS
-//        for(DatabaseReference ref :mbWallListeners){
-//            ref.removeEventListener(postChangedListener);
-//        }
-//        for(Query query : mbWallListenersQ){
-//            query.removeEventListener(postAddedListener);
-//        }
-//        mbWallListeners.clear();
-//        mbWallListenersQ.clear();
-    }
+    private void clearWallListeners(){}
 
     //user logged out so clearing all content.
     public void clear(){
@@ -91,119 +93,40 @@ public class WallModel {
         likesIdIndex.clear();
         postsTotalFetchCount = 0;
         postsIntervalFetchCount = 0;
+        minNumberOfPostsForInitialLoad = 20;
+        minNumberOfPostsForIntervalLoad = 10;
     }
 
-    private Task<Void> mbListenerToUserPosts(String uid, Date since){
+    private Task<Void> getUserPosts(String uid, Date since,final Date until){
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         String sinceValue = DateUtils.dateToFirebaseDate(since);
-        // TODO Rewrite to GS
-//        Query mbUserPostsRef = mbPostRef.child(uid).orderByChild(TIMESTAMP_TAG).startAt(sinceValue); // TODO Investigate
-//        mbUserPostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot snap : dataSnapshot.getChildren()){
-//                    WallBase post = WallBase.postFactory(snap);
-//                    if(post!=null){
-//                        Set<String> likedPostsIds = likesIdIndex.get(post.getWallId());
-//                        if(likedPostsIds!=null){
-//                            post.setLikedByUser(likedPostsIds.contains(post.getPostId())); // update liked status
-//                        }
-//                        postsTotalFetchCount++;
-//                        EventBus.getDefault().post(new PostUpdateEvent(post));
-//                    }
-//                }
-//                source.setResult(null);
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) { }
-//        });
-//
-//        Query mbUserRef = mbPostRef.child(uid).limitToLast(1);
-//        mbUserRef.addChildEventListener(postAddedListener);
-//        mbWallListenersQ.add(mbUserRef);
-//
-//        DatabaseReference mbUserRef2 = mbPostRef.child(uid);
-//        mbUserRef2.addChildEventListener(postChangedListener);
-//        mbWallListeners.add(mbUserRef2);
 
-        return source.getTask();
-    }
-
-// TODO Rewrite to GS
-//    private ChildEventListener postAddedListener = new ChildEventListener() {
-//        @Override
-//        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//            WallBase post = WallBase.postFactory(dataSnapshot);
-//            if(post!=null){
-//                if(oldestFetchDate.compareTo(new Date(DateUtils.getTimestampFromFirebaseDate(post.getTimestamp())))>0){ // Check how to compare this and what compare result returns ?
-//                    Set<String> likedPostsIds = likesIdIndex.get(post.getWallId());
-//                    if(likedPostsIds!=null){
-//                        post.setLikedByUser(likedPostsIds.contains(post.getPostId())); // update liked status
-//                    }
-//                    EventBus.getDefault().post(new PostUpdateEvent(post));
-//                }
-//            }
-//        }
-//
-//        @Override
-//        public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-//        @Override
-//        public void onChildRemoved(DataSnapshot dataSnapshot) {}
-//        @Override
-//        public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-//        @Override
-//        public void onCancelled(DatabaseError databaseError) {}
-//    };
-// TODO Rewrite to GS
-//    private ChildEventListener postChangedListener = new ChildEventListener() {
-//        @Override
-//        public void onChildAdded(DataSnapshot dataSnapshot, String s) {}
-//        @Override
-//        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//            WallBase post = WallBase.postFactory(dataSnapshot);
-//            Set<String> likedPostsIds = null;
-//            if (post != null) {
-//                likedPostsIds = likesIdIndex.get(post.getWallId());
-//            }
-//            if(likedPostsIds!=null){
-//                post.setLikedByUser(likedPostsIds.contains(post.getPostId())); // update liked status
-//            }
-//            EventBus.getDefault().post(new PostUpdateEvent(post));
-//        }
-//        @Override
-//        public void onChildRemoved(DataSnapshot dataSnapshot) {}
-//        @Override
-//        public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-//        @Override
-//        public void onCancelled(DatabaseError databaseError) {}
-//    };
-
-    private Task<Void> mbListenerToUserPosts(String uid, Date since, Date until){
-        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
-        String sinceValue = DateUtils.dateToFirebaseDate(since);
-        String untilValue = DateUtils.dateToFirebaseDate(until);
-        // TODO Rewrite to GS
-//        Query mbUserPostsRef = mbPostRef.child(uid).orderByChild(TIMESTAMP_TAG).startAt(sinceValue).endAt(untilValue);
-//        mbUserPostsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot snap : dataSnapshot.getChildren()){
-//                    WallBase post = WallBase.postFactory(snap);
-//                    if(post!=null){
-//                        Set<String> likedPostsIds = likesIdIndex.get(post.getWallId());
-//                        if(likedPostsIds!=null){
-//                            post.setLikedByUser(likedPostsIds.contains(post.getPostId())); // update liked status
-//                        }
-//                        postsTotalFetchCount++;
-//                        postsIntervalFetchCount++;
-//                        EventBus.getDefault().post(new PostUpdateEvent(post));
-//                    }
-//                }
-//                source.setResult(null);
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) { }
-//        });
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.POSTS);
+                    // TODO Convert list of maps to concrete objects - and for each object do:
+                    WallBase post = new WallBase();
+                    postsTotalFetchCount += 1;
+                    EventBus.getDefault().post(new PostUpdateEvent(post));
+                    if (until != null){
+                        postsIntervalFetchCount += 1;
+                    }
+                    source.setResult(null);
+                }  else {
+                    source.setException(new Exception());
+                }
+            }
+        };
+       GSRequestBuilder.LogEventRequest request = createRequest("wallGetUserPosts")
+                .setEventAttribute(GSConstants.USER_ID,uid)
+                .setEventAttribute(GSConstants.SINCE_DATE,sinceValue);
+        if(until!=null){
+            String untilValue = DateUtils.dateToFirebaseDate(until);
+            request.setEventAttribute(GSConstants.TO_DATE,untilValue);
+        }
+        request.send(consumer);
         return source.getTask();
     }
 
@@ -230,54 +153,59 @@ public class WallModel {
         return likesIdIndex.get(wallId) != null && likesIdIndex.get(wallId).contains(postId);
     }
 
-    // we first read the likes list of that user to set the right values to  the relevant posts. then we load the posts...
+    // we first read the likes list of that user to set the right values to the relevant posts. then we load the posts...
     public void mbListenerToUserWall() {
         final UserInfo uInfo = getCurrentUser();
         if (uInfo == null){
             return;
         }
         clearWallListeners();
-        // TODO Rewrite to GS
-//        DatabaseReference postLikeRef = mbLikesRef.child(uInfo.getUserId());
-//        likesIdIndex.clear();
-//        postsTotalFetchCount = 0;
-//
-//        postLikeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot wall : dataSnapshot.getChildren()){
-//                    for(DataSnapshot post : wall.getChildren()){
-//                        setLikesIdIndex(wall.getKey(),post.getKey());
-//                    }
-//                }
-//                oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
-//                ArrayList<Task<Void>> tasks = new ArrayList<>();
-//                tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate));
-//
-//                HashMap<String, Boolean> following = uInfo.getFollowing();
-//                if(following!=null){
-//                    for(Map.Entry<String,Boolean> entry : following.entrySet()){
-//                        tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate));
-//                    }
-//                }
-//                Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
-//                serviceGroupTask.addOnSuccessListener(
-//                    new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void o) {
-//                            if(postsTotalFetchCount < 20){
-//                                fetchPreviousPageOfPosts(0);
-//                            } else {
-//                                EventBus.getDefault().post(new PostLoadCompleteEvent());
-//                            }
-//                        }
-//                    }
-//                );
-//
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
+        likesIdIndex.clear();
+        postsTotalFetchCount = 0;
+
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.POSTS);
+
+                    oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
+                    final ArrayList<Task<Void>> tasks = new ArrayList<>();
+                    tasks.add(getUserPosts(uInfo.getUserId(), oldestFetchDate,null));
+
+
+                   Task<List<UserInfo>> followingTask = FriendsManager.getInstance().getUserFollowingList(Model.getInstance().getUserInfo().getUserId(),0);
+                   followingTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+                        @Override
+                        public void onComplete(@NonNull Task<List<UserInfo>> task) {
+                            if(task.isSuccessful()){
+                                List<UserInfo> following = task.getResult();
+                                if(following!=null){
+                                    for(UserInfo entry : following){
+                                        tasks.add(getUserPosts(entry.getUserId(), oldestFetchDate,null));
+                                    }
+                                }
+                                Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
+                                serviceGroupTask.addOnSuccessListener(
+                                        new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void o) {
+                                                if(postsTotalFetchCount < 20){
+                                                    fetchPreviousPageOfPosts(0);
+                                                } else {
+                                                    EventBus.getDefault().post(new PostLoadCompleteEvent());
+                                                }
+                                            }
+                                        }
+                                );
+                            }
+                        }
+                    });
+                }
+            }
+        };
+        GSRequestBuilder.LogEventRequest request = createRequest("wallGetUserLikes");
+        request.send(consumer);
     }
 
     /**
@@ -289,38 +217,46 @@ public class WallModel {
     private void fetchPreviousPageOfPosts(int initialFetchCount) {
         postsIntervalFetchCount = initialFetchCount;
         UserInfo uInfo = getCurrentUser();
-        ArrayList<Task<Void>> tasks = new ArrayList<>();
-        Date newDate =new Date(oldestFetchDate.getTime() + 1000); // Add one second to exclude oldest post from last page
+        final ArrayList<Task<Void>> tasks = new ArrayList<>();
+        final Date newDate =new Date(oldestFetchDate.getTime() + 1000); // Add one second to exclude oldest post from last page
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
-        tasks.add(mbListenerToUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
+        tasks.add(getUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
 
-//        HashMap<String, Boolean> following = uInfo.getFollowing();
-//        if(following!=null){
-//            for(Map.Entry<String,Boolean> entry : following.entrySet()) {
-//                tasks.add(mbListenerToUserPosts(entry.getKey(), oldestFetchDate, newDate));
-//            }
-//        }
 
-        Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
-        serviceGroupTask.addOnSuccessListener(
-            new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void o) {
-                    if (postsTotalFetchCount < minNumberOfPostsForInitialLoad || postsIntervalFetchCount < minNumberOfPostsForIntervalLoad){
-                        if (deltaTimeIntervalForPaging < 365*24* ONE_HOUR){
-                            deltaTimeIntervalForPaging *= 2;
+        Task<List<UserInfo>> followingTask = FriendsManager.getInstance().getUserFollowingList(Model.getInstance().getUserInfo().getUserId(),0);
+        followingTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<UserInfo>> task) {
+                if(task.isSuccessful()){
+                    List<UserInfo> following = task.getResult();
+                    if(following!=null){
+                        for(UserInfo entry : following){
+                            tasks.add(getUserPosts(entry.getUserId(), oldestFetchDate,newDate));
                         }
-                        if(oldestFetchDate.compareTo(oldestFetchIntervalDateBound)>0){
-                            fetchPreviousPageOfPosts(postsIntervalFetchCount);
-                        }else{
-                            EventBus.getDefault().post(new PostLoadCompleteEvent());
-                        }
-                    }else{
-                        EventBus.getDefault().post(new PostLoadCompleteEvent());
                     }
+                    Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
+                    serviceGroupTask.addOnSuccessListener(
+                            new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void o) {
+                                    if (postsTotalFetchCount < minNumberOfPostsForInitialLoad || postsIntervalFetchCount < minNumberOfPostsForIntervalLoad){
+                                        if (deltaTimeIntervalForPaging < 365*24* ONE_HOUR){
+                                            deltaTimeIntervalForPaging *= 2;
+                                        }
+                                        if(oldestFetchDate.compareTo(oldestFetchIntervalDateBound)>0){
+                                            fetchPreviousPageOfPosts(postsIntervalFetchCount);
+                                        }else{
+                                            EventBus.getDefault().post(new PostLoadCompleteEvent());
+                                        }
+                                    }else{
+                                        EventBus.getDefault().post(new PostLoadCompleteEvent());
+                                    }
+                                }
+                            }
+                    );
                 }
             }
-        );
+        });
     }
 
     /**
@@ -331,17 +267,27 @@ public class WallModel {
      */
     public void mbPost(WallBase post){
         post.setWallId(getCurrentUser().getUserId());
-        // TODO Rewrite to GS
-//        DatabaseReference postRef = mbPostRef.child(post.wallId).push();
-//        post.setPostId(postRef.getKey());
-//
-//
-//        postRef.setValue(post, new DatabaseReference.CompletionListener() {
-//            @Override
-//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//                EventBus.getDefault().post(new PostCompleteEvent(databaseError));
-//            }
-//        });
+        post.setPostId(DateUtils.currentTimeToFirebaseDate() + AWSFileUploader.generateRandName(10));
+
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
+                    // TODO Convert to post and set local object to be equal to this one
+                    WallBase post = new WallBase();
+                    EventBus.getDefault().post(new PostCompleteEvent(post));
+
+                } else {
+                    EventBus.getDefault().post(new PostCompleteEvent(""));
+                }
+            }
+        };
+        Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>(){});
+        GSData data = new GSData(map);
+        createRequest("wallPostToWall")
+                .setEventAttribute(GSConstants.POST,data)
+                .send(consumer);
     }
 
     public Task setlikeVal(final WallBase post, final boolean val){

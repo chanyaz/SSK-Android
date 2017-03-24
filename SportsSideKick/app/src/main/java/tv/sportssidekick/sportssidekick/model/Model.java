@@ -34,7 +34,6 @@ import tv.sportssidekick.sportssidekick.model.user.MessageHandler;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
-import tv.sportssidekick.sportssidekick.util.AWSFileUploader;
 
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.NONE;
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.REAL;

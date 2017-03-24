@@ -111,7 +111,7 @@ public class ChatInfo {
             String firstUserId = getUsersIds().get(0);
             String secondUserId = getUsersIds().get(1);
             UserInfo info;
-            if(!currentUserId.equals(firstUserId)){
+            if(currentUserId==null && !currentUserId.equals(firstUserId)){
                 info = Model.getInstance().getCachedUserInfoById(firstUserId);
             } else {
                 info = Model.getInstance().getCachedUserInfoById(secondUserId);
@@ -126,7 +126,6 @@ public class ChatInfo {
                     setAvatarUrl(avatar);
                 }
             }
-
         }
     }
     // don't use that, it is called on login
