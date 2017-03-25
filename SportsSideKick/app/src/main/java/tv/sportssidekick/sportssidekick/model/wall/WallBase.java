@@ -2,6 +2,9 @@ package tv.sportssidekick.sportssidekick.model.wall;
 
 import android.support.annotation.Nullable;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Created by Filip on 1/6/2017.
  * Copyright by Hypercube d.o.o.
@@ -10,7 +13,7 @@ import android.support.annotation.Nullable;
 
 public class WallBase {
 
-    enum PostType {
+   enum PostType {
         post,
         news,
         betting,
@@ -108,30 +111,33 @@ public class WallBase {
     }
 
     @Nullable
-    static WallBase postFactory(Object snapshot) {
-        // TODO Rewrite to GS
-        throw new UnsupportedOperationException("Implement first with GS!");
-//        if(!snapshot.exists()){
-//            return null;
-//        }
-//        int typeCode = snapshot.child("type").getValue(Integer.class);
-//
-//        PostType postType = PostType.values()[typeCode-1];
-//
-//        switch (postType) {
-//            case post:
-//                break;
-//            case news:
-//                break;
-//            case betting:
-//                break;
-//            case stats:
-//                break;
-//            case rumor:
-//                break;
-//            case wallStoreItem:
-//                break;
-//        }
-//        return snapshot.getValue(WallPost.class);
+    static WallBase postFactory(Object wallItem, ObjectMapper mapper) {
+        JsonNode node = mapper.valueToTree(wallItem);
+        if (node.has("type") && node.get("type").canConvertToInt()) {
+            int typeValue = node.get("type").intValue();
+            PostType type = PostType.values()[typeValue - 1];
+            TypeReference typeReference = null;
+            switch (type) {
+                case post:
+                    typeReference = new TypeReference<WallPost>() {};
+                    break;
+                case news:
+                    typeReference = new TypeReference<WallNews>() {};
+                    break;
+                case betting:
+                    typeReference = new TypeReference<WallBetting>() {};
+                    break;
+                case stats:
+                    typeReference = new TypeReference<WallStats>() {};
+                    break;
+                case rumor:
+                    typeReference = new TypeReference<WallRumor>() {};
+                    break;
+                case wallStoreItem:
+                    typeReference = new TypeReference<WallStoreItem>(){};
+            }
+            return mapper.convertValue(wallItem, typeReference);
+        }
+        return null;
     }
 }

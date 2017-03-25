@@ -23,6 +23,7 @@ import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.TemporaryWallModel;
+import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
@@ -82,6 +83,10 @@ public class WallFragment extends BaseFragment {
     @Subscribe
     public void onPostUpdate(PostUpdateEvent event){
        Log.d(TAG,"GOT POST!");
+       WallBase post = event.getPost();
+        if(post!=null){
+            Log.d(TAG,"Post is:" + post.toString());
+        }
     }
 
 

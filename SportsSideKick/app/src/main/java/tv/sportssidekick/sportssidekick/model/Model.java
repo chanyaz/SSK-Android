@@ -90,7 +90,6 @@ public class Model {
 //              UserEvents.onLoginAnonymously.emit() Event-TBA
                 registerForPushNotifications();
                 ImsManager.getInstance().reload();
-                WallModel.getInstance().fetchPosts();
                 break;
             case REAL:
                 EventBus.getDefault().post(currentUserInfo); // TODO ON LOGIN EVENT ?

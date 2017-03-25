@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -109,13 +111,16 @@ public class WallModel extends GSMessageHandlerAbstract {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
-                    Object object = response.getScriptData().getBaseData().get(GSConstants.POSTS);
-                    // TODO Convert list of maps to concrete objects - and for each object do:
-                    WallBase post = new WallBase();
-                    postsTotalFetchCount += 1;
-                    EventBus.getDefault().post(new PostUpdateEvent(post));
-                    if (until != null){
-                        postsIntervalFetchCount += 1;
+                    JSONArray jsonArrayOfPosts = (JSONArray) response.getScriptData().getBaseData().get(GSConstants.POSTS);
+                    if(jsonArrayOfPosts.size()>0){
+                         for(Object postAsJson : jsonArrayOfPosts){
+                            WallBase post = WallBase.postFactory(postAsJson, mapper);
+                            postsTotalFetchCount += 1;
+                            EventBus.getDefault().post(new PostUpdateEvent(post));
+                            if (until != null){
+                                postsIntervalFetchCount += 1;
+                            }
+                        }
                     }
                     source.setResult(null);
                 }  else {
