@@ -232,43 +232,45 @@ public class WallModel extends GSMessageHandlerAbstract {
         final ArrayList<Task<Void>> tasks = new ArrayList<>();
         final Date newDate =new Date(oldestFetchDate.getTime() + 1000); // Add one second to exclude oldest post from last page
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
-        tasks.add(getUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
+        if (uInfo != null) {
+            tasks.add(getUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
 
 
-        Task<List<UserInfo>> followingTask = FriendsManager.getInstance().getUserFollowingList(Model.getInstance().getUserInfo().getUserId(),0);
-        followingTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
-            @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
-                if(task.isSuccessful()){
-                    List<UserInfo> following = task.getResult();
-                    if(following!=null){
-                        for(UserInfo entry : following){
-                            tasks.add(getUserPosts(entry.getUserId(), oldestFetchDate,newDate));
+            Task<List<UserInfo>> followingTask = FriendsManager.getInstance().getUserFollowingList(Model.getInstance().getUserInfo().getUserId(), 0);
+            followingTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+                @Override
+                public void onComplete(@NonNull Task<List<UserInfo>> task) {
+                    if (task.isSuccessful()) {
+                        List<UserInfo> following = task.getResult();
+                        if (following != null) {
+                            for (UserInfo entry : following) {
+                                tasks.add(getUserPosts(entry.getUserId(), oldestFetchDate, newDate));
+                            }
                         }
-                    }
-                    Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
-                    serviceGroupTask.addOnSuccessListener(
-                            new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void o) {
-                                    if (postsTotalFetchCount < minNumberOfPostsForInitialLoad || postsIntervalFetchCount < minNumberOfPostsForIntervalLoad){
-                                        if (deltaTimeIntervalForPaging < 365*24* ONE_HOUR){
-                                            deltaTimeIntervalForPaging *= 2;
-                                        }
-                                        if(oldestFetchDate.compareTo(oldestFetchIntervalDateBound)>0){
-                                            fetchPreviousPageOfPosts(postsIntervalFetchCount);
-                                        }else{
+                        Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
+                        serviceGroupTask.addOnSuccessListener(
+                                new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void o) {
+                                        if (postsTotalFetchCount < minNumberOfPostsForInitialLoad || postsIntervalFetchCount < minNumberOfPostsForIntervalLoad) {
+                                            if (deltaTimeIntervalForPaging < 365 * 24 * ONE_HOUR) {
+                                                deltaTimeIntervalForPaging *= 2;
+                                            }
+                                            if (oldestFetchDate.compareTo(oldestFetchIntervalDateBound) > 0) {
+                                                fetchPreviousPageOfPosts(postsIntervalFetchCount);
+                                            } else {
+                                                EventBus.getDefault().post(new PostLoadCompleteEvent());
+                                            }
+                                        } else {
                                             EventBus.getDefault().post(new PostLoadCompleteEvent());
                                         }
-                                    }else{
-                                        EventBus.getDefault().post(new PostLoadCompleteEvent());
                                     }
                                 }
-                            }
-                    );
+                        );
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     /**

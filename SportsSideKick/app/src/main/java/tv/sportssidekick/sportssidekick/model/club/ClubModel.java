@@ -76,8 +76,14 @@ public class ClubModel {
                 @Override
                 protected void onPostExecute(Pair<String, List<Playlist>> stringListPair) {
                     super.onPostExecute(stringListPair);
-                    playlists.addAll(stringListPair.second);
-                    EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
+                    if (stringListPair!=null)
+                    {
+                        if (stringListPair.second != null)
+                        {
+                            playlists.addAll(stringListPair.second);
+                        }
+                        EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
+                    }
                 }
             }.execute(Constant.YOUTUBE_CHANNEL_ID);
         }

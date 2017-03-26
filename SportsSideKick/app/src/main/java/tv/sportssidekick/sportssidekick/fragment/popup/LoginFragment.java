@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,6 +36,11 @@ public class LoginFragment extends BaseFragment {
     EditText emailEditText;
     @BindView(R.id.login_password)
     EditText passwordEditText;
+    @BindView(R.id.login_progress_bar)
+    AVLoadingIndicatorView progressBar;
+    @BindView(R.id.login_text)
+    TextView loginText;
+
     public LoginFragment() {
 
         // Required empty public constructor
@@ -55,7 +63,8 @@ public class LoginFragment extends BaseFragment {
             return;
         }
         Model.getInstance().login(email,password);
-        // TODO show progress
+        loginText.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.sign_up_button)
@@ -76,11 +85,15 @@ public class LoginFragment extends BaseFragment {
 //                showLoginForms();
                 break;
             case LOGIN_SUCCESSFUL:
-                // TODO hide progress - update user info on lounge ...
+                progressBar.setVisibility(View.GONE);
+                loginText.setVisibility(View.VISIBLE);
+                EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
                 getActivity().onBackPressed();
-//                fragmentContainer.setVisibility(View.GONE);
-//                progressBar.setVisibility(View.VISIBLE);
                 break;
+            case LOGIN_FAILED:
+                progressBar.setVisibility(View.GONE);
+                loginText.setVisibility(View.VISIBLE);
+                Toast.makeText(getContext(), "Login error", Toast.LENGTH_LONG).show(); // TODO inform user about login failed
         }
     }
 

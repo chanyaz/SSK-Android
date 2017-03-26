@@ -88,7 +88,7 @@ public class RumoursFragment extends BaseFragment {
 
         hideElements(true);
 
-        NewsModel.getDefault().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();  // TODO This will delete news model - we need two singletons?
+//        NewsModel.getInstance().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();  // TODO This will delete news model - we need two singletons?
 
         rumourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -105,7 +105,7 @@ public class RumoursFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                NewsModel.getDefault().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();
+//                NewsModel.getDefault().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();
             }
         });
 

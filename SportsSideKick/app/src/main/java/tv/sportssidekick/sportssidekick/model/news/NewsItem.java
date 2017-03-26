@@ -18,7 +18,7 @@ public class NewsItem {
         },
         UNOFFICIAL {
             public String toString() {
-                return "news-now";
+                return "webhose";
             }
         };
 

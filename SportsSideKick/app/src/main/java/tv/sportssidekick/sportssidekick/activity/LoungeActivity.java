@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -64,11 +66,14 @@ import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.achievements.AchievementManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static java.sql.Types.REAL;
 
 public class LoungeActivity extends AppCompatActivity {
 
@@ -104,6 +109,10 @@ public class LoungeActivity extends AppCompatActivity {
 
     @BindView(R.id.profile_button)
     RelativeLayout profileButton;
+    @BindView(R.id.profile_image)
+    ImageView profileImage;
+    @BindView(R.id.profile_name)
+    TextView profileName;
 
     @BindView(R.id.notification_number)
     TextView notificationNumber;
@@ -225,12 +234,20 @@ public class LoungeActivity extends AppCompatActivity {
         ((RadioButton)ButterKnife.findById(this,R.id.wall_radio_button)).setChecked(true);
         ((RadioButton)ButterKnife.findById(this,R.id.chat_radio_button)).setChecked(true);
         ((RadioButton)ButterKnife.findById(this,R.id.club_tv_radio_button)).setChecked(true);
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+            }
+        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
         GSAndroidPlatform.gs().start();
+        EventBus.getDefault().register(this);
     }
 
     @Subscribe
@@ -260,14 +277,12 @@ public class LoungeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
         NextMatchModel.getInstance().getNextMatchInfo();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        EventBus.getDefault().unregister(this);
     }
 
     public void onRadioButtonClicked(View view) {
@@ -284,6 +299,7 @@ public class LoungeActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         fragmentOrganizer.freeUpResources();
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -342,15 +358,46 @@ public class LoungeActivity extends AppCompatActivity {
         yourCoinsValue.setText(value + " $$K");
     }
 
-    public void onProfileButtonClick(View view) {
-        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-    }
-
     public void onFriendsButtonClick(View view) {
         EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class));
     }
 
     private void setNumberOfNotification(String number){
         notificationNumber.setText(number);
+    }
+
+    @Subscribe
+    public void onUserLogin(UserInfo user)
+    {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL)
+        {
+            if (user.getCircularAvatarUrl()!=null )
+            {
+                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.imageOptionsImageLoader());
+            }
+            if (user.getFirstName() != null && user.getLastName() != null) {
+                profileName.setText(user.getFirstName() + " " + user.getLastName());
+            }
+            //setYourCoinsValue(); TODO get user coins
+            profileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+
+                }
+            });
+        }
+        else {
+            //reset porfile name and picture to default
+            profileName.setText("Football Fann Name");
+            String imgUri = "drawable://" + getResources().getIdentifier("demo_profile_image", "drawable", this.getPackageName());
+            ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
+            profileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+                }
+            });
+        }
     }
 }
