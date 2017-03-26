@@ -70,8 +70,8 @@ public class RumoursTopFourNewsAdapter extends RecyclerView.Adapter<RumoursTopFo
         {
             final NewsItem info = values.get(position);
             holder.rowInfo.setText(info.getStrap());
-            String time = "" + DateUtils.getRelativeTimeSpanString(Long.valueOf(info.getPubDate()), System.currentTimeMillis() / 1000L, DateUtils.MINUTE_IN_MILLIS);
-            holder.rowTime.setText(time);
+//            String time = "" + DateUtils.getRelativeTimeSpanString(Long.valueOf(info.getPubDate()), System.currentTimeMillis() / 1000L, DateUtils.MINUTE_IN_MILLIS);
+//            holder.rowTime.setText(time);
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

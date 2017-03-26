@@ -9,6 +9,9 @@ import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,9 +35,17 @@ public class NewsModel {
     private static final int DEFAULT_PAGE_LENGTH = 20;
     private int page = 0;
 
+    HashMap<String, NewsItem> cachedItems;
+    List<NewsItem> items;
+
     private String language;
     private String country;
     private String ID;
+
+    public void setLoading(boolean loading) {
+        isLoading = loading;
+    }
+
     private boolean isLoading;
     private ObjectMapper mapper; // jackson's object mapper
     private HashMap<String, String> config;
@@ -47,6 +58,8 @@ public class NewsModel {
     }
 
     public NewsModel() {
+        items = new ArrayList<>();
+        cachedItems = new HashMap<>();
         mapper = new ObjectMapper();
         config = new HashMap<>();
         config = Utility.getClubConfig();
@@ -93,11 +106,11 @@ public class NewsModel {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("newsGetPage")
                 .setEventAttribute("language", "en")
-                .setEventAttribute("country", "uk")
-                .setEventAttribute("id", Model.getInstance().getUserInfo().getUserId())
-                .setEventAttribute("type", "official")
+                .setEventAttribute("country", "portugal")
+                .setEventAttribute("id", 1680) //TODO id?
+                .setEventAttribute("type", NewsItem.NewsType.OFFICIAL.toString())
                 .setEventAttribute("page", 0)
-                .setEventAttribute("limit", 15)
+                .setEventAttribute("limit", 20)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -109,16 +122,16 @@ public class NewsModel {
                         return;
                     }
 
-                    if (data.getObject("items") == null)
+                    if (data.getBaseData().get("items") == null)
                     {
                         return;
                     }
 
-                    GSData itemsData = data.getObject("items");
+//                    GSData itemsData = data.getObject("items");
 
-                    List<NewsItem> items = mapper.convertValue(itemsData, new TypeReference<List<NewsItem>>(){});
+                    items = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<NewsItem>>(){});
 
-                    if (items.size() == 0 && "en".compareTo(language) !=0 && page == 0)
+                    if (items.size() == 0 /*&& "en".compareTo(language) !=0 */ && page == 0)
                     {
                         isLoading = false;
                         language = "en";
@@ -127,9 +140,24 @@ public class NewsModel {
 
                         return;
                     }
+                    else {
+                        for (int i =0; i <items.size(); i++)
+                        {
+                            cachedItems.put(items.get(i).getId(), items.get(i));
+                        }
+                        NewsPageEvent newsItemsEvent = new NewsPageEvent(items);
+                        EventBus.getDefault().post(newsItemsEvent);
+                    }
                 }
             }
         });
     }
 
+    public NewsItem getCachedItemById(String id) {
+        return cachedItems.get(id);
+    }
+
+    public List<NewsItem> getCachedItems() {
+        return items;
+    }
 }

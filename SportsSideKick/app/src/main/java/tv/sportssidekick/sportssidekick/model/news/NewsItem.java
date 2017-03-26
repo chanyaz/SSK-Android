@@ -1,5 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.news;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -7,6 +9,8 @@ import java.text.SimpleDateFormat;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class NewsItem {
 
     public enum NewsType {
@@ -30,7 +34,7 @@ public class NewsItem {
     private String title;
     private String url;
     private String pubDate;
-    private NewsType type;
+//    private NewsType type;
     private String source;
     private String content;
     private String strap;
@@ -69,13 +73,13 @@ public class NewsItem {
         this.pubDate = pubDate;
     }
 
-    public NewsType getType() {
-        return type;
-    }
-
-    public void setType(NewsType type) {
-        this.type = type;
-    }
+//    public NewsType getType() {
+//        return type;
+//    }
+//
+//    public void setType(NewsType type) {
+//        this.type = type;
+//    }
 
     public String getSource() {
         return source;

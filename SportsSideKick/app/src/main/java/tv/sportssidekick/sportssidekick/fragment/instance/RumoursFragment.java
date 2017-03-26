@@ -17,6 +17,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
@@ -101,6 +102,24 @@ public class RumoursFragment extends BaseFragment {
 
         top4newsAdapter = new RumoursTopFourNewsAdapter();
         top4news.setAdapter(top4newsAdapter);
+
+
+        if (NewsModel.getInstance().getCachedItems().size() > 0)
+        {
+            NewsPageEvent event = new NewsPageEvent(NewsModel.getInstance().getCachedItems());
+            if (event != null)
+            {
+                onNewsReceived(event);
+            }
+            else {
+                NewsModel.getInstance().setLoading(false);
+                NewsModel.getInstance().loadPage();
+            }
+        }
+        else
+        {
+            NewsModel.getInstance().loadPage();
+        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override

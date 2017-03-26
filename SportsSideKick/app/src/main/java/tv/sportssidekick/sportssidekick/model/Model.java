@@ -216,12 +216,12 @@ public class Model {
         }
     }
 
-    public void registrationRequest(String displayName, String password, String userName, HashMap<String, Object> userDetails){
+    public void registrationRequest(String displayName, String password, String userName/*, HashMap<String, Object> userDetails*/){
         GSAndroidPlatform.gs().getRequestBuilder().createRegistrationRequest()
                 .setDisplayName(displayName)
                 .setPassword(password)
                 .setUserName(userName)
-                .setSegments(userDetails)
+//                .setSegments(userDetails)
                 .send(new GSEventConsumer<GSResponseBuilder.RegistrationResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.RegistrationResponse response) {
@@ -372,9 +372,14 @@ public class Model {
         if(!details.get(GSConstants.EMAIL).equals(currentUserInfo.getEmail())){
             request.setUserName(details.get(GSConstants.EMAIL));
         }
-        if(!details.get(GSConstants.NICNAME).equals(currentUserInfo.getNicName())){
-            request.setUserName(details.get(GSConstants.NICNAME));
+
+        if (currentUserInfo.getNicName() != null)
+        {
+            if(!details.get(GSConstants.NICNAME).equals(currentUserInfo.getNicName())){
+                request.setUserName(details.get(GSConstants.NICNAME));
+            }
         }
+
         request.getBaseData().put(GSConstants.FIRST_NAME,details.get(GSConstants.FIRST_NAME));
         request.getBaseData().put(GSConstants.LAST_NAME,details.get(GSConstants.LAST_NAME));
         request.getBaseData().put(GSConstants.PHONE,details.get(GSConstants.PHONE));

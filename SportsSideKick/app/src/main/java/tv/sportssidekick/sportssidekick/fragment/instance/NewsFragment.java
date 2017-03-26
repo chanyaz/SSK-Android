@@ -11,6 +11,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
@@ -39,7 +40,6 @@ public class NewsFragment extends BaseFragment {
     RecyclerView recyclerView;
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progres;
-    NewsModel model;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -51,9 +51,6 @@ public class NewsFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
 
-        model = new NewsModel(NewsItem.NewsType.OFFICIAL, 15);
-
-        model.getInstance().loadPage();
         adapter = new NewsAdapter();
 
         recyclerView.setAdapter(adapter);
@@ -61,10 +58,20 @@ public class NewsFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
+        if (NewsModel.getInstance().getCachedItems().size() > 0)
+        {
+            adapter.getValues().addAll(NewsModel.getInstance().getCachedItems());
+            progres.setVisibility(View.GONE);
+        }
+        else
+        {
+            NewsModel.getInstance().loadPage();
+        }
+
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-        //        model.getInstance().loadPage();
+                NewsModel.getInstance().loadPage();
             }
         });
         return view;
@@ -78,5 +85,4 @@ public class NewsFragment extends BaseFragment {
         adapter.getValues().addAll(event.getValues());
         adapter.notifyDataSetChanged();
     }
-
 }
