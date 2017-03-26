@@ -2,6 +2,12 @@ package tv.sportssidekick.sportssidekick.model.club;
 
 import android.util.Pair;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
@@ -20,7 +26,11 @@ import java.util.List;
 import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.Constant;
+import tv.sportssidekick.sportssidekick.model.GSConstants;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
+
+import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
 
 /**
@@ -32,6 +42,8 @@ import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
 public class ClubModel {
 
     private static ClubModel instance;
+    private final ObjectMapper mapper; // jackson's object mapper
+    List<Station> stations;
 
     public static ClubModel getInstance(){
         if(instance==null){
@@ -41,7 +53,6 @@ public class ClubModel {
     }
     private final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     private final GsonFactory jsonFactory = new GsonFactory();
-    List<Station> stations;
 
 
     private List<Playlist> playlists;
@@ -50,11 +61,11 @@ public class ClubModel {
     private  YouTube youtubeDataApi;
 
     private ClubModel(){
+        mapper  = new ObjectMapper();
         playlists = new ArrayList<>();
         videos = new ArrayList<>();
         videosHashMap = new HashMap<>();
         youtubeDataApi = new YouTube.Builder(transport, jsonFactory, null).setApplicationName("tv.sportssidekick.sportssidekick").build();
-        stations = createDummyStations();
     }
 
     public void requestAllPlaylists() {
@@ -124,21 +135,35 @@ public class ClubModel {
         return playlists;
     }
 
-    String dummyStationsJson = "[{\n\t\"coverImageUrl\": \"https://firebasestorage.googleapis.com/v0/b/sportssidekick-5418a.appspot.com/o/static%2Fimages%2F5LiveLogo.jpg?alt=media&token=ea67cee0-1d8d-4b2b-b265-469d04b3bf80\",\n\t\"isPodcast\": false,\n\t\"name\": \"BBC Radio 5 Live\",\n\t\"url\": \"http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio5live_mf_p\"\n}, {\n\t\"coverImageUrl\": \"https://firebasestorage.googleapis.com/v0/b/sportssidekick-5418a.appspot.com/o/static%2Fimages%2FtalkSport.jpg?alt=media&token=3b1a9d5c-1fb1-464d-9952-fd748b237535\",\n\t\"isPodcast\": false,\n\t\"name\": \"TalkSport Radio\",\n\t\"url\": \"http://www.radiofeeds.co.uk/talksportstreammobile.m3u\"\n}, {\n\t\"coverImageUrl\": \"https://firebasestorage.googleapis.com/v0/b/sportssidekick-5418a.appspot.com/o/static%2Fimages%2Fantena1.jpg?alt=media&token=93b5187e-ca25-431f-866c-82d634bacd56\",\n\t\"isPodcast\": false,\n\t\"name\": \"ANTENA 1\",\n\t\"url\": \"http://uk1.antennaradio.co.uk:8024/listen.pls?sid=1\"\n}, {\n\t\"coverImageUrl\": \"https://firebasestorage.googleapis.com/v0/b/sportssidekick-5418a.appspot.com/o/static%2Fimages%2Fbenedita.jpg?alt=media&token=5771fbc1-01e1-4751-adc7-e9ed306b9462\",\n\t\"isPodcast\": false,\n\t\"name\": \"Bendita\",\n\t\"url\": \"http://www.listenlive.eu/bbcradio1.m3u\"\n}, {\n\t\"coverImageUrl\": \"https://ichef.bbci.co.uk/images/ic/480x270/p04l1dv1.jpg\",\n\t\"isPodcast\": true,\n\t\"name\": \"Kilbane: Bournemouth hangover affected Liverpool performance\",\n\t\"url\": \"http://www.radiofeeds.co.uk/talksportstream.m3u\"\n}]";
-    private List<Station> createDummyStations() {
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<Station>>(){}.getType();
-       return (List<Station>) gson.fromJson(dummyStationsJson, listType);
-    }
-
-    public List<Station> getStations() {
-        return stations;
+    public Task<List<Station>> getStations() {
+        final TaskCompletionSource<List<Station>> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.ITEMS);
+                    List<Station> receivedStations = mapper.convertValue(object, new TypeReference<List<Station>>(){});
+                    while(receivedStations.contains(null)){
+                        receivedStations.remove(null);
+                    }
+                    stations = receivedStations;
+                    source.setResult(receivedStations);
+                }  else {
+                    source.setException(new Exception());
+                }
+            }
+        };
+        createRequest("clubRadioGetStations")
+                .send(consumer);
+        return source.getTask();
     }
 
     public Station getStationByName(String name){
-        for(Station station : stations){
-            if(station.getName().equals(name)){
-                return station;
+        if(stations!=null){
+            for(Station station : stations){
+                if(station.getName().equals(name)){
+                    return station;
+                }
             }
         }
         return null;

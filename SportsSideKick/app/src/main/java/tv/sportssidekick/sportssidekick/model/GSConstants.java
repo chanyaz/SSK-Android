@@ -45,4 +45,5 @@ public class GSConstants {
     public static final String COMMENTS = "comments";
     public static final String COMMENT = "comment";
     public static final String OPERATION = "operation";
+    public static final String ITEMS = "items";
 }

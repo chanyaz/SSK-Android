@@ -1,5 +1,8 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
 /**
@@ -8,6 +11,8 @@ import java.util.Date;
  * www.hypercubesoft.com
  */
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
 public class WallStoreItem extends WallBase {
 
     private String title;

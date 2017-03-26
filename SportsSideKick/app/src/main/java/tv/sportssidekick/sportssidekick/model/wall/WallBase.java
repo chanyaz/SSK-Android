@@ -1,7 +1,10 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,9 +14,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * www.hypercubesoft.com
  */
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
 public class WallBase {
 
-   enum PostType {
+    private static final String TAG = "WALLBASE";
+
+    enum PostType {
         post,
         news,
         betting,
@@ -115,6 +122,7 @@ public class WallBase {
         JsonNode node = mapper.valueToTree(wallItem);
         if (node.has("type") && node.get("type").canConvertToInt()) {
             int typeValue = node.get("type").intValue();
+            Log.d(TAG, "WallModel: type is: " + typeValue);
             PostType type = PostType.values()[typeValue - 1];
             TypeReference typeReference = null;
             switch (type) {

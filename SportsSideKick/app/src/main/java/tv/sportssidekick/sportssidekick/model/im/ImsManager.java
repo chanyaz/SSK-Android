@@ -435,7 +435,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
     }
 
     // do not use this function, call the chat info one!
-    void markMessageAsRead(final ChatInfo chatInfo, ImsMessage message){
+    void markMessageAsRead(final ChatInfo chatInfo,final ImsMessage message){
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -444,6 +444,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
                     ChatInfo updatedChatInfo = mapper.convertValue(object,ChatInfo.class);
                     chatInfo.setEqualTo(updatedChatInfo);
+                    message.setReadFlag(true);
                 }
             }
         };

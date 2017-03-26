@@ -6,6 +6,14 @@
     android:background="@color/colorAccentLight"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioFragment">
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/prodgres_bar"
+        android:layout_height="@dimen/prodgres_bar"
+        android:layout_centerInParent="true"
+        android:elevation="2dp"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
+
     <!--  \/\/\/\/\/\/\/ FIXME Dummy View to make sure container is the size of Video player fragment -->
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"
