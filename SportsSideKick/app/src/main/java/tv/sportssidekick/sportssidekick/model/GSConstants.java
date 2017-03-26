@@ -46,4 +46,6 @@ public class GSConstants {
     public static final String COMMENT = "comment";
     public static final String OPERATION = "operation";
     public static final String ITEMS = "items";
+    public static final String USER_ACHIEVEMENTS = "userAchievements";
+    public static final String ACHIEVEMENTS = "achievements";
 }
