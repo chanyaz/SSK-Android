@@ -41,6 +41,8 @@ import tv.sportssidekick.sportssidekick.util.GridSpacingItemDecoration;
 
 public class RumoursFragment extends BaseFragment {
 
+    final NewsItem.NewsType type = NewsItem.NewsType.UNOFFICIAL;
+
     RumoursNewsListAdapter rumoursSmallAdapter;
     RumoursTopFourNewsAdapter top4newsAdapter;
 
@@ -89,8 +91,6 @@ public class RumoursFragment extends BaseFragment {
 
         hideElements(true);
 
-//        NewsModel.getInstance().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();  // TODO This will delete news model - we need two singletons?
-
         rumourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         rumoursSmallAdapter = new RumoursNewsListAdapter();
@@ -104,27 +104,27 @@ public class RumoursFragment extends BaseFragment {
         top4news.setAdapter(top4newsAdapter);
 
 
-        if (NewsModel.getInstance().getCachedItems().size() > 0)
+        if (NewsModel.getInstance().getAllCachedItems(type).size() > 0)
         {
-            NewsPageEvent event = new NewsPageEvent(NewsModel.getInstance().getCachedItems());
+            NewsPageEvent event = new NewsPageEvent(NewsModel.getInstance().getAllCachedItems(type));
             if (event != null)
             {
                 onNewsReceived(event);
             }
             else {
-                NewsModel.getInstance().setLoading(false);
-                NewsModel.getInstance().loadPage();
+                NewsModel.getInstance().setLoading(false,type);
+                NewsModel.getInstance().loadPage(type);
             }
         }
         else
         {
-            NewsModel.getInstance().loadPage();
+            NewsModel.getInstance().loadPage(type);
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-//                NewsModel.getDefault().initialze(NewsItem.NewsType.UNOFFICIAL, 15).loadPage();
+                NewsModel.getInstance().loadPage(type);
             }
         });
 

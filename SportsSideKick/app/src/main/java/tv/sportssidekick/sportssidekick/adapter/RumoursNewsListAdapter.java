@@ -79,7 +79,7 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
             @Override
             public void onClick(View view) {
                 FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                fe.setId(info.getId());
+                fe.setId("UNOFFICIAL$$$" + info.getId().getOid()); // TODO Fixme - this is a bit hack-ish
                 EventBus.getDefault().post(fe);
             }
         });
