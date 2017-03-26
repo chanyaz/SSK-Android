@@ -2,15 +2,20 @@ package tv.sportssidekick.sportssidekick.model.news;
 
 
 
-import com.gamesparks.sdk.GS;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.GSData;
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.util.Utility;
+
 
 /**
  * Created by Djordje Krutil on 27.12.2016..
@@ -22,151 +27,109 @@ public class NewsModel {
     private static NewsModel instance;
 
     private NewsItem.NewsType type;
+
     private int itemsPerPage;
-    private static final int DEFAULT_PAGE_LENGTH = 25;
+    private static final int DEFAULT_PAGE_LENGTH = 20;
     private int page = 0;
+
     private String language;
-    private String lastPubDate;
+    private String country;
+    private String ID;
     private boolean isLoading;
-    private boolean firstPageLoaded;
-    private Map<String, NewsItem> newsCache;
-    private Model gs;
+    private ObjectMapper mapper; // jackson's object mapper
+    private HashMap<String, String> config;
 
-
-    public NewsItem getCachedItemById(String id) {
-        return newsCache.get(id);
-    }
-
-    public NewsModel() {
-    }
-
-    private NewsModel(NewsItem.NewsType type, int pageLength) {
-        // TODO Rewrite to GS
-        this.gs = Model.getInstance();
-//        this.ref = FirebaseDatabase.getInstance();
-//        this.newsRef = ref.getReference("news").child("en").child("portugal").child("1680").child(type.toString());
-        this.type = type;
-        this.itemsPerPage = pageLength;
-        this.language = Locale.getDefault().getDisplayLanguage();
-        isLoading = false;
-        firstPageLoaded = false;
-        resetPageCount();
-        addObservers();
-        newsCache = new HashMap<>();
-    }
-
-    public static NewsModel getDefault() {
-        if (instance == null) {
-            instance = new NewsModel(NewsItem.NewsType.OFFICIAL, DEFAULT_PAGE_LENGTH);
+    public static NewsModel getInstance(){
+        if(instance==null){
+            instance = new NewsModel();
         }
         return instance;
     }
 
-    public NewsModel initialze(NewsItem.NewsType type, int pageLength) {
+    public NewsModel() {
+        mapper = new ObjectMapper();
+        config = new HashMap<>();
+        config = Utility.getClubConfig();
+    }
+
+    public NewsModel(NewsItem.NewsType type, int pageLength ) {
+
+        config = new HashMap<>();
+        config = Utility.getClubConfig();
+        pageLength = 15;
         this.type = type;
         this.itemsPerPage = pageLength;
-        return this;
+        this.country = config.get("Country");
+        this.ID = config.get("ID");
+        this.language = config.get("Language");
+
+        resetPageCount();
     }
 
-    private void addObservers() {
-        String currentTime = String.valueOf(System.currentTimeMillis() / 1000L) + ".000";
-        // TODO Rewrite to GS
-//        newsRef.orderByChild("pubDate")
-//                .startAt(currentTime)
-//                .limitToLast(itemsPerPage + 1)
-//                .addChildEventListener(childEventListener);
-    }
-
-    // TODO Rewrite to GS
-//    ChildEventListener childEventListener = new ChildEventListener() {
-//        @Override
-//        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//            if (!firstPageLoaded) {
-//                return;
-//            }
-//            ArrayList<NewsItem> newsItems = processSnapshot(dataSnapshot);
-//            EventBus.getDefault().post(new NewsPageEvent(newsItems)); //onNewItems
-//        }
-//
-//        @Override
-//        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//        }
-//
-//        @Override
-//        public void onChildRemoved(DataSnapshot dataSnapshot) {
-//        }
-//
-//        @Override
-//        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//        }
-//
-//        @Override
-//        public void onCancelled(DatabaseError databaseError) {
-//        }
-//    };
-
-    // We get the data back in ascending order, so it we need to reverse sort for the expected behaviour
-    // of newest items first, first though, we grab the pubDate
-    // to use as a query constraint
-    private ArrayList<NewsItem> processSnapshot(Object data) {
-        ArrayList<NewsItem> items = new ArrayList<>();
-        boolean isFirst = true;
-
-        // TODO Rewrite to GS
-//        for (DataSnapshot child : dataSnapshot.getChildren()) {
-//            NewsItem newsItem = child.getValue(NewsItem.class);
-//            newsItem.setId(child.getKey());
-//            if (isFirst) {
-//                isFirst = false;
-//                lastPubDate = newsItem.getPubDate();
-//            }
-//            newsCache.put(newsItem.getId(), newsItem);
-//            items.add(newsItem);
-//        }
-        if (items.size() > 0) {
-            page++;
+    private void reload (String language)
+    {
+        if (language != null)
+        {
+            this.language = language;
         }
-        if (page > 0 && !items.isEmpty()) {
-            items.remove(0);
-        }
-        Collections.reverse(items);
-        return items;
+
+        resetPageCount();
+        loadPage();
     }
 
     public void resetPageCount() {
-        this.lastPubDate = String.valueOf(System.currentTimeMillis() / 1000L);
         this.page = 0;
     }
 
-    // This method auto-increments the 'page' of data we're loading, saves having two methods
     public void loadPage() {
-        if (!isLoading) {
-            isLoading = true;
-            // TODO Rewrite to GS
-//            newsRef.orderByChild("pubDate")
-//                    .endAt(lastPubDate)
-//                    .limitToLast(itemsPerPage + 1)
-//                    .addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            if (!dataSnapshot.exists()) {
-//                                return;
-//                            }
-//                            ArrayList<NewsItem> newsItems = processSnapshot(dataSnapshot);
-//                            EventBus.getDefault().post(new NewsPageEvent(newsItems)); // onPageLoaded
-//                            isLoading = false;
-//                            if (!firstPageLoaded) {
-//                                firstPageLoaded = true;
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-        } else {
+
+        if (this.isLoading == true)
+        {
             return;
         }
+
+        this.isLoading = true;
+
+        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+                .setEventKey("newsGetPage")
+                .setEventAttribute("language", "en")
+                .setEventAttribute("country", "uk")
+                .setEventAttribute("id", Model.getInstance().getUserInfo().getUserId())
+                .setEventAttribute("type", "official")
+                .setEventAttribute("page", 0)
+                .setEventAttribute("limit", 15)
+                .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    GSData data = response.getScriptData();
+
+                    if (data == null)
+                    {
+                        return;
+                    }
+
+                    if (data.getObject("items") == null)
+                    {
+                        return;
+                    }
+
+                    GSData itemsData = data.getObject("items");
+
+                    List<NewsItem> items = mapper.convertValue(itemsData, new TypeReference<List<NewsItem>>(){});
+
+                    if (items.size() == 0 && "en".compareTo(language) !=0 && page == 0)
+                    {
+                        isLoading = false;
+                        language = "en";
+
+                        loadPage();
+
+                        return;
+                    }
+                }
+            }
+        });
     }
+
 }

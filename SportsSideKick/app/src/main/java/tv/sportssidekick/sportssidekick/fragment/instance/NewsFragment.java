@@ -39,6 +39,7 @@ public class NewsFragment extends BaseFragment {
     RecyclerView recyclerView;
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progres;
+    NewsModel model;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -50,7 +51,9 @@ public class NewsFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
 
-        NewsModel.getDefault().initialze(NewsItem.NewsType.OFFICIAL, 15).loadPage();
+        model = new NewsModel(NewsItem.NewsType.OFFICIAL, 15);
+
+        model.getInstance().loadPage();
         adapter = new NewsAdapter();
 
         recyclerView.setAdapter(adapter);
@@ -61,7 +64,7 @@ public class NewsFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                NewsModel.getDefault().initialze(NewsItem.NewsType.OFFICIAL, 15).loadPage();
+        //        model.getInstance().loadPage();
             }
         });
         return view;

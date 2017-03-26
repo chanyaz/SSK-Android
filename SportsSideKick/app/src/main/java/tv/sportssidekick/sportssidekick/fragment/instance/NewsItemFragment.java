@@ -56,13 +56,13 @@ public class NewsItemFragment extends BaseFragment{
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
         ButterKnife.bind(this, view);
 
-        NewsItem item = NewsModel.getDefault().getCachedItemById(getPrimaryArgument());
+//        NewsItem item = NewsModel.getInstance().getCachedItemById(getPrimaryArgument());
 
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-        ImageLoader.getInstance().displayImage(item.getImage(), imageHeader, imageOptions);
-        title.setText(item.getTitle());
-        strap.setText(item.getStrap());
-        content.setText(item.getContent());
+//        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+//        ImageLoader.getInstance().displayImage(item.getImage(), imageHeader, imageOptions);
+//        title.setText(item.getTitle());
+//        strap.setText(item.getStrap());
+//        content.setText(item.getContent());
 
         return view;
     }

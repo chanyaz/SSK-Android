@@ -44,7 +44,7 @@ public class Model {
     private static final String TAG = "MODEL";
     private final ObjectMapper mapper; // jackson's object mapper
 
-    enum LoggedInUserType {
+    public enum LoggedInUserType {
         NONE, ANONYMOUS, REAL
     }
 
@@ -88,11 +88,13 @@ public class Model {
                 break;
             case ANONYMOUS:
 //              UserEvents.onLoginAnonymously.emit() Event-TBA
+                EventBus.getDefault().post(currentUserInfo);
                 registerForPushNotifications();
                 ImsManager.getInstance().reload();
                 break;
             case REAL:
-                EventBus.getDefault().post(currentUserInfo); // TODO ON LOGIN EVENT ?
+                EventBus.getDefault().post(currentUserInfo);
+                EventBus.getDefault().post(new GameSparksEvent("Login sucessfull!", GameSparksEvent.Type.LOGIN_SUCCESSFUL, null));
                 registerForPushNotifications();
                 ImsManager.getInstance().reload();
                 WallModel.getInstance().fetchPosts();
@@ -214,11 +216,12 @@ public class Model {
         }
     }
 
-    public void registrationRequest(String displayName, String password, String userName){
+    public void registrationRequest(String displayName, String password, String userName, HashMap<String, Object> userDetails){
         GSAndroidPlatform.gs().getRequestBuilder().createRegistrationRequest()
                 .setDisplayName(displayName)
                 .setPassword(password)
                 .setUserName(userName)
+                .setSegments(userDetails)
                 .send(new GSEventConsumer<GSResponseBuilder.RegistrationResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.RegistrationResponse response) {

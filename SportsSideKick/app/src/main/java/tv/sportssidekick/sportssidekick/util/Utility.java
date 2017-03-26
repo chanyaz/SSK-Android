@@ -21,10 +21,12 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import tv.sportssidekick.sportssidekick.R;
@@ -182,5 +184,21 @@ public class Utility {
         Point size = new Point();
         display.getSize(size);
         return size.y;
+    }
+
+    public static HashMap<String, String> getClubConfig ()
+    {
+        HashMap<String, String> config = new HashMap<>();
+        config.put("Country", Prefs.getString("Country", "UK"));
+        config.put("Language", Prefs.getString("Language", "en"));
+        config.put("ID", Prefs.getString("ID", ""));
+        return config;
+    }
+
+    public static void setClubConfig(String country, String id, String language)
+    {
+        Prefs.putString("Country", country);
+        Prefs.putString("Language", language);
+        Prefs.putString("ID", id);
     }
 }
