@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.model.achievements.Achievement;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -29,9 +30,9 @@ public class StashAdapter extends RecyclerView.Adapter<StashAdapter.ViewHolder> 
 
     private static final String TAG = "Stash Adapter";
 
-    private List<Pair<String,String>> values;
+    private List<Achievement> values;
 
-    public List<Pair<String,String>> getValues() {
+    public List<Achievement> getValues() {
         return values;
     }
 
@@ -75,9 +76,9 @@ public class StashAdapter extends RecyclerView.Adapter<StashAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-        final Pair<String,String> info = values.get(position);
-        holder.awardName.setText(info.first);
-        holder.profileFrame.setText(info.second);
+        final Achievement info = values.get(position);
+        holder.awardName.setText(info.getName());
+        holder.profileFrame.setText(info.getDescription());
     }
 
     @Override

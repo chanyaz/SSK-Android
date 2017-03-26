@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
@@ -8,9 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.greenrobot.eventbus.EventBus;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.wang.avi.AVLoadingIndicatorView;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +23,8 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.StashAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.model.achievements.Achievement;
+import tv.sportssidekick.sportssidekick.model.achievements.AchievementManager;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -30,6 +36,9 @@ public class StashFragment extends BaseFragment {
 
     @BindView(R.id.stash_recycler_view)
     RecyclerView stashRecyclerView;
+
+    @BindView(R.id.progress_bar)
+    AVLoadingIndicatorView progressBar;
 
     public StashFragment() {
         // Required empty public constructor
@@ -45,14 +54,22 @@ public class StashFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
         stashRecyclerView.setLayoutManager(layoutManager);
 
-        ArrayList<Pair<String,String>> values = new ArrayList<>();
-        for(int i = 0; i< 100; i++){
-            values.add(new Pair<>("SOCCER BOOT " + i,"Profile frame " + i));
-        }
-
-        StashAdapter adapter = new StashAdapter();
-        adapter.getValues().addAll(values);
+        final StashAdapter adapter = new StashAdapter();
         stashRecyclerView.setAdapter(adapter);
+        Task<List<Achievement>> getAchievementsTask = AchievementManager.getInstance().getUserAchievements();
+        getAchievementsTask.addOnCompleteListener(new OnCompleteListener<List<Achievement>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<Achievement>> task) {
+                if(task.isSuccessful()){
+                    adapter.getValues().addAll(task.getResult());
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+
+
         return view;
     }
 

@@ -63,6 +63,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.achievements.AchievementManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
