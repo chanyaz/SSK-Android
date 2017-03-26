@@ -188,15 +188,6 @@ public class ImsManager extends GSMessageHandlerAbstract{
         return source.getTask();
     }
 
-//    private String toJson(Object object){
-//        try {
-//            return mapper.writeValueAsString(object);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
     private void loadUserChats() {
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override

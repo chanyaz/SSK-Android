@@ -131,9 +131,14 @@ public class Model {
             .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
                 @Override
                 public void onEvent(GSResponseBuilder.PushRegistrationResponse pushRegistrationResponse) {
-                    String registrationId = pushRegistrationResponse.getRegistrationId();
-                    Log.d(TAG, "Registration id is:" + registrationId);
-                    GSData scriptData = pushRegistrationResponse.getScriptData();
+                    if(!pushRegistrationResponse.hasErrors()){
+                        String registrationId = pushRegistrationResponse.getRegistrationId();
+                        Log.d(TAG, "Registration id is:" + registrationId);
+                        GSData scriptData = pushRegistrationResponse.getScriptData();
+                    }  else{
+                        Log.e(TAG,"There was an error at registerForPushNotifications call");
+                    }
+
                 }
             });
     }
@@ -291,7 +296,7 @@ public class Model {
                     if(response.hasErrors()){
                         EventBus.getDefault().post(new GameSparksEvent("Password recovery request error:" + response.toString(), GameSparksEvent.Type.PASSWORD_RECOVERY_ERROR, null));
                     } else {
-                        EventBus.getDefault().post(new GameSparksEvent("Password recovery request error:" + response.toString(), GameSparksEvent.Type.PASSWORD_RECOVERY_SUCCESSFUL, null));
+                        EventBus.getDefault().post(new GameSparksEvent("Password recovery successful:" + response.toString(), GameSparksEvent.Type.PASSWORD_RECOVERY_SUCCESSFUL, null));
                     }
                 }
             }
@@ -482,10 +487,15 @@ public class Model {
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                Map<String,Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
-                UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
-                userCache.put(userInfo.getUserId(), userInfo);
-                source.setResult(userInfo);
+                if(!response.hasErrors()){
+                    Map<String,Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
+                    UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
+                    userCache.put(userInfo.getUserId(), userInfo);
+                    source.setResult(userInfo);
+                } else{
+                    Log.e(TAG,"There was an error at refreshUserInfo call");
+                    source.setException(new Exception("Gamesparks error!"));
+                }
             }
         });
         return source.getTask();
