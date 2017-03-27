@@ -69,14 +69,18 @@ public class RumoursTopFourNewsAdapter extends RecyclerView.Adapter<RumoursTopFo
         if (!values.isEmpty())
         {
             final NewsItem info = values.get(position);
-            holder.rowInfo.setText(info.getStrap());
+            if(info.getStrap()!=null){
+                holder.rowInfo.setText(info.getStrap());
+            } else {
+                holder.rowInfo.setText(info.getTitle());
+            }
 //            String time = "" + DateUtils.getRelativeTimeSpanString(Long.valueOf(info.getPubDate()), System.currentTimeMillis() / 1000L, DateUtils.MINUTE_IN_MILLIS);
 //            holder.rowTime.setText(time);
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                    fe.setId(info.getId());
+                    fe.setId("UNOFFICIAL$$$" + info.getId().getOid());
                     EventBus.getDefault().post(fe);
                 }
             });

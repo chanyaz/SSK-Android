@@ -209,9 +209,9 @@ public class Utility {
     public static HashMap<String, String> getClubConfig ()
     {
         HashMap<String, String> config = new HashMap<>();
-        config.put("Country", Prefs.getString("Country", "UK"));
+        config.put("Country", Prefs.getString("Country", "portugal"));
         config.put("Language", Prefs.getString("Language", "en"));
-        config.put("ID", Prefs.getString("ID", ""));
+        config.put("ID", Prefs.getString("ID", "1680"));
         return config;
     }
 

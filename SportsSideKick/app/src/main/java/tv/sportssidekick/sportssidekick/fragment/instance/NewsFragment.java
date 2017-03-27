@@ -14,6 +14,8 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
@@ -32,6 +34,8 @@ import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
  */
 
 public class NewsFragment extends BaseFragment {
+
+    final NewsItem.NewsType type = NewsItem.NewsType.OFFICIAL;
 
     NewsAdapter adapter;
     @BindView(R.id.swipe_refresh_layout)
@@ -58,20 +62,21 @@ public class NewsFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        if (NewsModel.getInstance().getCachedItems().size() > 0)
+        List<NewsItem> existingItems = NewsModel.getInstance().getAllCachedItems(type);
+        if (existingItems!=null && existingItems.size() > 0)
         {
-            adapter.getValues().addAll(NewsModel.getInstance().getCachedItems());
+            adapter.getValues().addAll(existingItems);
             progres.setVisibility(View.GONE);
         }
-        else
-        {
-            NewsModel.getInstance().loadPage();
+        else {
+            NewsModel.getInstance().loadPage(type);
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                NewsModel.getInstance().loadPage();
+                NewsModel.getInstance().setLoading(false,type);
+                NewsModel.getInstance().loadPage(type);
             }
         });
         return view;

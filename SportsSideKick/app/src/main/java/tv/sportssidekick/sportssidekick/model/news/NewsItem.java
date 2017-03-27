@@ -1,8 +1,12 @@
 package tv.sportssidekick.sportssidekick.model.news;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.SimpleDateFormat;
+
+import tv.sportssidekick.sportssidekick.model.Id;
 
 /**
  * Created by Djordje Krutil on 27.12.2016..
@@ -30,22 +34,26 @@ public class NewsItem {
         }
     }
 
-    private String id;
+    @JsonProperty("_id")
+    private Id id;
     private String title;
     private String url;
     private String pubDate;
-//    private NewsType type;
+
+    private String type;
     private String source;
     private String content;
     private String strap;
     private String image;
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 
-    public String getId() {
+    @JsonProperty("_id")
+    public Id getId() {
         return id;
     }
 
-    public void setId(String id) {
+    @JsonProperty("_id")
+    public void setId(Id id) {
         this.id = id;
     }
 
@@ -73,13 +81,18 @@ public class NewsItem {
         this.pubDate = pubDate;
     }
 
-//    public NewsType getType() {
-//        return type;
-//    }
-//
-//    public void setType(NewsType type) {
-//        this.type = type;
-//    }
+    @JsonIgnore
+    public NewsType getType() {
+        if(type.equalsIgnoreCase("OFFICIAL")){
+            return  NewsType.OFFICIAL;
+        } else {
+            return NewsType.UNOFFICIAL;
+        }
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getSource() {
         return source;
