@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/close_news_button"
+        android:layout_width="@dimen/standard_button_height"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/close_button" />
+
+    <Button
+        android:id="@+id/share_news_to_wall_button"
+        android:layout_width="@dimen/standard_button_height"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/share_to_wall" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -51,7 +70,7 @@
                     android:layout_marginBottom="@dimen/margin_10"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:textColor="@color/white"
+                    android:textColor="@color/lightGrey"
                     android:textSize="16sp" />
 
             </RelativeLayout>
@@ -67,4 +86,5 @@
             android:textColor="@android:color/white" />
 
     </RelativeLayout>
-</ScrollView>
+    </ScrollView>
+</RelativeLayout>

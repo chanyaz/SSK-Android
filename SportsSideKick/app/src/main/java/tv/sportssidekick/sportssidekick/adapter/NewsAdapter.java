@@ -2,6 +2,7 @@ package tv.sportssidekick.sportssidekick.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.caption)
         TextView caption;
+        @Nullable
+        @BindView(R.id.news_date)
+        TextView date;
 
         ViewHolder(View v) {
             super(v);
@@ -58,7 +62,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     public NewsAdapter() {
-        values= new ArrayList<>();
+        values = new ArrayList<>();
     }
 
     @Override
@@ -81,6 +85,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         final NewsItem info = values.get(position);
         ImageLoader.getInstance().displayImage(info.getImage(), holder.image, imageOptions);
         holder.caption.setText(info.getTitle());
+        holder.date.setText("" + DateUtils.getRelativeTimeSpanString(info.getPubDate().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS));
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +98,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (values==null)
+        if (values == null)
             return 0;
         return values.size();
     }

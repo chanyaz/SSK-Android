@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
-        app:indicatorName="LineSpinFadeLoaderIndicator"
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
         android:elevation="2dp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     <ScrollView
         android:id="@+id/fragment_rumors_root"
@@ -79,11 +79,11 @@
 
                     <com.github.rongi.rotate_layout.layout.RotateLayout
                         android:id="@+id/fragment_rumors_single_rumour_headline_container_1"
-                        app:angle="90"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignBottom="@+id/fragment_rumors_single_rumour_info_container_1"
-                        android:layout_alignParentTop="true"> <!-- Specify rotate angle here -->
+                        android:layout_alignParentTop="true"
+                        app:angle="90"> <!-- Specify rotate angle here -->
 
                         <TextView
                             android:id="@+id/fragment_rumors_single_rumour_headline_1"
@@ -139,11 +139,11 @@
 
                     <com.github.rongi.rotate_layout.layout.RotateLayout
                         android:id="@+id/fragment_rumors_single_rumour_headline_container_2"
-                        app:angle="90"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignBottom="@+id/fragment_rumors_single_rumour_info_container_2"
-                        android:layout_alignParentTop="true"> <!-- Specify rotate angle here -->
+                        android:layout_alignParentTop="true"
+                        app:angle="90"> <!-- Specify rotate angle here -->
 
                         <TextView
                             android:id="@+id/fragment_rumors_single_rumour_headline_2"
@@ -199,11 +199,11 @@
 
                     <com.github.rongi.rotate_layout.layout.RotateLayout
                         android:id="@+id/fragment_rumors_single_rumour_headline_container_3"
-                        app:angle="90"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignBottom="@+id/fragment_rumors_single_rumour_info_container_3"
-                        android:layout_alignParentTop="true"> <!-- Specify rotate angle here -->
+                        android:layout_alignParentTop="true"
+                        app:angle="90"> <!-- Specify rotate angle here -->
 
                         <TextView
                             android:id="@+id/fragment_rumors_single_rumour_headline_3"
@@ -260,11 +260,11 @@
 
                     <com.github.rongi.rotate_layout.layout.RotateLayout
                         android:id="@+id/fragment_rumors_single_rumour_headline_container_4"
-                        app:angle="90"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignBottom="@+id/fragment_rumors_single_rumour_info_container_4"
-                        android:layout_alignParentTop="true"> <!-- Specify rotate angle here -->
+                        android:layout_alignParentTop="true"
+                        app:angle="90"> <!-- Specify rotate angle here -->
 
                         <TextView
                             android:id="@+id/fragment_rumors_single_rumour_headline_4"
@@ -309,21 +309,29 @@
                 </RelativeLayout>
             </RelativeLayout>
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragment_rumors_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_rumors_all_big_list"
+                android:nestedScrollingEnabled="true" />
+
             <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
                 android:id="@+id/rumours_swipe_refresh_layout"
-                app:srl_direction="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/fragment_rumors_all_big_list"
                 android:paddingEnd="@dimen/padding_8"
-                android:paddingStart="@dimen/padding_8">
+                android:paddingStart="@dimen/padding_8"
+                android:visibility="gone"
+                app:srl_direction="bottom">
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fragment_rumors_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/fragment_rumors_recycler_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"/>-->
 
             </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 

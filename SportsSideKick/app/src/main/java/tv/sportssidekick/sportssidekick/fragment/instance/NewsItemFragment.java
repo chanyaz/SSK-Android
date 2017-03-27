@@ -1,9 +1,11 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +36,10 @@ public class NewsItemFragment extends BaseFragment{
     TextView strap;
     @BindView(R.id.content_text)
     TextView content;
+    @BindView(R.id.close_news_button)
+    Button close;
+    @BindView(R.id.share_news_to_wall_button)
+    Button share;
 
     NewsItem news;
 
@@ -59,9 +65,22 @@ public class NewsItemFragment extends BaseFragment{
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         ImageLoader.getInstance().displayImage(item.getImage(), imageHeader, imageOptions);
         title.setText(item.getTitle());
-        strap.setText(item.getStrap());
+        String time = "" + DateUtils.getRelativeTimeSpanString(item.getPubDate().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS);
+        if (item.getStrap() != null)
+        {
+            strap.setText(item.getStrap() + " - " + time);
+        }else {
+            strap.setText(time);
+        }
+
         content.setText(item.getContent());
 
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         return view;
     }
 }
