@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.model.im;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +27,7 @@ import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
  * www.hypercubesoft.com
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ChatInfo {
 
     private static final String TAG = "CHAT INFO";
@@ -56,7 +58,7 @@ public class ChatInfo {
     }
 
     public ChatInfo() {
-       currentUserId = Model.getInstance().getUserInfo().getUserId();
+       //currentUserId = Model.getInstance().getUserInfo().getUserId();
     }
 
     void setEqualTo(ChatInfo info) {
