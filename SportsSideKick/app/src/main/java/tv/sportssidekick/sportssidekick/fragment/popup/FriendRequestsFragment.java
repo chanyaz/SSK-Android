@@ -1,15 +1,20 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.wang.avi.AVLoadingIndicatorView;
+
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +24,7 @@ import tv.sportssidekick.sportssidekick.adapter.FriendRequestsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendRequest;
+import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 
 /**
  * Created by Djordje on 21/01/2017.
@@ -31,6 +37,9 @@ public class FriendRequestsFragment extends BaseFragment {
 
     @BindView(R.id.requests_recycler_view)
     RecyclerView requestsRecyclerView;
+
+    @BindView(R.id.progress_bar)
+    AVLoadingIndicatorView progressBar;
 
     public FriendRequestsFragment() {
         // Required empty public constructor
@@ -46,13 +55,24 @@ public class FriendRequestsFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         requestsRecyclerView.setLayoutManager(layoutManager);
 
-        ArrayList<FriendRequest> values = new ArrayList<>();
 
-        // TODO Load friend requests!
-
-        FriendRequestsAdapter adapter = new FriendRequestsAdapter();
-        adapter.getValues().addAll(values);
+        final FriendRequestsAdapter adapter = new FriendRequestsAdapter();
         requestsRecyclerView.setAdapter(adapter);
+
+        Task<List<FriendRequest>> task = FriendsManager.getInstance().getOpenFriendRequests(0);
+        task.addOnCompleteListener(new OnCompleteListener<List<FriendRequest>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<FriendRequest>> task) {
+                if(task.isSuccessful()){
+                    adapter.getValues().addAll(task.getResult());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    // TODO - No friend request to display!
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
         return view;
     }
 

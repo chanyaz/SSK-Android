@@ -1,15 +1,20 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,6 +24,8 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.FriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.model.friendship.FriendRequest;
+import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
@@ -31,6 +38,12 @@ public class YourFriendsFragment extends BaseFragment {
 
     @BindView(R.id.friends_recycler_view)
     RecyclerView friendsRecyclerView;
+
+    @BindView(R.id.progress_bar)
+    AVLoadingIndicatorView progressBar;
+
+    @BindView(R.id. friend_requests_count)
+    TextView friendRequestCount;
 
     public YourFriendsFragment() {
         // Required empty public constructor
@@ -46,35 +59,36 @@ public class YourFriendsFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 11);
         friendsRecyclerView.setLayoutManager(layoutManager);
 
-        List<UserInfo> friends = new ArrayList<>();
-        for (int i = 0; i <100; i++)
-        {
-            UserInfo user = new UserInfo();
-            user.setFirstName("Anna");
-            user.setLastName("Blum");
-            user.setOnline(false);
-            user.setCircularAvatarUrl("https://firebasestorage.googleapis.com/v0/b/sportssidekickdev.appspot.com/o/images%2Fuser_photo_rounded_sLqHBMbL3BQNgddTK0a4wmPfuA531480068265.14973.png?alt=media&token=19ed9230-aad6-4278-ac77-67bd589adc7f");
-
-            UserInfo user2 = new UserInfo();
-            user2.setFirstName("KayleeMorrison");
-            user2.setLastName("Morrison");
-            user.setOnline(false);
-            user2.setCircularAvatarUrl("https://firebasestorage.googleapis.com/v0/b/sportssidekickdev.appspot.com/o/static%2Fimages%2FblankProfile_Rounded.png?alt=media&token=cdb527a2-718c-4ebc-8f5f-dbedbde827d3");
-
-            UserInfo user3 = new UserInfo();
-            user3.setFirstName("David");
-            user3.setLastName("Williams");
-            user.setOnline(true);
-            user3.setCircularAvatarUrl("https://firebasestorage.googleapis.com/v0/b/sportssidekickdev.appspot.com/o/images%2Fuser_photo_rounded_7oY7ljIUvEVgxGT35RfpS1RSYfJ21481044451.47358.png?alt=media&token=0f2e4cec-8e43-4e92-b255-961326087459");
-
-            friends.add(user);
-            friends.add(user2);
-            friends.add(user3);
-        }
-
-        FriendsAdapter adapter = new FriendsAdapter();
-        adapter.getValues().addAll(friends);
+        final FriendsAdapter adapter = new FriendsAdapter();
         friendsRecyclerView.setAdapter(adapter);
+        Task<List<UserInfo>> friendsTask =  FriendsManager.getInstance().getFriends(0);
+        friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<UserInfo>> task) {
+                if(task.isSuccessful()){
+                    adapter.getValues().addAll(task.getResult());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    // TODO - No friends to display!
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        Task<List<FriendRequest>> task = FriendsManager.getInstance().getOpenFriendRequests(0);
+        task.addOnCompleteListener(new OnCompleteListener<List<FriendRequest>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<FriendRequest>> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult()!=null){
+                        friendRequestCount.setText(String.valueOf(task.getResult().size()));
+                        return;
+                    }
+                }
+                friendRequestCount.setText("0");
+            }
+        });
+
         return view;
     }
 

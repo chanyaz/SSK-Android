@@ -44,7 +44,7 @@
             android:layout_width="80dp"
             android:layout_marginTop="8dp"
          android:layout_centerHorizontal="true"   android:layout_marginBottom="8dp"
-            android:src="@drawable/demo_profile_image"
+            android:src="@drawable/blank_profile_rounded"
             android:layout_below="@+id/edit_photo_caption"
             android:layout_marginEnd="@dimen/coin_lateral_margin"
             android:layout_height="80dp" />
@@ -142,7 +142,6 @@
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_10"
         android:textColor="@color/white"
-        android:text="Chris"
         android:layout_height="wrap_content" />
 
 
@@ -158,7 +157,6 @@
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_10"
         android:textColor="@color/white"
-        android:text="Weight"
         android:layout_height="wrap_content" />
 
     <AutoCompleteTextView
@@ -173,7 +171,6 @@
         android:layout_marginStart="@dimen/margin_10"
         android:textSize="12sp"
         android:textColor="@color/white"
-        android:text="Chris Weight"
         android:layout_height="wrap_content" />
 
     <AutoCompleteTextView
@@ -188,7 +185,6 @@
         android:layout_marginStart="@dimen/margin_10"
         android:textSize="12sp"
         android:textColor="@color/white"
-        android:text="chris@chrisweight.com"
         android:layout_height="wrap_content" />
 
     <AutoCompleteTextView
@@ -203,7 +199,6 @@
         android:layout_marginStart="@dimen/margin_10"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:text="1234567890"
         android:layout_height="wrap_content" />
 
     <ImageView

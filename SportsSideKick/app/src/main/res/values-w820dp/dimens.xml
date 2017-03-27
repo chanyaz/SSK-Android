@@ -55,7 +55,7 @@
     <dimen name="rumours_top_image_heihgt">120dp</dimen>
     <dimen name="sign_up_container_width">280dp</dimen>
     <dimen name="wall_button_size">30dp</dimen>
-    <dimen name="profile_level_marker_size">25dp</dimen>
+    <dimen name="profile_level_marker_size">20dp</dimen>
     <dimen name="friend_item_image">70dp</dimen>
     <dimen name="friend_request_image_size">60dp</dimen>
     <dimen name="message_item_circle_image_size">40dp</dimen>

@@ -69,7 +69,6 @@ public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.View
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         final Pair<String,String> info = values.get(position);
         holder.caption.setText(info.first);
         holder.value.setText(info.second);

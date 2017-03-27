@@ -60,14 +60,34 @@ public class Utility {
         }
     }
 
-    private  static volatile DisplayImageOptions options;
+    private  static volatile DisplayImageOptions blankOptions;
+
+    public static DisplayImageOptions getImageOptionsForUsers() {
+        if (blankOptions != null) {
+            return blankOptions;
+        }
+        blankOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.blank_profile_rounded) // resource or drawable
+                .showImageForEmptyUri(R.drawable.blank_profile_rounded) // resource or drawable
+                .showImageOnFail(R.drawable.blank_profile_rounded) // resource or drawable
+                .delayBeforeLoading(0) //delay
+                .resetViewBeforeLoading(true)  // default
+                .considerExifParams(false)
+                .cacheInMemory(true) // default
+                .cacheOnDisk(true) // default
+                .bitmapConfig(Bitmap.Config.RGB_565) // default
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
+                .build();
+        return blankOptions;
+    }
 
 
     public static DisplayImageOptions imageOptionsImageLoader() {
-        if (options != null) {
-            return options;
+        if (blankOptions != null) {
+            return blankOptions;
         }
-        options = new DisplayImageOptions.Builder()
+        blankOptions = new DisplayImageOptions.Builder()
                 //TODO change when we have placeholder
 //                .showImageOnLoading(R.drawable.booking_top_image) // resource or drawable
 //                .showImageForEmptyUri(R.drawable.booking_top_image) // resource or drawable
@@ -81,7 +101,7 @@ public class Utility {
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
                 .build();
-        return options;
+        return blankOptions;
     }
 
     public static boolean isValidEmail(String target) {

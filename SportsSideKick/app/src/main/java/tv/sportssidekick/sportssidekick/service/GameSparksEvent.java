@@ -75,6 +75,7 @@ public class GameSparksEvent extends BusEvent {
             SIGNED_OUT,
             AUDIO_FILE_UPLOADED,
             MESSAGE_IMAGE_FILE_UPLOADED,
+            PROFILE_IMAGE_FILE_UPLOADED,
             VIDEO_IMAGE_FILE_UPLOADED,
             VIDEO_FILE_UPLOADED,
             FRIEND_DOWNLOADED,

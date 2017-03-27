@@ -19,7 +19,7 @@ public class FriendRequest {
     private String id;
     @JsonProperty(GSConstants.TIMESTAMP_TAG)
     private String timestamp;
-    @JsonProperty("foo")
+    @JsonProperty("sender")
     private UserInfo sender;
 
     @JsonProperty("_id")

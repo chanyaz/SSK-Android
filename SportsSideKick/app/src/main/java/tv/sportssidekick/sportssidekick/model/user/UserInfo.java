@@ -1,9 +1,9 @@
 package tv.sportssidekick.sportssidekick.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gamesparks.sdk.api.autogen.GSTypes;
 
-import java.util.Date;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
@@ -23,13 +23,15 @@ public class UserInfo {
     private UserType userType = UserType.fan;
     private String userId;
 
+    @JsonProperty("userName")
     private String email;
     private String nicName;
     private String language;
     private String phone;
     private String firstName;
     private String lastName;
-    private Date subscribedDate;
+    @JsonProperty("subscribed")
+    private Double subscribedDate;
     private Location location;
     private String authToken;
 
@@ -125,19 +127,23 @@ public class UserInfo {
         this.userType = userType;
     }
 
+    @JsonProperty("userName")
     public String getEmail() {
         return email;
     }
 
+    @JsonProperty("userName")
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public Date getSubscribedDate() {
+    @JsonProperty("subscribed")
+    public Double getSubscribedDate() {
         return subscribedDate;
     }
 
-    public void setSubscribedDate(Date subscribedDate) {
+    @JsonProperty("subscribed")
+    public void setSubscribedDate(Double subscribedDate) {
         this.subscribedDate = subscribedDate;
     }
 

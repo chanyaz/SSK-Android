@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -63,7 +62,6 @@ import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.achievements.AchievementManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
@@ -72,8 +70,6 @@ import tv.sportssidekick.sportssidekick.util.BlurBuilder;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
-import static java.sql.Types.REAL;
 
 public class LoungeActivity extends AppCompatActivity {
 
@@ -106,6 +102,12 @@ public class LoungeActivity extends AppCompatActivity {
     LinearLayout yourCoinsContainer;
     @BindView(R.id.your_coins_value)
     TextView yourCoinsValue;
+    @BindView(R.id.user_level)
+    TextView yourLevel;
+    @BindView(R.id.user_level_background)
+    ImageView userLevelBackground;
+    @BindView(R.id.user_level_progress)
+    ProgressBar userLevelProgress;
 
     @BindView(R.id.profile_button)
     RelativeLayout profileButton;
@@ -129,7 +131,6 @@ public class LoungeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //ButterKnife.setDebug(true);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
 
@@ -139,6 +140,13 @@ public class LoungeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO open dialog ?
+            }
+        });
+
+        popupHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 
@@ -155,12 +163,14 @@ public class LoungeActivity extends AppCompatActivity {
             if (rootView.getWidth() > 0) {
                 Bitmap image = BlurBuilder.blur(rootView);
                 popupHolder.setBackground(new BitmapDrawable(this.getResources(), image));
+                popupHolder.getBackground().setAlpha(230);
             } else {
                 rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
                         Bitmap image = BlurBuilder.blur(rootView);
                         popupHolder.setBackground(new BitmapDrawable(LoungeActivity.this.getResources(), image));
+                        popupHolder.getBackground().setAlpha(230);
                     }
                 });
             }
@@ -247,7 +257,9 @@ public class LoungeActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         GSAndroidPlatform.gs().start();
-        EventBus.getDefault().register(this);
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Subscribe
@@ -373,12 +385,18 @@ public class LoungeActivity extends AppCompatActivity {
         {
             if (user.getCircularAvatarUrl()!=null )
             {
-                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.imageOptionsImageLoader());
+                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             }
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
             }
-            //setYourCoinsValue(); TODO get user coins
+            setYourCoinsValue("0"); // TODO get user coins
+            yourLevel.setVisibility(View.VISIBLE);
+            userLevelBackground.setVisibility(View.VISIBLE);
+            userLevelProgress.setVisibility(View.VISIBLE);
+            yourLevel.setText(String.valueOf(user.getLevel()));
+            userLevelProgress.setProgress((int)(user.getProgress()*userLevelProgress.getMax()));
+
             profileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -388,9 +406,12 @@ public class LoungeActivity extends AppCompatActivity {
             });
         }
         else {
-            //reset porfile name and picture to default
-            profileName.setText("Football Fann Name");
-            String imgUri = "drawable://" + getResources().getIdentifier("demo_profile_image", "drawable", this.getPackageName());
+            //reset profile name and picture to blank values
+            yourLevel.setVisibility(View.INVISIBLE);
+            userLevelBackground.setVisibility(View.INVISIBLE);
+            userLevelProgress.setVisibility(View.INVISIBLE);
+            profileName.setText("Login / Signup");
+            String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
             ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
             profileButton.setOnClickListener(new View.OnClickListener() {
                 @Override

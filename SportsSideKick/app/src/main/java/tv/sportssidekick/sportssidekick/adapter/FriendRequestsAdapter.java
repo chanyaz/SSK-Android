@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendRequest;
-import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
  * Created by Djordje on 21/01/2017.
@@ -74,11 +71,13 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         final FriendRequest info = values.get(position);
         holder.name.setText(info.getSender().getNicName());
-        holder.date.setText(sdf.format(info.getTimestamp()));
-        //ImageLoader.getInstance().displayImage(info.getImageUrl(),holder.profileImage,imageOptions);
+        if(info.getTimestamp()!=null){
+            holder.date.setText(sdf.format(info.getTimestamp()));
+        }
+//        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
+//        ImageLoader.getInstance().displayImage(info.getImageUrl(),holder.profileImage,imageOptions);
     }
 
     @Override

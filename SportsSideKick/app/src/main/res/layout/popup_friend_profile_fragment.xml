@@ -87,7 +87,7 @@
                     android:layout_height="@dimen/popup_friend_profil_profile_image_size"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/demo_profile_image"
+                    android:src="@drawable/blank_profile_rounded"
                     android:contentDescription="@string/image" />
             </RelativeLayout>
 
@@ -121,7 +121,7 @@
                 android:layout_below="@id/profile_image_container"
                 android:layout_marginTop="@dimen/margin_15"
                 android:gravity="center"
-                android:text="Football Fann Name"
+                android:text="Login / Signup"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />

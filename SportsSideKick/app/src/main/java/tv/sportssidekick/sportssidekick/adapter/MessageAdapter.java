@@ -84,7 +84,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         ImsMessage message = chatInfo.getMessages().get(position);
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);

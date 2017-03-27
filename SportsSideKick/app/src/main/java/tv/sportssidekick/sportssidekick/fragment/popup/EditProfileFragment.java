@@ -15,12 +15,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +41,11 @@ import permissions.dispatcher.RuntimePermissions;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
  * Created by Filip on 1/19/2017.
@@ -45,10 +56,18 @@ import tv.sportssidekick.sportssidekick.model.Model;
 @RuntimePermissions
 public class EditProfileFragment extends BaseFragment {
 
+    @BindView(R.id.profile_image) ImageView profileImage;
     @BindView(R.id.camera_button) Button camButton;
     @BindView(R.id.picture_button) Button picButton;
-    public static final int REQUEST_CODE_IMAGE_CAPTURE = 501;
-    public static final int REQUEST_CODE_IMAGE_PICK = 601;
+    @BindView(R.id.first_name_edit_text) EditText firstNameEditText;
+    @BindView(R.id.last_name_edit_text) EditText lastNameEditText;
+    @BindView(R.id.nickname_edit_text) EditText nicNameEditText;
+    @BindView(R.id.email_edit_text) EditText emailEditText;
+    @BindView(R.id.telephone_edit_text) EditText phoneEditText;
+
+
+    public static final int REQUEST_CODE_IMAGE_CAPTURE = 341;
+    public static final int REQUEST_CODE_IMAGE_PICK = 342;
     private static final String TAG = "Edit Profile Fragment";
     String currentPath;
 
@@ -60,6 +79,17 @@ public class EditProfileFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.popup_edit_profile, container, false);
         ButterKnife.bind(this, view);
+
+        UserInfo user = Model.getInstance().getUserInfo();
+        if (user != null) {
+            ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
+            firstNameEditText.setText(user.getFirstName());
+            lastNameEditText.setText(user.getLastName());
+            nicNameEditText.setText(user.getNicName());
+            emailEditText.setText(user.getEmail());
+            phoneEditText.setText(user.getPhone());
+
+        }
         return view;
     }
 
@@ -112,14 +142,14 @@ public class EditProfileFragment extends BaseFragment {
             switch (requestCode) {
                 case REQUEST_CODE_IMAGE_CAPTURE:
                     Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
-                    Model.getInstance().uploadImageForMessage(currentPath);
+                    Model.getInstance().uploadImageForProfile(currentPath);
                     break;
                 case REQUEST_CODE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
                     String realPath = Model.getRealPathFromURI(getContext(),selectedImageURI);
                     Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
-                    // TODO aa
+                    // TODO apply image?
                     break;
             }
         }
@@ -160,6 +190,31 @@ public class EditProfileFragment extends BaseFragment {
         EditProfileFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
+    @OnClick(R.id.confirm_button)
+    public void confirmOnClick() {
+        Map<String, String> map = new HashMap<>();
+        map.put(GSConstants.FIRST_NAME,firstNameEditText.getText().toString());
+        map.put(GSConstants.LAST_NAME,lastNameEditText.getText().toString());
+        map.put(GSConstants.NICNAME,nicNameEditText.getText().toString());
+        map.put(GSConstants.EMAIL,emailEditText.getText().toString());
+        map.put(GSConstants.PHONE,phoneEditText.getText().toString());
+        Model.getInstance().setDetails(map);
+        getActivity().onBackPressed();
+    }
+
+    @Subscribe
+    @SuppressWarnings("Unchecked cast")
+    public void onEventDetected(GameSparksEvent event){
+        switch (event.getEventType()) {
+            case PROFILE_IMAGE_FILE_UPLOADED:
+                if(event.getData()!=null){
+                    String url = (String)event.getData();
+                    Model.getInstance().setProfileImageUrl(url,false);
+                    ImageLoader.getInstance().displayImage(url, profileImage, Utility.getImageOptionsForUsers());
+                }
+
+        }
+    }
 }
 
 

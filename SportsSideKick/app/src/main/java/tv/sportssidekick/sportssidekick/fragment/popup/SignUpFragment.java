@@ -21,7 +21,6 @@ import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.fragment.instance.ForgotPasswordFramegnt;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
@@ -54,7 +53,6 @@ public class SignUpFragment extends BaseFragment {
     @BindView(R.id.sign_up_password)
     TextView password;
 
-    HashMap<String, String> userDetails;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -66,6 +64,14 @@ public class SignUpFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.popup_signup, container, false);
         ButterKnife.bind(this, view);
+
+        //TODO DEMO
+        firstName.setText("Jon");
+        lastName.setText("Snow");
+        username.setText("jonsnow1");
+        phone.setText("1298515735");
+        email.setText("jon@snow.com");
+        password.setText("qwerty");
         return view;
     }
 
@@ -81,7 +87,7 @@ public class SignUpFragment extends BaseFragment {
             Toast.makeText(getContext(), "You have to fill all data", Toast.LENGTH_LONG).show();
         }
         else {
-            userDetails = new HashMap<String, String>();
+            HashMap<String, Object> userDetails = new HashMap<>();
             userDetails.put(GSConstants.FIRST_NAME, firstName.getText().toString());
             userDetails.put(GSConstants.LAST_NAME, lastName.getText().toString());
             userDetails.put(GSConstants.PHONE, phone.getText().toString());
@@ -90,7 +96,7 @@ public class SignUpFragment extends BaseFragment {
             progressBar.setVisibility(View.VISIBLE);
             Model.getInstance().registrationRequest(firstName.getText() + " " + lastName.getText(),
                     password.getText().toString(),
-                    username.getText().toString()/*, userDetails*/);
+                    username.getText().toString(), userDetails);
         }
     }
 

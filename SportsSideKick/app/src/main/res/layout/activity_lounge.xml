@@ -404,7 +404,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:inputType="text"
                     android:maxLines="1"
                     android:text="@string/coins_caption"
                     android:textColor="@android:color/white"
@@ -417,7 +416,6 @@
                     android:layout_marginBottom="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_5"
                     android:ellipsize="end"
-                    android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/colorAccent"
                     android:textSize="12sp" />
@@ -441,13 +439,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_marginBottom="@dimen/padding_16"
-                        android:layout_marginLeft="@dimen/padding_16"
-                        android:layout_marginRight="@dimen/padding_16"
+                        android:layout_marginBottom="@dimen/padding_8"
+                        android:layout_marginLeft="@dimen/padding_8"
+                        android:layout_marginRight="@dimen/padding_8"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/image"
                         android:padding="2dp"
-                        android:src="@drawable/demo_profile_image" />
+                        android:src="@drawable/blank_profile_rounded" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -459,11 +457,12 @@
                         android:layout_centerInParent="true">
 
                         <ProgressBar
-                            android:id="@+id/progressBar"
+                            android:id="@+id/user_level_progress"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/circle_shape"
+                            android:visibility="invisible"
                             android:indeterminate="false"
                             android:max="100"
                             android:progress="65"
@@ -473,8 +472,10 @@
                 </RelativeLayout>
 
                 <ImageView
+                    android:id="@+id/user_level_background"
                     android:layout_width="@dimen/profile_level_marker_size"
                     android:layout_height="@dimen/profile_level_marker_size"
+                    android:visibility="invisible"
                     android:layout_alignEnd="@id/profile_image_container"
                     android:layout_alignStart="@id/profile_image_container"
                     android:layout_below="@id/profile_image_container"
@@ -483,14 +484,17 @@
                     android:src="@drawable/next_level_marker" />
 
                 <TextView
+                    android:id="@+id/user_level"
                     android:layout_width="@dimen/profile_level_marker_size"
                     android:layout_height="@dimen/profile_level_marker_size"
                     android:layout_alignEnd="@id/profile_image_container"
                     android:layout_alignStart="@id/profile_image_container"
+                    android:visibility="invisible"
                     android:layout_below="@id/profile_image_container"
                     android:layout_marginTop="-19dp"
                     android:gravity="center"
-                    android:text="99"
+                    android:textSize="10sp"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -503,12 +507,12 @@
                     android:layout_below="@id/profile_image_container"
                     android:layout_marginLeft="@dimen/margin_5"
                     android:layout_marginRight="@dimen/margin_5"
-                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_5"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lineSpacingExtra="-5dp"
                     android:maxLines="2"
-                    android:text="Football Fann Name"
+                    android:text="Login / Signup"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />

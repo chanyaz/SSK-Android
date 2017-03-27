@@ -126,21 +126,21 @@ public class Model {
         deviceToken = ""; // TODO How to initialize?
         Log.d(TAG, "Registering for push notifications");
         GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
-            .setDeviceOS("ANDROID")
-            .setPushId(deviceToken)
-            .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
-                @Override
-                public void onEvent(GSResponseBuilder.PushRegistrationResponse pushRegistrationResponse) {
-                    if(!pushRegistrationResponse.hasErrors()){
-                        String registrationId = pushRegistrationResponse.getRegistrationId();
-                        Log.d(TAG, "Registration id is:" + registrationId);
-                        GSData scriptData = pushRegistrationResponse.getScriptData();
-                    }  else{
-                        Log.e(TAG,"There was an error at registerForPushNotifications call");
-                    }
+                .setDeviceOS("ANDROID")
+                .setPushId(deviceToken)
+                .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.PushRegistrationResponse pushRegistrationResponse) {
+                        if(!pushRegistrationResponse.hasErrors()){
+                            String registrationId = pushRegistrationResponse.getRegistrationId();
+                            Log.d(TAG, "Registration id is:" + registrationId);
+                            GSData scriptData = pushRegistrationResponse.getScriptData();
+                        }  else{
+                            Log.e(TAG,"There was an error at registerForPushNotifications call");
+                        }
 
-                }
-            });
+                    }
+                });
     }
 
     private String androidId;
@@ -175,7 +175,7 @@ public class Model {
                     Log.d(TAG, "AuthenticationResponse: " + authenticationResponse.toString());
                     EventBus.getDefault().post(new GameSparksEvent("Login error:" + authenticationResponse.toString(), GameSparksEvent.Type.LOGIN_FAILED, null));
                 } else {
-                   getAccountDetails(completeLogin);
+                    getAccountDetails(completeLogin);
                 }
             }
         }
@@ -197,7 +197,7 @@ public class Model {
     };
 
     private void getAccountDetails(GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completion) {
-       GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createAccountDetailsRequest();
+        GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createAccountDetailsRequest();
         if(completion!=null){
             request.send(completion);
         } else {
@@ -211,45 +211,50 @@ public class Model {
         }
     }
 
-     private void onAccountDetails(GSResponseBuilder.AccountDetailsResponse response){
+    private void onAccountDetails(GSResponseBuilder.AccountDetailsResponse response){
         if(response != null) {
             if (response.hasErrors()) {
                 EventBus.getDefault().post(new GameSparksEvent("Login error:" + response.toString(), GameSparksEvent.Type.ACCOUNT_DETAILS_ERROR, null));
             } else {
-              setUser(response);
+                setUser(response);
             }
         }
     }
 
-    public void registrationRequest(String displayName, String password, String userName/*, HashMap<String, Object> userDetails*/){
-        GSAndroidPlatform.gs().getRequestBuilder().createRegistrationRequest()
+    public void registrationRequest(String displayName, String password, String userName, HashMap<String, Object> userDetails){
+        GSRequestBuilder.RegistrationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createRegistrationRequest()
                 .setDisplayName(displayName)
                 .setPassword(password)
-                .setUserName(userName)
-//                .setSegments(userDetails)
-                .send(new GSEventConsumer<GSResponseBuilder.RegistrationResponse>() {
-                    @Override
-                    public void onEvent(GSResponseBuilder.RegistrationResponse response) {
-                        if(response!=null){
-                            if(response.hasErrors()){
-                                Log.d(TAG,"Registration Request error!");
-                                EventBus.getDefault().post(new GameSparksEvent("Registration error:" + response.toString(), GameSparksEvent.Type.REGISTRATION_ERROR, null));
-                            } else {
-                                Log.d(TAG,"Registration Request successful!");
-                                EventBus.getDefault().post(new GameSparksEvent("Registration successful:" + response.toString(), GameSparksEvent.Type.REGISTRATION_SUCCESSFUL, null));
-                                getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
-                                    @Override
-                                    public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
-                                        if(!response.hasErrors()){
-                                            setUser(response);
-                                            setLoggedInUserType(REAL);
-                                        }
-                                    }
-                                });
+                .setUserName(userName);
+
+        if(userDetails!=null){
+            userDetails.put("action","register");
+            Map<String,Object> map = request.getBaseData();
+            map.put("scriptData",userDetails);
+        }
+        request.send(new GSEventConsumer<GSResponseBuilder.RegistrationResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.RegistrationResponse response) {
+                if(response!=null){
+                    if(response.hasErrors()){
+                        Log.d(TAG,"Registration Request error!");
+                        EventBus.getDefault().post(new GameSparksEvent("Registration error:" + response.toString(), GameSparksEvent.Type.REGISTRATION_ERROR, null));
+                    } else {
+                        Log.d(TAG,"Registration Request successful!");
+                        EventBus.getDefault().post(new GameSparksEvent("Registration successful:" + response.toString(), GameSparksEvent.Type.REGISTRATION_SUCCESSFUL, null));
+                        getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
+                            @Override
+                            public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
+                                if(!response.hasErrors()){
+                                    setUser(response);
+                                    setLoggedInUserType(REAL);
+                                }
                             }
-                        }
+                        });
                     }
-                });
+                }
+            }
+        });
     }
 
     public void login() {
@@ -272,15 +277,15 @@ public class Model {
         GSAndroidPlatform.gs().getRequestBuilder().createEndSessionRequest().send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
-            if(endSessionResponse!=null){
-                if(endSessionResponse.hasErrors()){
-                    Log.d(TAG,"Model.onSessionEnded() -> Error ending session!");
-                } else {
-                    clearUser();
-                    setLoggedInUserType(NONE);
-                    login();
+                if(endSessionResponse!=null){
+                    if(endSessionResponse.hasErrors()){
+                        Log.d(TAG,"Model.onSessionEnded() -> Error ending session!");
+                    } else {
+                        clearUser();
+                        setLoggedInUserType(NONE);
+                        login();
+                    }
                 }
-            }
             }
         });
     }
@@ -385,16 +390,19 @@ public class Model {
             }
         }
 
-        request.getBaseData().put(GSConstants.FIRST_NAME,details.get(GSConstants.FIRST_NAME));
-        request.getBaseData().put(GSConstants.LAST_NAME,details.get(GSConstants.LAST_NAME));
-        request.getBaseData().put(GSConstants.PHONE,details.get(GSConstants.PHONE));
+        HashMap<String,Object> scriptData = new HashMap<>();
+
+        scriptData.put(GSConstants.FIRST_NAME,details.get(GSConstants.FIRST_NAME));
+        scriptData.put(GSConstants.LAST_NAME,details.get(GSConstants.LAST_NAME));
+        scriptData.put(GSConstants.PHONE,details.get(GSConstants.PHONE));
+        request.getBaseData().put("scriptData",scriptData);
         request.send(onDetailsUpdated);
     }
 
     private void setUser(GSResponseBuilder.AccountDetailsResponse response) {
         String userId = response.getUserId();
         if(userId==null){
-           Log.d(TAG,"GSModel.setUser() -> Couldn't retrieve User ID! Aborting!!");
+            Log.d(TAG,"GSModel.setUser() -> Couldn't retrieve User ID! Aborting!!");
             return;
         }
         GSData scriptData = response.getScriptData();
@@ -443,8 +451,8 @@ public class Model {
                 Log.d(TAG,"GSModel.setState() -> No state data returned");
                 return;
             }
-           currentUserInfo.setUserState(UserState.valueOf(state));
-           EventBus.getDefault().post(new GameSparksEvent("Updated user state:" + response.toString(), GameSparksEvent.Type.USER_STATE_UPDATE_SUCCESSFUL, null));
+            currentUserInfo.setUserState(UserState.valueOf(state));
+            EventBus.getDefault().post(new GameSparksEvent("Updated user state:" + response.toString(), GameSparksEvent.Type.USER_STATE_UPDATE_SUCCESSFUL, null));
         }
     }
 
@@ -487,14 +495,14 @@ public class Model {
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if(!response.hasErrors()){
+                if(!response.hasErrors() && response.getScriptData().getObject(GSConstants.USER_INFO)!=null){
                     Map<String,Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
                     UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
                     userCache.put(userInfo.getUserId(), userInfo);
                     source.setResult(userInfo);
                 } else{
                     Log.e(TAG,"There was an error at refreshUserInfo call");
-                    source.setException(new Exception("Gamesparks error!"));
+                    source.setException(new Exception("GameSparks error!"));
                 }
             }
         });
@@ -535,9 +543,9 @@ public class Model {
     public void uploadVideoRecording(String filepath){
         String filename =
                 "video_" +
-                currentUserInfo.getUserId() +
-                System.currentTimeMillis() +
-                ".mov";
+                        currentUserInfo.getUserId() +
+                        System.currentTimeMillis() +
+                        ".mov";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.VIDEO_FILE_UPLOADED);
     }
 
@@ -547,12 +555,21 @@ public class Model {
         AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
     }
 
+    public void uploadImageForProfile(String filepath){
+        String filename =
+                "photo_" +
+                        currentUserInfo.getUserId() +
+                        System.currentTimeMillis() +
+                        ".jpg";
+        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.PROFILE_IMAGE_FILE_UPLOADED);
+    }
+
     public void uploadImageForMessage(String filepath){
         String filename =
                 "photo_" +
-                currentUserInfo.getUserId() +
-                System.currentTimeMillis() +
-                ".jpg";
+                        currentUserInfo.getUserId() +
+                        System.currentTimeMillis() +
+                        ".jpg";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.MESSAGE_IMAGE_FILE_UPLOADED);
     }
 
@@ -560,8 +577,8 @@ public class Model {
         String filename =
                 "voiceRecording_" +
                         currentUserInfo.getUserId() +
-                System.currentTimeMillis() +
-                ".caf";
+                        System.currentTimeMillis() +
+                        ".caf";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.AUDIO_FILE_UPLOADED);
     }
 

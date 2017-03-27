@@ -8,13 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,15 +64,30 @@ public class YourProfileFragment extends BaseFragment {
     TextView location;
 
     @BindView(R.id.subscribed_since_value)
-    TextView subscribedSience;
+    TextView subscribedSince;
 
     @BindView(R.id.logout_button)
     ImageView logoutButton;
 
+    @BindView(R.id.progressBar)
+    ProgressBar progressBarCircle;
+
+    @BindView(R.id.caps_progress_bar)
+    ProgressBar progressBarCaps;
+
+    @BindView(R.id.profile_image_level)
+    TextView profileImageLevel;
+
+    @BindView(R.id.caps_value)
+    TextView capsValue;
+
+    @BindView(R.id.next_caps_value)
+    TextView nextCapsValue;
+
     public YourProfileFragment() {
         // Required empty public constructor
     }
-
+    UserStatsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,13 +98,7 @@ public class YourProfileFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         statsRecyclerView.setLayoutManager(layoutManager);
 
-        ArrayList<Pair<String, String>> values = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            values.add(new Pair<>("Caption " + i, "Value " + i));
-        }
-
-        UserStatsAdapter adapter = new UserStatsAdapter();
-        adapter.getValues().addAll(values);
+        adapter = new UserStatsAdapter();
         statsRecyclerView.setAdapter(adapter);
 
         setupFragment();
@@ -131,12 +144,40 @@ public class YourProfileFragment extends BaseFragment {
     private void setupFragment() {
         UserInfo user = Model.getInstance().getUserInfo();
         if (user != null) {
-            ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.imageOptionsImageLoader());
+            Date subscribed = new Date(user.getSubscribedDate().longValue());
+
+            ArrayList<Pair<String, String>> values = new ArrayList<>();
+            values.add(new Pair<>("Caps level",String.valueOf(user.getLevel())));
+            String daysUsingSSK =  new SimpleDateFormat("d").format(subscribed);
+            values.add(new Pair<>("Days using SSK",daysUsingSSK));
+            values.add(new Pair<>("Friends",String.valueOf(user.getFriendsCount())));
+            values.add(new Pair<>("Following",String.valueOf(user.getFollowingCount())));
+            values.add(new Pair<>("Followers",String.valueOf(user.getFollowersCount())));
+            values.add(new Pair<>("Wall posts",String.valueOf(user.getWallPosts())));
+            values.add(new Pair<>("Videos watched",String.valueOf(user.getVideosWatched())));
+            values.add(new Pair<>("Chats",String.valueOf(user.getChats())));
+            values.add(new Pair<>("Video chats",String.valueOf(user.getVideoChats())));
+            values.add(new Pair<>("Public chats",String.valueOf(user.getPublicChats())));
+            values.add(new Pair<>("Matches attended(home)",String.valueOf(user.getMatchesHome())));
+            values.add(new Pair<>("Matches attended(away)",String.valueOf(user.getMatchesAway())));
+            values.add(new Pair<>("Likes received",String.valueOf(user.getLikes())));
+            values.add(new Pair<>("Comments made",String.valueOf(user.getComments())));
+            adapter.getValues().addAll(values);
+
+
+            ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             profileName.setText(user.getFirstName() + " " + user.getLastName());
             profileEmail.setText(user.getEmail());
             profilePhone.setText(user.getPhone());
             location.setText(user.getLocation().getCity() + ", " + user.getLocation().getCountry());
-            subscribedSience.setText(String.valueOf(user.getSubscribedDate()));
+            DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+            subscribedSince.setText(df.format(subscribed));
+
+            progressBarCircle.setProgress((int) (user.getProgress()*progressBarCircle.getMax()));
+            progressBarCaps.setProgress((int) (user.getProgress()*progressBarCircle.getMax()));
+            profileImageLevel.setText(String.valueOf(user.getLevel()));
+            capsValue.setText(String.valueOf(user.getLevel()));
+            nextCapsValue.setText(String.valueOf(user.getLevel() + 1));
         }
     }
 }

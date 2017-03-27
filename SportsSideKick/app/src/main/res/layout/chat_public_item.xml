@@ -9,7 +9,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/demo_profile_image"
+        android:src="@drawable/blank_profile_rounded"
         android:scaleType="centerCrop" />
 
     <ImageView

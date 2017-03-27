@@ -74,7 +74,7 @@ public class CallFriendsAdapter extends RecyclerView.Adapter<CallFriendsAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.avatar,imageOptions);
         if (info.getIsOnline())
         {

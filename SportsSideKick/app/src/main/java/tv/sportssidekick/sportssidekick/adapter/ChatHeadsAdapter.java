@@ -149,7 +149,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                 Log.d(TAG, "Have no chatUsers yet!");
             }
             holder.userCount.setText(String.valueOf(size));
-            DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+            DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
             ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.imageView,imageOptions);
             holder.chatCaption.setText(info.getChatTitle());
             holder.view.setTag(position);

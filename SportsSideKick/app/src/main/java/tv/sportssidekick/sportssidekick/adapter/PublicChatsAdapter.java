@@ -92,7 +92,7 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ChatInfo info = values.get(position);
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         if(holder.image!=null){
             ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.image,imageOptions);
         }
