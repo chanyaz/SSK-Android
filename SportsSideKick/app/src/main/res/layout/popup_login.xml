@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="@dimen/margin_60"
     android:layout_width="500dp"
-    android:layout_height="match_parent"
-    android:clickable="true">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_60"
+    android:background="@drawable/popup_bottom_background">
 
     <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
     <View
@@ -20,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/login_button"
@@ -82,10 +83,10 @@
         android:id="@+id/bottom_buttons_container_login"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:layout_alignParentStart="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_below="@+id/content_container"
-        android:background="@drawable/popup_login_button_background">
+        android:background="@drawable/popup_login_button_background"
+        android:layout_below="@+id/container"
+        android:layout_alignEnd="@+id/container">
 
         <TextView
             android:id="@+id/login_text"
@@ -100,58 +101,107 @@
             android:id="@+id/login_progress_bar"
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
-            android:elevation="2dp"
-            app:indicatorName="LineSpinFadeLoaderIndicator"
             android:layout_centerInParent="true"
-            android:visibility="gone"/>
+            android:elevation="2dp"
+            android:visibility="gone"
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_split_line"
-        android:background="@color/colorPrimarySemiLight">
+        android:id="@+id/container"
+        android:layout_below="@+id/top_split_line">
 
-        <LinearLayout
-            android:layout_width="@dimen/login_conteiner_width"
+
+        <!--Login username and password container-->
+        <RelativeLayout
+            android:id="@+id/content_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/margin_40"
-            android:orientation="vertical">
+            android:background="@color/colorPrimarySemiLight"
+            android:clickable="true"
+            android:animateLayoutChanges="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
 
-            <EditText
-                android:id="@+id/login_email"
-                style="@style/edit_text_login"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="@dimen/login_conteiner_width"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_login_email"
-                android:inputType="textEmailAddress"
-                android:text="user2@user2.com"
-                android:textAlignment="textStart" />
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/margin_40"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/login_password"
-                style="@style/edit_text_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/login_login_password"
-                android:inputType="textPassword"
-                android:text="qwerty"
-                android:textAlignment="textStart" />
+                <EditText
+                    android:id="@+id/login_email"
+                    style="@style/edit_text_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_login_email"
+                    android:inputType="textEmailAddress"
+                    android:text="user2@user2.com"
+                    android:textAlignment="textStart" />
 
-            <TextView
-                android:id="@+id/forgot_button"
+                <EditText
+                    android:id="@+id/login_password"
+                    style="@style/edit_text_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_login_password"
+                    android:inputType="textPassword"
+                    android:text="qwerty"
+                    android:textAlignment="textStart" />
+
+                <TextView
+                    android:id="@+id/forgot_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@string/login_login_forgot_text"
+                    android:textColor="@color/colorPrimaryLight" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!--Forgot password container-->
+        <RelativeLayout
+            android:id="@+id/forgot_password_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/content_container"
+            android:background="@color/colorPrimarySemiLight"
+            android:clickable="true"
+            android:layout_alignParentTop="true"
+            android:animateLayoutChanges="true"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/forgot_password_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_login_forgot_text"
-                android:textColor="@color/colorPrimaryLight"
-                android:layout_gravity="end"/>
+                android:src="@drawable/ic_arrow_back"
+                android:padding="@dimen/margin_10"/>
 
-        </LinearLayout>
+            <RelativeLayout
+                android:layout_width="@dimen/login_conteiner_width"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/margin_40"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <EditText
+                    android:id="@+id/login_forgot_pass_email"
+                    style="@style/edit_text_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_login_email"
+                    android:inputType="textEmailAddress"
+                    android:text="user2@user2.com" />
+            </RelativeLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
-
 </RelativeLayout>

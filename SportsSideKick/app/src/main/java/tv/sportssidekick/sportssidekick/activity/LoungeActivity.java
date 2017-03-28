@@ -47,6 +47,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsFragment;
@@ -54,7 +55,6 @@ import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LoginFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.MemberInfoFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.SignUpFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
@@ -222,7 +222,7 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(EditProfileFragment.class);
         popupContainerFragments.add(LoginFragment.class);
         popupContainerFragments.add(SignUpFragment.class);
-        popupContainerFragments.add(MemberInfoFragment.class);
+        popupContainerFragments.add(AlertDialogFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
 
@@ -392,7 +392,7 @@ public class LoungeActivity extends AppCompatActivity {
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
             }
-            setYourCoinsValue(String.valueOf(user.getCurrency())); // TODO get user coins
+            setYourCoinsValue("0"); // TODO get user coins
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
@@ -409,7 +409,6 @@ public class LoungeActivity extends AppCompatActivity {
         }
         else {
             //reset profile name and picture to blank values
-            setYourCoinsValue(String.valueOf(0)); // TODO get user coins
             yourLevel.setVisibility(View.INVISIBLE);
             userLevelBackground.setVisibility(View.INVISIBLE);
             userLevelProgress.setVisibility(View.INVISIBLE);

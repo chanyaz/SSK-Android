@@ -1,217 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/popup_friend_request_width"
-    android:layout_height="350dp"
+    android:layout_width="500dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/popup_bottom_background_dark"
-    android:orientation="vertical"
-    android:clickable="true">
-    <TextView
-        android:id="@+id/caption"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/popup_member_info_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:gravity="center"
-        android:text="@string/member_info"
-        android:textColor="@color/colorAccent" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent" />
-    <View
-        android:id="@+id/top_split_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/caption"
-        android:background="@android:color/black" />
-
-    <ImageView
-        android:id="@+id/close"
-        android:layout_width="@dimen/popup_friend_request_button_size"
-        android:layout_height="@dimen/popup_friend_request_button_size"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/top_split_line"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/video_close_button"/>
-
-    <View
-        android:id="@+id/middle_split_line"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_buttons_container"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/top_split_line"
-        android:background="@android:color/black" />
-
-
-    <!-- PROFILE CONTAINER - IMAGE -->
-    <RelativeLayout
-        android:id="@+id/profile_container"
-        android:layout_width="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/middle_split_line"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:id="@+id/profile_image_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/margin_20"
-            android:paddingStart="@dimen/margin_20"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="@dimen/popup_friend_profil_progress_bar_size"
-                android:layout_height="@dimen/popup_friend_profil_progress_bar_size"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/circle_shape"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="65"
-                android:progressDrawable="@drawable/circular_progress_bar" />
-
-            <ImageView
-                android:id="@+id/profile_image"
-                android:layout_width="@dimen/popup_friend_profil_profile_image_size"
-                android:layout_height="@dimen/popup_friend_profil_profile_image_size"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="@string/image"
-                android:src="@drawable/blank_profile_rounded" />
-        </RelativeLayout>
-
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignEnd="@id/profile_image_container"
-            android:layout_alignStart="@id/profile_image_container"
-            android:layout_below="@id/profile_image_container"
-            android:layout_marginTop="-20dp"
-            android:contentDescription="@string/image"
-            android:src="@drawable/next_level_marker" />
-
-        <TextView
-            android:id="@+id/profile_image_level"
-            android:layout_width="@dimen/profile_level_marker_size"
-            android:layout_height="@dimen/profile_level_marker_size"
-            android:layout_alignEnd="@id/profile_image_container"
-            android:layout_alignStart="@id/profile_image_container"
-            android:layout_below="@id/profile_image_container"
-            android:layout_marginTop="-17dp"
-            android:textSize="10sp"
-            android:gravity="center"
-            android:text="99"
-            android:textColor="@color/white"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@id/profile_image_container"
-            android:layout_alignStart="@id/profile_image_container"
-            android:layout_below="@id/profile_image_container"
-            android:layout_marginTop="@dimen/margin_8"
-            android:gravity="center"
-            android:text="First Last"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/online_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@id/profile_image_container"
-            android:layout_alignStart="@id/profile_image_container"
-            android:layout_below="@id/profile_name"
-            android:gravity="center"
-            android:text="Offline"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            android:textStyle="normal" />
-
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/chat_button"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:background="@null"
-        android:layout_above="@+id/follow_button"
-        android:layout_marginBottom="@dimen/margin_15"
-        android:textColor="@color/white"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:drawableLeft="@drawable/friend_chat_button"
-        android:layout_toRightOf="@+id/middle_split_line"
-        android:layout_marginStart="@dimen/margin_20"
-        android:drawablePadding="@dimen/margin_10"
-        android:text ="@string/chat_caption" />
-
-    <Button
-        android:id="@+id/follow_button"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:background="@null"
-        android:layout_centerVertical="true"
-        android:textColor="@color/white"
-        android:drawableLeft="@drawable/friend_follow_button"
-        android:layout_toRightOf="@+id/middle_split_line"
-        android:layout_marginBottom="@dimen/margin_15"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:drawablePadding="@dimen/margin_10" />
-
-
-    <Button
-        android:id="@+id/friend_button"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:background="@null"
-        android:gravity="left|center_vertical"
-        android:layout_below="@+id/follow_button"
-        android:layout_centerVertical="true"
-        android:textColor="@color/white"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:drawableLeft="@drawable/friend_follow_button"
-        android:layout_toRightOf="@+id/middle_split_line"
-        android:layout_marginStart="@dimen/margin_20"
-        android:drawablePadding="@dimen/margin_10" />
-
-
-    <!-- BOTTOM BUTTONS CONTAINER -->
-    <RelativeLayout
-        android:id="@+id/bottom_buttons_container"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/popup_friend_request_bottom_buttons_container_height"
-        android:layout_alignParentBottom="true"
         android:clickable="true">
 
         <View
-            android:id="@+id/bottom_split_line"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/black" />
+            android:id="@+id/popup_member_info_divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/popup_member_info_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/popup_member_info_divider"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimarySemiLight"
+            android:gravity="center"
+            android:text="@string/member_info"
+            android:textColor="@color/colorAccent" />
 
         <ImageButton
-            android:id="@+id/confirm_button"
+            android:id="@+id/popup_member_info_close"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_30"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:layout_margin="@dimen/margin_15"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close" />
+
     </RelativeLayout>
+
+    <View
+        android:id="@+id/popup_member_info_content_divider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@+id/popup_member_info_header"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/popup_member_info_left_content"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/popup_member_info_header"
+        android:layout_alignEnd="@+id/popup_member_info_content_divider">
+
+        <RelativeLayout
+            android:id="@+id/profile_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:layout_marginEnd="@dimen/margin_30"
+            android:layout_marginStart="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_30">
+
+            <RelativeLayout
+                android:id="@+id/profile_image_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/margin_20"
+                android:paddingStart="@dimen/margin_20">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="@dimen/popup_friend_profil_progress_bar_size"
+                    android:layout_height="@dimen/popup_friend_profil_progress_bar_size"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/circle_shape"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="65"
+                    android:progressDrawable="@drawable/circular_progress_bar" />
+
+                <ImageView
+                    android:id="@+id/your_profile_image"
+                    android:layout_width="@dimen/popup_friend_profil_profile_image_size"
+                    android:layout_height="@dimen/popup_friend_profil_profile_image_size"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/blank_profile_rounded" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="@dimen/profile_level_marker_size"
+                android:layout_height="@dimen/profile_level_marker_size"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/profile_image_container"
+                android:layout_marginTop="-20dp"
+                android:contentDescription="@string/image"
+                android:src="@drawable/next_level_marker" />
+
+            <TextView
+                android:id="@+id/profile_image_level"
+                android:layout_width="@dimen/profile_level_marker_size"
+                android:layout_height="@dimen/profile_level_marker_size"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/profile_image_container"
+                android:layout_marginTop="-19dp"
+                android:gravity="center"
+                android:text="99"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/your_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/profile_image_container"
+                android:layout_marginTop="@dimen/margin_15"
+                android:gravity="center"
+                android:text="Adam Green"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/your_profile_online_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/profile_image_container"
+                android:layout_alignStart="@id/profile_image_container"
+                android:layout_below="@id/your_profile_name"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="center"
+                android:text="Offline"
+                android:textColor="@color/lightGrey"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/popup_member_info_right_content"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/popup_member_info_content_divider"
+        android:layout_below="@+id/popup_member_info_header"
+        android:padding="@dimen/margin_30">
+
+        <RelativeLayout
+            android:id="@+id/popup_member_info_right_chat_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_20">
+
+            <ImageView
+                android:id="@+id/popup_member_info_right_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_chat"/>
+
+            <TextView
+                android:id="@+id/popup_member_info_right_chat_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chat"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/popup_member_info_right_chat"
+                android:paddingStart="@dimen/padding_16"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/popup_member_info_right_follow_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/popup_member_info_right_chat_container"
+            android:layout_marginBottom="@dimen/margin_20">
+
+            <ImageView
+                android:id="@+id/popup_member_info_right_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_minus"/>
+
+            <TextView
+                android:id="@+id/popup_member_info_right_chat_follow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/padding_16"
+                android:layout_toEndOf="@+id/popup_member_info_right_follow"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:text="Un-Follow Friend"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/popup_member_info_right_friend_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/popup_member_info_right_follow_container">
+
+            <ImageView
+                android:id="@+id/popup_member_info_right_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_minus"/>
+
+            <TextView
+                android:id="@+id/popup_member_info_right_friend_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/padding_16"
+                android:layout_toEndOf="@+id/popup_member_info_right_friend"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:text="Un-Friend"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
 </RelativeLayout>
