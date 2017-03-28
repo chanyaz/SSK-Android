@@ -109,6 +109,7 @@
     <string name="video_chat_button_text">Deinen Anruf Starten</string>
     <string name="starting_new_call_search_hint">Nach öffentlichen Chats suchen</string>
     <string name="starting_new_call_search_title">Neuen Anruf starten</string>
+    <string name="member_info">Member info</string>
 
 
     <plurals name="days_until_match">

@@ -83,7 +83,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         viewHolder.confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final int position = viewHolder.getAdapterPosition();
+                final int position = viewHolder.getLayoutPosition();
                 Task<UserInfo> requestTask = FriendsManager.getInstance().acceptFriendRequest(values.get(position).getId());
                 requestTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                     @Override
@@ -102,7 +102,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         viewHolder.denyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final int position = viewHolder.getAdapterPosition();
+                final int position = viewHolder.getLayoutPosition();
                 Task<Boolean> requestTask = FriendsManager.getInstance().rejectFriendRequest(values.get(position).getId());
                 requestTask.addOnCompleteListener(new OnCompleteListener<Boolean>() {
                     @Override

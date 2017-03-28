@@ -113,4 +113,5 @@
         <!--<item quantity="other">%d Jours</item>-->
     <!--</plurals>-->
 
+    <string name="member_info">Member info</string>
 </resources>

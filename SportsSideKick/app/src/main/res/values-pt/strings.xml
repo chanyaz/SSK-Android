@@ -28,5 +28,6 @@
     <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
     <string name="quiz_url">https://snack-media.com/sidekick/quiz-list-pt.html</string>
     <string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-pt.html</string>
+    <string name="member_info">Member info</string>
 
 </resources>

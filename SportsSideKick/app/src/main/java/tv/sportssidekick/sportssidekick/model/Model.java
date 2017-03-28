@@ -374,7 +374,9 @@ public class Model {
     public void setProfileImageUrl(String profileImageUrl, boolean isCircular){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
         String key = isCircular ? "circularAvatarUrl" : "avatarUrl";
-        request.getBaseData().put(key,profileImageUrl);
+        HashMap<String,Object> scriptData = new HashMap<>();
+        scriptData.put(key,profileImageUrl);
+        request.getBaseData().put("scriptData",scriptData);
         request.send(onDetailsUpdated);
     }
 
