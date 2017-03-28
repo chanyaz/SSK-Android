@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="500dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/popup_bottom_background">
+    android:background="@drawable/popup_bottom_background"
+    android:clickable="true">
     <TextView
         android:id="@+id/caption"
         android:layout_width="match_parent"
@@ -217,7 +218,8 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_below="@+id/telephone_edit_text"
-        android:background="@drawable/popup_bottom_background">
+        android:background="@drawable/popup_bottom_background"
+        android:clickable="true">
 
         <View
             android:id="@+id/bottom_split_line"

@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
 
     android:background="@color/colorPrimarySemiLight"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clickable="true">
 
     <View
         android:id="@+id/top_vertical_spliter"

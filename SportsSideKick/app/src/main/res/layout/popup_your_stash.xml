@@ -6,7 +6,8 @@
     android:layout_marginBottom="@dimen/margin_60"
     android:layout_marginEnd="@dimen/margin_90"
     android:layout_marginStart="@dimen/margin_90"
-    android:layout_marginTop="@dimen/margin_60">
+    android:layout_marginTop="@dimen/margin_60"
+    android:clickable="true">
 
     <!-- BACKGROUND -->
     <RelativeLayout
@@ -143,7 +144,8 @@
         android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_height="60dp"
-        android:background="@drawable/popup_bottom_background">
+        android:background="@drawable/popup_bottom_background"
+        android:clickable="true">
 
         <View
             android:id="@+id/bottom_split_line"
