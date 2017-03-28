@@ -36,6 +36,12 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     private List<UserInfo> values;
 
+    public void setInitiatorFragment(Class initiatorFragment) {
+        this.initiatorFragment = initiatorFragment;
+    }
+
+    private Class initiatorFragment;
+
     public List<UserInfo> getValues() {
         return values;
     }
@@ -59,7 +65,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         }
     }
 
-    public FriendsAdapter() {
+    public FriendsAdapter(Class initiatorFragment) {
+        this.initiatorFragment = initiatorFragment;
         values = new ArrayList<>();
     }
 
@@ -78,6 +85,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 FragmentEvent fragmentEvent = new FragmentEvent(MemberInfoFragment.class);
+                fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setId(values.get(position).getUserId());
                 EventBus.getDefault().post(fragmentEvent);
@@ -90,10 +98,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
-        String avatartUrl = info.getCircularAvatarUrl();
-        if (avatartUrl != null)
+        String avatarUrl = info.getCircularAvatarUrl();
+        if (avatarUrl != null)
         {
-            ImageLoader.getInstance().displayImage(avatartUrl, holder.avatar, imageOptions);
+            ImageLoader.getInstance().displayImage(avatarUrl, holder.avatar, imageOptions);
         }
 
         if (info.getIsOnline()) {

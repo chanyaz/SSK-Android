@@ -42,4 +42,13 @@ public class FragmentEvent extends BusEvent {
         isReturning = returning;
         return this;
     }
+
+    private Class initiatorFragment;
+    public Class getInitiatorFragment() {
+        return initiatorFragment;
+    }
+
+    public void setInitiatorFragment(Class initiatorFragment) {
+        this.initiatorFragment = initiatorFragment;
+    }
 }

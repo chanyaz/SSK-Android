@@ -65,6 +65,9 @@ public class MemberInfoFragment extends BaseFragment {
     @BindView(R.id.follow_button)
     Button followButton;
 
+    private Class initiatorFragment;
+
+
     public MemberInfoFragment() {
         // Required empty public constructor
     }
@@ -74,6 +77,11 @@ public class MemberInfoFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.popup_member_info, container, false);
+        initiatorFragment = getInitiator();
+        if(initiatorFragment==null){
+            initiatorFragment = YourFriendsFragment.class; // Resolve to default parent!
+        }
+
         ButterKnife.bind(this, view);
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(getPrimaryArgument());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
@@ -111,7 +119,7 @@ public class MemberInfoFragment extends BaseFragment {
     @OnClick({R.id.confirm_button,R.id.close})
     public void confirmOnClick(){
         getActivity().onBackPressed();
-        EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class, true));
+        EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
     }
 
     @OnClick(R.id.chat_button)
@@ -134,7 +142,7 @@ public class MemberInfoFragment extends BaseFragment {
         newChatInfo.setUsersIds(userIds);
 
         ImsManager.getInstance().createNewChat(newChatInfo);
-        EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class, true));
+        EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
     }
 
     @OnClick(R.id.friend_button)
@@ -153,7 +161,7 @@ public class MemberInfoFragment extends BaseFragment {
                 }
             }
         });
-        EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class, true));
+        EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
     }
 
     @OnClick(R.id.follow_button)
@@ -172,6 +180,6 @@ public class MemberInfoFragment extends BaseFragment {
                 }
             }
         });
-        EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class, true));
+        EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
     }
 }

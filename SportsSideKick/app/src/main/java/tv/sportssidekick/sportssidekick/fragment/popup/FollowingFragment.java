@@ -35,7 +35,7 @@ import tv.sportssidekick.sportssidekick.model.user.UserInfo;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class YouFollowing extends BaseFragment {
+public class FollowingFragment extends BaseFragment {
 
     @BindView(R.id.following_recycler_view)
     RecyclerView followingRecyclerView;
@@ -58,7 +58,8 @@ public class YouFollowing extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 5);
         followingRecyclerView.setLayoutManager(layoutManager);
 
-        final FriendsAdapter adapter = new FriendsAdapter();
+        final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
+        adapter.setInitiatorFragment(this.getClass());
         followingRecyclerView.setAdapter(adapter);
         Task<List<UserInfo>> friendsTask = FriendsManager.getInstance().getUserFollowingList(Model.getInstance().getUserInfo().getUserId(), 0);
         friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
@@ -87,11 +88,11 @@ public class YouFollowing extends BaseFragment {
 
     @OnClick(R.id.follow_more)
     public void followOnClick() {
-        //TODO open get more followers popup
+        EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class));
     }
 
     @OnClick(R.id.your_followers_button)
     public void followersOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(YourFollowers.class));
+        EventBus.getDefault().post(new FragmentEvent(FollowersFragment.class));
     }
 }

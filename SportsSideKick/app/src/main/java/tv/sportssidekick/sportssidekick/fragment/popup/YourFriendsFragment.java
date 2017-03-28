@@ -59,7 +59,7 @@ public class YourFriendsFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 11);
         friendsRecyclerView.setLayoutManager(layoutManager);
 
-        final FriendsAdapter adapter = new FriendsAdapter();
+        final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
         friendsRecyclerView.setAdapter(adapter);
         Task<List<UserInfo>> friendsTask =  FriendsManager.getInstance().getFriends(0);
         friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
