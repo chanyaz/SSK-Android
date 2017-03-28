@@ -83,7 +83,7 @@
                     style="@style/sign_up_edit_text" />
 
                 <EditText
-                    android:id="@+id/sign_up_username"
+                    android:id="@+id/sign_up_display_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/sign_up_username"

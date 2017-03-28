@@ -59,7 +59,7 @@ public class LoginFragment extends BaseFragment {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-            Toast.makeText(getContext(),"Please enter valid password and username!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Please enter valid password and displayName!", Toast.LENGTH_SHORT).show();
             return;
         }
         Model.getInstance().login(email,password);

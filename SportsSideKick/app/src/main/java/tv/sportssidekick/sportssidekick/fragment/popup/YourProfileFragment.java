@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -141,6 +142,16 @@ public class YourProfileFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(LanguageFragment.class));
     }
 
+    @Subscribe
+    public void onUserLogin(UserInfo user) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            setupFragment();
+        } else {
+            getActivity().onBackPressed();
+        }
+    }
+
+
     private void setupFragment() {
         UserInfo user = Model.getInstance().getUserInfo();
         if (user != null) {
@@ -163,7 +174,6 @@ public class YourProfileFragment extends BaseFragment {
             values.add(new Pair<>("Likes received",String.valueOf(user.getLikes())));
             values.add(new Pair<>("Comments made",String.valueOf(user.getComments())));
             adapter.getValues().addAll(values);
-
 
             ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             profileName.setText(user.getFirstName() + " " + user.getLastName());

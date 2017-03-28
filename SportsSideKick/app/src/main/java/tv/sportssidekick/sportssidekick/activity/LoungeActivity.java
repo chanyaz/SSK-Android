@@ -390,7 +390,7 @@ public class LoungeActivity extends AppCompatActivity {
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
             }
-            setYourCoinsValue("0"); // TODO get user coins
+            setYourCoinsValue(String.valueOf(user.getCurrency())); // TODO get user coins
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
@@ -407,6 +407,7 @@ public class LoungeActivity extends AppCompatActivity {
         }
         else {
             //reset profile name and picture to blank values
+            setYourCoinsValue(String.valueOf(0)); // TODO get user coins
             yourLevel.setVisibility(View.INVISIBLE);
             userLevelBackground.setVisibility(View.INVISIBLE);
             userLevelProgress.setVisibility(View.INVISIBLE);
