@@ -222,11 +222,11 @@ public class Model {
         }
     }
 
-    public void registrationRequest(String displayName, String password, String userName, HashMap<String, Object> userDetails){
+    public void registrationRequest(String displayName, String password, String email, HashMap<String, Object> userDetails){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest()
                 .setDisplayName(displayName)
                 .setNewPassword(password)
-                .setUserName(userName);
+                .setUserName(email);
 
         if(userDetails!=null){
             userDetails.put("action","register");
@@ -374,7 +374,9 @@ public class Model {
     public void setProfileImageUrl(String profileImageUrl, boolean isCircular){
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
         String key = isCircular ? "circularAvatarUrl" : "avatarUrl";
-        request.getBaseData().put(key,profileImageUrl);
+        HashMap<String,Object> scriptData = new HashMap<>();
+        scriptData.put(key,profileImageUrl);
+        request.getBaseData().put("scriptData",scriptData);
         request.send(onDetailsUpdated);
     }
 
@@ -385,7 +387,7 @@ public class Model {
         }
 
        String newNicName = details.get(GSConstants.NICNAME);
-        if(TextUtils.isEmpty(newNicName)){
+        if(details.containsKey(GSConstants.NICNAME) && !TextUtils.isEmpty(newNicName)){
             if(!newNicName.equals(currentUserInfo.getNicName())) {
                 request.setDisplayName(details.get(GSConstants.NICNAME));
             }

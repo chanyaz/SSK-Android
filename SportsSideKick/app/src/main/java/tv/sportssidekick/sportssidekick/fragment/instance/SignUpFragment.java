@@ -87,7 +87,7 @@ public class SignUpFragment extends BaseFragment {
 
         firstName = (EditText) view.findViewById(R.id.sign_up_firstname);
         lastName = (EditText) view.findViewById(R.id.sign_up_lastname);
-        userName = (EditText) view.findViewById(R.id.sign_up_username);
+        userName = (EditText) view.findViewById(R.id.sign_up_display_name);
         email = (EditText) view.findViewById(R.id.sign_up_email);
         phone = (EditText) view.findViewById(R.id.sign_up_phone);
         password = (EditText) view.findViewById(R.id.sign_up_password);

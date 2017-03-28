@@ -54,6 +54,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LoginFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.MemberInfoFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.SignUpFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
@@ -223,6 +224,7 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(EditProfileFragment.class);
         popupContainerFragments.add(LoginFragment.class);
         popupContainerFragments.add(SignUpFragment.class);
+        popupContainerFragments.add(MemberInfoFragment.class);
         popupContainerFragments.add(YourFollowers.class);
         popupContainerFragments.add(YouFollowing.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
@@ -415,6 +417,7 @@ public class LoungeActivity extends AppCompatActivity {
         }
         else {
             //reset profile name and picture to blank values
+            setYourCoinsValue(String.valueOf(0)); // TODO get user coins
             yourLevel.setVisibility(View.INVISIBLE);
             userLevelBackground.setVisibility(View.INVISIBLE);
             userLevelProgress.setVisibility(View.INVISIBLE);

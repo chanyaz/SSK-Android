@@ -11,12 +11,16 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.fragment.popup.MemberInfoFragment;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
@@ -66,9 +70,19 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, parent, false);
         viewHolder = new ViewHolder(view);
+
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentEvent fragmentEvent = new FragmentEvent(MemberInfoFragment.class);
+                int position = viewHolder.getLayoutPosition();
+                fragmentEvent.setId(values.get(position).getUserId());
+                EventBus.getDefault().post(fragmentEvent);
+            }
+        });
         return viewHolder;
     }
 

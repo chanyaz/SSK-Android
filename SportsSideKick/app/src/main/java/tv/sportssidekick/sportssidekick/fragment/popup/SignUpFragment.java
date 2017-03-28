@@ -46,8 +46,8 @@ public class SignUpFragment extends BaseFragment {
     TextView lastName;
     @BindView(R.id.sign_up_email)
     TextView email;
-    @BindView(R.id.sign_up_username)
-    TextView username;
+    @BindView(R.id.sign_up_display_name)
+    TextView displayName;
     @BindView(R.id.sign_up_phone)
     TextView phone;
     @BindView(R.id.sign_up_password)
@@ -68,7 +68,7 @@ public class SignUpFragment extends BaseFragment {
         //TODO DEMO
         firstName.setText("Jon");
         lastName.setText("Snow");
-        username.setText("jonsnow1");
+        displayName.setText("jonsnow1");
         phone.setText("1298515735");
         email.setText("jon@snow.com");
         password.setText("qwerty");
@@ -80,7 +80,7 @@ public class SignUpFragment extends BaseFragment {
         if (TextUtils.isEmpty(firstName.getText()) ||
                 TextUtils.isEmpty(lastName.getText())||
                 TextUtils.isEmpty(email.getText())||
-                TextUtils.isEmpty(username.getText())||
+                TextUtils.isEmpty(displayName.getText())||
                 TextUtils.isEmpty(password.getText())||
                 TextUtils.isEmpty(phone.getText()))
         {
@@ -94,9 +94,11 @@ public class SignUpFragment extends BaseFragment {
             userDetails.put(GSConstants.EMAIL, email.getText().toString());
             signUpText.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-            Model.getInstance().registrationRequest(firstName.getText() + " " + lastName.getText(),
+            Model.getInstance().registrationRequest(
+                    displayName.getText().toString(),
                     password.getText().toString(),
-                    username.getText().toString(), userDetails);
+                    email.getText().toString(),
+                    userDetails);
         }
     }
 
@@ -119,10 +121,6 @@ public class SignUpFragment extends BaseFragment {
                 Toast.makeText(getContext(), "Registration error. Try again later.", Toast.LENGTH_LONG).show(); // TODO inform user about login failed
                 break;
             case REGISTRATION_SUCCESSFUL:
-//                if (userDetails != null)
-//                {
-//                    Model.getInstance().setDetails(userDetails);
-//                }
                 progressBar.setVisibility(View.GONE);
                 signUpText.setVisibility(View.VISIBLE);
                 getActivity().onBackPressed();

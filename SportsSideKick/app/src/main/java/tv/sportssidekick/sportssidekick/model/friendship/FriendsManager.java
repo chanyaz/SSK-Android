@@ -430,5 +430,4 @@ public class FriendsManager extends GSMessageHandlerAbstract {
 //           }
 //       }
 //   }
-
 }
