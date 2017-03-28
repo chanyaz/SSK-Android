@@ -139,21 +139,39 @@ public class MemberInfoFragment extends BaseFragment {
 
     @OnClick(R.id.friend_button)
     public void friendOnClick(){
+        Task<UserInfo> manageFriendTask;
         if(user.isaFriend()){ // this user is my friend, remove it from friends
-            FriendsManager.getInstance().deleteFriend(user.getUserId());
+            manageFriendTask = FriendsManager.getInstance().deleteFriend(user.getUserId());
         } else { // send friend request
-            FriendsManager.getInstance().sendFriendRequest(user.getUserId());
+            manageFriendTask = FriendsManager.getInstance().sendFriendRequest(user.getUserId());
         }
+        manageFriendTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<UserInfo> task) {
+                if(task.isSuccessful()){
+                    user.setaFriend(!user.isaFriend());
+                }
+            }
+        });
         EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class, true));
     }
 
     @OnClick(R.id.follow_button)
     public void followButton(){
+        Task<UserInfo> changeFollowTask;
         if(user.isiFollowHim()){ // I am following this user, un-follow him
-            FriendsManager.getInstance().unFollowUser(user.getUserId());
+            changeFollowTask = FriendsManager.getInstance().unFollowUser(user.getUserId());
         } else { // not following, start following this user
-            FriendsManager.getInstance().followUser(user.getUserId());
+            changeFollowTask = FriendsManager.getInstance().followUser(user.getUserId());
         }
+        changeFollowTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<UserInfo> task) {
+                if(task.isSuccessful()){
+                    user.setiFollowHim(!user.isiFollowHim());
+                }
+            }
+        });
         EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class, true));
     }
 }
