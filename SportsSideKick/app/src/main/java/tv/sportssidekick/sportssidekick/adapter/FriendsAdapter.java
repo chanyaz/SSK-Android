@@ -90,7 +90,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
-        ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(), holder.avatar, imageOptions);
+        String avatartUrl = info.getCircularAvatarUrl();
+        if (avatartUrl != null)
+        {
+            ImageLoader.getInstance().displayImage(avatartUrl, holder.avatar, imageOptions);
+        }
 
         if (info.getIsOnline()) {
             holder.online.setVisibility(View.VISIBLE);

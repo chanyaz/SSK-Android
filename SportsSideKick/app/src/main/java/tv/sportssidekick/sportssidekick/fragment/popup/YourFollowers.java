@@ -52,7 +52,7 @@ public class YourFollowers extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_your_followers, container, false);
         ButterKnife.bind(this, view);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 5);
         followersRecyclerView.setLayoutManager(layoutManager);
 
         final FriendsAdapter adapter = new FriendsAdapter();
