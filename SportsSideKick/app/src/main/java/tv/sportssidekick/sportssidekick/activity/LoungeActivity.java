@@ -58,6 +58,8 @@ import tv.sportssidekick.sportssidekick.fragment.popup.SignUpFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.YouFollowing;
+import tv.sportssidekick.sportssidekick.fragment.popup.YourFollowers;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
@@ -221,6 +223,8 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(EditProfileFragment.class);
         popupContainerFragments.add(LoginFragment.class);
         popupContainerFragments.add(SignUpFragment.class);
+        popupContainerFragments.add(YourFollowers.class);
+        popupContainerFragments.add(YouFollowing.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
 
@@ -372,6 +376,10 @@ public class LoungeActivity extends AppCompatActivity {
 
     public void onFriendsButtonClick(View view) {
         EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class));
+    }
+
+    public void onFollowersButtonClick(View view) {
+        EventBus.getDefault().post(new FragmentEvent(YouFollowing.class));
     }
 
     private void setNumberOfNotification(String number){

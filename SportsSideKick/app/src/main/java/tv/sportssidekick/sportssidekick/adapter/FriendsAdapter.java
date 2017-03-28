@@ -47,6 +47,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         @Nullable
         @BindView(R.id.profil_name)
         TextView name;
+
         ViewHolder(View v) {
             super(v);
             view = v;
@@ -55,7 +56,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     }
 
     public FriendsAdapter() {
-        values= new ArrayList<>();
+        values = new ArrayList<>();
     }
 
     @Override
@@ -75,12 +76,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
-        ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.avatar,imageOptions);
-        if (info.getIsOnline())
-        {
+        ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(), holder.avatar, imageOptions);
+
+        if (info.getIsOnline()) {
             holder.online.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             holder.online.setVisibility(View.GONE);
         }
         holder.name.setText(info.getLastName() + " " + info.getFirstName());
@@ -88,7 +88,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        if (values==null)
+        if (values == null)
             return 0;
         return values.size();
     }
