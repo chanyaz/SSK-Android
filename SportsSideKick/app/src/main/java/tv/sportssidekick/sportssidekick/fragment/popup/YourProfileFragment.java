@@ -144,7 +144,7 @@ public class YourProfileFragment extends BaseFragment {
     private void setupFragment() {
         UserInfo user = Model.getInstance().getUserInfo();
         if (user != null) {
-            Date subscribed = new Date(user.getSubscribedDate().longValue());
+            Date subscribed = new Date(0);
 
             ArrayList<Pair<String, String>> values = new ArrayList<>();
             values.add(new Pair<>("Caps level",String.valueOf(user.getLevel())));

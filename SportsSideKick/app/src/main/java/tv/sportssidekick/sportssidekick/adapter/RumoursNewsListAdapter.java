@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,9 +44,9 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
         @Nullable
         @BindView(R.id.row_rumors_description)
         TextView description;
-        @Nullable
-        @BindView(R.id.row_rumors_description_info)
-        TextView info;
+//        @Nullable
+////        @BindView(R.id.row_rumors_description_info)
+////        TextView info;
         @Nullable
         @BindView(R.id.row_rumors_time)
         TextView time;
@@ -72,9 +75,9 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
     public void onBindViewHolder(ViewHolder holder, int position) {
         final NewsItem info = values.get(position);
         holder.description.setText(info.getTitle());
-        holder.info.setText(info.getContent());
-//        String time = "" + DateUtils.getRelativeTimeSpanString(Long.valueOf(info.getPubDate()), System.currentTimeMillis() / 1000L, DateUtils.MINUTE_IN_MILLIS);
-//        holder.time.setText(time);
+//        holder.info.setText(info.getContent());
+        String time = "Recent";//"" + DateUtils.getRelativeTimeSpanString(Long.valueOf(info.getPubDate().longValue()), System.currentTimeMillis() / 1000L, DateUtils.MINUTE_IN_MILLIS);
+        holder.time.setText(time);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

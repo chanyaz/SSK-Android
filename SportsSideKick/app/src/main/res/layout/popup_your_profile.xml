@@ -98,7 +98,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_split_line"
-        android:background="@color/colorPrimarySemiLight">
+        android:background="@color/colorPrimarySemiLight"
+        android:clickable="true">
 
         <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
         <View
@@ -440,7 +441,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignWithParentIfMissing="true"
         android:layout_below="@+id/content_container"
-        android:background="@drawable/popup_bottom_background">
+        android:background="@drawable/popup_bottom_background"
+        android:clickable="true">
 
         <View
             android:id="@+id/bottom_split_line"

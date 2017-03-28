@@ -2,6 +2,7 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,7 +78,7 @@ public class RumoursFragment extends BaseFragment {
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
     @BindView(R.id.fragment_rumors_root)
-    ScrollView fragmentContainer;
+    NestedScrollView fragmentContainer;
 
     public RumoursFragment() {
         // Required empty public constructor
@@ -94,6 +95,7 @@ public class RumoursFragment extends BaseFragment {
         rumourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         rumoursSmallAdapter = new RumoursNewsListAdapter();
+        rumourRecyclerView.setNestedScrollingEnabled(false);
         rumourRecyclerView.setAdapter(rumoursSmallAdapter);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
@@ -124,6 +126,7 @@ public class RumoursFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                NewsModel.getInstance().setLoading(false,type);
                 NewsModel.getInstance().loadPage(type);
             }
         });

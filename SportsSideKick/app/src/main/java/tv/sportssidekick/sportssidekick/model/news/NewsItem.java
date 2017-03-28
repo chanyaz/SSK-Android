@@ -38,7 +38,7 @@ public class NewsItem {
     private Id id;
     private String title;
     private String url;
-    private String pubDate;
+    private Double pubDate;
 
     private String type;
     private String source;
@@ -73,11 +73,11 @@ public class NewsItem {
         this.url = url;
     }
 
-    public String getPubDate() {
+    public Double getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(String pubDate) {
+    public void setPubDate(Double pubDate) {
         this.pubDate = pubDate;
     }
 

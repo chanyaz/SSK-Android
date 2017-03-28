@@ -4,7 +4,8 @@
     android:layout_width="@dimen/popup_friend_request_width"
     android:layout_height="@dimen/popup_friend_request_height"
     android:background="@drawable/popup_bottom_background_dark"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clickable="true">
     <TextView
         android:id="@+id/caption"
         android:layout_width="match_parent"
@@ -55,7 +56,8 @@
         android:id="@+id/bottom_buttons_container"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/popup_friend_request_bottom_buttons_container_height"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:clickable="true">
 
         <View
             android:id="@+id/bottom_split_line"

@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="130dp"
-    android:layout_margin="@dimen/margin_10">
-<ImageView
-    android:id="@+id/image"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scaleType="centerCrop"
-    android:src="@drawable/sporting_logo"/>
+    android:layout_height="200dp"
+    android:layout_margin="@dimen/margin_10">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sporting_logo" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/news_item_height"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#ffffff">
+        android:background="@color/white">
+
         <TextView
             android:id="@+id/caption"
             android:layout_width="match_parent"
-            android:textColor="@color/colorPrimaryLight"
-            android:textStyle="bold"
+            android:layout_height="@dimen/news_item_height"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:padding="@dimen/margin_5"
             android:textAlignment="viewStart"
-            android:maxLines="2"
+            android:textColor="@color/colorPrimaryLight"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/news_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/caption"
             android:ellipsize="end"
-            android:layout_height="wrap_content" />
+            android:maxLines="1"
+            android:paddingBottom="@dimen/margin_5"
+            android:paddingLeft="@dimen/margin_5"
+            android:paddingRight="@dimen/margin_5" />
     </RelativeLayout>
 
 

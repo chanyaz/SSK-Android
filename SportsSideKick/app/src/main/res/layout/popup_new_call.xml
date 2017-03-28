@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="500dp"
-    android:layout_height="500dp">
+    android:layout_height="500dp"
+    android:clickable="true">
 
     <!-- TOP BUTTONS CONTAINER -->
     <RelativeLayout
@@ -77,7 +78,8 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/popup_your_friends_bottom_buttons_container"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/popup_bottom_background">
+        android:background="@drawable/popup_bottom_background"
+        android:clickable="true">
 
         <View
             android:id="@+id/bottom_split_line"
