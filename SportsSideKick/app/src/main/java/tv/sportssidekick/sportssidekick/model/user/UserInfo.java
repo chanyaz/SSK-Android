@@ -25,6 +25,7 @@ public class UserInfo {
 
     @JsonProperty("userName")
     private String email;
+    @JsonProperty("displayName")
     private String nicName;
     private String language;
     private String phone;
@@ -229,10 +230,12 @@ public class UserInfo {
         this.lastName = lastName;
     }
 
+    @JsonProperty("displayName")
     public String getNicName() {
         return nicName;
     }
 
+    @JsonProperty("displayName")
     public void setNicName(String nicName) {
         this.nicName = nicName;
     }

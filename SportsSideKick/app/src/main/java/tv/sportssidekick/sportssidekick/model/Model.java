@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -94,7 +95,7 @@ public class Model {
                 break;
             case REAL:
                 EventBus.getDefault().post(currentUserInfo);
-                EventBus.getDefault().post(new GameSparksEvent("Login sucessfull!", GameSparksEvent.Type.LOGIN_SUCCESSFUL, null));
+                EventBus.getDefault().post(new GameSparksEvent("Login sucessful!", GameSparksEvent.Type.LOGIN_SUCCESSFUL, null));
                 registerForPushNotifications();
                 ImsManager.getInstance().reload();
                 WallModel.getInstance().fetchPosts();
@@ -222,9 +223,9 @@ public class Model {
     }
 
     public void registrationRequest(String displayName, String password, String userName, HashMap<String, Object> userDetails){
-        GSRequestBuilder.RegistrationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createRegistrationRequest()
+        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest()
                 .setDisplayName(displayName)
-                .setPassword(password)
+                .setNewPassword(password)
                 .setUserName(userName);
 
         if(userDetails!=null){
@@ -232,9 +233,9 @@ public class Model {
             Map<String,Object> map = request.getBaseData();
             map.put("scriptData",userDetails);
         }
-        request.send(new GSEventConsumer<GSResponseBuilder.RegistrationResponse>() {
+        request.send(new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
             @Override
-            public void onEvent(GSResponseBuilder.RegistrationResponse response) {
+            public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse response) {
                 if(response!=null){
                     if(response.hasErrors()){
                         Log.d(TAG,"Registration Request error!");
@@ -383,10 +384,10 @@ public class Model {
             request.setUserName(details.get(GSConstants.EMAIL));
         }
 
-        if (currentUserInfo.getNicName() != null)
-        {
-            if(!details.get(GSConstants.NICNAME).equals(currentUserInfo.getNicName())){
-                request.setUserName(details.get(GSConstants.NICNAME));
+       String newNicName = details.get(GSConstants.NICNAME);
+        if(TextUtils.isEmpty(newNicName)){
+            if(!newNicName.equals(currentUserInfo.getNicName())) {
+                request.setDisplayName(details.get(GSConstants.NICNAME));
             }
         }
 

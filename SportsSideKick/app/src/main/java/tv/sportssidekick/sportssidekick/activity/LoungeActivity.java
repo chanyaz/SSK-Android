@@ -150,7 +150,7 @@ public class LoungeActivity extends AppCompatActivity {
             }
         });
 
-        setYourCoinsValue("2,539"); //TODO get value from server
+        setYourCoinsValue("0"); //TODO get value from server
 
         setNumberOfNotification("4");
 

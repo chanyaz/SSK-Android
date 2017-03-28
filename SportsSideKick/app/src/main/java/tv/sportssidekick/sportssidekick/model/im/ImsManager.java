@@ -92,8 +92,8 @@ public class ImsManager extends GSMessageHandlerAbstract{
     }
 
     public void reload(){
-        clear();
-        loadUserChats();
+//        clear();
+//        loadUserChats();
     }
 
     /////////////////////////////////////

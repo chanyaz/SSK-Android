@@ -102,7 +102,7 @@ public class SignUpFragment extends BaseFragment {
 
     @OnClick(R.id.sign_up_login_button)
     public void loginOnClick(){
-        EventBus.getDefault().post(new FragmentEvent(tv.sportssidekick.sportssidekick.fragment.popup.LoginFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
     @OnClick(R.id.sign_up_facebook)

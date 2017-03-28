@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.model.im;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -12,8 +13,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
@@ -26,6 +25,7 @@ import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
  * www.hypercubesoft.com
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ChatInfo {
 
     private static final String TAG = "CHAT INFO";
@@ -56,7 +56,7 @@ public class ChatInfo {
     }
 
     public ChatInfo() {
-       currentUserId = Model.getInstance().getUserInfo().getUserId();
+       //currentUserId = Model.getInstance().getUserInfo().getUserId();
     }
 
     void setEqualTo(ChatInfo info) {
@@ -173,46 +173,46 @@ public class ChatInfo {
     @Subscribe
     public void onNewMessagesEvent(GameSparksEvent event){
         ImsMessage message;
-        if(getChatId().equals(event.getFilterId())){
-            switch (event.getEventType()){
-                case NEW_MESSAGE:
-                    message = (ImsMessage) event.getData();
-                    Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId() + " for chat: " + getChatId());
-                    messages.add(message);
-                    break;
-                case MESSAGE_UPDATED:
-                    message = (ImsMessage) event.getData();
-                    Log.d(TAG, "MESSAGE UPDATED EVENT : " + message.getId());
-                    break;
-                case NEW_MESSAGE_ADDED:
-                    message = (ImsMessage) event.getData();
-                    Log.d(TAG, "NEW MESSAGE ADDED EVENT : " + message.getId());
-                    messages.add(message);
-                    break;
-                case NEXT_PAGE_LOADED:
-                    ArrayList<ImsMessage> messagesNewPage = (ArrayList<ImsMessage>)event.getData();
-                    for(ImsMessage m : messagesNewPage){
-                        boolean exists = false;
-                        for(ImsMessage mOld : messages){
-                            if(mOld.getId().equals(m.getId())){
-                                exists = true;
-                            }
-                        }
-                        if(!exists){
-                            Log.d(TAG,"Adding message to list: " + m.getId());
-                            messages.add(m);
-                        }
-                    }
-
-                    Collections.sort(messages, new Comparator<ImsMessage>() {
-                        @Override
-                        public int compare(ImsMessage lhs, ImsMessage rhs) {
-                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
-                        }
-                    });
-                    break;
-            }
-        }
+//        if(getChatId().equals(event.getFilterId())){
+//            switch (event.getEventType()){
+//                case NEW_MESSAGE:
+//                    message = (ImsMessage) event.getData();
+//                    Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId() + " for chat: " + getChatId());
+//                    messages.add(message);
+//                    break;
+//                case MESSAGE_UPDATED:
+//                    message = (ImsMessage) event.getData();
+//                    Log.d(TAG, "MESSAGE UPDATED EVENT : " + message.getId());
+//                    break;
+//                case NEW_MESSAGE_ADDED:
+//                    message = (ImsMessage) event.getData();
+//                    Log.d(TAG, "NEW MESSAGE ADDED EVENT : " + message.getId());
+//                    messages.add(message);
+//                    break;
+//                case NEXT_PAGE_LOADED:
+//                    ArrayList<ImsMessage> messagesNewPage = (ArrayList<ImsMessage>)event.getData();
+//                    for(ImsMessage m : messagesNewPage){
+//                        boolean exists = false;
+//                        for(ImsMessage mOld : messages){
+//                            if(mOld.getId().equals(m.getId())){
+//                                exists = true;
+//                            }
+//                        }
+//                        if(!exists){
+//                            Log.d(TAG,"Adding message to list: " + m.getId());
+//                            messages.add(m);
+//                        }
+//                    }
+//
+//                    Collections.sort(messages, new Comparator<ImsMessage>() {
+//                        @Override
+//                        public int compare(ImsMessage lhs, ImsMessage rhs) {
+//                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
+//                        }
+//                    });
+//                    break;
+//            }
+//        }
     }
 
 

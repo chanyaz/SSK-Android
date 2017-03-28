@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.Tasks;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -459,7 +458,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 }
                 break;
             default:
-                Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
+                //Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
                 break;
         }
 
