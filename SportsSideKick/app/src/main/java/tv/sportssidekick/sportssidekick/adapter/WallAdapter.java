@@ -22,11 +22,16 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.rongi.rotate_layout.layout.RotateLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.fragment.instance.NewsItemFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.WallItemFragment;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.model.wall.WallPost;
@@ -261,6 +266,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 holder.rowCommentColorEdge.setBackground(drawable);
             }*/
         }
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
+                fe.setId(items.get(position).getPostId());
+                EventBus.getDefault().post(fe);
+            }
+        });
     }
 
 //    enum PostType {
