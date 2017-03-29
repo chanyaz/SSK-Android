@@ -190,9 +190,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
 
         if (items.get(position).getType() == VIEW_TYPE_SMALL_CELL) {
-            WallRumor rumor = (WallRumor)items.get(position);
+            WallNews news = (WallNews)items.get(position);
             holder.rowSmallCellHeadline.setText("RUMOUR");
-            holder.rowSmallCellDescription.setText(rumor.getTitle());
+            holder.rowSmallCellDescription.setText(news.getTitle());
 //            holder.rowSmallCellDescription.setText();
             Drawable drawable = ContextCompat.getDrawable(context, R.drawable.rumour_headerz);
             drawable.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
