@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="500dp"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginTop="@dimen/margin_60"
-    android:background="@drawable/popup_bottom_background">
+    >
 
     <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
     <View
@@ -86,7 +86,8 @@
         android:layout_alignWithParentIfMissing="true"
         android:background="@drawable/popup_login_button_background"
         android:layout_below="@+id/container"
-        android:layout_alignEnd="@+id/container">
+        android:layout_alignParentStart="true"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/login_text"
@@ -108,11 +109,45 @@
 
     </RelativeLayout>
 
+    <!-- BOTTOM BUTTONS CONTAINER -->
+    <RelativeLayout
+        android:id="@+id/bottom_buttons_container_reset"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignWithParentIfMissing="true"
+        android:background="@drawable/popup_login_button_background"
+        android:layout_below="@+id/container"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/reset_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Reset"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:visibility="visible"/>
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/reset_progress_bar"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
+            android:layout_centerInParent="true"
+            android:elevation="2dp"
+            android:visibility="gone"
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
+
+    </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/container"
-        android:layout_below="@+id/top_split_line">
+        android:layout_below="@+id/top_split_line"
+        android:background="@color/colorPrimarySemiLight">
 
 
         <!--Login username and password container-->

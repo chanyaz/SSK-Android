@@ -25,7 +25,7 @@
     <string name="sign_up_or">or</string>
     <string name="sign_up_firstname">First name</string>
     <string name="sign_up_lastname">Last name</string>
-    <string name="sign_up_username">User name</string>
+    <string name="sign_up_username">Display name</string>
     <string name="sign_up_email">Email</string>
     <string name="sign_up_phone">Phone</string>
     <string name="sign_up_passwoed">Password</string>
