@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick.fragment;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -19,8 +20,8 @@ import tv.sportssidekick.sportssidekick.service.BusEvent;
 public abstract class BaseFragment extends Fragment {
 
     public static final String PRIMARY_ARG_TAG = "PRIMARY_ARG_TAG";
+    public static final String INITIATOR = "INITIATOR_ARG_TAG";
     private static final String TAG = "Base Fragment";
-
 
     public BaseFragment() { }
 
@@ -40,11 +41,23 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected boolean hasPrimaryArgument(){
-        return null!=getArguments().getString(BaseFragment.PRIMARY_ARG_TAG);
+        return null!=getArguments().getString(PRIMARY_ARG_TAG);
     }
 
     protected String getPrimaryArgument(){
-        return getArguments().getString(BaseFragment.PRIMARY_ARG_TAG);
+        return getArguments().getString(PRIMARY_ARG_TAG);
+    }
+
+    protected Class getInitiator(){
+        if(getArguments().containsKey(INITIATOR)){
+            String className = getArguments().getString(INITIATOR);
+            try {
+                return Class.forName(className);
+            } catch (ClassNotFoundException e) {
+                Log.d(TAG, "Initator class not found: " + className);
+            }
+        }
+        return null;
     }
 
 
@@ -59,4 +72,6 @@ public abstract class BaseFragment extends Fragment {
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
+
+
 }

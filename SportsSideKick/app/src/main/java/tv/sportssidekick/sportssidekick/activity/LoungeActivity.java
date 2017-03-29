@@ -47,7 +47,6 @@ import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsFragment;
@@ -55,10 +54,13 @@ import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LoginFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.MemberInfoFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.SignUpFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.FollowingFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.FollowersFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
@@ -222,7 +224,9 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(EditProfileFragment.class);
         popupContainerFragments.add(LoginFragment.class);
         popupContainerFragments.add(SignUpFragment.class);
-        popupContainerFragments.add(AlertDialogFragment.class);
+        popupContainerFragments.add(MemberInfoFragment.class);
+        popupContainerFragments.add(FollowersFragment.class);
+        popupContainerFragments.add(FollowingFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
 
@@ -376,6 +380,10 @@ public class LoungeActivity extends AppCompatActivity {
         EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class));
     }
 
+    public void onFollowersButtonClick(View view) {
+        EventBus.getDefault().post(new FragmentEvent(FollowingFragment.class));
+    }
+
     private void setNumberOfNotification(String number){
         notificationNumber.setText(number);
     }
@@ -409,6 +417,7 @@ public class LoungeActivity extends AppCompatActivity {
         }
         else {
             //reset profile name and picture to blank values
+            setYourCoinsValue(String.valueOf(0)); // TODO get user coins
             yourLevel.setVisibility(View.INVISIBLE);
             userLevelBackground.setVisibility(View.INVISIBLE);
             userLevelProgress.setVisibility(View.INVISIBLE);

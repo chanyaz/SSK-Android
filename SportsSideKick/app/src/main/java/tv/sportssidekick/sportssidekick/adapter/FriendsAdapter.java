@@ -36,6 +36,12 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     private List<UserInfo> values;
 
+    public void setInitiatorFragment(Class initiatorFragment) {
+        this.initiatorFragment = initiatorFragment;
+    }
+
+    private Class initiatorFragment;
+
     public List<UserInfo> getValues() {
         return values;
     }
@@ -51,6 +57,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         @Nullable
         @BindView(R.id.profil_name)
         TextView name;
+
         ViewHolder(View v) {
             super(v);
             view = v;
@@ -58,8 +65,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         }
     }
 
-    public FriendsAdapter() {
-        values= new ArrayList<>();
+    public FriendsAdapter(Class initiatorFragment) {
+        this.initiatorFragment = initiatorFragment;
+        values = new ArrayList<>();
     }
 
     @Override
@@ -77,6 +85,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 FragmentEvent fragmentEvent = new FragmentEvent(MemberInfoFragment.class);
+                fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setId(values.get(position).getUserId());
                 EventBus.getDefault().post(fragmentEvent);
@@ -89,12 +98,15 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
-        ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.avatar,imageOptions);
-        if (info.getIsOnline())
+        String avatarUrl = info.getCircularAvatarUrl();
+        if (avatarUrl != null)
         {
-            holder.online.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(avatarUrl, holder.avatar, imageOptions);
         }
-        else {
+
+        if (info.getIsOnline()) {
+            holder.online.setVisibility(View.VISIBLE);
+        } else {
             holder.online.setVisibility(View.GONE);
         }
         holder.name.setText(info.getLastName() + " " + info.getFirstName());
@@ -102,7 +114,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        if (values==null)
+        if (values == null)
             return 0;
         return values.size();
     }

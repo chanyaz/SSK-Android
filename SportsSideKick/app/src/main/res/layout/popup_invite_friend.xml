@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="500dp"
+    android:layout_height="300dp"
+    android:layout_marginBottom="@dimen/margin_60"
+    android:layout_marginEnd="@dimen/margin_90"
+    android:layout_marginStart="@dimen/margin_90"
+    android:layout_marginTop="@dimen/margin_60"
+    android:clickable="true">
+
+    <!-- TOP BUTTONS CONTAINER -->
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/top_vertical_spliter"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="@color/colorAccentLight"
+            android:gravity="center"
+            android:text="Add a friend"
+            android:textColor="@color/white_semitransparent" />
+
+        <TextView
+            android:id="@+id/your_followers_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:background="@color/colorPrimarySemiLight"
+            android:gravity="center"
+            android:text="Invite a friend"
+            android:textColor="@color/colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="@color/colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:background="@color/colorPrimaryLight" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/enter_friend_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_buttons_container"
+        android:padding="@dimen/margin_20"
+        android:background="@color/colorPrimarySemiLight"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/friend_name"
+            style="@style/edit_text_login"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:inputType="text"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:id="@+id/caption_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_toLeftOf="@id/friend_name"
+            android:maxLines="2"
+            android:text="Enter friends email address to invite."
+            android:textColor="@color/wall_shop_description_background" />
+
+    </RelativeLayout>
+
+
+    <!-- BOTTOM BUTTONS CONTAINER -->
+    <RelativeLayout
+        android:id="@+id/bottom_buttons_container_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentStart="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_below="@+id/enter_friend_name"
+        android:background="@drawable/popup_login_button_background">
+
+        <TextView
+            android:id="@+id/sign_up_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Invite"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/sign_up_progress_bar"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
+            android:elevation="2dp"
+            app:indicatorName="LineSpinFadeLoaderIndicator"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
