@@ -123,7 +123,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         TextView rowCommentContent;
         @Nullable
         @BindView(R.id.row_wall_small_cell_comment_tag_color)
-        RelativeLayout rowCommentColorEdge;
+        View rowCommentColorEdge;
 
 
         ViewHolder(View v) {
@@ -146,7 +146,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_wall_post_image_video, parent, false);
             viewHolder = new WallAdapter.ViewHolder(view);
             return viewHolder;
-       }  else if (viewType == VIEW_TYPE_SMALL_CELL) {
+        }  else if (viewType == VIEW_TYPE_SMALL_CELL) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_wall_small_cell, parent, false);
             viewHolder = new WallAdapter.ViewHolder(view);
             return viewHolder;
@@ -230,12 +230,14 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             if (holder.rowCommentContent != null) {
                 holder.rowCommentContent.setText("Comment content");
             }
-            //  holder.rowCommentColorEdge.setBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent));
-            Drawable drawable = ContextCompat.getDrawable(context, R.drawable.small_cell_comment_left_line);
+            if (holder.rowCommentColorEdge != null) {
+                holder.rowCommentColorEdge.setBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent));
+            }
+        /*    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.small_cell_comment_left_line);
             drawable.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
             if (holder.rowCommentColorEdge != null) {
                 holder.rowCommentColorEdge.setBackground(drawable);
-            }
+            }*/
         }
     }
 

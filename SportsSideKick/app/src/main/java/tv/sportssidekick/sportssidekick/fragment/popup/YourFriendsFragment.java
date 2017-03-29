@@ -27,6 +27,8 @@ import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendRequest;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.util.GridItemDecoration;
+import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
  * Created by Djordje on 1/21/2017.
@@ -59,10 +61,14 @@ public class YourFriendsFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_your_friends, container, false);
         ButterKnife.bind(this, view);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 11);
+        int screenWidth = Utility.getDisplayWidth(getActivity());
+        int cellSize = (int) (screenWidth * 0.082);
+        int columns = (screenWidth / (cellSize + (getResources().getDimensionPixelSize(R.dimen.margin_15) * 2)));
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), columns);
         friendsRecyclerView.setLayoutManager(layoutManager);
+        friendsRecyclerView.addItemDecoration(new GridItemDecoration(getResources().getDimensionPixelSize(R.dimen.margin_20),columns));
 
-        final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
+        final FriendsAdapter adapter = new FriendsAdapter(this.getClass(),screenWidth);
         adapter.setInitiatorFragment(YourFriendsFragment.class);
         friendsRecyclerView.setAdapter(adapter);
         Task<List<UserInfo>> friendsTask =  FriendsManager.getInstance().getFriends(0);
