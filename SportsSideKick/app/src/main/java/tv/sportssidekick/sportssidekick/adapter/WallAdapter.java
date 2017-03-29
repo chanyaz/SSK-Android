@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.github.rongi.rotate_layout.layout.RotateLayout;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -26,6 +28,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
+import tv.sportssidekick.sportssidekick.model.wall.WallNews;
+import tv.sportssidekick.sportssidekick.model.wall.WallPost;
+import tv.sportssidekick.sportssidekick.model.wall.WallRumor;
+import tv.sportssidekick.sportssidekick.model.wall.WallStats;
+import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -172,19 +179,30 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(WallAdapter.ViewHolder holder, final int position) {
         if (items.get(position).getType() == VIEW_TYPE_POST_IMAGE) {
+            WallPost post = (WallPost)items.get(position);
             int screenHeight = Utility.getDisplayHeight(context);
             holder.rowPostImage.getLayoutParams().height = (int) (screenHeight * 0.25);
+            ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), holder.rowPostImage,Utility.imageOptionsImageLoader());
+            holder.rowPostHeadline.setText(post.getTitle());
+            holder.rowPostLikes.setText(String.valueOf(post.getLikeCount()));
+            holder.rowPostComments.setText(String.valueOf(post.getCommentsCount()));
+//            holder.rowPostName.setText();
         }
+
         if (items.get(position).getType() == VIEW_TYPE_SMALL_CELL) {
+            WallRumor rumor = (WallRumor)items.get(position);
             holder.rowSmallCellHeadline.setText("RUMOUR");
-            holder.rowSmallCellDescription.setText("Small cell description");
+            holder.rowSmallCellDescription.setText(rumor.getTitle());
+//            holder.rowSmallCellDescription.setText();
             Drawable drawable = ContextCompat.getDrawable(context, R.drawable.rumour_headerz);
             drawable.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
             if (holder.headlineBackground != null) {
                 holder.headlineBackground.setBackground(drawable);
             }
         }
+
         if (items.get(position).getType() == VIEW_TYPE_SMALL_CELL_WITH_CIRCLE_PROGRESS) {
+
             holder.rowSmallCellWithProgressHeadline.setText("Small cell headline");
             if (holder.rowSmallCellWithProgressDescription != null) {
                 holder.rowSmallCellWithProgressDescription.setText("Small cell with circle progress description");
@@ -204,15 +222,17 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 holder.categoryBackground.setBackground(drawable);
             }
         }
+
         if (items.get(position).getType() == VIEW_TYPE_SHOP) {
+            WallStoreItem storeItem = (WallStoreItem) items.get(position);
             int screenHeight = Utility.getDisplayHeight(context);
             if (holder.rowShopImage != null) {
                 holder.rowShopImage.getLayoutParams().height = (int) (screenHeight * 0.25);
             }
-            //TODO SET IMAGE
-            holder.rowShopItemName.setText("Shop item name");
+            ImageLoader.getInstance().displayImage(storeItem.getCoverImage(), holder.rowShopImage,Utility.imageOptionsImageLoader());
+            holder.rowShopItemName.setText(storeItem.getTitle());
             holder.rowShopItemPrice.setText("€82");
-            holder.rowShopUserName.setText("Shop user name");
+            holder.rowShopUserName.setText(storeItem.getSubTitle());
             if (holder.rowShopOpen != null) {
                 holder.rowShopOpen.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -222,13 +242,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 });
             }
         }
+
         if (items.get(position).getType() == VIEW_TYPE_COMMENT) {
+            WallNews news = (WallNews)items.get(position);
             if (holder.rowCommentName != null) {
-                holder.rowCommentName.setText("Comment name");
+                holder.rowCommentName.setText(news.getTitle());
             }
 
             if (holder.rowCommentContent != null) {
-                holder.rowCommentContent.setText("Comment content");
+                holder.rowCommentContent.setText(news.getBodyText());
             }
             if (holder.rowCommentColorEdge != null) {
                 holder.rowCommentColorEdge.setBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent));
