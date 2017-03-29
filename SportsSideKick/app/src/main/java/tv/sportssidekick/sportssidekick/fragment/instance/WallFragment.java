@@ -13,7 +13,6 @@ import android.widget.Button;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,7 +21,6 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
-import tv.sportssidekick.sportssidekick.model.TemporaryWallModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
@@ -62,20 +60,13 @@ public class WallFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    List<TemporaryWallModel> fakeModelList;
+    List<WallBase> wallItems;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        populateFakeList();
-        adapter = new WallAdapter(getActivity(),fakeModelList);
-        if(wallRecyclerView!=null){
-            wallRecyclerView.setAdapter(adapter);
-            wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
-            wallRecyclerView.setLayoutManager(layoutManager);
-        }
+        wallItems = new ArrayList<>();
         WallModel.getInstance();
         return view;
     }
@@ -86,34 +77,20 @@ public class WallFragment extends BaseFragment {
        WallBase post = event.getPost();
         if(post!=null){
             Log.d(TAG,"Post is:" + post.toString());
+            wallItems.add(post);
         }
     }
-
 
     @Subscribe
     public void onPostsLoaded(PostLoadCompleteEvent event){
-     Log.d(TAG,"ALL POSTS LOADED!");
-    }
-
-
-    private void populateFakeList(){
-        fakeModelList = new ArrayList<>();
-        for(int i=0;i<50;i++){
-            //add video
-            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_POST_IMAGE,0));
-            //add small cell
-            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SMALL_CELL,0));
-            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SMALL_CELL,1));
-            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SMALL_CELL,3));
-            //add small cell with progress bar
-            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SMALL_CELL_WITH_CIRCLE_PROGRESS,0));
-            //add shop
-            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_SHOP,0));
-            //add comment
-            fakeModelList.add(new TemporaryWallModel(WallAdapter.VIEW_TYPE_COMMENT,0));
-
+        Log.d(TAG,"ALL POSTS LOADED!");
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        adapter = new WallAdapter(getActivity(), wallItems);
+        if(wallRecyclerView!=null){
+            wallRecyclerView.setAdapter(adapter);
+            wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
+            wallRecyclerView.setLayoutManager(layoutManager);
         }
-        Collections.shuffle(fakeModelList);
+        adapter.notifyDataSetChanged();
     }
-
 }

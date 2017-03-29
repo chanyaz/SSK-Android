@@ -142,7 +142,7 @@ public class MemberInfoFragment extends BaseFragment {
         newChatInfo.setUsersIds(userIds);
 
         ImsManager.getInstance().createNewChat(newChatInfo);
-        EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
+        EventBus.getDefault().post(new FragmentEvent(getInitiator(), true));
     }
 
     @OnClick(R.id.friend_button)

@@ -21,6 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -49,6 +50,8 @@ import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.FollowersFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.FollowingFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
@@ -59,8 +62,6 @@ import tv.sportssidekick.sportssidekick.fragment.popup.SignUpFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.FollowingFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.FollowersFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
@@ -388,7 +389,7 @@ public class LoungeActivity extends AppCompatActivity {
         notificationNumber.setText(number);
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserLogin(UserInfo user)
     {
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL)

@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.model.wall;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,9 +17,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallBase {
+public abstract class WallBase {
 
     private static final String TAG = "WALLBASE";
+
+    @JsonIgnore
+    public int getType() {
+        return type.ordinal();
+    }
+
+    @JsonIgnore
+    public void setType(PostType type) {
+        this.type = type;
+    }
 
     enum PostType {
         post,
@@ -144,7 +155,9 @@ public class WallBase {
                 case wallStoreItem:
                     typeReference = new TypeReference<WallStoreItem>(){};
             }
-            return mapper.convertValue(wallItem, typeReference);
+            WallBase item =  mapper.convertValue(wallItem, typeReference);
+            item.setType(type);
+            return item;
         }
         return null;
     }

@@ -288,7 +288,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                     // TODO Convert to post and set local object to be equal to this one
-                    WallBase post = new WallBase();
+                    WallBase post = new WallPost();
                     EventBus.getDefault().post(new PostCompleteEvent(post));
 
                 } else {
@@ -321,7 +321,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                     // TODO Convert to post and set local object to be equal to this one
-                    WallBase post = new WallBase();
+                    WallBase post = new WallPost();
                     EventBus.getDefault().post(new PostUpdateEvent(post));
                 } else {
                     EventBus.getDefault().post(new PostUpdateEvent(null));

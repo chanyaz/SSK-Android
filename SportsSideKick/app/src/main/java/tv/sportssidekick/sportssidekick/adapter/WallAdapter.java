@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.model.TemporaryWallModel;
+import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -37,7 +37,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     private static final String TAG = "WallAdapter";
 
-    private List<TemporaryWallModel> fakeModelList;
+    private List<WallBase> items;
 
     public static final int VIEW_TYPE_POST_IMAGE = 0;
     public static final int VIEW_TYPE_SMALL_CELL = 1;
@@ -133,9 +133,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    public WallAdapter(Context context, List<TemporaryWallModel> fakeModelList) {
+    public WallAdapter(Context context, List<WallBase> fakeModelList) {
         this.context = context;
-        this.fakeModelList = fakeModelList;
+        this.items = fakeModelList;
     }
 
     @Override
@@ -171,11 +171,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(WallAdapter.ViewHolder holder, final int position) {
-        if (fakeModelList.get(position).getType() == VIEW_TYPE_POST_IMAGE) {
+        if (items.get(position).getType() == VIEW_TYPE_POST_IMAGE) {
             int screenHeight = Utility.getDisplayHeight(context);
             holder.rowPostImage.getLayoutParams().height = (int) (screenHeight * 0.25);
         }
-        if (fakeModelList.get(position).getType() == VIEW_TYPE_SMALL_CELL) {
+        if (items.get(position).getType() == VIEW_TYPE_SMALL_CELL) {
             holder.rowSmallCellHeadline.setText("RUMOUR");
             holder.rowSmallCellDescription.setText("Small cell description");
             Drawable drawable = ContextCompat.getDrawable(context, R.drawable.rumour_headerz);
@@ -184,7 +184,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 holder.headlineBackground.setBackground(drawable);
             }
         }
-        if (fakeModelList.get(position).getType() == VIEW_TYPE_SMALL_CELL_WITH_CIRCLE_PROGRESS) {
+        if (items.get(position).getType() == VIEW_TYPE_SMALL_CELL_WITH_CIRCLE_PROGRESS) {
             holder.rowSmallCellWithProgressHeadline.setText("Small cell headline");
             if (holder.rowSmallCellWithProgressDescription != null) {
                 holder.rowSmallCellWithProgressDescription.setText("Small cell with circle progress description");
@@ -204,7 +204,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 holder.categoryBackground.setBackground(drawable);
             }
         }
-        if (fakeModelList.get(position).getType() == VIEW_TYPE_SHOP) {
+        if (items.get(position).getType() == VIEW_TYPE_SHOP) {
             int screenHeight = Utility.getDisplayHeight(context);
             if (holder.rowShopImage != null) {
                 holder.rowShopImage.getLayoutParams().height = (int) (screenHeight * 0.25);
@@ -222,7 +222,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 });
             }
         }
-        if (fakeModelList.get(position).getType() == VIEW_TYPE_COMMENT) {
+        if (items.get(position).getType() == VIEW_TYPE_COMMENT) {
             if (holder.rowCommentName != null) {
                 holder.rowCommentName.setText("Comment name");
             }
@@ -239,10 +239,19 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
+//    enum PostType {
+//        post,
+//        news,
+//        betting,
+//        stats,
+//        rumor,
+//        wallStoreItem
+//    }
+
     @Override
     public int getItemViewType(int position) {
         //return super.getItemViewType(position);
-        switch (fakeModelList.get(position).getType()) {
+        switch (items.get(position).getType()) {
             case VIEW_TYPE_POST_IMAGE:
                 return VIEW_TYPE_POST_IMAGE;
             case VIEW_TYPE_SMALL_CELL:
@@ -254,11 +263,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             case VIEW_TYPE_COMMENT:
                 return VIEW_TYPE_COMMENT;
         }
-        return position;
+        return VIEW_TYPE_SMALL_CELL;
     }
 
     @Override
     public int getItemCount() {
-        return fakeModelList.size();
+        return items.size();
     }
 }
