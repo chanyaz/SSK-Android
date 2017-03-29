@@ -2,6 +2,7 @@ package tv.sportssidekick.sportssidekick.util;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -228,34 +230,8 @@ public class Utility {
         Prefs.putString("ID", id);
     }
 
-    public static void showDialog(final Activity activity, String title, String content){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity,android.R.style.Theme_Translucent);
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_layout, null);
-        dialogBuilder.setView(dialogView);
-
-        TextView titleField = (TextView) dialogView.findViewById(R.id.dialog_caption);
-        titleField.setText(title);
-
-        TextView contentField = (TextView) dialogView.findViewById(R.id.dialog_content);
-        contentField.setText(content);
-
-        ImageButton button = (ImageButton) dialogView.findViewById(R.id.dialog_ok_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              activity.onBackPressed();
-            }
-        });
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.show();
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

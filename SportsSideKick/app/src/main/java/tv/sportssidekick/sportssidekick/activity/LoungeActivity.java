@@ -21,6 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -48,9 +49,11 @@ import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.AddFriendFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.InviteFriendFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LoginFragment;
@@ -228,6 +231,8 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(MemberInfoFragment.class);
         popupContainerFragments.add(FollowersFragment.class);
         popupContainerFragments.add(FollowingFragment.class);
+        popupContainerFragments.add(AddFriendFragment.class);
+        popupContainerFragments.add(InviteFriendFragment.class);
         popupContainerFragments.add(AlertDialogFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
@@ -390,7 +395,7 @@ public class LoungeActivity extends AppCompatActivity {
         notificationNumber.setText(number);
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserLogin(UserInfo user)
     {
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL)

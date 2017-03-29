@@ -45,6 +45,9 @@ public class YourFriendsFragment extends BaseFragment {
     @BindView(R.id. friend_requests_count)
     TextView friendRequestCount;
 
+    @BindView(R.id.no_result_text)
+    TextView noResultText;
+
     public YourFriendsFragment() {
         // Required empty public constructor
     }
@@ -60,16 +63,20 @@ public class YourFriendsFragment extends BaseFragment {
         friendsRecyclerView.setLayoutManager(layoutManager);
 
         final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
+        adapter.setInitiatorFragment(YourFriendsFragment.class);
         friendsRecyclerView.setAdapter(adapter);
         Task<List<UserInfo>> friendsTask =  FriendsManager.getInstance().getFriends(0);
         friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if(task.isSuccessful()){
+                    noResultText.setVisibility(View.GONE);
+                    friendsRecyclerView.setVisibility(View.VISIBLE);
                     adapter.getValues().addAll(task.getResult());
                     adapter.notifyDataSetChanged();
                 } else {
-                    // TODO - No friends to display!
+                    noResultText.setVisibility(View.VISIBLE);
+                    friendsRecyclerView.setVisibility(View.GONE);
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -105,6 +112,12 @@ public class YourFriendsFragment extends BaseFragment {
     @OnClick(R.id.friend_requests)
     public void friendRequestsDialog(){
         EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
+    }
+
+    @OnClick(R.id.add_friend)
+    public void  addFriend()
+    {
+        EventBus.getDefault().post(new FragmentEvent(AddFriendFragment.class));
     }
 
 }
