@@ -24,6 +24,7 @@
             android:layout_centerHorizontal="true" />
 
         <TextView
+            android:id="@+id/add_friend_button"
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toStartOf="@+id/top_vertical_spliter"
@@ -33,7 +34,6 @@
             android:textColor="@color/white_semitransparent" />
 
         <TextView
-            android:id="@+id/your_followers_button"
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toEndOf="@+id/top_vertical_spliter"
@@ -70,13 +70,14 @@
         android:visibility="visible">
 
         <EditText
-            android:id="@+id/friend_name"
+            android:id="@+id/invite_friend_name"
             style="@style/edit_text_login"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:inputType="text"
-            android:textAlignment="textStart" />
+            android:textAlignment="textStart"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/caption_label"
@@ -84,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="@dimen/margin_10"
-            android:layout_toLeftOf="@id/friend_name"
+            android:layout_toLeftOf="@id/invite_friend_name"
             android:maxLines="2"
             android:text="Enter friends email address to invite."
             android:textColor="@color/wall_shop_description_background" />
@@ -94,7 +95,7 @@
 
     <!-- BOTTOM BUTTONS CONTAINER -->
     <RelativeLayout
-        android:id="@+id/bottom_buttons_container_sign_up"
+        android:id="@+id/bottom_buttons_container_invite"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentStart="true"
@@ -103,7 +104,7 @@
         android:background="@drawable/popup_login_button_background">
 
         <TextView
-            android:id="@+id/sign_up_text"
+            android:id="@+id/invite_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -112,7 +113,7 @@
             android:textSize="18sp" />
 
         <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/sign_up_progress_bar"
+            android:id="@+id/invvite_progress_bar"
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
             android:elevation="2dp"

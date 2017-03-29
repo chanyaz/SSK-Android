@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -45,7 +46,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public List<UserInfo> getValues() {
         return values;
     }
-
+    private int screenWidth;
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
         @Nullable
@@ -65,9 +66,16 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         }
     }
 
-    public FriendsAdapter(Class initiatorFragment) {
+    public FriendsAdapter(Class initiatorFragment){
         this.initiatorFragment = initiatorFragment;
         values = new ArrayList<>();
+        this.screenWidth = 0;
+    }
+
+    public FriendsAdapter(Class initiatorFragment,int screenWidth) {
+        this.initiatorFragment = initiatorFragment;
+        values = new ArrayList<>();
+        this.screenWidth = screenWidth;
     }
 
     @Override
@@ -81,6 +89,12 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, parent, false);
         viewHolder = new ViewHolder(view);
 
+        if(screenWidth>0) { // screen width is only set in YourFriendsFragment
+            int matchParent = RelativeLayout.LayoutParams.WRAP_CONTENT;
+            int cellSize = (int) (screenWidth * 0.092);
+            view.getLayoutParams().height = matchParent;
+            view.getLayoutParams().width = (cellSize);
+        }
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

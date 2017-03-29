@@ -48,11 +48,14 @@ import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.AddFriendFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FollowersFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FollowingFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.InviteFriendFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LoginFragment;
@@ -228,6 +231,9 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(MemberInfoFragment.class);
         popupContainerFragments.add(FollowersFragment.class);
         popupContainerFragments.add(FollowingFragment.class);
+        popupContainerFragments.add(AddFriendFragment.class);
+        popupContainerFragments.add(InviteFriendFragment.class);
+        popupContainerFragments.add(AlertDialogFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
 
 

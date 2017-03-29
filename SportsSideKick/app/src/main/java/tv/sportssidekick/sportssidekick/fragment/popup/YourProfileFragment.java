@@ -28,6 +28,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.UserStatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -70,6 +71,9 @@ public class YourProfileFragment extends BaseFragment {
     @BindView(R.id.logout_button)
     ImageView logoutButton;
 
+    @BindView(R.id.reset_button)
+    ImageView resetButton;
+
     @BindView(R.id.progressBar)
     ProgressBar progressBarCircle;
 
@@ -88,6 +92,7 @@ public class YourProfileFragment extends BaseFragment {
     public YourProfileFragment() {
         // Required empty public constructor
     }
+
     UserStatsAdapter adapter;
 
     @Override
@@ -108,8 +113,20 @@ public class YourProfileFragment extends BaseFragment {
 
     @OnClick(R.id.logout_button)
     public void setLogoutButton() {
-        Model.getInstance().logout();
-        getActivity().onBackPressed();
+        AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "This will log you out of the app!",
+                new View.OnClickListener() {// Cancel
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+                    }
+                }, new View.OnClickListener() { // Confirm
+                    @Override
+                    public void onClick(View v) {
+                        Model.getInstance().logout();
+                        getActivity().onBackPressed();
+                    }
+                });
     }
 
     @OnClick(R.id.confirm_button)
@@ -151,6 +168,24 @@ public class YourProfileFragment extends BaseFragment {
         }
     }
 
+    @OnClick(R.id.reset_button)
+    public void resetOnClick() {
+        AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "This will reset the app!",
+                new View.OnClickListener() {// Cancel
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+                    }
+                }, new View.OnClickListener() { // Confirm
+                    @Override
+                    public void onClick(View v) {
+                        //TODO RESET APP
+                        getActivity().onBackPressed();
+                    }
+                });
+    }
+
 
     private void setupFragment() {
         UserInfo user = Model.getInstance().getUserInfo();
@@ -158,21 +193,21 @@ public class YourProfileFragment extends BaseFragment {
             Date subscribed = new Date(0);
 
             ArrayList<Pair<String, String>> values = new ArrayList<>();
-            values.add(new Pair<>("Caps level",String.valueOf(user.getLevel())));
-            String daysUsingSSK =  new SimpleDateFormat("d").format(subscribed);
-            values.add(new Pair<>("Days using SSK",daysUsingSSK));
-            values.add(new Pair<>("Friends",String.valueOf(user.getFriendsCount())));
-            values.add(new Pair<>("Following",String.valueOf(user.getFollowingCount())));
-            values.add(new Pair<>("Followers",String.valueOf(user.getFollowersCount())));
-            values.add(new Pair<>("Wall posts",String.valueOf(user.getWallPosts())));
-            values.add(new Pair<>("Videos watched",String.valueOf(user.getVideosWatched())));
-            values.add(new Pair<>("Chats",String.valueOf(user.getChats())));
-            values.add(new Pair<>("Video chats",String.valueOf(user.getVideoChats())));
-            values.add(new Pair<>("Public chats",String.valueOf(user.getPublicChats())));
-            values.add(new Pair<>("Matches attended(home)",String.valueOf(user.getMatchesHome())));
-            values.add(new Pair<>("Matches attended(away)",String.valueOf(user.getMatchesAway())));
-            values.add(new Pair<>("Likes received",String.valueOf(user.getLikes())));
-            values.add(new Pair<>("Comments made",String.valueOf(user.getComments())));
+            values.add(new Pair<>("Caps level", String.valueOf(user.getLevel())));
+            String daysUsingSSK = new SimpleDateFormat("d").format(subscribed);
+            values.add(new Pair<>("Days using SSK", daysUsingSSK));
+            values.add(new Pair<>("Friends", String.valueOf(user.getFriendsCount())));
+            values.add(new Pair<>("Following", String.valueOf(user.getFollowingCount())));
+            values.add(new Pair<>("Followers", String.valueOf(user.getFollowersCount())));
+            values.add(new Pair<>("Wall posts", String.valueOf(user.getWallPosts())));
+            values.add(new Pair<>("Videos watched", String.valueOf(user.getVideosWatched())));
+            values.add(new Pair<>("Chats", String.valueOf(user.getChats())));
+            values.add(new Pair<>("Video chats", String.valueOf(user.getVideoChats())));
+            values.add(new Pair<>("Public chats", String.valueOf(user.getPublicChats())));
+            values.add(new Pair<>("Matches attended(home)", String.valueOf(user.getMatchesHome())));
+            values.add(new Pair<>("Matches attended(away)", String.valueOf(user.getMatchesAway())));
+            values.add(new Pair<>("Likes received", String.valueOf(user.getLikes())));
+            values.add(new Pair<>("Comments made", String.valueOf(user.getComments())));
             adapter.getValues().addAll(values);
 
             ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
@@ -183,8 +218,8 @@ public class YourProfileFragment extends BaseFragment {
             DateFormat df = new SimpleDateFormat("dd MMM yyyy");
             subscribedSince.setText(df.format(subscribed));
 
-            progressBarCircle.setProgress((int) (user.getProgress()*progressBarCircle.getMax()));
-            progressBarCaps.setProgress((int) (user.getProgress()*progressBarCircle.getMax()));
+            progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
+            progressBarCaps.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
             profileImageLevel.setText(String.valueOf(user.getLevel()));
             capsValue.setText(String.valueOf(user.getLevel()));
             nextCapsValue.setText(String.valueOf(user.getLevel() + 1));

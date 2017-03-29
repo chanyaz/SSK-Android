@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,22 +62,29 @@ public class FollowingFragment extends BaseFragment {
         final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
         adapter.setInitiatorFragment(this.getClass());
         followingRecyclerView.setAdapter(adapter);
-        Task<List<UserInfo>> friendsTask = FriendsManager.getInstance().getUserFollowingList(Model.getInstance().getUserInfo().getUserId(), 0);
-        friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
-            @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
-                if (task.isSuccessful()) {
-                    adapter.getValues().addAll(task.getResult());
-                    adapter.notifyDataSetChanged();
-                    followingRecyclerView.setVisibility(View.VISIBLE);
-                    noResult.setVisibility(View.GONE);
-                } else {
-                    followingRecyclerView.setVisibility(View.GONE);
-                    noResult.setVisibility(View.VISIBLE);
+        UserInfo userInfo = Model.getInstance().getUserInfo();
+        if (userInfo != null)
+        {
+            Task<List<UserInfo>> friendsTask = FriendsManager.getInstance().getUserFollowingList(userInfo.getUserId(), 0);
+            friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+                @Override
+                public void onComplete(@NonNull Task<List<UserInfo>> task) {
+                    if (task.isSuccessful()) {
+                        adapter.getValues().addAll(task.getResult());
+                        adapter.notifyDataSetChanged();
+                        followingRecyclerView.setVisibility(View.VISIBLE);
+                        noResult.setVisibility(View.GONE);
+                    } else {
+                        followingRecyclerView.setVisibility(View.GONE);
+                        noResult.setVisibility(View.VISIBLE);
+                    }
+                    progressBar.setVisibility(View.GONE);
                 }
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+            });
+        }
+        else {
+            Toast.makeText(getContext(), "Error. Try again later.", Toast.LENGTH_SHORT).show();
+        }
 
         return view;
     }
