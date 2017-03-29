@@ -2,6 +2,13 @@ package tv.sportssidekick.sportssidekick.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.media.ThumbnailUtils;
 import android.provider.MediaStore;
 
@@ -107,6 +114,46 @@ public class AWSFileUploader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void uploadCircularProfileImage(String filename, String filepath, File filesDir, GameSparksEvent.Type event){
+        File image = new File(filepath);
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+        bitmap = Bitmap.createScaledBitmap(bitmap,250,250,true);
+        bitmap = getCircleBitmap(bitmap);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 70, bos);
+        try {
+            File file = new File(filesDir,"temp_profile_circled.jpg");
+            bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
+            upload(filename,file.getPath(),event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Bitmap getCircleBitmap(Bitmap bm) {
+        int sice = Math.min((bm.getWidth()), (bm.getHeight()));
+        Bitmap bitmap = ThumbnailUtils.extractThumbnail(bm, sice, sice);
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xffff0000;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        paint.setDither(true);
+        paint.setFilterBitmap(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawOval(rectF, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        bitmap.recycle();
+        return output;
     }
 
     public static String generateRandName(int length){

@@ -142,14 +142,14 @@ public class EditProfileFragment extends BaseFragment {
             switch (requestCode) {
                 case REQUEST_CODE_IMAGE_CAPTURE:
                     Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
-                    Model.getInstance().uploadImageForProfile(currentPath);
+                    Model.getInstance().uploadImageForProfile(currentPath, getContext().getFilesDir());
                     break;
                 case REQUEST_CODE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
                     String realPath = Model.getRealPathFromURI(getContext(),selectedImageURI);
                     Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
-                    // TODO apply image?
+                    Model.getInstance().uploadImageForProfile(realPath, getContext().getFilesDir());
                     break;
             }
         }
@@ -209,7 +209,7 @@ public class EditProfileFragment extends BaseFragment {
             case PROFILE_IMAGE_FILE_UPLOADED:
                 if(event.getData()!=null){
                     String url = (String)event.getData();
-                    Model.getInstance().setProfileImageUrl(url,false);
+                    Model.getInstance().setProfileImageUrl(url,true);
                     ImageLoader.getInstance().displayImage(url, profileImage, Utility.getImageOptionsForUsers());
                 }
 
