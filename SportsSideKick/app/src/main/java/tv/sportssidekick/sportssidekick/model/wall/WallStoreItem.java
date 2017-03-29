@@ -21,6 +21,7 @@ public class WallStoreItem extends WallBase {
     private Date pubDate;
     private String coverImage;
     private float coverAspectRatio;
+    //TODO need price from server?!
 
     public WallStoreItem(){
         super();
