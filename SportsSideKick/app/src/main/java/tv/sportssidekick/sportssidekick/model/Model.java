@@ -558,13 +558,13 @@ public class Model {
         AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
     }
 
-    public void uploadImageForProfile(String filepath){
+    public void uploadImageForProfile(String filepath, File filesDir){
         String filename =
                 "photo_" +
                         currentUserInfo.getUserId() +
                         System.currentTimeMillis() +
-                        ".jpg";
-        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.PROFILE_IMAGE_FILE_UPLOADED);
+                        ".png";
+        AWSFileUploader.getInstance().uploadCircularProfileImage(filename,filepath, filesDir, GameSparksEvent.Type.PROFILE_IMAGE_FILE_UPLOADED);
     }
 
     public void uploadImageForMessage(String filepath){
