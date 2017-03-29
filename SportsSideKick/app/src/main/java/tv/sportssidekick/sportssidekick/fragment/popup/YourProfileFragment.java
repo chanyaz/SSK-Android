@@ -28,7 +28,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.UserStatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.model.AlertDialogContentManager;
+import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -113,7 +113,7 @@ public class YourProfileFragment extends BaseFragment {
 
     @OnClick(R.id.logout_button)
     public void setLogoutButton() {
-        AlertDialogContentManager.getInstance().showDialog("ARE YOU SURE?", "This will log you out of the app!",
+        AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "This will log you out of the app!",
                 new View.OnClickListener() {// Cancel
                     @Override
                     public void onClick(View v) {
@@ -170,7 +170,7 @@ public class YourProfileFragment extends BaseFragment {
 
     @OnClick(R.id.reset_button)
     public void resetOnClick() {
-        AlertDialogContentManager.getInstance().showDialog("ARE YOU SURE?", "This will reset the app!",
+        AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "This will reset the app!",
                 new View.OnClickListener() {// Cancel
                     @Override
                     public void onClick(View v) {

@@ -11,7 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.model.AlertDialogContentManager;
+import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 
 /**
  * Created by Nemanja Jovanovic on 28/03/2017.
@@ -45,19 +45,19 @@ public class AlertDialogFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.dialog_layout, container, false);
         ButterKnife.bind(this, view);
 
-        String titleText = AlertDialogContentManager.getInstance().getTitle();
-        String contentText = AlertDialogContentManager.getInstance().getContent();
+        String titleText = AlertDialogManager.getInstance().getTitle();
+        String contentText = AlertDialogManager.getInstance().getContent();
 
         title.setText(titleText);
         content.setText(contentText);
 
-        if(AlertDialogContentManager.getInstance().getCancelListener()!=null){
+        if(AlertDialogManager.getInstance().getCancelListener()!=null){
             cancelButton.setVisibility(View.VISIBLE);
             buttonDivider.setVisibility(View.VISIBLE);
         }
 
-        confirmButton.setOnClickListener(AlertDialogContentManager.getInstance().getConfirmListener());
-        cancelButton.setOnClickListener(AlertDialogContentManager.getInstance().getCancelListener());
+        confirmButton.setOnClickListener(AlertDialogManager.getInstance().getConfirmListener());
+        cancelButton.setOnClickListener(AlertDialogManager.getInstance().getCancelListener());
 
         return view;
     }

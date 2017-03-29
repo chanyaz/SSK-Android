@@ -23,7 +23,7 @@ import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.model.AlertDialogContentManager;
+import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
@@ -146,7 +146,7 @@ public class LoginFragment extends BaseFragment {
             case LOGIN_FAILED:
                 progressBar.setVisibility(View.GONE);
                 loginText.setVisibility(View.VISIBLE);
-                AlertDialogContentManager.getInstance().showDialog("Login Failed", "Please re-enter your password and try again", null, new View.OnClickListener() {
+                AlertDialogManager.getInstance().showAlertDialog("Login Failed", "Please re-enter your password and try again", null, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 getActivity().onBackPressed();

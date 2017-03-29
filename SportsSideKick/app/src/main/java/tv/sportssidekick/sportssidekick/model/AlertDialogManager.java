@@ -13,16 +13,16 @@ import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
  * www.hypercubesoft.com
  */
 
-public class AlertDialogContentManager {
+public class AlertDialogManager {
 
-    private static AlertDialogContentManager instance;
+    private static AlertDialogManager instance;
 
-    private AlertDialogContentManager() {
+    private AlertDialogManager() {
     }
 
-    public static AlertDialogContentManager getInstance() {
+    public static AlertDialogManager getInstance() {
         if (instance == null) {
-            instance = new AlertDialogContentManager();
+            instance = new AlertDialogManager();
         }
         return instance;
     }
@@ -57,7 +57,7 @@ public class AlertDialogContentManager {
         return confirmListener;
     }
 
-    public void showDialog(String title, String content, View.OnClickListener cancelListener, View.OnClickListener confirmListener){
+    public void showAlertDialog(String title, String content, View.OnClickListener cancelListener, View.OnClickListener confirmListener){
         EventBus.getDefault().post(new FragmentEvent(AlertDialogFragment.class));
         this.title = title;
         this.content = content;
