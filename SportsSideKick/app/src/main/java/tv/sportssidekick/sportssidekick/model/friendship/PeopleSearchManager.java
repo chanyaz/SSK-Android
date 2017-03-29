@@ -72,7 +72,7 @@ public class PeopleSearchManager {
         createRequest("searchUsers")
                 .setEventAttribute(GSConstants.ENTRY_COUNT,"50")
                 .setEventAttribute(GSConstants.OFFSET,firstUserIndex)
-                .setEventAttribute(GSConstants.SEARCH_PATTERN,firstUserIndex)
+                .setEventAttribute(GSConstants.SEARCH_PATTERN,searchString)
                 .send(consumer);
         return source.getTask();
     }

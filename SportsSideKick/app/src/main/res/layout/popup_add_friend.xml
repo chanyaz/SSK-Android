@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="500dp"
-    android:layout_height="250dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_60"
     android:layout_marginEnd="@dimen/margin_90"
     android:layout_marginStart="@dimen/margin_90"
     android:layout_marginTop="@dimen/margin_60"
-    android:clickable="true">
+    android:clickable="true"
+    android:background="@drawable/popup_bottom_background">
 
     <!-- TOP BUTTONS CONTAINER -->
     <RelativeLayout
@@ -65,17 +66,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_buttons_container"
-        android:background="@color/colorPrimarySemiLight"
         android:padding="@dimen/margin_20"
         android:visibility="visible">
 
         <EditText
-            android:id="@+id/friend_name"
+            android:id="@+id/add_friend_name"
             style="@style/edit_text_login"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:inputType="text"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:hint="Enter friend's name, email or phone number."
             android:textAlignment="textStart" />
 
         <TextView
@@ -84,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="@dimen/margin_10"
-            android:layout_toLeftOf="@id/friend_name"
+            android:layout_toLeftOf="@id/add_friend_name"
             android:maxLines="2"
             android:text="Enter friend's name, email or phone number."
             android:textColor="@color/wall_shop_description_background" />
@@ -92,36 +95,37 @@
 
     </RelativeLayout>
 
-    <View
-        android:id="@+id/top_split_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/enter_friend_name"
-        android:background="@android:color/black" />
-
     <!-- FRIENDS  LIST-->
     <RelativeLayout
+        android:id="@+id/friends_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/top_split_line"
-        android:background="@drawable/popup_bottom_background">
+        android:layout_height="150dp"
+        android:layout_below="@id/enter_friend_name"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/top_split_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
 
         <TextView
             android:id="@+id/no_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="No friends"
+            android:text="No result"
             android:textColor="@color/white_semitransparent"
             android:visibility="gone" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/your_friend_recycler_view"
+            android:id="@+id/people_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_20"
-            android:layout_marginLeft="@dimen/margin_20"
-            android:layout_marginRight="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_20" />
 
         <com.wang.avi.AVLoadingIndicatorView

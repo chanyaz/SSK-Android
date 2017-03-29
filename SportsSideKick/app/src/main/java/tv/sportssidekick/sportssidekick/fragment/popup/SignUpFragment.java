@@ -12,6 +12,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 
@@ -112,7 +113,7 @@ public class SignUpFragment extends BaseFragment {
         //TODO facebook sign up
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(GameSparksEvent event){
         switch (event.getEventType()){
             case REGISTRATION_ERROR:
