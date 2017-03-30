@@ -151,7 +151,8 @@
         android:layout_marginStart="@dimen/margin_10"
         android:layout_toStartOf="@+id/confirm_button"
         android:gravity="center_vertical|center_horizontal"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:text="@string/this_chat_is_public"/>
 
     <Button
         android:id="@+id/confirm_button"

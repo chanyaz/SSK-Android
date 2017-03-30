@@ -68,13 +68,13 @@ public class Utility {
         }
     }
 
+    private  static volatile DisplayImageOptions blankOptionsUser;
     private  static volatile DisplayImageOptions blankOptions;
-
     public static DisplayImageOptions getImageOptionsForUsers() {
-        if (blankOptions != null) {
-            return blankOptions;
+        if (blankOptionsUser != null) {
+            return blankOptionsUser;
         }
-        blankOptions = new DisplayImageOptions.Builder()
+        blankOptionsUser = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.blank_profile_rounded) // resource or drawable
                 .showImageForEmptyUri(R.drawable.blank_profile_rounded) // resource or drawable
                 .showImageOnFail(R.drawable.blank_profile_rounded) // resource or drawable
@@ -87,7 +87,7 @@ public class Utility {
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
                 .build();
-        return blankOptions;
+        return blankOptionsUser;
     }
 
 

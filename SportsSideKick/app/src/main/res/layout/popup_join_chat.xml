@@ -83,7 +83,7 @@
             android:layout_marginEnd="@dimen/margin_20"
             android:layout_marginStart="@dimen/margin_20">
 
-            <android.support.v7.widget.RecyclerView
+            <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
                 android:id="@+id/friends_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
