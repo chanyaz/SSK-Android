@@ -291,12 +291,12 @@ public class ChatFragment extends BaseFragment {
     @Subscribe
     @SuppressWarnings("Unchecked cast")
     public void onChatEventDetected(GameSparksEvent event){
-        Log.d(TAG, "event received: " + event.getEventType());
+        //Log.d(TAG, "event received: " + event.getEventType());
         switch (event.getEventType()){
             case TYPING:
                     if ((event.getData() != null)) {
                         List<UserInfo> usersTyping = (List<UserInfo>) event.getData();
-                        Log.d(TAG, "Count of usersTyping: " + usersTyping.size());
+                        //Log.d(TAG, "Count of usersTyping: " + usersTyping.size());
                     }
                 break;
             case USER_CHAT_DETECTED:
@@ -327,7 +327,7 @@ public class ChatFragment extends BaseFragment {
                 break;
             case VIDEO_FILE_UPLOADED:
                 videoDownloadUrl = (String) event.getData();
-                Model.getInstance().uploadVideoRecordingThumbnail(currentPath);
+                Model.getInstance().uploadVideoRecordingThumbnail(currentPath,getActivity().getFilesDir());
                 break;
             case VIDEO_IMAGE_FILE_UPLOADED:
                 String videoThumbnailDownloadUrl = (String) event.getData();
@@ -341,7 +341,7 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void onUIChatEventDetected(UIEvent event){
-        Log.d(TAG, "event received: " + event.getId());
+        //Log.d(TAG, "event received: " + event.getId());
         int currentPosition = event.getPosition();
         List<ChatInfo> infos = ImsManager.getInstance().getUserChatsList();
         displayChat(infos.get(currentPosition));
@@ -369,7 +369,7 @@ public class ChatFragment extends BaseFragment {
     }
 
     public void initializeUI(){
-        Log.d(TAG, "Initialize Chat UI");
+        //Log.d(TAG, "Initialize Chat UI");
         List<ChatInfo> allUserChats = ImsManager.getInstance().getUserChatsList();
 
         StringBuilder chatNames = new StringBuilder("");
@@ -398,7 +398,7 @@ public class ChatFragment extends BaseFragment {
                 swipeRefreshLayout.setEnabled(true);
                 messageListView.setVisibility(View.VISIBLE);
                 infoMessage.setVisibility(View.GONE);
-                Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
+                //Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                 messageListView.setLayoutManager(layoutManager);
@@ -408,10 +408,10 @@ public class ChatFragment extends BaseFragment {
                 messageListView.invalidate();
                 return;
             } else {
-                Log.d(TAG, "Message array size is 0!");
+                Log.e(TAG, "Message array size is 0!");
             }
         } else {
-            Log.d(TAG, "Message array is null!");
+            Log.e(TAG, "Message array is null!");
         }
         swipeRefreshLayout.setRefreshing(false);
         swipeRefreshLayout.setEnabled(false);
@@ -436,7 +436,7 @@ public class ChatFragment extends BaseFragment {
                     recorder.prepare();
                     recorder.start();
                 } catch (Exception e) {
-                    Log.e(TAG, "startRecording failed");
+                    Log.e(TAG, "Start of recording failed!");
                 }
             }
             }
@@ -452,7 +452,7 @@ public class ChatFragment extends BaseFragment {
                 Model.getInstance().uploadAudioRecording(audioFilepath);
                 recorder = null;
             } catch (Exception e) {
-                Log.e(TAG, "stopRecording failed!");
+                Log.e(TAG, "Stop recording failed!");
             }
         }
     }
@@ -506,19 +506,19 @@ public class ChatFragment extends BaseFragment {
         if(resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_IMAGE_CAPTURE:
-                    Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
+                    //Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
                     Model.getInstance().uploadImageForMessage(currentPath);
                     break;
                 case REQUEST_CODE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
-                    Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
+                    //Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
                     String realPath = Model.getRealPathFromURI(getContext(),selectedImageURI);
-                    Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
+                    //Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
                     Model.getInstance().uploadImageForMessage(realPath);
                     break;
                 case REQUEST_CODE_VIDEO_CAPTURE:
                     Uri videoUri = intent.getData();
-                    Log.d(TAG, "VIDEO URI IS: " + videoUri.toString());
+                    //Log.d(TAG, "VIDEO URI IS: " + videoUri.toString());
                     currentPath = Model.getRealPathFromURI(getContext(),videoUri);
                     Model.getInstance().uploadVideoRecording(currentPath);
                     break;

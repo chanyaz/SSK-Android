@@ -103,12 +103,12 @@ public class AWSFileUploader {
         });
     }
 
-    public void uploadThumbnail(String filename, String filepath,  GameSparksEvent.Type event) {
+    public void uploadThumbnail(String filename, String filepath,File filesDir,  GameSparksEvent.Type event) {
         Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.MINI_KIND);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);
         try {
-            File file = new File("temp_thumbnail_video.jpg");
+            File file = new File(filesDir,"temp_thumbnail_video.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
             upload(filename,file.getPath(),event);
         } catch (IOException e) {

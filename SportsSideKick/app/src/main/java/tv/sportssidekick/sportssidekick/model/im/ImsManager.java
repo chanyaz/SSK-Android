@@ -92,8 +92,8 @@ public class ImsManager extends GSMessageHandlerAbstract{
     }
 
     public void reload(){
-//        clear();
-//        loadUserChats();
+        clear();
+        loadUserChats();
     }
 
     /////////////////////////////////////
@@ -459,12 +459,16 @@ public class ImsManager extends GSMessageHandlerAbstract{
 
     @Override
     public void onGSScriptMessage(String type, Map<String,Object> data){
+        String chatId;
         switch (type){
             case "ImsUpdateChatInfo":
-                reload();
+                chatId = (String) data.get(CHAT_ID);
+                if(chatId!=null){
+                    reload();
+                }
                 break;
             case "ImsUpdateUserIsTypingState":
-                String chatId = (String) data.get(CHAT_ID);
+                chatId = (String) data.get(CHAT_ID);
                 String sender = (String) data.get(GSConstants.SENDER);
                 String isTyping = (String) data.get(IS_TYPING_VALUE);
                 if(chatId!=null && sender!=null && isTyping!=null){

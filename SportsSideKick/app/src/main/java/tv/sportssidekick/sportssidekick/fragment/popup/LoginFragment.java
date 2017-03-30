@@ -107,7 +107,7 @@ public class LoginFragment extends BaseFragment {
     @OnClick(R.id.reset_text)
     public void forgotPasswordOnClick() {
         String email = emailForgotPassword.getText().toString();
-        //TODO FORGOT PASSWROD ON CLICK
+        Model.getInstance().resetPassword(email);
         getActivity().onBackPressed();
     }
 

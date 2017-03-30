@@ -527,7 +527,6 @@ public class Model {
         if(userCache.containsKey(userId)){
             return userCache.get(userId);
         } else {
-            Log.e(TAG,"There is no user in cache with id: " + userId);
             return null;
         }
     }
@@ -553,9 +552,9 @@ public class Model {
     }
 
     //video_thumb_sLqHBMbL3BQNgddTK0a4wmPfuA531480240556.36911.jpg
-    public void uploadVideoRecordingThumbnail(String filepath){
+    public void uploadVideoRecordingThumbnail(String filepath, File filesDir){
         String filename = "video_thumb_" + currentUserInfo.getUserId() +  System.currentTimeMillis() + ".jpg";
-        AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
+        AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, filesDir, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
     }
 
     public void uploadImageForProfile(String filepath, File filesDir){
