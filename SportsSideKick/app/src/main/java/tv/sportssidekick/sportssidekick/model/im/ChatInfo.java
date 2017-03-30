@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -13,6 +14,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
@@ -30,6 +33,7 @@ public class ChatInfo {
 
     private static final String TAG = "CHAT INFO";
 
+    @JsonProperty("_id")
     private String chatId;
     private String name;
     private ArrayList<String> usersIds;
@@ -131,11 +135,9 @@ public class ChatInfo {
     // don't use that, it is called on login
     void loadChatUsers(String userId) {
         currentUserId = userId;
-        Log.d(TAG, "Requesting Load of chat users");
         EventBus.getDefault().register(this);
         final ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
         for(String uid : getUsersIds()){
-            Log.d(TAG, "Getting User Info for chat user " + uid);
             Task task = Model.getInstance().getUserInfoById(uid);
             tasks.add(task);
         }
@@ -144,12 +146,7 @@ public class ChatInfo {
             new OnSuccessListener() {
                 @Override
                 public void onSuccess(Object o) {
-                    for(Task t : tasks){
-                        UserInfo info = (UserInfo) t.getResult();
-                        Log.e(TAG, "USER ID : " + info.getUserId());
-                    }
                     setupChatNicAndAvatar();
-                    Log.e(TAG, "ALL USERS DOWNLOADED!");
                     EventBus.getDefault().post(new GameSparksEvent("All users downloaded for chat " + getChatId(), GameSparksEvent.Type.CHAT_USERS_DOWNLOADED, getChatId()));
                 }
             }
@@ -173,46 +170,46 @@ public class ChatInfo {
     @Subscribe
     public void onNewMessagesEvent(GameSparksEvent event){
         ImsMessage message;
-//        if(getChatId().equals(event.getFilterId())){
-//            switch (event.getEventType()){
-//                case NEW_MESSAGE:
-//                    message = (ImsMessage) event.getData();
-//                    Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId() + " for chat: " + getChatId());
-//                    messages.add(message);
-//                    break;
-//                case MESSAGE_UPDATED:
-//                    message = (ImsMessage) event.getData();
-//                    Log.d(TAG, "MESSAGE UPDATED EVENT : " + message.getId());
-//                    break;
-//                case NEW_MESSAGE_ADDED:
-//                    message = (ImsMessage) event.getData();
-//                    Log.d(TAG, "NEW MESSAGE ADDED EVENT : " + message.getId());
-//                    messages.add(message);
-//                    break;
-//                case NEXT_PAGE_LOADED:
-//                    ArrayList<ImsMessage> messagesNewPage = (ArrayList<ImsMessage>)event.getData();
-//                    for(ImsMessage m : messagesNewPage){
-//                        boolean exists = false;
-//                        for(ImsMessage mOld : messages){
-//                            if(mOld.getId().equals(m.getId())){
-//                                exists = true;
-//                            }
-//                        }
-//                        if(!exists){
-//                            Log.d(TAG,"Adding message to list: " + m.getId());
-//                            messages.add(m);
-//                        }
-//                    }
-//
-//                    Collections.sort(messages, new Comparator<ImsMessage>() {
-//                        @Override
-//                        public int compare(ImsMessage lhs, ImsMessage rhs) {
-//                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
-//                        }
-//                    });
-//                    break;
-//            }
-//        }
+        if(getChatId().equals(event.getFilterId())){
+            switch (event.getEventType()){
+                case NEW_MESSAGE:
+                    message = (ImsMessage) event.getData();
+                    //Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId() + " for chat: " + getChatId());
+                    messages.add(message);
+                    break;
+                case MESSAGE_UPDATED:
+                    message = (ImsMessage) event.getData();
+                    //Log.d(TAG, "MESSAGE UPDATED EVENT : " + message.getId());
+                    break;
+                case NEW_MESSAGE_ADDED:
+                    message = (ImsMessage) event.getData();
+                    //Log.d(TAG, "NEW MESSAGE ADDED EVENT : " + message.getId());
+                    messages.add(message);
+                    break;
+                case NEXT_PAGE_LOADED:
+                    ArrayList<ImsMessage> messagesNewPage = (ArrayList<ImsMessage>)event.getData();
+                    for(ImsMessage m : messagesNewPage){
+                        boolean exists = false;
+                        for(ImsMessage mOld : messages){
+                            if(mOld.getId().equals(m.getId())){
+                                exists = true;
+                            }
+                        }
+                        if(!exists){
+                            Log.d(TAG,"Adding message to list: " + m.getId());
+                            messages.add(m);
+                        }
+                    }
+
+                    Collections.sort(messages, new Comparator<ImsMessage>() {
+                        @Override
+                        public int compare(ImsMessage lhs, ImsMessage rhs) {
+                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
+                        }
+                    });
+                    break;
+            }
+        }
     }
 
 
@@ -227,8 +224,9 @@ public class ChatInfo {
         for(ImsMessage message : messages){
             if(message.getId().equals(changedMessage.getId())){
                 message = changedMessage;
-                EventBus.getDefault().post(new GameSparksEvent("Chat updated - message changed for chat: " + getChatId(), GameSparksEvent.Type.CHAT_UPDATED, getChatId()));
-
+                EventBus.getDefault().post(
+                        new GameSparksEvent("Chat updated - message changed for chat: " + getChatId(),
+                                GameSparksEvent.Type.CHAT_UPDATED, getChatId()));
             }
         }
     }
@@ -258,7 +256,7 @@ public class ChatInfo {
         int count = 0;
         String uid = currentUserId;
         if (messages == null){
-            Log.d(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
+            Log.e(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
             return -1;
         }
         for(ImsMessage message : messages){
@@ -474,10 +472,12 @@ public class ChatInfo {
         this.currentUserId = currentUserId;
     }
 
+    @JsonProperty("_id")
     public String getChatId() {
         return chatId;
     }
 
+    @JsonProperty("_id")
     private void setChatId(String chatId) {
         this.chatId = chatId;
     }

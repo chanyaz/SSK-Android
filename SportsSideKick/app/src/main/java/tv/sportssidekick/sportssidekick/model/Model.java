@@ -527,7 +527,6 @@ public class Model {
         if(userCache.containsKey(userId)){
             return userCache.get(userId);
         } else {
-            Log.e(TAG,"There is no user in cache with id: " + userId);
             return null;
         }
     }

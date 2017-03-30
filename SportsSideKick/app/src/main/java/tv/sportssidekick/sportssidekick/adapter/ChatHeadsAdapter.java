@@ -146,7 +146,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             if(info.getUsersIds()!=null){
                 size =  info.getUsersIds().size();
             } else {
-                Log.d(TAG, "Have no chatUsers yet!");
+                Log.e(TAG, "Have no chatUsers yet!");
             }
             holder.userCount.setText(String.valueOf(size));
             DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
@@ -155,7 +155,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             holder.view.setTag(position);
 
             int unreadMessageCount = info.unreadMessageCount();
-            Log.d(TAG, " *** Unread Message Count for chat" + info.getName() + " : " + unreadMessageCount);
+            //Log.d(TAG, " *** Unread Message Count for chat" + info.getName() + " : " + unreadMessageCount);
 
             if(unreadMessageCount>0){
                 holder.notificationView.setVisibility(View.VISIBLE);
