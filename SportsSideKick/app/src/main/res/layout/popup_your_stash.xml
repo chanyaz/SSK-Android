@@ -129,14 +129,15 @@
 
 
     <!-- STATEMENTS -->
-    <android.support.v7.widget.RecyclerView
+    <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
         android:id="@+id/stash_recycler_view"
         android:layout_width="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_height="match_parent"
         android:layout_below="@+id/your_stash_description"
         android:layout_margin="@dimen/margin_20"
-        />
+        android:numColumns="auto_fit"
+        android:clipToPadding="false"/>
 
     <!-- BOTTOM BUTTONS CONTAINER -->
     <RelativeLayout

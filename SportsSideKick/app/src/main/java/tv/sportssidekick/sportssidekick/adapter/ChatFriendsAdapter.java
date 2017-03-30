@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -44,7 +45,7 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
     }
 
     private List<UserInfo> selectedValues;
-
+    int screenWidth;
     class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
@@ -62,6 +63,9 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
     public ChatFriendsAdapter(Context context) {
         selectedValues = new ArrayList<>();
         this.context = context;
+        if(context!=null){
+            this.screenWidth = Utility.getDisplayWidth(context);
+        }
     }
 
 
@@ -76,6 +80,12 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
         // create a new view
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_friend_item, parent, false);
         viewHolder = new ViewHolder(view);
+
+       // int matchParent = RelativeLayout.LayoutParams.WRAP_CONTENT;
+       // int cellSize = (int) (screenWidth * 0.092);
+      //  view.getLayoutParams().height = matchParent;
+       // view.getLayoutParams().width = (cellSize);
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

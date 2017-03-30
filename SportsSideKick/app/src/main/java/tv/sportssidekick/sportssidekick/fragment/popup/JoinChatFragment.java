@@ -31,6 +31,11 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
+import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
+import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
+import tv.sportssidekick.sportssidekick.util.Utility;
+
+import static tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -41,7 +46,7 @@ import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 public class JoinChatFragment extends BaseFragment {
 
     @BindView(R.id.friends_recycler_view)
-    RecyclerView recyclerView;
+    AutofitRecyclerView recyclerView;
     @BindView(R.id.confirm_button)
     Button confirmButton;
 
@@ -82,8 +87,11 @@ public class JoinChatFragment extends BaseFragment {
                 }
             });
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
-        recyclerView.setLayoutManager(layoutManager);
+        int screenWidth = Utility.getDisplayWidth(getActivity());
+
+        recyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+        recyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
+        recyclerView.setHasFixedSize(true);
 
         Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChats();
         task.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {

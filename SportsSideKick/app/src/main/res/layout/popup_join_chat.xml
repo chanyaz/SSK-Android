@@ -1,118 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="544dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimarySemiLight"
-    android:orientation="vertical"
-    android:clickable="true">
+    android:layout_marginBottom="@dimen/margin_30"
+    android:layout_marginEnd="@dimen/margin_60"
+    android:layout_marginStart="@dimen/margin_60"
+    android:layout_marginTop="@dimen/margin_30"
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
-    <View
-        android:id="@+id/top_vertical_spliter"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/standard_button_height"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/create_a_chat"
+    <RelativeLayout
+        android:id="@+id/chat_top_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
-        android:layout_toStartOf="@+id/top_vertical_spliter"
-        android:background="@color/colorAccentLight"
-        android:gravity="center"
-        android:text="Create Chat"
-        android:textColor="@color/white_semitransparent" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimarySemiLight"
+        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_alignParentTop="true">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
-        android:layout_toEndOf="@+id/top_vertical_spliter"
-        android:gravity="center"
-        android:text="Join Chat"
-        android:textColor="@color/colorAccent" />
+        <View
+            android:id="@+id/top_vertical_spliter"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_centerHorizontal="true" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_toStartOf="@+id/top_vertical_spliter"
-        android:background="@color/colorPrimaryLight" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_toEndOf="@+id/top_vertical_spliter"
-        android:background="@color/colorAccent" />
-
-    <View
-        android:id="@+id/top_split_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/top_vertical_spliter"
-        android:background="@android:color/black" />
-
-    <TextView
-        android:id="@+id/caption_label"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/popup_join_chat_caption_label_height"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_vertical_spliter"
-        android:gravity="center"
-        android:text="Public Chats"
-        android:textColor="@color/white" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_split_line"
-        android:layout_below="@+id/caption_label"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_20">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/friends_recycler_view"
+        <TextView
+            android:id="@+id/create_a_chat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="@color/colorAccentLight"
+            android:gravity="center"
+            android:text="Create Chat"
+            android:textColor="@color/white_semitransparent" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:gravity="center"
+            android:text="Join Chat"
+            android:textColor="@color/colorAccent" />
 
-    <View
-        android:id="@+id/bottom_split_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_60"
-        android:background="@android:color/black" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="@color/colorPrimaryLight" />
 
-    <EditText
-        android:id="@+id/search_edit_text"
-        android:layout_width="@dimen/popup_join_chat_search_edit_text_width"
-        android:layout_height="@dimen/popup_join_chat_search_edit_text_height"
-        android:layout_alignParentBottom="true"
-        android:background="@color/green_dark_2"
-        android:gravity="start|center_vertical"
-        android:hint="Search for a chat"
-        android:imeOptions="flagNoExtractUi|actionSearch"
-        android:inputType="text"
-        android:lines="1"
-        android:maxLines="1"
-        android:paddingStart="@dimen/padding_40"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white_semitransparent"
-        android:textSize="14sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:background="@color/colorAccent" />
 
-    <Button
-        android:id="@+id/confirm_button"
-        android:layout_width="@dimen/popup_join_chat_confirm_button_width"
-        android:layout_height="@dimen/popup_join_chat_confirm_button_height"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="@dimen/margin_15"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_30"
-        android:background="@drawable/rounded_button_press" />
+        <View
+            android:id="@+id/top_split_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/top_vertical_spliter"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:id="@+id/caption_label"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/popup_join_chat_caption_label_height"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/top_vertical_spliter"
+            android:gravity="center"
+            android:text="Public Chats"
+            android:textColor="@color/white" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/caption_label"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:layout_marginStart="@dimen/margin_20">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/friends_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <View
+            android:id="@+id/bottom_split_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/margin_60"
+            android:background="@android:color/black"
+            android:layout_below="@id/swipe_refresh_layout"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_buttons_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/popup_bottom_background"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="@dimen/popup_join_chat_search_edit_text_width"
+            android:layout_height="@dimen/popup_join_chat_search_edit_text_height"
+            android:gravity="start|center_vertical"
+            android:hint="Search for a chat"
+            android:imeOptions="flagNoExtractUi|actionSearch"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingStart="@dimen/padding_40"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_semitransparent"
+            android:textSize="14sp"
+            android:background="@drawable/popup_bottom_left_background"/>
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="@dimen/popup_join_chat_confirm_button_width"
+            android:layout_height="@dimen/popup_join_chat_confirm_button_height"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="@dimen/margin_15"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:layout_marginStart="@dimen/margin_30"
+            android:background="@drawable/popup_confirmation_button"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 </RelativeLayout>

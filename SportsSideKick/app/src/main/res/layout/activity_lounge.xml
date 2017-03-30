@@ -527,7 +527,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_below="@+id/video_tab_radio_group"
+            android:weightSum="1">
 
             <ImageView
                 android:id="@+id/your_friends_button"
@@ -538,7 +540,9 @@
                 android:layout_marginRight="@dimen/margin_20"
                 android:adjustViewBounds="true"
                 android:onClick="onFriendsButtonClick"
-                android:src="@drawable/icon_your_friends" />
+                android:src="@drawable/icon_your_friends"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_weight="0.5"/>
 
             <ImageView
                 android:id="@+id/your_followers_button"
@@ -549,7 +553,8 @@
                 android:layout_marginRight="@dimen/margin_20"
                 android:adjustViewBounds="true"
                 android:onClick="onFollowersButtonClick"
-                android:src="@drawable/icon_followers" />
+                android:src="@drawable/icon_followers"
+                android:layout_weight="0.5"/>
         </LinearLayout>
 
 
