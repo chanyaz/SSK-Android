@@ -21,6 +21,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
+import tv.sportssidekick.sportssidekick.model.tutorial.TutorialModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
@@ -68,6 +69,8 @@ public class WallFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         wallItems = new ArrayList<>();
         WallModel.getInstance();
+
+        TutorialModel.getInstance().initialize(getActivity());
 
         List<WallBase> cacheWallItems = WallModel.getInstance().getListCacheItems();
         if (cacheWallItems != null && cacheWallItems.size() != 0)

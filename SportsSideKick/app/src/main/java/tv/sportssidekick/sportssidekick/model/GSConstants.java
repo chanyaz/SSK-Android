@@ -48,4 +48,7 @@ public class GSConstants {
     public static final String ITEMS = "items";
     public static final String USER_ACHIEVEMENTS = "userAchievements";
     public static final String ACHIEVEMENTS = "achievements";
+    public static final String VIDEO_CHAT_ITEM = "videoChatItem";
+    public static final String DATA = "data";
+    public static final String TOKEN = "token";
 }

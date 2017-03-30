@@ -464,7 +464,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
             case "ImsUpdateChatInfo":
                 chatId = (String) data.get(CHAT_ID);
                 if(chatId!=null){
-                    reload();
+//                    reload();
                 }
                 break;
             case "ImsUpdateUserIsTypingState":
