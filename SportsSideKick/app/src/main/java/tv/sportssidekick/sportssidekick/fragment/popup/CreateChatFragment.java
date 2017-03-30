@@ -36,6 +36,12 @@ import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
+import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
+import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
+import tv.sportssidekick.sportssidekick.util.GridItemDecoration;
+import tv.sportssidekick.sportssidekick.util.Utility;
+
+import static tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -46,7 +52,7 @@ import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 public class CreateChatFragment extends BaseFragment {
 
     @BindView(R.id.friends_recycler_view)
-    RecyclerView friendsRecyclerView;
+    AutofitRecyclerView friendsRecyclerView;
     @BindView(R.id.confirm_button)
     Button confirmButton;
     @BindView(R.id.chat_name_edit_text)
@@ -88,8 +94,14 @@ public class CreateChatFragment extends BaseFragment {
                 }
         });
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
-        friendsRecyclerView.setLayoutManager(layoutManager);
+        int screenWidth = Utility.getDisplayWidth(getActivity());
+
+        friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+        friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
+        friendsRecyclerView.setHasFixedSize(true);
+
+       // GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 6);
+       // friendsRecyclerView.setLayoutManager(layoutManager);
 
         Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(

@@ -65,13 +65,15 @@
         android:layout_below="@id/top_buttons_container"
         android:background="@color/colorPrimarySemiLight">
 
-        <android.support.v7.widget.RecyclerView
+        <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_15" />
+            android:layout_marginTop="@dimen/margin_15"
+            android:numColumns="auto_fit"
+            android:clipToPadding="false"/>
 
         <TextView
             android:id="@+id/no_result_text"

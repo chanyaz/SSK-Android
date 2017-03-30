@@ -70,6 +70,15 @@ public class WallModel extends GSMessageHandlerAbstract {
     private int minNumberOfPostsForInitialLoad = 20;
     private int minNumberOfPostsForIntervalLoad = 10;
 
+    HashMap<String, WallBase> cahchedItems;
+
+    public List<WallBase> getListCacheItems() {
+        return listCacheItems;
+    }
+
+    List<WallBase> listCacheItems;
+
+
     public static WallModel getInstance(){
         if(instance==null){
             instance = new WallModel();
@@ -258,6 +267,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                                             if (oldestFetchDate.compareTo(oldestFetchIntervalDateBound) > 0) {
                                                 fetchPreviousPageOfPosts(postsIntervalFetchCount);
                                             } else {
+
                                                 EventBus.getDefault().post(new PostLoadCompleteEvent());
                                             }
                                         } else {
@@ -462,6 +472,22 @@ public class WallModel extends GSMessageHandlerAbstract {
                 break;
         }
 
+    }
+
+    public void addToCache(List<WallBase> items)
+    {
+        listCacheItems = new ArrayList<>();
+        listCacheItems = items;
+        cahchedItems = new HashMap<>();
+        for (int i=0; i <items.size(); i++)
+        {
+            cahchedItems.put(items.get(i).getPostId(), items.get(i));
+        }
+    }
+
+    public WallBase getItemById(String id)
+    {
+        return cahchedItems.get(id);
     }
 }
 

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/create_chat_width"
     android:layout_height="match_parent"
-
-    android:background="@color/colorPrimarySemiLight"
+    android:layout_marginBottom="@dimen/margin_30"
+    android:layout_marginEnd="@dimen/margin_60"
+    android:layout_marginStart="@dimen/margin_60"
+    android:layout_marginTop="@dimen/margin_30"
+    android:layout_gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/popup_bottom_background"
     android:clickable="true">
 
     <View
@@ -95,10 +98,12 @@
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_20">
 
-        <android.support.v7.widget.RecyclerView
+        <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:numColumns="auto_fit"
+            android:clipToPadding="false"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -116,7 +121,7 @@
         android:layout_height="@dimen/create_chat_name_label_height"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/private_chat_switch"
-        android:background="@color/green_dark_2"
+        android:background="@drawable/popup_bottom_left_round_background_dark"
         android:gravity="start|center_vertical"
         android:hint="Search for a member"
         android:imeOptions="flagNoExtractUi|actionSearch"

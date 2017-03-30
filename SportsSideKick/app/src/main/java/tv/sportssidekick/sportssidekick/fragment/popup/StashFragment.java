@@ -25,6 +25,11 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.achievements.Achievement;
 import tv.sportssidekick.sportssidekick.model.achievements.AchievementManager;
+import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
+import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
+import tv.sportssidekick.sportssidekick.util.Utility;
+
+import static tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -35,7 +40,7 @@ import tv.sportssidekick.sportssidekick.model.achievements.AchievementManager;
 public class StashFragment extends BaseFragment {
 
     @BindView(R.id.stash_recycler_view)
-    RecyclerView stashRecyclerView;
+    AutofitRecyclerView stashRecyclerView;
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
@@ -51,8 +56,14 @@ public class StashFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_your_stash, container, false);
         ButterKnife.bind(this, view);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
-        stashRecyclerView.setLayoutManager(layoutManager);
+        /*GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
+        stashRecyclerView.setLayoutManager(layoutManager);*/
+
+        int screenWidth = Utility.getDisplayWidth(getActivity());
+
+        stashRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+        stashRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
+        stashRecyclerView.setHasFixedSize(true);
 
         final StashAdapter adapter = new StashAdapter();
         stashRecyclerView.setAdapter(adapter);
@@ -66,9 +77,6 @@ public class StashFragment extends BaseFragment {
                 }
             }
         });
-
-
-
 
         return view;
     }

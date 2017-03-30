@@ -72,12 +72,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         this.screenWidth = 0;
     }
 
-    public FriendsAdapter(Class initiatorFragment,int screenWidth) {
-        this.initiatorFragment = initiatorFragment;
-        values = new ArrayList<>();
-        this.screenWidth = screenWidth;
-    }
-
     @Override
     public int getItemViewType(int position) {
         return 0;
@@ -89,12 +83,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, parent, false);
         viewHolder = new ViewHolder(view);
 
-        if(screenWidth>0) { // screen width is only set in YourFriendsFragment
-            int matchParent = RelativeLayout.LayoutParams.WRAP_CONTENT;
-            int cellSize = (int) (screenWidth * 0.092);
-            view.getLayoutParams().height = matchParent;
-            view.getLayoutParams().width = (cellSize);
-        }
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

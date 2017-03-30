@@ -41,8 +41,6 @@ public class NewsItemFragment extends BaseFragment{
     @BindView(R.id.share_news_to_wall_button)
     Button share;
 
-    NewsItem news;
-
     public NewsItemFragment() {
         // Required empty public constructor
     }

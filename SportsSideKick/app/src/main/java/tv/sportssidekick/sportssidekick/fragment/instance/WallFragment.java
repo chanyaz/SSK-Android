@@ -68,6 +68,21 @@ public class WallFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         wallItems = new ArrayList<>();
         WallModel.getInstance();
+
+        List<WallBase> cacheWallItems = WallModel.getInstance().getListCacheItems();
+        if (cacheWallItems != null && cacheWallItems.size() != 0)
+        {
+            wallItems = cacheWallItems;
+            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            adapter = new WallAdapter(getActivity(), wallItems);
+            if(wallRecyclerView!=null){
+                wallRecyclerView.setAdapter(adapter);
+                wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
+                wallRecyclerView.setLayoutManager(layoutManager);
+            }
+            adapter.notifyDataSetChanged();
+        }
+
         return view;
     }
 
@@ -91,6 +106,7 @@ public class WallFragment extends BaseFragment {
             wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
             wallRecyclerView.setLayoutManager(layoutManager);
         }
+        WallModel.getInstance().addToCache(wallItems);
         adapter.notifyDataSetChanged();
     }
 }

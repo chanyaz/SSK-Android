@@ -2,8 +2,7 @@ package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,8 @@ import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendRequest;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.util.GridItemDecoration;
+import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
+import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -38,8 +38,10 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 
 public class YourFriendsFragment extends BaseFragment {
 
+    public static final double GRID_PERCENT_CELL_WIDTH = 0.092;
+
     @BindView(R.id.friends_recycler_view)
-    RecyclerView friendsRecyclerView;
+    AutofitRecyclerView friendsRecyclerView;
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
@@ -54,21 +56,28 @@ public class YourFriendsFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.popup_your_friends, container, false);
         ButterKnife.bind(this, view);
 
-        int screenWidth = Utility.getDisplayWidth(getActivity());
-        int cellSize = (int) (screenWidth * 0.082);
-        int columns = (screenWidth / (cellSize + (getResources().getDimensionPixelSize(R.dimen.margin_15) * 2)));
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), columns);
-        friendsRecyclerView.setLayoutManager(layoutManager);
-        friendsRecyclerView.addItemDecoration(new GridItemDecoration(getResources().getDimensionPixelSize(R.dimen.margin_20),columns));
+      /*  int screenWidth = Utility.getDisplayWidth(getActivity());
+        int cellSize = (int) (screenWidth * 0.092);
+        int columns = (screenWidth / (cellSize + (getResources().getDimensionPixelSize(R.dimen.margin_15) * 2)));*/
+       // GridLayoutManager layoutManager = new GridLayoutManager(getContext(), columns);
+       // friendsRecyclerView.setLayoutManager(layoutManager);
+       // friendsRecyclerView.addItemDecoration(new GridItemDecoration(getResources().getDimensionPixelSize(R.dimen.margin_20),columns));
 
-        final FriendsAdapter adapter = new FriendsAdapter(this.getClass(),screenWidth);
+        int screenWidth = Utility.getDisplayWidth(getActivity());
+        friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+
+        friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
+        friendsRecyclerView.setHasFixedSize(true);
+
+
+        final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
+
         adapter.setInitiatorFragment(YourFriendsFragment.class);
         friendsRecyclerView.setAdapter(adapter);
         Task<List<UserInfo>> friendsTask =  FriendsManager.getInstance().getFriends(0);
