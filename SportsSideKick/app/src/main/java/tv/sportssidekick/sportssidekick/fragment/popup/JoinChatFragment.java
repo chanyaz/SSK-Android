@@ -2,8 +2,6 @@ package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -35,7 +33,7 @@ import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
 import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
-import static tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment.GRID_PERCENT_CELL_WIDTH;
+import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Filip on 12/26/2016.

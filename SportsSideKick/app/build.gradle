@@ -65,7 +65,7 @@ dependencies {
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr1'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.twilio:video-android:1.0.0-beta6'
+    compile 'com.twilio:video-android:1.0.0-beta15'
     compile 'com.facebook.android:facebook-android-sdk:4.20.0'
 
     compile 'com.amazonaws:aws-android-sdk-core:2.2.+'

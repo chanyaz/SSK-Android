@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="500dp"
     android:layout_height="500dp"
     android:clickable="true">
@@ -14,7 +15,6 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/boldText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -23,18 +23,6 @@
             android:text="@string/starting_new_call_search_title"
             android:textColor="@color/colorAccent"
             android:textSize="18sp" />
-
-        <ImageButton
-            android:id="@+id/close_dialog_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/margin_15"
-            android:adjustViewBounds="true"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_close" />
     </RelativeLayout>
 
     <!-- TOP LINE -->
@@ -43,6 +31,14 @@
         android:layout_height="2dp"
         android:layout_alignParentTop="true"
         android:background="@color/colorAccent" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/prodgres_bar"
+        android:layout_height="@dimen/prodgres_bar"
+        android:layout_centerInParent="true"
+        android:elevation="2dp"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     <!-- FRIENDS  LIST-->
     <RelativeLayout
@@ -60,14 +56,15 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"/>
 
-        <android.support.v7.widget.RecyclerView
+        <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
+            android:numColumns="auto_fit"
+            android:clipToPadding="false"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_15"
-            android:visibility="gone"/>
+            android:layout_marginTop="@dimen/margin_15"/>
 
     </RelativeLayout>
 

@@ -11,6 +11,7 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
     private static VideoChatModel instance;
 
-    public VideoChatModel() {
+    private VideoChatModel() {
         mapper = new ObjectMapper();
         pendingInvitations = new HashMap<>();
         Model.getInstance().setMessageHandlerDelegate(this);
@@ -78,7 +79,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
     // Find the VideoChatItem to update - it may be the active one, or a pending invitation
     // The only things that will need updating are the participants and their states
-    public VideoChatItem update(Map<String, Object> data) {
+    private VideoChatItem update(Map<String, Object> data) {
         VideoChatItem item  = new VideoChatItem(); // TODO initialize from data?
         Object object = data.get(GSConstants.VIDEO_CHAT_ITEM);
         if(object!=null){
@@ -101,7 +102,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         return item;
     }
 
-    public Task<VideoChatItem> leaveOrReject(String conferenceId, String leaveType){
+    private Task<VideoChatItem> leaveOrReject(String conferenceId, String leaveType){
         final TaskCompletionSource<VideoChatItem> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -126,7 +127,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
     }
 
     // YOU OR OTHERS have been invited
-    public void onInvited(Map<String, Object> data) {
+    private void onInvited(Map<String, Object> data) {
         VideoChatItem item = update(data);
 
         // Check to see if this is an invite message for a call we're in already.
@@ -140,7 +141,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
                     // Fix: If a user is logged in on two devices, they could potentially join the chat
                     // twice, so we make sure that can't happen here
                     if (!invitee.equals(userId)) {
-//                        onUserInvited.emit(invitee) TODO Emit event!
+                        EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onUserInvited, invitee));
                     }
                 }
             }
@@ -157,10 +158,10 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
             return;
         }
         pendingInvitations.put((item.getId()),item);
-//        onSelfInvited.emit(item)  TODO Emit event!
+        EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onSelfInvited, item.getId(),item));
     }
 
-    public void onInviteExpired(Map<String,Object> data){
+    private void onInviteExpired(Map<String,Object> data){
         VideoChatItem item = update(data);
         String playerId = (String) data.get(GSConstants.DATA);
         if(playerId==null){
@@ -169,33 +170,33 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         if(activeVideoChatItem.getId().equals(item.getId())) {
             // If it's the active video item, this should only ever be someone else's invite
             if(!playerId.equals(userId)){
-//                onUserInvitationRejected.emit(playerId)  TODO Emit event!
+                EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onUserInvitationRejected, playerId));
             }
         } else {
             if(!playerId.equals(userId)){
-//                onInvitationRevoked.emit(item.id)  TODO Emit event!
+                EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onInvitationRevoked, item.getId()));
                 pendingInvitations.remove(item.getId());
             }
         }
     }
 
-    public void onRejected(Map<String,Object> data){
+    private void onRejected(Map<String,Object> data){
         VideoChatItem item = update(data);
         if(activeVideoChatItem.getId().equals(item.getId())) {
             String id = (String) data.get(GSConstants.DATA);
             if(id!=null){
-//                self.onUserInvitationRejected.emit(id) TODO Emit event!
+                EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onUserInvitationRejected, id));
             }
         }
     }
 
     // A conference room relevant to the current user has closed
-    public void onClosed(Map<String,Object> data) {
+    private void onClosed(Map<String,Object> data) {
         VideoChatItem item = update(data);
         if(pendingInvitations.containsKey(item.getId())){
             pendingInvitations.remove(item.getId());
         }
-//        self.onChatClosed.emit(item.id) TODO Emit event!
+        EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onChatClosed, item.getId()));
     }
 
     public Task<VideoChatItem> create(List<String> users){
@@ -275,7 +276,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
     public Task<VideoChatItem> reject(String conferenceId){
         pendingInvitations.remove(conferenceId);
-        return leaveOrReject(conferenceId,"vcLeave");
+        return leaveOrReject(conferenceId,"vcReject");
     }
 
     public Task<VideoChatItem> invite(String conferenceId,List<String> users){
@@ -353,7 +354,6 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
     @Override
     public void onGSScriptMessage(String type, Map<String,Object> data){
-        String chatId;
         switch (type){
             case "vcInvited":
                 onInvited(data);

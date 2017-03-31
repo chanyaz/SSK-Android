@@ -2,8 +2,6 @@ package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -28,7 +26,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.adapter.ChatFriendsAdapter;
+import tv.sportssidekick.sportssidekick.adapter.SelectableFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.Model;
@@ -38,10 +36,9 @@ import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
 import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
-import tv.sportssidekick.sportssidekick.util.GridItemDecoration;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
-import static tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment.GRID_PERCENT_CELL_WIDTH;
+import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -63,7 +60,7 @@ public class CreateChatFragment extends BaseFragment {
     EditText searchEditText;
     @BindView(R.id.private_chat_switch)
     Switch privateChatSwitch;
-    ChatFriendsAdapter chatFriendsAdapter;
+    SelectableFriendsAdapter chatFriendsAdapter;
     @BindView(R.id.private_chat_label)
     TextView privateChatTextView;
     List<UserInfo> userInfoList;
@@ -108,7 +105,7 @@ public class CreateChatFragment extends BaseFragment {
             new OnSuccessListener<List<UserInfo>>() {
                 @Override
                 public void onSuccess(List<UserInfo> userInfos) {
-                    chatFriendsAdapter = new ChatFriendsAdapter(getContext());
+                    chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
                     chatFriendsAdapter.add(userInfos);
                     userInfoList = userInfos;
                     friendsRecyclerView.setAdapter(chatFriendsAdapter);

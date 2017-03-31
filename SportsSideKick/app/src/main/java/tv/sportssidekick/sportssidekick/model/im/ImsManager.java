@@ -491,7 +491,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 }
                 break;
             default:
-                Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
+                //Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
                 break;
         }
 

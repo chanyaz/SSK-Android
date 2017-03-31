@@ -96,7 +96,7 @@ public class FollowingFragment extends BaseFragment {
 
     @OnClick(R.id.follow_more)
     public void followOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(FriendsFragment.class));
     }
 
     @OnClick(R.id.your_followers_button)

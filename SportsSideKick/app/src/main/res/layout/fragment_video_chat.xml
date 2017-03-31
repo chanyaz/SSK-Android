@@ -73,4 +73,46 @@
     </RelativeLayout>
 
 
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <Button
+            android:id="@+id/add_users_button"
+            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@+id/toggle_mic_button"
+            android:layout_height="wrap_content"
+            android:text="ADD USERS"
+            />
+        <Button
+            android:id="@+id/toggle_mic_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/toggle_video_button"
+            android:text="MIC"
+            />
+        <Button
+            android:id="@+id/toggle_video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="VIDEO"
+            />
+        <Button
+            android:id="@+id/toggle_camera_button"
+            android:layout_toRightOf="@+id/toggle_video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOGGLE CAM"
+            />
+        <Button
+            android:id="@+id/disconnect_button"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/toggle_camera_button"
+            android:layout_height="wrap_content"
+            android:text="END CALL"
+            />
+    </RelativeLayout>
 </RelativeLayout>

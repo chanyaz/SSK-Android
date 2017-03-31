@@ -5,10 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.wang.avi.AVLoadingIndicatorView;
+
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.adapter.SelectableFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
+import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
+import tv.sportssidekick.sportssidekick.util.Utility;
+
+import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Djordje on 1/21/2017.
@@ -18,6 +33,17 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 
 public class StartingNewCallFragment extends BaseFragment {
 
+    //friends_recycler_view
+
+    @BindView(R.id.friends_recycler_view)
+    AutofitRecyclerView friendsRecyclerView;
+
+    @BindView(R.id.progress_bar)
+    AVLoadingIndicatorView progressBar;
+
+    SelectableFriendsAdapter chatFriendsAdapter;
+    List<UserInfo> userInfoList;
+
     public StartingNewCallFragment() {
     }
 
@@ -26,16 +52,32 @@ public class StartingNewCallFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.popup_new_call, container, false);
         ButterKnife.bind(this, view);
+
+        int screenWidth = Utility.getDisplayWidth(getActivity());
+
+        friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+        friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
+        friendsRecyclerView.setHasFixedSize(true);
+
+
+        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
+        task.addOnSuccessListener(
+                new OnSuccessListener<List<UserInfo>>() {
+                    @Override
+                    public void onSuccess(List<UserInfo> userInfos) {
+                        chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
+                        chatFriendsAdapter.add(userInfos);
+                        userInfoList = userInfos;
+                        friendsRecyclerView.setAdapter(chatFriendsAdapter);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
         return view;
     }
 
     @OnClick(R.id.confirm_button)
     public void confirmOnClick(){
-        getActivity().onBackPressed();
-    }
-
-    @OnClick(R.id.close_dialog_button)
-    public void closeDialog(){
         getActivity().onBackPressed();
     }
 
