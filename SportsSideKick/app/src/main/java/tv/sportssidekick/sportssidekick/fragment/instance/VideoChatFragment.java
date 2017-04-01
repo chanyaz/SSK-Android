@@ -59,7 +59,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     // The 3 main view state containers
     private View loadingView;
+
+    @BindView(R.id.inactive_container)
     private View activeChatView;
+
+    @BindView(R.id.inactive_container)
     private View inactiveChatView;
 
     // chat active state view stack rows
@@ -68,7 +72,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     // local user feed
     private VideoView previewView;
+
     private TextView name;
+
     private View disabled;
 
 
