@@ -37,8 +37,12 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
     public void onEvent(FragmentEvent event) {
         Bundle arguments = new Bundle();
         arguments.putString(BaseFragment.PRIMARY_ARG_TAG, event.getId());
+
         if(event.getInitiatorFragment()!=null){
             arguments.putString(BaseFragment.INITIATOR,event.getInitiatorFragment().getName());
+        }
+        if(event.getStringArrayList()!=null){
+            arguments.putStringArrayList(BaseFragment.STRING_ARRAY_ARG_TAG, event.getStringArrayList());
         }
         openFragment(createFragment(event.getType()), arguments, getFragmentContainer(event.getType()));
     }

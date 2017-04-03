@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-   android:background="@color/green_dark_1" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_dark_1"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment">
 
     <RelativeLayout
@@ -16,7 +18,7 @@
             android:layout_height="60dp"
             android:layout_margin="@dimen/margin_15"
             android:layout_toLeftOf="@+id/toggle_mic_button"
-            android:background="null"
+            android:background="@null"
             android:src="@drawable/add_users_button"
             android:text="ADD USERS" />
 
@@ -26,7 +28,7 @@
             android:layout_height="60dp"
             android:layout_margin="@dimen/margin_15"
             android:layout_toLeftOf="@+id/toggle_video_button"
-            android:background="null"
+            android:background="@null"
             android:src="@drawable/enable_microphone_button" />
 
         <ImageButton
@@ -35,7 +37,7 @@
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/margin_15"
-            android:background="null"
+            android:background="@null"
             android:src="@drawable/video_call_button" />
 
         <ImageButton
@@ -44,7 +46,7 @@
             android:layout_height="60dp"
             android:layout_margin="@dimen/margin_15"
             android:layout_toRightOf="@+id/toggle_video_button"
-            android:background="null"
+            android:background="@null"
             android:src="@drawable/flip_camera_button" />
 
         <ImageButton
@@ -53,35 +55,118 @@
             android:layout_height="60dp"
             android:layout_margin="@dimen/margin_15"
             android:layout_toRightOf="@+id/toggle_camera_button"
-            android:background="null"
+            android:background="@null"
             android:src="@drawable/hangup_button" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progress_bar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
+
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/active_container"
+        android:visibility="gone"
         android:layout_width="match_parent"
+        android:layout_margin="@dimen/margin_20"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom">
-        <View
-            android:id="@+id/preview_view"
-            android:layout_margin="@dimen/margin_20"
+
+        <include
+            layout="@layout/item_video_chat_slot"
+            android:id="@+id/slot_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/demo_blue_semitransparent"
+            app:layout_constraintBottom_toTopOf="@+id/preview_container"
+            app:layout_constraintLeft_toRightOf="@+id/slot_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </include>
+
+        <include
+            layout="@layout/item_video_chat_slot"
+            android:id="@+id/slot_3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="@color/demo_green_semitransparent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <View
-            android:id="@+id/slot_1"
-            android:layout_margin="@dimen/margin_20"
+            app:layout_constraintBottom_toTopOf="@+id/preview_container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/slot_2"
+            app:layout_constraintTop_toTopOf="parent">
+        </include>
+
+
+        <include
+            layout="@layout/item_video_chat_slot"
+            android:id="@+id/slot_4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="@color/demo_yellow_semitransparent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/preview_view"/>
-    </RelativeLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/preview_container"
+            app:layout_constraintTop_toBottomOf="@+id/slot_3">
+        </include>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/preview_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/slot_4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slot_2">
+
+            <ImageView
+                android:id="@+id/disabled_video_icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/disable_video_button"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/preview_video_view"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.twilio.video.VideoView
+                android:id="@+id/preview_video_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/preview_user_name_text_view"
+                app:layout_constraintDimensionRatio="1.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/disabled_video_icon"
+                app:layout_constraintVertical_chainStyle="spread" />
+
+            <TextView
+                android:id="@+id/preview_user_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="user name"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/preview_video_view" />
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
 
     <RelativeLayout
         android:id="@+id/inactive_container"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <ImageView
             android:layout_width="match_parent"

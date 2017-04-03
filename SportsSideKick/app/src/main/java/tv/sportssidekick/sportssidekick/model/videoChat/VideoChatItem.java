@@ -1,19 +1,28 @@
 package tv.sportssidekick.sportssidekick.model.videoChat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.HashMap;
 
+import tv.sportssidekick.sportssidekick.model.Id;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VideoChatItem {
 
-    String id;
+    @JsonProperty("_id")
+    Id id;
     String ownerId;
     HashMap<String, String> participants;
-    boolean isClosed;
+    boolean isClosed = false;
 
-    public String getId() {
+    public Id getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Id id) {
         this.id = id;
     }
 
@@ -43,7 +52,7 @@ public class VideoChatItem {
 
     public VideoChatItem() { }
 
-    public VideoChatItem(String id, String ownerId, HashMap<String, String> participants) {
+    public VideoChatItem(Id id, String ownerId, HashMap<String, String> participants) {
         this.id = id;
         this.ownerId = ownerId;
         this.participants = participants;
@@ -63,13 +72,8 @@ public class VideoChatItem {
         }
     }
 
-    public void update(VideoChatItem item){ // TODO
-//        if let isClosed = data["isClosed"] as? Bool {
-//            self.isClosed = isClosed
-//        }
-//
-//        if let dic = data["participants"] as? [String:String]! {
-//                self.participants = dic
-//        }
+    public void update(VideoChatItem item){
+        this.isClosed = item.isClosed();
+        this.participants = item.getParticipants();
     }
 }

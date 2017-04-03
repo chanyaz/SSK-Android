@@ -80,10 +80,10 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
     // Find the VideoChatItem to update - it may be the active one, or a pending invitation
     // The only things that will need updating are the participants and their states
     private VideoChatItem update(Map<String, Object> data) {
-        VideoChatItem item  = new VideoChatItem(); // TODO initialize from data?
-        Object object = data.get(GSConstants.VIDEO_CHAT_ITEM);
-        if(object!=null){
-            item = mapper.convertValue(object, new TypeReference<VideoChatItem>() {});
+        VideoChatItem item = mapper.convertValue(data, new TypeReference<VideoChatItem>() {});
+        //Object object = data.get(GSConstants.VIDEO_CHAT_ITEM);
+        if(data!=null){
+            item = mapper.convertValue(data, new TypeReference<VideoChatItem>() {});
         } else {
             Log.d(TAG,"Error in update method of Video Chat model!");
         }
@@ -132,7 +132,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
         // Check to see if this is an invite message for a call we're in already.
         // If it is, then it's for new people we need to account for
-        if(activeVideoChatItem.getId().equals(item.getId())) {
+        if(activeVideoChatItem!=null && activeVideoChatItem.getId().equals(item.getId())) {
             Object object = data.get(GSConstants.DATA);
             List<String> invitees = mapper.convertValue(object, new TypeReference<List<String>>() {
             });
@@ -149,7 +149,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         }
         // Is it an existing invitation we have yet to accept / reject?
         // If so, do nothing else
-        if(pendingInvitations.containsKey(item.getId())){
+        if(pendingInvitations.containsKey(item.getId().getOid())){
             return;
         }
         // This is an invitation for us to join a chat
@@ -157,8 +157,8 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         if (!isInvitationValid(item)) {
             return;
         }
-        pendingInvitations.put((item.getId()),item);
-        EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onSelfInvited, item.getId(),item));
+        pendingInvitations.put((item.getId().getOid()),item);
+        EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onSelfInvited, item.getId().getOid(),item));
     }
 
     private void onInviteExpired(Map<String,Object> data){
@@ -174,7 +174,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
             }
         } else {
             if(!playerId.equals(userId)){
-                EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onInvitationRevoked, item.getId()));
+                EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onInvitationRevoked, item.getId().getOid()));
                 pendingInvitations.remove(item.getId());
             }
         }
@@ -196,14 +196,14 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         if(pendingInvitations.containsKey(item.getId())){
             pendingInvitations.remove(item.getId());
         }
-        EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onChatClosed, item.getId()));
+        EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onChatClosed, item.getId().getOid()));
     }
 
     public Task<VideoChatItem> create(List<String> users){
         final TaskCompletionSource<VideoChatItem> source = new TaskCompletionSource<>();
 
         if(activeVideoChatItem != null) {
-            leave(activeVideoChatItem.getId());
+            leave(activeVideoChatItem.getId().getOid());
         }
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -240,7 +240,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
             return source.getTask();
         }
         if(activeVideoChatItem != null) {
-            leave(activeVideoChatItem.getId());
+            leave(activeVideoChatItem.getId().getOid());
         }
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {

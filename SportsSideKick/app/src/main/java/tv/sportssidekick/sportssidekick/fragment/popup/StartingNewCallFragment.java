@@ -9,6 +9,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,6 +22,8 @@ import tv.sportssidekick.sportssidekick.adapter.SelectableFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.service.AddUsersToCallEvent;
+import tv.sportssidekick.sportssidekick.service.StartCallEvent;
 import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
 import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -42,7 +47,8 @@ public class StartingNewCallFragment extends BaseFragment {
     AVLoadingIndicatorView progressBar;
 
     SelectableFriendsAdapter chatFriendsAdapter;
-    List<UserInfo> userInfoList;
+
+    boolean addUsersToCall;
 
     public StartingNewCallFragment() {
     }
@@ -55,6 +61,8 @@ public class StartingNewCallFragment extends BaseFragment {
 
         int screenWidth = Utility.getDisplayWidth(getActivity());
 
+        addUsersToCall = false;
+
         friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
         friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
@@ -62,22 +70,36 @@ public class StartingNewCallFragment extends BaseFragment {
 
         Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
-                new OnSuccessListener<List<UserInfo>>() {
-                    @Override
-                    public void onSuccess(List<UserInfo> userInfos) {
-                        chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
-                        chatFriendsAdapter.add(userInfos);
-                        userInfoList = userInfos;
-                        friendsRecyclerView.setAdapter(chatFriendsAdapter);
-                        progressBar.setVisibility(View.GONE);
+            new OnSuccessListener<List<UserInfo>>() {
+                @Override
+                public void onSuccess(List<UserInfo> userInfos) {
+                    chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
+                    List<String> presentUsers = getStringArrayArguement();
+                    if(presentUsers!=null){
+                        addUsersToCall = true;
+                        List<UserInfo> usersToRemove = new ArrayList<>();
+                        for(UserInfo userInfo : userInfos){
+                            if(presentUsers.contains(userInfo.getUserId())){
+                                usersToRemove.add(userInfo);
+                            }
+                        }
+                        userInfos.removeAll(usersToRemove);
                     }
-                });
-
+                    chatFriendsAdapter.add(userInfos);
+                    friendsRecyclerView.setAdapter(chatFriendsAdapter);
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
         return view;
     }
 
     @OnClick(R.id.confirm_button)
     public void confirmOnClick(){
+        if(addUsersToCall){
+            EventBus.getDefault().post(new AddUsersToCallEvent(chatFriendsAdapter.getSelectedValues()));
+        } else {
+            EventBus.getDefault().post(new StartCallEvent(chatFriendsAdapter.getSelectedValues()));
+        }
         getActivity().onBackPressed();
     }
 
