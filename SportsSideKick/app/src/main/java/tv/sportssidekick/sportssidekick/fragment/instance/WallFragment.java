@@ -74,7 +74,7 @@ public class WallFragment extends BaseFragment {
     @BindView(R.id.post_commnent_button)
     ImageView postCommentButton;
     @BindView(R.id.comment_text)
-    EditText commnetText;
+    EditText commentText;
 
     public WallFragment() {
         // Required empty public constructor
@@ -91,13 +91,12 @@ public class WallFragment extends BaseFragment {
 
         TutorialModel.getInstance().initialize(getActivity());
 
-        boolean isNewPostVisible, isFillterVisible, isSeacrhVisible;
 
         isNewPostVisible = false;
-        isFillterVisible = false;
-        isSeacrhVisible = false;
+        isFilterVisible = false;
+        isSearchVisible = false;
 
-        commnetText.addTextChangedListener(new TextWatcher() {
+        commentText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable s) {}
@@ -161,7 +160,7 @@ public class WallFragment extends BaseFragment {
         adapter.notifyDataSetChanged();
     }
 
-    boolean isNewPostVisible, isFillterVisible, isSearchVisible;
+    boolean isNewPostVisible, isFilterVisible, isSearchVisible;
 
 
     @OnClick(R.id.fragment_wall_new_post)
@@ -181,9 +180,9 @@ public class WallFragment extends BaseFragment {
     @OnClick(R.id.fragment_wall_filter)
     public void wallFilterOnClick()
     {
-        if (isFillterVisible)
+        if (isFilterVisible)
         {
-            isFillterVisible = false;
+            isFilterVisible = false;
             buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
             filterContainer.setVisibility(View.GONE);
         }
@@ -216,7 +215,7 @@ public class WallFragment extends BaseFragment {
                 buttonNewPost.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
                 newPostContainer.setVisibility(View.VISIBLE);
 
-                isFillterVisible = false;
+                isFilterVisible = false;
                 buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
                 filterContainer.setVisibility(View.GONE);
 
@@ -225,7 +224,7 @@ public class WallFragment extends BaseFragment {
                 searchWallContainer.setVisibility(View.GONE);
                 break;
             case 2:
-                isFillterVisible = true;
+                isFilterVisible = true;
                 buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
                 filterContainer.setVisibility(View.VISIBLE);
 
@@ -246,7 +245,7 @@ public class WallFragment extends BaseFragment {
                 buttonNewPost.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
                 newPostContainer.setVisibility(View.GONE);
 
-                isFillterVisible = false;
+                isFilterVisible = false;
                 buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
                 filterContainer.setVisibility(View.GONE);
                 break;
@@ -255,7 +254,7 @@ public class WallFragment extends BaseFragment {
                 buttonNewPost.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
                 newPostContainer.setVisibility(View.VISIBLE);
 
-                isFillterVisible = false;
+                isFilterVisible = false;
                 buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
                 filterContainer.setVisibility(View.GONE);
 
