@@ -186,8 +186,18 @@ public class WallModel extends GSMessageHandlerAbstract {
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    Object object = response.getScriptData().getBaseData().get(GSConstants.POSTS);
+                if (!response.hasErrors() ) {
+//                    GSData scriptData = response.getScriptData();
+//                    if(scriptData!=null){
+//                        if(scriptData.getBaseData().containsKey("likes")){
+//                            HashMap<String,String> likes = mapper.convertValue(scriptData.getBaseData().get("likes"), new TypeReference<Map<String, String>>(){});
+//                            if(likes!=null){
+//                                for(String wid :likes.keySet()){
+//                                    unsetLikesIdIndex(wid,likes.get(wid));
+//                                }
+//                            }
+//                        }
+//                    }
 
                     oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
                     final ArrayList<Task<Void>> tasks = new ArrayList<>();
@@ -357,8 +367,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.COMMENTS);
-                    // TODO Convert to post and set local object to be equal to this one
-                    List<PostComment> comments = new ArrayList<>();
+                    List<PostComment> comments = mapper.convertValue(object, new TypeReference<List<PostComment>>(){});
                     EventBus.getDefault().post(new GetCommentsCompleteEvent(comments));
                 } else {
                     // TODO What to do in case of error?
@@ -379,24 +388,19 @@ public class WallModel extends GSMessageHandlerAbstract {
      *
      */
     public Task postComment(final WallBase post, final PostComment comment){
-        // TODO Rewrite to GS
         final TaskCompletionSource source = new TaskCompletionSource<>();
-
-        //TODO - post notification
         comment.setId(DateUtils.currentTimeToFirebaseDate() + AWSFileUploader.generateRandName(10));
-
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.COMMENT);
-                    // TODO Convert to post and set local object to be equal to this one
-                    PostComment comment = new PostComment();
+                    PostComment comment = mapper.convertValue(object, new TypeReference<PostComment>(){});
                     EventBus.getDefault().post(new PostCommentCompleteEvent(comment));
-                    source.setResult(null);
+                    source.setResult(comment);
                 } else {
-                    source.setException(null);
                     // TODO What to do in case of error?
+                    source.setException(null);
                 }
             }
         };

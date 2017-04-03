@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.model.wall;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -9,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 /**
  * Created by Filip on 1/6/2017.
  * Copyright by Hypercube d.o.o.
@@ -22,8 +26,8 @@ public abstract class WallBase {
     private static final String TAG = "WALLBASE";
 
     @JsonIgnore
-    public int getType() {
-        return type.ordinal();
+    public PostType getType() {
+        return type;
     }
 
     @JsonIgnore
@@ -31,7 +35,7 @@ public abstract class WallBase {
         this.type = type;
     }
 
-    enum PostType {
+    public enum PostType {
         post,
         news,
         betting,
@@ -108,15 +112,14 @@ public abstract class WallBase {
         } else {
             likeCount -= 1;
         }
-        // TODO
-//        WallModel.instance.setlikeVal(self, val: self.likedByUser) {
-//            error in
-//
-//            if error != nil {
-//                print("WallBase.toggleLike() -> Error: \(error)")
-//                return
-//            }
-//        }
+        WallModel.getInstance().setlikeVal(this, likedByUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.i(TAG,"Like set to value " + likedByUser);
+                }
+            }
+        });
     }
 
     public void setEqualTo(WallBase item){
@@ -133,7 +136,6 @@ public abstract class WallBase {
         JsonNode node = mapper.valueToTree(wallItem);
         if (node.has("type") && node.get("type").canConvertToInt()) {
             int typeValue = node.get("type").intValue();
-            Log.d(TAG, "WallModel: type is: " + typeValue);
             PostType type = PostType.values()[typeValue - 1];
             TypeReference typeReference = null;
             switch (type) {
@@ -155,7 +157,7 @@ public abstract class WallBase {
                 case wallStoreItem:
                     typeReference = new TypeReference<WallStoreItem>(){};
             }
-            WallBase item =  mapper.convertValue(wallItem, typeReference);
+            WallBase item = mapper.convertValue(wallItem, typeReference);
             item.setType(type);
             return item;
         }

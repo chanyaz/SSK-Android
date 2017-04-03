@@ -9,13 +9,14 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/row_wall_shop_image"
+            android:id="@+id/image"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="wrap_content"
-            android:background="@drawable/wall_shop_demo_photo" />
+            android:src="@drawable/wall_shop_demo_photo" />
 
         <ImageView
-            android:id="@+id/row_wall_shop_triangle"
+            android:id="@+id/triangle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -25,7 +26,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/row_wall_shop_item_name_container"
+        android:id="@+id/shop_item_name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/row_wall_shop_image_container"
@@ -33,7 +34,7 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/row_wall_shop_item_name"
+            android:id="@+id/caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -43,21 +44,23 @@
             android:textColor="@color/wall_shop_description_text_color" />
 
         <View
-            android:id="@+id/row_wall_shop_name_price_divider"
+            android:id="@+id/price_divider"
             android:layout_width="2dp"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@id/row_wall_shop_item_name"
-            android:layout_alignTop="@id/row_wall_shop_item_name"
+            android:visibility="gone"
+            android:layout_alignBottom="@id/caption"
+            android:layout_alignTop="@id/caption"
             android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginStart="@dimen/margin_8"
-            android:layout_toEndOf="@id/row_wall_shop_item_name"
+            android:layout_toEndOf="@id/caption"
             android:background="@color/wall_shop_description_text_color" />
 
         <TextView
-            android:id="@+id/row_wall_shop_price"
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/row_wall_shop_name_price_divider"
+            android:visibility="gone"
+            android:layout_toEndOf="@id/price_divider"
             android:maxLines="1"
             android:singleLine="true"
             android:text="&#8364;79.99"
@@ -68,7 +71,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/row_wall_shop_item_name_container"
+        android:layout_below="@+id/shop_item_name_container"
         android:background="@color/wall_shop_description_background">
 
         <Button
@@ -82,7 +85,7 @@
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/row_wall_shop_name"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

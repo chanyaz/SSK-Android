@@ -134,7 +134,6 @@ public class Slot implements Media.Listener{
     }
 
     public void reset(){
-        label.setText("...");
         setSpinner(true);
         setVideo(true);
     }

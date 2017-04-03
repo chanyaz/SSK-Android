@@ -2,6 +2,7 @@ package tv.sportssidekick.sportssidekick.model.wall;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
@@ -19,7 +20,11 @@ public class WallStoreItem extends WallBase {
     private String subTitle;
     private String url;
     private Date pubDate;
+    @JsonProperty("coverImage")
     private String coverImage;
+    @JsonProperty("coverImageUrl")
+    private String coverImageUrl;
+    @JsonProperty("coverAspectRatio")
     private float coverAspectRatio;
     //TODO need price from server?!
 
@@ -27,19 +32,35 @@ public class WallStoreItem extends WallBase {
         super();
     }
 
+
+    @JsonProperty("coverAspectRatio")
     public float getCoverAspectRatio() {
         return coverAspectRatio;
     }
 
+    @JsonProperty("coverAspectRatio")
     public WallStoreItem setCoverAspectRatio(float coverAspectRatio) {
         this.coverAspectRatio = coverAspectRatio;
         return this;
     }
 
+    @JsonProperty("coverImageUrl")
+    public String getCoverImageUrl() {
+        return coverImageUrl;
+    }
+
+    @JsonProperty("coverImageUrl")
+    public WallStoreItem setCoverImageUrl(String coverImage) {
+        this.coverImageUrl = coverImage;
+        return this;
+    }
+
+    @JsonProperty("coverImage")
     public String getCoverImage() {
         return coverImage;
     }
 
+    @JsonProperty("coverImage")
     public WallStoreItem setCoverImage(String coverImage) {
         this.coverImage = coverImage;
         return this;
