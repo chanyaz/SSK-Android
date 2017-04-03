@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.service.BusEvent;
+import tv.sportssidekick.sportssidekick.util.Utility;
 
 
 /**
@@ -81,7 +82,6 @@ public abstract class BaseFragment extends Fragment {
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
+        Utility.hideKeyboard(getActivity());
     }
-
-
 }
