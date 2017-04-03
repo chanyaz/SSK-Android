@@ -36,7 +36,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * www.hypercubesoft.com
  */
 
-public class YourFriendsFragment extends BaseFragment {
+public class FriendsFragment extends BaseFragment {
 
     public static final double GRID_PERCENT_CELL_WIDTH = 0.092;
 
@@ -52,7 +52,7 @@ public class YourFriendsFragment extends BaseFragment {
     @BindView(R.id.no_result_text)
     TextView noResultText;
 
-    public YourFriendsFragment() {
+    public FriendsFragment() {
         // Required empty public constructor
     }
 
@@ -78,7 +78,7 @@ public class YourFriendsFragment extends BaseFragment {
 
         final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
 
-        adapter.setInitiatorFragment(YourFriendsFragment.class);
+        adapter.setInitiatorFragment(FriendsFragment.class);
         friendsRecyclerView.setAdapter(adapter);
         Task<List<UserInfo>> friendsTask =  FriendsManager.getInstance().getFriends(0);
         friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {

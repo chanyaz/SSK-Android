@@ -52,9 +52,9 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
     compile 'com.android.support:support-v4:25.3.0'
-    compile 'com.android.support:recyclerview-v7:25.3.0'
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:percent:25.3.0'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:percent:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
 
     compile 'com.google.http-client:google-http-client-android:1.20.0'
@@ -65,7 +65,7 @@ dependencies {
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr1'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.twilio:video-android:1.0.0-beta6'
+    compile 'com.twilio:video-android:1.0.0-beta15'
     compile 'com.facebook.android:facebook-android-sdk:4.20.0'
 
     compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
@@ -84,5 +84,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

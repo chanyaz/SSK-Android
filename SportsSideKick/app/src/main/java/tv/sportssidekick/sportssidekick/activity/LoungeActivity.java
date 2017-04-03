@@ -66,7 +66,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.SignUpFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.YourFriendsFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
@@ -224,7 +224,7 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(YourStatementFragment.class);
         popupContainerFragments.add(WalletFragment.class);
         popupContainerFragments.add(LanguageFragment.class);
-        popupContainerFragments.add(YourFriendsFragment.class);
+        popupContainerFragments.add(FriendsFragment.class);
         popupContainerFragments.add(FriendRequestsFragment.class);
         popupContainerFragments.add(StartingNewCallFragment.class);
         popupContainerFragments.add(EditProfileFragment.class);
@@ -386,7 +386,7 @@ public class LoungeActivity extends AppCompatActivity {
     }
 
     public void onFriendsButtonClick(View view) {
-        EventBus.getDefault().post(new FragmentEvent(YourFriendsFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(FriendsFragment.class));
     }
 
     public void onFollowersButtonClick(View view) {

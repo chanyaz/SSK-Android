@@ -1,6 +1,8 @@
 package tv.sportssidekick.sportssidekick.fragment;
 
 
+import java.util.ArrayList;
+
 import tv.sportssidekick.sportssidekick.service.BusEvent;
 
 /**
@@ -10,6 +12,8 @@ import tv.sportssidekick.sportssidekick.service.BusEvent;
  */
 
 public class FragmentEvent extends BusEvent {
+
+    private ArrayList<String> stringArrayList;
 
     public Class getType() {
         return classType;
@@ -50,5 +54,13 @@ public class FragmentEvent extends BusEvent {
 
     public void setInitiatorFragment(Class initiatorFragment) {
         this.initiatorFragment = initiatorFragment;
+    }
+
+    public ArrayList<String> getStringArrayList() {
+        return stringArrayList;
+    }
+
+    public void setStringArrayList(ArrayList<String> stringArrayList) {
+        this.stringArrayList = stringArrayList;
     }
 }

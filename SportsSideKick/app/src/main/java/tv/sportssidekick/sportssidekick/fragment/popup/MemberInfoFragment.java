@@ -79,7 +79,7 @@ public class MemberInfoFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_member_info, container, false);
         initiatorFragment = getInitiator();
         if(initiatorFragment==null){
-            initiatorFragment = YourFriendsFragment.class; // Resolve to default parent!
+            initiatorFragment = FriendsFragment.class; // Resolve to default parent!
         }
 
         ButterKnife.bind(this, view);

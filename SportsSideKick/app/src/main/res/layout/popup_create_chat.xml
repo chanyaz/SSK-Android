@@ -115,11 +115,15 @@
         android:layout_marginBottom="@dimen/margin_60"
         android:background="@android:color/black" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
+        android:layout_alignParentBottom="true">
+
     <EditText
         android:id="@+id/search_edit_text"
         android:layout_width="match_parent"
         android:layout_height="@dimen/create_chat_name_label_height"
-        android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/private_chat_switch"
         android:background="@drawable/popup_bottom_left_round_background_dark"
         android:gravity="start|center_vertical"
@@ -154,15 +158,17 @@
         android:textColor="@color/white"
         android:text="@string/this_chat_is_public"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/confirm_button"
-        android:layout_width="@dimen/create_chat_button_width"
-        android:layout_height="@dimen/create_chat_button_height"
-        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="@dimen/margin_15"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/popup_confirmation_button"
+        android:layout_marginBottom="@dimen/margin_30"
         android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_30"
-        android:background="@drawable/popup_confirmation_button" />
-
+        android:layout_marginStart="@dimen/margin_30" />
+    </RelativeLayout>
 </RelativeLayout>

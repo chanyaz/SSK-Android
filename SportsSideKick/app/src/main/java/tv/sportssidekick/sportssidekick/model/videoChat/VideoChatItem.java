@@ -1,20 +1,58 @@
 package tv.sportssidekick.sportssidekick.model.videoChat;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.HashMap;
 
-/**
- * Created by Djordje Krutil on 27.1.2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
- */
+import tv.sportssidekick.sportssidekick.model.Id;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VideoChatItem {
 
-    String id;
+    @JsonProperty("_id")
+    Id id;
     String ownerId;
     HashMap<String, String> participants;
+    boolean isClosed = false;
 
-    public VideoChatItem(String id, String ownerId, HashMap<String, String> participants) {
+    public Id getId() {
+        return id;
+    }
+
+    public void setId(Id id) {
+        this.id = id;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public HashMap<String, String> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(HashMap<String, String> participants) {
+        this.participants = participants;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
+    }
+
+    public VideoChatItem() { }
+
+    public VideoChatItem(Id id, String ownerId, HashMap<String, String> participants) {
         this.id = id;
         this.ownerId = ownerId;
         this.participants = participants;
@@ -25,12 +63,17 @@ public class VideoChatItem {
             {
                 if(uid != ownerId)
                 {
-                    this.participants.put(uid, "");// TODO chaneg it!!! self.participants[uid] = Date().toFirebase()
+                    this.participants.put(uid, "");// TODO change this! self.participants[uid] = Date().toFirebase()
                 }
                 else {
                     this.participants.put(uid, "accepted");
                 }
             }
         }
+    }
+
+    public void update(VideoChatItem item){
+        this.isClosed = item.isClosed();
+        this.participants = item.getParticipants();
     }
 }

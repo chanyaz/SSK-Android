@@ -1,76 +1,239 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_dark_1"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@null"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_login" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_green_1_semitransparent"
-        android:contentDescription="@null" />
-
     <RelativeLayout
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp">
+        android:layout_alignParentBottom="true">
 
-        <ImageView
-            android:id="@+id/logo"
+        <ImageButton
+            android:id="@+id/add_users_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/being_your_call"
-            android:layout_alignStart="@+id/being_your_call"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/margin_30"
-            android:contentDescription="@null"
-            android:src="@drawable/ssk_logo" />
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/margin_15"
+            android:layout_toLeftOf="@+id/toggle_mic_button"
+            android:background="@null"
+            android:src="@drawable/add_users_button"
+            android:text="ADD USERS" />
 
-        <TextView
-            android:id="@+id/text1"
+        <ImageButton
+            android:id="@+id/toggle_mic_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/logo"
-            android:layout_centerHorizontal="true"
-            android:text="@string/video_chat_text_1"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="26sp" />
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/margin_15"
+            android:layout_toLeftOf="@+id/toggle_video_button"
+            android:background="@null"
+            android:src="@drawable/microphone_selector" />
 
-        <TextView
-            android:id="@+id/text2"
+        <ImageButton
+            android:id="@+id/toggle_video_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text1"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_20"
-            android:text="@string/video_chat_text_2"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:layout_margin="@dimen/margin_15"
+            android:background="@null"
+            android:src="@drawable/video_call_selector" />
 
-        <Button
-            android:id="@+id/being_your_call"
-            style="@style/button_call"
+        <ImageButton
+            android:id="@+id/toggle_camera_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text2"
-            android:layout_centerHorizontal="true"
-            android:text="@string/video_chat_button_text"
-            android:textColor="@color/white"
-            android:onClick="onBeingYourCallClick()"/>
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/margin_15"
+            android:layout_toRightOf="@+id/toggle_video_button"
+            android:background="@null"
+            android:src="@drawable/flip_camera_button" />
+
+        <ImageButton
+            android:id="@+id/disconnect_button"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/margin_15"
+            android:layout_toRightOf="@+id/toggle_camera_button"
+            android:background="@null"
+            android:src="@drawable/hangup_button" />
     </RelativeLayout>
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progress_bar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/active_container"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/margin_20"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom">
+
+        <include
+            layout="@layout/item_video_chat_slot"
+            android:id="@+id/slot_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/demo_blue_semitransparent"
+            app:layout_constraintBottom_toTopOf="@+id/preview_container"
+            app:layout_constraintLeft_toRightOf="@+id/slot_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </include>
+
+        <include
+            layout="@layout/item_video_chat_slot"
+            android:id="@+id/slot_3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/demo_green_semitransparent"
+            app:layout_constraintBottom_toTopOf="@+id/preview_container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/slot_2"
+            app:layout_constraintTop_toTopOf="parent">
+        </include>
+
+
+        <include
+            layout="@layout/item_video_chat_slot"
+            android:id="@+id/slot_4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/demo_yellow_semitransparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/preview_container"
+            app:layout_constraintTop_toBottomOf="@+id/slot_3">
+        </include>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/preview_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/slot_4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slot_2">
+
+            <ImageView
+                android:id="@+id/disabled_video_icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/disable_video_button"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/preview_video_view"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.twilio.video.VideoView
+                android:id="@+id/preview_video_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/preview_user_name_text_view"
+                app:layout_constraintDimensionRatio="1.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/disabled_video_icon"
+                app:layout_constraintVertical_chainStyle="spread" />
+
+            <TextView
+                android:id="@+id/preview_user_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="user name"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/preview_video_view" />
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/inactive_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_login" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light_green_1_semitransparent"
+            android:contentDescription="@null" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/being_your_call"
+                android:layout_alignStart="@+id/being_your_call"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_30"
+                android:contentDescription="@null"
+                android:src="@drawable/ssk_logo" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/logo"
+                android:layout_centerHorizontal="true"
+                android:text="@string/video_chat_text_1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                android:text="@string/video_chat_text_2"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/being_your_call"
+                style="@style/button_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text2"
+                android:layout_centerHorizontal="true"
+                android:onClick="onBeingYourCallClick()"
+                android:text="@string/video_chat_button_text"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

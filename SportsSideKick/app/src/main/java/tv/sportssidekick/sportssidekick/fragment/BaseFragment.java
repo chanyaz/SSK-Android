@@ -6,7 +6,10 @@ import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 import tv.sportssidekick.sportssidekick.service.BusEvent;
+import tv.sportssidekick.sportssidekick.util.Utility;
 
 
 /**
@@ -20,6 +23,7 @@ import tv.sportssidekick.sportssidekick.service.BusEvent;
 public abstract class BaseFragment extends Fragment {
 
     public static final String PRIMARY_ARG_TAG = "PRIMARY_ARG_TAG";
+    public static final String STRING_ARRAY_ARG_TAG = "STRING_ARRAY_ARG_TAG";
     public static final String INITIATOR = "INITIATOR_ARG_TAG";
     private static final String TAG = "Base Fragment";
 
@@ -48,6 +52,13 @@ public abstract class BaseFragment extends Fragment {
         return getArguments().getString(PRIMARY_ARG_TAG);
     }
 
+    protected List<String> getStringArrayArguement(){
+        if(getArguments().containsKey(STRING_ARRAY_ARG_TAG)){
+            return getArguments().getStringArrayList(STRING_ARRAY_ARG_TAG);
+        }
+        return null;
+    }
+
     protected Class getInitiator(){
         if(getArguments().containsKey(INITIATOR)){
             String className = getArguments().getString(INITIATOR);
@@ -71,7 +82,6 @@ public abstract class BaseFragment extends Fragment {
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
+        Utility.hideKeyboard(getActivity());
     }
-
-
 }

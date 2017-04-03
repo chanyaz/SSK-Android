@@ -464,7 +464,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
             case "ImsUpdateChatInfo":
                 chatId = (String) data.get(CHAT_ID);
                 if(chatId!=null){
-                    reload();
+//                    reload();
                 }
                 break;
             case "ImsUpdateUserIsTypingState":
@@ -491,7 +491,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 }
                 break;
             default:
-                Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
+                //Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
                 break;
         }
 

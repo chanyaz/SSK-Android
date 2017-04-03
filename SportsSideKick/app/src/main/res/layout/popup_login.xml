@@ -176,7 +176,8 @@
                     android:hint="@string/login_login_email"
                     android:inputType="textEmailAddress"
                     android:text="user2@user2.com"
-                    android:textAlignment="textStart" />
+                    android:textAlignment="textStart"
+                    android:nextFocusDown="@+id/login_password" />
 
                 <EditText
                     android:id="@+id/login_password"

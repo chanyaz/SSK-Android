@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -31,12 +30,12 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  *
- * Chat List Adapter for use in chat fragment
+ * Selectable Users Adapter for use in chat and video chat fragments
  */
 
 
-public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.ViewHolder> {
-    private static final String TAG = "Chat Friends Adapter";
+public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFriendsAdapter.ViewHolder> {
+    private static final String TAG = "Selectable Friends Adapter";
 
     private Context context;
 
@@ -60,7 +59,7 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
         }
     }
 
-    public ChatFriendsAdapter(Context context) {
+    public SelectableFriendsAdapter(Context context) {
         selectedValues = new ArrayList<>();
         this.context = context;
         if(context!=null){
@@ -75,10 +74,10 @@ public class ChatFriendsAdapter extends RecyclerView.Adapter<ChatFriendsAdapter.
     }
 
     @Override
-    public ChatFriendsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public SelectableFriendsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
        final ViewHolder viewHolder;
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_friend_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.selectable_friend_item, parent, false);
         viewHolder = new ViewHolder(view);
 
        // int matchParent = RelativeLayout.LayoutParams.WRAP_CONTENT;
