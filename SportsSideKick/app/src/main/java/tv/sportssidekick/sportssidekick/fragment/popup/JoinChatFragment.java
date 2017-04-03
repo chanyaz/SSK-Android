@@ -7,8 +7,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,7 +46,7 @@ public class JoinChatFragment extends BaseFragment {
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView recyclerView;
     @BindView(R.id.confirm_button)
-    Button confirmButton;
+    ImageButton confirmButton;
 
     @BindView(R.id.create_a_chat)
     TextView createChatTextView;
@@ -162,10 +162,12 @@ public class JoinChatFragment extends BaseFragment {
     }
 
     public void joinChat(){
-        ChatInfo selectedChat = chatsAdapter.getSelectedValue();
-        if(selectedChat!=null){
-            selectedChat.joinChat();
-            getActivity().onBackPressed();
+        if(chatsAdapter!=null){
+            ChatInfo selectedChat = chatsAdapter.getSelectedValue();
+            if(selectedChat!=null){
+                selectedChat.joinChat();
+                getActivity().onBackPressed();
+            }
         }
     }
 }
