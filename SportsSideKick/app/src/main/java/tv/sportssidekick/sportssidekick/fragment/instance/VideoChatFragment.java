@@ -108,7 +108,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public void setMicrophoneEnabled(boolean microphoneEnabled) {
         isMicrophoneEnabled = microphoneEnabled;
         localAudioTrack.enable(microphoneEnabled);
-        // TODO - toggle mic image
+        if(microphoneEnabled){
+            muteButton.setSelected(false);
+        }else {
+            muteButton.setSelected(true);
+        }
     }
 
     public void setFrontCamera(boolean frontCamera) {
@@ -124,6 +128,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         previewView.setVisibility(isVideoEnabled ? View.VISIBLE : View.GONE);
         disabled.setVisibility(isVideoEnabled ? View.GONE : View.VISIBLE);
         localVideoTrack.enable(isVideoEnabled);
+        if(videoEnabled){
+            videoButton.setSelected(false);
+        }else {
+            videoButton.setSelected(true);
+        }
     }
 
     @OnClick(R.id.being_your_call)
@@ -146,7 +155,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public void onToggleMicrophone(View view){
         if(localAudioTrack!=null){
             setMicrophoneEnabled(!isMicrophoneEnabled);
-            // TODO - toggle mic button image
         }
     }
     @OnClick(R.id.toggle_video_button)

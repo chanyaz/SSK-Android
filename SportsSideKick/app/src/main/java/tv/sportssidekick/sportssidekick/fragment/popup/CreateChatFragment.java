@@ -7,9 +7,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -51,7 +51,7 @@ public class CreateChatFragment extends BaseFragment {
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
     @BindView(R.id.confirm_button)
-    Button confirmButton;
+    ImageButton confirmButton;
     @BindView(R.id.chat_name_edit_text)
     EditText chatNameEditText;
     @BindView(R.id.join_a_chat)
