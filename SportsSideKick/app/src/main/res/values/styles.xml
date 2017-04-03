@@ -74,4 +74,16 @@
     <style name="boldText">
         <item name="fontPath">fonts/TitilliumWeb-Bold.ttf</item>
     </style>
+
+    <style name="toggle_button_filter">
+        <item name="android:textColor">@drawable/filter_toggle_button_text_color</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/filter_toggle_button</item>
+        <item name="android:layout_marginLeft">@dimen/margin_20</item>
+        <item name="android:layout_marginRight">@dimen/margin_20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
 </resources>
