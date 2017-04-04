@@ -10,82 +10,75 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import tv.sportssidekick.sportssidekick.model.Id;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WallNews extends WallBase {
 
-    @JsonProperty("title")
-    private String title;
-    @JsonProperty("subTitle")
-    private String subTitle;
-    @JsonProperty("bodyText")
-    private String bodyText;
-    @JsonProperty("coverImageUrl")
-    private String coverImageUrl;
     @JsonProperty("vidUrl")
     private String vidUrl;
-    @JsonProperty("coverAspectRatio")
-    private Float coverAspectRatio;
+    @JsonProperty("url")
+    private String url;
+    @JsonProperty("source")
+    private Float source;
 
-    @JsonProperty("title")
-    public String getTitle() {
-        return title;
-    }
 
-    @JsonProperty("title")
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    @JsonProperty("subTitle")
-    public String getSubTitle() {
-        return subTitle;
-    }
-
-    @JsonProperty("subTitle")
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-    }
-
-    @JsonProperty("bodyText")
-    public String getBodyText() {
-        return bodyText;
-    }
-
-    @JsonProperty("bodyText")
-    public void setBodyText(String bodyText) {
-        this.bodyText = bodyText;
-    }
-
-    @JsonProperty("coverImageUrl")
-    public String getCoverImageUrl() {
-        return coverImageUrl;
-    }
-
-    @JsonProperty("coverImageUrl")
-    public void setCoverImageUrl(String coverImageUrl) {
-        this.coverImageUrl = coverImageUrl;
-    }
-
+    @Override
     @JsonProperty("vidUrl")
     public String getVidUrl() {
         return vidUrl;
     }
 
+    @Override
     @JsonProperty("vidUrl")
     public void setVidUrl(String vidUrl) {
         this.vidUrl = vidUrl;
     }
 
-    @JsonProperty("coverAspectRatio")
-    public Float getCoverAspectRatio() {
-        return coverAspectRatio;
+    @JsonProperty("url")
+    public String getUrl() {
+        return url;
     }
 
-    @JsonProperty("coverAspectRatio")
-    public void setCoverAspectRatio(Float coverAspectRatio) {
-        this.coverAspectRatio = coverAspectRatio;
+    @JsonProperty("url")
+    public void setUrl(String url) {
+        this.url = url;
     }
 
+    @JsonProperty("source")
+    public Float getSource() {
+        return source;
+    }
+
+    @JsonProperty("source")
+    public void setSource(Float source) {
+        this.source = source;
+    }
+
+    @JsonProperty("_id")
+    public void setId(Id id) {
+        postId = id.getOid();
+    }
+
+    @JsonProperty("strap")
+    public void setStrap(String strap) {
+        this.subTitle = strap;
+    }
+
+    @JsonProperty("pubDate")
+    public void setPubDate(Double pubDate) {
+        this.timestamp = pubDate;
+    }
+
+    @JsonProperty("image")
+    public void setImage(String image) {
+        this.coverImageUrl = image;
+    }
+
+    @JsonProperty("content")
+    public void setContent(String content) {
+        this.bodyText = content;
+    }
 }
 

@@ -11,14 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
@@ -27,7 +25,6 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.RumoursNewsListAdapter;
 import tv.sportssidekick.sportssidekick.adapter.RumoursTopFourNewsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.model.news.NewsItem;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
 import tv.sportssidekick.sportssidekick.util.GridSpacingItemDecoration;
@@ -42,7 +39,7 @@ import tv.sportssidekick.sportssidekick.util.GridSpacingItemDecoration;
 
 public class RumoursFragment extends BaseFragment {
 
-    final NewsItem.NewsType type = NewsItem.NewsType.UNOFFICIAL;
+    final NewsModel.NewsType type = NewsModel.NewsType.UNOFFICIAL;
 
     RumoursNewsListAdapter rumoursSmallAdapter;
     RumoursTopFourNewsAdapter top4newsAdapter;

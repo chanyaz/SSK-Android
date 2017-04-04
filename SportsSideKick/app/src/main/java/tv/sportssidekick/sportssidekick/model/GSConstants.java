@@ -45,10 +45,18 @@ public class GSConstants {
     public static final String COMMENTS = "comments";
     public static final String COMMENT = "comment";
     public static final String OPERATION = "operation";
+    public static final String OPERATION_UPDATE_POST = "update_post";
+    public static final String OPERATION_NEW_POST = "new_post";
+    public static final String OPERATION_COMMENT = "comment";
     public static final String ITEMS = "items";
     public static final String USER_ACHIEVEMENTS = "userAchievements";
     public static final String ACHIEVEMENTS = "achievements";
     public static final String VIDEO_CHAT_ITEM = "videoChatItem";
     public static final String DATA = "data";
     public static final String TOKEN = "token";
+    public static final String ITEM_TYPE = "itemType";
+    public static final String WALL_POST = "WallPost";
+    public static final String NEWS = "News";
+    public static final String RUMOUR = "Rumour";
+    public static final String ITEM = "item";
 }

@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.model.news.NewsItem;
+import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
@@ -53,25 +53,25 @@ public class NewsItemFragment extends BaseFragment{
         ButterKnife.bind(this, view);
 
         String id = getPrimaryArgument();
-        NewsItem.NewsType type = NewsItem.NewsType.OFFICIAL;
+        NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
         if(id.contains("UNOFFICIAL$$$")){
             id = id.replace("UNOFFICIAL$$$","");
-             type = NewsItem.NewsType.UNOFFICIAL;
+             type = NewsModel.NewsType.UNOFFICIAL;
         }
-        NewsItem item = NewsModel.getInstance().getCachedItemById(id,type);
+        WallNews item = NewsModel.getInstance().getCachedItemById(id,type);
 
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-        ImageLoader.getInstance().displayImage(item.getImage(), imageHeader, imageOptions);
+        ImageLoader.getInstance().displayImage(item.getCoverImageUrl(), imageHeader, imageOptions);
         title.setText(item.getTitle());
-        String time = "" + DateUtils.getRelativeTimeSpanString(item.getPubDate().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS);
-        if (item.getStrap() != null)
+        String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS);
+        if (item.getSubTitle() != null)
         {
-            strap.setText(item.getStrap() + " - " + time);
+            strap.setText(item.getSubTitle() + " - " + time);
         }else {
             strap.setText(time);
         }
 
-        content.setText(item.getContent());
+        content.setText(item.getBodyText());
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override

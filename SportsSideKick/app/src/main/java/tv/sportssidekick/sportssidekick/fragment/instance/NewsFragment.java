@@ -11,7 +11,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.NewsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.model.news.NewsItem;
+import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
 
@@ -35,7 +34,7 @@ import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
 
 public class NewsFragment extends BaseFragment {
 
-    final NewsItem.NewsType type = NewsItem.NewsType.OFFICIAL;
+    final NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
 
     NewsAdapter adapter;
     @BindView(R.id.swipe_refresh_layout)
@@ -62,7 +61,7 @@ public class NewsFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<NewsItem> existingItems = NewsModel.getInstance().getAllCachedItems(type);
+        List<WallNews> existingItems = NewsModel.getInstance().getAllCachedItems(type);
         if (existingItems!=null && existingItems.size() > 0)
         {
             adapter.getValues().addAll(existingItems);

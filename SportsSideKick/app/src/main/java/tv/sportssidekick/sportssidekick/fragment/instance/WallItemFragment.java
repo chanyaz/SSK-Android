@@ -1,7 +1,6 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.model.news.NewsItem;
-import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallNews;
@@ -32,12 +28,6 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * www.hypercubesoft.com
  */
 public class WallItemFragment extends BaseFragment{
-
-    public static final int VIEW_TYPE_POST_IMAGE = 0;
-    public static final int VIEW_TYPE_SMALL_CELL = 1;
-    public static final int VIEW_TYPE_SMALL_CELL_WITH_CIRCLE_PROGRESS = 2;
-    public static final int VIEW_TYPE_SHOP = 3;
-    public static final int VIEW_TYPE_COMMENT = 4;
 
     @BindView(R.id.content_image)
     ImageView imageHeader;
@@ -70,29 +60,29 @@ public class WallItemFragment extends BaseFragment{
         WallBase item = WallModel.getInstance().getItemById(id);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
 
-        if (item.getType() == VIEW_TYPE_POST_IMAGE) {
-            WallPost post = (WallPost)item;
-            ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), imageHeader, imageOptions);
-            title.setText(post.getTitle());
-            content.setText(post.getBodyText());
-        }  else if (item.getType() == VIEW_TYPE_SMALL_CELL) {
-            WallNews news = (WallNews)item;
-            ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader, imageOptions);
-            title.setText(news.getTitle());
-            content.setText(news.getBodyText());
-        } else if (item.getType() == VIEW_TYPE_SMALL_CELL_WITH_CIRCLE_PROGRESS) {
-            //ne znam sta je
-        } else if (item.getType() == VIEW_TYPE_SHOP) {
-            WallStoreItem storeItem = (WallStoreItem) item;
-            ImageLoader.getInstance().displayImage(storeItem.getCoverImage(), imageHeader, imageOptions);
-            title.setText(storeItem.getTitle());
-        } else if (item.getType() == VIEW_TYPE_COMMENT) {
-            WallNews news = (WallNews)item;
-            ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader, imageOptions);
-            title.setText(news.getTitle());
-            content.setText(news.getBodyText());
-        } else {
-            return null;
+        switch (item.getType()){
+            case post:
+                WallPost post = (WallPost)item;
+                ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), imageHeader, imageOptions);
+                title.setText(post.getTitle());
+                content.setText(post.getBodyText());
+                break;
+            case rumor:
+            case newsShare:
+                WallNews news = (WallNews)item;
+                ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader, imageOptions);
+                title.setText(news.getTitle());
+                content.setText(news.getBodyText());
+                break;
+            case betting:
+                break;
+            case stats:
+                break;
+            case wallStoreItem:
+                WallStoreItem storeItem = (WallStoreItem) item;
+                ImageLoader.getInstance().displayImage(storeItem.getCoverImageUrl(), imageHeader, imageOptions);
+                title.setText(storeItem.getTitle());
+                break;
         }
 
         close.setOnClickListener(new View.OnClickListener() {

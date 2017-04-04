@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.instance.NewsItemFragment;
-import tv.sportssidekick.sportssidekick.model.news.NewsItem;
+import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -36,9 +36,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private static final int VIEW_TYPE_CELL = 2;
     private static final String TAG = "News Adapter";
 
-    private List<NewsItem> values;
+    private List<WallNews> values;
 
-    public List<NewsItem> getValues() {
+    public List<WallNews> getValues() {
         return values;
     }
 
@@ -82,15 +82,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-        final NewsItem info = values.get(position);
-        ImageLoader.getInstance().displayImage(info.getImage(), holder.image, imageOptions);
+        final WallNews info = values.get(position);
+        ImageLoader.getInstance().displayImage(info.getCoverImageUrl(), holder.image, imageOptions);
         holder.caption.setText(info.getTitle());
-        holder.date.setText("" + DateUtils.getRelativeTimeSpanString(info.getPubDate().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS));
+        holder.date.setText("" + DateUtils.getRelativeTimeSpanString(info.getTimestamp().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS)); // TODO USE PLACEHOLDER!!!
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                fe.setId(info.getId().getOid());
+                fe.setId(info.getPostId());
                 EventBus.getDefault().post(fe);
             }
         });

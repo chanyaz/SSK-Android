@@ -2,6 +2,8 @@ package tv.sportssidekick.sportssidekick.model.news;
 
 import java.util.List;
 
+import tv.sportssidekick.sportssidekick.model.wall.WallNews;
+
 /**
  * Created by Filip on 2/3/2017.
  * Copyright by Hypercube d.o.o.
@@ -10,18 +12,18 @@ import java.util.List;
 
 public class RumoursPageEvent {
 
-    public RumoursPageEvent(List<NewsItem> values) {
+    public RumoursPageEvent(List<WallNews> values) {
         this.values = values;
     }
 
-    public List<NewsItem> getValues() {
+    public List<WallNews> getValues() {
         return values;
     }
 
-    public RumoursPageEvent setValues(List<NewsItem> values) {
+    public RumoursPageEvent setValues(List<WallNews> values) {
         this.values = values;
         return this;
     }
 
-    List<NewsItem> values;
+    List<WallNews> values;
 }

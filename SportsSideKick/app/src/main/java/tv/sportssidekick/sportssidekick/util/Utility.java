@@ -1,8 +1,6 @@
 package tv.sportssidekick.sportssidekick.util;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -10,19 +8,15 @@ import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -70,6 +64,7 @@ public class Utility {
 
     private  static volatile DisplayImageOptions blankOptionsUser;
     private  static volatile DisplayImageOptions blankOptions;
+    private  static volatile DisplayImageOptions wallItemOptions;
     public static DisplayImageOptions getImageOptionsForUsers() {
         if (blankOptionsUser != null) {
             return blankOptionsUser;
@@ -110,6 +105,27 @@ public class Utility {
                 .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
                 .build();
         return blankOptions;
+    }
+
+    public static DisplayImageOptions getImageOptionsForWallItem() {
+        if (wallItemOptions != null) {
+            return wallItemOptions;
+        }
+        wallItemOptions = new DisplayImageOptions.Builder()
+                //TODO change when we have placeholder
+//                .showImageOnLoading(R.drawable.booking_top_image) // resource or drawable
+//                .showImageForEmptyUri(R.drawable.booking_top_image) // resource or drawable
+//                .showImageOnFail(R.drawable.booking_top_image) // resource or drawable
+                .delayBeforeLoading(0) //delay
+                .resetViewBeforeLoading(true)  // default
+                .considerExifParams(false)
+                .cacheInMemory(true) // default
+                .cacheOnDisk(true) // default
+                .bitmapConfig(Bitmap.Config.RGB_565) // default
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
+                .build();
+        return wallItemOptions;
     }
 
     public static boolean isValidEmail(String target) {

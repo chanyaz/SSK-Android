@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.instance.NewsItemFragment;
-import tv.sportssidekick.sportssidekick.model.news.NewsItem;
+import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 
 /**
  * Created by Djordje on 04/01/2017.
@@ -28,9 +28,9 @@ import tv.sportssidekick.sportssidekick.model.news.NewsItem;
 public class RumoursTopFourNewsAdapter extends RecyclerView.Adapter<RumoursTopFourNewsAdapter.ViewHolder> {
     private static final String TAG = "RumoursTopFourNewsAdapter";
 
-    private ArrayList<NewsItem> values;
+    private ArrayList<WallNews> values;
 
-    public ArrayList<NewsItem> getValues() {
+    public ArrayList<WallNews> getValues() {
         return values;
     }
 
@@ -68,19 +68,19 @@ public class RumoursTopFourNewsAdapter extends RecyclerView.Adapter<RumoursTopFo
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (!values.isEmpty())
         {
-            final NewsItem info = values.get(position);
-            if(info.getStrap()!=null){
-                holder.rowInfo.setText(info.getStrap());
+            final WallNews info = values.get(position);
+            if(info.getSubTitle()!=null){
+                holder.rowInfo.setText(info.getSubTitle());
             } else {
                 holder.rowInfo.setText(info.getTitle());
             }
-            String time = "" + DateUtils.getRelativeTimeSpanString(info.getPubDate().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS);
+            String time = "" + DateUtils.getRelativeTimeSpanString(info.getTimestamp().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS);
             holder.rowTime.setText(time);
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                    fe.setId("UNOFFICIAL$$$" + info.getId().getOid());
+                    fe.setId("UNOFFICIAL$$$" + info.getPostId());
                     EventBus.getDefault().post(fe);
                 }
             });
