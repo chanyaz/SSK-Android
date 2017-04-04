@@ -2,7 +2,6 @@ package tv.sportssidekick.sportssidekick.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,7 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,7 +17,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.instance.NewsItemFragment;
-import tv.sportssidekick.sportssidekick.model.news.NewsItem;
+import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 
 /**
  * Created by Djordje on 10/01/2017.
@@ -33,9 +29,9 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
 
     private static final String TAG = "Rumours Small Adapter";
 
-    private List<NewsItem> values;
+    private List<WallNews> values;
 
-    public List<NewsItem> getValues() {
+    public List<WallNews> getValues() {
         return values;
     }
 
@@ -73,7 +69,7 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final NewsItem info = values.get(position);
+        final WallNews info = values.get(position);
         holder.description.setText(info.getTitle());
 //        holder.info.setText(info.getContent());
         String time = "Recent";//"" + DateUtils.getRelativeTimeSpanString(Long.valueOf(info.getPubDate().longValue()), System.currentTimeMillis() / 1000L, DateUtils.MINUTE_IN_MILLIS);
@@ -82,7 +78,7 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
             @Override
             public void onClick(View view) {
                 FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                fe.setId("UNOFFICIAL$$$" + info.getId().getOid()); // TODO Fixme - this is a bit hack-ish
+                fe.setId("UNOFFICIAL$$$" + info.getPostId()); // TODO Fixme - this is a bit hack-ish
                 EventBus.getDefault().post(fe);
             }
         });

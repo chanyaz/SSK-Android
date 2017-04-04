@@ -51,7 +51,7 @@ public abstract class WallBase implements Shareable{
     }
 
     @JsonProperty("timestamp")
-    protected String timestamp;
+    protected Double timestamp;
     @JsonIgnore // NOTE: we set Post type in factory method, not trough automatic JSON parsing!
     protected PostType type = PostType.post;
     @JsonProperty("wallId")
@@ -91,11 +91,11 @@ public abstract class WallBase implements Shareable{
         WallBase.cache = cache;
     }
 
-    public String getTimestamp() {
+    public Double getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Double timestamp) {
         this.timestamp = timestamp;
     }
 

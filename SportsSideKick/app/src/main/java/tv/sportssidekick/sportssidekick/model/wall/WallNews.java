@@ -67,8 +67,13 @@ public class WallNews extends WallBase {
     }
 
     @JsonProperty("pubDate")
-    public void setPubDate(String pubDate) {
+    public void setPubDate(Double pubDate) {
         this.timestamp = pubDate;
+    }
+
+    @JsonProperty("image")
+    public void setImage(String image) {
+        this.coverImageUrl = image;
     }
 
     @JsonProperty("content")

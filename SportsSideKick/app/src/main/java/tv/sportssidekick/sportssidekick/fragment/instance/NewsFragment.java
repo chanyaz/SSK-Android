@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.NewsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.model.news.NewsItem;
+import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
 
@@ -61,7 +61,7 @@ public class NewsFragment extends BaseFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<NewsItem> existingItems = NewsModel.getInstance().getAllCachedItems(type);
+        List<WallNews> existingItems = NewsModel.getInstance().getAllCachedItems(type);
         if (existingItems!=null && existingItems.size() > 0)
         {
             adapter.getValues().addAll(existingItems);

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
@@ -51,8 +52,8 @@ public class NewsModel {
     private int pageRumors = 0;
     private int pageNews = 0;
 
-    List<NewsItem> newsItems;
-    List<NewsItem> rumorsItems;
+    private List<WallNews> newsItems;
+    private List<WallNews> rumorsItems;
 
     private String language;
     private String country;
@@ -79,7 +80,7 @@ public class NewsModel {
         return instance;
     }
 
-    public NewsModel() {
+    private NewsModel() {
         newsItems = new ArrayList<>();
         rumorsItems = new ArrayList<>();
         mapper = new ObjectMapper();
@@ -131,7 +132,7 @@ public class NewsModel {
                         return;
                     }
 
-                    List<NewsItem> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<NewsItem>>(){});
+                    List<WallNews> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<WallNews>>(){});
                     if (receivedItems.size() == 0 && !"en".equals(language) && page == 0)
                     {
                         if(type.equals(NewsType.OFFICIAL)){
@@ -161,16 +162,16 @@ public class NewsModel {
         });
     }
 
-    public NewsItem getCachedItemById(String id, NewsType type) {
+    public WallNews getCachedItemById(String id, NewsType type) {
         if(type == NewsType.OFFICIAL){
-            for(NewsItem item : newsItems){
-                if(item.getId().getOid().equals(id)){
+            for(WallNews item : newsItems){
+                if(item.getPostId().equals(id)){
                     return item;
                 }
             }
         } else {
-            for(NewsItem item : rumorsItems){
-                if(item.getId().getOid().equals(id)){
+            for(WallNews item : rumorsItems){
+                if(item.getPostId().equals(id)){
                     return item;
                 }
             }
@@ -178,7 +179,7 @@ public class NewsModel {
         return null;
     }
 
-    public List<NewsItem> getAllCachedItems(NewsType type) {
+    public List<WallNews> getAllCachedItems(NewsType type) {
         return type == NewsType.OFFICIAL ? newsItems : rumorsItems;
     }
 }
