@@ -115,7 +115,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 //        }
     }
 
-    private Task<Void> getUserPosts(String uid, Date since,final Date toDate){
+    private Task<Void> getUserPosts(final UserInfo userInfo, Date since,final Date toDate){
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         String sinceValue = DateUtils.dateToFirebaseDate(since);
 
@@ -127,6 +127,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     if(jsonArrayOfPosts.size()>0){
                          for(Object postAsJson : jsonArrayOfPosts){
                             WallBase post = WallBase.postFactory(postAsJson, mapper);
+                            post.setSubTitle(userInfo.getNicName());
                             postsTotalFetchCount += 1;
                             EventBus.getDefault().post(new PostUpdateEvent(post));
                             if (toDate != null){
@@ -141,7 +142,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             }
         };
        GSRequestBuilder.LogEventRequest request = createRequest("wallGetUserPosts")
-                .setEventAttribute(GSConstants.USER_ID,uid)
+                .setEventAttribute(GSConstants.USER_ID,userInfo.getUserId())
                 .setEventAttribute(GSConstants.SINCE_DATE,sinceValue);
         if(toDate!=null){
             String untilValue = DateUtils.dateToFirebaseDate(toDate);
@@ -158,19 +159,16 @@ public class WallModel extends GSMessageHandlerAbstract {
      all old posts + new posts + updated posts **/
 
     public void fetchPosts() {
-        final String userId;
         if (getCurrentUser() == null){
             Log.e(TAG, "There is no current user info - aborting Post fetch!");
             return;
-        } else {
-            userId = getCurrentUser().getUserId();
         }
         clearWallListeners();
         postsTotalFetchCount = 0;
 
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
         final ArrayList<Task<Void>> tasks = new ArrayList<>();
-        tasks.add(getUserPosts(userId, oldestFetchDate,null));
+        tasks.add(getUserPosts(getCurrentUser(), oldestFetchDate,null));
 
 
         Task<List<UserInfo>> followingTask = FriendsManager.getInstance().getUserFollowingList(Model.getInstance().getUserInfo().getUserId(),0);
@@ -181,7 +179,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     List<UserInfo> following = task.getResult();
                     if(following!=null){
                         for(UserInfo entry : following){
-                            tasks.add(getUserPosts(entry.getUserId(), oldestFetchDate,null));
+                            tasks.add(getUserPosts(entry, oldestFetchDate,null));
                         }
                     }
                     Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
@@ -219,7 +217,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         final Date newDate =new Date(oldestFetchDate.getTime() + 1000); // Add one second to exclude oldest post from last page
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
 
-        tasks.add(getUserPosts(uInfo.getUserId(), oldestFetchDate, newDate));
+        tasks.add(getUserPosts(uInfo, oldestFetchDate, newDate));
 
         Task<List<UserInfo>> followingTask = FriendsManager.getInstance().getUserFollowingList(uInfo.getUserId(), 0);
         followingTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
@@ -229,7 +227,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     List<UserInfo> following = task.getResult();
                     if (following != null) {
                         for (UserInfo entry : following) {
-                            tasks.add(getUserPosts(entry.getUserId(), oldestFetchDate, newDate));
+                            tasks.add(getUserPosts(entry, oldestFetchDate, newDate));
                         }
                     }
                     Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
@@ -453,23 +451,5 @@ public class WallModel extends GSMessageHandlerAbstract {
             }
         }
     }
-
-    public void addToCache(List<WallBase> items)
-    {
-        listCacheItems = new ArrayList<>();
-        listCacheItems = items;
-        cahchedItems = new HashMap<>();
-        for (int i=0; i <items.size(); i++)
-        {
-            cahchedItems.put(items.get(i).getPostId(), items.get(i));
-        }
-    }
-
-    public WallBase getItemById(String id)
-    {
-        return cahchedItems.get(id);
-    }
-
-
 }
 

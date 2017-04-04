@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -31,6 +35,8 @@ import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.tutorial.TutorialModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
+import tv.sportssidekick.sportssidekick.model.wall.WallPost;
+import tv.sportssidekick.sportssidekick.service.PostCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
 import tv.sportssidekick.sportssidekick.util.StaggeredLayoutManagerItemDecoration;
@@ -71,10 +77,13 @@ public class WallFragment extends BaseFragment {
     @BindView(R.id.search_wall_post)
     RelativeLayout searchWallContainer;
 
-    @BindView(R.id.post_commnent_button)
+    @BindView(R.id.post_post_button)
     ImageView postCommentButton;
     @BindView(R.id.comment_text)
     EditText commentText;
+
+    @BindView(R.id.progress_bar)
+    AVLoadingIndicatorView progressBar;
 
     boolean isNewPostVisible, isFilterVisible, isSearchVisible;
 
@@ -116,18 +125,12 @@ public class WallFragment extends BaseFragment {
             }
         });
 
-        List<WallBase> cacheWallItems = WallModel.getInstance().getListCacheItems();
-        if (cacheWallItems != null && cacheWallItems.size() != 0)
-        {
-            wallItems = cacheWallItems;
-            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-            adapter = new WallAdapter(getActivity(), wallItems);
-            if(wallRecyclerView!=null){
-                wallRecyclerView.setAdapter(adapter);
-                wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
-                wallRecyclerView.setLayoutManager(layoutManager);
-            }
-            adapter.notifyDataSetChanged();
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        adapter = new WallAdapter(getActivity(), wallItems);
+        if(wallRecyclerView!=null){
+            wallRecyclerView.setAdapter(adapter);
+            wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
+            wallRecyclerView.setLayoutManager(layoutManager);
         }
         return view;
     }
@@ -139,21 +142,33 @@ public class WallFragment extends BaseFragment {
         if(post!=null){
             Log.d(TAG,"Post is:" + post.toString());
             wallItems.add(post);
+            progressBar.setVisibility(View.GONE);
         }
     }
 
     @Subscribe
     public void onPostsLoaded(PostLoadCompleteEvent event){
         Log.d(TAG,"ALL POSTS LOADED!");
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        adapter = new WallAdapter(getActivity(), wallItems);
-        if(wallRecyclerView!=null){
-            wallRecyclerView.setAdapter(adapter);
-            wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
-            wallRecyclerView.setLayoutManager(layoutManager);
-        }
-        WallModel.getInstance().addToCache(wallItems);
+        progressBar.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
+    }
+
+    @Subscribe
+    public void onPostUpdated(PostUpdateEvent event){
+        adapter.notifyDataSetChanged();
+        isNewPostVisible = false;
+        isFilterVisible = false;
+        isSearchVisible = false;
+        updateButtons();
+    }
+
+    @Subscribe
+    public void onPostUpdated(PostCompleteEvent event){
+        adapter.notifyDataSetChanged();
+        isNewPostVisible = false;
+        isFilterVisible = false;
+        isSearchVisible = false;
+        updateButtons();
     }
 
     private void updateButtons(){
@@ -188,6 +203,20 @@ public class WallFragment extends BaseFragment {
         updateButtons();
     }
 
-
+    @OnClick(R.id.post_post_button)
+    public void postPost() {
+        String postContent = commentText.getText().toString();
+        if(!TextUtils.isEmpty(postContent)){
+            WallPost newPost = new WallPost();
+            newPost.setType(WallBase.PostType.post);
+            newPost.setTitle("Not sure we need title here");
+            newPost.setSubTitle("A subtitle...");
+            newPost.setTimestamp((double) System.currentTimeMillis());
+            newPost.setBodyText(postContent);
+            WallModel.getInstance().mbPost(newPost);
+        } else {
+            Toast.makeText(getContext(),"Please enter some text for post!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }

@@ -24,4 +24,11 @@ public class WallPost extends WallBase {
     public void setVidUrl(String vidUrl) {
         this.vidUrl = vidUrl;
     }
+
+
+    @Override
+    public void setEqualTo(WallBase item) {
+        super.setEqualTo(item);
+        this.vidUrl = ((WallPost)item).vidUrl;
+    }
 }

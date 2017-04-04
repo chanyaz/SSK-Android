@@ -26,29 +26,11 @@ import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public abstract class WallBase implements Shareable{
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class WallBase implements Shareable {
 
     private static final String TAG = "WALLBASE";
-
-
-
     static private HashMap<String, WallBase> cache = new HashMap<>();
-
-    public static void clear(){
-        cache.clear();
-    }
-
-    public enum PostType {
-        post,
-        newsShare,
-        betting,
-        stats,
-        rumor,
-        wallStoreItem,
-        newsOfficial,
-        newsUnOfficial
-    }
 
     @JsonProperty("timestamp")
     protected Double timestamp;
@@ -79,6 +61,10 @@ public abstract class WallBase implements Shareable{
     @JsonProperty("coverAspectRatio")
     protected Float coverAspectRatio = 0.5625f;
 
+    public static void clear() {
+        cache.clear();
+    }
+
     public static String getTAG() {
         return TAG;
     }
@@ -91,10 +77,66 @@ public abstract class WallBase implements Shareable{
         WallBase.cache = cache;
     }
 
+    @Nullable
+    static WallBase postFactory(Object wallItem, ObjectMapper mapper) {
+        JsonNode node = mapper.valueToTree(wallItem);
+        if (node.has("type") && node.get("type").canConvertToInt()) {
+            int typeValue = node.get("type").intValue();
+            PostType type = PostType.values()[typeValue - 1];
+            TypeReference typeReference = new TypeReference<WallBase>() {
+            };
+            ;
+            switch (type) {
+                case post:
+                    typeReference = new TypeReference<WallPost>() {
+                    };
+                    break;
+                case newsShare:
+                    typeReference = new TypeReference<WallNews>() {
+                    };
+                    break;
+                case betting:
+                    typeReference = new TypeReference<WallBetting>() {
+                    };
+                    break;
+                case stats:
+                    typeReference = new TypeReference<WallStats>() {
+                    };
+                    break;
+                case rumor:
+                    typeReference = new TypeReference<WallRumor>() {
+                    };
+                    break;
+                case wallStoreItem:
+                    typeReference = new TypeReference<WallStoreItem>() {
+                    };
+            }
+            WallBase item = mapper.convertValue(wallItem, typeReference);
+            item.setType(type);
+
+            WallBase cachedItem = cache.get(item.getPostId());
+            if(cachedItem!=null){
+                cachedItem.setEqualTo(item);
+                item = cachedItem;
+            } else {
+                cache.put(item.getPostId(),item);
+            }
+            return item;
+        }
+        return null;
+    }
+
+    @JsonProperty("timestamp")
+    public String getTimestampAsString() {
+        return String.valueOf(timestamp.longValue()/1000) + "." +  String.valueOf((int)(timestamp.longValue()%1000) + "00");
+    }
+
+
     public Double getTimestamp() {
         return timestamp;
     }
 
+    @JsonProperty("timestamp")
     public void setTimestamp(Double timestamp) {
         this.timestamp = timestamp;
     }
@@ -195,6 +237,13 @@ public abstract class WallBase implements Shareable{
         this.coverAspectRatio = coverAspectRatio;
     }
 
+
+    @JsonProperty("type")
+    public int getTypeAsInt() {
+        return type.ordinal()+1;
+    }
+
+
     @JsonIgnore
     public PostType getType() {
         return type;
@@ -206,9 +255,9 @@ public abstract class WallBase implements Shareable{
     }
 
 
-    public void toggleLike(){
+    public void toggleLike() {
         likedByUser = !likedByUser;
-        if(likedByUser){
+        if (likedByUser) {
             likeCount += 1;
         } else {
             likeCount -= 1;
@@ -216,20 +265,28 @@ public abstract class WallBase implements Shareable{
         WallModel.getInstance().setlikeVal(this, likedByUser).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Log.i(TAG,"Like set to value " + likedByUser);
+                if (task.isSuccessful()) {
+                    Log.i(TAG, "Like set to value " + likedByUser);
                 }
             }
         });
     }
 
-    public void setEqualTo(WallBase item){
+    public void setEqualTo(WallBase item) {
         this.timestamp = item.timestamp;
+        this.type = item.type;
+        this.wallId = item.wallId;
+        this.postId = item.postId;
         this.likeCount = item.likeCount;
         this.likedByUser = item.likedByUser;
         this.commentsCount = item.commentsCount;
         this.shareCount = item.shareCount;
-        this.type = item.type;
+        this.title = item.title;
+        this.subTitle = item.subTitle;
+        this.bodyText = item.bodyText;
+        this.coverImageUrl = item.coverImageUrl;
+        this.vidUrl = item.vidUrl;
+        this.coverAspectRatio = item.coverAspectRatio;
     }
 
     @Override
@@ -237,36 +294,14 @@ public abstract class WallBase implements Shareable{
         WallModel.getInstance().itemShared(this, shareTarget);
     }
 
-    @Nullable
-    static WallBase postFactory(Object wallItem, ObjectMapper mapper) {
-        JsonNode node = mapper.valueToTree(wallItem);
-        if (node.has("type") && node.get("type").canConvertToInt()) {
-            int typeValue = node.get("type").intValue();
-            PostType type = PostType.values()[typeValue - 1];
-            TypeReference typeReference = new TypeReference<WallBase>() {};;
-            switch (type) {
-                case post:
-                    typeReference = new TypeReference<WallPost>() {};
-                    break;
-                case newsShare:
-                    typeReference = new TypeReference<WallNews>() {};
-                    break;
-                case betting:
-                    typeReference = new TypeReference<WallBetting>() {};
-                    break;
-                case stats:
-                    typeReference = new TypeReference<WallStats>() {};
-                    break;
-                case rumor:
-                    typeReference = new TypeReference<WallRumor>() {};
-                    break;
-                case wallStoreItem:
-                    typeReference = new TypeReference<WallStoreItem>(){};
-            }
-            WallBase item = mapper.convertValue(wallItem, typeReference);
-            item.setType(type);
-            return item;
-        }
-        return null;
+    public enum PostType {
+        post,
+        newsShare,
+        betting,
+        stats,
+        rumor,
+        wallStoreItem,
+        newsOfficial,
+        newsUnOfficial
     }
 }

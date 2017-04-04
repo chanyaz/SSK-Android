@@ -128,7 +128,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     holder.playButton.setVisibility(TextUtils.isEmpty(post.getVidUrl()) ? View.GONE : View.VISIBLE);
                 }
                 if (holder.captionTextView != null) {
-                    holder.captionTextView.setText(post.getTitle());
+                    holder.captionTextView.setText(post.getBodyText());
                 }
                 if (holder.descriptionTextView != null) {
                     holder.descriptionTextView.setText(post.getSubTitle());

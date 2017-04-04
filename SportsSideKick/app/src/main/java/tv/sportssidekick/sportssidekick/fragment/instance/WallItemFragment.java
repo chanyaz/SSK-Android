@@ -16,7 +16,6 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
-import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.model.wall.WallPost;
 import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
@@ -57,7 +56,7 @@ public class WallItemFragment extends BaseFragment{
 
         String id = getPrimaryArgument();
 
-        WallBase item = WallModel.getInstance().getItemById(id);
+        WallBase item = WallBase.getCache().get(id);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
 
         switch (item.getType()){

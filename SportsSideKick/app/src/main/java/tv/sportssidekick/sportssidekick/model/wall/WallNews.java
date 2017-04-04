@@ -25,6 +25,14 @@ public class WallNews extends WallBase {
 
 
     @Override
+    public void setEqualTo(WallBase item) {
+        super.setEqualTo(item);
+        this.vidUrl = ((WallNews)item).vidUrl;
+        this.url = ((WallNews)item).url;
+        this.source = ((WallNews)item).source;
+    }
+
+    @Override
     @JsonProperty("vidUrl")
     public String getVidUrl() {
         return vidUrl;

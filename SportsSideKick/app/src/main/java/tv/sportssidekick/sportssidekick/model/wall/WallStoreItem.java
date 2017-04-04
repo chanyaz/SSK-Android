@@ -26,4 +26,11 @@ public class WallStoreItem extends WallBase {
     public void setUrl(String url) {
         this.url = url;
     }
+
+
+    @Override
+    public void setEqualTo(WallBase item) {
+        super.setEqualTo(item);
+        this.url = ((WallStoreItem)item).url;
+    }
 }
