@@ -9,9 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/sporting_logo" />
+        android:src="@drawable/news_holder_image"
+        android:layout_above="@+id/title_container"/>
 
     <RelativeLayout
+        android:id="@+id/title_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
