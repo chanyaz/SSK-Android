@@ -1,6 +1,5 @@
 package tv.sportssidekick.sportssidekick.model.news;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,22 +16,7 @@ import tv.sportssidekick.sportssidekick.model.Id;
 
 public class NewsItem {
 
-    public enum NewsType {
 
-        OFFICIAL {
-            public String toString() {
-                return "official";
-            }
-        },
-        UNOFFICIAL {
-            public String toString() {
-                return "webhose";
-            }
-        };
-
-        NewsType() {
-        }
-    }
 
     @JsonProperty("_id")
     private Id id;
@@ -80,15 +64,15 @@ public class NewsItem {
     public void setPubDate(Double pubDate) {
         this.pubDate = pubDate;
     }
-
-    @JsonIgnore
-    public NewsType getType() {
-        if(type.equalsIgnoreCase("OFFICIAL")){
-            return  NewsType.OFFICIAL;
-        } else {
-            return NewsType.UNOFFICIAL;
-        }
-    }
+//
+//    @JsonIgnore
+//    public NewsType getType() {
+//        if(type.equalsIgnoreCase("OFFICIAL")){
+//            return  NewsType.OFFICIAL;
+//        } else {
+//            return NewsType.UNOFFICIAL;
+//        }
+//    }
 
     public void setType(String type) {
         this.type = type;

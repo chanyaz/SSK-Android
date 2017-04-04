@@ -53,10 +53,10 @@ public class NewsItemFragment extends BaseFragment{
         ButterKnife.bind(this, view);
 
         String id = getPrimaryArgument();
-        NewsItem.NewsType type = NewsItem.NewsType.OFFICIAL;
+        NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
         if(id.contains("UNOFFICIAL$$$")){
             id = id.replace("UNOFFICIAL$$$","");
-             type = NewsItem.NewsType.UNOFFICIAL;
+             type = NewsModel.NewsType.UNOFFICIAL;
         }
         NewsItem item = NewsModel.getInstance().getCachedItemById(id,type);
 

@@ -11,7 +11,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
@@ -35,7 +34,7 @@ import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
 
 public class NewsFragment extends BaseFragment {
 
-    final NewsItem.NewsType type = NewsItem.NewsType.OFFICIAL;
+    final NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
 
     NewsAdapter adapter;
     @BindView(R.id.swipe_refresh_layout)
