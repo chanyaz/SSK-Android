@@ -83,7 +83,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         final WallNews info = values.get(position);
-        ImageLoader.getInstance().displayImage(info.getCoverImageUrl(), holder.image, imageOptions);
+        if (info.getCoverImageUrl() != null)
+        {
+            ImageLoader.getInstance().displayImage(info.getCoverImageUrl(), holder.image, imageOptions);
+        }
         holder.caption.setText(info.getTitle());
         holder.date.setText("" + DateUtils.getRelativeTimeSpanString(info.getTimestamp().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS)); // TODO USE PLACEHOLDER!!!
         holder.view.setOnClickListener(new View.OnClickListener() {
