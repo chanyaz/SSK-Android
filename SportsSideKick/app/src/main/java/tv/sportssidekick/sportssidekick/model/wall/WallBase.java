@@ -7,11 +7,17 @@ import android.util.Log;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.HashMap;
+
+import tv.sportssidekick.sportssidekick.model.sharing.Shareable;
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -21,38 +27,77 @@ import com.google.android.gms.tasks.Task;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public abstract class WallBase {
+public abstract class WallBase implements Shareable{
 
     private static final String TAG = "WALLBASE";
 
-    @JsonIgnore
-    public PostType getType() {
-        return type;
-    }
 
-    @JsonIgnore
-    public void setType(PostType type) {
-        this.type = type;
+
+    static private HashMap<String, WallBase> cache = new HashMap<>();
+
+    public static void clear(){
+        cache.clear();
     }
 
     public enum PostType {
         post,
-        news,
+        newsShare,
         betting,
         stats,
         rumor,
-        wallStoreItem
+        wallStoreItem,
+        newsOfficial,
+        newsUnOfficial
     }
 
-    private String wallId;
-    private String postId;
-    private String timestamp;
-    private int likeCount;
-    private boolean likedByUser;
-    private int commentsCount;
-    private int shareCount;
-    private PostType type;
+    @JsonProperty("timestamp")
+    protected String timestamp;
+    @JsonIgnore // NOTE: we set Post type in factory method, not trough automatic JSON parsing!
+    protected PostType type = PostType.post;
+    @JsonProperty("wallId")
+    protected String wallId = "";
+    @JsonProperty("postId")
+    protected String postId = "";
+    @JsonProperty("likeCount")
+    protected int likeCount = 0;
+    @JsonProperty("likedByUser")
+    protected boolean likedByUser = false;
+    @JsonProperty("commentsCount")
+    protected int commentsCount = 0;
+    @JsonProperty("shareCount")
+    protected int shareCount = 0;
+    @JsonProperty("title")
+    protected String title;
+    @JsonProperty("subTitle")
+    protected String subTitle;
+    @JsonProperty("bodyText")
+    protected String bodyText;
+    @JsonProperty("coverImageUrl")
+    protected String coverImageUrl;
+    @JsonProperty("vidUrl")
+    protected String vidUrl;
+    @JsonProperty("coverAspectRatio")
+    protected Float coverAspectRatio = 0.5625f;
 
+    public static String getTAG() {
+        return TAG;
+    }
+
+    public static HashMap<String, WallBase> getCache() {
+        return cache;
+    }
+
+    public static void setCache(HashMap<String, WallBase> cache) {
+        WallBase.cache = cache;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public String getWallId() {
         return wallId;
@@ -70,14 +115,6 @@ public abstract class WallBase {
         this.postId = postId;
     }
 
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public int getLikeCount() {
         return likeCount;
     }
@@ -86,7 +123,7 @@ public abstract class WallBase {
         this.likeCount = likeCount;
     }
 
-    public boolean getLikedByUser() {
+    public boolean isLikedByUser() {
         return likedByUser;
     }
 
@@ -102,7 +139,71 @@ public abstract class WallBase {
         this.commentsCount = commentsCount;
     }
 
+    public int getShareCount() {
+        return shareCount;
+    }
 
+    public void setShareCount(int shareCount) {
+        this.shareCount = shareCount;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+    public String getBodyText() {
+        return bodyText;
+    }
+
+    public void setBodyText(String bodyText) {
+        this.bodyText = bodyText;
+    }
+
+    public String getCoverImageUrl() {
+        return coverImageUrl;
+    }
+
+    public void setCoverImageUrl(String coverImageUrl) {
+        this.coverImageUrl = coverImageUrl;
+    }
+
+    public String getVidUrl() {
+        return vidUrl;
+    }
+
+    public void setVidUrl(String vidUrl) {
+        this.vidUrl = vidUrl;
+    }
+
+    public Float getCoverAspectRatio() {
+        return coverAspectRatio;
+    }
+
+    public void setCoverAspectRatio(Float coverAspectRatio) {
+        this.coverAspectRatio = coverAspectRatio;
+    }
+
+    @JsonIgnore
+    public PostType getType() {
+        return type;
+    }
+
+    @JsonIgnore
+    public void setType(PostType type) {
+        this.type = type;
+    }
 
 
     public void toggleLike(){
@@ -131,18 +232,23 @@ public abstract class WallBase {
         this.type = item.type;
     }
 
+    @Override
+    public void incrementShareCount(SharingManager.ShareTarget shareTarget) {
+        WallModel.getInstance().itemShared(this, shareTarget);
+    }
+
     @Nullable
     static WallBase postFactory(Object wallItem, ObjectMapper mapper) {
         JsonNode node = mapper.valueToTree(wallItem);
         if (node.has("type") && node.get("type").canConvertToInt()) {
             int typeValue = node.get("type").intValue();
             PostType type = PostType.values()[typeValue - 1];
-            TypeReference typeReference = null;
+            TypeReference typeReference = new TypeReference<WallBase>() {};;
             switch (type) {
                 case post:
                     typeReference = new TypeReference<WallPost>() {};
                     break;
-                case news:
+                case newsShare:
                     typeReference = new TypeReference<WallNews>() {};
                     break;
                 case betting:

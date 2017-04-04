@@ -68,7 +68,7 @@ public class WallItemFragment extends BaseFragment{
                 content.setText(post.getBodyText());
                 break;
             case rumor:
-            case news:
+            case newsShare:
                 WallNews news = (WallNews)item;
                 ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(news.getTitle());
@@ -80,7 +80,7 @@ public class WallItemFragment extends BaseFragment{
                 break;
             case wallStoreItem:
                 WallStoreItem storeItem = (WallStoreItem) item;
-                ImageLoader.getInstance().displayImage(storeItem.getCoverImage(), imageHeader, imageOptions);
+                ImageLoader.getInstance().displayImage(storeItem.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(storeItem.getTitle());
                 break;
         }

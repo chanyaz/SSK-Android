@@ -34,6 +34,7 @@ import tv.sportssidekick.sportssidekick.model.DateUtils;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GetCommentsCompleteEvent;
@@ -492,6 +493,10 @@ public class WallModel extends GSMessageHandlerAbstract {
     public WallBase getItemById(String id)
     {
         return cahchedItems.get(id);
+    }
+
+    public void itemShared(WallBase wallBase, SharingManager.ShareTarget shareTarget) {
+        // TODO Implement!
     }
 }
 

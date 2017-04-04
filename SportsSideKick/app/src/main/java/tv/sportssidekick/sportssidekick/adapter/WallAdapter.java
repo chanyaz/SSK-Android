@@ -90,7 +90,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             case post:
                 viewResourceId = R.layout.wall_item_user_post;
                 break;
-            case news:
+            case newsShare:
                 viewResourceId = R.layout.wall_item_news;
                 break;
             case rumor:
@@ -134,7 +134,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     holder.descriptionTextView.setText(post.getSubTitle());
                 }
                 break;
-            case news:
+            case newsShare:
                 WallNews news = (WallNews)items.get(position);
                 if (holder.imageView != null) {
                     if (!TextUtils.isEmpty(news.getCoverImageUrl())) {
@@ -177,9 +177,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 WallStoreItem storeItem = (WallStoreItem) items.get(position);
                 if (holder.imageView != null) {
                     String coverImageUrl = storeItem.getCoverImageUrl();
-                    if(TextUtils.isEmpty(coverImageUrl)){
-                        coverImageUrl = storeItem.getCoverImage();
-                    }
                     if (!TextUtils.isEmpty(coverImageUrl)) {
                         holder.imageView.getLayoutParams().height = (int) (screenHeight * 0.25);
                         ImageLoader.getInstance().displayImage(coverImageUrl, holder.imageView, Utility.getImageOptionsForWallItem());
