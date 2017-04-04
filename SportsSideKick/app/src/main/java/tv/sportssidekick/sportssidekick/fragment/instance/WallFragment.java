@@ -76,6 +76,8 @@ public class WallFragment extends BaseFragment {
     @BindView(R.id.comment_text)
     EditText commentText;
 
+    boolean isNewPostVisible, isFilterVisible, isSearchVisible;
+
     public WallFragment() {
         // Required empty public constructor
     }
@@ -91,7 +93,6 @@ public class WallFragment extends BaseFragment {
 
         TutorialModel.getInstance().initialize(getActivity());
 
-
         isNewPostVisible = false;
         isFilterVisible = false;
         isSearchVisible = false;
@@ -102,15 +103,11 @@ public class WallFragment extends BaseFragment {
             public void afterTextChanged(Editable s) {}
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                if(s.length() != 0)
-                {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() != 0) {
                     postCommentButton.setVisibility(View.VISIBLE);
                 }
                 else {
@@ -132,7 +129,6 @@ public class WallFragment extends BaseFragment {
             }
             adapter.notifyDataSetChanged();
         }
-
         return view;
     }
 
@@ -160,107 +156,38 @@ public class WallFragment extends BaseFragment {
         adapter.notifyDataSetChanged();
     }
 
-    boolean isNewPostVisible, isFilterVisible, isSearchVisible;
-
-
+    private void updateButtons(){
+        newPostContainer.setVisibility(isNewPostVisible ? View.VISIBLE : View.GONE);
+        buttonNewPost.getBackground().setColorFilter(getResources().getColor(isNewPostVisible ? R.color.colorAccent : R.color.white), PorterDuff.Mode.MULTIPLY);
+        filterContainer.setVisibility(isFilterVisible ? View.VISIBLE : View.GONE);
+        buttonFilter.getBackground().setColorFilter(getResources().getColor(isFilterVisible ? R.color.colorAccent : R.color.white), PorterDuff.Mode.MULTIPLY);
+        searchWallContainer.setVisibility(isSearchVisible ? View.VISIBLE : View.GONE);
+        buttonSearch.getBackground().setColorFilter(getResources().getColor(isSearchVisible ? R.color.colorAccent : R.color.white), PorterDuff.Mode.MULTIPLY);
+    }
     @OnClick(R.id.fragment_wall_new_post)
-    public void newPostOnClick()
-    {
-        if (isNewPostVisible)
-        {
-            isNewPostVisible = false;
-            buttonNewPost.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-            newPostContainer.setVisibility(View.GONE);
-        }
-        else {
-            selectedButton(1);
-        }
+    public void newPostOnClick() {
+        isNewPostVisible=!isNewPostVisible;
+        isFilterVisible = false;
+        isSearchVisible = false;
+        updateButtons();
     }
 
     @OnClick(R.id.fragment_wall_filter)
-    public void wallFilterOnClick()
-    {
-        if (isFilterVisible)
-        {
-            isFilterVisible = false;
-            buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-            filterContainer.setVisibility(View.GONE);
-        }
-        else {
-            selectedButton(2);
-
-        }
+    public void wallFilterOnClick() {
+        isNewPostVisible=false;
+        isFilterVisible = !isFilterVisible;
+        isSearchVisible = false;
+        updateButtons();
     }
 
     @OnClick(R.id.fragment_wall_search)
-    public void searchOnClick()
-    {
-        if (isSearchVisible)
-        {
-            isSearchVisible = false;
-            buttonSearch.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-            searchWallContainer.setVisibility(View.GONE);
-        }
-        else {
-            selectedButton(3);
-        }
+    public void searchOnClick() {
+        isNewPostVisible=false;
+        isFilterVisible = false;
+        isSearchVisible = !isSearchVisible;
+        updateButtons();
     }
 
-    private void selectedButton (int buttonNumber) //1 = new post, 2 = filter, 3 = serach
-    {
-        switch (buttonNumber)
-        {
-            case 1:
-                isNewPostVisible = true;
-                buttonNewPost.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
-                newPostContainer.setVisibility(View.VISIBLE);
 
-                isFilterVisible = false;
-                buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-                filterContainer.setVisibility(View.GONE);
 
-                isSearchVisible = false;
-                buttonSearch.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-                searchWallContainer.setVisibility(View.GONE);
-                break;
-            case 2:
-                isFilterVisible = true;
-                buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
-                filterContainer.setVisibility(View.VISIBLE);
-
-                isSearchVisible = false;
-                buttonSearch.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-                searchWallContainer.setVisibility(View.GONE);
-
-                isNewPostVisible = false;
-                buttonNewPost.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-                newPostContainer.setVisibility(View.GONE);
-                break;
-            case 3:
-                isSearchVisible = true;
-                buttonSearch.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
-                searchWallContainer.setVisibility(View.VISIBLE);
-
-                isNewPostVisible = false;
-                buttonNewPost.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-                newPostContainer.setVisibility(View.GONE);
-
-                isFilterVisible = false;
-                buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-                filterContainer.setVisibility(View.GONE);
-                break;
-            default:
-                isNewPostVisible = true;
-                buttonNewPost.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
-                newPostContainer.setVisibility(View.VISIBLE);
-
-                isFilterVisible = false;
-                buttonFilter.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-                filterContainer.setVisibility(View.GONE);
-
-                isSearchVisible = false;
-                buttonSearch.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
-                searchWallContainer.setVisibility(View.GONE);
-        }
-    }
 }
