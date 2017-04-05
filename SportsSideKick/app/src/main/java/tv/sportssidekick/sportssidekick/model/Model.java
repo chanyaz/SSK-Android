@@ -537,11 +537,6 @@ public class Model {
     /** --- --- --- --- --- --- --- --            FILES                     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
 
-    //user_photo_square_jtRp5Be3N3OuV1IH7m7FxfMhT6Q21480609791.59482.png
-    //user_photo_rounded_H9g3RugXkzLcvqCn1aKSnWm9KIC31480012799.68699.png
-    //_groupChatAvatar_1481051718.21099.png
-    //video_sLqHBMbL3BQNgddTK0a4wmPfuA531480240655.74631.mov
-
     public void uploadVideoRecording(String filepath){
         String filename =
                 "video_" +
@@ -551,7 +546,6 @@ public class Model {
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.VIDEO_FILE_UPLOADED);
     }
 
-    //video_thumb_sLqHBMbL3BQNgddTK0a4wmPfuA531480240556.36911.jpg
     public void uploadVideoRecordingThumbnail(String filepath, File filesDir){
         String filename = "video_thumb_" + currentUserInfo.getUserId() +  System.currentTimeMillis() + ".jpg";
         AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, filesDir, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
@@ -564,6 +558,29 @@ public class Model {
                         System.currentTimeMillis() +
                         ".png";
         AWSFileUploader.getInstance().uploadCircularProfileImage(filename,filepath, filesDir, GameSparksEvent.Type.PROFILE_IMAGE_FILE_UPLOADED);
+    }
+
+    public void uploadImageForPost(String filepath){
+        String filename =
+                "post_photo_" +
+                        currentUserInfo.getUserId() +
+                        System.currentTimeMillis() +
+                        ".jpg";
+        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.POST_IMAGE_FILE_UPLOADED);
+    }
+
+    public void uploadPostVideoRecording(String filepath){
+        String filename =
+                "post_video_" +
+                        currentUserInfo.getUserId() +
+                        System.currentTimeMillis() +
+                        ".mov";
+        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.POST_VIDEO_FILE_UPLOADED);
+    }
+
+    public void uploadPostVideoRecordingThumbnail(String filepath, File filesDir){
+        String filename = "post_video_thumb_" + currentUserInfo.getUserId() +  System.currentTimeMillis() + ".jpg";
+        AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, filesDir, GameSparksEvent.Type.POST_VIDEO_IMAGE_FILE_UPLOADED);
     }
 
     public void uploadImageForMessage(String filepath){

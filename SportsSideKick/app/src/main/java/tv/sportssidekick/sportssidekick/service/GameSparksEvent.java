@@ -87,6 +87,9 @@ public class GameSparksEvent extends BusEvent {
             PASSWORD_RECOVERY_SUCCESSFUL,
             USER_STATE_UPDATE_ERROR,
             USER_STATE_UPDATE_SUCCESSFUL,
+            POST_IMAGE_FILE_UPLOADED,
+            POST_VIDEO_IMAGE_FILE_UPLOADED,
+            POST_VIDEO_FILE_UPLOADED
     }
 
 }

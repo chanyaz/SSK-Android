@@ -69,6 +69,10 @@ import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
 import tv.sportssidekick.sportssidekick.util.OnSwipeTouchListener;
 
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
+
 /**
  * A simple {@link BaseFragment} subclass.
  */
@@ -78,9 +82,6 @@ import tv.sportssidekick.sportssidekick.util.OnSwipeTouchListener;
 public class ChatFragment extends BaseFragment {
 
     private static final String TAG = "CHAT Fragment";
-    public static final int REQUEST_CODE_IMAGE_CAPTURE = 201;
-    public static final int REQUEST_CODE_IMAGE_PICK = 301;
-    public static final int REQUEST_CODE_VIDEO_CAPTURE = 401;
     @BindView(R.id.message_container) RecyclerView messageListView;
     @BindView(R.id.chat_heads_view) RecyclerView chatHeadsView;
     @BindView(R.id.progress_bar) AVLoadingIndicatorView progressBar;
@@ -229,7 +230,7 @@ public class ChatFragment extends BaseFragment {
                         Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                     }
-                    startActivityForResult(takePictureIntent, REQUEST_CODE_IMAGE_CAPTURE);
+                    startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_IMAGE_CAPTURE);
                 }
             }
         });
@@ -237,7 +238,7 @@ public class ChatFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto, REQUEST_CODE_IMAGE_PICK);//one can be replaced with any action code
+                startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_IMAGE_PICK);//one can be replaced with any action code
             }
         });
 
@@ -246,7 +247,7 @@ public class ChatFragment extends BaseFragment {
             public void onClick(View view) {
                 Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                 if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takeVideoIntent, REQUEST_CODE_VIDEO_CAPTURE);
+                    startActivityForResult(takeVideoIntent, REQUEST_CODE_CHAT_VIDEO_CAPTURE);
                 }
             }
         });
@@ -505,18 +506,18 @@ public class ChatFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, intent);
         if(resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case REQUEST_CODE_IMAGE_CAPTURE:
+                case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
                     //Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
                     Model.getInstance().uploadImageForMessage(currentPath);
                     break;
-                case REQUEST_CODE_IMAGE_PICK:
+                case REQUEST_CODE_CHAT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     //Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
                     String realPath = Model.getRealPathFromURI(getContext(),selectedImageURI);
                     //Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
                     Model.getInstance().uploadImageForMessage(realPath);
                     break;
-                case REQUEST_CODE_VIDEO_CAPTURE:
+                case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
                     Uri videoUri = intent.getData();
                     //Log.d(TAG, "VIDEO URI IS: " + videoUri.toString());
                     currentPath = Model.getRealPathFromURI(getContext(),videoUri);

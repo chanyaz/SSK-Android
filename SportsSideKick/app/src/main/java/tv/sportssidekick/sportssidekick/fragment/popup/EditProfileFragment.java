@@ -47,6 +47,9 @@ import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE;
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
+
 /**
  * Created by Filip on 1/19/2017.
  * Copyright by Hypercube d.o.o.
@@ -65,9 +68,6 @@ public class EditProfileFragment extends BaseFragment {
     @BindView(R.id.email_edit_text) EditText emailEditText;
     @BindView(R.id.telephone_edit_text) EditText phoneEditText;
 
-
-    public static final int REQUEST_CODE_IMAGE_CAPTURE = 341;
-    public static final int REQUEST_CODE_IMAGE_PICK = 342;
     private static final String TAG = "Edit Profile Fragment";
     String currentPath;
 
@@ -113,7 +113,7 @@ public class EditProfileFragment extends BaseFragment {
                 Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
             }
-            startActivityForResult(takePictureIntent, REQUEST_CODE_IMAGE_CAPTURE);
+            startActivityForResult(takePictureIntent, REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE);
         }
     }
 
@@ -122,13 +122,12 @@ public class EditProfileFragment extends BaseFragment {
     @OnClick(R.id.picture_button)
     public void selectImageOnClick(){
         EditProfileFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
-
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection(){
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickPhoto, REQUEST_CODE_IMAGE_PICK);//one can be replaced with any action code
+        startActivityForResult(pickPhoto, REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK);
     }
 
     @OnClick(R.id.close)
@@ -140,11 +139,11 @@ public class EditProfileFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, intent);
         if(resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case REQUEST_CODE_IMAGE_CAPTURE:
+                case REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE:
                     Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
                     Model.getInstance().uploadImageForProfile(currentPath, getContext().getFilesDir());
                     break;
-                case REQUEST_CODE_IMAGE_PICK:
+                case REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
                     String realPath = Model.getRealPathFromURI(getContext(),selectedImageURI);
@@ -156,7 +155,7 @@ public class EditProfileFragment extends BaseFragment {
     }
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void showRationaleForMicrophone(final PermissionRequest request) {
+    void showRationaleForCameraAndStorage(final PermissionRequest request) {
         new AlertDialog.Builder(getContext())
                 .setMessage(R.string.permission_microphone_rationale)
                 .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
@@ -175,12 +174,12 @@ public class EditProfileFragment extends BaseFragment {
     }
 
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void showDeniedForMicrophone() {
+    void showDeniedForCameraAndStorage() {
         Toast.makeText(getContext(), R.string.permission_microphone_denied, Toast.LENGTH_SHORT).show();
     }
 
     @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void showNeverAskForMicrophone() {
+    void showNeverAskForCameraAndStorage() {
         Toast.makeText(getContext(), R.string.permission_microphone_neverask, Toast.LENGTH_SHORT).show();
     }
 
