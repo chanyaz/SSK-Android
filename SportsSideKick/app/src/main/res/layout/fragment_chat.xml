@@ -51,7 +51,8 @@
             android:padding="4dp"
             android:layout_below="@+id/chat_heads_view"
             android:tint="@color/colorPrimaryLight"
-            android:src="@drawable/down_arrow" />
+            android:src="@drawable/down_arrow"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/chat_info_line_text"
             android:layout_toEndOf="@+id/down_arrow"
@@ -148,7 +149,8 @@
             android:layout_height="@dimen/chat_button_message_size"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/button_voice" />
+            android:background="@drawable/button_voice"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/cam_button"
@@ -156,7 +158,8 @@
             android:layout_height="@dimen/chat_button_message_size"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/mic_button"
-            android:background="@drawable/button_camera" />
+            android:background="@drawable/button_camera"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/pic_button"
@@ -164,7 +167,8 @@
             android:layout_height="@dimen/chat_button_message_size"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/cam_button"
-            android:background="@drawable/button_image" />
+            android:background="@drawable/button_image"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/vid_button"
@@ -172,22 +176,35 @@
             android:layout_height="@dimen/chat_button_message_size"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/pic_button"
-            android:background="@drawable/button_image" />
+            android:background="@drawable/button_image"
+            android:visibility="gone"/>
 
+        <ImageButton
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chat_add_menu_button"
+            android:background="@null"
+            android:layout_centerVertical="true"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/menu_button"
+        android:layout_toStartOf="@+id/chat_menu">
         <EditText
             android:id="@+id/input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/vid_button"
-            android:layout_toStartOf="@+id/messenger_send_button"
-            android:background="@color/green_dark_2"
+
+            android:background="@color/chat_input_edit_text_background"
             android:gravity="start|center_vertical"
-            android:hint="Enter your message here."
+            android:hint="Enter your message here..."
             android:imeOptions="flagNoExtractUi"
             android:maxLines="5"
             android:padding="@dimen/padding_8"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white_semitransparent"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimarySemiLight"
             android:textSize="10sp" />
 
         <Button
@@ -198,6 +215,16 @@
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/margin_8"
             android:background="@drawable/btn_send" />
+    </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/chat_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chat_menu_button"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
     <!-- Container that appears when grid layout is visible -->

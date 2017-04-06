@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="60dp"
-    android:layout_height="wrap_content"
-    >
-        <ImageView
-            android:layout_alignParentTop="true"
-            android:id="@+id/image"
-            android:layout_width="40dp"
-            android:layout_margin="10dp"
-            android:layout_height="40dp"
-            android:background="@drawable/create_chat_button"
-            android:scaleType="centerInside"
-            />
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/chat_add_user" />
+
     <TextView
         android:id="@+id/caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/image"
         android:gravity="center"
-        android:textColor="@color/white"
-        android:text = "ADD NEW CHAT"/>
+        android:text="ADD NEW CHAT"
+        android:textColor="@color/white" />
 </RelativeLayout>

@@ -31,8 +31,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/chat_head_selected"
-        android:visibility="gone" />
+        android:src="@drawable/chat_selected_user"
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/notification_icon"

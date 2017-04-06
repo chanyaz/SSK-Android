@@ -144,17 +144,17 @@ public class ChatFragment extends BaseFragment {
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 //        chatHeadsContainer.setLayoutTransition(layoutTransition);
 
-        chatInfoLine.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
-            public void onSwipeBottom() {
-                showGridChats();
-            }
-        });
-
-        bottomCreateChatContainer.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
-            public void onSwipeTop() {
-                hideGridChats();
-            }
-        });
+//        chatInfoLine.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+//            public void onSwipeBottom() {
+//                showGridChats();
+//            }
+//        });
+//
+//        bottomCreateChatContainer.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+//            public void onSwipeTop() {
+//                hideGridChats();
+//            }
+//        });
 
          //Add textWatcher to notify the user
         inputEditText.addTextChangedListener(new TextWatcher() {
@@ -251,12 +251,12 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
-        downArrow.setOnClickListener(new View.OnClickListener() {
+       /* downArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showGridChats();
             }
-        });
+        });*/
         return view;
     }
 
@@ -265,7 +265,7 @@ public class ChatFragment extends BaseFragment {
     String currentPath;
     String videoDownloadUrl;
 
-    private void hideGridChats(){
+/*    private void hideGridChats(){
         swipeRefreshLayout.setEnabled(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         chatHeadsView.setLayoutManager(layoutManager);
@@ -285,8 +285,7 @@ public class ChatFragment extends BaseFragment {
         inputContainer.setVisibility(View.GONE);
         chatHeadsAdapter.setInGrid(true);
         chatHeadsAdapter.notifyDataSetChanged();
-
-    }
+    }*/
 
     @Subscribe
     @SuppressWarnings("Unchecked cast")

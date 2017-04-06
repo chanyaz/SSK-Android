@@ -27,4 +27,6 @@
     <color name="wall_shop_description_background">#f6f7fa</color>
     <color name="wall_shop_description_text_color">#0be5ff</color>
     <color name="black">#000000</color>
+
+    <color name="chat_input_edit_text_background">#e9eaed</color>
 </resources>
