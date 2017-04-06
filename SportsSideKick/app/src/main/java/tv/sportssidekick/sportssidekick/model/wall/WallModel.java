@@ -109,9 +109,10 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     private void onUserPosts(WallBase post){
-//        if(post.getTimestamp()) TODO
-//        if post.timestamp.compare(self.oldestFetchIntervalTimestamp) == ComparisonResult.orderedDescending {
-//            self.notifyPostUpdate.emit(post)
+//        if(post.getTimestamp()) {
+//            if(post.timestamp.compare(oldestFetchDate) == ComparisonResult.orderedDescending ) {
+//                self.notifyPostUpdate.emit(post)
+//            }
 //        }
     }
 
@@ -244,9 +245,9 @@ public class WallModel extends GSMessageHandlerAbstract {
                                     if (deltaTimeIntervalForPaging < D_LIMIT) {
                                         deltaTimeIntervalForPaging *= 2;
                                     }
-                                    boolean fetchNest = oldestFetchDate.compareTo(oldestFetchIntervalDateBound) > 0;
+                                    boolean fetchNext = oldestFetchDate.compareTo(oldestFetchIntervalDateBound) > 0;
 
-                                    if (fetchNest) {
+                                    if (fetchNext) {
                                         fetchPreviousPageOfPosts(postsIntervalFetchCount);
                                         return;
                                     }

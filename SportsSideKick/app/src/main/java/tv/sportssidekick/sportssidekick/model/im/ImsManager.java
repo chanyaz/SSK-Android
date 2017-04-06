@@ -94,6 +94,8 @@ public class ImsManager extends GSMessageHandlerAbstract{
     public void reload(){
         clear();
         loadUserChats();
+        EventBus.getDefault().post(new GameSparksEvent("Chats clearing...", GameSparksEvent.Type.CLEAR_CHATS, null));
+
     }
 
     /////////////////////////////////////
@@ -207,7 +209,6 @@ public class ImsManager extends GSMessageHandlerAbstract{
                         } else {
                             Log.e(TAG,"Chat is null!");
                         }
-
                     }
                 }
             }

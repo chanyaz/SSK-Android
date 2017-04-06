@@ -19,14 +19,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.ClubRadioAdapter;
-import tv.sportssidekick.sportssidekick.adapter.ClubTVAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.club.ClubModel;
 import tv.sportssidekick.sportssidekick.model.club.Station;
 
 /**
  * A simple {@link BaseFragment} subclass.
  */
+@IgnoreBackHandling
 public class ClubRadioFragment extends BaseFragment {
 
     @BindView(R.id.recycler_view)

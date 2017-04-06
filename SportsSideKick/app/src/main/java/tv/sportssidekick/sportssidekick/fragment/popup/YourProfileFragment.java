@@ -68,9 +68,6 @@ public class YourProfileFragment extends BaseFragment {
     @BindView(R.id.subscribed_since_value)
     TextView subscribedSince;
 
-    @BindView(R.id.logout_button)
-    ImageView logoutButton;
-
     @BindView(R.id.reset_button)
     ImageView resetButton;
 
@@ -112,7 +109,7 @@ public class YourProfileFragment extends BaseFragment {
     }
 
     @OnClick(R.id.logout_button)
-    public void setLogoutButton() {
+    public void logoutOnClick() {
         AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "This will log you out of the app!",
                 new View.OnClickListener() {// Cancel
                     @Override
@@ -124,7 +121,7 @@ public class YourProfileFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         Model.getInstance().logout();
-                        getActivity().onBackPressed();
+                        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
                     }
                 });
     }
@@ -180,7 +177,7 @@ public class YourProfileFragment extends BaseFragment {
                 }, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
-                        //TODO RESET APP
+                        //TODO RESET APP TO LIGHT/DARK THEME
                         getActivity().onBackPressed();
                     }
                 });

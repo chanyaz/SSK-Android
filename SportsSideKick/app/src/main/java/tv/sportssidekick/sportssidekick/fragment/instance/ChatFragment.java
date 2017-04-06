@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -59,15 +58,14 @@ import tv.sportssidekick.sportssidekick.adapter.MessageAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
-import tv.sportssidekick.sportssidekick.util.OnSwipeTouchListener;
 
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
@@ -105,6 +103,8 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.download_image_button) ImageView imageDownloadButton;
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     ChatHeadsAdapter chatHeadsAdapter;
+    MessageAdapter messageAdapter;
+
     ChatInfo activeChatInfo;
 
     public ChatFragment() {
@@ -299,6 +299,9 @@ public class ChatFragment extends BaseFragment {
                         //Log.d(TAG, "Count of usersTyping: " + usersTyping.size());
                     }
                 break;
+            case CLEAR_CHATS:
+                initializeUI();
+                break;
             case USER_CHAT_DETECTED:
                 initializeUI();
                 break;
@@ -309,13 +312,13 @@ public class ChatFragment extends BaseFragment {
                 initializeUI();
                 break;
             case NEW_MESSAGE_ADDED:
-                messageListView.getAdapter().notifyDataSetChanged();
-                int lastMessagePosition = messageListView.getAdapter().getItemCount() == 0 ? 0 : messageListView.getAdapter().getItemCount();
+                messageAdapter.notifyDataSetChanged();
+                int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
                 messageListView.smoothScrollToPosition(lastMessagePosition);
                 break;
             case NEXT_PAGE_LOADED:
                 swipeRefreshLayout.setRefreshing(false);
-                messageListView.getAdapter().notifyDataSetChanged();
+                messageAdapter.notifyDataSetChanged();
                 messageListView.smoothScrollToPosition(0);
                 break;
             case MESSAGE_IMAGE_FILE_UPLOADED:
@@ -403,7 +406,7 @@ public class ChatFragment extends BaseFragment {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                 messageListView.setLayoutManager(layoutManager);
 
-                MessageAdapter messageAdapter = new MessageAdapter(getContext(),info);
+                messageAdapter = new MessageAdapter(getContext(),info);
                 messageListView.setAdapter(messageAdapter);
                 messageListView.invalidate();
                 return;
