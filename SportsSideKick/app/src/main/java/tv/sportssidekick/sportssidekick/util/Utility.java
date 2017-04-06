@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.DateFormat;
@@ -85,6 +86,26 @@ public class Utility {
         return blankOptionsUser;
     }
 
+    private  static volatile DisplayImageOptions roundedImageOptions;
+    public static DisplayImageOptions getRoundedImageOptions() {
+        if (roundedImageOptions != null) {
+            return roundedImageOptions;
+        }
+        roundedImageOptions = new DisplayImageOptions.Builder()
+//                .showImageOnLoading(R.drawable.blank_profile_rounded) // resource or drawable
+//                .showImageForEmptyUri(R.drawable.blank_profile_rounded) // resource or drawable
+//                .showImageOnFail(R.drawable.blank_profile_rounded) // resource or drawable
+                .delayBeforeLoading(0) //delay
+                .resetViewBeforeLoading(true)  // default
+                .considerExifParams(false)
+                .cacheInMemory(true) // default
+                .cacheOnDisk(true) // default
+                .bitmapConfig(Bitmap.Config.RGB_565) // default
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new RoundedBitmapDisplayer(20))
+                .build();
+        return roundedImageOptions;
+    }
 
     public static DisplayImageOptions imageOptionsImageLoader() {
         if (blankOptions != null) {

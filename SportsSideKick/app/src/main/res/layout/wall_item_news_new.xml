@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="230dp">
+
+    <RelativeLayout
+        android:id="@+id/image_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/news_holder_image" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_container"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:minLines="2"
+            android:padding="5dp"
+            android:text="A falsis, silva noster competition.Turpis albus accola est.Est domesticus historia, cesaris.Parma, stella, et valebat."
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/caption"
+            android:paddingBottom="@dimen/padding_8"
+            android:paddingEnd="@dimen/padding_8"
+            android:paddingStart="@dimen/padding_8">
+
+            <LinearLayout
+                android:id="@+id/comments_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/comments_icon"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/ic_comment" />
+
+                <TextView
+                    android:id="@+id/comments_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="204"
+                    android:textColor="@color/wall_comment_color" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/likes_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/padding_8"
+                android:layout_toStartOf="@id/comments_container"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/likes_icon"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/ic_like" />
+
+                <TextView
+                    android:id="@+id/likes_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6901"
+                    android:textColor="@color/wall_comment_color" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/row_wall_post_likes_container"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:text="Christopher Ogden"
+                android:textColor="@color/lightGrey" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

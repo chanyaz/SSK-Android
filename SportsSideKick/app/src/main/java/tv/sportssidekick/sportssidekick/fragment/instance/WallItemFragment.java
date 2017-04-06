@@ -1,5 +1,7 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -26,7 +29,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class WallItemFragment extends BaseFragment{
+public class WallItemFragment extends BaseFragment {
 
     @BindView(R.id.content_image)
     ImageView imageHeader;
@@ -40,6 +43,8 @@ public class WallItemFragment extends BaseFragment{
     Button close;
     @BindView(R.id.share_news_to_wall_button)
     Button share;
+    @BindView(R.id.content_video)
+    VideoView videoView;
 
     // HACK! HACK! HACK!HACK! HACK! HACK! HACK! HACK! HACK!
 
@@ -59,16 +64,28 @@ public class WallItemFragment extends BaseFragment{
         WallBase item = WallBase.getCache().get(id);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
 
-        switch (item.getType()){
+        switch (item.getType()) {
             case post:
-                WallPost post = (WallPost)item;
+                WallPost post = (WallPost) item;
                 ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(post.getTitle());
                 content.setText(post.getBodyText());
+                if (post.getVidUrl() != null) {
+                    videoView.setVisibility(View.VISIBLE);
+                    imageHeader.setVisibility(View.GONE);
+                    videoView.setVideoURI(Uri.parse(item.getVidUrl()));
+                    videoView.start();
+                    videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mediaPlayer) {
+//                    videoView.setVisibility(View.GONE);
+                        }
+                    });
+                }
                 break;
             case rumor:
             case newsShare:
-                WallNews news = (WallNews)item;
+                WallNews news = (WallNews) item;
                 ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());

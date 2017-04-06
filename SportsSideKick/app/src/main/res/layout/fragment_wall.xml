@@ -15,11 +15,19 @@
         android:elevation="2dp"
         app:indicatorName="LineSpinFadeLoaderIndicator" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_wall_recycler_view"
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/fragment_wall_bottom_bar" />
+        app:srl_direction="bottom">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_wall_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/fragment_wall_bottom_bar" />
+
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/your_post_container"

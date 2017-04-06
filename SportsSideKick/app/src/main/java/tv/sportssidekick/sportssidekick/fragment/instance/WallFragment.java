@@ -25,6 +25,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -44,6 +46,7 @@ import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.model.tutorial.TutorialModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
@@ -118,6 +121,9 @@ public class WallFragment extends BaseFragment {
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
 
+    @BindView(R.id.swipe_refresh_layout)
+    SwipyRefreshLayout swipeRefreshLayout;
+
     boolean isNewPostVisible, isFilterVisible, isSearchVisible;
 
     public WallFragment() {
@@ -165,6 +171,14 @@ public class WallFragment extends BaseFragment {
             wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
             wallRecyclerView.setLayoutManager(layoutManager);
         }
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                WallModel.getInstance().fetchPosts();
+            }
+        });
+
         return view;
     }
 
