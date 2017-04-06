@@ -19,7 +19,8 @@
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srl_direction="bottom">
+        app:srl_direction="bottom"
+        android:layout_above="@+id/fragment_wall_bottom_bar">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_wall_recycler_view"
