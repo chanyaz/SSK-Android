@@ -174,7 +174,7 @@ public class WallFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                WallModel.getInstance().fetchPosts();
+                WallModel.getInstance().fetchPreviousPageOfPosts(0);
             }
         });
 

@@ -207,7 +207,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * the posts are not ordered and may contain duplicated posts.
      *
      */
-    private void fetchPreviousPageOfPosts(int initialFetchCount) {
+    public void fetchPreviousPageOfPosts(int initialFetchCount) {
         postsIntervalFetchCount = initialFetchCount;
         UserInfo uInfo = getCurrentUser();
         if (uInfo == null) {
