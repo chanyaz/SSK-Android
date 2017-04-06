@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
@@ -46,6 +48,9 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     private int focusedItemToEdit = -1;
 
     private boolean isInGrid;
+
+    private int selectedChatColor;
+
     public void setInGrid(boolean inGrid) {
         isInGrid = inGrid;
     }
@@ -63,13 +68,13 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.image) ImageView imageView;
-        @Nullable @BindView(R.id.people_icon) ImageView peopleIcon;
+        @Nullable @BindView(R.id.chat_head_image_view) CircleImageView imageView;
+       // @Nullable @BindView(R.id.people_icon) ImageView peopleIcon;
         @Nullable @BindView(R.id.notification_icon) ImageView notificationView;
         @Nullable @BindView(R.id.selected) View selectedRingView;
-        @Nullable @BindView(R.id.caption) TextView chatCaption;
-        @Nullable @BindView(R.id.edit_button) TextView editButton;
-        @Nullable @BindView(R.id.people_count_value) TextView userCount;
+       // @Nullable @BindView(R.id.caption) TextView chatCaption;
+       // @Nullable @BindView(R.id.edit_button) TextView editButton;
+       // @Nullable @BindView(R.id.people_count_value) TextView userCount;
 
         ViewHolder(View v) {
             super(v);
@@ -78,9 +83,10 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
         }
     }
 
-    public ChatHeadsAdapter() {
+    public ChatHeadsAdapter(int selectedChatColor) {
         values = new ArrayList<>();
         isInGrid = false;
+        this.selectedChatColor = selectedChatColor;
     }
 
 
@@ -148,10 +154,10 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             } else {
                 Log.e(TAG, "Have no chatUsers yet!");
             }
-            holder.userCount.setText(String.valueOf(size));
+           // holder.userCount.setText(String.valueOf(size));
             DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
             ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.imageView,imageOptions);
-            holder.chatCaption.setText(info.getChatTitle());
+           // holder.chatCaption.setText(info.getChatTitle());
             holder.view.setTag(position);
 
             int unreadMessageCount = info.unreadMessageCount();
@@ -164,22 +170,18 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             }
 
             if(focusedItem==position){
-               holder.selectedRingView.setVisibility(View.VISIBLE);
+             //  holder.selectedRingView.setVisibility(View.VISIBLE);
+                holder.imageView.setBorderColor(selectedChatColor);
             } else {
-               holder.selectedRingView.setVisibility(View.GONE);
+             //  holder.selectedRingView.setVisibility(View.GONE);
+                holder.imageView.setBorderColor(Color.TRANSPARENT);
             }
             int inGridVisibility = View.GONE;
             if(isInGrid){
                 inGridVisibility = View.VISIBLE;
             }
-            holder.userCount.setVisibility(inGridVisibility);
-            holder.peopleIcon.setVisibility(inGridVisibility);
-        } else {
-            if(isInGrid){
-                holder.chatCaption.setVisibility(View.VISIBLE);
-            } else {
-                holder.chatCaption.setVisibility(View.GONE);
-            }
+           // holder.userCount.setVisibility(inGridVisibility);
+           // holder.peopleIcon.setVisibility(inGridVisibility);
         }
     }
 
