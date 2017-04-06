@@ -85,6 +85,7 @@ public class Model {
         Log.d(TAG, "Logged in user type: " + loggedInUserType.name());
         switch (type){
             case NONE:
+//                EventBus.getDefault().post(new GameSparksEvent("Log out successful!", GameSparksEvent.Type.LOGGED_OUT, null));
 //              UserEvents.onLogout.emit()  Event-TBA
                 break;
             case ANONYMOUS:
@@ -95,7 +96,7 @@ public class Model {
                 break;
             case REAL:
                 EventBus.getDefault().post(currentUserInfo);
-                EventBus.getDefault().post(new GameSparksEvent("Login sucessful!", GameSparksEvent.Type.LOGIN_SUCCESSFUL, null));
+                EventBus.getDefault().post(new GameSparksEvent("Login successful!", GameSparksEvent.Type.LOGIN_SUCCESSFUL, null));
                 registerForPushNotifications();
                 ImsManager.getInstance().reload();
                 WallModel.getInstance().fetchPosts();

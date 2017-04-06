@@ -68,12 +68,12 @@ import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
 
@@ -144,6 +144,8 @@ public class ChatFragment extends BaseFragment {
     LinearLayout chatMenuDotsContainer;
 
     ChatHeadsAdapter chatHeadsAdapter;
+    MessageAdapter messageAdapter;
+
     ChatInfo activeChatInfo;
 
     public ChatFragment() {
@@ -391,10 +393,13 @@ public class ChatFragment extends BaseFragment {
         //Log.d(TAG, "event received: " + event.getEventType());
         switch (event.getEventType()) {
             case TYPING:
-                if ((event.getData() != null)) {
-                    List<UserInfo> usersTyping = (List<UserInfo>) event.getData();
-                    //Log.d(TAG, "Count of usersTyping: " + usersTyping.size());
-                }
+                    if ((event.getData() != null)) {
+                        List<UserInfo> usersTyping = (List<UserInfo>) event.getData();
+                        //Log.d(TAG, "Count of usersTyping: " + usersTyping.size());
+                    }
+                break;
+            case CLEAR_CHATS:
+                initializeUI();
                 break;
             case USER_CHAT_DETECTED:
                 initializeUI();
@@ -406,13 +411,13 @@ public class ChatFragment extends BaseFragment {
                 initializeUI();
                 break;
             case NEW_MESSAGE_ADDED:
-                messageListView.getAdapter().notifyDataSetChanged();
-                int lastMessagePosition = messageListView.getAdapter().getItemCount() == 0 ? 0 : messageListView.getAdapter().getItemCount();
+                messageAdapter.notifyDataSetChanged();
+                int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
                 messageListView.smoothScrollToPosition(lastMessagePosition);
                 break;
             case NEXT_PAGE_LOADED:
                 swipeRefreshLayout.setRefreshing(false);
-                messageListView.getAdapter().notifyDataSetChanged();
+                messageAdapter.notifyDataSetChanged();
                 messageListView.smoothScrollToPosition(0);
                 break;
             case MESSAGE_IMAGE_FILE_UPLOADED:
@@ -472,7 +477,7 @@ public class ChatFragment extends BaseFragment {
         StringBuilder chatNames = new StringBuilder("");
         for (ChatInfo chatInfo : allUserChats) {
             String chatName = chatInfo.getName();
-            if (!TextUtils.isEmpty(chatName)) {
+            if(!TextUtils.isEmpty(chatName)){
                 chatNames.append(chatInfo.getName()).append(", ");
             }
         }
@@ -500,7 +505,7 @@ public class ChatFragment extends BaseFragment {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                 messageListView.setLayoutManager(layoutManager);
 
-                MessageAdapter messageAdapter = new MessageAdapter(getContext(), info);
+                messageAdapter = new MessageAdapter(getContext(),info);
                 messageListView.setAdapter(messageAdapter);
                 messageListView.invalidate();
                 return;

@@ -55,6 +55,7 @@ public class GameSparksEvent extends BusEvent {
 
     public enum Type {
             LOGIN_SUCCESSFUL,
+            LOGGED_OUT,
             LOGIN_FAILED,
             ALL_DATA_ACQUIRED,
             NEW_MESSAGE,
@@ -69,6 +70,7 @@ public class GameSparksEvent extends BusEvent {
             CHAT_REMOVED_PROCESSED,
             CHAT_DELETED_PROCESSED,
             USER_INFO_BY_ID,
+            CLEAR_CHATS,
             PUBLIC_CHAT_DETECTED,
             GLOBAL_CHAT_DETECTED,
             USER_CHAT_DETECTED,

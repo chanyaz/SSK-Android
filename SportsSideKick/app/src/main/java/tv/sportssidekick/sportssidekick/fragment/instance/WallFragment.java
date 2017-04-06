@@ -46,7 +46,6 @@ import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.model.tutorial.TutorialModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
@@ -175,7 +174,7 @@ public class WallFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                WallModel.getInstance().fetchPosts();
+                WallModel.getInstance().fetchPreviousPageOfPosts(0);
             }
         });
 
@@ -230,6 +229,7 @@ public class WallFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, intent);
         if(resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
+
                 case REQUEST_CODE_POST_IMAGE_CAPTURE:
                     Model.getInstance().uploadImageForPost(currentPath);
                     uploadedImage.setVisibility(View.VISIBLE);
@@ -259,6 +259,10 @@ public class WallFragment extends BaseFragment {
     @SuppressWarnings("Unchecked cast")
     public void onEventDetected(GameSparksEvent event){
         switch (event.getEventType()) {
+            case LOGGED_OUT:
+//                adapter.clear();
+//                adapter.notifyDataSetChanged();
+                break;
             case POST_IMAGE_FILE_UPLOADED:
                 if(event.getData()!=null){
                     uploadedImageUrl = (String)event.getData();
@@ -301,6 +305,7 @@ public class WallFragment extends BaseFragment {
         Log.d(TAG,"ALL POSTS LOADED!");
         progressBar.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe
@@ -381,5 +386,4 @@ public class WallFragment extends BaseFragment {
             Toast.makeText(getContext(),"Please enter some text for post!", Toast.LENGTH_SHORT).show();
         }
     }
-
 }
