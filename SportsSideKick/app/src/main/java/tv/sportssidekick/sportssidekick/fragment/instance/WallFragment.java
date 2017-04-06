@@ -1,8 +1,14 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
@@ -18,28 +24,43 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
+import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.model.tutorial.TutorialModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallPost;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PostCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
 import tv.sportssidekick.sportssidekick.util.StaggeredLayoutManagerItemDecoration;
+import tv.sportssidekick.sportssidekick.util.Utility;
+
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_POST_IMAGE_CAPTURE;
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_POST_IMAGE_PICK;
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_POST_VIDEO_CAPTURE;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -49,6 +70,7 @@ import tv.sportssidekick.sportssidekick.util.StaggeredLayoutManagerItemDecoratio
  * A simple {@link BaseFragment} subclass.
  */
 
+@RuntimePermissions
 @IgnoreBackHandling
 public class WallFragment extends BaseFragment {
 
@@ -79,11 +101,28 @@ public class WallFragment extends BaseFragment {
 
     @BindView(R.id.post_post_button)
     ImageView postCommentButton;
-    @BindView(R.id.comment_text)
+    @BindView(R.id.post_text)
     EditText commentText;
+
+    String currentPath;
+    String videoDownloadUrl;
+    String uploadedImageUrl;
+    String videoThumbnailDownloadUrl;
+
+    @BindView(R.id.camera_button)
+    ImageView cameraButton;
+    @BindView(R.id.image_button)
+    ImageView imageButton;
+    @BindView(R.id.uploaded_image)
+    ImageView uploadedImage;
+    @BindView(R.id.remove_uploaded_photo_button)
+    ImageView removeUploadedImage;
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
+
+    @BindView(R.id.swipe_refresh_layout)
+    SwipyRefreshLayout swipeRefreshLayout;
 
     boolean isNewPostVisible, isFilterVisible, isSearchVisible;
 
@@ -132,8 +171,119 @@ public class WallFragment extends BaseFragment {
             wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
             wallRecyclerView.setLayoutManager(layoutManager);
         }
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                WallModel.getInstance().fetchPosts();
+            }
+        });
+
         return view;
     }
+
+    @OnClick(R.id.camera_button)
+    public void cameraButtonOnClick(){
+       WallFragmentPermissionsDispatcher.invokeImageCaptureWithCheck(this);
+    }
+
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeImageCapture(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = Model.createImageFile(getContext());
+                currentPath = photoFile.getAbsolutePath();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            }
+            startActivityForResult(takePictureIntent, REQUEST_CODE_POST_IMAGE_CAPTURE);
+        }
+    }
+
+    @OnClick(R.id.image_button)
+    public void selectImageOnClick(){
+        WallFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
+    }
+
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeImageSelection(){
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto, REQUEST_CODE_POST_IMAGE_PICK);
+    }
+
+    @OnClick(R.id.video_button)
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeVideoCapture(){
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takeVideoIntent, REQUEST_CODE_POST_VIDEO_CAPTURE);
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if(resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_POST_IMAGE_CAPTURE:
+                    Model.getInstance().uploadImageForPost(currentPath);
+                    uploadedImage.setVisibility(View.VISIBLE);
+                    removeUploadedImage.setVisibility(View.VISIBLE);
+                    break;
+                case REQUEST_CODE_POST_IMAGE_PICK:
+                    Uri selectedImageURI = intent.getData();
+                    String realPath = Model.getRealPathFromURI(getContext(),selectedImageURI);
+                    Model.getInstance().uploadImageForPost(realPath);
+                    uploadedImage.setVisibility(View.VISIBLE);
+                    removeUploadedImage.setVisibility(View.VISIBLE);
+                    break;
+                case REQUEST_CODE_POST_VIDEO_CAPTURE:
+                    Uri videoUri = intent.getData();
+                    currentPath = Model.getRealPathFromURI(getContext(),videoUri);
+                    Model.getInstance().uploadPostVideoRecording(currentPath);
+                    uploadedImage.setVisibility(View.VISIBLE);
+                    removeUploadedImage.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+    }
+
+
+
+    @Subscribe
+    @SuppressWarnings("Unchecked cast")
+    public void onEventDetected(GameSparksEvent event){
+        switch (event.getEventType()) {
+            case POST_IMAGE_FILE_UPLOADED:
+                if(event.getData()!=null){
+                    uploadedImageUrl = (String)event.getData();
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage, Utility.imageOptionsImageLoader());
+                }
+            case VIDEO_FILE_UPLOADED:
+                videoDownloadUrl = (String) event.getData();
+                Model.getInstance().uploadPostVideoRecordingThumbnail(currentPath,getActivity().getFilesDir());
+                break;
+            case VIDEO_IMAGE_FILE_UPLOADED:
+                videoThumbnailDownloadUrl = (String) event.getData();
+                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader());
+                break;
+        }
+    }
+
+    @OnClick({R.id.uploaded_image,R.id.remove_uploaded_photo_button})
+    public void removeUploadedContent(){
+        uploadedImageUrl = null;
+        videoDownloadUrl = null;
+        videoThumbnailDownloadUrl = null;
+        uploadedImage.setVisibility(View.GONE);
+        removeUploadedImage.setVisibility(View.GONE);
+    }
+
 
     @Subscribe
     public void onPostUpdate(PostUpdateEvent event){
@@ -163,7 +313,7 @@ public class WallFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onPostUpdated(PostCompleteEvent event){
+    public void onPostCompleted(PostCompleteEvent event){
         adapter.notifyDataSetChanged();
         isNewPostVisible = false;
         isFilterVisible = false;
@@ -207,12 +357,25 @@ public class WallFragment extends BaseFragment {
     public void postPost() {
         String postContent = commentText.getText().toString();
         if(!TextUtils.isEmpty(postContent)){
+            commentText.setText("");
             WallPost newPost = new WallPost();
             newPost.setType(WallBase.PostType.post);
             newPost.setTitle("Not sure we need title here");
             newPost.setSubTitle("A subtitle...");
             newPost.setTimestamp((double) System.currentTimeMillis());
             newPost.setBodyText(postContent);
+
+            if(uploadedImageUrl!=null){
+                newPost.setCoverImageUrl(uploadedImageUrl);
+            } else if(videoDownloadUrl!=null && videoThumbnailDownloadUrl!=null){
+                newPost.setCoverImageUrl(uploadedImageUrl);
+                newPost.setVidUrl(videoDownloadUrl);
+            }
+            uploadedImageUrl = null;
+            videoDownloadUrl = null;
+            videoThumbnailDownloadUrl = null;
+            uploadedImage.setVisibility(View.GONE);
+            removeUploadedImage.setVisibility(View.GONE);
             WallModel.getInstance().mbPost(newPost);
         } else {
             Toast.makeText(getContext(),"Please enter some text for post!", Toast.LENGTH_SHORT).show();

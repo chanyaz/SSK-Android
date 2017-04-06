@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import tv.sportssidekick.sportssidekick.model.sharing.Shareable;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -60,6 +61,16 @@ public abstract class WallBase implements Shareable {
     protected String vidUrl;
     @JsonProperty("coverAspectRatio")
     protected Float coverAspectRatio = 0.5625f;
+
+    UserInfo poster;
+
+    public UserInfo getPoster() {
+        return poster;
+    }
+
+    public void setPoster(UserInfo poster) {
+        this.poster = poster;
+    }
 
     public static void clear() {
         cache.clear();

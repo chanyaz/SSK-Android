@@ -19,7 +19,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/comment_text"
+            android:id="@+id/post_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
@@ -31,7 +31,7 @@
             android:id="@+id/message_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/comment_text"
+            android:layout_below="@id/post_text"
             android:layout_marginLeft="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_5"
             android:text="First name last name - time ago"

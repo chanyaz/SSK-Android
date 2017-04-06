@@ -29,4 +29,6 @@
     <color name="black">#000000</color>
 
     <color name="chat_input_edit_text_background">#e9eaed</color>
+    <color name="wall_store_color">#fc6120</color>
+    <color name="rumour_yellow">#fcfd42</color>
 </resources>

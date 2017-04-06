@@ -49,7 +49,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         @BindView(R.id.profil_iamge)
         ImageView profileImage;
         @Nullable
-        @BindView(R.id.comment_text)
+        @BindView(R.id.post_text)
         TextView comment;
         @Nullable
         @BindView(R.id.message_information)

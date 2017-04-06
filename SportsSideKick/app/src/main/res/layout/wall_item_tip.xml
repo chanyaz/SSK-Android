@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/row_wall_small_cell_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <com.github.rongi.rotate_layout.layout.RotateLayout
+            android:id="@+id/row_wall_small_cell_headline_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/description"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/rumour_headerz"
+            app:angle="90"> <!-- Specify rotate angle here -->
+
+            <TextView
+                android:id="@+id/caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="12dp"
+                android:paddingEnd="@dimen/padding_8"
+                android:paddingStart="@dimen/padding_8"
+                android:paddingTop="@dimen/padding_8"
+                android:text="TIP"
+                android:textColor="@color/colorPrimary" />
+        </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/row_wall_small_cell_headline_container"
+            android:layout_toStartOf="@+id/tip_image"
+            android:ellipsize="end"
+            android:isScrollContainer="false"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="3"
+            android:minLines="3"
+            android:padding="@dimen/padding_16"
+            android:text="Peritus indictio Repressors ortum in velox aetheres!A falsis, gabalium festus calcaria.A falsis, abaculus varius lixa.Ubi est azureus quadra?callide captiss scutum est.Stellas crescere in rusticus divio!Pol, a bene deus.Homo de germanus terror, convertam boreas!Mirabilis poetas ducunt ad messor.Est pius fermium, cesaris.Gratis terror callide talems brabeuta est.Rumors sunt deuss de brevis nuptia.Silva, demolitione, et index.Ecce, exsul!Cantare superbe ducunt ad gratis decor.A falsis, humani generis alter mens.Noster lactea cito consumeres deus est.Peregrinationes absolute ducunt ad salvus deus.Ubi est ferox magister?Lanista tolerares, tanquam camerarius castor.Primus, bassus orexiss velox tractare de castus, nobilis contencio.Rusticus accolas ducunt ad hilotae.Victrixs mori in palatium!Idoleum clemens demissio est.Musas manducare in magnum lutetia!Nunquam fallere demissio.Resistere vix ducunt ad raptus lanista.Est regius orgia, cesaris.Luna, verpa, et nuptia.Pol, a bene aonides, placidus cursus!Tumultumques congregabo in lutetia!Albus naviss ducunt ad sensorem.Hercle, luna dexter!, alter particula!Ferox tabes satis carpseriss cotta est.Pulchritudines observare!Gratis, ferox lamias inciviliter imitari de pius, talis accentor.Cliniass studere, tanquam clemens aonides.Ubi est primus vita?Pol, brevis fermium!Pol, a bene particula, azureus mons!Glutens sunt historias de dexter particula.Ubi est altus bubo?Peritus turpiss ducunt ad solitudo.A falsis, particula fortis calcaria.Eheu, alter ventus!Heu, lamia!Particulas prarere in cirpi!Bassus cedrium recte apertos amor est.Vox fortis nutrix est.Pol, a bene boreas, varius nuclear vexatum iacere!Cur finis mori?Cum historia ire, omnes decores magicae castus, altus mineralises.Magnum, barbatus indexs sed mire visum de azureus, mirabilis cotta."
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/tip_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginEnd="@dimen/margin_15"
+            android:src="@drawable/tip_item" />
+    </RelativeLayout>
+</RelativeLayout>
