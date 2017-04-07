@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -23,7 +24,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -34,7 +41,13 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.annotation.Nullable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,9 +60,15 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.tutorial.TutorialModel;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
+import tv.sportssidekick.sportssidekick.model.wall.WallBetting;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
+import tv.sportssidekick.sportssidekick.model.wall.WallNewsShare;
 import tv.sportssidekick.sportssidekick.model.wall.WallPost;
+import tv.sportssidekick.sportssidekick.model.wall.WallRumor;
+import tv.sportssidekick.sportssidekick.model.wall.WallStats;
+import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PostCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
@@ -89,7 +108,7 @@ public class WallFragment extends BaseFragment {
     @BindView(R.id.fragment_wall_full_screen)
     Button buttonFullScreen;
     @BindView(R.id.fragment_wall_recycler_view)
-    RecyclerView wallRecyclerView;
+    RecyclerView recyclerView;
 
     @BindView(R.id.your_post_container)
     RelativeLayout newPostContainer;
@@ -98,10 +117,24 @@ public class WallFragment extends BaseFragment {
     @BindView(R.id.search_wall_post)
     RelativeLayout searchWallContainer;
 
+    @BindView(R.id.news_filter_toggle)
+    ToggleButton newsToggleButton;
+    @BindView(R.id.user_filter_toggle)
+    ToggleButton userToggleButton;
+    @BindView(R.id.stats_filter_toggle)
+    ToggleButton statsToggleButton;
+    @BindView(R.id.rumours_filter_toggle)
+    ToggleButton rumoursToggleButton;
+    @BindView(R.id.store_filter_toggle)
+    ToggleButton storeToggleButton;
+
+
     @BindView(R.id.post_post_button)
     ImageView postCommentButton;
     @BindView(R.id.post_text)
     EditText commentText;
+    @BindView(R.id.search_text)
+    EditText searchText;
 
     String currentPath;
     String videoDownloadUrl;
@@ -124,18 +157,21 @@ public class WallFragment extends BaseFragment {
     SwipyRefreshLayout swipeRefreshLayout;
 
     boolean isNewPostVisible, isFilterVisible, isSearchVisible;
+    List<WallBase> wallItems;
+    private List<WallBase> filteredItems;
 
     public WallFragment() {
         // Required empty public constructor
     }
 
-    List<WallBase> wallItems;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
         wallItems = new ArrayList<>();
+        filteredItems = new ArrayList<>();
         WallModel.getInstance();
 
         TutorialModel.getInstance().initialize(getActivity());
@@ -164,11 +200,13 @@ public class WallFragment extends BaseFragment {
         });
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        adapter = new WallAdapter(getActivity(), wallItems);
-        if(wallRecyclerView!=null){
-            wallRecyclerView.setAdapter(adapter);
-            wallRecyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
-            wallRecyclerView.setLayoutManager(layoutManager);
+        adapter = new WallAdapter(getActivity());
+        if(recyclerView !=null){
+            recyclerView.setAdapter(adapter);
+            adapter.add(filteredItems);
+            recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
+            recyclerView.setLayoutManager(layoutManager);
+            searchText.addTextChangedListener(textWatcher);
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
@@ -291,26 +329,221 @@ public class WallFragment extends BaseFragment {
 
     @Subscribe
     public void onPostUpdate(PostUpdateEvent event){
-       Log.d(TAG,"GOT POST!");
-       WallBase post = event.getPost();
+       Log.d(TAG,"GOT POST with id: " + event.getId());
+       final WallBase post = event.getPost();
         if(post!=null){
-            Log.d(TAG,"Post is:" + post.toString());
-            wallItems.add(post);
+            for(WallBase item : wallItems){
+                if(item.getWallId()==post.getWallId() && item.getPostId()==post.getPostId()){
+                    item.setEqualTo(post);
+                    filterPosts();
+                    return;
+                }
+            }
+            if(post.getPoster() == null && post instanceof WallPost){
+                Model.getInstance().getUserInfoById(post.getWallId()).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UserInfo> task) {
+                        if(task.isSuccessful()){
+                            post.setPoster(task.getResult());
+                            wallItems.add(post);
+                        }
+                        filterPosts();
+                    }
+                });
+            } else {
+                wallItems.add(post);
+                filterPosts();
+            }
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @OnClick({R.id.news_filter_toggle,R.id.user_filter_toggle,R.id.stats_filter_toggle,R.id.rumours_filter_toggle,R.id.store_filter_toggle})
+    public void filterPosts() {
+        filteredItems = wallItems;
+        if(newsToggleButton.isChecked()){
+            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+                @Override
+                public boolean apply(@Nullable WallBase input) {
+                    return !(input instanceof WallNewsShare);
+                }
+            }));
+        }
+        if(userToggleButton.isChecked()){
+            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+                @Override
+                public boolean apply(@Nullable WallBase input) {
+                    return !(input instanceof WallPost);
+                }
+            }));
+        }
+        if(statsToggleButton.isChecked()) {
+            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+                @Override
+                public boolean apply(@Nullable WallBase input) {
+                    return !(input instanceof WallStats);
+                }
+            }));
+        }
+        if(rumoursToggleButton.isChecked()){
+            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+                @Override
+                public boolean apply(@Nullable WallBase input) {
+                    return !(input instanceof WallRumor);
+                }
+            }));
+        }
+        if(storeToggleButton.isChecked()){
+            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+                @Override
+                public boolean apply(@Nullable WallBase input) {
+                    return !(input instanceof WallStoreItem);
+                }
+            }));
+        }
+        if(!TextUtils.isEmpty(searchText.getText())){
+            final String searchTerm = searchText.getText().toString();
+            filteredItems = Lists.newArrayList(Iterables.filter(wallItems, new Predicate<WallBase>() {
+                @Override
+                public boolean apply(@Nullable WallBase input) {
+                    return searchWallItem(searchTerm,input);
+                }
+            }));
+        }
+        //sortByTimestamp();
+        adapter.replaceAll(filteredItems);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void sortByTimestamp() {
+        Collections.sort(wallItems,new Comparator<WallBase>() {
+            @Override
+            public int compare(WallBase o1, WallBase o2) {
+                return (int) (o2.getTimestamp()-o1.getTimestamp());
+            }
+        });
+        Collections.sort(Lists.newArrayList(filteredItems),new Comparator<WallBase>() {
+            @Override
+            public int compare(WallBase o1, WallBase o2) {
+                return (int) (o2.getTimestamp()-o1.getTimestamp());
+            }
+        });
+    }
+
+
+
+    private boolean searchWallItem(String searchTerm, WallBase item){
+        UserInfo poster = item.getPoster();
+        if(poster==null){
+            poster = Model.getInstance().getCachedUserInfoById(item.getWallId());
+            if(poster.getNicName()!=null && poster.getFirstName()!=null && poster.getLastName()!=null){
+                String allNames = poster.getNicName() + poster.getFirstName() + poster.getLastName();
+                if(allNames.toLowerCase().contains(searchTerm.toLowerCase())){
+                    return true;
+                }
+            }
+        }
+
+        if(item instanceof WallNewsShare || item instanceof WallPost){
+            if(item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+                return true;
+            }
+            if(item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+                return true;
+            }
+            if(item.getBodyText().toLowerCase().contains(searchTerm.toLowerCase())){
+                return true;
+            }
+        }
+        if(item instanceof WallRumor || item instanceof WallStoreItem){
+            if(item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+                return true;
+            }
+            if(item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+                return true;
+            }
+        }
+        if(item instanceof WallStats){
+            WallStats statsItem = (WallStats) item;
+            if(statsItem.getStatName().toLowerCase().contains(searchTerm.toLowerCase())){
+                return true;
+            }
+            if(statsItem.getSubText().toLowerCase().contains(searchTerm.toLowerCase())){
+                return true;
+            }
+        }
+        if(item instanceof WallBetting){
+            WallBetting betItem = (WallBetting) item;
+            if(betItem.getBetName().toLowerCase().contains(searchTerm.toLowerCase())){
+                return true;
+            }
+            if(betItem.getOutcome().toLowerCase().contains(searchTerm.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    TextWatcher textWatcher = new TextWatcher() {
+        private final long DELAY = 500; // milliseconds
+        private Timer timer = new Timer();
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void afterTextChanged(final Editable s) {
+            timer.cancel();
+            timer = new Timer();
+            timer.schedule(
+                    new TimerTask() {
+                        @Override
+                        public void run() {
+                            performSearch();
+                        }
+                    },
+                    DELAY
+            );
+        }
+    };
+
+    public void performSearch() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                if(!TextUtils.isEmpty(searchText.getText())){
+                    final String searchTerm = searchText.getText().toString();
+                    filteredItems = Lists.newArrayList(Iterables.filter(wallItems, new Predicate<WallBase>() {
+                        @Override
+                        public boolean apply(@Nullable WallBase input) {
+                            return searchWallItem(searchTerm,input);
+                        }
+                    }));
+                    adapter.replaceAll(filteredItems);
+                    adapter.notifyDataSetChanged();
+                    recyclerView.scrollToPosition(0);
+                }
+            }
+        });
     }
 
     @Subscribe
     public void onPostsLoaded(PostLoadCompleteEvent event){
         Log.d(TAG,"ALL POSTS LOADED!");
         progressBar.setVisibility(View.GONE);
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe
     public void onPostUpdated(PostUpdateEvent event){
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
         isNewPostVisible = false;
         isFilterVisible = false;
         isSearchVisible = false;
@@ -319,7 +552,7 @@ public class WallFragment extends BaseFragment {
 
     @Subscribe
     public void onPostCompleted(PostCompleteEvent event){
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
         isNewPostVisible = false;
         isFilterVisible = false;
         isSearchVisible = false;

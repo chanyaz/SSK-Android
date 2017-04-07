@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,6 +30,7 @@ import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallNews;
+import tv.sportssidekick.sportssidekick.model.wall.WallNewsShare;
 import tv.sportssidekick.sportssidekick.model.wall.WallPost;
 import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -41,7 +44,9 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     private static final String TAG = "WallAdapter";
 
-    private List<WallBase> items;
+    public SortedList<WallBase> getItems() {
+        return values;
+    }
 
     private Context context;
 
@@ -92,11 +97,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    WallBase.PostType[] postTypeValues;
+    private WallBase.PostType[] postTypeValues;
 
-    public WallAdapter(Context context, List<WallBase> fakeModelList) {
+    public WallAdapter(Context context) {
         this.context = context;
-        this.items = fakeModelList;
         postTypeValues = WallBase.PostType.values();
     }
 
@@ -129,9 +133,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final WallAdapter.ViewHolder holder, final int position) {
         int screenHeight = Utility.getDisplayHeight(context);
-        switch (items.get(position).getType()) {
+        switch (values.get(position).getType()) {
             case post:
-                WallPost post = (WallPost) items.get(position);
+                WallPost post = (WallPost) values.get(position);
                 if (holder.imageView != null) {
                     if (!TextUtils.isEmpty(post.getCoverImageUrl())) {
                         ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), holder.imageView, Utility.getRoundedImageOptions());
@@ -174,7 +178,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 holder.likesCount.setText(String.valueOf(post.getLikeCount()));
                 break;
             case newsShare:
-                WallNews news = (WallNews) items.get(position);
+                WallNewsShare news = (WallNewsShare) values.get(position);
                 if (holder.imageView != null) {
                     if (!TextUtils.isEmpty(news.getCoverImageUrl()) || news.getCoverImageUrl() !=null) {
 //                        holder.imageView.getLayoutParams().height = (int) (screenHeight * 0.25);
@@ -227,13 +231,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 // No items of this type yet!
                 break;
             case rumor:
-                WallNews rumour = (WallNews) items.get(position);
+                WallNews rumour = (WallNews) values.get(position);
                 if (holder.captionTextView != null) {
                     holder.captionTextView.setText(rumour.getTitle());
                 }
                 break;
             case wallStoreItem:
-                WallStoreItem storeItem = (WallStoreItem) items.get(position);
+                WallStoreItem storeItem = (WallStoreItem) values.get(position);
                 if (holder.imageView != null) {
                     String coverImageUrl = storeItem.getCoverImageUrl();
                     if (!TextUtils.isEmpty(coverImageUrl) && coverImageUrl!=null) {
@@ -254,7 +258,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
-                fe.setId(items.get(position).getPostId());
+                fe.setId(values.get(position).getPostId());
                 EventBus.getDefault().post(fe);
             }
         });
@@ -262,17 +266,97 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return items.get(position).getType().ordinal();
+        return values.get(position).getType().ordinal();
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return values.size();
     }
 
     public void clear(){
-        if(items!=null){
+        if(values!=null){
             clear();
         }
+    }
+
+    private static final Comparator<WallBase> ALPHABETICAL_COMPARATOR = new Comparator<WallBase>() {
+        @Override
+        public int compare(WallBase a, WallBase b) {
+            return (a.getTimestamp()).compareTo
+                    (b.getTimestamp());
+        }
+    };
+
+    private final SortedList.Callback<WallBase> mCallback = new SortedList.Callback<WallBase>() {
+
+        @Override
+        public void onInserted(int position, int count) {
+            notifyItemRangeInserted(position, count);
+        }
+
+        @Override
+        public void onRemoved(int position, int count) {
+            notifyItemRangeRemoved(position, count);
+        }
+
+        @Override
+        public void onMoved(int fromPosition, int toPosition) {
+            notifyItemMoved(fromPosition, toPosition);
+        }
+
+        @Override
+        public void onChanged(int position, int count) {
+            notifyItemRangeChanged(position, count);
+        }
+
+        @Override
+        public int compare(WallBase a, WallBase b) {
+            return ALPHABETICAL_COMPARATOR.compare(a, b);
+        }
+
+        @Override
+        public boolean areContentsTheSame(WallBase oldItem, WallBase newItem) {
+            return oldItem.equals(newItem);
+        }
+
+        @Override
+        public boolean areItemsTheSame(WallBase item1, WallBase item2) {
+            return item1.getPostId().equals(item2.getPostId());
+        }
+    };
+
+    final SortedList<WallBase> values = new SortedList<>(WallBase.class, mCallback);
+
+    public void add(WallBase model) {
+        values.add(model);
+    }
+
+    public void remove(WallBase model) {
+        values.remove(model);
+    }
+
+    public void add(List<WallBase> models) {
+        values.addAll(models);
+    }
+
+    public void remove(List<WallBase> models) {
+        values.beginBatchedUpdates();
+        for (WallBase model : models) {
+            values.remove(model);
+        }
+        values.endBatchedUpdates();
+    }
+
+    public void replaceAll(List<WallBase> models) {
+        values.beginBatchedUpdates();
+        for (int i = values.size() - 1; i >= 0; i--) {
+            final WallBase model = values.get(i);
+            if (!models.contains(model)) {
+                values.remove(model);
+            }
+        }
+        values.addAll(models);
+        values.endBatchedUpdates();
     }
 }

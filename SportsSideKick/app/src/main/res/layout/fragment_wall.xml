@@ -138,30 +138,35 @@
             android:orientation="horizontal"
             android:gravity="center">
             <ToggleButton
+                android:id="@+id/news_filter_toggle"
                 style="@style/toggle_button_filter"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textOff="News"
                 android:textOn="News" />
             <ToggleButton
+                android:id="@+id/user_filter_toggle"
                 style="@style/toggle_button_filter"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textOff="User"
                 android:textOn="User" />
             <ToggleButton
+                android:id="@+id/stats_filter_toggle"
                 style="@style/toggle_button_filter"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textOff="Stats"
                 android:textOn="Stats" />
             <ToggleButton
+                android:id="@+id/rumours_filter_toggle"
                 style="@style/toggle_button_filter"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textOff="Rumours"
                 android:textOn="Rumours" />
             <ToggleButton
+                android:id="@+id/store_filter_toggle"
                 style="@style/toggle_button_filter"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -181,7 +186,7 @@
         android:visibility="gone">
 
         <EditText
-            android:id="@+id/searhc_text"
+            android:id="@+id/search_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

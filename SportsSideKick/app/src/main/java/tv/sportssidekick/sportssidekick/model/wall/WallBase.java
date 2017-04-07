@@ -103,7 +103,7 @@ public abstract class WallBase implements Shareable {
                     };
                     break;
                 case newsShare:
-                    typeReference = new TypeReference<WallNews>() {
+                    typeReference = new TypeReference<WallNewsShare>() {
                     };
                     break;
                 case betting:

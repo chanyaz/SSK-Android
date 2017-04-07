@@ -85,8 +85,6 @@ public class Model {
         Log.d(TAG, "Logged in user type: " + loggedInUserType.name());
         switch (type){
             case NONE:
-//                EventBus.getDefault().post(new GameSparksEvent("Log out successful!", GameSparksEvent.Type.LOGGED_OUT, null));
-//              UserEvents.onLogout.emit()  Event-TBA
                 break;
             case ANONYMOUS:
 //              UserEvents.onLoginAnonymously.emit() Event-TBA
