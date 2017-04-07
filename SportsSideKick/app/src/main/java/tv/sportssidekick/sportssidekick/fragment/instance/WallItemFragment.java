@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
-import tv.sportssidekick.sportssidekick.model.wall.WallNews;
+import tv.sportssidekick.sportssidekick.model.wall.WallNewsShare;
 import tv.sportssidekick.sportssidekick.model.wall.WallPost;
 import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -85,7 +85,7 @@ public class WallItemFragment extends BaseFragment {
                 break;
             case rumor:
             case newsShare:
-                WallNews news = (WallNews) item;
+                WallNewsShare news = (WallNewsShare) item;
                 ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());

@@ -70,11 +70,9 @@ public class WallModel extends GSMessageHandlerAbstract {
     private int minNumberOfPostsForIntervalLoad = 10;
 
     HashMap<String, WallBase> cahchedItems;
-
     public List<WallBase> getListCacheItems() {
         return listCacheItems;
     }
-
     List<WallBase> listCacheItems;
 
 
