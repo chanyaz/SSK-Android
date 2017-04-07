@@ -97,16 +97,11 @@ public class WallFragment extends BaseFragment {
 
     @BindView(R.id.fragment_wall_new_post)
     Button buttonNewPost;
-    @BindView(R.id.fragment_wall_notification)
-    Button buttonNotification;
     @BindView(R.id.fragment_wall_filter)
     Button buttonFilter;
-    @BindView(R.id.fragment_wall_following)
-    Button buttonFollowing;
     @BindView(R.id.fragment_wall_search)
     Button buttonSearch;
-    @BindView(R.id.fragment_wall_full_screen)
-    Button buttonFullScreen;
+
     @BindView(R.id.fragment_wall_recycler_view)
     RecyclerView recyclerView;
 

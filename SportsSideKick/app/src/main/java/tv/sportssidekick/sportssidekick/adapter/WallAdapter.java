@@ -281,11 +281,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    private static final Comparator<WallBase> ALPHABETICAL_COMPARATOR = new Comparator<WallBase>() {
+    private static final Comparator<WallBase> WALL_BASE_TIMESTAMP_COMPARATOR = new Comparator<WallBase>() {
         @Override
         public int compare(WallBase a, WallBase b) {
-            return (a.getTimestamp()).compareTo
-                    (b.getTimestamp());
+            return (b.getTimestamp()).compareTo
+                    (a.getTimestamp());
         }
     };
 
@@ -313,7 +313,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
         @Override
         public int compare(WallBase a, WallBase b) {
-            return ALPHABETICAL_COMPARATOR.compare(a, b);
+            return WALL_BASE_TIMESTAMP_COMPARATOR.compare(a, b);
         }
 
         @Override
