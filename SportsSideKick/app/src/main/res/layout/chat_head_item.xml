@@ -3,36 +3,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="60dp"
     android:layout_height="wrap_content"
-    android:background="@color/colorAccentLight">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/image"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/chat_head_image_view"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        android:background="@color/demo_green_semitransparent"
         android:padding="8dp"
-        android:scaleType="centerCrop" />
-
-
-    <ImageView
-        android:id="@+id/mask"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/chat_head_mask" />
-
-    <ImageView
-        android:id="@+id/selected"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/chat_selected_user"
-        android:visibility="visible" />
+        app:civ_border_width="2dp"/>
 
     <ImageView
         android:id="@+id/notification_icon"
@@ -44,44 +24,4 @@
         android:src="@drawable/chat_head_notification"
         android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/caption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/image"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:maxLines="1"
-        android:text="Demo caption Demo caption Demo caption Demo caption"
-        android:ellipsize="marquee"
-        android:textColor="@color/white"
-        android:textSize="9sp" />
-
-    <View
-        android:id="@+id/alignment_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignBaseline="@+id/people_count_value"/>
-
-    <ImageView
-        android:id="@+id/people_icon"
-        android:layout_width="10dp"
-        android:layout_above="@+id/alignment_view"
-        android:layout_height="10dp"
-        android:layout_toEndOf="@+id/alignment_view"
-        android:layout_marginStart="@dimen/half_margin"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/user_count_icon" />
-
-    <TextView
-        android:id="@+id/people_count_value"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/caption"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:layout_toStartOf="@+id/people_icon"
-        android:text="3"
-        android:textColor="@color/white"
-        android:textSize="12sp" />
 </RelativeLayout>

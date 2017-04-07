@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallItemFragment;
@@ -68,7 +69,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         ImageView imageView;
         @Nullable
         @BindView(R.id.user_image)
-        ImageView userImage;
+        CircleImageView userImage;
         @Nullable
         @BindView(R.id.author)
         TextView author;
