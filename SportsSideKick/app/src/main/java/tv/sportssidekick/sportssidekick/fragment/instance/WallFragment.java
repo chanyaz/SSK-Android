@@ -171,6 +171,7 @@ public class WallFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
         wallItems = new ArrayList<>();
+        wallItems.addAll(WallBase.getCache().values());
         filteredItems = new ArrayList<>();
         WallModel.getInstance();
 
@@ -203,10 +204,10 @@ public class WallFragment extends BaseFragment {
         adapter = new WallAdapter(getActivity());
         if(recyclerView !=null){
             recyclerView.setAdapter(adapter);
-            adapter.add(filteredItems);
             recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
             recyclerView.setLayoutManager(layoutManager);
             searchText.addTextChangedListener(textWatcher);
+            filterPosts();
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
@@ -216,6 +217,9 @@ public class WallFragment extends BaseFragment {
             }
         });
 
+        if(wallItems.size()>0){
+            progressBar.setVisibility(View.GONE);
+        }
         return view;
     }
 
