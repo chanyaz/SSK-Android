@@ -190,7 +190,6 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="@dimen/full_margin"
             android:layout_marginEnd="@dimen/half_margin"
             android:layout_toEndOf="@+id/left_tab_selector"
             android:layout_toStartOf="@+id/middle_split"
@@ -202,11 +201,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_right_container"
-            android:layout_marginBottom="@dimen/margin_8"
             android:layout_marginStart="@dimen/half_margin"
             android:layout_toEndOf="@+id/middle_split"
             android:layout_toStartOf="@+id/right_tab_selector"
-            android:background="@color/green_dark_1" />
+            android:background="@color/green_dark_1"
+            android:layout_marginBottom="@dimen/margin_8"/>
 
         <!-- CLUB CONTAINER -->
         <RelativeLayout
@@ -214,7 +213,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_8"
             android:layout_marginStart="@dimen/half_margin"
             android:layout_toEndOf="@+id/middle_split"
             android:layout_toStartOf="@+id/right_tab_selector"
@@ -567,4 +565,22 @@
         android:clickable="true"
         android:gravity="center"
         android:visibility="gone" />
+
+    <!-- MIDDLE SPLITTER -->
+    <View
+        android:id="@+id/middle_split_outside"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/popup_holder_right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_toEndOf="@+id/middle_split_outside"
+        android:layout_marginStart="@dimen/half_margin" />
+
 </RelativeLayout>
