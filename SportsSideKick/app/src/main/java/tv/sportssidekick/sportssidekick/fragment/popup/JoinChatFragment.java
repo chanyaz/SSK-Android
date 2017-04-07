@@ -2,6 +2,9 @@ package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -23,7 +26,9 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
 import tv.sportssidekick.sportssidekick.adapter.PublicChatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
@@ -44,14 +49,15 @@ import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GR
 public class JoinChatFragment extends BaseFragment {
 
     @BindView(R.id.friends_recycler_view)
-    AutofitRecyclerView recyclerView;
-    @BindView(R.id.confirm_button)
-    ImageButton confirmButton;
+    RecyclerView recyclerView;
+
+    @BindView(R.id.bottom_public_chats_friends_in_recycler)
+    RecyclerView recyclerViewFriendsIn;
 
     @BindView(R.id.create_a_chat)
     TextView createChatTextView;
 
-    @BindView(R.id.search_edit_text)
+    @BindView(R.id.chat_name_edit_text)
     EditText searchEditText;
     PublicChatsAdapter chatsAdapter;
 
@@ -68,15 +74,6 @@ public class JoinChatFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_join_chat, container, false);
         ButterKnife.bind(this, view);
 
-        confirmButton.setOnClickListener(
-            new View.OnClickListener() {
-                 @Override
-                 public void onClick(View view) {
-                     joinChat();
-                 }
-             }
-        );
-
         createChatTextView.setOnClickListener(
             new View.OnClickListener() {
                 @Override
@@ -85,11 +82,14 @@ public class JoinChatFragment extends BaseFragment {
                 }
             });
 
-        int screenWidth = Utility.getDisplayWidth(getActivity());
 
-        recyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
-        recyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
-        recyclerView.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),2, LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        //TODO List for public chat ur friends are in
+       // LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+       // recyclerViewFriendsIn.setLayoutManager(linearLayoutManager);
+
 
         Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChats();
         task.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
@@ -104,6 +104,17 @@ public class JoinChatFragment extends BaseFragment {
             }
         });
         return view;
+    }
+
+    @OnClick(R.id.chat_join_search_button)
+    public void search(){
+        //TODO search
+    }
+
+    @OnClick(R.id.chat_join_headline_close_fragment)
+    public void closeFragment(){
+        ((LoungeActivity)getActivity()).hideSlidePopupFragmentContainer();
+        //  getActivity().onBackPressed();
     }
 
     public void performSearch() {
@@ -159,15 +170,5 @@ public class JoinChatFragment extends BaseFragment {
             }
         }
         return filteredModelList;
-    }
-
-    public void joinChat(){
-        if(chatsAdapter!=null){
-            ChatInfo selectedChat = chatsAdapter.getSelectedValue();
-            if(selectedChat!=null){
-                selectedChat.joinChat();
-                getActivity().onBackPressed();
-            }
-        }
     }
 }

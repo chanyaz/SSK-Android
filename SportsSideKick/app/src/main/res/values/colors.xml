@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorAccent">#ffe324</color>
+    <color name="colorAccentLight">#215456</color>
+    <color name="colorPrimary">#00363b</color>
+    <color name="colorPrimarySemiLight">#266263</color>
+    <color name="colorPrimaryLight">#00ab8d</color>
 
+    <color name="green_dark_3">#032227</color>
+    <color name="green_dark_1">#215456</color>
+    <color name="light_green_1_semitransparent">#a8215456</color>
+    <color name="green_dark_2">#00363b</color>
+    <color name="green_dark_2_semitransparent">#a800363b</color>
     <color name="light_green_2">#00ab8d</color>
     <color name="lightGrey">#9ba1a3</color>
     <color name="white">#ffffff</color>
     <color name="white_semitransparent">#5fffffff</color>
     <color name="light_green_1">#c3ff01</color>
-
-    <color name="colorAccent">#ffe324</color>
-    <color name="colorAccentLight">#215355</color>
-    <color name="colorPrimary">#00353b</color>
-    <color name="colorPrimarySemiLight">#266263</color>
-    <color name="colorPrimaryLight">#00ab8d</color>
-
-    <color name="green_dark_1">#215355</color>
-    <color name="light_green_1_semitransparent">#a8215355</color>
-    <color name="green_dark_2">#00353b</color>
-    <color name="green_dark_2_semitransparent">#a800353b</color>
-    <color name="green_dark_3">#022b32</color>
 
     <color name="demo_yellow_semitransparent">#70ffef14</color>
     <color name="demo_green_semitransparent">#7a3ec722</color>

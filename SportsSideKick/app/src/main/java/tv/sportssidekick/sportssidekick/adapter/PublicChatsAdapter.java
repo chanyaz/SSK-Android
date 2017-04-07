@@ -39,18 +39,13 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
 
     private Context context;
 
-    public ChatInfo getSelectedValue() {
-        return selectedValue;
-    }
-
-    private ChatInfo selectedValue;
-    private int focusedItem;
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.image) ImageView image;
-        @Nullable @BindView(R.id.selected) View selectedRingView;
-        @Nullable @BindView(R.id.caption) TextView chatCaption;
+        @Nullable @BindView(R.id.row_public_chat_image) ImageView image;
+
+       // @Nullable @BindView(R.id.selected) View selectedRingView;
+      //  @Nullable @BindView(R.id.caption) TextView chatCaption;
 
         ViewHolder(View v) {
             super(v);
@@ -60,9 +55,7 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
     }
 
     public PublicChatsAdapter(Context context) {
-        selectedValue = null;
         this.context = context;
-        focusedItem = -1;
     }
 
     @Override
@@ -73,18 +66,8 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
     @Override
     public PublicChatsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final ViewHolder viewHolder;
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_public_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_public, parent, false);
         viewHolder = new ViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (focusedItem >= 0) {
-                    notifyItemChanged(focusedItem);
-                }
-                focusedItem = viewHolder.getLayoutPosition();
-                selectedValue = values.get(focusedItem);
-                notifyItemChanged(focusedItem);
-            }});
         return viewHolder;
     }
 
@@ -94,19 +77,16 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
         final ChatInfo info = values.get(position);
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         if(holder.image!=null){
-            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.image,imageOptions);
-        }
-        if(holder.chatCaption!=null){
-            holder.chatCaption.setText(info.getChatTitle());
-        }
-        if(selectedValue!=null && selectedValue.equals(info)){
-            holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
-        } else {
-            if(holder.image!=null){
-                holder.image.setColorFilter(null);
-            }
+            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.image);
         }
         holder.view.setTag(position);
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO JOIN CHAT and OPEN NEW FRAGMENT
+                info.joinChat();
+            }
+        });
     }
 
     @Override

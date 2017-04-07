@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/create_chat_width"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/margin_30"
-    android:layout_marginEnd="@dimen/margin_60"
-    android:layout_marginStart="@dimen/margin_60"
-    android:layout_marginTop="@dimen/margin_30"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/popup_bottom_background"
+    android:background="@color/colorPrimarySemiLight"
     android:clickable="true">
+
+    <RelativeLayout
+        android:id="@+id/chat_headline_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height">
+
+        <ImageButton
+            android:id="@+id/chat_headline_close_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_close"
+            android:tint="@color/colorPrimaryLight"
+            android:background="@null"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chat"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/padding_8"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/chat_top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chat_headline_container">
 
     <View
         android:id="@+id/top_vertical_spliter"
@@ -30,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_toEndOf="@+id/top_vertical_spliter"
-        android:background="@color/colorAccentLight"
+        android:background="@color/green_dark_3"
         android:gravity="center"
         android:text="Join Chat"
         android:textColor="@color/white_semitransparent" />
@@ -62,14 +91,14 @@
         android:gravity="center_vertical|end"
         android:paddingEnd="@dimen/margin_70"
         android:text="Chat name"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/chat_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/top_vertical_spliter"
-        android:layout_marginStart="-30dp"
         android:layout_toEndOf="@+id/chat_name_label"
         android:background="@color/green_dark_2"
         android:gravity="start|center_vertical"
@@ -78,97 +107,146 @@
         android:maxLines="1"
         android:textColor="@color/white"
         android:textColorHint="@color/white_semitransparent"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:padding="@dimen/margin_20"/>
+
+        <ImageButton
+            android:id="@+id/chat_popup_image_button"
+            android:layout_width="@dimen/create_chat_name_label_height"
+            android:layout_height="@dimen/create_chat_name_label_height"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/chat_camera_button"
+            android:background="@color/colorPrimaryLight"
+            android:layout_below="@+id/top_vertical_spliter"
+            android:clickable="true"/>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/caption_label"
         android:layout_width="match_parent"
         android:layout_height="@dimen/create_chat_caption_label"
-        android:layout_below="@+id/chat_name_label"
+        android:layout_below="@+id/chat_top_buttons_container"
         android:gravity="center"
         android:text="Add friends to chat"
         android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/chat_search_friends_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/caption_label"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:layout_alignStart="@+id/swipe_refresh_layout">
+
+        <View
+            android:id="@+id/chat_search_friends_container_mid_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"/>
+
+        <Switch
+            android:id="@+id/private_chat_switch"
+            android:layout_width="@dimen/create_chat_switch_width"
+            android:layout_height="@dimen/create_chat_name_label_height"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_toEndOf="@+id/chat_search_friends_container_mid_line"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/private_chat_label"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/create_chat_name_label_height"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:text="@string/this_chat_is_public"
+            android:layout_toEndOf="@+id/private_chat_switch"/>
+
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_dark_round"
+            android:gravity="center_vertical"
+            android:hint="Search for a member"
+            android:imeOptions="flagNoExtractUi|actionSearch"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_semitransparent"
+            android:textSize="14sp"
+            android:layout_toStartOf="@+id/chat_search_friends_container_mid_line"
+            android:layout_alignParentStart="true"
+            android:drawableStart="@drawable/popup_search_icon"
+            android:padding="@dimen/half_margin"
+            android:layout_centerVertical="true"
+            android:paddingStart="@dimen/padding_8"
+            android:drawablePadding="@dimen/padding_8"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/chat_friends_in_chat_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/margin_90"
+        android:background="@color/green_dark_2"
+        android:layout_above="@+id/confirm_button">
+
+        <TextView
+            android:id="@+id/chat_friends_in_chat_headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Friends in Chat"
+            android:textColor="@color/white"
+            android:padding="@dimen/padding_8"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chat_friends_in_chat_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chat_friends_in_chat_headline">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_split_line"
-        android:layout_below="@+id/caption_label"
+        android:layout_below="@+id/chat_search_friends_container"
         android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_20">
-
-        <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
-            android:id="@+id/friends_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:numColumns="auto_fit"
-            android:clipToPadding="false"/>
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_above="@+id/chat_friends_in_chat_container">
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <View
-        android:id="@+id/bottom_split_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_60"
-        android:background="@android:color/black" />
 
-    <RelativeLayout
+    <Button
+        android:id="@+id/confirm_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
-        android:layout_alignParentBottom="true">
-
-    <EditText
-        android:id="@+id/search_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/create_chat_name_label_height"
-        android:layout_toStartOf="@+id/private_chat_switch"
-        android:background="@drawable/popup_bottom_left_round_background_dark"
-        android:gravity="start|center_vertical"
-        android:hint="Search for a member"
-        android:imeOptions="flagNoExtractUi|actionSearch"
-        android:inputType="text"
-        android:lines="1"
-        android:maxLines="1"
-        android:paddingStart="@dimen/padding_40"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white_semitransparent"
-        android:textSize="14sp" />
-
-    <Switch
-        android:id="@+id/private_chat_switch"
-        android:layout_width="@dimen/create_chat_switch_width"
-        android:layout_height="@dimen/create_chat_name_label_height"
-        android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/private_chat_label"
-        android:gravity="center_vertical|center_horizontal" />
-
-    <TextView
-        android:id="@+id/private_chat_label"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/create_chat_name_label_height"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:layout_marginStart="@dimen/margin_10"
-        android:layout_toStartOf="@+id/confirm_button"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="@color/white"
-        android:text="@string/this_chat_is_public"/>
-
-    <ImageButton
-        android:id="@+id/confirm_button"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:background="@null"
+        android:background="@color/colorAccent"
         android:scaleType="centerInside"
-        android:src="@drawable/popup_confirmation_button"
-        android:layout_marginBottom="@dimen/margin_30"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_30" />
-    </RelativeLayout>
+        android:textColor="@color/green_dark_2"
+        android:text="Create Chat"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"/>
+
+    <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
+        android:id="@+id/friends_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:numColumns="auto_fit"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/chat_friends_in_chat_container"
+        android:layout_below="@+id/chat_search_friends_container" />
 </RelativeLayout>

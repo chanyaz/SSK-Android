@@ -136,7 +136,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@color/green_dark_1"
+        android:background="@color/chat_input_edit_text_background"
         android:animateLayoutChanges="true">
 
         <RelativeLayout
@@ -331,8 +331,7 @@
         android:id="@+id/message_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/swipe_refresh_layout"
-        android:layout_above="@+id/input_container" />
+        android:layout_toEndOf="@+id/progress_bar" />
 
 </RelativeLayout>

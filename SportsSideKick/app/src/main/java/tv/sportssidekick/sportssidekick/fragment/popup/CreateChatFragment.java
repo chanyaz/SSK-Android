@@ -1,12 +1,19 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,6 +25,8 @@ import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -25,7 +34,9 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
 import tv.sportssidekick.sportssidekick.adapter.SelectableFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
@@ -38,6 +49,7 @@ import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
 import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
 import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
@@ -51,7 +63,7 @@ public class CreateChatFragment extends BaseFragment {
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
     @BindView(R.id.confirm_button)
-    ImageButton confirmButton;
+    Button confirmButton;
     @BindView(R.id.chat_name_edit_text)
     EditText chatNameEditText;
     @BindView(R.id.join_a_chat)
@@ -128,6 +140,32 @@ public class CreateChatFragment extends BaseFragment {
         });
 
         return view;
+    }
+
+
+    @OnClick(R.id.chat_popup_image_button)
+    public void pickImage(){
+        //TODO IMAGE
+        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
+        chooseDialog.setTitle("Choose Option");
+        chooseDialog.setNegativeButton("Choose from Library", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        chooseDialog.setPositiveButton("Use Camera", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        chooseDialog.show();
+    }
+
+    @OnClick(R.id.chat_headline_close_fragment)
+    public void closeFragment(){
+        ((LoungeActivity)getActivity()).hideSlidePopupFragmentContainer();
     }
 
     public void performSearch() {

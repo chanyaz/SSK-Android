@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -127,10 +129,16 @@ public class LoungeActivity extends AppCompatActivity {
     @BindView(R.id.notification_number)
     TextView notificationNumber;
 
+    @BindView(R.id.popup_holder_right)
+    RelativeLayout slideFragmentContainer;
+
     FragmentOrganizer fragmentOrganizer;
 
     ArrayList<Class> popupContainerFragments;
-    BiMap<Integer,Class> radioButtonsFragmentMap;
+    ArrayList<Class> slidePopupContainerFragments;
+
+    BiMap<Integer, Class> radioButtonsFragmentMap;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -165,8 +173,8 @@ public class LoungeActivity extends AppCompatActivity {
         setupFragments();
     }
 
-    private void toggleBlur(boolean visible){ // TODO Extract to popup base class ?
-        if(visible){
+    private void toggleBlur(boolean visible) { // TODO Extract to popup base class ?
+        if (visible) {
             popupHolder.setVisibility(View.VISIBLE);
             if (rootView.getWidth() > 0) {
                 Bitmap image = BlurBuilder.blur(rootView);
@@ -187,7 +195,7 @@ public class LoungeActivity extends AppCompatActivity {
         }
     }
 
-    private void setupFragments(){
+    private void setupFragments() {
         fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);
 
         ArrayList<Class> leftContainerFragments = new ArrayList<>();
@@ -198,14 +206,14 @@ public class LoungeActivity extends AppCompatActivity {
         leftContainerFragments.add(StoreFragment.class);
         leftContainerFragments.add(NewsItemFragment.class);
         leftContainerFragments.add(WallItemFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.tabs_container_1,leftContainerFragments);
+        fragmentOrganizer.setUpContainer(R.id.tabs_container_1, leftContainerFragments);
 
         ArrayList<Class> topRightContainerFragments = new ArrayList<>();
         topRightContainerFragments.add(ChatFragment.class);
         topRightContainerFragments.add(StatisticsFragment.class);
         topRightContainerFragments.add(FantasyFragment.class);
         topRightContainerFragments.add(QuizFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.tabs_container_top_right,topRightContainerFragments);
+        fragmentOrganizer.setUpContainer(R.id.tabs_container_top_right, topRightContainerFragments);
 
         ArrayList<Class> bottomRightContainerFragments = new ArrayList<>();
         bottomRightContainerFragments.add(ClubTVFragment.class);
@@ -213,11 +221,9 @@ public class LoungeActivity extends AppCompatActivity {
         bottomRightContainerFragments.add(ClubRadioFragment.class);
         bottomRightContainerFragments.add(YoutubePlayerFragment.class);
         bottomRightContainerFragments.add(ClubRadioStationFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.bottom_right_container,bottomRightContainerFragments);
+        fragmentOrganizer.setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments);
 
         popupContainerFragments = new ArrayList<>();
-        popupContainerFragments.add(CreateChatFragment.class);
-        popupContainerFragments.add(JoinChatFragment.class);
         popupContainerFragments.add(ManageChatFragment.class);
         popupContainerFragments.add(YourProfileFragment.class);
         popupContainerFragments.add(StashFragment.class);
@@ -236,29 +242,34 @@ public class LoungeActivity extends AppCompatActivity {
         popupContainerFragments.add(AddFriendFragment.class);
         popupContainerFragments.add(InviteFriendFragment.class);
         popupContainerFragments.add(AlertDialogFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.popup_holder,popupContainerFragments, true);
+        fragmentOrganizer.setUpContainer(R.id.popup_holder, popupContainerFragments, true);
 
+        //Fragments that slides in
+        slidePopupContainerFragments = new ArrayList<>();
+        slidePopupContainerFragments.add(CreateChatFragment.class);
+        slidePopupContainerFragments.add(JoinChatFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.popup_holder_right, slidePopupContainerFragments, true);
 
-        radioButtonsFragmentMap =  HashBiMap.create();
-        radioButtonsFragmentMap.put(R.id.wall_radio_button,WallFragment.class);
-        radioButtonsFragmentMap.put(R.id.video_chat_radio_button,VideoChatFragment.class);
-        radioButtonsFragmentMap.put(R.id.news_radio_button,NewsFragment.class);
-        radioButtonsFragmentMap.put(R.id.roumors_radio_button,RumoursFragment.class);
-        radioButtonsFragmentMap.put(R.id.chat_radio_button,ChatFragment.class);
-        radioButtonsFragmentMap.put(R.id.stats_radio_button,StatisticsFragment.class);
-        radioButtonsFragmentMap.put(R.id.fantasy_radio_button,FantasyFragment.class);
-        radioButtonsFragmentMap.put(R.id.quiz_radio_button,QuizFragment.class);
-        radioButtonsFragmentMap.put(R.id.club_tv_radio_button,ClubTVFragment.class);
-        radioButtonsFragmentMap.put(R.id.club_radio_radio_button,ClubRadioFragment.class);
-        radioButtonsFragmentMap.put(R.id.shop_radio_button,StoreFragment.class);
+        radioButtonsFragmentMap = HashBiMap.create();
+        radioButtonsFragmentMap.put(R.id.wall_radio_button, WallFragment.class);
+        radioButtonsFragmentMap.put(R.id.video_chat_radio_button, VideoChatFragment.class);
+        radioButtonsFragmentMap.put(R.id.news_radio_button, NewsFragment.class);
+        radioButtonsFragmentMap.put(R.id.roumors_radio_button, RumoursFragment.class);
+        radioButtonsFragmentMap.put(R.id.chat_radio_button, ChatFragment.class);
+        radioButtonsFragmentMap.put(R.id.stats_radio_button, StatisticsFragment.class);
+        radioButtonsFragmentMap.put(R.id.fantasy_radio_button, FantasyFragment.class);
+        radioButtonsFragmentMap.put(R.id.quiz_radio_button, QuizFragment.class);
+        radioButtonsFragmentMap.put(R.id.club_tv_radio_button, ClubTVFragment.class);
+        radioButtonsFragmentMap.put(R.id.club_radio_radio_button, ClubRadioFragment.class);
+        radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
 
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
-        ((RadioButton)ButterKnife.findById(this,R.id.wall_radio_button)).setChecked(true);
-        ((RadioButton)ButterKnife.findById(this,R.id.chat_radio_button)).setChecked(true);
-        ((RadioButton)ButterKnife.findById(this,R.id.club_tv_radio_button)).setChecked(true);
+        ((RadioButton) ButterKnife.findById(this, R.id.wall_radio_button)).setChecked(true);
+        ((RadioButton) ButterKnife.findById(this, R.id.chat_radio_button)).setChecked(true);
+        ((RadioButton) ButterKnife.findById(this, R.id.club_tv_radio_button)).setChecked(true);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,28 +283,31 @@ public class LoungeActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         GSAndroidPlatform.gs().start();
-        if(!EventBus.getDefault().isRegistered(this)){
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
     }
 
     @Subscribe
-    public void onFragmentEvent(FragmentEvent event){
-        if(event.isReturning()){
+    public void onFragmentEvent(FragmentEvent event) {
+        if (event.isReturning()) {
             SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         } else {
             SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         }
-        if(popupContainerFragments.contains(event.getType())){
+        if (popupContainerFragments.contains(event.getType())) {
             // this is popup event
             toggleBlur(true);
+        } else if (slidePopupContainerFragments.contains(event.getType())) {
+            //TODO SLIDE IN
+            showSlidePopupFragmentContainer();
         } else {
-            if(radioButtonsFragmentMap.inverse().containsKey(event.getType())){
+            if (radioButtonsFragmentMap.inverse().containsKey(event.getType())) {
                 // Detect which radio button was clicked and fetch what Fragment should be opened
                 int radioButtonId = radioButtonsFragmentMap.inverse().get(event.getType());
-                for(int id : radioButtonsFragmentMap.keySet()){
-                    RadioButton button = ButterKnife.findById(this,radioButtonId);
-                    if(radioButtonId == id){
+                for (int id : radioButtonsFragmentMap.keySet()) {
+                    RadioButton button = ButterKnife.findById(this, radioButtonId);
+                    if (radioButtonId == id) {
                         button.setChecked(true);
                     }
                 }
@@ -317,7 +331,7 @@ public class LoungeActivity extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         // Detect which radio button was clicked and fetch what Fragment should be opened
-        if(checked && radioButtonsFragmentMap.containsKey(view.getId())){
+        if (checked && radioButtonsFragmentMap.containsKey(view.getId())) {
             Class fragmentType = radioButtonsFragmentMap.get(view.getId());
             EventBus.getDefault().post(new FragmentEvent(fragmentType));
         }
@@ -340,13 +354,13 @@ public class LoungeActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onTickerUpdate(NewsTickerInfo newsTickerInfo){
+    public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
         newsLabel.setText(newsTickerInfo.getNews().get(0));
         long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
         timeOfMatch.setText(Utility.getDate(timestamp));
         long getDaysUntilMatch = Utility.getDaysUntilMatch(timestamp);
         Resources res = getResources();
-        String daysValue = res.getQuantityString(R.plurals.days_until_match, (int)getDaysUntilMatch, (int)getDaysUntilMatch);
+        String daysValue = res.getQuantityString(R.plurals.days_until_match, (int) getDaysUntilMatch, (int) getDaysUntilMatch);
         daysUntilMatchLabel.setText(daysValue);
         captionLabel.setText(newsTickerInfo.getTitle());
         ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
@@ -357,20 +371,21 @@ public class LoungeActivity extends AppCompatActivity {
 
     Timer newsTimer;
     int count;
-    private void startNewsTimer(final NewsTickerInfo newsTickerInfo){
+
+    private void startNewsTimer(final NewsTickerInfo newsTickerInfo) {
         count = 0;
-        if(newsTimer!=null){
+        if (newsTimer != null) {
             newsTimer.cancel();
         }
         newsTimer = new Timer();
         newsTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                    runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         newsLabel.setText(newsTickerInfo.getNews().get(count));
-                        if(++count == newsTickerInfo.getNews().size()){
+                        if (++count == newsTickerInfo.getNews().size()) {
                             count = 0;
                         }
                     }
@@ -380,8 +395,7 @@ public class LoungeActivity extends AppCompatActivity {
 
     }
 
-    private void setYourCoinsValue (String value)
-    {
+    private void setYourCoinsValue(String value) {
         yourCoinsValue.setText(value + " $$K");
     }
 
@@ -393,17 +407,14 @@ public class LoungeActivity extends AppCompatActivity {
         EventBus.getDefault().post(new FragmentEvent(FollowingFragment.class));
     }
 
-    private void setNumberOfNotification(String number){
+    private void setNumberOfNotification(String number) {
         notificationNumber.setText(number);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUserLogin(UserInfo user)
-    {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL)
-        {
-            if (user.getCircularAvatarUrl()!=null )
-            {
+    public void onUserLogin(UserInfo user) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             }
             if (user.getFirstName() != null && user.getLastName() != null) {
@@ -414,7 +425,7 @@ public class LoungeActivity extends AppCompatActivity {
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
             yourLevel.setText(String.valueOf(user.getLevel()));
-            userLevelProgress.setProgress((int)(user.getProgress()*userLevelProgress.getMax()));
+            userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
 
             profileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -423,8 +434,7 @@ public class LoungeActivity extends AppCompatActivity {
 
                 }
             });
-        }
-        else {
+        } else {
             //reset profile name and picture to blank values
             setYourCoinsValue(String.valueOf(0)); // TODO get user coins
             yourLevel.setVisibility(View.INVISIBLE);
@@ -440,5 +450,19 @@ public class LoungeActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void hideSlidePopupFragmentContainer(){
+        popupSlideFragmentContainerVisibility(View.GONE,R.anim.slide_in_right);
+    }
+
+    public void showSlidePopupFragmentContainer(){
+        popupSlideFragmentContainerVisibility(View.VISIBLE,R.anim.slide_in_left);
+    }
+    Animation animation;
+    private void popupSlideFragmentContainerVisibility(int visibility,int anim){
+        animation = AnimationUtils.loadAnimation(this, anim);
+        slideFragmentContainer.startAnimation(animation);
+        slideFragmentContainer.setVisibility(visibility);
     }
 }
