@@ -1,5 +1,7 @@
 package tv.sportssidekick.sportssidekick.service;
 
+import tv.sportssidekick.sportssidekick.model.wall.PostComment;
+
 /**
  * Created by Filip on 1/7/2017.
  * Copyright by Hypercube d.o.o.
@@ -8,14 +10,14 @@ package tv.sportssidekick.sportssidekick.service;
 
 public class PostCommentCompleteEvent extends BusEvent {
 
-    public Object getError() {
-        return error;
+    public PostComment getComment() {
+        return comment;
     }
 
-    Object error;
+    PostComment comment;
 
-    public PostCommentCompleteEvent(Object error) {
+    public PostCommentCompleteEvent(PostComment comment) {
         super("");
-        this.error = error;
+        this.comment = comment;
     }
 }

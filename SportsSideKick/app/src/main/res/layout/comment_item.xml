@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity=""
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <ImageView
+        android:layout_gravity="top"
         android:id="@+id/profil_iamge"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginRight="@dimen/margin_5"
+        android:layout_marginStart="@dimen/margin_15"
+        android:layout_marginEnd="@dimen/margin_5"
         android:src="@drawable/blank_profile_rounded" />
 
     <RelativeLayout
@@ -23,8 +24,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:layout_marginRight="@dimen/margin_15"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginEnd="@dimen/margin_15"
             android:text="Comment text"
+            android:minLines="1"
             android:background="@drawable/chat_bubble"/>
 
         <TextView
@@ -34,7 +37,8 @@
             android:layout_below="@id/post_text"
             android:layout_marginLeft="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginBottom="@dimen/margin_5"
             android:text="First name last name - time ago"
-            android:textColor="@color/black_transparent_154" />
+            android:textColor="@color/lightGrey" />
     </RelativeLayout>
 </LinearLayout>

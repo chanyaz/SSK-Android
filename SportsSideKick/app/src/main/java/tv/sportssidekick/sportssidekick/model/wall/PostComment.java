@@ -21,7 +21,7 @@ public class PostComment {
     @JsonProperty("postId")
     private String postId;
     @JsonProperty("timestamp")
-    private String timestamp;
+    private Double timestamp;
 
     @JsonProperty("_id")
     public String getId() {
@@ -74,12 +74,12 @@ public class PostComment {
     }
 
     @JsonProperty("timestamp")
-    public String getTimestamp() {
+    public Double getTimestamp() {
         return timestamp;
     }
 
     @JsonProperty("timestamp")
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Double timestamp) {
         this.timestamp = timestamp;
     }
 }
