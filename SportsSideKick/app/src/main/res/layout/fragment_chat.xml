@@ -76,7 +76,10 @@
         android:layout_marginTop="-48dp"
         android:layout_below="@+id/chat_info_line"
         android:layout_above="@+id/input_container">
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/message_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.wang.avi.AVLoadingIndicatorView
@@ -326,12 +329,4 @@
             android:text="Create or join chat"
             android:textColor="@color/white" />
     </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/message_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignTop="@+id/swipe_refresh_layout"
-        android:layout_toEndOf="@+id/progress_bar" />
-
 </RelativeLayout>

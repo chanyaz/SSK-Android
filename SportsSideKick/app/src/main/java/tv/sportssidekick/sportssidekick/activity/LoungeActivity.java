@@ -436,7 +436,7 @@ public class LoungeActivity extends AppCompatActivity {
             });
         } else {
             //reset profile name and picture to blank values
-            setYourCoinsValue(String.valueOf(0)); // TODO get user coins
+            setYourCoinsValue(String.valueOf(0));
             yourLevel.setVisibility(View.INVISIBLE);
             userLevelBackground.setVisibility(View.INVISIBLE);
             userLevelProgress.setVisibility(View.INVISIBLE);
