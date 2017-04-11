@@ -98,8 +98,7 @@ public class ChatFragment extends BaseFragment {
     AVLoadingIndicatorView progressBar;
     @BindView(R.id.input_container)
     View inputContainer;
-    @BindView(R.id.bottom_create_chat_container)
-    RelativeLayout bottomCreateChatContainer;
+
     @BindView(R.id.info_message)
     TextView infoMessage;
     @BindView(R.id.down_arrow)
@@ -109,44 +108,45 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.chat_info_line_text)
     TextView infoLineTextView;
 
-    @BindView(R.id.messenger_send_button)
+    @BindView(R.id.send_button)
     Button sendButton;
     @BindView(R.id.mic_button)
     ImageButton micButton;
-    @BindView(R.id.cam_button)
-    ImageButton camButton;
-    @BindView(R.id.pic_button)
-    ImageButton picButton;
-    @BindView(R.id.vid_button)
-    ImageButton vidButton;
     @BindView(R.id.video_view)
     VideoView videoView;
     @BindView(R.id.image_fullscreen)
     ImageView imageViewFullScreen;
     @BindView(R.id.full_screen_container)
     RelativeLayout fullScreenContainer;
-    @BindView(R.id.close_image_button)
-    ImageView imageCloseButton;
     @BindView(R.id.input_edit_text)
     EditText inputEditText;
-    @BindView(R.id.download_image_button)
-    ImageView imageDownloadButton;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
 
     @BindView(R.id.chat_buttons_container)
     RelativeLayout chatButtonsContainer;
-    @BindView(R.id.chat_menu_dots)
-    ImageButton chatMenuDots;
+
     @BindView(R.id.menu_button)
     ImageButton chatButtonsMenu;
     @BindView(R.id.chat_menu_dots_container)
     LinearLayout chatMenuDotsContainer;
 
+    @BindView(R.id.chat_menu_edit)
+    TextView chatMenuEditButton;
+
+    Drawable chatRightArrowDrawable;
+    Drawable chatDotsDrawable;
+
     ChatHeadsAdapter chatHeadsAdapter;
     MessageAdapter messageAdapter;
-
     ChatInfo activeChatInfo;
+
+    private MediaRecorder recorder = null;
+    private String audioFilepath = null;
+    String currentPath;
+    String videoDownloadUrl;
+
+
 
     public ChatFragment() {
         // Required empty public constructor
@@ -168,18 +168,6 @@ public class ChatFragment extends BaseFragment {
         infoMessage.setVisibility(View.GONE);
         sendButton.setVisibility(View.GONE);
 
-        imageCloseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fullScreenContainer.setVisibility(View.GONE);
-            }
-        });
-        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Image is downloaded.", Toast.LENGTH_SHORT).show();
-            }
-        });
         initializeUI();
 
         LayoutTransition layoutTransition = new LayoutTransition();
@@ -205,17 +193,6 @@ public class ChatFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-            }
-        });
-
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImsMessage message = ImsMessage.getDefaultMessage();
-                message.setText(inputEditText.getText().toString().trim());
-                activeChatInfo.sendMessage(message);
-                inputEditText.setText("");
-                activeChatInfo.setUserIsTyping(false);
             }
         });
 
@@ -247,61 +224,6 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
-        camButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
-                chooseDialog.setTitle("Choose");
-                chooseDialog.setMessage("Take photo or record video ?");
-                chooseDialog.setNegativeButton("Video", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        vidButton.performClick();
-                    }
-                });
-                chooseDialog.setPositiveButton("Image", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                            File photoFile = null;
-                            try {
-                                photoFile = Model.createImageFile(getContext());
-                                currentPath = photoFile.getAbsolutePath();
-                            } catch (IOException ex) {
-                                // Error occurred while creating the File
-                            }
-                            if (photoFile != null) {
-                                Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
-                                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                            }
-                            startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_IMAGE_CAPTURE);
-                        }
-                    }
-                });
-                chooseDialog.show();
-            }
-        });
-        picButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_IMAGE_PICK);//one can be replaced with any action code
-            }
-        });
-
-        vidButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takeVideoIntent, REQUEST_CODE_CHAT_VIDEO_CAPTURE);
-                }
-            }
-        });
-
-        chatButtonsMenu.setOnClickListener(chatButtonsMenuOnClick);
-        chatMenuDots.setOnClickListener(chatMenuDotsContainerOnClick);
 
         chatRightArrowDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.chat_right_arrow);
         chatDotsDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.chat_menu_button);
@@ -319,6 +241,133 @@ public class ChatFragment extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (recorder != null) {
+            recorder.release();
+            recorder = null;
+        }
+    }
+
+    public void initializeUI() {
+        //Log.d(TAG, "Initialize Chat UI");
+        List<ChatInfo> allUserChats = ImsManager.getInstance().getUserChatsList();
+        chatHeadsAdapter.setValues(allUserChats);
+        if(allUserChats.size()>0){
+            if(activeChatInfo!=null){
+                displayChat(activeChatInfo);
+            } else{
+                displayChat(allUserChats.get(0));
+            }
+        }
+        chatHeadsAdapter.notifyDataSetChanged();
+        inputContainer.setVisibility(View.VISIBLE);
+        messageListView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+    }
+
+
+
+    private void displayChat(ChatInfo info) {
+        activeChatInfo = info;
+        if (activeChatInfo != null && info.getMessages() != null) {
+            StringBuilder chatNames = new StringBuilder("");
+            int size = activeChatInfo.getUsersIds().size();
+            int count = 0;
+            for (String userId : activeChatInfo.getUsersIds()) {
+                count++;
+                String chatName = Model.getInstance().getCachedUserInfoById(userId).getNicName();
+                if(!TextUtils.isEmpty(chatName)){
+                    chatNames.append(chatName);
+                    if(count<size){
+                        chatNames.append(", ");
+                    }
+                }
+            }
+            infoLineTextView.setText(chatNames.toString());
+            // Message container initialization
+            if (info.getMessages().size() > 0) {
+                swipeRefreshLayout.setEnabled(true);
+                messageListView.setVisibility(View.VISIBLE);
+                infoMessage.setVisibility(View.GONE);
+                //Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                messageListView.setLayoutManager(layoutManager);
+
+                messageAdapter = new MessageAdapter(getContext(),info);
+                messageListView.setAdapter(messageAdapter);
+                messageListView.invalidate();
+                return;
+            } else {
+                Log.e(TAG, "Message array size is 0!");
+            }
+        } else {
+            Log.e(TAG, "Message array is null!");
+        }
+        swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setEnabled(false);
+        infoMessage.setVisibility(View.VISIBLE);
+        messageListView.setVisibility(View.INVISIBLE);
+    }
+
+
+    /** ** ** ** ** ** ** ** ** ** ** ** ** **
+                Click listeners
+     ** ** ** ** ** ** ** ** ** ** ** ** ** **/
+
+    @OnClick(R.id.menu_button)
+    public void chatButtonsMenuOnClick(View v) {
+        chatButtonsMenu.setVisibility(View.GONE);
+        chatButtonsContainer.setVisibility(View.VISIBLE);
+        // slideToRight(chatButtonsContainer);
+    }
+
+    @OnClick(R.id.chat_menu_dots)
+    public void chatMenuDotsContainerOnClick(ImageView view) {
+        if (chatMenuDotsContainer.getVisibility() == View.GONE) {
+            chatMenuDotsContainer.setVisibility(View.VISIBLE);
+            view.setImageDrawable(chatRightArrowDrawable);
+
+            if(activeChatInfo!=null){
+                if(Model.getInstance().getUserInfo().getUserId().equals(activeChatInfo.getOwner())){
+                    chatMenuEditButton.setText("Edit"); // TODO Extract strings...
+                } else {
+                    chatMenuEditButton.setText("Leave");
+                }
+            }
+
+        } else {
+            chatMenuDotsContainer.setVisibility(View.GONE);
+            view.setImageDrawable(chatDotsDrawable);
+            if (chatButtonsMenu.getVisibility() == View.GONE) {
+                chatButtonsMenu.setVisibility(View.VISIBLE);
+                chatButtonsContainer.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @OnClick(R.id.close_image_button)
+    public void imageCloseButtonOnClick() {
+        fullScreenContainer.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.download_image_button)
+    public void imageDownloadButtonOnClick() {
+        Toast.makeText(getContext(), "Image is downloaded.", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.send_button)
+    public void sendButtonOnClick() {
+        ImsMessage message = ImsMessage.getDefaultMessage();
+        message.setText(inputEditText.getText().toString().trim());
+        activeChatInfo.sendMessage(message);
+        inputEditText.setText("");
+        activeChatInfo.setUserIsTyping(false);
+    }
+
+
     @OnClick(R.id.chat_menu_create)
     public void chatMenuCreateOnClick() {
         EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
@@ -326,7 +375,13 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+        if(Model.getInstance().getUserInfo().getUserId().equals(activeChatInfo.getOwner())){
+            EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+        } else {
+            activeChatInfo.deleteChat(); // TODO - Display confirmation dialog!
+            chatMenuEditButton.setText("Leave");
+        }
+
     }
 
     @OnClick(R.id.chat_menu_search)
@@ -334,69 +389,28 @@ public class ChatFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(JoinChatFragment.class));
     }
 
-    Drawable chatRightArrowDrawable;
-    Drawable chatDotsDrawable;
-
-    //Menus - Left menu and Right menu (dots)
-    View.OnClickListener chatButtonsMenuOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            chatButtonsMenu.setVisibility(View.GONE);
-            chatButtonsContainer.setVisibility(View.VISIBLE);
-            // slideToRight(chatButtonsContainer);
-        }
-    };
-    View.OnClickListener chatMenuDotsContainerOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (chatMenuDotsContainer.getVisibility() == View.GONE) {
-                chatMenuDotsContainer.setVisibility(View.VISIBLE);
-                chatMenuDots.setImageDrawable(chatRightArrowDrawable);
-            } else {
-                chatMenuDotsContainer.setVisibility(View.GONE);
-                chatMenuDots.setImageDrawable(chatDotsDrawable);
-                if(chatButtonsMenu.getVisibility() == View.GONE){
-                    chatButtonsMenu.setVisibility(View.VISIBLE);
-                    chatButtonsContainer.setVisibility(View.GONE);
-                }
-            }
-        }
-    };
-
-    // To animate view slide out from left to right
-    public void slideToRight(View view) {
-        TranslateAnimation animate = new TranslateAnimation(0, view.getWidth(), 0, 0);
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.VISIBLE);
+    @OnClick(R.id.image_button)
+    public void selectImageOnClick(){
+        ChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
     }
 
-    // To animate view slide out from right to left
-    public void slideToLeft(View view) {
-        TranslateAnimation animate = new TranslateAnimation(0, -view.getWidth(), 0, 0);
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.INVISIBLE);
+    @OnClick(R.id.camera_button)
+    public void cameraButtonOnClick(){
+        ChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
     }
 
-
-    private MediaRecorder recorder = null;
-    private String audioFilepath = null;
-    String currentPath;
-    String videoDownloadUrl;
-
+    /** ** ** ** ** ** ** ** ** ** ** ** ** **
+                 Event listeners
+     ** ** ** ** ** ** ** ** ** ** ** ** ** **/
     @Subscribe
     @SuppressWarnings("Unchecked cast")
     public void onChatEventDetected(GameSparksEvent event) {
         //Log.d(TAG, "event received: " + event.getEventType());
         switch (event.getEventType()) {
             case TYPING:
-                    if ((event.getData() != null)) {
-                        List<UserInfo> usersTyping = (List<UserInfo>) event.getData();
-                        //Log.d(TAG, "Count of usersTyping: " + usersTyping.size());
-                    }
+                if ((event.getData() != null)) {
+                    List<UserInfo> usersTyping = (List<UserInfo>) event.getData(); // TODO What to do?
+                }
                 break;
             case CLEAR_CHATS:
                 initializeUI();
@@ -470,55 +484,68 @@ public class ChatFragment extends BaseFragment {
         ImageLoader.getInstance().displayImage(uri, imageViewFullScreen);
     }
 
-    public void initializeUI() {
-        //Log.d(TAG, "Initialize Chat UI");
-        List<ChatInfo> allUserChats = ImsManager.getInstance().getUserChatsList();
-
-        StringBuilder chatNames = new StringBuilder("");
-        for (ChatInfo chatInfo : allUserChats) {
-            String chatName = chatInfo.getName();
-            if(!TextUtils.isEmpty(chatName)){
-                chatNames.append(chatInfo.getName()).append(", ");
-            }
-        }
-        infoLineTextView.setText(chatNames);
-
-        chatHeadsAdapter.setValues(allUserChats);
-        chatHeadsAdapter.notifyDataSetChanged();
-
-        inputContainer.setVisibility(View.VISIBLE);
-//        chatHeadsContainer.setVisibility(View.VISIBLE);
-        messageListView.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
+    /** ** ** ** ** ** ** ** ** ** ** ** ** **
+                    Animations
+     ** ** ** ** ** ** ** ** ** ** ** ** ** **/
+    // To animate view slide out from left to right
+    public void slideToRight(View view) {
+        TranslateAnimation animate = new TranslateAnimation(0, view.getWidth(), 0, 0);
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
+        view.setVisibility(View.VISIBLE);
     }
 
-    private void displayChat(ChatInfo info) {
-        activeChatInfo = info;
-        if (activeChatInfo != null && info.getMessages() != null) {
-            // Message container initialization
-            if (info.getMessages().size() > 0) {
-                swipeRefreshLayout.setEnabled(true);
-                messageListView.setVisibility(View.VISIBLE);
-                infoMessage.setVisibility(View.GONE);
-                //Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
+    // To animate view slide out from right to left
+    public void slideToLeft(View view) {
+        TranslateAnimation animate = new TranslateAnimation(0, -view.getWidth(), 0, 0);
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
+        view.setVisibility(View.INVISIBLE);
+    }
 
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                messageListView.setLayoutManager(layoutManager);
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeImageSelection(){
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_IMAGE_PICK);//one can be replaced with any action code
+    }
 
-                messageAdapter = new MessageAdapter(getContext(),info);
-                messageListView.setAdapter(messageAdapter);
-                messageListView.invalidate();
-                return;
-            } else {
-                Log.e(TAG, "Message array size is 0!");
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeCameraCapture(){
+        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
+        chooseDialog.setTitle("Choose");
+        chooseDialog.setMessage("Take photo or record video ?");
+        chooseDialog.setNegativeButton("Video", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takeVideoIntent, REQUEST_CODE_CHAT_VIDEO_CAPTURE);
+                };
             }
-        } else {
-            Log.e(TAG, "Message array is null!");
-        }
-        swipeRefreshLayout.setRefreshing(false);
-        swipeRefreshLayout.setEnabled(false);
-        infoMessage.setVisibility(View.VISIBLE);
-        messageListView.setVisibility(View.INVISIBLE);
+        });
+        chooseDialog.setPositiveButton("Image", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    File photoFile = null;
+                    try {
+                        photoFile = Model.createImageFile(getContext());
+                        currentPath = photoFile.getAbsolutePath();
+                    } catch (IOException ex) {
+                        // Error occurred while creating the File
+                    }
+                    if (photoFile != null) {
+                        Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    }
+                    startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_IMAGE_CAPTURE);
+                }
+            }
+        });
+        chooseDialog.show();
     }
 
     @NeedsPermission({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -559,16 +586,7 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (recorder != null) {
-            recorder.release();
-            recorder = null;
-        }
-    }
-
-    @OnShowRationale({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnShowRationale({Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForMicrophone(final PermissionRequest request) {
         new AlertDialog.Builder(getContext())
                 .setMessage(R.string.permission_microphone_rationale)
@@ -587,12 +605,12 @@ public class ChatFragment extends BaseFragment {
                 .show();
     }
 
-    @OnPermissionDenied({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showDeniedForMicrophone() {
         Toast.makeText(getContext(), R.string.permission_microphone_denied, Toast.LENGTH_SHORT).show();
     }
 
-    @OnNeverAskAgain({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnNeverAskAgain({Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showNeverAskForMicrophone() {
         Toast.makeText(getContext(), R.string.permission_microphone_neverask, Toast.LENGTH_SHORT).show();
     }

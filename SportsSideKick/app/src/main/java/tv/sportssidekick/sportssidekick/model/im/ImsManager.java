@@ -242,7 +242,6 @@ public class ImsManager extends GSMessageHandlerAbstract{
 
         Map<String, Object> map = mapper.convertValue(chatInfo, new TypeReference<Map<String, Object>>(){});
         GSData data = new GSData(map);
-
         createRequest("imsCreateChatGroup")
                 .setEventAttribute(CHAT_INFO,data)
                 .send(consumer);
@@ -258,12 +257,12 @@ public class ImsManager extends GSMessageHandlerAbstract{
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
-                    ChatInfo newChatInfo = mapper.convertValue(object,ChatInfo.class);
-                    chatInfo.setEqualTo(newChatInfo);
-                    addChatInfoToCache(chatInfo);
-                }
+            if (!response.hasErrors()) {
+                Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
+                ChatInfo newChatInfo = mapper.convertValue(object,ChatInfo.class);
+                chatInfo.setEqualTo(newChatInfo);
+                addChatInfoToCache(chatInfo);
+            }
             }
         };
 
@@ -279,13 +278,13 @@ public class ImsManager extends GSMessageHandlerAbstract{
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
-                    ChatInfo newChatInfo = mapper.convertValue(object,ChatInfo.class);
-                    chatInfo.setEqualTo(newChatInfo);
-                    addChatInfoToCache(chatInfo);
-                    chatInfo.loadMessages();
-                }
+            if (!response.hasErrors()) {
+                Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
+                ChatInfo newChatInfo = mapper.convertValue(object,ChatInfo.class);
+                chatInfo.setEqualTo(newChatInfo);
+                addChatInfoToCache(chatInfo);
+                chatInfo.loadMessages();
+            }
             }
         };
 
@@ -299,9 +298,9 @@ public class ImsManager extends GSMessageHandlerAbstract{
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    removeChatInfoWithId(chatInfo.getChatId());
-                }
+            if (!response.hasErrors()) {
+                removeChatInfoWithId(chatInfo.getChatId());
+            }
             }
         };
         createRequest("imsDeleteChatGroup")
