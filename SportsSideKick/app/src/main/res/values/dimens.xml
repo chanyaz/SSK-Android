@@ -91,5 +91,5 @@
     <dimen name="popup_your_statement_size">400dp</dimen>
     <dimen name="popup_your_walet_coin_size">35dp</dimen>
     <dimen name="popup_your_walet_bundle">160dp</dimen>
-
+    <dimen name="popup_friends_in_chat_notification_size">50dp</dimen>
 </resources>

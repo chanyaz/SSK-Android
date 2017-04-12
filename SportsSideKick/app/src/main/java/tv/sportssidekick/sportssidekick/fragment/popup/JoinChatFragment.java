@@ -1,5 +1,6 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
+import android.app.ExpandableListActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,16 +30,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
+import tv.sportssidekick.sportssidekick.adapter.ChatSearchExpandableAdapter;
+import tv.sportssidekick.sportssidekick.adapter.FriendsInChatAdapter;
 import tv.sportssidekick.sportssidekick.adapter.PublicChatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
-import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
-import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
 import tv.sportssidekick.sportssidekick.util.Utility;
-
-import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -53,6 +52,9 @@ public class JoinChatFragment extends BaseFragment {
 
     @BindView(R.id.bottom_public_chats_friends_in_recycler)
     RecyclerView recyclerViewFriendsIn;
+
+    @BindView(R.id.join_chat_search_result_list_view)
+    ExpandableListView recyclerViewSearchResult;
 
     @BindView(R.id.create_a_chat)
     TextView createChatTextView;
@@ -85,10 +87,35 @@ public class JoinChatFragment extends BaseFragment {
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),2, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
-
+        recyclerView.getLayoutParams().height = (int) (Utility.getDisplayHeight(getActivity()) * 0.55);
+        final int cellHeight = recyclerView.getLayoutParams().height/2;
         //TODO List for public chat ur friends are in
-       // LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
-       // recyclerViewFriendsIn.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerViewFriendsIn.setLayoutManager(linearLayoutManager);
+        FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
+        List<String> values = new ArrayList<>();
+        values.add("Test 1");
+        values.add("Test 2");
+        values.add("Test 3");
+        values.add("Test 4");
+        values.add("Test 1");
+        values.add("Test 2");
+        values.add("Test 3");
+        values.add("Test 4");
+        friendsInChatAdapter.setValues(values);
+        recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
+
+       List<String> parents = new ArrayList<>();
+        parents.add("Test 3");
+        parents.add("Test 3");
+        parents.add("Test 3");
+        List<String> child = new ArrayList<>();
+        child.add("Test 1");
+        child.add("Test 1");
+        child.add("Test 1");
+
+        ChatSearchExpandableAdapter expandableAdapter = new ChatSearchExpandableAdapter(parents,child);
+        recyclerViewSearchResult.setAdapter(expandableAdapter);
 
 
         Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChats();
@@ -96,7 +123,7 @@ public class JoinChatFragment extends BaseFragment {
             @Override
             public void onComplete(@NonNull Task<List<ChatInfo>> task) {
                 if(task.isSuccessful()){
-                    chatsAdapter = new PublicChatsAdapter(getContext());
+                    chatsAdapter = new PublicChatsAdapter(getContext(),cellHeight);
                     chatsAdapter.add(task.getResult());
                     searchEditText.addTextChangedListener(textWatcher);
                     recyclerView.setAdapter(chatsAdapter);
@@ -109,6 +136,7 @@ public class JoinChatFragment extends BaseFragment {
     @OnClick(R.id.chat_join_search_button)
     public void search(){
         //TODO search
+        recyclerViewSearchResult.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.chat_join_headline_close_fragment)
