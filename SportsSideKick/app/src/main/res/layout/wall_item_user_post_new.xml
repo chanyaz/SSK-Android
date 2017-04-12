@@ -1,49 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="230dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
     android:background="@color/green_dark_2">
 
     <RelativeLayout
         android:id="@+id/images_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-        <ImageView
-            android:id="@+id/image"
+        <RelativeLayout
             android:layout_width="230dp"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="@dimen/margin_15"
-            android:layout_marginEnd="@dimen/margin_15"
-            android:layout_marginStart="@dimen/margin_15"
-            android:adjustViewBounds="true"
-            android:src="@drawable/news_holder_image"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="visible"/>
+            android:layout_height="120dp">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="@dimen/margin_15"
+                android:layout_marginStart="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_15"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/news_holder_image"
+                android:visibility="visible" />
+        </RelativeLayout>
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/blank_profile_rounded"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/colorPrimaryLight"/>
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/blank_profile_rounded"
+            app:civ_border_color="@color/colorPrimaryLight"
+            app:civ_border_width="2dp" />
 
         <ImageView
             android:id="@+id/play_button"
             android:layout_width="62dp"
             android:layout_height="62dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/ic_post_play"/>
+            android:background="@drawable/ic_post_play" />
 
     </RelativeLayout>
 
@@ -51,48 +56,51 @@
         android:id="@+id/caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="Post caption"
-        android:layout_marginTop="@dimen/margin_10"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:textColor="@color/white"
-        android:textSize="18sp"
+        android:layout_above="@+id/user_details"
         android:layout_below="@id/images_container"
-        android:layout_above="@+id/user_details"/>
+        android:layout_marginEnd="@dimen/margin_20"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/margin_10"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:minLines="2"
+        android:text="Post caption"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <RelativeLayout
         android:id="@+id/user_details"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginTop="@dimen/margin_10">
 
         <LinearLayout
             android:id="@+id/comments_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/comments_icon"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:backgroundTint="@color/lightGrey"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="2dp"
                 android:background="@drawable/ic_comment"
-                android:layout_marginEnd="4dp"/>
+                android:backgroundTint="@color/lightGrey" />
 
             <TextView
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="204"
-                android:textColor="@color/lightGrey"/>
+                android:textColor="@color/lightGrey"
+                android:textSize="10sp" />
 
         </LinearLayout>
 
@@ -100,38 +108,51 @@
             android:id="@+id/likes_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/padding_8"
             android:layout_toStartOf="@id/comments_container"
-            android:gravity="center"
-            android:layout_marginEnd="@dimen/padding_8">
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/likes_icon"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:backgroundTint="@color/lightGrey"
-                android:background="@drawable/ic_like"
-                android:layout_marginEnd="4dp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/likes_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/ic_like"
+                    android:backgroundTint="@color/lightGrey" />
+
+                <ImageView
+                    android:id="@+id/liked_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/ic_like"
+                    android:backgroundTint="@color/colorAccent"
+                    android:visibility="gone" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="6901"
-                android:textColor="@color/lightGrey" />
+                android:textColor="@color/lightGrey"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
             android:layout_toStartOf="@id/likes_container"
             android:maxLines="1"
-            android:scrollHorizontally="true"
             android:text="Christopher Ogden"
-            android:textColor="@color/lightGrey"/>
+            android:textColor="@color/lightGrey"
+            android:textSize="10sp" />
     </RelativeLayout>
 
 
