@@ -161,7 +161,7 @@
             android:cropToPadding="true"/>
 
         <ImageButton
-            android:id="@+id/cam_button"
+            android:id="@+id/camera_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -170,29 +170,19 @@
             android:background="@null" />
 
         <ImageButton
-            android:id="@+id/pic_button"
+            android:id="@+id/image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/cam_button"
+            android:layout_toEndOf="@id/camera_button"
             android:src="@drawable/chat_button_image"
             android:background="@null"/>
-
-        <ImageButton
-            android:id="@+id/vid_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/pic_button"
-            android:src="@drawable/button_image"
-            android:background="@null"
-            android:visibility="gone" />
 
             <View
                 android:id="@+id/chat_menu_divider"
                 android:layout_width="3dp"
                 android:layout_height="match_parent"
-                android:layout_toEndOf="@+id/pic_button"
+                android:layout_toEndOf="@+id/image_button"
                 android:background="@color/white"/>
 
         </RelativeLayout>
@@ -228,7 +218,7 @@
             android:animateLayoutChanges="true"/>
 
         <Button
-            android:id="@+id/messenger_send_button"
+            android:id="@+id/send_button"
             android:layout_width="@dimen/chat_send_button_size"
             android:layout_height="@dimen/chat_send_button_size"
             android:layout_alignParentEnd="true"
@@ -302,31 +292,5 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
-
-    <!-- Container that appears when grid layout is visible -->
-    <RelativeLayout
-        android:id="@+id/bottom_create_chat_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
-        android:layout_alignParentBottom="true"
-        android:background="@color/green_dark_2"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/create_new_chat_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/chat_create_chat_button_height"
-            android:layout_centerVertical="true"
-            android:layout_margin="@dimen/margin_10"
-            android:src="@drawable/create_chat_button" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/create_new_chat_icon"
-            android:text="Create or join chat"
-            android:textColor="@color/white" />
     </RelativeLayout>
 </RelativeLayout>

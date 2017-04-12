@@ -247,7 +247,7 @@ public class WallFragment extends BaseFragment {
         WallFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
     }
 
-    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection(){
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, REQUEST_CODE_POST_IMAGE_PICK);
@@ -289,8 +289,6 @@ public class WallFragment extends BaseFragment {
             }
         }
     }
-
-
 
     @Subscribe
     @SuppressWarnings("Unchecked cast")
