@@ -1,8 +1,13 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -20,6 +25,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,6 +82,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.likes_count)
         TextView likesCount;
+        @Nullable
+        @BindView(R.id.likes_icon)
+        ImageView likesIcon;
+        @Nullable
+        @BindView(R.id.liked_icon)
+        ImageView likedIcon;
         @Nullable
         @BindView(R.id.comments_count)
         TextView commentsCount;
@@ -177,6 +189,18 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
                 holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
                 holder.likesCount.setText(String.valueOf(post.getLikeCount()));
+
+
+                if (post.isLikedByUser())
+                {
+                    holder.likedIcon.setVisibility(View.VISIBLE);
+                    holder.likesIcon.setVisibility(View.GONE);
+                }
+                else {
+                    holder.likedIcon.setVisibility(View.GONE);
+                    holder.likesIcon.setVisibility(View.VISIBLE);
+                }
+
                 break;
             case newsShare:
                 WallNewsShare news = (WallNewsShare) values.get(position);
