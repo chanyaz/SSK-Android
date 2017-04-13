@@ -92,4 +92,7 @@
     <dimen name="popup_your_walet_coin_size">35dp</dimen>
     <dimen name="popup_your_walet_bundle">160dp</dimen>
     <dimen name="popup_friends_in_chat_notification_size">50dp</dimen>
+
+    <dimen name="activity_lounge_user_profile_size">52dp</dimen>
+    <dimen name="row_friends_notification_bubble_size">32dp</dimen>
 </resources>

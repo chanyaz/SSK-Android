@@ -92,9 +92,7 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
             holder.rowName.setText("Dummy test");
         }
         if (holder.rowFriendsCount != null) {
-            holder.rowFriendsCount.getLayoutParams().height = (int) (Utility.getDisplayHeight(context)*0.04);
-            holder.rowFriendsCount.getLayoutParams().width = (int) (Utility.getDisplayHeight(context)*0.04);
-            holder.rowFriendsCount.setText("3");
+            holder.rowFriendsCount.setText("");
         }
     }
 
