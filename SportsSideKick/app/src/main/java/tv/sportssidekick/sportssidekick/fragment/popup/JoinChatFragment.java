@@ -37,6 +37,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
+import tv.sportssidekick.sportssidekick.util.AnimatedExpandableListView;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -54,7 +55,7 @@ public class JoinChatFragment extends BaseFragment {
     RecyclerView recyclerViewFriendsIn;
 
     @BindView(R.id.join_chat_search_result_list_view)
-    ExpandableListView recyclerViewSearchResult;
+    AnimatedExpandableListView recyclerViewSearchResult;
 
     @BindView(R.id.create_a_chat)
     TextView createChatTextView;
@@ -69,7 +70,7 @@ public class JoinChatFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-
+    int lastExpandedGroupPosition = -1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -77,27 +78,24 @@ public class JoinChatFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         createChatTextView.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
-                }
-            });
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+                    }
+                });
 
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),2, LinearLayoutManager.VERTICAL,false);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.getLayoutParams().height = (int) (Utility.getDisplayHeight(getActivity()) * 0.55);
-        final int cellHeight = recyclerView.getLayoutParams().height/2;
+        final int cellHeight = recyclerView.getLayoutParams().height / 2;
         //TODO List for public chat ur friends are in
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewFriendsIn.setLayoutManager(linearLayoutManager);
         FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
+        //TODO TESTING - NOT REAL DATA
         List<String> values = new ArrayList<>();
-        values.add("Test 1");
-        values.add("Test 2");
-        values.add("Test 3");
-        values.add("Test 4");
         values.add("Test 1");
         values.add("Test 2");
         values.add("Test 3");
@@ -105,25 +103,48 @@ public class JoinChatFragment extends BaseFragment {
         friendsInChatAdapter.setValues(values);
         recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
 
-       List<String> parents = new ArrayList<>();
+        //TODO TESTING - NOT REAL DATA
+        List<String> parents = new ArrayList<>();
         parents.add("Test 3");
         parents.add("Test 3");
         parents.add("Test 3");
         List<String> child = new ArrayList<>();
         child.add("Test 1");
-        child.add("Test 1");
-        child.add("Test 1");
 
-        ChatSearchExpandableAdapter expandableAdapter = new ChatSearchExpandableAdapter(parents,child);
+
+        ChatSearchExpandableAdapter expandableAdapter = new ChatSearchExpandableAdapter(getActivity(), parents, child);
         recyclerViewSearchResult.setAdapter(expandableAdapter);
-
+        //region Ensure collapse && expand with animation
+        recyclerViewSearchResult.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (recyclerViewSearchResult.isGroupExpanded(groupPosition)) {
+                    recyclerViewSearchResult.collapseGroupWithAnimation(groupPosition);
+                } else {
+                    recyclerViewSearchResult.expandGroupWithAnimation(groupPosition);
+                }
+                return true;
+            }
+        });
+        //endregion
+        //region Ensure only 1 cell is expanded at time
+        recyclerViewSearchResult.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(groupPosition != lastExpandedGroupPosition){
+                    recyclerViewSearchResult.collapseGroup(lastExpandedGroupPosition);
+                }
+                lastExpandedGroupPosition = groupPosition;
+            }
+        });
+        //endregion
 
         Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChats();
         task.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
             @Override
             public void onComplete(@NonNull Task<List<ChatInfo>> task) {
-                if(task.isSuccessful()){
-                    chatsAdapter = new PublicChatsAdapter(getContext(),cellHeight);
+                if (task.isSuccessful()) {
+                    chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
                     chatsAdapter.add(task.getResult());
                     searchEditText.addTextChangedListener(textWatcher);
                     recyclerView.setAdapter(chatsAdapter);
@@ -134,14 +155,14 @@ public class JoinChatFragment extends BaseFragment {
     }
 
     @OnClick(R.id.chat_join_search_button)
-    public void search(){
+    public void search() {
         //TODO search
         recyclerViewSearchResult.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.chat_join_headline_close_fragment)
-    public void closeFragment(){
-        ((LoungeActivity)getActivity()).hideSlidePopupFragmentContainer();
+    public void closeFragment() {
+        ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
         //  getActivity().onBackPressed();
     }
 
@@ -188,8 +209,7 @@ public class JoinChatFragment extends BaseFragment {
     private static List<ChatInfo> filter(List<ChatInfo> models, String query) {
         final String lowerCaseQuery = query.toLowerCase();
         final List<ChatInfo> filteredModelList = new ArrayList<>();
-        if (models != null)
-        {
+        if (models != null) {
             for (ChatInfo model : models) {
                 final String text = model.getChatTitle();
                 if (text.contains(lowerCaseQuery)) {

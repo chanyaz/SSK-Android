@@ -137,12 +137,19 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <ExpandableListView
+        <tv.sportssidekick.sportssidekick.util.AnimatedExpandableListView
             android:id="@+id/join_chat_search_result_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/chat_name_edit_text"
-            android:visibility="gone"/>
+            android:dividerHeight="0dp"
+            android:divider="@android:color/transparent"
+            android:childDivider="@android:color/transparent"
+            android:scrollbars="none"
+            android:groupIndicator="@android:color/transparent"
+            android:childIndicator="@android:color/transparent"
+            android:scrollIndicators="none"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
