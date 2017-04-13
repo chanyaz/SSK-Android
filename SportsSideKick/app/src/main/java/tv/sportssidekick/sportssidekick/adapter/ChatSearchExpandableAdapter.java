@@ -6,9 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -103,7 +101,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             }
         });
 
-        createHorizontalList(holder.rowSearchGroupMemeberList);
+        createHorizontalList(holder.rowSearchGroupMemeberList,groupPosition);
 
         return convertView;
     }
@@ -114,7 +112,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
         // return items.get(groupPosition).items.size();
     }
 
-    public void createHorizontalList(RecyclerView recyclerView) {
+    public void createHorizontalList(RecyclerView recyclerView,int position) {
         ChatExpandedItemAdapter chatExpandedItemAdapter;
         //TODO UNCOMMENT TO PREVENT FROM CREATING NEW ADAPTERS - NEED UNIQUE ID
 //        if (expandedAdapters.containsKey(1)) { //Need unique id
@@ -123,7 +121,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        int space = context.getResources().getDimensionPixelOffset(R.dimen.margin_10);
+        int space = context.getResources().getDimensionPixelOffset(R.dimen.margin_20);
         recyclerView.addItemDecoration(new LinearItemSpacing(space,true,true));
         chatExpandedItemAdapter = new ChatExpandedItemAdapter(context);
         List<String> values = new ArrayList<>();

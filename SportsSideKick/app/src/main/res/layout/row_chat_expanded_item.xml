@@ -24,6 +24,7 @@
         android:paddingBottom="@dimen/padding_8"
         android:maxLines="1"
         android:ellipsize="end"
-        android:lines="1"/>
+        android:lines="1"
+        android:textColor="@color/white"/>
 
 </RelativeLayout>
