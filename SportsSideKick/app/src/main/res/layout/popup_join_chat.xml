@@ -106,15 +106,14 @@
             android:layout_below="@+id/top_vertical_spliter"
             android:background="@color/green_dark_2"
             android:gravity="start|center_vertical"
-            android:hint="Enter a name for your chat"
+            android:hint="Search Public Chats"
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
             android:textColor="@color/white"
             android:textColorHint="@color/white_semitransparent"
             android:textSize="14sp"
             android:padding="@dimen/margin_20"
-            android:layout_toStartOf="@+id/chat_join_search_button"
-            android:layout_marginBottom="@dimen/margin_10"/>
+            android:layout_toStartOf="@+id/chat_join_search_button" />
 
         <ImageButton
             android:layout_width="@dimen/create_chat_name_label_height"
@@ -137,6 +136,20 @@
                 android:layout_height="wrap_content" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
+
+        <tv.sportssidekick.sportssidekick.util.AnimatedExpandableListView
+            android:id="@+id/join_chat_search_result_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/chat_name_edit_text"
+            android:dividerHeight="0dp"
+            android:divider="@android:color/transparent"
+            android:childDivider="@android:color/transparent"
+            android:scrollbars="none"
+            android:groupIndicator="@android:color/transparent"
+            android:childIndicator="@android:color/transparent"
+            android:scrollIndicators="none"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

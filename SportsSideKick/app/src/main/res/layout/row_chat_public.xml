@@ -20,6 +20,6 @@
         android:layout_marginEnd="@dimen/margin_8"
         android:text="Join Official Chat >"
         android:textColor="@color/colorAccent"
-        android:textSize="16sp"/>
+        android:textSize="12sp"/>
 
 </RelativeLayout>

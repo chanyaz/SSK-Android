@@ -44,18 +44,16 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
         public View view;
         @Nullable @BindView(R.id.row_public_chat_image) ImageView image;
 
-       // @Nullable @BindView(R.id.selected) View selectedRingView;
-      //  @Nullable @BindView(R.id.caption) TextView chatCaption;
-
         ViewHolder(View v) {
             super(v);
             view = v;
             ButterKnife.bind(this, view);
         }
     }
-
-    public PublicChatsAdapter(Context context) {
+    private int cellHeight;
+    public PublicChatsAdapter(Context context,int cellHeight) {
         this.context = context;
+        this.cellHeight = cellHeight;
     }
 
     @Override
@@ -67,6 +65,7 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
     public PublicChatsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final ViewHolder viewHolder;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_chat_public, parent, false);
+        view.getLayoutParams().height = cellHeight;
         viewHolder = new ViewHolder(view);
         return viewHolder;
     }

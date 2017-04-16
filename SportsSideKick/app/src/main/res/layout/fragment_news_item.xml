@@ -92,12 +92,107 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:id="@+id/top_buttons_contaniner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/header_container"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginBottom="@dimen/margin_20">
+
+                <LinearLayout
+                    android:id="@+id/likes_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/likes_icon"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginEnd="5dp"
+                        android:backgroundTint="@color/white"
+                        android:background="@drawable/ic_like" />
+
+                    <ImageView
+                        android:id="@+id/likes_icon_liked"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginEnd="5dp"
+                        android:backgroundTint="@color/colorAccent"
+                        android:background="@drawable/ic_like"
+                        android:visibility="gone"/>
+
+
+                    <TextView
+                        android:id="@+id/likes_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/share_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/share_icon"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginEnd="5dp"
+                        android:backgroundTint="@color/white"
+                        android:background="@drawable/ic_share" />
+
+
+                    <TextView
+                        android:id="@+id/share_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/comments_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/padding_8"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/comments_icon"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginEnd="5dp"
+                        android:backgroundTint="@color/white"
+                        android:background="@drawable/ic_comment" />
+
+
+                    <TextView
+                        android:id="@+id/comments_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
             <View
                 android:id="@+id/top_horizontal_split_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/green_dark_2"
-                android:layout_below="@id/header_container"/>
+                android:layout_below="@id/top_buttons_contaniner"
+                android:background="@color/green_dark_2" />
 
             <TextView
                 android:id="@+id/content_text"
@@ -111,16 +206,16 @@
                 android:id="@+id/bottom_horizontal_split_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/green_dark_2"
-                android:layout_below="@id/content_text"/>
+                android:layout_below="@id/content_text"
+                android:background="@color/green_dark_2" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/commnets_wall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="@dimen/margin_20"
-                android:layout_below="@id/bottom_horizontal_split_line" />
+                android:layout_below="@id/bottom_horizontal_split_line"
+                android:layout_marginTop="@dimen/margin_20" />
         </RelativeLayout>
     </ScrollView>
 

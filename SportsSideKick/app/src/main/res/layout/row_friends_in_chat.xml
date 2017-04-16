@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/row_friends_in_chat_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/row_friends_in_chat_name"
+        android:layout_alignParentTop="true">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/row_friends_in_chat_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:scaleType="centerCrop" />
+
+        <View
+            android:id="@+id/row_friends_in_chat_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true" />
+
+        <View
+            android:id="@+id/row_friends_in_chat_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerVertical="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/row_friends_in_chat_vertical"
+            android:layout_toEndOf="@+id/row_friends_in_chat_horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/row_friends_in_chat_notification_count"
+                android:layout_width="@dimen/row_friends_notification_bubble_size"
+                android:layout_height="@dimen/row_friends_notification_bubble_size"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_accent"
+                android:gravity="center"
+                android:padding="@dimen/padding_8"
+                android:textColor="@color/colorPrimary" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/row_friends_in_chat_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/row_friends_in_chat_container"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@id/row_friends_in_chat_container"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:maxLines="1"
+        android:padding="@dimen/padding_8"
+        android:textColor="@color/white" />
+</RelativeLayout>

@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -38,6 +39,7 @@ import tv.sportssidekick.sportssidekick.model.wall.WallPost;
 import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
 import tv.sportssidekick.sportssidekick.service.GetCommentsCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostCommentCompleteEvent;
+import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -70,6 +72,22 @@ public class WallItemFragment extends BaseFragment {
     EditText post;
     @BindView(R.id.post_post_button)
     ImageView postButton;
+
+    @Nullable
+    @BindView(R.id.comments_count)
+    TextView commentsCount;
+    @Nullable
+    @BindView(R.id.likes_icon)
+    ImageView likesIcon;
+    @Nullable
+    @BindView(R.id.likes_icon_liked)
+    ImageView likesIconLiked;
+    @Nullable
+    @BindView(R.id.likes_count)
+    TextView likesCount;
+    @Nullable
+    @BindView(R.id.share_count)
+    TextView shareCount;
 
     CommentsAdapter commentsAdapter;
     WallBase item;
@@ -115,6 +133,15 @@ public class WallItemFragment extends BaseFragment {
                 postContainer.setVisibility(View.VISIBLE);
                 WallModel.getInstance().getCommentsForPost(post);
                 commetsList.setNestedScrollingEnabled(false);
+
+                commentsCount.setText(String.valueOf(post.getCommentsCount()));
+                likesCount.setText(String.valueOf(post.getLikeCount()));
+                shareCount.setText(String.valueOf(post.getShareCount()));
+                if (post.isLikedByUser())
+                {
+                    likesIcon.setVisibility(View.GONE);
+                    likesIconLiked.setVisibility(View.VISIBLE);
+                }
                 break;
             case rumor:
             case newsShare:
@@ -176,7 +203,7 @@ public class WallItemFragment extends BaseFragment {
         comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
         comment.setWallId(item.getWallId());
         comment.setPostId(item.getPostId());
-        comment.setTimestamp(Double.valueOf(System.currentTimeMillis()/1000));
+        comment.setTimestamp(Double.valueOf(System.currentTimeMillis() / 1000));
 
         WallModel.getInstance().postComment(item, comment);
         post.getText().clear();
@@ -188,5 +215,33 @@ public class WallItemFragment extends BaseFragment {
         commentsAdapter.notifyDataSetChanged();
         commetsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
 
+    }
+
+    @OnClick(R.id.likes_icon)
+    public void likePost()
+    {
+        WallModel.getInstance().setlikeVal(item, true);
+        likesIcon.setVisibility(View.GONE);
+        likesIconLiked.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.likes_icon_liked)
+    public void unLikePost()
+    {
+        WallModel.getInstance().setlikeVal(item, false);
+        likesIcon.setVisibility(View.VISIBLE);
+        likesIconLiked.setVisibility(View.GONE);
+    }
+
+    @Subscribe
+    public void onPostUpdate(PostUpdateEvent event)
+    {
+        WallBase post = event.getPost();
+        if ((post!=null))
+        {
+            commentsCount.setText(String.valueOf(post.getCommentsCount()));
+            likesCount.setText(String.valueOf(post.getLikeCount()));
+            shareCount.setText(String.valueOf(post.getShareCount()));
+        }
     }
 }
