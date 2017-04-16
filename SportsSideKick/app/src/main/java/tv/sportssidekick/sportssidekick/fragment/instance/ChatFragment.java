@@ -28,7 +28,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -260,6 +259,8 @@ public class ChatFragment extends BaseFragment {
             } else{
                 displayChat(allUserChats.get(0));
             }
+        } else {
+            displayChat(null);
         }
         chatHeadsAdapter.notifyDataSetChanged();
         inputContainer.setVisibility(View.VISIBLE);
@@ -267,25 +268,26 @@ public class ChatFragment extends BaseFragment {
         progressBar.setVisibility(View.GONE);
     }
 
-
-
     private void displayChat(ChatInfo info) {
         activeChatInfo = info;
+        setupEditChatButton();
         if (activeChatInfo != null && info.getMessages() != null) {
-            StringBuilder chatNames = new StringBuilder("");
+            // Setup Chat label
+            StringBuilder chatLabel = new StringBuilder(activeChatInfo.getChatTitle());
+            chatLabel.append(": ");
             int size = activeChatInfo.getUsersIds().size();
             int count = 0;
             for (String userId : activeChatInfo.getUsersIds()) {
                 count++;
                 String chatName = Model.getInstance().getCachedUserInfoById(userId).getNicName();
                 if(!TextUtils.isEmpty(chatName)){
-                    chatNames.append(chatName);
+                    chatLabel.append(chatName);
                     if(count<size){
-                        chatNames.append(", ");
+                        chatLabel.append(", ");
                     }
                 }
             }
-            infoLineTextView.setText(chatNames.toString());
+            infoLineTextView.setText(chatLabel.toString());
             // Message container initialization
             if (info.getMessages().size() > 0) {
                 swipeRefreshLayout.setEnabled(true);
@@ -302,16 +304,30 @@ public class ChatFragment extends BaseFragment {
                 return;
             } else {
                 Log.e(TAG, "Message array size is 0!");
+                infoMessage.setVisibility(View.VISIBLE);
+                messageListView.setVisibility(View.INVISIBLE);
+                infoMessage.setVisibility(View.VISIBLE);
+                messageListView.setVisibility(View.INVISIBLE);
             }
         } else {
             Log.e(TAG, "Message array is null!");
+            infoMessage.setVisibility(View.VISIBLE);
+            messageListView.setVisibility(View.INVISIBLE);
         }
         swipeRefreshLayout.setRefreshing(false);
         swipeRefreshLayout.setEnabled(false);
-        infoMessage.setVisibility(View.VISIBLE);
-        messageListView.setVisibility(View.INVISIBLE);
     }
 
+
+    private void setupEditChatButton(){
+        if(activeChatInfo!=null){
+            if(Model.getInstance().getUserInfo().getUserId().equals(activeChatInfo.getOwner())){
+                chatMenuEditButton.setText("Edit"); // TODO Extract strings...
+            } else {
+                chatMenuEditButton.setText("Leave");
+            }
+        }
+    }
 
     /** ** ** ** ** ** ** ** ** ** ** ** ** **
                 Click listeners
@@ -329,15 +345,7 @@ public class ChatFragment extends BaseFragment {
         if (chatMenuDotsContainer.getVisibility() == View.GONE) {
             chatMenuDotsContainer.setVisibility(View.VISIBLE);
             view.setImageDrawable(chatRightArrowDrawable);
-
-            if(activeChatInfo!=null){
-                if(Model.getInstance().getUserInfo().getUserId().equals(activeChatInfo.getOwner())){
-                    chatMenuEditButton.setText("Edit"); // TODO Extract strings...
-                } else {
-                    chatMenuEditButton.setText("Leave");
-                }
-            }
-
+            setupEditChatButton();
         } else {
             chatMenuDotsContainer.setVisibility(View.GONE);
             view.setImageDrawable(chatDotsDrawable);
@@ -424,12 +432,12 @@ public class ChatFragment extends BaseFragment {
             case GLOBAL_CHAT_DETECTED: // TODO Check on this - same logic as for public chats?
                 initializeUI();
                 break;
-            case NEW_MESSAGE_ADDED:
+            case CHAT_NEW_MESSAGE_ADDED:
                 messageAdapter.notifyDataSetChanged();
                 int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
                 messageListView.smoothScrollToPosition(lastMessagePosition);
                 break;
-            case NEXT_PAGE_LOADED:
+            case CHAT_NEXT_PAGE_LOADED:
                 swipeRefreshLayout.setRefreshing(false);
                 messageAdapter.notifyDataSetChanged();
                 messageListView.smoothScrollToPosition(0);
@@ -484,26 +492,10 @@ public class ChatFragment extends BaseFragment {
         ImageLoader.getInstance().displayImage(uri, imageViewFullScreen);
     }
 
-    /** ** ** ** ** ** ** ** ** ** ** ** ** **
-                    Animations
-     ** ** ** ** ** ** ** ** ** ** ** ** ** **/
-    // To animate view slide out from left to right
-    public void slideToRight(View view) {
-        TranslateAnimation animate = new TranslateAnimation(0, view.getWidth(), 0, 0);
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.VISIBLE);
-    }
+    /** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+                    CAMERA, MIC, IMAGES...
+     ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **/
 
-    // To animate view slide out from right to left
-    public void slideToLeft(View view) {
-        TranslateAnimation animate = new TranslateAnimation(0, -view.getWidth(), 0, 0);
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.INVISIBLE);
-    }
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection(){

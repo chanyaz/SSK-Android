@@ -98,6 +98,10 @@ public class ImsManager extends GSMessageHandlerAbstract{
 
     }
 
+
+    public void removeChatFromChatList(ChatInfo info){
+
+    }
     /////////////////////////////////////
     ///   IMS   API  - Chat Info API  ///
     /////////////////////////////////////
@@ -204,7 +208,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                             String chatId = chat.getChatId();
                             EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.USER_CHAT_DETECTED, chatId));
                             addChatInfoToCache(chat);
-                            chat.loadChatUsers(userId);
+                            chat.loadChatUsers();
                             chat.loadMessages();
                         } else {
                             Log.e(TAG,"Chat is null!");
@@ -360,7 +364,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     for (ImsMessage message : messages) {
                         message.initializeTimestamp();
                         message.determineSelfReadFlag();
-                        GameSparksEvent fe = new GameSparksEvent("New message detected.", GameSparksEvent.Type.NEW_MESSAGE, message);
+                        GameSparksEvent fe = new GameSparksEvent("New message detected.", GameSparksEvent.Type.CHAT_NEW_MESSAGE, message);
                         fe.setFilterId(chatInfo.getChatId());
                         EventBus.getDefault().post(fe);
                     }
@@ -388,7 +392,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                         message.initializeTimestamp();
                         message.determineSelfReadFlag();
                     }
-                    GameSparksEvent fe = new GameSparksEvent("Next messages page loaded.", GameSparksEvent.Type.NEXT_PAGE_LOADED, messages);
+                    GameSparksEvent fe = new GameSparksEvent("Next messages page loaded.", GameSparksEvent.Type.CHAT_NEXT_PAGE_LOADED, messages);
                     fe.setFilterId(chatInfo.getChatId());
                     EventBus.getDefault().post(fe);
                 }

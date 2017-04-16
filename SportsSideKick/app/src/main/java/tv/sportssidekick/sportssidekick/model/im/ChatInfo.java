@@ -1,13 +1,17 @@
 package tv.sportssidekick.sportssidekick.model.im;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,6 +40,8 @@ public class ChatInfo {
     @JsonProperty("_id")
     private String chatId;
     private String name;
+    @JsonIgnore
+    private ArrayList<UserInfo> chatUsers;
     private ArrayList<String> usersIds;
     private String avatarUrl;
     private String owner;
@@ -44,7 +50,6 @@ public class ChatInfo {
     private ArrayList<ImsMessage> messages;
     private int unreadCount = 0;
     private boolean isMuted = false;
-    private String currentUserId;
 
     public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic) {
         super();
@@ -59,9 +64,7 @@ public class ChatInfo {
         this.isPublic = isPublic;
     }
 
-    public ChatInfo() {
-       //currentUserId = Model.getInstance().getUserInfo().getUserId();
-    }
+    public ChatInfo() {}
 
     void setEqualTo(ChatInfo info) {
         setChatId(info.getChatId());
@@ -73,14 +76,51 @@ public class ChatInfo {
         setBlackList(info.getBlackList());
         setIsMuted(info.getIsMuted());
         setUnreadCount(info.getUnreadCount());
-        setCurrentUserId(info.getCurrentUserId()); // TODO Check this!
+
+        // This is different from iOS
         if(info.getMessages()!=null){
             if(info.getMessages().size()>0){
                 setMessages(info.getMessages());
             }
-        } else {
-            //setMessages(new ArrayList<ImsMessage>());  // TODO Check this!
         }
+    }
+
+    // don't use that, it is called on login
+    Task loadChatUsers() {
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        if (chatUsers == null){
+            chatUsers = new ArrayList<>();
+            final ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
+            for(String uid : getUsersIds()){
+                Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
+                task.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UserInfo> task) {
+                        if(task.isSuccessful()){
+                            chatUsers.add(task.getResult());
+                        }
+                    }
+                });
+                tasks.add(task);
+            }
+            Tasks.whenAll(tasks).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        setupChatNicAndAvatar();
+                        EventBus.getDefault().post(
+                                new GameSparksEvent("All users downloaded for chat " + getChatId(),
+                                        GameSparksEvent.Type.CHAT_USERS_UPDATED, getChatId()));
+                    }
+                }
+            });
+        } else {
+            source.setResult(null);
+            EventBus.getDefault().post(
+                    new GameSparksEvent("All users downloaded for chat " + getChatId(),
+                            GameSparksEvent.Type.CHAT_USERS_UPDATED, getChatId()));
+        }
+        return source.getTask();
     }
 
     /**
@@ -115,6 +155,7 @@ public class ChatInfo {
             String firstUserId = getUsersIds().get(0);
             String secondUserId = getUsersIds().get(1);
             UserInfo info;
+            String currentUserId = Model.getInstance().getUserInfo().getUserId();
             if(currentUserId==null || !currentUserId.equals(firstUserId)){
                 info = Model.getInstance().getCachedUserInfoById(firstUserId);
             } else {
@@ -132,26 +173,6 @@ public class ChatInfo {
             }
         }
     }
-    // don't use that, it is called on login
-    void loadChatUsers(String userId) {
-        currentUserId = userId;
-        EventBus.getDefault().register(this);
-        final ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
-        for(String uid : getUsersIds()){
-            Task task = Model.getInstance().getUserInfoById(uid);
-            tasks.add(task);
-        }
-        Task allUsersTask = Tasks.whenAll(tasks);
-        allUsersTask.addOnSuccessListener(
-            new OnSuccessListener() {
-                @Override
-                public void onSuccess(Object o) {
-                    setupChatNicAndAvatar();
-                    EventBus.getDefault().post(new GameSparksEvent("All users downloaded for chat " + getChatId(), GameSparksEvent.Type.CHAT_USERS_DOWNLOADED, getChatId()));
-                }
-            }
-        );
-    }
 
     /**
      * Do NOT use this function
@@ -164,29 +185,36 @@ public class ChatInfo {
      */
     void loadMessages(){
         messages = new ArrayList<>();
+        EventBus.getDefault().register(this);
         ImsManager.getInstance().imsSetMessageObserverForChat(this);
     }
 
     @Subscribe
-    public void onNewMessagesEvent(GameSparksEvent event){
+    public void onEvent(GameSparksEvent event){
         ImsMessage message;
         if(getChatId().equals(event.getFilterId())){
             switch (event.getEventType()){
-                case NEW_MESSAGE:
+                case CHAT_NEW_MESSAGE:
                     message = (ImsMessage) event.getData();
                     //Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId() + " for chat: " + getChatId());
                     messages.add(message);
                     break;
-                case MESSAGE_UPDATED:
+                case CHAT_MESSAGE_UPDATED:
                     message = (ImsMessage) event.getData();
-                    //Log.d(TAG, "MESSAGE UPDATED EVENT : " + message.getId());
+                    for(int i = 0; i<messages.size();i++){
+                        ImsMessage msg = messages.get(i);
+                        if(msg.getId().equals(message.getId())){
+                            messages.set(i,message);
+                        }
+                        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kChangedChatMessage, object: self)
+                    }
                     break;
-                case NEW_MESSAGE_ADDED:
+                case CHAT_NEW_MESSAGE_ADDED:
                     message = (ImsMessage) event.getData();
-                    //Log.d(TAG, "NEW MESSAGE ADDED EVENT : " + message.getId());
                     messages.add(message);
+                    // TODO  NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
                     break;
-                case NEXT_PAGE_LOADED:
+                case CHAT_NEXT_PAGE_LOADED:
                     ArrayList<ImsMessage> messagesNewPage = (ArrayList<ImsMessage>)event.getData();
                     for(ImsMessage m : messagesNewPage){
                         boolean exists = false;
@@ -207,6 +235,7 @@ public class ChatInfo {
                             return lhs.getTimestamp().compareTo(rhs.getTimestamp());
                         }
                     });
+                    // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
                     break;
             }
         }
@@ -214,7 +243,7 @@ public class ChatInfo {
 
 
     @Subscribe
-    public void onNewMessagesEvent(NewMessagesEvent event){
+    public void onEvent(NewMessagesEvent event){
         messages.addAll(event.getValues());
         // TBA Event!  notifyChatUpdate
     }
@@ -254,7 +283,7 @@ public class ChatInfo {
      */
     public int unreadMessageCount(){
         int count = 0;
-        String uid = currentUserId;
+        String uid = Model.getInstance().getUserInfo().getUserId();
         if (messages == null){
             Log.e(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
             return -1;
@@ -272,11 +301,13 @@ public class ChatInfo {
      * @param  message to update
      */
     public void markMessageAsRead(ImsMessage message){
+        message.setReadFlag(true);
         ImsManager.getInstance().markMessageAsRead(this, message);
     }
 
 
     public void addUser(UserInfo uinfo){
+        String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(owner.equals(currentUserId)){
             getUsersIds().add(uinfo.getUserId());
             updateChatInfo();
@@ -285,17 +316,17 @@ public class ChatInfo {
         }
     }
 
-    public void addUserIfChatIsGlobal(UserInfo uinfo){
+    public void addUserIfChatIsGlobal(final UserInfo uinfo){
         Task<List<ChatInfo>> task = ImsManager.getInstance().getGlobalChats();
         task.addOnSuccessListener(new OnSuccessListener<List<ChatInfo>>() {
             @Override
             public void onSuccess(List<ChatInfo> chatInfos) {
                 for(ChatInfo chatInfo : chatInfos){
                     if(chatInfo.getChatId().equals(chatId)){
-                        if(chatInfo.getUsersIds().contains(currentUserId)){
+                        if(chatInfo.getUsersIds().contains(uinfo.getUserId())){
                             Log.e(TAG,"ERROR - User already added to Global chat");
                         } else {
-                            loadChatUsers(null);
+                            loadChatUsers();
                             updateChatInfo();
                         }
                     } else {
@@ -319,13 +350,17 @@ public class ChatInfo {
      * once deleted it will remove the chat from all user following this chat
      **/
     public void deleteChat(){
+        String currentUserId = Model.getInstance().getUserInfo().getUserId();
+        ImsManager.getInstance().removeChatFromChatList(this);
         if (owner.equals(currentUserId)){
             ImsManager.getInstance().deleteChat(this);
         }else{ // if im not the owner I remove myself from the chat
             ImsManager.getInstance().leaveChat(this);
         }
         messages.clear();
-        EventBus.getDefault().post(new GameSparksEvent("Chat Deleted and processed.", GameSparksEvent.Type.CHAT_DELETED_PROCESSED, getChatId()));
+        EventBus.getDefault().post(
+                new GameSparksEvent("Chat Deleted and processed.",
+                GameSparksEvent.Type.CHAT_DELETED_PROCESSED, getChatId()));
     }
 
     /**
@@ -342,6 +377,7 @@ public class ChatInfo {
      * Remove a user from this chat, only available if you are the owner and you are not removing yourself
      */
     public void removeUserFromChat(String uid){
+        String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if (owner.equals(currentUserId) && !uid.equals(currentUserId)){
             boolean shouldRemove = false;
             for(String entry : getUsersIds()) {
@@ -361,6 +397,7 @@ public class ChatInfo {
      * Join a public chat, this func add the current user to this chat if this chat is a public chat.
      **/
     public void joinChat(){
+        String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(isPublic && !isUserBlockedFromThisChat(currentUserId)){
             ImsManager.getInstance().joinChat(this);
         }
@@ -414,6 +451,7 @@ public class ChatInfo {
      * @param  userId  user ID to block
      */
     public void blockUserFromJoinningThisChat(String userId){
+        String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(isPublic && owner.equals(currentUserId)){
             if(!blackList.contains(userId)){
                blackList.add(userId);
@@ -430,6 +468,7 @@ public class ChatInfo {
      * @param  userId user ID to unblock
      */
     public void unblockUserInThisChat(String userId){
+        String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(isPublic && owner.equals(currentUserId)){
             //check if the user is actually blocked then unblock
             if (isUserBlockedFromThisChat(userId)){
@@ -464,13 +503,6 @@ public class ChatInfo {
     }
 
 
-    private String getCurrentUserId() {
-        return currentUserId;
-    }
-
-    private void setCurrentUserId(String currentUserId) {
-        this.currentUserId = currentUserId;
-    }
 
     @JsonProperty("_id")
     public String getChatId() {
