@@ -343,6 +343,7 @@ public class ChatInfo {
      **/
     public void updateChatInfo(){
         ImsManager.getInstance().updateChat(this);
+        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.ChatViewController_ref.kSetCurrentChat, object: chatInfo?.chatId)
     }
 
     /**
@@ -361,7 +362,10 @@ public class ChatInfo {
         EventBus.getDefault().post(
                 new GameSparksEvent("Chat Deleted and processed.",
                 GameSparksEvent.Type.CHAT_DELETED_PROCESSED, getChatId()));
-    }
+
+        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
+        // TODO  self.notifyChatUpdate.emit() ???
+}
 
     /**
      * This user was removed from this chat by the chat owner
@@ -400,6 +404,7 @@ public class ChatInfo {
         String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(isPublic && !isUserBlockedFromThisChat(currentUserId)){
             ImsManager.getInstance().joinChat(this);
+            // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.ChatViewController_ref.kSetCurrentChat, object: self.chatId)
         }
     }
 
@@ -485,6 +490,7 @@ public class ChatInfo {
     public void setMuteChat(boolean isMuted){
         this.setIsMuted(isMuted);
         ImsManager.getInstance().setMuteChat(this,isMuted);
+        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
     }
 
     public void addRecievedMessage(ImsMessage message){
@@ -500,6 +506,7 @@ public class ChatInfo {
         }
         this.messages.addAll(messages);
         EventBus.getDefault().post(new GameSparksEvent("Chat updated - message list received in chat: " + getChatId(), GameSparksEvent.Type.CHAT_UPDATED, messages));
+        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
     }
 
 
