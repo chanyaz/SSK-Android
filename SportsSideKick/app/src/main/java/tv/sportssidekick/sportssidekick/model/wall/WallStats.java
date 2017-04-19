@@ -3,6 +3,8 @@ package tv.sportssidekick.sportssidekick.model.wall;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
+
 /**
  * Created by Filip on 1/10/2017.
  * Copyright by Hypercube d.o.o.
@@ -78,6 +80,12 @@ public class WallStats extends WallBase {
         this.displayType = displayType;
         return this;
     }
+
+    @Override
+    public SharingManager.ItemType getItemType() {
+        return null;
+    }
+
     public enum StatsDisplayType{
         percentage,
         number,

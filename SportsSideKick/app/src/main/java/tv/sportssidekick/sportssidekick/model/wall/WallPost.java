@@ -9,6 +9,8 @@ package tv.sportssidekick.sportssidekick.model.wall;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class WallPost extends WallBase {
 
@@ -30,5 +32,10 @@ public class WallPost extends WallBase {
     public void setEqualTo(WallBase item) {
         super.setEqualTo(item);
         this.vidUrl = ((WallPost)item).vidUrl;
+    }
+
+    @Override
+    public SharingManager.ItemType getItemType(){
+        return SharingManager.ItemType.WallPost;
     }
 }

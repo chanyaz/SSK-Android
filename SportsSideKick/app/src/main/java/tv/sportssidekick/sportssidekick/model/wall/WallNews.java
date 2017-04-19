@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import tv.sportssidekick.sportssidekick.model.Id;
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -87,6 +88,11 @@ public class WallNews extends WallBase {
     @JsonProperty("content")
     public void setContent(String content) {
         this.bodyText = content;
+    }
+
+    @Override
+    public SharingManager.ItemType getItemType(){
+        return SharingManager.ItemType.News;
     }
 }
 

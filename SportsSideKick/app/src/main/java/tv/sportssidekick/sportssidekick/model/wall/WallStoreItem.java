@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
+
 /**
  * Created by Filip on 1/10/2017.
  * Copyright by Hypercube d.o.o.
@@ -32,5 +34,10 @@ public class WallStoreItem extends WallBase {
     public void setEqualTo(WallBase item) {
         super.setEqualTo(item);
         this.url = ((WallStoreItem)item).url;
+    }
+
+    @Override
+    public SharingManager.ItemType getItemType() {
+        return null;
     }
 }
