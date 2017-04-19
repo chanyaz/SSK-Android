@@ -103,7 +103,7 @@ public class MemberInfoFragment extends BaseFragment {
                         friendButton.setText("SEND FRIEND REQUEST");
                     }
 
-                    if(user.isiFollowHim()){ // I am following this user
+                    if(user.isiFollowHim()){ // I am friends this user
                         followButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.friend_unfollow_button),null,null,null);
                         followButton.setText("UN-FOLLOW");
                     } else {
@@ -167,9 +167,9 @@ public class MemberInfoFragment extends BaseFragment {
     @OnClick(R.id.follow_button)
     public void followButton(){
         Task<UserInfo> changeFollowTask;
-        if(user.isiFollowHim()){ // I am following this user, un-follow him
+        if(user.isiFollowHim()){ // I am friends this user, un-follow him
             changeFollowTask = FriendsManager.getInstance().unFollowUser(user.getUserId());
-        } else { // not following, start following this user
+        } else { // not friends, start friends this user
             changeFollowTask = FriendsManager.getInstance().followUser(user.getUserId());
         }
         changeFollowTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
