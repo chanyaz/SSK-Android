@@ -99,8 +99,6 @@ public class NewsItemFragment extends BaseFragment{
         // Required empty public constructor
     }
 
-    WallNews item;
-
     @OnClick(R.id.share_icon)
     public void sharePost(View view){
         SharingManager.getInstance().share(item,true,SharingManager.ShareTarget.facebook,view);
