@@ -1,9 +1,14 @@
 package tv.sportssidekick.sportssidekick.model.sharing;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +18,8 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -24,8 +31,9 @@ import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
  * www.hypercubesoft.com
  */
 
-public class SharingManager {
+public class SharingManager implements FacebookCallback<Sharer.Result> {
 
+    private static final String TAG = "SHARING";
     private final ObjectMapper mapper; // jackson's object mapper
 
     public static SharingManager getInstance() {
@@ -73,16 +81,39 @@ public class SharingManager {
     }
 
     private void presentFacebook(Map<String,Object> response){
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("https://developers.facebook.com"))
-                .build();
-
-
+        ShareLinkContent.Builder contentBuilder = new ShareLinkContent.Builder();
+        if(response.containsKey("url")){
+            String urlString = (String) response.get("url");
+            Uri shareUrl =  Uri.parse(urlString);
+            contentBuilder.setContentUrl(shareUrl);
+        }
+        if(response.containsKey("image")){
+            String image = (String) response.get("image");
+            Uri imageUrl =  Uri.parse(image);
+            contentBuilder.setImageUrl(imageUrl);
+        }
+        if(response.containsKey("title")){
+            String title = (String) response.get("title");
+            contentBuilder.setContentTitle(title);
+        }
+        EventBus.getDefault().post(contentBuilder.build());
     }
 
     // This is for iPhone, iPad uses the above methods.
     private void presentNative(Map<String,Object> response, View sender){
-        //TODO
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        if(response.containsKey("url")){
+            String urlString = (String) response.get("url");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, urlString);
+
+        }
+        if(response.containsKey("title")){
+            String title = (String) response.get("title");
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT,title);
+        }
+        EventBus.getDefault().post(new NativeShareEvent(sharingIntent));
+
     }
 
     public Task<Map<String,Object>> getUrl(Map<String,Object> item, ItemType type){
@@ -109,6 +140,9 @@ public class SharingManager {
     public void share(final Shareable item, final boolean isNative, final ShareTarget shareTarget, final View sender){
         Map<String, Object> itemAsMap = mapper.convertValue(item, new TypeReference<Map<String, Object>>(){});
         itemToShare = null;
+        if(item.getItemType()==null){
+            Log.e(TAG, "This item is not inteded for sharing, yet!");
+        }
         getUrl(itemAsMap,item.getItemType()).addOnCompleteListener(new OnCompleteListener<Map<String, Object>>() {
             @Override
             public void onComplete(@NonNull Task<Map<String, Object>> task) {
@@ -121,6 +155,7 @@ public class SharingManager {
                     // probably going to be a user on an iPhone
                     if(isNative && sender!=null){
                         presentNative(response,sender);
+                        return;
                     }
                     if(shareTarget == null){
                         return;
@@ -188,5 +223,22 @@ public class SharingManager {
 
         return source.getTask();
     }
+
+
+    @Override
+    public void onSuccess(Sharer.Result result) {
+        itemToShare.incrementShareCount(ShareTarget.facebook);
+    }
+
+    @Override
+    public void onCancel() {
+        // - NOOP
+    }
+
+    @Override
+    public void onError(FacebookException error) {
+        // TODO   title: "Error", message: "Failed to share to Facebook, please try again"
+    }
+
 }
 

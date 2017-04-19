@@ -24,6 +24,6 @@ public class WallNewsShare extends WallBase{
 
     @Override
     public SharingManager.ItemType getItemType() {
-        return null;
+        return SharingManager.ItemType.WallPost;
     }
 }

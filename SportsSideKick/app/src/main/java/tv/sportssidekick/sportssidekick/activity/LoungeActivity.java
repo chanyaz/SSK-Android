@@ -1,6 +1,7 @@
 package tv.sportssidekick.sportssidekick.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,6 +18,9 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -51,13 +55,14 @@ import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallItemFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.AddFriendFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FollowersFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FollowingFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FriendRequestsFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.InviteFriendFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
@@ -68,10 +73,11 @@ import tv.sportssidekick.sportssidekick.fragment.popup.SignUpFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StashFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.sharing.NativeShareEvent;
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
@@ -139,6 +145,9 @@ public class LoungeActivity extends AppCompatActivity {
 
     BiMap<Integer, Class> radioButtonsFragmentMap;
 
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -149,28 +158,28 @@ public class LoungeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
-
         Model.getInstance().initialize(this);
-
         yourCoinsContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO open dialog ?
             }
         });
-
         popupHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
         setYourCoinsValue("0"); //TODO get value from server
-
         setNumberOfNotification("4");
-
         setupFragments();
+
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+        // this part is optional
+        shareDialog.registerCallback(callbackManager, SharingManager.getInstance());
+
     }
 
     private void toggleBlur(boolean visible) { // TODO Extract to popup base class ?
@@ -371,6 +380,18 @@ public class LoungeActivity extends AppCompatActivity {
         startNewsTimer(newsTickerInfo);
     }
 
+    @Subscribe
+    public void onShareOnFacebookEvent(ShareLinkContent linkContent){
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            shareDialog.show(linkContent);
+        }
+    }
+
+    @Subscribe
+    public void onShareNativeEvent(NativeShareEvent event){
+        startActivity(Intent.createChooser(event.getIntent(), getResources().getString(R.string.share_using)));
+    }
+
 
     Timer newsTimer;
     int count;
@@ -467,5 +488,11 @@ public class LoungeActivity extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(this, anim);
         slideFragmentContainer.startAnimation(animation);
         slideFragmentContainer.setVisibility(visibility);
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
