@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
 public class WallBetting extends WallBase {
@@ -63,4 +65,8 @@ public class WallBetting extends WallBase {
         this.percentage = percentage;
     }
 
+    @Override
+    public SharingManager.ItemType getItemType() {
+        return null;
+    }
 }

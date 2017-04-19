@@ -14,8 +14,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -45,6 +47,12 @@ public class NewsItemFragment extends BaseFragment{
         // Required empty public constructor
     }
 
+    WallNews item;
+
+    @OnClick(R.id.share_icon)
+    public void sharePost(View view){
+        SharingManager.getInstance().share(item,true,SharingManager.ShareTarget.facebook,view);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +66,7 @@ public class NewsItemFragment extends BaseFragment{
             id = id.replace("UNOFFICIAL$$$","");
              type = NewsModel.NewsType.UNOFFICIAL;
         }
-        WallNews item = NewsModel.getInstance().getCachedItemById(id,type);
+        item = NewsModel.getInstance().getCachedItemById(id,type);
 
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         ImageLoader.getInstance().displayImage(item.getCoverImageUrl(), imageHeader, imageOptions);
