@@ -34,19 +34,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/row_friends_in_chat_vertical"
-            android:layout_toEndOf="@+id/row_friends_in_chat_horizontal"
-            android:gravity="center">
+            android:layout_toEndOf="@+id/row_friends_in_chat_horizontal">
+
+            <RelativeLayout
+                android:id="@+id/row_friends_in_chat_notification_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_accent">
 
             <TextView
                 android:id="@+id/row_friends_in_chat_notification_count"
-                android:layout_width="@dimen/row_friends_notification_bubble_size"
-                android:layout_height="@dimen/row_friends_notification_bubble_size"
-                android:layout_centerInParent="true"
-                android:background="@drawable/circle_accent"
-                android:gravity="center"
-                android:padding="@dimen/padding_8"
-                android:textColor="@color/colorPrimary" />
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerInParent="true"/>
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
 
