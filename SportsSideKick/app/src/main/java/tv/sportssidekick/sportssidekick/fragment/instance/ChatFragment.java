@@ -271,7 +271,7 @@ public class ChatFragment extends BaseFragment {
     private void displayChat(ChatInfo info) {
         activeChatInfo = info;
         setupEditChatButton();
-        if (activeChatInfo != null && info.getMessages() != null) {
+        if (activeChatInfo != null) {
             // Setup Chat label
             StringBuilder chatLabel = new StringBuilder(activeChatInfo.getChatTitle());
             chatLabel.append(": ");
@@ -289,26 +289,30 @@ public class ChatFragment extends BaseFragment {
             }
             infoLineTextView.setText(chatLabel.toString());
             // Message container initialization
-            if (info.getMessages().size() > 0) {
-                swipeRefreshLayout.setEnabled(true);
-                messageListView.setVisibility(View.VISIBLE);
-                infoMessage.setVisibility(View.GONE);
-                //Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
 
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                messageListView.setLayoutManager(layoutManager);
+           if(info.getMessages() != null){
+               if (info.getMessages().size() > 0) {
+                   swipeRefreshLayout.setEnabled(true);
+                   messageListView.setVisibility(View.VISIBLE);
+                   infoMessage.setVisibility(View.GONE);
+                   //Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
 
-                messageAdapter = new MessageAdapter(getContext(),info);
-                messageListView.setAdapter(messageAdapter);
-                messageListView.invalidate();
-                return;
-            } else {
-                Log.e(TAG, "Message array size is 0!");
-                infoMessage.setVisibility(View.VISIBLE);
-                messageListView.setVisibility(View.INVISIBLE);
-                infoMessage.setVisibility(View.VISIBLE);
-                messageListView.setVisibility(View.INVISIBLE);
-            }
+                   LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                   messageListView.setLayoutManager(layoutManager);
+
+                   messageAdapter = new MessageAdapter(getContext(),info);
+                   messageListView.setAdapter(messageAdapter);
+                   messageListView.invalidate();
+                   return;
+               } else {
+                   Log.e(TAG, "Message array size is 0!");
+                   infoMessage.setVisibility(View.VISIBLE);
+                   messageListView.setVisibility(View.INVISIBLE);
+                   infoMessage.setVisibility(View.VISIBLE);
+                   messageListView.setVisibility(View.INVISIBLE);
+               }
+           }
+
         } else {
             Log.e(TAG, "Message array is null!");
             infoMessage.setVisibility(View.VISIBLE);

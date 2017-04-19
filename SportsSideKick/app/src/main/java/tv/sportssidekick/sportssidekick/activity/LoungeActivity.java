@@ -76,6 +76,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.notifications.InternalNotificationManager;
 import tv.sportssidekick.sportssidekick.model.sharing.NativeShareEvent;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
@@ -146,7 +147,7 @@ public class LoungeActivity extends AppCompatActivity {
     BiMap<Integer, Class> radioButtonsFragmentMap;
 
     CallbackManager callbackManager;
-    ShareDialog shareDialog;
+    ShareDialog facebookShareDialog;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -176,10 +177,11 @@ public class LoungeActivity extends AppCompatActivity {
         setupFragments();
 
         callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog(this);
+        facebookShareDialog = new ShareDialog(this);
+        // internal notifications initialization
+        InternalNotificationManager.getInstance();
         // this part is optional
-        shareDialog.registerCallback(callbackManager, SharingManager.getInstance());
-
+        facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
     }
 
     private void toggleBlur(boolean visible) { // TODO Extract to popup base class ?
@@ -383,7 +385,7 @@ public class LoungeActivity extends AppCompatActivity {
     @Subscribe
     public void onShareOnFacebookEvent(ShareLinkContent linkContent){
         if (ShareDialog.canShow(ShareLinkContent.class)) {
-            shareDialog.show(linkContent);
+            facebookShareDialog.show(linkContent);
         }
     }
 
