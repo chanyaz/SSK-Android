@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -32,6 +31,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.CommentsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.wall.PostComment;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
@@ -201,6 +201,13 @@ public class WallItemFragment extends BaseFragment {
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
         commentsAdapter.getComments().addAll(event.getCommentList());
         commentsAdapter.notifyDataSetChanged();
+    }
+
+
+
+    @OnClick(R.id.share_icon)
+    public void sharePost(View view){
+        SharingManager.getInstance().share(item,true,SharingManager.ShareTarget.facebook,view);
     }
 
     @OnClick(R.id.post_post_button)

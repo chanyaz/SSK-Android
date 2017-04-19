@@ -12,6 +12,7 @@ import java.util.Map;
 
 public abstract class GSMessageHandlerAbstract {
 
+    public void onMessage(Map<String, Object> data){};
     // -- General
     public void onGSScriptMessage(String type, Map<String, Object> data){};
     // -- State

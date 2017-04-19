@@ -37,6 +37,7 @@ import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.wall.PostComment;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.service.GetCommentsCompleteEvent;
@@ -98,6 +99,12 @@ public class NewsItemFragment extends BaseFragment{
         // Required empty public constructor
     }
 
+    WallNews item;
+
+    @OnClick(R.id.share_icon)
+    public void sharePost(View view){
+        SharingManager.getInstance().share(item,true,SharingManager.ShareTarget.facebook,view);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

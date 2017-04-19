@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -44,7 +45,9 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
         @Nullable
         @BindView(R.id.row_friends_in_chat_name)
         TextView rowName;
-
+        @Nullable
+        @BindView(R.id.row_friends_in_chat_notification_container)
+        RelativeLayout rowFriendsCountContainer;
 
         ViewHolder(View v) {
             super(v);
@@ -54,10 +57,13 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
     }
 
     private List<String> values;
-
+    private int cellSize;
+    private int bubbleSize;
     public FriendsInChatAdapter(Context context) {
         values = new ArrayList<>();
         this.context = context;
+        cellSize =  (int) (Utility.getDisplayHeight(context)*0.18);
+        bubbleSize = (int) (cellSize/3);
     }
 
     public void setValues(List<String> values) {
@@ -74,8 +80,8 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
         final ViewHolder viewHolder;
         // create a new view
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_friends_in_chat, parent, false);
-        view.getLayoutParams().height = (int) (Utility.getDisplayHeight(context)*0.15);
-        view.getLayoutParams().width = (int) (Utility.getDisplayHeight(context)*0.15);
+        view.getLayoutParams().height = cellSize;
+        view.getLayoutParams().width = cellSize;
         viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -91,8 +97,17 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
         if (holder.rowName != null) {
             holder.rowName.setText("Dummy test");
         }
+
+        if(holder.rowFriendsCountContainer!=null){
+            holder.rowFriendsCountContainer.getLayoutParams().height = bubbleSize;
+            holder.rowFriendsCountContainer.getLayoutParams().width = bubbleSize;
+            holder.rowFriendsCount.setVisibility(View.VISIBLE);
+        }else {
+            holder.rowFriendsCount.setVisibility(View.INVISIBLE);
+        }
+
         if (holder.rowFriendsCount != null) {
-            holder.rowFriendsCount.setText("");
+            holder.rowFriendsCount.setText("4");
         }
     }
 

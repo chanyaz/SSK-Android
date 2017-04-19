@@ -10,7 +10,9 @@
     <RelativeLayout
         android:id="@+id/chat_headline_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height">
+        android:layout_height="@dimen/standard_button_height"
+        android:background="@color/colorPrimarySemiLight"
+        android:clickable="true">
 
         <ImageButton
             android:id="@+id/chat_join_headline_close_fragment"
@@ -40,7 +42,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimarySemiLight"
         android:layout_below="@+id/chat_headline_container"
-        android:layout_above="@+id/bottom_public_chats_container">
+        android:layout_above="@+id/bottom_public_chats_container"
+        android:clickable="true">
 
         <View
             android:id="@+id/top_vertical_spliter"

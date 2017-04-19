@@ -371,9 +371,9 @@ public class WallModel extends GSMessageHandlerAbstract {
      */
 
     public void itemShared(final WallBase item, SharingManager.ShareTarget shareTarget) {
-        SharingManager.getInstance().increment(item,shareTarget).addOnCompleteListener(new OnCompleteListener<HashMap<String, Object>>() {
+        SharingManager.getInstance().increment(item,shareTarget).addOnCompleteListener(new OnCompleteListener<Map<String, Object>>() {
             @Override
-            public void onComplete(@NonNull Task<HashMap<String, Object>> task) {
+            public void onComplete(@NonNull Task<Map<String, Object>> task) {
                 if(task.isSuccessful()){
                     WallBase post = WallBase.postFactory(task.getResult(), mapper);
                     item.setEqualTo(post);

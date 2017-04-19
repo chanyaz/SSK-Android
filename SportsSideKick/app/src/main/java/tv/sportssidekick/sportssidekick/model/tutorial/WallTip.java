@@ -4,6 +4,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.List;
 
+import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 
 /**
@@ -106,4 +107,8 @@ public class WallTip extends WallBase {
     }
 
 
+    @Override
+    public SharingManager.ItemType getItemType() {
+        return null;
+    }
 }

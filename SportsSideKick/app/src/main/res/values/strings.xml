@@ -4,7 +4,7 @@
     <string name="friend_requests">Friend Requests</string>
 
     <string name="app_name">Sidekick</string>
-    <string name="facebook_app_id">11111111111111</string>
+    <string name="facebook_app_id">102782376855276</string>
     <string name="fb_login_protocol_scheme">fb11111111111111</string>
 
     <!-- Login scree -->
@@ -227,5 +227,6 @@
     <string name="tip_13_end">You can Navigate back and forward using the menu at the bottom of the Shop module.</string>
     <string name="tip_13_step_1">Open the Shop module by tapping the Shop tab on the top left of the screen.</string>
     <string name="tip_13_step_2">You can Navigate back and forward using the menu at the bottom of the Shop module.</string>
+    <string name="share_using">Share with:</string>
 
 </resources>

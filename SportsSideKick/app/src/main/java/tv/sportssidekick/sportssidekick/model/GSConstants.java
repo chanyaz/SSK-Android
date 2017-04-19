@@ -59,4 +59,6 @@ public class GSConstants {
     public static final String NEWS = "News";
     public static final String RUMOUR = "Rumour";
     public static final String ITEM = "item";
+    public static final String DESCRIPTION = "description";
+    public static final String DISPLAY_NAME = "displayName";
 }
