@@ -299,7 +299,6 @@ public class LoungeActivity extends AppCompatActivity {
             // this is popup event
             toggleBlur(true);
         } else if (slidePopupContainerFragments.contains(event.getType())) {
-            //TODO SLIDE IN
             showSlidePopupFragmentContainer();
         } else {
             if (radioButtonsFragmentMap.inverse().containsKey(event.getType())) {
@@ -348,6 +347,10 @@ public class LoungeActivity extends AppCompatActivity {
     public void onBackPressed() {
         toggleBlur(false); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
+        if(fragmentOrganizer.getOpenFragment() instanceof JoinChatFragment ||
+                fragmentOrganizer.getOpenFragment() instanceof CreateChatFragment){
+            hideSlidePopupFragmentContainer();
+        }
         if (!fragmentOrganizer.handleBackNavigation()) {
             finish();
         }
