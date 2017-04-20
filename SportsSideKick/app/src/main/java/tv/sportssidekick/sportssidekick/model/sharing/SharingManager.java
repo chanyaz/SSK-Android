@@ -1,6 +1,8 @@
 package tv.sportssidekick.sportssidekick.model.sharing;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -18,10 +20,20 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.utils.DiskCacheUtils;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
+
+import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
@@ -76,8 +88,51 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
     //       type of presentation is needed, currently this is handled with a method override
     //       In future, it would be good to implement a presentable protocol that let's us have
     //       a better implementation than this.
-    private void presentTwitter(Map<String,Object> response) {
-        //TODO
+    private void presentTwitter(Context context,Map<String,Object> response) {
+        final TweetComposer.Builder builder = new TweetComposer.Builder(context);
+        if(response.containsKey("url")){
+            String urlString = (String) response.get("url");
+            Uri shareUrl =  Uri.parse(urlString);
+            URL url = null;
+            try {
+                url = new URL(shareUrl.toString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            if (url != null) {
+                builder.url(url);
+            }
+        }
+
+        if(response.containsKey("image")){
+            String image = (String) response.get("image");
+            //TODO If u want to shate image u must have image in cache, if not u must load picture  (because twitter only accept images directly from phone storage)
+//            ImageLoader.getInstance().loadImage("https://dummyimage.com/600x400/000/fff&text=TEST", Utility.getImageOptionsForWallItem(), new ImageLoadingListener() {
+//                @Override
+//                public void onLoadingStarted(String imageUri, View view) {}
+//
+//                @Override
+//                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {}
+//
+//                @Override
+//                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                    File file = DiskCacheUtils.findInCache(imageUri, ImageLoader.getInstance().getDiscCache());
+//                    File path = file.getAbsoluteFile();
+//                    Uri imageUrl =  Uri.parse(path.getAbsolutePath());
+//                    builder.image(imageUrl);
+//                    EventBus.getDefault().post(builder);
+//                }
+//
+//                @Override
+//                public void onLoadingCancelled(String imageUri, View view) {}
+//            });
+            Uri imageUrl =  Uri.parse(image);
+            builder.image(imageUrl);
+        }
+        if(response.containsKey("title")){
+            String title = (String) response.get("title");
+            builder.text(title);
+        }
     }
 
     private void presentFacebook(Map<String,Object> response){
@@ -138,6 +193,10 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
     }
 
     public void share(final Shareable item, final boolean isNative, final ShareTarget shareTarget, final View sender){
+        share(null,item,isNative,shareTarget,sender);
+    }
+
+    public void share(final Context context, final Shareable item, final boolean isNative, final ShareTarget shareTarget, final View sender){
         Map<String, Object> itemAsMap = mapper.convertValue(item, new TypeReference<Map<String, Object>>(){});
         itemToShare = null;
         if(item.getItemType()==null){
@@ -165,7 +224,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                             presentFacebook(response);
                             break;
                         case twitter:
-                            presentTwitter(response);
+                            presentTwitter(context,response);
                             break;
                         case mail:
                             break;
@@ -178,6 +237,8 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                         case other:
                             break;
                     }
+                }else{
+                    //TODO NOT SUCCESSFUL - What we can do with this...
                 }
             }
         });

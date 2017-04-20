@@ -125,7 +125,9 @@ public class NewsItemFragment extends BaseFragment{
         item = NewsModel.getInstance().getCachedItemById(id,type);
 
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-        ImageLoader.getInstance().displayImage(item.getCoverImageUrl(), imageHeader, imageOptions);
+        if(item.getCoverImageUrl()!=null){
+            ImageLoader.getInstance().displayImage(item.getCoverImageUrl(), imageHeader, imageOptions);
+        }
         title.setText(item.getTitle());
         String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS);
         if (item.getSubTitle() != null)
