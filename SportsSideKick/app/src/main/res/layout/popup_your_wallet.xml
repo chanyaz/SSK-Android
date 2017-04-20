@@ -19,7 +19,7 @@
         android:layout_alignEnd="@+id/bundles_container"
         android:layout_alignStart="@+id/bundles_container"
         android:layout_below="@+id/top_buttons_container"
-        android:background="@color/colorPrimarySemiLight"></RelativeLayout>
+        android:background="@color/colorPrimarySemiLight"/>
 
     <!-- TOP BUTTONS CONTAINER -->
     <LinearLayout
@@ -403,16 +403,20 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/margin_15"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             android:src="@drawable/fan_special_2" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true">
 
         <TextView
             android:id="@+id/kit_bags_label_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/kit_bags_label_2"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="2dp"
             android:text="$$K"
@@ -424,13 +428,13 @@
             android:id="@+id/kit_bags_label_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/kit_gym_bag_button"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="2dp"
             android:text="Kit Bags"
             android:textColor="@color/white"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_below="@id/kit_bags_label_1"/>
 
         <TextView
             android:id="@+id/kit_gym_bag_button"
@@ -438,14 +442,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:background="@drawable/gym_bag_button_background"
             android:gravity="center"
             android:padding="@dimen/half_margin"
             android:paddingEnd="@dimen/margin_10"
             android:paddingStart="@dimen/margin_10"
             android:text="+ BONUS GYM BAG"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_below="@id/kit_bags_label_2"/>
+
+        </RelativeLayout>
     </RelativeLayout>
     <!-- SPLITTERS -->
     <View
