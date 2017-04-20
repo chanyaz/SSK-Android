@@ -293,19 +293,7 @@ public class Utility {
         }
     }
 
-    public static List<UserInfo> filter(List<UserInfo> users, String query) {
-        String lowerCaseQuery = query.toLowerCase();
-        List<UserInfo> filteredUserslList = new ArrayList<>();
-        if(users!=null){
-            for (UserInfo user : users) {
-                String text =(user.getFirstName() + user.getLastName() + user.getNicName()).toLowerCase();
-                if (text.contains(lowerCaseQuery)) {
-                    filteredUserslList.add(user);
-                }
-            }
-        }
-        return filteredUserslList;
-    }
+
     public static boolean checkIfBundlesAreEqual(Bundle one, Bundle two) {
         if (one.size() != two.size())
             return false;
@@ -330,4 +318,17 @@ public class Utility {
         return true;
     }
 
+    public static List<UserInfo> filter(List<UserInfo> users, String query) {
+        String lowerCaseQuery = query.toLowerCase();
+        List<UserInfo> filteredUserslList = new ArrayList<>();
+        if(users!=null){
+            for (UserInfo user : users) {
+                String text =(user.getFirstName() + user.getLastName() + user.getNicName()).toLowerCase();
+                if (text.contains(lowerCaseQuery)) {
+                    filteredUserslList.add(user);
+                }
+            }
+        }
+        return filteredUserslList;
+    }
 }
