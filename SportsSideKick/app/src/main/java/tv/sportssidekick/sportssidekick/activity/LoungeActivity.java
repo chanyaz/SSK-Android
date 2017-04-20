@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -86,14 +85,14 @@ import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
-import tv.sportssidekick.sportssidekick.util.ui.BlurBuilder;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
+import tv.sportssidekick.sportssidekick.util.ui.BlurBuilder;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static tv.sportssidekick.sportssidekick.util.Utility.checkIfBundlesAreEqual;
 
-public class LoungeActivity extends AppCompatActivity {
+public class LoungeActivity extends BillingActivity {
 
     public static final String TAG = "Lounge Activity";
     @BindView(R.id.activity_main)

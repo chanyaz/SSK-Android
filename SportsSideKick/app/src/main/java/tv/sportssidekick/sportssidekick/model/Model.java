@@ -488,7 +488,7 @@ public class Model {
         }
     }
 
-    private Task<UserInfo> refreshUserInfo(String userId){
+    public Task<UserInfo> refreshUserInfo(String userId){
         final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("getUserInfoById");
