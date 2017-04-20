@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -89,6 +90,10 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.share_count)
     TextView shareCount;
 
+    @Nullable
+    @BindView(R.id.pin_container)
+    LinearLayout pinContainer;
+
     CommentsAdapter commentsAdapter;
     WallBase item;
 
@@ -108,6 +113,8 @@ public class WallItemFragment extends BaseFragment {
         commentsAdapter = new CommentsAdapter();
         commetsList.setLayoutManager(commentLayouManager);
         commetsList.setAdapter(commentsAdapter);
+
+        pinContainer.setVisibility(View.GONE);
 
         item = WallBase.getCache().get(id);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();

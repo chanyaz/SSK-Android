@@ -134,6 +134,7 @@
                 android:src="@drawable/popup_search_icon" />
 
             <EditText
+                android:id="@+id/search_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

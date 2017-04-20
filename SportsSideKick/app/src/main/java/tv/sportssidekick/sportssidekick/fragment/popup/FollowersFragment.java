@@ -5,9 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,6 +19,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,7 +32,9 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
+import tv.sportssidekick.sportssidekick.model.friendship.PeopleSearchManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
  * Created by Djordje Krutil on 28.3.2017..
@@ -46,6 +52,9 @@ public class FollowersFragment extends BaseFragment {
     @BindView(R.id.no_result)
     TextView noResult;
 
+    @BindView(R.id.search_edit_text)
+    EditText searchText;
+    List<UserInfo> folowers;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +71,8 @@ public class FollowersFragment extends BaseFragment {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if (task.isSuccessful()) {
-                    adapter.getValues().addAll(task.getResult());
+                    folowers = task.getResult();
+                    adapter.getValues().addAll(folowers);
                     adapter.notifyDataSetChanged();
                     followersRecyclerView.setVisibility(View.VISIBLE);
                     noResult.setVisibility(View.GONE);
@@ -71,6 +81,27 @@ public class FollowersFragment extends BaseFragment {
                     noResult.setVisibility(View.VISIBLE);
                 }
                 progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        searchText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (folowers != null)
+                {
+                    adapter.getValues().clear();
+                    adapter.getValues().addAll(Utility.filter(folowers, s.toString()));
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 

@@ -5,9 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +34,7 @@ import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
  * Created by Djordje Krutil on 28.3.2017..
@@ -49,6 +54,11 @@ public class FollowingFragment extends BaseFragment {
 
     @BindView(R.id.follow_more)
     ImageView followMore;
+
+    @BindView(R.id.search_text)
+    EditText searchText;
+
+    List<UserInfo> following;
 
     @Nullable
     @Override
@@ -70,7 +80,8 @@ public class FollowingFragment extends BaseFragment {
                 @Override
                 public void onComplete(@NonNull Task<List<UserInfo>> task) {
                     if (task.isSuccessful()) {
-                        adapter.getValues().addAll(task.getResult());
+                        following = task.getResult();
+                        adapter.getValues().addAll(following);
                         adapter.notifyDataSetChanged();
                         followingRecyclerView.setVisibility(View.VISIBLE);
                         noResult.setVisibility(View.GONE);
@@ -85,6 +96,28 @@ public class FollowingFragment extends BaseFragment {
         else {
             Toast.makeText(getContext(), "Error. Try again later.", Toast.LENGTH_SHORT).show();
         }
+
+        searchText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (following != null)
+                {
+                    adapter.getValues().clear();
+                    adapter.getValues().addAll(Utility.filter(following, s.toString()));
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+
 
         return view;
     }

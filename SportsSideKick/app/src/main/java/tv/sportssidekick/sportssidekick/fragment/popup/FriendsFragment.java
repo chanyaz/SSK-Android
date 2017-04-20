@@ -3,9 +3,12 @@ package tv.sportssidekick.sportssidekick.fragment.popup;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,6 +55,11 @@ public class FriendsFragment extends BaseFragment {
     @BindView(R.id.no_result_text)
     TextView noResultText;
 
+    @BindView(R.id.search_edit_text)
+    EditText searchText;
+
+    List<UserInfo> friends;
+
     public FriendsFragment() {
         // Required empty public constructor
     }
@@ -87,7 +95,8 @@ public class FriendsFragment extends BaseFragment {
                 if(task.isSuccessful()){
                     noResultText.setVisibility(View.GONE);
                     friendsRecyclerView.setVisibility(View.VISIBLE);
-                    adapter.getValues().addAll(task.getResult());
+                    friends = task.getResult();
+                    adapter.getValues().addAll(friends);
                     adapter.notifyDataSetChanged();
                 } else {
                     noResultText.setVisibility(View.VISIBLE);
@@ -108,6 +117,27 @@ public class FriendsFragment extends BaseFragment {
                     }
                 }
                 friendRequestCount.setText("0");
+            }
+        });
+
+        searchText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (friends != null)
+                {
+                    adapter.getValues().clear();
+                    adapter.getValues().addAll(Utility.filter(friends, s.toString()));
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -134,5 +164,4 @@ public class FriendsFragment extends BaseFragment {
     {
         EventBus.getDefault().post(new FragmentEvent(AddFriendFragment.class));
     }
-
 }

@@ -29,12 +29,15 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.util.ui.SlideTextAnimation;
 
 /**
@@ -290,6 +293,19 @@ public class Utility {
         }
     }
 
+    public static List<UserInfo> filter(List<UserInfo> users, String query) {
+        String lowerCaseQuery = query.toLowerCase();
+        List<UserInfo> filteredUserslList = new ArrayList<>();
+        if(users!=null){
+            for (UserInfo user : users) {
+                String text =(user.getFirstName() + user.getLastName() + user.getNicName()).toLowerCase();
+                if (text.contains(lowerCaseQuery)) {
+                    filteredUserslList.add(user);
+                }
+            }
+        }
+        return filteredUserslList;
+    }
     public static boolean checkIfBundlesAreEqual(Bundle one, Bundle two) {
         if (one.size() != two.size())
             return false;
