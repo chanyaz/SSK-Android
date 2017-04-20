@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.util;
+package tv.sportssidekick.sportssidekick.util.ui;
 
 /**
  * Created by Filip on 12/26/2016.

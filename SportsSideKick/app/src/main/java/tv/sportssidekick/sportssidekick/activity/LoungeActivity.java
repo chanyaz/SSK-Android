@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -30,6 +31,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -76,6 +78,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.notifications.ExternalNotificationEvent;
 import tv.sportssidekick.sportssidekick.model.notifications.InternalNotificationManager;
 import tv.sportssidekick.sportssidekick.model.sharing.NativeShareEvent;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
@@ -83,13 +86,16 @@ import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
-import tv.sportssidekick.sportssidekick.util.BlurBuilder;
+import tv.sportssidekick.sportssidekick.util.ui.BlurBuilder;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static tv.sportssidekick.sportssidekick.util.Utility.checkIfBundlesAreEqual;
+
 public class LoungeActivity extends AppCompatActivity {
 
+    public static final String TAG = "Lounge Activity";
     @BindView(R.id.activity_main)
     View rootView;
 
@@ -329,6 +335,7 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         NextMatchModel.getInstance().getNextMatchInfo();
+        checkAndEmitBackgroundNotification();
     }
 
     @Override
@@ -496,5 +503,33 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    Bundle savedIntentData = null;
+    private void checkAndEmitBackgroundNotification(){
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null && !extras.isEmpty()) {
+            if (savedIntentData == null) {
+                savedIntentData = new Bundle();
+            }
+            if(!checkIfBundlesAreEqual(savedIntentData, extras)){
+                String body = extras.getString(Constant.NOTIFICATION_BODY);
+                String title = extras.getString(Constant.NOTIFICATION_TITLE);
+                String message = extras.getString(Constant.NOTIFICATION_MESSAGE);
+                handleNotificationEvent(new ExternalNotificationEvent(false)); // TODO Fill with proper data and set that is from background!
+                savedIntentData = getIntent().getExtras();
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleNotificationEvent(ExternalNotificationEvent event){
+        Map<String,Object> notificationInfo = null;
+        if(event.isFromBackground()){
+            Log.d(TAG,"Notification is from background...");
+        } else {
+            Log.d(TAG,"Notification is from foreground - app is active!");
+        }
     }
 }

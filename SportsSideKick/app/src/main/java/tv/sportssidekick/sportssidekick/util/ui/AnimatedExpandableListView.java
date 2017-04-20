@@ -1,13 +1,9 @@
-package tv.sportssidekick.sportssidekick.util;
-
-import java.util.ArrayList;
-import java.util.List;
+package tv.sportssidekick.sportssidekick.util.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
@@ -19,6 +15,9 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnimatedExpandableListView extends ExpandableListView {
     @SuppressWarnings("unused")

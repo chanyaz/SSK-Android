@@ -24,11 +24,12 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -75,6 +76,7 @@ import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.service.UIEvent;
+import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
@@ -107,8 +109,6 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.chat_info_line_text)
     TextView infoLineTextView;
 
-    @BindView(R.id.send_button)
-    Button sendButton;
     @BindView(R.id.mic_button)
     ImageButton micButton;
     @BindView(R.id.video_view)
@@ -165,7 +165,6 @@ public class ChatFragment extends BaseFragment {
         messageListView.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         infoMessage.setVisibility(View.GONE);
-        sendButton.setVisibility(View.GONE);
 
         initializeUI();
 
@@ -175,25 +174,31 @@ public class ChatFragment extends BaseFragment {
         //Add textWatcher to notify the user
         inputEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().trim().length() == 0) {
-                    sendButton.setVisibility(View.GONE);
-                } else {
-                    sendButton.setVisibility(View.VISIBLE);
-                }
                 if (activeChatInfo != null) {
                     activeChatInfo.setUserIsTyping(true);
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s) {}
+        });
+
+        inputEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND || actionId == R.id.action_send_message_id) {
+                    sendButtonOnClick();
+                    handled = true;
+                }
+                return handled;
             }
         });
+
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -370,13 +375,13 @@ public class ChatFragment extends BaseFragment {
         Toast.makeText(getContext(), "Image is downloaded.", Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick(R.id.send_button)
     public void sendButtonOnClick() {
         ImsMessage message = ImsMessage.getDefaultMessage();
         message.setText(inputEditText.getText().toString().trim());
         activeChatInfo.sendMessage(message);
         inputEditText.setText("");
         activeChatInfo.setUserIsTyping(false);
+        Utility.hideKeyboard(getActivity());
     }
 
 

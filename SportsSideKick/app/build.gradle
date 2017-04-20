@@ -57,6 +57,10 @@ dependencies {
     compile 'com.android.support:percent:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
 
+    // We need Firebase for Push notifications!
+    compile 'com.google.firebase:firebase-core:10.2.1'
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
+
     compile 'com.google.http-client:google-http-client-android:1.20.0'
     compile 'com.google.api-client:google-api-client-android:1.20.0'
     compile 'com.google.api-client:google-api-client-gson:1.20.0'

@@ -65,7 +65,7 @@
         android:layout_below="@id/top_buttons_container"
         android:background="@color/colorPrimarySemiLight">
 
-        <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
+        <tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -56,7 +56,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"/>
 
-        <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
+        <tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
             android:numColumns="auto_fit"

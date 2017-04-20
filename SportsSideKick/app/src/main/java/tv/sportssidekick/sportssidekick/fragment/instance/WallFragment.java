@@ -73,7 +73,7 @@ import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PostCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
-import tv.sportssidekick.sportssidekick.util.StaggeredLayoutManagerItemDecoration;
+import tv.sportssidekick.sportssidekick.util.ui.StaggeredLayoutManagerItemDecoration;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_POST_IMAGE_CAPTURE;

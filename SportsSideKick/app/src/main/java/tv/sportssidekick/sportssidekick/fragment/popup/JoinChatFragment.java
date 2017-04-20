@@ -1,6 +1,5 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
-import android.app.ExpandableListActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -37,7 +36,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
-import tv.sportssidekick.sportssidekick.util.AnimatedExpandableListView;
+import tv.sportssidekick.sportssidekick.util.ui.AnimatedExpandableListView;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
