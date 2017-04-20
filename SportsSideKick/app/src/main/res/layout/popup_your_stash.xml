@@ -144,7 +144,7 @@
         android:id="@+id/bottom_buttons_container"
         android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
         android:background="@drawable/popup_bottom_background"
         android:clickable="true">
 

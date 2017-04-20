@@ -247,6 +247,7 @@
             android:layout_alignStart="@+id/bundle_1"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginEnd="@dimen/margin_5"
             android:text="10 $$K"
             android:textColor="@color/white"
             android:textSize="11sp" />
@@ -261,7 +262,11 @@
             android:layout_marginEnd="@dimen/margin_15"
             android:text="Watch promo"
             android:textColor="@color/white"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            android:layout_toEndOf="@+id/bundle_1_award"
+            android:lines="1"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/bundle_2_award"
@@ -483,7 +488,7 @@
     <RelativeLayout
         android:id="@+id/bottom_buttons_container"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
         android:layout_alignEnd="@+id/bundles_container"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/bundles_container"

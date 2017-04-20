@@ -55,7 +55,7 @@
     <RelativeLayout
         android:id="@+id/bottom_buttons_container"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/popup_friend_request_bottom_buttons_container_height"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
         android:layout_alignParentBottom="true"
         android:clickable="true">
 

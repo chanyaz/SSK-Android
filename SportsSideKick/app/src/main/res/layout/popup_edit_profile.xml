@@ -4,6 +4,21 @@
     android:layout_height="wrap_content"
     android:background="@drawable/popup_bottom_background"
     android:clickable="true">
+
+    <RelativeLayout
+        android:id="@+id/edit_profile_top_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="@dimen/popup_manage_chat_private_confirm_button_height"
+            android:layout_height="@dimen/popup_manage_chat_private_confirm_button_height"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/video_close_button"
+            android:layout_centerVertical="true"/>
+
     <TextView
         android:id="@+id/caption"
         android:layout_width="match_parent"
@@ -16,13 +31,22 @@
         android:layout_height="2dp"
         android:layout_alignParentTop="true"
         android:background="@color/colorAccent" />
+
+    </RelativeLayout>
+
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/caption"
+        android:layout_below="@+id/edit_profile_top_container"
         android:background="@android:color/black" />
 
+
+    <RelativeLayout
+        android:id="@+id/edit_profile_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_split_line">
 
     <RelativeLayout
         android:layout_centerVertical="true"
@@ -44,7 +68,8 @@
             android:id="@+id/profile_image"
             android:layout_width="80dp"
             android:layout_marginTop="8dp"
-         android:layout_centerHorizontal="true"   android:layout_marginBottom="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
             android:src="@drawable/blank_profile_rounded"
             android:layout_below="@+id/edit_photo_caption"
             android:layout_marginEnd="@dimen/coin_lateral_margin"
@@ -82,7 +107,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/center"
-        android:layout_below="@+id/top_split_line"
         android:textColor="@color/white_semitransparent"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_marginBottom="@dimen/margin_10"
@@ -202,22 +226,13 @@
         android:textSize="12sp"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/close"
-        android:layout_width="@dimen/popup_manage_chat_private_confirm_button_height"
-        android:layout_height="@dimen/popup_manage_chat_private_confirm_button_height"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/top_split_line"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/video_close_button"/>
-
+    </RelativeLayout>
     <!-- BOTTOM BUTTONS CONTAINER -->
     <RelativeLayout
         android:id="@+id/bottom_buttons_container"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_below="@+id/telephone_edit_text"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
+        android:layout_below="@+id/edit_profile_content_container"
         android:background="@drawable/popup_bottom_background"
         android:clickable="true">
 
