@@ -13,6 +13,9 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import io.fabric.sdk.android.Fabric;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.AWSFileUploader;
 import tv.sportssidekick.sportssidekick.model.purchases.PurchaseModel;
@@ -29,7 +32,9 @@ public class SSKApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
         initImageLoader(getApplicationContext());
+        initTwitter(getApplicationContext());
 
         // Initialize model and get all data that we need - TODO will be changed for GS
         Model.getInstance();
@@ -75,5 +80,10 @@ public class SSKApplication extends MultiDexApplication {
         config.writeDebugLogs(); //
         L.writeLogs(false);
         ImageLoader.getInstance().init(config.build());
+    }
+
+    public static void initTwitter(Context context){
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(Constant.TWITTER_KEY, Constant.TWITTER_SECRET);
+        Fabric.with(context, new Twitter(authConfig));
     }
 }

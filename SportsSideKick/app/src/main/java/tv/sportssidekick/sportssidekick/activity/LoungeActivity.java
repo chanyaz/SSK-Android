@@ -24,6 +24,7 @@ import com.facebook.share.widget.ShareDialog;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -393,6 +394,11 @@ public class LoungeActivity extends BillingActivity {
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             facebookShareDialog.show(linkContent);
         }
+    }
+
+    @Subscribe
+    public void onShareOnTwitterEvent(TweetComposer.Builder event){
+       event.show();
     }
 
     @Subscribe
