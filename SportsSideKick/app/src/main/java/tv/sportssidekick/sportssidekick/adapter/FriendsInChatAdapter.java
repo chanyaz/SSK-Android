@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -56,17 +57,17 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
         }
     }
 
-    private List<String> values;
+    private List<ChatInfo> values;
     private int cellSize;
     private int bubbleSize;
+
     public FriendsInChatAdapter(Context context) {
         values = new ArrayList<>();
         this.context = context;
-        cellSize =  (int) (Utility.getDisplayHeight(context)*0.18);
+        cellSize =  (int) (Utility.getDisplayHeight(context)*0.14);
         bubbleSize = (int) (cellSize/3);
     }
-
-    public void setValues(List<String> values) {
+    public void setValues(List<ChatInfo> values) {
         this.values = values;
     }
 
@@ -74,6 +75,8 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
     public int getItemViewType(int position) {
         return (position == values.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_CELL;
     }
+
+
 
     @Override
     public FriendsInChatAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
@@ -83,6 +86,9 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
         view.getLayoutParams().height = cellSize;
         view.getLayoutParams().width = cellSize;
         viewHolder = new ViewHolder(view);
+
+
+
         return viewHolder;
     }
 
@@ -91,11 +97,12 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
+        ChatInfo chat = values.get(position);
         if (holder.rowImage != null) {
-            ImageLoader.getInstance().displayImage(values.get(position), holder.rowImage, imageOptions);
+            ImageLoader.getInstance().displayImage(chat.getChatAvatarUrl(), holder.rowImage, imageOptions);
         }
         if (holder.rowName != null) {
-            holder.rowName.setText("Dummy test");
+            holder.rowName.setText(chat.getName());
         }
 
         if(holder.rowFriendsCountContainer!=null){
@@ -107,7 +114,11 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
         }
 
         if (holder.rowFriendsCount != null) {
-            holder.rowFriendsCount.setText("4");
+            int count = 0;
+            if(chat.getUsersIds()!=null){
+                count = chat.getUsersIds().size();
+            }
+            holder.rowFriendsCount.setText(String.valueOf(count));
         }
     }
 

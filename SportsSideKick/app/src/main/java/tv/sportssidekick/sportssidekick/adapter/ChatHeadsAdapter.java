@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -33,10 +32,9 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * Created by Filip on 12/14/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
- *
+ * <p>
  * Chat List Adapter for use in chat fragment
  */
-
 
 public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.ViewHolder> {
     private static final int VIEW_TYPE_FOOTER = 1;
@@ -47,13 +45,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     private int focusedItem = 0;
     private int focusedItemToEdit = -1;
 
-    private boolean isInGrid;
-
     private int selectedChatColor;
-
-    public void setInGrid(boolean inGrid) {
-        isInGrid = inGrid;
-    }
 
     public List<ChatInfo> getValues() {
         return values;
@@ -65,16 +57,19 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     }
 
     private List<ChatInfo> values;
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.chat_head_image_view) CircleImageView imageView;
-       // @Nullable @BindView(R.id.people_icon) ImageView peopleIcon;
-        @Nullable @BindView(R.id.notification_icon) ImageView notificationView;
-        @Nullable @BindView(R.id.selected) View selectedRingView;
-       // @Nullable @BindView(R.id.caption) TextView chatCaption;
-       // @Nullable @BindView(R.id.edit_button) TextView editButton;
-       // @Nullable @BindView(R.id.people_count_value) TextView userCount;
+        @Nullable
+        @BindView(R.id.chat_head_image_view)
+        CircleImageView imageView;
+        @Nullable
+        @BindView(R.id.notification_icon)
+        ImageView notificationView;
+        @Nullable
+        @BindView(R.id.selected)
+        View selectedRingView;
 
         ViewHolder(View v) {
             super(v);
@@ -85,7 +80,6 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
 
     public ChatHeadsAdapter(int selectedChatColor) {
         values = new ArrayList<>();
-        isInGrid = false;
         this.selectedChatColor = selectedChatColor;
     }
 
@@ -105,28 +99,14 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(isInGrid){
-                        if(focusedItemToEdit>-1 && focusedItemToEdit == focusedItem){
-                            FragmentEvent fragmentEvent = new FragmentEvent(ManageChatFragment.class);
-                            int position = viewHolder.getLayoutPosition();
-                            fragmentEvent.setId(values.get(position).getChatId());
-                            EventBus.getDefault().post(fragmentEvent);
-                        } else {
-                            focusedItemToEdit = viewHolder.getLayoutPosition();
-                            notifyItemChanged(focusedItem); // notify new item
-                        }
-                    } else {
                         notifyItemChanged(focusedItem);  // notify previous item!
                         focusedItem = viewHolder.getLayoutPosition();
                         notifyItemChanged(focusedItem); // notify new item
                         EventBus.getDefault().post(new UIEvent(focusedItem));
-                    }
-
                 }
             });
-            return  viewHolder;
-        }
-        else {
+            return viewHolder;
+        } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_chat_button, parent, false);
             viewHolder = new ViewHolder(view);
             view.setOnClickListener(
@@ -140,48 +120,33 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
         }
     }
 
-
-
-
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         if (position < values.size()) { // don't take the last element!
             final ChatInfo info = values.get(position);
-            int size = 1;
-            if(info.getUsersIds()!=null){
-                size =  info.getUsersIds().size();
-            } else {
-                Log.e(TAG, "Have no chatUsers yet!");
-            }
-           // holder.userCount.setText(String.valueOf(size));
-            DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
-            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.imageView,imageOptions);
-           // holder.chatCaption.setText(info.getChatTitle());
-            holder.view.setTag(position);
 
+            DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
+            if (holder.imageView != null) {
+                ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.imageView, imageOptions);
+            }
+            holder.view.setTag(position);
             int unreadMessageCount = info.unreadMessageCount();
             //Log.d(TAG, " *** Unread Message Count for chat" + info.getName() + " : " + unreadMessageCount);
 
-            if(unreadMessageCount>0){
-                holder.notificationView.setVisibility(View.VISIBLE);
-            } else {
-                holder.notificationView.setVisibility(View.GONE);
+            if (holder.notificationView != null) {
+                if (unreadMessageCount > 0) {
+                    holder.notificationView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.notificationView.setVisibility(View.GONE);
+                }
             }
-
-            if(focusedItem==position){
-             //  holder.selectedRingView.setVisibility(View.VISIBLE);
+            if (focusedItem == position) {
                 holder.imageView.setBorderColor(selectedChatColor);
             } else {
-             //  holder.selectedRingView.setVisibility(View.GONE);
                 holder.imageView.setBorderColor(Color.TRANSPARENT);
             }
-            int inGridVisibility = View.GONE;
-            if(isInGrid){
-                inGridVisibility = View.VISIBLE;
-            }
-           // holder.userCount.setVisibility(inGridVisibility);
-           // holder.peopleIcon.setVisibility(inGridVisibility);
+
         }
     }
 
@@ -193,8 +158,6 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             return 0;
         }
     }
-
-
 
     @Override
     public int getItemCount() {

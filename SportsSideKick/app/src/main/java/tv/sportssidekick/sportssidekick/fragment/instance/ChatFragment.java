@@ -303,11 +303,13 @@ public class ChatFragment extends BaseFragment {
                    //Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
 
                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                   ChatInfo.sortMessages(info.getMessages());
                    messageListView.setLayoutManager(layoutManager);
 
                    messageAdapter = new MessageAdapter(getContext(),info);
                    messageListView.setAdapter(messageAdapter);
                    messageListView.invalidate();
+                   messageListView.scrollToPosition(messageAdapter.getItemCount()-1);
                    return;
                } else {
                    Log.e(TAG, "Message array size is 0!");

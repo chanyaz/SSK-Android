@@ -232,15 +232,23 @@ public class ChatInfo {
                     Collections.sort(messages, new Comparator<ImsMessage>() {
                         @Override
                         public int compare(ImsMessage lhs, ImsMessage rhs) {
-                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
-                        }
-                    });
+                           return lhs.getTimestamp().compareTo(rhs.getTimestamp());
+                       }
+                   });
                     // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
                     break;
             }
         }
     }
 
+    public static void sortMessages(ArrayList<ImsMessage> messages){
+        Collections.sort(messages, new Comparator<ImsMessage>() {
+            @Override
+            public int compare(ImsMessage lhs, ImsMessage rhs) {
+                return lhs.getTimestamp().compareTo(rhs.getTimestamp());
+            }
+        });
+    }
 
     @Subscribe
     public void onEvent(NewMessagesEvent event){
