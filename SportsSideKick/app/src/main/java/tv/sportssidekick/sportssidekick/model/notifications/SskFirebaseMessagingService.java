@@ -32,7 +32,9 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            // Message data!
+            // Message data! - we have message data, display it:
+            sendNotification(remoteMessage);
+
         }
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
@@ -40,19 +42,16 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         }
         EventBus.getDefault().post(new ExternalNotificationEvent(false));
         //Extract data for display!
-        sendNotification("TODO");
     }
-
-
 
     /**
      * Create and show a simple notification containing the received FCM message.
      *
-     * @param messageBody FCM message body received.
-     */
-    private void sendNotification(String messageBody) {
+     * */
+    private void sendNotification(RemoteMessage remoteMessage) {
         Intent intent = new Intent(this, LoungeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("MY_CUSTOM_DATA","BLABLABLA");
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
@@ -60,7 +59,7 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo_ssk)
                 .setContentTitle("SSK Message")
-                .setContentText(messageBody)
+                .setContentText("BLABLABLA")
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
