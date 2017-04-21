@@ -27,7 +27,7 @@ import tv.sportssidekick.sportssidekick.adapter.RumoursTopFourNewsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
-import tv.sportssidekick.sportssidekick.util.GridSpacingItemDecoration;
+import tv.sportssidekick.sportssidekick.util.ui.GridSpacingItemDecoration;
 
 /**
  * Created by Djordje on 01/03/2017.

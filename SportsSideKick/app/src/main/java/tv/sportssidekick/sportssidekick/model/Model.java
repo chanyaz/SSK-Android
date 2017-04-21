@@ -18,6 +18,7 @@ import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -44,6 +45,12 @@ public class Model {
 
     private static final String TAG = "MODEL";
     private final ObjectMapper mapper; // jackson's object mapper
+    private String firebaseToken;
+
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
+        registerForPushNotifications();
+    }
 
     public enum LoggedInUserType {
         NONE, ANONYMOUS, REAL
@@ -114,20 +121,12 @@ public class Model {
         MessageHandler.getInstance().addDelegate(delegate);
     }
 
-
-    private String deviceToken; // TODO Not sure how this works!
-
-    private void registerForPushNotifications(){
-//        String authorizedEntity = PROJECT_ID; // Project id from Google Developer Console
-//        String scope = "GCM"; // e.g. communicating using GCM, but you can use any
-//        // URL-safe characters up to a maximum of 1000, or
-//        // you can also leave it blank.
-//        String token = InstanceID.getInstance(context).getToken(authorizedEntity,scope);
-        deviceToken = ""; // TODO How to initialize?
+    public void registerForPushNotifications(){
         Log.d(TAG, "Registering for push notifications");
+        firebaseToken =  FirebaseInstanceId.getInstance().getToken();
         GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
                 .setDeviceOS("ANDROID")
-                .setPushId(deviceToken)
+                .setPushId(firebaseToken)
                 .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.PushRegistrationResponse pushRegistrationResponse) {
@@ -510,7 +509,7 @@ public class Model {
         }
     }
 
-    private Task<UserInfo> refreshUserInfo(String userId){
+    public Task<UserInfo> refreshUserInfo(String userId){
         final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("getUserInfoById");

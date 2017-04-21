@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.util;
+package tv.sportssidekick.sportssidekick.util.ui;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

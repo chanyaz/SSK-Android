@@ -178,11 +178,11 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
                     List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
                     // Go trough all ChatInfo objects and load users and messages
-                    for (ChatInfo chat : chats) {
-                        String chatId = chat.getChatId();
-                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.PUBLIC_CHAT_DETECTED, chatId));
-                        addChatInfoToCache(chat);
-                    }
+//                    for (ChatInfo chat : chats) {
+//                        String chatId = chat.getChatId();
+//                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.PUBLIC_CHAT_DETECTED, chatId));
+//                        addChatInfoToCache(chat);
+//                    }
                     source.setResult(chats);
                 }
             }
@@ -191,6 +191,37 @@ public class ImsManager extends GSMessageHandlerAbstract{
             .setEventKey("imsGetPublicChatGroupList")
             .setEventAttribute(OFFSET,0)
             .send(consumer);
+        return source.getTask();
+    }
+
+    public Task<List<ChatInfo>> getAllPublicChatsUrFriendsAreIn() {
+        final TaskCompletionSource<List<ChatInfo>> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
+                    List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
+                    // Go trough all ChatInfo objects and load users and messages
+                    //TODO need info who users friends are to count them
+                    for(int i=0;i<chats.size();i++){
+                        ArrayList<String> idsToDelete = new ArrayList<>();
+                        for(int j=0;j<chats.get(i).getUsersIds().size();j++){
+                            if(chats.get(i).getUsersIds().get(j).equals(userId)){
+                                idsToDelete.add(chats.get(i).getUsersIds().get(j));
+                            }
+                        }
+                        chats.get(i).getUsersIds().removeAll(idsToDelete);
+                    }
+                    source.setResult(chats);
+                }
+            }
+        };
+        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+                .setEventKey("imsGetPublicChatGroupList")
+                .setEventAttribute(OFFSET,0)
+                .send(consumer);
         return source.getTask();
     }
 

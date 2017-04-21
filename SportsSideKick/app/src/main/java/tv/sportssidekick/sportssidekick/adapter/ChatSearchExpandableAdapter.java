@@ -21,8 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.util.AnimatedExpandableListView;
-import tv.sportssidekick.sportssidekick.util.LinearItemSpacing;
+import tv.sportssidekick.sportssidekick.util.ui.AnimatedExpandableListView;
+import tv.sportssidekick.sportssidekick.util.ui.LinearItemSpacing;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**

@@ -13,6 +13,10 @@ public class Constant {
     public static final String VIDEO_CHAT_TOKEN_URL = "https://ssk-vc-tokengen-production.herokuapp.com";
     public static final String RADIO_VOLUME = "RADIO_VOLUME";
 
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    public static final String TWITTER_KEY = "dTTwpATNlNQm57u4hnBbwrqr8";
+    public static final String TWITTER_SECRET = "w07PsNvp94YRx3XTnyRTetki7LyXFRNTFVBE8UfSNycBmWTNGE";
+
 
     public static final int REQUEST_CODE_CHAT_IMAGE_CAPTURE = 101;
     public static final int REQUEST_CODE_CHAT_IMAGE_PICK = 102;
@@ -25,4 +29,10 @@ public class Constant {
     public static final int REQUEST_CODE_POST_IMAGE_CAPTURE = 106;
     public static final int REQUEST_CODE_POST_IMAGE_PICK = 107;
     public static final int REQUEST_CODE_POST_VIDEO_CAPTURE = 108;
+
+    public static final String IS_FIRST_TIME = "IS_FIRST_TIME";
+
+    public static final String NOTIFICATION_MESSAGE = "message";
+    public static final String NOTIFICATION_TITLE = "title";
+    public static final String NOTIFICATION_BODY = "body";
 }

@@ -96,15 +96,19 @@
         android:id="@+id/bottom_split_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_60"
-        android:background="@android:color/black" />
+        android:background="@android:color/black"
+        android:layout_above="@+id/manage_chat_bottom_container"/>
+
+    <RelativeLayout
+        android:id="@+id/manage_chat_bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
+        android:layout_alignParentBottom="true">
 
     <Switch
         android:id="@+id/private_chat_switch"
         android:layout_width="@dimen/popup_manage_chat_private_chat_switch_width"
         android:layout_height="@dimen/popup_manage_chat_elemnt_height"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:gravity="center_vertical|center_horizontal" />
@@ -113,7 +117,6 @@
         android:id="@+id/private_chat_label"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/popup_manage_chat_elemnt_height"
-        android:layout_alignParentBottom="true"
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginStart="@dimen/margin_10"
         android:layout_toEndOf="@+id/private_chat_switch"
@@ -124,11 +127,10 @@
         android:id="@+id/confirm_button"
         android:layout_width="@dimen/popup_manage_chat_private_confirm_button_width"
         android:layout_height="@dimen/popup_manage_chat_private_confirm_button_height"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="@dimen/margin_15"
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_30"
+        android:layout_centerVertical="true"
         android:background="@drawable/popup_confirmation_button" />
-
+    </RelativeLayout>
 </RelativeLayout>

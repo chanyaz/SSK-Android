@@ -343,7 +343,7 @@
     <RelativeLayout
         android:id="@+id/bottom_buttons_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/popup_friend_request_bottom_buttons_container_height"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
         android:layout_alignParentStart="true"
         android:layout_alignWithParentIfMissing="true"
         android:layout_below="@+id/content_container"
@@ -392,7 +392,7 @@
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/margin_10"
             android:layout_marginEnd="@dimen/margin_10"
-            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/unfriend_button"
             android:text="@string/following_member"

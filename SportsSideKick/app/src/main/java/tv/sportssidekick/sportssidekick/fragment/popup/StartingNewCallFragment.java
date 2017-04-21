@@ -24,8 +24,8 @@ import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.AddUsersToCallEvent;
 import tv.sportssidekick.sportssidekick.service.StartCallEvent;
-import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
-import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
+import tv.sportssidekick.sportssidekick.util.ui.AutofitDecoration;
+import tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;

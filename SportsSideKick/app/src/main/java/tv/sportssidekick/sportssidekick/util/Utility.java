@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -32,10 +33,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.util.ui.SlideTextAnimation;
 
 /**
  * Created by Djordje Krutil on 6.12.2016..
@@ -288,6 +291,31 @@ public class Utility {
 
             e.printStackTrace();
         }
+    }
+
+
+    public static boolean checkIfBundlesAreEqual(Bundle one, Bundle two) {
+        if (one.size() != two.size())
+            return false;
+
+        Set<String> setOne = one.keySet();
+        Object valueOne;
+        Object valueTwo;
+
+        for (String key : setOne) {
+            valueOne = one.get(key);
+            valueTwo = two.get(key);
+            if (valueOne instanceof Bundle && valueTwo instanceof Bundle &&
+                    !checkIfBundlesAreEqual((Bundle) valueOne, (Bundle) valueTwo)) {
+                return false;
+            } else if (valueOne == null) {
+                if (valueTwo != null || !two.containsKey(key))
+                    return false;
+            } else if (!valueOne.equals(valueTwo))
+                return false;
+        }
+
+        return true;
     }
 
     public static List<UserInfo> filter(List<UserInfo> users, String query) {

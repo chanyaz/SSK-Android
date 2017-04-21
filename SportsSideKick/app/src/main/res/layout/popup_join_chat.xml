@@ -133,14 +133,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/chat_name_edit_text">
 
-            <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
+            <tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView
                 android:id="@+id/friends_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <tv.sportssidekick.sportssidekick.util.AnimatedExpandableListView
+        <tv.sportssidekick.sportssidekick.util.ui.AnimatedExpandableListView
             android:id="@+id/join_chat_search_result_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

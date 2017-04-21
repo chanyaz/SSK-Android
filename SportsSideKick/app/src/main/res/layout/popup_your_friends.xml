@@ -65,7 +65,7 @@
         android:layout_below="@id/top_buttons_container"
         android:background="@color/colorPrimarySemiLight">
 
-        <tv.sportssidekick.sportssidekick.util.AutofitRecyclerView
+        <tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -91,10 +91,11 @@
     <RelativeLayout
         android:id="@+id/bottom_buttons_container"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/popup_your_friends_bottom_buttons_container"
-        android:layout_alignParentBottom="true"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
         android:background="@drawable/popup_bottom_background"
-        android:clickable="true">
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <View
             android:id="@+id/bottom_split_line"
@@ -170,7 +171,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/margin_15"
-                android:layout_marginTop="@dimen/margin_15">
+                android:layout_marginTop="@dimen/margin_15"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -186,8 +188,7 @@
                     android:layout_centerInParent="true"
                     android:text="0"
                     android:textColor="@color/black"
-                    android:paddingBottom="2dp"
-                    android:textSize="20sp"
+                    android:textSize="19sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 

@@ -1,6 +1,5 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
-import android.app.ExpandableListActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -37,7 +36,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
-import tv.sportssidekick.sportssidekick.util.AnimatedExpandableListView;
+import tv.sportssidekick.sportssidekick.util.ui.AnimatedExpandableListView;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -93,15 +92,15 @@ public class JoinChatFragment extends BaseFragment {
         //TODO List for public chat ur friends are in
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewFriendsIn.setLayoutManager(linearLayoutManager);
-        FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
+
         //TODO TESTING - NOT REAL DATA
-        List<String> values = new ArrayList<>();
-        values.add("Test 1");
-        values.add("Test 2");
-        values.add("Test 3");
-        values.add("Test 4");
-        friendsInChatAdapter.setValues(values);
-        recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
+//        List<String> values = new ArrayList<>();
+//        values.add("Test 1");
+//        values.add("Test 2");
+//        values.add("Test 3");
+//        values.add("Test 4");
+//        friendsInChatAdapter.setValues(values);
+//        recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
 
         //TODO TESTING - NOT REAL DATA
         List<String> parents = new ArrayList<>();
@@ -131,7 +130,7 @@ public class JoinChatFragment extends BaseFragment {
         recyclerViewSearchResult.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                if(groupPosition != lastExpandedGroupPosition){
+                if (groupPosition != lastExpandedGroupPosition) {
                     recyclerViewSearchResult.collapseGroup(lastExpandedGroupPosition);
                 }
                 lastExpandedGroupPosition = groupPosition;
@@ -139,8 +138,11 @@ public class JoinChatFragment extends BaseFragment {
         });
         //endregion
 
-        Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChats();
-        task.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
+
+        //TODO This chats doesn't belong here. We need other chats here like on IOS ???
+        //TODO btw this cause wrong information in Chat Head adapter
+        Task<List<ChatInfo>> taskAllChats = ImsManager.getInstance().getAllPublicChats();
+        taskAllChats.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
             @Override
             public void onComplete(@NonNull Task<List<ChatInfo>> task) {
                 if (task.isSuccessful()) {
@@ -148,6 +150,21 @@ public class JoinChatFragment extends BaseFragment {
                     chatsAdapter.add(task.getResult());
                     searchEditText.addTextChangedListener(textWatcher);
                     recyclerView.setAdapter(chatsAdapter);
+                }
+            }
+        });
+
+        Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChatsUrFriendsAreIn();
+        task.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<ChatInfo>> task) {
+                if (task.isSuccessful()) {
+                    FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
+                    friendsInChatAdapter.setValues(task.getResult());
+                    recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
+
+                    chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
+                    chatsAdapter.add(task.getResult());
                 }
             }
         });

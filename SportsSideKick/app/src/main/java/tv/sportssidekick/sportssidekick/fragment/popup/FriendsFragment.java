@@ -29,8 +29,8 @@ import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendRequest;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.util.AutofitDecoration;
-import tv.sportssidekick.sportssidekick.util.AutofitRecyclerView;
+import tv.sportssidekick.sportssidekick.util.ui.AutofitDecoration;
+import tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
