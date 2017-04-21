@@ -1,5 +1,7 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,11 +20,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
@@ -43,6 +48,7 @@ import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
 import tv.sportssidekick.sportssidekick.service.GetCommentsCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostCommentCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
+import tv.sportssidekick.sportssidekick.service.TutorialCompleteEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -123,6 +129,13 @@ public class WallItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.tutorial_bottom_message)
     TextView bottomMessage;
+    @Nullable
+    @BindView(R.id.share_icon)
+    ImageView shareButton;
+
+    @Nullable
+    @BindView(R.id.share_buttons_container)
+    LinearLayout shareButtons;
 
     CommentsAdapter commentsAdapter;
     WallBase item;
@@ -145,6 +158,24 @@ public class WallItemFragment extends BaseFragment {
         commetsList.setAdapter(commentsAdapter);
 
         pinContainer.setVisibility(View.GONE);
+
+        shareButton.setOnTouchListener(new View.OnTouchListener()
+        {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if (event.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    shareButtons.setVisibility(View.VISIBLE);
+                }
+                else if (event.getAction() == MotionEvent.ACTION_UP)
+                {
+                    shareButtons.setVisibility(View.GONE);
+                }
+                return false;
+            }
+        });
 
         item = WallBase.getCache().get(id);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
@@ -185,6 +216,15 @@ public class WallItemFragment extends BaseFragment {
                 ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());
+
+                commentsCount.setText(String.valueOf(news.getCommentsCount()));
+                likesCount.setText(String.valueOf(news.getLikeCount()));
+                shareCount.setText(String.valueOf(news.getShareCount()));
+                if (news.isLikedByUser()) {
+                    likesIcon.setVisibility(View.GONE);
+                    likesIconLiked.setVisibility(View.VISIBLE);
+                }
+
                 break;
             case betting:
                 break;
@@ -198,8 +238,10 @@ public class WallItemFragment extends BaseFragment {
             case tip:
                 WallTip tip = (WallTip) item;
                 tip.markAsSeen();
+                EventBus.getDefault().post(new TutorialCompleteEvent());
                 TutorialStepAdapter adapter = new TutorialStepAdapter();
                 adapter.getWallSteps().addAll(tip.getTipSteps());
+
                 commetsList.setAdapter(adapter);
 
                 buttonsContaner.setVisibility(View.GONE);
@@ -250,12 +292,6 @@ public class WallItemFragment extends BaseFragment {
         commentsAdapter.notifyDataSetChanged();
     }
 
-
-    @OnClick(R.id.share_icon)
-    public void sharePost(View view) {
-        SharingManager.getInstance().share(item, true, SharingManager.ShareTarget.facebook, view);
-    }
-
     @OnClick(R.id.post_post_button)
     public void newPost() {
         PostComment comment = new PostComment();
@@ -298,6 +334,27 @@ public class WallItemFragment extends BaseFragment {
             commentsCount.setText(String.valueOf(post.getCommentsCount()));
             likesCount.setText(String.valueOf(post.getLikeCount()));
             shareCount.setText(String.valueOf(post.getShareCount()));
+        }
+    }
+
+    @OnClick(R.id.share_facebook)
+    public void sharePostFacebook(View view) {
+        SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
+    }
+
+    @OnClick(R.id.share_twitter)
+    public void sharePostTwitter(View view) {
+        PackageManager pkManager = getActivity().getPackageManager();
+        try {
+            PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
+            String getPkgInfo = pkgInfo.toString();
+
+            if (getPkgInfo.contains("com.twitter.android"))   {
+                SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Please install Twitter application", Toast.LENGTH_LONG).show();
         }
     }
 }

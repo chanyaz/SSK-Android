@@ -651,4 +651,10 @@ public class WallFragment extends BaseFragment {
             }
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNextTip();
+    }
 }

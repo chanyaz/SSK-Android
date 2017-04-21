@@ -1,5 +1,7 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -114,19 +117,30 @@ public class NewsItemFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    @OnClick(R.id.share_icon)
-    public void sharePost(View view) {
-        SharingManager.getInstance().share(item, true, SharingManager.ShareTarget.facebook, view);
-    }
+//    @OnClick(R.id.share_icon)
+//    public void sharePost(View view) {
+//        SharingManager.getInstance().share(getContext(), item, true, SharingManager.ShareTarget.facebook, view);
+//    }
 
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook(View view) {
-        SharingManager.getInstance().share(item, false, SharingManager.ShareTarget.facebook, view);
+        SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
     }
 
     @OnClick(R.id.share_twitter)
     public void sharePostTwitter(View view) {
-        SharingManager.getInstance().share(item, false, SharingManager.ShareTarget.twitter, view);
+        PackageManager pkManager = getActivity().getPackageManager();
+        try {
+            PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
+            String getPkgInfo = pkgInfo.toString();
+
+            if (getPkgInfo.contains("com.twitter.android"))   {
+                SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Please install Twitter application", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

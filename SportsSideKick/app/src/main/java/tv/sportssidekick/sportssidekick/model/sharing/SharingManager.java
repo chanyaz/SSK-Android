@@ -103,36 +103,44 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                 builder.url(url);
             }
         }
-
-        if(response.containsKey("image")){
-            String image = (String) response.get("image");
-            //TODO If u want to shate image u must have image in cache, if not u must load picture  (because twitter only accept images directly from phone storage)
-//            ImageLoader.getInstance().loadImage("https://dummyimage.com/600x400/000/fff&text=TEST", Utility.getImageOptionsForWallItem(), new ImageLoadingListener() {
-//                @Override
-//                public void onLoadingStarted(String imageUri, View view) {}
-//
-//                @Override
-//                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {}
-//
-//                @Override
-//                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-//                    File file = DiskCacheUtils.findInCache(imageUri, ImageLoader.getInstance().getDiscCache());
-//                    File path = file.getAbsoluteFile();
-//                    Uri imageUrl =  Uri.parse(path.getAbsolutePath());
-//                    builder.image(imageUrl);
-//                    EventBus.getDefault().post(builder);
-//                }
-//
-//                @Override
-//                public void onLoadingCancelled(String imageUri, View view) {}
-//            });
-            Uri imageUrl =  Uri.parse(image);
-            builder.image(imageUrl);
-        }
         if(response.containsKey("title")){
             String title = (String) response.get("title");
             builder.text(title);
         }
+
+        if(response.containsKey("image")){
+            String image = (String) response.get("image");
+            //TODO If u want to shate image u must have image in cache, if not u must load picture  (because twitter only accept images directly from phone storage)
+            ImageLoader.getInstance().loadImage(image, Utility.getImageOptionsForWallItem(), new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {}
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    EventBus.getDefault().post(builder);
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    File file = DiskCacheUtils.findInCache(imageUri, ImageLoader.getInstance().getDiscCache());
+                    File path = file.getAbsoluteFile();
+                    Uri imageUrl =  Uri.parse(path.getAbsolutePath());
+                    builder.image(imageUrl);
+                    EventBus.getDefault().post(builder);
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+                    EventBus.getDefault().post(builder);
+                }
+            });
+//            Uri imageUrl =  Uri.parse(image);
+//            builder.image(imageUrl);
+        }
+        else {
+            EventBus.getDefault().post(builder);
+        }
+
     }
 
     private void presentFacebook(Map<String,Object> response){
