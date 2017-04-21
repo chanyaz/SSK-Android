@@ -6,8 +6,11 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -83,6 +86,7 @@ import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.service.NotificationReceivedEvent;
 import tv.sportssidekick.sportssidekick.util.BlurBuilder;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -148,6 +152,9 @@ public class LoungeActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     ShareDialog facebookShareDialog;
+
+    @BindView(R.id.left_notification_container)
+    RelativeLayout notificationContainer;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -358,8 +365,8 @@ public class LoungeActivity extends AppCompatActivity {
     public void onBackPressed() {
         toggleBlur(false); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-        if(fragmentOrganizer.getOpenFragment() instanceof JoinChatFragment ||
-                fragmentOrganizer.getOpenFragment() instanceof CreateChatFragment){
+        if (fragmentOrganizer.getOpenFragment() instanceof JoinChatFragment ||
+                fragmentOrganizer.getOpenFragment() instanceof CreateChatFragment) {
             hideSlidePopupFragmentContainer();
         }
         if (!fragmentOrganizer.handleBackNavigation()) {
@@ -383,14 +390,14 @@ public class LoungeActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onShareOnFacebookEvent(ShareLinkContent linkContent){
+    public void onShareOnFacebookEvent(ShareLinkContent linkContent) {
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             facebookShareDialog.show(linkContent);
         }
     }
 
     @Subscribe
-    public void onShareNativeEvent(NativeShareEvent event){
+    public void onShareNativeEvent(NativeShareEvent event) {
         startActivity(Intent.createChooser(event.getIntent(), getResources().getString(R.string.share_using)));
     }
 
@@ -478,15 +485,17 @@ public class LoungeActivity extends AppCompatActivity {
         }
     }
 
-    public void hideSlidePopupFragmentContainer(){
-        popupSlideFragmentContainerVisibility(View.GONE,R.anim.slide_in_right);
+    public void hideSlidePopupFragmentContainer() {
+        popupSlideFragmentContainerVisibility(View.GONE, R.anim.slide_in_right);
     }
 
-    public void showSlidePopupFragmentContainer(){
-        popupSlideFragmentContainerVisibility(View.VISIBLE,R.anim.slide_in_left);
+    public void showSlidePopupFragmentContainer() {
+        popupSlideFragmentContainerVisibility(View.VISIBLE, R.anim.slide_in_left);
     }
+
     Animation animation;
-    private void popupSlideFragmentContainerVisibility(int visibility,int anim){
+
+    private void popupSlideFragmentContainerVisibility(int visibility, int anim) {
         animation = AnimationUtils.loadAnimation(this, anim);
         slideFragmentContainer.startAnimation(animation);
         slideFragmentContainer.setVisibility(visibility);
@@ -496,5 +505,79 @@ public class LoungeActivity extends AppCompatActivity {
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Subscribe
+    public void onNewNotification(NotificationReceivedEvent event) {
+        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = vi.inflate(R.layout.notification_row, null);
+
+        TextView title = (TextView) v.findViewById(R.id.notification_title);
+        title.setText(event.getTitle());
+
+        TextView description = (TextView) v.findViewById(R.id.notification_description);
+        description.setText(event.getDescription());
+
+        switch (event.getType()) {
+            case 1:
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new FragmentEvent(FriendsFragment.class));
+                    }
+                });
+                break;
+            case 2:
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new FragmentEvent(FollowersFragment.class));
+                    }
+                });
+                break;
+            case 3:
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
+                    }
+                });
+                break;
+        }
+        showNotification(v, event.getCloseTIme());
+    }
+
+    private void showNotification(final View v, int time) {
+        notificationContainer.addView(v, 0);
+
+        Animation animationShow = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_left);
+        v.startAnimation(animationShow);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                hideNotification(v);
+            }
+        }, time * 1000);
+    }
+
+    private void hideNotification(final View v) {
+        Animation animationHide = AnimationUtils.loadAnimation(this, R.anim.slide_out_to_left);
+        v.startAnimation(animationHide);
+        animationHide.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation arg0) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+//                notificationContainer.removeView(v);
+                v.setVisibility(View.GONE);
+            }
+        });
     }
 }

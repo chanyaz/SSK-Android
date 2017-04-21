@@ -10,11 +10,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,7 +52,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class NewsItemFragment extends BaseFragment{
+public class NewsItemFragment extends BaseFragment {
 
     private static final String TAG = "NewsItemFragment";
     @BindView(R.id.content_image)
@@ -91,6 +93,19 @@ public class NewsItemFragment extends BaseFragment{
     @Nullable
     @BindView(R.id.share_count)
     TextView shareCount;
+    @Nullable
+    @BindView(R.id.share_icon)
+    ImageView shareButton;
+
+    @Nullable
+    @BindView(R.id.share_buttons_container)
+    LinearLayout shareButtons;
+    @Nullable
+    @BindView(R.id.share_facebook)
+    ImageView shareFacebookButton;
+    @Nullable
+    @BindView(R.id.share_twitter)
+    ImageView shareTwitterButton;
 
     CommentsAdapter commentsAdapter;
     WallNews item;
@@ -100,8 +115,18 @@ public class NewsItemFragment extends BaseFragment{
     }
 
     @OnClick(R.id.share_icon)
-    public void sharePost(View view){
-        SharingManager.getInstance().share(item,true,SharingManager.ShareTarget.facebook,view);
+    public void sharePost(View view) {
+        SharingManager.getInstance().share(item, true, SharingManager.ShareTarget.facebook, view);
+    }
+
+    @OnClick(R.id.share_facebook)
+    public void sharePostFacebook(View view) {
+        SharingManager.getInstance().share(item, false, SharingManager.ShareTarget.facebook, view);
+    }
+
+    @OnClick(R.id.share_twitter)
+    public void sharePostTwitter(View view) {
+        SharingManager.getInstance().share(item, false, SharingManager.ShareTarget.twitter, view);
     }
 
     @Override
@@ -118,20 +143,19 @@ public class NewsItemFragment extends BaseFragment{
 
 
         NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
-        if(id.contains("UNOFFICIAL$$$")){
-            id = id.replace("UNOFFICIAL$$$","");
-             type = NewsModel.NewsType.UNOFFICIAL;
+        if (id.contains("UNOFFICIAL$$$")) {
+            id = id.replace("UNOFFICIAL$$$", "");
+            type = NewsModel.NewsType.UNOFFICIAL;
         }
-        item = NewsModel.getInstance().getCachedItemById(id,type);
+        item = NewsModel.getInstance().getCachedItemById(id, type);
 
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         ImageLoader.getInstance().displayImage(item.getCoverImageUrl(), imageHeader, imageOptions);
         title.setText(item.getTitle());
         String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS);
-        if (item.getSubTitle() != null)
-        {
+        if (item.getSubTitle() != null) {
             strap.setText(item.getSubTitle() + " - " + time);
-        }else {
+        } else {
             strap.setText(time);
         }
 
@@ -145,8 +169,7 @@ public class NewsItemFragment extends BaseFragment{
         commentsCount.setText(String.valueOf(item.getCommentsCount()));
         likesCount.setText(String.valueOf(item.getLikeCount()));
         shareCount.setText(String.valueOf(item.getShareCount()));
-        if (item.isLikedByUser())
-        {
+        if (item.isLikedByUser()) {
             likesIcon.setVisibility(View.GONE);
             likesIconLiked.setVisibility(View.VISIBLE);
         }
@@ -175,6 +198,24 @@ public class NewsItemFragment extends BaseFragment{
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
+            }
+        });
+
+        shareButton.setOnTouchListener(new View.OnTouchListener()
+        {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if (event.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    shareButtons.setVisibility(View.VISIBLE);
+                }
+                else if (event.getAction() == MotionEvent.ACTION_UP)
+                {
+                    shareButtons.setVisibility(View.GONE);
+                }
+                return false;
             }
         });
         return view;
@@ -208,27 +249,23 @@ public class NewsItemFragment extends BaseFragment{
     }
 
     @OnClick(R.id.likes_icon)
-    public void likePost()
-    {
+    public void likePost() {
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
         likesIconLiked.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.likes_icon_liked)
-    public void unLikePost()
-    {
+    public void unLikePost() {
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
         likesIconLiked.setVisibility(View.GONE);
     }
 
     @Subscribe
-    public void onPostUpdate(PostUpdateEvent event)
-    {
+    public void onPostUpdate(PostUpdateEvent event) {
         WallBase post = event.getPost();
-        if ((post!=null))
-        {
+        if ((post != null)) {
             commentsCount.setText(String.valueOf(post.getCommentsCount()));
             likesCount.setText(String.valueOf(post.getLikeCount()));
             shareCount.setText(String.valueOf(post.getShareCount()));
@@ -236,8 +273,7 @@ public class NewsItemFragment extends BaseFragment{
     }
 
     @OnClick(R.id.pin_icon)
-    public void pinToWall()
-    {
+    public void pinToWall() {
         AlertDialogManager.getInstance().showAlertDialog("Post this to your wall?", "Would you like to post this to your wall?",
                 new View.OnClickListener() {// Cancel
                     @Override

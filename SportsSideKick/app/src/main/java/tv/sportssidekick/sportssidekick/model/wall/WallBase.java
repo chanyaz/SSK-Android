@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import tv.sportssidekick.sportssidekick.model.sharing.Shareable;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
+import tv.sportssidekick.sportssidekick.model.tutorial.WallTip;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
@@ -120,6 +121,10 @@ public abstract class WallBase implements Shareable {
                     break;
                 case wallStoreItem:
                     typeReference = new TypeReference<WallStoreItem>() {
+                    };
+                    break;
+                case tip:
+                    typeReference = new TypeReference<WallTip>() {
                     };
             }
             WallBase item = mapper.convertValue(wallItem, typeReference);
@@ -313,6 +318,7 @@ public abstract class WallBase implements Shareable {
         rumor,
         wallStoreItem,
         newsOfficial,
-        newsUnOfficial
+        newsUnOfficial,
+        tip
     }
 }

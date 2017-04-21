@@ -17,4 +17,12 @@ public class WallStep {
         this.stepText = stepText;
         this.stepIcon = stepIcon;
     }
+
+    public String getStepText() {
+        return stepText;
+    }
+
+    public Drawable getStepIcon() {
+        return stepIcon;
+    }
 }

@@ -1,9 +1,12 @@
 package tv.sportssidekick.sportssidekick.model.tutorial;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.List;
 
+import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 
@@ -13,6 +16,8 @@ import tv.sportssidekick.sportssidekick.model.wall.WallBase;
  * www.hypercubesoft.com
  */
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
 public class WallTip extends WallBase {
 
     private int tipNumber;

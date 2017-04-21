@@ -18,28 +18,29 @@ public class TutorialModel {
 
     private List<WallTip> tutorialItems;
 
-    private TutorialModel(){}
+    private TutorialModel() {
+    }
 
     private static TutorialModel instance;
 
-    public static TutorialModel getInstance(){
-        if(instance==null){
+    public static TutorialModel getInstance() {
+        if (instance == null) {
             instance = new TutorialModel();
         }
         return instance;
     }
 
-    public void initialize(Context context){
+    public void initialize(Context context) {
         tutorialItems = new ArrayList<>();
 
         List<WallStep> wallSteps = new ArrayList<>();
         /* TIP 1: wall steps */
-       wallSteps.add(new WallStep(
+        wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_1_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_friends)
         ));
         wallSteps.add(new WallStep(
-            context.getResources().getString(R.string.tip_1_step_2),
+                context.getResources().getString(R.string.tip_1_step_2),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_sportingcp)
         ));
         wallSteps.add(new WallStep(
@@ -56,9 +57,9 @@ public class TutorialModel {
                 context.getResources().getString(R.string.tip_1_end),
                 5));
 
+        /* TIP 2: wall steps */
         wallSteps = new ArrayList<>();
 
-        /* TIP 2: wall steps */
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_2_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_chat)
@@ -82,6 +83,8 @@ public class TutorialModel {
                 5));
 
         /* TIP 3: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_3_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_tv)
@@ -109,6 +112,8 @@ public class TutorialModel {
                 5));
 
         /* TIP 4: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_4_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_news)
@@ -132,6 +137,7 @@ public class TutorialModel {
                 5));
 
          /* TIP 5: wall steps */
+        wallSteps = new ArrayList<>();
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_5_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_rumour)
@@ -151,6 +157,8 @@ public class TutorialModel {
                 5));
 
          /* TIP 6: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_6_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_stats)
@@ -174,6 +182,8 @@ public class TutorialModel {
                 5));
 
        /* TIP 7: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_7_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_profile)
@@ -201,6 +211,8 @@ public class TutorialModel {
                 5));
 
        /* TIP 8: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_8_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_friends)
@@ -232,6 +244,8 @@ public class TutorialModel {
                 5));
 
        /* TIP 9: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_9_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_chat)
@@ -266,6 +280,8 @@ public class TutorialModel {
                 context.getResources().getString(R.string.tip_9_end),
                 5));
      /* TIP 10: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_10_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_news)
@@ -292,6 +308,8 @@ public class TutorialModel {
                 context.getResources().getString(R.string.tip_10_end),
                 5));
          /* TIP 11: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_11_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_videochat)
@@ -314,6 +332,8 @@ public class TutorialModel {
                 context.getResources().getString(R.string.tip_11_end),
                 5));
       /* TIP 12: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_12_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_pin)
@@ -344,6 +364,8 @@ public class TutorialModel {
                 context.getResources().getString(R.string.tip_12_end),
                 5));
       /* TIP 13: wall steps */
+        wallSteps = new ArrayList<>();
+
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_13_step_1),
                 ContextCompat.getDrawable(context, R.drawable.tutorialicon_store)
@@ -362,5 +384,9 @@ public class TutorialModel {
                 context.getResources().getString(R.string.tip_13_end),
                 5));
 
+    }
+
+    public List<WallTip> getTutorialItems() {
+        return tutorialItems;
     }
 }

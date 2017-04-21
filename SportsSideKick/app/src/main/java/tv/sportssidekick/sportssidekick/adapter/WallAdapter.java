@@ -34,6 +34,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallItemFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.tutorial.WallTip;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallNews;
@@ -129,6 +130,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 break;
             case rumor:
                 viewResourceId = R.layout.wall_item_rumour_new;
+                break;
+            case tip:
+                viewResourceId = R.layout.wall_item_tip;
                 break;
             case wallStoreItem:
                 viewResourceId = R.layout.wall_item_shop_new;
@@ -259,6 +263,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 WallNews rumour = (WallNews) values.get(position);
                 if (holder.captionTextView != null) {
                     holder.captionTextView.setText(rumour.getTitle());
+                }
+                break;
+            case tip:
+                WallTip tip = (WallTip) values.get(position);
+                if (holder.descriptionTextView != null) {
+                    holder.descriptionTextView.setText(tip.getTipDescription());
                 }
                 break;
             case wallStoreItem:

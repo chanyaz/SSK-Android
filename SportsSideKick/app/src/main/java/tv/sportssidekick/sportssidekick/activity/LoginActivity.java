@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -22,6 +23,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.InitialFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.LoginFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.SignUpFragment;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.service.NotificationReceivedEvent;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -34,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     FragmentOrganizer loginFragmentOrganizer;
     @BindView(R.id.login_container) View fragmentContainer;
     @BindView(R.id.progress_bar) View progressBar;
+
 
     @Override
     protected void attachBaseContext(Context newBase) {

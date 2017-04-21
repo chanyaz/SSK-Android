@@ -29,9 +29,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.CommentsAdapter;
+import tv.sportssidekick.sportssidekick.adapter.TutorialStepAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
+import tv.sportssidekick.sportssidekick.model.tutorial.WallTip;
 import tv.sportssidekick.sportssidekick.model.wall.PostComment;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallModel;
@@ -94,6 +96,34 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.pin_container)
     LinearLayout pinContainer;
 
+    @Nullable
+    @BindView(R.id.top_buttons_contaniner)
+    LinearLayout buttonsContaner;
+    @Nullable
+    @BindView(R.id.header_container)
+    RelativeLayout headerContainer;
+    @Nullable
+    @BindView(R.id.top_horizontal_split_line)
+    View topSplitLine;
+    @Nullable
+    @BindView(R.id.bottom_horizontal_split_line)
+    View bottomSplitLine;
+    @Nullable
+    @BindView(R.id.tutorial_container)
+    LinearLayout tutorialContainer;
+    @Nullable
+    @BindView(R.id.tutorial_title)
+    TextView tutorialTitle;
+    @Nullable
+    @BindView(R.id.tutorial_description)
+    TextView tutorialDescription;
+    @Nullable
+    @BindView(R.id.tutorial_container_bottom)
+    LinearLayout bottomTutorialContainer;
+    @Nullable
+    @BindView(R.id.tutorial_bottom_message)
+    TextView bottomMessage;
+
     CommentsAdapter commentsAdapter;
     WallBase item;
 
@@ -144,8 +174,7 @@ public class WallItemFragment extends BaseFragment {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
                 likesCount.setText(String.valueOf(post.getLikeCount()));
                 shareCount.setText(String.valueOf(post.getShareCount()));
-                if (post.isLikedByUser())
-                {
+                if (post.isLikedByUser()) {
                     likesIcon.setVisibility(View.GONE);
                     likesIconLiked.setVisibility(View.VISIBLE);
                 }
@@ -165,6 +194,24 @@ public class WallItemFragment extends BaseFragment {
                 WallStoreItem storeItem = (WallStoreItem) item;
                 ImageLoader.getInstance().displayImage(storeItem.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(storeItem.getTitle());
+                break;
+            case tip:
+                WallTip tip = (WallTip) item;
+                tip.markAsSeen();
+                TutorialStepAdapter adapter = new TutorialStepAdapter();
+                adapter.getWallSteps().addAll(tip.getTipSteps());
+                commetsList.setAdapter(adapter);
+
+                buttonsContaner.setVisibility(View.GONE);
+                headerContainer.setVisibility(View.GONE);
+                topSplitLine.setVisibility(View.GONE);
+                bottomSplitLine.setVisibility(View.GONE);
+                content.setVisibility(View.GONE);
+                tutorialContainer.setVisibility(View.VISIBLE);
+                tutorialTitle.setText(tip.getTipTittle());
+                tutorialDescription.setText(tip.getTipDescription());
+                bottomTutorialContainer.setVisibility(View.VISIBLE);
+                bottomMessage.setText(tip.getTipEnding());
                 break;
         }
 
@@ -204,10 +251,9 @@ public class WallItemFragment extends BaseFragment {
     }
 
 
-
     @OnClick(R.id.share_icon)
-    public void sharePost(View view){
-        SharingManager.getInstance().share(item,true,SharingManager.ShareTarget.facebook,view);
+    public void sharePost(View view) {
+        SharingManager.getInstance().share(item, true, SharingManager.ShareTarget.facebook, view);
     }
 
     @OnClick(R.id.post_post_button)
@@ -232,27 +278,23 @@ public class WallItemFragment extends BaseFragment {
     }
 
     @OnClick(R.id.likes_icon)
-    public void likePost()
-    {
+    public void likePost() {
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
         likesIconLiked.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.likes_icon_liked)
-    public void unLikePost()
-    {
+    public void unLikePost() {
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
         likesIconLiked.setVisibility(View.GONE);
     }
 
     @Subscribe
-    public void onPostUpdate(PostUpdateEvent event)
-    {
+    public void onPostUpdate(PostUpdateEvent event) {
         WallBase post = event.getPost();
-        if ((post!=null))
-        {
+        if ((post != null)) {
             commentsCount.setText(String.valueOf(post.getCommentsCount()));
             likesCount.setText(String.valueOf(post.getLikeCount()));
             shareCount.setText(String.valueOf(post.getShareCount()));

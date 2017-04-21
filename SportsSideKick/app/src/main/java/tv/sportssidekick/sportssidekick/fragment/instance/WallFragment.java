@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +38,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
@@ -60,6 +63,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.tutorial.TutorialModel;
+import tv.sportssidekick.sportssidekick.model.tutorial.WallTip;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallBetting;
@@ -165,13 +169,13 @@ public class WallFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
+
+        TutorialModel.getInstance().initialize(getActivity());
+
         wallItems = new ArrayList<>();
         wallItems.addAll(WallBase.getCache().values());
         filteredItems = new ArrayList<>();
         WallModel.getInstance();
-
-        TutorialModel.getInstance().initialize(getActivity());
-
         isNewPostVisible = false;
         isFilterVisible = false;
         isSearchVisible = false;
@@ -536,6 +540,7 @@ public class WallFragment extends BaseFragment {
         progressBar.setVisibility(View.GONE);
         //adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
+        getNextTip();
     }
 
     @Subscribe
@@ -614,6 +619,36 @@ public class WallFragment extends BaseFragment {
             WallModel.getInstance().mbPost(newPost);
         } else {
             Toast.makeText(getContext(),"Please enter some text for post!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getNextTip()
+    {
+        WallTip tip = null;
+
+        if (TutorialModel.getInstance().getTutorialItems() != null)
+        {
+            for (int i = 0; i < TutorialModel.getInstance().getTutorialItems().size(); i++)
+            {
+                if (!TutorialModel.getInstance().getTutorialItems().get(i).hasBeenSeen())
+                {
+                    tip = TutorialModel.getInstance().getTutorialItems().get(i);
+                    break;
+                }
+            }
+        }
+
+        if (Model.getInstance().getUserInfo() != null && Model.getInstance().getUserInfo().getUserType() == UserInfo.UserType.fan)
+        {
+            if (tip!=null)
+            {
+                tip.setType(WallBase.PostType.tip);
+                tip.setTimestamp((double)System.currentTimeMillis()/1000);
+                tip.setPostId(Model.getInstance().getUserInfo().getUserId());
+                WallBase.getCache().put(tip.getPostId(), tip);
+                wallItems.add(tip);
+                EventBus.getDefault().post(new PostUpdateEvent(tip));
+            }
         }
     }
 }

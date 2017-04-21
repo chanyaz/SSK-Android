@@ -121,6 +121,13 @@
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
+            <RelativeLayout
+                android:id="@+id/left_notification_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+
         </RelativeLayout>
 
         <!-- ADS CONTAINER -->
@@ -201,11 +208,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_right_container"
+            android:layout_marginBottom="@dimen/margin_8"
             android:layout_marginStart="@dimen/half_margin"
             android:layout_toEndOf="@+id/middle_split"
             android:layout_toStartOf="@+id/right_tab_selector"
-            android:background="@color/green_dark_1"
-            android:layout_marginBottom="@dimen/margin_8"/>
+            android:background="@color/green_dark_1" />
 
         <!-- CLUB CONTAINER -->
         <RelativeLayout
@@ -460,11 +467,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/circle_shape"
-                            android:visibility="invisible"
                             android:indeterminate="false"
                             android:max="100"
                             android:progress="65"
-                            android:progressDrawable="@drawable/circular_progress_bar" />
+                            android:progressDrawable="@drawable/circular_progress_bar"
+                            android:visibility="invisible" />
                     </RelativeLayout>
 
                 </RelativeLayout>
@@ -473,13 +480,13 @@
                     android:id="@+id/user_level_background"
                     android:layout_width="@dimen/profile_level_marker_size"
                     android:layout_height="@dimen/profile_level_marker_size"
-                    android:visibility="invisible"
                     android:layout_alignEnd="@id/profile_image_container"
                     android:layout_alignStart="@id/profile_image_container"
                     android:layout_below="@id/profile_image_container"
                     android:layout_marginTop="-20dp"
                     android:contentDescription="@string/image"
-                    android:src="@drawable/next_level_marker" />
+                    android:src="@drawable/next_level_marker"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/user_level"
@@ -487,14 +494,14 @@
                     android:layout_height="@dimen/profile_level_marker_size"
                     android:layout_alignEnd="@id/profile_image_container"
                     android:layout_alignStart="@id/profile_image_container"
-                    android:visibility="invisible"
                     android:layout_below="@id/profile_image_container"
                     android:layout_marginTop="-19dp"
                     android:gravity="center"
-                    android:textSize="10sp"
                     android:text="0"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/profile_name"
@@ -525,8 +532,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:orientation="vertical"
             android:layout_below="@+id/video_tab_radio_group"
+            android:orientation="vertical"
             android:weightSum="1">
 
             <ImageView
@@ -536,11 +543,11 @@
                 android:layout_marginBottom="@dimen/margin_10"
                 android:layout_marginLeft="@dimen/margin_20"
                 android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_weight="0.5"
                 android:adjustViewBounds="true"
                 android:onClick="onFriendsButtonClick"
-                android:src="@drawable/icon_your_friends"
-                android:layout_marginTop="@dimen/margin_20"
-                android:layout_weight="0.5"/>
+                android:src="@drawable/icon_your_friends" />
 
             <ImageView
                 android:id="@+id/your_followers_button"
@@ -549,10 +556,10 @@
                 android:layout_marginBottom="@dimen/margin_20"
                 android:layout_marginLeft="@dimen/margin_20"
                 android:layout_marginRight="@dimen/margin_20"
+                android:layout_weight="0.5"
                 android:adjustViewBounds="true"
                 android:onClick="onFollowersButtonClick"
-                android:src="@drawable/icon_followers"
-                android:layout_weight="0.5"/>
+                android:src="@drawable/icon_followers" />
         </LinearLayout>
 
 
@@ -577,10 +584,10 @@
         android:id="@+id/popup_holder_right"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_toEndOf="@+id/middle_split_outside"
         android:clickable="true"
         android:gravity="center"
-        android:visibility="gone"
-        android:layout_toEndOf="@+id/middle_split_outside"
-        android:layout_marginStart="@dimen/half_margin" />
+        android:visibility="gone" />
 
 </RelativeLayout>

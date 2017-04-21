@@ -143,6 +143,27 @@ public class Model {
                 });
     }
 
+    public void markWallTipComplete (String tipId)
+    {
+        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
+        request.setEventKey("usersMarkTipComplete");
+        request.setEventAttribute("tipId", tipId);
+        request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if(response!=null){
+                    if(!response.hasErrors() && response.getScriptData().getObject(GSConstants.USER_INFO)!=null){
+                        Map<String,Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
+                        UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
+                        userCache.put(userInfo.getUserId(), userInfo);
+                        source.setResult(userInfo);
+                    }
+                }
+            }
+        });
+    }
+
     private String androidId;
 
     public void initialize(Context context){
