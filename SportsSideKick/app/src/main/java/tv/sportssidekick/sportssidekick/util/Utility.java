@@ -72,6 +72,7 @@ public class Utility {
     private  static volatile DisplayImageOptions blankOptionsUser;
     private  static volatile DisplayImageOptions blankOptions;
     private  static volatile DisplayImageOptions wallItemOptions;
+
     public static DisplayImageOptions getImageOptionsForUsers() {
         if (blankOptionsUser != null) {
             return blankOptionsUser;

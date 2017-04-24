@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.model.user.AddFriendsEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
@@ -49,7 +52,7 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
         // each data item is just a string in this case
         public View view;
         @Nullable @BindView(R.id.image) ImageView image;
-        @Nullable @BindView(R.id.selected) View selectedRingView;
+        @Nullable @BindView(R.id.selected) ImageView selectedRingView;
         @Nullable @BindView(R.id.caption) TextView name;
 
         ViewHolder(View v) {
@@ -80,11 +83,6 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.selectable_friend_item, parent, false);
         viewHolder = new ViewHolder(view);
 
-       // int matchParent = RelativeLayout.LayoutParams.WRAP_CONTENT;
-       // int cellSize = (int) (screenWidth * 0.092);
-      //  view.getLayoutParams().height = matchParent;
-       // view.getLayoutParams().width = (cellSize);
-
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,11 +96,15 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
 
     private void updateUser(int position){
         UserInfo info = values.get(position);
+        boolean remove;
         if(selectedValues.contains(info)){
             selectedValues.remove(info);
+            remove = true;
         } else {
             selectedValues.add(info);
+            remove = false;
         }
+        EventBus.getDefault().post(new AddFriendsEvent(values.get(position),remove));
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -114,9 +116,13 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
             ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.image,imageOptions);
             holder.name.setText(info.getFirstName()  + " " + info.getLastName());
             if(selectedValues.contains(info)){
-                holder.image.setColorFilter(ContextCompat.getColor(context,R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
+                if (holder.selectedRingView != null) {
+                    holder.selectedRingView.setVisibility(View.VISIBLE);
+                }
             } else {
-                holder.image.setColorFilter(null);
+                if (holder.selectedRingView != null) {
+                    holder.selectedRingView.setVisibility(View.GONE);
+                }
             }
         }
         holder.view.setTag(position);

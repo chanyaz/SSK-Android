@@ -6,22 +6,26 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/row_chat_bubble_user_size"
+        android:layout_height="@dimen/row_chat_bubble_user_size"
         android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"
         android:background="@null"
-        android:src="@drawable/blank_profile_rounded"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/blank_profile_rounded"
+        android:paddingEnd="@dimen/margin_10"
+        android:paddingStart="0dp"
+        android:paddingTop="@dimen/margin_10"/>
 
     <ImageView
         android:id="@+id/selected"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
+        android:layout_width="@dimen/row_chat_bubble_user_size"
+        android:layout_height="@dimen/row_chat_bubble_user_size"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
         android:scaleType="centerCrop"
-        android:src="@drawable/chat_head_selected"
-        android:visibility="gone" />
+        android:src="@drawable/add_chat_user_selected"
+        android:visibility="visible"/>
+
 
     <TextView
         android:id="@+id/caption"
