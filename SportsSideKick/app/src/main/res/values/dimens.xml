@@ -95,4 +95,6 @@
 
     <dimen name="activity_lounge_user_profile_size">52dp</dimen>
     <dimen name="row_friends_notification_bubble_size">32dp</dimen>
+
+    <dimen name="row_chat_bubble_user_size">60dp</dimen>
 </resources>
