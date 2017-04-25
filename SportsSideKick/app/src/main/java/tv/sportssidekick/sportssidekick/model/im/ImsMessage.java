@@ -39,6 +39,7 @@ public class ImsMessage {
     // Message type
     private String type;
 
+
     public ImsMessage(){}
 
     public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {

@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import java.util.Map;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
+import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 
@@ -49,11 +49,12 @@ import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
  * www.hypercubesoft.com
  */
 
-public class ImsManager extends GSMessageHandlerAbstract{
+public class ImsManager extends GSMessageHandlerAbstract implements LoginStateReceiver.LoginStateListener{
 
     public static final String TAG = "ImsManager";
 
     private static ImsManager instance;
+    private LoginStateReceiver loginStateReceiver;
 
     private String userId;
 
@@ -69,11 +70,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
         }
         EventBus.getDefault().register(this);
         Model.getInstance().setMessageHandlerDelegate(this);
-    }
-
-    @Subscribe
-    public void userInfoListener(UserInfo info){
-        userId = info.getUserId();
+        this.loginStateReceiver = new LoginStateReceiver(this);
     }
 
     public static ImsManager getInstance(){
@@ -451,6 +448,27 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 .setEventAttribute("muteValue",String.valueOf(isMuted).toLowerCase())
                 .setEventAttribute(GROUP_ID,chatInfo.getChatId())
                 .send(consumer);
+    }
+
+
+    @Override
+    public void onLogout() {
+        clear();
+    }
+
+    @Override
+    public void onLoginAnonymously() {
+        reload();
+    }
+
+    @Override
+    public void onLogin(UserInfo user) {
+        reload();
+    }
+
+    @Override
+    public void onLoginError(Error error) {
+        clear();
     }
 
     @Override

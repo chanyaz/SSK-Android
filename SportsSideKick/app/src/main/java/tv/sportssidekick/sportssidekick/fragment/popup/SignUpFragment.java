@@ -11,8 +11,6 @@ import android.widget.Toast;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 
@@ -24,7 +22,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.model.user.RegistrationStateReceiver;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -32,7 +30,7 @@ import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
  * www.hypercubesoft.com
  */
 
-public class SignUpFragment extends BaseFragment {
+public class SignUpFragment extends BaseFragment implements RegistrationStateReceiver.RegistrationStateListener {
 
 
     @BindView(R.id.sign_up_progress_bar)
@@ -54,6 +52,7 @@ public class SignUpFragment extends BaseFragment {
     @BindView(R.id.sign_up_password)
     TextView password;
 
+    private RegistrationStateReceiver registrationStateReceiver;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -65,6 +64,7 @@ public class SignUpFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.popup_signup, container, false);
         ButterKnife.bind(this, view);
+        this.registrationStateReceiver = new RegistrationStateReceiver(this);
 
         //TODO DEMO
         firstName.setText("Marco");
@@ -113,18 +113,23 @@ public class SignUpFragment extends BaseFragment {
         //TODO facebook sign up
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(GameSparksEvent event){
-        switch (event.getEventType()){
-            case REGISTRATION_ERROR:
-                progressBar.setVisibility(View.GONE);
-                signUpText.setVisibility(View.VISIBLE);
-                Toast.makeText(getContext(), "Registration error. Try again later.", Toast.LENGTH_LONG).show(); // TODO inform user about login failed
-                break;
-            case REGISTRATION_SUCCESSFUL:
-                progressBar.setVisibility(View.GONE);
-                signUpText.setVisibility(View.VISIBLE);
-                getActivity().onBackPressed();
-        }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(registrationStateReceiver);
+    }
+
+    @Override
+    public void onRegister() {
+        progressBar.setVisibility(View.GONE);
+        signUpText.setVisibility(View.VISIBLE);
+        getActivity().onBackPressed();
+    }
+
+    @Override
+    public void onRegisterError(Error error) {
+        progressBar.setVisibility(View.GONE);
+        signUpText.setVisibility(View.VISIBLE);
+        Toast.makeText(getContext(), "Registration error. Try again later.", Toast.LENGTH_LONG).show(); // TODO inform user about login failed
     }
 }

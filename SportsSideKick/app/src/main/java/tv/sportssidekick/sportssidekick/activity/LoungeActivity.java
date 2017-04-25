@@ -6,12 +6,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -88,6 +86,7 @@ import tv.sportssidekick.sportssidekick.model.sharing.NativeShareEvent;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
+import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.NotificationReceivedEvent;
@@ -95,10 +94,11 @@ import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.BlurBuilder;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 import static tv.sportssidekick.sportssidekick.util.Utility.checkIfBundlesAreEqual;
 
 
-public class LoungeActivity extends BillingActivity {
+public class LoungeActivity extends BillingActivity implements LoginStateReceiver.LoginStateListener {
 
     public static final String TAG = "Lounge Activity";
     @BindView(R.id.activity_main)
@@ -163,6 +163,8 @@ public class LoungeActivity extends BillingActivity {
     @BindView(R.id.left_notification_container)
     RelativeLayout notificationContainer;
 
+    private LoginStateReceiver loginStateReceiver;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -173,6 +175,7 @@ public class LoungeActivity extends BillingActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
+        this.loginStateReceiver = new LoginStateReceiver(this);
         Model.getInstance().initialize(this);
         yourCoinsContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +189,6 @@ public class LoungeActivity extends BillingActivity {
                 onBackPressed();
             }
         });
-        setYourCoinsValue("0"); //TODO get value from server
         setNumberOfNotification("4");
         setupFragments();
 
@@ -366,6 +368,7 @@ public class LoungeActivity extends BillingActivity {
     public void onDestroy() {
         fragmentOrganizer.freeUpResources();
         EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(loginStateReceiver);
         super.onDestroy();
     }
 
@@ -455,47 +458,6 @@ public class LoungeActivity extends BillingActivity {
 
     private void setNumberOfNotification(String number) {
         notificationNumber.setText(number);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUserLogin(UserInfo user) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
-            if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
-            }
-            if (user.getFirstName() != null && user.getLastName() != null) {
-                profileName.setText(user.getFirstName() + " " + user.getLastName());
-            }
-            setYourCoinsValue("0"); // TODO get user coins
-            yourLevel.setVisibility(View.VISIBLE);
-            userLevelBackground.setVisibility(View.VISIBLE);
-            userLevelProgress.setVisibility(View.VISIBLE);
-            yourLevel.setText(String.valueOf(user.getLevel()));
-            userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
-
-            profileButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
-
-                }
-            });
-        } else {
-            //reset profile name and picture to blank values
-            setYourCoinsValue(String.valueOf(0));
-            yourLevel.setVisibility(View.INVISIBLE);
-            userLevelBackground.setVisibility(View.INVISIBLE);
-            userLevelProgress.setVisibility(View.INVISIBLE);
-            profileName.setText("Login / Signup");
-            String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-            ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
-            profileButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-                }
-            });
-        }
     }
 
     public void hideSlidePopupFragmentContainer() {
@@ -620,5 +582,64 @@ public class LoungeActivity extends BillingActivity {
         } else {
             Log.d(TAG,"Notification is from foreground - app is active!");
         }
+    }
+
+    @Override
+    public void onLogout() {
+        resetUserDetails();
+    }
+
+    @Override
+    public void onLoginAnonymously() {
+        resetUserDetails();
+    }
+
+    @Override
+    public void onLogin(UserInfo user) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            if (user.getCircularAvatarUrl() != null) {
+                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
+            }
+            if (user.getFirstName() != null && user.getLastName() != null) {
+                profileName.setText(user.getFirstName() + " " + user.getLastName());
+            }
+            setYourCoinsValue("0"); // TODO get user coins
+            yourLevel.setVisibility(View.VISIBLE);
+            userLevelBackground.setVisibility(View.VISIBLE);
+            userLevelProgress.setVisibility(View.VISIBLE);
+            yourLevel.setText(String.valueOf(user.getLevel()));
+            userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
+
+            profileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+                }
+            });
+        } else {
+            resetUserDetails();
+        }
+    }
+
+    private void resetUserDetails(){
+        //reset profile name and picture to blank values
+        setYourCoinsValue(String.valueOf(0));
+        yourLevel.setVisibility(View.INVISIBLE);
+        userLevelBackground.setVisibility(View.INVISIBLE);
+        userLevelProgress.setVisibility(View.INVISIBLE);
+        profileName.setText("Login / Signup");
+        String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
+        ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+            }
+        });
+    }
+
+    @Override
+    public void onLoginError(Error error) {
+
     }
 }

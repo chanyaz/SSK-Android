@@ -30,11 +30,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.MessageHandler;
+import tv.sportssidekick.sportssidekick.model.user.UserEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
@@ -73,7 +72,9 @@ public class Model {
         return instance;
     }
 
+
     private UserInfo currentUserInfo;
+
     public UserInfo getUserInfo() {
         if(currentUserInfo!=null){
             return currentUserInfo;
@@ -92,19 +93,15 @@ public class Model {
         Log.d(TAG, "Logged in user type: " + loggedInUserType.name());
         switch (type){
             case NONE:
+                EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogout));
                 break;
             case ANONYMOUS:
-//              UserEvents.onLoginAnonymously.emit() Event-TBA
-                EventBus.getDefault().post(currentUserInfo);
+                EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginAnonymously));
                 registerForPushNotifications();
-                ImsManager.getInstance().reload();
                 break;
             case REAL:
-                EventBus.getDefault().post(currentUserInfo);
-                EventBus.getDefault().post(new GameSparksEvent("Login successful!", GameSparksEvent.Type.LOGIN_SUCCESSFUL, null));
+                EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogin, currentUserInfo));
                 registerForPushNotifications();
-                ImsManager.getInstance().reload();
-                WallModel.getInstance().fetchPosts();
                 break;
         }
     }
@@ -142,8 +139,7 @@ public class Model {
                 });
     }
 
-    public void markWallTipComplete (String tipId)
-    {
+    public void markWallTipComplete (String tipId) {
         final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersMarkTipComplete");
@@ -156,9 +152,15 @@ public class Model {
                         Map<String,Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
                         UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
                         userCache.put(userInfo.getUserId(), userInfo);
+                        if(userInfo.getUserId().equals(currentUserInfo.getUserId())){
+                            currentUserInfo = userInfo;
+                            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated));
+                        }
                         source.setResult(userInfo);
+                        return;
                     }
                 }
+                source.setException(null);
             }
         });
     }
@@ -193,7 +195,7 @@ public class Model {
             if(authenticationResponse != null) {
                 if (authenticationResponse.hasErrors()) {
                     Log.d(TAG, "AuthenticationResponse: " + authenticationResponse.toString());
-                    EventBus.getDefault().post(new GameSparksEvent("Login error:" + authenticationResponse.toString(), GameSparksEvent.Type.LOGIN_FAILED, null));
+                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
                 } else {
                     getAccountDetails(completeLogin);
                 }
@@ -234,7 +236,7 @@ public class Model {
     private void onAccountDetails(GSResponseBuilder.AccountDetailsResponse response){
         if(response != null) {
             if (response.hasErrors()) {
-                EventBus.getDefault().post(new GameSparksEvent("Login error:" + response.toString(), GameSparksEvent.Type.ACCOUNT_DETAILS_ERROR, null));
+               EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdateError));
             } else {
                 setUser(response);
             }
@@ -257,17 +259,15 @@ public class Model {
             public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse response) {
                 if(response!=null){
                     if(response.hasErrors()){
-                        Log.d(TAG,"Registration Request error!");
-                        EventBus.getDefault().post(new GameSparksEvent("Registration error:" + response.toString(), GameSparksEvent.Type.REGISTRATION_ERROR, null));
+                        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onRegisterError));
                     } else {
-                        Log.d(TAG,"Registration Request successful!");
-                        EventBus.getDefault().post(new GameSparksEvent("Registration successful:" + response.toString(), GameSparksEvent.Type.REGISTRATION_SUCCESSFUL, null));
                         getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
                             @Override
                             public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
                                 if(!response.hasErrors()){
                                     setUser(response);
                                     setLoggedInUserType(REAL);
+                                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onRegister));
                                 }
                             }
                         });
@@ -319,9 +319,9 @@ public class Model {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if(response!=null){
                     if(response.hasErrors()){
-                        EventBus.getDefault().post(new GameSparksEvent("Password recovery request error:" + response.toString(), GameSparksEvent.Type.PASSWORD_RECOVERY_ERROR, null));
+                        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onPasswordResetRequestError));
                     } else {
-                        EventBus.getDefault().post(new GameSparksEvent("Password recovery successful:" + response.toString(), GameSparksEvent.Type.PASSWORD_RECOVERY_SUCCESSFUL, null));
+                        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onPasswordResetRequest));
                     }
                 }
             }
@@ -436,9 +436,9 @@ public class Model {
         } else {
             info = mapper.convertValue(response, UserInfo.class);
         }
-        currentUserInfo = info; // TODO Test if the same and discard event in that case?
+        currentUserInfo = info;
         userCache.put(info.getUserId(), info);
-        EventBus.getDefault().post(currentUserInfo);
+        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated,currentUserInfo));
     }
 
     private GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> onDetailsUpdated = new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
@@ -446,7 +446,7 @@ public class Model {
         public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse response) {
             if(response!=null){
                 if(response.hasErrors()){
-                    EventBus.getDefault().post(new GameSparksEvent("Update account details error:" + response.toString(), GameSparksEvent.Type.ACCOUNT_DETAILS_ERROR, null));
+                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdateError));
                 } else {
                     getAccountDetails(null);
                 }
@@ -457,7 +457,7 @@ public class Model {
     private void setState(GSResponseBuilder.LogEventResponse response) {
         if(response != null){
             if(response.hasErrors()) {
-                EventBus.getDefault().post(new GameSparksEvent("Update user state error:" + response.toString(), GameSparksEvent.Type.USER_STATE_UPDATE_ERROR, null));
+                EventBus.getDefault().post(new UserEvent(UserEvent.Type.onStateUpdateError));
                 return;
             }
             if(response.getScriptData()==null){
@@ -474,7 +474,7 @@ public class Model {
                 return;
             }
             currentUserInfo.setUserState(UserState.valueOf(state));
-            EventBus.getDefault().post(new GameSparksEvent("Updated user state:" + response.toString(), GameSparksEvent.Type.USER_STATE_UPDATE_SUCCESSFUL, null));
+            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onStateUpdated,currentUserInfo.getUserState()));
         }
     }
 
