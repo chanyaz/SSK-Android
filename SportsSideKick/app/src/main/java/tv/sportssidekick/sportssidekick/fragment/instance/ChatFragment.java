@@ -69,13 +69,14 @@ import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
+import tv.sportssidekick.sportssidekick.model.im.ChatNotificationsEvent;
+import tv.sportssidekick.sportssidekick.model.im.ChatsInfoUpdatesEvent;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
-import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
-import tv.sportssidekick.sportssidekick.service.UIEvent;
+import tv.sportssidekick.sportssidekick.service.SelectChatEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
@@ -97,8 +98,6 @@ public class ChatFragment extends BaseFragment {
     RecyclerView chatHeadsView;
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
-    @BindView(R.id.input_container)
-    View inputContainer;
 
     @BindView(R.id.info_message)
     TextView infoMessage;
@@ -138,7 +137,7 @@ public class ChatFragment extends BaseFragment {
 
     ChatHeadsAdapter chatHeadsAdapter;
     MessageAdapter messageAdapter;
-    ChatInfo activeChatInfo;
+    ChatInfo currentlyActiveChat;
 
     private MediaRecorder recorder = null;
     private String audioFilepath = null;
@@ -161,25 +160,38 @@ public class ChatFragment extends BaseFragment {
         chatHeadsView.setLayoutManager(layoutManager);
         chatHeadsAdapter = new ChatHeadsAdapter(ContextCompat.getColor(getActivity(), R.color.colorAccent));
         chatHeadsView.setAdapter(chatHeadsAdapter);
-        inputContainer.setVisibility(View.GONE);
-        messageListView.setVisibility(View.GONE);
+
         progressBar.setVisibility(View.VISIBLE);
         infoMessage.setVisibility(View.GONE);
-
-        initializeUI();
 
         LayoutTransition layoutTransition = new LayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
-        //Add textWatcher to notify the user
+        messageAdapter = new MessageAdapter(getContext());
+        messageListView.setAdapter(messageAdapter);
+        messageListView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (currentlyActiveChat != null) {
+                    currentlyActiveChat.loadPreviousMessagesPage();
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
+
+        /* input Listeners */
         inputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (activeChatInfo != null) {
-                    activeChatInfo.setUserIsTyping(true);
+                if (currentlyActiveChat != null) {
+                    currentlyActiveChat.setUserIsTyping(true);
                 }
             }
 
@@ -196,18 +208,6 @@ public class ChatFragment extends BaseFragment {
                     handled = true;
                 }
                 return handled;
-            }
-        });
-
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (activeChatInfo != null) {
-                    activeChatInfo.loadPreviousMessagesPage();
-                } else {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
             }
         });
 
@@ -254,35 +254,34 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    public void initializeUI() {
-        //Log.d(TAG, "Initialize Chat UI");
+    public void updateAllViews() {
+        // Setup chat heads
         List<ChatInfo> allUserChats = ImsManager.getInstance().getUserChatsList();
         chatHeadsAdapter.setValues(allUserChats);
+        chatHeadsAdapter.notifyDataSetChanged();
+        // Setup message list
         if(allUserChats.size()>0){
-            if(activeChatInfo!=null){
-                displayChat(activeChatInfo);
+            if(currentlyActiveChat !=null){
+                displayChat(currentlyActiveChat);
             } else{
                 displayChat(allUserChats.get(0));
             }
         } else {
             displayChat(null);
         }
-        chatHeadsAdapter.notifyDataSetChanged();
-        inputContainer.setVisibility(View.VISIBLE);
-        messageListView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
     }
 
     private void displayChat(ChatInfo info) {
-        activeChatInfo = info;
+        currentlyActiveChat = info;
         setupEditChatButton();
-        if (activeChatInfo != null) {
+        if (currentlyActiveChat != null) {
             // Setup Chat label
-            StringBuilder chatLabel = new StringBuilder(activeChatInfo.getChatTitle());
+            StringBuilder chatLabel = new StringBuilder(currentlyActiveChat.getChatTitle());
             chatLabel.append(": ");
-            int size = activeChatInfo.getUsersIds().size();
+            int size = currentlyActiveChat.getUsersIds().size();
             int count = 0;
-            for (String userId : activeChatInfo.getUsersIds()) {
+            for (String userId : currentlyActiveChat.getUsersIds()) {
                 count++;
                 String chatName = Model.getInstance().getCachedUserInfoById(userId).getNicName();
                 if(!TextUtils.isEmpty(chatName)){
@@ -293,46 +292,14 @@ public class ChatFragment extends BaseFragment {
                 }
             }
             infoLineTextView.setText(chatLabel.toString());
-            // Message container initialization
-
-           if(info.getMessages() != null){
-               if (info.getMessages().size() > 0) {
-                   swipeRefreshLayout.setEnabled(true);
-                   messageListView.setVisibility(View.VISIBLE);
-                   infoMessage.setVisibility(View.GONE);
-                   //Log.d(TAG, "Displaying Chat - message count: " + info.getMessages().size());
-
-                   LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                   ChatInfo.sortMessages(info.getMessages());
-                   messageListView.setLayoutManager(layoutManager);
-
-                   messageAdapter = new MessageAdapter(getContext(),info);
-                   messageListView.setAdapter(messageAdapter);
-                   messageListView.invalidate();
-                   messageListView.scrollToPosition(messageAdapter.getItemCount()-1);
-                   return;
-               } else {
-                   Log.e(TAG, "Message array size is 0!");
-                   infoMessage.setVisibility(View.VISIBLE);
-                   messageListView.setVisibility(View.INVISIBLE);
-                   infoMessage.setVisibility(View.VISIBLE);
-                   messageListView.setVisibility(View.INVISIBLE);
-               }
-           }
-
-        } else {
-            Log.e(TAG, "Message array is null!");
-            infoMessage.setVisibility(View.VISIBLE);
-            messageListView.setVisibility(View.INVISIBLE);
+            messageAdapter.setChatInfo(currentlyActiveChat);
         }
-        swipeRefreshLayout.setRefreshing(false);
-        swipeRefreshLayout.setEnabled(false);
     }
 
 
     private void setupEditChatButton(){
-        if(activeChatInfo!=null){
-            if(Model.getInstance().getUserInfo().getUserId().equals(activeChatInfo.getOwner())){
+        if(currentlyActiveChat !=null){
+            if(Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())){
                 chatMenuEditButton.setText("Edit"); // TODO Extract strings...
             } else {
                 chatMenuEditButton.setText("Leave");
@@ -380,9 +347,9 @@ public class ChatFragment extends BaseFragment {
     public void sendButtonOnClick() {
         ImsMessage message = ImsMessage.getDefaultMessage();
         message.setText(inputEditText.getText().toString().trim());
-        activeChatInfo.sendMessage(message);
+        currentlyActiveChat.sendMessage(message);
         inputEditText.setText("");
-        activeChatInfo.setUserIsTyping(false);
+        currentlyActiveChat.setUserIsTyping(false);
         Utility.hideKeyboard(getActivity());
     }
 
@@ -394,10 +361,10 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
-        if(Model.getInstance().getUserInfo().getUserId().equals(activeChatInfo.getOwner())){
+        if(Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())){
             EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
         } else {
-            activeChatInfo.deleteChat(); // TODO - Display confirmation dialog!
+            currentlyActiveChat.deleteChat(); // TODO - Display confirmation dialog!
             chatMenuEditButton.setText("Leave");
         }
 
@@ -424,41 +391,14 @@ public class ChatFragment extends BaseFragment {
     @Subscribe
     @SuppressWarnings("Unchecked cast")
     public void onChatEventDetected(GameSparksEvent event) {
-        //Log.d(TAG, "event received: " + event.getEventType());
+        Log.d(TAG, "event received in Chat Fragment: " + event.getEventType());
         switch (event.getEventType()) {
-            case TYPING:
-                if ((event.getData() != null)) {
-                    List<UserInfo> usersTyping = (List<UserInfo>) event.getData(); // TODO What to do?
-                }
-                break;
-            case CLEAR_CHATS:
-                initializeUI();
-                break;
-            case USER_CHAT_DETECTED:
-                initializeUI();
-                break;
-            case PUBLIC_CHAT_DETECTED:
-                initializeUI();
-                break;
-            case GLOBAL_CHAT_DETECTED: // TODO Check on this - same logic as for public chats?
-                initializeUI();
-                break;
-            case CHAT_NEW_MESSAGE_ADDED:
-                messageAdapter.notifyDataSetChanged();
-                int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
-                messageListView.smoothScrollToPosition(lastMessagePosition);
-                break;
-            case CHAT_NEXT_PAGE_LOADED:
-                swipeRefreshLayout.setRefreshing(false);
-                messageAdapter.notifyDataSetChanged();
-                messageListView.smoothScrollToPosition(0);
-                break;
             case MESSAGE_IMAGE_FILE_UPLOADED:
             case AUDIO_FILE_UPLOADED:
                 String downloadUrl = (String) event.getData();
                 ImsMessage message = ImsMessage.getDefaultMessage();
                 message.setImageUrl(downloadUrl);
-                activeChatInfo.sendMessage(message);
+                currentlyActiveChat.sendMessage(message);
                 break;
             case VIDEO_FILE_UPLOADED:
                 videoDownloadUrl = (String) event.getData();
@@ -469,14 +409,101 @@ public class ChatFragment extends BaseFragment {
                 ImsMessage messageVideo = ImsMessage.getDefaultMessage();
                 messageVideo.setVidUrl(videoDownloadUrl);
                 messageVideo.setImageUrl(videoThumbnailDownloadUrl);
-                activeChatInfo.sendMessage(messageVideo);
+                currentlyActiveChat.sendMessage(messageVideo);
                 break;
         }
     }
 
+
     @Subscribe
-    public void onUIChatEventDetected(UIEvent event) {
-        //Log.d(TAG, "event received: " + event.getId());
+    private void onEvent(ChatNotificationsEvent event){
+        switch (event.getKey()){
+            case UPDATED_CHAT_USERS:
+                handleUpdatedChatUsers(event);
+                break;
+            case CHANGED_CHAT_MESSAGE:
+                break;
+            case UPDATED_CHAT_MESSAGES:
+                handleUpdatedChatMessages(event);
+                break;
+            case SET_CURRENT_CHAT:
+                setCurrentChatNotification(event);
+                break;
+        }
+    }
+
+    private void handleUpdatedChatUsers(ChatNotificationsEvent event){
+        if(currentlyActiveChat ==null){
+            currentlyActiveChat = ImsManager.getInstance().getChatInfoById(currentlyActiveChat.getChatId());
+        }
+        updateAllViews();
+    }
+
+    private void handleUpdatedChatMessages(ChatNotificationsEvent event){
+        messageAdapter.notifyDataSetChanged();
+        int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
+        messageListView.smoothScrollToPosition(lastMessagePosition);
+    }
+
+    private void setCurrentChatNotification(ChatNotificationsEvent event){
+        String chatId = (String)event.getData();
+        currentlyActiveChat = ImsManager.getInstance().getChatInfoById(chatId);
+    }
+
+    @Subscribe
+    public void onEvent(ChatsInfoUpdatesEvent event){
+        findActiveChat();
+        updateAllViews();
+//        self.updateAllViews()
+//        self.checkPushNotification()
+    }
+
+//                case TYPING:
+//            if ((event.getData() != null)) {
+//        List<UserInfo> usersTyping = (List<UserInfo>) event.getData(); // TODO What to do?
+//    }
+//                break;
+//            case CLEAR_CHATS:
+//    initializeUI();
+//                break;
+//            case USER_CHAT_DETECTED:
+//    initializeUI();
+//                break;
+//            case PUBLIC_CHAT_DETECTED:
+//    initializeUI();
+//                break;
+//            case GLOBAL_CHAT_DETECTED: // TODO Check on this - same logic as for public chats?
+//    initializeUI();
+//                break;
+//            case CHAT_NEW_MESSAGE_ADDED:
+//            messageAdapter.notifyDataSetChanged();
+//    int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
+//                messageListView.smoothScrollToPosition(lastMessagePosition);
+//                break;
+//            case CHAT_NEXT_PAGE_LOADED:
+//                swipeRefreshLayout.setRefreshing(false);
+//                messageAdapter.notifyDataSetChanged();
+//                messageListView.smoothScrollToPosition(0);
+//                break;
+
+    private void findActiveChat() {
+        String chatId;
+        if(currentlyActiveChat!=null){
+            chatId = this.currentlyActiveChat.getChatId();
+            ChatInfo chat = ImsManager.getInstance().getChatInfoById(chatId);
+            if(chat!=null){
+                this.currentlyActiveChat = chat;
+            } else {
+                this.currentlyActiveChat = ImsManager.getInstance().getUserChatsList().get(0);
+            }
+        } else {
+            //! Set first one if chat was not selected
+            this.currentlyActiveChat = ImsManager.getInstance().getUserChatsList().get(0);
+        }
+    }
+
+    @Subscribe
+    public void onSelectChatEventDetected(SelectChatEvent event) {
         int currentPosition = event.getPosition();
         List<ChatInfo> infos = ImsManager.getInstance().getUserChatsList();
         displayChat(infos.get(currentPosition));
@@ -629,19 +656,15 @@ public class ChatFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
-                    //Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
                     Model.getInstance().uploadImageForMessage(currentPath);
                     break;
                 case REQUEST_CODE_CHAT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
-                    //Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
-                    //Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
                     Model.getInstance().uploadImageForMessage(realPath);
                     break;
                 case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
                     Uri videoUri = intent.getData();
-                    //Log.d(TAG, "VIDEO URI IS: " + videoUri.toString());
                     currentPath = Model.getRealPathFromURI(getContext(), videoUri);
                     Model.getInstance().uploadVideoRecording(currentPath);
                     break;

@@ -67,11 +67,11 @@ public class SignUpFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         //TODO DEMO
-        firstName.setText("Jon");
-        lastName.setText("Snow");
-        displayName.setText("jonsnow1");
-        phone.setText("1298515735");
-        email.setText("jon@snow.com");
+        firstName.setText("Marco");
+        lastName.setText("Polo");
+        displayName.setText("marco polo");
+        phone.setText("123456789");
+        email.setText("marco@polo.com");
         password.setText("qwerty");
         return view;
     }

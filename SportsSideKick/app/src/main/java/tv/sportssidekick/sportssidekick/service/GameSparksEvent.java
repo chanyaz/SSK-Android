@@ -44,15 +44,6 @@ public class GameSparksEvent extends BusEvent {
         this.data = data;
     }
 
-    public String getFilterId() {
-        return filterId;
-    }
-
-    public GameSparksEvent setFilterId(String filterId) {
-        this.filterId = filterId;
-        return this;
-    }
-
     public enum Type {
             // user, login, logout...
             SIGNED_OUT,
@@ -67,26 +58,11 @@ public class GameSparksEvent extends BusEvent {
             USER_STATE_UPDATE_ERROR,
             USER_STATE_UPDATE_SUCCESSFUL,
             ALL_DATA_ACQUIRED,
-            CHAT_NEW_MESSAGE,
-            CHAT_NEW_MESSAGE_ADDED,
-            CHAT_NEXT_PAGE_LOADED,
-            CHAT_MESSAGE_UPDATED,
-            CHAT_CREATED,
-            CHAT_REMOVED,
-            CHAT_REMOVED_PROCESSED,
-            CHAT_DELETED_PROCESSED,
-            CHAT_UPDATED,
-            CHAT_USERS_UPDATED,
-            CLEAR_CHATS,
-            PUBLIC_CHAT_DETECTED,
-            GLOBAL_CHAT_DETECTED,
-            USER_CHAT_DETECTED,
             AUDIO_FILE_UPLOADED,
             MESSAGE_IMAGE_FILE_UPLOADED,
             PROFILE_IMAGE_FILE_UPLOADED,
             VIDEO_IMAGE_FILE_UPLOADED,
             VIDEO_FILE_UPLOADED,
-            TYPING,
             // wall post
             POST_IMAGE_FILE_UPLOADED,
             POST_VIDEO_IMAGE_FILE_UPLOADED,

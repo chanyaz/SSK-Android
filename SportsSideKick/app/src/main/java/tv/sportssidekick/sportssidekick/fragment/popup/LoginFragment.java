@@ -80,14 +80,18 @@ public class LoginFragment extends BaseFragment {
         forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                slideToRight(loginContainer);
-//                slideToRight(resetButtonContainer);
+//              slideToRight(loginContainer);
+//              slideToRight(resetButtonContainer);
                 loginContainer.setVisibility(View.VISIBLE);
                 loginButtonContainer.setVisibility(View.VISIBLE);
                 resetButtonContainer.setVisibility(View.INVISIBLE);
                 forgotPasswordContainer.setVisibility(View.INVISIBLE);
             }
         });
+
+
+        emailEditText.setText("marco@polo.com");
+        passwordEditText.setText("qwerty");
         return view;
     }
 

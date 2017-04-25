@@ -14,7 +14,6 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.simple.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 import static tv.sportssidekick.sportssidekick.model.GSConstants.CHATS_INFO;
 import static tv.sportssidekick.sportssidekick.model.GSConstants.CHAT_ID;
@@ -42,6 +40,7 @@ import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGE;
 import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGES;
 import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGE_PAGE_SIZE;
 import static tv.sportssidekick.sportssidekick.model.GSConstants.OFFSET;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.USER_ID;
 import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
 /**
@@ -59,13 +58,11 @@ public class ImsManager extends GSMessageHandlerAbstract{
     private String userId;
 
     private HashMap<String, ChatInfo> chatInfoCache;
-    private List<ChatInfo> chatInfoCacheList;
 
     private final ObjectMapper mapper; // jackson's object mapper
     private ImsManager() {
         mapper  = new ObjectMapper();
         chatInfoCache = new HashMap<>();
-        chatInfoCacheList = new ArrayList<>();
         UserInfo userInfo = Model.getInstance().getUserInfo();
         if(userInfo!=null){
            userId = userInfo.getUserId();
@@ -88,20 +85,14 @@ public class ImsManager extends GSMessageHandlerAbstract{
 
     private void clear(){
         chatInfoCache.clear();
-        chatInfoCacheList.clear();
+        EventBus.getDefault().post(new ChatsInfoUpdatesEvent(getUserChatsList()));
     }
 
     public void reload(){
         clear();
         loadUserChats();
-        EventBus.getDefault().post(new GameSparksEvent("Chats clearing...", GameSparksEvent.Type.CLEAR_CHATS, null));
-
     }
 
-
-    public void removeChatFromChatList(ChatInfo info){
-
-    }
     /////////////////////////////////////
     ///   IMS   API  - Chat Info API  ///
     /////////////////////////////////////
@@ -114,7 +105,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
      */
 
     public List<ChatInfo> getUserChatsList() {
-        return chatInfoCacheList;
+        return new ArrayList<>(chatInfoCache.values());
     }
 
     public ChatInfo getChatInfoById(String chatId){
@@ -123,22 +114,39 @@ public class ImsManager extends GSMessageHandlerAbstract{
 
     private boolean removeChatInfoWithId(String chatId){
         if(chatInfoCache.containsKey(chatId)){
-            ChatInfo info = chatInfoCache.remove(chatId);
-            chatInfoCacheList.remove(info);
+            chatInfoCache.remove(chatId);
             return true;
         }
         return false;
     }
 
     private void addChatInfoToCache(ChatInfo info){
-        if(chatInfoCache.containsKey(info.getChatId())){
-            chatInfoCacheList.remove(info);
-        }
         chatInfoCache.put(info.getChatId(),info);
-        chatInfoCacheList.add(info);
     }
+
+    public Task<List<ChatInfo>> getAllPublicChats() {
+        final TaskCompletionSource<List<ChatInfo>> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
+                    List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
+                    source.setResult(chats);
+                    // on iOS, there is a notification, but we are handling this via callback
+                }
+            }
+        };
+        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+                .setEventKey("imsGetPublicChatGroupList")
+                .setEventAttribute(OFFSET,0)
+                .send(consumer);
+        return source.getTask();
+    }
+
     /**
-     * getAllPublicChats returns a list of all public chats in the system.
+     * getGlobalChats returns a list of all public chats in the system.
      */
 
     Task<List<ChatInfo>> getGlobalChats() {
@@ -150,12 +158,6 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     // Parse response
                     Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
                     List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
-                    // Go trough all ChatInfo objects and load users and messages
-                    for (ChatInfo chat : chats) {
-                        String chatId = chat.getChatId();
-                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.GLOBAL_CHAT_DETECTED, chatId));
-                        addChatInfoToCache(chat);
-                    }
                     source.setResult(chats);
                 }
             }
@@ -168,59 +170,23 @@ public class ImsManager extends GSMessageHandlerAbstract{
         return source.getTask();
     }
 
-    public Task<List<ChatInfo>> getAllPublicChats() {
+    public Task<List<ChatInfo>> getAllPublicChatsForUser(String userId) {
         final TaskCompletionSource<List<ChatInfo>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
-                    // Parse response
                     Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
                     List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
-                    // Go trough all ChatInfo objects and load users and messages
-//                    for (ChatInfo chat : chats) {
-//                        String chatId = chat.getChatId();
-//                        EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.PUBLIC_CHAT_DETECTED, chatId));
-//                        addChatInfoToCache(chat);
-//                    }
                     source.setResult(chats);
                 }
             }
         };
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-            .setEventKey("imsGetPublicChatGroupList")
-            .setEventAttribute(OFFSET,0)
-            .send(consumer);
-        return source.getTask();
-    }
-
-    public Task<List<ChatInfo>> getAllPublicChatsUrFriendsAreIn() {
-        final TaskCompletionSource<List<ChatInfo>> source = new TaskCompletionSource<>();
-        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-            @Override
-            public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    // Parse response
-                    Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
-                    List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
-                    // Go trough all ChatInfo objects and load users and messages
-                    //TODO need info who users friends are to count them
-                    for(int i=0;i<chats.size();i++){
-                        ArrayList<String> idsToDelete = new ArrayList<>();
-                        for(int j=0;j<chats.get(i).getUsersIds().size();j++){
-                            if(chats.get(i).getUsersIds().get(j).equals(userId)){
-                                idsToDelete.add(chats.get(i).getUsersIds().get(j));
-                            }
-                        }
-                        chats.get(i).getUsersIds().removeAll(idsToDelete);
-                    }
-                    source.setResult(chats);
-                }
-            }
-        };
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("imsGetPublicChatGroupList")
+                .setEventKey("imsGetPublicChatGroupsListForUser")
+                .setEventAttribute(USER_ID,userId)
                 .setEventAttribute(OFFSET,0)
+                .setEventAttribute(ENTRY_COUNT,50)
                 .send(consumer);
         return source.getTask();
     }
@@ -236,8 +202,6 @@ public class ImsManager extends GSMessageHandlerAbstract{
                     // Go trough all ChatInfo objects and load users and messages
                     for (ChatInfo chat : chats) {
                         if(chat!=null){
-                            String chatId = chat.getChatId();
-                            EventBus.getDefault().post(new GameSparksEvent("Chat detected.", GameSparksEvent.Type.USER_CHAT_DETECTED, chatId));
                             addChatInfoToCache(chat);
                             chat.loadChatUsers();
                             chat.loadMessages();
@@ -245,6 +209,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                             Log.e(TAG,"Chat is null!");
                         }
                     }
+                    EventBus.getDefault().post(new ChatsInfoUpdatesEvent(getUserChatsList()));
                 }
             }
         };
@@ -259,18 +224,22 @@ public class ImsManager extends GSMessageHandlerAbstract{
      * @param  chatInfo - the chat info to create (do not set the chat id)
      */
 
-    public void createNewChat(final ChatInfo chatInfo){
+    public Task<ChatInfo> createNewChat(final ChatInfo chatInfo){
+        final TaskCompletionSource<ChatInfo> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
                     Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
-                    ChatInfo newChatInfo = mapper.convertValue(object,ChatInfo.class);
-                    chatInfo.setEqualTo(newChatInfo);
+                    ChatInfo chat = mapper.convertValue(object,ChatInfo.class);
+                    chatInfo.setEqualTo(chat);
                     addChatInfoToCache(chatInfo);
+                    chatInfo.loadChatUsers();
                     chatInfo.loadMessages();
-                    EventBus.getDefault().post(new GameSparksEvent("Chat created.", GameSparksEvent.Type.CHAT_CREATED, chatInfo.getChatId()));
+                    source.setResult(chatInfo);
+                } else {
+                    source.setException(new Exception());
                 }
             }
         };
@@ -280,6 +249,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
         createRequest("imsCreateChatGroup")
                 .setEventAttribute(CHAT_INFO,data)
                 .send(consumer);
+        return source.getTask();
     }
 
 
@@ -288,7 +258,8 @@ public class ImsManager extends GSMessageHandlerAbstract{
      **/
 
     //you shouldn't use this function directly, call update chat on the chatInfo object
-    void updateChat(final ChatInfo chatInfo){
+    Task<ChatInfo> updateChat(final ChatInfo chatInfo){
+        final TaskCompletionSource<ChatInfo> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -296,20 +267,23 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
                 ChatInfo newChatInfo = mapper.convertValue(object,ChatInfo.class);
                 chatInfo.setEqualTo(newChatInfo);
-                addChatInfoToCache(chatInfo);
+                source.setResult(chatInfo);
+            } else {
+                source.setException(new Exception());
             }
             }
         };
-
         Map<String, Object> map = mapper.convertValue(chatInfo, new TypeReference<Map<String, Object>>(){});
         GSData data = new GSData(map);
         createRequest("imsUpdateChatGroup")
             .setEventAttribute("imsGroupInfo",data)
             .send(consumer);
+        return source.getTask();
     }
 
     //you shouldn't use this function directly, call join chat on the chatInfo object
-    void joinChat(final ChatInfo chatInfo){
+    Task<ChatInfo> joinChat(final ChatInfo chatInfo){
+        final TaskCompletionSource<ChatInfo> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -319,13 +293,17 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 chatInfo.setEqualTo(newChatInfo);
                 addChatInfoToCache(chatInfo);
                 chatInfo.loadMessages();
+                source.setResult(chatInfo);
+            } else {
+                source.setException(new Exception());
             }
+            EventBus.getDefault().post(new ChatsInfoUpdatesEvent(getUserChatsList()));
             }
         };
-
         createRequest(IMS_JOIN_CHAT_GROUP)
                 .setEventAttribute(IMS_GROUP_ID,chatInfo.getChatId())
                 .send(consumer);
+        return source.getTask();
     }
 
     //you shouldn't use this function directly, call delete on the chatInfo object
@@ -335,6 +313,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
             if (!response.hasErrors()) {
                 removeChatInfoWithId(chatInfo.getChatId());
+                EventBus.getDefault().post(new ChatsInfoUpdatesEvent(getUserChatsList()));
             }
             }
         };
@@ -355,6 +334,11 @@ public class ImsManager extends GSMessageHandlerAbstract{
         createRequest("imsLeaveChatGroup")
             .setEventAttribute(IMS_GROUP_ID,chatInfo.getChatId())
             .send(consumer);
+    }
+
+    void removeChatFromChatList(ChatInfo info){
+        removeChatInfoWithId(info.getChatId());
+        EventBus.getDefault().post(new ChatsInfoUpdatesEvent(getUserChatsList()));
     }
 
     /**
@@ -385,20 +369,9 @@ public class ImsManager extends GSMessageHandlerAbstract{
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
-                    JSONArray jsonArray = (JSONArray) response.getScriptData().getBaseData().get(MESSAGES);
-                    List<ImsMessage> messages = new ArrayList<>();
-                    for(Object value : jsonArray){
-                        ImsMessage message = mapper.convertValue(value,ImsMessage.class);
-                        messages.add(message);
-                    }
-                    // Go trough all messages objects and load users and messages
-                    for (ImsMessage message : messages) {
-                        message.initializeTimestamp();
-                        message.determineSelfReadFlag();
-                        GameSparksEvent fe = new GameSparksEvent("New message detected.", GameSparksEvent.Type.CHAT_NEW_MESSAGE, message);
-                        fe.setFilterId(chatInfo.getChatId());
-                        EventBus.getDefault().post(fe);
-                    }
+                    Object object = response.getScriptData().getBaseData().get(MESSAGES);
+                    List<ImsMessage> messages = mapper.convertValue(object, new TypeReference<List<ImsMessage>>(){});
+                    chatInfo.addReceivedMessage(messages);
                 }
             }
         };
@@ -410,7 +383,8 @@ public class ImsManager extends GSMessageHandlerAbstract{
     }
 
     // load next page of messages
-    void loadNextPageOfMessages(final ChatInfo chatInfo){
+    Task<List<ImsMessage>> loadPreviousPageOfMessages(final ChatInfo chatInfo){
+        final TaskCompletionSource<List<ImsMessage>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -423,9 +397,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                         message.initializeTimestamp();
                         message.determineSelfReadFlag();
                     }
-                    GameSparksEvent fe = new GameSparksEvent("Next messages page loaded.", GameSparksEvent.Type.CHAT_NEXT_PAGE_LOADED, messages);
-                    fe.setFilterId(chatInfo.getChatId());
-                    EventBus.getDefault().post(fe);
+                    source.setResult(messages);
                 }
             }
         };
@@ -433,6 +405,27 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 .setEventAttribute(OFFSET,chatInfo.getMessages().size())
                 .setEventAttribute(ENTRY_COUNT,MESSAGE_PAGE_SIZE)
                 .setEventAttribute(GROUP_ID,chatInfo.getChatId())
+                .send(consumer);
+
+        return source.getTask();
+    }
+
+    // do not use this function, call the chat info one!
+    void markMessageAsRead(final ChatInfo chatInfo,final ImsMessage message){
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if(!response.hasErrors()){
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
+                    ChatInfo updatedChatInfo = mapper.convertValue(object,ChatInfo.class);
+                    chatInfo.setEqualTo(updatedChatInfo);
+                }
+            }
+        };
+        createRequest("imsMarkMessageAsRead")
+                .setEventAttribute(GROUP_ID,chatInfo.getChatId())
+                .setEventAttribute("messageId",message.getId())
                 .send(consumer);
     }
 
@@ -460,35 +453,21 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 .send(consumer);
     }
 
-    // do not use this function, call the chat info one!
-    void markMessageAsRead(final ChatInfo chatInfo,final ImsMessage message){
-        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-            @Override
-            public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if(!response.hasErrors()){
-                    // Parse response
-                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
-                    ChatInfo updatedChatInfo = mapper.convertValue(object,ChatInfo.class);
-                    chatInfo.setEqualTo(updatedChatInfo);
-                    message.setReadFlag(true);
-                }
-            }
-        };
-        createRequest("imsMarkMessageAsRead")
-                .setEventAttribute(GROUP_ID,chatInfo.getChatId())
-                .setEventAttribute("messageId",message.getId())
-                .send(consumer);
-    }
-
-
     @Override
     public void onGSTeamChatMessage(GSMessageHandler.TeamChatMessage msg){
         String data = (String)msg.getBaseData().get("imsGroups");
         try {
-            Log.e(TAG,"UNHANDLED TeamChatMessage DATA: " + data);
             ImsMessage message = mapper.readValue(data,ImsMessage.class);
+            String chatId = msg.getTeamId();
+            String teamType = msg.getTeamType();
+            if(teamType!=null && chatId!=null){
+                if(teamType.equals("imsGroups")){
+                    ChatInfo chatInfo = getChatInfoById(chatId);
+                    chatInfo.addReceivedMessage(message);
+                }
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG,"Unhandled exception - Team Chat Message: " + data);
         }
     }
 
@@ -497,9 +476,10 @@ public class ImsManager extends GSMessageHandlerAbstract{
         String chatId;
         switch (type){
             case "ImsUpdateChatInfo":
+//              TODO   ??? This part looks weird on iOS ?
                 chatId = (String) data.get(CHAT_ID);
-                if(chatId!=null){
-//                    reload();
+                if(chatId==null){
+                    reload();
                 }
                 break;
             case "ImsUpdateUserIsTypingState":
@@ -516,17 +496,13 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 }
                 break;
             case "ImsMessage":
-            case "ImsMesssage": // TODO REMOVE WHEN TYPO IS FIXED!
                 ImsMessage message = mapper.convertValue(data.get(MESSAGE),ImsMessage.class);
                 ChatInfo chatInfo = ImsManager.getInstance().getChatInfoById((String)data.get(CHAT_ID));
                 if(chatInfo!=null){
-                    chatInfo.addRecievedMessage(message);
+                    chatInfo.addReceivedMessage(message);
                 } else {
-                    Log.e(TAG,"UNHANDLED ImsMessage " + message + " Error: chat not found with id:" + (String)data.get(CHAT_ID));
+                    Log.e(TAG,"UNHANDLED ImsMessage " + message + " Error: chat not found with id:" + data.get(CHAT_ID));
                 }
-                break;
-            default:
-                //Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
                 break;
         }
 

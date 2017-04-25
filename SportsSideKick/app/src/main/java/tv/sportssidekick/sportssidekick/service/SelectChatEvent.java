@@ -6,11 +6,11 @@ package tv.sportssidekick.sportssidekick.service;
  * www.hypercubesoft.com
  */
 
-public class UIEvent extends BusEvent {
+public class SelectChatEvent extends BusEvent {
 
     int position;
 
-    public UIEvent(int position) {
+    public SelectChatEvent(int position) {
         super(null);
         this.position = position;
     }

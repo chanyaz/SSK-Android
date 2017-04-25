@@ -23,6 +23,7 @@ public class ImsMessage {
 
     @JsonProperty("_id")
     private String id;
+    private String locid;
     private String text;
     private String senderId;
     private float imageAspectRatio;
@@ -39,22 +40,6 @@ public class ImsMessage {
     private String type;
 
     public ImsMessage(){}
-
-    public ImsMessage(String id, String text, String senderId, float imageAspectRatio, String timestamp, String imageUrl, String vidUrl, HashMap<String, Boolean> wasReadBy, String localPath, String uploadStatus, String type, boolean readFlag, long timestampEpoch) {
-        this.id = id;
-        this.text = text;
-        this.senderId = senderId;
-        this.imageAspectRatio = imageAspectRatio;
-        this.timestamp = timestamp;
-        this.imageUrl = imageUrl;
-        this.vidUrl = vidUrl;
-        this.wasReadBy = wasReadBy;
-        this.localPath = localPath;
-        this.uploadStatus = uploadStatus;
-        this.type = type;
-        this.readFlag = readFlag;
-        this.timestampEpoch = timestampEpoch;
-    }
 
     public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {
         this.text = text;
@@ -209,5 +194,14 @@ public class ImsMessage {
     @JsonProperty("_id")
     public void setId(String id) {
         this.id = id;
+    }
+
+
+    public String getLocid() {
+        return locid;
+    }
+
+    public void setLocid(String locid) {
+        this.locid = locid;
     }
 }

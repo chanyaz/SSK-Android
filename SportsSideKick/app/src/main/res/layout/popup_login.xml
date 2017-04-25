@@ -175,7 +175,6 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/login_login_email"
                     android:inputType="textEmailAddress"
-                    android:text="user2@user2.com"
                     android:textAlignment="textStart"
                     android:nextFocusDown="@+id/login_password" />
 
@@ -186,7 +185,6 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/login_login_password"
                     android:inputType="textPassword"
-                    android:text="qwerty"
                     android:textAlignment="textStart" />
 
                 <TextView

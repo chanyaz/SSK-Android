@@ -30,14 +30,13 @@ import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
 import tv.sportssidekick.sportssidekick.adapter.ChatSearchExpandableAdapter;
-import tv.sportssidekick.sportssidekick.adapter.FriendsInChatAdapter;
 import tv.sportssidekick.sportssidekick.adapter.PublicChatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
-import tv.sportssidekick.sportssidekick.util.ui.AnimatedExpandableListView;
 import tv.sportssidekick.sportssidekick.util.Utility;
+import tv.sportssidekick.sportssidekick.util.ui.AnimatedExpandableListView;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -154,20 +153,21 @@ public class JoinChatFragment extends BaseFragment {
             }
         });
 
-        Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChatsUrFriendsAreIn();
-        task.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
-            @Override
-            public void onComplete(@NonNull Task<List<ChatInfo>> task) {
-                if (task.isSuccessful()) {
-                    FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
-                    friendsInChatAdapter.setValues(task.getResult());
-                    recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
-
-                    chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
-                    chatsAdapter.add(task.getResult());
-                }
-            }
-        });
+            // TODO - Extract this from existing info!
+//        Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChatsUrFriendsAreIn();
+//        task.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
+//            @Override
+//            public void onComplete(@NonNull Task<List<ChatInfo>> task) {
+//                if (task.isSuccessful()) {
+//                    FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
+//                    friendsInChatAdapter.setValues(task.getResult());
+//                    recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
+//
+//                    chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
+//                    chatsAdapter.add(task.getResult());
+//                }
+//            }
+//        });
         return view;
     }
 

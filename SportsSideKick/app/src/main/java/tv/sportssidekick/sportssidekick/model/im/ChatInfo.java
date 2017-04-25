@@ -24,7 +24,6 @@ import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -77,7 +76,7 @@ public class ChatInfo {
         setIsMuted(info.getIsMuted());
         setUnreadCount(info.getUnreadCount());
 
-        // This is different from iOS
+        // This is different from iOS - do we really need this?
         if(info.getMessages()!=null){
             if(info.getMessages().size()>0){
                 setMessages(info.getMessages());
@@ -86,7 +85,7 @@ public class ChatInfo {
     }
 
     // don't use that, it is called on login
-    Task loadChatUsers() {
+    Task<Void> loadChatUsers() {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         if (chatUsers == null){
             chatUsers = new ArrayList<>();
@@ -108,17 +107,14 @@ public class ChatInfo {
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
                         setupChatNicAndAvatar();
-                        EventBus.getDefault().post(
-                                new GameSparksEvent("All users downloaded for chat " + getChatId(),
-                                        GameSparksEvent.Type.CHAT_USERS_UPDATED, getChatId()));
+                        source.setResult(null);
+                        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_USERS));
                     }
                 }
             });
         } else {
             source.setResult(null);
-            EventBus.getDefault().post(
-                    new GameSparksEvent("All users downloaded for chat " + getChatId(),
-                            GameSparksEvent.Type.CHAT_USERS_UPDATED, getChatId()));
+            EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_USERS));
         }
         return source.getTask();
     }
@@ -190,32 +186,35 @@ public class ChatInfo {
     }
 
     @Subscribe
-    public void onEvent(GameSparksEvent event){
-        ImsMessage message;
-        if(getChatId().equals(event.getFilterId())){
-            switch (event.getEventType()){
-                case CHAT_NEW_MESSAGE:
-                    message = (ImsMessage) event.getData();
-                    //Log.d(TAG, "NEW MESSAGE EVENT : " + message.getId() + " for chat: " + getChatId());
-                    messages.add(message);
-                    break;
-                case CHAT_MESSAGE_UPDATED:
-                    message = (ImsMessage) event.getData();
-                    for(int i = 0; i<messages.size();i++){
-                        ImsMessage msg = messages.get(i);
-                        if(msg.getId().equals(message.getId())){
-                            messages.set(i,message);
-                        }
-                        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kChangedChatMessage, object: self)
-                    }
-                    break;
-                case CHAT_NEW_MESSAGE_ADDED:
-                    message = (ImsMessage) event.getData();
-                    messages.add(message);
-                    // TODO  NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
-                    break;
-                case CHAT_NEXT_PAGE_LOADED:
-                    ArrayList<ImsMessage> messagesNewPage = (ArrayList<ImsMessage>)event.getData();
+    public void onEvent(ChatMessagesEvent event){
+        messages.add(event.getMessage());
+        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+        EventBus.getDefault().post(new ChatUpdateEvent(this));
+    }
+
+    @Subscribe
+    public void onEvent(MessageUpdateEvent event){
+        ImsMessage message = event.getMessage();
+        messages.add(message);
+        for(int i = 0; i<messages.size();i++){
+            ImsMessage msg = messages.get(i);
+            if(msg.getId().equals(message.getId())){
+                messages.set(i,message);
+            }
+            EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
+        }
+        EventBus.getDefault().post(new ChatUpdateEvent(this));
+    }
+
+    /**
+     * Load Message history, this func load the previusly archived messages in this chat
+     */
+    public void loadPreviousMessagesPage(){
+        ImsManager.getInstance().loadPreviousPageOfMessages(this).addOnCompleteListener(new OnCompleteListener<List<ImsMessage>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<ImsMessage>> task) {
+                if(task.isSuccessful()){
+                    List<ImsMessage> messagesNewPage =task.getResult();
                     for(ImsMessage m : messagesNewPage){
                         boolean exists = false;
                         for(ImsMessage mOld : messages){
@@ -228,51 +227,18 @@ public class ChatInfo {
                             messages.add(m);
                         }
                     }
-
                     Collections.sort(messages, new Comparator<ImsMessage>() {
                         @Override
                         public int compare(ImsMessage lhs, ImsMessage rhs) {
-                           return lhs.getTimestamp().compareTo(rhs.getTimestamp());
-                       }
-                   });
-                    // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
-                    break;
-            }
-        }
-    }
+                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
+                        }
+                    });
+                    EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+                    EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
+                }
 
-    public static void sortMessages(ArrayList<ImsMessage> messages){
-        Collections.sort(messages, new Comparator<ImsMessage>() {
-            @Override
-            public int compare(ImsMessage lhs, ImsMessage rhs) {
-                return lhs.getTimestamp().compareTo(rhs.getTimestamp());
             }
         });
-    }
-
-    @Subscribe
-    public void onEvent(NewMessagesEvent event){
-        messages.addAll(event.getValues());
-        // TBA Event!  notifyChatUpdate
-    }
-
-    @Subscribe
-    public void onMessagesChangedEvent(ImsMessage changedMessage){
-        for(ImsMessage message : messages){
-            if(message.getId().equals(changedMessage.getId())){
-                message = changedMessage;
-                EventBus.getDefault().post(
-                        new GameSparksEvent("Chat updated - message changed for chat: " + getChatId(),
-                                GameSparksEvent.Type.CHAT_UPDATED, getChatId()));
-            }
-        }
-    }
-
-    /**
-     * Load Message history, this func load the previusly archived messages in this chat
-     */
-    public void loadPreviousMessagesPage(){
-        ImsManager.getInstance().loadNextPageOfMessages(this);
     }
 
 
@@ -282,7 +248,8 @@ public class ChatInfo {
      * @param  message to send
      */
     public void sendMessage(ImsMessage message){
-           ImsManager.getInstance().imsSendMessageToChat(this, message);
+        ImsManager.getInstance().imsSendMessageToChat(this, message);
+        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
     }
 
     /**
@@ -317,7 +284,7 @@ public class ChatInfo {
     public void addUser(UserInfo uinfo){
         String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(owner.equals(currentUserId)){
-            getUsersIds().add(uinfo.getUserId());
+            usersIds.add(uinfo.getUserId());
             updateChatInfo();
         }else{
             Log.e(TAG,"Error - cant add user to a chat that you are not the owner of!");
@@ -334,8 +301,14 @@ public class ChatInfo {
                         if(chatInfo.getUsersIds().contains(uinfo.getUserId())){
                             Log.e(TAG,"ERROR - User already added to Global chat");
                         } else {
-                            loadChatUsers();
-                            updateChatInfo();
+                            loadChatUsers().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    usersIds.add(uinfo.getUserId());
+                                    chatUsers.add(uinfo);
+                                    updateChatInfo();
+                                }
+                            });
                         }
                     } else {
                         Log.e(TAG,"ERROR - Trying to add user to not-global chat");
@@ -351,7 +324,7 @@ public class ChatInfo {
      **/
     public void updateChatInfo(){
         ImsManager.getInstance().updateChat(this);
-        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.ChatViewController_ref.kSetCurrentChat, object: chatInfo?.chatId)
+        EventBus.getDefault().post(new ChatNotificationsEvent(getChatId(), ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
     }
 
     /**
@@ -367,12 +340,8 @@ public class ChatInfo {
             ImsManager.getInstance().leaveChat(this);
         }
         messages.clear();
-        EventBus.getDefault().post(
-                new GameSparksEvent("Chat Deleted and processed.",
-                GameSparksEvent.Type.CHAT_DELETED_PROCESSED, getChatId()));
-
-        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
-        // TODO  self.notifyChatUpdate.emit() ???
+        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+        EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
 }
 
     /**
@@ -381,8 +350,8 @@ public class ChatInfo {
     public void wasRemovedByOwner(){
         if(messages!=null){
             messages.clear();
-            EventBus.getDefault().post(new GameSparksEvent("This user was removed from this chat by the chat owner.", GameSparksEvent.Type.CHAT_REMOVED_PROCESSED, getChatId()));
-        }
+            EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+            EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));        }
     }
 
     /**
@@ -412,7 +381,7 @@ public class ChatInfo {
         String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(isPublic && !isUserBlockedFromThisChat(currentUserId)){
             ImsManager.getInstance().joinChat(this);
-            // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.ChatViewController_ref.kSetCurrentChat, object: self.chatId)
+            EventBus.getDefault().post(new ChatNotificationsEvent(getChatId(), ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
         }
     }
 
@@ -421,15 +390,14 @@ public class ChatInfo {
      * @return blocked
      */
     public boolean isUserBlockedFromThisChat(String userId){
-        boolean blocked = false;
         if(isPublic && blackList != null){
             for (String id : blackList){
                 if (id.equals(userId)){
-                    blocked = true;
+                    return true;
                 }
             }
         }
-        return blocked;
+        return false;
     }
 
     // set the state of typing of this user - should be switch on when starting to type and off after pressing send
@@ -454,7 +422,7 @@ public class ChatInfo {
                 }
             }
         }
-        EventBus.getDefault().post(new GameSparksEvent("Chat updated - users typing in chat: " + getChatId(), GameSparksEvent.Type.TYPING, usersTypingInfo));
+        EventBus.getDefault().post(new UserIsTypingEvent(usersTypingInfo));
     }
 
     /**
@@ -498,23 +466,38 @@ public class ChatInfo {
     public void setMuteChat(boolean isMuted){
         this.setIsMuted(isMuted);
         ImsManager.getInstance().setMuteChat(this,isMuted);
-        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
     }
 
-    public void addRecievedMessage(ImsMessage message){
-        if(this.messages==null) {
-            this.messages = new ArrayList<>();
+    void addReceivedMessage(ImsMessage message){
+        if (message.getLocid() != null){
+            for(ImsMessage m : messages){
+                if (message.getLocid().equals(m.getLocid())){
+                    return;
+                }
+            }
         }
-        this.messages.add(message);
-        EventBus.getDefault().post(new GameSparksEvent("Chat updated - message received in chat: " + getChatId(), GameSparksEvent.Type.CHAT_UPDATED, message));
+
+        if(messages==null) {
+            messages = new ArrayList<>();
+        }
+        message.initializeTimestamp();
+        message.determineSelfReadFlag();
+        messages.add(message);
+        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+        EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }
-    public void addRecievedMessage(List<ImsMessage> messages){
-        if(this.messages==null) {
-            this.messages = new ArrayList<>();
+
+    void addReceivedMessage(List<ImsMessage> messages){
+        if(messages==null) {
+            messages = new ArrayList<>();
+        }
+        for(ImsMessage message : messages) {
+            message.initializeTimestamp();
+            message.determineSelfReadFlag();
         }
         this.messages.addAll(messages);
-        EventBus.getDefault().post(new GameSparksEvent("Chat updated - message list received in chat: " + getChatId(), GameSparksEvent.Type.CHAT_UPDATED, messages));
-        // TODO NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Chat.kUpdatedChatMessages, object: self)
+        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+        EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }
 
 

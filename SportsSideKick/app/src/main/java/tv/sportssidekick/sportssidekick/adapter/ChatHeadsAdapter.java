@@ -3,7 +3,6 @@ package tv.sportssidekick.sportssidekick.adapter;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.service.UIEvent;
+import tv.sportssidekick.sportssidekick.service.SelectChatEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -43,7 +41,6 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
 
     // Start with first item selected
     private int focusedItem = 0;
-    private int focusedItemToEdit = -1;
 
     private int selectedChatColor;
 
@@ -102,7 +99,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                         notifyItemChanged(focusedItem);  // notify previous item!
                         focusedItem = viewHolder.getLayoutPosition();
                         notifyItemChanged(focusedItem); // notify new item
-                        EventBus.getDefault().post(new UIEvent(focusedItem));
+                        EventBus.getDefault().post(new SelectChatEvent(focusedItem));
                 }
             });
             return viewHolder;

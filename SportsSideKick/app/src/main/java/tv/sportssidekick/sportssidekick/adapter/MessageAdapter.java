@@ -41,10 +41,18 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
     private static final String TAG = "Message Adapter";
+
+    public void setChatInfo(ChatInfo chatInfo) {
+        this.chatInfo = chatInfo;
+    }
+
     private ChatInfo chatInfo;
     private LayoutInflater inflater = null;
     private static final int VIEW_TYPE_MESSAGE_THIS_USER = 0;
     private static final int VIEW_TYPE_MESSAGE_OTHER_USERS = 1;
+
+
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -64,8 +72,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
 
-    public MessageAdapter(Context context, ChatInfo chatInfo) {
-        this.chatInfo = chatInfo;
+    public MessageAdapter(Context context) {
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -169,29 +176,41 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public long getItemId(int i) {
-        return chatInfo.getMessages().get(i).getTimestampEpoch();
-    }
-
-    @Override
-    public int getItemCount() {
-        List messages = chatInfo.getMessages();
-        if(messages!=null){
-            return messages.size();
+        if(chatInfo!=null) {
+            return chatInfo.getMessages().get(i).getTimestampEpoch();
         } else {
-            Log.d(TAG, "List of messages is null for chat: " + chatInfo.getChatId());
             return 0;
         }
     }
 
     @Override
-    public int getItemViewType(int position) {
-        ImsMessage message = chatInfo.getMessages().get(position);
-        UserInfo info = Model.getInstance().getUserInfo();
-        String userId = info.getUserId();
-        if(userId!=null){
-            if(info.getUserId().equals(message.getSenderId())) {
-                return VIEW_TYPE_MESSAGE_THIS_USER;
+    public int getItemCount() {
+        if(chatInfo!=null){
+            List messages = chatInfo.getMessages();
+            if(messages!=null){
+                return messages.size();
+            } else {
+                Log.d(TAG, "List of messages is null for chat: " + chatInfo.getChatId());
+                return 0;
             }
+        } else {
+            return 0;
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(chatInfo!=null){
+            ImsMessage message = chatInfo.getMessages().get(position);
+            UserInfo info = Model.getInstance().getUserInfo();
+            String userId = info.getUserId();
+            if(userId!=null){
+                if(info.getUserId().equals(message.getSenderId())) {
+                    return VIEW_TYPE_MESSAGE_THIS_USER;
+                }
+            }
+            return VIEW_TYPE_MESSAGE_OTHER_USERS;
         }
         return VIEW_TYPE_MESSAGE_OTHER_USERS;
     }
