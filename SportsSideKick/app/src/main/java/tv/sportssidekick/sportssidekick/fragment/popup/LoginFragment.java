@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -93,10 +94,10 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                 forgotPasswordContainer.setVisibility(View.INVISIBLE);
             }
         });
-
-
-        emailEditText.setText("marco@polo.com");
+        // --- TODO For testing only!
+        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
         passwordEditText.setText("qwerty");
+        // ---
         return view;
     }
 
@@ -115,6 +116,11 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             Toast.makeText(getContext(), "Please enter valid password and displayName!", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        // --- TODO For testing only!
+        Prefs.putString("LAST_TEST_EMAIL",email);
+        // ---
+
         Model.getInstance().login(email, password);
         loginText.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);

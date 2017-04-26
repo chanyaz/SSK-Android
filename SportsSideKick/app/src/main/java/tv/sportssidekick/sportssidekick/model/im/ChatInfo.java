@@ -249,6 +249,7 @@ public class ChatInfo {
      */
     public void sendMessage(ImsMessage message){
         ImsManager.getInstance().imsSendMessageToChat(this, message);
+        messages.add(message);
         EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
     }
 
