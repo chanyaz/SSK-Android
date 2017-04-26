@@ -29,6 +29,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -183,6 +185,9 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
+        inputEditText.setImeActionLabel("SEND",EditorInfo.IME_ACTION_SEND);
+        inputEditText.setImeOptions(EditorInfo.IME_ACTION_SEND);
+
         /* input Listeners */
         inputEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -326,12 +331,23 @@ public class ChatFragment extends BaseFragment {
             setupEditChatButton();
         } else {
             chatMenuDotsContainer.setVisibility(View.GONE);
+            animate(chatMenuDotsContainer, View.GONE, R.anim.slide_in_right);
             view.setImageDrawable(chatDotsDrawable);
             if (chatButtonsMenu.getVisibility() == View.GONE) {
                 chatButtonsMenu.setVisibility(View.VISIBLE);
                 chatButtonsContainer.setVisibility(View.GONE);
             }
         }
+
+
+    }
+
+    Animation animation;
+
+    private void animate(View view, int visibility, int anim) {
+        animation = AnimationUtils.loadAnimation(getActivity(), anim);
+        view.startAnimation(animation);
+        view.setVisibility(visibility);
     }
 
     @OnClick(R.id.close_image_button)
