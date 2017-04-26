@@ -125,8 +125,8 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     public void setVideoEnabled(boolean videoEnabled) {
         isVideoEnabled = videoEnabled;
-        previewView.setVisibility(isVideoEnabled ? View.VISIBLE : View.GONE);
-        disabled.setVisibility(isVideoEnabled ? View.GONE : View.VISIBLE);
+        previewView.setVisibility(isVideoEnabled ? View.VISIBLE : View.INVISIBLE);
+        disabled.setVisibility(isVideoEnabled ? View.INVISIBLE : View.VISIBLE);
         localVideoTrack.enable(isVideoEnabled);
         if(videoEnabled){
             videoButton.setSelected(false);
@@ -192,9 +192,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         slots.add(new Slot(ButterKnife.findById(view,R.id.slot_4)));
         return view;
     }
-
-
-
 
     private void setViewState(boolean active, boolean loading) {
         activeChatView.setVisibility(active && !loading ? View.VISIBLE : View.GONE);
