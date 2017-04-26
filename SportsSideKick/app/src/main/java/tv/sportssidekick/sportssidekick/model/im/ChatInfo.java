@@ -23,6 +23,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatMessagesEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatUpdateEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.MessageUpdateEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.UserIsTypingEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**

@@ -159,9 +159,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     }
 
     @Override
-    public void onLoginAnonymously() {
-
-    }
+    public void onLoginAnonymously() { }
 
     @Override
     public void onLogin(UserInfo user) {

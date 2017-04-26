@@ -22,6 +22,7 @@ import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;

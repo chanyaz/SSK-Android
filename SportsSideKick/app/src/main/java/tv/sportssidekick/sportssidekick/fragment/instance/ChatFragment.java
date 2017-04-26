@@ -71,8 +71,8 @@ import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.model.im.ChatNotificationsEvent;
-import tv.sportssidekick.sportssidekick.model.im.ChatsInfoUpdatesEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
@@ -233,10 +233,8 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
-
         chatRightArrowDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.chat_right_arrow);
         chatDotsDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.chat_menu_button);
-
         inputEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -247,9 +245,7 @@ public class ChatFragment extends BaseFragment {
                 }
             }
         });
-
         updateAllViews();
-
         return view;
     }
 

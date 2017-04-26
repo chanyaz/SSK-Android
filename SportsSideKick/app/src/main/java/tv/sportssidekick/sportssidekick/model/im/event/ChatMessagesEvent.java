@@ -1,4 +1,6 @@
-package tv.sportssidekick.sportssidekick.model.im;
+package tv.sportssidekick.sportssidekick.model.im.event;
+
+import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
 
 /**
  * Created by Filip on 4/25/2017.
@@ -6,11 +8,11 @@ package tv.sportssidekick.sportssidekick.model.im;
  * www.hypercubesoft.com
  */
 
-public class MessageUpdateEvent {
+public class ChatMessagesEvent {
 
     ImsMessage message;
 
-    public MessageUpdateEvent(ImsMessage message) {
+    public ChatMessagesEvent(ImsMessage message) {
         this.message = message;
     }
 
