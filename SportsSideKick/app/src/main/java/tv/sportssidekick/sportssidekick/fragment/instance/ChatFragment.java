@@ -178,7 +178,7 @@ public class ChatFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 if (currentlyActiveChat != null) {
-                    currentlyActiveChat.loadPreviousMessagesPage();
+                    loadNextPage();
                 } else {
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -247,7 +247,27 @@ public class ChatFragment extends BaseFragment {
                 }
             }
         });
+
+        updateAllViews();
+
         return view;
+    }
+
+    private void loadNextPage(){
+//        ImsManager.getInstance().loadPreviousPageOfMessages(currentlyActiveChat).addOnCompleteListener(new OnCompleteListener<List<ImsMessage>>() {
+//            @Override
+//            public void onComplete(@NonNull Task<List<ImsMessage>> task) {
+//                    if(task.isSuccessful()){
+//                        currentlyActiveChat.addReceivedMessage(task.getResult());
+//                        updateAllViews();
+//                    } else {
+//                        // TODO No more messages - disable swipe?
+//                    }
+//                swipeRefreshLayout.setRefreshing(false);
+//
+//            }
+//        });
+        currentlyActiveChat.loadPreviousMessagesPage();
     }
 
     @Override
@@ -274,12 +294,21 @@ public class ChatFragment extends BaseFragment {
         } else {
             displayChat(null);
         }
+        messageAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
     }
 
     private void displayChat(ChatInfo info) {
         currentlyActiveChat = info;
         setupEditChatButton();
+        if (currentlyActiveChat != null) {
+            updateChatTitleText();
+            messageAdapter.setChatInfo(currentlyActiveChat);
+        }
+    }
+
+    private void updateChatTitleText(){
         if (currentlyActiveChat != null) {
             // Setup Chat label
             StringBuilder chatLabel = new StringBuilder(currentlyActiveChat.getChatTitle());
@@ -289,17 +318,18 @@ public class ChatFragment extends BaseFragment {
             for (String userId : currentlyActiveChat.getUsersIds()) {
                 count++;
                 String chatName = Model.getInstance().getCachedUserInfoById(userId).getNicName();
-                if(!TextUtils.isEmpty(chatName)){
+                if (!TextUtils.isEmpty(chatName)) {
                     chatLabel.append(chatName);
-                    if(count<size){
+                    if (count < size) {
                         chatLabel.append(", ");
                     }
                 }
             }
             infoLineTextView.setText(chatLabel.toString());
-            messageAdapter.setChatInfo(currentlyActiveChat);
         }
     }
+
+
 
 
     private void setupEditChatButton(){
@@ -432,75 +462,51 @@ public class ChatFragment extends BaseFragment {
 
 
     @Subscribe
-    private void onEvent(ChatNotificationsEvent event){
+    public void onEvent(ChatNotificationsEvent event){
+        Log.d(TAG,"Received ChatNotificationsEvent: " + event.getKey().name());
         switch (event.getKey()){
             case UPDATED_CHAT_USERS:
-                handleUpdatedChatUsers(event);
+                handleUpdatedChatUsers();
                 break;
             case CHANGED_CHAT_MESSAGE:
                 break;
             case UPDATED_CHAT_MESSAGES:
-                handleUpdatedChatMessages(event);
+                handleUpdatedChatMessages();
                 break;
             case SET_CURRENT_CHAT:
-                setCurrentChatNotification(event);
+                String chatId = (String)event.getData();
+                setCurrentChatNotification(chatId);
                 break;
         }
     }
 
-    private void handleUpdatedChatUsers(ChatNotificationsEvent event){
+    private void handleUpdatedChatUsers(){
         if(currentlyActiveChat ==null){
             currentlyActiveChat = ImsManager.getInstance().getChatInfoById(currentlyActiveChat.getChatId());
         }
         updateAllViews();
     }
 
-    private void handleUpdatedChatMessages(ChatNotificationsEvent event){
+    private void handleUpdatedChatMessages(){
         messageAdapter.notifyDataSetChanged();
         int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
         messageListView.smoothScrollToPosition(lastMessagePosition);
+        updateAllViews();
     }
 
-    private void setCurrentChatNotification(ChatNotificationsEvent event){
-        String chatId = (String)event.getData();
+    private void setCurrentChatNotification(String chatId){
         currentlyActiveChat = ImsManager.getInstance().getChatInfoById(chatId);
+        updateAllViews();
     }
 
     @Subscribe
     public void onEvent(ChatsInfoUpdatesEvent event){
         findActiveChat();
         updateAllViews();
-//        self.updateAllViews()
-//        self.checkPushNotification()
+        checkPushNotification();
     }
 
-//                case TYPING:
-//            if ((event.getData() != null)) {
-//        List<UserInfo> usersTyping = (List<UserInfo>) event.getData(); // TODO What to do?
-//    }
-//                break;
-//            case CLEAR_CHATS:
-//    initializeUI();
-//                break;
-//            case USER_CHAT_DETECTED:
-//    initializeUI();
-//                break;
-//            case PUBLIC_CHAT_DETECTED:
-//    initializeUI();
-//                break;
-//            case GLOBAL_CHAT_DETECTED: // TODO Check on this - same logic as for public chats?
-//    initializeUI();
-//                break;
-//            case CHAT_NEW_MESSAGE_ADDED:
-//            messageAdapter.notifyDataSetChanged();
-//    int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
-//                messageListView.smoothScrollToPosition(lastMessagePosition);
-//                break;
-//            case CHAT_NEXT_PAGE_LOADED:
-//                swipeRefreshLayout.setRefreshing(false);
-//                messageAdapter.notifyDataSetChanged();
-//                messageListView.smoothScrollToPosition(0);
-//                break;
+    private void checkPushNotification() { /* TODO */ }
 
     private void findActiveChat() {
         String chatId;

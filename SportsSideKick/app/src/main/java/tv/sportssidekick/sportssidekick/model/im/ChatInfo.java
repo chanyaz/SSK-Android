@@ -351,7 +351,8 @@ public class ChatInfo {
         if(messages!=null){
             messages.clear();
             EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
-            EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));        }
+            EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
+        }
     }
 
     /**
@@ -468,7 +469,7 @@ public class ChatInfo {
         ImsManager.getInstance().setMuteChat(this,isMuted);
     }
 
-    void addReceivedMessage(ImsMessage message){
+    public void addReceivedMessage(ImsMessage message){
         if (message.getLocid() != null){
             for(ImsMessage m : messages){
                 if (message.getLocid().equals(m.getLocid())){
@@ -487,7 +488,7 @@ public class ChatInfo {
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }
 
-    void addReceivedMessage(List<ImsMessage> messages){
+    public  void addReceivedMessage(List<ImsMessage> messages){
         if(messages==null) {
             messages = new ArrayList<>();
         }

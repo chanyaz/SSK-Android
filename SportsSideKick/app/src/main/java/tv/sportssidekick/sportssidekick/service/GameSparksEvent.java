@@ -45,19 +45,6 @@ public class GameSparksEvent extends BusEvent {
     }
 
     public enum Type {
-            // user, login, logout...
-            SIGNED_OUT,
-            LOGIN_SUCCESSFUL,
-            LOGGED_OUT,
-            LOGIN_FAILED,
-            ACCOUNT_DETAILS_ERROR,
-            REGISTRATION_SUCCESSFUL,
-            REGISTRATION_ERROR,
-            PASSWORD_RECOVERY_ERROR,
-            PASSWORD_RECOVERY_SUCCESSFUL,
-            USER_STATE_UPDATE_ERROR,
-            USER_STATE_UPDATE_SUCCESSFUL,
-            ALL_DATA_ACQUIRED,
             AUDIO_FILE_UPLOADED,
             MESSAGE_IMAGE_FILE_UPLOADED,
             PROFILE_IMAGE_FILE_UPLOADED,

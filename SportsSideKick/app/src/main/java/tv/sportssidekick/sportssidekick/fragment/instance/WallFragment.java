@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
@@ -64,6 +62,7 @@ import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.tutorial.TutorialModel;
 import tv.sportssidekick.sportssidekick.model.tutorial.WallTip;
+import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.wall.WallBase;
 import tv.sportssidekick.sportssidekick.model.wall.WallBetting;
@@ -77,8 +76,8 @@ import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PostCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
 import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
-import tv.sportssidekick.sportssidekick.util.ui.StaggeredLayoutManagerItemDecoration;
 import tv.sportssidekick.sportssidekick.util.Utility;
+import tv.sportssidekick.sportssidekick.util.ui.StaggeredLayoutManagerItemDecoration;
 
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_POST_IMAGE_CAPTURE;
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_POST_IMAGE_PICK;
@@ -94,7 +93,7 @@ import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_POST_VIDEO_
 
 @RuntimePermissions
 @IgnoreBackHandling
-public class WallFragment extends BaseFragment {
+public class WallFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
 
     private static final String TAG = "WALL FRAGMENT";
     WallAdapter adapter;
@@ -158,6 +157,7 @@ public class WallFragment extends BaseFragment {
     boolean isNewPostVisible, isFilterVisible, isSearchVisible;
     List<WallBase> wallItems;
     private List<WallBase> filteredItems;
+    private LoginStateReceiver loginStateReceiver;
 
     public WallFragment() {
         // Required empty public constructor
@@ -171,6 +171,7 @@ public class WallFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         TutorialModel.getInstance().initialize(getActivity());
+        this.loginStateReceiver = new LoginStateReceiver(this);
 
         wallItems = new ArrayList<>();
         wallItems.addAll(WallBase.getCache().values());
@@ -298,10 +299,6 @@ public class WallFragment extends BaseFragment {
     @SuppressWarnings("Unchecked cast")
     public void onEventDetected(GameSparksEvent event){
         switch (event.getEventType()) {
-            case LOGGED_OUT:
-//                adapter.clear();
-//                adapter.notifyDataSetChanged();
-                break;
             case POST_IMAGE_FILE_UPLOADED:
                 if(event.getData()!=null){
                     uploadedImageUrl = (String)event.getData();
@@ -652,9 +649,68 @@ public class WallFragment extends BaseFragment {
         }
     }
 
+    private void reloadWallFromModel(){
+        //TODO!!!
+//        print("Wall.reloadWallFromModel()")
+//
+//        wallItems.removeAll()
+//        filteredWallItems.removeAll()
+//        listeners.removeAll()
+//
+//        self.SetupTutorial()
+//
+//        listeners += WallModel.instance.notifyPostUpdate.on() {
+//            response in
+//
+//            if self.first_tutorial_load {
+//                self.first_tutorial_load = false
+//                self.LoadNextTutorialItem()
+//            }
+//
+//            self.loadingSpinner.isHidden = true
+//
+//            self.AddPost(post: response)
+//        }
+//
+//        WallModel.instance.mbListenerToUserWall()
+//        collectionView.reloadData()
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(loginStateReceiver);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         getNextTip();
+    }
+
+    private void reset(){
+        WallModel.getInstance().clear();
+    }
+
+    @Override
+    public void onLogout() {
+        reset();
+    }
+
+    @Override
+    public void onLoginAnonymously() {
+        reset();
+        reloadWallFromModel();
+    }
+
+    @Override
+    public void onLogin(UserInfo user) {
+        reset();
+        reloadWallFromModel();
+    }
+
+    @Override
+    public void onLoginError(Error error) {
+        reset();
     }
 }
