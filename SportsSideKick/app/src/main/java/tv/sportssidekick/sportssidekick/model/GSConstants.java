@@ -20,7 +20,7 @@ public class GSConstants {
     public static final String CHATS_INFO = "chatsInfo";
     public static final String IS_TYPING_VALUE = "isTypingValue";
     public static final String MESSAGE = "message";
-    public static final String MESSAGE_PAGE_SIZE = "10";
+    public static final String MESSAGE_PAGE_SIZE = "15";
     public static final String FRIENDS = "friends";
     public static final String USER_ID = "userId";
     public static final String USER_INFO = "userInfo";

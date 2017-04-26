@@ -1,5 +1,7 @@
 package tv.sportssidekick.sportssidekick.model.im.event;
 
+import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
+
 /**
  * Created by Filip on 4/25/2017.
  * Copyright by Hypercube d.o.o.
@@ -8,6 +10,7 @@ package tv.sportssidekick.sportssidekick.model.im.event;
 
 public class ChatNotificationsEvent {
 
+    ChatInfo chatInfo;
     Object data;
     Key key;
 
@@ -19,17 +22,24 @@ public class ChatNotificationsEvent {
     }
 
 
+    public ChatNotificationsEvent(ChatInfo chatInfo, Key key) {
+        this.chatInfo = chatInfo;
+        this.key = key;
+    }
+
+
     public ChatNotificationsEvent(Object data, Key key) {
         this.data = data;
         this.key = key;
     }
 
-    public Object getData() {
-        return data;
+
+    public ChatInfo getChatInfo() {
+        return chatInfo;
     }
 
-    public void setData(Object data) {
-        this.data = data;
+    public Object getData() {
+        return data;
     }
 
     public Key getKey() {

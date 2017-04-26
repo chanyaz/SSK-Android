@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -29,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
@@ -42,6 +44,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,14 +74,14 @@ import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
-import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
-import tv.sportssidekick.sportssidekick.service.SelectChatEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
@@ -171,7 +174,12 @@ public class ChatFragment extends BaseFragment {
 
         messageAdapter = new MessageAdapter(getContext());
         messageListView.setAdapter(messageAdapter);
-        messageListView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        SnappyLinearLayoutManager snappyLinearLayoutManager = new SnappyLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        snappyLinearLayoutManager.setSnapInterpolator(new AccelerateDecelerateInterpolator());
+        snappyLinearLayoutManager.setSnapDuration(1000);
+        snappyLinearLayoutManager.setSeekDuration(1000);
+        messageListView.setLayoutManager(snappyLinearLayoutManager);
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -250,6 +258,15 @@ public class ChatFragment extends BaseFragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //! Update active chat first
+        findActiveChat();
+        //! Update UI
+        updateAllViews();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         if (recorder != null) {
@@ -258,31 +275,29 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    public void updateAllViews() {
+    private void updateTopChatsView(){
         // Setup chat heads
-        List<ChatInfo> allUserChats = ImsManager.getInstance().getUserChatsList();
-        chatHeadsAdapter.setValues(allUserChats);
+        chatHeadsAdapter.setValues(ImsManager.getInstance().getUserChatsList());
         chatHeadsAdapter.notifyDataSetChanged();
-        // Setup message list
-        if(allUserChats.size()>0){
-            if(currentlyActiveChat !=null){
-                displayChat(currentlyActiveChat);
-            } else{
-                displayChat(allUserChats.get(0));
-            }
-        } else {
-            displayChat(null);
+        if(currentlyActiveChat!=null){
+            chatHeadsAdapter.selectChat(currentlyActiveChat, false);
         }
+    }
+
+    public void updateAllViews() {
+        updateTopChatsView();
+        updateChatTitleText();
         messageAdapter.notifyDataSetChanged();
+        setupEditChatButton();
         swipeRefreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
     }
 
-    private void displayChat(ChatInfo info) {
+    private void setCurrentlyActiveChat(ChatInfo info) {
         currentlyActiveChat = info;
-        setupEditChatButton();
+        updateAllViews();
+        messageListView.smoothScrollToPosition(0);
         if (currentlyActiveChat != null) {
-            updateChatTitleText();
             messageAdapter.setChatInfo(currentlyActiveChat);
         }
     }
@@ -313,8 +328,13 @@ public class ChatFragment extends BaseFragment {
 
     private void setupEditChatButton(){
         if(currentlyActiveChat !=null){
-            if(Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())){
-                chatMenuEditButton.setText("Edit"); // TODO Extract strings...
+            UserInfo user = Model.getInstance().getUserInfo();
+            if(user!=null){
+                if(user.getUserId().equals(currentlyActiveChat.getOwner())){
+                    chatMenuEditButton.setText("Edit"); // TODO Extract strings...
+                } else {
+                    chatMenuEditButton.setText("Leave");
+                }
             } else {
                 chatMenuEditButton.setText("Leave");
             }
@@ -347,8 +367,6 @@ public class ChatFragment extends BaseFragment {
                 chatButtonsContainer.setVisibility(View.GONE);
             }
         }
-
-
     }
 
     Animation animation;
@@ -443,45 +461,56 @@ public class ChatFragment extends BaseFragment {
     @Subscribe
     public void onEvent(ChatNotificationsEvent event){
         Log.d(TAG,"Received ChatNotificationsEvent: " + event.getKey().name());
+        ChatInfo chatInfo;
         switch (event.getKey()){
             case UPDATED_CHAT_USERS:
-                handleUpdatedChatUsers();
+                chatInfo = (ChatInfo)event.getChatInfo();
+                handleUpdatedChatUsers(chatInfo);
                 break;
             case CHANGED_CHAT_MESSAGE:
                 break;
             case UPDATED_CHAT_MESSAGES:
-                handleUpdatedChatMessages();
+                chatInfo = event.getChatInfo();
+                handleUpdatedChatMessages(chatInfo.getChatId());
                 break;
             case SET_CURRENT_CHAT:
-                String chatId = (String)event.getData();
-                setCurrentChatNotification(chatId);
+                chatInfo = (ChatInfo)event.getChatInfo();
+                setCurrentChatNotification(chatInfo);
                 break;
         }
     }
 
-    private void handleUpdatedChatUsers(){
-        if(currentlyActiveChat ==null){
-            currentlyActiveChat = ImsManager.getInstance().getChatInfoById(currentlyActiveChat.getChatId());
+    private void handleUpdatedChatUsers(ChatInfo chatInfo){
+        if(currentlyActiveChat !=null){
+            setCurrentlyActiveChat(ImsManager.getInstance().getChatInfoById(currentlyActiveChat.getChatId()));
         }
         updateAllViews();
+        if(currentlyActiveChat!=null){
+            if(currentlyActiveChat.getChatId().equals(chatInfo.getChatId())){
+                // TODO - Update chat data?
+            }
+        }
     }
 
-    private void handleUpdatedChatMessages(){
-        messageAdapter.notifyDataSetChanged();
-        int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
-        messageListView.smoothScrollToPosition(lastMessagePosition);
-        updateAllViews();
+    private void handleUpdatedChatMessages(String chatId){
+        updateTopChatsView();
+        if(currentlyActiveChat!=null) {// If current chat was updated
+            if(currentlyActiveChat.getChatId().equals(chatId)){
+                messageAdapter.notifyDataSetChanged();
+                messageListView.smoothScrollToPosition(messageAdapter.getItemCount());
+            }
+        }
     }
 
-    private void setCurrentChatNotification(String chatId){
-        currentlyActiveChat = ImsManager.getInstance().getChatInfoById(chatId);
-        updateAllViews();
+    private void setCurrentChatNotification(ChatInfo chatInfo){
+        setCurrentlyActiveChat(chatInfo);
+        messageListView.smoothScrollToPosition(messageAdapter.getItemCount());
     }
 
     @Subscribe
     public void onEvent(ChatsInfoUpdatesEvent event){
         findActiveChat();
-        updateAllViews();
+        updateAllViews(); // TOTALY NOT NEEDED!
         checkPushNotification();
     }
 
@@ -493,22 +522,22 @@ public class ChatFragment extends BaseFragment {
             chatId = this.currentlyActiveChat.getChatId();
             ChatInfo chat = ImsManager.getInstance().getChatInfoById(chatId);
             if(chat!=null){
-                this.currentlyActiveChat = chat;
+                setCurrentlyActiveChat(chat);
             } else {
-                this.currentlyActiveChat = ImsManager.getInstance().getUserChatsList().get(0);
+                List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
+                if(chats!=null && chats.size()>0){
+                    setCurrentlyActiveChat(chats.get(0));
+                }
             }
         } else {
             //! Set first one if chat was not selected
-            this.currentlyActiveChat = ImsManager.getInstance().getUserChatsList().get(0);
+            if(ImsManager.getInstance().getUserChatsList()!=null){
+                List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
+                if(chats!=null && chats.size()>0){
+                    setCurrentlyActiveChat(chats.get(0));
+                }
+            }
         }
-    }
-
-    @Subscribe
-    public void onSelectChatEventDetected(SelectChatEvent event) {
-        int currentPosition = event.getPosition();
-        List<ChatInfo> infos = ImsManager.getInstance().getUserChatsList();
-        displayChat(infos.get(currentPosition));
-
     }
 
     @Subscribe

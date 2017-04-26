@@ -111,6 +111,8 @@ dependencies {
 
     // Checkout (Android In-App Billing Library) - https://github.com/serso/android-checkout
     compile 'org.solovyev.android:checkout:1.0.0'
+    // SnappySmoothScroller - https://github.com/nshmura/SnappySmoothScroller
+    compile 'com.nshmura:snappysmoothscroller:1.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

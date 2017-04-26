@@ -223,7 +223,7 @@ public class ChatInfo {
                     for(ImsMessage m : messagesNewPage){
                         boolean exists = false;
                         for(ImsMessage mOld : messages){
-                            if(mOld.getId().equals(m.getId())){
+                            if(m.getId().equals(mOld.getId())){
                                 exists = true;
                             }
                         }
@@ -232,12 +232,7 @@ public class ChatInfo {
                             messages.add(m);
                         }
                     }
-                    Collections.sort(messages, new Comparator<ImsMessage>() {
-                        @Override
-                        public int compare(ImsMessage lhs, ImsMessage rhs) {
-                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
-                        }
-                    });
+                    sortMessages();
                     EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
                     EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
                 }
@@ -247,7 +242,14 @@ public class ChatInfo {
     }
 
 
-
+    private void sortMessages(){
+        Collections.sort(messages, new Comparator<ImsMessage>() {
+            @Override
+            public int compare(ImsMessage lhs, ImsMessage rhs) {
+                return lhs.getTimestamp().compareTo(rhs.getTimestamp());
+            }
+        });
+    }
     /**
      * Send message to the chat
      * @param  message to send
@@ -490,6 +492,7 @@ public class ChatInfo {
         message.initializeTimestamp();
         message.determineSelfReadFlag();
         messages.add(message);
+        sortMessages();
         EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }
@@ -503,6 +506,7 @@ public class ChatInfo {
             message.determineSelfReadFlag();
         }
         this.messages.addAll(messages);
+        sortMessages();
         EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }

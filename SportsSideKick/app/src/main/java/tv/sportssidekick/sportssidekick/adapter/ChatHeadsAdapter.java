@@ -23,7 +23,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.service.SelectChatEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -96,10 +96,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        notifyItemChanged(focusedItem);  // notify previous item!
-                        focusedItem = viewHolder.getLayoutPosition();
-                        notifyItemChanged(focusedItem); // notify new item
-                        EventBus.getDefault().post(new SelectChatEvent(focusedItem));
+                  selectChat(values.get(viewHolder.getLayoutPosition()), true);
                 }
             });
             return viewHolder;
@@ -114,6 +111,22 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                         }
                     });
             return viewHolder;
+        }
+    }
+
+    public void selectChat(ChatInfo chatInfo, boolean emitEvent){
+        notifyItemChanged(focusedItem);  // notify previous item!
+        int position = 0;
+        for(ChatInfo chat : values){
+            if(chat.getChatId().equals(chatInfo.getChatId())){
+               break;
+            }
+            position++;
+        }
+        focusedItem = position;
+        notifyItemChanged(focusedItem); // notify new item
+        if(emitEvent){
+            EventBus.getDefault().post(new ChatNotificationsEvent(chatInfo, ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
         }
     }
 

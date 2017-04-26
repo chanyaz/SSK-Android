@@ -22,13 +22,27 @@ import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 
-import static tv.sportssidekick.sportssidekick.model.GSConstants.*;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.CHATS_INFO;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.CHAT_ID;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.CHAT_INFO;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.ENTRY_COUNT;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.GROUP_ID;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.IMS_GET_CHAT_GROUPS_MESSAGES;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.IMS_GROUP_ID;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.IMS_JOIN_CHAT_GROUP;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.IS_TYPING_VALUE;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGE;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGES;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGE_PAGE_SIZE;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.OFFSET;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.USER_ID;
 import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
 /**
@@ -364,7 +378,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     }
 
     // load next page of messages
-    public Task<List<ImsMessage>> loadPreviousPageOfMessages(final ChatInfo chatInfo){
+    Task<List<ImsMessage>> loadPreviousPageOfMessages(final ChatInfo chatInfo){
         final TaskCompletionSource<List<ImsMessage>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -482,6 +496,9 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 chatId = (String) data.get(CHAT_ID);
                 if(chatId==null){
                     reload();
+                } else {
+                    reload(); // TODO - Implement loading of single chat!
+                    EventBus.getDefault().post(new ChatNotificationsEvent(chatId, ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
                 }
                 break;
             case "ImsUpdateUserIsTypingState":
