@@ -27,7 +27,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import tv.sportssidekick.sportssidekick.model.DateUtils;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
@@ -153,7 +152,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         c.add(Calendar.WEEK_OF_YEAR, 2);  // advances day by 2
         Date date = c.getTime(); // gets modified time
         request.setEndTime(date); //set the end time for two weeks
-        request.getBaseData().put(GSConstants.TIMESTAMP_TAG, DateUtils.currentTimeToFirebaseDate());
+        //request.getBaseData().put(GSConstants.TIMESTAMP_TAG, DateUtils.currentTimeToFirebaseDate()); TODO - Check this?
         List<String> usersToChallenge = new ArrayList<>();
         usersToChallenge.add(userId);
         request.setUsersToChallenge(usersToChallenge);
@@ -162,10 +161,8 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
-
     /**
      * acceptFriendRequest - accept a friendship request from user
-     *
      * @param friendRequestId user id
      * @return void
      */

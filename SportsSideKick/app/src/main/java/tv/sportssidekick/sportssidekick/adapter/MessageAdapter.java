@@ -201,9 +201,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if(chatInfo!=null){
+        UserInfo info = Model.getInstance().getUserInfo();
+        if(chatInfo!=null && info!=null){
             ImsMessage message = chatInfo.getMessages().get(position);
-            UserInfo info = Model.getInstance().getUserInfo();
             String userId = info.getUserId();
             if(userId!=null){
                 if(info.getUserId().equals(message.getSenderId())) {

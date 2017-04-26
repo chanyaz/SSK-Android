@@ -178,7 +178,7 @@ public class ChatFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 if (currentlyActiveChat != null) {
-                    loadNextPage();
+                    currentlyActiveChat.loadPreviousMessagesPage();
                 } else {
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -251,23 +251,6 @@ public class ChatFragment extends BaseFragment {
         updateAllViews();
 
         return view;
-    }
-
-    private void loadNextPage(){
-//        ImsManager.getInstance().loadPreviousPageOfMessages(currentlyActiveChat).addOnCompleteListener(new OnCompleteListener<List<ImsMessage>>() {
-//            @Override
-//            public void onComplete(@NonNull Task<List<ImsMessage>> task) {
-//                    if(task.isSuccessful()){
-//                        currentlyActiveChat.addReceivedMessage(task.getResult());
-//                        updateAllViews();
-//                    } else {
-//                        // TODO No more messages - disable swipe?
-//                    }
-//                swipeRefreshLayout.setRefreshing(false);
-//
-//            }
-//        });
-        currentlyActiveChat.loadPreviousMessagesPage();
     }
 
     @Override

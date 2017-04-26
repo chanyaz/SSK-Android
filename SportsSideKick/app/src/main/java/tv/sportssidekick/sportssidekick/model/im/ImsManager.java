@@ -176,6 +176,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
+                    chatInfoCache.clear();
                     Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
                     List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
                     // Go trough all ChatInfo objects and load users and messages
