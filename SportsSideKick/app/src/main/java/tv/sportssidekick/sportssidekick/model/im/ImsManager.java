@@ -27,20 +27,7 @@ import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 
-import static tv.sportssidekick.sportssidekick.model.GSConstants.CHATS_INFO;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.CHAT_ID;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.CHAT_INFO;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.ENTRY_COUNT;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.GROUP_ID;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.IMS_GET_CHAT_GROUPS_MESSAGES;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.IMS_GROUP_ID;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.IMS_JOIN_CHAT_GROUP;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.IS_TYPING_VALUE;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGE;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGES;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.MESSAGE_PAGE_SIZE;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.OFFSET;
-import static tv.sportssidekick.sportssidekick.model.GSConstants.USER_ID;
+import static tv.sportssidekick.sportssidekick.model.GSConstants.*;
 import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 
 /**
@@ -56,7 +43,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     private static ImsManager instance;
     private LoginStateReceiver loginStateReceiver;
 
-    private String userId;
+//    private String userId;
 
     private HashMap<String, ChatInfo> chatInfoCache;
 
@@ -64,11 +51,6 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     private ImsManager() {
         mapper  = new ObjectMapper();
         chatInfoCache = new HashMap<>();
-        UserInfo userInfo = Model.getInstance().getUserInfo();
-        if(userInfo!=null){
-           userId = userInfo.getUserId();
-        }
-        EventBus.getDefault().register(this);
         Model.getInstance().setMessageHandlerDelegate(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
     }
@@ -380,7 +362,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     }
 
     // load next page of messages
-    Task<List<ImsMessage>> loadPreviousPageOfMessages(final ChatInfo chatInfo){
+    public Task<List<ImsMessage>> loadPreviousPageOfMessages(final ChatInfo chatInfo){
         final TaskCompletionSource<List<ImsMessage>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -505,7 +487,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 String sender = (String) data.get(GSConstants.SENDER);
                 String isTyping = (String) data.get(IS_TYPING_VALUE);
                 if(chatId!=null && sender!=null && isTyping!=null){
-                    if(!sender.equals(userId)){
+                    if(!sender.equals(Model.getInstance().getUserInfo().getUserId())){
                         ChatInfo chatInfo = getChatInfoById(chatId);
                         if(chatInfo!=null){
                             chatInfo.updateUserIsTyping(sender,isTyping.equals("true"));
@@ -515,7 +497,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 break;
             case "ImsMessage":
                 ImsMessage message = mapper.convertValue(data.get(MESSAGE),ImsMessage.class);
-                ChatInfo chatInfo = ImsManager.getInstance().getChatInfoById((String)data.get(CHAT_ID));
+                ChatInfo chatInfo = getChatInfoById((String)data.get(CHAT_ID));
                 if(chatInfo!=null){
                     chatInfo.addReceivedMessage(message);
                 } else {
