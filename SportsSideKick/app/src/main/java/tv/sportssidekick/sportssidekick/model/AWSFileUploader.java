@@ -167,4 +167,8 @@ public class AWSFileUploader {
         }
         return randomString;
     }
+
+    public static String generateMongoOID(){
+        return generateRandName(10); // TODO Implement!
+    }
 }

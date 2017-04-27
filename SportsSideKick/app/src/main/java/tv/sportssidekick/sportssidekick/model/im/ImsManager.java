@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import tv.sportssidekick.sportssidekick.model.AWSFileUploader;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
@@ -344,8 +345,9 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     void imsSendMessageToChat(ChatInfo chatInfo,ImsMessage message){
         String nic = Model.getInstance().getUserInfo().getNicName();
         if(TextUtils.isEmpty(nic)){
-            nic = Model.getInstance().getUserInfo().getFirstName();
+            nic = "New User"; // Maybe sth like this -> Model.getInstance().getUserInfo().getFirstName();
         }
+        message.setLocid(AWSFileUploader.generateMongoOID());
         Map<String, Object> map = mapper.convertValue(message, new TypeReference<Map<String, Object>>(){});
         GSData data = new GSData(map);
 
@@ -505,8 +507,9 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 chatId = (String) data.get(CHAT_ID);
                 String sender = (String) data.get(GSConstants.SENDER);
                 String isTyping = (String) data.get(IS_TYPING_VALUE);
-                if(chatId!=null && sender!=null && isTyping!=null){
-                    if(!sender.equals(Model.getInstance().getUserInfo().getUserId())){
+                UserInfo user = Model.getInstance().getUserInfo();
+                if(chatId!=null && sender!=null && isTyping!=null && user!=null){
+                    if(!sender.equals(user.getUserId())){
                         ChatInfo chatInfo = getChatInfoById(chatId);
                         if(chatInfo!=null){
                             chatInfo.updateUserIsTyping(sender,isTyping.equals("true"));

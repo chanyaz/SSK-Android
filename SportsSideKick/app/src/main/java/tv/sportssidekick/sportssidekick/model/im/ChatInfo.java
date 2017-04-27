@@ -23,7 +23,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.im.event.ChatMessagesEvent;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatUpdateEvent;
 import tv.sportssidekick.sportssidekick.model.im.event.MessageUpdateEvent;
@@ -188,13 +187,6 @@ public class ChatInfo {
         messages = new ArrayList<>();
         EventBus.getDefault().register(this);
         ImsManager.getInstance().imsSetMessageObserverForChat(this);
-    }
-
-    @Subscribe
-    public void onEvent(ChatMessagesEvent event){
-        messages.add(event.getMessage());
-        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
-        EventBus.getDefault().post(new ChatUpdateEvent(this));
     }
 
     @Subscribe
