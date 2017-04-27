@@ -133,6 +133,8 @@ public class ChatFragment extends BaseFragment {
     ImageButton chatButtonsMenu;
     @BindView(R.id.chat_menu_dots_container)
     LinearLayout chatMenuDotsContainer;
+    @BindView(R.id.chat_menu_dots)
+    ImageView chatMenuDotsImageView;
 
     @BindView(R.id.chat_menu_edit)
     TextView chatMenuEditButton;
@@ -349,19 +351,19 @@ public class ChatFragment extends BaseFragment {
     public void chatButtonsMenuOnClick(View v) {
         chatButtonsMenu.setVisibility(View.GONE);
         chatButtonsContainer.setVisibility(View.VISIBLE);
-        // slideToRight(chatButtonsContainer);
     }
 
     @OnClick(R.id.chat_menu_dots)
-    public void chatMenuDotsContainerOnClick(ImageView view) {
+    public void chatMenuDotsContainerOnClick() {
         if (chatMenuDotsContainer.getVisibility() == View.GONE) {
+            animate(chatMenuDotsContainer, View.VISIBLE, R.anim.slide_in_left);
             chatMenuDotsContainer.setVisibility(View.VISIBLE);
-            view.setImageDrawable(chatRightArrowDrawable);
+            chatMenuDotsImageView.setImageDrawable(chatRightArrowDrawable);
             setupEditChatButton();
         } else {
             chatMenuDotsContainer.setVisibility(View.GONE);
             animate(chatMenuDotsContainer, View.GONE, R.anim.slide_in_right);
-            view.setImageDrawable(chatDotsDrawable);
+            chatMenuDotsImageView.setImageDrawable(chatDotsDrawable);
             if (chatButtonsMenu.getVisibility() == View.GONE) {
                 chatButtonsMenu.setVisibility(View.VISIBLE);
                 chatButtonsContainer.setVisibility(View.GONE);
@@ -464,7 +466,7 @@ public class ChatFragment extends BaseFragment {
         ChatInfo chatInfo;
         switch (event.getKey()){
             case UPDATED_CHAT_USERS:
-                chatInfo = (ChatInfo)event.getChatInfo();
+                chatInfo = event.getChatInfo();
                 handleUpdatedChatUsers(chatInfo);
                 break;
             case CHANGED_CHAT_MESSAGE:
@@ -474,7 +476,7 @@ public class ChatFragment extends BaseFragment {
                 handleUpdatedChatMessages(chatInfo.getChatId());
                 break;
             case SET_CURRENT_CHAT:
-                chatInfo = (ChatInfo)event.getChatInfo();
+                chatInfo = event.getChatInfo();
                 setCurrentChatNotification(chatInfo);
                 break;
         }
@@ -503,7 +505,18 @@ public class ChatFragment extends BaseFragment {
     }
 
     private void setCurrentChatNotification(ChatInfo chatInfo){
-        setCurrentlyActiveChat(chatInfo);
+        if(currentlyActiveChat !=null){
+            if(currentlyActiveChat.getChatId().equals(chatInfo.getChatId())) { // Its the same chat - hide edit buttons
+                chatMenuDotsContainerOnClick();
+            } else { // its not the same chat, so hide edit buttons if those are visible
+                if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {
+                    chatMenuDotsContainerOnClick();
+                }
+                setCurrentlyActiveChat(chatInfo);
+            }
+        } else {
+            setCurrentlyActiveChat(chatInfo);
+        }
         messageListView.smoothScrollToPosition(messageAdapter.getItemCount());
     }
 
