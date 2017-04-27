@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/margin_5"
-        android:background="@drawable/ic_chat_right">
+        android:background="@drawable/ic_chat_bubble_right">
 
         <TextView
             android:id="@+id/text"
