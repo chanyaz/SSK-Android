@@ -115,11 +115,14 @@ public class ChatFragment extends BaseFragment {
 
     @BindView(R.id.mic_button)
     ImageButton micButton;
+    @BindView(R.id.video_view_container)
+    RelativeLayout videoViewContainer;
     @BindView(R.id.video_view)
     VideoView videoView;
     @BindView(R.id.image_fullscreen)
     ImageView imageViewFullScreen;
     @BindView(R.id.full_screen_container)
+
     RelativeLayout fullScreenContainer;
     @BindView(R.id.input_edit_text)
     EditText inputEditText;
@@ -555,13 +558,13 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void playVideo(PlayVideoEvent event) {
-        videoView.setVisibility(View.VISIBLE);
+        videoViewContainer.setVisibility(View.VISIBLE);
         videoView.setVideoURI(Uri.parse(event.getId()));
         videoView.start();
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                videoView.setVisibility(View.GONE);
+                videoViewContainer.setVisibility(View.GONE);
             }
         });
     }
