@@ -35,6 +35,7 @@ import tv.sportssidekick.sportssidekick.adapter.AddFriendsAdapter;
 import tv.sportssidekick.sportssidekick.adapter.SelectableFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
@@ -128,8 +129,8 @@ public class EditChatFragment extends BaseFragment {
                     }
                 });
 
-       // TODO Set users from Chat
-        // chatInfo.getUsersIds()
+        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+        chatFriendsAdapter.setSelectedUsers(chatMembers);
 
         searchEditText.addTextChangedListener(textWatcher);
 
@@ -254,19 +255,38 @@ public class EditChatFragment extends BaseFragment {
     }
 
     private void submitChanges(){
+        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+        List<UserInfo> selectedValues = chatFriendsAdapter.getSelectedValues();
 
-//        List<UserInfo> selectedUsers = chatFriendsAdapter.getSelectedValues();
-//        for(String chatInfo : chatInfo.getUsersIds()){
-//
-//        }
+        boolean shouldUpdate = false;
 
+        if(chatMembers.size() == selectedValues.size()){
+            for(UserInfo user : chatMembers){
+                if(!selectedValues.contains(user)){
+                    shouldUpdate = true;
+                    break;
+                }
+            }
+        } else {
+            shouldUpdate = true;
+        }
+
+        if(shouldUpdate){
+            ArrayList<String> newMemebersIds = new ArrayList<>();
+            for(UserInfo userInfo : selectedValues){
+                newMemebersIds.add(userInfo.getUserId());
+            }
+            chatInfo.setUsersIds(newMemebersIds);
+        }
 
         String newChatName = chatNameEditText.getText().toString();
-        boolean shouldUpdate = false;
         if(!TextUtils.isEmpty(newChatName)){ // chat name is changed
-            shouldUpdate = true;
-            chatInfo.setName(newChatName);
+            if(!newChatName.equals(chatInfo.getName())){
+                chatInfo.setName(newChatName);
+                shouldUpdate = true;
+            }
         }
+
         if(shouldUpdate){
             chatInfo.updateChatInfo();
         }
