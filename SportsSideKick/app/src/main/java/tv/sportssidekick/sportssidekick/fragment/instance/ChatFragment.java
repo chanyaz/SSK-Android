@@ -73,6 +73,7 @@ import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.EditChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
+import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
@@ -155,7 +156,6 @@ public class ChatFragment extends BaseFragment {
     private String audioFilepath = null;
     String currentPath;
     String videoDownloadUrl;
-
 
 
     public ChatFragment() {
@@ -399,6 +399,16 @@ public class ChatFragment extends BaseFragment {
         Toast.makeText(getContext(), "Image is downloaded.", Toast.LENGTH_SHORT).show();
     }
 
+    @OnClick(R.id.video_close_image_button)
+    public void videoCloseButtonOnClick() {
+        videoViewContainer.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.vide_download_image_button)
+    public void videoDownloadButtonOnClick() {
+        Toast.makeText(getContext(), "Video is downloaded.", Toast.LENGTH_SHORT).show();
+    }
+
     public void sendButtonOnClick() {
         if(currentlyActiveChat!=null){
             ImsMessage message = ImsMessage.getDefaultMessage();
@@ -425,7 +435,23 @@ public class ChatFragment extends BaseFragment {
                 fe.setId(currentlyActiveChat.getChatId());
                 EventBus.getDefault().post(fe);
             } else {
-                currentlyActiveChat.deleteChat(); // TODO - Display confirmation dialog!
+                AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "You will leave this chat",
+                        new View.OnClickListener() {// Cancel listener
+                            @Override
+                            public void onClick(View v) {
+                                getActivity().onBackPressed();
+                            }
+                        }, new View.OnClickListener() {// Confirm listener
+                            @Override
+                            public void onClick(View v) {
+                                getActivity().onBackPressed();
+                                currentlyActiveChat.deleteChat();
+                                if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {
+                                    chatMenuDotsContainerOnClick();
+                                }
+                            }
+                        });
+
                 chatMenuEditButton.setText("Leave");
             }
         }
@@ -529,7 +555,7 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    private void handleUpdatedChatMessages(String chatId){
+    private void handleUpdatedChatMessages(String chatId) {
         updateTopChatsView();
         if(currentlyActiveChat!=null) {// If current chat was updated
             if(currentlyActiveChat.getChatId().equals(chatId)){
@@ -604,19 +630,21 @@ public class ChatFragment extends BaseFragment {
         ImageLoader.getInstance().displayImage(uri, imageViewFullScreen);
     }
 
-    /** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
-                    CAMERA, MIC, IMAGES...
-     ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **/
+    /**
+     * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     * CAMERA, MIC, IMAGES...
+     * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     **/
 
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void invokeImageSelection(){
+    public void invokeImageSelection() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_IMAGE_PICK);//one can be replaced with any action code
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void invokeCameraCapture(){
+    public void invokeCameraCapture() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
         chooseDialog.setTitle("Choose");
         chooseDialog.setMessage("Take photo or record video ?");
@@ -626,7 +654,8 @@ public class ChatFragment extends BaseFragment {
                 Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                 if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takeVideoIntent, REQUEST_CODE_CHAT_VIDEO_CAPTURE);
-                };
+                }
+                ;
             }
         });
         chooseDialog.setPositiveButton("Image", new DialogInterface.OnClickListener() {
@@ -690,7 +719,7 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    @OnShowRationale({Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForMicrophone(final PermissionRequest request) {
         new AlertDialog.Builder(getContext())
                 .setMessage(R.string.permission_microphone_rationale)
@@ -714,7 +743,7 @@ public class ChatFragment extends BaseFragment {
         Toast.makeText(getContext(), R.string.permission_microphone_denied, Toast.LENGTH_SHORT).show();
     }
 
-    @OnNeverAskAgain({Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showNeverAskForMicrophone() {
         Toast.makeText(getContext(), R.string.permission_microphone_neverask, Toast.LENGTH_SHORT).show();
     }
