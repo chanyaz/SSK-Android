@@ -1,4 +1,6 @@
-package tv.sportssidekick.sportssidekick.model.im;
+package tv.sportssidekick.sportssidekick.model.im.event;
+
+import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 
 /**
  * Created by Filip on 4/25/2017.

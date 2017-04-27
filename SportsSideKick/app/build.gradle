@@ -66,9 +66,10 @@ dependencies {
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
-    compile 'com.android.support:support-v4:25.3.0'
+
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:percent:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
 
@@ -110,6 +111,8 @@ dependencies {
 
     // Checkout (Android In-App Billing Library) - https://github.com/serso/android-checkout
     compile 'org.solovyev.android:checkout:1.0.0'
+    // SnappySmoothScroller - https://github.com/nshmura/SnappySmoothScroller
+    compile 'com.nshmura:snappysmoothscroller:1.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

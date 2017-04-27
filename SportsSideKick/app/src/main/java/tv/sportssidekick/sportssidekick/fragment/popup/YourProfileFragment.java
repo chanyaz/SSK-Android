@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,6 +29,7 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
@@ -39,7 +39,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  * www.hypercubesoft.com
  */
 
-public class YourProfileFragment extends BaseFragment {
+public class YourProfileFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
 
     @BindView(R.id.profile_stats_recycler_view)
     RecyclerView statsRecyclerView;
@@ -92,6 +92,8 @@ public class YourProfileFragment extends BaseFragment {
 
     UserStatsAdapter adapter;
 
+    private LoginStateReceiver loginStateReceiver;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -105,6 +107,8 @@ public class YourProfileFragment extends BaseFragment {
         statsRecyclerView.setAdapter(adapter);
 
         setupFragment();
+        this.loginStateReceiver = new LoginStateReceiver(this);
+
         return view;
     }
 
@@ -154,15 +158,6 @@ public class YourProfileFragment extends BaseFragment {
     @OnClick(R.id.chosen_language_value)
     public void languageOnClick() {
         EventBus.getDefault().post(new FragmentEvent(LanguageFragment.class));
-    }
-
-    @Subscribe
-    public void onUserLogin(UserInfo user) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
-            setupFragment();
-        } else {
-            getActivity().onBackPressed();
-        }
     }
 
     @OnClick(R.id.reset_button)
@@ -222,4 +217,30 @@ public class YourProfileFragment extends BaseFragment {
             nextCapsValue.setText(String.valueOf(user.getLevel() + 1));
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(loginStateReceiver);
+    }
+
+    @Override
+    public void onLogout() {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            setupFragment();
+        } else {
+            getActivity().onBackPressed();
+        }
+    }
+
+    @Override
+    public void onLoginAnonymously() { }
+
+    @Override
+    public void onLogin(UserInfo user) {
+
+    }
+
+    @Override
+    public void onLoginError(Error error) { }
 }

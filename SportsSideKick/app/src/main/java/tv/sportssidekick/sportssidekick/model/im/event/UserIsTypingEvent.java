@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.model.im;
+package tv.sportssidekick.sportssidekick.model.im.event;
 
 import java.util.List;
 

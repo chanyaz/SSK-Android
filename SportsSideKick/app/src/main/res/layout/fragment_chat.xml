@@ -216,6 +216,7 @@
             android:inputType="text"
             android:imeOptions="actionSend"
             android:imeActionLabel="Send"
+            android:privateImeOptions=""
             android:imeActionId="@+id/action_send_message_id"
             android:hint="Enter your message here..."
             android:animateLayoutChanges="true"/>
@@ -241,7 +242,7 @@
             android:background="@color/chat_input_edit_text_background"
             android:padding="@dimen/half_margin"
             android:visibility="gone"
-            android:animateLayoutChanges="true"
+
             android:clickable="true">
 
             <TextView

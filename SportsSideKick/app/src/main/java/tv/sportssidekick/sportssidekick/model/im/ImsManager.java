@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,9 +20,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import tv.sportssidekick.sportssidekick.model.AWSFileUploader;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
+import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 
@@ -49,13 +52,14 @@ import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
  * www.hypercubesoft.com
  */
 
-public class ImsManager extends GSMessageHandlerAbstract{
+public class ImsManager extends GSMessageHandlerAbstract implements LoginStateReceiver.LoginStateListener{
 
     public static final String TAG = "ImsManager";
 
     private static ImsManager instance;
+    private LoginStateReceiver loginStateReceiver;
 
-    private String userId;
+//    private String userId;
 
     private HashMap<String, ChatInfo> chatInfoCache;
 
@@ -63,17 +67,8 @@ public class ImsManager extends GSMessageHandlerAbstract{
     private ImsManager() {
         mapper  = new ObjectMapper();
         chatInfoCache = new HashMap<>();
-        UserInfo userInfo = Model.getInstance().getUserInfo();
-        if(userInfo!=null){
-           userId = userInfo.getUserId();
-        }
-        EventBus.getDefault().register(this);
         Model.getInstance().setMessageHandlerDelegate(this);
-    }
-
-    @Subscribe
-    public void userInfoListener(UserInfo info){
-        userId = info.getUserId();
+        this.loginStateReceiver = new LoginStateReceiver(this);
     }
 
     public static ImsManager getInstance(){
@@ -197,6 +192,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
+                    chatInfoCache.clear();
                     Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
                     List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
                     // Go trough all ChatInfo objects and load users and messages
@@ -349,8 +345,9 @@ public class ImsManager extends GSMessageHandlerAbstract{
     void imsSendMessageToChat(ChatInfo chatInfo,ImsMessage message){
         String nic = Model.getInstance().getUserInfo().getNicName();
         if(TextUtils.isEmpty(nic)){
-            nic = Model.getInstance().getUserInfo().getFirstName();
+            nic = "New User"; // Maybe sth like this -> Model.getInstance().getUserInfo().getFirstName();
         }
+        message.setLocid(AWSFileUploader.generateMongoOID());
         Map<String, Object> map = mapper.convertValue(message, new TypeReference<Map<String, Object>>(){});
         GSData data = new GSData(map);
 
@@ -453,6 +450,27 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 .send(consumer);
     }
 
+
+    @Override
+    public void onLogout() {
+        clear();
+    }
+
+    @Override
+    public void onLoginAnonymously() {
+        reload();
+    }
+
+    @Override
+    public void onLogin(UserInfo user) {
+        reload();
+    }
+
+    @Override
+    public void onLoginError(Error error) {
+        clear();
+    }
+
     @Override
     public void onGSTeamChatMessage(GSMessageHandler.TeamChatMessage msg){
         String data = (String)msg.getBaseData().get("imsGroups");
@@ -480,14 +498,18 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 chatId = (String) data.get(CHAT_ID);
                 if(chatId==null){
                     reload();
+                } else {
+                    reload(); // TODO - Implement loading of single chat!
+                    EventBus.getDefault().post(new ChatNotificationsEvent(chatId, ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
                 }
                 break;
             case "ImsUpdateUserIsTypingState":
                 chatId = (String) data.get(CHAT_ID);
                 String sender = (String) data.get(GSConstants.SENDER);
                 String isTyping = (String) data.get(IS_TYPING_VALUE);
-                if(chatId!=null && sender!=null && isTyping!=null){
-                    if(!sender.equals(userId)){
+                UserInfo user = Model.getInstance().getUserInfo();
+                if(chatId!=null && sender!=null && isTyping!=null && user!=null){
+                    if(!sender.equals(user.getUserId())){
                         ChatInfo chatInfo = getChatInfoById(chatId);
                         if(chatInfo!=null){
                             chatInfo.updateUserIsTyping(sender,isTyping.equals("true"));
@@ -497,7 +519,7 @@ public class ImsManager extends GSMessageHandlerAbstract{
                 break;
             case "ImsMessage":
                 ImsMessage message = mapper.convertValue(data.get(MESSAGE),ImsMessage.class);
-                ChatInfo chatInfo = ImsManager.getInstance().getChatInfoById((String)data.get(CHAT_ID));
+                ChatInfo chatInfo = getChatInfoById((String)data.get(CHAT_ID));
                 if(chatInfo!=null){
                     chatInfo.addReceivedMessage(message);
                 } else {

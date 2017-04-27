@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,9 +24,9 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
 import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
@@ -91,20 +91,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         ImsMessage message = chatInfo.getMessages().get(position);
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
         }
         if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS){
-            UserInfo info = Model.getInstance().getCachedUserInfoById(message.getSenderId());
-            String senderImageUrl=null;
-            String nicName="Unknown";
-            if(info!=null){
-                senderImageUrl = info.getCircularAvatarUrl();
-            }
-            ImageLoader.getInstance().displayImage(senderImageUrl,holder.senderImageView,imageOptions);
-            holder.senderTextView.setText(nicName);
+          setupAvatarFromRemoteUser(message,holder);
         }
         holder.timeTextView.setText(message.getTimeAgo());
 
@@ -114,7 +106,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             holder.textView.setVisibility(View.GONE);
             if(imageUrl.contains("jpg") || imageUrl.contains("png")){
                 holder.contentImage.setVisibility(View.VISIBLE);
-                ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,imageOptions);
+                ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.getImageOptionsForUsers());
                 if(videoUrl!=null){ // its video, show play button and prepare player
                     holder.playButton.setVisibility(View.VISIBLE);
                     final String fVideoUrl = videoUrl;
@@ -151,6 +143,26 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             holder.textView.setVisibility(View.VISIBLE);
             holder.textView.setText(message.getText());
         }
+    }
+
+    private void setupAvatarFromRemoteUser(ImsMessage message,final ViewHolder holder){
+        holder.senderTextView.setText("New User");
+        Model.getInstance().getUserInfoById(message.getSenderId()).addOnSuccessListener(new OnSuccessListener<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo userInfo) {
+                String senderImageUrl=null;
+                String nicName="New User";
+                if(userInfo!=null){
+                    senderImageUrl = userInfo.getCircularAvatarUrl();
+                    nicName = userInfo.getNicName();
+                }
+                if (holder.senderImageView != null) {
+                    ImageLoader.getInstance().displayImage(senderImageUrl,holder.senderImageView,Utility.getImageOptionsForUsers());
+                }
+                holder.senderTextView.setText(nicName);
+            }
+        });
+
     }
 
 
@@ -201,9 +213,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if(chatInfo!=null){
+        UserInfo info = Model.getInstance().getUserInfo();
+        if(chatInfo!=null && info!=null){
             ImsMessage message = chatInfo.getMessages().get(position);
-            UserInfo info = Model.getInstance().getUserInfo();
             String userId = info.getUserId();
             if(userId!=null){
                 if(info.getUserId().equals(message.getSenderId())) {

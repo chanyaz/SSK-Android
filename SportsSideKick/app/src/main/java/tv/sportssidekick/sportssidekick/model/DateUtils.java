@@ -17,7 +17,8 @@ public class DateUtils {
     public static long getTimestampFromFirebaseDate(String value){
         if(value!=null){
             try {
-                return Long.valueOf(value.replace(".",""))/100;
+                double seconds = Double.valueOf(value)*1000;
+                return (long) seconds;
             } catch (NumberFormatException nfe){
                 return 0;
             }

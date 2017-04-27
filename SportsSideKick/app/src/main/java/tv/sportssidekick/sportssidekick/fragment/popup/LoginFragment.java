@@ -12,10 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pixplicity.easyprefs.library.Prefs;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +25,9 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
+import tv.sportssidekick.sportssidekick.model.user.PasswordResetReceiver;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -33,7 +35,7 @@ import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
  * www.hypercubesoft.com
  */
 
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener, PasswordResetReceiver.PasswordResetListener{
 
     @BindView(R.id.login_email)
     EditText emailEditText;
@@ -71,11 +73,15 @@ public class LoginFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    private LoginStateReceiver loginStateReceiver;
+    private PasswordResetReceiver passwordResetReceiver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.popup_login, container, false);
         ButterKnife.bind(this, view);
+        this.loginStateReceiver = new LoginStateReceiver(this);
+        this.passwordResetReceiver = new PasswordResetReceiver(this);
 
         forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +94,18 @@ public class LoginFragment extends BaseFragment {
                 forgotPasswordContainer.setVisibility(View.INVISIBLE);
             }
         });
-
-
-        emailEditText.setText("marco@polo.com");
+        // --- TODO For testing only!
+        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
         passwordEditText.setText("qwerty");
+        // ---
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(loginStateReceiver);
+        EventBus.getDefault().unregister(passwordResetReceiver);
     }
 
     @OnClick(R.id.bottom_buttons_container_login)
@@ -103,6 +116,11 @@ public class LoginFragment extends BaseFragment {
             Toast.makeText(getContext(), "Please enter valid password and displayName!", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        // --- TODO For testing only!
+        Prefs.putString("LAST_TEST_EMAIL",email);
+        // ---
+
         Model.getInstance().login(email, password);
         loginText.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
@@ -134,32 +152,35 @@ public class LoginFragment extends BaseFragment {
         forgotPasswordContainer.setVisibility(View.VISIBLE);
     }
 
-    @Subscribe
-    public void onEvent(GameSparksEvent event) {
-        switch (event.getEventType()) {
-            case SIGNED_OUT:
-//                progressBar.setVisibility(View.GONE);
+    @Override
+    public void onLogout() {
+//        progressBar.setVisibility(View.GONE);
 //                showLoginForms();
-                break;
-            case LOGIN_SUCCESSFUL:
-                progressBar.setVisibility(View.GONE);
-                loginText.setVisibility(View.VISIBLE);
-                EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
-                getActivity().onBackPressed();
-                break;
-            case LOGIN_FAILED:
-                progressBar.setVisibility(View.GONE);
-                loginText.setVisibility(View.VISIBLE);
-                AlertDialogManager.getInstance().showAlertDialog("Login Failed", "Please re-enter your password and try again", null, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                getActivity().onBackPressed();
-                                EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-                            }
-                        }
-                );
-                break;
-        }
+    }
+
+    @Override
+    public void onLoginAnonymously() { }
+
+    @Override
+    public void onLogin(UserInfo user) {
+        progressBar.setVisibility(View.GONE);
+        loginText.setVisibility(View.VISIBLE);
+        EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
+        getActivity().onBackPressed();
+    }
+
+    @Override
+    public void onLoginError(Error error) {
+        progressBar.setVisibility(View.GONE);
+        loginText.setVisibility(View.VISIBLE);
+        AlertDialogManager.getInstance().showAlertDialog("Login Failed", "Please re-enter your password and try again", null, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+                    }
+                }
+        );
     }
 
     // To animate view slide out from left to right
@@ -178,5 +199,19 @@ public class LoginFragment extends BaseFragment {
         animate.setFillAfter(true);
         view.startAnimation(animate);
         view.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onPasswordResetRequest() {
+        //TODO
+//        self.alert(title: "Reset Password", body: "Please check your email for password reset options.")
+//        self.onBack()
+    }
+
+    @Override
+    public void onPasswordResetRequestError(Error error) {
+        //TODO
+//        self.alert(title: "Error", body: "Please enter a valid email address!")
+//        self.setButtonEnabled(button: self.loginButton, spinner: self.prSpinner, enabled: true)
     }
 }

@@ -39,6 +39,7 @@ public class ImsMessage {
     // Message type
     private String type;
 
+
     public ImsMessage(){}
 
     public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {
@@ -52,6 +53,7 @@ public class ImsMessage {
         ImsMessage message = new ImsMessage();
         message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
         message.setTimestamp(DateUtils.currentTimeToFirebaseDate());
+        message.initializeTimestamp();
         message.setSenderId(Model.getInstance().getUserInfo().getUserId());
         message.setReadFlag(false);
         return message;

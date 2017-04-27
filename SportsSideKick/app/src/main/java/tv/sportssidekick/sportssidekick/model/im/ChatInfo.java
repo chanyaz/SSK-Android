@@ -23,6 +23,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatUpdateEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.MessageUpdateEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.UserIsTypingEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 
 /**
@@ -186,13 +190,6 @@ public class ChatInfo {
     }
 
     @Subscribe
-    public void onEvent(ChatMessagesEvent event){
-        messages.add(event.getMessage());
-        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
-        EventBus.getDefault().post(new ChatUpdateEvent(this));
-    }
-
-    @Subscribe
     public void onEvent(MessageUpdateEvent event){
         ImsMessage message = event.getMessage();
         messages.add(message);
@@ -218,7 +215,7 @@ public class ChatInfo {
                     for(ImsMessage m : messagesNewPage){
                         boolean exists = false;
                         for(ImsMessage mOld : messages){
-                            if(mOld.getId().equals(m.getId())){
+                            if(m.getId().equals(mOld.getId())){
                                 exists = true;
                             }
                         }
@@ -227,12 +224,7 @@ public class ChatInfo {
                             messages.add(m);
                         }
                     }
-                    Collections.sort(messages, new Comparator<ImsMessage>() {
-                        @Override
-                        public int compare(ImsMessage lhs, ImsMessage rhs) {
-                            return lhs.getTimestamp().compareTo(rhs.getTimestamp());
-                        }
-                    });
+                    sortMessages();
                     EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
                     EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
                 }
@@ -242,13 +234,21 @@ public class ChatInfo {
     }
 
 
-
+    private void sortMessages(){
+        Collections.sort(messages, new Comparator<ImsMessage>() {
+            @Override
+            public int compare(ImsMessage lhs, ImsMessage rhs) {
+                return lhs.getTimestamp().compareTo(rhs.getTimestamp());
+            }
+        });
+    }
     /**
      * Send message to the chat
      * @param  message to send
      */
     public void sendMessage(ImsMessage message){
         ImsManager.getInstance().imsSendMessageToChat(this, message);
+        messages.add(message);
         EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
     }
 
@@ -351,7 +351,8 @@ public class ChatInfo {
         if(messages!=null){
             messages.clear();
             EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
-            EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));        }
+            EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
+        }
     }
 
     /**
@@ -468,7 +469,7 @@ public class ChatInfo {
         ImsManager.getInstance().setMuteChat(this,isMuted);
     }
 
-    void addReceivedMessage(ImsMessage message){
+    public void addReceivedMessage(ImsMessage message){
         if (message.getLocid() != null){
             for(ImsMessage m : messages){
                 if (message.getLocid().equals(m.getLocid())){
@@ -483,11 +484,12 @@ public class ChatInfo {
         message.initializeTimestamp();
         message.determineSelfReadFlag();
         messages.add(message);
+        sortMessages();
         EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }
 
-    void addReceivedMessage(List<ImsMessage> messages){
+    public  void addReceivedMessage(List<ImsMessage> messages){
         if(messages==null) {
             messages = new ArrayList<>();
         }
@@ -496,6 +498,7 @@ public class ChatInfo {
             message.determineSelfReadFlag();
         }
         this.messages.addAll(messages);
+        sortMessages();
         EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -29,6 +30,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,6 +44,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,14 +74,14 @@ import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
-import tv.sportssidekick.sportssidekick.model.im.ChatNotificationsEvent;
-import tv.sportssidekick.sportssidekick.model.im.ChatsInfoUpdatesEvent;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
-import tv.sportssidekick.sportssidekick.service.SelectChatEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
@@ -128,6 +133,8 @@ public class ChatFragment extends BaseFragment {
     ImageButton chatButtonsMenu;
     @BindView(R.id.chat_menu_dots_container)
     LinearLayout chatMenuDotsContainer;
+    @BindView(R.id.chat_menu_dots)
+    ImageView chatMenuDotsImageView;
 
     @BindView(R.id.chat_menu_edit)
     TextView chatMenuEditButton;
@@ -169,7 +176,12 @@ public class ChatFragment extends BaseFragment {
 
         messageAdapter = new MessageAdapter(getContext());
         messageListView.setAdapter(messageAdapter);
-        messageListView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        SnappyLinearLayoutManager snappyLinearLayoutManager = new SnappyLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        snappyLinearLayoutManager.setSnapInterpolator(new AccelerateDecelerateInterpolator());
+        snappyLinearLayoutManager.setSnapDuration(1000);
+        snappyLinearLayoutManager.setSeekDuration(1000);
+        messageListView.setLayoutManager(snappyLinearLayoutManager);
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -182,6 +194,9 @@ public class ChatFragment extends BaseFragment {
                 }
             }
         });
+
+        inputEditText.setImeActionLabel("SEND",EditorInfo.IME_ACTION_SEND);
+        inputEditText.setImeOptions(EditorInfo.IME_ACTION_SEND);
 
         /* input Listeners */
         inputEditText.addTextChangedListener(new TextWatcher() {
@@ -228,10 +243,8 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
-
         chatRightArrowDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.chat_right_arrow);
         chatDotsDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.chat_menu_button);
-
         inputEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -242,7 +255,17 @@ public class ChatFragment extends BaseFragment {
                 }
             }
         });
+        updateAllViews();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //! Update active chat first
+        findActiveChat();
+        //! Update UI
+        updateAllViews();
     }
 
     @Override
@@ -254,27 +277,34 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    public void updateAllViews() {
+    private void updateTopChatsView(){
         // Setup chat heads
-        List<ChatInfo> allUserChats = ImsManager.getInstance().getUserChatsList();
-        chatHeadsAdapter.setValues(allUserChats);
+        chatHeadsAdapter.setValues(ImsManager.getInstance().getUserChatsList());
         chatHeadsAdapter.notifyDataSetChanged();
-        // Setup message list
-        if(allUserChats.size()>0){
-            if(currentlyActiveChat !=null){
-                displayChat(currentlyActiveChat);
-            } else{
-                displayChat(allUserChats.get(0));
-            }
-        } else {
-            displayChat(null);
+        if(currentlyActiveChat!=null){
+            chatHeadsAdapter.selectChat(currentlyActiveChat, false);
         }
+    }
+
+    public void updateAllViews() {
+        updateTopChatsView();
+        updateChatTitleText();
+        messageAdapter.notifyDataSetChanged();
+        setupEditChatButton();
+        swipeRefreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
     }
 
-    private void displayChat(ChatInfo info) {
+    private void setCurrentlyActiveChat(ChatInfo info) {
         currentlyActiveChat = info;
-        setupEditChatButton();
+        updateAllViews();
+        messageListView.smoothScrollToPosition(0);
+        if (currentlyActiveChat != null) {
+            messageAdapter.setChatInfo(currentlyActiveChat);
+        }
+    }
+
+    private void updateChatTitleText(){
         if (currentlyActiveChat != null) {
             // Setup Chat label
             StringBuilder chatLabel = new StringBuilder(currentlyActiveChat.getChatTitle());
@@ -284,23 +314,29 @@ public class ChatFragment extends BaseFragment {
             for (String userId : currentlyActiveChat.getUsersIds()) {
                 count++;
                 String chatName = Model.getInstance().getCachedUserInfoById(userId).getNicName();
-                if(!TextUtils.isEmpty(chatName)){
+                if (!TextUtils.isEmpty(chatName)) {
                     chatLabel.append(chatName);
-                    if(count<size){
+                    if (count < size) {
                         chatLabel.append(", ");
                     }
                 }
             }
             infoLineTextView.setText(chatLabel.toString());
-            messageAdapter.setChatInfo(currentlyActiveChat);
         }
     }
 
 
+
+
     private void setupEditChatButton(){
         if(currentlyActiveChat !=null){
-            if(Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())){
-                chatMenuEditButton.setText("Edit"); // TODO Extract strings...
+            UserInfo user = Model.getInstance().getUserInfo();
+            if(user!=null){
+                if(user.getUserId().equals(currentlyActiveChat.getOwner())){
+                    chatMenuEditButton.setText("Edit"); // TODO Extract strings...
+                } else {
+                    chatMenuEditButton.setText("Leave");
+                }
             } else {
                 chatMenuEditButton.setText("Leave");
             }
@@ -315,23 +351,32 @@ public class ChatFragment extends BaseFragment {
     public void chatButtonsMenuOnClick(View v) {
         chatButtonsMenu.setVisibility(View.GONE);
         chatButtonsContainer.setVisibility(View.VISIBLE);
-        // slideToRight(chatButtonsContainer);
     }
 
     @OnClick(R.id.chat_menu_dots)
-    public void chatMenuDotsContainerOnClick(ImageView view) {
+    public void chatMenuDotsContainerOnClick() {
         if (chatMenuDotsContainer.getVisibility() == View.GONE) {
+            animate(chatMenuDotsContainer, View.VISIBLE, R.anim.slide_in_left);
             chatMenuDotsContainer.setVisibility(View.VISIBLE);
-            view.setImageDrawable(chatRightArrowDrawable);
+            chatMenuDotsImageView.setImageDrawable(chatRightArrowDrawable);
             setupEditChatButton();
         } else {
             chatMenuDotsContainer.setVisibility(View.GONE);
-            view.setImageDrawable(chatDotsDrawable);
+            animate(chatMenuDotsContainer, View.GONE, R.anim.slide_in_right);
+            chatMenuDotsImageView.setImageDrawable(chatDotsDrawable);
             if (chatButtonsMenu.getVisibility() == View.GONE) {
                 chatButtonsMenu.setVisibility(View.VISIBLE);
                 chatButtonsContainer.setVisibility(View.GONE);
             }
         }
+    }
+
+    Animation animation;
+
+    private void animate(View view, int visibility, int anim) {
+        animation = AnimationUtils.loadAnimation(getActivity(), anim);
+        view.startAnimation(animation);
+        view.setVisibility(visibility);
     }
 
     @OnClick(R.id.close_image_button)
@@ -416,75 +461,73 @@ public class ChatFragment extends BaseFragment {
 
 
     @Subscribe
-    private void onEvent(ChatNotificationsEvent event){
+    public void onEvent(ChatNotificationsEvent event){
+        Log.d(TAG,"Received ChatNotificationsEvent: " + event.getKey().name());
+        ChatInfo chatInfo;
         switch (event.getKey()){
             case UPDATED_CHAT_USERS:
-                handleUpdatedChatUsers(event);
+                chatInfo = event.getChatInfo();
+                handleUpdatedChatUsers(chatInfo);
                 break;
             case CHANGED_CHAT_MESSAGE:
                 break;
             case UPDATED_CHAT_MESSAGES:
-                handleUpdatedChatMessages(event);
+                chatInfo = event.getChatInfo();
+                handleUpdatedChatMessages(chatInfo.getChatId());
                 break;
             case SET_CURRENT_CHAT:
-                setCurrentChatNotification(event);
+                chatInfo = event.getChatInfo();
+                setCurrentChatNotification(chatInfo);
                 break;
         }
     }
 
-    private void handleUpdatedChatUsers(ChatNotificationsEvent event){
-        if(currentlyActiveChat ==null){
-            currentlyActiveChat = ImsManager.getInstance().getChatInfoById(currentlyActiveChat.getChatId());
+    private void handleUpdatedChatUsers(ChatInfo chatInfo){
+        if(currentlyActiveChat !=null){
+            setCurrentlyActiveChat(ImsManager.getInstance().getChatInfoById(currentlyActiveChat.getChatId()));
         }
         updateAllViews();
+        if(currentlyActiveChat!=null){
+            if(currentlyActiveChat.getChatId().equals(chatInfo.getChatId())){
+                // TODO - Update chat data?
+            }
+        }
     }
 
-    private void handleUpdatedChatMessages(ChatNotificationsEvent event){
-        messageAdapter.notifyDataSetChanged();
-        int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
-        messageListView.smoothScrollToPosition(lastMessagePosition);
+    private void handleUpdatedChatMessages(String chatId){
+        updateTopChatsView();
+        if(currentlyActiveChat!=null) {// If current chat was updated
+            if(currentlyActiveChat.getChatId().equals(chatId)){
+                messageAdapter.notifyDataSetChanged();
+                messageListView.smoothScrollToPosition(messageAdapter.getItemCount());
+            }
+        }
     }
 
-    private void setCurrentChatNotification(ChatNotificationsEvent event){
-        String chatId = (String)event.getData();
-        currentlyActiveChat = ImsManager.getInstance().getChatInfoById(chatId);
+    private void setCurrentChatNotification(ChatInfo chatInfo){
+        if(currentlyActiveChat !=null){
+            if(currentlyActiveChat.getChatId().equals(chatInfo.getChatId())) { // Its the same chat - hide edit buttons
+                chatMenuDotsContainerOnClick();
+            } else { // its not the same chat, so hide edit buttons if those are visible
+                if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {
+                    chatMenuDotsContainerOnClick();
+                }
+                setCurrentlyActiveChat(chatInfo);
+            }
+        } else {
+            setCurrentlyActiveChat(chatInfo);
+        }
+        messageListView.smoothScrollToPosition(messageAdapter.getItemCount());
     }
 
     @Subscribe
     public void onEvent(ChatsInfoUpdatesEvent event){
         findActiveChat();
-        updateAllViews();
-//        self.updateAllViews()
-//        self.checkPushNotification()
+        updateAllViews(); // TOTALY NOT NEEDED!
+        checkPushNotification();
     }
 
-//                case TYPING:
-//            if ((event.getData() != null)) {
-//        List<UserInfo> usersTyping = (List<UserInfo>) event.getData(); // TODO What to do?
-//    }
-//                break;
-//            case CLEAR_CHATS:
-//    initializeUI();
-//                break;
-//            case USER_CHAT_DETECTED:
-//    initializeUI();
-//                break;
-//            case PUBLIC_CHAT_DETECTED:
-//    initializeUI();
-//                break;
-//            case GLOBAL_CHAT_DETECTED: // TODO Check on this - same logic as for public chats?
-//    initializeUI();
-//                break;
-//            case CHAT_NEW_MESSAGE_ADDED:
-//            messageAdapter.notifyDataSetChanged();
-//    int lastMessagePosition = messageAdapter.getItemCount() == 0 ? 0 : messageAdapter.getItemCount();
-//                messageListView.smoothScrollToPosition(lastMessagePosition);
-//                break;
-//            case CHAT_NEXT_PAGE_LOADED:
-//                swipeRefreshLayout.setRefreshing(false);
-//                messageAdapter.notifyDataSetChanged();
-//                messageListView.smoothScrollToPosition(0);
-//                break;
+    private void checkPushNotification() { /* TODO */ }
 
     private void findActiveChat() {
         String chatId;
@@ -492,22 +535,22 @@ public class ChatFragment extends BaseFragment {
             chatId = this.currentlyActiveChat.getChatId();
             ChatInfo chat = ImsManager.getInstance().getChatInfoById(chatId);
             if(chat!=null){
-                this.currentlyActiveChat = chat;
+                setCurrentlyActiveChat(chat);
             } else {
-                this.currentlyActiveChat = ImsManager.getInstance().getUserChatsList().get(0);
+                List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
+                if(chats!=null && chats.size()>0){
+                    setCurrentlyActiveChat(chats.get(0));
+                }
             }
         } else {
             //! Set first one if chat was not selected
-            this.currentlyActiveChat = ImsManager.getInstance().getUserChatsList().get(0);
+            if(ImsManager.getInstance().getUserChatsList()!=null){
+                List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
+                if(chats!=null && chats.size()>0){
+                    setCurrentlyActiveChat(chats.get(0));
+                }
+            }
         }
-    }
-
-    @Subscribe
-    public void onSelectChatEventDetected(SelectChatEvent event) {
-        int currentPosition = event.getPosition();
-        List<ChatInfo> infos = ImsManager.getInstance().getUserChatsList();
-        displayChat(infos.get(currentPosition));
-
     }
 
     @Subscribe
