@@ -27,6 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.Random;
 
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
@@ -168,7 +169,19 @@ public class AWSFileUploader {
         return randomString;
     }
 
-    public static String generateMongoOID(){
-        return generateRandName(10); // TODO Implement!
+    public static String generateMongoOID() {
+        Long tsLong = System.currentTimeMillis() / 1000L;
+        return (getFirst8(Long.toHexString(tsLong)) + generateRandom() + generateRandom());
+
+    }
+
+    private static String generateRandom() {
+        BigInteger b = new BigInteger(256, new Random());
+        long number = b.longValue();
+        return getFirst8(Long.toHexString((number)));
+    }
+
+    private static String getFirst8(String str) {
+        return str.substring(0, Math.min(str.length(), 8));
     }
 }

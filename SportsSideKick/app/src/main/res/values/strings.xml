@@ -77,7 +77,7 @@
 
     <string name="this_chat_is_public">This chat is public</string>
     <string name="this_chat_is_private">This chat is private</string>
-    <string name="manage_public_chat_caption">Manage chat %1s</string>
+    <string name="manage_public_chat_caption">Add friends to %1s</string>
     <string name="create_chat">Create Chat</string>
     <string name="join_chat">Join Chat</string>
     <string name="your_stash">Your Stash</string>

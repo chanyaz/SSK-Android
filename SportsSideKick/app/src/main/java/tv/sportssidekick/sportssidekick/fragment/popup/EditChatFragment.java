@@ -1,20 +1,18 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,14 +36,14 @@ import tv.sportssidekick.sportssidekick.adapter.SelectableFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.user.AddFriendsEvent;
-import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
+import tv.sportssidekick.sportssidekick.model.user.AddFriendsEvent;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.AutofitDecoration;
 import tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView;
-import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.LinearItemSpacing;
 
 import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
@@ -56,7 +54,7 @@ import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GR
  * www.hypercubesoft.com
  */
 
-public class CreateChatFragment extends BaseFragment {
+public class EditChatFragment extends BaseFragment {
 
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
@@ -66,35 +64,41 @@ public class CreateChatFragment extends BaseFragment {
     EditText chatNameEditText;
     @BindView(R.id.join_a_chat)
     TextView joinChatTextView;
+    @BindView(R.id.edit_caption_label)
+    TextView addFriendsInChatLabel;
     @BindView(R.id.search_edit_text)
     EditText searchEditText;
-    @BindView(R.id.private_chat_switch)
-    Switch privateChatSwitch;
+
     SelectableFriendsAdapter chatFriendsAdapter;
-    @BindView(R.id.private_chat_label)
-    TextView privateChatTextView;
-    @BindView(R.id.chat_friends_in_chat_recycler_view)
-    RecyclerView addFriendsRecyclerView;
-    @BindView(R.id.chat_friends_in_chat_headline)
+
+    @BindView(R.id.members_recycler_view)
+    RecyclerView membersRecyclerView;
+
+    @BindView(R.id.friends_in_chat_headline)
     TextView headlineFriendsInChat;
+
     List<UserInfo> userInfoList;
     AddFriendsAdapter addFriendsAdapter;
 
-    public CreateChatFragment() {
+    ChatInfo chatInfo;
+
+    public EditChatFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.popup_create_chat, container, false);
+        View view = inflater.inflate(R.layout.popup_edit_chat, container, false);
         ButterKnife.bind(this, view);
+
+        String chatId = getPrimaryArgument();
+        chatInfo = ImsManager.getInstance().getChatInfoById(chatId);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNewChat();
+                submitChanges();
             }
         });
 
@@ -120,33 +124,31 @@ public class CreateChatFragment extends BaseFragment {
                         chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
                         chatFriendsAdapter.add(userInfos);
                         userInfoList = userInfos;
+
+                        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+                        chatFriendsAdapter.setSelectedUsers(chatMembers);
+
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
                     }
                 });
 
         searchEditText.addTextChangedListener(textWatcher);
-
-        final Resources res = getResources();
-        privateChatSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                String switchText;
-                if (isChecked) {
-                    switchText = res.getString(R.string.this_chat_is_private);
-                } else {
-                    switchText = res.getString(R.string.this_chat_is_public);
-                }
-                privateChatTextView.setText(switchText);
-            }
-        });
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        addFriendsRecyclerView.setLayoutManager(linearLayoutManager);
+        membersRecyclerView.setLayoutManager(linearLayoutManager);
         addFriendsAdapter = new AddFriendsAdapter(getActivity());
         int space = getResources().getDimensionPixelOffset(R.dimen.margin_15);
-        addFriendsRecyclerView.addItemDecoration(new LinearItemSpacing(space, true, true));
-        addFriendsRecyclerView.setAdapter(addFriendsAdapter);
-
+        membersRecyclerView.addItemDecoration(new LinearItemSpacing(space, true, true));
+        membersRecyclerView.setAdapter(addFriendsAdapter);
         return view;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        chatNameEditText.setText(chatInfo.getChatTitle());
+        String captionText = String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + chatInfo.getChatTitle() +"'");
+        addFriendsInChatLabel.setText(captionText);
     }
 
     @Subscribe
@@ -157,19 +159,19 @@ public class CreateChatFragment extends BaseFragment {
             addFriendsAdapter.add(event.getUserInfo());
         }
         int friendCount = addFriendsAdapter.getItemCount();
-        String friendsInchat = " Friends in Chat";
+        String friendsInChat = " Friends in Chat";
         if (friendCount == 0) {
-            headlineFriendsInChat.setText(friendsInchat);
+            headlineFriendsInChat.setText(friendsInChat);
         } else if (friendCount == 1) {
             headlineFriendsInChat.setText("1 Friend in Chat");
         } else {
-            String friendsTotal = friendCount + friendsInchat;
+            String friendsTotal = friendCount + friendsInChat;
             headlineFriendsInChat.setText(friendsTotal);
         }
     }
 
 
-    @OnClick(R.id.chat_popup_image_button)
+    @OnClick(R.id.popup_image_button)
     public void pickImage() {
         //TODO IMAGE
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
@@ -189,7 +191,7 @@ public class CreateChatFragment extends BaseFragment {
         chooseDialog.show();
     }
 
-    @OnClick(R.id.chat_headline_close_fragment)
+    @OnClick(R.id.close)
     public void closeFragment() {
         ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
     }
@@ -213,10 +215,12 @@ public class CreateChatFragment extends BaseFragment {
         private Timer timer = new Timer();
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) { }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
         @Override
         public void afterTextChanged(final Editable s) {
@@ -248,27 +252,42 @@ public class CreateChatFragment extends BaseFragment {
         return filteredModelList;
     }
 
-    public void createNewChat() {
-        if (chatFriendsAdapter != null) {
-            List<UserInfo> selectedUsers = chatFriendsAdapter.getSelectedValues();
-            String chatName = chatNameEditText.getText().toString();
-            boolean isPrivate = privateChatSwitch.isChecked();
+    private void submitChanges(){
+        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+        List<UserInfo> selectedValues = chatFriendsAdapter.getSelectedValues();
 
-            ChatInfo newChatInfo = new ChatInfo();
-            newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
-            newChatInfo.setIsPublic(!isPrivate);
-            newChatInfo.setName(chatName);
-            ArrayList<String> userIds = new ArrayList<>();
-            for (UserInfo info : selectedUsers) {
-                userIds.add(info.getUserId());
+        boolean shouldUpdate = false;
+
+        if(chatMembers.size() == selectedValues.size()){
+            for(UserInfo user : chatMembers){
+                if(!selectedValues.contains(user)){
+                    shouldUpdate = true;
+                    break;
+                }
             }
-            userIds.add(newChatInfo.getOwner());
-            newChatInfo.setUsersIds(userIds);
-
-            ImsManager.getInstance().createNewChat(newChatInfo);
-            getActivity().onBackPressed();
         } else {
-            // TODO - Display error - no users to be selected!
+            shouldUpdate = true;
         }
+
+        if(shouldUpdate){
+            ArrayList<String> newMemebersIds = new ArrayList<>();
+            for(UserInfo userInfo : selectedValues){
+                newMemebersIds.add(userInfo.getUserId());
+            }
+            chatInfo.setUsersIds(newMemebersIds);
+        }
+
+        String newChatName = chatNameEditText.getText().toString();
+        if(!TextUtils.isEmpty(newChatName)){ // chat name is changed
+            if(!newChatName.equals(chatInfo.getName())){
+                chatInfo.setName(newChatName);
+                shouldUpdate = true;
+            }
+        }
+
+        if(shouldUpdate){
+            chatInfo.updateChatInfo();
+        }
+        getActivity().onBackPressed();
     }
 }

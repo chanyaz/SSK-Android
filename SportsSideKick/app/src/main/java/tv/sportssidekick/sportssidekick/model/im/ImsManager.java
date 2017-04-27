@@ -25,6 +25,7 @@ import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.CreateNewChatSuccessEvent;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
@@ -234,6 +235,9 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                     chatInfo.loadChatUsers();
                     chatInfo.loadMessages();
                     source.setResult(chatInfo);
+
+                    EventBus.getDefault().post(new ChatsInfoUpdatesEvent(getUserChatsList()));
+                    EventBus.getDefault().post(new CreateNewChatSuccessEvent(chatInfo));
                 } else {
                     source.setException(new Exception());
                 }

@@ -71,13 +71,16 @@ import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.EditChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
+import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
+import tv.sportssidekick.sportssidekick.model.im.event.CreateNewChatSuccessEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
 import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
@@ -115,11 +118,14 @@ public class ChatFragment extends BaseFragment {
 
     @BindView(R.id.mic_button)
     ImageButton micButton;
+    @BindView(R.id.video_view_container)
+    RelativeLayout videoViewContainer;
     @BindView(R.id.video_view)
     VideoView videoView;
     @BindView(R.id.image_fullscreen)
     ImageView imageViewFullScreen;
     @BindView(R.id.full_screen_container)
+
     RelativeLayout fullScreenContainer;
     @BindView(R.id.input_edit_text)
     EditText inputEditText;
@@ -150,7 +156,6 @@ public class ChatFragment extends BaseFragment {
     private String audioFilepath = null;
     String currentPath;
     String videoDownloadUrl;
-
 
 
     public ChatFragment() {
@@ -229,15 +234,17 @@ public class ChatFragment extends BaseFragment {
         micButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        ChatFragmentPermissionsDispatcher.startRecordingWithCheck(ChatFragment.this);
-                        micButton.setSelected(true);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        stopRecording();
-                        micButton.setSelected(false);
-                        break;
+                if(currentlyActiveChat!=null) {
+                    switch (motionEvent.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            ChatFragmentPermissionsDispatcher.startRecordingWithCheck(ChatFragment.this);
+                            micButton.setSelected(true);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            stopRecording();
+                            micButton.setSelected(false);
+                            break;
+                    }
                 }
                 return false;
             }
@@ -298,9 +305,11 @@ public class ChatFragment extends BaseFragment {
     private void setCurrentlyActiveChat(ChatInfo info) {
         currentlyActiveChat = info;
         updateAllViews();
-        messageListView.smoothScrollToPosition(0);
         if (currentlyActiveChat != null) {
             messageAdapter.setChatInfo(currentlyActiveChat);
+            messageListView.scrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
+        } else {
+            messageAdapter.setChatInfo(null);
         }
     }
 
@@ -325,9 +334,6 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-
-
-
     private void setupEditChatButton(){
         if(currentlyActiveChat !=null){
             UserInfo user = Model.getInstance().getUserInfo();
@@ -349,24 +355,28 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.menu_button)
     public void chatButtonsMenuOnClick(View v) {
-        chatButtonsMenu.setVisibility(View.GONE);
-        chatButtonsContainer.setVisibility(View.VISIBLE);
+        if(currentlyActiveChat!=null){
+            chatButtonsMenu.setVisibility(View.GONE);
+            chatButtonsContainer.setVisibility(View.VISIBLE);
+        }
     }
 
     @OnClick(R.id.chat_menu_dots)
     public void chatMenuDotsContainerOnClick() {
-        if (chatMenuDotsContainer.getVisibility() == View.GONE) {
-            animate(chatMenuDotsContainer, View.VISIBLE, R.anim.slide_in_left);
-            chatMenuDotsContainer.setVisibility(View.VISIBLE);
-            chatMenuDotsImageView.setImageDrawable(chatRightArrowDrawable);
-            setupEditChatButton();
-        } else {
-            chatMenuDotsContainer.setVisibility(View.GONE);
-            animate(chatMenuDotsContainer, View.GONE, R.anim.slide_in_right);
-            chatMenuDotsImageView.setImageDrawable(chatDotsDrawable);
-            if (chatButtonsMenu.getVisibility() == View.GONE) {
-                chatButtonsMenu.setVisibility(View.VISIBLE);
-                chatButtonsContainer.setVisibility(View.GONE);
+        if(currentlyActiveChat!=null) {
+            if (chatMenuDotsContainer.getVisibility() == View.GONE) {
+                animate(chatMenuDotsContainer, View.VISIBLE, R.anim.slide_in_left);
+                chatMenuDotsContainer.setVisibility(View.VISIBLE);
+                chatMenuDotsImageView.setImageDrawable(chatRightArrowDrawable);
+                setupEditChatButton();
+            } else {
+                chatMenuDotsContainer.setVisibility(View.GONE);
+                animate(chatMenuDotsContainer, View.GONE, R.anim.slide_in_right);
+                chatMenuDotsImageView.setImageDrawable(chatDotsDrawable);
+                if (chatButtonsMenu.getVisibility() == View.GONE) {
+                    chatButtonsMenu.setVisibility(View.VISIBLE);
+                    chatButtonsContainer.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -389,12 +399,24 @@ public class ChatFragment extends BaseFragment {
         Toast.makeText(getContext(), "Image is downloaded.", Toast.LENGTH_SHORT).show();
     }
 
+    @OnClick(R.id.video_close_image_button)
+    public void videoCloseButtonOnClick() {
+        videoViewContainer.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.vide_download_image_button)
+    public void videoDownloadButtonOnClick() {
+        Toast.makeText(getContext(), "Video is downloaded.", Toast.LENGTH_SHORT).show();
+    }
+
     public void sendButtonOnClick() {
-        ImsMessage message = ImsMessage.getDefaultMessage();
-        message.setText(inputEditText.getText().toString().trim());
-        currentlyActiveChat.sendMessage(message);
+        if(currentlyActiveChat!=null){
+            ImsMessage message = ImsMessage.getDefaultMessage();
+            message.setText(inputEditText.getText().toString().trim());
+            currentlyActiveChat.sendMessage(message);
+            currentlyActiveChat.setUserIsTyping(false);
+        }
         inputEditText.setText("");
-        currentlyActiveChat.setUserIsTyping(false);
         Utility.hideKeyboard(getActivity());
     }
 
@@ -406,13 +428,33 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
-        if(Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())){
-            EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
-        } else {
-            currentlyActiveChat.deleteChat(); // TODO - Display confirmation dialog!
-            chatMenuEditButton.setText("Leave");
-        }
+        UserInfo user = Model.getInstance().getUserInfo();
+        if(currentlyActiveChat!=null && user!=null){
+            if(Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())){
+                FragmentEvent fe = new FragmentEvent(EditChatFragment.class);
+                fe.setId(currentlyActiveChat.getChatId());
+                EventBus.getDefault().post(fe);
+            } else {
+                AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "You will leave this chat",
+                        new View.OnClickListener() {// Cancel listener
+                            @Override
+                            public void onClick(View v) {
+                                getActivity().onBackPressed();
+                            }
+                        }, new View.OnClickListener() {// Confirm listener
+                            @Override
+                            public void onClick(View v) {
+                                getActivity().onBackPressed();
+                                currentlyActiveChat.deleteChat();
+                                if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {
+                                    chatMenuDotsContainerOnClick();
+                                }
+                            }
+                        });
 
+                chatMenuEditButton.setText("Leave");
+            }
+        }
     }
 
     @OnClick(R.id.chat_menu_search)
@@ -422,12 +464,16 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.image_button)
     public void selectImageOnClick(){
-        ChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
+        if(currentlyActiveChat!=null) {
+            ChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
+        }
     }
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick(){
-        ChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
+        if(currentlyActiveChat!=null) {
+            ChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
+        }
     }
 
     /** ** ** ** ** ** ** ** ** ** ** ** ** **
@@ -459,21 +505,36 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
+    @Subscribe
+    public void onEvent(ChatsInfoUpdatesEvent event){
+        findActiveChat();
+        //updateAllViews(); // TOTALY NOT NEEDED!
+        checkPushNotification();
+    }
+
+    @Subscribe
+    public void onEvent(CreateNewChatSuccessEvent event){
+        ChatInfo chatInfo = event.getChatInfo();
+        setCurrentChatNotification(chatInfo);
+    }
 
     @Subscribe
     public void onEvent(ChatNotificationsEvent event){
         Log.d(TAG,"Received ChatNotificationsEvent: " + event.getKey().name());
-        ChatInfo chatInfo;
+        ChatInfo chatInfo = event.getChatInfo();
         switch (event.getKey()){
             case UPDATED_CHAT_USERS:
-                chatInfo = event.getChatInfo();
                 handleUpdatedChatUsers(chatInfo);
                 break;
             case CHANGED_CHAT_MESSAGE:
                 break;
             case UPDATED_CHAT_MESSAGES:
+                String chatId = null;
                 chatInfo = event.getChatInfo();
-                handleUpdatedChatMessages(chatInfo.getChatId());
+                if(chatInfo!=null){
+                    chatId = chatInfo.getChatId();
+                }
+                handleUpdatedChatMessages(chatId);
                 break;
             case SET_CURRENT_CHAT:
                 chatInfo = event.getChatInfo();
@@ -494,12 +555,14 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    private void handleUpdatedChatMessages(String chatId){
+    private void handleUpdatedChatMessages(String chatId) {
         updateTopChatsView();
         if(currentlyActiveChat!=null) {// If current chat was updated
             if(currentlyActiveChat.getChatId().equals(chatId)){
+                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
                 messageAdapter.notifyDataSetChanged();
-                messageListView.smoothScrollToPosition(messageAdapter.getItemCount());
+                messageListView.smoothScrollToPosition(0); // Scroll to top
             }
         }
     }
@@ -517,14 +580,7 @@ public class ChatFragment extends BaseFragment {
         } else {
             setCurrentlyActiveChat(chatInfo);
         }
-        messageListView.smoothScrollToPosition(messageAdapter.getItemCount());
-    }
-
-    @Subscribe
-    public void onEvent(ChatsInfoUpdatesEvent event){
-        findActiveChat();
-        updateAllViews(); // TOTALY NOT NEEDED!
-        checkPushNotification();
+        messageListView.smoothScrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
     }
 
     private void checkPushNotification() { /* TODO */ }
@@ -536,32 +592,33 @@ public class ChatFragment extends BaseFragment {
             ChatInfo chat = ImsManager.getInstance().getChatInfoById(chatId);
             if(chat!=null){
                 setCurrentlyActiveChat(chat);
-            } else {
-                List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
-                if(chats!=null && chats.size()>0){
-                    setCurrentlyActiveChat(chats.get(0));
-                }
-            }
-        } else {
-            //! Set first one if chat was not selected
-            if(ImsManager.getInstance().getUserChatsList()!=null){
-                List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
-                if(chats!=null && chats.size()>0){
-                    setCurrentlyActiveChat(chats.get(0));
-                }
+                return;
             }
         }
+        //! Set first one if chat was not selected
+        setFirstChatAsActive();
+    }
+
+    private void setFirstChatAsActive(){
+        if(ImsManager.getInstance().getUserChatsList()!=null){
+            List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
+            if(chats!=null && chats.size()>0){
+                setCurrentlyActiveChat(chats.get(0));
+                return;
+            }
+        }
+        setCurrentlyActiveChat(null);
     }
 
     @Subscribe
     public void playVideo(PlayVideoEvent event) {
-        videoView.setVisibility(View.VISIBLE);
+        videoViewContainer.setVisibility(View.VISIBLE);
         videoView.setVideoURI(Uri.parse(event.getId()));
         videoView.start();
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                videoView.setVisibility(View.GONE);
+                videoViewContainer.setVisibility(View.GONE);
             }
         });
     }
@@ -573,19 +630,21 @@ public class ChatFragment extends BaseFragment {
         ImageLoader.getInstance().displayImage(uri, imageViewFullScreen);
     }
 
-    /** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
-                    CAMERA, MIC, IMAGES...
-     ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **/
+    /**
+     * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     * CAMERA, MIC, IMAGES...
+     * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     **/
 
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void invokeImageSelection(){
+    public void invokeImageSelection() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_IMAGE_PICK);//one can be replaced with any action code
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void invokeCameraCapture(){
+    public void invokeCameraCapture() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
         chooseDialog.setTitle("Choose");
         chooseDialog.setMessage("Take photo or record video ?");
@@ -595,7 +654,8 @@ public class ChatFragment extends BaseFragment {
                 Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                 if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takeVideoIntent, REQUEST_CODE_CHAT_VIDEO_CAPTURE);
-                };
+                }
+                ;
             }
         });
         chooseDialog.setPositiveButton("Image", new DialogInterface.OnClickListener() {
@@ -659,7 +719,7 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    @OnShowRationale({Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForMicrophone(final PermissionRequest request) {
         new AlertDialog.Builder(getContext())
                 .setMessage(R.string.permission_microphone_rationale)
@@ -683,7 +743,7 @@ public class ChatFragment extends BaseFragment {
         Toast.makeText(getContext(), R.string.permission_microphone_denied, Toast.LENGTH_SHORT).show();
     }
 
-    @OnNeverAskAgain({Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showNeverAskForMicrophone() {
         Toast.makeText(getContext(), R.string.permission_microphone_neverask, Toast.LENGTH_SHORT).show();
     }

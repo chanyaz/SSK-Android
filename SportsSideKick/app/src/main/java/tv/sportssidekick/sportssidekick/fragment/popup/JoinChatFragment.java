@@ -30,6 +30,7 @@ import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
 import tv.sportssidekick.sportssidekick.adapter.ChatSearchExpandableAdapter;
+import tv.sportssidekick.sportssidekick.adapter.FriendsInChatAdapter;
 import tv.sportssidekick.sportssidekick.adapter.PublicChatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
@@ -92,25 +93,44 @@ public class JoinChatFragment extends BaseFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewFriendsIn.setLayoutManager(linearLayoutManager);
 
-        //TODO TESTING - NOT REAL DATA
-//        List<String> values = new ArrayList<>();
-//        values.add("Test 1");
-//        values.add("Test 2");
-//        values.add("Test 3");
-//        values.add("Test 4");
-//        friendsInChatAdapter.setValues(values);
-//        recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
 
-        //TODO TESTING - NOT REAL DATA
-        List<String> parents = new ArrayList<>();
-        parents.add("Test 3");
-        parents.add("Test 3");
-        parents.add("Test 3");
-        List<String> child = new ArrayList<>();
-        child.add("Test 1");
+        //endregion
+
+        Task<List<ChatInfo>> taskAllChats = ImsManager.getInstance().getAllPublicChats();
+        taskAllChats.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<ChatInfo>> task) {
+                if (task.isSuccessful()) {
+                    setupSearchResultAdapters(task.getResult());
+//                    chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
+//                    chatsAdapter.add(task.getResult());
+//                    searchEditText.addTextChangedListener(textWatcher);
+//                    recyclerView.setAdapter(chatsAdapter);
+                }
+            }
+        });
 
 
-        ChatSearchExpandableAdapter expandableAdapter = new ChatSearchExpandableAdapter(getActivity(), parents, child);
+        // Other chats that we don't have atm
+        List<ChatInfo> publicChats = new ArrayList<>();
+        chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
+        chatsAdapter.add(publicChats);
+        searchEditText.addTextChangedListener(textWatcher);
+        recyclerView.setAdapter(chatsAdapter);
+
+        // Other chats that we don't have?
+        List<ChatInfo> otherChats = new ArrayList<>();
+        FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
+        friendsInChatAdapter.setValues(otherChats);
+        recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
+        chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
+        chatsAdapter.add(otherChats);
+
+        return view;
+    }
+
+    private void setupSearchResultAdapters(List<ChatInfo> chatInfos){
+        ChatSearchExpandableAdapter expandableAdapter = new ChatSearchExpandableAdapter(getActivity(), chatInfos);
         recyclerViewSearchResult.setAdapter(expandableAdapter);
         //region Ensure collapse && expand with animation
         recyclerViewSearchResult.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -125,6 +145,7 @@ public class JoinChatFragment extends BaseFragment {
             }
         });
         //endregion
+
         //region Ensure only 1 cell is expanded at time
         recyclerViewSearchResult.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
@@ -135,40 +156,6 @@ public class JoinChatFragment extends BaseFragment {
                 lastExpandedGroupPosition = groupPosition;
             }
         });
-        //endregion
-
-
-        //TODO This chats doesn't belong here. We need other chats here like on IOS ???
-        //TODO btw this cause wrong information in Chat Head adapter
-        Task<List<ChatInfo>> taskAllChats = ImsManager.getInstance().getAllPublicChats();
-        taskAllChats.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
-            @Override
-            public void onComplete(@NonNull Task<List<ChatInfo>> task) {
-                if (task.isSuccessful()) {
-                    chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
-                    chatsAdapter.add(task.getResult());
-                    searchEditText.addTextChangedListener(textWatcher);
-                    recyclerView.setAdapter(chatsAdapter);
-                }
-            }
-        });
-
-            // TODO - Extract this from existing info!
-//        Task<List<ChatInfo>> task = ImsManager.getInstance().getAllPublicChatsUrFriendsAreIn();
-//        task.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
-//            @Override
-//            public void onComplete(@NonNull Task<List<ChatInfo>> task) {
-//                if (task.isSuccessful()) {
-//                    FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
-//                    friendsInChatAdapter.setValues(task.getResult());
-//                    recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
-//
-//                    chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
-//                    chatsAdapter.add(task.getResult());
-//                }
-//            }
-//        });
-        return view;
     }
 
     @OnClick(R.id.chat_join_search_button)

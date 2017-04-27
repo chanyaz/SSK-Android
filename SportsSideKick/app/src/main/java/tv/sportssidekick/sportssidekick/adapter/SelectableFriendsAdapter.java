@@ -1,9 +1,7 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,14 +38,17 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFriendsAdapter.ViewHolder> {
     private static final String TAG = "Selectable Friends Adapter";
 
-    private Context context;
-
     public List<UserInfo> getSelectedValues() {
         return selectedValues;
     }
 
     private List<UserInfo> selectedValues;
     int screenWidth;
+
+    public void setSelectedUsers(List<UserInfo> selectedUsers) {
+        this.selectedValues = selectedUsers;
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
@@ -63,8 +64,7 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
     }
 
     public SelectableFriendsAdapter(Context context) {
-        selectedValues = new ArrayList<>();
-        this.context = context;
+        this.selectedValues = new ArrayList<>();
         if(context!=null){
             this.screenWidth = Utility.getDisplayWidth(context);
         }

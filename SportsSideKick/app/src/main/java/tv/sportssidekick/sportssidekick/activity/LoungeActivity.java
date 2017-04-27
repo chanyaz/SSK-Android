@@ -62,6 +62,7 @@ import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.AddFriendFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.EditChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FollowersFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FollowingFragment;
@@ -71,7 +72,6 @@ import tv.sportssidekick.sportssidekick.fragment.popup.InviteFriendFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LanguageFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.LoginFragment;
-import tv.sportssidekick.sportssidekick.fragment.popup.ManageChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.MemberInfoFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.SignUpFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
@@ -255,7 +255,6 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments);
 
         popupContainerFragments = new ArrayList<>();
-        popupContainerFragments.add(ManageChatFragment.class);
         popupContainerFragments.add(YourProfileFragment.class);
         popupContainerFragments.add(StashFragment.class);
         popupContainerFragments.add(YourStatementFragment.class);
@@ -279,6 +278,7 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
         slidePopupContainerFragments = new ArrayList<>();
         slidePopupContainerFragments.add(CreateChatFragment.class);
         slidePopupContainerFragments.add(JoinChatFragment.class);
+        slidePopupContainerFragments.add(EditChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder_right, slidePopupContainerFragments, true);
 
         radioButtonsFragmentMap = HashBiMap.create();

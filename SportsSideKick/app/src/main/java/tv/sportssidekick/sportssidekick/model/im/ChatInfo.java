@@ -112,7 +112,7 @@ public class ChatInfo {
                     if(task.isSuccessful()){
                         setupChatNicAndAvatar();
                         source.setResult(null);
-                        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_USERS));
+                        EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_USERS));
                     }
                 }
             });
@@ -225,7 +225,7 @@ public class ChatInfo {
                         }
                     }
                     sortMessages();
-                    EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+                    EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
                     EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
                 }
 
@@ -340,7 +340,7 @@ public class ChatInfo {
             ImsManager.getInstance().leaveChat(this);
         }
         messages.clear();
-        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+        EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
 }
 
@@ -350,7 +350,7 @@ public class ChatInfo {
     public void wasRemovedByOwner(){
         if(messages!=null){
             messages.clear();
-            EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+            EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
             EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
         }
     }
@@ -499,7 +499,7 @@ public class ChatInfo {
         }
         this.messages.addAll(messages);
         sortMessages();
-        EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+        EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }
 
