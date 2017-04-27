@@ -435,6 +435,9 @@ public class ChatFragment extends BaseFragment {
                         public void onClick(View v) {
                             getActivity().onBackPressed();
                             currentlyActiveChat.deleteChat();
+                            if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {
+                                chatMenuDotsContainerOnClick();
+                            }
                         }
                     });
 

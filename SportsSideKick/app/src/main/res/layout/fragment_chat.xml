@@ -265,7 +265,30 @@
             android:id="@+id/video_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/video_close_image_button"
+            android:layout_above="@+id/vide_download_image_button"/>
+
+        <ImageView
+            android:id="@+id/video_close_image_button"
+            android:layout_width="@dimen/chat_button_size"
+            android:layout_height="@dimen/chat_button_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/video_close_button" />
+
+        <ImageView
+            android:id="@+id/vide_download_image_button"
+            android:layout_width="@dimen/chat_button_size"
+            android:layout_height="@dimen/chat_button_size"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/download_button" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -282,7 +305,9 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:background="@color/green_dark_2_semitransparent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_below="@+id/close_image_button"
+            android:layout_above="@+id/download_image_button"/>
 
         <ImageView
             android:id="@+id/close_image_button"
