@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/green_dark_2">
-
     <RelativeLayout
         android:id="@+id/row_join_chat_search_list_container"
         android:layout_width="match_parent"

@@ -1,8 +1,11 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,10 +38,19 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.StartingNewCallFragment;
+import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.videoChat.Slot;
@@ -52,10 +64,10 @@ import tv.sportssidekick.sportssidekick.service.StartCallEvent;
  * Created by Djordje on 01/31/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
- *
+ * <p>
  * A simple {@link BaseFragment} subclass.
  */
-
+@RuntimePermissions
 public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     private static final String TAG = "VIDEO CHAT FRAGMENT";
@@ -108,16 +120,16 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public void setMicrophoneEnabled(boolean microphoneEnabled) {
         isMicrophoneEnabled = microphoneEnabled;
         localAudioTrack.enable(microphoneEnabled);
-        if(microphoneEnabled){
+        if (microphoneEnabled) {
             muteButton.setSelected(false);
-        }else {
+        } else {
             muteButton.setSelected(true);
         }
     }
 
     public void setFrontCamera(boolean frontCamera) {
         isFrontCamera = frontCamera;
-        if(camera!=null){
+        if (camera != null) {
             camera.switchCamera();
             // TODO - toggle camera button image
         }
@@ -125,57 +137,64 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     public void setVideoEnabled(boolean videoEnabled) {
         isVideoEnabled = videoEnabled;
-        previewView.setVisibility(isVideoEnabled ? View.VISIBLE : View.GONE);
-        disabled.setVisibility(isVideoEnabled ? View.GONE : View.VISIBLE);
+        previewView.setVisibility(isVideoEnabled ? View.VISIBLE : View.INVISIBLE);
+        disabled.setVisibility(isVideoEnabled ? View.INVISIBLE : View.VISIBLE);
         localVideoTrack.enable(isVideoEnabled);
-        if(videoEnabled){
+        if (videoEnabled) {
             videoButton.setSelected(false);
-        }else {
+        } else {
             videoButton.setSelected(true);
         }
     }
 
     @OnClick(R.id.being_your_call)
-    public void onConnect(View view){
+    public void onConect() {
+        VideoChatFragmentPermissionsDispatcher.onConnectClickedWithCheck(this, getView());
+    }
+
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
+    public void onConnectClicked(View view) {
         EventBus.getDefault().post(new FragmentEvent(StartingNewCallFragment.class));
     }
 
     @OnClick(R.id.disconnect_button)
-    public void onDisconnect(View view){
+    public void onDisconnect(View view) {
         disconnect();
     }
 
     @OnClick(R.id.toggle_camera_button)
-    public void onToggleCamera(View view){
+    public void onToggleCamera(View view) {
         setFrontCamera(!isFrontCamera);
-        // TODO - toggle flip camera button image
     }
 
     @OnClick(R.id.toggle_mic_button)
-    public void onToggleMicrophone(View view){
-        if(localAudioTrack!=null){
+    public void onToggleMicrophone(View view) {
+        if (localAudioTrack != null) {
             setMicrophoneEnabled(!isMicrophoneEnabled);
         }
     }
+
     @OnClick(R.id.toggle_video_button)
-    public void onToggleVideo(View view){
-        if(localVideoTrack != null) {
+    public void onToggleVideo(View view) {
+        if (localVideoTrack != null) {
             setVideoEnabled(!isVideoEnabled);
         }
     }
+
     @OnClick(R.id.add_users_button)
-    public void onAddUsers(View view){
+    public void onAddUsers(View view) {
         Slot slot = getNextFreeSlot();
-        if(slot==null){
-            Toast.makeText(getContext(),"Sorry you can only video call with a maximum of 3 friends, and this call is already full!", Toast.LENGTH_LONG).show();
+        if (slot == null) {
+            Toast.makeText(getContext(), "Sorry you can only video call with a maximum of 3 friends, and this call is already full!", Toast.LENGTH_LONG).show();
             return;
         }
         FragmentEvent fe = new FragmentEvent(StartingNewCallFragment.class);
         fe.setStringArrayList(getUserIdsFromSlots());
-       EventBus.getDefault().post(fe);
+        EventBus.getDefault().post(fe);
     }
 
-    public VideoChatFragment() {}
+    public VideoChatFragment() {
+    }
 
 
     @Override
@@ -183,18 +202,24 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video_chat, container, false);
         ButterKnife.bind(this, view);
+
         model = VideoChatModel.getInstance();
         localMedia = LocalMedia.create(getContext());
         name.setText("You");
         slots = new ArrayList<>();
-        slots.add(new Slot(ButterKnife.findById(view,R.id.slot_2)));
-        slots.add(new Slot(ButterKnife.findById(view,R.id.slot_3)));
-        slots.add(new Slot(ButterKnife.findById(view,R.id.slot_4)));
+        slots.add(new Slot(ButterKnife.findById(view, R.id.slot_2)));
+        slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
+        slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
+
+        VideoChatEvent event = VideoChatModel.getInstance().getVideoChatEvent();
+        if (event != null)
+        {
+            onVideoChatEvent(event);
+            VideoChatModel.getInstance().setVideoChatEvent(null);
+        }
+
         return view;
     }
-
-
-
 
     private void setViewState(boolean active, boolean loading) {
         activeChatView.setVisibility(active && !loading ? View.VISIBLE : View.GONE);
@@ -204,8 +229,13 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     // -> setListeners
     @Subscribe
-    public void onVideoChatEvent(VideoChatEvent event){
-        switch(event.getType()){
+    public void onVideoChatEvent(VideoChatEvent event) {
+        VideoChatFragmentPermissionsDispatcher.onVideoChatEventReceivedWithCheck(this, event);
+    }
+
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
+    public void onVideoChatEventReceived(VideoChatEvent event) {
+        switch (event.getType()) {
             case onUserInvited:
                 ArrayList<String> users = new ArrayList<>();
                 users.add(event.getId());
@@ -221,45 +251,92 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                 userInfoTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                     @Override
                     public void onComplete(@NonNull Task<UserInfo> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             UserInfo userInfo = task.getResult();
                             String usersName = "";
-                            if(userInfo.getFirstName()!=null && userInfo.getLastName()!=null){
-                                usersName = userInfo.getFirstName() +  userInfo.getLastName();
-                            } else if(userInfo.getNicName() != null) {
+                            if (userInfo.getFirstName() != null && userInfo.getLastName() != null) {
+                                usersName = userInfo.getFirstName() + userInfo.getLastName();
+                            } else if (userInfo.getNicName() != null) {
                                 usersName = userInfo.getNicName();
                             }
-                            // TODO (1) Show dialog to accept/reject video call - and store it to be dismissed if invitation revoked is triggered (call being canceled)
-                            acceptInvitation(roomId);
-                            //rejectInvitation(roomId);
+                            AlertDialogManager.getInstance().showAlertDialog("Receiving a call from \'" + usersName + " \'?", "Accept the call?",
+                                    new View.OnClickListener() {// Cancel
+                                        @Override
+                                        public void onClick(View v) {
+                                            rejectInvitation(roomId);
+                                            getActivity().onBackPressed();
+                                        }
+                                    }, new View.OnClickListener() { // Confirm
+                                        @Override
+                                        public void onClick(View v) {
+                                            acceptInvitation(roomId);
+                                            getActivity().onBackPressed();
+                                        }
+                                    });
                         }
                     }
                 });
                 break;
             case onInvitationRevoked:
-                // TODO Dismiss dialog created in (1)
+                if (((LoungeActivity)getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
+                    getActivity().onBackPressed();
+                }
                 break;
             case onChatClosed:
-                // TODO Dismiss dialog created in (1)
-                if(room!=null && room.getName().equals(event.getId())){
+                if (((LoungeActivity)getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
+                    getActivity().onBackPressed();
+                }
+                if (room != null && room.getName().equals(event.getId())) {
                     disconnect();
                 }
-              break;
+                break;
         }
     }
 
-    private void acceptCallFromPushNotification(String roomId) {
-        // TODO Link with push notification and display dialog?
-        acceptInvitation(roomId);
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
+    void showRationaleForMicrophoneAndCamera(final PermissionRequest request) {
+        AlertDialogManager.getInstance().showAlertDialog("Permissions", getActivity().getResources().getString(R.string.video_chat_permission_microphone_and_camera_rationale),
+                new View.OnClickListener() {// Cancel
+                    @Override
+                    public void onClick(View v) {
+                        request.cancel();
+                        getActivity().onBackPressed();
+                    }
+                }, new View.OnClickListener() { // Confirm
+                    @Override
+                    public void onClick(View v) {
+                        request.proceed();
+                        getActivity().onBackPressed();
+                    }
+                });
     }
 
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
+    void showNeverAskForMicrophoneAndCamera() {
+        Toast.makeText(getContext(), R.string.video_chat_permission_microphone_and_camera_denied, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
+    void showDeniedForMicrophoneAnCamera() {
+        Toast.makeText(getContext(), R.string.video_chat_permission_microphone_and_camera_denied, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        VideoChatFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    private void acceptCallFromPushNotification(String roomId) {
+        acceptInvitation(roomId);
+    }
 
     @Subscribe
     public void startCallWithUsers(StartCallEvent event) {
         List<UserInfo> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
-        for(UserInfo user : users){
-            if(!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())){
+        for (UserInfo user : users) {
+            if (!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
         }
@@ -268,7 +345,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         createCallTask.addOnCompleteListener(new OnCompleteListener<VideoChatItem>() {
             @Override
             public void onComplete(@NonNull Task<VideoChatItem> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     addUsersToView(opponentIds);
                     roomId = task.getResult().getId().getOid();
                     connect();
@@ -280,11 +357,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
     @Subscribe
-    private void addUsersToCall(AddUsersToCallEvent event){
+    public void addUsersToCall(AddUsersToCallEvent event) {
         List<UserInfo> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
-        for(UserInfo user : users){
-            if(!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())){
+        for (UserInfo user : users) {
+            if (!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
         }
@@ -292,21 +369,21 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         inviteUsersTask.addOnCompleteListener(new OnCompleteListener<VideoChatItem>() {
             @Override
             public void onComplete(@NonNull Task<VideoChatItem> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     addUsersToView(opponentIds);
                 }
             }
         });
     }
 
-    private void addUsersToView(List<String> users){
-        if(users!=null){
-            for(String userId : users){
-                if(!userId.equals(Model.getInstance().getUserInfo().getUserId())){
+    private void addUsersToView(List<String> users) {
+        if (users != null) {
+            for (String userId : users) {
+                if (!userId.equals(Model.getInstance().getUserInfo().getUserId())) {
                     Slot slot = getSlotBy(userId);
-                    if(slot==null){
+                    if (slot == null) {
                         slot = getNextFreeSlot();
-                        if(slot!=null){
+                        if (slot != null) {
                             slot.setUserId(userId);
                             addSlotToLayout(slot);
                         }
@@ -317,9 +394,8 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     }
 
-    private void acceptInvitation(String roomId){
-        // TODO Dismiss popup - create video chat
-        if(room != null){
+    private void acceptInvitation(String roomId) {
+        if (room != null) {
             pendingRoomId = roomId;
             disconnect();
         } else {
@@ -327,39 +403,39 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         }
     }
 
-    private void rejectInvitation(String roomId){
-       model.reject(roomId);
+    private void rejectInvitation(String roomId) {
+        model.reject(roomId);
     }
 
-    private void disconnect(){
-        if(room != null){
-            setViewState(false,true);
+    private void disconnect() {
+        if (room != null) {
+            setViewState(false, true);
             room.disconnect();
         }
     }
 
-    private void onDisconnected(){
-        if(room != null) {
+    private void onDisconnected() {
+        if (room != null) {
             model.leave(room.getName());
         }
         clearListeners();
         cleanupRemoteParticipants();
         room = null;
-        setViewState(false,false);
+        setViewState(false, false);
         if (pendingRoomId != null) {
             preConnect(pendingRoomId);
         }
     }
 
-    private void connect(){
-        setViewState(true,true);
+    private void connect() {
+        setViewState(true, true);
         pendingRoomId = null;
         model.getToken(roomId).addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-                if(!task.isSuccessful()){
-                    Log.d(TAG,"VideoChat.connect() -> AuthToken not available!");
-                    // TODO: Present failure / re-login notice to user
+                if (!task.isSuccessful()) {
+                    Log.d(TAG, "VideoChat.connect() -> AuthToken not available!");
+                    // Present failure / re-login notice to user
                     model.leave(roomId);
                     onDisconnected();
                 } else {
@@ -370,11 +446,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         });
     }
 
-    private void completeConnect(){
-        if(localAudioTrack==null){
+    private void completeConnect() {
+        if (localAudioTrack == null) {
             localAudioTrack = localMedia.addAudioTrack(true);
         }
-        if(localMedia.getVideoTracks().size()==0){
+        if (localMedia.getVideoTracks().size() == 0) {
             startPreview();
         }
         // Connect to a room
@@ -389,33 +465,33 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     private void startPreview() {
         camera = new CameraCapturer(getContext(), CameraCapturer.CameraSource.FRONT_CAMERA);
         localVideoTrack = localMedia.addVideoTrack(true, camera);
-        if(localVideoTrack==null){
-            Log.e(TAG,"Failed to add video track");
+        if (localVideoTrack == null) {
+            Log.e(TAG, "Failed to add video track");
         } else {
             localVideoTrack.addRenderer(previewView);
         }
     }
 
     private void cleanupRemoteParticipants() {
-        for(Slot slot : slots){
+        for (Slot slot : slots) {
             removeSlotFromLayout(slot);
             slot.disconnect();
         }
     }
 
-    private Slot getNextFreeSlot(){
-        for(Slot slot : slots){
-            if( slot.getParticipant() == null && slot.getUserId() == null) {
+    private Slot getNextFreeSlot() {
+        for (Slot slot : slots) {
+            if (slot.getParticipant() == null && slot.getUserId() == null) {
                 return slot;
             }
         }
         return null;
     }
 
-    private Slot getSlotBy(String userId ){
-        for(Slot slot : slots){
-            if(slot.getUserId()!=null){
-                if(slot.getUserId().equals(userId)) {
+    private Slot getSlotBy(String userId) {
+        for (Slot slot : slots) {
+            if (slot.getUserId() != null) {
+                if (slot.getUserId().equals(userId)) {
                     return slot;
                 }
             }
@@ -423,10 +499,10 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         return null;
     }
 
-    private ArrayList<String> getUserIdsFromSlots(){
+    private ArrayList<String> getUserIdsFromSlots() {
         ArrayList<String> users = new ArrayList<>();
-        for(Slot slot : slots){
-            if(slot.getUserId()!=null){
+        for (Slot slot : slots) {
+            if (slot.getUserId() != null) {
                 users.add(slot.getUserId());
             }
         }
@@ -435,8 +511,8 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     private List<UserInfo> getUsersFromSlots() {
         List<UserInfo> users = new ArrayList<>();
-        for(Slot slot : slots){
-            if(slot.getUserInfo()!=null){
+        for (Slot slot : slots) {
+            if (slot.getUserInfo() != null) {
                 users.add(slot.getUserInfo());
             }
         }
@@ -445,7 +521,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     private void removeAndCheckStateBy(String userId) {
         final Slot slot = getSlotBy(userId);
-        if(slot!=null) {
+        if (slot != null) {
             removeSlotFromLayout(slot);
             slot.disconnect();
             ArrayList<String> users = getUserIdsFromSlots();
@@ -456,13 +532,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
 
-    private void addSlotToLayout(Slot slot){
-        // TODO Add slots to layout
+    private void addSlotToLayout(Slot slot) {
         slot.getView().setVisibility(View.VISIBLE);
     }
 
-    // TODO Remove slots from layout
-    private void removeSlotFromLayout(Slot slot){
+    private void removeSlotFromLayout(Slot slot) {
         slot.reset();
         slot.getView().setVisibility(View.GONE);
     }
@@ -473,7 +547,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         model.join(id).addOnCompleteListener(new OnCompleteListener<VideoChatItem>() {
             @Override
             public void onComplete(@NonNull Task<VideoChatItem> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     roomId = task.getResult().getId().getOid();
                     connect();
                 }
@@ -483,8 +557,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
 
-
-    private void clearListeners(){
+    private void clearListeners() {
         clearListeners(false);
     }
 
@@ -502,29 +575,29 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @Override
     public void onConnected(Room room) {
-        Log.d(TAG,"Connected to room "+ room.getName() + " as "+ room.getLocalParticipant().getIdentity());
-        if(room.getParticipants().size()>0){
-            for(Map.Entry<String,Participant> remoteParticipant : room.getParticipants().entrySet()){
+        Log.d(TAG, "Connected to room " + room.getName() + " as " + room.getLocalParticipant().getIdentity());
+        if (room.getParticipants().size() > 0) {
+            for (Map.Entry<String, Participant> remoteParticipant : room.getParticipants().entrySet()) {
 
                 Slot slot = getSlotBy(remoteParticipant.getValue().getIdentity());
                 // You started the call, but other people have managed to connect before you, so we already
                 // have a slot for them
-                if(slot!=null){
+                if (slot != null) {
                     slot.setParticipant(remoteParticipant.getValue());
                 } else { // Otherwise, create a new free slot if one is avaiable
                     slot = getNextFreeSlot();
-                    if(slot!=null){
+                    if (slot != null) {
                         slot.setParticipant(remoteParticipant.getValue());
                         addSlotToLayout(slot);
                     } else {
-                        Log.e(TAG,"No free slots left!");
+                        Log.e(TAG, "No free slots left!");
                         break;
                     }
                 }
             }
         }
         addUsersToView(model.getInvitedUsers());
-        setViewState(true,false);
+        setViewState(true, false);
     }
 
     @Override
@@ -539,18 +612,18 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @Override
     public void onParticipantConnected(Room room, Participant participant) {
-        Log.d(TAG,"Room "+ room.getName() + ", Participant "+ participant.getIdentity());
+        Log.d(TAG, "Room " + room.getName() + ", Participant " + participant.getIdentity());
         Slot slot = getSlotBy(participant.getIdentity());
-        if(slot!=null){
+        if (slot != null) {
             // You started the call and the user has connected in response
             slot.setParticipant(participant);
         } else { // Maybe someone else added a new user and they've joined
             slot = getNextFreeSlot();
-            if(slot!=null){
+            if (slot != null) {
                 slot.setParticipant(participant);
                 addSlotToLayout(slot);
             } else {
-                Log.e(TAG,"No free slots left!");
+                Log.e(TAG, "No free slots left!");
             }
         }
     }
@@ -561,8 +634,25 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
     @Override
-    public void onRecordingStarted(Room room) {  }
+    public void onRecordingStarted(Room room) {
+    }
 
     @Override
-    public void onRecordingStopped(Room room) { }
+    public void onRecordingStopped(Room room) {
+    }
+
+    @Override
+    public void onResume() {
+        if(!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        disconnect();
+        super.onStop();
+    }
 }

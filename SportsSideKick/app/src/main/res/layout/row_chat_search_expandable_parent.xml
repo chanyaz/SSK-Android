@@ -56,4 +56,9 @@
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"
+        android:background="@color/black_transparent_154"/>
 </RelativeLayout>
