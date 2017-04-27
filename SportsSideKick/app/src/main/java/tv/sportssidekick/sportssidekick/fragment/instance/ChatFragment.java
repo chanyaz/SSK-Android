@@ -298,9 +298,11 @@ public class ChatFragment extends BaseFragment {
     private void setCurrentlyActiveChat(ChatInfo info) {
         currentlyActiveChat = info;
         updateAllViews();
-        messageListView.smoothScrollToPosition(0);
         if (currentlyActiveChat != null) {
             messageAdapter.setChatInfo(currentlyActiveChat);
+            messageListView.scrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
+        } else {
+            messageAdapter.setChatInfo(null);
         }
     }
 
@@ -459,21 +461,31 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
+    @Subscribe
+    public void onEvent(ChatsInfoUpdatesEvent event){
+        findActiveChat();
+        //updateAllViews(); // TOTALY NOT NEEDED!
+        checkPushNotification();
+    }
+
 
     @Subscribe
     public void onEvent(ChatNotificationsEvent event){
         Log.d(TAG,"Received ChatNotificationsEvent: " + event.getKey().name());
-        ChatInfo chatInfo;
+        ChatInfo chatInfo = event.getChatInfo();
         switch (event.getKey()){
             case UPDATED_CHAT_USERS:
-                chatInfo = event.getChatInfo();
                 handleUpdatedChatUsers(chatInfo);
                 break;
             case CHANGED_CHAT_MESSAGE:
                 break;
             case UPDATED_CHAT_MESSAGES:
+                String chatId = null;
                 chatInfo = event.getChatInfo();
-                handleUpdatedChatMessages(chatInfo.getChatId());
+                if(chatInfo!=null){
+                    chatId = chatInfo.getChatId();
+                }
+                handleUpdatedChatMessages(chatId);
                 break;
             case SET_CURRENT_CHAT:
                 chatInfo = event.getChatInfo();
@@ -498,8 +510,10 @@ public class ChatFragment extends BaseFragment {
         updateTopChatsView();
         if(currentlyActiveChat!=null) {// If current chat was updated
             if(currentlyActiveChat.getChatId().equals(chatId)){
+                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
                 messageAdapter.notifyDataSetChanged();
-                messageListView.smoothScrollToPosition(messageAdapter.getItemCount());
+                messageListView.smoothScrollToPosition(0); // Scroll to top
             }
         }
     }
@@ -517,14 +531,7 @@ public class ChatFragment extends BaseFragment {
         } else {
             setCurrentlyActiveChat(chatInfo);
         }
-        messageListView.smoothScrollToPosition(messageAdapter.getItemCount());
-    }
-
-    @Subscribe
-    public void onEvent(ChatsInfoUpdatesEvent event){
-        findActiveChat();
-        updateAllViews(); // TOTALY NOT NEEDED!
-        checkPushNotification();
+        messageListView.smoothScrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
     }
 
     private void checkPushNotification() { /* TODO */ }
@@ -536,21 +543,22 @@ public class ChatFragment extends BaseFragment {
             ChatInfo chat = ImsManager.getInstance().getChatInfoById(chatId);
             if(chat!=null){
                 setCurrentlyActiveChat(chat);
-            } else {
-                List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
-                if(chats!=null && chats.size()>0){
-                    setCurrentlyActiveChat(chats.get(0));
-                }
-            }
-        } else {
-            //! Set first one if chat was not selected
-            if(ImsManager.getInstance().getUserChatsList()!=null){
-                List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
-                if(chats!=null && chats.size()>0){
-                    setCurrentlyActiveChat(chats.get(0));
-                }
+                return;
             }
         }
+        //! Set first one if chat was not selected
+        setFirstChatAsActive();
+    }
+
+    private void setFirstChatAsActive(){
+        if(ImsManager.getInstance().getUserChatsList()!=null){
+            List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
+            if(chats!=null && chats.size()>0){
+                setCurrentlyActiveChat(chats.get(0));
+                return;
+            }
+        }
+        setCurrentlyActiveChat(null);
     }
 
     @Subscribe
