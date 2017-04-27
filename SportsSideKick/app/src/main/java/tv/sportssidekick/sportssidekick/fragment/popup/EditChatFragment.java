@@ -86,7 +86,6 @@ public class EditChatFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -125,22 +124,21 @@ public class EditChatFragment extends BaseFragment {
                         chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
                         chatFriendsAdapter.add(userInfos);
                         userInfoList = userInfos;
+
+                        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+                        chatFriendsAdapter.setSelectedUsers(chatMembers);
+
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
                     }
                 });
 
-        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
-        chatFriendsAdapter.setSelectedUsers(chatMembers);
-
         searchEditText.addTextChangedListener(textWatcher);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         membersRecyclerView.setLayoutManager(linearLayoutManager);
         addFriendsAdapter = new AddFriendsAdapter(getActivity());
         int space = getResources().getDimensionPixelOffset(R.dimen.margin_15);
         membersRecyclerView.addItemDecoration(new LinearItemSpacing(space, true, true));
         membersRecyclerView.setAdapter(addFriendsAdapter);
-
         return view;
     }
 

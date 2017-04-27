@@ -213,12 +213,10 @@ public class CreateChatFragment extends BaseFragment {
         private Timer timer = new Timer();
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
         @Override
         public void afterTextChanged(final Editable s) {
@@ -272,6 +270,5 @@ public class CreateChatFragment extends BaseFragment {
         } else {
             // TODO - Display error - no users to be selected!
         }
-
     }
 }

@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -50,15 +51,21 @@ public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedIt
         }
     }
 
-    private List<String> values;
+    private List<UserInfo> values;
 
     public ChatExpandedItemAdapter(Context context) {
         values = new ArrayList<>();
         this.context = context;
     }
 
-    public void setValues(List<String> values) {
+    public void setValues(List<UserInfo> values) {
         this.values = values;
+        notifyDataSetChanged();
+    }
+
+    public void addValue(UserInfo info){
+        values.add(info);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -85,13 +92,14 @@ public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedIt
     @Override
     public void onBindViewHolder(final ChatExpandedItemAdapter.ViewHolder holder, final int position) {
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
+        UserInfo info =values.get(position);
         if (holder.rowImage != null) {
             holder.rowImage.getLayoutParams().height = image_size;
             holder.rowImage.getLayoutParams().width = image_size;
-            ImageLoader.getInstance().displayImage(values.get(position), holder.rowImage, imageOptions);
+            ImageLoader.getInstance().displayImage(info.getAvatarUrl(), holder.rowImage, imageOptions);
         }
         if (holder.rowName != null) {
-            holder.rowName.setText("Dummy test");
+            holder.rowName.setText(info.getNicName());
         }
     }
 
