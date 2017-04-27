@@ -30,6 +30,12 @@ public class Constant {
     public static final int REQUEST_CODE_POST_IMAGE_PICK = 107;
     public static final int REQUEST_CODE_POST_VIDEO_CAPTURE = 108;
 
+    public static final int REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE = 109;
+    public static final int REQUEST_CODE_CHAT_CREATE_IMAGE_PICK = 111;
+
+    public static final int REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE = 109;
+    public static final int REQUEST_CODE_CHAT_EDIT_IMAGE_PICK = 111;
+
     public static final String IS_FIRST_TIME = "IS_FIRST_TIME";
 
     public static final String NOTIFICATION_MESSAGE = "message";

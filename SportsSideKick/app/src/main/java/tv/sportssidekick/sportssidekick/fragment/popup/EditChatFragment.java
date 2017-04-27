@@ -1,7 +1,14 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,14 +20,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -29,6 +41,12 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
 import tv.sportssidekick.sportssidekick.adapter.AddFriendsAdapter;
@@ -41,11 +59,14 @@ import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
 import tv.sportssidekick.sportssidekick.model.user.AddFriendsEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.AutofitDecoration;
 import tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView;
 import tv.sportssidekick.sportssidekick.util.ui.LinearItemSpacing;
 
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
 import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
@@ -54,6 +75,7 @@ import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GR
  * www.hypercubesoft.com
  */
 
+@RuntimePermissions
 public class EditChatFragment extends BaseFragment {
 
     @BindView(R.id.friends_recycler_view)
@@ -68,6 +90,8 @@ public class EditChatFragment extends BaseFragment {
     TextView addFriendsInChatLabel;
     @BindView(R.id.search_edit_text)
     EditText searchEditText;
+    @BindView(R.id.chat_image_view)
+    ImageView chatImageView;
 
     SelectableFriendsAdapter chatFriendsAdapter;
 
@@ -81,6 +105,8 @@ public class EditChatFragment extends BaseFragment {
     AddFriendsAdapter addFriendsAdapter;
 
     ChatInfo chatInfo;
+    String uploadedImageUrl;
+    String currentPath;
 
     public EditChatFragment() {
         // Required empty public constructor
@@ -129,6 +155,11 @@ public class EditChatFragment extends BaseFragment {
                         chatFriendsAdapter.setSelectedUsers(chatMembers);
 
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
+
+                        addFriendsAdapter.add(chatMembers);
+                        addFriendsAdapter.notifyDataSetChanged();
+
+
                     }
                 });
 
@@ -148,6 +179,10 @@ public class EditChatFragment extends BaseFragment {
         super.onResume();
         chatNameEditText.setText(chatInfo.getChatTitle());
         String captionText = String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + chatInfo.getChatTitle() +"'");
+        if(chatInfo.getChatAvatarUrl()!=null){
+            ImageLoader.getInstance().displayImage(chatInfo.getChatAvatarUrl(), chatImageView, Utility.imageOptionsImageLoader());
+            chatImageView.setVisibility(View.VISIBLE);
+        }
         addFriendsInChatLabel.setText(captionText);
     }
 
@@ -158,6 +193,10 @@ public class EditChatFragment extends BaseFragment {
         } else {
             addFriendsAdapter.add(event.getUserInfo());
         }
+        updateFirendsCountLabel();
+    }
+
+    private void updateFirendsCountLabel(){
         int friendCount = addFriendsAdapter.getItemCount();
         String friendsInChat = " Friends in Chat";
         if (friendCount == 0) {
@@ -170,22 +209,26 @@ public class EditChatFragment extends BaseFragment {
         }
     }
 
+    @OnClick(R.id.delete)
+    public void deleteChat(){
+        chatInfo.deleteChat();
+    }
 
     @OnClick(R.id.popup_image_button)
     public void pickImage() {
-        //TODO IMAGE
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
         chooseDialog.setTitle("Choose Option");
         chooseDialog.setNegativeButton("Choose from Library", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+               EditChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(EditChatFragment.this);
 
             }
         });
         chooseDialog.setPositiveButton("Use Camera", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                EditChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(EditChatFragment.this);
             }
         });
         chooseDialog.show();
@@ -257,7 +300,7 @@ public class EditChatFragment extends BaseFragment {
         List<UserInfo> selectedValues = chatFriendsAdapter.getSelectedValues();
 
         boolean shouldUpdate = false;
-
+         // Check users
         if(chatMembers.size() == selectedValues.size()){
             for(UserInfo user : chatMembers){
                 if(!selectedValues.contains(user)){
@@ -265,18 +308,19 @@ public class EditChatFragment extends BaseFragment {
                     break;
                 }
             }
-        } else {
+        } else { // There are different counts of users
             shouldUpdate = true;
         }
 
         if(shouldUpdate){
-            ArrayList<String> newMemebersIds = new ArrayList<>();
+            ArrayList<String> newMembersIds = new ArrayList<>();
             for(UserInfo userInfo : selectedValues){
-                newMemebersIds.add(userInfo.getUserId());
+                newMembersIds.add(userInfo.getUserId());
             }
-            chatInfo.setUsersIds(newMemebersIds);
+            chatInfo.setUsersIds(newMembersIds);
         }
 
+        // Check chat name
         String newChatName = chatNameEditText.getText().toString();
         if(!TextUtils.isEmpty(newChatName)){ // chat name is changed
             if(!newChatName.equals(chatInfo.getName())){
@@ -285,9 +329,116 @@ public class EditChatFragment extends BaseFragment {
             }
         }
 
+        // Check chat image
+        if(uploadedImageUrl!=null){
+            chatInfo.setAvatarUrl(uploadedImageUrl);
+            shouldUpdate = true;
+        }
+
         if(shouldUpdate){
             chatInfo.updateChatInfo();
+        } else {
+            Toast.makeText(getContext(),"There are no changes in this chat.", Toast.LENGTH_SHORT).show();
         }
-        getActivity().onBackPressed();
+        closeFragment();
+    }
+
+    /**
+     * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     * CAMERA, IMAGES...
+     * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     **/
+
+
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeImageSelection() {
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_EDIT_IMAGE_PICK);//one can be replaced with any action code
+    }
+
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeCameraCapture() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = Model.createImageFile(getContext());
+                currentPath = photoFile.getAbsolutePath();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            }
+            startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+       EditChatFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE:
+                    Model.getInstance().uploadImageForEditChat((currentPath));
+                    ImageLoader.getInstance().displayImage(currentPath,chatImageView);
+                    break;
+                case REQUEST_CODE_CHAT_EDIT_IMAGE_PICK:
+                    Uri selectedImageURI = intent.getData();
+                    String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
+                    Model.getInstance().uploadImageForEditChat(realPath);
+                    ImageLoader.getInstance().displayImage(realPath,chatImageView);
+                    break;
+            }
+        }
+    }
+
+    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showDeniedForCamera() {
+        Toast.makeText(getContext(), R.string.permission_camera_denied, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showNeverAskForCamera() {
+        Toast.makeText(getContext(), R.string.permission_camera_neverask, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showRationaleForCamera(final PermissionRequest request) {
+        new AlertDialog.Builder(getContext())
+                .setMessage(R.string.permission_camera_rationale)
+                .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        request.proceed();
+                    }
+                })
+                .setNegativeButton(R.string.button_deny, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        request.cancel();
+                    }
+                })
+                .show();
+    }
+
+
+    @Subscribe
+    @SuppressWarnings("Unchecked cast")
+    public void onEventDetected(GameSparksEvent event){
+        switch (event.getEventType()) {
+            case EDIT_CHAT_IMAGE_FILE_UPLOADED:
+                if(event.getData()!=null){
+                    uploadedImageUrl = (String)event.getData();
+                    chatImageView.setVisibility(View.VISIBLE);
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader());
+                }
+        }
     }
 }

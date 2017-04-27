@@ -44,7 +44,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
-
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
@@ -57,18 +56,19 @@ import tv.sportssidekick.sportssidekick.adapter.SelectableFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.user.AddFriendsEvent;
-import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
+import tv.sportssidekick.sportssidekick.model.user.AddFriendsEvent;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.AutofitDecoration;
 import tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView;
-import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.LinearItemSpacing;
 
-import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
-import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE;
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_PICK;
 import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
@@ -286,7 +286,9 @@ public class CreateChatFragment extends BaseFragment {
             }
             userIds.add(newChatInfo.getOwner());
             newChatInfo.setUsersIds(userIds);
-
+            if(uploadedImageUrl!=null){
+                newChatInfo.setAvatarUrl(uploadedImageUrl);
+            }
             ImsManager.getInstance().createNewChat(newChatInfo);
             getActivity().onBackPressed();
         } else {
@@ -304,7 +306,7 @@ public class CreateChatFragment extends BaseFragment {
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_IMAGE_PICK);//one can be replaced with any action code
+        startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_CREATE_IMAGE_PICK);//one can be replaced with any action code
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -322,7 +324,7 @@ public class CreateChatFragment extends BaseFragment {
                 Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
             }
-            startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_IMAGE_CAPTURE);
+            startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE);
         }
     }
 
@@ -336,16 +338,14 @@ public class CreateChatFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
-                   // Model.getInstance().uploadImageForMessage(currentPath);
-                    //TODO Upload image for chat
+                case REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE:
+                    Model.getInstance().uploadImageForCreateChat(currentPath);
                     ImageLoader.getInstance().displayImage(currentPath,chatImageView);
                     break;
-                case REQUEST_CODE_CHAT_IMAGE_PICK:
+                case REQUEST_CODE_CHAT_CREATE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
-                   // Model.getInstance().uploadImageForMessage(realPath);
-                    //TODO Upload image for chat
+                    Model.getInstance().uploadImageForCreateChat(realPath);
                     ImageLoader.getInstance().displayImage(realPath,chatImageView);
                     break;
             }
@@ -379,5 +379,20 @@ public class CreateChatFragment extends BaseFragment {
                     }
                 })
                 .show();
+    }
+
+    String uploadedImageUrl;
+
+    @Subscribe
+    @SuppressWarnings("Unchecked cast")
+    public void onEventDetected(GameSparksEvent event){
+        switch (event.getEventType()) {
+            case CREATE_CHAT_IMAGE_FILE_UPLOADED:
+                if(event.getData()!=null){
+                    uploadedImageUrl = (String)event.getData();
+                    chatImageView.setVisibility(View.VISIBLE);
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader());
+                }
+        }
     }
 }

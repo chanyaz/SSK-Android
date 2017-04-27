@@ -96,18 +96,28 @@
         android:textColor="@color/white"
         android:visibility="gone"/>
 
+
+        <ImageView
+            android:id="@+id/chat_image_view"
+            android:layout_width="@dimen/create_chat_name_label_height"
+            android:layout_height="@dimen/create_chat_name_label_height"
+            android:layout_below="@+id/edit_top_vertical_spliter"
+            android:layout_alignParentStart="true"
+            android:background="@color/black_transparent_154"
+            android:visibility="gone"
+            android:scaleType="fitXY"/>
+
     <EditText
         android:id="@+id/chat_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/edit_top_vertical_spliter"
-        android:layout_toEndOf="@+id/name_label"
         android:background="@color/green_dark_2"
         android:gravity="start|center_vertical"
         android:hint="Enter a name for your Group Chat"
         android:imeOptions="flagNoExtractUi"
         android:maxLines="1"
-        android:textColor="@color/white"
+        android:layout_toEndOf="@id/chat_image_view"   android:textColor="@color/white"
         android:textColorHint="@color/white_semitransparent"
         android:textSize="14sp"
         android:padding="@dimen/margin_20"/>

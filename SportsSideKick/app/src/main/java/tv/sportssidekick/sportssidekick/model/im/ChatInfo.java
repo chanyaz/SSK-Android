@@ -157,7 +157,8 @@ public class ChatInfo {
      * the second user avatar url
      * @return avatar url
      */
-    public String getChatAvatarUrl(){
+   @JsonIgnore
+   public String getChatAvatarUrl(){
         if (!TextUtils.isEmpty(getAvatarUrl())){
             return getAvatarUrl();
         } else {
@@ -546,11 +547,11 @@ public class ChatInfo {
         this.usersIds = usersIds;
     }
 
-    private String getAvatarUrl() {
+    public String getAvatarUrl() {
         return avatarUrl;
     }
 
-    private void setAvatarUrl(String avatarUrl) {
+    public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
 

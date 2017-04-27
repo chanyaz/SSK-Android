@@ -611,6 +611,24 @@ public class Model {
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.MESSAGE_IMAGE_FILE_UPLOADED);
     }
 
+    public void uploadImageForCreateChat(String filepath){
+        String filename =
+                "photo_" +
+                        currentUserInfo.getUserId() +
+                        System.currentTimeMillis() +
+                        ".jpg";
+        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.CREATE_CHAT_IMAGE_FILE_UPLOADED);
+    }
+
+    public void uploadImageForEditChat(String filepath){
+        String filename =
+                "photo_" +
+                        currentUserInfo.getUserId() +
+                        System.currentTimeMillis() +
+                        ".jpg";
+        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.EDIT_CHAT_IMAGE_FILE_UPLOADED);
+    }
+
     public void uploadAudioRecording(String filepath){
         String filename =
                 "voiceRecording_" +
