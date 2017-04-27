@@ -218,18 +218,6 @@
 
     </RelativeLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/chat_search_friends_container"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_above="@+id/chat_friends_in_chat_container">
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-
     <Button
         android:id="@+id/confirm_button"
         android:layout_width="match_parent"

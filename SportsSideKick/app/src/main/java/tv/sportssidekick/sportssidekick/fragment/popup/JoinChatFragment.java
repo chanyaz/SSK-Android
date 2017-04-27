@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,8 +34,10 @@ import tv.sportssidekick.sportssidekick.adapter.FriendsInChatAdapter;
 import tv.sportssidekick.sportssidekick.adapter.PublicChatsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsManager;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.AnimatedExpandableListView;
 
@@ -56,9 +58,6 @@ public class JoinChatFragment extends BaseFragment {
     @BindView(R.id.join_chat_search_result_list_view)
     AnimatedExpandableListView recyclerViewSearchResult;
 
-    @BindView(R.id.create_a_chat)
-    TextView createChatTextView;
-
     @BindView(R.id.chat_name_edit_text)
     EditText searchEditText;
     PublicChatsAdapter chatsAdapter;
@@ -76,24 +75,16 @@ public class JoinChatFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_join_chat, container, false);
         ButterKnife.bind(this, view);
 
-        createChatTextView.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
-                    }
-                });
+
 
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.getLayoutParams().height = (int) (Utility.getDisplayHeight(getActivity()) * 0.55);
         final int cellHeight = recyclerView.getLayoutParams().height / 2;
-        //TODO List for public chat ur friends are in
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewFriendsIn.setLayoutManager(linearLayoutManager);
-
-
         //endregion
 
         Task<List<ChatInfo>> taskAllChats = ImsManager.getInstance().getAllPublicChats();
@@ -102,35 +93,54 @@ public class JoinChatFragment extends BaseFragment {
             public void onComplete(@NonNull Task<List<ChatInfo>> task) {
                 if (task.isSuccessful()) {
                     setupSearchResultAdapters(task.getResult());
-//                    chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
-//                    chatsAdapter.add(task.getResult());
-//                    searchEditText.addTextChangedListener(textWatcher);
-//                    recyclerView.setAdapter(chatsAdapter);
+                    searchEditText.addTextChangedListener(textWatcher);
+                    setupFriendsChats(task.getResult(),cellHeight);
                 }
             }
         });
 
-
-        // Other chats that we don't have atm
+        // Official chats - dummy
         List<ChatInfo> publicChats = new ArrayList<>();
+        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/jNtCvk/fake_official_chat_henry.png",true,"1"));
+        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/fNv31Q/fake_official_chat_messi.png",true,"2"));
+        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/jj5go5/fake_official_chat_otar.png",true,"3"));
+        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/bCv31Q/fake_official_chat_rc7.png",true,"4"));
         chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
         chatsAdapter.add(publicChats);
         searchEditText.addTextChangedListener(textWatcher);
         recyclerView.setAdapter(chatsAdapter);
-
-        // Other chats that we don't have?
-        List<ChatInfo> otherChats = new ArrayList<>();
-        FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
-        friendsInChatAdapter.setValues(otherChats);
-        recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
-        chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
-        chatsAdapter.add(otherChats);
-
         return view;
     }
 
+    private void setupFriendsChats(final List<ChatInfo> allPublicChats, final int cellHeight){
+        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
+        task.addOnSuccessListener(
+                new OnSuccessListener<List<UserInfo>>() {
+                    @Override
+                    public void onSuccess(List<UserInfo> userInfos) {
+                        // Other chats that friends are in:
+                        List<ChatInfo> otherChats = new ArrayList<>();
+
+                        for(ChatInfo publicChat : allPublicChats){
+                            if(!otherChats.contains(publicChat)){
+                                for(UserInfo friend : userInfos){
+                                    if(publicChat.getUsersIds().contains(friend.getUserId())){
+                                        otherChats.add(publicChat);
+                                    }
+                                }
+                            }
+                        }
+                        FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
+                        friendsInChatAdapter.setValues(otherChats);
+                        recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
+                        chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
+                        chatsAdapter.add(otherChats);
+                    }
+                });
+    }
+
     private void setupSearchResultAdapters(List<ChatInfo> chatInfos){
-        ChatSearchExpandableAdapter expandableAdapter = new ChatSearchExpandableAdapter(getActivity(), chatInfos);
+        ChatSearchExpandableAdapter expandableAdapter = new ChatSearchExpandableAdapter(getActivity(), this, chatInfos);
         recyclerViewSearchResult.setAdapter(expandableAdapter);
         //region Ensure collapse && expand with animation
         recyclerViewSearchResult.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -156,6 +166,12 @@ public class JoinChatFragment extends BaseFragment {
                 lastExpandedGroupPosition = groupPosition;
             }
         });
+    }
+
+    @OnClick(R.id.create_a_chat)
+    public void createChatTextViewOnClick() {
+        //TODO search
+        EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
     }
 
     @OnClick(R.id.chat_join_search_button)

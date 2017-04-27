@@ -1,16 +1,13 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -83,7 +80,7 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
             @Override
             public void onClick(View v) {
                 //TODO JOIN CHAT and OPEN NEW FRAGMENT
-                info.joinChat();
+                //info.joinChat();
             }
         });
     }

@@ -322,11 +322,14 @@ public class ChatFragment extends BaseFragment {
             int count = 0;
             for (String userId : currentlyActiveChat.getUsersIds()) {
                 count++;
-                String chatName = Model.getInstance().getCachedUserInfoById(userId).getNicName();
-                if (!TextUtils.isEmpty(chatName)) {
-                    chatLabel.append(chatName);
-                    if (count < size) {
-                        chatLabel.append(", ");
+                UserInfo info = Model.getInstance().getCachedUserInfoById(userId);
+                if(info!=null){
+                    String chatName = info.getNicName();
+                    if (!TextUtils.isEmpty(chatName)) {
+                        chatLabel.append(chatName);
+                        if (count < size) {
+                            chatLabel.append(", ");
+                        }
                     }
                 }
             }

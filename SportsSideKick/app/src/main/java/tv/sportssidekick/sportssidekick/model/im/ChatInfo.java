@@ -54,6 +54,21 @@ public class ChatInfo {
     private int unreadCount = 0;
     private boolean isMuted = false;
 
+
+
+    public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, String chatId) {
+        super();
+        owner = Model.getInstance().getUserInfo().getUserId();
+        this.chatId = chatId;
+        this.name = name;
+        if(usersIds!=null){
+            this.usersIds = usersIds;
+        } else {
+            this.usersIds = new ArrayList<>();
+        }
+        this.avatarUrl = avatarUrl;
+        this.isPublic = isPublic;
+    }
     public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic) {
         super();
         owner = Model.getInstance().getUserInfo().getUserId();
@@ -382,7 +397,7 @@ public class ChatInfo {
         String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(isPublic && !isUserBlockedFromThisChat(currentUserId)){
             ImsManager.getInstance().joinChat(this);
-            EventBus.getDefault().post(new ChatNotificationsEvent(getChatId(), ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
+            EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
         }
     }
 

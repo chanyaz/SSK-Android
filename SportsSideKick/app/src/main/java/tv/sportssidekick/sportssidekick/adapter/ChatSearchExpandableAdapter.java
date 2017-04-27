@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.fragment.popup.JoinChatFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
@@ -46,8 +47,9 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
     private int background;
     private int backgroundExpanded;
     private int screenHeight;
+    JoinChatFragment parentFragment;
 
-    public ChatSearchExpandableAdapter(Context context, List<ChatInfo> parents) {
+    public ChatSearchExpandableAdapter(Context context, JoinChatFragment parentFragment, List<ChatInfo> parents) {
         this.context = context;
         expandedAdaptersMap = new HashMap<>();
         if (context != null) {
@@ -57,6 +59,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             screenHeight = Utility.getDisplayHeight(context);
         }
         this.parentItems = parents;
+        this.parentFragment = parentFragment;
     }
 
     static class ParentViewHolder {
@@ -110,6 +113,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
                 @Override
                 public void onClick(View v) {
                     info.joinChat();
+                    parentFragment.closeFragment();
                 }
             });
         } else {
