@@ -20,6 +20,8 @@ import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.SelectableFriendsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.service.AddUsersToCallEvent;
@@ -70,37 +72,49 @@ public class StartingNewCallFragment extends BaseFragment {
 
         Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
-            new OnSuccessListener<List<UserInfo>>() {
-                @Override
-                public void onSuccess(List<UserInfo> userInfos) {
-                    chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
-                    List<String> presentUsers = getStringArrayArguement();
-                    if(presentUsers!=null){
-                        addUsersToCall = true;
-                        List<UserInfo> usersToRemove = new ArrayList<>();
-                        for(UserInfo userInfo : userInfos){
-                            if(presentUsers.contains(userInfo.getUserId())){
-                                usersToRemove.add(userInfo);
+                new OnSuccessListener<List<UserInfo>>() {
+                    @Override
+                    public void onSuccess(List<UserInfo> userInfos) {
+                        chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
+                        List<String> presentUsers = getStringArrayArguement();
+                        if (presentUsers != null) {
+                            addUsersToCall = true;
+                            List<UserInfo> usersToRemove = new ArrayList<>();
+                            for (UserInfo userInfo : userInfos) {
+                                if (presentUsers.contains(userInfo.getUserId())) {
+                                    usersToRemove.add(userInfo);
+                                }
                             }
+                            userInfos.removeAll(usersToRemove);
                         }
-                        userInfos.removeAll(usersToRemove);
+                        chatFriendsAdapter.add(userInfos);
+                        friendsRecyclerView.setAdapter(chatFriendsAdapter);
+                        progressBar.setVisibility(View.GONE);
                     }
-                    chatFriendsAdapter.add(userInfos);
-                    friendsRecyclerView.setAdapter(chatFriendsAdapter);
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
+                });
         return view;
     }
 
     @OnClick(R.id.confirm_button)
-    public void confirmOnClick(){
-        if(addUsersToCall){
-            EventBus.getDefault().post(new AddUsersToCallEvent(chatFriendsAdapter.getSelectedValues()));
+    public void confirmOnClick() {
+        if (chatFriendsAdapter.getSelectedValues().size() > 0) {
+            getActivity().onBackPressed();
+            if (addUsersToCall) {
+                EventBus.getDefault().post(new AddUsersToCallEvent(chatFriendsAdapter.getSelectedValues()));
+            } else {
+                EventBus.getDefault().post(new StartCallEvent(chatFriendsAdapter.getSelectedValues()));
+            }
+
         } else {
-            EventBus.getDefault().post(new StartCallEvent(chatFriendsAdapter.getSelectedValues()));
+            AlertDialogManager.getInstance().showAlertDialog("No usesrs selected!", "You havent selected anyone to call!",
+                    null,
+                    new View.OnClickListener() { // Confirm
+                        @Override
+                        public void onClick(View v) {
+                            EventBus.getDefault().post(new FragmentEvent(StartingNewCallFragment.class));
+                        }
+                    });
         }
-        getActivity().onBackPressed();
     }
 
 }

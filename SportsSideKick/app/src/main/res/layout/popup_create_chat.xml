@@ -96,12 +96,19 @@
         android:textColor="@color/white"
         android:visibility="gone"/>
 
+        <ImageView
+            android:id="@+id/chat_image_view"
+            android:layout_width="@dimen/create_chat_name_label_height"
+            android:layout_height="@dimen/create_chat_name_label_height"
+            android:layout_below="@+id/top_vertical_spliter"
+            android:layout_alignParentStart="true"
+            android:scaleType="fitXY"/>
+
     <EditText
         android:id="@+id/chat_name_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/create_chat_name_label_height"
         android:layout_below="@+id/top_vertical_spliter"
-        android:layout_toEndOf="@+id/chat_name_label"
         android:background="@color/green_dark_2"
         android:gravity="start|center_vertical"
         android:hint="Enter a name for your chat"
@@ -110,7 +117,9 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white_semitransparent"
         android:textSize="14sp"
-        android:padding="@dimen/margin_20"/>
+        android:padding="@dimen/margin_20"
+        android:layout_toStartOf="@+id/chat_popup_image_button"
+        android:layout_toEndOf="@id/chat_image_view"/>
 
         <ImageButton
             android:id="@+id/chat_popup_image_button"

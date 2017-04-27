@@ -139,8 +139,9 @@ public class Slot implements Media.Listener{
     }
 
     public void setVideo(boolean visible){
-        video.setVisibility(visible ? View.VISIBLE : View.GONE);
-        spinner.setVisibility(visible ? View.GONE : View.VISIBLE);
+        video.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        disabled.setVisibility(visible ? View.INVISIBLE : View.VISIBLE);
+        spinner.setVisibility(visible ? View.GONE : View.GONE);
     }
 
     @Override

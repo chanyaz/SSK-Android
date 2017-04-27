@@ -1,8 +1,15 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,15 +21,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -31,6 +43,13 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
 import tv.sportssidekick.sportssidekick.adapter.AddFriendsAdapter;
@@ -48,6 +67,8 @@ import tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.LinearItemSpacing;
 
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
+import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
 import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
@@ -55,7 +76,7 @@ import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GR
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
+@RuntimePermissions
 public class CreateChatFragment extends BaseFragment {
 
     @BindView(R.id.friends_recycler_view)
@@ -73,12 +94,15 @@ public class CreateChatFragment extends BaseFragment {
     SelectableFriendsAdapter chatFriendsAdapter;
     @BindView(R.id.private_chat_label)
     TextView privateChatTextView;
+    @BindView(R.id.chat_image_view)
+    ImageView chatImageView;
     @BindView(R.id.chat_friends_in_chat_recycler_view)
     RecyclerView addFriendsRecyclerView;
     @BindView(R.id.chat_friends_in_chat_headline)
     TextView headlineFriendsInChat;
     List<UserInfo> userInfoList;
     AddFriendsAdapter addFriendsAdapter;
+    String currentPath;
 
     public CreateChatFragment() {
         // Required empty public constructor
@@ -168,22 +192,20 @@ public class CreateChatFragment extends BaseFragment {
         }
     }
 
-
     @OnClick(R.id.chat_popup_image_button)
     public void pickImage() {
-        //TODO IMAGE
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
         chooseDialog.setTitle("Choose Option");
         chooseDialog.setNegativeButton("Choose from Library", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                CreateChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(CreateChatFragment.this);
             }
         });
         chooseDialog.setPositiveButton("Use Camera", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                CreateChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(CreateChatFragment.this);
             }
         });
         chooseDialog.show();
@@ -213,10 +235,10 @@ public class CreateChatFragment extends BaseFragment {
         private Timer timer = new Timer();
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) { }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
         public void afterTextChanged(final Editable s) {
@@ -270,5 +292,92 @@ public class CreateChatFragment extends BaseFragment {
         } else {
             // TODO - Display error - no users to be selected!
         }
+    }
+
+    /**
+     * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     * CAMERA, IMAGES...
+     * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+     **/
+
+
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeImageSelection() {
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_IMAGE_PICK);//one can be replaced with any action code
+    }
+
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeCameraCapture() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = Model.createImageFile(getContext());
+                currentPath = photoFile.getAbsolutePath();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            }
+            startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        CreateChatFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
+                   // Model.getInstance().uploadImageForMessage(currentPath);
+                    //TODO Upload image for chat
+                    ImageLoader.getInstance().displayImage(currentPath,chatImageView);
+                    break;
+                case REQUEST_CODE_CHAT_IMAGE_PICK:
+                    Uri selectedImageURI = intent.getData();
+                    String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
+                   // Model.getInstance().uploadImageForMessage(realPath);
+                    //TODO Upload image for chat
+                    ImageLoader.getInstance().displayImage(realPath,chatImageView);
+                    break;
+            }
+        }
+    }
+
+    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showDeniedForCamera() {
+        Toast.makeText(getContext(), R.string.permission_camera_denied, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showNeverAskForCamera() {
+        Toast.makeText(getContext(), R.string.permission_camera_neverask, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showRationaleForCamera(final PermissionRequest request) {
+        new AlertDialog.Builder(getContext())
+                .setMessage(R.string.permission_camera_rationale)
+                .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        request.proceed();
+                    }
+                })
+                .setNegativeButton(R.string.button_deny, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        request.cancel();
+                    }
+                })
+                .show();
     }
 }

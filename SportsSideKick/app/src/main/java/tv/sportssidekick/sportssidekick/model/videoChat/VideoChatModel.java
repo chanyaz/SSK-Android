@@ -34,6 +34,8 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
     private String userId;
     private final ObjectMapper mapper; // jackson's object mapper
 
+    private VideoChatEvent videoChatEvent;
+
     public enum VideoChatNotificationType{
         CALL_INVITE {
             public String toString() {
@@ -383,5 +385,11 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         userId = info.getUserId();
     }
 
+    public VideoChatEvent getVideoChatEvent() {
+        return videoChatEvent;
+    }
 
+    public void setVideoChatEvent(VideoChatEvent videoChatEvent) {
+        this.videoChatEvent = videoChatEvent;
+    }
 }

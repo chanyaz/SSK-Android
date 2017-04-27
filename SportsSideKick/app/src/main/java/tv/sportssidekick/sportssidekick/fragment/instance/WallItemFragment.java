@@ -137,6 +137,10 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.share_buttons_container)
     LinearLayout shareButtons;
 
+    @Nullable
+    @BindView(R.id.test_share)
+    RelativeLayout testShare;
+
     CommentsAdapter commentsAdapter;
     WallBase item;
 
@@ -159,21 +163,21 @@ public class WallItemFragment extends BaseFragment {
 
         pinContainer.setVisibility(View.GONE);
 
-        shareButton.setOnTouchListener(new View.OnTouchListener()
-        {
-
+        shareButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                if (event.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    shareButtons.setVisibility(View.VISIBLE);
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        testShare.setVisibility(View.VISIBLE);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        Toast.makeText(getContext(), "Moveing", Toast.LENGTH_SHORT).show();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        testShare.setVisibility(View.GONE);
                 }
-                else if (event.getAction() == MotionEvent.ACTION_UP)
-                {
-                    shareButtons.setVisibility(View.GONE);
-                }
-                return false;
+                return true;
             }
         });
 
@@ -349,7 +353,7 @@ public class WallItemFragment extends BaseFragment {
             PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
             String getPkgInfo = pkgInfo.toString();
 
-            if (getPkgInfo.contains("com.twitter.android"))   {
+            if (getPkgInfo.contains("com.twitter.android")) {
                 SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
             }
         } catch (PackageManager.NameNotFoundException e) {

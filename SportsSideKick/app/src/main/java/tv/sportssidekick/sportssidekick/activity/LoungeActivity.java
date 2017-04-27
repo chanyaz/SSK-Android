@@ -88,6 +88,8 @@ import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatEvent;
+import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatModel;
 import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.service.NotificationReceivedEvent;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
@@ -191,6 +193,8 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
         });
         setNumberOfNotification("4");
         setupFragments();
+
+        VideoChatModel.getInstance();
 
         callbackManager = CallbackManager.Factory.create();
         facebookShareDialog = new ShareDialog(this);
@@ -641,5 +645,18 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
     @Override
     public void onLoginError(Error error) {
 
+    }
+    @Subscribe
+    public void onVideoChatEvent(VideoChatEvent event){
+        if (!(fragmentOrganizer.getOpenFragment() instanceof VideoChatFragment)) {
+            EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
+            VideoChatModel.getInstance().setVideoChatEvent(event);
+        }
+        else {
+            ((VideoChatFragment)fragmentOrganizer.getOpenFragment()).onVideoChatEvent(event);
+        }
+    }
+    public FragmentOrganizer getFragmentOrganizer() {
+        return fragmentOrganizer;
     }
 }
