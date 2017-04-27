@@ -96,7 +96,9 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  selectChat(values.get(viewHolder.getLayoutPosition()), true);
+                    if(values.size()>0){
+                        selectChat(values.get(viewHolder.getLayoutPosition()), true);
+                    }
                 }
             });
             return viewHolder;

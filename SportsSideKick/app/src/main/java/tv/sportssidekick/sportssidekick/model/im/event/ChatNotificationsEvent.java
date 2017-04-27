@@ -11,7 +11,7 @@ import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 public class ChatNotificationsEvent {
 
     ChatInfo chatInfo;
-    Object data;
+    Object chatId;
     Key key;
 
     public enum Key {
@@ -29,7 +29,7 @@ public class ChatNotificationsEvent {
 
 
     public ChatNotificationsEvent(Object data, Key key) {
-        this.data = data;
+        this.chatId = data;
         this.key = key;
     }
 
@@ -38,8 +38,8 @@ public class ChatNotificationsEvent {
         return chatInfo;
     }
 
-    public Object getData() {
-        return data;
+    public Object getChatId() {
+        return chatId;
     }
 
     public Key getKey() {
