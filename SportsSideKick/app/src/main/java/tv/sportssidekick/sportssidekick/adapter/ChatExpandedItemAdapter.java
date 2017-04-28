@@ -28,6 +28,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
  */
 
 public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedItemAdapter.ViewHolder> {
+    private static final double IMAGE_SIZE = 0.06;
     private static final int VIEW_TYPE_FOOTER = 1;
     private static final int VIEW_TYPE_CELL = 2;
     private static final String TAG = "FriendsInChatAdapter";
@@ -73,7 +74,6 @@ public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedIt
         return (position == values.size()) ? VIEW_TYPE_FOOTER : VIEW_TYPE_CELL;
     }
 
-    private static final double IMAGE_SIZE = 0.1;
     private int image_size;
 
     @Override
