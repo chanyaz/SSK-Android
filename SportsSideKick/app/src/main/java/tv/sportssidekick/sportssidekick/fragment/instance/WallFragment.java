@@ -156,7 +156,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     boolean isNewPostVisible, isFilterVisible, isSearchVisible;
     List<WallBase> wallItems;
-    private List<WallBase> filteredItems;
+    private List<WallBase> filteredWallItems;
     private LoginStateReceiver loginStateReceiver;
 
     public WallFragment() {
@@ -175,7 +175,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
         wallItems = new ArrayList<>();
         wallItems.addAll(WallBase.getCache().values());
-        filteredItems = new ArrayList<>();
+        filteredWallItems = new ArrayList<>();
         WallModel.getInstance();
         isNewPostVisible = false;
         isFilterVisible = false;
@@ -358,9 +358,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick({R.id.news_filter_toggle,R.id.user_filter_toggle,R.id.stats_filter_toggle,R.id.rumours_filter_toggle,R.id.store_filter_toggle})
     public void filterPosts() {
-        filteredItems = wallItems;
+        filteredWallItems = wallItems;
         if(newsToggleButton.isChecked()){
-            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
                 @Override
                 public boolean apply(@Nullable WallBase input) {
                     return !(input instanceof WallNewsShare);
@@ -368,7 +368,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }));
         }
         if(userToggleButton.isChecked()){
-            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
                 @Override
                 public boolean apply(@Nullable WallBase input) {
                     return !(input instanceof WallPost);
@@ -376,7 +376,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }));
         }
         if(statsToggleButton.isChecked()) {
-            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
                 @Override
                 public boolean apply(@Nullable WallBase input) {
                     return !(input instanceof WallStats);
@@ -384,7 +384,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }));
         }
         if(rumoursToggleButton.isChecked()){
-            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
                 @Override
                 public boolean apply(@Nullable WallBase input) {
                     return !(input instanceof WallRumor);
@@ -392,7 +392,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }));
         }
         if(storeToggleButton.isChecked()){
-            filteredItems = Lists.newArrayList(Iterables.filter(filteredItems, new Predicate<WallBase>() {
+            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
                 @Override
                 public boolean apply(@Nullable WallBase input) {
                     return !(input instanceof WallStoreItem);
@@ -401,7 +401,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
         if(!TextUtils.isEmpty(searchText.getText())){
             final String searchTerm = searchText.getText().toString();
-            filteredItems = Lists.newArrayList(Iterables.filter(wallItems, new Predicate<WallBase>() {
+            filteredWallItems = Lists.newArrayList(Iterables.filter(wallItems, new Predicate<WallBase>() {
                 @Override
                 public boolean apply(@Nullable WallBase input) {
                     return searchWallItem(searchTerm,input);
@@ -409,7 +409,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }));
         }
         //sortByTimestamp();
-        adapter.replaceAll(filteredItems);
+        adapter.replaceAll(filteredWallItems);
         adapter.notifyDataSetChanged();
     }
 
@@ -420,7 +420,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 return (int) (o2.getTimestamp()-o1.getTimestamp());
             }
         });
-        Collections.sort(Lists.newArrayList(filteredItems),new Comparator<WallBase>() {
+        Collections.sort(Lists.newArrayList(filteredWallItems),new Comparator<WallBase>() {
             @Override
             public int compare(WallBase o1, WallBase o2) {
                 return (int) (o2.getTimestamp()-o1.getTimestamp());
@@ -517,13 +517,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
                 if(!TextUtils.isEmpty(searchText.getText())){
                     final String searchTerm = searchText.getText().toString();
-                    filteredItems = Lists.newArrayList(Iterables.filter(wallItems, new Predicate<WallBase>() {
+                    filteredWallItems = Lists.newArrayList(Iterables.filter(wallItems, new Predicate<WallBase>() {
                         @Override
                         public boolean apply(@Nullable WallBase input) {
                             return searchWallItem(searchTerm,input);
                         }
                     }));
-                    adapter.replaceAll(filteredItems);
+                    adapter.replaceAll(filteredWallItems);
                     adapter.notifyDataSetChanged();
                     recyclerView.scrollToPosition(0);
                 }
@@ -650,6 +650,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     private void reloadWallFromModel(){
+        wallItems.clear();
+        filteredWallItems.clear();
+        adapter.notifyDataSetChanged();
+        WallModel.getInstance().fetchPosts();
+
         //TODO!!!
 //        print("Wall.reloadWallFromModel()")
 //

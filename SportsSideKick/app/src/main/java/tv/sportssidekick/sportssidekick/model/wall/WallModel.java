@@ -106,6 +106,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         minNumberOfPostsForIntervalLoad = 10;
     }
 
+    // NOT USED
     private void onUserPosts(WallBase post){
 //        if(post.getTimestamp()) {
 //            if(post.timestamp.compare(oldestFetchDate) == ComparisonResult.orderedDescending ) {

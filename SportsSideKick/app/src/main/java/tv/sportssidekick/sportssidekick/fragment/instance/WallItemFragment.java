@@ -5,15 +5,20 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -135,14 +140,12 @@ public class WallItemFragment extends BaseFragment {
 
     @Nullable
     @BindView(R.id.share_buttons_container)
-    LinearLayout shareButtons;
-
-    @Nullable
-    @BindView(R.id.test_share)
-    RelativeLayout testShare;
+    View shareButtonsContainer;
 
     CommentsAdapter commentsAdapter;
     WallBase item;
+
+
 
     public WallItemFragment() {
         // Required empty public constructor
@@ -162,24 +165,6 @@ public class WallItemFragment extends BaseFragment {
         commetsList.setAdapter(commentsAdapter);
 
         pinContainer.setVisibility(View.GONE);
-
-        shareButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // TODO Auto-generated method stub
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        testShare.setVisibility(View.VISIBLE);
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        Toast.makeText(getContext(), "Moveing", Toast.LENGTH_SHORT).show();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        testShare.setVisibility(View.GONE);
-                }
-                return true;
-            }
-        });
 
         item = WallBase.getCache().get(id);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
@@ -294,6 +279,33 @@ public class WallItemFragment extends BaseFragment {
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
         commentsAdapter.getComments().addAll(event.getCommentList());
         commentsAdapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.share_container)
+    public void onShareClick(View view){
+        shareButtonsContainer.setVisibility(View.VISIBLE);
+
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
+        fadeIn.setDuration(250);
+
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
+        fadeOut.setStartOffset(1700);
+        fadeOut.setDuration(250);
+
+        AnimationSet animation = new AnimationSet(false); //change to false
+        animation.addAnimation(fadeIn);
+        animation.addAnimation(fadeOut);
+        shareButtonsContainer.setAnimation(animation);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                shareButtonsContainer.setVisibility(View.GONE);
+            }
+        }, 1900);
     }
 
     @OnClick(R.id.post_post_button)
