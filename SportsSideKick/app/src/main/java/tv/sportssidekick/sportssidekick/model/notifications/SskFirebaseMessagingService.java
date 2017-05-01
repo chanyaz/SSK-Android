@@ -32,16 +32,15 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            // Message data! - we have message data, display it:
+            //We have message data, display it:
             sendNotification(remoteMessage);
-
         }
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
         EventBus.getDefault().post(new ExternalNotificationEvent(false));
-        //Extract data for display!
+
     }
 
     /**
@@ -49,12 +48,14 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
      *
      * */
     private void sendNotification(RemoteMessage remoteMessage) {
+        //Set up intent that is going to be handled in Lounge Activity
         Intent intent = new Intent(this, LoungeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("MY_CUSTOM_DATA","BLABLABLA");
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
+        //Extract data for display!
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo_ssk)

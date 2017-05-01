@@ -432,13 +432,17 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     private boolean searchWallItem(String searchTerm, WallBase item){
         UserInfo poster = item.getPoster();
-        if(poster==null){
+        if(poster==null) {
             poster = Model.getInstance().getCachedUserInfoById(item.getWallId());
-            if(poster.getNicName()!=null && poster.getFirstName()!=null && poster.getLastName()!=null){
-                String allNames = poster.getNicName() + poster.getFirstName() + poster.getLastName();
-                if(allNames.toLowerCase().contains(searchTerm.toLowerCase())){
-                    return true;
+            if (poster != null) {
+                if (poster.getNicName() != null && poster.getFirstName() != null && poster.getLastName() != null) {
+                    String allNames = poster.getNicName() + poster.getFirstName() + poster.getLastName();
+                    if (allNames.toLowerCase().contains(searchTerm.toLowerCase())) {
+                        return true;
+                    }
                 }
+            } else {
+                Log.e(TAG, "There is no User info in cache for this wall item - check out whats going on?");
             }
         }
 
