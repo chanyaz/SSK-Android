@@ -38,7 +38,7 @@ import tv.sportssidekick.sportssidekick.util.ui.LinearItemSpacing;
  */
 
 public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
-    private static final double IMAGE_SIZE = 0.1;
+    private static final double IMAGE_SIZE = 0.06;
     protected Context context;
     private LayoutInflater inflater;
     private List<ChatInfo> parentItems;

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,15 +57,22 @@ public class JoinChatFragment extends BaseFragment {
     @BindView(R.id.bottom_public_chats_friends_in_recycler)
     RecyclerView recyclerViewFriendsIn;
 
+    @BindView(R.id.bottom_public_chats_recycler_container)
+    RelativeLayout recyclerViewFriendsInContainer;
+
     @BindView(R.id.join_chat_search_result_list_view)
     AnimatedExpandableListView recyclerViewSearchResult;
+
+    @BindView(R.id.bottom_public_chats_arrow)
+    ImageView bottomContainerArrow;
+
 
     @BindView(R.id.chat_name_edit_text)
     EditText searchEditText;
     PublicChatsAdapter chatsAdapter;
 
     List<ChatInfo> chatInfos;
-
+    LinearLayoutManager friendsInChatLayoutManager;
     public JoinChatFragment() {
         // Required empty public constructor
     }
@@ -83,8 +92,8 @@ public class JoinChatFragment extends BaseFragment {
         recyclerView.getLayoutParams().height = (int) (Utility.getDisplayHeight(getActivity()) * 0.55);
         final int cellHeight = recyclerView.getLayoutParams().height / 2;
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewFriendsIn.setLayoutManager(linearLayoutManager);
+        friendsInChatLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewFriendsIn.setLayoutManager(friendsInChatLayoutManager);
         //endregion
 
         Task<List<ChatInfo>> taskAllChats = ImsManager.getInstance().getAllPublicChats();
@@ -130,7 +139,7 @@ public class JoinChatFragment extends BaseFragment {
                                 }
                             }
                         }
-                        FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity());
+                        FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity(),recyclerViewFriendsInContainer.getWidth());
                         friendsInChatAdapter.setValues(otherChats);
                         recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
                         chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);

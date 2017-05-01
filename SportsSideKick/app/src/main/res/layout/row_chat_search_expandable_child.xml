@@ -15,7 +15,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/row_join_chat_search_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10" />
 
         <Button
             android:id="@+id/row_join_chat_search_join"

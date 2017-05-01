@@ -60,12 +60,12 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
     private List<ChatInfo> values;
     private int cellSize;
     private int bubbleSize;
-
-    public FriendsInChatAdapter(Context context) {
+    public FriendsInChatAdapter(Context context,int recyclerViewContainerWidth) {
         values = new ArrayList<>();
         this.context = context;
-        cellSize =  (int) (Utility.getDisplayHeight(context)*0.14);
-        bubbleSize = (int) (cellSize/3);
+       // cellSize =  (int) (Utility.getDisplayHeight(context)*0.14);
+        cellSize = recyclerViewContainerWidth/5;
+        bubbleSize = (int) (cellSize/4.2);
     }
     public void setValues(List<ChatInfo> values) {
         this.values = values;
@@ -100,6 +100,8 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
         ChatInfo chat = values.get(position);
         if (holder.rowImage != null) {
             ImageLoader.getInstance().displayImage(chat.getChatAvatarUrl(), holder.rowImage, imageOptions);
+            holder.rowImage.getLayoutParams().height = (int) (cellSize * 0.5);
+            holder.rowImage.getLayoutParams().width = (int) (cellSize * 0.5);
         }
         if (holder.rowName != null) {
             holder.rowName.setText(chat.getName());
@@ -108,9 +110,13 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
         if(holder.rowFriendsCountContainer!=null){
             holder.rowFriendsCountContainer.getLayoutParams().height = bubbleSize;
             holder.rowFriendsCountContainer.getLayoutParams().width = bubbleSize;
-            holder.rowFriendsCount.setVisibility(View.VISIBLE);
+            if (holder.rowFriendsCount != null) {
+                holder.rowFriendsCount.setVisibility(View.VISIBLE);
+            }
         }else {
-            holder.rowFriendsCount.setVisibility(View.INVISIBLE);
+            if (holder.rowFriendsCount != null) {
+                holder.rowFriendsCount.setVisibility(View.INVISIBLE);
+            }
         }
 
         if (holder.rowFriendsCount != null) {

@@ -148,9 +148,8 @@
         android:id="@+id/chat_search_friends_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/caption_label"
-        android:layout_marginBottom="@dimen/margin_20"
-        android:layout_alignStart="@+id/swipe_refresh_layout">
+        android:layout_below="@+id/caption_label"
+        android:layout_alignParentStart="true">
 
         <View
             android:id="@+id/chat_search_friends_container_mid_line"
@@ -194,6 +193,7 @@
             android:layout_alignParentStart="true"
             android:drawableStart="@drawable/popup_search_icon"
             android:padding="@dimen/half_margin"
+            android:layout_marginStart="@dimen/margin_15"
             android:layout_centerVertical="true"
             android:paddingStart="@dimen/padding_8"
             android:drawablePadding="@dimen/padding_8"/>
@@ -248,7 +248,6 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:numColumns="auto_fit"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/chat_friends_in_chat_container"
-        android:layout_below="@+id/chat_search_friends_container" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
