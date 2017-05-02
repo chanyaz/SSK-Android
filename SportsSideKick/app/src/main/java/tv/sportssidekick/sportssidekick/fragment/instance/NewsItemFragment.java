@@ -102,7 +102,7 @@ public class NewsItemFragment extends BaseFragment {
 
     @Nullable
     @BindView(R.id.share_buttons_container)
-    LinearLayout shareButtons;
+    View shareButtons;
     @Nullable
     @BindView(R.id.share_facebook)
     ImageView shareFacebookButton;

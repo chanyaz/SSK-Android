@@ -2,10 +2,8 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,8 +86,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public View disabled;
 
 
-    @BindView(R.id.being_your_call)
-    public Button startCallButton;
 
     @BindView(R.id.disconnect_button)
     public ImageButton hangupButton;
@@ -147,8 +143,8 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         }
     }
 
-    @OnClick(R.id.being_your_call)
-    public void onConect() {
+    @OnClick(R.id.begin_your_call)
+    public void onConnect() {
         VideoChatFragmentPermissionsDispatcher.onConnectClickedWithCheck(this, getView());
     }
 

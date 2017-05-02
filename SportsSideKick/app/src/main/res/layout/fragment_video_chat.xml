@@ -193,8 +193,8 @@
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/being_your_call"
-                android:layout_alignStart="@+id/being_your_call"
+                android:layout_alignEnd="@+id/begin_your_call"
+                android:layout_alignStart="@+id/begin_your_call"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/margin_30"
                 android:contentDescription="@null"
@@ -226,13 +226,13 @@
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/being_your_call"
+                android:id="@+id/begin_your_call"
                 style="@style/button_call"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text2"
                 android:layout_centerHorizontal="true"
-                android:onClick="onBeingYourCallClick()"
+                android:onClick=""
                 android:text="@string/video_chat_button_text"
                 android:textColor="@color/white" />
         </RelativeLayout>

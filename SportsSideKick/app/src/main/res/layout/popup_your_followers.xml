@@ -68,7 +68,7 @@
         android:layout_below="@+id/top_buttons_container"
         android:gravity="center"
         android:background="@color/colorPrimarySemiLight"
-        android:text="Frieds following you:"
+        android:text="Friends following you:"
         android:textColor="@color/white" />
 
     <com.wang.avi.AVLoadingIndicatorView
