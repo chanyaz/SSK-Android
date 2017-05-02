@@ -1,9 +1,11 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -39,14 +41,16 @@ import static tv.sportssidekick.sportssidekick.fragment.popup.FriendsFragment.GR
  */
 
 public class StartingNewCallFragment extends BaseFragment {
-
-    //friends_recycler_view
+    private static final String TAG = "Start New Call Fragment";
 
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
+
+    @BindView(R.id.confirm_button)
+    ImageButton confirmButton;
 
     SelectableFriendsAdapter chatFriendsAdapter;
 
@@ -68,7 +72,7 @@ public class StartingNewCallFragment extends BaseFragment {
         friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
         friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
-
+        confirmButton.setEnabled(false);
 
         Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
@@ -90,6 +94,7 @@ public class StartingNewCallFragment extends BaseFragment {
                         chatFriendsAdapter.add(userInfos);
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
                         progressBar.setVisibility(View.GONE);
+                        confirmButton.setEnabled(true);
                     }
                 });
         return view;
@@ -97,24 +102,29 @@ public class StartingNewCallFragment extends BaseFragment {
 
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
-        if (chatFriendsAdapter.getSelectedValues().size() > 0) {
-            getActivity().onBackPressed();
-            if (addUsersToCall) {
-                EventBus.getDefault().post(new AddUsersToCallEvent(chatFriendsAdapter.getSelectedValues()));
-            } else {
-                EventBus.getDefault().post(new StartCallEvent(chatFriendsAdapter.getSelectedValues()));
-            }
+        if(chatFriendsAdapter!=null){
+            if (chatFriendsAdapter.getSelectedValues().size() > 0) {
+                getActivity().onBackPressed();
+                if (addUsersToCall) {
+                    EventBus.getDefault().post(new AddUsersToCallEvent(chatFriendsAdapter.getSelectedValues()));
+                } else {
+                    EventBus.getDefault().post(new StartCallEvent(chatFriendsAdapter.getSelectedValues()));
+                }
 
+            } else {
+                AlertDialogManager.getInstance().showAlertDialog("No users selected!", "You haven't selected anyone to call!",
+                        null,
+                        new View.OnClickListener() { // Confirm
+                            @Override
+                            public void onClick(View v) {
+                                EventBus.getDefault().post(new FragmentEvent(StartingNewCallFragment.class));
+                            }
+                        });
+            }
         } else {
-            AlertDialogManager.getInstance().showAlertDialog("No usesrs selected!", "You havent selected anyone to call!",
-                    null,
-                    new View.OnClickListener() { // Confirm
-                        @Override
-                        public void onClick(View v) {
-                            EventBus.getDefault().post(new FragmentEvent(StartingNewCallFragment.class));
-                        }
-                    });
+            Log.e(TAG, "Adapter is null - wait for friends to be loaded!");
         }
+
     }
 
 }

@@ -105,23 +105,18 @@
                 android:gravity="center"
                 android:orientation="horizontal">
                 <ImageView
-                    android:id="@+id/image_button"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/button_image"
-                    android:tint="@color/colorPrimarySemiLight" />
-                <ImageView
                     android:id="@+id/camera_button"
-                    android:layout_width="60dp"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/button_camera"
+                    android:src="@drawable/chat_button_camera"
                     android:tint="@color/colorPrimarySemiLight" />
                 <ImageView
-                    android:id="@+id/video_button"
-                    android:layout_width="60dp"
+                    android:id="@+id/image_button"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/button_camera"
+                    android:src="@drawable/chat_button_image"
                     android:tint="@color/colorPrimarySemiLight" />
+
             </LinearLayout>
         </RelativeLayout>
 

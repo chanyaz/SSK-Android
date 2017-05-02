@@ -650,7 +650,7 @@ public class ChatFragment extends BaseFragment {
     public void invokeCameraCapture() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
         chooseDialog.setTitle("Choose");
-        chooseDialog.setMessage("Take photo or record video ?");
+        chooseDialog.setMessage("Take photo or record video?");
         chooseDialog.setNegativeButton("Video", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -658,7 +658,6 @@ public class ChatFragment extends BaseFragment {
                 if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takeVideoIntent, REQUEST_CODE_CHAT_VIDEO_CAPTURE);
                 }
-                ;
             }
         });
         chooseDialog.setPositiveButton("Image", new DialogInterface.OnClickListener() {

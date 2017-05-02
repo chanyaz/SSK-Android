@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
@@ -159,6 +161,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     private List<WallBase> filteredWallItems;
     private LoginStateReceiver loginStateReceiver;
 
+    boolean creatingPostInProgress;
+
     public WallFragment() {
         // Required empty public constructor
     }
@@ -180,6 +184,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         isNewPostVisible = false;
         isFilterVisible = false;
         isSearchVisible = false;
+
+        creatingPostInProgress = false;
 
         commentText.addTextChangedListener(new TextWatcher() {
 
@@ -225,26 +231,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick(){
-       WallFragmentPermissionsDispatcher.invokeImageCaptureWithCheck(this);
-    }
-
-    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void invokeImageCapture(){
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = Model.createImageFile(getContext());
-                currentPath = photoFile.getAbsolutePath();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-            }
-            startActivityForResult(takePictureIntent, REQUEST_CODE_POST_IMAGE_CAPTURE);
-        }
+       WallFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
     }
 
     @OnClick(R.id.image_button)
@@ -258,24 +245,53 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         startActivityForResult(pickPhoto, REQUEST_CODE_POST_IMAGE_PICK);
     }
 
-    @OnClick(R.id.video_button)
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void invokeVideoCapture(){
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(takeVideoIntent, REQUEST_CODE_POST_VIDEO_CAPTURE);
-        }
+    public void invokeCameraCapture() {
+        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
+        chooseDialog.setTitle("Choose");
+        chooseDialog.setMessage("Take photo or record video?");
+        chooseDialog.setNegativeButton("Video", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takeVideoIntent, REQUEST_CODE_POST_VIDEO_CAPTURE);
+                }
+            }
+        });
+        chooseDialog.setPositiveButton("Image", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    File photoFile = null;
+                    try {
+                        photoFile = Model.createImageFile(getContext());
+                        currentPath = photoFile.getAbsolutePath();
+                    } catch (IOException ex) {
+                        // Error occurred while creating the File
+                    }
+                    if (photoFile != null) {
+                        Uri photoURI = FileProvider.getUriForFile(getActivity(), "tv.sportssidekick.sportssidekick.fileprovider", photoFile);
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    }
+                    startActivityForResult(takePictureIntent, REQUEST_CODE_POST_IMAGE_CAPTURE);
+                }
+            }
+        });
+        chooseDialog.show();
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if(resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-
                 case REQUEST_CODE_POST_IMAGE_CAPTURE:
                     Model.getInstance().uploadImageForPost(currentPath);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
+                    makePostContainerVisible();
                     break;
                 case REQUEST_CODE_POST_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
@@ -283,6 +299,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     Model.getInstance().uploadImageForPost(realPath);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
+                    makePostContainerVisible();
                     break;
                 case REQUEST_CODE_POST_VIDEO_CAPTURE:
                     Uri videoUri = intent.getData();
@@ -290,6 +307,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     Model.getInstance().uploadPostVideoRecording(currentPath);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
+                    makePostContainerVisible();
                     break;
             }
         }
@@ -539,15 +557,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onPostsLoaded(PostLoadCompleteEvent event){
         Log.d(TAG,"ALL POSTS LOADED!");
         progressBar.setVisibility(View.GONE);
-        //adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
         getNextTip();
     }
 
     @Subscribe
     public void onPostUpdated(PostUpdateEvent event){
-        //adapter.notifyDataSetChanged();
-        isNewPostVisible = false;
+        isNewPostVisible = false || creatingPostInProgress;
         isFilterVisible = false;
         isSearchVisible = false;
         updateButtons();
@@ -555,8 +571,16 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Subscribe
     public void onPostCompleted(PostCompleteEvent event){
-        //adapter.notifyDataSetChanged();
+        creatingPostInProgress = false;
         isNewPostVisible = false;
+        isFilterVisible = false;
+        isSearchVisible = false;
+        updateButtons();
+    }
+
+    private void makePostContainerVisible(){
+        creatingPostInProgress = true;
+        isNewPostVisible= true;
         isFilterVisible = false;
         isSearchVisible = false;
         updateButtons();
@@ -580,6 +604,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.fragment_wall_filter)
     public void wallFilterOnClick() {
+        creatingPostInProgress = false;
         isNewPostVisible=false;
         isFilterVisible = !isFilterVisible;
         isSearchVisible = false;
@@ -588,6 +613,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.fragment_wall_search)
     public void searchOnClick() {
+        creatingPostInProgress = false;
         isNewPostVisible=false;
         isFilterVisible = false;
         isSearchVisible = !isSearchVisible;
