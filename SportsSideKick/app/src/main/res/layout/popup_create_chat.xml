@@ -248,6 +248,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:numColumns="auto_fit"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/chat_search_friends_container"
+        android:layout_above="@+id/chat_friends_in_chat_container" />
 </RelativeLayout>
