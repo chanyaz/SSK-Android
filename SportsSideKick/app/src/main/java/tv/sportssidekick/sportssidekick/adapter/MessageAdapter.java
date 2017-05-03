@@ -106,7 +106,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             holder.textView.setVisibility(View.GONE);
             if(imageUrl.contains("jpg") || imageUrl.contains("png")){
                 holder.contentImage.setVisibility(View.VISIBLE);
-                ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.getImageOptionsForUsers());
+                ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.imageOptionsImageLoader());
                 if(videoUrl!=null){ // its video, show play button and prepare player
                     holder.playButton.setVisibility(View.VISIBLE);
                     final String fVideoUrl = videoUrl;

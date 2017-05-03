@@ -137,6 +137,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
 
     @OnClick(R.id.edit_button)
     public void editOnClick() {
+        getActivity().onBackPressed(); // Prevent Your profile fragment not to trigger in invisible state...
         EventBus.getDefault().post(new FragmentEvent(EditProfileFragment.class));
     }
 

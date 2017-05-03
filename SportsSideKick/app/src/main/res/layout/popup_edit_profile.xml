@@ -167,7 +167,11 @@
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_10"
         android:textColor="@color/white"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="textPersonName"
+        android:nextFocusDown="@+id/last_name_edit_text"
+        android:imeOptions="actionNext"/>
 
 
     <AutoCompleteTextView
@@ -182,7 +186,11 @@
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_10"
         android:textColor="@color/white"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="textPersonName"
+        android:nextFocusDown="@+id/nickname_edit_text"
+        android:imeOptions="actionNext"/>
 
     <AutoCompleteTextView
         android:id="@+id/nickname_edit_text"
@@ -196,7 +204,11 @@
         android:layout_marginStart="@dimen/margin_10"
         android:textSize="12sp"
         android:textColor="@color/white"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="text"
+        android:nextFocusDown="@+id/email_edit_text"
+        android:imeOptions="actionNext"/>
 
     <AutoCompleteTextView
         android:id="@+id/email_edit_text"
@@ -210,7 +222,11 @@
         android:layout_marginStart="@dimen/margin_10"
         android:textSize="12sp"
         android:textColor="@color/white"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="textEmailAddress"
+        android:nextFocusDown="@+id/telephone_edit_text"
+        android:imeOptions="actionNext"/>
 
     <AutoCompleteTextView
         android:id="@+id/telephone_edit_text"
@@ -224,7 +240,10 @@
         android:layout_marginStart="@dimen/margin_10"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="phone"
+        android:imeOptions="actionDone"/>
 
     </RelativeLayout>
     <!-- BOTTOM BUTTONS CONTAINER -->

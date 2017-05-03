@@ -87,6 +87,7 @@ import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
 import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
+import tv.sportssidekick.sportssidekick.model.user.UserEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatEvent;
 import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatModel;
@@ -659,4 +660,13 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
     public FragmentOrganizer getFragmentOrganizer() {
         return fragmentOrganizer;
     }
+
+    @Subscribe
+    public void updateUserName(UserEvent event){
+        UserInfo user = event.getUserInfo();
+        if (user.getFirstName() != null && user.getLastName() != null) {
+            profileName.setText(user.getFirstName() + " " + user.getLastName());
+        }
+    }
+
 }
