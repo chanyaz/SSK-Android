@@ -113,7 +113,8 @@
         android:layout_marginTop="@dimen/margin_20"
         android:layout_centerHorizontal="true"
         style="@style/boldText"
-        android:text="YOUR STASH"
+        android:textAllCaps="true"
+        android:text="@string/your_stash"
         android:textColor="@color/colorAccent"
         android:textSize="18sp" />
 
@@ -123,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/your_stash_caption"
-        android:text="Rewards and items recieved from Gym Bags"
+        android:text="@string/rewards_and_items_received"
         android:textColor="@color/white"
         android:textSize="12sp" />
 

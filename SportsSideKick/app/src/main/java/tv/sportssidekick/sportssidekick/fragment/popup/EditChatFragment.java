@@ -198,11 +198,11 @@ public class EditChatFragment extends BaseFragment {
 
     private void updateFirendsCountLabel(){
         int friendCount = addFriendsAdapter.getItemCount();
-        String friendsInChat = " Friends in Chat";
+        String friendsInChat = getContext().getResources().getString(R.string.chat_frends_in_chat);
         if (friendCount == 0) {
             headlineFriendsInChat.setText(friendsInChat);
         } else if (friendCount == 1) {
-            headlineFriendsInChat.setText("1 Friend in Chat");
+            headlineFriendsInChat.setText(getContext().getResources().getString(R.string.chat_frend_in_chat));
         } else {
             String friendsTotal = friendCount + friendsInChat;
             headlineFriendsInChat.setText(friendsTotal);
@@ -217,15 +217,15 @@ public class EditChatFragment extends BaseFragment {
     @OnClick(R.id.popup_image_button)
     public void pickImage() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
-        chooseDialog.setTitle("Choose Option");
-        chooseDialog.setNegativeButton("Choose from Library", new DialogInterface.OnClickListener() {
+        chooseDialog.setTitle(getContext().getResources().getString(R.string.chat_choose_option));
+        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_choose_from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                EditChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(EditChatFragment.this);
 
             }
         });
-        chooseDialog.setPositiveButton("Use Camera", new DialogInterface.OnClickListener() {
+        chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.chat_use_camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 EditChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(EditChatFragment.this);
@@ -338,7 +338,7 @@ public class EditChatFragment extends BaseFragment {
         if(shouldUpdate){
             chatInfo.updateChatInfo();
         } else {
-            Toast.makeText(getContext(),"There are no changes in this chat.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),getContext().getResources().getString(R.string.chat_no_changes), Toast.LENGTH_SHORT).show();
         }
         closeFragment();
     }

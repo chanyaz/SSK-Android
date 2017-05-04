@@ -48,7 +48,7 @@
         android:foregroundGravity="right"
         android:gravity="center_vertical|end"
         android:paddingEnd="@dimen/margin_70"
-        android:text="Rename your chat"
+        android:text="@string/rename_your_chat"
         android:textColor="@color/white" />
 
     <EditText
@@ -60,7 +60,7 @@
         android:layout_toEndOf="@+id/chat_name_label"
         android:background="@color/green_dark_2"
         android:gravity="start|center_vertical"
-        android:hint="Enter new name of chat here"
+        android:hint="@string/new_name_of_chat_hint"
         android:imeOptions="flagNoExtractUi"
         android:maxLines="1"
         android:textColor="@color/white"
@@ -73,7 +73,7 @@
         android:layout_height="@dimen/popup_manage_chat_caption_label_height"
         android:layout_below="@+id/chat_name_label"
         android:gravity="center"
-        android:text="People in this chat"
+        android:text="@string/people_in_this_chat"
         android:textColor="@color/white" />
 
     <android.support.v4.widget.SwipeRefreshLayout

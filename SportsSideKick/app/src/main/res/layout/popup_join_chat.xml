@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:padding="@dimen/padding_8"
-            android:text="Chat"
+            android:text="@string/chat_caption"
             android:textColor="@color/white" />
 
     </RelativeLayout>
@@ -58,7 +58,7 @@
             android:layout_toStartOf="@+id/top_vertical_spliter"
             android:background="@color/green_dark_3"
             android:gravity="center"
-            android:text="Create Chat"
+            android:text="@string/create_chat"
             android:textColor="@color/white_semitransparent" />
 
         <TextView
@@ -66,7 +66,7 @@
             android:layout_height="@dimen/standard_button_height"
             android:layout_toEndOf="@+id/top_vertical_spliter"
             android:gravity="center"
-            android:text="Join Chat"
+            android:text="@string/join_chat"
             android:textColor="@color/colorAccent" />
 
         <View
@@ -99,7 +99,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/top_vertical_spliter"
             android:gravity="center"
-            android:text="Public Chats"
+            android:text="@string/public_chats"
             android:textColor="@color/white" />
 
         <EditText
@@ -110,7 +110,7 @@
             android:layout_toStartOf="@+id/chat_join_search_button"
             android:background="@color/green_dark_2"
             android:gravity="start|center_vertical"
-            android:hint="Search Public Chats"
+            android:hint="@string/search_public_chats"
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
             android:padding="@dimen/margin_20"
@@ -167,7 +167,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:padding="@dimen/padding_8"
-            android:text="Public Chats your friends are in"
+            android:text="@string/public_chats_your_friends_are_in"
             android:textColor="@color/white" />
 
         <RelativeLayout

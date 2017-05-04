@@ -28,7 +28,8 @@
                 android:paddingEnd="@dimen/padding_8"
                 android:paddingStart="@dimen/padding_8"
                 android:paddingTop="@dimen/padding_8"
-                android:text="RUMOUR"
+                android:text="@string/rumours_caption"
+                android:textAllCaps="true"
                 android:textColor="@color/colorPrimary" />
         </com.github.rongi.rotate_layout.layout.RotateLayout>
 

@@ -97,18 +97,18 @@ public class MemberInfoFragment extends BaseFragment {
 
                     if(user.isaFriend()){ // this user is my friend
                         friendButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.friend_unfollow_button),null,null,null);
-                        friendButton.setText("REMOVE FRIEND");
+                        friendButton.setText(getContext().getResources().getString(R.string.remove_friend));
                     } else {
                         friendButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.friend_follow_button),null,null,null);
-                        friendButton.setText("SEND FRIEND REQUEST");
+                        friendButton.setText(getContext().getResources().getString(R.string.friend_reqest));
                     }
 
                     if(user.isiFollowHim()){ // I am friends this user
                         followButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.friend_unfollow_button),null,null,null);
-                        followButton.setText("UN-FOLLOW");
+                        followButton.setText(getContext().getResources().getString(R.string.friend_unfollow));
                     } else {
                         followButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.friend_follow_button),null,null,null);
-                        followButton.setText("FOLLOW");
+                        followButton.setText(getContext().getResources().getString(R.string.friend_follow));
                     }
                 }
             }

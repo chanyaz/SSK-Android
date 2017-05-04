@@ -95,7 +95,6 @@
                 android:id="@+id/row_wall_post_likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6901"
                 android:textColor="@color/wall_comment_color"/>
         </LinearLayout>
 
@@ -109,7 +108,6 @@
             android:maxLines="1"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="Christopher Ogden"
             android:textColor="@color/lightGrey"/>
     </RelativeLayout>
     </RelativeLayout>

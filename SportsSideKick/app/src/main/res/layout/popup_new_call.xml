@@ -52,7 +52,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select friends to call"
+            android:text="@string/select_friends_to_call"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"/>

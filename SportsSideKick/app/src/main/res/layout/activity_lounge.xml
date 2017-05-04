@@ -117,7 +117,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_below="@+id/logo_second_team"
                 android:paddingEnd="@dimen/half_margin"
-                android:text="UP NEXT"
+                android:text="@string/up_next"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
@@ -497,7 +497,6 @@
                     android:layout_below="@id/profile_image_container"
                     android:layout_marginTop="-19dp"
                     android:gravity="center"
-                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="bold"

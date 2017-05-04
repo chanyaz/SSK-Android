@@ -27,7 +27,6 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Demo content."
             android:textSize="11sp"
             android:textColor="@color/white"/>
 
@@ -61,8 +60,7 @@
         android:layout_marginStart="@dimen/margin_15"
         android:layout_below="@+id/content_container"
         android:layout_height="wrap_content"
-        android:alpha="0.5"
-        android:text="Kyle"/>
+        android:alpha="0.5"/>
     <TextView
         android:id="@+id/spliter"
         android:textSize="10sp"
@@ -82,8 +80,7 @@
         android:layout_toEndOf="@+id/spliter"
         android:layout_below="@+id/content_container"
         android:layout_height="wrap_content"
-        android:alpha="0.5"
-        android:text="7 mins ago"/>
+        android:alpha="0.5"/>
 
 
 </RelativeLayout>

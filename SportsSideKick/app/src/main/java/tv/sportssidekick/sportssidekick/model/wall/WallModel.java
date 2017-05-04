@@ -283,6 +283,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             }
         };
         Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>(){});
+        map.put("type", post.getTypeAsInt());
         GSData data = new GSData(map);
         createRequest("wallPostToWall")
                 .setEventAttribute(GSConstants.POST,data)

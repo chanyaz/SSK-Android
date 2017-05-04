@@ -294,6 +294,7 @@
                     android:textColor="@color/white" />
 
                 <RelativeLayout
+                    android:id="@+id/tutorial_earn_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -311,7 +312,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentBottom="true"
                             android:layout_margin="10dp"
-                            android:text="Tap here to earn 5 SSK for viewing this How to!"
+                            android:text="@string/tutorial_earn"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </RelativeLayout>
@@ -366,9 +367,6 @@
 
         </RelativeLayout>
     </ScrollView>
-
-
-
 
     <RelativeLayout
         android:id="@+id/post_container"

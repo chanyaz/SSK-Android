@@ -107,7 +107,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
         }
         if(!info.getUsersIds().contains(Model.getInstance().getUserInfo().getUserId())){
             holder.joinButton.setAlpha(1.f);
-            holder.joinButton.setText("Join Group");
+            holder.joinButton.setText(context.getResources().getText(R.string.chat_join_group));
             holder.joinButton.setClickable(true);
             holder.joinButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,7 +118,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             });
         } else {
             holder.joinButton.setClickable(false);
-            holder.joinButton.setText("You are already in group");
+            holder.joinButton.setText(context.getResources().getText(R.string.chat_already_in_group));
             holder.joinButton.setAlpha(0.5f);
         }
         holder.memberList.setAdapter(getHorizontalAdapter(info));
@@ -170,7 +170,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
 
         DisplayImageOptions displayImageOptions = Utility.getImageOptionsForUsers();
         holder.rowName.setText(info.getChatTitle());
-        holder.rowMemberCount.setText(info.getUsersIds().size() + " Members"); // TODO USE RESOURCE AND PLACEHOLDER
+        holder.rowMemberCount.setText(info.getUsersIds().size() + " " + context.getResources().getString(R.string.chat_members)); // TODO USE RESOURCE AND PLACEHOLDER
         ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.rowImage, displayImageOptions);
         holder.rowImage.getLayoutParams().height = (int) (screenHeight * IMAGE_SIZE);
         holder.rowImage.getLayoutParams().width = (int) (screenHeight * IMAGE_SIZE);

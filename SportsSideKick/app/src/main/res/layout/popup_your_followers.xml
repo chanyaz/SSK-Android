@@ -31,7 +31,7 @@
             android:layout_toStartOf="@+id/top_vertical_spliter"
             android:background="@color/colorAccentLight"
             android:gravity="center"
-            android:text="Following"
+            android:text="@string/following"
             android:textColor="@color/white_semitransparent" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_height="@dimen/standard_button_height"
             android:layout_toEndOf="@+id/top_vertical_spliter"
             android:gravity="center"
-            android:text="Followers"
+            android:text="@string/followers"
             android:textColor="@color/colorAccent" />
 
         <View
@@ -68,7 +68,7 @@
         android:layout_below="@+id/top_buttons_container"
         android:gravity="center"
         android:background="@color/colorPrimarySemiLight"
-        android:text="Friends following you:"
+        android:text="@string/friends_following_you"
         android:textColor="@color/white" />
 
     <com.wang.avi.AVLoadingIndicatorView
@@ -91,7 +91,7 @@
             android:id="@+id/no_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No friends"
+            android:text="@string/no_friends"
             android:visibility="gone"
             android:layout_centerInParent="true"
             android:textColor="@color/white_semitransparent"/>

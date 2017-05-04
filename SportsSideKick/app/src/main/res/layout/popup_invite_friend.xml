@@ -30,7 +30,7 @@
             android:layout_toStartOf="@+id/top_vertical_spliter"
             android:background="@color/colorAccentLight"
             android:gravity="center"
-            android:text="Add a friend"
+            android:text="@string/add_friend"
             android:textColor="@color/white_semitransparent" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_toEndOf="@+id/top_vertical_spliter"
             android:background="@color/colorPrimarySemiLight"
             android:gravity="center"
-            android:text="Invite a friend"
+            android:text="@string/invite_friend"
             android:textColor="@color/colorAccent" />
 
         <View
@@ -87,7 +87,7 @@
             android:layout_marginRight="@dimen/margin_10"
             android:layout_toLeftOf="@id/invite_friend_name"
             android:maxLines="2"
-            android:text="Enter friends email address to invite."
+            android:text="@string/enter_friend_name_invite"
             android:textColor="@color/wall_shop_description_background" />
 
     </RelativeLayout>
@@ -108,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Invite"
+            android:text="@string/invite"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 

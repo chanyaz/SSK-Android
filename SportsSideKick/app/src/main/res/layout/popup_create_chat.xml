@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chat"
+            android:text="@string/chat_caption"
             android:textColor="@color/white"
             android:gravity="center"
             android:layout_centerHorizontal="true"
@@ -53,7 +53,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_toStartOf="@+id/top_vertical_spliter"
         android:gravity="center"
-        android:text="Create Chat"
+        android:text="@string/create_chat"
         android:textColor="@color/colorAccent" />
 
     <TextView
@@ -63,7 +63,7 @@
         android:layout_toEndOf="@+id/top_vertical_spliter"
         android:background="@color/green_dark_3"
         android:gravity="center"
-        android:text="Join Chat"
+        android:text="@string/join_chat"
         android:textColor="@color/white_semitransparent" />
 
     <View
@@ -92,7 +92,7 @@
         android:foregroundGravity="right"
         android:gravity="center_vertical|end"
         android:paddingEnd="@dimen/margin_70"
-        android:text="Chat name"
+        android:text="@string/chat_name"
         android:textColor="@color/white"
         android:visibility="gone"/>
 
@@ -113,7 +113,7 @@
         android:layout_below="@+id/top_vertical_spliter"
         android:background="@color/green_dark_2"
         android:gravity="start|center_vertical"
-        android:hint="Enter a name for your chat"
+        android:hint="@string/your_chat_name"
         android:imeOptions="flagNoExtractUi"
         android:maxLines="1"
         android:textColor="@color/white"
@@ -141,7 +141,7 @@
         android:layout_height="@dimen/create_chat_caption_label"
         android:layout_below="@+id/chat_top_buttons_container"
         android:gravity="center"
-        android:text="Add friends to chat"
+        android:text="@string/add_friends_to_chat"
         android:textColor="@color/white" />
 
     <RelativeLayout
@@ -181,7 +181,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/textview_dark_round"
             android:gravity="center_vertical"
-            android:hint="Search for a member"
+            android:hint="@string/search_for_member"
             android:imeOptions="flagNoExtractUi|actionSearch"
             android:inputType="text"
             android:lines="1"
@@ -212,7 +212,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Friends in Chat"
+            android:text="@string/friends_in_chat"
             android:textColor="@color/white"
             android:padding="@dimen/padding_8"/>
 
@@ -238,7 +238,7 @@
         android:background="@color/colorAccent"
         android:scaleType="centerInside"
         android:textColor="@color/green_dark_2"
-        android:text="Create Chat"
+        android:text="@string/create_chat"
         android:textAllCaps="false"
         android:layout_alignParentBottom="true"/>
 

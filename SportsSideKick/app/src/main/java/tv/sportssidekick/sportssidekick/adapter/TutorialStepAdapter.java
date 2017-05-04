@@ -28,7 +28,7 @@ import tv.sportssidekick.sportssidekick.model.wall.WallNews;
  */
 
 public class TutorialStepAdapter extends RecyclerView.Adapter<TutorialStepAdapter.ViewHolder> {
-    private static final String TAG = "RumoursTopFourNewsAdapter";
+    private static final String TAG = "TutorialAdapter";
 
     private ArrayList<WallStep> wallSteps;
 

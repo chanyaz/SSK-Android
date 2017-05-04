@@ -53,7 +53,6 @@ import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
 import tv.sportssidekick.sportssidekick.events.GetCommentsCompleteEvent;
 import tv.sportssidekick.sportssidekick.events.PostCommentCompleteEvent;
 import tv.sportssidekick.sportssidekick.events.PostUpdateEvent;
-import tv.sportssidekick.sportssidekick.events.TutorialCompleteEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**
@@ -142,9 +141,12 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.share_buttons_container)
     View shareButtonsContainer;
 
+    @Nullable
+    @BindView(R.id.tutorial_earn_button)
+    RelativeLayout tipEarnButton;
+
     CommentsAdapter commentsAdapter;
     WallBase item;
-
 
 
     public WallItemFragment() {
@@ -225,9 +227,7 @@ public class WallItemFragment extends BaseFragment {
                 title.setText(storeItem.getTitle());
                 break;
             case tip:
-                WallTip tip = (WallTip) item;
-                tip.markAsSeen();
-                EventBus.getDefault().post(new TutorialCompleteEvent());
+                final WallTip tip = (WallTip) item;
                 TutorialStepAdapter adapter = new TutorialStepAdapter();
                 adapter.getWallSteps().addAll(tip.getTipSteps());
 
@@ -243,6 +243,14 @@ public class WallItemFragment extends BaseFragment {
                 tutorialDescription.setText(tip.getTipDescription());
                 bottomTutorialContainer.setVisibility(View.VISIBLE);
                 bottomMessage.setText(tip.getTipEnding());
+                tipEarnButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Model.getInstance().markWallTipComplete(String.valueOf(tip.getTipNumber()));
+                        tip.markAsSeen();
+                        getActivity().onBackPressed();
+                    }
+                });
                 break;
         }
 
@@ -282,7 +290,7 @@ public class WallItemFragment extends BaseFragment {
     }
 
     @OnClick(R.id.share_container)
-    public void onShareClick(View view){
+    public void onShareClick(View view) {
         shareButtonsContainer.setVisibility(View.VISIBLE);
 
         Animation fadeIn = new AlphaAnimation(0, 1);
@@ -370,7 +378,7 @@ public class WallItemFragment extends BaseFragment {
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), "Please install Twitter application", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
         }
     }
 }

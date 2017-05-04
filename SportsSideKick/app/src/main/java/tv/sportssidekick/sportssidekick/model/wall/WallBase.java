@@ -37,7 +37,7 @@ public abstract class WallBase implements Shareable {
     @JsonProperty("timestamp")
     protected Double timestamp;
     @JsonIgnore // NOTE: we set Post type in factory method, not trough automatic JSON parsing!
-    protected PostType type = PostType.post;
+    protected PostType itemType = PostType.post;
     @JsonProperty("wallId")
     protected String wallId = "";
     @JsonProperty("postId")
@@ -254,18 +254,18 @@ public abstract class WallBase implements Shareable {
 
     @JsonProperty("type")
     public int getTypeAsInt() {
-        return type.ordinal()+1;
+        return itemType.ordinal()+1;
     }
 
 
     @JsonIgnore
     public PostType getType() {
-        return type;
+        return itemType;
     }
 
     @JsonIgnore
     public void setType(PostType type) {
-        this.type = type;
+        this.itemType = type;
     }
 
 
@@ -288,7 +288,7 @@ public abstract class WallBase implements Shareable {
 
     public void setEqualTo(WallBase item) {
         this.timestamp = item.timestamp;
-        this.type = item.type;
+        this.itemType = item.itemType;
         this.wallId = item.wallId;
         this.postId = item.postId;
         this.likeCount = item.likeCount;

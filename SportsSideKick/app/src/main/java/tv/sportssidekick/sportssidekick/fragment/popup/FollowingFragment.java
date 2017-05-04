@@ -94,7 +94,7 @@ public class FollowingFragment extends BaseFragment {
             });
         }
         else {
-            Toast.makeText(getContext(), "Error. Try again later.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.try_again_latter), Toast.LENGTH_SHORT).show();
         }
 
         searchText.addTextChangedListener(new TextWatcher() {

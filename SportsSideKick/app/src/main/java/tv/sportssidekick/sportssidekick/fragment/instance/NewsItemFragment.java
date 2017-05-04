@@ -133,7 +133,7 @@ public class NewsItemFragment extends BaseFragment {
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), "Please install Twitter application", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -284,7 +284,7 @@ public class NewsItemFragment extends BaseFragment {
 
     @OnClick(R.id.pin_icon)
     public void pinToWall() {
-        AlertDialogManager.getInstance().showAlertDialog("Post this to your wall?", "Would you like to post this to your wall?",
+        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
                 new View.OnClickListener() {// Cancel
                     @Override
                     public void onClick(View v) {

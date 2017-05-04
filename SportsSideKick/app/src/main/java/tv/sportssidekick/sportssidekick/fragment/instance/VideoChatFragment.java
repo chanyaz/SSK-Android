@@ -180,7 +180,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public void onAddUsers(View view) {
         Slot slot = getNextFreeSlot();
         if (slot == null) {
-            Toast.makeText(getContext(), "Sorry you can only video call with a maximum of 3 friends, and this call is already full!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.video_chat_maximum), Toast.LENGTH_LONG).show();
             return;
         }
         FragmentEvent fe = new FragmentEvent(StartingNewCallFragment.class);
@@ -200,7 +200,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
         model = VideoChatModel.getInstance();
         localMedia = LocalMedia.create(getContext());
-        name.setText("You");
+        name.setText(getContext().getResources().getString(R.string.video_chat_you));
         slots = new ArrayList<>();
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_2)));
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
@@ -254,7 +254,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                             } else if (userInfo.getNicName() != null) {
                                 usersName = userInfo.getNicName();
                             }
-                            AlertDialogManager.getInstance().showAlertDialog("Receiving a call from \'" + usersName + " \'?", "Accept the call?",
+                            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.video_chat_receive_call)+" \'" + usersName + " \'?", getContext().getResources().getString(R.string.video_chat_accpet_call),
                                     new View.OnClickListener() {// Cancel
                                         @Override
                                         public void onClick(View v) {
@@ -290,7 +290,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
     void showRationaleForMicrophoneAndCamera(final PermissionRequest request) {
-        AlertDialogManager.getInstance().showAlertDialog("Permissions", getActivity().getResources().getString(R.string.video_chat_permission_microphone_and_camera_rationale),
+        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.permissions), getActivity().getResources().getString(R.string.video_chat_permission_microphone_and_camera_rationale),
                 new View.OnClickListener() {// Cancel
                     @Override
                     public void onClick(View v) {

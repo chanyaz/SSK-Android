@@ -119,10 +119,10 @@
             android:layout_below="@id/profile_image_container"
             android:layout_marginTop="@dimen/margin_8"
             android:gravity="center"
-            android:text="First Last"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/online_status"
             android:layout_width="wrap_content"
@@ -131,7 +131,6 @@
             android:layout_alignStart="@id/profile_image_container"
             android:layout_below="@id/profile_name"
             android:gravity="center"
-            android:text="Offline"
             android:textColor="@color/white"
             android:textSize="10sp"
             android:textStyle="normal" />
