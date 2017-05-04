@@ -2,6 +2,7 @@ package tv.sportssidekick.sportssidekick;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
@@ -85,5 +86,11 @@ public class SSKApplication extends MultiDexApplication {
     public static void initTwitter(Context context){
         TwitterAuthConfig authConfig = new TwitterAuthConfig(Constant.TWITTER_KEY, Constant.TWITTER_SECRET);
         Fabric.with(context, new Twitter(authConfig));
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(SSKApplication.this);
     }
 }
