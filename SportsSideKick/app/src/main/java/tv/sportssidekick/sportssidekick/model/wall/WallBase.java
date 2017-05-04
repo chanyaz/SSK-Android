@@ -95,9 +95,7 @@ public abstract class WallBase implements Shareable {
         if (node.has("type") && node.get("type").canConvertToInt()) {
             int typeValue = node.get("type").intValue();
             PostType type = PostType.values()[typeValue - 1];
-            TypeReference typeReference = new TypeReference<WallBase>() {
-            };
-            ;
+            TypeReference typeReference = new TypeReference<WallBase>() {};
             switch (type) {
                 case post:
                     typeReference = new TypeReference<WallPost>() {

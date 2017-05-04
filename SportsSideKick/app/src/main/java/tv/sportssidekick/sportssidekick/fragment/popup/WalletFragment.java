@@ -33,6 +33,11 @@ public class WalletFragment extends BaseFragment{
         return view;
     }
 
+    @OnClick(R.id.bundle_1)
+    public void onBundleOneClick(){
+        // TODO
+    }
+
     @OnClick(R.id.confirm_button)
     public void confirmOnClick(){
         getActivity().onBackPressed();

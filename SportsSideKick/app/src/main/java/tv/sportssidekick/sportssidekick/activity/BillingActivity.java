@@ -3,6 +3,7 @@ package tv.sportssidekick.sportssidekick.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import org.solovyev.android.checkout.ActivityCheckout;
 import org.solovyev.android.checkout.Checkout;
@@ -19,7 +20,9 @@ import tv.sportssidekick.sportssidekick.model.purchases.PurchaseModel;
  * www.hypercubesoft.com
  */
 
-public class BillingActivity  extends AppCompatActivity {
+public class BillingActivity extends AppCompatActivity {
+
+    private static final String TAG = "Billing Activity";
 
     private class PurchaseListener extends EmptyRequestListener<Purchase> {
         // your code here
@@ -29,15 +32,17 @@ public class BillingActivity  extends AppCompatActivity {
         @Override
         public void onLoaded(Inventory.Products products) {
             // your code here
+            Log.d(TAG, "Loaded products: " + products.size());
         }
     }
 
-    private final ActivityCheckout mCheckout = Checkout.forActivity(this, PurchaseModel.getBilling());
+    private ActivityCheckout mCheckout;
     private Inventory mInventory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCheckout = Checkout.forActivity(this, PurchaseModel.getInstance().getBilling());
         mCheckout.start();
 
         mCheckout.createPurchaseFlow(new PurchaseListener());
@@ -45,7 +50,7 @@ public class BillingActivity  extends AppCompatActivity {
         mInventory = mCheckout.makeInventory();
         mInventory.load(Inventory.Request.create()
                 .loadAllPurchases()
-                .loadSkus(ProductTypes.IN_APP, "SKUS_HERE"), new InventoryCallback()); // Link with Purchase model
+                .loadSkus(ProductTypes.IN_APP, "pack1"), new InventoryCallback()); // Link with Purchase model
     }
 
     @Override

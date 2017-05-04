@@ -30,12 +30,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.events.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.model.purchases.PurchaseModel;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.MessageHandler;
 import tv.sportssidekick.sportssidekick.model.user.UserEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
-import tv.sportssidekick.sportssidekick.events.GameSparksEvent;
 
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.NONE;
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.REAL;
@@ -186,7 +187,7 @@ public class Model {
 
     private String androidId;
 
-    public void initialize(Context context){
+    public void initialize(final Context context){
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, false, true);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
@@ -198,6 +199,7 @@ public class Model {
                         Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
                         login();
                     } else {
+                        PurchaseModel.getInstance().updateProductList();
                         // Same entry point as onAuthenticationCheck - escaping from dead loop!
                         Log.d(TAG, "isAuthenticated(): authenticated, do nothing.");
                         getAccountDetails(completeLogin);
@@ -205,7 +207,6 @@ public class Model {
                 }
             }
         });
-
     }
 
     private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> onAuthenticated = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
