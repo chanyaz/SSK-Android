@@ -37,7 +37,6 @@ public class SSKApplication extends MultiDexApplication {
         initImageLoader(getApplicationContext());
         initTwitter(getApplicationContext());
 
-        // Initialize model and get all data that we need - TODO will be changed for GS
         Model.getInstance();
 
         // Facebook initialization TODO - update?
