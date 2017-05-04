@@ -80,7 +80,7 @@
             android:layout_marginStart="@dimen/margin_10"
             android:layout_centerVertical="true"
             android:textColor="@color/white"
-            android:text="LIVE" />
+            android:text="@string/live" />
 
         <View
             android:id="@+id/center"

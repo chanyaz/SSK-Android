@@ -610,7 +610,7 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
             }
-            setYourCoinsValue("0"); // TODO get user coins
+            setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
@@ -665,6 +665,11 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
 
     @Subscribe
     public void updateUserName(UserEvent event){
+        if (event.getType() == UserEvent.Type.onDetailsUpdated)
+        {
+            setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
+        }
+
         UserInfo user = event.getUserInfo();
         if (user.getFirstName() != null && user.getLastName() != null) {
             profileName.setText(user.getFirstName() + " " + user.getLastName());

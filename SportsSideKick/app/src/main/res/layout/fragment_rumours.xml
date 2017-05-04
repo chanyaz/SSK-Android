@@ -49,7 +49,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="RUMOURS"
+                        android:textAllCaps="true"
+                        android:text="@string/rumours_caption"
                         android:textColor="@color/white"
                         android:textSize="28sp" />
 
@@ -102,7 +103,8 @@
                                 android:background="@drawable/single_rumour_headline"
                                 android:gravity="center"
                                 android:padding="@dimen/padding_8"
-                                android:text="RUMOUR"
+                                android:textAllCaps="true"
+                                android:text="@string/rumours_caption"
                                 android:textColor="@color/colorPrimary" />
                         </com.github.rongi.rotate_layout.layout.RotateLayout>
 
@@ -119,7 +121,6 @@
                                 android:ellipsize="end"
                                 android:maxLines="3"
                                 android:padding="@dimen/padding_8"
-                                android:text="Champions League predictions: Leicester Club Brugge..."
                                 android:textColor="@color/white" />
 
                             <TextView
@@ -132,7 +133,6 @@
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
                                 android:singleLine="true"
-                                android:text="12 mins"
                                 android:textColor="@color/colorAccent" />
                         </RelativeLayout>
                     </RelativeLayout>
@@ -162,7 +162,8 @@
                                 android:background="@drawable/single_rumour_headline"
                                 android:gravity="center"
                                 android:padding="@dimen/padding_8"
-                                android:text="RUMOUR"
+                                android:textAllCaps="true"
+                                android:text="@string/rumours_caption"
                                 android:textColor="@android:color/black" />
                         </com.github.rongi.rotate_layout.layout.RotateLayout>
 
@@ -179,7 +180,6 @@
                                 android:ellipsize="end"
                                 android:maxLines="3"
                                 android:padding="@dimen/padding_8"
-                                android:text="Champions League predictions: Leicester Club Brugge..."
                                 android:textColor="@color/white" />
 
                             <TextView
@@ -191,7 +191,6 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
-                                android:text="12 mins"
                                 android:textColor="@color/colorAccent" />
                         </RelativeLayout>
                     </RelativeLayout>
@@ -222,7 +221,8 @@
                                 android:background="@drawable/single_rumour_headline"
                                 android:gravity="center"
                                 android:padding="@dimen/padding_8"
-                                android:text="RUMOUR"
+                                android:textAllCaps="true"
+                                android:text="@string/rumours_caption"
                                 android:textColor="@android:color/black" />
                         </com.github.rongi.rotate_layout.layout.RotateLayout>
 
@@ -239,7 +239,6 @@
                                 android:ellipsize="end"
                                 android:maxLines="3"
                                 android:padding="@dimen/padding_8"
-                                android:text="Champions League predictions: Leicester Club Brugge..."
                                 android:textColor="@color/white" />
 
                             <TextView
@@ -252,7 +251,6 @@
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
                                 android:singleLine="true"
-                                android:text="12 mins"
                                 android:textColor="@color/colorAccent" />
                         </RelativeLayout>
                     </RelativeLayout>
@@ -283,7 +281,8 @@
                                 android:background="@drawable/single_rumour_headline"
                                 android:gravity="center"
                                 android:padding="@dimen/padding_8"
-                                android:text="RUMOUR"
+                                android:textAllCaps="true"
+                                android:text="@string/rumours_caption"
                                 android:textColor="@android:color/black" />
                         </com.github.rongi.rotate_layout.layout.RotateLayout>
 
@@ -300,7 +299,6 @@
                                 android:ellipsize="end"
                                 android:maxLines="3"
                                 android:padding="@dimen/padding_8"
-                                android:text="Champions League predictions: Leicester Club Brugge..."
                                 android:textColor="@color/white" />
 
                             <TextView
@@ -313,7 +311,6 @@
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
                                 android:singleLine="true"
-                                android:text="12 mins"
                                 android:textColor="@color/colorAccent" />
                         </RelativeLayout>
                     </RelativeLayout>

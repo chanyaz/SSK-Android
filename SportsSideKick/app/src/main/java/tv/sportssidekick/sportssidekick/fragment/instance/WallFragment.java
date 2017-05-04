@@ -248,9 +248,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeCameraCapture() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
-        chooseDialog.setTitle("Choose");
-        chooseDialog.setMessage("Take photo or record video?");
-        chooseDialog.setNegativeButton("Video", new DialogInterface.OnClickListener() {
+        chooseDialog.setTitle(getContext().getResources().getString(R.string.choose));
+        chooseDialog.setMessage(getContext().getResources().getString(R.string.chat_image_or_video));
+        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_video), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -627,8 +627,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             commentText.setText("");
             WallPost newPost = new WallPost();
             newPost.setType(WallBase.PostType.post);
-            newPost.setTitle("Not sure we need title here");
-            newPost.setSubTitle("A subtitle...");
+            newPost.setTitle(getContext().getResources().getString(R.string.wall_new_post_title));
+            newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
             newPost.setTimestamp((double) System.currentTimeMillis());
             newPost.setBodyText(postContent);
 
@@ -645,7 +645,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             removeUploadedImage.setVisibility(View.GONE);
             WallModel.getInstance().mbPost(newPost);
         } else {
-            Toast.makeText(getContext(),"Please enter some text for post!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),getContext().getResources().getString(R.string.wall_text_for_post), Toast.LENGTH_SHORT).show();
         }
     }
 

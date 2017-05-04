@@ -20,7 +20,7 @@
             android:layout_toLeftOf="@+id/toggle_mic_button"
             android:background="@null"
             android:src="@drawable/add_users_button"
-            android:text="ADD USERS" />
+            android:text="@string/add_users" />
 
         <ImageButton
             android:id="@+id/toggle_mic_button"
@@ -151,7 +151,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="user name"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -49,7 +49,7 @@
         android:layout_below="@+id/content_container"
         android:layout_toStartOf="@+id/spliter"
         android:alpha="0.5"
-        android:text="You"
+        android:text="@string/you"
         android:textColor="@color/white"
         android:textSize="10sp" />
 
@@ -72,9 +72,7 @@
         android:layout_below="@+id/content_container"
         android:layout_marginEnd="@dimen/margin_15"
         android:alpha="0.5"
-        android:text="7 mins ago"
         android:textColor="@color/white"
         android:textSize="10sp" />
-
 
 </RelativeLayout>

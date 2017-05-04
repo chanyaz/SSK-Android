@@ -122,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="YOU HAVE"
+                android:text="@string/you_have"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
@@ -163,7 +163,7 @@
                 android:padding="3dp"
                 android:paddingEnd="@dimen/margin_10"
                 android:paddingStart="@dimen/margin_10"
-                android:text="+ BONUS GYM BAG"
+                android:text="@string/bonus_gym_bag"
                 android:textSize="10sp" />
         </RelativeLayout>
 
@@ -176,7 +176,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_20"
             android:layout_marginTop="@dimen/margin_10"
-            android:text="$$K BUNDLES"
+            android:text="@string/bandles"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -452,7 +452,7 @@
             android:padding="@dimen/half_margin"
             android:paddingEnd="@dimen/margin_10"
             android:paddingStart="@dimen/margin_10"
-            android:text="+ BONUS GYM BAG"
+            android:text="@string/bonus_gym_bag"
             android:textSize="10sp"
             android:layout_below="@id/kit_bags_label_2"/>
 
@@ -535,7 +535,8 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_10"
             android:layout_toEndOf="@+id/edit_button"
-            android:text="YOUR STATEMENT"
+            android:text="@string/your_statement"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="11sp"
             android:textStyle="bold" />

@@ -180,7 +180,7 @@
                 android:layout_below="@id/profile_image_container"
                 android:layout_marginTop="@dimen/margin_15"
                 android:gravity="center"
-                android:text="Login / Signup"
+                android:text="@string/login_or_sign_up"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />

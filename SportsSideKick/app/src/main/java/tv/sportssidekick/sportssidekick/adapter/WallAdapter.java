@@ -93,7 +93,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @BindView(R.id.comments_count)
         TextView commentsCount;
 
-
         @Nullable
         @BindView(R.id.row_wall_post_likes)
         TextView rowPostLikes;
@@ -286,6 +285,23 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 if (holder.descriptionTextView != null) {
                     holder.descriptionTextView.setText(storeItem.getSubTitle());
                 }
+                Task<UserInfo> getStoreUserTask = Model.getInstance().getUserInfoById(storeItem.getWallId());
+                getStoreUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UserInfo> task) {
+                        if (task.isSuccessful()) {
+                            UserInfo user = task.getResult();
+                            if (user != null) {
+                                if (user.getCircularAvatarUrl() != null && holder.userImage != null) {
+                                    ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), holder.userImage, Utility.imageOptionsImageLoader());
+                                }
+                                if (user.getNicName() != null) {
+                                    holder.author.setText(user.getFirstName() + " " + user.getLastName());
+                                }
+                            }
+                        }
+                    }
+                });
                 break;
         }
 

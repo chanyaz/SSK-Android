@@ -85,7 +85,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
                 TextUtils.isEmpty(password.getText())||
                 TextUtils.isEmpty(phone.getText()))
         {
-            Toast.makeText(getContext(), "You have to fill all data", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.fiil_all_data), Toast.LENGTH_LONG).show();
         }
         else {
             HashMap<String, Object> userDetails = new HashMap<>();
@@ -130,6 +130,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegisterError(Error error) {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
-        Toast.makeText(getContext(), "Registration error. Try again later.", Toast.LENGTH_LONG).show(); // TODO inform user about login failed
+        Toast.makeText(getContext(), getContext().getResources().getString(R.string.registarion_error), Toast.LENGTH_LONG).show(); // TODO inform user about login failed
     }
 }

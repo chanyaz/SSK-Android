@@ -112,7 +112,7 @@ public class StartingNewCallFragment extends BaseFragment {
                 }
 
             } else {
-                AlertDialogManager.getInstance().showAlertDialog("No users selected!", "You haven't selected anyone to call!",
+                AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.no_users_selected), getContext().getResources().getString(R.string.no_users_selected_message),
                         null,
                         new View.OnClickListener() { // Confirm
                             @Override

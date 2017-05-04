@@ -114,7 +114,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
 
     @OnClick(R.id.logout_button)
     public void logoutOnClick() {
-        AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "This will log you out of the app!",
+        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.logout_from_app),
                 new View.OnClickListener() {// Cancel
                     @Override
                     public void onClick(View v) {
@@ -163,7 +163,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
 
     @OnClick(R.id.reset_button)
     public void resetOnClick() {
-        AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "This will reset the app!",
+        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.reset_app),
                 new View.OnClickListener() {// Cancel
                     @Override
                     public void onClick(View v) {
@@ -186,21 +186,21 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
             Date subscribed = new Date(0);
 
             ArrayList<Pair<String, String>> values = new ArrayList<>();
-            values.add(new Pair<>("Caps level", String.valueOf(user.getLevel())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf(user.getLevel())));
             String daysUsingSSK = new SimpleDateFormat("d").format(subscribed);
-            values.add(new Pair<>("Days using SSK", daysUsingSSK));
-            values.add(new Pair<>("Friends", String.valueOf(user.getFriendsCount())));
-            values.add(new Pair<>("Following", String.valueOf(user.getFollowingCount())));
-            values.add(new Pair<>("Followers", String.valueOf(user.getFollowersCount())));
-            values.add(new Pair<>("Wall posts", String.valueOf(user.getWallPosts())));
-            values.add(new Pair<>("Videos watched", String.valueOf(user.getVideosWatched())));
-            values.add(new Pair<>("Chats", String.valueOf(user.getChats())));
-            values.add(new Pair<>("Video chats", String.valueOf(user.getVideoChats())));
-            values.add(new Pair<>("Public chats", String.valueOf(user.getPublicChats())));
-            values.add(new Pair<>("Matches attended(home)", String.valueOf(user.getMatchesHome())));
-            values.add(new Pair<>("Matches attended(away)", String.valueOf(user.getMatchesAway())));
-            values.add(new Pair<>("Likes received", String.valueOf(user.getLikes())));
-            values.add(new Pair<>("Comments made", String.valueOf(user.getComments())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.days_using), daysUsingSSK));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.friends), String.valueOf(user.getFriendsCount())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.following), String.valueOf(user.getFollowingCount())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.followers), String.valueOf(user.getFollowersCount())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.wall_posts), String.valueOf(user.getWallPosts())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.videos_watched), String.valueOf(user.getVideosWatched())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.chats), String.valueOf(user.getChats())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.video_chats), String.valueOf(user.getVideoChats())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.public_chats), String.valueOf(user.getPublicChats())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.matches_attended_home), String.valueOf(user.getMatchesHome())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.matches_attended_away), String.valueOf(user.getMatchesAway())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.likes_received), String.valueOf(user.getLikes())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.comments_made), String.valueOf(user.getComments())));
             adapter.getValues().addAll(values);
 
             ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());

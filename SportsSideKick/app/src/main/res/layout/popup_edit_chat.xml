@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chat"
+            android:text="@string/chat_caption"
             android:textColor="@color/white"
             android:gravity="center"
             android:layout_centerHorizontal="true"
@@ -53,7 +53,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_toStartOf="@+id/edit_top_vertical_spliter"
         android:gravity="center"
-        android:text="Edit Chat"
+        android:text="@string/edit_chat"
         android:textColor="@color/colorAccent" />
 
     <TextView
@@ -63,7 +63,7 @@
         android:layout_toEndOf="@+id/edit_top_vertical_spliter"
         android:background="@color/green_dark_3"
         android:gravity="center"
-        android:text="Join Chat"
+        android:text="@string/join_chat"
         android:textColor="@color/white_semitransparent" />
 
     <View
@@ -92,7 +92,7 @@
         android:foregroundGravity="right"
         android:gravity="center_vertical|end"
         android:paddingEnd="@dimen/margin_70"
-        android:text="Chat name"
+        android:text="@string/chat_name"
         android:textColor="@color/white"
         android:visibility="gone"/>
 
@@ -114,10 +114,11 @@
         android:layout_below="@+id/edit_top_vertical_spliter"
         android:background="@color/green_dark_2"
         android:gravity="start|center_vertical"
-        android:hint="Enter a name for your Group Chat"
+        android:hint="@string/group_chat_name"
         android:imeOptions="flagNoExtractUi"
         android:maxLines="1"
-        android:layout_toEndOf="@id/chat_image_view"   android:textColor="@color/white"
+        android:layout_toEndOf="@id/chat_image_view"
+        android:textColor="@color/white"
         android:textColorHint="@color/white_semitransparent"
         android:textSize="14sp"
         android:padding="@dimen/margin_20"/>
@@ -162,7 +163,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/textview_dark_round"
             android:gravity="center_vertical"
-            android:hint="Search for a member"
+            android:hint="@string/search_for_member"
             android:imeOptions="flagNoExtractUi|actionSearch"
             android:inputType="text"
             android:lines="1"
@@ -188,7 +189,7 @@
                 android:id="@+id/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:textAllCaps="false"
                 android:layout_centerInParent="true"
                 android:background="@drawable/textview_semi_transparent_round"
@@ -213,7 +214,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Friends in Chat"
+            android:text="@string/friends_in_chat"
             android:textColor="@color/white"
             android:padding="@dimen/padding_8"/>
 
@@ -251,7 +252,7 @@
         android:background="@color/colorAccent"
         android:scaleType="centerInside"
         android:textColor="@color/green_dark_2"
-        android:text="Save"
+        android:text="@string/save"
         android:textAllCaps="false"
         android:layout_alignParentBottom="true"/>
 

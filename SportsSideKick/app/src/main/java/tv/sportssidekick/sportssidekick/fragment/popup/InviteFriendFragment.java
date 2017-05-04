@@ -54,7 +54,7 @@ public class InviteFriendFragment extends BaseFragment {
             public void onClick(View v) {
                 if (TextUtils.isEmpty(inviteFriendName.getText()))
                 {
-                    Toast.makeText(getContext(), "Enter friend name to invite.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getResources().getString(R.string.enter_friend_name_invite), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {

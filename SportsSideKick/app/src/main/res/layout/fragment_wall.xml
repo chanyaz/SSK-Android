@@ -72,7 +72,7 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="@dimen/margin_10"
                     android:backgroundTint="@color/colorPrimary"
-                    android:hint="Write your post here."
+                    android:hint="@string/write_post_hint"
                     android:textColor="@color/white"
                     android:layout_toEndOf="@+id/uploaded_image"
                     android:layout_toStartOf="@+id/post_post_button"
@@ -138,36 +138,36 @@
                     style="@style/toggle_button_filter"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wall_button_size"
-                    android:textOff="News"
-                    android:textOn="News" />
+                    android:textOff="@string/news_caption"
+                    android:textOn="@string/news_caption" />
                 <ToggleButton
                     android:id="@+id/user_filter_toggle"
                     style="@style/toggle_button_filter"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wall_button_size"
-                    android:textOff="User"
-                    android:textOn="User" />
+                    android:textOff="@string/user"
+                    android:textOn="@string/user" />
                 <ToggleButton
                     android:id="@+id/stats_filter_toggle"
                     style="@style/toggle_button_filter"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wall_button_size"
-                    android:textOff="Stats"
-                    android:textOn="Stats" />
+                    android:textOff="@string/stats"
+                    android:textOn="@string/stats" />
                 <ToggleButton
                     android:id="@+id/rumours_filter_toggle"
                     style="@style/toggle_button_filter"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wall_button_size"
-                    android:textOff="Rumours"
-                    android:textOn="Rumours" />
+                    android:textOff="@string/rumors_fragment_caption"
+                    android:textOn="@string/rumors_fragment_caption" />
                 <ToggleButton
                     android:id="@+id/store_filter_toggle"
                     style="@style/toggle_button_filter"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wall_button_size"
-                    android:textOff="Store"
-                    android:textOn="Store" />
+                    android:textOff="@string/store"
+                    android:textOn="@string/store" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -187,7 +187,7 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/margin_10"
                 android:backgroundTint="@color/colorPrimary"
-                android:hint="Search Wall Posts"
+                android:hint="@string/search_wall_posts_hint"
                 android:textColor="@color/white"
                 android:textColorHint="@color/colorPrimarySemiLight" />
         </RelativeLayout>

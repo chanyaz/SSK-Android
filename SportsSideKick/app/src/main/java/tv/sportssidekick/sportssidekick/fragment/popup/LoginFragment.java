@@ -113,7 +113,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(getContext(), "Please enter valid password and displayName!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.enter_valid_password_and_display_name), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -173,7 +173,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     public void onLoginError(Error error) {
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
-        AlertDialogManager.getInstance().showAlertDialog("Login Failed", "Please re-enter your password and try again", null, new View.OnClickListener() {
+        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.login_login_message_login_failed), getContext().getResources().getString(R.string.login_try_again), null, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         getActivity().onBackPressed();

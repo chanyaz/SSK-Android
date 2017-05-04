@@ -181,11 +181,11 @@ public class CreateChatFragment extends BaseFragment {
             addFriendsAdapter.add(event.getUserInfo());
         }
         int friendCount = addFriendsAdapter.getItemCount();
-        String friendsInchat = " Friends in Chat";
+        String friendsInchat = " "+ getContext().getResources().getString(R.string.chat_frends_in_chat);
         if (friendCount == 0) {
             headlineFriendsInChat.setText(friendsInchat);
         } else if (friendCount == 1) {
-            headlineFriendsInChat.setText("1 Friend in Chat");
+            headlineFriendsInChat.setText(getContext().getResources().getString(R.string.chat_frend_in_chat));
         } else {
             String friendsTotal = friendCount + friendsInchat;
             headlineFriendsInChat.setText(friendsTotal);
@@ -195,14 +195,14 @@ public class CreateChatFragment extends BaseFragment {
     @OnClick(R.id.chat_popup_image_button)
     public void pickImage() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
-        chooseDialog.setTitle("Choose Option");
-        chooseDialog.setNegativeButton("Choose from Library", new DialogInterface.OnClickListener() {
+        chooseDialog.setTitle(getContext().getResources().getString(R.string.chat_choose_option));
+        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_choose_from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 CreateChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(CreateChatFragment.this);
             }
         });
-        chooseDialog.setPositiveButton("Use Camera", new DialogInterface.OnClickListener() {
+        chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.chat_use_camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 CreateChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(CreateChatFragment.this);

@@ -200,7 +200,7 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
-        inputEditText.setImeActionLabel("SEND",EditorInfo.IME_ACTION_SEND);
+        inputEditText.setImeActionLabel(getContext().getResources().getString(R.string.chat_send),EditorInfo.IME_ACTION_SEND);
         inputEditText.setImeOptions(EditorInfo.IME_ACTION_SEND);
 
         /* input Listeners */
@@ -342,12 +342,12 @@ public class ChatFragment extends BaseFragment {
             UserInfo user = Model.getInstance().getUserInfo();
             if(user!=null){
                 if(user.getUserId().equals(currentlyActiveChat.getOwner())){
-                    chatMenuEditButton.setText("Edit"); // TODO Extract strings...
+                    chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit)); // TODO Extract strings...
                 } else {
-                    chatMenuEditButton.setText("Leave");
+                    chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
                 }
             } else {
-                chatMenuEditButton.setText("Leave");
+                chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
             }
         }
     }
@@ -399,7 +399,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.download_image_button)
     public void imageDownloadButtonOnClick() {
-        Toast.makeText(getContext(), "Image is downloaded.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_image_downloaded), Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.video_close_image_button)
@@ -409,7 +409,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.vide_download_image_button)
     public void videoDownloadButtonOnClick() {
-        Toast.makeText(getContext(), "Video is downloaded.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_video_downloaded), Toast.LENGTH_SHORT).show();
     }
 
     public void sendButtonOnClick() {
@@ -438,7 +438,7 @@ public class ChatFragment extends BaseFragment {
                 fe.setId(currentlyActiveChat.getChatId());
                 EventBus.getDefault().post(fe);
             } else {
-                AlertDialogManager.getInstance().showAlertDialog("ARE YOU SURE?", "You will leave this chat",
+                AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.chat_leave_chat),
                         new View.OnClickListener() {// Cancel listener
                             @Override
                             public void onClick(View v) {
@@ -455,7 +455,7 @@ public class ChatFragment extends BaseFragment {
                             }
                         });
 
-                chatMenuEditButton.setText("Leave");
+                chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
             }
         }
     }
@@ -649,9 +649,9 @@ public class ChatFragment extends BaseFragment {
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeCameraCapture() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
-        chooseDialog.setTitle("Choose");
-        chooseDialog.setMessage("Take photo or record video?");
-        chooseDialog.setNegativeButton("Video", new DialogInterface.OnClickListener() {
+        chooseDialog.setTitle(getContext().getResources().getString(R.string.choose));
+        chooseDialog.setMessage(getContext().getResources().getString(R.string.chat_image_or_video));
+        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_video), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -660,7 +660,7 @@ public class ChatFragment extends BaseFragment {
                 }
             }
         });
-        chooseDialog.setPositiveButton("Image", new DialogInterface.OnClickListener() {
+        chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.chat_image), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -685,7 +685,7 @@ public class ChatFragment extends BaseFragment {
 
     @NeedsPermission({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void startRecording() {
-        Toast.makeText(getContext(), "Hold down to record!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),getContext().getResources().getString(R.string.chat_hold), Toast.LENGTH_SHORT).show();
         final Handler handler = new Handler();
         handler.postDelayed(new TimerTask() {
                                 @Override
@@ -712,7 +712,7 @@ public class ChatFragment extends BaseFragment {
             try {
                 recorder.stop();
                 recorder.release();
-                Toast.makeText(getContext(), "Recording stopped.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_recording_stop), Toast.LENGTH_SHORT).show();
                 Model.getInstance().uploadAudioRecording(audioFilepath);
                 recorder = null;
             } catch (Exception e) {
