@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.service;
+package tv.sportssidekick.sportssidekick.events;
 
 import java.util.List;
 import tv.sportssidekick.sportssidekick.model.wall.PostComment;

@@ -31,7 +31,7 @@ import tv.sportssidekick.sportssidekick.model.GSConstants;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 
 import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 

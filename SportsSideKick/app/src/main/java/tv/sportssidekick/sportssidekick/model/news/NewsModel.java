@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import tv.sportssidekick.sportssidekick.model.wall.WallNews;
-import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 

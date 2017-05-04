@@ -2,8 +2,6 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +23,6 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
@@ -35,8 +31,6 @@ import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.CommentsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
-import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.wall.PostComment;
@@ -45,9 +39,9 @@ import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
-import tv.sportssidekick.sportssidekick.service.GetCommentsCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.PostCommentCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
+import tv.sportssidekick.sportssidekick.events.GetCommentsCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostCommentCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostUpdateEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**

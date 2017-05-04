@@ -110,10 +110,10 @@ public class JoinChatFragment extends BaseFragment {
 
         // Official chats - dummy
         List<ChatInfo> publicChats = new ArrayList<>();
-        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/jNtCvk/fake_official_chat_henry.png",true,"1"));
-        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/fNv31Q/fake_official_chat_messi.png",true,"2"));
-        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/jj5go5/fake_official_chat_otar.png",true,"3"));
-        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/bCv31Q/fake_official_chat_rc7.png",true,"4"));
+        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/jNtCvk/fake_official_chat_henry.png",true, true,"1"));
+        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/fNv31Q/fake_official_chat_messi.png",true, true,"2"));
+        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/jj5go5/fake_official_chat_otar.png",true, true,"3"));
+        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/bCv31Q/fake_official_chat_rc7.png",true, true,"4"));
         chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
         chatsAdapter.add(publicChats);
         searchEditText.addTextChangedListener(textWatcher);

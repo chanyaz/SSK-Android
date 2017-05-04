@@ -2,7 +2,7 @@ package tv.sportssidekick.sportssidekick.model.sharing;
 
 import android.content.Intent;
 
-import tv.sportssidekick.sportssidekick.service.BusEvent;
+import tv.sportssidekick.sportssidekick.events.BusEvent;
 
 /**
  * Created by Filip on 4/19/2017.

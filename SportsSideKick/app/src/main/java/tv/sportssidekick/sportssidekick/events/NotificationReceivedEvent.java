@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.service;
+package tv.sportssidekick.sportssidekick.events;
 
 /**
  * Created by Djordje Krutil on 21.4.2017..
@@ -7,21 +7,21 @@ package tv.sportssidekick.sportssidekick.service;
  */
 public class NotificationReceivedEvent extends BusEvent {
 
-    private int closeTIme;
+    private int closeTime;
     private String title;
     private String description;
     private int type;
 
     public NotificationReceivedEvent(int closeTIme, String title, String description, int type) {
         super("");
-        this.closeTIme = closeTIme;
+        this.closeTime = closeTIme;
         this.title = title;
         this.description = description;
         this.type = type;
     }
 
-    public int getCloseTIme() {
-        return closeTIme;
+    public int getCloseTime() {
+        return closeTime;
     }
 
     public String getTitle() {

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -23,6 +22,8 @@ import android.widget.TextView;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -40,7 +41,9 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tv.sportssidekick.sportssidekick.Constant;
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.events.NotificationReceivedEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
@@ -91,8 +94,6 @@ import tv.sportssidekick.sportssidekick.model.user.UserEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatEvent;
 import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatModel;
-import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
-import tv.sportssidekick.sportssidekick.service.NotificationReceivedEvent;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.BlurBuilder;
@@ -524,7 +525,7 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
                 });
                 break;
         }
-        showNotification(v, event.getCloseTIme());
+        showNotification(v, event.getCloseTime());
     }
 
     private void showNotification(final View v, int time) {
@@ -570,10 +571,9 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
                 savedIntentData = new Bundle();
             }
             if(!checkIfBundlesAreEqual(savedIntentData, extras)){
-                String body = extras.getString(Constant.NOTIFICATION_BODY);
-                String title = extras.getString(Constant.NOTIFICATION_TITLE);
-                String message = extras.getString(Constant.NOTIFICATION_MESSAGE);
-                handleNotificationEvent(new ExternalNotificationEvent(false)); // TODO Fill with proper data and set that is from background!
+                ObjectMapper mapper = new ObjectMapper();
+                Map<String,String> notificationData =  mapper.convertValue(extras.getString(Constant.NOTIFICATION_DATA,""),new TypeReference<Map<String,String>>(){});
+                handleNotificationEvent(new ExternalNotificationEvent(notificationData,false));
                 savedIntentData = getIntent().getExtras();
             }
         }
@@ -581,11 +581,13 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleNotificationEvent(ExternalNotificationEvent event){
-        Map<String,Object> notificationInfo = null;
-        if(event.isFromBackground()){
-            Log.d(TAG,"Notification is from background...");
-        } else {
-            Log.d(TAG,"Notification is from foreground - app is active!");
+        Map<String,String> notificationData = event.getData();
+        if(event.isFromBackground()){ // we ignore notifications that are received while app is active
+           if(notificationData.containsKey("chatId")){
+               EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
+           } else if (notificationData.containsKey("wallId")){
+               EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+           }
         }
     }
 

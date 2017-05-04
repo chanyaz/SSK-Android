@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
 
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.events.GameSparksEvent;
 
 /**
  * Created by Filip on 3/17/2017.

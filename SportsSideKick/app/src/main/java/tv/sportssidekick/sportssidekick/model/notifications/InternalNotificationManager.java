@@ -13,7 +13,7 @@ import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.model.wall.WallPost;
-import tv.sportssidekick.sportssidekick.service.NotificationReceivedEvent;
+import tv.sportssidekick.sportssidekick.events.NotificationReceivedEvent;
 
 /**
  * Created by Filip on 4/19/2017.
@@ -47,14 +47,10 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 case "FriendRequestAcceptedMessage":
                     event = new NotificationReceivedEvent(2, "Accepted Friend Request", "", 1);
                     EventBus.getDefault().post(event);
-                    // TODO Show notification - title: "Accepted Friend Request", description: "", closeTime: 2
-                    // TODO set notification on click listener to show all friends popup!
                     break;
                 case "FriendRequestMessage":
                     event = new NotificationReceivedEvent(4, "New Friend Request", "", 1);
                     EventBus.getDefault().post(event);
-                    // TODO Show notification - title: "New Friend Request", description: "", closeTime: 4
-                    // TODO set notification on click listener to show all friends popup!
                     break;
             }
         }
@@ -78,13 +74,9 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                     if(message.contains("unfollowing")){
                         event = new NotificationReceivedEvent(4, "Un-Followed", userInfo.getNicName(), 2);
                         EventBus.getDefault().post(event);
-                        // TODO Show notification - title: "New Follower", description: userInfo.getNicName(), closeTime: 4
-                        // TODO set notification on click listener to show followers popup!
                     } else if(message.contains("following")){
                         event = new NotificationReceivedEvent(4, "New Follower", userInfo.getNicName(), 2);
                         EventBus.getDefault().post(event);
-                        // TODO Show notification - title: "Un-Followed", description: userInfo.getNicName(), closeTime: 4
-                        // TODO set notification on click listener to show followers popup!
                     }
                 }
                 break;
@@ -93,8 +85,6 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 WallPost wallPost = mapper.convertValue(data.get(GSConstants.POST), WallPost.class);
                 event = new NotificationReceivedEvent(4, "New Wall Post", message, 3);
                 EventBus.getDefault().post(event);
-                // TODO Show notification - title: "New Wall Post", description: message, closeTime: 4
-                // TODO set notification on click listener to show new wall post
                 break;
             default:
                 break;

@@ -11,8 +11,9 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 
-import org.greenrobot.eventbus.EventBus;
+import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.activity.LoungeActivity;
@@ -39,7 +40,7 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
-        EventBus.getDefault().post(new ExternalNotificationEvent(false));
+        //EventBus.getDefault().post(new ExternalNotificationEvent(remoteMessage.getData(), false));
 
     }
 
@@ -49,23 +50,31 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
      * */
     private void sendNotification(RemoteMessage remoteMessage) {
         //Set up intent that is going to be handled in Lounge Activity
+        Map<String,String> messageData = remoteMessage.getData();
+        String alert = null;
+        if(messageData.containsKey("alert")){
+             alert = (String) messageData.get("alert");
+        }
+
+
+        Gson gson = new Gson();
+
         Intent intent = new Intent(this, LoungeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("MY_CUSTOM_DATA","BLABLABLA");
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+        intent.putExtra("SSK_PUSH_NOTIFICATION_DATA",gson.toJson(messageData));
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         //Extract data for display!
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo_ssk)
-                .setContentTitle("SSK Message")
-                .setContentText("BLABLABLA")
+                .setContentTitle("SIDEKICK")
+                .setContentText(alert)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(0 , notificationBuilder.build());
     }
 }

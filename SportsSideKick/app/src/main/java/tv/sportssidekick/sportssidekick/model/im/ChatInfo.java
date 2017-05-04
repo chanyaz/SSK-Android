@@ -53,10 +53,11 @@ public class ChatInfo {
     private ArrayList<ImsMessage> messages;
     private int unreadCount = 0;
     private boolean isMuted = false;
+    private boolean isOfficial = false;
 
 
 
-    public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, String chatId) {
+    public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial, String chatId) {
         super();
         owner = Model.getInstance().getUserInfo().getUserId();
         this.chatId = chatId;
@@ -68,8 +69,9 @@ public class ChatInfo {
         }
         this.avatarUrl = avatarUrl;
         this.isPublic = isPublic;
+        this.isOfficial = isOfficial;
     }
-    public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic) {
+    public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial) {
         super();
         owner = Model.getInstance().getUserInfo().getUserId();
         this.name = name;
@@ -80,6 +82,7 @@ public class ChatInfo {
         }
         this.avatarUrl = avatarUrl;
         this.isPublic = isPublic;
+        this.isOfficial = isOfficial;
     }
 
     public ChatInfo() {}
@@ -397,8 +400,22 @@ public class ChatInfo {
     public void joinChat(){
         String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(isPublic && !isUserBlockedFromThisChat(currentUserId)){
-            ImsManager.getInstance().joinChat(this);
-            EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
+            ImsManager.getInstance().joinChat(this).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
+                @Override
+                public void onComplete(@NonNull Task<ChatInfo> task) {
+                    if(task.isSuccessful()){
+                        loadChatUsers().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
+                                }
+                            }
+                        });
+                    }
+
+                }
+            });
         }
     }
 

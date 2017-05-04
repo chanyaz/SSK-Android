@@ -27,8 +27,8 @@ import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.ImsMessage;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
-import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
+import tv.sportssidekick.sportssidekick.events.FullScreenImageEvent;
+import tv.sportssidekick.sportssidekick.events.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**

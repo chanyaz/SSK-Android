@@ -1,6 +1,6 @@
 package tv.sportssidekick.sportssidekick.model.videoChat;
 
-import tv.sportssidekick.sportssidekick.service.BusEvent;
+import tv.sportssidekick.sportssidekick.events.BusEvent;
 
 /**
  * Created by Filip on 3/31/2017.

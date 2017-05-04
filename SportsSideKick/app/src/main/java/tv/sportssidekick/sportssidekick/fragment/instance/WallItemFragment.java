@@ -50,10 +50,10 @@ import tv.sportssidekick.sportssidekick.model.wall.WallModel;
 import tv.sportssidekick.sportssidekick.model.wall.WallNewsShare;
 import tv.sportssidekick.sportssidekick.model.wall.WallPost;
 import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
-import tv.sportssidekick.sportssidekick.service.GetCommentsCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.PostCommentCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
-import tv.sportssidekick.sportssidekick.service.TutorialCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.GetCommentsCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostCommentCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostUpdateEvent;
+import tv.sportssidekick.sportssidekick.events.TutorialCompleteEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 /**

@@ -1,6 +1,6 @@
 package tv.sportssidekick.sportssidekick.model.user;
 
-import tv.sportssidekick.sportssidekick.service.BusEvent;
+import tv.sportssidekick.sportssidekick.events.BusEvent;
 
 /**
  * Created by Nemanja Jovanovic on 24/04/2017.

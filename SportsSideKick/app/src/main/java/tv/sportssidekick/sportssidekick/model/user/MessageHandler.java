@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 
 /**
  * Created by Filip on 3/13/2017.

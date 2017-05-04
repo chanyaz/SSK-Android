@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tv.sportssidekick.sportssidekick.service;
+package tv.sportssidekick.sportssidekick;
 
 import android.content.Context;
 import android.content.SharedPreferences;

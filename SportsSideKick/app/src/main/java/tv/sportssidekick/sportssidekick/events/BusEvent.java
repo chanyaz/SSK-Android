@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.service;
+package tv.sportssidekick.sportssidekick.events;
 
 /**
  * Created by Filip on 12/5/2016.

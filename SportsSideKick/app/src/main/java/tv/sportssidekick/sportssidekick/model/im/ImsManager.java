@@ -29,7 +29,7 @@ import tv.sportssidekick.sportssidekick.model.im.event.CreateNewChatSuccessEvent
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 
 import static tv.sportssidekick.sportssidekick.model.GSConstants.CHATS_INFO;
 import static tv.sportssidekick.sportssidekick.model.GSConstants.CHAT_ID;
@@ -186,6 +186,33 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 .send(consumer);
         return source.getTask();
     }
+
+    Task<List<ChatInfo>> getAllOfficialChats() {
+        final TaskCompletionSource<List<ChatInfo>> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    // Parse response
+                    Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
+                    if(object!=null){
+                        List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>(){});
+                        source.setResult(chats);
+                        return;
+                    }
+                }
+                source.setException(new Exception("There are no official chats!"));
+            }
+        };
+
+        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+                .setEventKey("imsGetAllOfficialChatGroupsList")
+                .setEventAttribute(OFFSET,0)
+                .setEventAttribute(ENTRY_COUNT,50)
+                .send(consumer);
+        return source.getTask();
+    }
+
 
     private void loadUserChats() {
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {

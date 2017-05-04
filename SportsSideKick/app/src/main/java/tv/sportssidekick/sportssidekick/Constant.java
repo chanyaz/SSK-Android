@@ -41,4 +41,6 @@ public class Constant {
     public static final String NOTIFICATION_MESSAGE = "message";
     public static final String NOTIFICATION_TITLE = "title";
     public static final String NOTIFICATION_BODY = "body";
+    public static final String NOTIFICATION_DATA = "SSK_PUSH_NOTIFICATION_DATA";
+    public static final String NOTIFICATION_TYPE = "notificationType";
 }

@@ -8,7 +8,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-import tv.sportssidekick.sportssidekick.service.BusEvent;
+import tv.sportssidekick.sportssidekick.events.BusEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 

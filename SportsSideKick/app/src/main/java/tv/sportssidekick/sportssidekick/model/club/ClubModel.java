@@ -14,12 +14,9 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.Video;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,8 +24,7 @@ import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.model.GSConstants;
-import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
+import tv.sportssidekick.sportssidekick.events.ClubTVEvent;
 
 import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 

@@ -35,12 +35,12 @@ import tv.sportssidekick.sportssidekick.model.friendship.FriendsManager;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.service.GetCommentsCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.GetPostByIdEvent;
-import tv.sportssidekick.sportssidekick.service.PostCommentCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.PostCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
+import tv.sportssidekick.sportssidekick.events.GetCommentsCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.GetPostByIdEvent;
+import tv.sportssidekick.sportssidekick.events.PostCommentCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostLoadCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostUpdateEvent;
 
 import static tv.sportssidekick.sportssidekick.model.Model.createRequest;
 

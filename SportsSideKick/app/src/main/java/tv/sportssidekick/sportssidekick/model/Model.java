@@ -34,8 +34,8 @@ import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.MessageHandler;
 import tv.sportssidekick.sportssidekick.model.user.UserEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.events.GameSparksEvent;
 
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.NONE;
 import static tv.sportssidekick.sportssidekick.model.Model.LoggedInUserType.REAL;
@@ -139,7 +139,26 @@ public class Model {
                 });
     }
 
-    public void markWallTipComplete (String tipId) {
+    public void unRegisterFromPushNotifications(){
+        GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
+                .setDeviceOS("ANDROID")
+                .setPushId(null)
+                .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.PushRegistrationResponse pushRegistrationResponse) {
+                        if(!pushRegistrationResponse.hasErrors()){
+                            String registrationId = pushRegistrationResponse.getRegistrationId();
+                            Log.d(TAG, "Registration id is:" + registrationId);
+                            GSData scriptData = pushRegistrationResponse.getScriptData();
+                        }  else{
+                            Log.e(TAG,"There was an error at registerForPushNotifications call");
+                        }
+
+                    }
+                });
+    }
+
+    public void markWallTipComplete(String tipId) {
         final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersMarkTipComplete");

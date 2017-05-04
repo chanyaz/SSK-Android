@@ -19,7 +19,7 @@ import tv.sportssidekick.sportssidekick.adapter.ClubTVAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.club.ClubModel;
-import tv.sportssidekick.sportssidekick.service.ClubTVEvent;
+import tv.sportssidekick.sportssidekick.events.ClubTVEvent;
 
 /**
  * A simple {@link BaseFragment} subclass.

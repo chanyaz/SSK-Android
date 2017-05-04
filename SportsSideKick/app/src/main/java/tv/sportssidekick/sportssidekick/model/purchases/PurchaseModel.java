@@ -18,7 +18,7 @@ import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 
 /**
  * Created by Filip on 4/20/2017.

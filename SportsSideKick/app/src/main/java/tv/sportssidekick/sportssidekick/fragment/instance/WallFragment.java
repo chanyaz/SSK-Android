@@ -74,10 +74,10 @@ import tv.sportssidekick.sportssidekick.model.wall.WallPost;
 import tv.sportssidekick.sportssidekick.model.wall.WallRumor;
 import tv.sportssidekick.sportssidekick.model.wall.WallStats;
 import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
-import tv.sportssidekick.sportssidekick.service.PostCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.PostLoadCompleteEvent;
-import tv.sportssidekick.sportssidekick.service.PostUpdateEvent;
+import tv.sportssidekick.sportssidekick.events.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.events.PostCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostLoadCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostUpdateEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.StaggeredLayoutManagerItemDecoration;
 

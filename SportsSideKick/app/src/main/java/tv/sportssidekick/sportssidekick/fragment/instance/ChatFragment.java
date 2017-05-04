@@ -82,9 +82,9 @@ import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatsInfoUpdatesEvent;
 import tv.sportssidekick.sportssidekick.model.im.event.CreateNewChatSuccessEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.service.FullScreenImageEvent;
-import tv.sportssidekick.sportssidekick.service.GameSparksEvent;
-import tv.sportssidekick.sportssidekick.service.PlayVideoEvent;
+import tv.sportssidekick.sportssidekick.events.FullScreenImageEvent;
+import tv.sportssidekick.sportssidekick.events.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.events.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;

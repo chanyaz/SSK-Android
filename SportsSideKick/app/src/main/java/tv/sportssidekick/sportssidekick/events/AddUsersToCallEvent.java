@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.service;
+package tv.sportssidekick.sportssidekick.events;
 
 import java.util.List;
 
@@ -10,14 +10,14 @@ import tv.sportssidekick.sportssidekick.model.user.UserInfo;
  * www.hypercubesoft.com
  */
 
-public class StartCallEvent extends BusEvent{
+public class AddUsersToCallEvent extends BusEvent{
 
     public List<UserInfo> getUsers() {
         return users;
     }
 
     private final List<UserInfo> users;
-    public StartCallEvent(List<UserInfo> selectedValues) {
+    public AddUsersToCallEvent(List<UserInfo> selectedValues) {
         super("");
         users = selectedValues;
     }

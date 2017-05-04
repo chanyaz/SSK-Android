@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,8 +54,8 @@ import tv.sportssidekick.sportssidekick.model.videoChat.Slot;
 import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatEvent;
 import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatItem;
 import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatModel;
-import tv.sportssidekick.sportssidekick.service.AddUsersToCallEvent;
-import tv.sportssidekick.sportssidekick.service.StartCallEvent;
+import tv.sportssidekick.sportssidekick.events.AddUsersToCallEvent;
+import tv.sportssidekick.sportssidekick.events.StartCallEvent;
 
 /**
  * Created by Djordje on 01/31/2016.

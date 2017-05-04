@@ -7,7 +7,7 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 
 import org.greenrobot.eventbus.EventBus;
 
-import tv.sportssidekick.sportssidekick.service.GSAndroidPlatform;
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 
 
 /**

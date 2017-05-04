@@ -3,7 +3,7 @@ package tv.sportssidekick.sportssidekick.fragment;
 
 import java.util.ArrayList;
 
-import tv.sportssidekick.sportssidekick.service.BusEvent;
+import tv.sportssidekick.sportssidekick.events.BusEvent;
 
 /**
  * Created by Filip on 12/5/2016.
