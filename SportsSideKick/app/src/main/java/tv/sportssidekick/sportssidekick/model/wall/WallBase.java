@@ -63,6 +63,16 @@ public abstract class WallBase implements Shareable {
     @JsonProperty("coverAspectRatio")
     protected Float coverAspectRatio = 0.5625f;
 
+    private WallAdvert wallNativeAd;
+
+    public WallAdvert getWallNativeAd() {
+        return wallNativeAd;
+    }
+
+    public void setWallNativeAd(WallAdvert wallNativeAd) {
+        this.wallNativeAd = wallNativeAd;
+    }
+
     UserInfo poster;
 
     public UserInfo getPoster() {
