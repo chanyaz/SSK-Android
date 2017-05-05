@@ -59,6 +59,10 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.WallAdapter;
+import tv.sportssidekick.sportssidekick.events.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.events.PostCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostLoadCompleteEvent;
+import tv.sportssidekick.sportssidekick.events.PostUpdateEvent;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.IgnoreBackHandling;
 import tv.sportssidekick.sportssidekick.model.Model;
@@ -74,10 +78,6 @@ import tv.sportssidekick.sportssidekick.model.wall.WallPost;
 import tv.sportssidekick.sportssidekick.model.wall.WallRumor;
 import tv.sportssidekick.sportssidekick.model.wall.WallStats;
 import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
-import tv.sportssidekick.sportssidekick.events.GameSparksEvent;
-import tv.sportssidekick.sportssidekick.events.PostCompleteEvent;
-import tv.sportssidekick.sportssidekick.events.PostLoadCompleteEvent;
-import tv.sportssidekick.sportssidekick.events.PostUpdateEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.StaggeredLayoutManagerItemDecoration;
 
@@ -228,6 +228,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
         return view;
     }
+
+
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick(){
