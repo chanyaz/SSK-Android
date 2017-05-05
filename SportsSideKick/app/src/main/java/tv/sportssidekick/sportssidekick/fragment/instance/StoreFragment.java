@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -42,11 +43,10 @@ public class StoreFragment extends BaseFragment {
     String url;
     WebView webView;
 
-    Button backButton;
-    Button forwardButton;
-    Button refreshButton;
-    Button shareToWallButton;
-    Button closeButton;
+    ImageView backButton;
+    ImageView forwardButton;
+    ImageView shareToWallButton;
+    ImageView homeButton;
     View view;
     AVLoadingIndicatorView progressBar;
     View webContainer;
@@ -77,13 +77,13 @@ public class StoreFragment extends BaseFragment {
                 if (view.getUrl().equals(getResources().getString(R.string.store_url)))
                 {
                     Log.d("WEB VIEW", "Home page!");
-                    closeButton.setVisibility(View.GONE);
+                    homeButton.setVisibility(View.GONE);
                     shareToWallButton.setVisibility(View.GONE);
                 }
                 else
                 {
                     Log.d("WEB VIEW", "Product page!");
-                    closeButton.setVisibility(View.VISIBLE);
+                    homeButton.setVisibility(View.VISIBLE);
                     item = new WallStoreItem();
                     item.setType(WallBase.PostType.wallStoreItem);
                     item.setPoster(Model.getInstance().getUserInfo());
@@ -144,17 +144,15 @@ public class StoreFragment extends BaseFragment {
         progressBar = (AVLoadingIndicatorView) view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
 
-        refreshButton = (Button) view.findViewById(R.id.refresh_button);
-        backButton = (Button) view.findViewById(R.id.back_button);
-        forwardButton = (Button) view.findViewById(R.id.forward_button);
-        shareToWallButton = (Button) view.findViewById(R.id.share_to_wall_button);
-        closeButton = (Button) view.findViewById(R.id.close_button);
+        backButton = (ImageView) view.findViewById(R.id.back_button);
+        forwardButton = (ImageView) view.findViewById(R.id.forward_button);
+        shareToWallButton = (ImageView) view.findViewById(R.id.share_to_wall_button);
+        homeButton = (ImageView) view.findViewById(R.id.home_button);
 
-        refreshButton.setOnClickListener(refreshClickListener);
         backButton.setOnClickListener(goBackClickListener);
         forwardButton.setOnClickListener(goForwardClickListener);
         shareToWallButton.setOnClickListener(shareToWallOnClickListener);
-        closeButton.setOnClickListener(closeButtonOnClickListener);
+        homeButton.setOnClickListener(closeButtonOnClickListener);
 
         return view;
     }
@@ -164,12 +162,6 @@ public class StoreFragment extends BaseFragment {
         withNavigation = true;
     }
 
-    View.OnClickListener refreshClickListener = new View.OnClickListener(){
-        @Override
-        public void onClick(View view) {
-            webView.loadUrl(url);
-        }
-    };
     View.OnClickListener goBackClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
