@@ -327,6 +327,7 @@ public abstract class WallBase implements Shareable {
         wallStoreItem,
         newsOfficial,
         newsUnOfficial,
-        tip
+        tip,
+        nativeAd
     }
 }
