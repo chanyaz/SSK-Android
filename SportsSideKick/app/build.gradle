@@ -122,6 +122,8 @@ dependencies {
     // SnappySmoothScroller - https://github.com/nshmura/SnappySmoothScroller
     compile 'com.nshmura:snappysmoothscroller:1.0.0'
 
+    compile 'com.facebook.android:audience-network-sdk:4.+'
+
     compile 'org.jsoup:jsoup:1.10.2'
 }
 apply plugin: 'com.google.gms.google-services'

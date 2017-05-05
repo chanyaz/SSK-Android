@@ -10,6 +10,7 @@ import com.gamesparks.sdk.api.autogen.GSTypes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.greenrobot.eventbus.EventBus;
 import org.solovyev.android.checkout.Billing;
 
 import java.util.ArrayList;
@@ -28,16 +29,22 @@ import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 
 public class PurchaseModel {
 
+    private static final String PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnTbfN8A" +
+            "arysgU8/LFki9OnZpfkULpW87PQfrIb94QSl4zkSK02BXiCFjBTQbKoTzqPQH68VgsdMJZRAdqzq4oGt5BLd" +
+            "pr/BqmgMAOavxKI6G7rKLTour2gq1+7RUxfZjT94K6+luWKMD/fiODv3eZkWIJkbeetc658phTIejzrulljj" +
+            "KQijfmrsut+vlhQzq84HrGbt9fO9N7iNkxGl0mcR9GZtCi55ay5hnbBC914BXIdOfAdJCoIgX0IAHbVckig0" +
+            "QpclNvB/JP/PmrW0Taz4r8FpSrJbj1GMVg6TeDQhJBCsOxSSH7GPvmN7T4+Gyg5/o4fq4DwZJY9CUrr9+ZQI" +
+            "DAQAB";
 
-    private static Billing billing;
+    private Billing billing;
 
     private static final String TAG = "PURCHASES";
 
-    public static Billing getBilling() {
+    public Billing getBilling() {
         return billing;
     }
 
-    public enum ProductShortCode{
+    private enum ProductShortCode{ // todo - change to GP ids?
         CurrencyBundle10,
         CurrencyBundle100,
         CurrencyBundle200,
@@ -48,16 +55,14 @@ public class PurchaseModel {
         Subscription_Monthly
     }
 
-    public class ProductPrice {
+    private class ProductPrice {
         String currencySymbol = "";
         int price;
     }
 
     private static PurchaseModel instance;
 
-    private PurchaseModel(){
-        updateProductList();
-    }
+    private PurchaseModel(){ }
 
     public static PurchaseModel getInstance(){
         if(instance == null){
@@ -66,21 +71,22 @@ public class PurchaseModel {
         return instance;
     }
 
-    public static void initialize(Context context){
+    public void initialize(Context context){
         billing = new Billing(context, new Billing.DefaultConfiguration() {
+            @NonNull
             @Override
             public String getPublicKey() {
-                return "Your public key, don't forget about encryption"; // TODO Insert public key here!
+                return PUBLIC_KEY;
             }
         });
     }
 
     private boolean canPurchase = false;
-    private int currency = 1; // TODO ?
-    List<GSTypes.VirtualGood> products = new ArrayList<>();
+    private static final int currency = 1; // Get from remote config - GSActiveCurrency ?
+    private List<GSTypes.VirtualGood> products = new ArrayList<>();
 
 
-    public void puchase(ProductShortCode shortCode, int quantity){
+    public void purchase(ProductShortCode shortCode, int quantity){
         if(!canPurchase){
             Log.d(TAG,"Purchase is not available at the moment!");
             return;
@@ -106,7 +112,8 @@ public class PurchaseModel {
                 .send(onVirtualGoodsPurchased);
     }
 
-    GSEventConsumer<GSResponseBuilder.BuyVirtualGoodResponse> onVirtualGoodsPurchased = new GSEventConsumer<GSResponseBuilder.BuyVirtualGoodResponse>() {
+    private GSEventConsumer<GSResponseBuilder.BuyVirtualGoodResponse> onVirtualGoodsPurchased
+            = new GSEventConsumer<GSResponseBuilder.BuyVirtualGoodResponse>() {
         @Override
         public void onEvent(GSResponseBuilder.BuyVirtualGoodResponse response) {
             boolean result = true;
@@ -126,12 +133,14 @@ public class PurchaseModel {
                 return;
             }
 
+            final boolean finalResult = result;
+            final String finalError = error;
             Model.getInstance().refreshUserInfo(Model.getInstance().getUserInfo().getUserId()).addOnCompleteListener(
                     new OnCompleteListener<UserInfo>() {
                         @Override
                         public void onComplete(@NonNull Task<UserInfo> task) {
                             if(task.isSuccessful()){
-//                              self.onPurchaseCompleted.emit(PurchaseResult(purchaseSuccessful: result, error: error)) TODO Throw event!
+                                EventBus.getDefault().post(new PurchaseCompletedEvent(finalResult, finalError));
                                 canPurchase = true;
                             }
                         }
@@ -175,12 +184,15 @@ public class PurchaseModel {
                 return;
             }
 
+            final boolean finalResult = result;
+            final String finalError = error;
             Model.getInstance().refreshUserInfo(Model.getInstance().getUserInfo().getUserId()).addOnCompleteListener(
                     new OnCompleteListener<UserInfo>() {
                         @Override
                         public void onComplete(@NonNull Task<UserInfo> task) {
                             if(task.isSuccessful()){
-//                              self.onProductConsumed.emit(ConsumeResult(consumeSuccessful: result, error: error)) TODO Throw event!
+                                EventBus.getDefault().post(new ProductConsumedEvent(finalResult, finalError));
+
                             }
                         }
                     }
@@ -202,8 +214,8 @@ public class PurchaseModel {
         for(Map.Entry<String,Object> entry : errors.entrySet()){
             if(entry.getKey().contains("error")){
                 error = entry.getKey() + " : " + entry.getValue();
+                break;
             }
-            break;
         }
         return error;
     }
@@ -236,7 +248,7 @@ public class PurchaseModel {
         return new ProductPrice();
     }
 
-    private void updateProductList(){
+    public void updateProductList(){
         canPurchase = false;
         GSAndroidPlatform.gs().getRequestBuilder()
                 .createListVirtualGoodsRequest()

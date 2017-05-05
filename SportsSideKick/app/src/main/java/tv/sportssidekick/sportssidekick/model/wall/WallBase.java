@@ -63,6 +63,16 @@ public abstract class WallBase implements Shareable {
     @JsonProperty("coverAspectRatio")
     protected Float coverAspectRatio = 0.5625f;
 
+    private WallAdvert wallNativeAd;
+
+    public WallAdvert getWallNativeAd() {
+        return wallNativeAd;
+    }
+
+    public void setWallNativeAd(WallAdvert wallNativeAd) {
+        this.wallNativeAd = wallNativeAd;
+    }
+
     UserInfo poster;
 
     public UserInfo getPoster() {
@@ -95,9 +105,7 @@ public abstract class WallBase implements Shareable {
         if (node.has("type") && node.get("type").canConvertToInt()) {
             int typeValue = node.get("type").intValue();
             PostType type = PostType.values()[typeValue - 1];
-            TypeReference typeReference = new TypeReference<WallBase>() {
-            };
-            ;
+            TypeReference typeReference = new TypeReference<WallBase>() {};
             switch (type) {
                 case post:
                     typeReference = new TypeReference<WallPost>() {
@@ -319,6 +327,7 @@ public abstract class WallBase implements Shareable {
         wallStoreItem,
         newsOfficial,
         newsUnOfficial,
-        tip
+        tip,
+        nativeAd
     }
 }

@@ -316,6 +316,7 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
     public void onStart() {
         super.onStart();
         GSAndroidPlatform.gs().start();
+
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }

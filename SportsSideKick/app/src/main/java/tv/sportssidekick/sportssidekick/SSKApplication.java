@@ -61,7 +61,7 @@ public class SSKApplication extends MultiDexApplication {
         SoundEffects.getDefault().initialize(this);
         AWSFileUploader.getInstance().initialize(getApplicationContext());
 
-        PurchaseModel.initialize(this);
+        PurchaseModel.getInstance().initialize(this);
     }
 
     //region AppImage Loader

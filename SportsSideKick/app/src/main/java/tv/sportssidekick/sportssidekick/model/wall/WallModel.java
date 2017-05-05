@@ -127,15 +127,14 @@ public class WallModel extends GSMessageHandlerAbstract {
                     if(jsonArrayOfPosts.size()>0){
                          for(Object postAsJson : jsonArrayOfPosts){
                             WallBase post = WallBase.postFactory(postAsJson, mapper);
-                             if (post!=null)
-                             {
+                             if(post!=null){
                                  post.setSubTitle(userInfo.getNicName());
+                                 postsTotalFetchCount += 1;
+                                 EventBus.getDefault().post(new PostUpdateEvent(post));
+                                 if (toDate != null){
+                                     postsIntervalFetchCount += 1;
+                                 }
                              }
-                            postsTotalFetchCount += 1;
-                            EventBus.getDefault().post(new PostUpdateEvent(post));
-                            if (toDate != null){
-                                postsIntervalFetchCount += 1;
-                            }
                         }
                     }
                     source.setResult(null);
