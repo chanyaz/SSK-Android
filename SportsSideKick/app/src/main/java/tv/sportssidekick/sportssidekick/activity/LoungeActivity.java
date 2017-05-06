@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -85,6 +86,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.notifications.ExternalNotificationEvent;
 import tv.sportssidekick.sportssidekick.model.notifications.InternalNotificationManager;
+import tv.sportssidekick.sportssidekick.model.purchases.PurchaseModel;
 import tv.sportssidekick.sportssidekick.model.sharing.NativeShareEvent;
 import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
@@ -102,7 +104,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static tv.sportssidekick.sportssidekick.util.Utility.checkIfBundlesAreEqual;
 
 
-public class LoungeActivity extends BillingActivity implements LoginStateReceiver.LoginStateListener {
+public class LoungeActivity extends AppCompatActivity implements LoginStateReceiver.LoginStateListener {
 
     public static final String TAG = "Lounge Activity";
     @BindView(R.id.activity_main)
@@ -204,6 +206,8 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
         InternalNotificationManager.getInstance();
         // this part is optional
         facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
+
+        PurchaseModel.getInstance().onCreate(this);
     }
 
     private void toggleBlur(boolean visible) { // TODO Extract to popup base class ?
@@ -376,6 +380,7 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
         fragmentOrganizer.freeUpResources();
         EventBus.getDefault().unregister(this);
         EventBus.getDefault().unregister(loginStateReceiver);
+        PurchaseModel.getInstance().onDestroy();
         super.onDestroy();
     }
 
@@ -487,6 +492,8 @@ public class LoungeActivity extends BillingActivity implements LoginStateReceive
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        PurchaseModel.getInstance().onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Subscribe

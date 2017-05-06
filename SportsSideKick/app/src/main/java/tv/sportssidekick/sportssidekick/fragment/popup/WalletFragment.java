@@ -12,6 +12,7 @@ import butterknife.OnClick;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
+import tv.sportssidekick.sportssidekick.model.purchases.PurchaseModel;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -35,7 +36,37 @@ public class WalletFragment extends BaseFragment{
 
     @OnClick(R.id.bundle_1)
     public void onBundleOneClick(){
-        // TODO
+        PurchaseModel.getInstance().purchase(PurchaseModel.ProductShortCode.CurrencyBundle10);
+    }
+
+    @OnClick(R.id.bundle_2)
+    public void onBundleTwoClick(){
+        PurchaseModel.getInstance().purchase(PurchaseModel.ProductShortCode.CurrencyBundle100);
+    }
+
+    @OnClick(R.id.bundle_3)
+    public void onBundleThreeClick(){
+        PurchaseModel.getInstance().purchase(PurchaseModel.ProductShortCode.CurrencyBundle500);
+    }
+
+    @OnClick(R.id.bundle_4)
+    public void onBundleFourClick(){
+        PurchaseModel.getInstance().purchase(PurchaseModel.ProductShortCode.CurrencyBundle1000);
+    }
+
+    @OnClick(R.id.bundle_5)
+    public void onBundleFiveClick(){
+        PurchaseModel.getInstance().purchase(PurchaseModel.ProductShortCode.CurrencyBundle1500);
+    }
+
+    @OnClick(R.id.monthly_bag_image)
+    public void onMonthlyBagClick(){
+        PurchaseModel.getInstance().purchase(PurchaseModel.ProductShortCode.Bag_OfTheMonth);
+    }
+
+    @OnClick(R.id.subscribe_image)
+    public void onSubscribeClick(){
+        PurchaseModel.getInstance().purchase(PurchaseModel.ProductShortCode.Subscription_Monthly);
     }
 
     @OnClick(R.id.confirm_button)

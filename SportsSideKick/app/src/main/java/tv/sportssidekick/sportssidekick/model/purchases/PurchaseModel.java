@@ -1,6 +1,8 @@
 package tv.sportssidekick.sportssidekick.model.purchases;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -11,15 +13,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
-import org.solovyev.android.checkout.Billing;
+import org.solovyev.android.checkout.*;
+import org.solovyev.android.checkout.Purchase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
+import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 
 /**
  * Created by Filip on 4/20/2017.
@@ -40,11 +45,11 @@ public class PurchaseModel {
 
     private static final String TAG = "PURCHASES";
 
-    public Billing getBilling() {
+    private Billing getBilling() {
         return billing;
     }
 
-    private enum ProductShortCode{ // todo - change to GP ids?
+    public enum ProductShortCode{ // todo - change to GP ids?
         CurrencyBundle10,
         CurrencyBundle100,
         CurrencyBundle200,
@@ -55,9 +60,19 @@ public class PurchaseModel {
         Subscription_Monthly
     }
 
+//    public enum ProductShortCode{
+//        pack1,
+//        pack2,
+//        pack3,
+//        pack4,
+//        pack5,
+//        subscription_monthly,
+//        bagofthemonth
+//    }
+
     private class ProductPrice {
         String currencySymbol = "";
-        int price;
+        float price;
     }
 
     private static PurchaseModel instance;
@@ -83,10 +98,10 @@ public class PurchaseModel {
 
     private boolean canPurchase = false;
     private static final int currency = 1; // Get from remote config - GSActiveCurrency ?
-    private List<GSTypes.VirtualGood> products = new ArrayList<>();
+    private List<GSTypes.VirtualGood> virtualGoods = new ArrayList<>();
 
 
-    public void purchase(ProductShortCode shortCode, int quantity){
+    public void purchase(ProductShortCode shortCode){
         if(!canPurchase){
             Log.d(TAG,"Purchase is not available at the moment!");
             return;
@@ -98,16 +113,24 @@ public class PurchaseModel {
             return;
         }
 
-        String androidId = product.getGooglePlayProductId();
-        if(androidId==null){
-            Log.d(TAG," Diverting to IAPManager to pay on Google Play first!");
-//          iapManager.purchase(productId: iosId) TODO Start purchase!
+        final String androidId = product.getGooglePlayProductId();
+
+        if(androidId!=null){
+            Log.d(TAG," Diverting to Billing to pay on Google Play first!");
+
+            activityCheckout.whenReady(new Checkout.EmptyListener() {
+                @Override
+                public void onReady(BillingRequests requests) {
+                    requests.purchase(ProductTypes.IN_APP, androidId, null, activityCheckout.getPurchaseFlow());
+                }
+            });
             return;
         }
+
         GSAndroidPlatform.gs().getRequestBuilder()
                 .createBuyVirtualGoodsRequest()
                 .setCurrencyType(currency)
-                .setQuantity(quantity)
+                .setQuantity(1)
                 .setShortCode(shortCode.name())
                 .send(onVirtualGoodsPurchased);
     }
@@ -156,7 +179,6 @@ public class PurchaseModel {
             return;
         }
 
-
         GSAndroidPlatform.gs().getRequestBuilder()
                 .createConsumeVirtualGoodRequest()
                 .setQuantity(quantity)
@@ -201,7 +223,7 @@ public class PurchaseModel {
     };
 
     private GSTypes.VirtualGood getProductByShortCode(String shortCode){
-        for(GSTypes.VirtualGood product : products){
+        for(GSTypes.VirtualGood product : virtualGoods){
             if(product.getShortCode().equals(shortCode)){
                 return product;
             }
@@ -233,19 +255,22 @@ public class PurchaseModel {
             Log.d(TAG," Diverting to IAPManager to pay on Google Play first!");
             return null;
         }
-//        guard let iTunesProduct = self.iapManager.products[iosId] else {
-//            return nil
-//        }
-//
-//        return ProductPrice(
-//                currencySymbol: iTunesProduct.priceLocale.currencySymbol ?? "",
-//                price: iTunesProduct.price
-//        )
-        // TODO Extract product price info from Google Play!
+
+        Inventory.Product googlePlayProduct = googlePlayProducts.get(androidId);
+
+        // Extract product price info from Google Play product
         ProductPrice productPrice = new ProductPrice();
-        productPrice.price = 0;
-        productPrice.currencySymbol="$";
-        return new ProductPrice();
+
+        Sku sku = googlePlayProduct.getSku(androidId);
+        if(sku!=null){
+            productPrice.price = Float.parseFloat(sku.price);
+            productPrice.currencySymbol=sku.detailedPrice.currency;
+            return new ProductPrice();
+        } else {
+            return null;
+        }
+
+
     }
 
     public void updateProductList(){
@@ -260,7 +285,7 @@ public class PurchaseModel {
                             if(goods==null){
                                 Log.d(TAG,"No virtual goods configured on GS!");
                             } else {
-                                products = goods;
+                                virtualGoods = goods;
                                 extractProductIds();
                             }
                         }
@@ -269,32 +294,78 @@ public class PurchaseModel {
     }
 
     /**
-     * Extract the Google Play product id's here and pass them to the IAPManager to retreive
+     * Extract the Google Play product id's here and pass them to the Billing to retrieve
      * the list from Google Play
      */
     private void extractProductIds() {
         List<String> productIds = new ArrayList<>();
-        for(GSTypes.VirtualGood product : products){
+        for(GSTypes.VirtualGood product : virtualGoods){
             String productId = product.getGooglePlayProductId();
             if(productId!=null){
                 productIds.add(productId);
             }
-//            self.iapManager.getProductsBy(productIds: productIds) TODO Get products info from Google Play!
         }
+        //Get virtualGoods info from Google Play!
+        inventory.load(Inventory.Request.create()
+                .loadAllPurchases()
+                .loadSkus(ProductTypes.IN_APP, productIds), new InventoryCallback());
     }
 
     public void onProductListUpdated(){
         canPurchase = true;
     }
 
-    // TODO Check this?
-    public void onReceiptRefreshed(String receipt){
-        GSAndroidPlatform.gs().getRequestBuilder()
-                .createGooglePlayBuyGoodsRequest()
-                .setRequestId("") // TODO Check this?
-                .setSignature("") // TODO Check this?
-                .setSignedData("") // TODO Check this?
-                .setUniqueTransactionByPlayer(false)
-                .send(onVirtualGoodsPurchased);
+    /**
+     *  Activity methods
+     */
+
+    private ActivityCheckout activityCheckout;
+    private Inventory inventory;
+    private Inventory.Products googlePlayProducts;
+
+    private class PurchaseListener extends EmptyRequestListener<org.solovyev.android.checkout.Purchase> {
+        // your code here
+
+        @Override
+        public void onError(int response, @Nonnull Exception e) {
+            super.onError(response, e);
+        }
+
+        @Override
+        public void onSuccess(@Nonnull Purchase result) {
+            super.onSuccess(result);
+
+            GSAndroidPlatform.gs().getRequestBuilder()
+                    .createGooglePlayBuyGoodsRequest()
+                    .setRequestId(result.orderId)
+                    .setSignature(result.signature)
+                    .setSignedData(result.data)
+                    .setUniqueTransactionByPlayer(false)
+                    .send(onVirtualGoodsPurchased);
+        }
+    }
+
+    private class InventoryCallback implements Inventory.Callback {
+        @Override
+        public void onLoaded(Inventory.Products products) {
+            Log.d(TAG, "Loaded virtualGoods count: " + products.size());
+            getInstance().googlePlayProducts = products;
+            onProductListUpdated();
+        }
+    }
+
+    public void onCreate(Activity activity) {
+        activityCheckout = Checkout.forActivity(activity, PurchaseModel.getInstance().getBilling());
+        activityCheckout.start();
+        activityCheckout.createPurchaseFlow(new PurchaseListener());
+        inventory = activityCheckout.makeInventory();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        activityCheckout.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void onDestroy() {
+        activityCheckout.stop();
     }
 }

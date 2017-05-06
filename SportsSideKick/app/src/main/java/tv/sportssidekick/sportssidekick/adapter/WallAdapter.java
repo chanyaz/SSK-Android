@@ -110,7 +110,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @BindView(R.id.wall_native_ad_social_context)
         TextView nativeAdSocialContext;
 
-
         ViewHolder(View v) {
             super(v);
             view = v;
@@ -133,7 +132,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     private void initializeNativeAdManagerAndRequestAds(int adsFrequency) {
         // Initialize a NativeAdsManager and request a number of ads
-        AdSettings.addTestDevice("1669b3492b83373dc025ed1cc9943c63");
+        AdSettings.addTestDevice("1669b3492b83373dc025ed1cc9943c63"); //samsung tablet
+        AdSettings.addTestDevice("9d381cd4828b3659af83f6c494b452e8"); //kindle tablet
         manager = new NativeAdsManager(context, "102782376855276_240749436391902", ADS_COUNT);
         manager.setListener(new NativeAdsManager.Listener() {
             @Override
@@ -155,7 +155,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     @Override
-    public WallAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         int viewResourceId;
         if(viewType == WALL_ADVERT_VIEW_TYPE){
             viewResourceId = R.layout.wall_native_ad;
@@ -183,13 +183,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
 
         View view = LayoutInflater.from(parent.getContext()).inflate(viewResourceId, parent, false);
-        return new WallAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
 
     @Override
-    public void onBindViewHolder(final WallAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         if(isAdvert(position)){
             // this is advert, show it!
             final NativeAd advert = manager.nextNativeAd();
