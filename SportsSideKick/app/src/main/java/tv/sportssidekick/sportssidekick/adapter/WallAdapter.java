@@ -51,7 +51,7 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 
 public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     private static final String TAG = "WallAdapter";
-    private static final int ADS_INTERVAL = 3;
+    private static final int ADS_INTERVAL = 5;
     private static final int ADS_COUNT = 10;
     private static final int WALL_ADVERT_VIEW_TYPE = 10005;
 

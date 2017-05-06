@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.22.1'
     }
 }
 apply plugin: 'com.android.application'
@@ -17,7 +17,7 @@ repositories {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '25.0.3'
     defaultConfig {
         applicationId "tv.sportssidekick.sportssidekick"
         minSdkVersion 17
@@ -77,13 +77,12 @@ dependencies {
 
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:percent:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
 
-    // We need Firebase for Push notifications!
-    compile 'com.google.firebase:firebase-core:10.2.1'
-    compile 'com.google.firebase:firebase-messaging:10.2.1'
+//    // We need Firebase for Push notifications!
+    compile 'com.google.firebase:firebase-core:10.2.4'
+    compile 'com.google.firebase:firebase-messaging:10.2.4'
 
     compile 'com.google.http-client:google-http-client-android:1.20.0'
     compile 'com.google.api-client:google-api-client-android:1.20.0'
@@ -94,10 +93,10 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.twilio:video-android:1.0.0-beta15'
-    compile 'com.facebook.android:facebook-android-sdk:4.20.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.22.0'
 
-    compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-s3:2.2.+'
+    compile 'com.amazonaws:aws-android-sdk-core:2.4.2'
+    compile 'com.amazonaws:aws-android-sdk-s3:2.4.2'
 
     compile 'com.github.lzyzsd:circleprogress:+'
     compile 'com.gamesparks.sdk:gamesparks-java-sdk:+'
@@ -122,7 +121,9 @@ dependencies {
     // SnappySmoothScroller - https://github.com/nshmura/SnappySmoothScroller
     compile 'com.nshmura:snappysmoothscroller:1.0.0'
 
-    compile 'com.facebook.android:audience-network-sdk:4.+'
+    compile ('com.facebook.android:audience-network-sdk:4.22.0'){
+        exclude group: 'com.google.android.gms'
+    }
 
     compile 'org.jsoup:jsoup:1.10.2'
 }
