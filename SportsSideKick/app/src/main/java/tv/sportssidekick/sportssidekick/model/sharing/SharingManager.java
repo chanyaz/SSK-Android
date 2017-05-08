@@ -188,7 +188,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                     Map<String,Object> data = response.getScriptData().getBaseData();
                     source.setResult(data);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to get a share url."));
                 }
             }
         };
@@ -263,22 +263,22 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                 if (!response.hasErrors()) {
                     Map<String,Object> data = response.getScriptData().getBaseData();
                     if(data==null){
-                        source.setException(new Exception());
+                        source.setException(new Exception("There was an error while trying to increment the share count."));
                         return;
                     }
                     if(data.containsKey("success")){
                         if(!(Boolean)data.get("success")){
-                            source.setException(new Exception());
+                            source.setException(new Exception("There was an error while trying to increment the share count."));
                             return;
                         }
                     }
                     if(!data.containsKey("item")){
-                        source.setException(new Exception());
+                        source.setException(new Exception("There was an error while trying to increment the share count."));
                         return;
                     }
                     source.setResult(data);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to increment the share count."));
                 }
             }
         };

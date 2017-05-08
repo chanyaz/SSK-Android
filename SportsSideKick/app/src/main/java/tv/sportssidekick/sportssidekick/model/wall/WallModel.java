@@ -138,9 +138,9 @@ public class WallModel extends GSMessageHandlerAbstract {
                         }
                     }
                     source.setResult(null);
-                }  else {
-                    source.setException(new Exception());
+                    return;
                 }
+                source.setException(new Exception("There was an error while trying to get user's posts."));
             }
         };
        GSRequestBuilder.LogEventRequest request = createRequest("wallGetUserPosts")

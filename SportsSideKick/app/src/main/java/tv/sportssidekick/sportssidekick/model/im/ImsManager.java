@@ -266,7 +266,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                     EventBus.getDefault().post(new ChatsInfoUpdatesEvent(getUserChatsList()));
                     EventBus.getDefault().post(new CreateNewChatSuccessEvent(chatInfo));
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to create a new chat."));
                 }
             }
         };
@@ -296,7 +296,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 chatInfo.setEqualTo(newChatInfo);
                 source.setResult(chatInfo);
             } else {
-                source.setException(new Exception());
+                source.setException(new Exception("There was an error while trying to update a chat."));
             }
             }
         };
@@ -322,7 +322,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 chatInfo.loadMessages();
                 source.setResult(chatInfo);
             } else {
-                source.setException(new Exception());
+                source.setException(new Exception("There was an error while trying to join a chat."));
             }
             EventBus.getDefault().post(new ChatsInfoUpdatesEvent(getUserChatsList()));
             }

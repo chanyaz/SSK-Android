@@ -65,7 +65,7 @@ public class PeopleSearchManager {
                     }
                     source.setResult(friends);
                 }  else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to search users."));
                 }
             }
         };
