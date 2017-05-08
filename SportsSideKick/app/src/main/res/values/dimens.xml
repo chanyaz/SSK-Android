@@ -25,7 +25,7 @@
 
     <dimen name="progress_bar_width">30dp</dimen>
     <dimen name="progress_bar_height">30dp</dimen>
-    
+
     <dimen name="main_buttons_bar_width">80dp</dimen>
     <dimen name="main_buttons_bar_height">48dp</dimen>
 
@@ -97,4 +97,110 @@
     <dimen name="row_friends_notification_bubble_size">32dp</dimen>
 
     <dimen name="row_chat_bubble_user_size">60dp</dimen>
+    <dimen name="space_0">0dp</dimen>
+    <dimen name="font_size_28">28sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_10">10sp</dimen>
+
+    <dimen name="padding_2">2dp</dimen>
+    <dimen name="margin_negative_20">-20dp</dimen>
+    <dimen name="line_space_negative_5">-5dp</dimen>
+    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="margin_negative_19">-19dp</dimen>
+    <dimen name="font_size_8">8sp</dimen>
+    <dimen name="elevation_2">2dp</dimen>
+
+    <dimen name="width_360">360dp</dimen>
+    <dimen name="width_80">80dp</dimen>
+    <dimen name="width_60">60dp</dimen>
+    <dimen name="width_15">15dp</dimen>
+
+    <dimen name="height_60">60dp</dimen>
+    <dimen name="height_15">15dp</dimen>
+
+    <dimen name="image_border_width_2">2dp</dimen>
+    <dimen name="width_20">20dp</dimen>
+    <dimen name="height_20">20dp</dimen>
+    <dimen name="font_size_9">9sp</dimen>
+    <dimen name="padding_4">4dp</dimen>
+    <dimen name="height_2">2dp</dimen>
+    <dimen name="margin_negative_48">-48dp</dimen>
+    <dimen name="width_3">3dp</dimen>
+    <dimen name="margin_105">105dp</dimen>
+    <dimen name="width_40">40dp</dimen>
+    <dimen name="height_40">40dp</dimen>
+    <dimen name="height_16">16dp</dimen>
+    <dimen name="thumb_offset_0">0px</dimen>
+    <dimen name="margin_negative_18">-18dp</dimen>
+    <dimen name="margin_negative_16">-16dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="height_1">1dp</dimen>
+    <dimen name="height_500">500dp</dimen>
+    <dimen name="width_500">500dp</dimen>
+    <dimen name="height_200">200dp</dimen>
+    <dimen name="font_size_22">22sp</dimen>
+    <dimen name="width_26">26dp</dimen>
+    <dimen name="height_26">26dp</dimen>
+    <dimen name="font_size_18">18sp</dimen>
+    <dimen name="width_160">160dp</dimen>
+    <dimen name="height_90">90dp</dimen>
+    <dimen name="margin_negative_10">-10dp</dimen>
+    <dimen name="width_50">50dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
+    <dimen name="width_35">35dp</dimen>
+    <dimen name="height_35">35dp</dimen>
+    <dimen name="width_25">25dp</dimen>
+    <dimen name="font_size_36">36sp</dimen>
+    <dimen name="height_50">50dp</dimen>
+    <dimen name="font_size_26">26sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="width_85">85dp</dimen>
+    <dimen name="height_25">25dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="width_2">2dp</dimen>
+    <dimen name="height_3dp">3dp</dimen>
+    <dimen name="font_size_11">11sp</dimen>
+    <dimen name="height_80">80dp</dimen>
+    <dimen name="width_290">290dp</dimen>
+    <dimen name="height_150">150dp</dimen>
+    <dimen name="width_1">1dp</dimen>
+    <dimen name="font_size_25">25sp</dimen>
+    <dimen name="margin_negative_5">-5dp</dimen>
+    <dimen name="height_300">300dp</dimen>
+    <dimen name="height_400">400dp</dimen>
+    <dimen name="width_400">400dp</dimen>
+    <dimen name="height_48">48dp</dimen>
+    <dimen name="margin_1">1dp</dimen>
+    <dimen name="margin_negative">-30dp</dimen>
+    <dimen name="height_350">350dp</dimen>
+    <dimen name="margin_negative_17">-17dp</dimen>
+    <dimen name="font_size_20">20sp</dimen>
+    <dimen name="font_size_19">19sp</dimen>
+    <dimen name="margin_negative_2">-2dp</dimen>
+    <dimen name="padding_3">3dp</dimen>
+    <dimen name="font_size_15">15sp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_negative_100">-100dp</dimen>
+    <dimen name="height_55">55dp</dimen>
+    <dimen name="width_5">5dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="height_70">70dp</dimen>
+    <dimen name="width_70">70dp</dimen>
+    <dimen name="width_4">4dp</dimen>
+    <dimen name="font_size_48">48sp</dimen>
+    <dimen name="width_90">90dp</dimen>
+    <dimen name="width_48">48dp</dimen>
+    <dimen name="width_62">62dp</dimen>
+    <dimen name="height_62">62dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="height_230">230dp</dimen>
+    <dimen name="height_130">130dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="width_55">55dp</dimen>
+    <dimen name="height_30">30dp</dimen>
+    <dimen name="height_240">240dp</dimen>
+    <dimen name="width_230">230dp</dimen>
+    <dimen name="height_120">120dp</dimen>
+
+
 </resources>

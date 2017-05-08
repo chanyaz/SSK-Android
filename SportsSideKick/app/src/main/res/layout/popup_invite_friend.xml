@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="500dp"
-    android:layout_height="300dp"
+    android:layout_width="@dimen/width_500"
+    android:layout_height="@dimen/height_300"
     android:layout_marginBottom="@dimen/margin_60"
     android:layout_marginEnd="@dimen/margin_90"
     android:layout_marginStart="@dimen/margin_90"
@@ -19,7 +19,7 @@
 
         <View
             android:id="@+id/top_vertical_spliter"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/standard_button_height"
             android:layout_centerHorizontal="true" />
 
@@ -44,7 +44,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/height_2"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toStartOf="@+id/top_vertical_spliter"
@@ -52,7 +52,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/height_2"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/top_vertical_spliter"
@@ -65,27 +65,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_buttons_container"
-        android:padding="@dimen/margin_20"
         android:background="@color/colorPrimarySemiLight"
+        android:padding="@dimen/margin_20"
         android:visibility="visible">
 
         <EditText
             android:id="@+id/invite_friend_name"
             style="@style/edit_text_login"
-            android:layout_width="290dp"
+            android:layout_width="@dimen/width_290"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:textAlignment="textStart"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
+            android:inputType="text"
+            android:textAlignment="textStart" />
 
         <TextView
             android:id="@+id/caption_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="@dimen/margin_10"
-            android:layout_toLeftOf="@id/invite_friend_name"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_toStartOf="@id/invite_friend_name"
             android:maxLines="2"
             android:text="@string/enter_friend_name_invite"
             android:textColor="@color/wall_shop_description_background" />
@@ -110,16 +110,16 @@
             android:layout_centerInParent="true"
             android:text="@string/invite"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+            android:textSize="@dimen/font_size_18" />
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/invvite_progress_bar"
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
-            android:elevation="2dp"
-            app:indicatorName="LineSpinFadeLoaderIndicator"
             android:layout_centerInParent="true"
-            android:visibility="gone"/>
+            android:elevation="@dimen/elevation_2"
+            android:visibility="gone"
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     </RelativeLayout>
 

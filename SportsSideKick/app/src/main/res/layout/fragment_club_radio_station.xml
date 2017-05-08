@@ -10,10 +10,10 @@
         android:id="@+id/video_player_dummy_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="105dp">
+        android:layout_marginEnd="@dimen/margin_105">
         <View
             android:id="@+id/youtube_layout"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/margin_16"
             android:visibility="invisible"
             app:layout_aspectRatio="178%"
             app:layout_widthPercent="100%"/>
@@ -30,10 +30,10 @@
 
     <Button
         android:id="@+id/close_button"
-        android:layout_width="40dp"
+        android:layout_width="@dimen/width_40"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/height_40"
         android:background="@drawable/ic_close"/>
 
     <TextView
@@ -46,9 +46,10 @@
         android:background="@color/green_dark_2_semitransparent"
         android:gravity="start|center_vertical"
         android:paddingStart="@dimen/padding_16"
+        android:paddingEnd="@dimen/space_0"
         android:text="@string/club_radio_caption"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="@dimen/font_size_16" />
 
     <RelativeLayout
         android:id="@+id/controls_container"
@@ -84,8 +85,8 @@
 
         <View
             android:id="@+id/center"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/space_0"
             android:layout_centerInParent="true"/>
         <ImageView
             android:id="@+id/mute_button"
@@ -102,13 +103,13 @@
             android:id="@+id/seek_bar_audio"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
+            android:layout_height="@dimen/height_16"
             android:layout_marginEnd="@dimen/margin_20"
             android:thumb="@null"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/mute_button"
-            android:thumbOffset="0px"
-            android:progress="50"
+            android:thumbOffset="@dimen/thumb_offset_0"
+            android:progress="@integer/progress_bar_mid"
             android:progressDrawable="@drawable/seek_bar_audio" />
     </RelativeLayout>
 
@@ -116,15 +117,15 @@
         android:id="@+id/seek_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
+        android:layout_height="@dimen/height_16"
         android:layout_alignEnd="@+id/controls_container"
         android:layout_alignStart="@+id/controls_container"
         android:layout_above="@+id/controls_container"
         android:thumb="@null"
-        android:layout_marginEnd="-18dp"
-        android:layout_marginStart="-16dp"
-        android:thumbOffset="0px"
-        android:progress="100"
+        android:layout_marginEnd="@dimen/margin_negative_18"
+        android:layout_marginStart="@dimen/margin_negative_16"
+        android:thumbOffset="@dimen/thumb_offset_0"
+        android:progress="@integer/progress_bar_max"
         android:progressDrawable="@drawable/seek_bar_custom" />
 
 </RelativeLayout>

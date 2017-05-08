@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/row_wall_shop_image_container"
         android:background="@color/wall_shop_description_background"
-        android:padding="8dp">
+        android:padding="@dimen/padding_8">
 
         <TextView
             android:id="@+id/caption"
@@ -45,7 +45,7 @@
 
         <View
             android:id="@+id/price_divider"
-            android:layout_width="2dp"
+            android:layout_width="@dimen/width_2"
             android:layout_height="match_parent"
             android:visibility="gone"
             android:layout_alignBottom="@id/caption"

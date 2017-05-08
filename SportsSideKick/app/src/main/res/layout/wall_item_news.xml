@@ -12,17 +12,17 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/wall_demo_photo"
+            android:layout_centerInParent="true"
             android:adjustViewBounds="true"
-            android:layout_centerInParent="true"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/wall_demo_photo" />
 
         <ImageView
             android:id="@+id/play_button"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
+            android:layout_width="@dimen/width_62"
+            android:layout_height="@dimen/height_62"
             android:layout_centerInParent="true"
-            android:background="@drawable/ic_post_play"/>
+            android:background="@drawable/ic_post_play" />
 
     </RelativeLayout>
 
@@ -32,84 +32,85 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/image_container"
         android:background="@color/white">
-    <TextView
-        android:id="@+id/caption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:minLines="2"
-        android:padding="@dimen/padding_8"
-        android:textColor="@color/colorPrimaryLight"
-
-        android:text="A falsis, silva noster competition.Turpis albus accola est.Est domesticus historia, cesaris.Parma, stella, et valebat."/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/caption"
-        android:paddingBottom="@dimen/padding_8"
-        android:paddingStart="@dimen/padding_8"
-        android:paddingEnd="@dimen/padding_8">
-
-        <LinearLayout
-            android:id="@+id/row_wall_post_comments_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/row_wall_post_comments_icon"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:background="@drawable/ic_comment"
-                android:layout_marginEnd="4dp"/>
-
-            <TextView
-                android:id="@+id/row_wall_post_comments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="204"
-                android:textColor="@color/wall_comment_color"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/row_wall_post_likes_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/row_wall_post_comments_container"
-            android:gravity="center"
-            android:layout_marginEnd="@dimen/padding_8">
-
-            <ImageView
-                android:id="@+id/row_wall_post_likes_icon"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:background="@drawable/ic_like"
-                android:layout_marginEnd="4dp"/>
-
-            <TextView
-                android:id="@+id/row_wall_post_likes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/wall_comment_color"/>
-        </LinearLayout>
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/row_wall_post_likes_container"
-            android:maxLines="1"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:textColor="@color/lightGrey"/>
-    </RelativeLayout>
+            android:maxLines="2"
+            android:minLines="2"
+            android:padding="@dimen/padding_8"
+            android:text="A falsis, silva noster competition.Turpis albus accola est.Est domesticus historia, cesaris.Parma, stella, et valebat."
+
+            android:textColor="@color/colorPrimaryLight" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/caption"
+            android:paddingBottom="@dimen/padding_8"
+            android:paddingEnd="@dimen/padding_8"
+            android:paddingStart="@dimen/padding_8">
+
+            <LinearLayout
+                android:id="@+id/row_wall_post_comments_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/row_wall_post_comments_icon"
+                    android:layout_width="@dimen/width_26"
+                    android:layout_height="@dimen/height_26"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    android:background="@drawable/ic_comment" />
+
+                <TextView
+                    android:id="@+id/row_wall_post_comments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="204"
+                    android:textColor="@color/wall_comment_color" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row_wall_post_likes_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/padding_8"
+                android:layout_toStartOf="@id/row_wall_post_comments_container"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/row_wall_post_likes_icon"
+                    android:layout_width="@dimen/width_26"
+                    android:layout_height="@dimen/height_26"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    android:background="@drawable/ic_like" />
+
+                <TextView
+                    android:id="@+id/row_wall_post_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/wall_comment_color" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/row_wall_post_likes_container"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="@color/lightGrey" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

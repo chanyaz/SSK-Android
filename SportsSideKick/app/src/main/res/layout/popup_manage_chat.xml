@@ -12,7 +12,7 @@
 
     <View
         android:id="@+id/top_vertical_spliter"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/space_0"
         android:layout_height="@dimen/standard_button_height"
         android:layout_centerHorizontal="true" />
 
@@ -25,14 +25,14 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_toEndOf="@+id/top_caption"
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/popup_manage_chat_elemnt_height"
         android:layout_below="@+id/top_caption"
-        android:layout_marginStart="-30dp"
+        android:layout_marginStart="@dimen/margin_negative"
         android:layout_toEndOf="@+id/chat_name_label"
         android:background="@color/green_dark_2"
         android:gravity="start|center_vertical"
@@ -95,7 +95,7 @@
     <View
         android:id="@+id/bottom_split_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height_1"
         android:background="@android:color/black"
         android:layout_above="@+id/manage_chat_bottom_container"/>
 

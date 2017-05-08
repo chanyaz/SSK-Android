@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/play_button"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
+            android:layout_width="@dimen/width_62"
+            android:layout_height="@dimen/height_62"
             android:layout_centerInParent="true"
             android:background="@drawable/ic_post_play" />
 
@@ -51,7 +51,7 @@
             android:layout_toEndOf="@+id/marker"
             android:padding="@dimen/padding_8"
             android:ellipsize="end"
-            android:textSize="16sp"
+            android:textSize="@dimen/font_size_16"
             android:text="A falsis, silva noster competition.Turpis albus accola est.Est domesticustition.Turpis albus accola est.Est domesticustition.Turpis albus accola est.Est domesticus historia, cesaris.Parma, stella, et valebat."
             android:textColor="@color/white" />
 

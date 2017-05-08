@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="500dp"
+    android:layout_width="@dimen/width_500"
     android:layout_height="wrap_content"
     android:background="@drawable/popup_bottom_background"
     android:clickable="true">
@@ -28,7 +28,7 @@
         android:textColor="@color/colorAccent" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:background="@color/colorAccent" />
 
@@ -37,7 +37,7 @@
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height_1"
         android:layout_below="@+id/edit_profile_top_container"
         android:background="@android:color/black" />
 
@@ -66,14 +66,14 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
-            android:layout_width="80dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="@dimen/width_80"
+            android:layout_marginTop="@dimen/margin_8"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/margin_8"
             android:src="@drawable/blank_profile_rounded"
             android:layout_below="@+id/edit_photo_caption"
             android:layout_marginEnd="@dimen/coin_lateral_margin"
-            android:layout_height="80dp" />
+            android:layout_height="@dimen/height_80" />
 
         <Button
             android:id="@+id/camera_button"
@@ -84,8 +84,8 @@
             android:background="@drawable/button_camera" />
         <View
             android:id="@+id/center_of_profile_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/space_0"
             android:layout_centerInParent="true"/>
         <Button
             android:id="@+id/picture_button"
@@ -98,8 +98,8 @@
 
     <View
         android:id="@+id/center"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/space_0"
+        android:layout_height="@dimen/space_0"
         android:layout_centerInParent="true"/>
 
     <TextView
@@ -160,7 +160,7 @@
         android:layout_alignBaseline="@+id/first_name_caption"
         android:labelFor="@+id/first_name_caption"
         android:layout_toEndOf="@+id/center"
-        android:textSize="12sp"
+        android:textSize="@dimen/font_size_12"
         android:layout_width="match_parent"
         android:nextFocusForward="@+id/last_name_edit_text"
         android:lines="1"
@@ -179,7 +179,7 @@
         android:layout_alignBaseline="@+id/last_name_caption"
         android:labelFor="@+id/last_name_caption"
         android:nextFocusForward="@+id/nickname_edit_text"
-        android:textSize="12sp"
+        android:textSize="@dimen/font_size_12"
         android:layout_toEndOf="@+id/center"
         android:layout_width="match_parent"
         android:lines="1"
@@ -202,7 +202,7 @@
         android:layout_width="match_parent"
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_10"
-        android:textSize="12sp"
+        android:textSize="@dimen/font_size_12"
         android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:maxLines="1"
@@ -220,7 +220,7 @@
         android:layout_width="match_parent"
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_10"
-        android:textSize="12sp"
+        android:textSize="@dimen/font_size_12"
         android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:maxLines="1"
@@ -239,7 +239,7 @@
         android:lines="1"
         android:layout_marginStart="@dimen/margin_10"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="@dimen/font_size_12"
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:inputType="phone"
@@ -258,7 +258,7 @@
         <View
             android:id="@+id/bottom_split_line"
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/height_1"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"

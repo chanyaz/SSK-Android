@@ -22,7 +22,7 @@
         android:gravity="center"
         android:text="@string/no_message_text"
         android:textColor="@color/white"
-        android:textSize="10sp" />
+        android:textSize="@dimen/font_size_10" />
 
 
     <RelativeLayout
@@ -49,7 +49,7 @@
             android:layout_height="@dimen/margin_20"
             android:layout_below="@+id/chat_heads_view"
             android:background="@color/colorPrimarySemiLight"
-            android:padding="4dp"
+            android:padding="@dimen/padding_4"
             android:src="@drawable/down_arrow"
             android:tint="@color/colorPrimaryLight"
             android:visibility="gone" />
@@ -66,7 +66,7 @@
             android:gravity="center"
             android:lines="1"
             android:textColor="@color/white_semitransparent"
-            android:textSize="10sp" />
+            android:textSize="@dimen/font_size_10" />
     </RelativeLayout>
 
     <!-- Messages container -->
@@ -76,7 +76,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/input_container"
         android:layout_below="@+id/chat_info_line"
-        android:layout_marginTop="-48dp">
+        android:layout_marginTop="@dimen/margin_negative_48">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/message_container"
@@ -89,7 +89,7 @@
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
-        android:elevation="2dp"
+        android:elevation="@dimen/elevation_2"
         android:visibility="gone"
         app:indicatorName="LineSpinFadeLoaderIndicator" />
 
@@ -142,7 +142,7 @@
 
             <View
                 android:id="@+id/chat_menu_divider"
-                android:layout_width="3dp"
+                android:layout_width="@dimen/width_3"
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/image_button"
                 android:background="@color/white" />
@@ -172,7 +172,7 @@
                 android:animateLayoutChanges="true"
                 android:background="@color/chat_input_edit_text_background"
                 android:gravity="start|center_vertical"
-                android:hint="Enter your message here..."
+                android:hint="@string/chat_hint"
                 android:imeActionId="@+id/action_send_message_id"
                 android:imeActionLabel="Send"
                 android:imeOptions="actionSend"
@@ -182,7 +182,7 @@
                 android:privateImeOptions=""
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorPrimarySemiLight"
-                android:textSize="10sp" />
+                android:textSize="@dimen/font_size_10" />
 
         </RelativeLayout>
 
@@ -205,7 +205,6 @@
             android:gravity="center"
             android:padding="@dimen/half_margin"
             android:visibility="gone"
-
             android:weightSum="0.9">
 
             <TextView
@@ -219,7 +218,7 @@
                 android:background="@drawable/textview_round_border"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
-                android:text="Create"
+                android:text="@string/create"
                 android:textColor="@color/white" />
 
             <TextView
@@ -265,9 +264,9 @@
             android:id="@+id/video_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_above="@+id/vide_download_image_button"
             android:layout_below="@+id/video_close_image_button"
-            android:layout_above="@+id/vide_download_image_button"/>
+            android:layout_centerInParent="true" />
 
         <ImageView
             android:id="@+id/video_close_image_button"
@@ -275,7 +274,7 @@
             android:layout_height="@dimen/chat_button_size"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
             android:src="@drawable/video_close_button" />
 
@@ -285,7 +284,7 @@
             android:layout_height="@dimen/chat_button_size"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
             android:src="@drawable/download_button" />
 
@@ -303,11 +302,11 @@
             android:id="@+id/image_fullscreen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/download_image_button"
+            android:layout_below="@+id/close_image_button"
             android:layout_centerInParent="true"
             android:background="@color/green_dark_2_semitransparent"
-            android:scaleType="fitCenter"
-            android:layout_below="@+id/close_image_button"
-            android:layout_above="@+id/download_image_button"/>
+            android:scaleType="fitCenter" />
 
         <ImageView
             android:id="@+id/close_image_button"
@@ -315,7 +314,7 @@
             android:layout_height="@dimen/chat_button_size"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
             android:src="@drawable/video_close_button" />
 
@@ -325,7 +324,7 @@
             android:layout_height="@dimen/chat_button_size"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
             android:src="@drawable/download_button" />
     </RelativeLayout>

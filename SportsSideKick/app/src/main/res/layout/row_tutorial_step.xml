@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="@dimen/height_70"
     android:layout_margin="@dimen/margin_10">
 
     <RelativeLayout
@@ -28,7 +28,7 @@
                 android:paddingEnd="@dimen/padding_8"
                 android:paddingStart="@dimen/padding_8"
                 android:paddingTop="@dimen/padding_8"
-                android:text="Step"
+                android:text="@string/step"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary" />
         </com.github.rongi.rotate_layout.layout.RotateLayout>
@@ -49,14 +49,13 @@
                 android:layout_margin="@dimen/margin_10"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="Step text"
                 android:textColor="@color/white" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/step_image_contaner"
-            android:layout_width="70dp"
+            android:layout_width="@dimen/width_70"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:background="@color/colorPrimaryLight">

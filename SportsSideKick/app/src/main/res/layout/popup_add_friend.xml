@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="500dp"
+    android:layout_width="@dimen/width_500"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_60"
     android:layout_marginEnd="@dimen/margin_90"
     android:layout_marginStart="@dimen/margin_90"
     android:layout_marginTop="@dimen/margin_60"
-    android:clickable="true"
-    android:background="@drawable/popup_bottom_background">
+    android:background="@drawable/popup_bottom_background"
+    android:clickable="true">
 
     <!-- TOP BUTTONS CONTAINER -->
     <RelativeLayout
@@ -20,7 +20,7 @@
 
         <View
             android:id="@+id/top_vertical_spliter"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/standard_button_height"
             android:layout_centerHorizontal="true" />
 
@@ -45,7 +45,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/height_2"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toStartOf="@+id/top_vertical_spliter"
@@ -53,7 +53,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/height_2"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/top_vertical_spliter"
@@ -72,22 +72,22 @@
         <EditText
             android:id="@+id/add_friend_name"
             style="@style/edit_text_login"
-            android:layout_width="290dp"
+            android:layout_width="@dimen/width_290"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:inputType="text"
-            android:maxLines="1"
             android:ellipsize="end"
             android:hint="@string/add_friend_hint"
+            android:inputType="text"
+            android:maxLines="1"
             android:textAlignment="textStart" />
 
         <TextView
             android:id="@+id/caption_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="@dimen/margin_10"
-            android:layout_toLeftOf="@id/add_friend_name"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_toStartOf="@id/add_friend_name"
             android:maxLines="2"
             android:text="@string/add_friend_hint"
             android:textColor="@color/wall_shop_description_background" />
@@ -99,14 +99,14 @@
     <RelativeLayout
         android:id="@+id/friends_list"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="@dimen/height_150"
         android:layout_below="@id/enter_friend_name"
         android:visibility="gone">
 
         <View
             android:id="@+id/top_split_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/height_1"
             android:layout_alignParentTop="true"
             android:background="@android:color/black" />
 
@@ -115,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="No result"
+            android:text="@string/no_result"
             android:textColor="@color/white_semitransparent"
             android:visibility="gone" />
 
@@ -133,9 +133,7 @@
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
-            android:elevation="2dp"
+            android:elevation="@dimen/elevation_2"
             app:indicatorName="LineSpinFadeLoaderIndicator" />
-
     </RelativeLayout>
-
 </RelativeLayout>

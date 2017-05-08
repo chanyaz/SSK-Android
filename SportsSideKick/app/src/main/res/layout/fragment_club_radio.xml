@@ -11,7 +11,7 @@
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
-        android:elevation="2dp"
+        android:elevation="@dimen/elevation_2"
         app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     <!--  \/\/\/\/\/\/\/ FIXME Dummy View to make sure container is the size of Video player fragment -->
@@ -19,7 +19,7 @@
         android:id="@+id/video_player_dummy_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="105dp">
+        android:layout_marginEnd="@dimen/margin_105">
         <View
             android:id="@+id/youtube_layout"
             android:layout_marginBottom="16dp"

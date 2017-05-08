@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,16 +15,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_slider_text_1"
-            android:textColor="@android:color/white"
-            android:textSize="48sp" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_48" />
 
         <TextView
             android:id="@+id/login_slide_text_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_slider_text_2"
-            android:textColor="@android:color/white"
-            android:textSize="48sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_48"
             android:visibility="gone" />
     </RelativeLayout>
 
@@ -37,14 +37,14 @@
             android:id="@+id/login_circle_one"
             android:layout_width="@dimen/login_circle"
             android:layout_height="@dimen/login_circle"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/margin_5"
             android:background="@drawable/circle_green" />
 
         <View
             android:id="@+id/login_circle_two"
             android:layout_width="@dimen/login_circle"
             android:layout_height="@dimen/login_circle"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/margin_5"
             android:background="@drawable/circle_green" />
 
     </LinearLayout>

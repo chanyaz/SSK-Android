@@ -14,13 +14,13 @@
         android:textColor="@color/colorAccent" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:background="@color/colorAccent" />
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height_1"
         android:layout_below="@+id/caption"
         android:background="@android:color/black" />
     <android.support.v7.widget.RecyclerView

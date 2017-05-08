@@ -13,13 +13,13 @@
         android:layout_width="@dimen/message_item_circle_image_size"
         android:layout_height="@dimen/message_item_circle_image_size"
         android:layout_marginStart="@dimen/margin_8"
-        app:civ_border_width="0dp"
-        app:civ_border_color="#FF000000"/>
+        app:civ_border_width="@dimen/space_0"
+        app:civ_border_color="@color/black"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:id="@+id/content_container"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="@dimen/margin_5"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/profile_image"
         android:background="@drawable/ic_chat_bubble_left">
@@ -27,12 +27,12 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
+            android:textSize="@dimen/font_size_11"
             android:textColor="@color/white"/>
 
         <ImageView
             android:id="@+id/content_image"
-            android:maxHeight="80dp"
+            android:maxHeight="@dimen/height_80"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
 
         <ImageView
             android:id="@+id/play_button"
-            android:maxHeight="80dp"
+            android:maxHeight="@dimen/height_80"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
@@ -53,7 +53,7 @@
 
     <TextView
         android:id="@+id/sender"
-        android:textSize="10sp"
+        android:textSize="@dimen/font_size_10"
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_toEndOf="@+id/profile_image"
@@ -63,7 +63,7 @@
         android:alpha="0.5"/>
     <TextView
         android:id="@+id/spliter"
-        android:textSize="10sp"
+        android:textSize="@dimen/font_size_10"
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_toEndOf="@+id/sender"
@@ -74,7 +74,7 @@
 
     <TextView
         android:id="@+id/timestamp"
-        android:textSize="10sp"
+        android:textSize="@dimen/font_size_10"
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_toEndOf="@+id/spliter"

@@ -18,7 +18,7 @@
         <!-- TICKER -->
         <RelativeLayout
             android:id="@+id/left_top_bar_container"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/top_bar_height"
             android:layout_marginEnd="@dimen/half_margin"
             android:layout_weight="1">
@@ -41,7 +41,7 @@
                 android:paddingBottom="@dimen/half_margin"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="28sp"
+                android:textSize="@dimen/font_size_28"
                 android:textStyle="bold" />
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
                 android:layout_toEndOf="@+id/logo"
                 android:layout_toStartOf="@+id/days_until_match_label"
                 android:ellipsize="end"
@@ -83,9 +83,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/logo_second_team"
-                android:text="VS"
+                android:text="@string/vs"
                 android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:textSize="@dimen/font_size_10" />
 
             <TextView
                 android:id="@+id/days_until_match_label"
@@ -95,8 +95,9 @@
                 android:layout_toStartOf="@+id/time_of_match_label"
                 android:paddingBottom="@dimen/half_margin"
                 android:paddingEnd="@dimen/half_margin"
+                android:paddingStart="@dimen/space_0"
                 android:textColor="@color/colorAccentLight"
-                android:textSize="12sp" />
+                android:textSize="@dimen/font_size_12" />
 
             <TextView
                 android:id="@+id/time_of_match_label"
@@ -106,8 +107,9 @@
                 android:layout_alignParentEnd="true"
                 android:paddingBottom="@dimen/half_margin"
                 android:paddingEnd="@dimen/half_margin"
+                android:paddingStart="@dimen/space_0"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="@dimen/font_size_12" />
 
             <TextView
                 android:id="@+id/up_next_label"
@@ -117,9 +119,10 @@
                 android:layout_alignParentTop="true"
                 android:layout_below="@+id/logo_second_team"
                 android:paddingEnd="@dimen/half_margin"
+                android:paddingStart="@dimen/space_0"
                 android:text="@string/up_next"
                 android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:textSize="@dimen/font_size_10" />
 
             <RelativeLayout
                 android:id="@+id/left_notification_container"
@@ -133,7 +136,7 @@
         <!-- ADS CONTAINER -->
         <RelativeLayout
             android:id="@+id/right_top_bar_container"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/top_bar_height"
             android:layout_marginStart="@dimen/half_margin"
             android:layout_weight="1">
@@ -142,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/margin_8"
-                android:layout_toRightOf="@+id/notification_container"
+                android:layout_toEndOf="@+id/notification_container"
                 android:adjustViewBounds="true"
                 android:background="@color/white"
                 android:contentDescription="@string/demo"
@@ -161,7 +164,8 @@
                     android:layout_height="@dimen/top_bar_notification_image_size"
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
-                    android:paddingLeft="@dimen/padding_8"
+                    android:paddingStart="@dimen/padding_8"
+                    android:paddingEnd="@dimen/space_0"
                     android:src="@drawable/notification" />
 
                 <TextView
@@ -171,7 +175,7 @@
                     android:layout_centerInParent="true"
                     android:text="5"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/font_size_12"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -187,14 +191,14 @@
         <!-- MIDDLE SPLITTER -->
         <View
             android:id="@+id/middle_split"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/space_0"
             android:layout_centerHorizontal="true" />
 
         <!-- LEFT CONTAINER -->
         <RelativeLayout
             android:id="@+id/tabs_container_1"
-            android:layout_width="80dp"
+            android:layout_width="@dimen/width_80"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/half_margin"
@@ -229,7 +233,7 @@
         <!-- TOP RIGHT RADIO GROUP -->
         <RadioGroup
             android:id="@+id/right_tab_selector"
-            android:layout_width="80dp"
+            android:layout_width="@dimen/width_80"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:gravity="top">
@@ -237,7 +241,7 @@
             <RadioButton
                 android:id="@+id/chat_radio_button"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/standard_button_height"
                 android:background="@drawable/tab_radio_button_selector_right"
                 android:button="@null"
                 android:gravity="center"
@@ -248,7 +252,7 @@
             <RadioButton
                 android:id="@+id/stats_radio_button"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/standard_button_height"
                 android:background="@drawable/tab_radio_button_selector_right"
                 android:button="@null"
                 android:gravity="center"
@@ -259,7 +263,7 @@
             <RadioButton
                 android:id="@+id/fantasy_radio_button"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/standard_button_height"
                 android:background="@drawable/tab_radio_button_selector_right"
                 android:button="@null"
                 android:gravity="center"
@@ -271,7 +275,7 @@
             <RadioButton
                 android:id="@+id/quiz_radio_button"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/standard_button_height"
                 android:background="@drawable/tab_radio_button_selector_right"
                 android:button="@null"
                 android:gravity="center"
@@ -283,7 +287,7 @@
         <!-- BOTTOM RIGHT RADIO GROUP -->
         <RadioGroup
             android:id="@+id/video_tab_radio_group"
-            android:layout_width="80dp"
+            android:layout_width="@dimen/width_80"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/bottom_right_container"
@@ -293,7 +297,7 @@
             <RadioButton
                 android:id="@+id/club_tv_radio_button"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/standard_button_height"
                 android:background="@drawable/tab_radio_button_selector_right"
                 android:button="@null"
                 android:gravity="center"
@@ -304,7 +308,7 @@
             <RadioButton
                 android:id="@+id/club_radio_radio_button"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/standard_button_height"
                 android:background="@drawable/tab_radio_button_selector_right"
                 android:button="@null"
                 android:gravity="center"
@@ -316,7 +320,7 @@
         <!-- TOP LEFT RADIO GROUP -->
         <RadioGroup
             android:id="@+id/left_tab_selector"
-            android:layout_width="80dp"
+            android:layout_width="@dimen/width_80"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:gravity="top"
@@ -411,8 +415,8 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/coins_caption"
-                    android:textColor="@android:color/white"
-                    android:textSize="8sp" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_8" />
 
                 <TextView
                     android:id="@+id/your_coins_value"
@@ -423,7 +427,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="@color/colorAccent"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/font_size_12" />
 
             </LinearLayout>
 
@@ -449,7 +453,7 @@
                         android:layout_marginRight="@dimen/padding_8"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/image"
-                        android:padding="2dp"
+                        android:padding="@dimen/padding_2"
                         android:src="@drawable/blank_profile_rounded" />
 
                     <RelativeLayout
@@ -468,8 +472,8 @@
                             android:layout_height="match_parent"
                             android:background="@drawable/circle_shape"
                             android:indeterminate="false"
-                            android:max="100"
-                            android:progress="65"
+                            android:max="@integer/progress_bar_max"
+                            android:progress="@integer/progress_bar_60"
                             android:progressDrawable="@drawable/circular_progress_bar"
                             android:visibility="invisible" />
                     </RelativeLayout>
@@ -483,7 +487,7 @@
                     android:layout_alignEnd="@id/profile_image_container"
                     android:layout_alignStart="@id/profile_image_container"
                     android:layout_below="@id/profile_image_container"
-                    android:layout_marginTop="-20dp"
+                    android:layout_marginTop="@dimen/margin_negative_20"
                     android:contentDescription="@string/image"
                     android:src="@drawable/next_level_marker"
                     android:visibility="invisible" />
@@ -495,10 +499,10 @@
                     android:layout_alignEnd="@id/profile_image_container"
                     android:layout_alignStart="@id/profile_image_container"
                     android:layout_below="@id/profile_image_container"
-                    android:layout_marginTop="-19dp"
+                    android:layout_marginTop="@dimen/margin_negative_19"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/font_size_10"
                     android:textStyle="bold"
                     android:visibility="invisible" />
 
@@ -514,11 +518,11 @@
                     android:layout_marginTop="@dimen/margin_5"
                     android:ellipsize="end"
                     android:gravity="center"
-                    android:lineSpacingExtra="-5dp"
+                    android:lineSpacingExtra="@dimen/line_space_negative_5"
                     android:maxLines="2"
-                    android:text="Login / Signup"
+                    android:text="@string/login_sign_up_text"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/font_size_16"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -527,7 +531,7 @@
 
         <!-- FOLLOWERS AND FRIENDS BUTTONS -->
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="@dimen/width_80"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
@@ -567,8 +571,8 @@
     <!-- MIDDLE SPLITTER -->
     <View
         android:id="@+id/middle_split_outside"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/space_0"
+        android:layout_height="@dimen/space_0"
         android:layout_centerHorizontal="true" />
 
     <RelativeLayout
