@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -84,7 +85,7 @@ public class SSKApplication extends MultiDexApplication {
 
     public static void initTwitter(Context context){
         TwitterAuthConfig authConfig = new TwitterAuthConfig(Constant.TWITTER_KEY, Constant.TWITTER_SECRET);
-        Fabric.with(context, new Twitter(authConfig));
+        Fabric.with(context, new Twitter(authConfig), new Crashlytics());
     }
 
     @Override

@@ -46,7 +46,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
         @Nullable
-        @BindView(R.id.profil_iamge)
+        @BindView(R.id.profile_image)
         ImageView profileImage;
         @Nullable
         @BindView(R.id.post_text)

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -56,7 +55,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         @BindView(R.id.online_status)
         ImageView online;
         @Nullable
-        @BindView(R.id.profil_name)
+        @BindView(R.id.profile_name)
         TextView name;
 
         ViewHolder(View v) {

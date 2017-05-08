@@ -126,5 +126,8 @@ dependencies {
     }
 
     compile 'org.jsoup:jsoup:1.10.2'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
 apply plugin: 'com.google.gms.google-services'
