@@ -114,12 +114,10 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
                     if(object!=null){
                         VideoChatItem item = mapper.convertValue(object, new TypeReference<VideoChatItem>() {});
                         source.setResult(item);
-                    } else {
-                        source.setException(new Exception());
+                        return;
                     }
-                } else {
-                    source.setException(new Exception());
                 }
+                source.setException(new Exception("There was an error while trying to leave a video chat."));
             }
         };
         Model.createRequest(leaveType)
@@ -217,12 +215,10 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
                         VideoChatItem item = mapper.convertValue(object, new TypeReference<VideoChatItem>() {});
                         activeVideoChatItem = item;
                         source.setResult(item);
-                    } else {
-                        source.setException(new Exception());
+                        return;
                     }
-                } else {
-                    source.setException(new Exception());
                 }
+                source.setException(new Exception("There was an error while trying to create a video chat."));
             }
         };
 
@@ -238,7 +234,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         final TaskCompletionSource<VideoChatItem> source = new TaskCompletionSource<>();
         if(activeVideoChatItem!=null && activeVideoChatItem.getId().equals(conferenceId)){
             Log.e(TAG,"Already part of this conference! " + conferenceId);
-            source.setException(new Exception());
+            source.setException(new Exception("Already part of this conference! " + conferenceId));
             return source.getTask();
         }
         if(activeVideoChatItem != null) {
@@ -255,12 +251,10 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
                         activeVideoChatItem = item;
                         pendingInvitations.remove(item.getId());
                         source.setResult(item);
-                    } else {
-                        source.setException(new Exception());
+                        return;
                     }
-                } else {
-                    source.setException(new Exception());
                 }
+                source.setException(new Exception("There was an error while trying to join a video chat."));
             }
         };
 
@@ -289,15 +283,13 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.VIDEO_CHAT_ITEM);
-                    if(object!=null){
+                    if (object != null) {
                         VideoChatItem item = update(response.getScriptData().getBaseData());
                         source.setResult(item);
-                    } else {
-                        source.setException(new Exception());
+                        return;
                     }
-                } else {
-                    source.setException(new Exception());
                 }
+                source.setException(new Exception("There was an error while trying to invite users to a video chat."));
             }
         };
 
@@ -319,12 +311,10 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.TOKEN);
                     if(object!=null){
                         source.setResult((String)object);
-                    } else {
-                        source.setException(new Exception());
+                        return;
                     }
-                } else {
-                    source.setException(new Exception());
                 }
+                source.setException(new Exception("There was an error while trying to get token for a video chat."));
             }
         };
         Model.createRequest("vcGetToken")

@@ -151,7 +151,7 @@ public class ClubModel {
                     stations = receivedStations;
                     source.setResult(receivedStations);
                 }  else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to get stations."));
                 }
             }
         };

@@ -52,8 +52,8 @@ public class AchievementManager {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
-                    Object objectAchievemnts = response.getScriptData().getBaseData().get(GSConstants.ACHIEVEMENTS);
-                    systemAchievements = mapper.convertValue(objectAchievemnts, new TypeReference<List<Achievement>>(){});
+                    Object objectAchievements = response.getScriptData().getBaseData().get(GSConstants.ACHIEVEMENTS);
+                    systemAchievements = mapper.convertValue(objectAchievements, new TypeReference<List<Achievement>>(){});
 
                     Object objectUserAchievements = response.getScriptData().getBaseData().get(GSConstants.USER_ACHIEVEMENTS);
                     List<String> userAchievementsShortcodes = mapper.convertValue(objectUserAchievements, new TypeReference<List<String>>(){});
@@ -66,7 +66,7 @@ public class AchievementManager {
                     Log.d(TAG,"User has " + userAchievements.size() + " achievements.");
                     source.setResult(userAchievements);
                 }  else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to get user's achievements."));
                 }
             }
         };

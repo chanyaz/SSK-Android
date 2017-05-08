@@ -82,7 +82,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     }
                     source.setResult(friends);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to get a list of friends."));
                 }
             }
         };
@@ -112,7 +112,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     }
                     source.setResult(friends);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to get a  mutual list of friends."));
                 }
             }
         };
@@ -141,7 +141,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     });
                     source.setResult(user);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to send a friend request."));
                 }
             }
         };
@@ -177,7 +177,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     });
                     source.setResult(user);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to accept friend request."));
                 }
             }
         };
@@ -229,7 +229,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     }
                     source.setResult(friends);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to get a list of open friend requests."));
                 }
             }
         };
@@ -257,7 +257,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     });
                     source.setResult(user);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to delete a friend."));
                 }
             }
         };
@@ -300,7 +300,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     }
                     source.setResult(followers);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to get a list of followers."));
                 }
             }
         };
@@ -334,7 +334,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     }
                     source.setResult(followers);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to get a list of followed users."));
                 }
             }
         };
@@ -363,7 +363,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     });
                     source.setResult(user);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to follow a user."));
                 }
             }
         };
@@ -390,7 +390,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     });
                     source.setResult(user);
                 } else {
-                    source.setException(new Exception());
+                    source.setException(new Exception("There was an error while trying to un-follow a user."));
                 }
             }
         };
