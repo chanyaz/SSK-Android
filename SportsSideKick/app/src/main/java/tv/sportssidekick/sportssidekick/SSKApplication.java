@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.bugfender.sdk.Bugfender;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -34,10 +35,16 @@ public class SSKApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
+        Bugfender.init(this, "X8jor58iPHDDUYWUBDPjZvVwWoMnMWkP", BuildConfig.DEBUG);
+        Bugfender.enableLogcatLogging();
+        Bugfender.enableUIEventLogging(this);
+
         initImageLoader(getApplicationContext());
         initTwitter(getApplicationContext());
 
         Model.getInstance();
+
+
 
         // Facebook initialization TODO - update?
         FacebookSdk.sdkInitialize(getApplicationContext());

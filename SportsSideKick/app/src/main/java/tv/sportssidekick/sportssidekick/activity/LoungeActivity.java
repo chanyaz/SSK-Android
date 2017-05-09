@@ -202,6 +202,8 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         // this part is optional
         facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
 
+
+
         PurchaseModel.getInstance().onCreate(this);
     }
 
@@ -674,7 +676,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         }
 
         UserInfo user = event.getUserInfo();
-        if (user.getFirstName() != null && user.getLastName() != null) {
+        if (user!=null && user.getFirstName() != null && user.getLastName() != null) {
             profileName.setText(user.getFirstName() + " " + user.getLastName());
         }
     }
