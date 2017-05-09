@@ -167,15 +167,18 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         if(playerId==null){
             return;
         }
-        if(activeVideoChatItem.getId().equals(item.getId())) {
-            // If it's the active video item, this should only ever be someone else's invite
-            if(!playerId.equals(userId)){
-                EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onUserInvitationRejected, playerId));
-            }
-        } else {
-            if(!playerId.equals(userId)){
-                EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onInvitationRevoked, item.getId().getOid()));
-                pendingInvitations.remove(item.getId());
+        if (activeVideoChatItem!=null)
+        {
+            if(activeVideoChatItem.getId().equals(item.getId())) {
+                // If it's the active video item, this should only ever be someone else's invite
+                if(!playerId.equals(userId)){
+                    EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onUserInvitationRejected, playerId));
+                }
+            } else {
+                if(!playerId.equals(userId)){
+                    EventBus.getDefault().post(new VideoChatEvent(VideoChatEvent.Type.onInvitationRevoked, item.getId().getOid()));
+                    pendingInvitations.remove(item.getId());
+                }
             }
         }
     }
