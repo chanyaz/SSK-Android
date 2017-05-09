@@ -40,9 +40,6 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
         @Nullable
         @BindView(R.id.row_rumors_description)
         TextView description;
-//        @Nullable
-////        @BindView(R.id.row_rumors_description_info)
-////        TextView info;
         @Nullable
         @BindView(R.id.row_rumors_time)
         TextView time;
@@ -71,14 +68,13 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
     public void onBindViewHolder(ViewHolder holder, int position) {
         final WallNews info = values.get(position);
         holder.description.setText(info.getTitle());
-//        holder.info.setText(info.getContent());
-        String time = "Recent";//"" + DateUtils.getRelativeTimeSpanString(Long.valueOf(info.getPubDate().longValue()), System.currentTimeMillis() / 1000L, DateUtils.MINUTE_IN_MILLIS);
+        String time = "Recent";
         holder.time.setText(time);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                fe.setId("UNOFFICIAL$$$" + info.getPostId()); // TODO Fixme - this is a bit hack-ish
+                fe.setId("UNOFFICIAL$$$" + info.getPostId());
                 EventBus.getDefault().post(fe);
             }
         });

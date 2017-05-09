@@ -15,7 +15,7 @@ import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
 public class WallRumor extends WallNews {
 
-    // TODO - Same as News?
+    // Same as News
 
     @Override
     public SharingManager.ItemType getItemType(){

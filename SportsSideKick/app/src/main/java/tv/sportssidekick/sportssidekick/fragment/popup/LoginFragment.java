@@ -142,10 +142,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @OnClick(R.id.forgot_button)
     public void forgotOnClick() {
-        // EventBus.getDefault().post(new FragmentEvent(ForgotPasswordFramegnt.class));
-//        slideToLeft(loginContainer);
-//        slideToLeft(resetButtonContainer);
-
         loginContainer.setVisibility(View.INVISIBLE);
         loginButtonContainer.setVisibility(View.INVISIBLE);
         resetButtonContainer.setVisibility(View.VISIBLE);
@@ -203,14 +199,14 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @Override
     public void onPasswordResetRequest() {
-        //TODO
+        //TBA
 //        self.alert(title: "Reset Password", body: "Please check your email for password reset options.")
 //        self.onBack()
     }
 
     @Override
     public void onPasswordResetRequestError(Error error) {
-        //TODO
+        //TBA
 //        self.alert(title: "Error", body: "Please enter a valid email address!")
 //        self.setButtonEnabled(button: self.loginButton, spinner: self.prSpinner, enabled: true)
     }

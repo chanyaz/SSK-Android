@@ -49,7 +49,7 @@ public class PurchaseModel {
         return billing;
     }
 
-    public enum ProductShortCode{ // todo - change to GP ids?
+    public enum ProductShortCode{
         CurrencyBundle10,
         CurrencyBundle100,
         CurrencyBundle200,

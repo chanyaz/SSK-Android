@@ -170,7 +170,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
 
         DisplayImageOptions displayImageOptions = Utility.getImageOptionsForUsers();
         holder.rowName.setText(info.getChatTitle());
-        holder.rowMemberCount.setText(info.getUsersIds().size() + " " + context.getResources().getString(R.string.chat_members)); // TODO USE RESOURCE AND PLACEHOLDER
+        holder.rowMemberCount.setText(info.getUsersIds().size() + " " + context.getResources().getString(R.string.chat_members));
         ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.rowImage, displayImageOptions);
         holder.rowImage.getLayoutParams().height = (int) (screenHeight * IMAGE_SIZE);
         holder.rowImage.getLayoutParams().width = (int) (screenHeight * IMAGE_SIZE);

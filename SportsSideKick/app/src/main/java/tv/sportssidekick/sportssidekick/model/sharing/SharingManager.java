@@ -110,7 +110,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
 
         if(response.containsKey("image")){
             String image = (String) response.get("image");
-            //TODO If u want to shate image u must have image in cache, if not u must load picture  (because twitter only accept images directly from phone storage)
+            //TBA If u want to share image u must have image in cache, if not u must load picture (because twitter only accept images directly from phone storage)
             ImageLoader.getInstance().loadImage(image, Utility.getImageOptionsForWallItem(), new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {}

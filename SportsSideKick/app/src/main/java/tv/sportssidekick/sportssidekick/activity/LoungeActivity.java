@@ -183,12 +183,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
         Model.getInstance().initialize(this);
-        yourCoinsContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO open dialog ?
-            }
-        });
+
         popupHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,7 +205,8 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         PurchaseModel.getInstance().onCreate(this);
     }
 
-    private void toggleBlur(boolean visible) { // TODO Extract to popup base class ?
+    // Maybe extract this to popup base class?
+    private void toggleBlur(boolean visible) {
         if (visible) {
             popupHolder.setVisibility(View.VISIBLE);
             if (rootView.getWidth() > 0) {
@@ -300,7 +296,6 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         radioButtonsFragmentMap.put(R.id.club_radio_radio_button, ClubRadioFragment.class);
         radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
 
-        // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
