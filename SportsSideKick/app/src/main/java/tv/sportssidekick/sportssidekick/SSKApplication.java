@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.bugfender.sdk.Bugfender;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -35,9 +36,9 @@ public class SSKApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-//        Bugfender.init(this, "X8jor58iPHDDUYWUBDPjZvVwWoMnMWkP", BuildConfig.DEBUG);
-//        Bugfender.enableLogcatLogging();
-//        Bugfender.enableUIEventLogging(this);
+        Bugfender.init(this, "X8jor58iPHDDUYWUBDPjZvVwWoMnMWkP", BuildConfig.DEBUG);
+        Bugfender.enableLogcatLogging();
+        Bugfender.enableUIEventLogging(this);
 
         NoNet.configure()
                 .endpoint("http://google.com")

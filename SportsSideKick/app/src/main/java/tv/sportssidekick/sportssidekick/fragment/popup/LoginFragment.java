@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pixplicity.easyprefs.library.Prefs;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -94,8 +93,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             }
         });
         // --- TODO For testing only!
-        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
-        passwordEditText.setText("qwerty");
+        //emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
+        //passwordEditText.setText("qwerty");
         // ---
         return view;
     }
@@ -121,7 +120,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         }
 
         // --- TODO For testing only!
-        Prefs.putString("LAST_TEST_EMAIL",email);
+        //Prefs.putString("LAST_TEST_EMAIL",email);
         // ---
 
         Model.getInstance().login(email, password);
