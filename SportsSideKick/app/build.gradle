@@ -22,7 +22,7 @@ android {
         applicationId "tv.sportssidekick.sportssidekick"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 2
+        versionCode 3
         versionName "1.0.0.1"
         testInstrumentationRunner "android.support.left.runner.AndroidJUnitRunner"
         multiDexEnabled true
