@@ -201,9 +201,6 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         InternalNotificationManager.getInstance();
         // this part is optional
         facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
-
-
-
         PurchaseModel.getInstance().onCreate(this);
     }
 

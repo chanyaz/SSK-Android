@@ -44,7 +44,7 @@
 
     <View
         android:id="@+id/edit_top_vertical_spliter"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/space_0"
         android:layout_height="@dimen/standard_button_height"
         android:layout_centerHorizontal="true" />
 
@@ -68,7 +68,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_toStartOf="@+id/edit_top_vertical_spliter"
@@ -76,7 +76,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_toEndOf="@+id/edit_top_vertical_spliter"
@@ -110,7 +110,7 @@
     <EditText
         android:id="@+id/chat_name_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/height_60"
         android:layout_below="@+id/edit_top_vertical_spliter"
         android:background="@color/green_dark_2"
         android:gravity="start|center_vertical"
@@ -120,7 +120,7 @@
         android:layout_toEndOf="@id/chat_image_view"
         android:textColor="@color/white"
         android:textColorHint="@color/white_semitransparent"
-        android:textSize="14sp"
+        android:textSize="@dimen/font_size_14"
         android:padding="@dimen/margin_20"/>
 
         <ImageButton
@@ -153,8 +153,8 @@
 
         <View
             android:id="@+id/search_friends_container_mid_line"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/space_0"
             android:layout_centerHorizontal="true"/>
 
         <EditText
@@ -170,13 +170,14 @@
             android:maxLines="1"
             android:textColor="@color/white"
             android:textColorHint="@color/white_semitransparent"
-            android:textSize="14sp"
+            android:textSize="@dimen/font_size_14"
             android:layout_toStartOf="@+id/search_friends_container_mid_line"
             android:layout_alignParentStart="true"
             android:drawableStart="@drawable/popup_search_icon"
             android:padding="@dimen/half_margin"
             android:layout_centerVertical="true"
             android:paddingStart="@dimen/padding_8"
+            android:paddingEnd="@dimen/space_0"
             android:drawablePadding="@dimen/padding_8"/>
 
         <RelativeLayout
@@ -193,7 +194,7 @@
                 android:textAllCaps="false"
                 android:layout_centerInParent="true"
                 android:background="@drawable/textview_semi_transparent_round"
-                android:textSize="14sp"
+                android:textSize="@dimen/font_size_14"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:textColor="@color/white"

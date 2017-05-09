@@ -7,7 +7,7 @@
     <com.facebook.ads.MediaView
         android:id="@+id/wall_native_ad_media_view"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="@dimen/height_130"
         android:gravity="center" />
 
     <RelativeLayout

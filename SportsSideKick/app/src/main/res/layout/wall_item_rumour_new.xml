@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingBottom="12dp"
+                android:paddingBottom="@dimen/padding_12"
                 android:paddingEnd="@dimen/padding_8"
                 android:paddingStart="@dimen/padding_8"
                 android:paddingTop="@dimen/padding_8"
@@ -41,7 +41,7 @@
             android:lineSpacingMultiplier="1.2"
             android:minLines="3"
             android:padding="@dimen/padding_16"
-            android:textSize="18sp"
+            android:textSize="@dimen/font_size_18"
             android:textStyle="bold" />
 
         <TextView
@@ -56,7 +56,7 @@
             android:padding="@dimen/padding_16"
             android:text="Text caption"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/font_size_18"
             android:textStyle="bold" />
 
     </RelativeLayout>

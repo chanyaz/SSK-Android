@@ -1,4 +1,3 @@
-
 <resources>
 
     <string name="friend_requests">Friend Requests</string>
@@ -21,6 +20,9 @@
     <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
     <string name="forgot_password_text">Reset your password</string>
     <string name="forgot_password_button_text">Reset Password</string>
+    <string name="forgot_password_message">Please check your email for password reset options.</string>
+    <string name="forgot_password_error_message">Please enter a valid email address!</string>
+    <string name="forgot_password_error">Error</string>
     <string name="sign_up_facebook">Sign up with Facebook</string>
     <string name="sign_up_or">or</string>
     <string name="sign_up_firstname">First name</string>
@@ -336,11 +338,41 @@
     <string name="no_friends">No friends</string>
     <string name="follow_more">Follow More</string>
     <string name="friends_following_you">Friends following you:</string>
-    <string name="no_result">No results</string>
+    <string name="no_results">No results</string>
+    <string name="no_result">No result</string>
     <string name="login_or_sign_up">Login / Signup</string>
     <string name="rewards_and_items_received">Rewards and items recieved from Gym Bags</string>
     <string name="you_have">YOU HAVE</string>
     <string name="bonus_gym_bag">+ BONUS GYM BAG</string>
     <string name="bandles">$$K BUNDLES</string>
+    <string name="vs">vs</string>
+    <string name="login_sign_up_text">Login / Signup</string>
+    <string name="add_new_chat">ADD NEW CHAT</string>
+    <string name="demo_caption">Demo caption Demo caption Demo caption Demo caption</string>
+    <string name="comment_text">Comment text</string>
+    <string name="chat_hint">Enter your message here...</string>
+    <string name="create">Create</string>
+    <string name="demo_content">Demo content.</string>
+    <string name="caps">CAPS</string>
+    <string name="join_official_chat"><![CDATA[Join Official Chat >]]></string>
+    <string name="join_group">Join Group</string>
+    <string name="rumour">RUMOUR</string>
+    <string name="step">Step</string>
+    <string name="soccer_boot">SOCCER BOOT</string>
+    <string name="profile_frame">Profile frame</string>
+    <string name="caption">CAPTION</string>
+    <string name="caption_low">Caption</string>
+    <string name="value">Value</string>
+    <string name="shop">Shop</string>
+    <string name="store_big">STORE</string>
+    <string name="tip">TIP</string>
+    <string name="try_to_following_the_official_sporting_account">Try to following the official sporting account</string>
+    <string name="waiting_for_active_internet_connection">Waiting for active internet connection...</string>
+    <string name="no_connection_title">No Connection</string>
+    <string name="no_connection_message">You need to be connected to the internet to do this</string>
 
+    <integer name="progress_bar_max">100</integer>
+    <integer name="progress_bar_30">30</integer>
+    <integer name="progress_bar_60">65</integer>
+    <integer name="progress_bar_mid">50</integer>
 </resources>

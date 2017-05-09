@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:padding="4dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_4">
+
     <ImageView
         android:id="@+id/image"
-        app:layout_widthPercent="100%"
-        app:layout_aspectRatio="178%"
         android:scaleType="centerCrop"
-        android:src="@drawable/wall_demo_photo"/>
+        android:src="@drawable/wall_demo_photo"
+        app:layout_aspectRatio="178%"
+        app:layout_widthPercent="100%" />
+
     <ImageView
         android:id="@+id/play_button"
-        android:layout_alignTop="@+id/image"
-        android:scaleType="fitCenter"
+        android:layout_width="@dimen/width_48"
         android:layout_alignBottom="@+id/image"
+        android:layout_alignTop="@+id/image"
         android:layout_centerHorizontal="true"
-        android:layout_width="48dp"
-        android:src="@drawable/ic_post_play"/>
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_post_play" />
+
     <TextView
         android:id="@+id/caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:layout_below="@+id/image"
+        android:background="@color/colorPrimary"
         android:bufferType="spannable"
         android:lines="2"
-        android:padding="8dp"
-        android:textSize="11sp"
+        android:padding="@dimen/padding_8"
+        android:text="@string/caption"
         android:textColor="@color/white"
-        android:text="CAPTION"/>
+        android:textSize="@dimen/font_size_11" />
+
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:layout_below="@+id/caption"
+        android:background="@color/colorPrimary"
         android:bufferType="spannable"
         android:lines="1"
-        android:paddingBottom="8dp"
-        android:paddingStart="8dp"
-        android:paddingTop="0dp"
-        android:textSize="10sp"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingEnd="@dimen/space_0"
+        android:paddingStart="@dimen/padding_8"
+        android:paddingTop="@dimen/space_0"
+        android:text="05 Sep 2016"
         android:textColor="@color/lightGrey"
-        android:text="05 Sep 2016"/>
+        android:textSize="@dimen/font_size_10" />
 
 </android.support.percent.PercentRelativeLayout>

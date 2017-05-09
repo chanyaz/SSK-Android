@@ -126,7 +126,16 @@ dependencies {
     }
 
     compile 'org.jsoup:jsoup:1.10.2'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 
     compile 'com.bugfender.sdk:android:0.+'
+
+//    compile 'com.github.pwittchen:reactivenetwork-rx2:0.9.1'
+    compile 'com.keiferstone:nonet:2.0.0'
+
+
+    compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.0'
 }
 apply plugin: 'com.google.gms.google-services'

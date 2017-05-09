@@ -32,22 +32,22 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/sign_up_or"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_12" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/height_1"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/half_margin"
+                android:layout_marginEnd="@dimen/half_margin"
                 android:layout_toStartOf="@id/sign_up_text"
                 android:background="@android:color/white" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/height_1"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/half_margin"
+                android:layout_marginStart="@dimen/half_margin"
                 android:layout_toEndOf="@id/sign_up_text"
                 android:background="@android:color/white" />
         </RelativeLayout>
@@ -137,7 +137,7 @@
             android:layout_marginBottom="@dimen/margin_15"
             android:layout_marginLeft="@dimen/margin_20"
             android:layout_marginRight="@dimen/margin_20"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="@dimen/space_0"
             android:textColor="@color/lightGrey"/>
 
     </LinearLayout>

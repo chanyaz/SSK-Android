@@ -44,7 +44,7 @@
 
     <View
         android:id="@+id/top_vertical_spliter"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/space_0"
         android:layout_height="@dimen/standard_button_height"
         android:layout_centerHorizontal="true" />
 
@@ -68,7 +68,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_toStartOf="@+id/top_vertical_spliter"
@@ -76,7 +76,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_toEndOf="@+id/top_vertical_spliter"
@@ -118,7 +118,7 @@
         android:maxLines="1"
         android:textColor="@color/white"
         android:textColorHint="@color/white_semitransparent"
-        android:textSize="14sp"
+        android:textSize="@dimen/font_size_14"
         android:padding="@dimen/margin_20"
         android:layout_toStartOf="@+id/chat_popup_image_button"
         android:layout_toEndOf="@id/chat_image_view"/>
@@ -153,8 +153,8 @@
 
         <View
             android:id="@+id/chat_search_friends_container_mid_line"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/space_0"
             android:layout_centerHorizontal="true"/>
 
         <Switch
@@ -188,7 +188,7 @@
             android:maxLines="1"
             android:textColor="@color/white"
             android:textColorHint="@color/white_semitransparent"
-            android:textSize="14sp"
+            android:textSize="@dimen/font_size_14"
             android:layout_toStartOf="@+id/chat_search_friends_container_mid_line"
             android:layout_alignParentStart="true"
             android:drawableStart="@drawable/popup_search_icon"

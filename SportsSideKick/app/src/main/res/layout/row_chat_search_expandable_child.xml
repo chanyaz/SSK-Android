@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/row_join_chat_search_list"
             android:background="@color/colorAccent"
-            android:text="Join Group"
+            android:text="@string/join_group"
             android:textColor="@color/colorPrimary" />
 
     </RelativeLayout>

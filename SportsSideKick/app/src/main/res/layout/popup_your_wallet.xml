@@ -7,8 +7,8 @@
     android:layout_marginEnd="@dimen/margin_90"
     android:layout_marginStart="@dimen/margin_90"
     android:layout_marginTop="@dimen/margin_60"
-    tools:ignore="MissingPrefix"
-    android:clickable="true">
+    android:clickable="true"
+    tools:ignore="MissingPrefix">
 
     <!-- BACKGROUND -->
     <RelativeLayout
@@ -19,7 +19,7 @@
         android:layout_alignEnd="@+id/bundles_container"
         android:layout_alignStart="@+id/bundles_container"
         android:layout_below="@+id/top_buttons_container"
-        android:background="@color/colorPrimarySemiLight"/>
+        android:background="@color/colorPrimarySemiLight" />
 
     <!-- TOP BUTTONS CONTAINER -->
     <LinearLayout
@@ -33,9 +33,9 @@
 
         <TextView
             android:id="@+id/your_profile_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
-            android:layout_marginEnd="1dp"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorAccentLight"
             android:gravity="center"
@@ -44,9 +44,9 @@
 
         <TextView
             android:id="@+id/your_wallet_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
-            android:layout_marginEnd="1dp"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorPrimarySemiLight"
             android:gravity="center"
@@ -55,7 +55,7 @@
 
         <TextView
             android:id="@+id/your_stash_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorAccentLight"
@@ -67,7 +67,7 @@
     <!-- TOP BUTTONS INDICATOR LINES -->
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignEnd="@+id/bundles_container"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/bundles_container"
@@ -75,21 +75,21 @@
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="2dp"
-            android:layout_marginEnd="1dp"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorPrimaryLight" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginEnd="1dp"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorAccent" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/height_2"
             android:layout_weight="1"
             android:background="@color/colorPrimaryLight" />
     </LinearLayout>
@@ -124,7 +124,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/you_have"
                 android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:textSize="@dimen/font_size_10" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                 android:layout_below="@id/you_have_caption"
                 android:text="2,539 $$K"
                 android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+                android:textSize="@dimen/font_size_16" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -160,11 +160,11 @@
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/gym_bag_button_background"
                 android:gravity="center"
-                android:padding="3dp"
+                android:padding="@dimen/padding_3"
                 android:paddingEnd="@dimen/margin_10"
                 android:paddingStart="@dimen/margin_10"
                 android:text="@string/bonus_gym_bag"
-                android:textSize="10sp" />
+                android:textSize="@dimen/font_size_10" />
         </RelativeLayout>
 
 
@@ -178,7 +178,7 @@
             android:layout_marginTop="@dimen/margin_10"
             android:text="@string/bandles"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="@dimen/font_size_15"
             android:textStyle="bold" />
 
         <ImageView
@@ -246,11 +246,11 @@
             android:layout_alignBottom="@+id/bundle_1"
             android:layout_alignStart="@+id/bundle_1"
             android:layout_marginBottom="@dimen/margin_5"
-            android:layout_marginStart="@dimen/margin_15"
             android:layout_marginEnd="@dimen/margin_5"
+            android:layout_marginStart="@dimen/margin_15"
             android:text="10 $$K"
             android:textColor="@color/white"
-            android:textSize="11sp" />
+            android:textSize="@dimen/font_size_11" />
 
         <TextView
             android:id="@+id/bundle_1_price"
@@ -260,13 +260,13 @@
             android:layout_alignEnd="@+id/bundle_1"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginEnd="@dimen/margin_15"
-            android:text="Watch promo"
-            android:textColor="@color/white"
-            android:textSize="11sp"
             android:layout_toEndOf="@+id/bundle_1_award"
+            android:ellipsize="end"
             android:lines="1"
             android:maxLines="1"
-            android:ellipsize="end"/>
+            android:text="Watch promo"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_11" />
 
         <TextView
             android:id="@+id/bundle_2_award"
@@ -278,7 +278,7 @@
             android:layout_marginStart="@dimen/margin_15"
             android:text="100 $$K"
             android:textColor="@color/white"
-            android:textSize="11sp" />
+            android:textSize="@dimen/font_size_11" />
 
         <TextView
             android:id="@+id/bundle_2_price"
@@ -290,7 +290,7 @@
             android:layout_marginEnd="@dimen/margin_15"
             android:text="$1"
             android:textColor="@color/white"
-            android:textSize="11sp" />
+            android:textSize="@dimen/font_size_11" />
 
         <TextView
             android:id="@+id/bundle_3_award"
@@ -302,7 +302,7 @@
             android:layout_marginStart="@dimen/margin_15"
             android:text="500 $$K"
             android:textColor="@color/white"
-            android:textSize="11sp" />
+            android:textSize="@dimen/font_size_11" />
 
         <TextView
             android:id="@+id/bundle_3_price"
@@ -314,7 +314,7 @@
             android:layout_marginEnd="@dimen/margin_15"
             android:text="$4"
             android:textColor="@color/white"
-            android:textSize="11sp" />
+            android:textSize="@dimen/font_size_11" />
 
         <TextView
             android:id="@+id/bundle_4_award"
@@ -326,7 +326,7 @@
             android:layout_marginStart="@dimen/margin_15"
             android:text="1000 $$K"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="@dimen/font_size_11" />
 
         <TextView
             android:id="@+id/bundle_4_price"
@@ -338,7 +338,7 @@
             android:layout_marginEnd="@dimen/margin_15"
             android:text="$7"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="@dimen/font_size_11" />
 
         <TextView
             android:id="@+id/bundle_5_award"
@@ -350,7 +350,7 @@
             android:layout_marginStart="@dimen/margin_15"
             android:text="1500 $$K"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="@dimen/font_size_11" />
 
         <TextView
             android:id="@+id/bundle_5_price"
@@ -362,7 +362,7 @@
             android:layout_marginEnd="@dimen/margin_15"
             android:text="$10"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="@dimen/font_size_11" />
 
 
         <TextView
@@ -376,7 +376,7 @@
             android:gravity="center"
             android:text="\u2605 BEST VALUE \u2605"
             android:textColor="@color/colorAccent"
-            android:textSize="10sp" />
+            android:textSize="@dimen/font_size_10" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -418,43 +418,43 @@
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true">
 
-        <TextView
-            android:id="@+id/kit_bags_label_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="2dp"
-            android:text="$$K"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/kit_bags_label_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_2"
+                android:text="$$K"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_25"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/kit_bags_label_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="2dp"
-            android:text="Kit Bags"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:layout_below="@id/kit_bags_label_1"/>
+            <TextView
+                android:id="@+id/kit_bags_label_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/kit_bags_label_1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_2"
+                android:text="Kit Bags"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_25"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/kit_gym_bag_button"
-            style="@style/boldText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/gym_bag_button_background"
-            android:gravity="center"
-            android:padding="@dimen/half_margin"
-            android:paddingEnd="@dimen/margin_10"
-            android:paddingStart="@dimen/margin_10"
-            android:text="@string/bonus_gym_bag"
-            android:textSize="10sp"
-            android:layout_below="@id/kit_bags_label_2"/>
+            <TextView
+                android:id="@+id/kit_gym_bag_button"
+                style="@style/boldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/kit_bags_label_2"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/gym_bag_button_background"
+                android:gravity="center"
+                android:padding="@dimen/half_margin"
+                android:paddingEnd="@dimen/margin_10"
+                android:paddingStart="@dimen/margin_10"
+                android:text="@string/bonus_gym_bag"
+                android:textSize="@dimen/font_size_10" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -462,7 +462,7 @@
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height_1"
         android:layout_alignEnd="@+id/bundles_container"
         android:layout_alignStart="@+id/bundles_container"
         android:layout_below="@+id/top_buttons_container"
@@ -470,15 +470,15 @@
 
     <View
         android:id="@+id/center_offset_splitter"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/space_0"
+        android:layout_height="@dimen/space_0"
         android:layout_centerInParent="true"
-        android:layout_marginStart="-100dp" />
+        android:layout_marginStart="@dimen/margin_negative_100" />
 
     <View
         android:id="@+id/coin_indicator_split_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height_1"
         android:layout_alignEnd="@+id/bundles_container"
         android:layout_alignStart="@+id/bundles_container"
         android:layout_below="@+id/coin_indicator_container"
@@ -498,7 +498,7 @@
         <View
             android:id="@+id/bottom_split_line"
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/height_1"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -538,7 +538,7 @@
             android:text="@string/your_statement"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="11sp"
+            android:textSize="@dimen/font_size_11"
             android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>

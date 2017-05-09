@@ -45,7 +45,7 @@ public class CallFriendsAdapter extends RecyclerView.Adapter<CallFriendsAdapter.
         @BindView(R.id.online_status)
         ImageView online;
         @Nullable
-        @BindView(R.id.profil_name)
+        @BindView(R.id.profile_name)
         TextView name;
         ViewHolder(View v) {
             super(v);

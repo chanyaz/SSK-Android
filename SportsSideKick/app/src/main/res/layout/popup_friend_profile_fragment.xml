@@ -11,9 +11,9 @@
     <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
     <View
         android:id="@+id/center_split"
-        android:layout_width="1dp"
-        android:layout_height="1dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_width="@dimen/width_1"
+        android:layout_height="@dimen/height_1"
+        android:layout_centerHorizontal="true" />
 
 
     <TextView
@@ -27,14 +27,14 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:background="@color/colorAccent" />
 
     <!--  TOP SPLITTER-->
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height_1"
         android:layout_below="@+id/your_profile_button"
         android:background="@android:color/black" />
 
@@ -50,9 +50,9 @@
         <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
         <View
             android:id="@+id/center_split_line"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_width="@dimen/width_1"
+            android:layout_height="@dimen/height_1"
+            android:layout_centerHorizontal="true" />
 
         <!-- PROFILE CONTAINER - IMAGE -->
         <RelativeLayout
@@ -80,8 +80,8 @@
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/circle_shape"
                     android:indeterminate="false"
-                    android:max="100"
-                    android:progress="65"
+                    android:max="@integer/progress_bar_max"
+                    android:progress="@integer/progress_bar_60"
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <ImageView
@@ -89,8 +89,8 @@
                     android:layout_height="@dimen/popup_friend_profil_profile_image_size"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/blank_profile_rounded"
-                    android:contentDescription="@string/image" />
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/blank_profile_rounded" />
             </RelativeLayout>
 
             <ImageView
@@ -99,9 +99,9 @@
                 android:layout_alignEnd="@id/profile_image_container"
                 android:layout_alignStart="@id/profile_image_container"
                 android:layout_below="@id/profile_image_container"
-                android:layout_marginTop="-20dp"
-                android:src="@drawable/next_level_marker"
-                android:contentDescription="@string/image" />
+                android:layout_marginTop="@dimen/margin_negative_20"
+                android:contentDescription="@string/image"
+                android:src="@drawable/next_level_marker" />
 
             <TextView
                 android:layout_width="@dimen/profile_level_marker_size"
@@ -109,7 +109,7 @@
                 android:layout_alignEnd="@id/profile_image_container"
                 android:layout_alignStart="@id/profile_image_container"
                 android:layout_below="@id/profile_image_container"
-                android:layout_marginTop="-19dp"
+                android:layout_marginTop="@dimen/margin_negative_19"
                 android:gravity="center"
                 android:text="99"
                 android:textColor="@color/white"
@@ -123,9 +123,9 @@
                 android:layout_below="@id/profile_image_container"
                 android:layout_marginTop="@dimen/margin_15"
                 android:gravity="center"
-                android:text="Login / Signup"
+                android:text="@string/login_sign_up_text"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="@dimen/font_size_16"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -142,18 +142,20 @@
 
             <View
                 android:id="@+id/text_center"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_centerHorizontal="true"/>
+                android:layout_width="@dimen/space_0"
+                android:layout_height="@dimen/space_0"
+                android:layout_centerHorizontal="true" />
+
             <TextView
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
                 android:id="@+id/contact_info_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/contact_info"
                 android:textColor="@color/colorAccent" />
+
             <TextView
                 android:id="@+id/contact_info_email"
                 android:layout_width="wrap_content"
@@ -162,6 +164,7 @@
                 android:layout_below="@+id/contact_info_caption"
                 android:text="email@email.com"
                 android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/contact_info_phone"
                 android:layout_width="wrap_content"
@@ -170,15 +173,17 @@
                 android:layout_below="@+id/contact_info_email"
                 android:text="01234 567 890"
                 android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/member_since_caption"
                 android:layout_width="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_below="@+id/contact_info_phone"
                 android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/member_since"
                 android:textColor="@color/colorAccent" />
+
             <TextView
                 android:id="@+id/member_since_value"
                 android:layout_width="wrap_content"
@@ -187,6 +192,7 @@
                 android:layout_below="@+id/member_since_caption"
                 android:text="07.12.16"
                 android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/location_caption"
                 android:layout_width="wrap_content"
@@ -195,6 +201,7 @@
                 android:layout_toEndOf="@+id/text_center"
                 android:text="@string/location_caption"
                 android:textColor="@color/colorAccent" />
+
             <TextView
                 android:id="@+id/location_value"
                 android:layout_width="wrap_content"
@@ -203,15 +210,17 @@
                 android:layout_below="@+id/location_caption"
                 android:text="Perth, AU"
                 android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/follows_you_caption"
-                android:layout_alignTop="@+id/member_since_caption"
                 android:layout_width="wrap_content"
-                android:layout_toEndOf="@+id/text_center"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/member_since_caption"
                 android:layout_below="@+id/location_value"
+                android:layout_toEndOf="@+id/text_center"
                 android:text="@string/follows_you"
                 android:textColor="@color/colorAccent" />
+
             <TextView
                 android:id="@+id/follows_you_value"
                 android:layout_width="wrap_content"
@@ -227,7 +236,7 @@
         <View
             android:id="@+id/left_horizontal_split_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/height_1"
             android:layout_below="@+id/profile_container"
             android:layout_toStartOf="@+id/center_split_line"
             android:background="@android:color/black" />
@@ -270,18 +279,18 @@
                         android:gravity="center"
                         android:text="52"
                         android:textColor="@color/white"
-                        android:textSize="25sp"
+                        android:textSize="@dimen/font_size_25"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/caps_caption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="-5dp"
+                        android:layout_marginTop="@dimen/margin_negative_5"
                         android:gravity="center"
-                        android:text="CAPS"
+                        android:text="@string/caps"
                         android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:textSize="@dimen/font_size_10" />
 
 
                 </LinearLayout>
@@ -293,14 +302,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/popup_friend_profil_progress_bar_height"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="-5dp"
-                android:layout_marginStart="-5dp"
+                android:layout_marginEnd="@dimen/margin_negative_5"
+                android:layout_marginStart="@dimen/margin_negative_5"
                 android:layout_toEndOf="@+id/caps_logo_container"
                 android:layout_toStartOf="@+id/next_level_cointainer"
                 android:background="@drawable/circle_shape"
                 android:indeterminate="false"
-                android:max="100"
-                android:progress="65"
+                android:max="@integer/progress_bar_max"
+                android:progress="@integer/progress_bar_60"
                 android:progressDrawable="@drawable/linear_progress_bar" />
 
             <RelativeLayout
@@ -337,7 +346,7 @@
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_below="@+id/top_split_line"
         android:layout_margin="@dimen/margin_30"
-        android:layout_toEndOf="@+id/center_split"/>
+        android:layout_toEndOf="@+id/center_split" />
 
     <!-- BOTTOM BUTTONS CONTAINER -->
     <RelativeLayout
@@ -353,7 +362,7 @@
         <View
             android:id="@+id/bottom_split_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/height_1"
             android:layout_alignParentTop="true"
             android:background="@android:color/black" />
 
@@ -368,6 +377,7 @@
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/popup_confirmation_button" />
+
         <ImageButton
             android:id="@+id/block_button"
             android:layout_width="wrap_content"
@@ -382,30 +392,32 @@
 
         <Switch
             android:id="@+id/following_switch"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_toStartOf="@+id/private_chat_label"
             android:layout_width="@dimen/popup_manage_chat_private_chat_switch_width"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/private_chat_label"
+            android:gravity="center_vertical|center_horizontal" />
+
         <TextView
             android:id="@+id/private_chat_label"
             android:layout_width="wrap_content"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_10"
             android:layout_toStartOf="@+id/unfriend_button"
-            android:text="@string/following_member"
             android:gravity="center_vertical|center_horizontal"
+            android:text="@string/following_member"
             android:textColor="@color/white" />
+
         <ImageButton
             android:id="@+id/unfriend_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toStartOf="@+id/confirm_button"
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/margin_30"
             android:layout_marginEnd="@dimen/margin_10"
+            android:layout_toStartOf="@+id/confirm_button"
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/unfriend" />
@@ -414,7 +426,7 @@
 
     <View
         android:id="@+id/x"
-        android:layout_width="1dp"
+        android:layout_width="@dimen/width_1"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_below="@+id/your_profile_button"

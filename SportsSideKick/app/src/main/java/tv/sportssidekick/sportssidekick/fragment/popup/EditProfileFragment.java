@@ -38,6 +38,7 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
+import tv.sportssidekick.sportssidekick.Connection;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
@@ -191,6 +192,10 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
+        if(!Connection.getInstance().alertIfNotReachable(getActivity())){
+            return;
+        }
+
         Map<String, String> map = new HashMap<>();
         map.put(GSConstants.FIRST_NAME,firstNameEditText.getText().toString());
         map.put(GSConstants.LAST_NAME,lastNameEditText.getText().toString());

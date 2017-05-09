@@ -11,8 +11,8 @@
     <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
     <View
         android:id="@+id/center_split"
-        android:layout_width="1dp"
-        android:layout_height="1dp"
+        android:layout_width="@dimen/width_1"
+        android:layout_height="@dimen/height_1"
         android:layout_centerHorizontal="true" />
 
 
@@ -26,9 +26,9 @@
 
         <TextView
             android:id="@+id/your_profile_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
-            android:layout_marginEnd="1dp"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorPrimarySemiLight"
             android:gravity="center"
@@ -37,9 +37,9 @@
 
         <TextView
             android:id="@+id/your_wallet_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
-            android:layout_marginEnd="1dp"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorAccentLight"
             android:gravity="center"
@@ -48,7 +48,7 @@
 
         <TextView
             android:id="@+id/your_stash_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorAccentLight"
@@ -59,27 +59,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:orientation="horizontal">
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginEnd="1dp"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorAccent" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginEnd="1dp"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorPrimaryLight" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/height_2"
             android:layout_weight="1"
             android:background="@color/colorPrimaryLight" />
     </LinearLayout>
@@ -88,7 +88,7 @@
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height_1"
         android:layout_below="@+id/top_buttons_container"
         android:background="@android:color/black" />
 
@@ -104,8 +104,8 @@
         <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
         <View
             android:id="@+id/center_split_line"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
+            android:layout_width="@dimen/width_1"
+            android:layout_height="@dimen/height_1"
             android:layout_centerHorizontal="true" />
 
         <!-- PROFILE CONTAINER - IMAGE -->
@@ -134,8 +134,8 @@
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/circle_shape"
                     android:indeterminate="false"
-                    android:max="100"
-                    android:progress="65"
+                    android:max="@integer/progress_bar_max"
+                    android:progress="@integer/progress_bar_60"
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <ImageView
@@ -154,7 +154,7 @@
                 android:layout_alignEnd="@id/profile_image_container"
                 android:layout_alignStart="@id/profile_image_container"
                 android:layout_below="@id/profile_image_container"
-                android:layout_marginTop="-20dp"
+                android:layout_marginTop="@dimen/margin_negative_20"
                 android:contentDescription="@string/image"
                 android:src="@drawable/next_level_marker" />
 
@@ -165,7 +165,7 @@
                 android:layout_alignEnd="@id/profile_image_container"
                 android:layout_alignStart="@id/profile_image_container"
                 android:layout_below="@id/profile_image_container"
-                android:layout_marginTop="-19dp"
+                android:layout_marginTop="@dimen/margin_negative_19"
                 android:gravity="center"
                 android:text="99"
                 android:textColor="@color/white"
@@ -182,7 +182,7 @@
                 android:gravity="center"
                 android:text="@string/login_or_sign_up"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="@dimen/font_size_16"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -199,8 +199,8 @@
 
             <View
                 android:id="@+id/text_center"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="@dimen/space_0"
+                android:layout_height="@dimen/space_0"
                 android:layout_centerHorizontal="true" />
 
             <TextView
@@ -299,8 +299,8 @@
 
             <ImageView
                 android:id="@+id/language_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/width_20"
+                android:layout_height="@dimen/height_20"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/chosen_language_caption"
                 android:src="@drawable/english" />
@@ -310,7 +310,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/chosen_language_caption"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="@dimen/margin_5"
                 android:layout_toEndOf="@+id/language_icon"
                 android:text="English"
                 android:textColor="@color/white" />
@@ -320,7 +320,7 @@
         <View
             android:id="@+id/left_horizontal_split_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/height_1"
             android:layout_below="@+id/profile_data_container"
             android:layout_marginTop="@dimen/margin_20"
             android:layout_toStartOf="@+id/center_split_line"
@@ -364,18 +364,18 @@
                         android:gravity="center"
                         android:text="52"
                         android:textColor="@color/white"
-                        android:textSize="25sp"
+                        android:textSize="@dimen/font_size_25"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/caps_caption"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="-5dp"
+                        android:layout_marginTop="@dimen/margin_negative_5"
                         android:gravity="center"
-                        android:text="CAPS"
+                        android:text="@string/caps"
                         android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:textSize="@dimen/font_size_10" />
 
                 </LinearLayout>
             </RelativeLayout>
@@ -386,14 +386,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/popup_friend_profil_progress_bar_height"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="-5dp"
-                android:layout_marginStart="-2dp"
+                android:layout_marginEnd="@dimen/margin_negative_5"
+                android:layout_marginStart="@dimen/margin_negative_2"
                 android:layout_toEndOf="@+id/caps_logo_container"
                 android:layout_toStartOf="@+id/next_level_cointainer"
                 android:background="@drawable/circle_shape"
                 android:indeterminate="false"
-                android:max="100"
-                android:progress="65"
+                android:max="@integer/progress_bar_max"
+                android:progress="@integer/progress_bar_60"
                 android:progressDrawable="@drawable/linear_progress_bar" />
 
             <RelativeLayout
@@ -430,7 +430,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_below="@+id/top_split_line"
-        android:layout_margin="30dp"
+        android:layout_margin="@dimen/margin_30"
         android:layout_toEndOf="@+id/center_split" />
 
     <!-- BOTTOM BUTTONS CONTAINER -->
@@ -447,7 +447,7 @@
         <View
             android:id="@+id/bottom_split_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/height_1"
             android:layout_alignParentTop="true"
             android:background="@android:color/black" />
 
@@ -502,7 +502,7 @@
 
     <View
         android:id="@+id/x"
-        android:layout_width="1dp"
+        android:layout_width="@dimen/width_1"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_below="@+id/top_buttons_container"

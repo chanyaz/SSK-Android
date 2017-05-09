@@ -47,7 +47,7 @@
 
         <View
             android:id="@+id/top_vertical_spliter"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/standard_button_height"
             android:layout_centerHorizontal="true" />
 
@@ -71,7 +71,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/height_2"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toStartOf="@+id/top_vertical_spliter"
@@ -79,7 +79,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/height_2"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/top_vertical_spliter"
@@ -88,7 +88,7 @@
         <View
             android:id="@+id/top_split_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/height_1"
             android:layout_below="@+id/top_vertical_spliter"
             android:background="@android:color/black" />
 
@@ -105,7 +105,7 @@
         <EditText
             android:id="@+id/chat_name_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/height_60"
             android:layout_below="@+id/top_vertical_spliter"
             android:layout_toStartOf="@+id/chat_join_search_button"
             android:background="@color/green_dark_2"
@@ -116,7 +116,7 @@
             android:padding="@dimen/margin_20"
             android:textColor="@color/white"
             android:textColorHint="@color/white_semitransparent"
-            android:textSize="14sp" />
+            android:textSize="@dimen/font_size_14" />
 
         <ImageButton
             android:id="@+id/chat_join_search_button"
@@ -143,7 +143,7 @@
             android:childDivider="@android:color/transparent"
             android:childIndicator="@android:color/transparent"
             android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
+            android:dividerHeight="@dimen/space_0"
             android:groupIndicator="@android:color/transparent"
             android:scrollIndicators="none"
             android:scrollbars="none"

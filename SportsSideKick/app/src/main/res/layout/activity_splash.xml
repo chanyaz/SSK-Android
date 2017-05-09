@@ -21,7 +21,19 @@
         android:layout_width="@dimen/progress_bar_width"
         android:layout_height="@dimen/progress_bar_height"
         android:layout_centerInParent="true"
-        android:elevation="2dp"
-        android:visibility="gone"
+        android:elevation="@dimen/elevation_2"
+        android:visibility="visible"
         app:indicatorName="LineSpinFadeLoaderIndicator" />
+    <TextView
+        android:id="@+id/waiting_connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/progress_bar"
+        android:text="@string/waiting_for_active_internet_connection"
+        />
 </RelativeLayout>

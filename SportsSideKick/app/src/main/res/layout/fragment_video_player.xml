@@ -23,15 +23,15 @@
             android:id="@+id/seek_bar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
+            android:layout_height="@dimen/height_16"
             android:layout_alignEnd="@+id/youtube_layout"
             android:layout_alignStart="@+id/youtube_layout"
             android:layout_below="@+id/youtube_layout"
             android:thumb="@drawable/radiothumb"
-            android:layout_marginEnd="-18dp"
-            android:layout_marginStart="-16dp"
-            android:thumbOffset="0px"
-            android:progress="65"
+            android:layout_marginEnd="@dimen/margin_negative_18"
+            android:layout_marginStart="@dimen/margin_negative_16"
+            android:thumbOffset="@dimen/thumb_offset_0"
+            android:progress="@integer/progress_bar_60"
             android:progressDrawable="@drawable/seek_bar_custom" />
 
     </android.support.percent.PercentRelativeLayout>
@@ -45,54 +45,54 @@
 
         <Button
             android:id="@+id/playlist_button"
-            android:layout_width="85dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/width_85"
+            android:layout_height="@dimen/height_25"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:minHeight="25dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:minHeight="@dimen/height_25"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_20"
             android:background="@drawable/rounded_button_press"
             android:text="@string/playlist"
-            android:textSize="10sp"
+            android:textSize="@dimen/font_size_10"
             android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/play_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/width_40"
+            android:layout_height="@dimen/height_40"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:padding="10dp"
+            android:padding="@dimen/padding_10"
             android:src="@drawable/switch_play" />
 
         <View
             android:id="@+id/center"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/space_0"
             android:layout_centerHorizontal="true" />
 
         <ImageView
             android:id="@+id/mute_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/width_40"
+            android:layout_height="@dimen/height_40"
             android:layout_below="@+id/play_button"
             android:layout_toStartOf="@+id/center"
             android:button="@null"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="@dimen/padding_10"
             android:src="@drawable/switch_mute"
             android:thumb="@null" />
 
         <ImageView
             android:id="@+id/fullscreen_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/width_40"
+            android:layout_height="@dimen/height_40"
             android:layout_below="@+id/play_button"
             android:layout_toEndOf="@+id/center"
-            android:padding="10dp"
+            android:padding="@dimen/padding_10"
             android:src="@drawable/full_screen_icon" />
     </RelativeLayout>
 
@@ -106,9 +106,9 @@
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:lines="1"
-        android:padding="8dp"
+        android:padding="@dimen/padding_8"
         android:text="@string/default_time"
         android:textColor="@color/lightGrey"
-        android:textSize="12sp" />
+        android:textSize="@dimen/font_size_12" />
 
 </RelativeLayout>

@@ -18,8 +18,8 @@
         android:layout_alignParentEnd="true"
         android:padding="@dimen/padding_8"
         android:layout_marginEnd="@dimen/margin_8"
-        android:text="Join Official Chat >"
+        android:text="@string/join_official_chat"
         android:textColor="@color/colorAccent"
-        android:textSize="12sp"/>
+        android:textSize="@dimen/font_size_12"/>
 
 </RelativeLayout>

@@ -13,7 +13,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/blank_profile_rounded"
         android:paddingEnd="@dimen/margin_10"
-        android:paddingStart="0dp"
+        android:paddingStart="@dimen/space_0"
         android:paddingTop="@dimen/margin_10"/>
 
     <ImageView
@@ -32,13 +32,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/image"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginTop="@dimen/margin_5"
         android:gravity="center"
         android:maxLines="2"
         android:text="Demo caption Demo caption Demo caption Demo caption"
         android:textColor="@color/white"
-        android:textSize="9sp" />
+        android:textSize="@dimen/font_size_9" />
 
 
 </RelativeLayout>

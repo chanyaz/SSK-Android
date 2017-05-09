@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tv.sportssidekick.sportssidekick.Connection;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
@@ -86,8 +87,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              slideToRight(loginContainer);
-//              slideToRight(resetButtonContainer);
                 loginContainer.setVisibility(View.VISIBLE);
                 loginButtonContainer.setVisibility(View.VISIBLE);
                 resetButtonContainer.setVisibility(View.INVISIBLE);
@@ -114,6 +113,10 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         String password = passwordEditText.getText().toString();
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.enter_valid_password_and_display_name), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!Connection.getInstance().alertIfNotReachable(getActivity())){
             return;
         }
 
@@ -155,7 +158,9 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     }
 
     @Override
-    public void onLoginAnonymously() { }
+    public void onLoginAnonymously() {
+
+    }
 
     @Override
     public void onLogin(UserInfo user) {
@@ -169,7 +174,11 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     public void onLoginError(Error error) {
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
-        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.login_login_message_login_failed), getContext().getResources().getString(R.string.login_try_again), null, new View.OnClickListener() {
+        AlertDialogManager.getInstance().showAlertDialog(
+                getContext().getResources().getString(R.string.login_login_message_login_failed),
+                getContext().getResources().getString(R.string.login_try_again),
+                null,
+                new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         getActivity().onBackPressed();
@@ -199,15 +208,28 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @Override
     public void onPasswordResetRequest() {
-        //TBA
-//        self.alert(title: "Reset Password", body: "Please check your email for password reset options.")
-//        self.onBack()
+        AlertDialogManager.getInstance().showAlertDialog(
+                getContext().getResources().getString(R.string.forgot_password_text),
+                getContext().getResources().getString(R.string.forgot_password_message),
+                null, new View.OnClickListener() { // Confirm
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                    }
+                });
     }
 
     @Override
     public void onPasswordResetRequestError(Error error) {
-        //TBA
-//        self.alert(title: "Error", body: "Please enter a valid email address!")
-//        self.setButtonEnabled(button: self.loginButton, spinner: self.prSpinner, enabled: true)
+        AlertDialogManager.getInstance().showAlertDialog(
+                getContext().getResources().getString(R.string.forgot_password_error),
+                getContext().getResources().getString(R.string.forgot_password_error_message),
+                null, new View.OnClickListener() { // Confirm
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                        forgotOnClick();
+                    }
+                });
     }
 }

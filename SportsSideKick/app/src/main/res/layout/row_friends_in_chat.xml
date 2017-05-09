@@ -20,14 +20,14 @@
 
         <View
             android:id="@+id/row_friends_in_chat_horizontal"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true" />
 
         <View
             android:id="@+id/row_friends_in_chat_vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/space_0"
             android:layout_centerVertical="true" />
 
         <RelativeLayout
@@ -67,6 +67,5 @@
         android:paddingStart="@dimen/padding_8"
         android:paddingEnd="@dimen/padding_8"
         android:paddingBottom="@dimen/padding_8"
-
         android:textColor="@color/white" />
 </RelativeLayout>

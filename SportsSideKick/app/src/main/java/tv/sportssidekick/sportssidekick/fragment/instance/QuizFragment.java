@@ -3,10 +3,18 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 import android.util.Base64;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.io.UnsupportedEncodingException;
 
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
+import tv.sportssidekick.sportssidekick.model.Model;
+import tv.sportssidekick.sportssidekick.model.user.UserEvent;
+import tv.sportssidekick.sportssidekick.model.user.UserInfo;
+
+import static tv.sportssidekick.sportssidekick.model.user.UserEvent.Type.onDetailsUpdated;
+import static tv.sportssidekick.sportssidekick.model.user.UserEvent.Type.onLogin;
 
 /**
  * Created by Filip on 12/6/2016.
@@ -24,16 +32,17 @@ public class QuizFragment extends StoreFragment {
 
     @Override
     protected void setupFragment(){
-        String userId = "123456789";
-        String firstName = "123456789";
-        String lastName = "123456789";
-        String nick = "123456789";
+        UserInfo userInfo = Model.getInstance().getUserInfo();
+        String userId = userInfo.getUserId();
+        String firstName = userInfo.getFirstName();
+        String lastName = userInfo.getFirstName();
+        String nick = userInfo.getNicName();
 
         try {
             String base64userId = Base64.encodeToString(userId.getBytes("UTF-8"), Base64.DEFAULT);
-            String base64firstName = Base64.encodeToString(userId.getBytes("UTF-8"), Base64.DEFAULT);
-            String base64lastName = Base64.encodeToString(userId.getBytes("UTF-8"), Base64.DEFAULT);
-            String base64nick = Base64.encodeToString(userId.getBytes("UTF-8"), Base64.DEFAULT);
+            String base64firstName = Base64.encodeToString(firstName.getBytes("UTF-8"), Base64.DEFAULT);
+            String base64lastName = Base64.encodeToString(lastName.getBytes("UTF-8"), Base64.DEFAULT);
+            String base64nick = Base64.encodeToString(nick.getBytes("UTF-8"), Base64.DEFAULT);
 
             String urlTemp = getResources().getString(R.string.quiz_url);
 
@@ -56,5 +65,15 @@ public class QuizFragment extends StoreFragment {
 
         withNavigation = false;
     }
+
+    @Subscribe
+    public void onUserLogin(UserEvent event)
+    {
+        if (event.getType()==onDetailsUpdated || event.getType()== onLogin)
+        {
+            setupFragment();
+        }
+    }
+
 
 }

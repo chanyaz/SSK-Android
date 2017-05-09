@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/row_join_chat_search_image"
-            android:paddingEnd="0dp"
+            android:paddingEnd="@dimen/space_0"
             android:paddingStart="@dimen/padding_16">
 
             <TextView
@@ -59,6 +59,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height_1"
         android:background="@color/black_transparent_154"/>
 </RelativeLayout>

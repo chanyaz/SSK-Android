@@ -17,6 +17,7 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tv.sportssidekick.sportssidekick.Connection;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
@@ -58,7 +59,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -78,6 +78,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
     @OnClick(R.id.bottom_buttons_container_sign_up)
     public void signUpOnClick(){
+        if(!Connection.getInstance().alertIfNotReachable(getActivity())){
+            return;
+        }
         if (TextUtils.isEmpty(firstName.getText()) ||
                 TextUtils.isEmpty(lastName.getText())||
                 TextUtils.isEmpty(email.getText())||
@@ -111,6 +114,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @OnClick(R.id.sign_up_facebook)
     public void facebookOnClick(){
         //TODO facebook sign up
+        if(!Connection.getInstance().alertIfNotReachable(getActivity())){
+            return;
+        }
     }
 
     @Override

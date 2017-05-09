@@ -23,7 +23,7 @@
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
-            android:elevation="2dp"
+            android:elevation="@dimen/elevation_2"
             app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     </RelativeLayout>
@@ -38,9 +38,9 @@
 
         <TextView
             android:id="@+id/your_profile_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
-            android:layout_marginEnd="1dp"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorAccentLight"
             android:gravity="center"
@@ -49,9 +49,9 @@
 
         <TextView
             android:id="@+id/your_wallet_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
-            android:layout_marginEnd="1dp"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorAccentLight"
             android:gravity="center"
@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/your_stash_button"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorPrimarySemiLight"
@@ -72,27 +72,27 @@
     <!-- TOP BUTTONS INDICATOR LINES -->
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
         android:orientation="horizontal">
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="2dp"
-            android:layout_marginEnd="1dp"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorPrimaryLight" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginEnd="1dp"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/colorPrimaryLight" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/height_2"
             android:layout_weight="1"
             android:background="@color/colorAccent" />
     </LinearLayout>
@@ -101,7 +101,7 @@
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/height_1"
         android:layout_below="@+id/top_buttons_container"
         android:background="@android:color/black" />
 
@@ -116,7 +116,7 @@
         android:textAllCaps="true"
         android:text="@string/your_stash"
         android:textColor="@color/colorAccent"
-        android:textSize="18sp" />
+        android:textSize="@dimen/font_size_18" />
 
     <TextView
         android:id="@+id/your_stash_description"
@@ -126,7 +126,7 @@
         android:layout_below="@id/your_stash_caption"
         android:text="@string/rewards_and_items_received"
         android:textColor="@color/white"
-        android:textSize="12sp" />
+        android:textSize="@dimen/font_size_12" />
 
 
     <!-- STATEMENTS -->
@@ -152,7 +152,7 @@
         <View
             android:id="@+id/bottom_split_line"
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/height_1"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"

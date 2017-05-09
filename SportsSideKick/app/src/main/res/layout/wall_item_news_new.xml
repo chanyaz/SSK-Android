@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="230dp">
+    android:layout_height="@dimen/height_230">
 
     <RelativeLayout
         android:id="@+id/image_container"
@@ -11,7 +11,7 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="@dimen/height_130"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
@@ -32,18 +32,18 @@
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:minLines="2"
-            android:padding="5dp"
+            android:padding="@dimen/padding_5"
             android:text="A falsis, silva noster competition.Turpis albus accola est.Est domesticus historia, cesaris.Parma, stella, et valebat."
             android:textColor="@color/colorPrimaryLight"
-            android:textSize="16sp"
+            android:textSize="@dimen/font_size_16"
             android:textStyle="bold" />
 
         <RelativeLayout
             android:id="@+id/user_details"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="@dimen/height_20"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/margin_10"
             android:paddingBottom="@dimen/margin_5"
             android:layout_marginEnd="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_10">
@@ -58,9 +58,9 @@
 
                 <ImageView
                     android:id="@+id/comments_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="2dp"
+                    android:layout_width="@dimen/width_20"
+                    android:layout_height="@dimen/height_20"
+                    android:layout_marginEnd="@dimen/margin_2"
                     android:background="@drawable/ic_comment" />
 
                 <TextView
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="204"
-                    android:textSize="10sp" />
+                    android:textSize="@dimen/font_size_10" />
 
             </LinearLayout>
 
@@ -83,9 +83,9 @@
 
                 <ImageView
                     android:id="@+id/likes_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="2dp"
+                    android:layout_width="@dimen/width_20"
+                    android:layout_height="@dimen/height_20"
+                    android:layout_marginEnd="@dimen/margin_2"
                     android:background="@drawable/ic_like" />
 
 
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="6901"
-                    android:textSize="10sp" />
+                    android:textSize="@dimen/font_size_10" />
             </LinearLayout>
 
             <TextView
@@ -104,7 +104,7 @@
                 android:layout_toStartOf="@id/likes_container"
                 android:maxLines="1"
                 android:text="Christopher Ogden"
-                android:textSize="10sp"
+                android:textSize="@dimen/font_size_10"
                 android:textColor="@color/lightGrey"/>
         </RelativeLayout>
     </RelativeLayout>
