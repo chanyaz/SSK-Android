@@ -152,7 +152,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         c.add(Calendar.WEEK_OF_YEAR, 2);  // advances day by 2
         Date date = c.getTime(); // gets modified time
         request.setEndTime(date); //set the end time for two weeks
-        //request.getBaseData().put(GSConstants.TIMESTAMP_TAG, DateUtils.currentTimeToFirebaseDate()); TODO - Check this?
+        //request.getBaseData().put(GSConstants.TIMESTAMP_TAG, DateUtils.currentTimeToFirebaseDate()); TBA - Check what is wrong with this?
         List<String> usersToChallenge = new ArrayList<>();
         usersToChallenge.add(userId);
         request.setUsersToChallenge(usersToChallenge);

@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -185,12 +184,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
         Model.getInstance().initialize(this);
-        yourCoinsContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO open dialog ?
-            }
-        });
+
         popupHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,11 +202,11 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         InternalNotificationManager.getInstance();
         // this part is optional
         facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
-
         PurchaseModel.getInstance().onCreate(this);
     }
 
-    private void toggleBlur(boolean visible) { // TODO Extract to popup base class ?
+    // Maybe extract this to popup base class?
+    private void toggleBlur(boolean visible) {
         if (visible) {
             popupHolder.setVisibility(View.VISIBLE);
             if (rootView.getWidth() > 0) {
@@ -302,7 +296,6 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         radioButtonsFragmentMap.put(R.id.club_radio_radio_button, ClubRadioFragment.class);
         radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
 
-        // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
@@ -689,7 +682,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         }
 
         UserInfo user = event.getUserInfo();
-        if (user.getFirstName() != null && user.getLastName() != null) {
+        if (user!=null && user.getFirstName() != null && user.getLastName() != null) {
             profileName.setText(user.getFirstName() + " " + user.getLastName());
         }
     }

@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment">
 
-    <!--  \/\/\/\/\/\/\/ FIXME Dummy View to make sure container is the size of Video player fragment -->
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"
         android:layout_width="match_parent"

@@ -182,7 +182,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 }
             });
         } catch (Exception e) {
-            // TODO: handle exception
+           Log.e(TAG,"Audio file can't be played!");
         }
     }
 

@@ -125,7 +125,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         isFrontCamera = frontCamera;
         if (camera != null) {
             camera.switchCamera();
-            // TODO - toggle camera button image
         }
     }
 
@@ -562,7 +561,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
 
     private void preConnect(String id) {
-//      self.appDelegate.loungeViewController?.wallTabs.tabItemJumpTo("Video Chat") TODO ?
         model.join(id).addOnCompleteListener(new OnCompleteListener<VideoChatItem>() {
             @Override
             public void onComplete(@NonNull Task<VideoChatItem> task) {

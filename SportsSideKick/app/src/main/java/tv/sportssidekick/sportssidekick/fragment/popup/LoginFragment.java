@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pixplicity.easyprefs.library.Prefs;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,6 +19,7 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tv.sportssidekick.sportssidekick.Connection;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
@@ -86,8 +86,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              slideToRight(loginContainer);
-//              slideToRight(resetButtonContainer);
                 loginContainer.setVisibility(View.VISIBLE);
                 loginButtonContainer.setVisibility(View.VISIBLE);
                 resetButtonContainer.setVisibility(View.INVISIBLE);
@@ -95,8 +93,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             }
         });
         // --- TODO For testing only!
-        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
-        passwordEditText.setText("qwerty");
+//        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
+//        passwordEditText.setText("qwerty");
         // ---
         return view;
     }
@@ -117,8 +115,12 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             return;
         }
 
+        if(!Connection.getInstance().alertIfNotReachable(getActivity())){
+            return;
+        }
+
         // --- TODO For testing only!
-        Prefs.putString("LAST_TEST_EMAIL",email);
+        //Prefs.putString("LAST_TEST_EMAIL",email);
         // ---
 
         Model.getInstance().login(email, password);
@@ -142,10 +144,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @OnClick(R.id.forgot_button)
     public void forgotOnClick() {
-        // EventBus.getDefault().post(new FragmentEvent(ForgotPasswordFramegnt.class));
-//        slideToLeft(loginContainer);
-//        slideToLeft(resetButtonContainer);
-
         loginContainer.setVisibility(View.INVISIBLE);
         loginButtonContainer.setVisibility(View.INVISIBLE);
         resetButtonContainer.setVisibility(View.VISIBLE);
@@ -155,11 +153,13 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     @Override
     public void onLogout() {
 //        progressBar.setVisibility(View.GONE);
-//                showLoginForms();
+//        showLoginForms();
     }
 
     @Override
-    public void onLoginAnonymously() { }
+    public void onLoginAnonymously() {
+
+    }
 
     @Override
     public void onLogin(UserInfo user) {
@@ -173,7 +173,11 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     public void onLoginError(Error error) {
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
-        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.login_login_message_login_failed), getContext().getResources().getString(R.string.login_try_again), null, new View.OnClickListener() {
+        AlertDialogManager.getInstance().showAlertDialog(
+                getContext().getResources().getString(R.string.login_login_message_login_failed),
+                getContext().getResources().getString(R.string.login_try_again),
+                null,
+                new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         getActivity().onBackPressed();
@@ -203,24 +207,22 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @Override
     public void onPasswordResetRequest() {
-        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.forgot_password_text), getContext().getResources().getString(R.string.forgot_password_message),
+        AlertDialogManager.getInstance().showAlertDialog(
+                getContext().getResources().getString(R.string.forgot_password_text),
+                getContext().getResources().getString(R.string.forgot_password_message),
                 null, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
                         getActivity().onBackPressed();
                     }
                 });
-
-//        self.alert(title: "Reset Password", body: "Please check your email for password reset options.")
-//        self.onBack()
     }
 
     @Override
     public void onPasswordResetRequestError(Error error) {
-//        self.alert(title: "Error", body: "Please enter a valid email address!")
-//        self.setButtonEnabled(button: self.loginButton, spinner: self.prSpinner, enabled: true)
-
-        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.forgot_password_error), getContext().getResources().getString(R.string.forgot_password_error_message),
+        AlertDialogManager.getInstance().showAlertDialog(
+                getContext().getResources().getString(R.string.forgot_password_error),
+                getContext().getResources().getString(R.string.forgot_password_error_message),
                 null, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {

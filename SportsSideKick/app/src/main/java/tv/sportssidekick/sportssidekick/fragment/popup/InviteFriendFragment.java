@@ -52,14 +52,11 @@ public class InviteFriendFragment extends BaseFragment {
         inviteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(inviteFriendName.getText()))
-                {
+                if (TextUtils.isEmpty(inviteFriendName.getText())) {
                     Toast.makeText(getContext(), getContext().getResources().getString(R.string.enter_friend_name_invite), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     FriendsManager.getInstance().inviteFriend(inviteFriendName.getText().toString());
-                    //TODO on succesfull remove popuup and show toast or inform user to rewrite email address and try again
+                    //TBA on successful remove pop up and show toast or inform user to rewrite email address and try again - Missing API
                 }
             }
         });
@@ -68,8 +65,7 @@ public class InviteFriendFragment extends BaseFragment {
     }
 
     @OnClick(R.id.add_friend_button)
-    public void onClickAddFriend()
-    {
+    public void onClickAddFriend() {
         EventBus.getDefault().post(new FragmentEvent(AddFriendFragment.class));
     }
 }

@@ -91,8 +91,6 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
                         if(task.isSuccessful()){
                             getValues().remove(position);
                             notifyDataSetChanged();
-                        } else {
-                            // TODO Warn about error?
                         }
                     }
                 });
@@ -110,8 +108,6 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
                         if(task.isSuccessful()){
                             getValues().remove(position);
                             notifyDataSetChanged();
-                        } else {
-                            // TODO Warn about error?
                         }
                     }
                 });
