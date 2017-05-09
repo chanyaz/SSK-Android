@@ -1,17 +1,30 @@
 package tv.sportssidekick.sportssidekick.fragment.popup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -52,6 +65,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @BindView(R.id.sign_up_password)
     TextView password;
 
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
+
     private RegistrationStateReceiver registrationStateReceiver;
 
     public SignUpFragment() {
@@ -67,12 +83,57 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         this.registrationStateReceiver = new RegistrationStateReceiver(this);
 
         //TODO DEMO
-        firstName.setText("Marco");
-        lastName.setText("Polo");
-        displayName.setText("marco polo");
-        phone.setText("123456789");
-        email.setText("marco@polo.com");
-        password.setText("qwerty");
+//        firstName.setText("Marco");
+//        lastName.setText("Polo");
+//        displayName.setText("marco polo");
+//        phone.setText("123456789");
+//        email.setText("marco@polo.com");
+//        password.setText("qwerty");
+
+        loginButton = (LoginButton) view.findViewById(R.id.sign_up_facebook);
+
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+
+        callbackManager = CallbackManager.Factory.create();
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                // Application code
+                                try {
+                                    email.setText(object.getString("email"));
+                                    firstName.setText(object.getString("first_name"));
+                                    lastName.setText(object.getString("last_name"));
+                                    displayName.setText(object.getString("first_name") + " " +object.getString("last_name"));
+                                    LoginManager.getInstance().logOut();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "name,email,first_name,last_name");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+            }
+        });
+
         return view;
     }
 
@@ -131,5 +192,10 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
         Toast.makeText(getContext(), getContext().getResources().getString(R.string.registarion_error), Toast.LENGTH_LONG).show(); // TODO inform user about login failed
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

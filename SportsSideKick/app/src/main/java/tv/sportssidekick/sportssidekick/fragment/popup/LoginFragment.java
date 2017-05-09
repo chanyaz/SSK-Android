@@ -203,8 +203,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @Override
     public void onPasswordResetRequest() {
-        //TODO
-
         AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.forgot_password_text), getContext().getResources().getString(R.string.forgot_password_message),
                 null, new View.OnClickListener() { // Confirm
                     @Override
@@ -219,7 +217,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @Override
     public void onPasswordResetRequestError(Error error) {
-        //TODO
 //        self.alert(title: "Error", body: "Please enter a valid email address!")
 //        self.setButtonEnabled(button: self.loginButton, spinner: self.prSpinner, enabled: true)
 
