@@ -93,8 +93,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             }
         });
         // --- TODO For testing only!
-        //emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
-        //passwordEditText.setText("qwerty");
+//        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
+//        passwordEditText.setText("qwerty");
         // ---
         return view;
     }
@@ -153,7 +153,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     @Override
     public void onLogout() {
 //        progressBar.setVisibility(View.GONE);
-//                showLoginForms();
+//        showLoginForms();
     }
 
     @Override

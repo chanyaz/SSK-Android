@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
+import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -485,7 +487,15 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()) // share to facebook
+        {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) // sign up Fragment - Continue with facebook
+        {
+            getFragmentOrganizer().getOpenFragment().onActivityResult(requestCode, resultCode, data);
+        }
+
         PurchaseModel.getInstance().onActivityResult(requestCode, resultCode, data);
 
     }
