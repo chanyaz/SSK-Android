@@ -39,26 +39,28 @@ public class QuizFragment extends StoreFragment {
         String nick = userInfo.getNicName();
 
         try {
-            String base64userId = Base64.encodeToString(userId.getBytes("UTF-8"), Base64.DEFAULT);
-            String base64firstName = Base64.encodeToString(firstName.getBytes("UTF-8"), Base64.DEFAULT);
-            String base64lastName = Base64.encodeToString(lastName.getBytes("UTF-8"), Base64.DEFAULT);
-            String base64nick = Base64.encodeToString(nick.getBytes("UTF-8"), Base64.DEFAULT);
+            if (userId != null && firstName!=null && lastName!=null && nick!=null)
+            {
+                String base64userId = Base64.encodeToString(userId.getBytes("UTF-8"), Base64.DEFAULT);
+                String base64firstName = Base64.encodeToString(firstName.getBytes("UTF-8"), Base64.DEFAULT);
+                String base64lastName = Base64.encodeToString(lastName.getBytes("UTF-8"), Base64.DEFAULT);
+                String base64nick = Base64.encodeToString(nick.getBytes("UTF-8"), Base64.DEFAULT);
 
-            String urlTemp = getResources().getString(R.string.quiz_url);
+                String urlTemp = getResources().getString(R.string.quiz_url);
 
-            StringBuilder urlBuilder = new StringBuilder(urlTemp);
-            urlBuilder
-                    .append("?userid=")
-                    .append(base64userId)
-                    .append("&fname=")
-                    .append(base64firstName)
-                    .append("&lname=")
-                    .append(base64lastName)
-                    .append("&nick=")
-                    .append(base64nick);
+                StringBuilder urlBuilder = new StringBuilder(urlTemp);
+                urlBuilder
+                        .append("?userid=")
+                        .append(base64userId)
+                        .append("&fname=")
+                        .append(base64firstName)
+                        .append("&lname=")
+                        .append(base64lastName)
+                        .append("&nick=")
+                        .append(base64nick);
 
-            url = urlBuilder.toString();
-
+                url = urlBuilder.toString();
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
