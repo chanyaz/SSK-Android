@@ -57,8 +57,6 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void initialiseModel() {
         if(EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().unregister(this);

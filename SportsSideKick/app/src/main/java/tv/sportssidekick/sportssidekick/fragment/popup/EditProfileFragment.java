@@ -192,7 +192,14 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
-        if(!Connection.getInstance().alertIfNotReachable(getActivity())){
+        if(!Connection.getInstance().alertIfNotReachable(getActivity(),
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                    }
+                }
+                )){
             return;
         }
 

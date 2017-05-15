@@ -229,7 +229,8 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     public void onLogout() {
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             setupFragment();
-        } else {
+        }
+        else {
             getActivity().onBackPressed();
         }
     }

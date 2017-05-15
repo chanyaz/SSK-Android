@@ -58,10 +58,10 @@ public class AlertDialogManager {
     }
 
     public void showAlertDialog(String title, String content, View.OnClickListener cancelListener, View.OnClickListener confirmListener){
-        EventBus.getDefault().post(new FragmentEvent(AlertDialogFragment.class));
         this.title = title;
         this.content = content;
         this.cancelListener = cancelListener;
         this.confirmListener = confirmListener;
+        EventBus.getDefault().post(new FragmentEvent(AlertDialogFragment.class));
     }
 }

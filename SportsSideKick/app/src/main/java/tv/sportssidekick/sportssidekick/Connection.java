@@ -10,8 +10,6 @@ import com.keiferstone.nonet.NoNet;
 
 import org.greenrobot.eventbus.EventBus;
 
-import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
-import tv.sportssidekick.sportssidekick.fragment.popup.LoginFragment;
 import tv.sportssidekick.sportssidekick.model.AlertDialogManager;
 
 /**
@@ -56,11 +54,11 @@ public class Connection {
                     @Override
                     public void onConnectionEvent(int connectionStatus) {
                         if (connectionStatus == ConnectionStatus.CONNECTED) {
-                            EventBus.getDefault().post(new OnChangeEvent(Status.reachable));
                             lastStatus = Status.reachable;
+                            EventBus.getDefault().post(new OnChangeEvent(Status.reachable));
                         } else {
-                            EventBus.getDefault().post(new OnChangeEvent(Status.notReachable));
                             lastStatus = Status.notReachable;
+                            EventBus.getDefault().post(new OnChangeEvent(Status.notReachable));
                         }
                     }
                 });
@@ -89,19 +87,13 @@ public class Connection {
      *  Create dialog that alerts the User about no internet connectivity
      * @return internet connectivity
      */
-    public boolean alertIfNotReachable(final Activity activity){
+    public boolean alertIfNotReachable(final Activity activity, View.OnClickListener clickListener){
         if(!reachable()){
             AlertDialogManager.getInstance().showAlertDialog(
                     activity.getResources().getString(R.string.no_connection_title),
                     activity.getResources().getString(R.string.no_connection_message),
                     null,
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            activity.onBackPressed();
-                            EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-                        }
-                    }
+                    clickListener
             );
         }
         return reachable();

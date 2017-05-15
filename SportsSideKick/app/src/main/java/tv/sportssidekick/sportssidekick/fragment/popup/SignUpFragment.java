@@ -3,7 +3,6 @@ package tv.sportssidekick.sportssidekick.fragment.popup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,9 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +31,9 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
+import me.atrox.haikunator.Haikunator;
+import me.atrox.haikunator.HaikunatorBuilder;
 import tv.sportssidekick.sportssidekick.Connection;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
@@ -66,7 +70,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @BindView(R.id.sign_up_password)
     TextView password;
 
-    private LoginButton loginButton;
+    @BindView(R.id.sign_up_facebook)
+    LoginButton loginButton;
     private CallbackManager callbackManager;
 
     private RegistrationStateReceiver registrationStateReceiver;
@@ -81,21 +86,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         View view = inflater.inflate(R.layout.popup_signup, container, false);
         ButterKnife.bind(this, view);
         this.registrationStateReceiver = new RegistrationStateReceiver(this);
-
-        //TODO DEMO
-//        firstName.setText("Marco");
-//        lastName.setText("Polo");
-//        displayName.setText("marco polo");
-//        phone.setText("123456789");
-//        email.setText("marco@polo.com");
-//        password.setText("qwerty");
-
-        loginButton = (LoginButton) view.findViewById(R.id.sign_up_facebook);
-
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-
         callbackManager = CallbackManager.Factory.create();
-
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -137,11 +129,22 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         return view;
     }
 
+    @OnLongClick(R.id.or_label)
+    public boolean populateWithDemoData(){
+        Haikunator haikunator = new HaikunatorBuilder().setTokenLength(0).setDelimiter(" ").build();
+        String name = haikunator.haikunate();
+        firstName.setText(WordUtils.capitalize(name.substring(0,name.indexOf(" "))));
+        lastName.setText(WordUtils.capitalize(name.substring(name.indexOf(" ")+1)));
+        displayName.setText(name);
+        phone.setText(new HaikunatorBuilder().setTokenLength(10).setDelimiter("").setTokenChars("0123456789").build().haikunate());
+        email.setText(name.replace(" ","@") + ".com");
+        password.setText("qwerty");
+        return true;
+    }
+
     @OnClick(R.id.bottom_buttons_container_sign_up)
     public void signUpOnClick(){
-        if(!Connection.getInstance().alertIfNotReachable(getActivity())){
-            return;
-        }
+
         if (TextUtils.isEmpty(firstName.getText()) ||
                 TextUtils.isEmpty(lastName.getText())||
                 TextUtils.isEmpty(email.getText())||
@@ -152,6 +155,18 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.fiil_all_data), Toast.LENGTH_LONG).show();
         }
         else {
+
+            if(!Connection.getInstance().alertIfNotReachable(getActivity(),
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            getActivity().onBackPressed();
+                        }
+                    }
+            )){
+                return;
+            }
+
             HashMap<String, Object> userDetails = new HashMap<>();
             userDetails.put(GSConstants.FIRST_NAME, firstName.getText().toString());
             userDetails.put(GSConstants.LAST_NAME, lastName.getText().toString());
@@ -172,14 +187,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
-    @OnClick(R.id.sign_up_facebook)
-    public void facebookOnClick(){
-        //TODO facebook sign up
-        if(!Connection.getInstance().alertIfNotReachable(getActivity())){
-            return;
-        }
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -198,11 +205,25 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
         Toast.makeText(getContext(), getContext().getResources().getString(R.string.registarion_error), Toast.LENGTH_LONG).show();
-        // TBA inform user about login failed
+        // TBA inform user about registration failure
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Subscribe
+    public void onConnectionEvent(Connection.OnChangeEvent event){
+        if(event.getStatus() == Connection.Status.notReachable){
+            Connection.getInstance().alertIfNotReachable(getActivity(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
+                }
+            });
+            progressBar.setVisibility(View.GONE);
+            signUpText.setVisibility(View.VISIBLE);
+        }
     }
 }

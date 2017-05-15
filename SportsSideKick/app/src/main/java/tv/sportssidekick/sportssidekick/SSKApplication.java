@@ -35,7 +35,6 @@ public class SSKApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
         Bugfender.init(this, "X8jor58iPHDDUYWUBDPjZvVwWoMnMWkP", BuildConfig.DEBUG);
         Bugfender.enableLogcatLogging();
         Bugfender.enableUIEventLogging(this);
@@ -105,4 +104,6 @@ public class SSKApplication extends MultiDexApplication {
         super.attachBaseContext(base);
         MultiDex.install(SSKApplication.this);
     }
+
+
 }
