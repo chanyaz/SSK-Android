@@ -1,7 +1,9 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
 import tv.sportssidekick.sportssidekick.model.im.ChatInfo;
 import tv.sportssidekick.sportssidekick.model.im.event.ChatNotificationsEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
+import tv.sportssidekick.sportssidekick.util.ui.ThemeManager;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -41,8 +44,6 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
 
     // Start with first item selected
     private int focusedItem = 0;
-
-    private int selectedChatColor;
 
     public List<ChatInfo> getValues() {
         return values;
@@ -74,10 +75,16 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             ButterKnife.bind(this, view);
         }
     }
-
-    public ChatHeadsAdapter(int selectedChatColor) {
+    Context context;
+    int selectedChatColor;
+    int lightSelectedChatColor;
+    public ChatHeadsAdapter(Context context) {
         values = new ArrayList<>();
-        this.selectedChatColor = selectedChatColor;
+        this.context = context;
+        if(context!=null){
+            selectedChatColor = ContextCompat.getColor(context,(R.color.colorAccent));
+            lightSelectedChatColor = ContextCompat.getColor(context,(R.color.light_chat_head_selected_color));
+        }
     }
 
 
@@ -154,7 +161,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                 }
             }
             if (focusedItem == position) {
-                holder.imageView.setBorderColor(selectedChatColor);
+                holder.imageView.setBorderColor(ThemeManager.getInstance().isLightTheme() ? lightSelectedChatColor : selectedChatColor);
             } else {
                 holder.imageView.setBorderColor(Color.TRANSPARENT);
             }

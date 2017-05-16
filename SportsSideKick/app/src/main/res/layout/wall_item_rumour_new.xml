@@ -8,7 +8,7 @@
         android:id="@+id/row_wall_small_cell_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="?wallItemRumoursBigBackground">
 
         <com.github.rongi.rotate_layout.layout.RotateLayout
             android:id="@+id/row_wall_small_cell_headline_container"
@@ -17,7 +17,7 @@
             android:layout_alignBottom="@+id/spaner"
             android:layout_alignParentTop="true"
             android:background="@drawable/rumour_headerz"
-            android:backgroundTint="@color/rumour_yellow"
+            android:backgroundTint="?rumour_yellow"
             app:angle="90"> <!-- Specify rotate angle here -->
 
             <TextView

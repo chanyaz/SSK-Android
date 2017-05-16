@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?wallBackground">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
@@ -133,7 +134,7 @@
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
                                 android:singleLine="true"
-                                android:textColor="@color/colorAccent" />
+                                android:textColor="?colorAccent" />
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -191,7 +192,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
-                                android:textColor="@color/colorAccent" />
+                                android:textColor="?colorAccent" />
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -251,7 +252,7 @@
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
                                 android:singleLine="true"
-                                android:textColor="@color/colorAccent" />
+                                android:textColor="?colorAccent" />
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -311,7 +312,7 @@
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
                                 android:singleLine="true"
-                                android:textColor="@color/colorAccent" />
+                                android:textColor="?colorAccent" />
                         </RelativeLayout>
                     </RelativeLayout>
                 </RelativeLayout>
@@ -331,7 +332,7 @@
                 <!--android:paddingEnd="@dimen/padding_8"-->
                 <!--android:paddingStart="@dimen/padding_8"-->
                 <!--app:srl_direction="bottom"-->
-                <!--android:background="@color/black_transparent_154">-->
+                <!--android:background="?black_transparent_154">-->
 
 
                 <!--<android.support.v7.widget.RecyclerView-->

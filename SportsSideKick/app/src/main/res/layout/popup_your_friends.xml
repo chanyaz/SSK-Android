@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimarySemiLight"
+        android:background="?colorPrimarySemiLight"
         android:orientation="horizontal">
 
         <TextView
@@ -26,7 +26,7 @@
             android:layout_marginEnd="1dp"
             android:gravity="center_vertical"
             android:text="@string/your_friends_title"
-            android:textColor="@color/colorAccent"
+            android:textColor="?colorAccent"
             android:textSize="@dimen/font_size_18" />
 
         <ImageButton
@@ -38,7 +38,7 @@
             android:layout_margin="@dimen/margin_15"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_close" />
+            android:src="?closeIcon" />
     </RelativeLayout>
 
     <!-- TOP LINE -->
@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent" />
+        android:background="?colorAccent" />
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
@@ -62,7 +62,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_below="@id/top_buttons_container"
-        android:background="@color/colorPrimarySemiLight">
+        android:background="?colorPrimarySemiLight">
 
         <tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView
             android:id="@+id/friends_recycler_view"
@@ -81,7 +81,7 @@
             android:layout_centerInParent="true"
             android:text="@string/no_results"
             android:visibility="gone"
-            android:textColor="@color/white_semitransparent"/>
+            android:textColor="?white_semitransparent"/>
 
     </RelativeLayout>
 
@@ -115,7 +115,7 @@
             android:layout_marginEnd="@dimen/margin_10"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:src="?popupConfirmationButtonIcon" />
 
         <RelativeLayout
             android:id="@+id/search_container"
@@ -140,13 +140,13 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_toEndOf="@id/search_icon"
-                android:background="@color/green_dark_2"
+                android:background="?green_dark_2"
                 android:hint="@string/your_friends_search_hint"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textColor="@color/white_semitransparent"
-                android:textColorHint="@color/white_semitransparent"
+                android:textColor="?white_semitransparent"
+                android:textColorHint="?white_semitransparent"
                 android:textSize="@dimen/font_size_12" />
         </RelativeLayout>
 
@@ -200,7 +200,7 @@
                 android:layout_toEndOf="@id/requests_number"
                 android:gravity="center_vertical"
                 android:text="@string/your_friends_request"
-                android:textColor="@color/colorAccent"
+                android:textColor="?colorAccent"
                 android:textSize="@dimen/font_size_20"
                 android:textStyle="normal" />
         </RelativeLayout>

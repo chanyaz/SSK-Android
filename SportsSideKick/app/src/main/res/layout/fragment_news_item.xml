@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/green_dark_2_semitransparent">
+                    android:background="?postCommentContainerColor">
 
                     <TextView
                         android:id="@+id/title"
@@ -86,7 +86,7 @@
                         android:layout_marginRight="@dimen/margin_10"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:textColor="@color/lightGrey"
+                        android:textColor="?lightGrey"
                         android:textSize="@dimen/font_size_16" />
 
                 </RelativeLayout>
@@ -116,7 +116,7 @@
                         android:layout_height="@dimen/height_26"
                         android:layout_marginEnd="@dimen/margin_5"
                         android:background="@drawable/ic_like"
-                        android:backgroundTint="@color/white" />
+                        android:backgroundTint="?newsLikeIcon" />
 
                     <ImageView
                         android:id="@+id/likes_icon_liked"
@@ -124,7 +124,7 @@
                         android:layout_height="@dimen/height_26"
                         android:layout_marginEnd="@dimen/margin_5"
                         android:background="@drawable/ic_like"
-                        android:backgroundTint="@color/colorAccent"
+                        android:backgroundTint="?newsLikedIcon"
                         android:visibility="gone" />
 
 
@@ -150,7 +150,7 @@
                         android:layout_height="@dimen/height_26"
                         android:layout_marginEnd="@dimen/margin_5"
                         android:background="@drawable/ic_pin"
-                        android:backgroundTint="@color/white" />
+                        android:backgroundTint="?newsPinIcon" />
 
 
                     <TextView
@@ -175,7 +175,7 @@
                         android:layout_height="@dimen/height_26"
                         android:layout_marginEnd="@dimen/margin_5"
                         android:background="@drawable/ic_share"
-                        android:backgroundTint="@color/white" />
+                        android:backgroundTint="?newsShareIcon" />
 
 
                     <TextView
@@ -200,7 +200,7 @@
                         android:layout_height="@dimen/height_26"
                         android:layout_marginEnd="@dimen/margin_5"
                         android:background="@drawable/ic_comment"
-                        android:backgroundTint="@color/white" />
+                        android:backgroundTint="?newsCommentIcon" />
 
 
                     <TextView
@@ -218,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_1"
                 android:layout_below="@id/top_buttons_contaniner"
-                android:background="@color/green_dark_2" />
+                android:background="?green_dark_2" />
 
             <TextView
                 android:id="@+id/content_text"
@@ -226,14 +226,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/top_horizontal_split_line"
                 android:layout_margin="@dimen/margin_20"
-                android:textColor="@color/white" />
+                android:textColor="?wallItemTipTextContentColor" />
 
             <View
                 android:id="@+id/bottom_horizontal_split_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@id/content_text"
-                android:background="@color/green_dark_2" />
+                android:background="?green_dark_2" />
 
             <LinearLayout
                 android:id="@+id/tutorial_container"
@@ -251,13 +251,13 @@
                     android:layout_margin="@dimen/margin_10"
                     android:textAlignment="center"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="?colorAccent"
                     android:textSize="@dimen/font_size_18" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_2" />
+                    android:background="?green_dark_2" />
 
                 <TextView
                     android:id="@+id/tutorial_description"
@@ -305,7 +305,7 @@
                         android:layout_height="@dimen/height_90"
                         android:layout_below="@+id/coin_image"
                         android:layout_marginTop="@dimen/margin_negative_10"
-                        android:background="@color/green_dark_2_semitransparent">
+                        android:background="?green_dark_2_semitransparent">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -373,7 +373,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="?postCommentContainerColor"
         android:visibility="gone">
 
         <EditText
@@ -387,10 +387,10 @@
             android:layout_marginEnd="@dimen/margin_20"
             android:layout_toEndOf="@+id/uploaded_image"
             android:layout_toStartOf="@+id/post_post_button"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="?postCommentContainerColor"
             android:hint="@string/enter_comment_hint"
-            android:textColor="@color/white"
-            android:textColorHint="@color/lightGrey" />
+            android:textColor="?postCommentTextColor"
+            android:textColorHint="?postCommentHintColor" />
 
         <ImageView
             android:id="@+id/post_post_button"

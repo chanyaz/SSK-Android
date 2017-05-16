@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_dark_1"
+    android:background="?wallBackground"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment">
 
     <RelativeLayout
@@ -81,7 +81,7 @@
             layout="@layout/item_video_chat_slot"
             android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/space_0"
-            android:background="@color/demo_blue_semitransparent"
+            android:background="?demo_blue_semitransparent"
             app:layout_constraintBottom_toTopOf="@+id/preview_container"
             app:layout_constraintLeft_toRightOf="@+id/slot_3"
             app:layout_constraintRight_toRightOf="parent"
@@ -92,7 +92,7 @@
             layout="@layout/item_video_chat_slot"
             android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/space_0"
-            android:background="@color/demo_green_semitransparent"
+            android:background="?demo_green_semitransparent"
             app:layout_constraintBottom_toTopOf="@+id/preview_container"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/slot_2"
@@ -104,7 +104,7 @@
             layout="@layout/item_video_chat_slot"
             android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/space_0"
-            android:background="@color/demo_yellow_semitransparent"
+            android:background="?demo_yellow_semitransparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/preview_container"
@@ -162,19 +162,20 @@
     <RelativeLayout
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/background_login" />
+            android:src="?loginBackground" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/light_green_1_semitransparent"
+            android:background="?light_green_1_semitransparent"
             android:contentDescription="@null" />
 
         <RelativeLayout

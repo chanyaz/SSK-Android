@@ -27,7 +27,7 @@
             android:maxLines="2"
             android:padding="@dimen/margin_5"
             android:textAlignment="viewStart"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="?colorPrimaryLight"
             android:textStyle="bold" />
 
         <TextView

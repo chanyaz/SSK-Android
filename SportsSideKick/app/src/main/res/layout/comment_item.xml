@@ -12,7 +12,7 @@
         android:layout_height="@dimen/height_60"
         android:layout_marginStart="@dimen/margin_15"
         android:layout_marginEnd="@dimen/margin_5"
-        android:src="@drawable/blank_profile_rounded" />
+        android:src="?profileImageIcon" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:layout_marginEnd="@dimen/margin_15"
             android:text="@string/comment_text"
             android:minLines="1"
-            android:background="@drawable/chat_bubble"/>
+            android:background="?chatBubbleIcon"/>
 
         <TextView
             android:id="@+id/message_information"
@@ -38,6 +38,6 @@
             android:layout_marginTop="@dimen/margin_5"
             android:layout_marginBottom="@dimen/margin_5"
             android:text="First name last name - time ago"
-            android:textColor="@color/lightGrey" />
+            android:textColor="?lightGrey" />
     </RelativeLayout>
 </LinearLayout>

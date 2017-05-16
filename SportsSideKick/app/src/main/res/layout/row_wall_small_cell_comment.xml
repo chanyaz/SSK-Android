@@ -42,6 +42,6 @@
             android:paddingBottom="@dimen/padding_16"
             android:paddingStart="@dimen/padding_16"
             android:paddingEnd="@dimen/padding_16"
-            android:textColor="@color/lightGrey"/>
+            android:textColor="?lightGrey"/>
     </LinearLayout>
 </RelativeLayout>

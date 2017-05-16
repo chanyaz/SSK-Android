@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorAccentLight"
+    android:background="?wallBackground"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.WallFragment">
 
 
@@ -32,7 +32,7 @@
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:background="@color/green_dark_3"
+        android:background="?green_dark_3"
         android:layout_above="@+id/fragment_wall_bottom_bar"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -76,7 +76,7 @@
                     android:textColor="@color/white"
                     android:layout_toEndOf="@+id/uploaded_image"
                     android:layout_toStartOf="@+id/post_post_button"
-                    android:textColorHint="@color/colorPrimarySemiLight" />
+                    android:textColorHint="?colorPrimarySemiLight" />
                 <ImageView
                     android:id="@+id/post_post_button"
                     android:layout_width="@dimen/width_60"
@@ -86,7 +86,7 @@
                     android:layout_marginStart="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_20"
                     android:layout_marginBottom="@dimen/margin_20"
-                    android:tint="@color/colorPrimarySemiLight"
+                    android:tint="?colorPrimarySemiLight"
                     android:layout_alignParentEnd="true"
                     android:visibility="visible"/>
             </RelativeLayout>
@@ -95,7 +95,7 @@
                 android:layout_width="@dimen/width_2"
                 android:layout_height="match_parent"
                 android:layout_toStartOf="@+id/media_buttons"
-                android:background="@color/light_green_1_semitransparent" />
+                android:background="?light_green_1_semitransparent" />
             <LinearLayout
                 android:id="@+id/media_buttons"
                 android:layout_width="wrap_content"
@@ -108,14 +108,14 @@
                     android:id="@+id/camera_button"
                     android:layout_width="@dimen/width_40"
                     android:layout_height="match_parent"
-                    android:src="@drawable/chat_button_camera"
-                    android:tint="@color/colorPrimarySemiLight" />
+                    android:src="?chatCameraIcon"
+                    android:tint="?colorPrimarySemiLight" />
                 <ImageView
                     android:id="@+id/image_button"
                     android:layout_width="@dimen/width_40"
                     android:layout_height="match_parent"
-                    android:src="@drawable/chat_button_image"
-                    android:tint="@color/colorPrimarySemiLight" />
+                    android:src="?chatGalleryIcon"
+                    android:tint="?colorPrimarySemiLight" />
 
             </LinearLayout>
         </RelativeLayout>
@@ -189,7 +189,7 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:hint="@string/search_wall_posts_hint"
                 android:textColor="@color/white"
-                android:textColorHint="@color/colorPrimarySemiLight" />
+                android:textColorHint="?colorPrimarySemiLight" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -208,7 +208,7 @@
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_60"
-        android:background="@color/green_dark_2"
+        android:background="?wallMenuBackground"
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
@@ -227,7 +227,7 @@
             android:layout_width="@dimen/wall_button_size"
             android:layout_height="@dimen/wall_button_size"
             android:layout_marginEnd="@dimen/margin_20"
-         android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
             android:layout_marginBottom="@dimen/margin_10"
             android:layout_marginStart="@dimen/margin_20"
             android:layout_centerHorizontal="true"

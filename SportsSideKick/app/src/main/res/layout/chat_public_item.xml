@@ -9,7 +9,7 @@
         android:layout_height="@dimen/height_60"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/blank_profile_rounded" />
+        android:src="?profileImageIcon" />
 
     <ImageView
         android:id="@+id/selected"
@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/chat_head_selected"
+        android:src="?chatHeadSelectedIcon"
         android:visibility="gone" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_height="@dimen/height_15"
         android:layout_below="@+id/caption"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/user_count_icon" />
+        android:src="?userCountIcon" />
 
     <TextView
         android:id="@+id/people_count_value"

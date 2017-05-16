@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:background="@null"
         android:scaleType="centerCrop"
-        android:src="@drawable/blank_profile_rounded"
+        android:src="?profileImageIcon"
         android:paddingEnd="@dimen/margin_10"
         android:paddingStart="@dimen/space_0"
         android:paddingTop="@dimen/margin_10"/>

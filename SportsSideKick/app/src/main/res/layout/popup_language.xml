@@ -12,13 +12,13 @@
         android:layout_height="@dimen/height_48"
         android:gravity="center"
         android:text="@string/choose_your_language"
-        android:textColor="@color/colorAccent" />
+        android:textColor="?colorAccent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent" />
+        android:background="?colorAccent" />
 
     <View
         android:id="@+id/top_split_line"
@@ -161,6 +161,6 @@
             android:layout_marginEnd="@dimen/margin_10"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:src="?popupConfirmationButtonIcon" />
     </RelativeLayout>
 </RelativeLayout>

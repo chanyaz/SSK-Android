@@ -25,7 +25,7 @@
         android:layout_below="@+id/background"
         android:layout_height="wrap_content"
         android:text="@string/soccer_boot"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="?colorAccent"/>
     <TextView
         android:id="@+id/profile_frame"
         android:layout_width="match_parent"
@@ -45,5 +45,5 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/font_size_10"
         android:lines="2"
-        android:textColor="@color/white_semitransparent"/>
+        android:textColor="?white_semitransparent"/>
 </RelativeLayout>

@@ -375,4 +375,7 @@
     <integer name="progress_bar_30">30</integer>
     <integer name="progress_bar_60">65</integer>
     <integer name="progress_bar_mid">50</integer>
+
+    <string name="light_theme">darkTheme</string>
+    <string name="dark_theme">lightTheme</string>
 </resources>

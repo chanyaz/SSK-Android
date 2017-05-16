@@ -28,20 +28,20 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toStartOf="@+id/top_vertical_spliter"
-            android:background="@color/colorPrimarySemiLight"
+            android:background="?colorPrimarySemiLight"
             android:gravity="center"
             android:text="@string/add_friend"
-            android:textColor="@color/colorAccent" />
+            android:textColor="?colorAccent" />
 
         <TextView
             android:id="@+id/invite_friend_button"
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toEndOf="@+id/top_vertical_spliter"
-            android:background="@color/colorAccentLight"
+            android:background="?colorAccentLight"
             android:gravity="center"
             android:text="@string/invite_friend"
-            android:textColor="@color/white_semitransparent" />
+            android:textColor="?white_semitransparent" />
 
         <View
             android:layout_width="match_parent"
@@ -49,7 +49,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toStartOf="@+id/top_vertical_spliter"
-            android:background="@color/colorAccent" />
+            android:background="?colorAccent" />
 
         <View
             android:layout_width="match_parent"
@@ -57,7 +57,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/top_vertical_spliter"
-            android:background="@color/colorPrimaryLight" />
+            android:background="?colorPrimaryLight" />
     </RelativeLayout>
 
 
@@ -90,7 +90,7 @@
             android:layout_toStartOf="@id/add_friend_name"
             android:maxLines="2"
             android:text="@string/add_friend_hint"
-            android:textColor="@color/wall_shop_description_background" />
+            android:textColor="?wall_shop_description_background" />
 
 
     </RelativeLayout>
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/no_result"
-            android:textColor="@color/white_semitransparent"
+            android:textColor="?white_semitransparent"
             android:visibility="gone" />
 
         <android.support.v7.widget.RecyclerView

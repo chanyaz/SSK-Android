@@ -11,6 +11,7 @@
     <color name="light_green_1_semitransparent">#a8215456</color>
     <color name="green_dark_2">#00363b</color>
     <color name="green_dark_2_semitransparent">#a800363b</color>
+
     <color name="light_green_2">#00ab8d</color>
     <color name="lightGrey">#9ba1a3</color>
     <color name="white">#ffffff</color>
@@ -22,16 +23,97 @@
     <color name="demo_blue_semitransparent">#71002df4</color>
     <color name="demo_red_semitransparent">#56ff0000</color>
     <color name="black_transparent_154">#9a000000</color>
-    <color name="facebook_blue">#3b5998</color>
 
+    <color name="facebook_blue">#3b5998</color>
     <color name="wall_comment_color">#4d4e4c</color>
     <color name="wall_shop_description_background">#f6f7fa</color>
     <color name="wall_shop_description_text_color">#0be5ff</color>
     <color name="black">#000000</color>
 
     <color name="red">#d10212</color>
-
     <color name="chat_input_edit_text_background">#e9eaed</color>
     <color name="wall_store_color">#fc6120</color>
     <color name="rumour_yellow">#fcfd42</color>
+
+    <color name="wall_background">#215456</color>
+
+    <color name="chat_content_right_color">#e6f7f4</color>
+    <color name="chat_content_left_color">#4d4e4c</color>
+
+    <color name="wall_tip_text_caption_color">#4d4e4c</color>
+    <color name="wall_tip_text_content_color">#4d4e4c</color>
+
+
+    <!--*****************************************************************************************-->
+    <!--Light Theme-->
+    <color name="light_colorAccent">#ffe324</color>
+    <color name="light_colorAccentLight">#215456</color>
+    <color name="light_colorPrimary">#00363b</color>
+    <color name="light_colorPrimarySemiLight">#266263</color>
+    <color name="light_colorPrimaryLight">#00ab8d</color>
+
+    <color name="light_green_dark_3">#032227</color>
+    <color name="light_green_dark_1">#215456</color>
+    <color name="light_light_green_1_semitransparent">#a8215456</color>
+    <color name="light_green_dark_2">#00363b</color>
+    <color name="light_green_dark_2_semitransparent">#a800363b</color>
+
+    <color name="light_light_green_2">#00ab8d</color>
+    <color name="light_lightGrey">#9ba1a3</color>
+    <color name="light_white">#ffffff</color>
+    <color name="light_white_semitransparent">#5fffffff</color>
+    <color name="light_light_green_1">#c3ff01</color>
+
+    <color name="light_demo_yellow_semitransparent">#70ffef14</color>
+    <color name="light_demo_green_semitransparent">#7a3ec722</color>
+    <color name="light_demo_blue_semitransparent">#71002df4</color>
+    <color name="light_demo_red_semitransparent">#56ff0000</color>
+    <color name="light_black_transparent_154">#9a000000</color>
+
+    <color name="light_facebook_blue">#3b5998</color>
+    <color name="light_wall_comment_color">#4d4e4c</color>
+    <color name="light_wall_shop_description_background">#f6f7fa</color>
+    <color name="light_wall_shop_description_text_color">#0be5ff</color>
+    <color name="light_black">#000000</color>
+
+    <color name="light_red">#d10212</color>
+    <color name="light_chat_input_edit_text_background">#e9eaed</color>
+    <color name="light_wall_store_color">#fc6120</color>
+    <color name="light_rumour_yellow">#fcfd42</color>
+
+    <color name="light_wall_background">#e5e5e5</color>
+
+    <color name="light_radio_button_background">#00ab8d</color>
+
+    <color name="light_radio_button_background_color">#f3f3f3</color>
+
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="wall_items_text_content_background">#f6f7fa</color>
+
+    <color name="light_chat_head_selected_color">#00ab8d</color>
+
+    <color name="light_chat_content_right_color">#e6f7f4</color>
+    <color name="light_chat_content_left_color">#4d4e4c</color>
+
+    <color name="light_wall_item_background">#f6f7fa</color>
+
+    <color name="light_wall_tip_text_content_color">#4d4e4c</color>
+
+    <color name="light_rumour_time_color">#00ab8d</color>
+
+    <color name="light_rumour_news_text_color">#00ab8d</color>
+
+    <color name="light_rumour_separator_color">#959595</color>
+
+    <color name="light_news_item_top_container">#a800ab8d</color>
+
+    <color name="light_post_comment_hint_color">#959595</color>
+    <color name="light_post_comment_text_color">#4d4e4c</color>
+    <color name="light_post_comment_background_color">#dbdbdb</color>
+
+    <color name="light_green_main" >#00ab8d</color>
+
+    <color name="video_chat_overlay">#a8e5e5e5</color>
+
 </resources>

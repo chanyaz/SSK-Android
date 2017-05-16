@@ -11,12 +11,12 @@
         android:layout_height="@dimen/standard_button_height"
         android:gravity="center"
         android:text="@string/your_statement"
-        android:textColor="@color/colorAccent" />
+        android:textColor="?colorAccent" />
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent" />
+        android:background="?colorAccent" />
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
@@ -39,5 +39,5 @@
         android:layout_alignParentTop="true"
         android:layout_alignBottom="@+id/top_split_line"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/video_close_button"/>
+        android:src="?videoCloseButtonIcon"/>
 </RelativeLayout>

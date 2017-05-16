@@ -15,12 +15,12 @@
             android:id="@+id/caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="?tvCategoryBackground"
             android:layout_below="@+id/image"
             android:bufferType="spannable"
             android:lines="3"
             android:padding="@dimen/padding_8"
             android:textSize="@dimen/font_size_11"
-            android:textColor="@color/white"
+            android:textColor="?channelItemCaption"
             android:text="@string/caption"/>
 </android.support.percent.PercentRelativeLayout>

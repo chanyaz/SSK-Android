@@ -8,7 +8,7 @@
         android:id="@+id/row_wall_small_cell_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="?wallItemTipBackground">
 
         <com.github.rongi.rotate_layout.layout.RotateLayout
             android:id="@+id/row_wall_small_cell_headline_container"
@@ -29,7 +29,7 @@
                 android:paddingStart="@dimen/padding_8"
                 android:paddingTop="@dimen/padding_8"
                 android:text="@string/tip"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="?wallItemTipTextCaptionColor"/>
         </com.github.rongi.rotate_layout.layout.RotateLayout>
 
         <TextView
@@ -46,7 +46,7 @@
             android:minLines="3"
             android:padding="@dimen/padding_16"
             android:text="@string/try_to_following_the_official_sporting_account"
-            android:textColor="@color/white"
+            android:textColor="?wallItemTipTextContentColor"
             android:textStyle="bold" />
 
         <ImageView

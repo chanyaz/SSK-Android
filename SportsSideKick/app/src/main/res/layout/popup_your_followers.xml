@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimarySemiLight"
+        android:background="?colorPrimarySemiLight"
         android:orientation="horizontal">
 
         <View
@@ -29,10 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toStartOf="@+id/top_vertical_spliter"
-            android:background="@color/colorAccentLight"
+            android:background="?colorAccentLight"
             android:gravity="center"
             android:text="@string/following"
-            android:textColor="@color/white_semitransparent" />
+            android:textColor="?white_semitransparent" />
 
         <TextView
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:layout_toEndOf="@+id/top_vertical_spliter"
             android:gravity="center"
             android:text="@string/followers"
-            android:textColor="@color/colorAccent" />
+            android:textColor="?colorAccent" />
 
         <View
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toStartOf="@+id/top_vertical_spliter"
-            android:background="@color/colorPrimaryLight" />
+            android:background="?colorPrimaryLight" />
 
         <View
             android:layout_width="match_parent"
@@ -56,7 +56,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/top_vertical_spliter"
-            android:background="@color/colorAccent" />
+            android:background="?colorAccent" />
 
     </RelativeLayout>
 
@@ -67,7 +67,7 @@
         android:layout_height="@dimen/create_chat_caption_label"
         android:layout_below="@+id/top_buttons_container"
         android:gravity="center"
-        android:background="@color/colorPrimarySemiLight"
+        android:background="?colorPrimarySemiLight"
         android:text="@string/friends_following_you"
         android:textColor="@color/white" />
 
@@ -85,7 +85,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_below="@id/caption_label"
-        android:background="@color/colorPrimarySemiLight">
+        android:background="?colorPrimarySemiLight">
 
         <TextView
             android:id="@+id/no_result"
@@ -94,7 +94,7 @@
             android:text="@string/no_friends"
             android:visibility="gone"
             android:layout_centerInParent="true"
-            android:textColor="@color/white_semitransparent"/>
+            android:textColor="?white_semitransparent"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/followers_recycler_view"
@@ -135,7 +135,7 @@
             android:layout_marginEnd="@dimen/margin_10"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:src="?popupConfirmationButtonIcon" />
 
         <RelativeLayout
             android:id="@+id/search_container"
@@ -160,13 +160,13 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_toEndOf="@id/search_icon"
-                android:background="@color/green_dark_2"
+                android:background="?green_dark_2"
                 android:hint="@string/your_friends_search_hint"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textColor="@color/white_semitransparent"
-                android:textColorHint="@color/white_semitransparent"
+                android:textColor="?white_semitransparent"
+                android:textColorHint="?white_semitransparent"
                 android:textSize="@dimen/font_size_12" />
         </RelativeLayout>
 

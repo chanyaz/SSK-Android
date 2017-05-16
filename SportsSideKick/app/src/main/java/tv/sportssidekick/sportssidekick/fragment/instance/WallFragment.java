@@ -36,6 +36,7 @@ import com.google.common.collect.Lists;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -80,6 +81,7 @@ import tv.sportssidekick.sportssidekick.model.wall.WallStats;
 import tv.sportssidekick.sportssidekick.model.wall.WallStoreItem;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.StaggeredLayoutManagerItemDecoration;
+import tv.sportssidekick.sportssidekick.util.ui.ThemeManager;
 
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_POST_IMAGE_CAPTURE;
 import static tv.sportssidekick.sportssidekick.Constant.REQUEST_CODE_POST_IMAGE_PICK;
@@ -589,12 +591,21 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     private void updateButtons(){
+        int defaultColor ;
+        int selectedColor;
+        if (!ThemeManager.getInstance().isLightTheme()) {
+            defaultColor = R.color.white;
+            selectedColor = R.color.colorAccent;
+        }else {
+            defaultColor = R.color.colorPrimary;
+            selectedColor = R.color.light_radio_button_background;
+        }
         newPostContainer.setVisibility(isNewPostVisible ? View.VISIBLE : View.GONE);
-        buttonNewPost.getBackground().setColorFilter(getResources().getColor(isNewPostVisible ? R.color.colorAccent : R.color.white), PorterDuff.Mode.MULTIPLY);
+        buttonNewPost.getBackground().setColorFilter(getResources().getColor(isNewPostVisible ? selectedColor : defaultColor), PorterDuff.Mode.MULTIPLY);
         filterContainer.setVisibility(isFilterVisible ? View.VISIBLE : View.GONE);
-        buttonFilter.getBackground().setColorFilter(getResources().getColor(isFilterVisible ? R.color.colorAccent : R.color.white), PorterDuff.Mode.MULTIPLY);
+        buttonFilter.getBackground().setColorFilter(getResources().getColor(isFilterVisible ? selectedColor : defaultColor), PorterDuff.Mode.MULTIPLY);
         searchWallContainer.setVisibility(isSearchVisible ? View.VISIBLE : View.GONE);
-        buttonSearch.getBackground().setColorFilter(getResources().getColor(isSearchVisible ? R.color.colorAccent : R.color.white), PorterDuff.Mode.MULTIPLY);
+        buttonSearch.getBackground().setColorFilter(getResources().getColor(isSearchVisible ? selectedColor : defaultColor), PorterDuff.Mode.MULTIPLY);
     }
     @OnClick(R.id.fragment_wall_new_post)
     public void newPostOnClick() {

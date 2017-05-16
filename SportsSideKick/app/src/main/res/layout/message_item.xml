@@ -1,86 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-      android:layout_width="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_5"
-    android:layout_height="wrap_content">
+    android:layout_marginEnd="@dimen/margin_15">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
         android:layout_width="@dimen/message_item_circle_image_size"
         android:layout_height="@dimen/message_item_circle_image_size"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/margin_8"
-        app:civ_border_width="@dimen/space_0"
-        app:civ_border_color="@color/black"/>
+        app:civ_border_color="@color/black"
+        app:civ_border_width="@dimen/space_0" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
         android:id="@+id/content_container"
-        android:layout_marginStart="@dimen/margin_5"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_5"
         android:layout_toEndOf="@+id/profile_image"
-        android:background="@drawable/ic_chat_bubble_left">
+        android:background="?chatBubbleLeftImage">
+
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_size_11"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_11" />
 
         <ImageView
             android:id="@+id/content_image"
-            android:maxHeight="@dimen/height_80"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxHeight="@dimen/height_80"
+            android:scaleType="centerInside" />
 
         <ImageView
             android:id="@+id/play_button"
-            android:maxHeight="@dimen/height_80"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/play_button_icon"/>
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:maxHeight="@dimen/height_80"
+            android:scaleType="centerInside"
+            android:src="@drawable/play_button_icon" />
 
 
     </RelativeLayout>
 
     <TextView
         android:id="@+id/sender"
-        android:textSize="@dimen/font_size_10"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
-        android:layout_toEndOf="@+id/profile_image"
-        android:layout_marginStart="@dimen/margin_15"
-        android:layout_below="@+id/content_container"
         android:layout_height="wrap_content"
-        android:alpha="0.5"/>
+        android:layout_below="@+id/content_container"
+        android:layout_marginStart="@dimen/margin_15"
+        android:layout_toEndOf="@+id/profile_image"
+        android:alpha="0.5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_10" />
+
     <TextView
         android:id="@+id/spliter"
-        android:textSize="@dimen/font_size_10"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
-        android:layout_toEndOf="@+id/sender"
-        android:layout_below="@+id/content_container"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/content_container"
+        android:layout_toEndOf="@+id/sender"
         android:alpha="0.5"
-        android:text=" | "/>
+        android:text=" | "
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_10" />
 
     <TextView
         android:id="@+id/timestamp"
-        android:textSize="@dimen/font_size_10"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
-        android:layout_toEndOf="@+id/spliter"
-        android:layout_below="@+id/content_container"
         android:layout_height="wrap_content"
-        android:alpha="0.5"/>
+        android:layout_below="@+id/content_container"
+        android:layout_toEndOf="@+id/spliter"
+        android:alpha="0.5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_10" />
 
 
 </RelativeLayout>

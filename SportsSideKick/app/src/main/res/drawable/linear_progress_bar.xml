@@ -3,7 +3,7 @@
     <!-- Define the background properties like color etc -->
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@color/green_dark_2" />
+            <solid android:color="?attr/green_dark_2" />
 
         </shape>
     </item>
@@ -12,7 +12,7 @@
     <item android:id="@android:id/progress">
         <scale android:scaleWidth="100%">
             <shape>
-                <solid android:color="@color/colorPrimaryLight" />
+                <solid android:color="?attr/colorPrimaryLight" />
                 <corners android:topRightRadius="10dp" android:bottomRightRadius="10dp"/>
             </shape>
         </scale>

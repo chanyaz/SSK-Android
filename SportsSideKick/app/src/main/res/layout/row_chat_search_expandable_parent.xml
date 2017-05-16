@@ -3,7 +3,7 @@
     android:id="@+id/row_join_chat_search_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/green_dark_1"
+    android:background="?green_dark_1"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -43,7 +43,7 @@
                     android:layout_width="@dimen/chat_send_button_size"
                     android:layout_height="@dimen/chat_send_button_size"
                     android:src="@drawable/ic_following_default"
-                    android:tint="@color/light_green_1" />
+                    android:tint="?light_green_1" />
 
                 <TextView
                     android:id="@+id/row_join_chat_search_members_count"
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/row_join_chat_search_icon"
-                    android:textColor="@color/colorPrimaryLight" />
+                    android:textColor="?colorPrimaryLight" />
 
             </RelativeLayout>
         </RelativeLayout>
@@ -60,5 +60,5 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_height="@dimen/height_1"
-        android:background="@color/black_transparent_154"/>
+        android:background="?black_transparent_154"/>
 </RelativeLayout>

@@ -170,7 +170,7 @@ public class ChatFragment extends BaseFragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         chatHeadsView.setLayoutManager(layoutManager);
-        chatHeadsAdapter = new ChatHeadsAdapter(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+        chatHeadsAdapter = new ChatHeadsAdapter(getActivity());
         chatHeadsView.setAdapter(chatHeadsAdapter);
 
         progressBar.setVisibility(View.VISIBLE);

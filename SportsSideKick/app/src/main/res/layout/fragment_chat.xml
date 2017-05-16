@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_semitransparent"
+    android:background="?white_semitransparent"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment">
 
     <!-- Background image -->
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/chat_background" />
+        android:src="?chatBackground" />
 
     <!-- Empty chat info text -->
     <TextView
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="@dimen/standard_button_height"
-        android:background="@color/green_dark_2">
+        android:background="?wallBackground">
 
         <!-- Chat heads recycler view -->
         <android.support.v7.widget.RecyclerView
@@ -39,34 +39,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:background="@color/green_dark_1"
+            android:background="?chatHeadBackgroundColor"
             android:focusableInTouchMode="true"
             android:scrollbars="none" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chat_heads_view"
+            android:background="?chatHeadInfoContainer">
 
         <ImageView
             android:id="@+id/down_arrow"
             android:layout_width="@dimen/margin_20"
             android:layout_height="@dimen/margin_20"
-            android:layout_below="@+id/chat_heads_view"
-            android:background="@color/colorPrimarySemiLight"
+            android:background="?colorPrimarySemiLight"
             android:padding="@dimen/padding_4"
-            android:src="@drawable/down_arrow"
-            android:tint="@color/colorPrimaryLight"
+            android:src="?arrowDownIcon"
+            android:tint="?colorPrimaryLight"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/chat_info_line_text"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_20"
-            android:layout_below="@+id/chat_heads_view"
             android:layout_marginEnd="@dimen/margin_60"
             android:layout_marginStart="@dimen/margin_60"
             android:layout_toEndOf="@+id/down_arrow"
             android:ellipsize="marquee"
             android:gravity="center"
             android:lines="1"
-            android:textColor="@color/white_semitransparent"
+            android:textColor="?white_semitransparent"
             android:textSize="@dimen/font_size_10" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <!-- Messages container -->
@@ -102,14 +108,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:animateLayoutChanges="true"
-        android:background="@color/chat_input_edit_text_background">
+        android:background="?chat_input_edit_text_background">
 
         <RelativeLayout
             android:id="@+id/chat_buttons_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
-            android:background="@color/chat_input_edit_text_background"
+            android:background="?chat_input_edit_text_background"
             android:visibility="gone">
 
             <ImageButton
@@ -129,7 +135,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/mic_button"
                 android:background="@null"
-                android:src="@drawable/chat_button_camera" />
+                android:src="?chatCameraIcon" />
 
             <ImageButton
                 android:id="@+id/image_button"
@@ -138,7 +144,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/camera_button"
                 android:background="@null"
-                android:src="@drawable/chat_button_image" />
+                android:src="?chatGalleryIcon" />
 
             <View
                 android:id="@+id/chat_menu_divider"
@@ -156,7 +162,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/chat_buttons_container"
             android:background="@null"
-            android:src="@drawable/chat_add_menu_button" />
+            android:src="?chatAddButtonIcon" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -170,7 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true"
-                android:background="@color/chat_input_edit_text_background"
+                android:background="?chat_input_edit_text_background"
                 android:gravity="start|center_vertical"
                 android:hint="@string/chat_hint"
                 android:imeActionId="@+id/action_send_message_id"
@@ -181,7 +187,7 @@
                 android:padding="@dimen/padding_8"
                 android:privateImeOptions=""
                 android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimarySemiLight"
+                android:textColorHint="?colorPrimarySemiLight"
                 android:textSize="@dimen/font_size_10" />
 
         </RelativeLayout>
@@ -193,14 +199,14 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@null"
-            android:src="@drawable/chat_menu_button" />
+            android:src="?chatMenuButtonIcon" />
 
         <LinearLayout
             android:id="@+id/chat_menu_dots_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toStartOf="@+id/chat_menu_dots"
-            android:background="@color/chat_input_edit_text_background"
+            android:background="?chat_input_edit_text_background"
             android:clickable="true"
             android:gravity="center"
             android:padding="@dimen/half_margin"
@@ -215,7 +221,7 @@
                 android:layout_marginEnd="@dimen/margin_10"
                 android:layout_marginStart="@dimen/margin_20"
                 android:layout_weight="0.3"
-                android:background="@drawable/textview_round_border"
+                android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/create"
@@ -229,7 +235,7 @@
                 android:layout_marginEnd="@dimen/margin_10"
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_weight="0.3"
-                android:background="@drawable/textview_round_border"
+                android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="Edit"
@@ -243,7 +249,7 @@
                 android:layout_marginEnd="@dimen/margin_20"
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_weight="0.3"
-                android:background="@drawable/textview_round_border"
+                android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="Search"
@@ -276,7 +282,7 @@
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
-            android:src="@drawable/video_close_button" />
+            android:src="?videoCloseButtonIcon" />
 
         <ImageView
             android:id="@+id/vide_download_image_button"
@@ -286,7 +292,7 @@
             android:layout_alignParentStart="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
-            android:src="@drawable/download_button" />
+            android:src="?downloadButtonIcon" />
 
     </RelativeLayout>
 
@@ -305,7 +311,7 @@
             android:layout_above="@+id/download_image_button"
             android:layout_below="@+id/close_image_button"
             android:layout_centerInParent="true"
-            android:background="@color/green_dark_2_semitransparent"
+            android:background="?green_dark_2_semitransparent"
             android:scaleType="fitCenter" />
 
         <ImageView
@@ -316,7 +322,7 @@
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
-            android:src="@drawable/video_close_button" />
+            android:src="?videoCloseButtonIcon" />
 
         <ImageView
             android:id="@+id/download_image_button"
@@ -326,6 +332,6 @@
             android:layout_alignParentStart="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
-            android:src="@drawable/download_button" />
+            android:src="?downloadButtonIcon" />
     </RelativeLayout>
 </RelativeLayout>

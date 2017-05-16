@@ -76,7 +76,7 @@
                 android:text="@string/login_login_forgot_text"
                 android:layout_marginTop="@dimen/margin_5"
                 android:textAlignment="center"
-                android:textColor="@color/lightGrey"
+                android:textColor="?lightGrey"
                 android:textSize="@dimen/font_size_12"/>
         </LinearLayout>
 

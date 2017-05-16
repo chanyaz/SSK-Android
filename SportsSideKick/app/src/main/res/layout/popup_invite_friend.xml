@@ -28,19 +28,19 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toStartOf="@+id/top_vertical_spliter"
-            android:background="@color/colorAccentLight"
+            android:background="?colorAccentLight"
             android:gravity="center"
             android:text="@string/add_friend"
-            android:textColor="@color/white_semitransparent" />
+            android:textColor="?white_semitransparent" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toEndOf="@+id/top_vertical_spliter"
-            android:background="@color/colorPrimarySemiLight"
+            android:background="?colorPrimarySemiLight"
             android:gravity="center"
             android:text="@string/invite_friend"
-            android:textColor="@color/colorAccent" />
+            android:textColor="?colorAccent" />
 
         <View
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toStartOf="@+id/top_vertical_spliter"
-            android:background="@color/colorAccent" />
+            android:background="?colorAccent" />
 
         <View
             android:layout_width="match_parent"
@@ -56,7 +56,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/top_vertical_spliter"
-            android:background="@color/colorPrimaryLight" />
+            android:background="?colorPrimaryLight" />
     </RelativeLayout>
 
 
@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_buttons_container"
-        android:background="@color/colorPrimarySemiLight"
+        android:background="?colorPrimarySemiLight"
         android:padding="@dimen/margin_20"
         android:visibility="visible">
 
@@ -88,7 +88,7 @@
             android:layout_toStartOf="@id/invite_friend_name"
             android:maxLines="2"
             android:text="@string/enter_friend_name_invite"
-            android:textColor="@color/wall_shop_description_background" />
+            android:textColor="?wall_shop_description_background" />
 
     </RelativeLayout>
 

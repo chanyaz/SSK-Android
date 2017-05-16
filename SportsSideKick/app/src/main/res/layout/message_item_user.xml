@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_5">
+    android:paddingTop="@dimen/margin_5"
+    android:layout_marginStart="@dimen/margin_15">
 
 
     <RelativeLayout
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/margin_5"
-        android:background="@drawable/ic_chat_bubble_right">
+        android:background="?chatBubbleRightImage">
 
         <TextView
             android:id="@+id/text"
