@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/icon_blocked"
+        android:src="?blockedIcon"
         android:visibility="visible" />
 
     <TextView

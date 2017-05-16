@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:layout_marginBottom="@dimen/margin_60"
     android:layout_marginEnd="@dimen/margin_90"
@@ -30,10 +30,10 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorPrimarySemiLight"
+            android:background="?colorPrimarySemiLight"
             android:gravity="center"
             android:text="@string/your_profile"
-            android:textColor="@color/colorAccent" />
+            android:textColor="?colorAccent" />
 
         <TextView
             android:id="@+id/your_wallet_button"
@@ -41,20 +41,20 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorAccentLight"
+            android:background="?colorAccentLight"
             android:gravity="center"
             android:text="@string/your_wallet"
-            android:textColor="@color/white_semitransparent" />
+            android:textColor="?white_semitransparent" />
 
         <TextView
             android:id="@+id/your_stash_button"
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorAccentLight"
+            android:background="?colorAccentLight"
             android:gravity="center"
             android:text="@string/your_stash"
-            android:textColor="@color/white_semitransparent" />
+            android:textColor="?white_semitransparent" />
     </LinearLayout>
 
     <LinearLayout
@@ -68,20 +68,20 @@
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorAccent" />
+            android:background="?colorAccent" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryLight" />
+            android:background="?colorPrimaryLight" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryLight" />
+            android:background="?colorPrimaryLight" />
     </LinearLayout>
 
     <!--  TOP SPLITTER-->
@@ -98,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_split_line"
-        android:background="@color/colorPrimarySemiLight"
+        android:background="?colorPrimarySemiLight"
         android:clickable="true">
 
         <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
@@ -145,7 +145,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/image"
-                    android:src="@drawable/blank_profile_rounded" />
+                    android:src="?profileImageIcon" />
             </RelativeLayout>
 
             <ImageView
@@ -156,7 +156,7 @@
                 android:layout_below="@id/profile_image_container"
                 android:layout_marginTop="@dimen/margin_negative_20"
                 android:contentDescription="@string/image"
-                android:src="@drawable/next_level_marker" />
+                android:src="?nextLevelMarkerIcon" />
 
             <TextView
                 android:id="@+id/profile_image_level"
@@ -211,7 +211,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/contact_info"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <TextView
                 android:id="@+id/contact_info_email"
@@ -239,7 +239,7 @@
                 android:layout_below="@+id/contact_info_phone"
                 android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/subscribed_since"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <TextView
                 android:id="@+id/subscribed_since_value"
@@ -257,7 +257,7 @@
                 android:layout_marginTop="@dimen/margin_10"
                 android:layout_toEndOf="@+id/text_center"
                 android:text="@string/location_caption"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <TextView
                 android:id="@+id/location_value"
@@ -276,7 +276,7 @@
                 android:layout_below="@+id/location_value"
                 android:layout_toEndOf="@+id/text_center"
                 android:text="@string/password_caption"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <TextView
                 android:id="@+id/password_value"
@@ -295,7 +295,7 @@
                 android:layout_below="@+id/subscribed_since_value"
                 android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/chosen_language"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <ImageView
                 android:id="@+id/language_icon"
@@ -407,7 +407,7 @@
                     android:id="@+id/next_level_background"
                     android:layout_width="@dimen/popup_friend_profil_next_level_background_size"
                     android:layout_height="@dimen/popup_friend_profil_next_level_background_size"
-                    android:src="@drawable/next_level_marker" />
+                    android:src="?nextLevelMarkerIcon" />
 
                 <TextView
                     android:id="@+id/next_caps_value"
@@ -461,7 +461,7 @@
             android:layout_marginEnd="@dimen/margin_10"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:src="?popupConfirmationButtonIcon" />
 
         <ImageButton
             android:id="@+id/edit_button"

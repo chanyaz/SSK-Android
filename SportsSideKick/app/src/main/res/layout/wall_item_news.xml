@@ -42,7 +42,7 @@
             android:padding="@dimen/padding_8"
             android:text="A falsis, silva noster competition.Turpis albus accola est.Est domesticus historia, cesaris.Parma, stella, et valebat."
 
-            android:textColor="@color/colorPrimaryLight" />
+            android:textColor="?colorPrimaryLight" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="204"
-                    android:textColor="@color/wall_comment_color" />
+                    android:textColor="?wall_comment_color" />
 
             </LinearLayout>
 
@@ -96,7 +96,7 @@
                     android:id="@+id/row_wall_post_likes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/wall_comment_color" />
+                    android:textColor="?wall_comment_color" />
             </LinearLayout>
 
             <TextView
@@ -109,7 +109,7 @@
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:textColor="@color/lightGrey" />
+                android:textColor="?lightGrey" />
         </RelativeLayout>
     </RelativeLayout>
 

@@ -94,7 +94,7 @@
             android:paddingStart="@dimen/padding_16"
             android:paddingTop="@dimen/padding_8"
             android:singleLine="true"
-            android:textColor="@color/lightGrey" />
+            android:textColor="?lightGrey" />
 
         <com.github.lzyzsd.circleprogress.DonutProgress
             android:id="@+id/row_wall_small_cell_with_progress_progress"
@@ -102,7 +102,7 @@
             android:layout_height="@dimen/height_80"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            app:donut_finished_color="@color/demo_green_semitransparent"
+            app:donut_finished_color="?demo_green_semitransparent"
             app:donut_finished_stroke_width="4dp"
             app:donut_max="@integer/progress_bar_max"
             app:donut_text_color="@color/white"

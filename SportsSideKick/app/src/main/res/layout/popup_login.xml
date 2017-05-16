@@ -28,10 +28,10 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorPrimarySemiLight"
+            android:background="?colorPrimarySemiLight"
             android:gravity="center"
             android:text="@string/login_login"
-            android:textColor="@color/colorAccent" />
+            android:textColor="?colorAccent" />
 
         <TextView
             android:id="@+id/sign_up_button"
@@ -39,10 +39,10 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorAccentLight"
+            android:background="?colorAccentLight"
             android:gravity="center"
             android:text="@string/login_sign_up"
-            android:textColor="@color/white_semitransparent" />
+            android:textColor="?white_semitransparent" />
 
     </LinearLayout>
 
@@ -57,13 +57,13 @@
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorAccent" />
+            android:background="?colorAccent" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryLight" />
+            android:background="?colorPrimaryLight" />
     </LinearLayout>
 
     <!--  TOP SPLITTER-->
@@ -146,7 +146,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_split_line"
-        android:background="@color/colorPrimarySemiLight">
+        android:background="?colorPrimarySemiLight">
 
 
         <!--Login username and password container-->
@@ -157,7 +157,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:animateLayoutChanges="true"
-            android:background="@color/colorPrimarySemiLight"
+            android:background="?colorPrimarySemiLight"
             android:clickable="true">
 
             <LinearLayout
@@ -192,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:text="@string/login_login_forgot_text"
-                    android:textColor="@color/colorPrimaryLight" />
+                    android:textColor="?colorPrimaryLight" />
 
             </LinearLayout>
 
@@ -206,7 +206,7 @@
             android:layout_alignBottom="@+id/content_container"
             android:layout_alignParentTop="true"
             android:animateLayoutChanges="true"
-            android:background="@color/colorPrimarySemiLight"
+            android:background="?colorPrimarySemiLight"
             android:clickable="true"
             android:visibility="invisible">
 

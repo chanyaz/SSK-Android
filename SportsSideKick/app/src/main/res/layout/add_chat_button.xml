@@ -12,7 +12,7 @@
         android:layout_margin="@dimen/margin_10"
         android:background="@null"
         android:scaleType="centerInside"
-        android:src="@drawable/chat_add_user"
+        android:src="?chatAddUserIcon"
         android:layout_centerInParent="true"/>
 
     <TextView

@@ -32,6 +32,7 @@ import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.util.Utility;
+import tv.sportssidekick.sportssidekick.util.ui.ThemeManager;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -112,6 +113,8 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
         return view;
     }
 
+
+
     @OnClick(R.id.logout_button)
     public void logoutOnClick() {
         AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.logout_from_app),
@@ -173,7 +176,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                 }, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
-                        //TODO RESET APP TO LIGHT/DARK THEME
+                        ThemeManager.getInstance().changeTheme(getActivity());
                         getActivity().onBackPressed();
                     }
                 });

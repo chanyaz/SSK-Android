@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/width_360"
     android:layout_height="wrap_content"
-    android:background="@drawable/popup_bottom_background_dark"
+    android:background="?popupBottomBackgroundDarkShape"
     android:clickable="true"
     android:orientation="vertical">
 
@@ -15,13 +15,13 @@
         android:layout_marginTop="@dimen/margin_20"
         android:gravity="center"
         android:textAllCaps="true"
-        android:textColor="@color/colorAccent" />
+        android:textColor="?colorAccent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent" />
+        android:background="?colorAccent" />
 
     <TextView
         android:id="@+id/dialog_content"
@@ -51,7 +51,7 @@
             android:layout_marginBottom="@dimen/margin_20"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_cancel_button"
+            android:src="?popupCancelButtonIcon"
             android:visibility="gone"/>
 
         <View
@@ -68,6 +68,6 @@
             android:layout_marginBottom="@dimen/margin_20"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:src="?popupConfirmationButtonIcon" />
     </LinearLayout>
 </RelativeLayout>

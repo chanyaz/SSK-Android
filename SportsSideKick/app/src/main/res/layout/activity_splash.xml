@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@drawable/background_login" />
+        android:src="?loginBackground" />
 
     <RelativeLayout
         android:id="@+id/splash_container"

@@ -34,7 +34,7 @@
             android:minLines="2"
             android:padding="@dimen/padding_5"
             android:text="A falsis, silva noster competition.Turpis albus accola est.Est domesticus historia, cesaris.Parma, stella, et valebat."
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="?colorPrimaryLight"
             android:textSize="@dimen/font_size_16"
             android:textStyle="bold" />
 
@@ -105,7 +105,7 @@
                 android:maxLines="1"
                 android:text="Christopher Ogden"
                 android:textSize="@dimen/font_size_10"
-                android:textColor="@color/lightGrey"/>
+                android:textColor="?lightGrey"/>
         </RelativeLayout>
     </RelativeLayout>
 

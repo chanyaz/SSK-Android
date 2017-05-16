@@ -19,7 +19,7 @@
         android:layout_alignEnd="@+id/bundles_container"
         android:layout_alignStart="@+id/bundles_container"
         android:layout_below="@+id/top_buttons_container"
-        android:background="@color/colorPrimarySemiLight" />
+        android:background="?colorPrimarySemiLight" />
 
     <!-- TOP BUTTONS CONTAINER -->
     <LinearLayout
@@ -37,10 +37,10 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorAccentLight"
+            android:background="?colorAccentLight"
             android:gravity="center"
             android:text="@string/your_profile"
-            android:textColor="@color/white_semitransparent" />
+            android:textColor="?white_semitransparent" />
 
         <TextView
             android:id="@+id/your_wallet_button"
@@ -48,20 +48,20 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorPrimarySemiLight"
+            android:background="?colorPrimarySemiLight"
             android:gravity="center"
             android:text="@string/your_wallet"
-            android:textColor="@color/colorAccent" />
+            android:textColor="?colorAccent" />
 
         <TextView
             android:id="@+id/your_stash_button"
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorAccentLight"
+            android:background="?colorAccentLight"
             android:gravity="center"
             android:text="@string/your_stash"
-            android:textColor="@color/white_semitransparent" />
+            android:textColor="?white_semitransparent" />
     </LinearLayout>
 
     <!-- TOP BUTTONS INDICATOR LINES -->
@@ -78,20 +78,20 @@
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryLight" />
+            android:background="?colorPrimaryLight" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorAccent" />
+            android:background="?colorAccent" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryLight" />
+            android:background="?colorPrimaryLight" />
     </LinearLayout>
 
 
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/you_have_caption"
                 android:text="2,539 $$K"
-                android:textColor="@color/colorAccent"
+                android:textColor="?colorAccent"
                 android:textSize="@dimen/font_size_16" />
         </RelativeLayout>
     </RelativeLayout>
@@ -375,7 +375,7 @@
             android:layout_marginTop="@dimen/margin_5"
             android:gravity="center"
             android:text="\u2605 BEST VALUE \u2605"
-            android:textColor="@color/colorAccent"
+            android:textColor="?colorAccent"
             android:textSize="@dimen/font_size_10" />
     </RelativeLayout>
 
@@ -514,7 +514,7 @@
             android:layout_marginEnd="@dimen/margin_10"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:src="?popupConfirmationButtonIcon" />
 
         <ImageButton
             android:id="@+id/edit_button"

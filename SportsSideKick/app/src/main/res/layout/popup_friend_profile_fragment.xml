@@ -20,15 +20,15 @@
         android:id="@+id/your_profile_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:background="@color/colorPrimarySemiLight"
+        android:background="?colorPrimarySemiLight"
         android:gravity="center"
         android:text="@string/friend_profile"
-        android:textColor="@color/colorAccent" />
+        android:textColor="?colorAccent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
-        android:background="@color/colorAccent" />
+        android:background="?colorAccent" />
 
     <!--  TOP SPLITTER-->
     <View
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top_split_line"
-        android:background="@color/colorPrimarySemiLight"
+        android:background="?colorPrimarySemiLight"
         android:clickable="true">
 
         <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
@@ -90,7 +90,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/image"
-                    android:src="@drawable/blank_profile_rounded" />
+                    android:src="?profileImageIcon" />
             </RelativeLayout>
 
             <ImageView
@@ -101,7 +101,7 @@
                 android:layout_below="@id/profile_image_container"
                 android:layout_marginTop="@dimen/margin_negative_20"
                 android:contentDescription="@string/image"
-                android:src="@drawable/next_level_marker" />
+                android:src="?nextLevelMarkerIcon" />
 
             <TextView
                 android:layout_width="@dimen/profile_level_marker_size"
@@ -154,7 +154,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/contact_info"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <TextView
                 android:id="@+id/contact_info_email"
@@ -182,7 +182,7 @@
                 android:layout_below="@+id/contact_info_phone"
                 android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/member_since"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <TextView
                 android:id="@+id/member_since_value"
@@ -200,7 +200,7 @@
                 android:layout_marginTop="@dimen/margin_10"
                 android:layout_toEndOf="@+id/text_center"
                 android:text="@string/location_caption"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <TextView
                 android:id="@+id/location_value"
@@ -219,7 +219,7 @@
                 android:layout_below="@+id/location_value"
                 android:layout_toEndOf="@+id/text_center"
                 android:text="@string/follows_you"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?colorAccent" />
 
             <TextView
                 android:id="@+id/follows_you_value"
@@ -323,7 +323,7 @@
                     android:id="@+id/next_level_background"
                     android:layout_width="@dimen/popup_friend_profil_next_level_background_size"
                     android:layout_height="@dimen/popup_friend_profil_next_level_background_size"
-                    android:src="@drawable/next_level_marker" />
+                    android:src="?nextLevelMarkerIcon" />
 
                 <TextView
                     android:layout_width="@dimen/popup_your_friends_next_level_cointainer_text_size"
@@ -376,7 +376,7 @@
             android:layout_marginEnd="@dimen/margin_10"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:src="?popupConfirmationButtonIcon" />
 
         <ImageButton
             android:id="@+id/block_button"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/popup_friend_request_width"
     android:layout_height="@dimen/height_350"
-    android:background="@drawable/popup_bottom_background_dark"
+    android:background="?popupBottomBackgroundDarkShape"
     android:clickable="true"
     android:orientation="vertical">
 
@@ -13,13 +13,13 @@
         android:layout_height="@dimen/standard_button_height"
         android:gravity="center"
         android:text="@string/member_info"
-        android:textColor="@color/colorAccent" />
+        android:textColor="?colorAccent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent" />
+        android:background="?colorAccent" />
 
     <View
         android:id="@+id/top_split_line"
@@ -36,7 +36,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="@dimen/margin_10"
-        android:src="@drawable/video_close_button" />
+        android:src="?videoCloseButtonIcon" />
 
     <View
         android:id="@+id/middle_split_line"
@@ -85,7 +85,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/image"
-                android:src="@drawable/blank_profile_rounded" />
+                android:src="?profileImageIcon" />
         </RelativeLayout>
 
 
@@ -97,7 +97,7 @@
             android:layout_below="@id/profile_image_container"
             android:layout_marginTop="@dimen/margin_negative_20"
             android:contentDescription="@string/image"
-            android:src="@drawable/next_level_marker" />
+            android:src="?nextLevelMarkerIcon" />
 
         <TextView
             android:id="@+id/profile_image_level"
@@ -214,6 +214,6 @@
             android:layout_marginEnd="@dimen/margin_10"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:src="?popupConfirmationButtonIcon" />
     </RelativeLayout>
 </RelativeLayout>

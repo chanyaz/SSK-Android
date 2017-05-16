@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.greenrobot.eventbus.EventBus;
@@ -99,6 +100,7 @@ import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatModel;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.BlurBuilder;
+import tv.sportssidekick.sportssidekick.util.ui.ThemeManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static tv.sportssidekick.sportssidekick.util.Utility.checkIfBundlesAreEqual;
@@ -169,6 +171,9 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     @BindView(R.id.left_notification_container)
     RelativeLayout notificationContainer;
 
+    @BindView(R.id.user_coin_icon)
+    ImageView userCoinIcon;
+
     private LoginStateReceiver loginStateReceiver;
 
     @Override
@@ -179,6 +184,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeManager.getInstance().assignTheme(this);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
@@ -301,7 +307,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
 
         // FIXME This will trigger sound?
-        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+        //   EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
         ((RadioButton) ButterKnife.findById(this, R.id.wall_radio_button)).setChecked(true);
@@ -420,8 +426,8 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     }
 
     @Subscribe
-    public void onShareOnTwitterEvent(TweetComposer.Builder event){
-       event.show();
+    public void onShareOnTwitterEvent(TweetComposer.Builder event) {
+        event.show();
     }
 
     @Subscribe
@@ -571,31 +577,33 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     }
 
     Bundle savedIntentData = null;
-    private void checkAndEmitBackgroundNotification(){
+
+    private void checkAndEmitBackgroundNotification() {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null && !extras.isEmpty()) {
             if (savedIntentData == null) {
                 savedIntentData = new Bundle();
             }
-            if(!checkIfBundlesAreEqual(savedIntentData, extras)){
+            if (!checkIfBundlesAreEqual(savedIntentData, extras)) {
                 ObjectMapper mapper = new ObjectMapper();
-                Map<String,String> notificationData =  mapper.convertValue(extras.getString(Constant.NOTIFICATION_DATA,""),new TypeReference<Map<String,String>>(){});
-                handleNotificationEvent(new ExternalNotificationEvent(notificationData,false));
+                Map<String, String> notificationData = mapper.convertValue(extras.getString(Constant.NOTIFICATION_DATA, ""), new TypeReference<Map<String, String>>() {
+                });
+                handleNotificationEvent(new ExternalNotificationEvent(notificationData, false));
                 savedIntentData = getIntent().getExtras();
             }
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleNotificationEvent(ExternalNotificationEvent event){
-        Map<String,String> notificationData = event.getData();
-        if(event.isFromBackground()){ // we ignore notifications that are received while app is active
-           if(notificationData.containsKey("chatId")){
-               EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
-           } else if (notificationData.containsKey("wallId")){
-               EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
-           }
+    public void handleNotificationEvent(ExternalNotificationEvent event) {
+        Map<String, String> notificationData = event.getData();
+        if (event.isFromBackground()) { // we ignore notifications that are received while app is active
+            if (notificationData.containsKey("chatId")) {
+                EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
+            } else if (notificationData.containsKey("wallId")) {
+                EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+            }
         }
     }
 
@@ -636,7 +644,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         }
     }
 
-    private void resetUserDetails(){
+    private void resetUserDetails() {
         //reset profile name and picture to blank values
         setYourCoinsValue(String.valueOf(0));
         yourLevel.setVisibility(View.INVISIBLE);
@@ -657,30 +665,32 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     public void onLoginError(Error error) {
 
     }
+
     @Subscribe
-    public void onVideoChatEvent(VideoChatEvent event){
+    public void onVideoChatEvent(VideoChatEvent event) {
         if (!(fragmentOrganizer.getOpenFragment() instanceof VideoChatFragment)) {
             EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
             VideoChatModel.getInstance().setVideoChatEvent(event);
-        }
-        else {
-            ((VideoChatFragment)fragmentOrganizer.getOpenFragment()).onVideoChatEvent(event);
+        } else {
+            ((VideoChatFragment) fragmentOrganizer.getOpenFragment()).onVideoChatEvent(event);
         }
     }
+
     public FragmentOrganizer getFragmentOrganizer() {
         return fragmentOrganizer;
     }
 
     @Subscribe
-    public void updateUserName(UserEvent event){
-        if (event.getType() == UserEvent.Type.onDetailsUpdated)
-        {
+    public void updateUserName(UserEvent event) {
+        if (event.getType() == UserEvent.Type.onDetailsUpdated) {
             setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
         }
 
         UserInfo user = event.getUserInfo();
-        if (user.getFirstName() != null && user.getLastName() != null) {
-            profileName.setText(user.getFirstName() + " " + user.getLastName());
+        if (user != null) {
+            if (user.getFirstName() != null && user.getLastName() != null) {
+                profileName.setText(user.getFirstName() + " " + user.getLastName());
+            }
         }
     }
 

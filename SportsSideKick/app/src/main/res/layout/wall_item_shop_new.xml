@@ -35,7 +35,7 @@
             android:minLines="2"
             android:padding="@dimen/padding_8"
             android:text="Text caption"
-            android:textColor="@color/colorPrimaryLight" />
+            android:textColor="?colorPrimaryLight" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:scrollHorizontally="true"
                 android:text="Christopher Ogden"
-                android:textColor="@color/lightGrey" />
+                android:textColor="?lightGrey" />
 
             <TextView
                 android:id="@+id/shop_text"

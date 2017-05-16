@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorAccentLight"
+    android:background="?wallBackground"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment">
 
     <!--  \/\/\/\/\/\/\/ FIXME Dummy View to make sure container is the size of Video player fragment -->
@@ -40,7 +40,7 @@
         android:layout_marginTop="@dimen/margin_8"
         android:gravity="center"
         android:text="@string/sporting_cp_title"
-        android:textColor="@color/white"
+        android:textColor="?tvRadioHeadlineColor"
         android:textSize="@dimen/font_size_16" />
 
     <!-- Items -->

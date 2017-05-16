@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimarySemiLight"
+        android:background="?colorPrimarySemiLight"
         android:orientation="horizontal">
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_marginEnd="@dimen/margin_1"
             android:gravity="center_vertical"
             android:text="@string/starting_new_call_search_title"
-            android:textColor="@color/colorAccent"
+            android:textColor="?colorAccent"
             android:textSize="@dimen/font_size_18" />
     </RelativeLayout>
 
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent" />
+        android:background="?colorAccent" />
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
@@ -46,7 +46,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_below="@id/top_buttons_container"
-        android:background="@color/colorPrimarySemiLight">
+        android:background="?colorPrimarySemiLight">
 
         <TextView
             android:id="@+id/title"
@@ -99,7 +99,7 @@
             android:layout_marginEnd="@dimen/margin_10"
             android:background="@null"
             android:scaleType="centerInside"
-            android:src="@drawable/popup_confirmation_button" />
+            android:src="?popupConfirmationButtonIcon" />
 
         <RelativeLayout
             android:id="@+id/search_container"
@@ -123,13 +123,13 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_toEndOf="@id/search_icon"
-                android:background="@color/green_dark_2"
+                android:background="?green_dark_2"
                 android:hint="@string/starting_new_call_search_hint"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textColor="@color/white_semitransparent"
-                android:textColorHint="@color/white_semitransparent"
+                android:textColor="?white_semitransparent"
+                android:textColorHint="?white_semitransparent"
                 android:textSize="@dimen/font_size_12" />
         </RelativeLayout>
 

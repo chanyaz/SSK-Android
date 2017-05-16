@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimarySemiLight">
+    android:background="?colorPrimarySemiLight">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/youtube_layout_container"
@@ -32,7 +32,7 @@
             android:layout_marginStart="@dimen/margin_negative_16"
             android:thumbOffset="@dimen/thumb_offset_0"
             android:progress="@integer/progress_bar_60"
-            android:progressDrawable="@drawable/seek_bar_custom" />
+            android:progressDrawable="?seekBarShape" />
 
     </android.support.percent.PercentRelativeLayout>
 
@@ -66,8 +66,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/padding_10"
-            android:src="@drawable/switch_play" />
-
+            android:src="?playPauseSelector" />
+f
         <View
             android:id="@+id/center"
             android:layout_width="@dimen/space_0"
@@ -83,7 +83,7 @@
             android:button="@null"
             android:gravity="center"
             android:padding="@dimen/padding_10"
-            android:src="@drawable/switch_mute"
+            android:src="?soundSelector"
             android:thumb="@null" />
 
         <ImageView
@@ -108,7 +108,7 @@
         android:lines="1"
         android:padding="@dimen/padding_8"
         android:text="@string/default_time"
-        android:textColor="@color/lightGrey"
+        android:textColor="?lightGrey"
         android:textSize="@dimen/font_size_12" />
 
 </RelativeLayout>

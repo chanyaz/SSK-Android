@@ -26,12 +26,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/image"
-        android:background="@color/colorPrimary"
+        android:background="?channelItemBackground"
         android:bufferType="spannable"
         android:lines="2"
         android:padding="@dimen/padding_8"
         android:text="@string/caption"
-        android:textColor="@color/white"
+        android:textColor="?channelItemCaption"
         android:textSize="@dimen/font_size_11" />
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/caption"
-        android:background="@color/colorPrimary"
+        android:background="?channelItemBackground"
         android:bufferType="spannable"
         android:lines="1"
         android:paddingBottom="@dimen/padding_8"
@@ -47,7 +47,7 @@
         android:paddingStart="@dimen/padding_8"
         android:paddingTop="@dimen/space_0"
         android:text="05 Sep 2016"
-        android:textColor="@color/lightGrey"
+        android:textColor="?channelItemDate"
         android:textSize="@dimen/font_size_10" />
 
 </android.support.percent.PercentRelativeLayout>

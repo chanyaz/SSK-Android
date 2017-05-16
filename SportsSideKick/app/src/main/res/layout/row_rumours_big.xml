@@ -8,7 +8,7 @@
         android:id="@+id/fragment_rumors_single_rumour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="?wallItemRumoursBigBackground">
 
         <com.github.rongi.rotate_layout.layout.RotateLayout
             android:id="@+id/fragment_rumors_single_rumour_headline_container"
@@ -29,7 +29,7 @@
                 android:paddingStart="@dimen/padding_8"
                 android:paddingTop="@dimen/padding_8"
                 android:text="@string/rumour"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="?wallItemTipTextCaptionColor" />
         </com.github.rongi.rotate_layout.layout.RotateLayout>
 
         <RelativeLayout
@@ -48,7 +48,7 @@
                 android:maxLines="3"
                 android:minLines="3"
                 android:padding="@dimen/padding_8"
-                android:textColor="@color/white" />
+                android:textColor="?wallItemTipTextContentColor" />
 
             <TextView
                 android:id="@+id/fragment_rumors_single_rumour_time"
@@ -60,7 +60,7 @@
                 android:maxLines="1"
                 android:padding="@dimen/padding_8"
                 android:singleLine="true"
-                android:textColor="@color/colorAccent" />
+                android:textColor="?rumoursTimeTextColor" />
         </RelativeLayout>
     </RelativeLayout>
 

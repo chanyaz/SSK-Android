@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import tv.sportssidekick.sportssidekick.model.user.UserInfo;
 import tv.sportssidekick.sportssidekick.events.FullScreenImageEvent;
 import tv.sportssidekick.sportssidekick.events.PlayVideoEvent;
 import tv.sportssidekick.sportssidekick.util.Utility;
+import tv.sportssidekick.sportssidekick.util.ui.ThemeManager;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -71,10 +73,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-
+    private int textColor;
+    private int lightTextColorLeft;
+    private int lightTextColorRight;
     public MessageAdapter(Context context) {
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            textColor = ContextCompat.getColor(context,R.color.light_chat_content_right_color);
+            lightTextColorLeft = ContextCompat.getColor(context,R.color.light_chat_content_left_color);
+            lightTextColorRight = ContextCompat.getColor(context,R.color.light_chat_content_right_color);
         }
     }
 
@@ -97,6 +104,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
         if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS){
           setupAvatarFromRemoteUser(message,holder);
+            holder.textView.setTextColor(ThemeManager.getInstance().isLightTheme() ?  lightTextColorLeft : textColor );
+        }else {
+            holder.textView.setTextColor(ThemeManager.getInstance().isLightTheme() ?  lightTextColorRight : textColor );
         }
         holder.timeTextView.setText(message.getTimeAgo());
 
@@ -144,6 +154,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             holder.textView.setText(message.getText());
         }
     }
+
 
     private void setupAvatarFromRemoteUser(ImsMessage message,final ViewHolder holder){
         holder.senderTextView.setText("New User");
