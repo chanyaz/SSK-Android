@@ -378,4 +378,19 @@
 
     <string name="light_theme">darkTheme</string>
     <string name="dark_theme">lightTheme</string>
+
+
+    <!--Phone-->
+    <string-array name="menu_navigation">
+        <item>Wall</item>
+        <item>Chat</item>
+        <item>News</item>
+        <item>Stats</item>
+        <item>Rumours</item>
+        <item>Club Radio</item>
+        <item>Shop</item>
+        <item>Club TV</item>
+        <item>Video Chat</item>
+        <item>Menu 10</item>
+    </string-array>
 </resources>

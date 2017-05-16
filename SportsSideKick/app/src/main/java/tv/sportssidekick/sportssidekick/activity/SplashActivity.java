@@ -70,7 +70,7 @@ public class SplashActivity extends AppCompatActivity {
                 intent.putExtras(extras);
             }
         }
-        Intent main = new Intent(this, LoungeActivity.class);
+        Intent main = new Intent(this, PhoneLoungeActivity.class);
         startActivity(main);
         finish();
     }

@@ -10,6 +10,10 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import tv.sportssidekick.sportssidekick.util.ui.NavigationDrawerItems;
+
+import static tv.sportssidekick.sportssidekick.Constant.CLASS_LIST;
+
 /**
  * Created by Filip on 12/5/2016.
  * Copyright by Hypercube d.o.o.
@@ -60,6 +64,17 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
             return true;
         }
 
+    }
+
+    public boolean handleNavigationFragment() {
+        Fragment fragment = getOpenFragment();
+        for(int i=0;i<CLASS_LIST.size();i++)
+            if (fragment.getClass().equals(CLASS_LIST.get(i))) {
+                NavigationDrawerItems.getInstance().setByPosition(i);
+                return true;
+            }
+
+        return false;
     }
 
 
