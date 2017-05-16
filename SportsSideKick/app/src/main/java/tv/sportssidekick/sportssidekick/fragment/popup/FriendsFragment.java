@@ -96,6 +96,7 @@ public class FriendsFragment extends BaseFragment {
                     noResultText.setVisibility(View.GONE);
                     friendsRecyclerView.setVisibility(View.VISIBLE);
                     friends = task.getResult();
+                    adapter.getValues().clear();
                     adapter.getValues().addAll(friends);
                     adapter.notifyDataSetChanged();
                 } else {
