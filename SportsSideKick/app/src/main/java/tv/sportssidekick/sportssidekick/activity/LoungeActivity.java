@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
+import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -189,12 +190,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
         Model.getInstance().initialize(this);
-        yourCoinsContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO open dialog ?
-            }
-        });
+
         popupHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,11 +208,11 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         InternalNotificationManager.getInstance();
         // this part is optional
         facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
-
         PurchaseModel.getInstance().onCreate(this);
     }
 
-    private void toggleBlur(boolean visible) { // TODO Extract to popup base class ?
+    // Maybe extract this to popup base class?
+    private void toggleBlur(boolean visible) {
         if (visible) {
             popupHolder.setVisibility(View.VISIBLE);
             if (rootView.getWidth() > 0) {
@@ -306,8 +302,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         radioButtonsFragmentMap.put(R.id.club_radio_radio_button, ClubRadioFragment.class);
         radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
 
-        // FIXME This will trigger sound?
-        //   EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
         ((RadioButton) ButterKnife.findById(this, R.id.wall_radio_button)).setChecked(true);
@@ -497,7 +492,15 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()) // share to facebook
+        {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) // sign up Fragment - Continue with facebook
+        {
+            getFragmentOrganizer().getOpenFragment().onActivityResult(requestCode, resultCode, data);
+        }
+
         PurchaseModel.getInstance().onActivityResult(requestCode, resultCode, data);
 
     }

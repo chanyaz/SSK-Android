@@ -697,31 +697,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         filteredWallItems.clear();
         adapter.notifyDataSetChanged();
         WallModel.getInstance().fetchPosts();
-
-        //TODO!!!
-//        print("Wall.reloadWallFromModel()")
-//
-//        wallItems.removeAll()
-//        filteredWallItems.removeAll()
-//        listeners.removeAll()
-//
-//        self.SetupTutorial()
-//
-//        listeners += WallModel.instance.notifyPostUpdate.on() {
-//            response in
-//
-//            if self.first_tutorial_load {
-//                self.first_tutorial_load = false
-//                self.LoadNextTutorialItem()
-//            }
-//
-//            self.loadingSpinner.isHidden = true
-//
-//            self.AddPost(post: response)
-//        }
-//
-//        WallModel.instance.mbListenerToUserWall()
-//        collectionView.reloadData()
     }
 
     @Override

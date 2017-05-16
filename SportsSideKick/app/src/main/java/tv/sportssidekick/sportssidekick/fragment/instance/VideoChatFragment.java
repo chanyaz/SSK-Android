@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.twilio.video.CameraCapturer;
 import com.twilio.video.ConnectOptions;
 import com.twilio.video.LocalAudioTrack;
-import com.twilio.video.LocalMedia;
 import com.twilio.video.LocalVideoTrack;
 import com.twilio.video.Participant;
 import com.twilio.video.Room;
@@ -99,7 +98,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     String pendingRoomId;
     VideoChatModel model;
 
-    LocalMedia localMedia;
+//    LocalMedia localMedia;
     LocalAudioTrack localAudioTrack;
     LocalVideoTrack localVideoTrack;
     CameraCapturer camera;
@@ -126,7 +125,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         isFrontCamera = frontCamera;
         if (camera != null) {
             camera.switchCamera();
-            // TODO - toggle camera button image
         }
     }
 
@@ -199,7 +197,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         ButterKnife.bind(this, view);
 
         model = VideoChatModel.getInstance();
-        localMedia = LocalMedia.create(getContext());
+//        localMedia = LocalMedia.create(getContext());
         name.setText(getContext().getResources().getString(R.string.video_chat_you));
         slots = new ArrayList<>();
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_2)));
@@ -442,30 +440,55 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
     private void completeConnect() {
-        if (localAudioTrack == null) {
-            localAudioTrack = localMedia.addAudioTrack(true);
-        }
-        if (localMedia.getVideoTracks().size() == 0) {
+        localAudioTrack = LocalAudioTrack.create(getContext(), true);
+        camera = new CameraCapturer(getContext(), CameraCapturer.CameraSource.FRONT_CAMERA);
+        localVideoTrack = LocalVideoTrack.create(getContext(), true, camera);
+        List<LocalAudioTrack> localAudioTracks =new ArrayList<LocalAudioTrack>(){{ add(localAudioTrack); }};
+        List<LocalVideoTrack> localVideoTracks =new ArrayList<LocalVideoTrack>(){{ add(localVideoTrack); }};
+
+        if (localAudioTracks.size() != 0) {
             startPreview();
         }
         // Connect to a room
         ConnectOptions connectOptions = new ConnectOptions.Builder(token)
                 .roomName(roomId)
-                .localMedia(localMedia)
+                .audioTracks(localAudioTracks)
+                .videoTracks(localVideoTracks)
                 .build();
 
         room = Video.connect(getContext(), connectOptions, this);
     }
 
+//    private void completeConnect() {
+//        if (localAudioTrack == null) {
+//            localAudioTrack = localMedia.addAudioTrack(true);
+//        }
+//        if (localMedia.getVideoTracks().size() == 0) {
+//            startPreview();
+//        }
+//        // Connect to a room
+//        ConnectOptions connectOptions = new ConnectOptions.Builder(token)
+//                .roomName(roomId)
+//                .localMedia(localMedia)
+//                .build();
+//
+//        room = Video.connect(getContext(), connectOptions, this);
+//    }
+
     private void startPreview() {
-        camera = new CameraCapturer(getContext(), CameraCapturer.CameraSource.FRONT_CAMERA);
-        localVideoTrack = localMedia.addVideoTrack(true, camera);
-        if (localVideoTrack == null) {
-            Log.e(TAG, "Failed to add video track");
-        } else {
-            localVideoTrack.addRenderer(previewView);
-        }
+        localVideoTrack.addRenderer(previewView);
     }
+
+//    private void startPreview() {
+//        camera = new CameraCapturer(getContext(), CameraCapturer.CameraSource.FRONT_CAMERA);
+//        localVideoTrack = localMedia.addVideoTrack(true, camera);
+//        if (localVideoTrack == null) {
+//            Log.e(TAG, "Failed to add video track");
+//        } else {
+//            localVideoTrack.addRenderer(previewView);
+//        }
+//    }
+
 
     private void cleanupRemoteParticipants() {
         for (Slot slot : slots) {
@@ -538,7 +561,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
 
     private void preConnect(String id) {
-//      self.appDelegate.loungeViewController?.wallTabs.tabItemJumpTo("Video Chat") TODO ?
         model.join(id).addOnCompleteListener(new OnCompleteListener<VideoChatItem>() {
             @Override
             public void onComplete(@NonNull Task<VideoChatItem> task) {
@@ -572,17 +594,17 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public void onConnected(Room room) {
         Log.d(TAG, "Connected to room " + room.getName() + " as " + room.getLocalParticipant().getIdentity());
         if (room.getParticipants().size() > 0) {
-            for (Map.Entry<String, Participant> remoteParticipant : room.getParticipants().entrySet()) {
+            for (Participant remoteParticipant : room.getParticipants()) {
 
-                Slot slot = getSlotBy(remoteParticipant.getValue().getIdentity());
+                Slot slot = getSlotBy(remoteParticipant.getIdentity());
                 // You started the call, but other people have managed to connect before you, so we already
                 // have a slot for them
                 if (slot != null) {
-                    slot.setParticipant(remoteParticipant.getValue());
+                    slot.setParticipant(remoteParticipant);
                 } else { // Otherwise, create a new free slot if one is avaiable
                     slot = getNextFreeSlot();
                     if (slot != null) {
-                        slot.setParticipant(remoteParticipant.getValue());
+                        slot.setParticipant(remoteParticipant);
                         addSlotToLayout(slot);
                     } else {
                         Log.e(TAG, "No free slots left!");
@@ -650,4 +672,5 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         disconnect();
         super.onStop();
     }
+
 }

@@ -114,7 +114,7 @@ public class JoinChatFragment extends BaseFragment {
         publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/fNv31Q/fake_official_chat_messi.png",true, true,"2"));
         publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/jj5go5/fake_official_chat_otar.png",true, true,"3"));
         publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/bCv31Q/fake_official_chat_rc7.png",true, true,"4"));
-        chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
+        chatsAdapter = new PublicChatsAdapter(cellHeight);
         chatsAdapter.add(publicChats);
         searchEditText.addTextChangedListener(textWatcher);
         recyclerView.setAdapter(chatsAdapter);
@@ -142,7 +142,7 @@ public class JoinChatFragment extends BaseFragment {
                         FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity(),recyclerViewFriendsInContainer.getWidth());
                         friendsInChatAdapter.setValues(otherChats);
                         recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
-                        chatsAdapter = new PublicChatsAdapter(getContext(), cellHeight);
+                        chatsAdapter = new PublicChatsAdapter(cellHeight);
                         chatsAdapter.add(otherChats);
                     }
                 });
@@ -179,13 +179,11 @@ public class JoinChatFragment extends BaseFragment {
 
     @OnClick(R.id.create_a_chat)
     public void createChatTextViewOnClick() {
-        //TODO search
         EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
     }
 
     @OnClick(R.id.chat_join_search_button)
     public void search() {
-        //TODO search
         recyclerViewSearchResult.setVisibility(View.VISIBLE);
     }
 

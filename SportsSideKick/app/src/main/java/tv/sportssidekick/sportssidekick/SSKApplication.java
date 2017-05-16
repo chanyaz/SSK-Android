@@ -5,20 +5,21 @@ import android.content.ContextWrapper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.bugfender.sdk.Bugfender;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.keiferstone.nonet.NoNet;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
 import com.pixplicity.easyprefs.library.Prefs;
-
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+
 import io.fabric.sdk.android.Fabric;
-import tv.sportssidekick.sportssidekick.model.Model;
 import tv.sportssidekick.sportssidekick.model.AWSFileUploader;
 import tv.sportssidekick.sportssidekick.model.purchases.PurchaseModel;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
@@ -34,11 +35,20 @@ public class SSKApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Bugfender.init(this, "X8jor58iPHDDUYWUBDPjZvVwWoMnMWkP", BuildConfig.DEBUG);
+        Bugfender.enableLogcatLogging();
+        Bugfender.enableUIEventLogging(this);
+
+        NoNet.configure()
+                .endpoint("http://google.com")
+                .timeout(5)
+                .connectedPollFrequency(60)
+                .disconnectedPollFrequency(1);
+
+        Connection.getInstance().initialize(this);
 
         initImageLoader(getApplicationContext());
         initTwitter(getApplicationContext());
-
-        Model.getInstance();
 
         // Facebook initialization TODO - update?
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -59,8 +69,9 @@ public class SSKApplication extends MultiDexApplication {
                 .build()
         );
 
-        SoundEffects.getDefault().initialize(this);
         AWSFileUploader.getInstance().initialize(getApplicationContext());
+
+        SoundEffects.getDefault().initialize(this);
 
         PurchaseModel.getInstance().initialize(this);
     }
@@ -93,4 +104,6 @@ public class SSKApplication extends MultiDexApplication {
         super.attachBaseContext(base);
         MultiDex.install(SSKApplication.this);
     }
+
+
 }

@@ -61,6 +61,7 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
     @BindView(R.id.close_button)
     View close_button;
     Station station;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -75,29 +76,33 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
         ImageLoader.getInstance().displayImage(imageUrl, backgroundImage, imageOptions);
 
         initializeMediaPlayer();
-        float volume = Prefs.getFloat(Constant.RADIO_VOLUME,0.5f);
+        float volume = Prefs.getFloat(Constant.RADIO_VOLUME, 0.5f);
 
         audioSeekBar.setMax(AUDIO_BAR_MAX);
-        audioSeekBar.setProgress((int) (volume*AUDIO_BAR_MAX));
+        audioSeekBar.setProgress((int) (volume * AUDIO_BAR_MAX));
         audioSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                float percentage = ((float)seekBar.getProgress()/(float)seekBar.getMax());
-                if(player!=null){
-                    Prefs.putFloat(Constant.RADIO_VOLUME,percentage);
-                    player.setVolume(percentage,percentage);
+                float percentage = ((float) seekBar.getProgress() / (float) seekBar.getMax());
+                if (player != null) {
+                    Prefs.putFloat(Constant.RADIO_VOLUME, percentage);
+                    player.setVolume(percentage, percentage);
                 }
             }
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {}
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         return view;
     }
 
     @OnClick(R.id.play_button)
-    public void playButtonOnClick(){
-        if(playButton.isSelected()){
+    public void playButtonOnClick() {
+        if (playButton.isSelected()) {
             playButton.setSelected(false);
             stopPlaying();
         } else {
@@ -107,10 +112,12 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
     }
 
     @OnClick(R.id.close_button)
-    public void closeButtonOnClick(){
+    public void closeButtonOnClick() {
         EventBus.getDefault().post(new FragmentEvent(ClubRadioFragment.class, true));
     }
+
     MediaPlayer player;
+
     private void initializeMediaPlayer() {
         player = new MediaPlayer();
         try {
@@ -118,12 +125,12 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
             player.setOnPreparedListener(this);
             player.prepareAsync();
         } catch (IllegalArgumentException | IllegalStateException | IOException e) {
-            Log.d(TAG,"Initialization failed.");
+            Log.d(TAG, "Initialization failed.");
         }
 
         player.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
             public void onBufferingUpdate(MediaPlayer mp, int percent) {
-                Log.d(TAG,"Buffered to:" + percent );
+                Log.d(TAG, "Buffered to:" + percent);
             }
         });
     }
@@ -131,8 +138,11 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
     @Override
     public void onPause() {
         super.onPause();
-        if (player.isPlaying()) {
-            player.stop();
+        try {
+            if (player.isPlaying()) {
+                player.stop();
+            }
+        } catch (IllegalStateException exception) {
         }
     }
 
@@ -151,7 +161,7 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
 
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
-        float volume = Prefs.getFloat(Constant.RADIO_VOLUME,0.5f);
+        float volume = Prefs.getFloat(Constant.RADIO_VOLUME, 0.5f);
         player.setVolume(volume, volume);
         player.start();
         playButton.setSelected(true);

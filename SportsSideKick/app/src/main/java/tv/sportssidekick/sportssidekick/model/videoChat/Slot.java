@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.twilio.video.AudioTrack;
-import com.twilio.video.Media;
 import com.twilio.video.Participant;
 import com.twilio.video.VideoTrack;
 import com.twilio.video.VideoView;
@@ -26,7 +25,7 @@ import tv.sportssidekick.sportssidekick.model.user.UserInfo;
  * www.hypercubesoft.com
  */
 
-public class Slot implements Media.Listener{
+public class Slot implements Participant.Listener{
 
 
 
@@ -57,7 +56,7 @@ public class Slot implements Media.Listener{
         if(this.participant==null){
             setUserId(null);
         } else {
-            participant.getMedia().setListener(this);
+            participant.setListener(this);
             if(userId!=null && userId.equals(this.participant.getIdentity())){
                 return;
             }
@@ -114,11 +113,11 @@ public class Slot implements Media.Listener{
 
     public void disconnect(){
         if (this.participant != null){
-            List<VideoTrack> tracks = this.participant.getMedia().getVideoTracks();
+            List<VideoTrack> tracks = this.participant.getVideoTracks();
             if ( tracks!=null && tracks.size() > 0 ){
                 for(VideoTrack track: tracks) {
                         track.removeRenderer(this.video);
-                        participant.getMedia().setListener(null);
+                        participant.setListener(null);
                 }
             }
         }
@@ -145,13 +144,17 @@ public class Slot implements Media.Listener{
     }
 
     @Override
-    public void onAudioTrackAdded(Media media, AudioTrack audioTrack) { }
+    public void onAudioTrackAdded(Participant participant, AudioTrack audioTrack) {
+
+    }
 
     @Override
-    public void onAudioTrackRemoved(Media media, AudioTrack audioTrack) { }
+    public void onAudioTrackRemoved(Participant participant, AudioTrack audioTrack) {
+
+    }
 
     @Override
-    public void onVideoTrackAdded(Media media, VideoTrack videoTrack) {
+    public void onVideoTrackAdded(Participant participant, VideoTrack videoTrack) {
         if(this.videoTrack !=null){
             videoTrack.removeRenderer(video);
             videoTrack = null;
@@ -164,7 +167,7 @@ public class Slot implements Media.Listener{
     }
 
     @Override
-    public void onVideoTrackRemoved(Media media, VideoTrack videoTrack) {
+    public void onVideoTrackRemoved(Participant participant, VideoTrack videoTrack) {
         if(this.videoTrack!=null){
             if(videoTrack.getTrackId().equals(this.videoTrack.getTrackId())){
                 videoTrack.removeRenderer(video);
@@ -175,18 +178,22 @@ public class Slot implements Media.Listener{
     }
 
     @Override
-    public void onAudioTrackEnabled(Media media, AudioTrack audioTrack) { }
+    public void onAudioTrackEnabled(Participant participant, AudioTrack audioTrack) {
+
+    }
 
     @Override
-    public void onAudioTrackDisabled(Media media, AudioTrack audioTrack) { }
+    public void onAudioTrackDisabled(Participant participant, AudioTrack audioTrack) {
+
+    }
 
     @Override
-    public void onVideoTrackEnabled(Media media, VideoTrack videoTrack) {
+    public void onVideoTrackEnabled(Participant participant, VideoTrack videoTrack) {
         setVideo(true);
     }
 
     @Override
-    public void onVideoTrackDisabled(Media media, VideoTrack videoTrack) {
+    public void onVideoTrackDisabled(Participant participant, VideoTrack videoTrack) {
         setVideo(false);
     }
 }

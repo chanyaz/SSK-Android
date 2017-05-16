@@ -1,6 +1,5 @@
 package tv.sportssidekick.sportssidekick.adapter;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +33,6 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
     private static final int VIEW_TYPE_CELL = 1;
     private static final String TAG = "Chat Friends Adapter";
 
-    private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -48,8 +46,7 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
         }
     }
     private int cellHeight;
-    public PublicChatsAdapter(Context context,int cellHeight) {
-        this.context = context;
+    public PublicChatsAdapter(int cellHeight) {
         this.cellHeight = cellHeight;
     }
 
@@ -79,7 +76,6 @@ public class PublicChatsAdapter extends RecyclerView.Adapter<PublicChatsAdapter.
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO JOIN CHAT and OPEN NEW FRAGMENT
                 //info.joinChat();
             }
         });

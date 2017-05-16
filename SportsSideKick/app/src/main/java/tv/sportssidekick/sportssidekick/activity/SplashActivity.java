@@ -8,10 +8,15 @@ import android.view.View;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import tv.sportssidekick.sportssidekick.Connection;
 import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
+import tv.sportssidekick.sportssidekick.model.Model;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -23,6 +28,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @BindView(R.id.splash_container) View fragmentContainer;
     @BindView(R.id.progress_bar) View progressBar;
+    @BindView(R.id.waiting_connection) View waitingConnection;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -36,6 +42,26 @@ public class SplashActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         progressBar.setVisibility(View.VISIBLE);
 
+        if(Connection.getInstance().reachable()){
+            initialiseModel();
+        } else {
+            EventBus.getDefault().register(this);
+            waitingConnection.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Subscribe
+    public void onConnectionEvent(Connection.OnChangeEvent event){
+        if(event.getStatus() == Connection.Status.reachable){
+            initialiseModel();
+        }
+    }
+
+    private void initialiseModel() {
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+        Model.getInstance();
         final Intent intent = new Intent(this, LoungeActivity.class);
         if(!Prefs.getBoolean(Constant.IS_FIRST_TIME,true)){
             Prefs.putBoolean(Constant.IS_FIRST_TIME, false);

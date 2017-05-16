@@ -342,7 +342,7 @@ public class ChatFragment extends BaseFragment {
             UserInfo user = Model.getInstance().getUserInfo();
             if(user!=null){
                 if(user.getUserId().equals(currentlyActiveChat.getOwner())){
-                    chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit)); // TODO Extract strings...
+                    chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
                 } else {
                     chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
                 }
@@ -553,7 +553,7 @@ public class ChatFragment extends BaseFragment {
         updateAllViews();
         if(currentlyActiveChat!=null){
             if(currentlyActiveChat.getChatId().equals(chatInfo.getChatId())){
-                // TODO - Update chat data?
+                Log.d(TAG, "Single chat should be updated!");
             }
         }
     }
@@ -586,7 +586,9 @@ public class ChatFragment extends BaseFragment {
         messageListView.smoothScrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
     }
 
-    private void checkPushNotification() { /* TODO */ }
+    private void checkPushNotification() {
+        Log.d(TAG,"Missing implementation for checkPushNotification method!");
+    }
 
     private void findActiveChat() {
         String chatId;

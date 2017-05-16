@@ -20,6 +20,9 @@
     <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
     <string name="forgot_password_text">Reset your password</string>
     <string name="forgot_password_button_text">Reset Password</string>
+    <string name="forgot_password_message">Please check your email for password reset options.</string>
+    <string name="forgot_password_error_message">Please enter a valid email address!</string>
+    <string name="forgot_password_error">Error</string>
     <string name="sign_up_facebook">Sign up with Facebook</string>
     <string name="sign_up_or">or</string>
     <string name="sign_up_firstname">First name</string>
@@ -364,6 +367,9 @@
     <string name="store_big">STORE</string>
     <string name="tip">TIP</string>
     <string name="try_to_following_the_official_sporting_account">Try to following the official sporting account</string>
+    <string name="waiting_for_active_internet_connection">Waiting for active internet connection...</string>
+    <string name="no_connection_title">No Connection</string>
+    <string name="no_connection_message">You need to be connected to the internet to do this</string>
 
     <integer name="progress_bar_max">100</integer>
     <integer name="progress_bar_30">30</integer>

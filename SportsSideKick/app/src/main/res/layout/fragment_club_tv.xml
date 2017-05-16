@@ -6,7 +6,6 @@
     android:background="?wallBackground"
     tools:context="tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment">
 
-    <!--  \/\/\/\/\/\/\/ FIXME Dummy View to make sure container is the size of Video player fragment -->
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"
         android:layout_width="match_parent"
@@ -19,7 +18,6 @@
             app:layout_aspectRatio="178%"
             app:layout_widthPercent="100%"/>
     </android.support.percent.PercentRelativeLayout>
-    <!--  /\/\/\/\/\/\/\ -->
 
    <Button
        android:id="@+id/back_button"

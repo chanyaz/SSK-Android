@@ -2,6 +2,7 @@ package tv.sportssidekick.sportssidekick.model.user;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by Filip on 4/25/2017.
@@ -24,7 +25,7 @@ public class RegistrationStateReceiver {
     }
 
     // Login state
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UserEvent event){
         switch (event.getType()){
             case onRegister:
