@@ -393,4 +393,6 @@
         <item>Video Chat</item>
         <item>Menu 10</item>
     </string-array>
+
+    <string name="go_to_profile">Go to Profile ></string>
 </resources>
