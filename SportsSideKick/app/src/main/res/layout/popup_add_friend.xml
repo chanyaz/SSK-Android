@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/width_500"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_60"
-    android:layout_marginEnd="@dimen/margin_90"
-    android:layout_marginStart="@dimen/margin_90"
-    android:layout_marginTop="@dimen/margin_60"
+    android:layout_marginBottom="@dimen/margin_base_size_60"
+    android:layout_marginEnd="@dimen/margin_base_size_90"
+    android:layout_marginStart="@dimen/margin_base_size_90"
+    android:layout_marginTop="@dimen/margin_base_size_60"
     android:background="@drawable/popup_bottom_background"
     android:clickable="true">
 
@@ -15,8 +15,9 @@
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
+        android:orientation="horizontal"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal">
+        android:layout_toEndOf="@+id/friends_list">
 
         <View
             android:id="@+id/top_vertical_spliter"
