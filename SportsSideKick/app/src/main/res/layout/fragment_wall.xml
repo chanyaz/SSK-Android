@@ -32,7 +32,7 @@
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:background="?green_dark_3"
+        android:background="?wallEditTextContainerBackground"
         android:layout_above="@+id/fragment_wall_bottom_bar"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -73,10 +73,10 @@
                     android:layout_margin="@dimen/margin_10"
                     android:backgroundTint="@color/colorPrimary"
                     android:hint="@string/write_post_hint"
-                    android:textColor="@color/white"
                     android:layout_toEndOf="@+id/uploaded_image"
                     android:layout_toStartOf="@+id/post_post_button"
-                    android:textColorHint="?colorPrimarySemiLight" />
+                    android:textColor="?wallEditSearchText"
+                    android:textColorHint="?wallEditSearchHint" />
                 <ImageView
                     android:id="@+id/post_post_button"
                     android:layout_width="@dimen/width_60"
@@ -188,8 +188,8 @@
                 android:layout_margin="@dimen/margin_10"
                 android:backgroundTint="@color/colorPrimary"
                 android:hint="@string/search_wall_posts_hint"
-                android:textColor="@color/white"
-                android:textColorHint="?colorPrimarySemiLight" />
+                android:textColor="?wallEditSearchText"
+                android:textColorHint="?wallEditSearchHint" />
         </RelativeLayout>
     </RelativeLayout>
 

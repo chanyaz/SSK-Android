@@ -32,15 +32,12 @@ public class ThemeManager {
 
 
     public void  changeTheme(Activity activity) {
-        switch (Prefs.getInt(THEME_KEY, R.style.AppTheme)) {
-            case R.style.LightTheme:
-                Prefs.putInt(THEME_KEY, R.style.AppTheme);
-                setLightTheme(false);
-                break;
-            case R.style.AppTheme:
-                Prefs.putInt(THEME_KEY, R.style.LightTheme);
-                setLightTheme(true);
-                break;
+        if (ThemeManager.getInstance().isLightTheme()) {
+            Prefs.putInt(THEME_KEY, R.style.AppTheme);
+            setLightTheme(false);
+        }else{
+            Prefs.putInt(THEME_KEY, R.style.LightTheme);
+            setLightTheme(true);
         }
         activity.recreate();
     }

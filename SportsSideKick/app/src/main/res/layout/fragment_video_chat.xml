@@ -162,8 +162,7 @@
     <RelativeLayout
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="match_parent"
@@ -175,7 +174,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?light_green_1_semitransparent"
+            android:background="?videoChatOverlay"
             android:contentDescription="@null" />
 
         <RelativeLayout
@@ -223,7 +222,7 @@
 
             <Button
                 android:id="@+id/begin_your_call"
-                style="@style/button_call"
+                style="?videoChatButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text2"

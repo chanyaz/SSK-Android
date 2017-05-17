@@ -455,7 +455,7 @@
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/image"
                         android:padding="@dimen/padding_2"
-                        android:src="?profileImageIcon" />
+                        android:src="?profileImageLoungeIcon" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"

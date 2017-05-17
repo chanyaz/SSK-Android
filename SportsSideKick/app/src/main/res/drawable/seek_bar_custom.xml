@@ -15,7 +15,7 @@
         <clip>
             <shape>
                 <solid
-                    android:color="?attr/colorPrimaryLight"
+                    android:color="@color/colorPrimaryLight"
                     />
             </shape>
         </clip>

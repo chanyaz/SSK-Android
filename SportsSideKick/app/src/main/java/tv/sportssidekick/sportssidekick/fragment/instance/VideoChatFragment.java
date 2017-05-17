@@ -2,8 +2,10 @@ package tv.sportssidekick.sportssidekick.fragment.instance;
 
 
 import android.Manifest;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +57,7 @@ import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatItem;
 import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatModel;
 import tv.sportssidekick.sportssidekick.events.AddUsersToCallEvent;
 import tv.sportssidekick.sportssidekick.events.StartCallEvent;
+import tv.sportssidekick.sportssidekick.util.ui.ThemeManager;
 
 /**
  * Created by Djordje on 01/31/2016.
@@ -93,6 +96,10 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public ImageButton flipCameraButton;
     @BindView(R.id.toggle_video_button)
     public ImageButton videoButton;
+    @BindView(R.id.add_users_button)
+    public ImageButton addUserButton;
+
+
 
     String roomId;
     String pendingRoomId;
@@ -210,8 +217,25 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             onVideoChatEvent(event);
             VideoChatModel.getInstance().setVideoChatEvent(null);
         }
-
+        updateIconsColor();
         return view;
+    }
+
+    public void updateIconsColor(){
+        if(ThemeManager.getInstance().isLightTheme()){
+            hangupButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            muteButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            flipCameraButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            videoButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+        }else {
+            hangupButton.clearColorFilter();
+            muteButton.clearColorFilter();
+            flipCameraButton.clearColorFilter();
+            videoButton.clearColorFilter();
+            addUserButton.clearColorFilter();
+        }
+
     }
 
     private void setViewState(boolean active, boolean loading) {

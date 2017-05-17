@@ -176,6 +176,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
 
+        updateButtons();
+
         TutorialModel.getInstance().initialize(getActivity());
         this.loginStateReceiver = new LoginStateReceiver(this);
 
@@ -230,8 +232,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
         return view;
     }
-
-
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick(){

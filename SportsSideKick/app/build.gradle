@@ -146,7 +146,9 @@ dependencies {
     compile 'me.atrox.haikunator:Haikunator:1.3'
 
     // GAMESPARKS LIBRARY:
-    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    compile('com.googlecode.json-simple:json-simple:1.1.1') {
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
     compile group: 'com.neovisionaries', name: 'nv-websocket-client', version: '2.2'
 }
 apply plugin: 'com.google.gms.google-services'
