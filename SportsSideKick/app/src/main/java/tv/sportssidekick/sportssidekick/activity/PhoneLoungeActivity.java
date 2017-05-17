@@ -20,7 +20,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,16 +58,22 @@ import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioStationFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubTvPlaylistFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.NewsFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.NewsItemFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.RumoursFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StatisticsFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.WallItemFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.YoutubePlayerFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.AddFriendFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.AlertDialogFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.CreateChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.popup.EditChatFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.EditProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FollowersFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.FollowingFragment;
@@ -124,6 +132,18 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
     TextView newsLabel;
     @BindView(R.id.caption)
     TextView captionLabel;
+    @BindView(R.id.user_level_progress)
+    ProgressBar userLevelProgress;
+    @BindView(R.id.your_coins_value)
+    TextView yourCoinsValue;
+    @BindView(R.id.user_level)
+    TextView yourLevel;
+    @BindView(R.id.profile_image)
+    ImageView profileImage;
+
+    @BindView(R.id.user_level_background)
+    ImageView userLevelBackground;
+
     FragmentOrganizer fragmentOrganizer;
 
     ArrayList<Class> popupContainerFragments;
@@ -242,30 +262,22 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
     private void setupFragments() {
         fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);
 
-//        ArrayList<Class> leftContainerFragments = new ArrayList<>();
-//        leftContainerFragments.add(WallFragment.class);
-//        leftContainerFragments.add(VideoChatFragment.class);
-//        leftContainerFragments.add(NewsFragment.class);
-//        leftContainerFragments.add(RumoursFragment.class);
-//        leftContainerFragments.add(StoreFragment.class);
-//        leftContainerFragments.add(NewsItemFragment.class);
-//        leftContainerFragments.add(WallItemFragment.class);
-//        fragmentOrganizer.setUpContainer(R.id.tabs_container_1, leftContainerFragments);
 
-//        ArrayList<Class> topRightContainerFragments = new ArrayList<>();
-//        topRightContainerFragments.add(ChatFragment.class);
-//        topRightContainerFragments.add(StatisticsFragment.class);
-//        topRightContainerFragments.add(FantasyFragment.class);
-//        topRightContainerFragments.add(QuizFragment.class);
-//        fragmentOrganizer.setUpContainer(R.id.tabs_container_top_right, topRightContainerFragments);
+        ArrayList<Class> mainContainerFragments = new ArrayList<>();
+        mainContainerFragments.add(WallFragment.class);
+        mainContainerFragments.add(ChatFragment.class);
+        mainContainerFragments.add(NewsFragment.class);
+        mainContainerFragments.add(StatisticsFragment.class);
+        mainContainerFragments.add(RumoursFragment.class);
+        mainContainerFragments.add(ClubRadioFragment.class);
+        mainContainerFragments.add(StoreFragment.class);
+        mainContainerFragments.add(ClubTVFragment.class);
+        mainContainerFragments.add(VoicemailContract.class);
+        mainContainerFragments.add(VideoChatFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
 
-//        ArrayList<Class> bottomRightContainerFragments = new ArrayList<>();
-//        bottomRightContainerFragments.add(ClubTVFragment.class);
-//        bottomRightContainerFragments.add(ClubTvPlaylistFragment.class);
-//        bottomRightContainerFragments.add(ClubRadioFragment.class);
-//        bottomRightContainerFragments.add(YoutubePlayerFragment.class);
-//        bottomRightContainerFragments.add(ClubRadioStationFragment.class);
-//        fragmentOrganizer.setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments);
+
+
 
         popupContainerFragments = new ArrayList<>();
         popupContainerFragments.add(AlertDialogFragment.class);
@@ -285,26 +297,19 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
         popupContainerFragments.add(FollowingFragment.class);
         popupContainerFragments.add(AddFriendFragment.class);
         popupContainerFragments.add(InviteFriendFragment.class);
-        popupContainerFragments.add(WallFragment.class);
-        popupContainerFragments.add(WallFragment.class);
-        popupContainerFragments.add(ChatFragment.class);
-        popupContainerFragments.add(NewsFragment.class);
-        popupContainerFragments.add(StatisticsFragment.class);
-        popupContainerFragments.add(RumoursFragment.class);
-        popupContainerFragments.add(ClubRadioFragment.class);
-        popupContainerFragments.add(StoreFragment.class);
-        popupContainerFragments.add(ClubTVFragment.class);
-        popupContainerFragments.add(VoicemailContract.class);
-        popupContainerFragments.add(VideoChatFragment.class);
+//leftJoin
+        popupContainerFragments.add(ClubTvPlaylistFragment.class);
+        popupContainerFragments.add(YoutubePlayerFragment.class);
+        popupContainerFragments.add(ClubRadioStationFragment.class);
+        popupContainerFragments.add(EditChatFragment.class);
+        popupContainerFragments.add(CreateChatFragment.class);
+        popupContainerFragments.add(JoinChatFragment.class);
+        popupContainerFragments.add(NewsItemFragment.class);
+        popupContainerFragments.add(WallItemFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.fragment_Popup_holder, popupContainerFragments);
 
-        fragmentOrganizer.setUpContainer(R.id.fragment_holder, popupContainerFragments);
+//        Fragments that slides in
 
-        //Fragments that slides in
-//        slidePopupContainerFragments = new ArrayList<>();
-//        slidePopupContainerFragments.add(CreateChatFragment.class);
-//        slidePopupContainerFragments.add(JoinChatFragment.class);
-//        slidePopupContainerFragments.add(EditChatFragment.class);
-//        fragmentOrganizer.setUpContainer(R.id.popup_holder_right, slidePopupContainerFragments, true);
 
 //        radioButtonsFragmentMap = HashBiMap.create();
 //        radioButtonsFragmentMap.put(R.id.wall_radio_button, WallFragment.class);
@@ -481,11 +486,15 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
     }
 
     private void setYourCoinsValue(String value) {
-        //yourCoinsValue.setText(value + " $$K");
+        yourCoinsValue.setText(value);
     }
 
     public void onProfileClicked(View view) {
+        drawerLayout.closeDrawer(GravityCompat.END);
+        if(yourLevel.getVisibility()==View.VISIBLE)
         EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+        else
+            EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 //
 //    public void onFollowersButtonClick(View view) {
@@ -625,42 +634,9 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
         }
     }
 
-    @Override
-    public void onLogout() {
-        //resetUserDetails();
-    }
 
-    @Override
-    public void onLoginAnonymously() {
-        //   resetUserDetails();
-    }
 
-    @Override
-    public void onLogin(UserInfo user) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
-            if (user.getCircularAvatarUrl() != null) {
-                //  ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
-            }
-            if (user.getFirstName() != null && user.getLastName() != null) {
-                // profileName.setText(user.getFirstName() + " " + user.getLastName());
-            }
-            setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
-//            yourLevel.setVisibility(View.VISIBLE);
-//            userLevelBackground.setVisibility(View.VISIBLE);
-//            userLevelProgress.setVisibility(View.VISIBLE);
-//            yourLevel.setText(String.valueOf(user.getLevel()));
-//            userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
-//
-//            profileButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
-//                }
-//            });
-        } else {
-            // resetUserDetails();
-        }
-    }
+
 
 //    private void resetUserDetails(){
 //        //reset profile name and picture to blank values
@@ -735,5 +711,59 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
             menuAdapter.notifyDataSetChanged();
 
         }
+    }
+
+    @Override
+    public void onLogout() {
+        resetUserDetails();
+    }
+
+    @Override
+    public void onLoginAnonymously() {
+        resetUserDetails();
+    }
+
+    @Override
+    public void onLogin(UserInfo user) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            if (user.getCircularAvatarUrl() != null) {
+                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
+            }
+            if (user.getFirstName() != null && user.getLastName() != null) {
+             //   profileName.setText(user.getFirstName() + " " + user.getLastName());
+            }
+            setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
+            yourLevel.setVisibility(View.VISIBLE);
+            userLevelBackground.setVisibility(View.VISIBLE);
+            userLevelProgress.setVisibility(View.VISIBLE);
+            yourLevel.setText(String.valueOf(user.getLevel()));
+            userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
+
+//            profileButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+//                }
+//            });
+        } else {
+            resetUserDetails();
+        }
+    }
+
+    private void resetUserDetails() {
+        //reset profile name and picture to blank values
+        setYourCoinsValue(String.valueOf(0));
+        yourLevel.setVisibility(View.INVISIBLE);
+        userLevelBackground.setVisibility(View.INVISIBLE);
+        userLevelProgress.setVisibility(View.INVISIBLE);
+      //  profileName.setText("Login / Signup");
+        String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
+        ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
+//        profileButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+//            }
+//        });
     }
 }
