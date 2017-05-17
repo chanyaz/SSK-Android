@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_240"
-    android:background="?green_dark_2">
+    android:background="?wallItemUserPostBackground">
 
     <RelativeLayout
         android:id="@+id/images_container"
@@ -61,7 +61,7 @@
         android:maxLines="2"
         android:minLines="2"
         android:text="Post caption"
-        android:textColor="@color/white"
+        android:textColor="?wallUserContentTextColor"
         android:textSize="@dimen/font_size_16" />
 
     <RelativeLayout

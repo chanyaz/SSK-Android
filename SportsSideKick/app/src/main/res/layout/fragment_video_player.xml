@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?colorPrimarySemiLight">
+    android:background="?playerBackground">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/youtube_layout_container"
@@ -47,6 +47,7 @@
             android:id="@+id/playlist_button"
             android:layout_width="@dimen/width_85"
             android:layout_height="@dimen/height_25"
+            android:padding="@dimen/padding_4"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_10"
@@ -54,10 +55,10 @@
             android:layout_marginStart="@dimen/margin_10"
             android:layout_marginEnd="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_20"
-            android:background="@drawable/rounded_button_press"
             android:text="@string/playlist"
             android:textSize="@dimen/font_size_10"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            style="?videoChatButtonStyle"/>
 
         <ImageView
             android:id="@+id/play_button"
@@ -67,7 +68,7 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/padding_10"
             android:src="?playPauseSelector" />
-f
+
         <View
             android:id="@+id/center"
             android:layout_width="@dimen/space_0"
@@ -103,7 +104,7 @@ f
         android:layout_alignBottom="@+id/youtube_layout_container"
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@+id/controls_container"
-        android:background="@color/colorPrimary"
+        android:background="?playerBackground"
         android:gravity="center"
         android:lines="1"
         android:padding="@dimen/padding_8"

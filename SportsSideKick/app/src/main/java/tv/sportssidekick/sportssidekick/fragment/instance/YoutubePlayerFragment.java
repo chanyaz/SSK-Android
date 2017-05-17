@@ -1,11 +1,13 @@
 package tv.sportssidekick.sportssidekick.fragment.instance;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,7 @@ import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.model.club.ClubModel;
+import tv.sportssidekick.sportssidekick.util.ui.ThemeManager;
 
 /**
  * Created by Filip on 1/25/2017.
@@ -58,6 +61,10 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @BindView(R.id.play_button)
     ImageView playButton;
+
+    @BindView(R.id.fullscreen_button)
+    ImageView fullScreenButton;
+
 
     @BindView(R.id.time_info)
     TextView timeInfo;
@@ -103,7 +110,21 @@ public class YoutubePlayerFragment extends BaseFragment implements
         });
 //      progressBar.setVisibility(View.VISIBLE);
         updateTimeInfo();
+
+        updateButtonsColor();
         return view;
+    }
+
+    public void updateButtonsColor(){
+        if(ThemeManager.getInstance().isLightTheme()){
+            playButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.light_green_main),PorterDuff.Mode.MULTIPLY);
+            muteButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.light_green_main),PorterDuff.Mode.MULTIPLY);
+            fullScreenButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.light_green_main),PorterDuff.Mode.MULTIPLY);
+        }else {
+            playButton.clearColorFilter();
+            muteButton.clearColorFilter();
+            fullScreenButton.clearColorFilter();
+        }
     }
 
     YouTubePlayer player;
@@ -170,6 +191,11 @@ public class YoutubePlayerFragment extends BaseFragment implements
        } else {
            player.play();
        }
+        if(ThemeManager.getInstance().isLightTheme()){
+            playButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.light_green_main),PorterDuff.Mode.MULTIPLY);
+        }else {
+            playButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.white),PorterDuff.Mode.MULTIPLY);
+        }
     }
     final Handler updatesHandler = new Handler();
     private void beginPlaybackUpdates(){

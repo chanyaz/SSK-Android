@@ -193,4 +193,22 @@
     <attr name="playerControlsMuteIcon" format="reference"/>
 
     <attr name="chatHeadInfoContainer" format="reference"/>
+
+    <attr name="wallItemUserPostCaption" format="reference"/>
+
+    <attr name="videoChatButtonStyle" format="reference"/>
+    <attr name="videoChatOverlay" format="reference"/>
+
+
+    <attr name="wallEditTextContainerBackground" format="reference"/>
+    <attr name="wallEditSearchBackground" format="reference"/>
+    <attr name="wallEditSearchText" format="reference"/>
+    <attr name="wallEditSearchHint" format="reference"/>
+
+    <attr name="wallUserContentTextColor" format="reference"/>
+
+    <attr name="webViewControlsBackground" format="reference"/>
+
+    <attr name="playerBackground" format="reference"/>
+    <attr name="profileImageLoungeIcon" format="reference"/>
 </resources>
