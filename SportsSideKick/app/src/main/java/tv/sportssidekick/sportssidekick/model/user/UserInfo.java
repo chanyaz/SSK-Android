@@ -45,7 +45,7 @@ public class UserInfo {
     private boolean isOnline;
     private Model.UserState userState;
 
-    //TBA Hook up with GS
+    //TODO @Filip Hook up with GS when backend is avaliable
     private int wallPosts=0;
     private int comments=0;
     private int likes=0;

@@ -1,4 +1,4 @@
-package tv.sportssidekick.sportssidekick.model;
+package tv.sportssidekick.sportssidekick.model.analytics;
 
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
@@ -15,17 +15,17 @@ import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
  * www.hypercubesoft.com
  */
 
-public class Analytics {
-    private static final String TAG = "Analytics";
+public class AnalyticsManager {
+    private static final String TAG = "AnalyticsManager";
     public static final String CATEGORY = "Category";
-    private static Analytics instance;
+    private static AnalyticsManager instance;
 
-    private Analytics() {
+    private AnalyticsManager() {
     }
 
-    public static Analytics getInstance() {
+    public static AnalyticsManager getInstance() {
         if (instance == null) {
-            instance = new Analytics();
+            instance = new AnalyticsManager();
         }
         return instance;
     }

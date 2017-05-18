@@ -205,7 +205,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
         Toast.makeText(getContext(), getContext().getResources().getString(R.string.registarion_error), Toast.LENGTH_LONG).show();
-        // TBA inform user about registration failure
+        // TODO @Filip inform user about registration failure
     }
 
     @Override

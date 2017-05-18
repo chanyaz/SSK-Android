@@ -525,12 +525,12 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
         String chatId;
         switch (type){
             case "ImsUpdateChatInfo":
-//              TODO   ??? This part looks weird on iOS ?
+//              TODO @Filip check implementation on iOS
                 chatId = (String) data.get(CHAT_ID);
                 if(chatId==null){
                     reload();
                 } else {
-                    reload(); // TODO - Implement loading of single chat!
+                    reload(); // TODO @Filip - Implement loading of single chat! Check implementation on iOS
                     EventBus.getDefault().post(new ChatNotificationsEvent(chatId, ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
                 }
                 break;

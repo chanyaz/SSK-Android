@@ -76,7 +76,7 @@ public class Connection {
     }
 
     public void stop(){
-        // TODO !
+        // TODO @Filip - this method can not be trigered on Android like it is on iOS
     }
 
     public Status status(){

@@ -67,7 +67,7 @@ public class FriendRequestsFragment extends BaseFragment {
                     adapter.getValues().addAll(task.getResult());
                     adapter.notifyDataSetChanged();
                 } else {
-                    // TBA - No friend request to display!
+                    // TODO @Filip - No friend request to display!
                 }
                 progressBar.setVisibility(View.GONE);
             }

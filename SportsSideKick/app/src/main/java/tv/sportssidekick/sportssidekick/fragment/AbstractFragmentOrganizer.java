@@ -55,7 +55,7 @@ abstract class AbstractFragmentOrganizer {
         EventBus.getDefault().unregister(this);
     }
 
-    //TODO change to be private
+    //TODO @Filip change to be private
     public Fragment getOpenFragment(){
         String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() -1).getName();
         return fragmentManager.findFragmentByTag(tag);

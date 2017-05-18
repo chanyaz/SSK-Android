@@ -59,7 +59,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      * @param emailAddress - email address of the friend to invite
      */
     public void inviteFriend(String emailAddress) {
-        // TODO Missing API ?
+        // TODO @Filip Missing API - Implement when API is ready
     }
 
 
@@ -152,7 +152,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         c.add(Calendar.WEEK_OF_YEAR, 2);  // advances day by 2
         Date date = c.getTime(); // gets modified time
         request.setEndTime(date); //set the end time for two weeks
-        //request.getBaseData().put(GSConstants.TIMESTAMP_TAG, DateUtils.currentTimeToFirebaseDate()); TBA - Check what is wrong with this?
+        //request.getBaseData().put(GSConstants.TIMESTAMP_TAG, DateUtils.currentTimeToFirebaseDate()); TODO @Filip - Check what is wrong with this? Server is not accepting this value
         List<String> usersToChallenge = new ArrayList<>();
         usersToChallenge.add(userId);
         request.setUsersToChallenge(usersToChallenge);
@@ -268,7 +268,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
     }
 
     private void clear() {
-        // TODO ("*** clear FriendsManager")
+        // TODO @Filip - check if there is implementation on iOS ("*** clear FriendsManager")
 
     }
 
@@ -410,7 +410,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     if (!operation.equals("update")) {
                         if (data.containsKey(GSConstants.USER_INFO)) {
                             UserInfo userInfo = mapper.convertValue(data.get(GSConstants.USER_INFO), UserInfo.class);
-                            // TODO Emit userInfo - a friend is updated! ( or its me?! )
+                            // TODO @Filip Emit userInfo - a friend is updated! ( or its me?! ) - check implementation on iOS
                         }
                     }
                 }
@@ -418,7 +418,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         }
     }
 
-    // TODO ?
+    // TODO @Filip - check implementation on iOS
 //   func onMessage(msg:GSMessage?){
 //       if let extCode = msg?.getAttribute("extCode") as? String{
 //           if extCode ==  "FriendRequestAcceptedMessage"{

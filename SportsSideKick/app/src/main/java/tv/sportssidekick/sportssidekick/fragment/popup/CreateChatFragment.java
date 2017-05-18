@@ -292,7 +292,7 @@ public class CreateChatFragment extends BaseFragment {
             ImsManager.getInstance().createNewChat(newChatInfo);
             getActivity().onBackPressed();
         } else {
-            // TBA - Display error - no users to be selected!
+            // TODO @Filip - Display error - no users to be selected!
         }
     }
 

@@ -119,7 +119,7 @@ public class Utility {
             return blankOptions;
         }
         blankOptions = new DisplayImageOptions.Builder()
-                //TODO change when we have placeholder
+                // TODO @Nemanja change when we have placeholder
 //                .showImageOnLoading(R.drawable.booking_top_image) // resource or drawable
 //                .showImageForEmptyUri(R.drawable.booking_top_image) // resource or drawable
 //                .showImageOnFail(R.drawable.booking_top_image) // resource or drawable
@@ -140,7 +140,7 @@ public class Utility {
             return wallItemOptions;
         }
         wallItemOptions = new DisplayImageOptions.Builder()
-                //TODO change when we have placeholder
+                //TODO @Nemanja change when we have placeholder
 //                .showImageOnLoading(R.drawable.booking_top_image) // resource or drawable
 //                .showImageForEmptyUri(R.drawable.booking_top_image) // resource or drawable
 //                .showImageOnFail(R.drawable.booking_top_image) // resource or drawable

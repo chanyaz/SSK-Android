@@ -50,7 +50,8 @@ public class SSKApplication extends MultiDexApplication {
         initImageLoader(getApplicationContext());
         initTwitter(getApplicationContext());
 
-        // Facebook initialization TODO - update?
+        // TODO @Djordje - update according to recommended approach (this one is deprecated)
+        // TODO @Djordje - It should be called automatically, test and remove it is like that
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 

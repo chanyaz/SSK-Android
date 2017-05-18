@@ -170,7 +170,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @Override
     public void onBuffering(boolean b) {
-        //TBA Show progress dialog?
+        //TODO @Filip Show progress dialog?
     }
 
     @Override

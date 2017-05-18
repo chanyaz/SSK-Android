@@ -124,7 +124,7 @@ public class MemberInfoFragment extends BaseFragment {
 
     @OnClick(R.id.chat_button)
     public void chatOnClick(){
-        // TODO Check if chat exists?
+        // TODO @Filip Check if chat exists?
         List<UserInfo> selectedUsers = new ArrayList<>();
         selectedUsers.add(user);
         String chatName = user.getNicName() + " & " + Model.getInstance().getUserInfo().getNicName();

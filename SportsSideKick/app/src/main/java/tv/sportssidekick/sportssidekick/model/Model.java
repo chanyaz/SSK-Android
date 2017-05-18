@@ -32,6 +32,7 @@ import java.util.Map;
 
 import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.events.GameSparksEvent;
+import tv.sportssidekick.sportssidekick.model.analytics.AnalyticConstants;
 import tv.sportssidekick.sportssidekick.model.purchases.PurchaseModel;
 import tv.sportssidekick.sportssidekick.model.user.GSMessageHandlerAbstract;
 import tv.sportssidekick.sportssidekick.model.user.MessageHandler;

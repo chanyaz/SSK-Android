@@ -110,7 +110,9 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
 
         if(response.containsKey("image")){
             String image = (String) response.get("image");
-            //TBA If u want to share image u must have image in cache, if not u must load picture (because twitter only accept images directly from phone storage)
+            //TODO @Nemanja - this is not working as it should or its just an explanation?
+            // TODO If u want to share image u must have image in cache, if not u must load picture (because twitter only accept images directly from phone storage)
+
             ImageLoader.getInstance().loadImage(image, Utility.getImageOptionsForWallItem(), new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {}
@@ -246,7 +248,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                             break;
                     }
                 }else{
-                    //TODO NOT SUCCESSFUL - What we can do with this...
+                    //TODO @Filip NOT SUCCESSFUL - What we can do with this?
                 }
             }
         });
@@ -306,7 +308,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
 
     @Override
     public void onError(FacebookException error) {
-        // TODO   title: "Error", message: "Failed to share to Facebook, please try again"
+        // TODO @Filip - title: "Error", message: "Failed to share to Facebook, please try again"
     }
 
 }

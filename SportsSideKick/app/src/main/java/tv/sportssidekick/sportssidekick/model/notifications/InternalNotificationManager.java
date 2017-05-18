@@ -65,7 +65,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
             case "ImsMessage":
                 String chatId = (String) data.get(GSConstants.CHAT_ID);
                 String text = (String) data.get(GSConstants.DESCRIPTION);
-                // TODO: to be implemented when done on iOS
+                // TODO: @Filip to be implemented when done on iOS
                 break;
             case "UserInfo":
                 message = (String) data.get(GSConstants.MESSAGE);

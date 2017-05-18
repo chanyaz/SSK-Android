@@ -56,7 +56,7 @@ public class InviteFriendFragment extends BaseFragment {
                     Toast.makeText(getContext(), getContext().getResources().getString(R.string.enter_friend_name_invite), Toast.LENGTH_SHORT).show();
                 } else {
                     FriendsManager.getInstance().inviteFriend(inviteFriendName.getText().toString());
-                    //TBA on successful remove pop up and show toast or inform user to rewrite email address and try again - Missing API
+                    //TODO @Filip on successful remove pop up and show toast or inform user to rewrite email address and try again - Missing API
                 }
             }
         });

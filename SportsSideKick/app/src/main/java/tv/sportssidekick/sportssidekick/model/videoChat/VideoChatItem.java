@@ -63,7 +63,7 @@ public class VideoChatItem {
             {
                 if(uid != ownerId)
                 {
-                    this.participants.put(uid, "");// TODO change this! self.participants[uid] = Date().toFirebase()
+                    this.participants.put(uid, "");// TODO @Djordje change this! self.participants[uid] = Date().toFirebase()
                 }
                 else {
                     this.participants.put(uid, "accepted");
