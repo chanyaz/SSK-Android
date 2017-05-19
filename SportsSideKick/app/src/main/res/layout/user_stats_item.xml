@@ -12,6 +12,7 @@
         android:ellipsize="end"
         android:gravity="end"
         android:lines="1"
+        android:textSize="@dimen/font_size_12"
         android:text="@string/caption_low"
         android:textColor="?colorAccent" />
 
@@ -22,6 +23,7 @@
         android:layout_marginStart="@dimen/margin_15"
         android:layout_weight="3"
         android:ellipsize="end"
+        android:textSize="@dimen/font_size_12"
         android:gravity="center_vertical"
         android:lines="1"
         android:text="@string/value"

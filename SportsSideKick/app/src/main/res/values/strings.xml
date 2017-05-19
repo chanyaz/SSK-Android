@@ -395,4 +395,7 @@
     </string-array>
 
     <string name="go_to_profile">Go to Profile ></string>
+    <string name="find">Find</string>
+    <string name="request">Request</string>
+    <string name="official_accounts">Official Accounts</string>
 </resources>

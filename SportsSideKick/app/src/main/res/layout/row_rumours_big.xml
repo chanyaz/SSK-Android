@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="@dimen/font_size_12"
+                android:textSize="@dimen/font_size_11"
                 android:paddingBottom="@dimen/padding_12"
                 android:paddingEnd="@dimen/padding_8"
                 android:paddingStart="@dimen/padding_8"

@@ -111,6 +111,8 @@
     <dimen name="line_space_negative_5">-5dp</dimen>
     <dimen name="font_size_16">16sp</dimen>
     <dimen name="margin_negative_19">-19dp</dimen>
+
+    <dimen name="margin_negative_15">-15dp</dimen>
     <dimen name="font_size_8">8sp</dimen>
     <dimen name="elevation_2">2dp</dimen>
 

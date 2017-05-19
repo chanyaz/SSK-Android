@@ -154,7 +154,7 @@
                 android:layout_alignEnd="@id/profile_image_container"
                 android:layout_alignStart="@id/profile_image_container"
                 android:layout_below="@id/profile_image_container"
-                android:layout_marginTop="@dimen/margin_negative_20"
+                android:layout_marginTop="@dimen/margin_negative_15"
                 android:contentDescription="@string/image"
                 android:src="?nextLevelMarkerIcon" />
 
@@ -165,7 +165,7 @@
                 android:layout_alignEnd="@id/profile_image_container"
                 android:layout_alignStart="@id/profile_image_container"
                 android:layout_below="@id/profile_image_container"
-                android:layout_marginTop="@dimen/margin_negative_19"
+                android:layout_marginTop="@dimen/margin_negative_15"
                 android:gravity="center"
                 android:text="99"
                 android:textColor="@color/white"

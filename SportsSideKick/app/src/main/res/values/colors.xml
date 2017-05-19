@@ -11,7 +11,7 @@
     <color name="light_green_1_semitransparent">#a8215456</color>
     <color name="green_dark_2">#00363b</color>
     <color name="green_dark_2_semitransparent">#a800363b</color>
-
+    <color name="green_dark_4">#162731</color>
     <color name="light_green_2">#00ab8d</color>
     <color name="lightGrey">#9ba1a3</color>
     <color name="white">#ffffff</color>
@@ -25,6 +25,8 @@
     <color name="black_transparent_154">#9a000000</color>
 
     <color name="facebook_blue">#3b5998</color>
+
+
     <color name="wall_comment_color">#4d4e4c</color>
     <color name="wall_shop_description_background">#f6f7fa</color>
     <color name="wall_shop_description_text_color">#0be5ff</color>
@@ -52,7 +54,7 @@
     <color name="light_colorPrimary">#00363b</color>
     <color name="light_colorPrimarySemiLight">#266263</color>
     <color name="light_colorPrimaryLight">#00ab8d</color>
-
+    <color name="light_green_dark_4">#162731</color>
     <color name="light_green_dark_3">#032227</color>
     <color name="light_green_dark_1">#215456</color>
     <color name="light_light_green_1_semitransparent">#a8215456</color>
