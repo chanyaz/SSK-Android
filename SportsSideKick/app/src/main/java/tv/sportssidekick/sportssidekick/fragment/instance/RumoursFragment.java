@@ -27,13 +27,15 @@ import tv.sportssidekick.sportssidekick.adapter.RumoursTopFourNewsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
 import tv.sportssidekick.sportssidekick.model.news.NewsModel;
 import tv.sportssidekick.sportssidekick.model.news.NewsPageEvent;
+import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.GridSpacingItemDecoration;
+import tv.sportssidekick.sportssidekick.util.ui.LinearItemDecoration;
 
 /**
  * Created by Djordje on 01/03/2017.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
- *
+ * <p>
  * A simple {@link BaseFragment} subclass.
  */
 
@@ -76,6 +78,7 @@ public class RumoursFragment extends BaseFragment {
     AVLoadingIndicatorView progressBar;
     @BindView(R.id.fragment_rumors_root)
     NestedScrollView fragmentContainer;
+    int topRumour;
 
     public RumoursFragment() {
         // Required empty public constructor
@@ -88,42 +91,45 @@ public class RumoursFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         hideElements(true);
-
+        GridLayoutManager layoutManager;
+        if (getActivity().getResources().getBoolean(R.bool.is_tablet)) {
+            layoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+            top4news.addItemDecoration(new GridSpacingItemDecoration(2, 16, true));
+            top4news.setLayoutManager(layoutManager);
+            topRumour = 4;
+        } else {
+            double space = Utility.getDisplayHeight(getActivity()) * 0.015;
+            top4news.addItemDecoration(new LinearItemDecoration((int) space, false, true));
+            top4news.setLayoutManager(new LinearLayoutManager(getContext()));
+            topRumour = 2;
+        }
         rumourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         rumoursSmallAdapter = new RumoursNewsListAdapter();
         rumourRecyclerView.setNestedScrollingEnabled(false);
         rumourRecyclerView.setAdapter(rumoursSmallAdapter);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
-        top4news.addItemDecoration(new GridSpacingItemDecoration(2,16,true));
-        top4news.setLayoutManager(layoutManager);
 
         top4newsAdapter = new RumoursTopFourNewsAdapter();
         top4news.setAdapter(top4newsAdapter);
 
 
-        if (NewsModel.getInstance().getAllCachedItems(type).size() > 0)
-        {
+        if (NewsModel.getInstance().getAllCachedItems(type).size() > 0) {
             NewsPageEvent event = new NewsPageEvent(NewsModel.getInstance().getAllCachedItems(type));
-            if (event != null)
-            {
+            if (event != null) {
                 onNewsReceived(event);
-            }
-            else {
-                NewsModel.getInstance().setLoading(false,type);
+            } else {
+                NewsModel.getInstance().setLoading(false, type);
                 NewsModel.getInstance().loadPage(type);
             }
-        }
-        else
-        {
+        } else {
             NewsModel.getInstance().loadPage(type);
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                NewsModel.getInstance().setLoading(false,type);
+                NewsModel.getInstance().setLoading(false, type);
                 NewsModel.getInstance().loadPage(type);
             }
         });
@@ -134,10 +140,10 @@ public class RumoursFragment extends BaseFragment {
     @Subscribe
     public void onNewsReceived(NewsPageEvent event) {
         swipeRefreshLayout.setRefreshing(false);
-        if (!event.getValues().isEmpty() && event.getValues().size()>3)
-        {
-            top4newsAdapter.getValues().addAll(event.getValues().subList(0,4));
-            rumoursSmallAdapter.getValues().addAll(event.getValues().subList(4, event.getValues().size()-1));
+        if (!event.getValues().isEmpty() && event.getValues().size() > topRumour - 1) {
+            if (top4newsAdapter.getValues().size() == 0)
+                top4newsAdapter.getValues().addAll(event.getValues().subList(0, topRumour));
+            rumoursSmallAdapter.getValues().addAll(event.getValues().subList(topRumour, event.getValues().size() - 1));
 
             top4newsAdapter.notifyDataSetChanged();
             rumoursSmallAdapter.notifyDataSetChanged();
@@ -145,15 +151,11 @@ public class RumoursFragment extends BaseFragment {
         hideElements(false);
     }
 
-    private void hideElements(boolean hide)
-    {
-        if (hide)
-        {
+    private void hideElements(boolean hide) {
+        if (hide) {
             fragmentContainer.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             fragmentContainer.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
         }
