@@ -1,59 +1,35 @@
 package tv.sportssidekick.sportssidekick.activity;
 
-import android.app.ActionBar;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.VoicemailContract;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.CallbackManager;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.BiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import tv.sportssidekick.sportssidekick.Constant;
-import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.MenuAdapter;
 import tv.sportssidekick.sportssidekick.adapter.SideMenuAdapter;
-import tv.sportssidekick.sportssidekick.events.NotificationReceivedEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
@@ -91,18 +67,10 @@ import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.notifications.ExternalNotificationEvent;
-import tv.sportssidekick.sportssidekick.model.notifications.InternalNotificationManager;
-import tv.sportssidekick.sportssidekick.model.purchases.PurchaseModel;
-import tv.sportssidekick.sportssidekick.model.sharing.NativeShareEvent;
-import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
-import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatEvent;
-import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatModel;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.LinearItemDecoration;
@@ -110,10 +78,7 @@ import tv.sportssidekick.sportssidekick.util.ui.NavigationDrawerItems;
 import tv.sportssidekick.sportssidekick.util.ui.NoScrollRecycler;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static tv.sportssidekick.sportssidekick.util.Utility.checkIfBundlesAreEqual;
-
-
-public class PhoneLoungeActivity extends AppCompatActivity implements LoginStateReceiver.LoginStateListener, SideMenuAdapter.IDrawerCloseSideMeny, MenuAdapter.IDrawerClose {
+public class PhoneLoungeActivity extends BaseActivity implements LoginStateReceiver.LoginStateListener, SideMenuAdapter.IDrawerCloseSideMenu, MenuAdapter.IDrawerClose {
 
     public static final String TAG = "Lounge Activity";
     @BindView(R.id.activity_main)
@@ -140,30 +105,22 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
     TextView yourLevel;
     @BindView(R.id.profile_image)
     ImageView profileImage;
-
     @BindView(R.id.user_level_background)
     ImageView userLevelBackground;
-
-    FragmentOrganizer fragmentOrganizer;
-
     ArrayList<Class> popupContainerFragments;
     ArrayList<Class> slidePopupContainerFragments;
-
-    BiMap<Integer, Class> radioButtonsFragmentMap;
-
-    CallbackManager callbackManager;
-    ShareDialog facebookShareDialog;
     SideMenuAdapter sideMenuAdapter;
     MenuAdapter menuAdapter;
-    private LoginStateReceiver loginStateReceiver;
+
     int screenWidth;
+
     @OnClick(R.id.notification_open)
-    public void notificationOpen(){
+    public void notificationOpen() {
 
     }
 
     @OnClick(R.id.friends_open)
-    public void friendsOpen(){
+    public void friendsOpen() {
         EventBus.getDefault().post(new FragmentEvent(FriendsFragment.class));
     }
 
@@ -175,37 +132,13 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // Utility.assignTheme(this);
         setContentView(R.layout.activity_lounge_phone);
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
-        Model.getInstance().initialize(this);
-
-
-        setNumberOfNotification("4");
         setupFragments();
-
-        VideoChatModel.getInstance();
-
-        callbackManager = CallbackManager.Factory.create();
-        facebookShareDialog = new ShareDialog(this);
-        // internal notifications initialization
-        InternalNotificationManager.getInstance();
-        // this part is optional
-        facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
-
-        PurchaseModel.getInstance().onCreate(this);
-
         setToolbar();
-//        profileImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Utility.changeTheme(PhoneLoungeActivity.this);
-//
-//            }
-//        });
-    }
 
+    }
 
     private void setToolbar() {
         NavigationDrawerItems.getInstance().generateList(1);
@@ -241,7 +174,6 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
             @Override
             public void onDrawerOpened(View drawerView) {
 
-
             }
 
             @Override
@@ -258,10 +190,8 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
 
     }
 
-
     private void setupFragments() {
         fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);
-
 
         ArrayList<Class> mainContainerFragments = new ArrayList<>();
         mainContainerFragments.add(WallFragment.class);
@@ -275,8 +205,6 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
         mainContainerFragments.add(VoicemailContract.class);
         mainContainerFragments.add(VideoChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
-
-
 
 
         popupContainerFragments = new ArrayList<>();
@@ -308,46 +236,10 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
         popupContainerFragments.add(WallItemFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_Popup_holder, popupContainerFragments);
 
-//        Fragments that slides in
-
-
-//        radioButtonsFragmentMap = HashBiMap.create();
-//        radioButtonsFragmentMap.put(R.id.wall_radio_button, WallFragment.class);
-//        radioButtonsFragmentMap.put(R.id.video_chat_radio_button, VideoChatFragment.class);
-//        radioButtonsFragmentMap.put(R.id.news_radio_button, NewsFragment.class);
-//        radioButtonsFragmentMap.put(R.id.roumors_radio_button, RumoursFragment.class);
-//        radioButtonsFragmentMap.put(R.id.chat_radio_button, ChatFragment.class);
-//        radioButtonsFragmentMap.put(R.id.stats_radio_button, StatisticsFragment.class);
-//        radioButtonsFragmentMap.put(R.id.fantasy_radio_button, FantasyFragment.class);
-//        radioButtonsFragmentMap.put(R.id.quiz_radio_button, QuizFragment.class);
-//        radioButtonsFragmentMap.put(R.id.club_tv_radio_button, ClubTVFragment.class);
-//        radioButtonsFragmentMap.put(R.id.club_radio_radio_button, ClubRadioFragment.class);
-//        radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
 
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
-//        EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
-//        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
-//        ((RadioButton) ButterKnife.findById(this, R.id.wall_radio_button)).setChecked(true);
-//        ((RadioButton) ButterKnife.findById(this, R.id.chat_radio_button)).setChecked(true);
-//        ((RadioButton) ButterKnife.findById(this, R.id.club_tv_radio_button)).setChecked(true);
 
-//        profileButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-//            }
-//        });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        GSAndroidPlatform.gs().start();
-
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
     }
 
     @Subscribe
@@ -361,26 +253,8 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
             // this is popup event
 
         } else if (slidePopupContainerFragments.contains(event.getType())) {
-            showSlidePopupFragmentContainer();
-        } else {
-            if (radioButtonsFragmentMap.inverse().containsKey(event.getType())) {
-                // Detect which radio button was clicked and fetch what Fragment should be opened
-                int radioButtonId = radioButtonsFragmentMap.inverse().get(event.getType());
-                for (int id : radioButtonsFragmentMap.keySet()) {
-                    RadioButton button = ButterKnife.findById(this, radioButtonId);
-                    if (radioButtonId == id) {
-                        button.setChecked(true);
-                    }
-                }
-            }
-        }
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        NextMatchModel.getInstance().getNextMatchInfo();
-        checkAndEmitBackgroundNotification();
+        }
     }
 
     @Override
@@ -388,101 +262,25 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
         super.onPause();
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Detect which radio button was clicked and fetch what Fragment should be opened
-        if (checked && radioButtonsFragmentMap.containsKey(view.getId())) {
-            Class fragmentType = radioButtonsFragmentMap.get(view.getId());
-            EventBus.getDefault().post(new FragmentEvent(fragmentType));
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        fragmentOrganizer.freeUpResources();
-        EventBus.getDefault().unregister(this);
-        EventBus.getDefault().unregister(loginStateReceiver);
-        PurchaseModel.getInstance().onDestroy();
-        super.onDestroy();
-    }
-
     @Override
     public void onBackPressed() {
 
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-        if (fragmentOrganizer.getOpenFragment() instanceof JoinChatFragment ||
-                fragmentOrganizer.getOpenFragment() instanceof CreateChatFragment) {
-            hideSlidePopupFragmentContainer();
-        }
         if (fragmentOrganizer.handleNavigationFragment()) {
             menuAdapter.notifyDataSetChanged();
             sideMenuAdapter.notifyDataSetChanged();
-        }
-        if (!fragmentOrganizer.handleBackNavigation()) {
-            finish();
+            if (drawerLayout.isDrawerOpen(GravityCompat.END))
+                drawerLayout.closeDrawer(GravityCompat.END);
         } else {
-
+            finish();
         }
     }
 
     @Subscribe
     public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
         newsLabel.setText(newsTickerInfo.getNews().get(0));
-        long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
-
-        long getDaysUntilMatch = Utility.getDaysUntilMatch(timestamp);
-        Resources res = getResources();
-        String daysValue = res.getQuantityString(R.plurals.days_until_match, (int) getDaysUntilMatch, (int) getDaysUntilMatch);
-
         captionLabel.setText(newsTickerInfo.getTitle());
-
-        startNewsTimer(newsTickerInfo);
-    }
-
-    @Subscribe
-    public void onShareOnFacebookEvent(ShareLinkContent linkContent) {
-        if (ShareDialog.canShow(ShareLinkContent.class)) {
-            facebookShareDialog.show(linkContent);
-        }
-    }
-
-    @Subscribe
-    public void onShareOnTwitterEvent(TweetComposer.Builder event) {
-        event.show();
-    }
-
-    @Subscribe
-    public void onShareNativeEvent(NativeShareEvent event) {
-        startActivity(Intent.createChooser(event.getIntent(), getResources().getString(R.string.share_using)));
-    }
-
-
-    Timer newsTimer;
-    int count;
-
-    private void startNewsTimer(final NewsTickerInfo newsTickerInfo) {
-        count = 0;
-        if (newsTimer != null) {
-            newsTimer.cancel();
-        }
-        newsTimer = new Timer();
-        newsTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        newsLabel.setText(newsTickerInfo.getNews().get(count));
-                        if (++count == newsTickerInfo.getNews().size()) {
-                            count = 0;
-                        }
-                    }
-                });
-            }
-        }, 0, Constant.LOGIN_TEXT_TIME);
-
+        startNewsTimer(newsTickerInfo, newsLabel);
     }
 
     private void setYourCoinsValue(String value) {
@@ -491,187 +289,14 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
 
     public void onProfileClicked(View view) {
         drawerLayout.closeDrawer(GravityCompat.END);
-        if(yourLevel.getVisibility()==View.VISIBLE)
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+        if (yourLevel.getVisibility() == View.VISIBLE)
+            EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
         else
             EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
-//
-//    public void onFollowersButtonClick(View view) {
-//        EventBus.getDefault().post(new FragmentEvent(FollowingFragment.class));
-//    }
-
-    private void setNumberOfNotification(String number) {
-        //notificationNumber.setText(number);
-    }
-
-    public void hideSlidePopupFragmentContainer() {
-        popupSlideFragmentContainerVisibility(View.GONE, R.anim.slide_in_right);
-    }
-
-    public void showSlidePopupFragmentContainer() {
-        popupSlideFragmentContainerVisibility(View.VISIBLE, R.anim.slide_in_left);
-    }
-
-    Animation animation;
-
-    private void popupSlideFragmentContainerVisibility(int visibility, int anim) {
-        animation = AnimationUtils.loadAnimation(this, anim);
-        // slideFragmentContainer.startAnimation(animation);
-        //   slideFragmentContainer.setVisibility(visibility);
-    }
-
-    @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        PurchaseModel.getInstance().onActivityResult(requestCode, resultCode, data);
-
-    }
-
-    @Subscribe
-    public void onNewNotification(NotificationReceivedEvent event) {
-        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = vi.inflate(R.layout.notification_row, null);
-
-        TextView title = (TextView) v.findViewById(R.id.notification_title);
-        title.setText(event.getTitle());
-
-        TextView description = (TextView) v.findViewById(R.id.notification_description);
-        description.setText(event.getDescription());
-
-        switch (event.getType()) {
-            case 1:
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EventBus.getDefault().post(new FragmentEvent(FriendsFragment.class));
-                    }
-                });
-                break;
-            case 2:
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EventBus.getDefault().post(new FragmentEvent(FollowersFragment.class));
-                    }
-                });
-                break;
-            case 3:
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
-                    }
-                });
-                break;
-        }
-        showNotification(v, event.getCloseTime());
-    }
-
-    private void showNotification(final View v, int time) {
-        // notificationContainer.addView(v, 0);
-
-        Animation animationShow = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_left);
-        v.startAnimation(animationShow);
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                hideNotification(v);
-            }
-        }, time * 1000);
-    }
-
-    private void hideNotification(final View v) {
-        Animation animationHide = AnimationUtils.loadAnimation(this, R.anim.slide_out_to_left);
-        v.startAnimation(animationHide);
-        animationHide.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation arg0) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation arg0) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation arg0) {
-//                notificationContainer.removeView(v);
-                v.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    Bundle savedIntentData = null;
-
-    private void checkAndEmitBackgroundNotification() {
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null && !extras.isEmpty()) {
-            if (savedIntentData == null) {
-                savedIntentData = new Bundle();
-            }
-            if (!checkIfBundlesAreEqual(savedIntentData, extras)) {
-                ObjectMapper mapper = new ObjectMapper();
-                Map<String, String> notificationData = mapper.convertValue(extras.getString(Constant.NOTIFICATION_DATA, ""), new TypeReference<Map<String, String>>() {
-                });
-                handleNotificationEvent(new ExternalNotificationEvent(notificationData, false));
-                savedIntentData = getIntent().getExtras();
-            }
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleNotificationEvent(ExternalNotificationEvent event) {
-        Map<String, String> notificationData = event.getData();
-        if (event.isFromBackground()) { // we ignore notifications that are received while app is active
-            if (notificationData.containsKey("chatId")) {
-                EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
-            } else if (notificationData.containsKey("wallId")) {
-                EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
-            }
-        }
-    }
-
-
-
-
-
-//    private void resetUserDetails(){
-//        //reset profile name and picture to blank values
-//        setYourCoinsValue(String.valueOf(0));
-//        yourLevel.setVisibility(View.INVISIBLE);
-//        userLevelBackground.setVisibility(View.INVISIBLE);
-//        userLevelProgress.setVisibility(View.INVISIBLE);
-//        profileName.setText("Login / Signup");
-//        String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-//        ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
-//        profileButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-//            }
-//        });
-//    }
 
     @Override
     public void onLoginError(Error error) {
-
-    }
-
-    @Subscribe
-    public void onVideoChatEvent(VideoChatEvent event) {
-        if (!(fragmentOrganizer.getOpenFragment() instanceof VideoChatFragment)) {
-            EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
-            VideoChatModel.getInstance().setVideoChatEvent(event);
-        } else {
-            ((VideoChatFragment) fragmentOrganizer.getOpenFragment()).onVideoChatEvent(event);
-        }
-    }
-
-    public FragmentOrganizer getFragmentOrganizer() {
-        return fragmentOrganizer;
     }
 
     @Subscribe
@@ -680,14 +305,7 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
             setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
         }
 
-        UserInfo user = event.getUserInfo();
-//        if(user!=null){
-//            if (user.getFirstName() != null && user.getLastName() != null) {
-//                profileName.setText(user.getFirstName() + " " + user.getLastName());
-//            }
-//        }
     }
-
 
     @Override
     public void closeDrawerMenu(int position) {
@@ -704,8 +322,6 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
         if (openDrawer) {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             drawerLayout.openDrawer(GravityCompat.END);
-
-
         } else {
             NavigationDrawerItems.getInstance().setByPosition(position);
             menuAdapter.notifyDataSetChanged();
@@ -729,9 +345,6 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
             if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             }
-            if (user.getFirstName() != null && user.getLastName() != null) {
-             //   profileName.setText(user.getFirstName() + " " + user.getLastName());
-            }
             setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
@@ -739,31 +352,17 @@ public class PhoneLoungeActivity extends AppCompatActivity implements LoginState
             yourLevel.setText(String.valueOf(user.getLevel()));
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
 
-//            profileButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
-//                }
-//            });
         } else {
             resetUserDetails();
         }
     }
 
     private void resetUserDetails() {
-        //reset profile name and picture to blank values
         setYourCoinsValue(String.valueOf(0));
         yourLevel.setVisibility(View.INVISIBLE);
         userLevelBackground.setVisibility(View.INVISIBLE);
         userLevelProgress.setVisibility(View.INVISIBLE);
-      //  profileName.setText("Login / Signup");
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
         ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
-//        profileButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-//            }
-//        });
     }
 }

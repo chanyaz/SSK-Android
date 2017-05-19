@@ -6,9 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -20,33 +17,21 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.CallbackManager;
-import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.pixplicity.easyprefs.library.Prefs;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import tv.sportssidekick.sportssidekick.Constant;
-import tv.sportssidekick.sportssidekick.GSAndroidPlatform;
 import tv.sportssidekick.sportssidekick.R;
-import tv.sportssidekick.sportssidekick.events.NotificationReceivedEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.FragmentOrganizer;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
@@ -86,36 +71,23 @@ import tv.sportssidekick.sportssidekick.fragment.popup.WalletFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourProfileFragment;
 import tv.sportssidekick.sportssidekick.fragment.popup.YourStatementFragment;
 import tv.sportssidekick.sportssidekick.model.Model;
-import tv.sportssidekick.sportssidekick.model.notifications.ExternalNotificationEvent;
-import tv.sportssidekick.sportssidekick.model.notifications.InternalNotificationManager;
-import tv.sportssidekick.sportssidekick.model.purchases.PurchaseModel;
 import tv.sportssidekick.sportssidekick.model.sharing.NativeShareEvent;
-import tv.sportssidekick.sportssidekick.model.sharing.SharingManager;
 import tv.sportssidekick.sportssidekick.model.ticker.NewsTickerInfo;
-import tv.sportssidekick.sportssidekick.model.ticker.NextMatchModel;
 import tv.sportssidekick.sportssidekick.model.user.LoginStateReceiver;
 import tv.sportssidekick.sportssidekick.model.user.UserEvent;
 import tv.sportssidekick.sportssidekick.model.user.UserInfo;
-import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatEvent;
-import tv.sportssidekick.sportssidekick.model.videoChat.VideoChatModel;
 import tv.sportssidekick.sportssidekick.util.SoundEffects;
 import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.BlurBuilder;
-import tv.sportssidekick.sportssidekick.util.ui.ThemeManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static tv.sportssidekick.sportssidekick.util.Utility.checkIfBundlesAreEqual;
-
-
-public class LoungeActivity extends AppCompatActivity implements LoginStateReceiver.LoginStateListener {
+public class LoungeActivity extends BaseActivity implements LoginStateReceiver.LoginStateListener {
 
     public static final String TAG = "Lounge Activity";
     @BindView(R.id.activity_main)
     View rootView;
-
     @BindView(R.id.popup_holder)
     View popupHolder;
-
     @BindView(R.id.tabs_container_1)
     View fragmentContainerLeft;
     @BindView(R.id.tabs_container_top_right)
@@ -126,7 +98,6 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     TextView newsLabel;
     @BindView(R.id.caption)
     TextView captionLabel;
-
     @BindView(R.id.days_until_match_label)
     TextView daysUntilMatchLabel;
     @BindView(R.id.time_of_match_label)
@@ -145,37 +116,24 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     ImageView userLevelBackground;
     @BindView(R.id.user_level_progress)
     ProgressBar userLevelProgress;
-
     @BindView(R.id.profile_button)
     RelativeLayout profileButton;
     @BindView(R.id.profile_image)
     ImageView profileImage;
     @BindView(R.id.profile_name)
     TextView profileName;
-
     @BindView(R.id.notification_number)
     TextView notificationNumber;
-
     @BindView(R.id.popup_holder_right)
     RelativeLayout slideFragmentContainer;
-
     FragmentOrganizer fragmentOrganizer;
-
     ArrayList<Class> popupContainerFragments;
     ArrayList<Class> slidePopupContainerFragments;
-
     BiMap<Integer, Class> radioButtonsFragmentMap;
-
-    CallbackManager callbackManager;
-    ShareDialog facebookShareDialog;
-
     @BindView(R.id.left_notification_container)
     RelativeLayout notificationContainer;
-
     @BindView(R.id.user_coin_icon)
     ImageView userCoinIcon;
-
-    private LoginStateReceiver loginStateReceiver;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -185,12 +143,9 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeManager.getInstance().assignTheme(this);
         setContentView(R.layout.activity_lounge);
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
-        Model.getInstance().initialize(this);
-
         popupHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,19 +154,8 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         });
         setNumberOfNotification("4");
         setupFragments();
-
-        VideoChatModel.getInstance();
-
-        callbackManager = CallbackManager.Factory.create();
-        facebookShareDialog = new ShareDialog(this);
-        // internal notifications initialization
-        InternalNotificationManager.getInstance();
-        // this part is optional
-        facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
-        PurchaseModel.getInstance().onCreate(this);
     }
 
-    // Maybe extract this to popup base class?
     private void toggleBlur(boolean visible) {
         if (visible) {
             popupHolder.setVisibility(View.VISIBLE);
@@ -317,15 +261,6 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        GSAndroidPlatform.gs().start();
-
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
-    }
 
     @Subscribe
     public void onFragmentEvent(FragmentEvent event) {
@@ -354,35 +289,16 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        NextMatchModel.getInstance().getNextMatchInfo();
-        checkAndEmitBackgroundNotification();
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
     }
 
     public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
-
-        // Detect which radio button was clicked and fetch what Fragment should be opened
         if (checked && radioButtonsFragmentMap.containsKey(view.getId())) {
             Class fragmentType = radioButtonsFragmentMap.get(view.getId());
             EventBus.getDefault().post(new FragmentEvent(fragmentType));
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        fragmentOrganizer.freeUpResources();
-        EventBus.getDefault().unregister(this);
-        EventBus.getDefault().unregister(loginStateReceiver);
-        PurchaseModel.getInstance().onDestroy();
-        super.onDestroy();
     }
 
     @Override
@@ -410,7 +326,7 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         captionLabel.setText(newsTickerInfo.getTitle());
         ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
         ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
-        startNewsTimer(newsTickerInfo);
+        startNewsTimer(newsTickerInfo, newsLabel);
     }
 
     @Subscribe
@@ -428,33 +344,6 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     @Subscribe
     public void onShareNativeEvent(NativeShareEvent event) {
         startActivity(Intent.createChooser(event.getIntent(), getResources().getString(R.string.share_using)));
-    }
-
-
-    Timer newsTimer;
-    int count;
-
-    private void startNewsTimer(final NewsTickerInfo newsTickerInfo) {
-        count = 0;
-        if (newsTimer != null) {
-            newsTimer.cancel();
-        }
-        newsTimer = new Timer();
-        newsTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        newsLabel.setText(newsTickerInfo.getNews().get(count));
-                        if (++count == newsTickerInfo.getNews().size()) {
-                            count = 0;
-                        }
-                    }
-                });
-            }
-        }, 0, Constant.LOGIN_TEXT_TIME);
-
     }
 
     private void setYourCoinsValue(String value) {
@@ -487,127 +376,6 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
         animation = AnimationUtils.loadAnimation(this, anim);
         slideFragmentContainer.startAnimation(animation);
         slideFragmentContainer.setVisibility(visibility);
-    }
-
-    @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()) // share to facebook
-        {
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-        }
-        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) // sign up Fragment - Continue with facebook
-        {
-            getFragmentOrganizer().getOpenFragment().onActivityResult(requestCode, resultCode, data);
-        }
-
-        PurchaseModel.getInstance().onActivityResult(requestCode, resultCode, data);
-
-    }
-
-    @Subscribe
-    public void onNewNotification(NotificationReceivedEvent event) {
-        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = vi.inflate(R.layout.notification_row, null);
-
-        TextView title = (TextView) v.findViewById(R.id.notification_title);
-        title.setText(event.getTitle());
-
-        TextView description = (TextView) v.findViewById(R.id.notification_description);
-        description.setText(event.getDescription());
-
-        switch (event.getType()) {
-            case 1:
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EventBus.getDefault().post(new FragmentEvent(FriendsFragment.class));
-                    }
-                });
-                break;
-            case 2:
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EventBus.getDefault().post(new FragmentEvent(FollowersFragment.class));
-                    }
-                });
-                break;
-            case 3:
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
-                    }
-                });
-                break;
-        }
-        showNotification(v, event.getCloseTime());
-    }
-
-    private void showNotification(final View v, int time) {
-        notificationContainer.addView(v, 0);
-
-        Animation animationShow = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_left);
-        v.startAnimation(animationShow);
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                hideNotification(v);
-            }
-        }, time * 1000);
-    }
-
-    private void hideNotification(final View v) {
-        Animation animationHide = AnimationUtils.loadAnimation(this, R.anim.slide_out_to_left);
-        v.startAnimation(animationHide);
-        animationHide.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation arg0) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation arg0) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation arg0) {
-//                notificationContainer.removeView(v);
-                v.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    Bundle savedIntentData = null;
-
-    private void checkAndEmitBackgroundNotification() {
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null && !extras.isEmpty()) {
-            if (savedIntentData == null) {
-                savedIntentData = new Bundle();
-            }
-            if (!checkIfBundlesAreEqual(savedIntentData, extras)) {
-                ObjectMapper mapper = new ObjectMapper();
-                Map<String, String> notificationData = mapper.convertValue(extras.getString(Constant.NOTIFICATION_DATA, ""), new TypeReference<Map<String, String>>() {
-                });
-                handleNotificationEvent(new ExternalNotificationEvent(notificationData, false));
-                savedIntentData = getIntent().getExtras();
-            }
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleNotificationEvent(ExternalNotificationEvent event) {
-        Map<String, String> notificationData = event.getData();
-        if (event.isFromBackground()) { // we ignore notifications that are received while app is active
-            if (notificationData.containsKey("chatId")) {
-                EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
-            } else if (notificationData.containsKey("wallId")) {
-                EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
-            }
-        }
     }
 
     @Override
@@ -667,20 +435,6 @@ public class LoungeActivity extends AppCompatActivity implements LoginStateRecei
     @Override
     public void onLoginError(Error error) {
 
-    }
-
-    @Subscribe
-    public void onVideoChatEvent(VideoChatEvent event) {
-        if (!(fragmentOrganizer.getOpenFragment() instanceof VideoChatFragment)) {
-            EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
-            VideoChatModel.getInstance().setVideoChatEvent(event);
-        } else {
-            ((VideoChatFragment) fragmentOrganizer.getOpenFragment()).onVideoChatEvent(event);
-        }
-    }
-
-    public FragmentOrganizer getFragmentOrganizer() {
-        return fragmentOrganizer;
     }
 
     @Subscribe
