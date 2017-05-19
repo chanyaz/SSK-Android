@@ -60,6 +60,18 @@ abstract class AbstractFragmentOrganizer {
         String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() -1).getName();
         return fragmentManager.findFragmentByTag(tag);
     }
+    protected Fragment getBackFragment(){
+        try {
+            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() -2).getName();
+            return fragmentManager.findFragmentByTag(tag);
+        }
+        catch (Exception e)
+        {
+            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() -1).getName();
+            return fragmentManager.findFragmentByTag(tag);
+        }
+
+    }
 
     private boolean isFragmentOpen(Fragment fragment){
         return isFragmentOpen(fragment, true);

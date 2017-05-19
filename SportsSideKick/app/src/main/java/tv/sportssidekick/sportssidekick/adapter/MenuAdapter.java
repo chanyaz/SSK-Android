@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.fragment.FragmentEvent;
 import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
@@ -35,14 +36,14 @@ import tv.sportssidekick.sportssidekick.util.Utility;
 import tv.sportssidekick.sportssidekick.util.ui.NavigationDrawerItems;
 
 /**
- * Created by Filip on 1/17/2017.
+ * Created by Aleksandar Marinkovic on 18/04/2017.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
-    private static final String TAG = "Club Adapter";
+    private static final String TAG = "Menu Adapter";
     private int oldPosition;
     private String[] values;
     private Context context;
@@ -96,25 +97,24 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             public void onClick(View view) {
 
                 if (viewHolder.getAdapterPosition() != getItemCount() - 1) {
-
+                    int position =viewHolder.getAdapterPosition();
                     notifyItemChanged(oldPosition);
-
+                    oldPosition = viewHolder.getAdapterPosition();
+                    NavigationDrawerItems.getInstance().setByPosition(viewHolder.getAdapterPosition());
+                    viewHolder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
                     drawerClose.closeDrawerMenu(viewHolder.getAdapterPosition());
-                    if (!viewHolder.itemView.isSelected()) {
+                   // if (!viewHolder.itemView.isSelected()) {
                         Handler handler = new Handler();
                         final Runnable r = new Runnable() {
                             public void run() {
-                                oldPosition = viewHolder.getAdapterPosition();
-                                viewHolder.itemView.setSelected(true);
-                                EventBus.getDefault().post(new FragmentEvent(ClassList.get(viewHolder.getAdapterPosition())));
+
+                                EventBus.getDefault().post(new FragmentEvent(Constant.CLASS_LIST.get(viewHolder.getAdapterPosition())));
                             }
                         };
 
                         handler.postDelayed(r, 500);
 
-                    } else {
-
-                    }
+                  //  }
                 }
 
             }
@@ -133,6 +133,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
+        if(holder.itemView.isSelected())
+            oldPosition=position;
+        assert holder.image != null;
         holder.image.setImageResource(myImages[position]);
         holder.menu_text.setText(values[position]);
 
@@ -145,7 +148,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         return myImages.length;
     }
 
-    public static final int[] myImages = {
+    private static final int[] myImages = {
             R.drawable.menu_wall_selector,
             R.drawable.menu_chat_selector,
             R.drawable.menu_news_selector,
@@ -160,19 +163,5 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     };
 
-    public static final List<Class> ClassList = Collections.unmodifiableList(
-            new ArrayList<Class>() {{
-                add(WallFragment.class);
-                add(ChatFragment.class);
-                add(NewsFragment.class);
-                add(StatisticsFragment.class);
-                add(RumoursFragment.class);
-                add(ClubRadioFragment.class);
-                add(StoreFragment.class);
-                add(ClubTVFragment.class);
-                add(VideoChatFragment.class);
-
-                // etc
-            }});
 
 }
