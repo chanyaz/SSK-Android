@@ -17,7 +17,7 @@
     <color name="white">#ffffff</color>
     <color name="white_semitransparent">#5fffffff</color>
     <color name="light_green_1">#c3ff01</color>
-
+    <color name="grey_b2b2b2">#b2b2b2</color>
     <color name="demo_yellow_semitransparent">#70ffef14</color>
     <color name="demo_green_semitransparent">#7a3ec722</color>
     <color name="demo_blue_semitransparent">#71002df4</color>
@@ -115,7 +115,7 @@
     <color name="light_post_comment_text_color">#4d4e4c</color>
     <color name="light_post_comment_background_color">#dbdbdb</color>
 
-    <color name="light_green_main" >#00ab8d</color>
+    <color name="light_green_main">#00ab8d</color>
 
     <color name="video_chat_overlay">#a8e5e5e5</color>
 

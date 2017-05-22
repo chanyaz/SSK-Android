@@ -9,7 +9,7 @@
         android:layout_width="@dimen/friend_item_image"
         android:layout_height="@dimen/friend_item_image"
         android:layout_centerHorizontal="true"
-        android:src="?profileImageIcon" />
+        android:src="?profileImageIcon"/>
 
     <ImageView
         android:id="@+id/online_status"
@@ -17,21 +17,20 @@
         android:layout_height="@dimen/friend_item_image"
         android:layout_centerHorizontal="true"
         android:src="@drawable/online_status"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/profile_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/avatar"
-        android:layout_marginTop="@dimen/margin_5"
-        android:ellipsize="end"
         android:gravity="center_horizontal"
-        android:lines="1"
-        android:maxLines="1"
+        android:maxLines="2"
+        android:lines="2"
+        android:ellipsize="end"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_11"
-        android:textStyle="bold" />
+        android:textSize="@dimen/font_size_14"
+        android:textStyle="bold"
+        android:layout_below="@id/avatar"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -14,7 +14,6 @@ import tv.sportssidekick.sportssidekick.Constant;
 import tv.sportssidekick.sportssidekick.util.ui.NavigationDrawerItems;
 
 
-
 /**
  * Created by Filip on 12/5/2016.
  * Copyright by Hypercube d.o.o.
@@ -43,10 +42,10 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         Bundle arguments = new Bundle();
         arguments.putString(BaseFragment.PRIMARY_ARG_TAG, event.getId());
 
-        if(event.getInitiatorFragment()!=null){
-            arguments.putString(BaseFragment.INITIATOR,event.getInitiatorFragment().getName());
+        if (event.getInitiatorFragment() != null) {
+            arguments.putString(BaseFragment.INITIATOR, event.getInitiatorFragment().getName());
         }
-        if(event.getStringArrayList()!=null){
+        if (event.getStringArrayList() != null) {
             arguments.putStringArrayList(BaseFragment.STRING_ARRAY_ARG_TAG, event.getStringArrayList());
         }
         openFragment(createFragment(event.getType()), arguments, getFragmentContainer(event.getType()));
@@ -55,7 +54,7 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
     @Override
     public boolean handleBackNavigation() {
         Fragment fragment = getOpenFragment();
-        if(fragment.getClass().isAnnotationPresent(IgnoreBackHandling.class)){
+        if (fragment.getClass().isAnnotationPresent(IgnoreBackHandling.class)) {
             return true;
         }
         if (fragment.getClass().equals(initialFragment)) {
@@ -72,18 +71,18 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
             return false;
         fragmentManager.popBackStack();
         Fragment fragment = getBackFragment();
-        for(int i = 0; i< Constant.CLASS_LIST.size(); i++)
+        for (int i = 0; i < Constant.CLASS_LIST.size(); i++)
             if (fragment.getClass().equals(Constant.CLASS_LIST.get(i))) {
                 NavigationDrawerItems.getInstance().setByPosition(i);
                 return true;
             }
 
-        return false;
+        return true;
     }
 
 
     protected int getFragmentContainer(Class fragment) {
-        for(int i = 0; i < containersMap.size(); i++) {
+        for (int i = 0; i < containersMap.size(); i++) {
             int key = containersMap.keyAt(i);
             List<Class> fragments = containersMap.get(key);
             for (Class f : fragments) {
@@ -95,13 +94,13 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         return -1;
     }
 
-    public void setUpContainer(int containerResourceId, ArrayList<Class> containerFragments){
+    public void setUpContainer(int containerResourceId, ArrayList<Class> containerFragments) {
         setUpContainer(containerResourceId, containerFragments, false);
     }
 
     public void setUpContainer(int containerResourceId, ArrayList<Class> containerFragments, boolean withoutBackStack) {
         containersMap.put(containerResourceId, containerFragments);
-        if(withoutBackStack){
+        if (withoutBackStack) {
             containersWithoutBackStack.add(containerResourceId);
         }
     }

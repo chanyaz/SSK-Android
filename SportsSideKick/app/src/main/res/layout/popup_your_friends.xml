@@ -32,13 +32,13 @@
 
         <ImageButton
             android:id="@+id/close_dialog_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/standard_button_height"
+            android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/margin_15"
             android:adjustViewBounds="true"
+
             android:background="@android:color/transparent"
+            android:scaleType="centerInside"
             android:src="?closeIcon"
             android:tint="@color/light_colorPrimaryLight" />
     </RelativeLayout>
@@ -139,10 +139,10 @@
             android:layout_marginStart="@dimen/margin_10"
             android:background="?green_dark_2"
             android:hint="@string/your_friends_search_hint"
-            android:imeOptions="flagNoExtractUi"
+            android:layout_toStartOf="@+id/search_icon"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
-            android:textColor="?white_semitransparent"
             android:textColorHint="?white_semitransparent"
             android:textSize="@dimen/font_size_12" />
 
@@ -168,9 +168,9 @@
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin_20"
-            android:layout_marginRight="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
             android:clipToPadding="false"
             android:numColumns="auto_fit" />
 
@@ -192,27 +192,36 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:background="?green_dark_2"
-        app:layout_heightPercent="13.7%"
-        android:clickable="true">
+        android:layout_marginBottom="@dimen/margin_negative_15"
+        android:clickable="true"
+        app:layout_heightPercent="19%">
 
         <TextView
             android:id="@+id/official_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/margin_4"
             android:layout_marginBottom="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_4"
             android:gravity="center"
             android:text="@string/official_accounts"
             android:textColor="?white" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/official_account">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/official_account_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
 
     </RelativeLayout>
+
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
         android:layout_width="@dimen/prodgres_bar"
