@@ -114,7 +114,6 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     }
 
 
-
     @OnClick(R.id.logout_button)
     public void logoutOnClick() {
         AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.logout_from_app),
@@ -187,7 +186,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
         UserInfo user = Model.getInstance().getUserInfo();
         if (user != null) {
             Date subscribed = new Date(0);
-
+//TODO @Filip ovo niji isti redosled kao na ios pogledja sta je dobro
             ArrayList<Pair<String, String>> values = new ArrayList<>();
             values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf(user.getLevel())));
             String daysUsingSSK = new SimpleDateFormat("d").format(subscribed);
@@ -232,14 +231,14 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     public void onLogout() {
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             setupFragment();
-        }
-        else {
+        } else {
             getActivity().onBackPressed();
         }
     }
 
     @Override
-    public void onLoginAnonymously() { }
+    public void onLoginAnonymously() {
+    }
 
     @Override
     public void onLogin(UserInfo user) {
@@ -247,5 +246,6 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     }
 
     @Override
-    public void onLoginError(Error error) { }
+    public void onLoginError(Error error) {
+    }
 }

@@ -28,7 +28,7 @@ import tv.sportssidekick.sportssidekick.model.wall.WallNews;
 public class RumoursTopFourNewsAdapter extends RecyclerView.Adapter<RumoursTopFourNewsAdapter.ViewHolder> {
     private static final String TAG = "RumoursTopFourNewsAdapter";
 
-    private ArrayList<WallNews> values;
+    private ArrayList<WallNews> values=null;
 
     public ArrayList<WallNews> getValues() {
         return values;
@@ -50,8 +50,7 @@ public class RumoursTopFourNewsAdapter extends RecyclerView.Adapter<RumoursTopFo
         }
     }
 
-    public RumoursTopFourNewsAdapter()
-    {
+    public RumoursTopFourNewsAdapter() {
         values = new ArrayList<>();
     }
 
@@ -66,10 +65,9 @@ public class RumoursTopFourNewsAdapter extends RecyclerView.Adapter<RumoursTopFo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if (!values.isEmpty())
-        {
+        if (!values.isEmpty()) {
             final WallNews info = values.get(position);
-            if(info.getSubTitle()!=null){
+            if (info.getSubTitle() != null) {
                 holder.rowInfo.setText(info.getSubTitle());
             } else {
                 holder.rowInfo.setText(info.getTitle());
@@ -90,6 +88,9 @@ public class RumoursTopFourNewsAdapter extends RecyclerView.Adapter<RumoursTopFo
 
     @Override
     public int getItemCount() {
-        return 4;
+        if (values != null)
+            return values.size();
+        else
+            return 0;
     }
 }

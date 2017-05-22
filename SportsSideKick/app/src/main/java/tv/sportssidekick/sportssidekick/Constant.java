@@ -1,5 +1,19 @@
 package tv.sportssidekick.sportssidekick;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import tv.sportssidekick.sportssidekick.fragment.instance.ChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubRadioFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.ClubTVFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.NewsFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.RumoursFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.StatisticsFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.StoreFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.VideoChatFragment;
+import tv.sportssidekick.sportssidekick.fragment.instance.WallFragment;
+
 /**
  * Created by Djordje Krutil on 6.12.2016..
  * Copyright by Hypercube d.o.o.
@@ -43,4 +57,19 @@ public class Constant {
     public static final String NOTIFICATION_BODY = "body";
     public static final String NOTIFICATION_DATA = "SSK_PUSH_NOTIFICATION_DATA";
     public static final String NOTIFICATION_TYPE = "notificationType";
+
+    public static final List<Class> CLASS_LIST = Collections.unmodifiableList(
+            new ArrayList<Class>() {{
+                add(WallFragment.class);
+                add(ChatFragment.class);
+                add(NewsFragment.class);
+                add(StatisticsFragment.class);
+                add(RumoursFragment.class);
+                add(ClubRadioFragment.class);
+                add(StoreFragment.class);
+                add(ClubTVFragment.class);
+                add(VideoChatFragment.class);
+
+                // etc
+            }});
 }

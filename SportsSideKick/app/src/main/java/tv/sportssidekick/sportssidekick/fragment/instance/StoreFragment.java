@@ -74,7 +74,7 @@ public class StoreFragment extends BaseFragment {
             public void onPageFinished(WebView view, String url) {
                 webContainer.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
-                if (view.getUrl().equals(getResources().getString(R.string.store_url)))
+                if (view.getUrl().equals(getActivity().getString(R.string.store_url)))
                 {
                     Log.d("WEB VIEW", "Home page!");
                     homeButton.setVisibility(View.GONE);

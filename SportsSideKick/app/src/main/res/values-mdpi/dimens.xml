@@ -1,0 +1,10 @@
+<resources>
+
+    <dimen name="margin_base_size_90">0dp</dimen>
+    <dimen name="margin_base_size_60">0dp</dimen>
+
+    <dimen name="margin_sharp_20">0dp</dimen>
+    <bool name="is_tablet">false</bool>
+    <dimen name="rumours_top_image_heihgt">153dp</dimen>
+    <dimen name="friend_item_image">45dp</dimen>
+</resources>

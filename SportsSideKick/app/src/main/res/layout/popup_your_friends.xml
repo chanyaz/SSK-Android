@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/margin_60"
-    android:layout_marginEnd="@dimen/margin_90"
-    android:layout_marginStart="@dimen/margin_90"
-    android:layout_marginTop="@dimen/margin_60"
+    android:layout_marginBottom="@dimen/margin_base_size_60"
+    android:layout_marginEnd="@dimen/margin_base_size_90"
+    android:layout_marginStart="@dimen/margin_base_size_90"
+    android:layout_marginTop="@dimen/margin_base_size_60"
+    android:background="@color/colorAccentLight"
     android:clickable="true">
 
     <!-- TOP BUTTONS CONTAINER -->
@@ -25,28 +26,201 @@
             android:layout_centerInParent="true"
             android:layout_marginEnd="1dp"
             android:gravity="center_vertical"
-            android:text="@string/your_friends_title"
-            android:textColor="?colorAccent"
+            android:text="@string/friends"
+            android:textColor="?white"
             android:textSize="@dimen/font_size_18" />
 
         <ImageButton
             android:id="@+id/close_dialog_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/standard_button_height"
+            android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/margin_15"
             android:adjustViewBounds="true"
+
             android:background="@android:color/transparent"
-            android:src="?closeIcon" />
+            android:scaleType="centerInside"
+            android:src="?closeIcon"
+            android:tint="@color/light_colorPrimaryLight" />
     </RelativeLayout>
 
-    <!-- TOP LINE -->
-    <View
+
+    <LinearLayout
+        android:id="@+id/center_split"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentTop="true"
-        android:background="?colorAccent" />
+        android:layout_height="@dimen/height_1"
+        android:layout_below="@+id/top_buttons_container"
+        android:layout_centerHorizontal="true"
+        android:background="?colorPrimaryLight">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorPrimaryLight" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_weight="1"
+            android:background="?colorPrimaryLight" />
+    </LinearLayout>
+    <!-- TOP BUTTONS CONTAINER -->
+    <LinearLayout
+        android:id="@+id/top_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/center_split"
+        android:background="@color/green_dark_4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/your_profile_button"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorPrimarySemiLight"
+            android:gravity="center"
+            android:text="@string/friends"
+            android:textColor="?white" />
+
+        <TextView
+            android:id="@+id/add_friend"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorAccentLight"
+            android:gravity="center"
+            android:text="@string/find"
+            android:textColor="?white" />
+
+        <TextView
+            android:id="@+id/friend_requests"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?colorAccentLight"
+            android:gravity="center"
+            android:text="@string/request"
+            android:textColor="?white" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/spliter_profile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_2"
+        android:layout_below="@+id/top_container"
+        android:background="@color/green_dark_3" />
+
+    <RelativeLayout
+        android:id="@+id/search_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_48"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/spliter_profile"
+        android:background="@drawable/popup_bottom_left_background">
+
+
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_10"
+            android:background="?green_dark_2"
+            android:hint="@string/your_friends_search_hint"
+            android:layout_toStartOf="@+id/search_icon"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColorHint="?white_semitransparent"
+            android:textSize="@dimen/font_size_12" />
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="@dimen/height_48"
+            android:layout_height="@dimen/height_48"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?colorPrimaryLight"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_search" />
+    </RelativeLayout>
+
+    <!-- FRIENDS  LIST-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_below="@id/search_container">
+
+        <tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView
+            android:id="@+id/friends_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:clipToPadding="false"
+            android:numColumns="auto_fit" />
+
+        <TextView
+            android:id="@+id/no_result_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_results"
+            android:textColor="?white_semitransparent"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="?green_dark_2"
+        android:layout_marginBottom="@dimen/margin_negative_15"
+        android:clickable="true"
+        app:layout_heightPercent="19%">
+
+        <TextView
+            android:id="@+id/official_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:layout_marginTop="@dimen/margin_4"
+            android:gravity="center"
+            android:text="@string/official_accounts"
+            android:textColor="?white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/official_account">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/official_account_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
@@ -55,164 +229,4 @@
         android:layout_centerInParent="true"
         android:elevation="@dimen/elevation_2"
         app:indicatorName="LineSpinFadeLoaderIndicator" />
-
-    <!-- FRIENDS  LIST-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_buttons_container"
-        android:layout_below="@id/top_buttons_container"
-        android:background="?colorPrimarySemiLight">
-
-        <tv.sportssidekick.sportssidekick.util.ui.AutofitRecyclerView
-            android:id="@+id/friends_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin_20"
-            android:layout_marginRight="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_15"
-            android:numColumns="auto_fit"
-            android:clipToPadding="false"/>
-
-        <TextView
-            android:id="@+id/no_result_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/no_results"
-            android:visibility="gone"
-            android:textColor="?white_semitransparent"/>
-
-    </RelativeLayout>
-
-
-    <!-- BOTTOM BUTTONS CONTAINER -->
-    <RelativeLayout
-        android:id="@+id/bottom_buttons_container"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
-        android:background="@drawable/popup_bottom_background"
-        android:clickable="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
-
-        <View
-            android:id="@+id/bottom_split_line"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_1"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/black" />
-
-        <ImageButton
-            android:id="@+id/confirm_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_30"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:src="?popupConfirmationButtonIcon" />
-
-        <RelativeLayout
-            android:id="@+id/search_container"
-            android:layout_width="@dimen/popup_your_friends_search_container"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/popup_bottom_left_background">
-
-            <ImageView
-                android:id="@+id/search_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/margin_20"
-                android:src="@drawable/popup_search_icon" />
-
-            <EditText
-                android:id="@+id/search_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/margin_10"
-                android:layout_toEndOf="@id/search_icon"
-                android:background="?green_dark_2"
-                android:hint="@string/your_friends_search_hint"
-                android:imeOptions="flagNoExtractUi"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textColor="?white_semitransparent"
-                android:textColorHint="?white_semitransparent"
-                android:textSize="@dimen/font_size_12" />
-        </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/add_friend"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_margin="@dimen/margin_15"
-            android:layout_toEndOf="@id/search_container"
-            android:src="@drawable/add_friend_button" />
-
-        <RelativeLayout
-            android:id="@+id/friend_requests"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@id/add_friend">
-
-            <RelativeLayout
-                android:id="@+id/requests_number"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/margin_15"
-                android:layout_marginTop="@dimen/margin_15"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/requests_number_background" />
-
-                <TextView
-                    android:id="@+id/friend_requests_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_19"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/margin_10"
-                android:layout_toEndOf="@id/requests_number"
-                android:gravity="center_vertical"
-                android:text="@string/your_friends_request"
-                android:textColor="?colorAccent"
-                android:textSize="@dimen/font_size_20"
-                android:textStyle="normal" />
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <!-- SPLITTERS -->
-    <View
-        android:id="@+id/top_split_line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/top_buttons_container"
-        android:background="@android:color/black" />
-
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>
