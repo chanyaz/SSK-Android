@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -45,7 +46,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public List<UserInfo> getValues() {
         return values;
     }
+
     private int screenWidth;
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
         @Nullable
@@ -65,7 +68,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         }
     }
 
-    public FriendsAdapter(Class initiatorFragment){
+    public FriendsAdapter(Class initiatorFragment) {
         this.initiatorFragment = initiatorFragment;
         values = new ArrayList<>();
         this.screenWidth = 0;
@@ -81,7 +84,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         final ViewHolder viewHolder;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, parent, false);
         viewHolder = new ViewHolder(view);
+        if (screenWidth != 0) {
+            view.getLayoutParams().height = RelativeLayout.LayoutParams.MATCH_PARENT;
 
+            view.getLayoutParams().width = screenWidth;
+        }
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,8 +107,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         final UserInfo info = values.get(position);
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         String avatarUrl = info.getCircularAvatarUrl();
-        if (avatarUrl != null)
-        {
+        if (avatarUrl != null) {
             ImageLoader.getInstance().displayImage(avatarUrl, holder.avatar, imageOptions);
         }
 
@@ -118,5 +124,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         if (values == null)
             return 0;
         return values.size();
+    }
+
+    public void screenWidth(int width) {
+        screenWidth = width;
     }
 }

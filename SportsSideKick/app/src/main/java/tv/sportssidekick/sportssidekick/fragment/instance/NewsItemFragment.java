@@ -28,6 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import tv.sportssidekick.sportssidekick.R;
 import tv.sportssidekick.sportssidekick.adapter.CommentsAdapter;
 import tv.sportssidekick.sportssidekick.fragment.BaseFragment;
@@ -60,6 +61,7 @@ public class NewsItemFragment extends BaseFragment {
     TextView strap;
     @BindView(R.id.content_text)
     TextView content;
+    @Nullable
     @BindView(R.id.close_news_button)
     Button close;
     @BindView(R.id.share_news_to_wall_button)
@@ -111,11 +113,6 @@ public class NewsItemFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-//    @OnClick(R.id.share_icon)
-//    public void sharePost(View view) {
-//        SharingManager.getInstance().share(getContext(), item, true, SharingManager.ShareTarget.facebook, view);
-//    }
-
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook(View view) {
         SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
@@ -128,12 +125,12 @@ public class NewsItemFragment extends BaseFragment {
             PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
             String getPkgInfo = pkgInfo.toString();
 
-            if (getPkgInfo.contains("com.twitter.android"))   {
+            if (getPkgInfo.contains("com.twitter.android")) {
                 SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(),getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -158,7 +155,7 @@ public class NewsItemFragment extends BaseFragment {
         item = NewsModel.getInstance().getCachedItemById(id, type);
 
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
-        if(item.getCoverImageUrl()!=null){
+        if (item.getCoverImageUrl() != null) {
             ImageLoader.getInstance().displayImage(item.getCoverImageUrl(), imageHeader, imageOptions);
         }
         title.setText(item.getTitle());
@@ -211,18 +208,13 @@ public class NewsItemFragment extends BaseFragment {
             }
         });
 
-        shareButton.setOnTouchListener(new View.OnTouchListener()
-        {
+        shareButton.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                if (event.getAction() == MotionEvent.ACTION_DOWN)
-                {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     shareButtons.setVisibility(View.VISIBLE);
-                }
-                else if (event.getAction() == MotionEvent.ACTION_UP)
-                {
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     shareButtons.setVisibility(View.GONE);
                 }
                 return false;
@@ -298,4 +290,13 @@ public class NewsItemFragment extends BaseFragment {
                     }
                 });
     }
+
+    @Optional
+    @OnClick(R.id.share_buttons_container)
+    public void close_share_dialog() {
+        if (shareButtons != null)
+            shareButtons.setVisibility(View.GONE);
+    }
+
+
 }
