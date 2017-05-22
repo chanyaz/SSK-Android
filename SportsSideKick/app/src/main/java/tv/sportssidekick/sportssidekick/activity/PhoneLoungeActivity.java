@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -87,8 +86,10 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     RecyclerView menu_recycler_view;
     @BindView(R.id.drawer_container)
     PercentRelativeLayout drawerContainer;
+    @BindView(R.id.fragment_left_popup_holder)
+    View fragmentLeftPopupHolder;
     @BindView(R.id.fragment_holder)
-    View fragment_holder;
+    View fragmentHolder;
     @BindView(R.id.side_menu_recycler)
     NoScrollRecycler sideMenuRecycler;
     @BindView(R.id.drawer_layout)
@@ -111,7 +112,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     ArrayList<Class> slidePopupContainerFragments;
     SideMenuAdapter sideMenuAdapter;
     MenuAdapter menuAdapter;
-
+    ArrayList<Class> popupLeftFragments;
     int screenWidth;
 
     @OnClick(R.id.notification_open)
@@ -165,8 +166,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             public void onDrawerSlide(View drawerView, float slideOffset) {
 
                 sideMenuRecycler.setTranslationY(slideOffset * +(float) (screenWidth * 0.22));
-                fragment_holder.setPivotY(1);
-                fragment_holder.setTranslationY(slideOffset * +(float) (screenWidth * 0.22));
+                fragmentHolder.setPivotY(1);
+                fragmentHolder.setTranslationY(slideOffset * +(float) (screenWidth * 0.22));
+                fragmentLeftPopupHolder.setTranslationY(slideOffset * +(float) (screenWidth * 0.22));
                 drawerLayout.bringChildToFront(drawerView);
                 drawerLayout.requestLayout();
             }
@@ -205,8 +207,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         mainContainerFragments.add(VoicemailContract.class);
         mainContainerFragments.add(VideoChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
-
-
         popupContainerFragments = new ArrayList<>();
         popupContainerFragments.add(AlertDialogFragment.class);
         popupContainerFragments.add(YourProfileFragment.class);
@@ -225,17 +225,18 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupContainerFragments.add(FollowingFragment.class);
         popupContainerFragments.add(AddFriendFragment.class);
         popupContainerFragments.add(InviteFriendFragment.class);
-//leftJoin
-        popupContainerFragments.add(ClubTvPlaylistFragment.class);
-        popupContainerFragments.add(YoutubePlayerFragment.class);
-        popupContainerFragments.add(ClubRadioStationFragment.class);
-        popupContainerFragments.add(EditChatFragment.class);
-        popupContainerFragments.add(CreateChatFragment.class);
-        popupContainerFragments.add(JoinChatFragment.class);
-        popupContainerFragments.add(NewsItemFragment.class);
-        popupContainerFragments.add(WallItemFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.fragment_Popup_holder, popupContainerFragments);
-
+        fragmentOrganizer.setUpContainer(R.id.fragment_popup_holder, popupContainerFragments, true);
+//left Join
+        popupLeftFragments = new ArrayList<>();
+        popupLeftFragments.add(ClubTvPlaylistFragment.class);
+        popupLeftFragments.add(YoutubePlayerFragment.class);
+        popupLeftFragments.add(ClubRadioStationFragment.class);
+        popupLeftFragments.add(EditChatFragment.class);
+        popupLeftFragments.add(CreateChatFragment.class);
+        popupLeftFragments.add(JoinChatFragment.class);
+        popupLeftFragments.add(WallItemFragment.class);
+        popupLeftFragments.add(NewsItemFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments,true);
 
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
@@ -249,10 +250,12 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         } else {
             SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         }
-        if (popupContainerFragments.contains(event.getType())) {
+        if (popupLeftFragments.contains(event.getType())) {
             // this is popup event
-
-        } else if (slidePopupContainerFragments.contains(event.getType())) {
+            fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
+        } else
+            fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
+        if (slidePopupContainerFragments.contains(event.getType())) {
 
         }
     }

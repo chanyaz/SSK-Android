@@ -66,9 +66,6 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
         final ViewHolder viewHolder;
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_menu_navigation, parent, false);
-        //view.getLayoutParams().height = ;
-        //   view.getLayoutParams().width = (int) (screenWidth * 0.245);
-
         view.setLayoutParams(new RecyclerView.LayoutParams((screenWidth / 5), RecyclerView.LayoutParams.MATCH_PARENT));
         viewHolder = new ViewHolder(view);
         //setup click listener
@@ -100,8 +97,8 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
-        if(holder.itemView.isSelected())
-            oldPosition=position;
+        if (holder.itemView.isSelected())
+            oldPosition = position;
         assert holder.image != null;
         holder.image.setImageResource(myImages[position]);
 
@@ -123,23 +120,11 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
             R.drawable.drawer,
 
 
-
     };
 
     public interface IDrawerCloseSideMenu {
 
         void closeDrawerSideMenu(int position, boolean openDrawer);
     }
-
-//    private static final List<Class> ClassList = Collections.unmodifiableList(
-//            new ArrayList<Class>() {{
-//                add(WallFragment.class);
-//                add(ChatFragment.class);
-//                add(NewsFragment.class);
-//                add(StatisticsFragment.class);
-//
-//
-//                // etc
-//            }});
 
 }

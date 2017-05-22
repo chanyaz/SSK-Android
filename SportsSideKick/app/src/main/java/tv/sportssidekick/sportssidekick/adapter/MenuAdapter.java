@@ -97,24 +97,22 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             public void onClick(View view) {
 
                 if (viewHolder.getAdapterPosition() != getItemCount() - 1) {
-                    int position =viewHolder.getAdapterPosition();
+                    int position = viewHolder.getAdapterPosition();
                     notifyItemChanged(oldPosition);
                     oldPosition = viewHolder.getAdapterPosition();
                     NavigationDrawerItems.getInstance().setByPosition(viewHolder.getAdapterPosition());
                     viewHolder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
                     drawerClose.closeDrawerMenu(viewHolder.getAdapterPosition());
-                   // if (!viewHolder.itemView.isSelected()) {
-                        Handler handler = new Handler();
-                        final Runnable r = new Runnable() {
-                            public void run() {
+                    Handler handler = new Handler();
+                    final Runnable r = new Runnable() {
+                        public void run() {
+                            EventBus.getDefault().post(new FragmentEvent(Constant.CLASS_LIST.get(viewHolder.getAdapterPosition())));
+                        }
+                    };
 
-                                EventBus.getDefault().post(new FragmentEvent(Constant.CLASS_LIST.get(viewHolder.getAdapterPosition())));
-                            }
-                        };
+                    handler.postDelayed(r, 500);
 
-                        handler.postDelayed(r, 500);
 
-                  //  }
                 }
 
             }
@@ -133,8 +131,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
-        if(holder.itemView.isSelected())
-            oldPosition=position;
+        if (holder.itemView.isSelected())
+            oldPosition = position;
         assert holder.image != null;
         holder.image.setImageResource(myImages[position]);
         holder.menu_text.setText(values[position]);

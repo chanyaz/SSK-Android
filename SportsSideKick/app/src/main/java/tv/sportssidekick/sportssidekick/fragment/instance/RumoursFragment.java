@@ -44,7 +44,7 @@ public class RumoursFragment extends BaseFragment {
     final NewsModel.NewsType type = NewsModel.NewsType.UNOFFICIAL;
 
     RumoursNewsListAdapter rumoursSmallAdapter;
-    RumoursTopFourNewsAdapter top4newsAdapter;
+    RumoursTopFourNewsAdapter topNewsAdapter;
 
     @BindView(R.id.fragment_rumors_all_single_rumours_container)
     RelativeLayout singleRumoursContainer;
@@ -78,7 +78,7 @@ public class RumoursFragment extends BaseFragment {
     AVLoadingIndicatorView progressBar;
     @BindView(R.id.fragment_rumors_root)
     NestedScrollView fragmentContainer;
-    int topRumour;
+    int countOfTopRumours;
 
     public RumoursFragment() {
         // Required empty public constructor
@@ -96,12 +96,12 @@ public class RumoursFragment extends BaseFragment {
             layoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
             top4news.addItemDecoration(new GridSpacingItemDecoration(2, 16, true));
             top4news.setLayoutManager(layoutManager);
-            topRumour = 4;
+            countOfTopRumours = 4;
         } else {
             double space = Utility.getDisplayHeight(getActivity()) * 0.015;
             top4news.addItemDecoration(new LinearItemDecoration((int) space, false, true));
             top4news.setLayoutManager(new LinearLayoutManager(getContext()));
-            topRumour = 2;
+            countOfTopRumours = 2;
         }
         rumourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -110,8 +110,8 @@ public class RumoursFragment extends BaseFragment {
         rumourRecyclerView.setAdapter(rumoursSmallAdapter);
 
 
-        top4newsAdapter = new RumoursTopFourNewsAdapter();
-        top4news.setAdapter(top4newsAdapter);
+        topNewsAdapter = new RumoursTopFourNewsAdapter();
+        top4news.setAdapter(topNewsAdapter);
 
 
         if (NewsModel.getInstance().getAllCachedItems(type).size() > 0) {
@@ -140,12 +140,12 @@ public class RumoursFragment extends BaseFragment {
     @Subscribe
     public void onNewsReceived(NewsPageEvent event) {
         swipeRefreshLayout.setRefreshing(false);
-        if (!event.getValues().isEmpty() && event.getValues().size() > topRumour - 1) {
-            if (top4newsAdapter.getValues().size() == 0)
-                top4newsAdapter.getValues().addAll(event.getValues().subList(0, topRumour));
-            rumoursSmallAdapter.getValues().addAll(event.getValues().subList(topRumour, event.getValues().size() - 1));
+        if (!event.getValues().isEmpty() && event.getValues().size() > countOfTopRumours - 1) {
+            if (topNewsAdapter.getValues().size() == 0)
+                topNewsAdapter.getValues().addAll(event.getValues().subList(0, countOfTopRumours));
+            rumoursSmallAdapter.getValues().addAll(event.getValues().subList(countOfTopRumours, event.getValues().size() - 1));
 
-            top4newsAdapter.notifyDataSetChanged();
+            topNewsAdapter.notifyDataSetChanged();
             rumoursSmallAdapter.notifyDataSetChanged();
         }
         hideElements(false);
