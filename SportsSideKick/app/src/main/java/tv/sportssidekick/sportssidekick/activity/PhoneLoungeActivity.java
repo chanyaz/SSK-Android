@@ -92,6 +92,12 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     View fragmentHolder;
     @BindView(R.id.side_menu_recycler)
     NoScrollRecycler sideMenuRecycler;
+
+    public DrawerLayout getDrawerLayout() {
+        return drawerLayout;
+    }
+
+
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     @BindView(R.id.scrolling_news_title)
@@ -108,12 +114,15 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     ImageView profileImage;
     @BindView(R.id.user_level_background)
     ImageView userLevelBackground;
+    @BindView(R.id.left_top_bar_container)
+    RelativeLayout barContainer;
     ArrayList<Class> popupContainerFragments;
     ArrayList<Class> slidePopupContainerFragments;
     SideMenuAdapter sideMenuAdapter;
     MenuAdapter menuAdapter;
     ArrayList<Class> popupLeftFragments;
     int screenWidth;
+
 
     @OnClick(R.id.notification_open)
     public void notificationOpen() {
@@ -136,6 +145,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         setContentView(R.layout.activity_lounge_phone);
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
+
         setupFragments();
         setToolbar();
 
@@ -164,11 +174,11 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-
-                sideMenuRecycler.setTranslationY(slideOffset * +(float) (screenWidth * 0.22));
+                float slideOffsetMyScreen = slideOffset * +(float) (screenWidth * 0.22);
+                sideMenuRecycler.setTranslationY(slideOffsetMyScreen);
                 fragmentHolder.setPivotY(1);
-                fragmentHolder.setTranslationY(slideOffset * +(float) (screenWidth * 0.22));
-                fragmentLeftPopupHolder.setTranslationY(slideOffset * +(float) (screenWidth * 0.22));
+                fragmentHolder.setTranslationY(slideOffsetMyScreen);
+                fragmentLeftPopupHolder.setTranslationY(slideOffsetMyScreen);
                 drawerLayout.bringChildToFront(drawerView);
                 drawerLayout.requestLayout();
             }
@@ -191,6 +201,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         });
 
     }
+
 
     private void setupFragments() {
         fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);
@@ -236,7 +247,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
         popupLeftFragments.add(NewsItemFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments,true);
+        fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
 
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
@@ -253,10 +264,10 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         if (popupLeftFragments.contains(event.getType())) {
             // this is popup event
             fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
-        } else
+            barContainer.setVisibility(View.INVISIBLE);
+        } else {
             fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
-        if (slidePopupContainerFragments.contains(event.getType())) {
-
+            barContainer.setVisibility(View.VISIBLE);
         }
     }
 
@@ -269,6 +280,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     public void onBackPressed() {
 
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
+        if (barContainer.getVisibility() != View.VISIBLE)
+            barContainer.setVisibility(View.VISIBLE);
         if (fragmentOrganizer.handleNavigationFragment()) {
             menuAdapter.notifyDataSetChanged();
             sideMenuAdapter.notifyDataSetChanged();
