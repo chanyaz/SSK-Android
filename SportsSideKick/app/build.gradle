@@ -19,16 +19,28 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.3'
     defaultConfig {
-        applicationId "tv.sportssidekick.sportssidekick"
+
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.0.0.2"
+
         testInstrumentationRunner "android.support.left.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
         renderscriptTargetApi 17
         renderscriptSupportModeEnabled true
+    }
+
+    productFlavors {
+        sportsidekick {
+            applicationId "tv.sportssidekick.sportssidekick"
+            versionCode 3
+            versionName "1.0.0.2"
+        }
+        teamA {
+            applicationId "com.team.aio"
+            versionCode 3
+            versionName "1.0.0.2"
+        }
     }
 
     lintOptions {
@@ -109,7 +121,7 @@ dependencies {
     compile 'com.twilio:video-android:1.0.1'
 //  Facebook SDK is used for Analytics, Share and to populate Sign up data - https://developers.facebook.com/docs/android/
     compile 'com.facebook.android:facebook-android-sdk:4.22.0'
-    compile ('com.facebook.android:audience-network-sdk:4.22.0'){
+    compile('com.facebook.android:audience-network-sdk:4.22.0') {
         exclude group: 'com.google.android.gms'
     }
 //  Twitter KIT used for share functionality - https://github.com/twitter/twitter-kit-android
@@ -156,9 +168,7 @@ dependencies {
 
 //  Java library for working with real-world HTML used for share of content from web view - https://jsoup.org/download
     compile 'org.jsoup:jsoup:1.10.2'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true;
-    }
+
 
 //  Real time remote log tracking - https://bugfender.com/ TODO @Filip remove/disable for production
     compile 'com.bugfender.sdk:android:0.+'
