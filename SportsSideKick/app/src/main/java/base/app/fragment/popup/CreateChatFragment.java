@@ -26,6 +26,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import base.app.BuildConfig;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -321,7 +322,7 @@ public class CreateChatFragment extends BaseFragment {
                 // Error occurred while creating the File
             }
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getActivity(), "base.app.fileprovider", photoFile);
+                Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
             }
             startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE);

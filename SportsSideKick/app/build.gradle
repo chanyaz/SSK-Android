@@ -36,11 +36,6 @@ android {
             versionCode 3
             versionName "1.0.0.2"
         }
-        teamA {
-            applicationId "com.team.aio"
-            versionCode 3
-            versionName "1.0.0.2"
-        }
     }
 
     lintOptions {

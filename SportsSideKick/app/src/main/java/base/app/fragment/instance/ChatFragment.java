@@ -55,6 +55,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.TimerTask;
 
+import base.app.BuildConfig;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -675,7 +676,7 @@ public class ChatFragment extends BaseFragment {
                         // Error occurred while creating the File
                     }
                     if (photoFile != null) {
-                        Uri photoURI = FileProvider.getUriForFile(getActivity(), "base.app.fileprovider", photoFile);
+                        Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                     }
                     startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_IMAGE_CAPTURE);

@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import base.app.BuildConfig;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.base.Predicate;
@@ -276,7 +277,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                         // Error occurred while creating the File
                     }
                     if (photoFile != null) {
-                        Uri photoURI = FileProvider.getUriForFile(getActivity(), "base.app.fileprovider", photoFile);
+                        Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                     }
                     startActivityForResult(takePictureIntent, REQUEST_CODE_POST_IMAGE_CAPTURE);

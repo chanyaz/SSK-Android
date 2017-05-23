@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
-import com.google.android.exoplayer2.BuildConfig;
+import base.app.BuildConfig;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.api.client.extensions.android.http.AndroidHttp;
