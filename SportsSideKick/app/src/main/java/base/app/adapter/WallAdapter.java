@@ -93,14 +93,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         TextView commentsCount;
 
         @Nullable
-        @BindView(R.id.row_wall_post_likes)
-        TextView rowPostLikes;
-        @Nullable
-        @BindView(R.id.row_wall_post_comments)
-        TextView rowPostComments;
-
-
-        @Nullable
         @BindView(R.id.wall_native_ad_media_view)
         MediaView nativeAdMediaView;
         @Nullable
@@ -284,12 +276,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     if (holder.descriptionTextView != null) {
                         holder.descriptionTextView.setText(news.getSubTitle());
                     }
-                    if (holder.rowPostLikes != null) {
-                        holder.rowPostLikes.setText(String.valueOf(news.getLikeCount()));
-                    }
-                    if (holder.rowPostComments != null) {
-                        holder.rowPostComments.setText(String.valueOf(news.getCommentsCount()));
-                    }
+
 
                     Task<UserInfo> getUserTaskNews = Model.getInstance().getUserInfoById(news.getWallId());
                     getUserTaskNews.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
