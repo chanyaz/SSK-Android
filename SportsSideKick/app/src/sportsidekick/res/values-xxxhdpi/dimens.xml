@@ -1,0 +1,12 @@
+<resources>
+
+    <dimen name="margin_base_size_90">0dp</dimen>
+    <dimen name="margin_base_size_60">0dp</dimen>
+    <dimen name="margin_sharp_20">0dp</dimen>
+    <bool name="is_tablet">false</bool>
+    <dimen name="rumours_top_image_heihgt">153dp</dimen>
+    <dimen name="friend_item_image">45dp</dimen>
+    <dimen name="popup_friend_profil_profile_image_size">72dp</dimen>
+    <dimen name="popup_friend_profil_progress_bar_size">85dp</dimen>
+    <dimen name="popup_friend_profil_progress_hex_bar_size">62dp</dimen>
+</resources>
