@@ -8,11 +8,6 @@ package base.app.model.analytics;
 
 public class AnalyticConstants {
 
-    public static final String API_KEY = "Z306867fEYlY";
-    public static final String API_SECRET  = "Rx34NFmkNwSah80VZFGPmTXmCesdK5Sy";
-    public static final String API_CREDENTIAL  = "NjRwKd9BcogVNccd9dt4RlUAZb3n2tUM";
-
-
     //PAGES - fragments
     public static final String PAGE_TYPE_LOUNGE  = "Lounge";
     public static final String PAGE_TYPE_SIGN_IN  = "Sign In";
