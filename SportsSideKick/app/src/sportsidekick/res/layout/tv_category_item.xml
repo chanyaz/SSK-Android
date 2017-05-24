@@ -9,8 +9,7 @@
             android:id="@+id/image"
             app:layout_widthPercent="100%"
             app:layout_aspectRatio="178%"
-            android:scaleType="centerCrop"
-            android:src="@drawable/wall_demo_photo"/>
+            android:scaleType="centerCrop"/>
         <TextView
             android:id="@+id/caption"
             android:layout_width="match_parent"

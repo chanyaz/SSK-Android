@@ -4,7 +4,8 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/appBackground"
+    android:background="@drawable/lounge_background"
+    android:tileMode="repeat"
     tools:context="base.app.activity.LoungeActivity">
 
     <!-- TOP CONTAINER -->

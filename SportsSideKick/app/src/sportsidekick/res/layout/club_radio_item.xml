@@ -9,7 +9,6 @@
         android:id="@+id/image"
         app:layout_widthPercent="100%"
         app:layout_aspectRatio="200%"
-        android:scaleType="centerCrop"
-        android:src="@drawable/wall_demo_photo"/>
+        android:scaleType="centerCrop"/>
 
 </android.support.percent.PercentRelativeLayout>

@@ -2,9 +2,6 @@ package base.app.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.LayoutRes;
@@ -28,9 +25,11 @@ import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import base.app.Constant;
 import base.app.GSAndroidPlatform;
 import base.app.R;
@@ -79,17 +78,13 @@ public class BaseActivity extends AppCompatActivity  {
 
     }
 
-    @Override
-    public void onBackPressed() {
-
-    }
     Timer newsTimer;
     int count;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ThemeManager.getInstance().assignTheme(this);
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.activity_base); // TODO @Aleksandar - Do we need this layout at all?
         callbackManager = CallbackManager.Factory.create();
         Model.getInstance().initialize(this);
         VideoChatModel.getInstance();
@@ -100,12 +95,8 @@ public class BaseActivity extends AppCompatActivity  {
         facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
         notificationContainer=(RelativeLayout) findViewById(R.id.left_notification_container);
         PurchaseModel.getInstance().onCreate(this);
-        //   ButterKnife.bind(this);
-        // init();
-
-
-
     }
+
     protected Bundle savedIntentData = null;
     protected void checkAndEmitBackgroundNotification() {
         Intent intent = getIntent();
