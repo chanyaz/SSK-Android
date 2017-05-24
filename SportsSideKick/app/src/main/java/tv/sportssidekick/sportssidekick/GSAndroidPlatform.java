@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Base64;
 
+
 import com.gamesparks.sdk.GS;
 import com.gamesparks.sdk.IGSPlatform;
 
@@ -24,7 +25,7 @@ public class GSAndroidPlatform implements IGSPlatform
 {
 	private static final String GS_CURR_STATUS = "GSCurrStatus";
 
-	private static GS 	gs;
+	private static GS gs;
 	private Handler 	mainHandler;
 	private Context 	ctx;
 
