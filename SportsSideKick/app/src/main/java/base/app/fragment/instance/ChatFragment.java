@@ -110,8 +110,6 @@ public class ChatFragment extends BaseFragment {
 
     @BindView(R.id.info_message)
     TextView infoMessage;
-    @BindView(R.id.down_arrow)
-    ImageView downArrow;
     @BindView(R.id.chat_info_line)
     View chatInfoLine;
     @BindView(R.id.chat_info_line_text)
