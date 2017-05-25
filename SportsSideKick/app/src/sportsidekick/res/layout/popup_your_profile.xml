@@ -22,11 +22,17 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
-        android:background="?colorPrimarySemiLight"
+
+        android:background="@drawable/lounge_background"
+        android:tileMode="repeat"
         android:orientation="horizontal">
-
-
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="?white"
+            android:text="@string/about_you" />
         <RelativeLayout
             android:id="@+id/back_button_holder"
             android:layout_width="wrap_content"
@@ -49,9 +55,10 @@
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:layout_below="@+id/top_toolbar"
         android:background="@color/green_dark_5"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_below="@+id/top_toolbar"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/your_profile_button"
@@ -61,7 +68,7 @@
             android:layout_weight="1"
             android:background="?wallBackground"
             android:gravity="center"
-            android:text="@string/your_profile"
+            android:text="@string/profile"
             android:textColor="?white" />
 
         <TextView
@@ -72,7 +79,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="@string/your_wallet"
+            android:text="@string/wallet"
             android:textColor="?white_semitransparent" />
 
         <TextView
@@ -82,7 +89,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="@string/your_stash"
+            android:text="@string/stash"
             android:textColor="?white_semitransparent" />
     </LinearLayout>
 

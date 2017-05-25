@@ -399,4 +399,17 @@
     <string name="request">Request</string>
     <string name="official_accounts">Official Accounts</string>
     <string name="back">Back</string>
+    <string name="wallet">Wallet</string>
+    <string name="edit_your_profile">Edit Your Profile</string>
+    <string name="done">Done</string>
+    <string name="language">Language:</string>
+    <string name="phone">Phone:</string>
+    <string name="user_name">User Name:</string>
+    <string name="last_name_profile">Last Name:</string>
+    <string name="first_name_profile">First Name:</string>
+    <string name="email">Email:</string>
+    <string name="password">Password:</string>
+    <string name="about_you">About you</string>
+    <string name="profile">Profile</string>
+    <string name="stash">Stash</string>
 </resources>

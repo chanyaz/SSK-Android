@@ -2,12 +2,16 @@ package base.app.fragment.popup;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -20,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import base.app.BuildConfig;
+
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,14 +66,31 @@ import static base.app.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
 @RuntimePermissions
 public class EditProfileFragment extends BaseFragment {
 
-    @BindView(R.id.profile_image) ImageView profileImage;
-    @BindView(R.id.camera_button) Button camButton;
-    @BindView(R.id.picture_button) Button picButton;
-    @BindView(R.id.first_name_edit_text) EditText firstNameEditText;
-    @BindView(R.id.last_name_edit_text) EditText lastNameEditText;
-    @BindView(R.id.nickname_edit_text) EditText nicNameEditText;
-    @BindView(R.id.email_edit_text) EditText emailEditText;
-    @BindView(R.id.telephone_edit_text) EditText phoneEditText;
+    @BindView(R.id.profile_image)
+    ImageView profileImage;
+    @BindView(R.id.camera_button)
+    Button camButton;
+    @BindView(R.id.picture_button)
+    Button picButton;
+    @BindView(R.id.first_name_edit_text)
+    EditText firstNameEditText;
+    @BindView(R.id.last_name_edit_text)
+    EditText lastNameEditText;
+    @BindView(R.id.nickname_edit_text)
+    EditText nicNameEditText;
+    @BindView(R.id.email_edit_text)
+    EditText emailEditText;
+    @BindView(R.id.telephone_edit_text)
+    EditText phoneEditText;
+    @Nullable
+    @BindView(R.id.password_edit_text)
+    EditText passwordEditText;
+    @Nullable
+    @BindView(R.id.language_edit_text)
+    EditText languageEditText;
+    @Nullable
+    @BindView(R.id.language_image)
+    ImageView languageImage;
 
     private static final String TAG = "Edit Profile Fragment";
     String currentPath;
@@ -90,18 +112,25 @@ public class EditProfileFragment extends BaseFragment {
             nicNameEditText.setText(user.getNicName());
             emailEditText.setText(user.getEmail());
             phoneEditText.setText(user.getPhone());
+            if (languageEditText != null) {
+                languageEditText.setText(user.getLanguage());
+            }
+            if(user.getLanguage()!=null){
+            Drawable drawable = getDrawable(user.getLanguage().toLowerCase());
+            if (drawable != null && languageImage != null)
+                languageImage.setImageDrawable(drawable);}
 
         }
         return view;
     }
 
     @OnClick(R.id.camera_button)
-    public void cameraButtonOnClick(){
+    public void cameraButtonOnClick() {
         EditProfileFragmentPermissionsDispatcher.invokeImageCaptureWithCheck(this);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void invokeImageCapture(){
+    public void invokeImageCapture() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
@@ -120,14 +149,13 @@ public class EditProfileFragment extends BaseFragment {
     }
 
 
-
     @OnClick(R.id.picture_button)
-    public void selectImageOnClick(){
+    public void selectImageOnClick() {
         EditProfileFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    public void invokeImageSelection(){
+    public void invokeImageSelection() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK);
     }
@@ -139,7 +167,7 @@ public class EditProfileFragment extends BaseFragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if(resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE:
                     Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
@@ -148,7 +176,7 @@ public class EditProfileFragment extends BaseFragment {
                 case REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
-                    String realPath = Model.getRealPathFromURI(getContext(),selectedImageURI);
+                    String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
                     Model.getInstance().uploadImageForProfile(realPath, getContext().getFilesDir());
                     break;
@@ -193,39 +221,52 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
-        if(!Connection.getInstance().alertIfNotReachable(getActivity(),
+        if (!Connection.getInstance().alertIfNotReachable(getActivity(),
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         getActivity().onBackPressed();
                     }
                 }
-                )){
+        )) {
             return;
         }
 
         Map<String, String> map = new HashMap<>();
-        map.put(GSConstants.FIRST_NAME,firstNameEditText.getText().toString());
-        map.put(GSConstants.LAST_NAME,lastNameEditText.getText().toString());
-        map.put(GSConstants.NICNAME,nicNameEditText.getText().toString());
-        map.put(GSConstants.EMAIL,emailEditText.getText().toString());
-        map.put(GSConstants.PHONE,phoneEditText.getText().toString());
+        map.put(GSConstants.FIRST_NAME, firstNameEditText.getText().toString());
+        map.put(GSConstants.LAST_NAME, lastNameEditText.getText().toString());
+        map.put(GSConstants.NICNAME, nicNameEditText.getText().toString());
+        map.put(GSConstants.EMAIL, emailEditText.getText().toString());
+        map.put(GSConstants.PHONE, phoneEditText.getText().toString());
+        //Todo @refactoring  put password and language
         Model.getInstance().setDetails(map);
         getActivity().onBackPressed();
     }
 
     @Subscribe
     @SuppressWarnings("Unchecked cast")
-    public void onEventDetected(GameSparksEvent event){
+    public void onEventDetected(GameSparksEvent event) {
         switch (event.getEventType()) {
             case PROFILE_IMAGE_FILE_UPLOADED:
-                if(event.getData()!=null){
-                    String url = (String)event.getData();
-                    Model.getInstance().setProfileImageUrl(url,true);
+                if (event.getData() != null) {
+                    String url = (String) event.getData();
+                    Model.getInstance().setProfileImageUrl(url, true);
                     ImageLoader.getInstance().displayImage(url, profileImage, Utility.getImageOptionsForUsers());
                 }
 
         }
+    }
+
+
+    private Drawable getDrawable(String name) {
+        try {
+            Context context = getActivity();
+            int resourceId = context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+            return ContextCompat.getDrawable(context, resourceId);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 }
 
