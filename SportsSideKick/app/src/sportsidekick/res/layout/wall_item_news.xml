@@ -33,7 +33,6 @@
             android:maxLines="2"
             android:minLines="2"
             android:padding="@dimen/padding_5"
-            android:text="A falsis, silva noster competition.Turpis albus accola est.Est domesticus historia, cesaris.Parma, stella, et valebat."
             android:textColor="?colorPrimaryLight"
             android:textSize="@dimen/font_size_16"
             android:textStyle="bold" />
@@ -67,7 +66,6 @@
                     android:id="@+id/comments_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="204"
                     android:textSize="@dimen/font_size_10" />
 
             </LinearLayout>
@@ -93,7 +91,6 @@
                     android:id="@+id/likes_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6901"
                     android:textSize="@dimen/font_size_10" />
             </LinearLayout>
 
@@ -103,7 +100,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@id/likes_container"
                 android:maxLines="1"
-                android:text="Christopher Ogden"
                 android:textSize="@dimen/font_size_10"
                 android:textColor="?lightGrey"/>
         </RelativeLayout>
