@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/width_500"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_base_size_60"
+    android:layout_marginEnd="@dimen/margin_base_size_90"
+    android:layout_marginStart="@dimen/margin_base_size_90"
+    android:layout_marginTop="@dimen/margin_base_size_60"
+    android:background="@drawable/popup_bottom_background"
+    android:clickable="true">
+
+    <!-- TOP BUTTONS CONTAINER -->
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/friends_list">
+
+        <View
+            android:id="@+id/top_vertical_spliter"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="?colorPrimarySemiLight"
+            android:gravity="center"
+            android:text="@string/add_friend"
+            android:textColor="?colorAccent" />
+
+        <TextView
+            android:id="@+id/invite_friend_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:background="?colorAccentLight"
+            android:gravity="center"
+            android:text="@string/invite_friend"
+            android:textColor="?white_semitransparent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="?colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:background="?colorPrimaryLight" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/enter_friend_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_buttons_container"
+        android:padding="@dimen/margin_20"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/add_friend_name"
+            style="@style/edit_text_login"
+            android:layout_width="@dimen/width_290"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:ellipsize="end"
+            android:hint="@string/add_friend_hint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:id="@+id/caption_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_toStartOf="@id/add_friend_name"
+            android:maxLines="2"
+            android:text="@string/add_friend_hint"
+            android:textColor="?wall_shop_description_background" />
+
+
+    </RelativeLayout>
+
+    <!-- FRIENDS  LIST-->
+    <RelativeLayout
+        android:id="@+id/friends_list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_150"
+        android:layout_below="@id/enter_friend_name"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/top_split_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_1"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:id="@+id/no_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_result"
+            android:textColor="?white_semitransparent"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/people_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_20" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
+            android:layout_centerInParent="true"
+            android:elevation="@dimen/elevation_2"
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
+    </RelativeLayout>
+</RelativeLayout>

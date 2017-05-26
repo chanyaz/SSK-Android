@@ -121,6 +121,7 @@
     <dimen name="width_80">80dp</dimen>
     <dimen name="width_60">60dp</dimen>
     <dimen name="width_15">15dp</dimen>
+    <dimen name="margin_14">14dp</dimen>
 
     <dimen name="height_60">60dp</dimen>
     <dimen name="height_15">15dp</dimen>
