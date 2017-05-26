@@ -577,10 +577,18 @@ public class Model {
     /** --- --- --- --- --- --- --- --            FILES                     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
 
+    private String getUserIdForImageName(){
+        if(currentUserInfo!=null){
+            return currentUserInfo.getUserId();
+        } else {
+            return "unknown";
+        }
+    }
+
     public void uploadVideoRecording(String filepath){
         String filename =
                 "video_" +
-                        currentUserInfo.getUserId() +
+                        getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".mov";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.VIDEO_FILE_UPLOADED);
@@ -594,7 +602,7 @@ public class Model {
     public void uploadImageForProfile(String filepath, File filesDir){
         String filename =
                 "photo_" +
-                        currentUserInfo.getUserId() +
+                        getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".png";
         AWSFileUploader.getInstance().uploadCircularProfileImage(filename,filepath, filesDir, GameSparksEvent.Type.PROFILE_IMAGE_FILE_UPLOADED);
@@ -603,7 +611,7 @@ public class Model {
     public void uploadImageForPost(String filepath){
         String filename =
                 "post_photo_" +
-                        currentUserInfo.getUserId() +
+                        getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.POST_IMAGE_FILE_UPLOADED);
@@ -612,7 +620,7 @@ public class Model {
     public void uploadPostVideoRecording(String filepath){
         String filename =
                 "post_video_" +
-                        currentUserInfo.getUserId() +
+                        getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".mov";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.POST_VIDEO_FILE_UPLOADED);
@@ -626,7 +634,7 @@ public class Model {
     public void uploadImageForMessage(String filepath){
         String filename =
                 "photo_" +
-                        currentUserInfo.getUserId() +
+                        getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.MESSAGE_IMAGE_FILE_UPLOADED);
@@ -635,7 +643,7 @@ public class Model {
     public void uploadImageForCreateChat(String filepath){
         String filename =
                 "photo_" +
-                        currentUserInfo.getUserId() +
+                        getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.CREATE_CHAT_IMAGE_FILE_UPLOADED);
@@ -644,7 +652,7 @@ public class Model {
     public void uploadImageForEditChat(String filepath){
         String filename =
                 "photo_" +
-                        currentUserInfo.getUserId() +
+                        getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.EDIT_CHAT_IMAGE_FILE_UPLOADED);
@@ -653,7 +661,7 @@ public class Model {
     public void uploadAudioRecording(String filepath){
         String filename =
                 "voiceRecording_" +
-                        currentUserInfo.getUserId() +
+                        getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".caf";
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.AUDIO_FILE_UPLOADED);
