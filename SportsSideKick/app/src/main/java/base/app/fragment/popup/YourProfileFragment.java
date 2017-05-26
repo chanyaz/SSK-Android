@@ -33,6 +33,7 @@ import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import base.app.util.ui.ThemeManager;
+import butterknife.Optional;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -132,37 +133,44 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                 });
     }
 
+    @Optional
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
         getActivity().onBackPressed();
     }
 
+    @Optional
     @OnClick(R.id.edit_button)
     public void editOnClick() {
         getActivity().onBackPressed(); // Prevent Your profile fragment not to trigger in invisible state...
         EventBus.getDefault().post(new FragmentEvent(EditProfileFragment.class));
     }
 
+    @Optional
     @OnClick(R.id.your_wallet_button)
     public void walletOnClick() {
         EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
     }
 
+    @Optional
     @OnClick(R.id.your_stash_button)
     public void stashOnClick() {
         EventBus.getDefault().post(new FragmentEvent(StashFragment.class));
     }
 
+    @Optional
     @OnClick(R.id.your_profile_button)
     public void profileOnClick() {
         EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
     }
 
+    @Optional
     @OnClick(R.id.chosen_language_value)
     public void languageOnClick() {
         EventBus.getDefault().post(new FragmentEvent(LanguageFragment.class));
     }
 
+    @Optional
     @OnClick(R.id.reset_button)
     public void resetOnClick() {
         AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.reset_app),
@@ -181,12 +189,17 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                 });
     }
 
+    @Optional
+    @OnClick(R.id.close_dialog_button)
+    public void back() {
+        getActivity().onBackPressed();
+    }
+
 
     private void setupFragment() {
         UserInfo user = Model.getInstance().getUserInfo();
         if (user != null) {
             Date subscribed = new Date(0);
-//TODO @Filip ovo niji isti redosled kao na ios pogledja sta je dobro
             ArrayList<Pair<String, String>> values = new ArrayList<>();
             values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf(user.getLevel())));
             String daysUsingSSK = new SimpleDateFormat("d").format(subscribed);

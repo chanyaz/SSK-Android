@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
@@ -16,7 +17,8 @@ import com.google.gson.Gson;
 import java.util.Map;
 
 import base.app.R;
-import base.app.activity.LoungeActivity;
+import base.app.activity.BaseActivity;
+
 
 public class SskFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -55,11 +57,8 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         if(messageData.containsKey("alert")){
              alert = (String) messageData.get("alert");
         }
-
-
         Gson gson = new Gson();
-
-        Intent intent = new Intent(this, LoungeActivity.class);
+        Intent intent = new Intent(this, BaseActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("SSK_PUSH_NOTIFICATION_DATA",gson.toJson(messageData));
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);

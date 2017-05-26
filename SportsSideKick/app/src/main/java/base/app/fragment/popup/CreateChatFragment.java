@@ -214,7 +214,10 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_headline_close_fragment)
     public void closeFragment() {
+        if((getActivity() instanceof LoungeActivity))
         ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+        else
+            getActivity().onBackPressed();
     }
 
     public void performSearch() {

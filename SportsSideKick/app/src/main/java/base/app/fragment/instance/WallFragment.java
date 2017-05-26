@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -54,6 +55,7 @@ import java.util.TimerTask;
 
 import javax.annotation.Nullable;
 
+import base.app.activity.PhoneLoungeActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -231,12 +233,39 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if(wallItems.size()>0){
             progressBar.setVisibility(View.GONE);
         }
+
+        if (getActivity() instanceof PhoneLoungeActivity) {
+            ((PhoneLoungeActivity) getActivity()).getDrawerLayout().addDrawerListener(new DrawerLayout.DrawerListener() {
+                @Override
+                public void onDrawerSlide(View drawerView, float slideOffset) {
+
+
+
+                }
+
+                @Override
+                public void onDrawerOpened(View drawerView) {
+
+                }
+
+                @Override
+                public void onDrawerClosed(View drawerView) {
+
+                }
+
+                @Override
+                public void onDrawerStateChanged(int newState) {
+
+                }
+            });
+        }
         return view;
+
     }
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick(){
-       WallFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
+        WallFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
     }
 
     @OnClick(R.id.image_button)
@@ -350,8 +379,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Subscribe
     public void onPostUpdate(PostUpdateEvent event){
-       Log.d(TAG,"GOT POST with id: " + event.getId());
-       final WallBase post = event.getPost();
+        Log.d(TAG,"GOT POST with id: " + event.getId());
+        final WallBase post = event.getPost();
         if(post!=null){
             for(WallBase item : wallItems){
                 if(item.getWallId()==post.getWallId() && item.getPostId()==post.getPostId()){

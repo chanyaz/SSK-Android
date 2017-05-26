@@ -1,279 +1,555 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/width_500"
-    android:layout_height="wrap_content"
-    android:background="@drawable/popup_bottom_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?wallBackground"
     android:clickable="true">
 
     <RelativeLayout
-        android:id="@+id/edit_profile_top_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="@dimen/popup_manage_chat_private_confirm_button_height"
-            android:layout_height="@dimen/popup_manage_chat_private_confirm_button_height"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:layout_alignParentEnd="true"
-            android:src="?videoCloseButtonIcon"
-            android:layout_centerVertical="true"/>
-
-    <TextView
-        android:id="@+id/caption"
+        android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:gravity="center"
-        android:text="@string/edit_information"
-        android:textColor="?colorAccent" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
-        android:background="?colorAccent" />
 
-    </RelativeLayout>
+        android:background="@drawable/lounge_background"
+        android:orientation="horizontal"
+        android:tileMode="repeat">
 
-    <View
-        android:id="@+id/top_split_line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/edit_profile_top_container"
-        android:background="@android:color/black" />
+        <RelativeLayout
+            android:id="@+id/back_button_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
+            <ImageButton
+                android:id="@+id/close"
+                android:layout_width="@dimen/standard_button_height"
+                android:layout_height="@dimen/standard_button_height"
+                android:layout_alignParentStart="true"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
-    <RelativeLayout
-        android:id="@+id/edit_profile_content_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/top_split_line">
-
-    <RelativeLayout
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/margin_40"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/edit_photo_caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_alignStart="@+id/profile_image"
-            android:layout_alignEnd="@+id/profile_image"
-            android:textColor="?white_semitransparent"
-            android:text="@string/edit_photo"/>
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="?white"
+            android:text="@string/about_you" />
+    </RelativeLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="@dimen/width_80"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/margin_8"
-            android:src="?profileImageIcon"
-            android:layout_below="@+id/edit_photo_caption"
-            android:layout_marginEnd="@dimen/coin_lateral_margin"
-            android:layout_height="@dimen/height_80" />
+    <LinearLayout
 
-        <Button
-            android:id="@+id/camera_button"
-            android:layout_width="@dimen/standard_button_height"
-            android:layout_below="@+id/profile_image"
-            android:layout_height="@dimen/standard_button_height"
-            android:layout_toStartOf="@+id/center_of_profile_image"
-            android:background="@drawable/button_camera" />
-        <View
-            android:id="@+id/center_of_profile_image"
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/top_toolbar"
+        android:background="@color/green_dark_5"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/your_profile_button"
             android:layout_width="@dimen/space_0"
-            android:layout_height="@dimen/space_0"
-            android:layout_centerInParent="true"/>
-        <Button
-            android:id="@+id/picture_button"
-            android:layout_below="@+id/profile_image"
-            android:layout_width="@dimen/standard_button_height"
-            android:layout_height="@dimen/standard_button_height"
-            android:layout_toEndOf="@+id/center_of_profile_image"
-            android:background="@drawable/button_image" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?wallBackground"
+            android:gravity="center"
+            android:text="@string/profile"
+            android:textColor="?white" />
 
-    <View
-        android:id="@+id/center"
-        android:layout_width="@dimen/space_0"
-        android:layout_height="@dimen/space_0"
-        android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/your_wallet_button"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/wallet"
+            android:textColor="?white_semitransparent" />
 
-    <TextView
-        android:id="@+id/first_name_caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/center"
-        android:textColor="?white_semitransparent"
-        android:layout_marginTop="@dimen/margin_20"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:text="@string/first_name"/>
+        <TextView
+            android:id="@+id/your_stash_button"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/stash"
+            android:textColor="?white_semitransparent" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/last_name_caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/center"
-        android:layout_marginTop="@dimen/margin_20"
-        android:layout_below="@+id/first_name_caption"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:textColor="?white_semitransparent"
-        android:text="@string/last_name"/>
-
-    <TextView
-        android:id="@+id/nickname_caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/center"
-        android:layout_marginTop="@dimen/margin_20"
-        android:layout_below="@+id/last_name_caption"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:textColor="?white_semitransparent"
-        android:text="@string/nickname"/>
-
-    <TextView
-        android:id="@+id/email_caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/center"
-        android:layout_marginTop="@dimen/margin_20"
-        android:layout_below="@+id/nickname_caption"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:textColor="?white_semitransparent"
-        android:text="@string/email_address"/>
-    <TextView
-        android:id="@+id/telephone_caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/center"
-        android:layout_marginTop="@dimen/margin_20"
-        android:layout_below="@+id/email_caption"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:textColor="?white_semitransparent"
-        android:text="@string/telephone_no"/>
-
-    <AutoCompleteTextView
-        android:id="@+id/first_name_edit_text"
-        android:layout_alignBaseline="@+id/first_name_caption"
-        android:labelFor="@+id/first_name_caption"
-        android:layout_toEndOf="@+id/center"
-        android:textSize="@dimen/font_size_12"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:nextFocusForward="@+id/last_name_edit_text"
-        android:lines="1"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_10"
-        android:textColor="@color/white"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:inputType="textPersonName"
-        android:nextFocusDown="@+id/last_name_edit_text"
-        android:imeOptions="actionNext"/>
-
-
-    <AutoCompleteTextView
-        android:id="@+id/last_name_edit_text"
-        android:layout_alignBaseline="@+id/last_name_caption"
-        android:labelFor="@+id/last_name_caption"
-        android:nextFocusForward="@+id/nickname_edit_text"
-        android:textSize="@dimen/font_size_12"
-        android:layout_toEndOf="@+id/center"
-        android:layout_width="match_parent"
-        android:lines="1"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_10"
-        android:textColor="@color/white"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:inputType="textPersonName"
-        android:nextFocusDown="@+id/nickname_edit_text"
-        android:imeOptions="actionNext"/>
-
-    <AutoCompleteTextView
-        android:id="@+id/nickname_edit_text"
-        android:layout_alignBaseline="@+id/nickname_caption"
-        android:labelFor="@+id/nickname_caption"
-        android:layout_toEndOf="@+id/center"
-        android:lines="1"
-        android:nextFocusForward="@+id/email_edit_text"
-        android:layout_width="match_parent"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_10"
-        android:textSize="@dimen/font_size_12"
-        android:textColor="@color/white"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:inputType="text"
-        android:nextFocusDown="@+id/email_edit_text"
-        android:imeOptions="actionNext"/>
-
-    <AutoCompleteTextView
-        android:id="@+id/email_edit_text"
-        android:layout_alignBaseline="@+id/email_caption"
-        android:lines="1"
-        android:labelFor="@+id/email_caption"
-        android:nextFocusForward="@+id/telephone_edit_text"
-        android:layout_toEndOf="@+id/center"
-        android:layout_width="match_parent"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_10"
-        android:textSize="@dimen/font_size_12"
-        android:textColor="@color/white"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:inputType="textEmailAddress"
-        android:nextFocusDown="@+id/telephone_edit_text"
-        android:imeOptions="actionNext"/>
-
-    <AutoCompleteTextView
-        android:id="@+id/telephone_edit_text"
-        android:layout_alignBaseline="@+id/telephone_caption"
-        android:nextFocusForward="@+id/confirm_button"
-        android:labelFor="@+id/telephone_caption"
-        android:layout_toEndOf="@+id/center"
-        android:layout_width="match_parent"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:lines="1"
-        android:layout_marginStart="@dimen/margin_10"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_12"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:inputType="phone"
-        android:imeOptions="actionDone"/>
-
-    </RelativeLayout>
-    <!-- BOTTOM BUTTONS CONTAINER -->
-    <RelativeLayout
-        android:id="@+id/bottom_buttons_container"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
-        android:layout_below="@+id/edit_profile_content_container"
-        android:background="@drawable/popup_bottom_background"
-        android:clickable="true">
+        android:layout_height="@dimen/height_2"
+        android:layout_below="@+id/top_toolbar"
+        android:orientation="horizontal">
 
         <View
-            android:id="@+id/bottom_split_line"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_1"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/black" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorAccent" />
 
-        <ImageButton
-            android:id="@+id/confirm_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_30"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:src="?popupConfirmationButtonIcon" />
-    </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorPrimaryLight" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_weight="1"
+            android:background="?colorPrimaryLight" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_buttons_container">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/profile_images_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+
+                    android:background="@color/green_dark_5" />
+
+                <TextView
+                    android:id="@+id/edit_your_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/margin_20"
+                    android:layout_marginTop="@dimen/height_25"
+                    android:text="@string/edit_your_profile"
+                    android:textAllCaps="true"
+                    android:textColor="?colorAccent" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edit_your_profile"
+                    android:layout_marginBottom="@dimen/margin_25">
+
+                    <TextView
+                        android:id="@+id/edit_photo_caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/margin_15"
+                        android:layout_toLeftOf="@+id/profile_image"
+                        android:text="@string/edit_photo"
+                        android:textColor="?white" />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/margin_40"
+                        android:layout_marginStart="@dimen/margin_20"
+                        android:layout_toEndOf="@+id/edit_photo_caption"
+                        android:animateLayoutChanges="true"
+                        android:background="@drawable/button_edit_profile_image">
+
+                        <Button
+                            android:id="@+id/camera_button"
+                            android:layout_width="@dimen/standard_button_height"
+                            android:layout_height="@dimen/standard_button_height"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/margin_15"
+                            android:background="@drawable/camera_button" />
+
+                        <Button
+                            android:id="@+id/picture_button"
+                            android:layout_width="@dimen/standard_button_height"
+                            android:layout_height="@dimen/standard_button_height"
+                            android:layout_marginEnd="@dimen/margin_negative_5"
+                            android:layout_toStartOf="@+id/camera_button"
+                            android:background="@drawable/image_button" />
+                    </RelativeLayout>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="@dimen/popup_friend_profil_profile_image_size"
+                        android:layout_height="@dimen/popup_friend_profil_profile_image_size"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="?profileImageIcon" />
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_images_container"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+                    android:background="@color/green_dark_5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/first_name_caption"
+                        android:layout_width="@dimen/edit_profile_label_text_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/green_light_3"
+                        android:paddingBottom="@dimen/padding_16"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="@dimen/padding_16"
+                        android:paddingTop="@dimen/padding_16"
+                        android:text="@string/first_name_profile"
+                        android:textColor="?white" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/first_name_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/margin_20"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:labelFor="@+id/first_name_caption"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/last_name_edit_text"
+                        android:nextFocusForward="@+id/last_name_edit_text"
+                        android:textColor="?white"
+                        android:textSize="@dimen/font_size_12" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+                    android:background="@color/green_dark_5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/last_name_caption"
+                        android:layout_width="@dimen/edit_profile_label_text_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/green_light_3"
+                        android:paddingBottom="@dimen/padding_16"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="@dimen/padding_16"
+                        android:paddingTop="@dimen/padding_16"
+                        android:text="@string/last_name_profile"
+                        android:textColor="?white" />
+
+                    <AutoCompleteTextView
+
+                        android:id="@+id/last_name_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/margin_20"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:labelFor="@+id/first_name_caption"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/nickname_edit_text"
+                        android:nextFocusForward="@+id/nickname_edit_text"
+                        android:textColor="?white"
+                        android:textSize="@dimen/font_size_12" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+                    android:background="@color/green_dark_5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/nickname_caption"
+                        android:layout_width="@dimen/edit_profile_label_text_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/green_light_3"
+                        android:paddingBottom="@dimen/padding_16"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="@dimen/padding_16"
+                        android:paddingTop="@dimen/padding_16"
+                        android:text="@string/user_name"
+                        android:textColor="?white" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/nickname_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/margin_20"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:labelFor="@+id/nickname_caption"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/email_edit_text"
+                        android:nextFocusForward="@+id/email_edit_text"
+                        android:textColor="?white"
+                        android:textSize="@dimen/font_size_12" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+                    android:background="@color/green_dark_5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/email_caption"
+                        android:layout_width="@dimen/edit_profile_label_text_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/green_light_3"
+                        android:paddingBottom="@dimen/padding_16"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="@dimen/padding_16"
+                        android:paddingTop="@dimen/padding_16"
+                        android:text="@string/email"
+                        android:textColor="?white" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/email_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/margin_20"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:labelFor="@+id/email_caption"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/telephone_edit_text"
+                        android:nextFocusForward="@+id/telephone_edit_text"
+                        android:textColor="?white"
+                        android:textSize="@dimen/font_size_12" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+                    android:background="@color/green_dark_5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/telephone_caption"
+                        android:layout_width="@dimen/edit_profile_label_text_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/green_light_3"
+                        android:paddingBottom="@dimen/padding_16"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="@dimen/padding_16"
+                        android:paddingTop="@dimen/padding_16"
+                        android:text="@string/phone"
+                        android:textColor="?white" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/telephone_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/margin_20"
+                        android:layout_marginStart="@dimen/margin_16"
+
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPersonName"
+                        android:labelFor="@+id/telephone_caption"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/password_caption"
+                        android:nextFocusForward="@+id/password_caption"
+                        android:textColor="?white"
+                        android:textSize="@dimen/font_size_12" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+                    android:background="@color/green_dark_5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/password_caption"
+                        android:layout_width="@dimen/edit_profile_label_text_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/green_light_3"
+                        android:paddingBottom="@dimen/padding_16"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="@dimen/padding_16"
+                        android:paddingTop="@dimen/padding_16"
+                        android:text="@string/password"
+                        android:textColor="?white" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/password_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/margin_20"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPassword"
+                        android:text="***********"
+                        android:labelFor="@+id/telephone_caption"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/last_name_edit_text"
+                        android:nextFocusForward="@+id/last_name_edit_text"
+                        android:textColor="?white"
+                        android:textSize="@dimen/font_size_12" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+                    android:background="@color/green_dark_5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/language_caption"
+                        android:layout_width="@dimen/edit_profile_label_text_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/green_light_3"
+                        android:paddingBottom="@dimen/padding_16"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="@dimen/padding_16"
+                        android:paddingTop="@dimen/padding_16"
+                        android:text="@string/language"
+                        android:textColor="?white" />
+
+                    <ImageView
+                        android:id="@+id/language_image"
+                        android:layout_width="@dimen/height_30"
+                        android:layout_height="@dimen/height_30"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/english" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/language_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/margin_20"
+                        android:layout_marginStart="@dimen/margin_4"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPersonName"
+                        android:labelFor="@+id/telephone_caption"
+                        android:text="@string/english"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/last_name_edit_text"
+                        android:nextFocusForward="@+id/confirm_button"
+                        android:textColor="?white"
+                        android:textSize="@dimen/font_size_12" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+                    android:background="@color/green_dark_5" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_40"
+                    android:paddingBottom="@dimen/padding_3">
+
+                    <ImageButton
+                        android:id="@+id/confirm_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_35"
+                        android:background="?colorAccent"
+                        android:paddingBottom="@dimen/padding_3"
+                        android:scaleType="centerInside" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/done"
+                        android:textColor="?green_dark_3"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
