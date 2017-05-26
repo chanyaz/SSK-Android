@@ -70,10 +70,8 @@
         <item name="loginBackground">@drawable/background_login</item>
 
         <item name="chatAddUserIcon">@drawable/chat_add_user</item>
-        <item name="chatNotificationIcon" >@drawable/chat_head_notification</item>
+        <item name="chatNotificationIcon" >@drawable/chat_head_notification</item> <!-- TODO @Nemanja - Why is this a 9patch? It should be updated to circle. -->
         <item name="blockedIcon" >@drawable/icon_blocked</item>
-        <item name="chatHeadSelectedIcon">@drawable/chat_head_selected</item>
-        <item name="userCountIcon">@drawable/user_count_icon</item>
         <item name="chatBubbleIcon">@drawable/chat_bubble</item>
         <item name="popupCancelButtonIcon">@drawable/popup_cancel_button</item>
         <item name="popupConfirmationButtonIcon">@drawable/popup_confirmation_button</item>
@@ -246,7 +244,6 @@
         <item name="chatNotificationIcon" >@drawable/light_chat_head_notification</item>
         <item name="blockedIcon" >@drawable/icon_blocked</item>
         <item name="chatHeadSelectedIcon">@drawable/light_chat_selected_user</item>
-        <item name="userCountIcon">@drawable/user_count_icon</item>
         <item name="chatBubbleIcon">@drawable/chat_bubble</item>
         <item name="popupCancelButtonIcon">@drawable/popup_cancel_button</item>
         <item name="popupConfirmationButtonIcon">@drawable/popup_confirmation_button</item>

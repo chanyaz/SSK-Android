@@ -47,25 +47,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/chat_heads_view"
-            android:background="?chatHeadInfoContainer">
-
-        <ImageView
-            android:id="@+id/down_arrow"
-            android:layout_width="@dimen/margin_20"
-            android:layout_height="@dimen/margin_20"
-            android:background="?colorPrimarySemiLight"
-            android:padding="@dimen/padding_4"
-            android:src="?arrowDownIcon"
-            android:tint="?colorPrimaryLight"
-            android:visibility="gone" />
-
+            android:background="?colorPrimary">
         <TextView
             android:id="@+id/chat_info_line_text"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_60"
             android:layout_marginStart="@dimen/margin_60"
-            android:layout_toEndOf="@+id/down_arrow"
             android:ellipsize="marquee"
             android:gravity="center"
             android:lines="1"

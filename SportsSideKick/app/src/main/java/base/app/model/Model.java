@@ -30,9 +30,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import base.app.Constant;
 import base.app.GSAndroidPlatform;
 import base.app.events.GameSparksEvent;
-import base.app.model.analytics.AnalyticConstants;
 import base.app.model.purchases.PurchaseModel;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.MessageHandler;
@@ -190,7 +190,7 @@ public class Model {
 
     public void initialize(final Context context){
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        GSAndroidPlatform.initialise(context, AnalyticConstants.API_KEY, AnalyticConstants.API_SECRET, null, false, true);
+        GSAndroidPlatform.initialise(context, Constant.GS_API_KEY, Constant.GS_API_SECRET, null, false, true);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
             public void onEvent(Boolean available) {
