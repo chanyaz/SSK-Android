@@ -1,83 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/popup_friend_request_width"
-    android:layout_height="@dimen/popup_friend_request_height"
-    android:background="?popupBottomBackgroundDarkShape"
-    android:orientation="vertical"
-    android:clickable="true">
-    <TextView
-        android:id="@+id/caption"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorAccentLight"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:gravity="center"
-        android:text="@string/friend_requests"
-        android:textColor="?colorAccent" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_2"
         android:layout_alignParentTop="true"
-        android:background="?colorAccent" />
+        android:background="@drawable/lounge_background"
+        android:orientation="horizontal"
+        android:tileMode="repeat">
+
+        <TextView
+            style="@style/boldText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="1dp"
+            android:gravity="center_vertical"
+            android:text="@string/friends"
+            android:textColor="?white"
+            android:textSize="@dimen/font_size_18" />
+
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="@dimen/standard_button_height"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:tint="@color/light_colorPrimaryLight" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/center_split"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_1"
+        android:layout_below="@+id/top_buttons_container"
+        android:layout_centerHorizontal="true"
+        android:background="?colorPrimaryLight">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorPrimaryLight" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorPrimaryLight" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_weight="1"
+            android:background="?colorAccent" />
+    </LinearLayout>
+    <!-- TOP BUTTONS CONTAINER -->
+    <LinearLayout
+        android:id="@+id/top_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/center_split"
+        android:background="@color/green_dark_4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/your_friends_open_button"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?green_dark_2"
+            android:gravity="center"
+            android:text="@string/friends"
+            android:textColor="?white" />
+
+        <TextView
+            android:id="@+id/add_friend"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?green_dark_2"
+            android:gravity="center"
+            android:text="@string/find"
+            android:textColor="?white" />
+
+        <TextView
+            android:id="@+id/friend_requests"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?colorAccentLight"
+            android:gravity="center"
+            android:text="@string/request"
+            android:textColor="?white" />
+    </LinearLayout>
+
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/caption"
-        android:background="@android:color/black" />
+        android:layout_below="@+id/top_container"
+        android:background="@color/green_dark_4" />
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
-        android:layout_width="@dimen/prodgres_bar"
-        android:layout_height="@dimen/prodgres_bar"
-        android:layout_centerInParent="true"
-        android:elevation="@dimen/elevation_2"
-        app:indicatorName="LineSpinFadeLoaderIndicator" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/requests_recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/caption"
-        android:layout_above="@+id/bottom_buttons_container"
-        android:layout_margin="@dimen/margin_20" />
+        android:layout_below="@+id/top_split_line">
 
-    <ImageView
-        android:id="@+id/close"
-        android:layout_width="@dimen/popup_friend_request_button_size"
-        android:layout_height="@dimen/popup_friend_request_button_size"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/top_split_line"
-        android:layout_alignParentEnd="true"
-        android:src="?videoCloseButtonIcon"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/requests_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
+            android:layout_centerInParent="true"
+            android:elevation="@dimen/elevation_2"
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
+        <TextView
+            android:id="@+id/no_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_result"
+            android:textColor="?white_semitransparent"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
     <!-- BOTTOM BUTTONS CONTAINER -->
-    <RelativeLayout
-        android:id="@+id/bottom_buttons_container"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
-        android:layout_alignParentBottom="true"
-        android:clickable="true">
-
-        <View
-            android:id="@+id/bottom_split_line"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_1"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/black" />
-
-        <ImageButton
-            android:id="@+id/confirm_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_30"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:src="?popupConfirmationButtonIcon" />
-    </RelativeLayout>
 </RelativeLayout>

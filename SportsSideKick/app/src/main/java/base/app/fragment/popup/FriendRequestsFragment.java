@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +26,7 @@ import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.friendship.FriendRequest;
 import base.app.model.friendship.FriendsManager;
+import butterknife.Optional;
 
 /**
  * Created by Djordje on 21/01/2017.
@@ -40,6 +42,11 @@ public class FriendRequestsFragment extends BaseFragment {
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
+
+    @BindView(R.id.no_result)
+    TextView noResult;
+
+
 
     public FriendRequestsFragment() {
         // Required empty public constructor
@@ -63,11 +70,12 @@ public class FriendRequestsFragment extends BaseFragment {
         task.addOnCompleteListener(new OnCompleteListener<List<FriendRequest>>() {
             @Override
             public void onComplete(@NonNull Task<List<FriendRequest>> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     adapter.getValues().addAll(task.getResult());
                     adapter.notifyDataSetChanged();
+                    noResult.setVisibility(View.GONE);
                 } else {
-                    // TODO @Filip - No friend request to display!
+                    noResult.setVisibility(View.VISIBLE);
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -76,10 +84,18 @@ public class FriendRequestsFragment extends BaseFragment {
         return view;
     }
 
+    @Optional
     @OnClick(R.id.confirm_button)
-    public void confirmOnClick(){
+    public void confirmOnClick() {
         getActivity().onBackPressed();
         EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class, true));
+    }
+
+
+    @Optional
+    @OnClick(R.id.close)
+    public void closeOnClick() {
+        getActivity().onBackPressed();
     }
 
 }
