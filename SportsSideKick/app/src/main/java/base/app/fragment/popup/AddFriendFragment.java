@@ -148,7 +148,7 @@ public class AddFriendFragment extends BaseFragment {
         onDataSetChange(false);
         listContainer.setVisibility(View.INVISIBLE);
         //TODO @Filip, add new api call, get all admins.
-        Task<List<UserInfo>> peopleTask = PeopleSearchManager.getInstance().searchPeople("", 0);
+        Task<List<UserInfo>> peopleTask = FriendsManager.getInstance().getFriends(0);
         peopleTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
@@ -265,7 +265,6 @@ public class AddFriendFragment extends BaseFragment {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             commonFriend.setLayoutManager(layoutManager);
             commonFriendAdapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
-            // commonFriend.setHasFixedSize(true);
             commonFriend.setAdapter(commonFriendAdapter);
         }
     }

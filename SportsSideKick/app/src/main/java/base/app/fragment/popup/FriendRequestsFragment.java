@@ -98,4 +98,17 @@ public class FriendRequestsFragment extends BaseFragment {
         getActivity().onBackPressed();
     }
 
+    @Optional
+    @OnClick(R.id.your_friends_open_button)
+    public void friendsOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(FriendsFragment.class));
+    }
+
+
+    @Optional
+    @OnClick(R.id.add_friend)
+    public void profileOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(AddFriendFragment.class));
+    }
+
 }
