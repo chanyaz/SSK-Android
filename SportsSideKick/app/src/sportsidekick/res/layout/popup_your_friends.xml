@@ -35,6 +35,7 @@
             android:id="@+id/close_dialog_button"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="@dimen/standard_button_height"
+            android:visibility="gone"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
             android:tint="@color/light_colorPrimaryLight"
@@ -98,20 +99,20 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorAccentLight"
+            android:background="?green_dark_2"
             android:gravity="center"
             android:text="@string/find"
-            android:textColor="?white" />
+            android:textColor="?white_semitransparent" />
 
         <TextView
             android:id="@+id/friend_requests"
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?colorAccentLight"
+            android:background="?green_dark_2"
             android:gravity="center"
             android:text="@string/request"
-            android:textColor="?white" />
+            android:textColor="?white_semitransparent" />
     </LinearLayout>
 
     <View
@@ -134,13 +135,14 @@
             android:id="@+id/search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_20"
             android:background="@color/green_dark_phone_4"
             android:textColor="?white"
             android:hint="@string/your_friends_search_hint"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
-            android:textColorHint="?white_semitransparent"
+            android:textColorHint="?white"
             android:textSize="@dimen/font_size_12"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/search_icon" />
