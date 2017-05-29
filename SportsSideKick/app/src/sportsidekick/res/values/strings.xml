@@ -412,4 +412,7 @@
     <string name="about_you">About you</string>
     <string name="profile">Profile</string>
     <string name="stash">Stash</string>
+    <string name="join_official_account"><![CDATA[Join official Account >]]></string>
+    <string name="mutual_friends">Mutual Friends</string>
+    <string name="friends_you_have_in_common">Friends you have in common</string>
 </resources>

@@ -48,6 +48,7 @@
     <!--Phone Color-->
     <color name="gray_menu">#d3d4d8</color>
     <color name="green_light_3">#255d5e</color>
+    <color name="green_dark_phone_4">#022426</color>
     <!--*****************************************************************************************-->
     <!--Light Theme-->
     <color name="light_colorAccent">#ffe324</color>

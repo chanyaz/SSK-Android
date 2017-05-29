@@ -1,6 +1,7 @@
 package base.app.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,10 +52,15 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         TextView name;
         @BindView(R.id.date)
         TextView date;
+        @Nullable
         @BindView(R.id.deny_button)
         ImageButton denyButton;
+        @Nullable
         @BindView(R.id.confirm_button)
         ImageButton confirmButton;
+        @Nullable
+        @BindView(R.id.button_friend)
+        ImageButton buttonFriend;
 
         ViewHolder(View v) {
             super(v);
@@ -79,42 +85,8 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_request_item, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
-
-        viewHolder.confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final int position = viewHolder.getLayoutPosition();
-                Task<UserInfo> requestTask = FriendsManager.getInstance().acceptFriendRequest(values.get(position).getId());
-                requestTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UserInfo> task) {
-                        if(task.isSuccessful()){
-                            getValues().remove(position);
-                            notifyDataSetChanged();
-                        }
-                    }
-                });
-            }
-        });
-
-        viewHolder.denyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final int position = viewHolder.getLayoutPosition();
-                Task<Boolean> requestTask = FriendsManager.getInstance().rejectFriendRequest(values.get(position).getId());
-                requestTask.addOnCompleteListener(new OnCompleteListener<Boolean>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Boolean> task) {
-                        if(task.isSuccessful()){
-                            getValues().remove(position);
-                            notifyDataSetChanged();
-                        }
-                    }
-                });
-            }
-        });
-
-
+        clickForTablet(viewHolder);
+        clickForPhone(viewHolder);
         return viewHolder;
     }
 
@@ -123,15 +95,15 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final FriendRequest info = values.get(position);
         holder.name.setText(info.getSender().getNicName());
-        if(info.getTimestamp()!=null){
+        if (info.getTimestamp() != null) {
             holder.date.setText(sdf.format(info.getTimestamp()));
         }
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         String avatarUrl = info.getSender().getCircularAvatarUrl();
-        if(avatarUrl==null){
+        if (avatarUrl == null) {
             avatarUrl = info.getSender().getAvatarUrl();
         }
-        ImageLoader.getInstance().displayImage(avatarUrl,holder.profileImage,imageOptions);
+        ImageLoader.getInstance().displayImage(avatarUrl, holder.profileImage, imageOptions);
     }
 
     @Override
@@ -140,4 +112,92 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             return 0;
         return values.size();
     }
+
+    private void clickForTablet(final ViewHolder viewHolder) {
+        if (viewHolder.confirmButton != null) {
+            viewHolder.confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final int position = viewHolder.getLayoutPosition();
+                    acceptFriendRequest(position);
+                }
+            });
+        }
+
+        if (viewHolder.denyButton != null) {
+            viewHolder.denyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final int position = viewHolder.getLayoutPosition();
+                    rejectFriendRequest(position);
+                }
+            });
+        }
+
+    }
+
+    private void clickForPhone(final ViewHolder viewHolder) {
+        if (viewHolder.buttonFriend != null) {
+            viewHolder.buttonFriend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final int position = viewHolder.getLayoutPosition();
+                    if (viewHolder.buttonFriend.isSelected()) {
+                        rejectFriendRequest(position);
+                    } else {
+                        acceptFriendRequest(position);
+                    }
+                }
+            });
+        }
+
+        if (viewHolder.buttonFriend != null) {
+            viewHolder.buttonFriend.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (viewHolder.buttonFriend.isSelected())
+                        viewHolder.buttonFriend.setSelected(false);
+                    else
+                        viewHolder.buttonFriend.setSelected(true);
+                    return true;
+                }
+            });
+
+        }
+
+
+    }
+
+    private void rejectFriendRequest(final int position) {
+        Task<Boolean> requestTask = FriendsManager.getInstance().rejectFriendRequest(values.get(position).getId());
+        requestTask.addOnCompleteListener(new OnCompleteListener<Boolean>() {
+            @Override
+            public void onComplete(@NonNull Task<Boolean> task) {
+                if (task.isSuccessful()) {
+                    getValues().remove(position);
+                    notifyDataSetChanged();
+                }
+            }
+        });
+
+    }
+
+    private void acceptFriendRequest(final int position) {
+        Task<UserInfo> requestTask = FriendsManager.getInstance().acceptFriendRequest(values.get(position).getId());
+        requestTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<UserInfo> task) {
+                if (task.isSuccessful()) {
+                    getValues().remove(position);
+                    notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+
 }
+
+
+
+

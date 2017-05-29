@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/width_500"
-    android:layout_height="@dimen/height_300"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/margin_base_size_60"
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
@@ -14,9 +14,9 @@
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
+        android:orientation="horizontal"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal">
-
+        android:layout_alignParentStart="true">
         <View
             android:id="@+id/top_vertical_spliter"
             android:layout_width="@dimen/space_0"
@@ -63,7 +63,7 @@
     <RelativeLayout
         android:id="@+id/enter_friend_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/top_buttons_container"
         android:background="?colorPrimarySemiLight"
         android:padding="@dimen/margin_20"
