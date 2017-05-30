@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +88,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public View disabled;
 
 
-
     @BindView(R.id.disconnect_button)
     public ImageButton hangupButton;
     @BindView(R.id.toggle_mic_button)
@@ -100,12 +100,14 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public ImageButton addUserButton;
 
 
+    @BindView(R.id.text1)
+    TextView text;
 
     String roomId;
     String pendingRoomId;
     VideoChatModel model;
 
-//    LocalMedia localMedia;
+    //    LocalMedia localMedia;
     LocalAudioTrack localAudioTrack;
     LocalVideoTrack localVideoTrack;
     CameraCapturer camera;
@@ -211,9 +213,10 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
 
+        text.setText(Html.fromHtml(getString(R.string.video_chat_text_1)));
+
         VideoChatEvent event = VideoChatModel.getInstance().getVideoChatEvent();
-        if (event != null)
-        {
+        if (event != null) {
             onVideoChatEvent(event);
             VideoChatModel.getInstance().setVideoChatEvent(null);
         }
@@ -221,14 +224,14 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         return view;
     }
 
-    public void updateIconsColor(){
-        if(ThemeManager.getInstance().isLightTheme()){
-            hangupButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            muteButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            flipCameraButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            videoButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-        }else {
+    public void updateIconsColor() {
+        if (ThemeManager.getInstance().isLightTheme()) {
+            hangupButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            muteButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            flipCameraButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            videoButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+        } else {
             hangupButton.clearColorFilter();
             muteButton.clearColorFilter();
             flipCameraButton.clearColorFilter();
@@ -276,7 +279,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                             } else if (userInfo.getNicName() != null) {
                                 usersName = userInfo.getNicName();
                             }
-                            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.video_chat_receive_call)+" \'" + usersName + " \'?", getContext().getResources().getString(R.string.video_chat_accpet_call),
+                            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.video_chat_receive_call) + " \'" + usersName + " \'?", getContext().getResources().getString(R.string.video_chat_accpet_call),
                                     new View.OnClickListener() {// Cancel
                                         @Override
                                         public void onClick(View v) {
@@ -295,12 +298,12 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                 });
                 break;
             case onInvitationRevoked:
-                if (((LoungeActivity)getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
+                if (((LoungeActivity) getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
                     getActivity().onBackPressed();
                 }
                 break;
             case onChatClosed:
-                if (((LoungeActivity)getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
+                if (((LoungeActivity) getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
                     getActivity().onBackPressed();
                 }
                 if (room != null && room.getName().equals(event.getId())) {
@@ -467,8 +470,12 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         localAudioTrack = LocalAudioTrack.create(getContext(), true);
         camera = new CameraCapturer(getContext(), CameraCapturer.CameraSource.FRONT_CAMERA);
         localVideoTrack = LocalVideoTrack.create(getContext(), true, camera);
-        List<LocalAudioTrack> localAudioTracks =new ArrayList<LocalAudioTrack>(){{ add(localAudioTrack); }};
-        List<LocalVideoTrack> localVideoTracks =new ArrayList<LocalVideoTrack>(){{ add(localVideoTrack); }};
+        List<LocalAudioTrack> localAudioTracks = new ArrayList<LocalAudioTrack>() {{
+            add(localAudioTrack);
+        }};
+        List<LocalVideoTrack> localVideoTracks = new ArrayList<LocalVideoTrack>() {{
+            add(localVideoTrack);
+        }};
 
         if (localAudioTracks.size() != 0) {
             startPreview();
@@ -684,8 +691,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @Override
     public void onResume() {
-        if(!EventBus.getDefault().isRegistered(this))
-        {
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
         super.onResume();
