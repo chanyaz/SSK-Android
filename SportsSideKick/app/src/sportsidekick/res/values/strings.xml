@@ -415,4 +415,8 @@
     <string name="join_official_account"><![CDATA[Join official Account >]]></string>
     <string name="mutual_friends">Mutual Friends</string>
     <string name="friends_you_have_in_common">Friends you have in common</string>
+    <string name="join_now_sign_in">Join Now / Sign In</string>
+    <string name="join_now">Join Now</string>
+
+    <string name="join_with_facebook">Join now with<b> Facebook </b></string>
 </resources>
