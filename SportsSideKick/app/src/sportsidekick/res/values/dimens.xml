@@ -104,6 +104,7 @@
     <dimen name="row_chat_bubble_user_size">60dp</dimen>
     <dimen name="space_0">0dp</dimen>
     <dimen name="font_size_28">28sp</dimen>
+    <dimen name="font_size_35">35sp</dimen>
     <dimen name="font_size_12">12sp</dimen>
     <dimen name="font_size_10">10sp</dimen>
 
