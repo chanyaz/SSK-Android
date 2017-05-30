@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/margin_base_size_60"
+    android:background="?wallBackground"
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
     android:layout_marginTop="@dimen/margin_base_size_60"
@@ -14,9 +15,8 @@
         android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_buttons_container"
-        android:layout_below="@+id/top_buttons_container"
-        android:background="?colorPrimarySemiLight">
+        android:layout_centerInParent="true"
+        android:background="?wallBackground">
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/progress_bar"
@@ -29,12 +29,50 @@
     </RelativeLayout>
 
     <!-- TOP BUTTONS CONTAINER -->
-    <LinearLayout
-        android:id="@+id/top_buttons_container"
+
+    <RelativeLayout
+        android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
+        android:background="@drawable/lounge_background"
+        android:tileMode="repeat"
         android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="?white"
+            android:text="@string/about_you" />
+        <RelativeLayout
+            android:id="@+id/back_button_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/close_dialog_button"
+                android:layout_width="@dimen/standard_button_height"
+                android:layout_height="@dimen/standard_button_height"
+                android:layout_alignParentStart="true"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:tint="@color/light_colorPrimaryLight"
+                android:visibility="gone"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <!-- TOP BUTTONS CONTAINER -->
+    <LinearLayout
+
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:background="@color/green_dark_5"
+        android:orientation="horizontal"
+        android:layout_below="@+id/top_toolbar"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/your_profile_button"
@@ -42,9 +80,9 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorAccentLight"
+            android:background="?colorPrimary"
             android:gravity="center"
-            android:text="@string/your_profile"
+            android:text="@string/profile"
             android:textColor="?white_semitransparent" />
 
         <TextView
@@ -53,9 +91,9 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorAccentLight"
+            android:background="?colorPrimary"
             android:gravity="center"
-            android:text="@string/your_wallet"
+            android:text="@string/wallet"
             android:textColor="?white_semitransparent" />
 
         <TextView
@@ -63,21 +101,20 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?colorPrimarySemiLight"
+            android:background="?wallBackground"
             android:gravity="center"
-            android:text="@string/your_stash"
-            android:textColor="?colorAccent" />
+            android:text="@string/stash"
+            android:textColor="?white" />
     </LinearLayout>
 
-    <!-- TOP BUTTONS INDICATOR LINES -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/top_toolbar"
         android:orientation="horizontal">
 
         <View
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
@@ -97,13 +134,15 @@
             android:background="?colorAccent" />
     </LinearLayout>
 
-    <!-- SPLITTERS -->
+    <!--  TOP SPLITTER-->
     <View
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
         android:layout_below="@+id/top_buttons_container"
-        android:background="@android:color/black" />
+        android:background="@color/green_dark_5" />
+
+    <!-- SPLITTERS -->
 
     <TextView
         android:id="@+id/your_stash_caption"
@@ -136,38 +175,10 @@
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_height="match_parent"
         android:layout_below="@+id/your_stash_description"
-        android:layout_margin="@dimen/margin_20"
+        android:layout_margin="@dimen/margin_15"
         android:numColumns="auto_fit"
         android:clipToPadding="false"/>
 
     <!-- BOTTOM BUTTONS CONTAINER -->
-    <RelativeLayout
-        android:id="@+id/bottom_buttons_container"
-        android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
-        android:background="@drawable/popup_bottom_background"
-        android:clickable="true">
 
-        <View
-            android:id="@+id/bottom_split_line"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_1"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/black" />
-
-        <ImageButton
-            android:id="@+id/confirm_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_30"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:src="?popupConfirmationButtonIcon" />
-    </RelativeLayout>
 </RelativeLayout>

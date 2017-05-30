@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.Task;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,6 +26,7 @@ import base.app.model.achievements.AchievementManager;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
 import base.app.util.Utility;
+import butterknife.Optional;
 
 import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
@@ -41,6 +43,7 @@ public class StashFragment extends BaseFragment {
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
+    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.26;
 
     public StashFragment() {
         // Required empty public constructor
@@ -57,8 +60,10 @@ public class StashFragment extends BaseFragment {
         stashRecyclerView.setLayoutManager(layoutManager);*/
 
         int screenWidth = Utility.getDisplayWidth(getActivity());
-
-        stashRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+        if (getResources().getBoolean(R.bool.is_tablet))
+            stashRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+        else
+            stashRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
         stashRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         stashRecyclerView.setHasFixedSize(true);
 
@@ -68,7 +73,7 @@ public class StashFragment extends BaseFragment {
         getAchievementsTask.addOnCompleteListener(new OnCompleteListener<List<Achievement>>() {
             @Override
             public void onComplete(@NonNull Task<List<Achievement>> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     adapter.getValues().addAll(task.getResult());
                     progressBar.setVisibility(View.GONE);
                 }
@@ -78,23 +83,27 @@ public class StashFragment extends BaseFragment {
         return view;
     }
 
+    @Optional
     @OnClick(R.id.confirm_button)
-    public void confirmOnClick(){
+    public void confirmOnClick() {
         getActivity().onBackPressed();
     }
 
+    @Optional
     @OnClick(R.id.your_wallet_button)
-    public void walletOnClick(){
+    public void walletOnClick() {
         EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
     }
 
+    @Optional
     @OnClick(R.id.your_stash_button)
-    public void stashOnClick(){
+    public void stashOnClick() {
         EventBus.getDefault().post(new FragmentEvent(StashFragment.class));
     }
 
+    @Optional
     @OnClick(R.id.your_profile_button)
-    public void profileOnClick(){
+    public void profileOnClick() {
         EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
     }
 }

@@ -21,6 +21,7 @@
         <RelativeLayout
             android:id="@+id/back_button_holder"
             android:layout_width="wrap_content"
+            android:visibility="gone"
             android:layout_height="match_parent">
 
             <TextView

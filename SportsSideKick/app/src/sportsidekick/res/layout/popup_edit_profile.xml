@@ -27,6 +27,8 @@
                 android:layout_height="@dimen/standard_button_height"
                 android:layout_alignParentStart="true"
                 android:adjustViewBounds="true"
+                android:visibility="gone"
+                android:tint="?colorPrimaryLight"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
