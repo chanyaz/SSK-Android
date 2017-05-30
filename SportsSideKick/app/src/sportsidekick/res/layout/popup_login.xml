@@ -11,40 +11,7 @@
     <!-- TOP BUTTONS CONTAINER -->
 
 
-    <RelativeLayout
-        android:id="@+id/top_buttons_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/lounge_background"
-        android:orientation="horizontal"
-        android:tileMode="repeat">
 
-        <TextView
-            style="@style/boldText"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="1dp"
-            android:gravity="center_vertical"
-            android:text="@string/join_now_sign_in"
-            android:textAllCaps="true"
-            android:textColor="?white"
-            android:textSize="@dimen/font_size_16"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/close_dialog_button"
-            android:layout_width="@dimen/standard_button_height"
-            android:layout_height="@dimen/standard_button_height"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:tint="@color/light_colorPrimaryLight"
-            android:visibility="gone" />
-    </RelativeLayout>
 
 
     <!--  TOP SPLITTER-->
@@ -294,6 +261,41 @@
             android:elevation="@dimen/elevation_2"
             android:visibility="gone"
             app:indicatorName="LineSpinFadeLoaderIndicator" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/lounge_background"
+        android:orientation="horizontal"
+        android:tileMode="repeat">
+        <ImageButton
+            android:id="@+id/close_dialog_button"
+            android:layout_width="@dimen/standard_button_height"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:tint="@color/light_colorPrimaryLight"
+            android:visibility="gone" />
+        <TextView
+            style="@style/boldText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="1dp"
+            android:gravity="center_vertical"
+            android:text="@string/join_now_sign_in"
+            android:textAllCaps="true"
+            android:textColor="?white"
+            android:textSize="@dimen/font_size_16"
+            />
+
 
     </RelativeLayout>
 

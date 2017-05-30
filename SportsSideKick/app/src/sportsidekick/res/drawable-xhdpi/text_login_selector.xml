@@ -1,8 +1,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 <item android:state_focused="false">
     <shape  xmlns:android="http://schemas.android.com/apk/res/android">
-        <solid android:color="@color/green_dark_3"
-            android:alpha="0.5"/>
+        <solid android:color="@color/green_dark_5_semitransparent"
+            />
         <corners
             android:radius="100dp" />
     </shape>
@@ -10,10 +10,10 @@
 
 <item android:state_focused="true">
     <shape  xmlns:android="http://schemas.android.com/apk/res/android">
-        <solid android:color="@color/green_dark_3"
-            android:alpha="0.5"/>
+        <solid android:color="@color/green_dark_5_semitransparent"
+           />
         <stroke
-            android:width="2dp"
+            android:width="1dp"
             android:color="@color/light_green_1"
           />
         <corners
