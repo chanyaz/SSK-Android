@@ -26,6 +26,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.app.model.Model;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -51,7 +52,7 @@ import base.app.util.ui.LinearItemDecoration;
 public class FriendsFragment extends BaseFragment {
 
     public static final double GRID_PERCENT_CELL_WIDTH = 0.092;
-    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = GRID_PERCENT_CELL_WIDTH*2.4;
+    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = GRID_PERCENT_CELL_WIDTH * 2.4;
 
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
@@ -100,7 +101,7 @@ public class FriendsFragment extends BaseFragment {
         officialAccountAdapter = new FriendsAdapter(this.getClass());
         if (officialAccountRecyclerView != null) {
             officialAccountRecyclerView.setAdapter(officialAccountAdapter);
-            officialAccountRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false ));
+            officialAccountRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
             officialAccountAdapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
         }
         adapter.setInitiatorFragment(FriendsFragment.class);
@@ -115,14 +116,28 @@ public class FriendsFragment extends BaseFragment {
                     friends = task.getResult();
                     adapter.getValues().clear();
                     adapter.getValues().addAll(friends);
-                    if (friends.size() != 0 && officialAccountRecyclerView != null) {
-                        for (UserInfo userInfo : task.getResult())
-                            if (userInfo.getUserType().equals(UserInfo.UserType.special))
-                                officialAccount.add(userInfo);
-                        officialAccountAdapter.getValues().addAll(officialAccount);
-                        officialAccountAdapter.notifyDataSetChanged();
-                    }
                     adapter.notifyDataSetChanged();
+
+                } else {
+                    noResultText.setVisibility(View.VISIBLE);
+                    friendsRecyclerView.setVisibility(View.GONE);
+                }
+
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+
+        Task<List<UserInfo>> officialTask = Model.getInstance().getOfficialAccounts(0);
+        officialTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<UserInfo>> task) {
+                if (task.isSuccessful()) {
+                    noResultText.setVisibility(View.GONE);
+                    friendsRecyclerView.setVisibility(View.VISIBLE);
+                    officialAccount.addAll(task.getResult());
+                    officialAccountAdapter.getValues().addAll(officialAccount);
+                    officialAccountAdapter.notifyDataSetChanged();
 
                 } else {
                     noResultText.setVisibility(View.VISIBLE);
@@ -139,7 +154,6 @@ public class FriendsFragment extends BaseFragment {
             public void onComplete(@NonNull Task<List<FriendRequest>> task) {
                 if (task.isSuccessful()) {
                     if (task.getResult() != null) {
-
                         if (friendRequestCount != null)
                             friendRequestCount.setText(String.valueOf(task.getResult().size()));
                         return;
@@ -197,12 +211,13 @@ public class FriendsFragment extends BaseFragment {
     public void addFriend() {
         EventBus.getDefault().post(new FragmentEvent(AddFriendFragment.class));
     }
+
     @Optional
     @OnClick(R.id.search_icon)
     public void searchFriend() {
         View view = getActivity().getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
