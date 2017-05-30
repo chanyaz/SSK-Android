@@ -102,8 +102,9 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         ButterKnife.bind(this, view);
         this.loginStateReceiver = new LoginStateReceiver(this);
         this.passwordResetReceiver = new PasswordResetReceiver(this);
-        if (!getResources().getBoolean(R.bool.is_tablet))
+        if (!getResources().getBoolean(R.bool.is_tablet)) {
             initFacebook();
+        }
             //TODO @Filip refactoring create butterKnife onClick
             forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
                 @Override
