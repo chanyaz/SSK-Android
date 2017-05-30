@@ -1,6 +1,7 @@
 package base.app.fragment.popup;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.Arrays;
+
+import base.app.model.user.RegistrationStateReceiver;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +42,7 @@ import base.app.model.Model;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.PasswordResetReceiver;
 import base.app.model.user.UserInfo;
+import butterknife.Optional;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -35,7 +50,7 @@ import base.app.model.user.UserInfo;
  * www.hypercubesoft.com
  */
 
-public class LoginFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener, PasswordResetReceiver.PasswordResetListener{
+public class LoginFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener, PasswordResetReceiver.PasswordResetListener {
 
     @BindView(R.id.login_email)
     EditText emailEditText;
@@ -73,6 +88,11 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         // Required empty public constructor
     }
 
+    @Nullable
+    @BindView(R.id.sign_up_facebook)
+    LoginButton loginButton;
+    private CallbackManager callbackManager;
+
     private LoginStateReceiver loginStateReceiver;
     private PasswordResetReceiver passwordResetReceiver;
 
@@ -82,21 +102,63 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         ButterKnife.bind(this, view);
         this.loginStateReceiver = new LoginStateReceiver(this);
         this.passwordResetReceiver = new PasswordResetReceiver(this);
-
-        forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginContainer.setVisibility(View.VISIBLE);
-                loginButtonContainer.setVisibility(View.VISIBLE);
-                resetButtonContainer.setVisibility(View.INVISIBLE);
-                forgotPasswordContainer.setVisibility(View.INVISIBLE);
-            }
-        });
+        if (!getResources().getBoolean(R.bool.is_tablet))
+            initFacebook();
+            //TODO @Filip refactoring create butterKnife onClick
+            forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loginContainer.setVisibility(View.VISIBLE);
+                    loginButtonContainer.setVisibility(View.VISIBLE);
+                    resetButtonContainer.setVisibility(View.INVISIBLE);
+                    forgotPasswordContainer.setVisibility(View.INVISIBLE);
+                }
+            });
         // --- TODO For testing only!
 //        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
 //        passwordEditText.setText("qwerty");
         // ---
         return view;
+    }
+
+    public void initFacebook() {
+        assert loginButton != null;
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+        callbackManager = CallbackManager.Factory.create();
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                // Application code
+                                try {
+                                    emailEditText.setText(object.getString("email"));
+                                    LoginManager.getInstance().logOut();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "name,email,first_name,last_name");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+            }
+        });
+
     }
 
     @Override
@@ -115,12 +177,12 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             return;
         }
 
-        if(!Connection.getInstance().alertIfNotReachable(getActivity(), new View.OnClickListener() {
+        if (!Connection.getInstance().alertIfNotReachable(getActivity(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
             }
-        })){
+        })) {
             return;
         }
 
@@ -133,6 +195,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         progressBar.setVisibility(View.VISIBLE);
     }
 
+    @Optional
     @OnClick(R.id.reset_text)
     public void forgotPasswordOnClick() {
         String email = emailForgotPassword.getText().toString();
@@ -140,13 +203,14 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         getActivity().onBackPressed();
     }
 
+    @Optional
     @OnClick(R.id.sign_up_button)
     public void signUpOnClick() {
         EventBus.getDefault().post(new FragmentEvent(base.app.fragment.popup.SignUpFragment.class));
 
     }
 
-
+    @Optional
     @OnClick(R.id.forgot_button)
     public void forgotOnClick() {
         loginContainer.setVisibility(View.INVISIBLE);
@@ -194,7 +258,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     // To animate view slide out from left to right
     public void slideToRight(View view) {
-        TranslateAnimation animate = new TranslateAnimation(0,view.getWidth(), 0, 0);
+        TranslateAnimation animate = new TranslateAnimation(0, view.getWidth(), 0, 0);
         animate.setDuration(500);
         animate.setFillAfter(true);
         view.startAnimation(animate);
@@ -235,5 +299,12 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                         forgotOnClick();
                     }
                 });
+    }
+
+    @Optional
+    @OnClick(R.id.facebook_button)
+    public void setLoginFacebook() {
+        assert loginButton != null;
+        loginButton.performClick();
     }
 }
