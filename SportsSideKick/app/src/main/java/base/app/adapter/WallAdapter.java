@@ -154,22 +154,22 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }else {
             switch (postTypeValues[viewType]) {
                 case post:
-                    viewResourceId = R.layout.wall_item_user_post_new;
+                    viewResourceId = R.layout.wall_item_user_post;
                     break;
                 case newsShare:
-                    viewResourceId = R.layout.wall_item_news_new;
+                    viewResourceId = R.layout.wall_item_news;
                     break;
                 case rumor:
-                    viewResourceId = R.layout.wall_item_rumour_new;
+                    viewResourceId = R.layout.wall_item_rumour;
                     break;
                 case tip:
                     viewResourceId = R.layout.wall_item_tip;
                     break;
                 case wallStoreItem:
-                    viewResourceId = R.layout.wall_item_shop_new;
+                    viewResourceId = R.layout.wall_item_shop;
                     break;
                 default: // Somehow, we got unknown type as viewType argument, return default cell
-                    viewResourceId = R.layout.wall_item_rumour_new;
+                    viewResourceId = R.layout.wall_item_rumour;
                     break;
             }
         }

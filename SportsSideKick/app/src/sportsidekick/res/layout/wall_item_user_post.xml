@@ -60,7 +60,6 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:minLines="2"
-        android:text="Post caption"
         android:textColor="?wallUserContentTextColor"
         android:textSize="@dimen/font_size_16" />
 
@@ -135,7 +134,6 @@
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6901"
                 android:textColor="?lightGrey"
                 android:textSize="@dimen/font_size_10" />
         </LinearLayout>
@@ -146,7 +144,6 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/likes_container"
             android:maxLines="1"
-            android:text="Christopher Ogden"
             android:textColor="?lightGrey"
             android:textSize="@dimen/font_size_10" />
     </RelativeLayout>
