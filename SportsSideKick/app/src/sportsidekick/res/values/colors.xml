@@ -23,7 +23,7 @@
     <color name="demo_blue_semitransparent">#71002df4</color>
     <color name="demo_red_semitransparent">#56ff0000</color>
     <color name="black_transparent_154">#9a000000</color>
-
+    <color name="green_dark_5_semitransparent">#8C00181e</color>
     <color name="facebook_blue">#3b5998</color>
 
 
@@ -49,6 +49,9 @@
     <color name="gray_menu">#d3d4d8</color>
     <color name="green_light_3">#255d5e</color>
     <color name="green_dark_phone_4">#022426</color>
+    <color name="light_button_chat">#fdfe24</color>
+    <color name="background_phone">#225357</color>
+    <color name="green_dark_phone_3">#01363c</color>
     <!--*****************************************************************************************-->
     <!--Light Theme-->
     <color name="light_colorAccent">#ffe324</color>

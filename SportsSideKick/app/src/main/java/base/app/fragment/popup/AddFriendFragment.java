@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.adapter.FindOfficialAdapter;
+import base.app.model.Model;
 import base.app.model.friendship.FriendsManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,13 +74,13 @@ public class AddFriendFragment extends BaseFragment {
     List<UserInfo> specialUserInfoList;
     FriendsAdapter adapter;
     FriendsAdapter commonFriendAdapter;
-    List<Integer> mutualFriendsNumberList;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.popup_add_friend, container, false);
         ButterKnife.bind(this, view);
-        isTablet = getResources().getBoolean(R.bool.is_tablet);
+        isTablet = Utility.isTablet(getActivity());
         adapter = new FriendsAdapter(this.getClass());
         adapter.setInitiatorFragment(this.getClass());
         if (isTablet) {
@@ -147,16 +148,13 @@ public class AddFriendFragment extends BaseFragment {
         specialRecyclerView.setAdapter(officialAdapter);
         onDataSetChange(false);
         listContainer.setVisibility(View.INVISIBLE);
-        //TODO @Filip, add new api call, get all admins.
-        Task<List<UserInfo>> peopleTask = FriendsManager.getInstance().getFriends(0);
+        Task<List<UserInfo>> peopleTask = Model.getInstance().getOfficialAccounts(0);
         peopleTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if (task.isSuccessful()) {
                     if (task.getResult().size() > 0) {
-                        for (UserInfo userInfo : task.getResult())
-                            if (userInfo.getUserType().equals(UserInfo.UserType.special))
-                                specialUserInfoList.add(userInfo);
+                        specialUserInfoList.addAll(task.getResult());
                         if (!specialUserInfoList.isEmpty())
                             officialAdapter.setValues(specialUserInfoList);
                         officialAdapter.notifyDataSetChanged();
@@ -170,7 +168,10 @@ public class AddFriendFragment extends BaseFragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
+
+
     }
+
 
     private void setTextWatcher() {
         friendName.addTextChangedListener(new TextWatcher() {

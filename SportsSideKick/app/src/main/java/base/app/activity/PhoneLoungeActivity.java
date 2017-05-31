@@ -23,6 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import base.app.fragment.popup.SignUpLoginFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -236,6 +237,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupContainerFragments.add(FollowingFragment.class);
         popupContainerFragments.add(AddFriendFragment.class);
         popupContainerFragments.add(InviteFriendFragment.class);
+        popupContainerFragments.add(SignUpLoginFragment.class);
+        popupContainerFragments.add(CreateChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_popup_holder, popupContainerFragments, true);
 //left Join
         popupLeftFragments = new ArrayList<>();
@@ -243,7 +246,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupLeftFragments.add(YoutubePlayerFragment.class);
         popupLeftFragments.add(ClubRadioStationFragment.class);
         popupLeftFragments.add(EditChatFragment.class);
-        popupLeftFragments.add(CreateChatFragment.class);
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
         popupLeftFragments.add(NewsItemFragment.class);
@@ -308,7 +310,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         if (yourLevel.getVisibility() == View.VISIBLE)
             EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
         else
-            EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
     }
 
     @Override

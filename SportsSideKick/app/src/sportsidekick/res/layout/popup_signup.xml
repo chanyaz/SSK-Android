@@ -211,9 +211,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:textStyle="bold"
                 android:text="@string/join_now"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/font_size_18" />
 
             <com.wang.avi.AVLoadingIndicatorView

@@ -11,4 +11,5 @@
     <dimen name="popup_friend_profil_progress_bar_size">85dp</dimen>
     <dimen name="popup_friend_profil_progress_hex_bar_size">62dp</dimen>
     <dimen name="edit_profile_label_text_size">114dp</dimen>
+    <dimen name="row_chat_bubble_user_size">50dp</dimen>
 </resources>
