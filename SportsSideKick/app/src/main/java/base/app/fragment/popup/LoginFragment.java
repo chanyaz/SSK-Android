@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 import base.app.model.user.RegistrationStateReceiver;
+import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -102,7 +103,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         ButterKnife.bind(this, view);
         this.loginStateReceiver = new LoginStateReceiver(this);
         this.passwordResetReceiver = new PasswordResetReceiver(this);
-        if (!getResources().getBoolean(R.bool.is_tablet)) {
+        if (!Utility.isTablet(getActivity())) {
             initFacebook();
         }
             //TODO @Filip refactoring create butterKnife onClick

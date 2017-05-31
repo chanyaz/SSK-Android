@@ -52,7 +52,7 @@ import base.app.util.ui.LinearItemDecoration;
 public class FriendsFragment extends BaseFragment {
 
     public static final double GRID_PERCENT_CELL_WIDTH = 0.092;
-    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = GRID_PERCENT_CELL_WIDTH * 2.4;
+    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.2;
 
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
@@ -87,7 +87,7 @@ public class FriendsFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         officialAccount = new ArrayList<>();
         int screenWidth = Utility.getDisplayWidth(getActivity());
-        if (getResources().getBoolean(R.bool.is_tablet))
+        if (Utility.isTablet(getActivity()))
             friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
         else
             friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));

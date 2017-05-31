@@ -80,7 +80,7 @@ public class AddFriendFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.popup_add_friend, container, false);
         ButterKnife.bind(this, view);
-        isTablet = getResources().getBoolean(R.bool.is_tablet);
+        isTablet = Utility.isTablet(getActivity());
         adapter = new FriendsAdapter(this.getClass());
         adapter.setInitiatorFragment(this.getClass());
         if (isTablet) {
