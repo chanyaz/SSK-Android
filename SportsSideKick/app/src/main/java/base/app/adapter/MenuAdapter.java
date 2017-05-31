@@ -103,15 +103,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                     NavigationDrawerItems.getInstance().setByPosition(viewHolder.getAdapterPosition());
                     viewHolder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
                     drawerClose.closeDrawerMenu(viewHolder.getAdapterPosition());
-                    Handler handler = new Handler();
-                    final Runnable r = new Runnable() {
+                    new Handler().postDelayed(new Runnable() {
                         public void run() {
                             EventBus.getDefault().post(new FragmentEvent(Constant.CLASS_LIST.get(viewHolder.getAdapterPosition())));
                         }
-                    };
-
-                    handler.postDelayed(r, 500);
-
+                    }, 400);
 
                 }
 

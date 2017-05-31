@@ -60,10 +60,12 @@ public class StashFragment extends BaseFragment {
         stashRecyclerView.setLayoutManager(layoutManager);*/
 
         int screenWidth = Utility.getDisplayWidth(getActivity());
-        if (getResources().getBoolean(R.bool.is_tablet))
+        if (Utility.isTablet(getActivity())) {
             stashRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
-        else
+        }
+        else {
             stashRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
+        }
         stashRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         stashRecyclerView.setHasFixedSize(true);
 

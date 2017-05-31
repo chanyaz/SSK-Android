@@ -181,7 +181,7 @@ public class Model {
                         return;
                     }
                 }
-                source.setException(null);
+                source.setException(new Exception("No user!"));
             }
         });
     }

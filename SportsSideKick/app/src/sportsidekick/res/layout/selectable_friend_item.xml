@@ -6,25 +6,40 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="@dimen/row_chat_bubble_user_size"
-        android:layout_height="@dimen/row_chat_bubble_user_size"
+        android:layout_width="@dimen/row_chat_bubble_user_size_call"
+        android:layout_height="@dimen/row_chat_bubble_user_size_call"
         android:layout_centerHorizontal="true"
         android:background="@null"
-        android:scaleType="centerCrop"
-        android:src="?profileImageIcon"
         android:paddingEnd="@dimen/margin_10"
         android:paddingStart="@dimen/space_0"
-        android:paddingTop="@dimen/margin_10"/>
+        android:paddingTop="@dimen/margin_10"
+        android:scaleType="centerCrop"
+        android:src="?profileImageIcon" />
+
+    <ImageView
+        android:id="@+id/image_shadow"
+        android:layout_width="@dimen/row_chat_bubble_user_size_call"
+        android:layout_height="@dimen/row_chat_bubble_user_size_call"
+        android:layout_centerHorizontal="true"
+        android:alpha="0.4"
+        android:visibility="gone"
+        android:background="@null"
+        android:paddingEnd="@dimen/margin_10"
+        android:paddingStart="@dimen/space_0"
+        android:paddingTop="@dimen/margin_10"
+        android:scaleType="centerCrop"
+        android:src="@drawable/requests_number_background"
+        android:tint="@color/gray_menu" />
 
     <ImageView
         android:id="@+id/selected"
-        android:layout_width="@dimen/row_chat_bubble_user_size"
-        android:layout_height="@dimen/row_chat_bubble_user_size"
+        android:layout_width="@dimen/row_chat_bubble_user_size_call"
+        android:layout_height="@dimen/row_chat_bubble_user_size_call"
         android:layout_centerHorizontal="true"
         android:background="@null"
         android:scaleType="centerCrop"
         android:src="@drawable/add_chat_user_selected"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
 
     <TextView
@@ -32,11 +47,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/image"
+        android:layout_centerVertical="true"
         android:layout_marginBottom="@dimen/margin_5"
         android:layout_marginTop="@dimen/margin_5"
-        android:gravity="center"
         android:maxLines="2"
         android:text="Demo caption Demo caption Demo caption Demo caption"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_9" />
 

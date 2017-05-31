@@ -92,7 +92,7 @@ public class RumoursFragment extends BaseFragment {
 
         hideElements(true);
         GridLayoutManager layoutManager;
-        if (getActivity().getResources().getBoolean(R.bool.is_tablet)) {
+        if (Utility.isTablet(getActivity())) {
             layoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
             top4news.addItemDecoration(new GridSpacingItemDecoration(2, 16, true));
             top4news.setLayoutManager(layoutManager);

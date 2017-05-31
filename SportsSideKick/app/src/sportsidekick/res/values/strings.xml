@@ -11,6 +11,7 @@
     <string name="login_sign_up">Sign up</string>
     <string name="login_login">Log In</string>
     <string name="login_slider_text_1">Bringing fans together</string>
+    <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> fans </font> together</string>
     <string name="login_slider_text_2">Coming soon</string>
     <string name="login_login_email">Email</string>
     <string name="login_login_password">Password</string>
@@ -108,7 +109,7 @@
     <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
 
     <!-- video chat -->
-    <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+    <string name="video_chat_text_1"><![CDATA[ Watch the match with your <font color="#c3ff01">friends.</font>]]></string>
     <string name="video_chat_text_2">Video chat allows you to call up to 3 friends for group video chat, so you can experience the action with the poeple you love wherever you are!</string>
     <string name="video_chat_button_text">Begin your call</string>
     <string name="starting_new_call_search_hint">Search public chats</string>
@@ -304,7 +305,7 @@
     <string name="comments_made">Comments made</string>
     <string name="up_next">UP NEXT</string>
     <string name="live">LIVE</string>
-    <string name="tutorial_earn">Tap here to earn 5 SSK for viewing this How to!</string>
+    <string name="tutorial_earn">Tap here to earn 5 $$K for viewing this How to!</string>
     <string name="add_users">ADD USERS</string>
     <string name="playlist">PLAYLIST</string>
     <string name="default_time">00:00 / 00:00</string>
@@ -419,4 +420,10 @@
     <string name="join_now">Join Now</string>
 
     <string name="join_with_facebook">Join now with<b> Facebook </b></string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="log_in_with_facebook">Log in with<b> Facebook </b></string>
+    <string name="add_friends_to_chat_phone">Add friends to \'Unnamed Chat\'</string>
+    <string name="this_chat_is_public_phone">This chat is PUBLIC</string>
+    <string name="this_chat_is_private_phone">This chat is PRIVATE</string>
+
 </resources>

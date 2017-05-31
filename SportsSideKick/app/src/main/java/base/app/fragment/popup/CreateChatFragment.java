@@ -71,6 +71,7 @@ import permissions.dispatcher.RuntimePermissions;
 import static base.app.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE;
 import static base.app.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_PICK;
 import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
+import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH_PHONE;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -132,8 +133,12 @@ public class CreateChatFragment extends BaseFragment {
                 });
 
         int screenWidth = Utility.getDisplayWidth(getActivity());
+        if (Utility.isTablet(getActivity())) {
+            friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+        } else {
+            friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
 
-        friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+        }
         friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
 
@@ -155,10 +160,18 @@ public class CreateChatFragment extends BaseFragment {
         privateChatSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String switchText;
-                if (isChecked) {
-                    switchText = res.getString(R.string.this_chat_is_private);
+                if (Utility.isTablet(getActivity())) {
+                    if (isChecked) {
+                        switchText = res.getString(R.string.this_chat_is_private);
+                    } else {
+                        switchText = res.getString(R.string.this_chat_is_public);
+                    }
                 } else {
-                    switchText = res.getString(R.string.this_chat_is_public);
+                    if (isChecked) {
+                        switchText = res.getString(R.string.this_chat_is_private_phone);
+                    } else {
+                        switchText = res.getString(R.string.this_chat_is_public_phone);
+                    }
                 }
                 privateChatTextView.setText(switchText);
             }
@@ -182,7 +195,7 @@ public class CreateChatFragment extends BaseFragment {
             addFriendsAdapter.add(event.getUserInfo());
         }
         int friendCount = addFriendsAdapter.getItemCount();
-        String friendsInchat = " "+ getContext().getResources().getString(R.string.chat_frends_in_chat);
+        String friendsInchat = " " + getContext().getResources().getString(R.string.chat_frends_in_chat);
         if (friendCount == 0) {
             headlineFriendsInChat.setText(friendsInchat);
         } else if (friendCount == 1) {
@@ -214,8 +227,8 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_headline_close_fragment)
     public void closeFragment() {
-        if((getActivity() instanceof LoungeActivity))
-        ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+        if ((getActivity() instanceof LoungeActivity))
+            ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
         else
             getActivity().onBackPressed();
     }
@@ -239,10 +252,12 @@ public class CreateChatFragment extends BaseFragment {
         private Timer timer = new Timer();
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
         @Override
         public void afterTextChanged(final Editable s) {
@@ -290,7 +305,7 @@ public class CreateChatFragment extends BaseFragment {
             }
             userIds.add(newChatInfo.getOwner());
             newChatInfo.setUsersIds(userIds);
-            if(uploadedImageUrl!=null){
+            if (uploadedImageUrl != null) {
                 newChatInfo.setAvatarUrl(uploadedImageUrl);
             }
             ImsManager.getInstance().createNewChat(newChatInfo);
@@ -344,13 +359,13 @@ public class CreateChatFragment extends BaseFragment {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE:
                     Model.getInstance().uploadImageForCreateChat(currentPath);
-                    ImageLoader.getInstance().displayImage(currentPath,chatImageView);
+                    ImageLoader.getInstance().displayImage(currentPath, chatImageView);
                     break;
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     Model.getInstance().uploadImageForCreateChat(realPath);
-                    ImageLoader.getInstance().displayImage(realPath,chatImageView);
+                    ImageLoader.getInstance().displayImage(realPath, chatImageView);
                     break;
             }
         }
@@ -389,11 +404,11 @@ public class CreateChatFragment extends BaseFragment {
 
     @Subscribe
     @SuppressWarnings("Unchecked cast")
-    public void onEventDetected(GameSparksEvent event){
+    public void onEventDetected(GameSparksEvent event) {
         switch (event.getEventType()) {
             case CREATE_CHAT_IMAGE_FILE_UPLOADED:
-                if(event.getData()!=null){
-                    uploadedImageUrl = (String)event.getData();
+                if (event.getData() != null) {
+                    uploadedImageUrl = (String) event.getData();
                     chatImageView.setVisibility(View.VISIBLE);
                     ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader());
                 }

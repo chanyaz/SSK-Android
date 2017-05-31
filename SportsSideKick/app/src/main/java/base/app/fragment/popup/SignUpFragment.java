@@ -81,18 +81,21 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         // Required empty public constructor
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.popup_signup, container, false);
         ButterKnife.bind(this, view);
         this.registrationStateReceiver = new RegistrationStateReceiver(this);
+        initFacebook();
+
+        return view;
+    }
+
+    private void initFacebook(){
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
         callbackManager = CallbackManager.Factory.create();
         // Callback registration
-
-
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -129,8 +132,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             public void onError(FacebookException error) {
             }
         });
-
-        return view;
     }
 
     @OnLongClick(R.id.or_label)
