@@ -22,6 +22,7 @@
         android:layout_height="@dimen/row_chat_bubble_user_size_call"
         android:layout_centerHorizontal="true"
         android:alpha="0.4"
+        android:visibility="gone"
         android:background="@null"
         android:paddingEnd="@dimen/margin_10"
         android:paddingStart="@dimen/space_0"
