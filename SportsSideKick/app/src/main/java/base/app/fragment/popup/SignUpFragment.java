@@ -2,13 +2,10 @@ package base.app.fragment.popup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +28,6 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
-import butterknife.Optional;
-import me.atrox.haikunator.Haikunator;
-import me.atrox.haikunator.HaikunatorBuilder;
 import base.app.Connection;
 import base.app.R;
 import base.app.fragment.BaseFragment;
@@ -45,6 +35,13 @@ import base.app.fragment.FragmentEvent;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.RegistrationStateReceiver;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
+import butterknife.Optional;
+import me.atrox.haikunator.Haikunator;
+import me.atrox.haikunator.HaikunatorBuilder;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -143,7 +140,14 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         firstName.setText(WordUtils.capitalize(name.substring(0, name.indexOf(" "))));
         lastName.setText(WordUtils.capitalize(name.substring(name.indexOf(" ") + 1)));
         displayName.setText(name);
-        phone.setText(new HaikunatorBuilder().setTokenLength(10).setDelimiter("").setTokenChars("0123456789").build().haikunate());
+        phone.setText(
+                new HaikunatorBuilder()
+                        .setTokenLength(10)
+                        .setDelimiter("")
+                        .setTokenChars("0123456789")
+                        .build()
+                        .haikunate().replaceAll("[^\\d.]", "")
+        );
         email.setText(name.replace(" ", "@") + ".com");
         password.setText("qwerty");
         return true;
