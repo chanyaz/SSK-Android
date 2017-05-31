@@ -23,11 +23,12 @@ import base.app.fragment.BaseFragment;
  * www.hypercubesoft.com
  */
 
-public class FriendProfileFragment  extends BaseFragment {
+public class FriendProfileFragment extends BaseFragment {
 
     @BindView(R.id.profile_stats_recycler_view)
     RecyclerView statsRecyclerView;
 
+    //TODO @Filip  This fragment is not used
     public FriendProfileFragment() {
         // Required empty public constructor
     }

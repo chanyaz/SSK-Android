@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/background_phone"
+    android:background="?green_dark_2"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/chat_headline_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:background="@drawable/lounge_background"
+        android:background="?colorPrimarySemiLight"
         android:clickable="true">
 
         <ImageButton
@@ -22,8 +22,7 @@
             android:layout_centerVertical="true"
             android:background="@null"
             android:src="?closeIcon"
-            android:tint="?colorPrimaryLight"
-            android:visibility="gone" />
+            android:tint="?colorPrimaryLight" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,10 +40,10 @@
         android:id="@+id/chat_top_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_alignParentStart="true"
+        android:background="?colorPrimarySemiLight"
+        android:clickable="true"
         android:layout_below="@+id/chat_headline_container"
-        android:clickable="true">
+        android:layout_alignParentStart="true">
 
         <View
             android:id="@+id/top_vertical_spliter"
@@ -52,87 +51,39 @@
             android:layout_height="@dimen/standard_button_height"
             android:layout_centerHorizontal="true" />
 
-        <RelativeLayout
-            android:id="@+id/top_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/create_a_chat"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="?green_dark_3"
+            android:gravity="center"
+            android:text="@string/create_chat"
+            android:textColor="?white_semitransparent" />
 
-            <LinearLayout
-                android:id="@+id/center_split"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_1"
-                android:layout_below="@+id/top_buttons_container"
-                android:layout_centerHorizontal="true"
-                android:background="?colorPrimaryLight">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:gravity="center"
+            android:text="@string/join_chat"
+            android:textColor="?colorAccent" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_2"
-                    android:layout_marginEnd="@dimen/margin_1"
-                    android:layout_weight="1"
-                    android:background="?colorPrimaryLight" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="?colorPrimaryLight" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_2"
-                    android:layout_marginEnd="@dimen/margin_1"
-                    android:layout_weight="1"
-                    android:background="?colorAccent" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_2"
-                    android:visibility="gone"
-                    android:layout_weight="1"
-                    android:background="?colorPrimaryLight" />
-            </LinearLayout>
-            <!-- TOP BUTTONS CONTAINER -->
-            <LinearLayout
-                android:id="@+id/top_container_linear"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/standard_button_height"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/center_split"
-                android:background="@color/green_dark_4"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/create_a_chat"
-                    android:layout_width="@dimen/space_0"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/margin_1"
-                    android:layout_weight="1"
-                    android:background="@color/green_dark_phone_3"
-                    android:gravity="center"
-                    android:text="@string/create_chat"
-                    android:textColor="?white_semitransparent" />
-
-                <TextView
-                    android:id="@+id/join_a_chat"
-                    android:layout_width="@dimen/space_0"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/margin_1"
-                    android:layout_weight="1"
-                    android:background="@color/background_phone"
-                    android:gravity="center"
-                    android:text="@string/join_chat"
-                    android:textColor="?white" />
-
-                <TextView
-                    android:id="@+id/requests_chat"
-                    android:layout_width="@dimen/space_0"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/green_dark_phone_3"
-                    android:gravity="center"
-                    android:visibility="gone"
-                    android:text="@string/request"
-                    android:textColor="?white_semitransparent" />
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:background="?colorAccent" />
 
         <View
             android:id="@+id/top_split_line"
@@ -154,30 +105,34 @@
         <EditText
             android:id="@+id/chat_name_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_50"
+            android:layout_height="@dimen/height_60"
             android:layout_below="@+id/top_vertical_spliter"
             android:layout_toStartOf="@+id/chat_join_search_button"
-            android:background="@color/green_dark_phone_4"
+            android:background="?green_dark_2"
             android:gravity="start|center_vertical"
             android:hint="@string/search_public_chats"
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
-            android:padding="@dimen/margin_14"
+            android:padding="@dimen/margin_20"
             android:textColor="@color/white"
             android:textColorHint="?white_semitransparent"
             android:textSize="@dimen/font_size_14" />
 
         <ImageButton
             android:id="@+id/chat_join_search_button"
-            android:layout_width="@dimen/height_50"
-            android:layout_height="@dimen/height_50"
+            android:layout_width="@dimen/create_chat_name_label_height"
+            android:layout_height="@dimen/create_chat_name_label_height"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/top_vertical_spliter"
             android:background="?colorPrimaryLight"
             android:src="@drawable/ic_search" />
 
 
-
+        <base.app.util.ui.AutofitRecyclerView
+            android:id="@+id/friends_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chat_name_edit_text" />
 
 
         <base.app.util.ui.AnimatedExpandableListView
@@ -196,18 +151,14 @@
 
     </RelativeLayout>
 
-    <base.app.util.ui.AutofitRecyclerView
-        android:id="@+id/friends_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/chat_top_container"
-        android:layout_above="@+id/bottom_public_chats_container"/>
+
     <RelativeLayout
         android:id="@+id/bottom_public_chats_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/green_dark_phone_3">
+        android:background="?green_dark_2"
+        android:minHeight="@dimen/margin_90">
 
         <TextView
             android:id="@+id/bottom_public_chats_headline"
@@ -232,14 +183,14 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/chat_right_arrow"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/bottom_public_chats_friends_in_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/row_chat_bubble_user_size" />
+                android:minHeight="@dimen/row_chat_bubble_user_size"/>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

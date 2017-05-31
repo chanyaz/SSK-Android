@@ -237,7 +237,11 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
-        getActivity().onBackPressed();
+       if(Utility.isTablet(getActivity()))
+       {getActivity().onBackPressed();}
+        else {
+           EventBus.getDefault().post(new FragmentEvent(WalletFragment.class,true));
+       }
     }
 
     @Override
