@@ -12,6 +12,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import base.app.Connection;
@@ -42,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getResources().getBoolean(R.bool.is_tablet))
+        if (Utility.isTablet(this))
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         else
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -79,7 +80,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
         Intent main;
-        if (getResources().getBoolean(R.bool.is_tablet))
+        if (Utility.isTablet(this))
             main = new Intent(this, LoungeActivity.class);
         else
             main = new Intent(this, PhoneLoungeActivity.class);

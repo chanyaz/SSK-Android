@@ -238,6 +238,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupContainerFragments.add(AddFriendFragment.class);
         popupContainerFragments.add(InviteFriendFragment.class);
         popupContainerFragments.add(SignUpLoginFragment.class);
+        popupContainerFragments.add(CreateChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_popup_holder, popupContainerFragments, true);
 //left Join
         popupLeftFragments = new ArrayList<>();
@@ -245,7 +246,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupLeftFragments.add(YoutubePlayerFragment.class);
         popupLeftFragments.add(ClubRadioStationFragment.class);
         popupLeftFragments.add(EditChatFragment.class);
-        popupLeftFragments.add(CreateChatFragment.class);
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
         popupLeftFragments.add(NewsItemFragment.class);
