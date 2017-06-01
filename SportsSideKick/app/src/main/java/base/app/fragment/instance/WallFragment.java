@@ -190,7 +190,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     private LoginStateReceiver loginStateReceiver;
 
     boolean creatingPostInProgress;
-
+    boolean isTablet;
     public WallFragment() {
         // Required empty public constructor
     }
@@ -236,11 +236,14 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }
         });
 
+        isTablet = Utility.isTablet(getActivity());
+
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         adapter = new WallAdapter(getActivity());
+        boolean includeEdge = isTablet;
         if(recyclerView !=null){
             recyclerView.setAdapter(adapter);
-            recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
+            recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16,includeEdge,isTablet));
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setNestedScrollingEnabled(false);
             searchText.addTextChangedListener(textWatcher);
