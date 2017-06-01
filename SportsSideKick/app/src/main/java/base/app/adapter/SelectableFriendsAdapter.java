@@ -30,7 +30,7 @@ import base.app.util.Utility;
  * Created by Filip on 12/14/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
- *
+ * <p>
  * Selectable Users Adapter for use in chat and video chat fragments
  */
 
@@ -42,6 +42,7 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
         return selectedValues;
     }
 
+    private boolean isTablet = false;
     private List<UserInfo> selectedValues;
     int screenWidth;
 
@@ -52,9 +53,18 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
     class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
-        @Nullable @BindView(R.id.image) ImageView image;
-        @Nullable @BindView(R.id.selected) ImageView selectedRingView;
-        @Nullable @BindView(R.id.caption) TextView name;
+        @Nullable
+        @BindView(R.id.image)
+        ImageView image;
+        @Nullable
+        @BindView(R.id.image_shadow)
+        ImageView imageShadow;
+        @Nullable
+        @BindView(R.id.selected)
+        ImageView selectedRingView;
+        @Nullable
+        @BindView(R.id.caption)
+        TextView name;
 
         ViewHolder(View v) {
             super(v);
@@ -65,8 +75,9 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
 
     public SelectableFriendsAdapter(Context context) {
         this.selectedValues = new ArrayList<>();
-        if(context!=null){
+        if (context != null) {
             this.screenWidth = Utility.getDisplayWidth(context);
+            isTablet=Utility.isTablet(context);
         }
     }
 
@@ -78,7 +89,7 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
 
     @Override
     public SelectableFriendsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-       final ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         // create a new view
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.selectable_friend_item, parent, false);
         viewHolder = new ViewHolder(view);
@@ -91,20 +102,20 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
                 notifyItemChanged(position);
             }
         });
-        return  viewHolder;
+        return viewHolder;
     }
 
-    private void updateUser(int position){
+    private void updateUser(int position) {
         UserInfo info = values.get(position);
         boolean remove;
-        if(selectedValues.contains(info)){
+        if (selectedValues.contains(info)) {
             selectedValues.remove(info);
             remove = true;
         } else {
             selectedValues.add(info);
             remove = false;
         }
-        EventBus.getDefault().post(new AddFriendsEvent(values.get(position),remove));
+        EventBus.getDefault().post(new AddFriendsEvent(values.get(position), remove));
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -112,16 +123,22 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
-        if(holder.image!=null){
-            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.image,imageOptions);
-            holder.name.setText(info.getFirstName()  + " " + info.getLastName());
-            if(selectedValues.contains(info)){
+        if (holder.image != null) {
+            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(), holder.image, imageOptions);
+            holder.name.setText(info.getFirstName() + " " + info.getLastName());
+            if (selectedValues.contains(info)) {
                 if (holder.selectedRingView != null) {
                     holder.selectedRingView.setVisibility(View.VISIBLE);
+                    if (!isTablet && holder.imageShadow != null ) {
+                        holder.imageShadow.setVisibility(View.VISIBLE);
+                    }
                 }
             } else {
                 if (holder.selectedRingView != null) {
                     holder.selectedRingView.setVisibility(View.GONE);
+                    if (!isTablet && holder.imageShadow != null ) {
+                        holder.imageShadow.setVisibility(View.GONE);
+                    }
                 }
             }
         }
@@ -137,8 +154,8 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
     private static final Comparator<UserInfo> ALPHABETICAL_COMPARATOR = new Comparator<UserInfo>() {
         @Override
         public int compare(UserInfo a, UserInfo b) {
-            return (a.getFirstName()+a.getLastName()+a.getNicName()).compareTo
-                (b.getFirstName()+b.getLastName()+b.getNicName());
+            return (a.getFirstName() + a.getLastName() + a.getNicName()).compareTo
+                    (b.getFirstName() + b.getLastName() + b.getNicName());
         }
     };
 

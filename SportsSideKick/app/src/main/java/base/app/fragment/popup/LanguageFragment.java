@@ -75,6 +75,7 @@ public class LanguageFragment extends BaseFragment {
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
+        //TODO @Filip deprecation
         config.locale = locale;
         getActivity().recreate();
     }
