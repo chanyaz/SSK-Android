@@ -332,4 +332,8 @@ public class Utility {
         }
         return filteredUserslList;
     }
+
+    public static Boolean isTablet(Context context){
+       return context.getResources().getBoolean(R.bool.is_tablet);
+    }
 }

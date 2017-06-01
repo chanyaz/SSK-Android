@@ -210,6 +210,6 @@
     <dimen name="height_240">240dp</dimen>
     <dimen name="width_230">230dp</dimen>
     <dimen name="height_120">120dp</dimen>
-
+    <dimen name="height_1dp">1dp</dimen>
 
 </resources>
