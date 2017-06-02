@@ -78,7 +78,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @BindView(R.id.bottom_buttons_container_reset)
     RelativeLayout resetButtonContainer;
-
+    @Nullable
     @BindView(R.id.bottom_buttons_container_login)
     RelativeLayout loginButtonContainer;
 
@@ -106,16 +106,16 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         if (!Utility.isTablet(getActivity())) {
             initFacebook();
         }
-            //TODO @Filip refactoring create butterKnife onClick
-            forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loginContainer.setVisibility(View.VISIBLE);
-                    loginButtonContainer.setVisibility(View.VISIBLE);
-                    resetButtonContainer.setVisibility(View.INVISIBLE);
-                    forgotPasswordContainer.setVisibility(View.INVISIBLE);
-                }
-            });
+        //TODO @Filip refactoring create butterKnife onClick
+        forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginContainer.setVisibility(View.VISIBLE);
+                loginButtonContainer.setVisibility(View.VISIBLE);
+                resetButtonContainer.setVisibility(View.INVISIBLE);
+                forgotPasswordContainer.setVisibility(View.INVISIBLE);
+            }
+        });
         // --- TODO For testing only!
 //        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
 //        passwordEditText.setText("qwerty");
@@ -237,11 +237,9 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
-       if(Utility.isTablet(getActivity()))
-       {getActivity().onBackPressed();}
-        else {
-           EventBus.getDefault().post(new FragmentEvent(WalletFragment.class,true));
-       }
+
+            getActivity().onBackPressed();
+
     }
 
     @Override
