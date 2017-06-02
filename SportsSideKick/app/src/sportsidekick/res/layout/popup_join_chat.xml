@@ -11,7 +11,7 @@
         android:id="@+id/chat_headline_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:background="@drawable/lounge_background"
+        android:background="@drawable/phone_background"
         android:clickable="true">
 
         <ImageButton

@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
-        android:background="?colorPrimarySemiLight"
+
+        android:background="@drawable/phone_background"
         android:orientation="horizontal">
 
         <Button
