@@ -54,6 +54,8 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
         expandedAdaptersMap = new HashMap<>();
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+         //TODO  @Nemanja  deprecation
             background = context.getResources().getColor(R.color.green_dark_1);
             backgroundExpanded = context.getResources().getColor(R.color.colorPrimary);
             screenHeight = Utility.getDisplayHeight(context);

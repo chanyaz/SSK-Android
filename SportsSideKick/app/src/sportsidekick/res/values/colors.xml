@@ -52,6 +52,7 @@
     <color name="light_button_chat">#fdfe24</color>
     <color name="background_phone">#225357</color>
     <color name="green_dark_phone_3">#01363c</color>
+    <color name="status_online_color">#4ff70e</color>
     <!--*****************************************************************************************-->
     <!--Light Theme-->
     <color name="light_colorAccent">#ffe324</color>

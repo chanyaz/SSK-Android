@@ -174,16 +174,13 @@
         android:id="@+id/friend_button"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_below="@+id/follow_button"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_toRightOf="@+id/middle_split_line"
         android:background="@null"
         android:drawableLeft="@drawable/friend_follow_button"
         android:drawablePadding="@dimen/margin_10"
         android:gravity="left|center_vertical"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:layout_below="@+id/follow_button"
+        android:layout_alignStart="@+id/follow_button" />
 
 
     <!-- BOTTOM BUTTONS CONTAINER -->
