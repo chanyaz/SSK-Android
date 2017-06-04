@@ -42,6 +42,8 @@ import base.app.events.PostCompleteEvent;
 import base.app.events.PostLoadCompleteEvent;
 import base.app.events.PostUpdateEvent;
 
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.Model.createRequest;
 
 /**
@@ -286,6 +288,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         map.put("type", post.getTypeAsInt());
         GSData data = new GSData(map);
         createRequest("wallPostToWall")
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(GSConstants.POST,data)
                 .send(consumer);
     }

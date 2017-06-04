@@ -9,6 +9,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.GSAndroidPlatform;
 
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
+
 
 /**
  * Created by Djordje Krutil on 9.3.2017..
@@ -19,9 +22,9 @@ public class NextMatchModel {
 
     private static NextMatchModel instance;
     private String language;
-    public static String DEFAULT_LENGUAGE = "en";
+    private static String DEFAULT_LANGUAGE = "en";
     private final ObjectMapper mapper; // jackson's object mapper
-    NewsTickerInfo newsTickerInfo;
+    private NewsTickerInfo newsTickerInfo;
 
     public NewsTickerInfo getTickerInfo() {
         return newsTickerInfo;
@@ -50,7 +53,8 @@ public class NextMatchModel {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("tickerGetNextMatch")
                 .setEventAttribute("language", language)
-                .send(onNextMatchLoaded);
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                 .send(onNextMatchLoaded);
     }
 
     GSEventConsumer<GSResponseBuilder.LogEventResponse> onNextMatchLoaded = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -80,10 +84,10 @@ public class NextMatchModel {
     };
 
     private void fallback(){
-        if(DEFAULT_LENGUAGE.equals(this.language)){
+        if(DEFAULT_LANGUAGE.equals(this.language)){
             return;
         }
-        changeLanguage(DEFAULT_LENGUAGE);
+        changeLanguage(DEFAULT_LANGUAGE);
         getNextMatchInfo();
     }
 
