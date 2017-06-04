@@ -12,6 +12,9 @@ apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven {
+        url 'https://maven.google.com'
+    }
 }
 
 
@@ -89,7 +92,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
 // Google support libraries
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:percent:25.3.1'
