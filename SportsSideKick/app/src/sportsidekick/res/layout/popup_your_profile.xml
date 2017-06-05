@@ -54,7 +54,6 @@
     </RelativeLayout>
     <!-- TOP BUTTONS CONTAINER -->
     <LinearLayout
-
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
@@ -100,20 +99,17 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
         android:layout_below="@+id/top_toolbar"
-
         android:orientation="horizontal">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
-            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="?colorAccent" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
-            android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="?colorPrimaryLight" />
 
@@ -390,7 +386,6 @@
 
                     <ImageView
                         android:id="@+id/language_icon"
-
                         android:layout_width="@dimen/width_15"
                         android:layout_height="@dimen/height_15"
                         android:layout_below="@+id/chosen_language_caption"
