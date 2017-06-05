@@ -23,7 +23,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
 
-        android:background="@drawable/phone_background"
+        android:background="@drawable/lounge_background"
         android:tileMode="repeat"
         android:orientation="horizontal">
         <TextView

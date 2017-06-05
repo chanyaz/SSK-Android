@@ -42,6 +42,11 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
         return selectedValues;
     }
 
+    public void setValues(List<UserInfo> values) {
+        this.selectedValues = values;
+        notifyDataSetChanged();
+    }
+
     private boolean isTablet = false;
     private List<UserInfo> selectedValues;
     int screenWidth;

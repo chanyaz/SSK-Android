@@ -2,11 +2,13 @@ package base.app.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -14,6 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.app.fragment.popup.StartingNewCallFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import base.app.R;
@@ -32,12 +35,15 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
     private Context context;
 
     int screenWidth;
+    int itemWidth;
+    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.2;
     class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
         @Nullable
         @BindView(R.id.row_add_friend_image)
         ImageView image;
+
         ViewHolder(View v) {
             super(v);
             view = v;
@@ -47,8 +53,21 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
 
     public AddFriendsAdapter(Context context) {
         this.context = context;
-        if(context!=null){
+        itemWidth=0;
+        if (context != null) {
             this.screenWidth = Utility.getDisplayWidth(context);
+
+
+        }
+    }
+
+    public AddFriendsAdapter(Context context,Fragment initiator) {
+        this.context = context;
+        itemWidth=0;
+        if (context != null) {
+            this.screenWidth = Utility.getDisplayWidth(context);
+            itemWidth = (int)(screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE);
+
         }
     }
 
@@ -63,8 +82,10 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
         final AddFriendsAdapter.ViewHolder viewHolder;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_add_friend, parent, false);
         viewHolder = new AddFriendsAdapter.ViewHolder(view);
-
-        return  viewHolder;
+        if (itemWidth != 0) {
+            view.getLayoutParams().width = itemWidth;
+        }
+        return viewHolder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -72,8 +93,8 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
     public void onBindViewHolder(AddFriendsAdapter.ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
-        if(holder.image!=null){
-            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.image,imageOptions);
+        if (holder.image != null) {
+            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(), holder.image, imageOptions);
         }
         holder.view.setTag(position);
     }
@@ -88,10 +109,10 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
 
     public void add(UserInfo model) {
         values.add(model);
-        if(getItemCount()==0){
+        if (getItemCount() == 0) {
             notifyItemInserted(0);
-        }else {
-            notifyItemInserted(getItemCount()-1);
+        } else {
+            notifyItemInserted(getItemCount() - 1);
         }
     }
 
@@ -101,14 +122,18 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
         notifyItemRemoved(position);
     }
 
+
+
     public void add(List<UserInfo> models) {
         values.addAll(models);
     }
 
-    private int getItemPosition(UserInfo info){
-        for (int position=0; position< getItemCount(); position++)
+    private int getItemPosition(UserInfo info) {
+        for (int position = 0; position < getItemCount(); position++)
             if (values.get(position).equals(info))
                 return position;
         return 0;
     }
+
+
 }
