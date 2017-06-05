@@ -155,6 +155,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         setToolbar();
 
         updateTopBar();
+        Utility.setSystemBarColor(this);
     }
 
     public void updateTopBar(){
