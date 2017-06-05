@@ -65,7 +65,7 @@
         <item name="nextLevelMarkerIcon">@drawable/next_level_marker</item>
         <item name="friendsIcon">@drawable/icon_your_friends</item>
         <item name="followersIcon">@drawable/icon_followers</item>
-        <item name="appBackground">@drawable/background_tile</item>
+        <item name="appBackground">@color/colorPrimary</item>
 
         <item name="loginBackground">@drawable/background_login</item>
 
@@ -240,7 +240,7 @@
         <item name="nextLevelMarkerIcon">@drawable/next_level_marker</item>
         <item name="friendsIcon">@drawable/icon_your_friends</item>
         <item name="followersIcon">@drawable/icon_followers</item>
-        <item name="appBackground">@drawable/light_background_tile</item>
+        <item name="appBackground">@color/light_background</item>
 
         <item name="loginBackground">@drawable/background_login</item>
 
