@@ -124,6 +124,10 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     ArrayList<Class> popupLeftFragments;
     int screenWidth;
 
+    @BindView(R.id.notification_open)
+    ImageView notificationIcon;
+    @BindView(R.id.friends_open)
+    ImageView friendsIcon;
 
     @OnClick(R.id.notification_open)
     public void notificationOpen() {
@@ -150,6 +154,18 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         setupFragments();
         setToolbar();
 
+        updateTopBar();
+    }
+
+    public void updateTopBar(){
+        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+            //Check if user is logged in
+            notificationIcon.setVisibility(View.VISIBLE);
+            friendsIcon.setVisibility(View.VISIBLE);
+        }else{
+            notificationIcon.setVisibility(View.GONE);
+            friendsIcon.setVisibility(View.GONE);
+        }
     }
 
     private void setToolbar() {
@@ -350,11 +366,13 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @Override
     public void onLogout() {
         resetUserDetails();
+        updateTopBar();
     }
 
     @Override
     public void onLoginAnonymously() {
         resetUserDetails();
+        updateTopBar();
     }
 
     @Override
@@ -373,6 +391,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         } else {
             resetUserDetails();
         }
+        updateTopBar();
     }
 
     private void resetUserDetails() {
