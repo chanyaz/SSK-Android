@@ -73,25 +73,28 @@ public class JoinChatFragment extends BaseFragment {
 
     List<ChatInfo> chatInfos;
     LinearLayoutManager friendsInChatLayoutManager;
+
     public JoinChatFragment() {
         // Required empty public constructor
     }
 
     int lastExpandedGroupPosition = -1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.popup_join_chat, container, false);
         ButterKnife.bind(this, view);
-
-
-
-
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.getLayoutParams().height = (int) (Utility.getDisplayHeight(getActivity()) * 0.55);
-        final int cellHeight = recyclerView.getLayoutParams().height / 2;
+        if (Utility.isTablet(getActivity())) {
+            recyclerView.getLayoutParams().height = (int) (Utility.getDisplayHeight(getActivity()) * 0.55);
+        } else {
 
+
+        }
+        // final int cellHeight = recyclerView.getLayoutParams().height / 2;
+        final int cellHeight = (int) (Utility.getDisplayHeight(getActivity()) * 0.55) / 2;
         friendsInChatLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewFriendsIn.setLayoutManager(friendsInChatLayoutManager);
         //endregion
@@ -103,17 +106,17 @@ public class JoinChatFragment extends BaseFragment {
                 if (task.isSuccessful()) {
                     setupSearchResultAdapters(task.getResult());
                     searchEditText.addTextChangedListener(textWatcher);
-                    setupFriendsChats(task.getResult(),cellHeight);
+                    setupFriendsChats(task.getResult(), cellHeight);
                 }
             }
         });
 
         // Official chats - dummy
         List<ChatInfo> publicChats = new ArrayList<>();
-        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/jNtCvk/fake_official_chat_henry.png",true, true,"1"));
-        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/fNv31Q/fake_official_chat_messi.png",true, true,"2"));
-        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/jj5go5/fake_official_chat_otar.png",true, true,"3"));
-        publicChats.add(new ChatInfo("",new ArrayList<String>(),"https://image.ibb.co/bCv31Q/fake_official_chat_rc7.png",true, true,"4"));
+        publicChats.add(new ChatInfo("", new ArrayList<String>(), "https://image.ibb.co/jNtCvk/fake_official_chat_henry.png", true, true, "1"));
+        publicChats.add(new ChatInfo("", new ArrayList<String>(), "https://image.ibb.co/fNv31Q/fake_official_chat_messi.png", true, true, "2"));
+        publicChats.add(new ChatInfo("", new ArrayList<String>(), "https://image.ibb.co/jj5go5/fake_official_chat_otar.png", true, true, "3"));
+        publicChats.add(new ChatInfo("", new ArrayList<String>(), "https://image.ibb.co/bCv31Q/fake_official_chat_rc7.png", true, true, "4"));
         chatsAdapter = new PublicChatsAdapter(cellHeight);
         chatsAdapter.add(publicChats);
         searchEditText.addTextChangedListener(textWatcher);
@@ -121,7 +124,7 @@ public class JoinChatFragment extends BaseFragment {
         return view;
     }
 
-    private void setupFriendsChats(final List<ChatInfo> allPublicChats, final int cellHeight){
+    private void setupFriendsChats(final List<ChatInfo> allPublicChats, final int cellHeight) {
         Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
                 new OnSuccessListener<List<UserInfo>>() {
@@ -130,16 +133,16 @@ public class JoinChatFragment extends BaseFragment {
                         // Other chats that friends are in:
                         List<ChatInfo> otherChats = new ArrayList<>();
 
-                        for(ChatInfo publicChat : allPublicChats){
-                            if(!otherChats.contains(publicChat)){
-                                for(UserInfo friend : userInfos){
-                                    if(publicChat.getUsersIds().contains(friend.getUserId())){
+                        for (ChatInfo publicChat : allPublicChats) {
+                            if (!otherChats.contains(publicChat)) {
+                                for (UserInfo friend : userInfos) {
+                                    if (publicChat.getUsersIds().contains(friend.getUserId())) {
                                         otherChats.add(publicChat);
                                     }
                                 }
                             }
                         }
-                        FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity(),recyclerViewFriendsInContainer.getWidth());
+                        FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity(), recyclerViewFriendsInContainer.getWidth());
                         friendsInChatAdapter.setValues(otherChats);
                         recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
                         chatsAdapter = new PublicChatsAdapter(cellHeight);
@@ -148,7 +151,7 @@ public class JoinChatFragment extends BaseFragment {
                 });
     }
 
-    private void setupSearchResultAdapters(List<ChatInfo> chatInfos){
+    private void setupSearchResultAdapters(List<ChatInfo> chatInfos) {
         ChatSearchExpandableAdapter expandableAdapter = new ChatSearchExpandableAdapter(getActivity(), this, chatInfos);
         recyclerViewSearchResult.setAdapter(expandableAdapter);
         //region Ensure collapse && expand with animation
