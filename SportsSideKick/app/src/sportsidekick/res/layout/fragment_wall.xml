@@ -127,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/wall_top_image_container"
-                    android:layout_marginTop="@dimen/margin_negative_48" />
+                    android:layout_marginTop="@dimen/margin_negative_30" />
 
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
