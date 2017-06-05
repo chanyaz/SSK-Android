@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -336,5 +337,18 @@ public class Utility {
 
     public static Boolean isTablet(Context context){
        return context.getResources().getBoolean(R.bool.is_tablet);
+    }
+
+    public static void setSystemBarColor(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.system_bar_color));
+        } else {
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+                WindowManager.LayoutParams winParams = activity.getWindow().getAttributes();
+                final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+                winParams.flags |= bits;
+                activity.getWindow().setAttributes(winParams);
+            }
+        }
     }
 }

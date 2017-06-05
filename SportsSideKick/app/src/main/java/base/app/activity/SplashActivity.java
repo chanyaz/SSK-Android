@@ -57,6 +57,10 @@ public class SplashActivity extends AppCompatActivity {
             EventBus.getDefault().register(this);
             waitingConnection.setVisibility(View.VISIBLE);
         }
+        if(!Utility.isTablet(this)){
+            Utility.setSystemBarColor(this);
+        }
+
     }
 
     @Subscribe
