@@ -172,6 +172,10 @@
 
         <item name="playerBackground">@color/colorPrimarySemiLight</item>
         <item name="profileImageLoungeIcon">@drawable/blank_profile_rounded</item>
+
+        <item name="phoneWallMenuBackground">@color/wall_bottom_bar_background_color</item>
+
+        <item name="phoneWallEditSearchText">@color/colorPrimary</item>
     </style>
 <!--*********************************************************************************************-->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -340,6 +344,12 @@
         <item name="playerBackground">@color/player_background_color</item>
 
         <item name="profileImageLoungeIcon">@drawable/light_blank_profile_rounded</item>
+
+        <item name="phoneWallMenuBackground">@color/wall_bottom_bar_background_color</item>
+
+        <item name="phoneWallEditSearchText">@color/colorPrimary</item>
+
+
     </style>
 
     <!-- This will set the fade in animation on all your activities by default -->
@@ -431,6 +441,19 @@
         <item name="android:background">@drawable/filter_toggle_button</item>
         <item name="android:layout_marginLeft">@dimen/margin_20</item>
         <item name="android:layout_marginRight">@dimen/margin_20</item>
+
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="phone_toggle_button_filter">
+        <item name="android:textColor">@drawable/filter_toggle_button_text_color</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/filter_toggle_button</item>
+        <item name="android:layout_marginLeft">@dimen/margin_8</item>
+        <item name="android:layout_marginRight">@dimen/margin_8</item>
 
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>

@@ -62,6 +62,5 @@ public class GSConstants {
     public static final String DESCRIPTION = "description";
     public static final String DISPLAY_NAME = "displayName";
 
-    public static final String CLUB_ID_TAG = "clubId";
-    public static final String CLUB_ID = "1680";
+    public static final String CLUB_ID_TAG = "club_id";
 }

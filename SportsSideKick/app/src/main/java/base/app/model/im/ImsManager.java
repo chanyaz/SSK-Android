@@ -31,9 +31,11 @@ import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;
 import base.app.GSAndroidPlatform;
 
+import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CHATS_INFO;
 import static base.app.model.GSConstants.CHAT_ID;
 import static base.app.model.GSConstants.CHAT_INFO;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.GSConstants.ENTRY_COUNT;
 import static base.app.model.GSConstants.GROUP_ID;
 import static base.app.model.GSConstants.IMS_GET_CHAT_GROUPS_MESSAGES;
@@ -138,6 +140,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
         };
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsGetPublicChatGroupList")
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(OFFSET, 0)
                 .send(consumer);
         return source.getTask();
@@ -188,6 +191,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsGetPublicChatGroupsListForUser")
                 .setEventAttribute(USER_ID, userId)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(OFFSET, 0)
                 .setEventAttribute(ENTRY_COUNT, 50)
                 .send(consumer);
@@ -396,6 +400,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
 
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsSendMessage")
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())
                 .setEventAttribute(MESSAGE, data)
                 .setEventAttribute("senderNic", nic)

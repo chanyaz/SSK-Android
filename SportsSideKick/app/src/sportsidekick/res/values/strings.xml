@@ -439,4 +439,10 @@
     <string name="what_would_you_like_to_do">What would you like to do?</string>
     <string name="report_abuse">Report Abuse</string>
     <string name="cancel">Cancel</string>
+    <string name="start_call">Start Call</string>
+    <string name="call_history">Call History</string>
+    <string name="create_call">Create Call</string>
+    <string name="friends_in_video_chat">Friends in Video Chat</string>
+    <string name="friend_in_video_chat">1 Friend in Video Chat</string>
+    <string name="search_your_friends">Search your friends</string>
 </resources>

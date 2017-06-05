@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
-import base.app.BuildConfig;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -23,10 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import base.app.BuildConfig;
 import base.app.Constant;
-import base.app.model.GSConstants;
 import base.app.events.ClubTVEvent;
+import base.app.model.GSConstants;
 
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.Model.createRequest;
 
 
@@ -157,6 +159,7 @@ public class ClubModel {
             }
         };
         createRequest("clubRadioGetStations")
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }

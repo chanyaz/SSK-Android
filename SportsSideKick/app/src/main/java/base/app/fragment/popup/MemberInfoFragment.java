@@ -130,10 +130,10 @@ public class MemberInfoFragment extends BaseFragment {
             int screenWidth = (int) (GRID_PERCENT_CELL_WIDTH_PHONE * width);
             publicChatsIsInCommonAdapter = new ChatGroupAdapter(getActivity(), screenWidth);
             friendsInCommonAdapter.screenWidth(screenWidth);
-            LinearLayoutManager publicChatslayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-            LinearLayoutManager friendsInCommonlayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-            publicChatRecyclerView.setLayoutManager(publicChatslayoutManager);
-            inCommonRecyclerView.setLayoutManager(friendsInCommonlayoutManager);
+            LinearLayoutManager publicChatsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            LinearLayoutManager friendsInCommonLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            publicChatRecyclerView.setLayoutManager(publicChatsLayoutManager);
+            inCommonRecyclerView.setLayoutManager(friendsInCommonLayoutManager);
             publicChatRecyclerView.setAdapter(publicChatsIsInCommonAdapter);
             inCommonRecyclerView.setAdapter(friendsInCommonAdapter);
 

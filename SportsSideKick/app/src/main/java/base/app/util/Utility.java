@@ -70,6 +70,7 @@ public class Utility {
         }
     }
 
+
     private  static volatile DisplayImageOptions blankOptionsUser;
     private  static volatile DisplayImageOptions blankOptions;
     private  static volatile DisplayImageOptions wallItemOptions;
@@ -335,7 +336,7 @@ public class Utility {
     }
 
     public static Boolean isTablet(Context context){
-        return context.getResources().getBoolean(R.bool.is_tablet);
+       return context.getResources().getBoolean(R.bool.is_tablet);
     }
 
     public static void setSystemBarColor(Activity activity) {

@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -26,10 +27,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import base.app.BuildConfig;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.base.Predicate;
@@ -56,9 +59,11 @@ import java.util.TimerTask;
 import javax.annotation.Nullable;
 
 import base.app.activity.PhoneLoungeActivity;
+import base.app.model.ticker.NewsTickerInfo;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 import base.app.R;
@@ -121,6 +126,24 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     RelativeLayout filterContainer;
     @BindView(R.id.search_wall_post)
     RelativeLayout searchWallContainer;
+    @BindView(R.id.fragment_wall_bottom_bar)
+    RelativeLayout wallBottomBarContainer;
+
+    @Nullable
+    @BindView(R.id.wall_team_left_name)
+    TextView wallLeftTeamName;
+    @Nullable
+    @BindView(R.id.wall_team_left_image)
+    ImageView wallLeftTeamImage;
+    @Nullable
+    @BindView(R.id.wall_team_right_image)
+    ImageView wallRightTeamImage;
+    @Nullable
+    @BindView(R.id.wall_team_right_name)
+    TextView wallRightTeamName;
+    @Nullable
+    @BindView(R.id.wall_team_time)
+    TextView wallTeamTime;
 
     @BindView(R.id.news_filter_toggle)
     ToggleButton newsToggleButton;
@@ -167,7 +190,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     private LoginStateReceiver loginStateReceiver;
 
     boolean creatingPostInProgress;
-
+    boolean isTablet;
     public WallFragment() {
         // Required empty public constructor
     }
@@ -213,12 +236,16 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }
         });
 
+        isTablet = Utility.isTablet(getActivity());
+
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         adapter = new WallAdapter(getActivity());
+        boolean includeEdge = isTablet;
         if(recyclerView !=null){
             recyclerView.setAdapter(adapter);
-            recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16));
+            recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16,includeEdge,isTablet));
             recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setNestedScrollingEnabled(false);
             searchText.addTextChangedListener(textWatcher);
             filterPosts();
         }
@@ -261,6 +288,18 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
         return view;
 
+    }
+
+    @Subscribe
+    public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
+        //Update Match info for Phone only
+        if(!Utility.isTablet(getActivity())){
+            ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.imageOptionsImageLoader());
+            ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.imageOptionsImageLoader());
+            wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
+            wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
+            wallTeamTime.setText(newsTickerInfo.getMatchDate());
+        }
     }
 
     @OnClick(R.id.camera_button)
@@ -623,12 +662,40 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     private void updateButtons(){
         int defaultColor ;
         int selectedColor;
-        if (!ThemeManager.getInstance().isLightTheme()) {
-            defaultColor = R.color.white;
-            selectedColor = R.color.colorAccent;
-        }else {
-            defaultColor = R.color.colorPrimary;
-            selectedColor = R.color.light_radio_button_background;
+        int containerColor;
+        if (Utility.isTablet(getActivity())) {
+            //Tablet
+            if (!ThemeManager.getInstance().isLightTheme()) {
+                defaultColor = R.color.white;
+                selectedColor = R.color.colorAccent;
+
+            }else {
+                defaultColor = R.color.colorPrimary;
+                selectedColor = R.color.light_radio_button_background;
+            }
+
+        } else {
+            //Phone
+            if (!ThemeManager.getInstance().isLightTheme()) {
+                defaultColor = R.color.colorPrimary;
+                selectedColor = R.color.light_radio_button_background;
+                containerColor = R.color.wall_bottom_bar_background_color;
+            }else {
+                defaultColor = R.color.colorPrimary;
+                selectedColor = R.color.light_radio_button_background;
+                containerColor = R.color.wall_bottom_bar_background_color;
+            }
+            int wallBottomBarColor;
+
+            if(isNewPostVisible || isFilterVisible || isSearchVisible){
+                wallBottomBarColor = R.color.white;
+            }else {
+                wallBottomBarColor = R.color.wall_bottom_bar_background_color;
+            }
+            wallBottomBarContainer.setBackgroundColor(ContextCompat.getColor(getActivity(),wallBottomBarColor));
+            newPostContainer.setBackgroundColor(ContextCompat.getColor(getActivity(),containerColor));
+            filterContainer.setBackgroundColor(ContextCompat.getColor(getActivity(),containerColor));
+            searchWallContainer.setBackgroundColor(ContextCompat.getColor(getActivity(),containerColor));
         }
         newPostContainer.setVisibility(isNewPostVisible ? View.VISIBLE : View.GONE);
         buttonNewPost.getBackground().setColorFilter(getResources().getColor(isNewPostVisible ? selectedColor : defaultColor), PorterDuff.Mode.MULTIPLY);

@@ -24,6 +24,9 @@ import base.app.model.Model;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.UserInfo;
 
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
+
 
 public class VideoChatModel extends GSMessageHandlerAbstract {
 
@@ -228,7 +231,8 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
        GSData participants = new GSData();
        participants.getBaseData().put("participants",users);
        Model.createRequest("vcCreate")
-                .setEventAttribute("users",participants)
+               .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+               .setEventAttribute("users",participants)
                 .send(consumer);
         return source.getTask();
     }
