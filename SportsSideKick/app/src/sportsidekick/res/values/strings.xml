@@ -244,7 +244,7 @@
 
     <string name="chat_join_group">Join Group</string>
     <string name="chat_already_in_group">You are already in group</string>
-    <string name="chat_members">Membersp</string>
+    <string name="chat_members">Members</string>
     <string name="chat_edit">Edit</string>
     <string name="chat_Leave">Leave</string>
     <string name="chat_send">SEND</string>
@@ -459,4 +459,9 @@
         <item>Russian</item>
         <item>Spanish</item>
     </string-array>
+
+    <string name="last_chat">Last Chat</string>
+
+    <string name="mins_ago">mins ago</string>
+
 </resources>

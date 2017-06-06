@@ -187,8 +187,9 @@ public class ChatFragment extends BaseFragment {
         snappyLinearLayoutManager.setSnapDuration(1000);
         snappyLinearLayoutManager.setSeekDuration(1000);
         messageListView.setLayoutManager(snappyLinearLayoutManager);
-        if (!Utility.isTablet(getActivity()))
+        if (!Utility.isTablet(getActivity()) && ImsManager.getInstance().getUserChatsList().size()>0 ) {
             ImsManager.getInstance().reload();
+        }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

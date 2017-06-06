@@ -220,5 +220,13 @@
     <attr name="phoneWallEditSearchHint" format="reference"/>
 
     <attr name="phoneChatBackground" format="reference" />
+    <attr name="green_dark_phone_4" format="reference" />
+    <attr name="green_dark_phone_3" format="reference" />
+    <attr name="background_phone" format="reference" />
+    <attr name="light_button_chat" format="reference" />
+
+
+
+
 
 </resources>

@@ -4,28 +4,29 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/row_chat_expanded_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_4"
-        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_centerVertical="true" />
+
 
     <TextView
         android:id="@+id/row_chat_expanded_item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@+id/row_chat_expanded_item_image"
-        android:layout_alignStart="@id/row_chat_expanded_item_image"
         android:layout_alignEnd="@id/row_chat_expanded_item_image"
-        android:paddingTop="@dimen/padding_8"
-        android:paddingBottom="@dimen/padding_8"
-        android:maxLines="1"
+        android:layout_alignStart="@id/row_chat_expanded_item_image"
+        android:layout_below="@+id/row_chat_expanded_item_image"
         android:ellipsize="end"
+        android:gravity="center"
         android:lines="1"
-        android:textColor="@color/white"/>
+        android:maxLines="1"
+        android:paddingBottom="@dimen/padding_8"
+        android:paddingTop="@dimen/padding_8"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

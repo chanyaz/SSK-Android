@@ -177,9 +177,13 @@
         <item name="phoneWallMenuBackground">@color/wall_bottom_bar_background_color</item>
 
         <item name="phoneWallEditSearchText">@color/colorPrimary</item>
-
-
         <item name="phoneChatBackground">@drawable/phone_chat_background</item>
+        <item name="green_dark_phone_4">@color/green_dark_phone_4</item>
+        <item name="green_dark_phone_3">@color/green_dark_phone_3</item>
+        <item name="background_phone">@color/background_phone</item>
+        <item name="light_button_chat">@color/light_button_chat</item>
+
+
     </style>
 <!--*********************************************************************************************-->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -353,6 +357,10 @@
 
         <item name="phoneWallEditSearchText">@color/colorPrimary</item>
         <item name="phoneChatBackground">@drawable/phone_chat_background</item>
+        <item name="green_dark_phone_4">@color/green_dark_phone_4</item>
+        <item name="green_dark_phone_3">@color/green_dark_phone_3</item>
+        <item name="background_phone">@color/background_phone</item>
+        <item name="light_button_chat">@color/light_button_chat</item>
 
     </style>
 
