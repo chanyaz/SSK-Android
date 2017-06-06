@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/row_join_chat_search_name">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/row_join_chat_search_icon"
                     android:layout_width="@dimen/chat_send_button_size"
                     android:layout_height="@dimen/chat_send_button_size"

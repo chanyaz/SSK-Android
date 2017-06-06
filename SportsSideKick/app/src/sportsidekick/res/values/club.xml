@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_url">http://hosted.stats.com/matchcast/football/clients/stats/index-new.html?lang=en&amp;league=liga</string>
+    <string name="store_url">http://lojaverde.sporting.pt/en</string>
+    <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
+    <string name="quiz_url">http://sidekick.snack-media.com/quiz-list-en.html</string>
+    <string name="clubtv_channelid">UCnJj6L93JX3Jrhzv81ayywA</string>
+</resources>

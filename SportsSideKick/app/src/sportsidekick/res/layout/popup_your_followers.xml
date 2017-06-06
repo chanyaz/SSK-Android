@@ -142,7 +142,7 @@
             android:layout_width="@dimen/popup_your_friends_search_container"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:background="@drawable/popup_bottom_left_background">
+            android:background="?attr/popupBottomLeftBackground">
 
             <ImageView
                 android:id="@+id/search_icon"

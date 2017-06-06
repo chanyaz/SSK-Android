@@ -187,7 +187,6 @@ public class ChatFragment extends BaseFragment {
         snappyLinearLayoutManager.setSeekDuration(1000);
         messageListView.setLayoutManager(snappyLinearLayoutManager);
 
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -510,7 +509,7 @@ public class ChatFragment extends BaseFragment {
     @Subscribe
     public void onEvent(ChatsInfoUpdatesEvent event){
         findActiveChat();
-        //updateAllViews(); // TOTALY NOT NEEDED!
+        //updateAllViews(); // TOTALLY NOT NEEDED!
         checkPushNotification();
     }
 

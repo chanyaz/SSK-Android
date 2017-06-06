@@ -81,13 +81,13 @@
             android:layout_alignParentEnd="true"
             android:gravity="center">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/comments_icon"
                 android:layout_width="@dimen/width_20"
                 android:layout_height="@dimen/height_20"
                 android:layout_marginEnd="@dimen/margin_2"
                 android:background="@drawable/ic_comment"
-                android:backgroundTint="?lightGrey" />
+                app:backgroundTint="?lightGrey" />
 
             <TextView
                 android:id="@+id/comments_count"
@@ -112,21 +112,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/likes_icon"
                     android:layout_width="@dimen/width_20"
                     android:layout_height="@dimen/height_20"
                     android:layout_marginEnd="@dimen/margin_2"
                     android:background="@drawable/ic_like"
-                    android:backgroundTint="?lightGrey" />
+                    app:backgroundTint="?lightGrey" />
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/liked_icon"
                     android:layout_width="@dimen/width_20"
                     android:layout_height="@dimen/height_20"
                     android:layout_marginEnd="@dimen/margin_2"
                     android:background="@drawable/ic_like"
-                    android:backgroundTint="?colorAccent"
+                    app:backgroundTint="?colorAccent"
                     android:visibility="gone" />
             </RelativeLayout>
 

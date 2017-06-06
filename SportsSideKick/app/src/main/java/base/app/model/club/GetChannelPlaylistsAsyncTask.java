@@ -2,19 +2,14 @@ package base.app.model.club;
 
 
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Playlist;
-import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.api.services.youtube.model.PlaylistListResponse;
-import com.google.api.services.youtube.model.Video;
-import com.google.api.services.youtube.model.VideoListResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import base.app.Constant;
@@ -76,26 +71,6 @@ public abstract class GetChannelPlaylistsAsyncTask extends AsyncTask<String, Voi
             Log.e(TAG, "Failed to get playlist");
             return null;
         }
-
-//        List<String> videoIds = new ArrayList();
-//
-//        // pull out the video id's from the playlist page
-//        for (PlaylistItem item : playlistItemListResponse.getItems()) {
-//            videoIds.add(item.getSnippet().getResourceId().getVideoId());
-//        }
-//
-//        // get details of the videos on this playlist page
-//        VideoListResponse videoListResponse = null;
-//        try {
-//            videoListResponse = mYouTubeDataApi.videos()
-//                    .list(YOUTUBE_VIDEOS_PART)
-//                    .setFields(YOUTUBE_VIDEOS_FIELDS)
-//                    .setKey(Constant.YOUTUBE_API_KEY)
-//                    .setId(TextUtils.join(",", videoIds)).execute();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         return new Pair(playlistListResponse.getNextPageToken(), playlistListResponse.getItems());
     }
 }
