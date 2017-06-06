@@ -27,11 +27,11 @@
                 android:layout_height="@dimen/standard_button_height"
                 android:layout_alignParentStart="true"
                 android:adjustViewBounds="true"
-                android:visibility="gone"
-                android:tint="?colorPrimaryLight"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:tint="?colorPrimaryLight"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -39,9 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textStyle="bold"
+            android:text="@string/about_you"
             android:textColor="?white"
-            android:text="@string/about_you" />
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <LinearLayout
@@ -162,32 +162,34 @@
                         android:text="@string/edit_photo"
                         android:textColor="?white" />
 
+                    <View
+                        android:id="@+id/edit_profile_divider"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerHorizontal="true" />
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/margin_40"
-                        android:layout_marginStart="@dimen/margin_20"
-                        android:layout_toEndOf="@+id/edit_photo_caption"
+                        android:layout_toEndOf="@+id/edit_profile_divider"
                         android:animateLayoutChanges="true"
                         android:background="@drawable/button_edit_profile_image">
-
-                        <Button
-                            android:id="@+id/camera_button"
-                            android:layout_width="@dimen/standard_button_height"
-                            android:layout_height="@dimen/standard_button_height"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="@dimen/margin_15"
-                            android:background="@drawable/camera_button" />
 
                         <Button
                             android:id="@+id/picture_button"
                             android:layout_width="@dimen/standard_button_height"
                             android:layout_height="@dimen/standard_button_height"
-                            android:layout_marginEnd="@dimen/margin_negative_5"
-                            android:layout_toStartOf="@+id/camera_button"
-                            android:background="@drawable/image_button" />
+                            android:layout_marginStart="40dp"
+                            android:background="@drawable/image_button_padding" />
+
+                        <Button
+                            android:id="@+id/camera_button"
+                            android:layout_width="@dimen/standard_button_height"
+                            android:layout_height="@dimen/standard_button_height"
+                            android:layout_toEndOf="@+id/picture_button"
+                            android:background="@drawable/camera_button_padding"
+                            android:layout_marginEnd="@dimen/margin_10"/>
                     </RelativeLayout>
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -197,7 +199,6 @@
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:src="?profileImageIcon" />
-
 
                 </RelativeLayout>
             </RelativeLayout>
@@ -211,7 +212,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_5" />
+                    android:background="@color/green_dark_3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -247,14 +248,15 @@
                         android:nextFocusDown="@+id/last_name_edit_text"
                         android:nextFocusForward="@+id/last_name_edit_text"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_5" />
+                    android:background="@color/green_dark_3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -291,14 +293,15 @@
                         android:nextFocusDown="@+id/nickname_edit_text"
                         android:nextFocusForward="@+id/nickname_edit_text"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_5" />
+                    android:background="@color/green_dark_3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -334,14 +337,15 @@
                         android:nextFocusDown="@+id/email_edit_text"
                         android:nextFocusForward="@+id/email_edit_text"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_5" />
+                    android:background="@color/green_dark_3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -377,14 +381,15 @@
                         android:nextFocusDown="@+id/telephone_edit_text"
                         android:nextFocusForward="@+id/telephone_edit_text"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_5" />
+                    android:background="@color/green_dark_3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -421,14 +426,15 @@
                         android:nextFocusDown="@+id/password_caption"
                         android:nextFocusForward="@+id/password_caption"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_5" />
+                    android:background="@color/green_dark_3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -456,23 +462,24 @@
                         android:layout_marginEnd="@dimen/margin_20"
                         android:layout_marginStart="@dimen/margin_16"
                         android:background="@android:color/transparent"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:inputType="textPassword"
-                        android:text="***********"
                         android:labelFor="@+id/telephone_caption"
                         android:lines="1"
                         android:maxLines="1"
                         android:nextFocusDown="@+id/last_name_edit_text"
                         android:nextFocusForward="@+id/last_name_edit_text"
+                        android:text="***********"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_5" />
+                    android:background="@color/green_dark_3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -492,6 +499,11 @@
                         android:text="@string/language"
                         android:textColor="?white" />
 
+                    <LinearLayout
+                        android:id="@+id/language_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
                     <ImageView
                         android:id="@+id/language_image"
                         android:layout_width="@dimen/height_30"
@@ -501,7 +513,7 @@
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/english" />
 
-                    <AutoCompleteTextView
+                    <TextView
                         android:id="@+id/language_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -509,23 +521,22 @@
                         android:layout_marginEnd="@dimen/margin_20"
                         android:layout_marginStart="@dimen/margin_4"
                         android:background="@android:color/transparent"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPersonName"
                         android:labelFor="@+id/telephone_caption"
-                        android:text="@string/english"
                         android:lines="1"
                         android:maxLines="1"
                         android:nextFocusDown="@+id/last_name_edit_text"
                         android:nextFocusForward="@+id/confirm_button"
+                        android:text="@string/english"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
-
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_5" />
+                    android:background="@color/green_dark_3" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
