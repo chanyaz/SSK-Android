@@ -38,6 +38,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -122,6 +123,18 @@ public class EditProfileFragment extends BaseFragment {
 
         }
         return view;
+    }
+
+    @Optional
+    @OnClick(R.id.your_wallet_button)
+    public void walletOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
+    }
+
+    @Optional
+    @OnClick(R.id.your_stash_button)
+    public void stashOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(StashFragment.class));
     }
 
     @OnClick(R.id.camera_button)
