@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import base.app.BuildConfig;
@@ -88,7 +89,7 @@ public class EditProfileFragment extends BaseFragment {
     EditText passwordEditText;
     @Nullable
     @BindView(R.id.language_edit_text)
-    EditText languageEditText;
+    TextView languageEditText;
     @Nullable
     @BindView(R.id.language_image)
     ImageView languageImage;
@@ -123,6 +124,12 @@ public class EditProfileFragment extends BaseFragment {
 
         }
         return view;
+    }
+
+    @Optional
+    @OnClick(R.id.language_container)
+    public void changeLanguageOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(LanguageFragment.class));
     }
 
     @Optional

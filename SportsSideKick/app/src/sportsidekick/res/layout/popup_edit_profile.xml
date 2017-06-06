@@ -248,7 +248,8 @@
                         android:nextFocusDown="@+id/last_name_edit_text"
                         android:nextFocusForward="@+id/last_name_edit_text"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
@@ -292,7 +293,8 @@
                         android:nextFocusDown="@+id/nickname_edit_text"
                         android:nextFocusForward="@+id/nickname_edit_text"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
@@ -335,7 +337,8 @@
                         android:nextFocusDown="@+id/email_edit_text"
                         android:nextFocusForward="@+id/email_edit_text"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
@@ -378,7 +381,8 @@
                         android:nextFocusDown="@+id/telephone_edit_text"
                         android:nextFocusForward="@+id/telephone_edit_text"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
@@ -422,7 +426,8 @@
                         android:nextFocusDown="@+id/password_caption"
                         android:nextFocusForward="@+id/password_caption"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
@@ -457,7 +462,7 @@
                         android:layout_marginEnd="@dimen/margin_20"
                         android:layout_marginStart="@dimen/margin_16"
                         android:background="@android:color/transparent"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:labelFor="@+id/telephone_caption"
                         android:lines="1"
@@ -466,7 +471,8 @@
                         android:nextFocusForward="@+id/last_name_edit_text"
                         android:text="***********"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8"/>
 
                 </LinearLayout>
 
@@ -493,6 +499,11 @@
                         android:text="@string/language"
                         android:textColor="?white" />
 
+                    <LinearLayout
+                        android:id="@+id/language_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
                     <ImageView
                         android:id="@+id/language_image"
                         android:layout_width="@dimen/height_30"
@@ -502,7 +513,7 @@
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/english" />
 
-                    <AutoCompleteTextView
+                    <TextView
                         android:id="@+id/language_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -510,8 +521,6 @@
                         android:layout_marginEnd="@dimen/margin_20"
                         android:layout_marginStart="@dimen/margin_4"
                         android:background="@android:color/transparent"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPersonName"
                         android:labelFor="@+id/telephone_caption"
                         android:lines="1"
                         android:maxLines="1"
@@ -519,8 +528,9 @@
                         android:nextFocusForward="@+id/confirm_button"
                         android:text="@string/english"
                         android:textColor="?white"
-                        android:textSize="@dimen/font_size_12" />
-
+                        android:textSize="@dimen/font_size_12"
+                        android:padding="@dimen/padding_8" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <View
