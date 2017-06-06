@@ -53,12 +53,12 @@
                 android:scrollHorizontally="true"
                 android:textColor="?lightGrey" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/shop_text"
                 android:layout_width="@dimen/width_55"
                 android:layout_height="@dimen/height_30"
                 android:background="@drawable/shop_backgound"
-                android:backgroundTint="@color/colorPrimary"
+                app:backgroundTint="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/shop"
                 android:textColor="@color/white"

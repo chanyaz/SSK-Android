@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?green_dark_1">
 
     <RelativeLayout
@@ -154,21 +155,21 @@
                         android:layout_weight="1"
                         android:gravity="center">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:id="@+id/likes_icon"
                             android:layout_width="@dimen/width_26"
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:background="@drawable/ic_like"
-                            android:backgroundTint="?green_dark_2" />
+                            app:backgroundTint="?green_dark_2" />
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:id="@+id/likes_icon_liked"
                             android:layout_width="@dimen/width_26"
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:background="@drawable/ic_like"
-                            android:backgroundTint="?green_dark_2"
+                            app:backgroundTint="?green_dark_2"
                             android:visibility="gone" />
 
 
@@ -188,13 +189,13 @@
                         android:layout_weight="1"
                         android:gravity="center">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:id="@+id/pin_icon"
                             android:layout_width="@dimen/width_26"
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:background="@drawable/ic_pin"
-                            android:backgroundTint="?green_dark_2" />
+                            app:backgroundTint="?green_dark_2" />
 
 
                         <TextView
@@ -213,13 +214,13 @@
                         android:layout_weight="1"
                         android:gravity="center">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:id="@+id/share_icon"
                             android:layout_width="@dimen/width_26"
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:background="@drawable/ic_share"
-                            android:backgroundTint="?green_dark_2" />
+                            app:backgroundTint="?green_dark_2" />
 
 
                         <TextView
@@ -238,13 +239,13 @@
                         android:layout_weight="1"
                         android:gravity="center">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:id="@+id/comments_icon"
                             android:layout_width="@dimen/width_26"
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:background="@drawable/ic_comment"
-                            android:backgroundTint="?green_dark_2" />
+                            app:backgroundTint="?green_dark_2" />
 
 
                         <TextView
@@ -422,7 +423,7 @@
         android:background="?white"
         android:visibility="gone">
 
-        <EditText
+        <android.support.v7.widget.AppCompatEditText
             android:id="@+id/post_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -433,12 +434,12 @@
             android:layout_marginTop="@dimen/margin_5"
             android:layout_toEndOf="@+id/uploaded_image"
             android:layout_toStartOf="@+id/post_post_button"
-            android:backgroundTint="?white"
+            app:backgroundTint="?white"
             android:hint="@string/enter_comment_hint"
             android:textColor="?green_dark_2"
             android:textColorHint="?green_dark_1" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/post_post_button"
             android:layout_width="@dimen/width_25"
             android:layout_height="wrap_content"
