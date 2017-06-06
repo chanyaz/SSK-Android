@@ -9,7 +9,7 @@
     <!-- Login screen -->
     <string name="terms_and_conditions">http://www.sortdirectkick.tv/terms</string>
     <string name="login_sign_up">Sign up</string>
-    <string name="login_login">Log In</string>
+    <string name="login_login">Login</string>
     <string name="login_slider_text_1">Bringing fans together</string>
     <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> fans </font> together</string>
     <string name="login_slider_text_2">Coming soon</string>
