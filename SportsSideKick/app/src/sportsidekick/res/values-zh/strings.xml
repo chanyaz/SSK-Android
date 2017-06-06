@@ -55,11 +55,6 @@
     <string name="quiz_caption">迷题</string>
     <string name="coins_caption">你拥有</string>
 
-    <!-- URLs for store, fantasy, quiz -->
-    <string name="store_url">"http://lojaverde.sporting.cn</string>
-    <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
-    <string name="quiz_url">https://snack-media.com/sidekick/quiz-list-cn.html</string>
-    <string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-cn.html</string>
     <string name="days">" 天 "</string>
     <string name="no_message_text">还没人开始聊天！为何不率先创建？</string>
     <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>

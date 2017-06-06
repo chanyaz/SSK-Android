@@ -219,6 +219,21 @@
     <attr name="phoneWallEditSearchText" format="reference"/>
     <attr name="phoneWallEditSearchHint" format="reference"/>
 
+
+
+
+    <!--Added for 4.2 - 4.4-->
+    <attr name="popupLoginButtonBackground" format="reference"/>
+    <attr name="popupBottomBackground" format="reference"/>
+    <attr name="popupBottomLeftBackground" format="reference"/>
+    <attr name="greenCircle" format="reference"/>
+
+    <attr name="popupOnClickChangeTextColor" format="reference"/>
+    <attr name="buttonLogin" format="reference"/>
+    <attr name="buttonEditProfileImage" format="reference"/>
+
+
+
     <attr name="phoneChatBackground" format="reference" />
     <attr name="green_dark_phone_4" format="reference" />
     <attr name="green_dark_phone_3" format="reference" />

@@ -4,9 +4,13 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/lounge_background"
-    android:tileMode="repeat"
+    android:background="?attr/appBackground"
     tools:context="base.app.activity.LoungeActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/lounge_background"/>
 
     <!-- TOP CONTAINER -->
     <LinearLayout

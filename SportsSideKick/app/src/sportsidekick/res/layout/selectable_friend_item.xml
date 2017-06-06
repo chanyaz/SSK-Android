@@ -16,7 +16,7 @@
         android:scaleType="centerCrop"
         android:src="?profileImageIcon" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/image_shadow"
         android:layout_width="@dimen/row_chat_bubble_user_size_call"
         android:layout_height="@dimen/row_chat_bubble_user_size_call"

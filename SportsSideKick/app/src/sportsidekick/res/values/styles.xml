@@ -66,7 +66,7 @@
         <item name="nextLevelMarkerIcon">@drawable/next_level_marker</item>
         <item name="friendsIcon">@drawable/icon_your_friends</item>
         <item name="followersIcon">@drawable/icon_followers</item>
-        <item name="appBackground">@drawable/background_tile</item>
+        <item name="appBackground">@color/colorPrimary</item>
 
         <item name="loginBackground">@drawable/background_login</item>
 
@@ -177,6 +177,18 @@
         <item name="phoneWallMenuBackground">@color/wall_bottom_bar_background_color</item>
 
         <item name="phoneWallEditSearchText">@color/colorPrimary</item>
+
+        <item name="popupLoginButtonBackground">@drawable/popup_login_button_background</item>
+
+        <item name="popupBottomBackground">@drawable/popup_bottom_background</item>
+
+        <item name="popupBottomLeftBackground">@drawable/popup_bottom_left_background</item>
+
+        <item name="greenCircle">@drawable/circle_green</item>
+
+        <item name="popupOnClickChangeTextColor">@drawable/button_onclick_change_text_color_initial</item>
+        <item name="buttonLogin">@drawable/button_login_login</item>
+        <item name="buttonEditProfileImage">@drawable/button_edit_profile_image</item>
         <item name="phoneChatBackground">@drawable/phone_chat_background</item>
         <item name="green_dark_phone_4">@color/green_dark_phone_4</item>
         <item name="green_dark_phone_3">@color/green_dark_phone_3</item>
@@ -248,7 +260,7 @@
         <item name="nextLevelMarkerIcon">@drawable/next_level_marker</item>
         <item name="friendsIcon">@drawable/icon_your_friends</item>
         <item name="followersIcon">@drawable/icon_followers</item>
-        <item name="appBackground">@drawable/light_background_tile</item>
+        <item name="appBackground">@color/light_background</item>
 
         <item name="loginBackground">@drawable/background_login</item>
 
@@ -291,7 +303,7 @@
 
         <item name="seekBarAudioShape" >@drawable/seek_bar_audio</item>
 
-        <item name="wallBackground" >@color/light_wall_background</item>
+        <item name="wallBackground">@color/light_wall_background</item>
 
         <item name="circularProgressBarDrawable" >@drawable/light_circular_progress_bar</item>
 
@@ -362,6 +374,18 @@
         <item name="background_phone">@color/background_phone</item>
         <item name="light_button_chat">@color/light_button_chat</item>
 
+        <item name="popupLoginButtonBackground">@drawable/light_popup_login_button_background</item>
+
+
+        <item name="popupBottomBackground">@drawable/light_popup_bottom_background</item>
+
+        <item name="popupBottomLeftBackground">@drawable/light_popup_bottom_left_background</item>
+
+        <item name="greenCircle">@drawable/light_circle_green</item>
+
+        <item name="popupOnClickChangeTextColor">@drawable/light_button_onclick_change_text_color_initial</item>
+        <item name="buttonLogin">@drawable/light_button_login_login</item>
+        <item name="buttonEditProfileImage">@drawable/light_button_edit_profile_image</item>
     </style>
 
     <!-- This will set the fade in animation on all your activities by default -->

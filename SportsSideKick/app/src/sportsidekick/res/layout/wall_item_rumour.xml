@@ -17,7 +17,7 @@
             android:layout_alignBottom="@+id/spaner"
             android:layout_alignParentTop="true"
             android:background="@drawable/rumour_headerz"
-            android:backgroundTint="?rumour_yellow"
+            app:backgroundTint="?rumour_yellow"
             app:angle="90"> <!-- Specify rotate angle here -->
 
             <TextView

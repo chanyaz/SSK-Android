@@ -31,7 +31,7 @@
             android:textColor="?white"
             android:textSize="@dimen/font_size_18" />
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/close_dialog_button"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="@dimen/standard_button_height"
