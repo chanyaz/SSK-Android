@@ -56,6 +56,7 @@ import java.util.List;
 import java.util.TimerTask;
 
 import base.app.BuildConfig;
+import base.app.activity.PhoneLoungeActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -165,6 +166,8 @@ public class ChatFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(getActivity() instanceof PhoneLoungeActivity)
+            ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, view);
 

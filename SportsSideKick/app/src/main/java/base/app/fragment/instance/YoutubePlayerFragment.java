@@ -25,6 +25,7 @@ import com.google.api.services.youtube.model.Video;
 
 import org.greenrobot.eventbus.EventBus;
 
+import base.app.activity.PhoneLoungeActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -77,6 +78,8 @@ public class YoutubePlayerFragment extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(getActivity() instanceof PhoneLoungeActivity)
+            ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
         YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

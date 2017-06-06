@@ -19,6 +19,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
+import base.app.activity.PhoneLoungeActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -65,6 +66,8 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(getActivity() instanceof PhoneLoungeActivity)
+            ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_club_radio_station, container, false);
         ButterKnife.bind(this, view);
 
