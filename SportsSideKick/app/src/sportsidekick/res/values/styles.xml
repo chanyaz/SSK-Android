@@ -5,6 +5,7 @@
 
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
 
+
         <!--Colors-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccentLight">@color/colorAccentLight</item>
@@ -176,6 +177,9 @@
         <item name="phoneWallMenuBackground">@color/wall_bottom_bar_background_color</item>
 
         <item name="phoneWallEditSearchText">@color/colorPrimary</item>
+
+
+        <item name="phoneChatBackground">@drawable/phone_chat_background</item>
     </style>
 <!--*********************************************************************************************-->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -348,7 +352,7 @@
         <item name="phoneWallMenuBackground">@color/wall_bottom_bar_background_color</item>
 
         <item name="phoneWallEditSearchText">@color/colorPrimary</item>
-
+        <item name="phoneChatBackground">@drawable/phone_chat_background</item>
 
     </style>
 

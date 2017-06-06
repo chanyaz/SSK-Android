@@ -219,4 +219,6 @@
     <attr name="phoneWallEditSearchText" format="reference"/>
     <attr name="phoneWallEditSearchHint" format="reference"/>
 
+    <attr name="phoneChatBackground" format="reference" />
+
 </resources>

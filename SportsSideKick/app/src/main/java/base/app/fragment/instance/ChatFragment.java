@@ -59,6 +59,7 @@ import base.app.BuildConfig;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -199,13 +200,14 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
-        inputEditText.setImeActionLabel(getContext().getResources().getString(R.string.chat_send),EditorInfo.IME_ACTION_SEND);
+        inputEditText.setImeActionLabel(getContext().getResources().getString(R.string.chat_send), EditorInfo.IME_ACTION_SEND);
         inputEditText.setImeOptions(EditorInfo.IME_ACTION_SEND);
 
         /* input Listeners */
         inputEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -215,7 +217,8 @@ public class ChatFragment extends BaseFragment {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         inputEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -233,7 +236,7 @@ public class ChatFragment extends BaseFragment {
         micButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(currentlyActiveChat!=null) {
+                if (currentlyActiveChat != null) {
                     switch (motionEvent.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             ChatFragmentPermissionsDispatcher.startRecordingWithCheck(ChatFragment.this);
@@ -283,11 +286,11 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    private void updateTopChatsView(){
+    private void updateTopChatsView() {
         // Setup chat heads
         chatHeadsAdapter.setValues(ImsManager.getInstance().getUserChatsList());
         chatHeadsAdapter.notifyDataSetChanged();
-        if(currentlyActiveChat!=null){
+        if (currentlyActiveChat != null) {
             chatHeadsAdapter.selectChat(currentlyActiveChat, false);
         }
     }
@@ -312,7 +315,7 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    private void updateChatTitleText(){
+    private void updateChatTitleText() {
         if (currentlyActiveChat != null) {
             // Setup Chat label
             StringBuilder chatLabel = new StringBuilder(currentlyActiveChat.getChatTitle());
@@ -322,7 +325,7 @@ public class ChatFragment extends BaseFragment {
             for (String userId : currentlyActiveChat.getUsersIds()) {
                 count++;
                 UserInfo info = Model.getInstance().getCachedUserInfoById(userId);
-                if(info!=null){
+                if (info != null) {
                     String chatName = info.getNicName();
                     if (!TextUtils.isEmpty(chatName)) {
                         chatLabel.append(chatName);
@@ -336,11 +339,11 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    private void setupEditChatButton(){
-        if(currentlyActiveChat !=null){
+    private void setupEditChatButton() {
+        if (currentlyActiveChat != null) {
             UserInfo user = Model.getInstance().getUserInfo();
-            if(user!=null){
-                if(user.getUserId().equals(currentlyActiveChat.getOwner())){
+            if (user != null) {
+                if (user.getUserId().equals(currentlyActiveChat.getOwner())) {
                     chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
                 } else {
                     chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
@@ -351,13 +354,15 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    /** ** ** ** ** ** ** ** ** ** ** ** ** **
-                Click listeners
-     ** ** ** ** ** ** ** ** ** ** ** ** ** **/
+    /**
+     * * ** ** ** ** ** ** ** ** ** ** ** **
+     * Click listeners
+     * * ** ** ** ** ** ** ** ** ** ** ** **
+     **/
 
     @OnClick(R.id.menu_button)
     public void chatButtonsMenuOnClick(View v) {
-        if(currentlyActiveChat!=null){
+        if (currentlyActiveChat != null) {
             chatButtonsMenu.setVisibility(View.GONE);
             chatButtonsContainer.setVisibility(View.VISIBLE);
         }
@@ -365,7 +370,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_dots)
     public void chatMenuDotsContainerOnClick() {
-        if(currentlyActiveChat!=null) {
+        if (currentlyActiveChat != null) {
             if (chatMenuDotsContainer.getVisibility() == View.GONE) {
                 animate(chatMenuDotsContainer, View.VISIBLE, R.anim.slide_in_left);
                 chatMenuDotsContainer.setVisibility(View.VISIBLE);
@@ -406,13 +411,19 @@ public class ChatFragment extends BaseFragment {
         videoViewContainer.setVisibility(View.GONE);
     }
 
+    @Optional
+    @OnClick(R.id.sticker_button)
+    public void stickerButtonOnClick() {
+        //TODO open sticker
+    }
+
     @OnClick(R.id.vide_download_image_button)
     public void videoDownloadButtonOnClick() {
         Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_video_downloaded), Toast.LENGTH_SHORT).show();
     }
 
     public void sendButtonOnClick() {
-        if(currentlyActiveChat!=null){
+        if (currentlyActiveChat != null) {
             ImsMessage message = ImsMessage.getDefaultMessage();
             message.setText(inputEditText.getText().toString().trim());
             currentlyActiveChat.sendMessage(message);
@@ -431,8 +442,8 @@ public class ChatFragment extends BaseFragment {
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
         UserInfo user = Model.getInstance().getUserInfo();
-        if(currentlyActiveChat!=null && user!=null){
-            if(Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())){
+        if (currentlyActiveChat != null && user != null) {
+            if (Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())) {
                 FragmentEvent fe = new FragmentEvent(EditChatFragment.class);
                 fe.setId(currentlyActiveChat.getChatId());
                 EventBus.getDefault().post(fe);
@@ -465,22 +476,24 @@ public class ChatFragment extends BaseFragment {
     }
 
     @OnClick(R.id.image_button)
-    public void selectImageOnClick(){
-        if(currentlyActiveChat!=null) {
+    public void selectImageOnClick() {
+        if (currentlyActiveChat != null) {
             ChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
         }
     }
 
     @OnClick(R.id.camera_button)
-    public void cameraButtonOnClick(){
-        if(currentlyActiveChat!=null) {
+    public void cameraButtonOnClick() {
+        if (currentlyActiveChat != null) {
             ChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
         }
     }
 
-    /** ** ** ** ** ** ** ** ** ** ** ** ** **
-                 Event listeners
-     ** ** ** ** ** ** ** ** ** ** ** ** ** **/
+    /**
+     * * ** ** ** ** ** ** ** ** ** ** ** **
+     * Event listeners
+     * * ** ** ** ** ** ** ** ** ** ** ** **
+     **/
     @Subscribe
     @SuppressWarnings("Unchecked cast")
     public void onChatEventDetected(GameSparksEvent event) {
@@ -508,23 +521,23 @@ public class ChatFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onEvent(ChatsInfoUpdatesEvent event){
+    public void onEvent(ChatsInfoUpdatesEvent event) {
         findActiveChat();
         //updateAllViews(); // TOTALY NOT NEEDED!
         checkPushNotification();
     }
 
     @Subscribe
-    public void onEvent(CreateNewChatSuccessEvent event){
+    public void onEvent(CreateNewChatSuccessEvent event) {
         ChatInfo chatInfo = event.getChatInfo();
         setCurrentChatNotification(chatInfo);
     }
 
     @Subscribe
-    public void onEvent(ChatNotificationsEvent event){
-        Log.d(TAG,"Received ChatNotificationsEvent: " + event.getKey().name());
+    public void onEvent(ChatNotificationsEvent event) {
+        Log.d(TAG, "Received ChatNotificationsEvent: " + event.getKey().name());
         ChatInfo chatInfo = event.getChatInfo();
-        switch (event.getKey()){
+        switch (event.getKey()) {
             case UPDATED_CHAT_USERS:
                 handleUpdatedChatUsers(chatInfo);
                 break;
@@ -533,7 +546,7 @@ public class ChatFragment extends BaseFragment {
             case UPDATED_CHAT_MESSAGES:
                 String chatId = null;
                 chatInfo = event.getChatInfo();
-                if(chatInfo!=null){
+                if (chatInfo != null) {
                     chatId = chatInfo.getChatId();
                 }
                 handleUpdatedChatMessages(chatId);
@@ -545,13 +558,13 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    private void handleUpdatedChatUsers(ChatInfo chatInfo){
-        if(currentlyActiveChat !=null){
+    private void handleUpdatedChatUsers(ChatInfo chatInfo) {
+        if (currentlyActiveChat != null) {
             setCurrentlyActiveChat(ImsManager.getInstance().getChatInfoById(currentlyActiveChat.getChatId()));
         }
         updateAllViews();
-        if(currentlyActiveChat!=null){
-            if(currentlyActiveChat.getChatId().equals(chatInfo.getChatId())){
+        if (currentlyActiveChat != null) {
+            if (currentlyActiveChat.getChatId().equals(chatInfo.getChatId())) {
                 Log.d(TAG, "Single chat should be updated!");
             }
         }
@@ -559,8 +572,8 @@ public class ChatFragment extends BaseFragment {
 
     private void handleUpdatedChatMessages(String chatId) {
         updateTopChatsView();
-        if(currentlyActiveChat!=null) {// If current chat was updated
-            if(currentlyActiveChat.getChatId().equals(chatId)){
+        if (currentlyActiveChat != null) {// If current chat was updated
+            if (currentlyActiveChat.getChatId().equals(chatId)) {
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
                 messageAdapter.notifyDataSetChanged();
@@ -569,9 +582,9 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    private void setCurrentChatNotification(ChatInfo chatInfo){
-        if(currentlyActiveChat !=null){
-            if(currentlyActiveChat.getChatId().equals(chatInfo.getChatId())) { // Its the same chat - hide edit buttons
+    private void setCurrentChatNotification(ChatInfo chatInfo) {
+        if (currentlyActiveChat != null) {
+            if (currentlyActiveChat.getChatId().equals(chatInfo.getChatId())) { // Its the same chat - hide edit buttons
                 chatMenuDotsContainerOnClick();
             } else { // its not the same chat, so hide edit buttons if those are visible
                 if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {
@@ -586,15 +599,15 @@ public class ChatFragment extends BaseFragment {
     }
 
     private void checkPushNotification() {
-        Log.d(TAG,"Missing implementation for checkPushNotification method!");
+        Log.d(TAG, "Missing implementation for checkPushNotification method!");
     }
 
     private void findActiveChat() {
         String chatId;
-        if(currentlyActiveChat!=null){
+        if (currentlyActiveChat != null) {
             chatId = this.currentlyActiveChat.getChatId();
             ChatInfo chat = ImsManager.getInstance().getChatInfoById(chatId);
-            if(chat!=null){
+            if (chat != null) {
                 setCurrentlyActiveChat(chat);
                 return;
             }
@@ -603,10 +616,10 @@ public class ChatFragment extends BaseFragment {
         setFirstChatAsActive();
     }
 
-    private void setFirstChatAsActive(){
-        if(ImsManager.getInstance().getUserChatsList()!=null){
+    private void setFirstChatAsActive() {
+        if (ImsManager.getInstance().getUserChatsList() != null) {
             List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
-            if(chats!=null && chats.size()>0){
+            if (chats != null && chats.size() > 0) {
                 setCurrentlyActiveChat(chats.get(0));
                 return;
             }
@@ -686,7 +699,7 @@ public class ChatFragment extends BaseFragment {
 
     @NeedsPermission({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void startRecording() {
-        Toast.makeText(getContext(),getContext().getResources().getString(R.string.chat_hold), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_hold), Toast.LENGTH_SHORT).show();
         final Handler handler = new Handler();
         handler.postDelayed(new TimerTask() {
                                 @Override
