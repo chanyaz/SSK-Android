@@ -17,6 +17,7 @@ import org.apache.commons.lang3.ClassUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import base.app.R;
@@ -76,7 +77,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 if (!myLanguage.equals(values[viewHolder.getAdapterPosition()])) {
-                    languageOnClick.languageChange(values[viewHolder.getAdapterPosition()],viewHolder.getAdapterPosition());
+                    languageOnClick.languageChange(values[viewHolder.getAdapterPosition()],short_language.get(viewHolder.getAdapterPosition()));
                 }
             }
         });
@@ -123,6 +124,23 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
 
 
     public interface LanguageOnClick {
-        void languageChange(String string,int  position);
+        void languageChange(String language,String  shortLanguage);
     }
+
+
+    public static final List<String> short_language = Collections.unmodifiableList(
+            new ArrayList<String>() {{
+                add("bh");
+                add("zh");
+                add("en");
+                add("fr");
+                add("de");
+                add("id");
+                add("it");
+                add("pl");
+                add("pt");
+                add("ru");
+                add("es");
+                // etc
+            }});
 }
