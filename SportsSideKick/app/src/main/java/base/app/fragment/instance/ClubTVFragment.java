@@ -58,7 +58,8 @@ public class ClubTVFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ClubModel.getInstance().requestAllPlaylists(); // This is first time we request club tv instance and playlists too
+        String channelId = getResources().getString(R.string.clubtv_channelid);
+        ClubModel.getInstance().requestAllPlaylists(channelId); // This is first time we request club tv instance and playlists too
     }
 
     @Subscribe(threadMode= ThreadMode.MAIN)
