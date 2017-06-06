@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.BuildConfig;
-import base.app.Constant;
 import base.app.events.ClubTVEvent;
 import base.app.model.GSConstants;
 
@@ -42,7 +41,7 @@ public class ClubModel {
 
     private static ClubModel instance;
     private final ObjectMapper mapper; // jackson's object mapper
-    List<Station> stations;
+    private List<Station> stations;
 
     public static ClubModel getInstance(){
         if(instance==null){
@@ -67,7 +66,7 @@ public class ClubModel {
         youtubeDataApi = new YouTube.Builder(transport, jsonFactory, null).setApplicationName(BuildConfig.APPLICATION_ID).build();
     }
 
-    public void requestAllPlaylists() {
+    public void requestAllPlaylists(String channelId) {
         if (playlists.size()>0) {
             EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
         } else {
@@ -75,16 +74,14 @@ public class ClubModel {
                 @Override
                 protected void onPostExecute(Pair<String, List<Playlist>> stringListPair) {
                     super.onPostExecute(stringListPair);
-                    if (stringListPair!=null)
-                    {
-                        if (stringListPair.second != null)
-                        {
+                    if (stringListPair!=null) {
+                        if (stringListPair.second != null) {
                             playlists.addAll(stringListPair.second);
                         }
                         EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
                     }
                 }
-            }.execute(Constant.YOUTUBE_CHANNEL_ID);
+            }.execute(channelId);
         }
     }
 

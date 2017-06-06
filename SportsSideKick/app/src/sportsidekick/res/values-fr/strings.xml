@@ -56,11 +56,6 @@
     <!--<string name="quiz_caption">Quiz</string>-->
     <!--<string name="coins_caption">VOUS AVEZ</string>-->
 
-    <!--&lt;!&ndash; URLs for store, fantasy, quiz &ndash;&gt;-->
-    <!--<string name="store_url">https://lojaverde.sporting.pt/en</string>-->
-    <!--<string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>-->
-    <!--<string name="quiz_url">https://snack-media.com/sidekick/quiz-list-en.html</string>-->
-    <!--<string name="leaderboard_url">https://snack-media.com/sidekick/leaderboard-en.html</string>-->
     <!--<string name="days">" Jours "</string>-->
     <!--<string name="no_message_text">Personne n'a encore commencé à discuter ! Souhaitez-vous être le premier ?</string>-->
     <!--<string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>-->

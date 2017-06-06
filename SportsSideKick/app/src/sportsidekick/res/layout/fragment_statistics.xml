@@ -2,15 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="base.app.fragment.instance.StatisticsFragment"
-    android:background="?demo_green_semitransparent">
+    tools:context="base.app.fragment.instance.FantasyFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/font_size_36"
-        android:textColor="@color/white"
-        android:layout_centerInParent="true"
-        android:text="@string/statistics_caption" />
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+    </WebView>
 
 </RelativeLayout>
