@@ -5,13 +5,17 @@ import android.Manifest;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +39,15 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.activity.PhoneLoungeActivity;
+import base.app.fragment.popup.LoginFragment;
+import base.app.fragment.popup.SignUpFragment;
+import base.app.model.user.LoginStateReceiver;
+import base.app.model.user.UserEvent;
 import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -100,7 +109,19 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public ImageButton videoButton;
     @BindView(R.id.add_users_button)
     public ImageButton addUserButton;
+    @Nullable
+    @BindView(R.id.camera_logo)
+    ImageView cameraLogo;
 
+    @BindView(R.id.begin_your_call)
+    Button beginYourCall;
+
+
+    @BindView(R.id.logo)
+    ImageView Logo;
+    @Nullable
+    @BindView(R.id.login_container)
+    LinearLayout loginContainer;
 
     @BindView(R.id.text1)
     TextView text;
@@ -205,7 +226,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (getActivity() instanceof PhoneLoungeActivity)
-            ((PhoneLoungeActivity) getActivity()).setMarginTop(false);
+            ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_video_chat, container, false);
         ButterKnife.bind(this, view);
 
@@ -217,8 +238,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
 //TODO @Djordje deprecated
-        if(Utility.isTablet(getActivity())) {
+        if (Utility.isTablet(getActivity())) {
             text.setText(Html.fromHtml(getString(R.string.video_chat_text_1)));
+        }
+      else  {
+            onLoginStateChange();
         }
 
         VideoChatEvent event = VideoChatModel.getInstance().getVideoChatEvent();
@@ -695,11 +719,20 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public void onRecordingStopped(Room room) {
     }
 
+    @Subscribe
+    public void updateUserName(UserEvent event) {
+        if (!Utility.isTablet(getActivity())) {
+            onLoginStateChange();
+        }
+
+    }
+
     @Override
     public void onResume() {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+
         super.onResume();
     }
 
@@ -707,6 +740,35 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public void onStop() {
         disconnect();
         super.onStop();
+    }
+
+
+    @Optional
+    @OnClick(R.id.join_now_button)
+    public void joinOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
+    }
+
+    @Optional
+    @OnClick(R.id.login_button)
+    public void loginOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+    }
+
+
+    private void onLoginStateChange(){
+
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            cameraLogo.setVisibility(View.GONE);
+            loginContainer.setVisibility(View.GONE);
+            Logo.setVisibility(View.VISIBLE);
+            beginYourCall.setVisibility(View.VISIBLE);
+        } else {
+            cameraLogo.setVisibility(View.VISIBLE);
+            loginContainer.setVisibility(View.VISIBLE);
+            Logo.setVisibility(View.GONE);
+            beginYourCall.setVisibility(View.GONE);
+        }
     }
 
 }

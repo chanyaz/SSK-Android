@@ -9,54 +9,70 @@
     <RelativeLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_menu">
 
-        <ImageButton
-            android:id="@+id/add_users_button"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_60"
-            android:layout_margin="@dimen/margin_15"
-            android:layout_toStartOf="@+id/toggle_mic_button"
-            android:background="@null"
-            android:src="@drawable/add_users_button"
-            android:text="@string/add_users" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/toggle_mic_button"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_margin="@dimen/margin_15"
-            android:layout_toStartOf="@+id/toggle_video_button"
-            android:background="@null"
-            android:src="@drawable/microphone_selector" />
+            <ImageButton
+                android:id="@+id/add_users_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/video_add_users"
+                android:text="@string/add_users" />
 
-        <ImageButton
-            android:id="@+id/toggle_video_button"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_60"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/margin_15"
-            android:background="@null"
-            android:src="@drawable/video_call_selector" />
+            <ImageButton
+                android:id="@+id/toggle_mic_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@drawable/chat_button_voice" />
 
-        <ImageButton
-            android:id="@+id/toggle_camera_button"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_60"
-            android:layout_margin="@dimen/margin_15"
-            android:layout_toEndOf="@+id/toggle_video_button"
-            android:background="@null"
-            android:src="@drawable/flip_camera_button" />
+            <ImageButton
+                android:id="@+id/toggle_video_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/video_video" />
 
-        <ImageButton
-            android:id="@+id/disconnect_button"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_60"
-            android:layout_margin="@dimen/margin_15"
-            android:layout_toEndOf="@+id/toggle_camera_button"
-            android:background="@null"
-            android:src="@drawable/hangup_button" />
+            <ImageButton
+                android:id="@+id/toggle_camera_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_toEndOf="@+id/toggle_video_button"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/video_camera_flip" />
+
+            <ImageButton
+                android:id="@+id/disconnect_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_toEndOf="@+id/toggle_camera_button"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/video_hangup" />
+        </LinearLayout>
     </RelativeLayout>
 
     <com.wang.avi.AVLoadingIndicatorView
@@ -73,14 +89,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom"
-        android:layout_margin="@dimen/margin_20"
         android:visibility="gone">
 
         <include
             android:id="@+id/slot_2"
             layout="@layout/item_video_chat_slot"
-            android:layout_width="@dimen/space_0"
-            android:layout_height="@dimen/space_0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="?demo_blue_semitransparent"
             app:layout_constraintBottom_toTopOf="@+id/preview_container"
             app:layout_constraintLeft_toRightOf="@+id/slot_3"
@@ -90,8 +105,8 @@
         <include
             android:id="@+id/slot_3"
             layout="@layout/item_video_chat_slot"
-            android:layout_width="@dimen/space_0"
-            android:layout_height="@dimen/space_0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="?demo_green_semitransparent"
             app:layout_constraintBottom_toTopOf="@+id/preview_container"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -102,8 +117,8 @@
         <include
             android:id="@+id/slot_4"
             layout="@layout/item_video_chat_slot"
-            android:layout_width="@dimen/space_0"
-            android:layout_height="@dimen/space_0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="?demo_yellow_semitransparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -112,8 +127,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/preview_container"
-            android:layout_width="@dimen/space_0"
-            android:layout_height="@dimen/space_0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/slot_4"
             app:layout_constraintRight_toRightOf="parent"
@@ -121,27 +136,27 @@
 
             <ImageView
                 android:id="@+id/disabled_video_icon"
-                android:layout_width="@dimen/space_0"
-                android:layout_height="@dimen/space_0"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_centerInParent="true"
+                android:layout_marginBottom="0dp"
                 android:src="@drawable/video_disabled"
+                android:scaleType="fitXY"
                 android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/preview_user_name_text_view"
-                app:layout_constraintDimensionRatio="4.5"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.twilio.video.VideoView
                 android:id="@+id/preview_video_view"
-                android:layout_width="@dimen/space_0"
-                android:layout_height="@dimen/space_0"
-                app:layout_constraintBottom_toTopOf="@+id/preview_user_name_text_view"
-                app:layout_constraintDimensionRatio="1.5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/preview_user_name_text_view"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="spread" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/preview_user_name_text_view"
@@ -150,6 +165,7 @@
                 android:layout_margin="@dimen/margin_8"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_12"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -162,7 +178,8 @@
     <RelativeLayout
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="match_parent"
@@ -191,27 +208,28 @@
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_80"
+                android:layout_above="@+id/text1"
                 android:layout_alignEnd="@+id/begin_your_call"
                 android:layout_alignStart="@+id/begin_your_call"
                 android:layout_centerHorizontal="true"
-                android:scaleType="fitCenter"
-                android:layout_above="@+id/text1"
                 android:layout_marginBottom="@dimen/margin_20"
                 android:contentDescription="@null"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ssk_logo" />
+
             <ImageView
                 android:id="@+id/camera_logo"
                 android:layout_width="@dimen/height_130"
                 android:layout_height="@dimen/height_130"
+                android:layout_above="@+id/text1"
                 android:layout_alignEnd="@+id/begin_your_call"
                 android:layout_alignStart="@+id/begin_your_call"
                 android:layout_centerHorizontal="true"
-                android:visibility="gone"
-                android:layout_above="@+id/text1"
                 android:layout_marginBottom="@dimen/margin_20"
                 android:contentDescription="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/prelogin_video_chat" />
+                android:src="@drawable/prelogin_video_chat"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/text1"
