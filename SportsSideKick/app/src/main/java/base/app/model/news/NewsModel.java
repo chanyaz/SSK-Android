@@ -148,11 +148,11 @@ public class NewsModel {
                         NewsPageEvent newsItemsEvent;
                         if(type.equals(NewsType.OFFICIAL)){
                             newsItems.addAll(receivedItems);
-                            newsItemsEvent = new NewsPageEvent(newsItems);
+                            newsItemsEvent = new NewsPageEvent(receivedItems);
                             pageNews++;
                         } else {
                             rumorsItems.addAll(receivedItems);
-                            newsItemsEvent = new NewsPageEvent(rumorsItems);
+                            newsItemsEvent = new NewsPageEvent(receivedItems);
                             pageRumors++;
                         }
                         EventBus.getDefault().post(newsItemsEvent);
