@@ -169,151 +169,65 @@
             android:layout_height="match_parent"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/video_chat_background" />
-
+            android:src="?loginBackground" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.6"
-            android:background="@drawable/phone_background"
+            android:background="?videoChatOverlay"
             android:contentDescription="@null" />
-
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/margin_40"
-            android:layout_marginRight="@dimen/margin_40">
+            android:layout_marginLeft="@dimen/margin_80"
+            android:layout_marginRight="@dimen/margin_80">
 
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_80"
+                android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/begin_your_call"
                 android:layout_alignStart="@+id/begin_your_call"
                 android:layout_centerHorizontal="true"
-                android:scaleType="fitCenter"
-                android:layout_above="@+id/text1"
-                android:layout_marginBottom="@dimen/margin_20"
+                android:layout_marginBottom="@dimen/margin_30"
                 android:contentDescription="@null"
                 android:src="@drawable/ssk_logo" />
-            <ImageView
-                android:id="@+id/camera_logo"
-                android:layout_width="@dimen/height_130"
-                android:layout_height="@dimen/height_130"
-                android:layout_alignEnd="@+id/begin_your_call"
-                android:layout_alignStart="@+id/begin_your_call"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone"
-                android:layout_above="@+id/text1"
-                android:layout_marginBottom="@dimen/margin_20"
-                android:contentDescription="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/prelogin_video_chat" />
 
             <TextView
                 android:id="@+id/text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/text2"
+                android:layout_below="@id/logo"
                 android:layout_centerHorizontal="true"
-                android:text="@string/video_chat_text_1_phone"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_20" />
+                android:textSize="@dimen/font_size_26"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/center_below"
-
+                android:layout_below="@id/text1"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_20"
                 android:layout_marginTop="@dimen/margin_20"
                 android:text="@string/video_chat_text_2"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_12" />
-
-            <View
-                android:id="@+id/center_parent"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="@dimen/margin_60" />
-
-            <View
-                android:id="@+id/center_below"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_below="@+id/center_parent" />
+                android:textSize="@dimen/font_size_14" />
 
             <Button
                 android:id="@+id/begin_your_call"
                 style="?videoChatButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/margin_70"
-                android:alpha="0.7"
-                android:padding="@dimen/padding_8"
-                android:text="@string/video_chat_button_text"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_16" />
-
-            <LinearLayout
-                android:id="@+id/login_container"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text2"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin_30"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/standard_button_height"
-                    android:alpha="0.8"
-                    android:background="@drawable/button_login_transparent">
-
-                    <Button
-                        android:id="@+id/join_now_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/transparent"
-                        android:text="@string/join_now"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_18" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/standard_button_height"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:alpha="0.8"
-                    android:background="@drawable/button_login_transparent">
-
-                    <Button
-                        android:id="@+id/login_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/transparent"
-                        android:text="@string/login_login"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_18" />
-                </LinearLayout>
-            </LinearLayout>
+                android:text="@string/video_chat_button_text"
+                android:textColor="@color/white" />
         </RelativeLayout>
     </RelativeLayout>
-
 </RelativeLayout>
