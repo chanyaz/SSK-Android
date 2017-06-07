@@ -50,6 +50,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         @Nullable
         @BindView(R.id.image)
         ImageView image;
+        @Nullable
         @BindView(R.id.caption)
         TextView caption;
         ViewHolder(View v) {
@@ -99,15 +100,21 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         String countExtension = " (" + count + ")";
         int endIndex = startIndex + countExtension.length();
         String caption = originalCaption + countExtension;
-        holder.caption.setText(caption);
-        Spannable spannable = (Spannable)holder.caption.getText();
-        int color = ContextCompat.getColor(context, R.color.lightGrey);
-        ForegroundColorSpan thinSpan = new ForegroundColorSpan(color);
-        spannable.setSpan(thinSpan,startIndex,endIndex,Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        if (holder.caption != null) {
+            holder.caption.setText(caption);
+            Spannable spannable = (Spannable)holder.caption.getText();
+            int color = ContextCompat.getColor(context, R.color.lightGrey);
+            ForegroundColorSpan thinSpan = new ForegroundColorSpan(color);
+            spannable.setSpan(thinSpan,startIndex,endIndex,Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        }
+
+
         // display image
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
-        ImageLoader.getInstance().displayImage(imageUrl, holder.image, imageOptions);
+        if (holder.image != null) {
+            ImageLoader.getInstance().displayImage(imageUrl, holder.image, imageOptions);
+        }
     }
 
     @Override

@@ -177,5 +177,7 @@ dependencies {
 
 //  Random human readable name generator for testing - https://github.com/Atrox/haikunatorjava TODO @Filip remove for production
     compile 'me.atrox.haikunator:Haikunator:1.3'
+//  Android Library to provide swipe, click and other functionality to RecyclerView
+    compile 'com.nikhilpanju.recyclerviewenhanced:recyclerviewenhanced:1.1.0'
 }
 apply plugin: 'com.google.gms.google-services'
