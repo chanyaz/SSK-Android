@@ -1,18 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="base.app.fragment.instance.NewsFragment"
-    android:background="?wallBackground">
-
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
-        android:layout_width="@dimen/prodgres_bar"
-        android:layout_height="@dimen/prodgres_bar"
-        android:layout_centerInParent="true"
-        android:elevation="@dimen/elevation_2"
-        app:indicatorName="LineSpinFadeLoaderIndicator" />
+    android:background="?wallBackground"
+    tools:context="base.app.fragment.instance.WallFragment">
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -20,12 +12,59 @@
         android:layout_height="match_parent"
         app:srl_direction="bottom">
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/news_recycler_view"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/news_image_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/news_top_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/image_news_background"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="NEWS"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="40sp"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/progress_bar"
+                    android:layout_width="@dimen/prodgres_bar"
+                    android:layout_height="@dimen/prodgres_bar"
+                    android:layout_below="@id/news_image_container"
+                    android:layout_centerInParent="true"
+                    android:elevation="@dimen/elevation_2"
+                    app:indicatorName="LineSpinFadeLoaderIndicator" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/news_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/news_image_container"
+                    android:layout_marginTop="@dimen/margin_negative_30" />
+
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
     </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
-
 </RelativeLayout>
