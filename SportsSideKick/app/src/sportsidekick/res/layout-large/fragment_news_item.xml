@@ -263,7 +263,7 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/commnets_wall"
+                android:id="@+id/comments_wall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tutorial_container"
@@ -273,7 +273,7 @@
                 android:id="@+id/tutorial_container_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/commnets_wall"
+                android:layout_below="@id/comments_wall"
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_marginBottom="@dimen/margin_20">
@@ -366,8 +366,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?postCommentContainerColor"
-        android:visibility="gone">
+        android:background="?postCommentContainerColor">
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/post_text"
