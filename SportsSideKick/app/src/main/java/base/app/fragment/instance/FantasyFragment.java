@@ -3,15 +3,20 @@ package base.app.fragment.instance;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.util.Locale;
+
 import base.app.R;
 import base.app.activity.PhoneLoungeActivity;
 import base.app.fragment.BaseFragment;
+import base.app.model.Model;
+import base.app.model.user.UserInfo;
 
 /**
  * A simple {@link BaseFragment} subclass.
@@ -44,6 +49,23 @@ public class FantasyFragment extends BaseFragment {
             }
         });
         String url = getResources().getString(R.string.fantasy_url);
+        UserInfo user;
+        user = Model.getInstance().getUserInfo();
+        String fullname = "";
+        String userId = "";
+        if(user != null)
+        {
+            if (user.getFirstName()!=null && user.getFirstName()!=null)
+            {
+                fullname = user.getFirstName()+" "+user.getLastName();
+            }
+            userId = user.getUserId();
+        }
+        Model.getInstance().getUserInfo().getLanguage();
+        fullname = fullname.replaceAll(" ", "%20");
+        url = url + "d481e9be-7b90-4147-b108-a5aaea127d05?username=" + fullname + "---" + userId +"&language="+ Locale.getDefault().getLanguage().toUpperCase();
+        Log.e("Fantasy URL:", url);
+
         webView.loadUrl(url);
         return view;
 
