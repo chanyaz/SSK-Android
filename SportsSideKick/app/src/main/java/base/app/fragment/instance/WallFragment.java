@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -21,6 +22,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -112,6 +114,14 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @BindView(R.id.fragment_wall_new_post)
     Button buttonNewPost;
+    @Nullable
+    @BindView(R.id.scroll)
+    NestedScrollView scroll;
+
+    @Nullable
+    @BindView(R.id.container)
+    RelativeLayout containerRelativeLayout;
+
     @BindView(R.id.fragment_wall_filter)
     Button buttonFilter;
     @BindView(R.id.fragment_wall_search)
@@ -202,7 +212,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         // Inflate the layout for this fragment
         if (getActivity() instanceof PhoneLoungeActivity)
             ((PhoneLoungeActivity) getActivity()).setMarginTop(false);
-        View view = inflater.inflate(R.layout.fragment_wall, container, false);
+        final View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
         updateButtons();
 //TODO @Nemanja  WHY this is have in activity ?
@@ -246,10 +256,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         boolean includeEdge = isTablet;
         if (recyclerView != null) {
             recyclerView.setAdapter(adapter);
-            if(Utility.isTablet(getActivity())){
-            recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16, includeEdge, isTablet));}
-            else {
-                recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(20, includeEdge, isTablet));
+
+            if (Utility.isTablet(getActivity())) {
+                recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16, includeEdge, isTablet));
+            } else {
+                int space = (int) getResources().getDimension(R.dimen.padding_12);
+                recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(space, includeEdge, isTablet));
             }
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setNestedScrollingEnabled(false);
@@ -292,6 +304,31 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             });
         }
+
+
+        if (!Utility.isTablet(getActivity()))
+            scroll.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent ev) {
+                    int action = ev.getAction();
+                    if (action == MotionEvent.ACTION_MOVE) {
+                        if (wallBottomBarContainer.getVisibility() == View.VISIBLE) {
+                            wallBottomBarContainer.setVisibility(View.GONE);
+                            containerRelativeLayout.setVisibility(View.GONE);
+                        }
+                    } else if (action == MotionEvent.ACTION_UP) {
+                        if (wallBottomBarContainer.getVisibility() != View.VISIBLE) {
+                            wallBottomBarContainer.setVisibility(View.VISIBLE);
+                            containerRelativeLayout.setVisibility(View.VISIBLE);
+                        }
+
+
+                    }
+                    return false;
+                }
+            });
+
+
         return view;
 
     }
@@ -703,6 +740,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             searchWallContainer.setBackgroundColor(ContextCompat.getColor(getActivity(), containerColor));
         }
         newPostContainer.setVisibility(isNewPostVisible ? View.VISIBLE : View.GONE);
+        //TODO @Filip deprecation
         buttonNewPost.getBackground().setColorFilter(getResources().getColor(isNewPostVisible ? selectedColor : defaultColor), PorterDuff.Mode.MULTIPLY);
         filterContainer.setVisibility(isFilterVisible ? View.VISIBLE : View.GONE);
         buttonFilter.getBackground().setColorFilter(getResources().getColor(isFilterVisible ? selectedColor : defaultColor), PorterDuff.Mode.MULTIPLY);
