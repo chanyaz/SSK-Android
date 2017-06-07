@@ -117,7 +117,7 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
-        //TODO @Filip deprecation
+        //TODO @Filip deprecation and dont work
         config.locale = locale;
         getActivity().recreate();
     }
@@ -136,33 +136,14 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
     }
 
     @Override
-    public void languageChange(String string, int position) {
-        //TODO remove this code
-        if (short_language.get(position).equals("Error")) {
-            languageToLoad = "en";
-        } else {
-            languageToLoad = short_language.get(position);
-        }
+    public void languageChange(String language,String  shortLanguage) {
+        languageToLoad = shortLanguage;
         confirmOnClick();
 
     }
 
-    //TODO Change, error with short language name
-    public static final List<String> short_language = Collections.unmodifiableList(
-            new ArrayList<String>() {{
-                add("Error");
-                add("zh");
-                add("en");
-                add("fr");
-                add("de");
-                add("Error");
-                add("Error");
-                add("Error");
-                add("pt");
-                add("Error");
-                add("Error");
-                // etc
-            }});
+
+
 
 
 }

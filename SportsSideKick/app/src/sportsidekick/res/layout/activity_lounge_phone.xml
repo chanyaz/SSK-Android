@@ -14,13 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccentLight">
-
+<View
+    android:id="@+id/base_line_spliter"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_alignParentTop="true"/>
         <RelativeLayout
             android:id="@+id/fragment_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/left_top_bar_container"
             android:layout_above="@+id/side_menu_recycler"
+            android:layout_below="@+id/left_top_bar_container"
             android:background="?green_dark_1">
 
         </RelativeLayout>
@@ -29,16 +33,14 @@
             android:id="@+id/left_top_bar_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_48"
-            android:background="@android:color/transparent"
-           >
+            android:background="@android:color/transparent">
             <!--app:layout_heightPercent="7%"-->
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.7"
                 android:background="@drawable/phone_background"
-                android:tileMode="repeat"
-                />
+                android:tileMode="repeat" />
 
             <ImageView
                 android:id="@+id/logo"
@@ -54,7 +56,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/scrolling_news_title"
-                android:layout_marginBottom="@dimen/margin_5"
                 android:layout_toEndOf="@+id/logo"
                 android:layout_toStartOf="@+id/notification_open"
                 android:textAllCaps="true"
@@ -67,14 +68,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/half_margin"
                 android:layout_toEndOf="@+id/logo"
                 android:layout_toStartOf="@+id/notification_open"
                 android:ellipsize="end"
-                android:textSize="@dimen/font_size_10"
-                android:layout_marginBottom="@dimen/half_margin"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/half_margin"
-                android:textColor="?light_green_1" />
+                android:textColor="?light_green_1"
+                android:textSize="@dimen/font_size_10" />
 
             <ImageView
                 android:id="@+id/notification_open"
@@ -103,11 +104,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="5"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_12"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone" />
+
             <RelativeLayout
                 android:id="@+id/left_notification_container"
                 android:layout_width="0dp"
@@ -131,20 +132,18 @@
             android:id="@+id/fragment_popup_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true">
-        </RelativeLayout>
+            android:background="@color/transparent"></RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/fragment_left_popup_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:layout_alignParentTop="true"
             android:layout_above="@+id/side_menu_recycler"
-            android:layout_alignParentStart="true">
-        </RelativeLayout>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/transparent"></RelativeLayout>
 
     </android.support.percent.PercentRelativeLayout>
 
@@ -159,8 +158,8 @@
         <android.support.percent.PercentRelativeLayout
             android:id="@+id/drawer_container"
             android:layout_width="wrap_content"
-            android:layout_marginEnd="@dimen/margin_negative_2"
             android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_negative_2"
             android:background="@color/gray_menu">
 
             <android.support.percent.PercentRelativeLayout
@@ -240,9 +239,9 @@
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_negative_8"
                             android:layout_below="@+id/holder_progress_bar"
-                            android:layout_centerHorizontal="true">
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/margin_negative_8">
 
                             <ImageView
                                 android:id="@+id/user_level_background"
@@ -293,6 +292,7 @@
                             android:layout_centerHorizontal="true"
                             android:adjustViewBounds="true"
                             android:src="?userCoinIcon"
+                            android:contentDescription="@null"
                             app:layout_heightPercent="25%" />
 
                         <TextView

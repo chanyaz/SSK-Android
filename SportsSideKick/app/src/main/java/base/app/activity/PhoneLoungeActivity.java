@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import base.app.Constant;
 import base.app.fragment.popup.SignUpLoginFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -153,7 +155,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         setupFragments();
         setToolbar();
-
+        setMarginTop(false);
         updateTopBar();
         Utility.setSystemBarColor(this);
     }
@@ -218,6 +220,19 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             }
         });
 
+    }
+
+    public void setMarginTop(boolean set)
+    {
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.ABOVE, R.id.side_menu_recycler);
+        if(set) {
+            lp.addRule(RelativeLayout.BELOW, R.id.left_top_bar_container);
+        }
+        else {
+            lp.addRule(RelativeLayout.BELOW, R.id.base_line_spliter);
+        }
+        fragmentHolder.setLayoutParams(lp);
     }
 
 
