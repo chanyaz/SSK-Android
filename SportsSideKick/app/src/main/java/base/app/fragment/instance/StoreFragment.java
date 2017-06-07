@@ -102,34 +102,36 @@ public class StoreFragment extends BaseFragment {
                         e.printStackTrace();
                     }
 
-                    imageDiv = doc.getElementsByClass("guideSize");
-                    Element imageElement;
-                    String absoluteUrl = "";
-                    if (imageDiv != null) {
-                        imageElement = imageDiv.select("img").first();
-                        if (imageElement != null) {
-                            absoluteUrl = imageElement.absUrl("src");
+                    if (doc != null) {
+                        imageDiv = doc.getElementsByClass("guideSize");
+                        Element imageElement;
+                        String absoluteUrl = "";
+                        if (imageDiv != null) {
+                            imageElement = imageDiv.select("img").first();
+                            if (imageElement != null) {
+                                absoluteUrl = imageElement.absUrl("src");
+                            }
                         }
-                    }
 
-                    priceDiv = doc.getElementsByClass("price");
-                    Element priceElement;
-                    String price = "";
+                        priceDiv = doc.getElementsByClass("price");
+                        Element priceElement;
+                        String price = "";
 
-                    if (priceDiv != null) {
-                        priceElement = priceDiv.first();
-                        if (priceElement != null) {
-                            price = priceElement.text();
+                        if (priceDiv != null) {
+                            priceElement = priceDiv.first();
+                            if (priceElement != null) {
+                                price = priceElement.text();
+                            }
                         }
+
+                        item.setTitle(view.getTitle());
+                        item.setSubTitle(price);
+                        item.setUrl(url);
+                        item.setCoverImageUrl(absoluteUrl);
+                        item.setTimestamp((double) System.currentTimeMillis());
+
+                        shareToWallButton.setVisibility(View.VISIBLE);
                     }
-
-                    item.setTitle(view.getTitle());
-                    item.setSubTitle(price);
-                    item.setUrl(url);
-                    item.setCoverImageUrl(absoluteUrl);
-                    item.setTimestamp((double) System.currentTimeMillis());
-
-                    shareToWallButton.setVisibility(View.VISIBLE);
                 }
                 Log.d("WEB VIEW", "Loaded successfully!");
             }
