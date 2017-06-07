@@ -10,7 +10,7 @@
         android:layout_width="@dimen/width_50"
         android:layout_height="@dimen/height_50"
         android:layout_gravity="top"
-        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_5"
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginStart="@dimen/margin_15"
         android:src="?profileImageIcon" />
@@ -40,7 +40,7 @@
             android:layout_marginTop="@dimen/margin_5"
             android:layout_marginBottom="@dimen/margin_5"
             android:textSize="@dimen/font_size_11"
-            android:text="First name last name - time ago"
+            android:text="First name last name ? time ago"
             android:textColor="?lightGrey" />
     </RelativeLayout>
 </LinearLayout>
