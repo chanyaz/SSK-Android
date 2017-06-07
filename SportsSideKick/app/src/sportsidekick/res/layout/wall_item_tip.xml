@@ -32,6 +32,8 @@
                 android:textColor="?wallItemTipTextCaptionColor"/>
         </com.github.rongi.rotate_layout.layout.RotateLayout>
 
+
+
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"

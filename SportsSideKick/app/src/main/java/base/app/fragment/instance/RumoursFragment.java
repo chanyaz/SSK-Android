@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -81,6 +83,8 @@ public class RumoursFragment extends BaseFragment {
     NestedScrollView fragmentContainer;
     int countOfTopRumours;
 
+    RecyclerTouchListener onTouchListener;
+
     public RumoursFragment() {
         // Required empty public constructor
     }
@@ -137,6 +141,32 @@ public class RumoursFragment extends BaseFragment {
             }
         });
 
+        onTouchListener = new RecyclerTouchListener(getActivity(), rumourRecyclerView);
+
+        onTouchListener.setClickable(new RecyclerTouchListener.OnRowClickListener() {
+            @Override
+            public void onRowClicked(int position) {
+                // Do something
+
+            }
+
+            @Override
+            public void onIndependentViewClicked(int independentViewID, int position) {
+                // Do something
+            }
+        });
+
+        onTouchListener.setSwipeOptionViews(R.id.row_rumours_swipe_share)
+                .setSwipeable(R.id.row_rumours_foreground_container, R.id.row_rumours_background_container, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
+                    @Override
+                    public void onSwipeOptionClicked(int viewID, int position) {
+                        if (viewID == R.id.row_rumours_swipe_share) {
+                            // Handle click on Share Button
+                            Toast.makeText(getActivity(),"To be implemented !",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
         return view;
     }
 
@@ -162,5 +192,17 @@ public class RumoursFragment extends BaseFragment {
             fragmentContainer.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rumourRecyclerView.addOnItemTouchListener(onTouchListener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        rumourRecyclerView.removeOnItemTouchListener(onTouchListener);
     }
 }

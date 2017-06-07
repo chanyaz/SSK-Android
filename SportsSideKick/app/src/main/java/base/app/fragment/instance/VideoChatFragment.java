@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.activity.PhoneLoungeActivity;
+import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -203,7 +204,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity)
             ((PhoneLoungeActivity) getActivity()).setMarginTop(false);
         View view = inflater.inflate(R.layout.fragment_video_chat, container, false);
         ButterKnife.bind(this, view);
@@ -215,8 +216,10 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_2)));
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
-
-        text.setText(Html.fromHtml(getString(R.string.video_chat_text_1)));
+//TODO @Djordje deprecated
+        if(Utility.isTablet(getActivity())) {
+            text.setText(Html.fromHtml(getString(R.string.video_chat_text_1)));
+        }
 
         VideoChatEvent event = VideoChatModel.getInstance().getVideoChatEvent();
         if (event != null) {
