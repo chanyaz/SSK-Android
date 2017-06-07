@@ -1,7 +1,7 @@
 <resources>
 
     <string name="friend_requests">Friend Requests</string>
-
+    <string name="this_language">English</string>
     <string name="app_name">Sidekick</string>
     <string name="facebook_app_id">102782376855276</string>
     <string name="fb_login_protocol_scheme">fb11111111111111</string>
@@ -239,7 +239,7 @@
 
     <string name="chat_join_group">Join Group</string>
     <string name="chat_already_in_group">You are already in group</string>
-    <string name="chat_members">Membersp</string>
+    <string name="chat_members">Members</string>
     <string name="chat_edit">Edit</string>
     <string name="chat_Leave">Leave</string>
     <string name="chat_send">SEND</string>
@@ -434,4 +434,29 @@
     <string name="what_would_you_like_to_do">What would you like to do?</string>
     <string name="report_abuse">Report Abuse</string>
     <string name="cancel">Cancel</string>
+    <string name="start_call">Start Call</string>
+    <string name="call_history">Call History</string>
+    <string name="create_call">Create Call</string>
+    <string name="friends_in_video_chat">Friends in Video Chat</string>
+    <string name="friend_in_video_chat">1 Friend in Video Chat</string>
+    <string name="search_your_friends">Search your friends</string>
+
+    <string-array name="language_names">
+        <item>Bengali</item>
+        <item>Chinese</item>
+        <item>English</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Indonesian</item>
+        <item>Italian</item>
+        <item>Polish</item>
+        <item>Portuguese</item>
+        <item>Russian</item>
+        <item>Spanish</item>
+    </string-array>
+
+    <string name="last_chat">Last Chat</string>
+
+    <string name="mins_ago">mins ago</string>
+
 </resources>

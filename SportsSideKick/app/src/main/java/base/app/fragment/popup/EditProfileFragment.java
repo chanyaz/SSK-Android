@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import base.app.BuildConfig;
@@ -38,6 +39,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -87,7 +89,7 @@ public class EditProfileFragment extends BaseFragment {
     EditText passwordEditText;
     @Nullable
     @BindView(R.id.language_edit_text)
-    EditText languageEditText;
+    TextView languageEditText;
     @Nullable
     @BindView(R.id.language_image)
     ImageView languageImage;
@@ -122,6 +124,24 @@ public class EditProfileFragment extends BaseFragment {
 
         }
         return view;
+    }
+
+    @Optional
+    @OnClick(R.id.language_container)
+    public void changeLanguageOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(LanguageFragment.class));
+    }
+
+    @Optional
+    @OnClick(R.id.your_wallet_button)
+    public void walletOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
+    }
+
+    @Optional
+    @OnClick(R.id.your_stash_button)
+    public void stashOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(StashFragment.class));
     }
 
     @OnClick(R.id.camera_button)

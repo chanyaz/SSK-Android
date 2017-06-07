@@ -5,6 +5,7 @@
 
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
 
+
         <!--Colors-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccentLight">@color/colorAccentLight</item>
@@ -188,6 +189,13 @@
         <item name="popupOnClickChangeTextColor">@drawable/button_onclick_change_text_color_initial</item>
         <item name="buttonLogin">@drawable/button_login_login</item>
         <item name="buttonEditProfileImage">@drawable/button_edit_profile_image</item>
+        <item name="phoneChatBackground">@drawable/phone_chat_background</item>
+        <item name="green_dark_phone_4">@color/green_dark_phone_4</item>
+        <item name="green_dark_phone_3">@color/green_dark_phone_3</item>
+        <item name="background_phone">@color/background_phone</item>
+        <item name="light_button_chat">@color/light_button_chat</item>
+
+
     </style>
 <!--*********************************************************************************************-->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -360,6 +368,11 @@
         <item name="phoneWallMenuBackground">@color/wall_bottom_bar_background_color</item>
 
         <item name="phoneWallEditSearchText">@color/colorPrimary</item>
+        <item name="phoneChatBackground">@drawable/phone_chat_background</item>
+        <item name="green_dark_phone_4">@color/green_dark_phone_4</item>
+        <item name="green_dark_phone_3">@color/green_dark_phone_3</item>
+        <item name="background_phone">@color/background_phone</item>
+        <item name="light_button_chat">@color/light_button_chat</item>
 
         <item name="popupLoginButtonBackground">@drawable/light_popup_login_button_background</item>
 

@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import base.app.Constant;
 import base.app.fragment.popup.SignUpLoginFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -124,6 +126,10 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     ArrayList<Class> popupLeftFragments;
     int screenWidth;
 
+    @BindView(R.id.notification_open)
+    ImageView notificationIcon;
+    @BindView(R.id.friends_open)
+    ImageView friendsIcon;
 
     @OnClick(R.id.notification_open)
     public void notificationOpen() {
@@ -149,7 +155,20 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         setupFragments();
         setToolbar();
+        setMarginTop(false);
+        updateTopBar();
+        Utility.setSystemBarColor(this);
+    }
 
+    public void updateTopBar(){
+        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+            //Check if user is logged in
+            notificationIcon.setVisibility(View.VISIBLE);
+            friendsIcon.setVisibility(View.VISIBLE);
+        }else{
+            notificationIcon.setVisibility(View.GONE);
+            friendsIcon.setVisibility(View.GONE);
+        }
     }
 
     private void setToolbar() {
@@ -201,6 +220,19 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             }
         });
 
+    }
+
+    public void setMarginTop(boolean set)
+    {
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.ABOVE, R.id.side_menu_recycler);
+        if(set) {
+            lp.addRule(RelativeLayout.BELOW, R.id.left_top_bar_container);
+        }
+        else {
+            lp.addRule(RelativeLayout.BELOW, R.id.base_line_spliter);
+        }
+        fragmentHolder.setLayoutParams(lp);
     }
 
 
@@ -350,11 +382,13 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @Override
     public void onLogout() {
         resetUserDetails();
+        updateTopBar();
     }
 
     @Override
     public void onLoginAnonymously() {
         resetUserDetails();
+        updateTopBar();
     }
 
     @Override
@@ -373,6 +407,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         } else {
             resetUserDetails();
         }
+        updateTopBar();
     }
 
     private void resetUserDetails() {

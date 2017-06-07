@@ -22,6 +22,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 import base.app.R;
+import base.app.activity.PhoneLoungeActivity;
 import base.app.fragment.BaseFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
@@ -33,7 +34,7 @@ import base.app.model.wall.WallStoreItem;
  * Created by Filip on 12/5/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
- *
+ * <p>
  * A simple {@link BaseFragment} subclass.
  */
 
@@ -57,10 +58,12 @@ public class StoreFragment extends BaseFragment {
     public StoreFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_with_web_view, container, false);
-
+        if (getActivity() instanceof PhoneLoungeActivity)
+            ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         webContainer = view.findViewById(R.id.navigation_web_container);
 
         webView = (WebView) view.findViewById(R.id.web_view);
@@ -74,20 +77,17 @@ public class StoreFragment extends BaseFragment {
             public void onPageFinished(WebView view, String url) {
                 webContainer.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
-                if (view.getUrl().equals(getActivity().getString(R.string.store_url)))
-                {
+                if (view.getUrl().equals(getResources().getString(R.string.store_url))) {
                     Log.d("WEB VIEW", "Home page!");
                     homeButton.setVisibility(View.GONE);
                     shareToWallButton.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     Log.d("WEB VIEW", "Product page!");
                     homeButton.setVisibility(View.VISIBLE);
                     item = new WallStoreItem();
                     item.setType(WallBase.PostType.wallStoreItem);
                     item.setPoster(Model.getInstance().getUserInfo());
-
+//TODO @Djordje Krutil why, min sdk is 17 ?
                     if (android.os.Build.VERSION.SDK_INT > 9) {
                         StrictMode.ThreadPolicy policy =
                                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -104,25 +104,21 @@ public class StoreFragment extends BaseFragment {
 
                     imageDiv = doc.getElementsByClass("guideSize");
                     Element imageElement;
-                    String absoluteUrl="";
-                    if (imageDiv!=null)
-                    {
+                    String absoluteUrl = "";
+                    if (imageDiv != null) {
                         imageElement = imageDiv.select("img").first();
-                        if (imageElement!=null)
-                        {
+                        if (imageElement != null) {
                             absoluteUrl = imageElement.absUrl("src");
                         }
                     }
 
                     priceDiv = doc.getElementsByClass("price");
                     Element priceElement;
-                    String price="";
+                    String price = "";
 
-                    if (priceDiv!=null)
-                    {
+                    if (priceDiv != null) {
                         priceElement = priceDiv.first();
-                        if (priceElement!=null)
-                        {
+                        if (priceElement != null) {
                             price = priceElement.text();
                         }
                     }
@@ -157,28 +153,27 @@ public class StoreFragment extends BaseFragment {
         return view;
     }
 
-    protected void setupFragment(){
+    protected void setupFragment() {
         url = getResources().getString(R.string.store_url);
         withNavigation = true;
     }
 
-    View.OnClickListener goBackClickListener = new View.OnClickListener(){
+    View.OnClickListener goBackClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             webView.goBack();
         }
     };
-    View.OnClickListener goForwardClickListener = new View.OnClickListener(){
+    View.OnClickListener goForwardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             webView.goForward();
         }
     };
-    View.OnClickListener shareToWallOnClickListener = new View.OnClickListener(){
+    View.OnClickListener shareToWallOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (item !=null )
-            {
+            if (item != null) {
                 AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
                         new View.OnClickListener() {// Cancel
                             @Override
@@ -193,10 +188,10 @@ public class StoreFragment extends BaseFragment {
                             }
                         });
             }
-            }
+        }
     };
 
-    View.OnClickListener closeButtonOnClickListener = new View.OnClickListener(){
+    View.OnClickListener closeButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             webView.loadUrl(url);

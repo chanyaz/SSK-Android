@@ -24,6 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textColor="@color/green_dark_1" />
+        android:textColor="@color/menu_name_color" />
 </LinearLayout>
 </RelativeLayout>

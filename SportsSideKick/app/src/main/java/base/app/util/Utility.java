@@ -3,13 +3,16 @@ package base.app.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -68,6 +71,7 @@ public class Utility {
             }
         }
     }
+
 
     private  static volatile DisplayImageOptions blankOptionsUser;
     private  static volatile DisplayImageOptions blankOptions;
@@ -242,6 +246,12 @@ public class Utility {
         }
     }
 
+
+    public static float convertDpToPixel(float dp, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
     public static int getDisplayWidth(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
@@ -335,5 +345,18 @@ public class Utility {
 
     public static Boolean isTablet(Context context){
        return context.getResources().getBoolean(R.bool.is_tablet);
+    }
+
+    public static void setSystemBarColor(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.system_bar_color));
+        } else {
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+                WindowManager.LayoutParams winParams = activity.getWindow().getAttributes();
+                final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+                winParams.flags |= bits;
+                activity.getWindow().setAttributes(winParams);
+            }
+        }
     }
 }

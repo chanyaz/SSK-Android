@@ -15,6 +15,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 
+import base.app.activity.PhoneLoungeActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import base.app.R;
@@ -45,6 +46,8 @@ public class ClubRadioFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(getActivity() instanceof PhoneLoungeActivity)
+            ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_club_radio, container, false);
 
         ButterKnife.bind(this, view);

@@ -8,6 +8,7 @@
         android:id="@+id/row_chat_expanded_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_4"
         android:layout_centerVertical="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"/>

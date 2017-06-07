@@ -14,7 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccentLight">
-
+<View
+    android:id="@+id/base_line_spliter"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_alignParentTop="true"/>
         <RelativeLayout
             android:id="@+id/fragment_holder"
             android:layout_width="match_parent"
@@ -313,6 +317,8 @@
                             android:layout_centerHorizontal="true"
                             android:ellipsize="end"
                             android:maxLines="1"
+                            android:text="0"
+                            android:textStyle="bold"
                             android:textAlignment="center"
                             android:textColor="@color/light_colorPrimarySemiLight"
                             android:textSize="@dimen/font_size_12" />

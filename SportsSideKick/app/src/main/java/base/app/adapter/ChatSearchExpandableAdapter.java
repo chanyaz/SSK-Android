@@ -2,6 +2,8 @@ package base.app.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.HashMap;
 import java.util.List;
 
+import base.app.Application;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -38,7 +41,7 @@ import base.app.util.ui.LinearItemSpacing;
  */
 
 public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
-    private static final double IMAGE_SIZE = 0.06;
+    private double IMAGE_SIZE = 0.06;
     protected Context context;
     private LayoutInflater inflater;
     private List<ChatInfo> parentItems;
@@ -54,10 +57,16 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
         expandedAdaptersMap = new HashMap<>();
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (Utility.isTablet(context)) {
+                IMAGE_SIZE = 0.06;
+                background =  ContextCompat.getColor(context, R.color.green_dark_1);
+                backgroundExpanded =  ContextCompat.getColor(context, R.color.colorPrimary);
+            } else {
+                IMAGE_SIZE = 0.09;
+                background =  ContextCompat.getColor(context, R.color.background_phone);
+                backgroundExpanded =  ContextCompat.getColor(context, R.color.green_dark_phone_3);
+            }
 
-         //TODO  @Nemanja  deprecation
-            background = context.getResources().getColor(R.color.green_dark_1);
-            backgroundExpanded = context.getResources().getColor(R.color.colorPrimary);
             screenHeight = Utility.getDisplayHeight(context);
         }
         this.parentItems = parents;
@@ -71,6 +80,12 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
         TextView rowName;
         @BindView(R.id.row_join_chat_search_members_count)
         TextView rowMemberCount;
+        @Nullable
+        @BindView(R.id.row_last_chat_label)
+        TextView rowLastChatLabel;
+        @Nullable
+        @BindView(R.id.row_join_chat_search_friends_count)
+        TextView rowFriendsCount;
         @BindView(R.id.row_join_chat_search_container)
         RelativeLayout rowParentRoot;
 
@@ -104,10 +119,10 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             int space = context.getResources().getDimensionPixelOffset(R.dimen.margin_20);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.memberList.setLayoutManager(linearLayoutManager);
-            holder.memberList.addItemDecoration(new LinearItemSpacing(space,true,true));
+            holder.memberList.addItemDecoration(new LinearItemSpacing(space, true, true));
             convertView.setTag(holder);
         }
-        if(!info.getUsersIds().contains(Model.getInstance().getUserInfo().getUserId())){
+        if (!info.getUsersIds().contains(Model.getInstance().getUserInfo().getUserId())) {
             holder.joinButton.setAlpha(1.f);
             holder.joinButton.setText(context.getResources().getText(R.string.chat_join_group));
             holder.joinButton.setClickable(true);
@@ -140,13 +155,13 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             return expandedAdaptersMap.get(chat.getChatId());//Need unique id
         } else { // its brand new view, so create new adapter and store it in hash map for recycling
             chatExpandedItemAdapter = new ChatExpandedItemAdapter(context);
-            expandedAdaptersMap.put(chat.getChatId(),chatExpandedItemAdapter);
-            for(String uid : chat.getUsersIds()){
+            expandedAdaptersMap.put(chat.getChatId(), chatExpandedItemAdapter);
+            for (String uid : chat.getUsersIds()) {
                 Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
                 task.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                     @Override
                     public void onComplete(@NonNull Task<UserInfo> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             chatExpandedItemAdapter.addValue(task.getResult());
                         }
                     }
@@ -172,7 +187,17 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
 
         DisplayImageOptions displayImageOptions = Utility.getImageOptionsForUsers();
         holder.rowName.setText(info.getChatTitle());
-        holder.rowMemberCount.setText(info.getUsersIds().size() + " " + context.getResources().getString(R.string.chat_members));
+        if (Utility.isTablet(context)) {
+            holder.rowMemberCount.setText(info.getUsersIds().size() + " " + context.getResources().getString(R.string.chat_members));
+        } else {
+            holder.rowMemberCount.setText(" - " + info.getUsersIds().size() + " " + context.getResources().getString(R.string.chat_members));
+
+            //TODO  @Filip dont have friends count and  last time chat in model.
+            //TODO TEST
+            holder.rowFriendsCount.setText("5 " + context.getResources().getString(R.string.friends));
+            holder.rowLastChatLabel.setText("2 " + context.getResources().getString(R.string.mins_ago));
+
+        }
         ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.rowImage, displayImageOptions);
         holder.rowImage.getLayoutParams().height = (int) (screenHeight * IMAGE_SIZE);
         holder.rowImage.getLayoutParams().width = (int) (screenHeight * IMAGE_SIZE);
@@ -189,7 +214,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return null;
-       // return items.get(groupPosition).items.get(childPosition);
+        // return items.get(groupPosition).items.get(childPosition);
     }
 
     @Override

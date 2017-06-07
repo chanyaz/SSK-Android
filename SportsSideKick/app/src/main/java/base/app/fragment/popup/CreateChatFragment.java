@@ -238,7 +238,7 @@ public class CreateChatFragment extends BaseFragment {
             @Override
             public void run() {
                 if (chatFriendsAdapter != null) {
-                    final List<UserInfo> filteredModelList = filter(userInfoList, searchEditText.getText().toString());
+                    final List<UserInfo> filteredModelList =Utility.filter(userInfoList, searchEditText.getText().toString());
                     chatFriendsAdapter.replaceAll(filteredModelList);
                     friendsRecyclerView.scrollToPosition(0);
                 }
@@ -275,19 +275,7 @@ public class CreateChatFragment extends BaseFragment {
         }
     };
 
-    private static List<UserInfo> filter(List<UserInfo> models, String query) {
-        final String lowerCaseQuery = query.toLowerCase();
-        final List<UserInfo> filteredModelList = new ArrayList<>();
-        if (models != null) {
-            for (UserInfo model : models) {
-                final String text = (model.getFirstName() + model.getLastName() + model.getNicName()).toLowerCase();
-                if (text.contains(lowerCaseQuery)) {
-                    filteredModelList.add(model);
-                }
-            }
-        }
-        return filteredModelList;
-    }
+
 
     public void createNewChat() {
         if (chatFriendsAdapter != null) {
