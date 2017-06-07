@@ -1,6 +1,7 @@
 package base.app.fragment.instance;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
+import base.app.util.ui.GridItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import base.app.R;
@@ -60,6 +62,9 @@ public class NewsFragment extends BaseFragment {
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+        int space = (int) getResources().getDimension(R.dimen.padding_12);
+        recyclerView.addItemDecoration(new GridItemDecoration(space,2));
 
         List<WallNews> existingItems = NewsModel.getInstance().getAllCachedItems(type);
         if (existingItems!=null && existingItems.size() > 0)
