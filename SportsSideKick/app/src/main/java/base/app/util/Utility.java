@@ -197,7 +197,7 @@ public class Utility {
     public static void showAlertDialog(String title, String message, Context context)
     {
         AlertDialog alertDialog;
-        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog = new AlertDialog.Builder(context, R.style.AlertDialog).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, context.getString(R.string.dialog_ok),

@@ -208,7 +208,7 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_popup_image_button)
     public void pickImage() {
-        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.chat_choose_option));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_choose_from_library), new DialogInterface.OnClickListener() {
             @Override
@@ -371,7 +371,7 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForCamera(final PermissionRequest request) {
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(getContext(), R.style.AlertDialog)
                 .setMessage(R.string.permission_camera_rationale)
                 .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
                     @Override

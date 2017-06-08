@@ -666,7 +666,7 @@ public class ChatFragment extends BaseFragment {
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeCameraCapture() {
-        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.choose));
         chooseDialog.setMessage(getContext().getResources().getString(R.string.chat_image_or_video));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_video), new DialogInterface.OnClickListener() {
@@ -741,7 +741,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForMicrophone(final PermissionRequest request) {
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(getContext(), R.style.AlertDialog)
                 .setMessage(R.string.permission_microphone_rationale)
                 .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
                     @Override

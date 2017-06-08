@@ -30,8 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/standard_button_height"
-        android:background="?wallBackground">
+        android:layout_marginBottom="@dimen/standard_button_height">
 
         <!-- Chat heads recycler view -->
         <android.support.v7.widget.RecyclerView
@@ -43,24 +42,19 @@
             android:focusableInTouchMode="true"
             android:scrollbars="none" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/chat_info_line_text"
             android:layout_below="@+id/chat_heads_view"
-            android:background="?colorPrimary">
-            <TextView
-                android:id="@+id/chat_info_line_text"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_20"
-                android:layout_marginEnd="@dimen/margin_60"
-                android:layout_marginStart="@dimen/margin_60"
-                android:ellipsize="marquee"
-                android:gravity="center"
-                android:lines="1"
-                android:textColor="?white_semitransparent"
-                android:textSize="@dimen/font_size_10" />
-
-        </RelativeLayout>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_60"
+            android:paddingEnd="@dimen/margin_60"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:lines="1"
+            android:background="?chatInfoBackgroundColor"
+            android:textColor="?white_semitransparent"
+            android:textSize="@dimen/font_size_10" />
     </RelativeLayout>
 
     <!-- Messages container -->

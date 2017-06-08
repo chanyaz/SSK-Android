@@ -23,7 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import base.app.BuildConfig;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -38,6 +38,24 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import base.app.BuildConfig;
+import base.app.R;
+import base.app.activity.LoungeActivity;
+import base.app.adapter.AddFriendsAdapter;
+import base.app.adapter.SelectableFriendsAdapter;
+import base.app.events.GameSparksEvent;
+import base.app.fragment.BaseFragment;
+import base.app.fragment.FragmentEvent;
+import base.app.model.Model;
+import base.app.model.friendship.FriendsManager;
+import base.app.model.im.ChatInfo;
+import base.app.model.im.ImsManager;
+import base.app.model.user.AddFriendsEvent;
+import base.app.model.user.UserInfo;
+import base.app.util.Utility;
+import base.app.util.ui.AutofitDecoration;
+import base.app.util.ui.AutofitRecyclerView;
+import base.app.util.ui.LinearItemSpacing;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -47,23 +65,6 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-import base.app.R;
-import base.app.activity.LoungeActivity;
-import base.app.adapter.AddFriendsAdapter;
-import base.app.adapter.SelectableFriendsAdapter;
-import base.app.fragment.BaseFragment;
-import base.app.fragment.FragmentEvent;
-import base.app.model.Model;
-import base.app.model.friendship.FriendsManager;
-import base.app.model.im.ChatInfo;
-import base.app.model.im.ImsManager;
-import base.app.model.user.AddFriendsEvent;
-import base.app.model.user.UserInfo;
-import base.app.events.GameSparksEvent;
-import base.app.util.Utility;
-import base.app.util.ui.AutofitDecoration;
-import base.app.util.ui.AutofitRecyclerView;
-import base.app.util.ui.LinearItemSpacing;
 
 import static base.app.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
 import static base.app.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
@@ -216,7 +217,7 @@ public class EditChatFragment extends BaseFragment {
 
     @OnClick(R.id.popup_image_button)
     public void pickImage() {
-        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.chat_choose_option));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_choose_from_library), new DialogInterface.OnClickListener() {
             @Override
@@ -411,7 +412,7 @@ public class EditChatFragment extends BaseFragment {
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForCamera(final PermissionRequest request) {
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(getContext(), R.style.AlertDialog)
                 .setMessage(R.string.permission_camera_rationale)
                 .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
                     @Override
