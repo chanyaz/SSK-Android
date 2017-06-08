@@ -248,7 +248,7 @@
     <string name="are_you_sure">ARE YOU SURE?</string>
     <string name="chat_leave_chat">You will leave this chat</string>
     <string name="choose">Choose</string>
-    <string name="chat_image_or_video">\"Take photo or record video?</string>
+    <string name="chat_image_or_video">Take photo or record video?</string>
     <string name="chat_video">Video</string>
     <string name="chat_image">Image</string>
     <string name="chat_hold">Hold down to record</string>
