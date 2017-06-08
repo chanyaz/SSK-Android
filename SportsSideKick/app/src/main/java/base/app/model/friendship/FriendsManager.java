@@ -33,6 +33,8 @@ import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.UserInfo;
 import base.app.GSAndroidPlatform;
 
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.Model.createRequest;
 
 
@@ -119,6 +121,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         createRequest("friendGetMutualFriendsListWithUser")
                 .setEventAttribute(GSConstants.USER_ID, userId)
                 .setEventAttribute(GSConstants.ENTRY_COUNT, "50")
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(GSConstants.OFFSET, offset)
                 .send(consumer);
         return source.getTask();
@@ -263,6 +266,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendDeleteFriend")
                 .setEventAttribute(GSConstants.USER_ID, userId)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -308,6 +312,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                 .setEventAttribute(GSConstants.ENTRY_COUNT, "50")
                 .setEventAttribute(GSConstants.OFFSET, offset)
                 .setEventAttribute(GSConstants.USER_ID, userId)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -369,6 +374,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendFollowFriend")
                 .setEventAttribute(GSConstants.USER_ID, userId)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -396,6 +402,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendUnFollowFriend")
                 .setEventAttribute(GSConstants.USER_ID, userId)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }

@@ -55,6 +55,7 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
+import static base.app.ClubConfig.CLUB_ID;
 import static base.app.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE;
 import static base.app.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
 
@@ -257,6 +258,7 @@ public class EditProfileFragment extends BaseFragment {
         map.put(GSConstants.NICNAME, nicNameEditText.getText().toString());
         map.put(GSConstants.EMAIL, emailEditText.getText().toString());
         map.put(GSConstants.PHONE, phoneEditText.getText().toString());
+        map.put(GSConstants.CLUB_ID_TAG, String.valueOf(CLUB_ID));
         //Todo @refactoring  put password and language
         Model.getInstance().setDetails(map);
         getActivity().onBackPressed();

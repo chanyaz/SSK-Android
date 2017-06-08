@@ -287,7 +287,7 @@ public class MemberInfoFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.video_button)
-    public void wideoButton() {
+    public void videoButton() {
         //TODO finish this
         EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
     }
