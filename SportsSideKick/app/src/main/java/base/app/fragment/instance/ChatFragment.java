@@ -581,7 +581,18 @@ public class ChatFragment extends BaseFragment {
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
                 messageAdapter.notifyDataSetChanged();
-                messageListView.smoothScrollToPosition(0); // Scroll to top
+
+                String lastMessageSenderId = null;
+                List<ImsMessage> messages = currentlyActiveChat.getMessages();
+                if(messages!=null && messages.size()>0){
+                    lastMessageSenderId = messages.get(messages.size()-1).getSenderId();
+                }
+                UserInfo user = Model.getInstance().getUserInfo();
+                if(lastMessageSenderId!=null && user!=null && lastMessageSenderId.equals(user.getUserId())){
+                    messageListView.smoothScrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
+                } else {
+                    messageListView.smoothScrollToPosition(0); // Scroll to top
+                }
             }
         }
     }

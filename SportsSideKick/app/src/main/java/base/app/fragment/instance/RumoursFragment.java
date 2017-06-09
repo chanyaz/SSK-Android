@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -21,10 +20,8 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import base.app.activity.PhoneLoungeActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
+import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.RumoursNewsListAdapter;
 import base.app.adapter.RumoursTopFourNewsAdapter;
 import base.app.fragment.BaseFragment;
@@ -33,6 +30,8 @@ import base.app.model.news.NewsPageEvent;
 import base.app.util.Utility;
 import base.app.util.ui.GridSpacingItemDecoration;
 import base.app.util.ui.LinearItemDecoration;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 01/03/2017.
@@ -143,29 +142,30 @@ public class RumoursFragment extends BaseFragment {
 
         onTouchListener = new RecyclerTouchListener(getActivity(), rumourRecyclerView);
 
-        onTouchListener.setClickable(new RecyclerTouchListener.OnRowClickListener() {
-            @Override
-            public void onRowClicked(int position) {
-                // Do something
-
-            }
-
-            @Override
-            public void onIndependentViewClicked(int independentViewID, int position) {
-                // Do something
-            }
-        });
-
-        onTouchListener.setSwipeOptionViews(R.id.row_rumours_swipe_share)
-                .setSwipeable(R.id.row_rumours_foreground_container, R.id.row_rumours_background_container, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
-                    @Override
-                    public void onSwipeOptionClicked(int viewID, int position) {
-                        if (viewID == R.id.row_rumours_swipe_share) {
-                            // Handle click on Share Button
-                            Toast.makeText(getActivity(),"To be implemented !",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        // TODO @Nemanja @Aca - this will crash the app!!!! TEST BEFORE COMMIT!!!
+//        onTouchListener.setClickable(new RecyclerTouchListener.OnRowClickListener() {
+//            @Override
+//            public void onRowClicked(int position) {
+//                // Do something
+//
+//            }
+//
+//            @Override
+//            public void onIndependentViewClicked(int independentViewID, int position) {
+//                // Do something
+//            }
+//        });
+//
+//        onTouchListener.setSwipeOptionViews(R.id.row_rumours_swipe_share)
+//                .setSwipeable(R.id.row_rumours_foreground_container, R.id.row_rumours_background_container, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
+//                    @Override
+//                    public void onSwipeOptionClicked(int viewID, int position) {
+//                        if (viewID == R.id.row_rumours_swipe_share) {
+//                            // Handle click on Share Button
+//                            Toast.makeText(getActivity(),"To be implemented !",Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
 
         return view;
     }
