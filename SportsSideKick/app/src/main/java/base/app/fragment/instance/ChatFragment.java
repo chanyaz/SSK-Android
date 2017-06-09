@@ -711,34 +711,40 @@ public class ChatFragment extends BaseFragment {
         });
         chooseDialog.show();
     }
-
+    Handler audioRecordHandler;
     @NeedsPermission({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void startRecording() {
         Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_hold), Toast.LENGTH_SHORT).show();
-        final Handler handler = new Handler();
-        handler.postDelayed(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    recorder = new MediaRecorder();
-                                    recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                                    recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-                                    recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-                                    audioFilepath = Model.getAudioFileName();
-                                    recorder.setOutputFile(audioFilepath);
-                                    try {
-                                        recorder.prepare();
-                                        recorder.start();
-                                    } catch (Exception e) {
-                                        Log.e(TAG, "Start of recording failed!");
-                                    }
-                                }
-                            }
-                , 250);
+        audioRecordHandler  = new Handler();
+        audioRecordHandler.postDelayed(audioRecordHandlerTask, 250);
     }
+
+
+    TimerTask audioRecordHandlerTask = new TimerTask() {
+        @Override
+        public void run() {
+            if(!micButton.isPressed()){
+                return;
+            }
+            recorder = new MediaRecorder();
+            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+            audioFilepath = Model.getAudioFileName();
+            recorder.setOutputFile(audioFilepath);
+            try {
+                recorder.prepare();
+                recorder.start();
+            } catch (Exception e) {
+                Log.e(TAG, "Start of recording failed!");
+            }
+        }
+    };
 
     private void stopRecording() {
         if (recorder != null) {
             try {
+                audioRecordHandler.removeCallbacks(audioRecordHandlerTask);
                 recorder.stop();
                 recorder.release();
                 Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_recording_stop), Toast.LENGTH_SHORT).show();
