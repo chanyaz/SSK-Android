@@ -56,6 +56,7 @@ import base.app.model.im.ChatInfo;
 import base.app.model.im.ImsManager;
 import base.app.model.user.AddFriendsEvent;
 import base.app.model.user.UserInfo;
+import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
@@ -164,6 +165,7 @@ public class CreateChatFragment extends BaseFragment {
         privateChatSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String switchText;
+                SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
                 if (Utility.isTablet(getActivity())) {
                     if (isChecked) {
                         switchText = res.getString(R.string.this_chat_is_private);
@@ -212,6 +214,7 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_popup_image_button)
     public void pickImage() {
+        SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.chat_choose_option));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_choose_from_library), new DialogInterface.OnClickListener() {
