@@ -81,27 +81,35 @@ public class AWSFileUploader {
     }
 
     public void upload(final String filename, String filepath, final GameSparksEvent.Type event){
-        TransferObserver observer = transferUtility.upload(
-                bucket,     /* The bucket to upload to */
-                filename,    /* The key for the uploaded object */
-                new File(filepath)/* The file where the data to upload exists */
-        );
-        observer.setTransferListener(new TransferListener() {
-            @Override
-            public void onStateChanged(int id, TransferState state) {
-                if(TransferState.COMPLETED.equals(state)){
-                    EventBus.getDefault().post(new GameSparksEvent("File uploaded!", event, baseUrl+filename));
+        try {
+            File file = new File(filepath);
+            TransferObserver observer = transferUtility.upload(
+                    bucket,     /* The bucket to upload to */
+                    filename,    /* The key for the uploaded object */
+                    file /* The file where the data to upload exists */
+            );
+            observer.setTransferListener(new TransferListener() {
+                @Override
+                public void onStateChanged(int id, TransferState state) {
+                    if (TransferState.COMPLETED.equals(state)) {
+                        EventBus.getDefault().post(new GameSparksEvent("File uploaded!", event, baseUrl + filename));
+                    }
+
                 }
 
-            }
-            @Override
-            public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) { }
-            @Override
-            public void onError(int id, Exception ex) {
-                // Notify about error
-                EventBus.getDefault().post(new GameSparksEvent("Something went wrong, file not uploaded!", event, null));
-            }
-        });
+                @Override
+                public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+                }
+
+                @Override
+                public void onError(int id, Exception ex) {
+                    // Notify about error
+                    EventBus.getDefault().post(new GameSparksEvent("Something went wrong, file not uploaded!", event, null));
+                }
+            });
+        } catch (Exception e){
+            EventBus.getDefault().post(new GameSparksEvent("Something went wrong, file not uploaded!", event, null));
+        }
     }
 
     public void uploadThumbnail(String filename, String filepath,File filesDir,  GameSparksEvent.Type event) {

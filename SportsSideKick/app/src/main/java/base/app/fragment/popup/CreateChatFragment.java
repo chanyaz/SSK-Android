@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -81,6 +83,8 @@ import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH_PH
 @RuntimePermissions
 public class CreateChatFragment extends BaseFragment {
 
+    @BindView(R.id.progress_bar)
+    View progressBar;
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
     @BindView(R.id.confirm_button)
@@ -347,12 +351,16 @@ public class CreateChatFragment extends BaseFragment {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE:
                     Model.getInstance().uploadImageForCreateChat(currentPath);
+                    chatImageView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     ImageLoader.getInstance().displayImage(currentPath, chatImageView);
                     break;
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     Model.getInstance().uploadImageForCreateChat(realPath);
+                    chatImageView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     ImageLoader.getInstance().displayImage(realPath, chatImageView);
                     break;
             }
@@ -397,8 +405,12 @@ public class CreateChatFragment extends BaseFragment {
             case CREATE_CHAT_IMAGE_FILE_UPLOADED:
                 if (event.getData() != null) {
                     uploadedImageUrl = (String) event.getData();
-                    chatImageView.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader());
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
                 }
         }
     }

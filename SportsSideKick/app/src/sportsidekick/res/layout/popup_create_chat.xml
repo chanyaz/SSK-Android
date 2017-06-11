@@ -162,6 +162,17 @@
             android:scaleType="fitXY"
             android:visibility="gone" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/chat_image_view"
+            android:layout_alignTop="@+id/chat_image_view"
+            android:layout_alignEnd="@+id/chat_image_view"
+            android:layout_alignBottom="@+id/chat_image_view"
+            android:padding="@dimen/margin_10"
+            android:visibility="gone"/>
+
         <EditText
             android:id="@+id/chat_name_edit_text"
             android:layout_width="match_parent"
