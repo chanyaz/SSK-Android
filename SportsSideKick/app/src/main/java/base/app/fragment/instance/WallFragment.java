@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -187,6 +189,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
+
+    @BindView(R.id.uploaded_image_progress_bar)
+    View imageUploadProgressBar;
 
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
@@ -407,6 +412,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             switch (requestCode) {
                 case REQUEST_CODE_POST_IMAGE_CAPTURE:
                     Model.getInstance().uploadImageForPost(currentPath);
+                    imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
                     makePostContainerVisible();
@@ -415,6 +421,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     Model.getInstance().uploadImageForPost(realPath);
+                    imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
                     makePostContainerVisible();
@@ -423,6 +430,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     Uri videoUri = intent.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), videoUri);
                     Model.getInstance().uploadPostVideoRecording(currentPath);
+                    imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
                     makePostContainerVisible();
@@ -438,7 +446,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             case POST_IMAGE_FILE_UPLOADED:
                 if (event.getData() != null) {
                     uploadedImageUrl = (String) event.getData();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage, Utility.imageOptionsImageLoader());
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            imageUploadProgressBar.setVisibility(View.GONE);
+                        }
+                    });
                 }
             case VIDEO_FILE_UPLOADED:
                 videoDownloadUrl = (String) event.getData();
@@ -446,7 +459,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 break;
             case VIDEO_IMAGE_FILE_UPLOADED:
                 videoThumbnailDownloadUrl = (String) event.getData();
-                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader());
+                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        imageUploadProgressBar.setVisibility(View.GONE);
+                    }
+                });
                 break;
         }
     }
@@ -458,6 +476,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         videoThumbnailDownloadUrl = null;
         uploadedImage.setVisibility(View.GONE);
         removeUploadedImage.setVisibility(View.GONE);
+        imageUploadProgressBar.setVisibility(View.GONE);
     }
 
 
@@ -799,6 +818,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             videoThumbnailDownloadUrl = null;
             uploadedImage.setVisibility(View.GONE);
             removeUploadedImage.setVisibility(View.GONE);
+            imageUploadProgressBar.setVisibility(View.GONE);
             WallModel.getInstance().mbPost(newPost);
         } else {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.wall_text_for_post), Toast.LENGTH_SHORT).show();
