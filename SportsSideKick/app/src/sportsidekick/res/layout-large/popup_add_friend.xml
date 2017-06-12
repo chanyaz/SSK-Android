@@ -7,6 +7,7 @@
     android:layout_marginEnd="@dimen/margin_90"
     android:layout_marginStart="@dimen/margin_90"
     android:layout_marginTop="@dimen/margin_60"
+    android:fitsSystemWindows="true"
     android:background="@drawable/popup_bottom_background"
     android:clickable="true">
 
