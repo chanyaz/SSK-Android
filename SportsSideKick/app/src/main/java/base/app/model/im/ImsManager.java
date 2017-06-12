@@ -459,6 +459,9 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
 
     // do not use this function, call the chat info one!
     void markMessageAsRead(final ChatInfo chatInfo, final ImsMessage message) {
+        if(message.getId()==null){
+            return; // its local message, not sent to backend yet, so no need to mark it as read.
+        }
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {

@@ -108,12 +108,13 @@
         <item name="seekBarAudioShape" >@drawable/seek_bar_audio</item>
 
         <item name="wallBackground" >@color/wall_background</item>
+        <item name="chatInfoBackgroundColor">@color/colorPrimary</item>
 
         <item name="circularProgressBarDrawable" >@drawable/circular_progress_bar</item>
 
         <item name="tabRadioButtonTextColor">@drawable/tab_radio_text_color_selector</item>
 
-        <item name="chatHeadBackgroundColor">@color/green_dark_1</item>
+        <item name="chatHeadBackgroundColor">@color/colorPrimarySemiLight</item>
 
         <item name="wallMenuBackground">@color/green_dark_2</item>
 
@@ -304,6 +305,7 @@
         <item name="seekBarAudioShape" >@drawable/seek_bar_audio</item>
 
         <item name="wallBackground">@color/light_wall_background</item>
+        <item name="chatInfoBackgroundColor">@color/colorPrimaryLight</item>
 
         <item name="circularProgressBarDrawable" >@drawable/light_circular_progress_bar</item>
 
@@ -386,6 +388,12 @@
         <item name="popupOnClickChangeTextColor">@drawable/light_button_onclick_change_text_color_initial</item>
         <item name="buttonLogin">@drawable/light_button_login_login</item>
         <item name="buttonEditProfileImage">@drawable/light_button_edit_profile_image</item>
+    </style>
+
+
+    <!-- Alert dialog style -->
+    <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/green_dark_3</item>
     </style>
 
     <!-- This will set the fade in animation on all your activities by default -->

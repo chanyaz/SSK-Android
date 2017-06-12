@@ -66,6 +66,7 @@
     <attr name="rumour_yellow" format="reference" />
 
     <attr name="wallBackground" format="reference" />
+    <attr name="chatInfoBackgroundColor" format="reference" />
 
     <!--Images-->
     <attr name="userCoinIcon" format="reference" />

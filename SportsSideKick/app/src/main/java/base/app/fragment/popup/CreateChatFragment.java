@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -54,6 +56,7 @@ import base.app.model.im.ChatInfo;
 import base.app.model.im.ImsManager;
 import base.app.model.user.AddFriendsEvent;
 import base.app.model.user.UserInfo;
+import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
@@ -81,6 +84,8 @@ import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH_PH
 @RuntimePermissions
 public class CreateChatFragment extends BaseFragment {
 
+    @BindView(R.id.progress_bar)
+    View progressBar;
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
     @BindView(R.id.confirm_button)
@@ -160,6 +165,7 @@ public class CreateChatFragment extends BaseFragment {
         privateChatSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String switchText;
+                SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
                 if (Utility.isTablet(getActivity())) {
                     if (isChecked) {
                         switchText = res.getString(R.string.this_chat_is_private);
@@ -208,7 +214,8 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_popup_image_button)
     public void pickImage() {
-        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
+        SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
+        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.chat_choose_option));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_choose_from_library), new DialogInterface.OnClickListener() {
             @Override
@@ -347,12 +354,16 @@ public class CreateChatFragment extends BaseFragment {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE:
                     Model.getInstance().uploadImageForCreateChat(currentPath);
+                    chatImageView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     ImageLoader.getInstance().displayImage(currentPath, chatImageView);
                     break;
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     Model.getInstance().uploadImageForCreateChat(realPath);
+                    chatImageView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     ImageLoader.getInstance().displayImage(realPath, chatImageView);
                     break;
             }
@@ -371,7 +382,7 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForCamera(final PermissionRequest request) {
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(getContext(), R.style.AlertDialog)
                 .setMessage(R.string.permission_camera_rationale)
                 .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
                     @Override
@@ -397,8 +408,12 @@ public class CreateChatFragment extends BaseFragment {
             case CREATE_CHAT_IMAGE_FILE_UPLOADED:
                 if (event.getData() != null) {
                     uploadedImageUrl = (String) event.getData();
-                    chatImageView.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader());
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
                 }
         }
     }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import base.app.util.SoundEffects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import base.app.R;
@@ -102,6 +103,7 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
                 int position = viewHolder.getLayoutPosition();
                 updateUser(position);
                 notifyItemChanged(position);

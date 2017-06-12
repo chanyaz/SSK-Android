@@ -165,8 +165,18 @@
                     android:layout_marginBottom="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_10"
                     android:scaleType="centerCrop"
-                    android:src="@color/black"
                     android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/uploaded_image_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/uploaded_image"
+                    android:layout_alignTop="@+id/uploaded_image"
+                    android:layout_alignEnd="@+id/uploaded_image"
+                    android:layout_alignBottom="@+id/uploaded_image"
+                    android:padding="@dimen/margin_5"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:id="@+id/remove_uploaded_photo_button"

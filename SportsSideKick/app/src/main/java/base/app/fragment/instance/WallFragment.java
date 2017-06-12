@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,17 +34,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import base.app.BuildConfig;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.pixplicity.easyprefs.library.Prefs;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -60,15 +59,9 @@ import java.util.TimerTask;
 
 import javax.annotation.Nullable;
 
-import base.app.activity.PhoneLoungeActivity;
-import base.app.model.ticker.NewsTickerInfo;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Optional;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
+import base.app.BuildConfig;
 import base.app.R;
+import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.WallAdapter;
 import base.app.events.GameSparksEvent;
 import base.app.events.PostCompleteEvent;
@@ -77,6 +70,7 @@ import base.app.events.PostUpdateEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.IgnoreBackHandling;
 import base.app.model.Model;
+import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.tutorial.TutorialModel;
 import base.app.model.tutorial.WallTip;
 import base.app.model.user.LoginStateReceiver;
@@ -92,6 +86,11 @@ import base.app.model.wall.WallStoreItem;
 import base.app.util.Utility;
 import base.app.util.ui.StaggeredLayoutManagerItemDecoration;
 import base.app.util.ui.ThemeManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
 import static base.app.Constant.REQUEST_CODE_POST_IMAGE_CAPTURE;
 import static base.app.Constant.REQUEST_CODE_POST_IMAGE_PICK;
@@ -190,6 +189,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
+
+    @BindView(R.id.uploaded_image_progress_bar)
+    View imageUploadProgressBar;
 
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
@@ -363,7 +365,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeCameraCapture() {
-        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.choose));
         chooseDialog.setMessage(getContext().getResources().getString(R.string.chat_image_or_video));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_video), new DialogInterface.OnClickListener() {
@@ -398,6 +400,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         chooseDialog.show();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        WallFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -405,6 +412,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             switch (requestCode) {
                 case REQUEST_CODE_POST_IMAGE_CAPTURE:
                     Model.getInstance().uploadImageForPost(currentPath);
+                    imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
                     makePostContainerVisible();
@@ -413,6 +421,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     Model.getInstance().uploadImageForPost(realPath);
+                    imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
                     makePostContainerVisible();
@@ -421,6 +430,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     Uri videoUri = intent.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), videoUri);
                     Model.getInstance().uploadPostVideoRecording(currentPath);
+                    imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
                     makePostContainerVisible();
@@ -436,7 +446,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             case POST_IMAGE_FILE_UPLOADED:
                 if (event.getData() != null) {
                     uploadedImageUrl = (String) event.getData();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage, Utility.imageOptionsImageLoader());
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            imageUploadProgressBar.setVisibility(View.GONE);
+                        }
+                    });
                 }
             case VIDEO_FILE_UPLOADED:
                 videoDownloadUrl = (String) event.getData();
@@ -444,7 +459,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 break;
             case VIDEO_IMAGE_FILE_UPLOADED:
                 videoThumbnailDownloadUrl = (String) event.getData();
-                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader());
+                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        imageUploadProgressBar.setVisibility(View.GONE);
+                    }
+                });
                 break;
         }
     }
@@ -456,6 +476,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         videoThumbnailDownloadUrl = null;
         uploadedImage.setVisibility(View.GONE);
         removeUploadedImage.setVisibility(View.GONE);
+        imageUploadProgressBar.setVisibility(View.GONE);
     }
 
 
@@ -678,7 +699,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Subscribe
     public void onPostUpdated(PostUpdateEvent event) {
-        isNewPostVisible = false || creatingPostInProgress;
+        isNewPostVisible = creatingPostInProgress;
         isFilterVisible = false;
         isSearchVisible = false;
         updateButtons();
@@ -797,6 +818,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             videoThumbnailDownloadUrl = null;
             uploadedImage.setVisibility(View.GONE);
             removeUploadedImage.setVisibility(View.GONE);
+            imageUploadProgressBar.setVisibility(View.GONE);
             WallModel.getInstance().mbPost(newPost);
         } else {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.wall_text_for_post), Toast.LENGTH_SHORT).show();

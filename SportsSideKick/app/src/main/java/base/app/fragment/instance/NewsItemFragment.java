@@ -68,8 +68,8 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.share_news_to_wall_button)
     Button share;
 
-    @BindView(R.id.commnets_wall)
-    RecyclerView commetsList;
+    @BindView(R.id.comments_wall)
+    RecyclerView commentsList;
 
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
@@ -145,8 +145,8 @@ public class NewsItemFragment extends BaseFragment {
         String id = getPrimaryArgument();
         LinearLayoutManager commentLayouManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         commentsAdapter = new CommentsAdapter();
-        commetsList.setLayoutManager(commentLayouManager);
-        commetsList.setAdapter(commentsAdapter);
+        commentsList.setLayoutManager(commentLayouManager);
+        commentsList.setAdapter(commentsAdapter);
 
 
         NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
@@ -173,7 +173,7 @@ public class NewsItemFragment extends BaseFragment {
 
         postContainer.setVisibility(View.VISIBLE);
         WallModel.getInstance().getCommentsForPost(item);
-        commetsList.setNestedScrollingEnabled(false);
+        commentsList.setNestedScrollingEnabled(false);
 
         commentsCount.setText(String.valueOf(item.getCommentsCount()));
         likesCount.setText(String.valueOf(item.getLikeCount()));
@@ -248,7 +248,7 @@ public class NewsItemFragment extends BaseFragment {
     public void onCommentPosted(PostCommentCompleteEvent event) {
         commentsAdapter.getComments().add(event.getComment());
         commentsAdapter.notifyDataSetChanged();
-        commetsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+        commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
 
     }
 

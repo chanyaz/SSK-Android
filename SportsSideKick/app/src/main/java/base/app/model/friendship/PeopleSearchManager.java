@@ -15,6 +15,8 @@ import java.util.List;
 import base.app.model.GSConstants;
 import base.app.model.user.UserInfo;
 
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.Model.createRequest;
 
 /**
@@ -73,6 +75,7 @@ public class PeopleSearchManager {
                 .setEventAttribute(GSConstants.ENTRY_COUNT,"50")
                 .setEventAttribute(GSConstants.OFFSET,firstUserIndex)
                 .setEventAttribute(GSConstants.SEARCH_PATTERN,searchString)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }

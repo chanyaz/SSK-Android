@@ -39,6 +39,8 @@ import base.app.model.user.MessageHandler;
 import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
 
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.Model.LoggedInUserType.NONE;
 import static base.app.model.Model.LoggedInUserType.REAL;
 
@@ -300,6 +302,9 @@ public class Model {
 
     public void login() {
         GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
+        HashMap<String,Object> scriptData = new HashMap<>();
+        scriptData.put(CLUB_ID_TAG,CLUB_ID);
+        request.getBaseData().put("scriptData",scriptData);
         request.setDeviceId(androidId);
         request.setDeviceModel(Build.MANUFACTURER);
         request.setDeviceName(Build.MODEL);

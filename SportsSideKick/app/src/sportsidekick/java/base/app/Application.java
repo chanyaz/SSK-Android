@@ -5,7 +5,6 @@ import android.content.ContextWrapper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
-import com.bugfender.sdk.Bugfender;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.keiferstone.nonet.NoNet;
@@ -18,10 +17,10 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
-import io.fabric.sdk.android.Fabric;
 import base.app.model.AWSFileUploader;
 import base.app.model.purchases.PurchaseModel;
 import base.app.util.SoundEffects;
+import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -34,9 +33,9 @@ public class Application extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        Bugfender.init(this, "X8jor58iPHDDUYWUBDPjZvVwWoMnMWkP", BuildConfig.DEBUG);
-        Bugfender.enableLogcatLogging();
-        Bugfender.enableUIEventLogging(this);
+//        Bugfender.init(this, "X8jor58iPHDDUYWUBDPjZvVwWoMnMWkP", BuildConfig.DEBUG);
+//        Bugfender.enableLogcatLogging();
+//        Bugfender.enableUIEventLogging(this);
 
         NoNet.configure()
                 .endpoint("http://google.com")

@@ -581,7 +581,18 @@ public class ChatFragment extends BaseFragment {
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
                 messageAdapter.notifyDataSetChanged();
-                messageListView.smoothScrollToPosition(0); // Scroll to top
+
+                String lastMessageSenderId = null;
+                List<ImsMessage> messages = currentlyActiveChat.getMessages();
+                if(messages!=null && messages.size()>0){
+                    lastMessageSenderId = messages.get(messages.size()-1).getSenderId();
+                }
+                UserInfo user = Model.getInstance().getUserInfo();
+                if(lastMessageSenderId!=null && user!=null && lastMessageSenderId.equals(user.getUserId())){
+                    messageListView.smoothScrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
+                } else {
+                    messageListView.smoothScrollToPosition(0); // Scroll to top
+                }
             }
         }
     }
@@ -666,7 +677,7 @@ public class ChatFragment extends BaseFragment {
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeCameraCapture() {
-        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.choose));
         chooseDialog.setMessage(getContext().getResources().getString(R.string.chat_image_or_video));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_video), new DialogInterface.OnClickListener() {
@@ -700,34 +711,40 @@ public class ChatFragment extends BaseFragment {
         });
         chooseDialog.show();
     }
-
+    Handler audioRecordHandler;
     @NeedsPermission({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void startRecording() {
         Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_hold), Toast.LENGTH_SHORT).show();
-        final Handler handler = new Handler();
-        handler.postDelayed(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    recorder = new MediaRecorder();
-                                    recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                                    recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-                                    recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-                                    audioFilepath = Model.getAudioFileName();
-                                    recorder.setOutputFile(audioFilepath);
-                                    try {
-                                        recorder.prepare();
-                                        recorder.start();
-                                    } catch (Exception e) {
-                                        Log.e(TAG, "Start of recording failed!");
-                                    }
-                                }
-                            }
-                , 250);
+        audioRecordHandler  = new Handler();
+        audioRecordHandler.postDelayed(audioRecordHandlerTask, 250);
     }
+
+
+    TimerTask audioRecordHandlerTask = new TimerTask() {
+        @Override
+        public void run() {
+            if(!micButton.isPressed()){
+                return;
+            }
+            recorder = new MediaRecorder();
+            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+            audioFilepath = Model.getAudioFileName();
+            recorder.setOutputFile(audioFilepath);
+            try {
+                recorder.prepare();
+                recorder.start();
+            } catch (Exception e) {
+                Log.e(TAG, "Start of recording failed!");
+            }
+        }
+    };
 
     private void stopRecording() {
         if (recorder != null) {
             try {
+                audioRecordHandler.removeCallbacks(audioRecordHandlerTask);
                 recorder.stop();
                 recorder.release();
                 Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_recording_stop), Toast.LENGTH_SHORT).show();
@@ -741,7 +758,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForMicrophone(final PermissionRequest request) {
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(getContext(), R.style.AlertDialog)
                 .setMessage(R.string.permission_microphone_rationale)
                 .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
                     @Override

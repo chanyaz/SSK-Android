@@ -24,8 +24,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import base.app.BuildConfig;
-
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,6 +34,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import base.app.BuildConfig;
+import base.app.Connection;
+import base.app.R;
+import base.app.events.GameSparksEvent;
+import base.app.fragment.BaseFragment;
+import base.app.fragment.FragmentEvent;
+import base.app.model.GSConstants;
+import base.app.model.Model;
+import base.app.model.user.UserInfo;
+import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,16 +54,8 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-import base.app.Connection;
-import base.app.R;
-import base.app.fragment.BaseFragment;
-import base.app.fragment.FragmentEvent;
-import base.app.model.GSConstants;
-import base.app.model.Model;
-import base.app.model.user.UserInfo;
-import base.app.events.GameSparksEvent;
-import base.app.util.Utility;
 
+import static base.app.ClubConfig.CLUB_ID;
 import static base.app.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE;
 import static base.app.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
 
@@ -206,7 +206,7 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForCameraAndStorage(final PermissionRequest request) {
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(getContext(), R.style.AlertDialog)
                 .setMessage(R.string.permission_camera_rationale)
                 .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
                     @Override
@@ -258,6 +258,7 @@ public class EditProfileFragment extends BaseFragment {
         map.put(GSConstants.NICNAME, nicNameEditText.getText().toString());
         map.put(GSConstants.EMAIL, emailEditText.getText().toString());
         map.put(GSConstants.PHONE, phoneEditText.getText().toString());
+        map.put(GSConstants.CLUB_ID_TAG, String.valueOf(CLUB_ID));
         //Todo @refactoring  put password and language
         Model.getInstance().setDetails(map);
         getActivity().onBackPressed();

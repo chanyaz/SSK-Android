@@ -277,6 +277,10 @@ public class ChatInfo {
      */
     public int unreadMessageCount(){
         int count = 0;
+        if(Model.getInstance().getUserInfo()!=null){
+            Log.e(TAG,"*** error - no user!");
+            return -1;
+        }
         String uid = Model.getInstance().getUserInfo().getUserId();
         if (messages == null){
             Log.e(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
@@ -315,24 +319,24 @@ public class ChatInfo {
         task.addOnSuccessListener(new OnSuccessListener<List<ChatInfo>>() {
             @Override
             public void onSuccess(List<ChatInfo> chatInfos) {
-                for(ChatInfo chatInfo : chatInfos){
-                    if(chatInfo.getChatId().equals(chatId)){
-                        if(chatInfo.getUsersIds().contains(uinfo.getUserId())){
-                            Log.e(TAG,"ERROR - User already added to Global chat");
-                        } else {
-                            loadChatUsers().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    usersIds.add(uinfo.getUserId());
-                                    chatUsers.add(uinfo);
-                                    updateChatInfo();
-                                }
-                            });
-                        }
+            for(ChatInfo chatInfo : chatInfos){
+                if(chatInfo.getChatId().equals(chatId)){
+                    if(chatInfo.getUsersIds().contains(uinfo.getUserId())){
+                        Log.e(TAG,"ERROR - User already added to Global chat");
                     } else {
-                        Log.e(TAG,"ERROR - Trying to add user to not-global chat");
+                        loadChatUsers().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                usersIds.add(uinfo.getUserId());
+                                chatUsers.add(uinfo);
+                                updateChatInfo();
+                            }
+                        });
                     }
+                } else {
+                    Log.e(TAG,"ERROR - Trying to add user to not-global chat");
                 }
+            }
             }
         });
     }

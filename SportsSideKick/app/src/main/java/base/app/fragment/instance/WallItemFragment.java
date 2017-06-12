@@ -31,16 +31,15 @@ import android.widget.VideoView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import base.app.activity.PhoneLoungeActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
+import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.CommentsAdapter;
 import base.app.adapter.TutorialStepAdapter;
+import base.app.events.GetCommentsCompleteEvent;
+import base.app.events.PostCommentCompleteEvent;
+import base.app.events.PostUpdateEvent;
 import base.app.fragment.BaseFragment;
 import base.app.model.Model;
 import base.app.model.sharing.SharingManager;
@@ -51,10 +50,10 @@ import base.app.model.wall.WallModel;
 import base.app.model.wall.WallNewsShare;
 import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStoreItem;
-import base.app.events.GetCommentsCompleteEvent;
-import base.app.events.PostCommentCompleteEvent;
-import base.app.events.PostUpdateEvent;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
@@ -77,8 +76,8 @@ public class WallItemFragment extends BaseFragment {
     Button share;
     @BindView(R.id.content_video)
     VideoView videoView;
-    @BindView(R.id.commnets_wall)
-    RecyclerView commetsList;
+    @BindView(R.id.comments_wall)
+    RecyclerView commentsList;
 
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
@@ -109,7 +108,7 @@ public class WallItemFragment extends BaseFragment {
 
     @Nullable
     @BindView(R.id.top_buttons_contaniner)
-    LinearLayout buttonsContaner;
+    LinearLayout buttonsContainer;
     @Nullable
     @BindView(R.id.header_container)
     RelativeLayout headerContainer;
@@ -157,22 +156,24 @@ public class WallItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(getActivity() instanceof PhoneLoungeActivity)
+        if(getActivity() instanceof PhoneLoungeActivity) {
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
+        }
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
         ButterKnife.bind(this, view);
 
         String id = getPrimaryArgument();
-        LinearLayoutManager commentLayouManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         commentsAdapter = new CommentsAdapter();
-        commetsList.setLayoutManager(commentLayouManager);
-        commetsList.setAdapter(commentsAdapter);
+        commentsList.setLayoutManager(commentLayoutManager);
+        commentsList.setAdapter(commentsAdapter);
 
         pinContainer.setVisibility(View.GONE);
 
         item = WallBase.getCache().get(id);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
 
+        WallModel.getInstance().getCommentsForPost(item);
         switch (item.getType()) {
             case post:
                 WallPost post = (WallPost) item;
@@ -192,8 +193,7 @@ public class WallItemFragment extends BaseFragment {
                     });
                 }
                 postContainer.setVisibility(View.VISIBLE);
-                WallModel.getInstance().getCommentsForPost(post);
-                commetsList.setNestedScrollingEnabled(false);
+                commentsList.setNestedScrollingEnabled(false);
 
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
                 likesCount.setText(String.valueOf(post.getLikeCount()));
@@ -233,9 +233,9 @@ public class WallItemFragment extends BaseFragment {
                 TutorialStepAdapter adapter = new TutorialStepAdapter();
                 adapter.getWallSteps().addAll(tip.getTipSteps());
 
-                commetsList.setAdapter(adapter);
+                commentsList.setAdapter(adapter);
 
-                buttonsContaner.setVisibility(View.GONE);
+                buttonsContainer.setVisibility(View.GONE);
                 headerContainer.setVisibility(View.GONE);
                 topSplitLine.setVisibility(View.GONE);
                 bottomSplitLine.setVisibility(View.GONE);
@@ -325,7 +325,7 @@ public class WallItemFragment extends BaseFragment {
         comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
         comment.setWallId(item.getWallId());
         comment.setPostId(item.getPostId());
-        comment.setTimestamp(Double.valueOf(System.currentTimeMillis() / 1000));
+        comment.setTimestamp((double) (System.currentTimeMillis() / 1000));
 
         WallModel.getInstance().postComment(item, comment);
         post.getText().clear();
@@ -335,7 +335,7 @@ public class WallItemFragment extends BaseFragment {
     public void onCommentPosted(PostCommentCompleteEvent event) {
         commentsAdapter.getComments().add(event.getComment());
         commentsAdapter.notifyDataSetChanged();
-        commetsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+        commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
 
     }
 

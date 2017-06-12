@@ -26,22 +26,21 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.app.R;
 import base.app.adapter.ChatGroupAdapter;
 import base.app.adapter.FriendsAdapter;
-import base.app.fragment.instance.VideoChatFragment;
-import base.app.model.friendship.FriendRequest;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import base.app.R;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.instance.VideoChatFragment;
 import base.app.model.Model;
 import base.app.model.friendship.FriendsManager;
 import base.app.model.im.ChatInfo;
 import base.app.model.im.ImsManager;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 /**
@@ -288,7 +287,7 @@ public class MemberInfoFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.video_button)
-    public void wideoButton() {
+    public void videoButton() {
         //TODO finish this
         EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
     }
@@ -342,7 +341,7 @@ public class MemberInfoFragment extends BaseFragment {
             report.setText(getString(R.string.report_abuse));
             report.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
             builder.setTitle(getString(R.string.what_would_you_like_to_do));
             builder.setItems(new CharSequence[]
                           {getString(R.string.report_abuse), follow, friend, getString(R.string.cancel)},
