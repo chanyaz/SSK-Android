@@ -14,6 +14,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -97,7 +98,7 @@ public class CreateChatFragment extends BaseFragment {
     @BindView(R.id.search_edit_text)
     EditText searchEditText;
     @BindView(R.id.private_chat_switch)
-    Switch privateChatSwitch;
+    SwitchCompat privateChatSwitch;
     SelectableFriendsAdapter chatFriendsAdapter;
     @BindView(R.id.private_chat_label)
     TextView privateChatTextView;
