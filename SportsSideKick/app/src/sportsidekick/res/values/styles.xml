@@ -15,48 +15,48 @@
         <item name="colorControlHighlight">@color/light_green_1</item>
 
         <item name="wallBackgroundColor">@color/facebook_blue</item>
-
+        <item name="wallItemsColor">@color/white</item>
         <item name="colorPrimarySemiLight">@color/colorPrimarySemiLight</item>
         <item name="colorPrimaryLight">@color/colorPrimaryLight</item>
 
-        <item name="green_dark_3" >@color/green_dark_3</item>
-        <item name="green_dark_1" >@color/green_dark_1</item>
-        <item name="light_green_1_semitransparent" >@color/light_green_1_semitransparent</item>
-        <item name="green_dark_2" >@color/green_dark_2</item>
-        <item name="green_dark_2_semitransparent" >@color/green_dark_2_semitransparent</item>
+        <item name="green_dark_3">@color/green_dark_3</item>
+        <item name="green_dark_1">@color/green_dark_1</item>
+        <item name="light_green_1_semitransparent">@color/light_green_1_semitransparent</item>
+        <item name="green_dark_2">@color/green_dark_2</item>
+        <item name="green_dark_2_semitransparent">@color/green_dark_2_semitransparent</item>
 
-        <item name="light_green_2" >@color/light_green_2</item>
-        <item name="lightGrey" >@color/lightGrey</item>
-        <item name="white" >@color/white</item>
-        <item name="white_semitransparent" >@color/white_semitransparent</item>
-        <item name="light_green_1" >@color/light_green_1</item>
+        <item name="light_green_2">@color/light_green_2</item>
+        <item name="lightGrey">@color/lightGrey</item>
+        <item name="white">@color/white</item>
+        <item name="white_semitransparent">@color/white_semitransparent</item>
+        <item name="light_green_1">@color/light_green_1</item>
 
-        <item name="demo_yellow_semitransparent" >@color/demo_yellow_semitransparent</item>
-        <item name="demo_green_semitransparent" >@color/demo_green_semitransparent</item>
-        <item name="demo_blue_semitransparent" >@color/demo_blue_semitransparent</item>
-        <item name="demo_red_semitransparent" >@color/demo_red_semitransparent</item>
-        <item name="black_transparent_154" >@color/black_transparent_154</item>
+        <item name="demo_yellow_semitransparent">@color/demo_yellow_semitransparent</item>
+        <item name="demo_green_semitransparent">@color/demo_green_semitransparent</item>
+        <item name="demo_blue_semitransparent">@color/demo_blue_semitransparent</item>
+        <item name="demo_red_semitransparent">@color/demo_red_semitransparent</item>
+        <item name="black_transparent_154">@color/black_transparent_154</item>
 
-        <item name="facebook_blue" >@color/facebook_blue</item>
-        <item name="wall_comment_color" >@color/wall_comment_color</item>
-        <item name="wall_shop_description_background" >@color/wall_shop_description_background</item>
-        <item name="wall_shop_description_text_color" >@color/wall_shop_description_text_color</item>
-        <item name="black" >@color/black</item>
+        <item name="facebook_blue">@color/facebook_blue</item>
+        <item name="wall_comment_color">@color/wall_comment_color</item>
+        <item name="wall_shop_description_background">@color/wall_shop_description_background</item>
+        <item name="wall_shop_description_text_color">@color/wall_shop_description_text_color</item>
+        <item name="black">@color/black</item>
 
-        <item name="chat_input_edit_text_background" >@color/chat_input_edit_text_background</item>
-        <item name="wall_store_color" >@color/wall_store_color</item>
-        <item name="rumour_yellow" >@color/rumour_yellow</item>
+        <item name="chat_input_edit_text_background">@color/chat_input_edit_text_background</item>
+        <item name="wall_store_color">@color/wall_store_color</item>
+        <item name="rumour_yellow">@color/rumour_yellow</item>
 
         <!--Images-->
         <!--activity_lounge-->
-        <item name="tabRadioButtonSelectorRight" >@drawable/tab_radio_button_selector_right</item>
-        <item name="tabRadioButtonSelectorLeft" >@drawable/tab_radio_button_selector_left</item>
+        <item name="tabRadioButtonSelectorRight">@drawable/tab_radio_button_selector_right</item>
+        <item name="tabRadioButtonSelectorLeft">@drawable/tab_radio_button_selector_left</item>
 
         <item name="radioButtonCheckedLeft">@drawable/radio_button_checked_left</item>
         <item name="radioButtonNormalLeft">@drawable/radio_button_normal_left</item>
 
-        <item name="userLevelProgress" >@drawable/circle_shape</item>
-        <item name="userCoinIcon" >@drawable/skk_coin_large</item>
+        <item name="userLevelProgress">@drawable/circle_shape</item>
+        <item name="userCoinIcon">@drawable/skk_coin_large</item>
 
         <item name="logoIcon">@drawable/sportingportugal</item>
         <item name="ligaBanner">@drawable/liga</item>
@@ -71,8 +71,9 @@
         <item name="loginBackground">@drawable/background_login</item>
 
         <item name="chatAddUserIcon">@drawable/chat_add_user</item>
-        <item name="chatNotificationIcon" >@drawable/chat_head_notification</item> <!-- TODO @Nemanja - Why is this a 9patch? It should be updated to circle. -->
-        <item name="blockedIcon" >@drawable/icon_blocked</item>
+        <item name="chatNotificationIcon">@drawable/chat_head_notification
+        </item> <!-- TODO @Nemanja - Why is this a 9patch? It should be updated to circle. -->
+        <item name="blockedIcon">@drawable/icon_blocked</item>
         <item name="chatBubbleIcon">@drawable/chat_bubble</item>
         <item name="popupCancelButtonIcon">@drawable/popup_cancel_button</item>
         <item name="popupConfirmationButtonIcon">@drawable/popup_confirmation_button</item>
@@ -80,17 +81,17 @@
         <item name="chatBackground">@drawable/chat_background</item>
         <item name="arrowDownIcon">@drawable/down_arrow</item>
 
-        <item name="chatVoiceButtonPressedIcon" >@drawable/chat_button_voice_pressed</item>
-        <item name="chatVoiceButtonIcon" >@drawable/chat_button_voice</item>
-        <item name="chatVoiceSelector" >@drawable/chat_mic_selector</item>
-        <item name="chatCameraIcon" >@drawable/chat_button_camera</item>
-        <item name="chatGalleryIcon" >@drawable/chat_button_image</item>
-        <item name="chatAddButtonIcon" >@drawable/chat_add_menu_button</item>
-        <item name="chatMenuButtonIcon" >@drawable/chat_menu_button</item>
+        <item name="chatVoiceButtonPressedIcon">@drawable/chat_button_voice_pressed</item>
+        <item name="chatVoiceButtonIcon">@drawable/chat_button_voice</item>
+        <item name="chatVoiceSelector">@drawable/chat_mic_selector</item>
+        <item name="chatCameraIcon">@drawable/chat_button_camera</item>
+        <item name="chatGalleryIcon">@drawable/chat_button_image</item>
+        <item name="chatAddButtonIcon">@drawable/chat_add_menu_button</item>
+        <item name="chatMenuButtonIcon">@drawable/chat_menu_button</item>
 
-        <item name="textViewRoundBorderShape" >@drawable/textview_round_border</item>
-        <item name="videoCloseButtonIcon" >@drawable/video_close_button</item>
-        <item name="downloadButtonIcon" >@drawable/download_button</item>
+        <item name="textViewRoundBorderShape">@drawable/textview_round_border</item>
+        <item name="videoCloseButtonIcon">@drawable/video_close_button</item>
+        <item name="downloadButtonIcon">@drawable/download_button</item>
 
         <item name="closeIcon">@drawable/ic_close</item>
 
@@ -100,17 +101,17 @@
 
         <item name="radioLiveIcon">@drawable/radio_live</item>
 
-        <item name="soundSelector" >@drawable/switch_mute</item>
-        <item name="soundOnIcon" >@drawable/sound_on_icon</item>
-        <item name="soundOffIcon" >@drawable/sound_off_icon</item>
+        <item name="soundSelector">@drawable/switch_mute</item>
+        <item name="soundOnIcon">@drawable/sound_on_icon</item>
+        <item name="soundOffIcon">@drawable/sound_off_icon</item>
 
-        <item name="seekBarShape" >@drawable/seek_bar_custom</item>
-        <item name="seekBarAudioShape" >@drawable/seek_bar_audio</item>
+        <item name="seekBarShape">@drawable/seek_bar_custom</item>
+        <item name="seekBarAudioShape">@drawable/seek_bar_audio</item>
 
-        <item name="wallBackground" >@color/wall_background</item>
+        <item name="wallBackground">@color/wall_background</item>
         <item name="chatInfoBackgroundColor">@color/colorPrimary</item>
 
-        <item name="circularProgressBarDrawable" >@drawable/circular_progress_bar</item>
+        <item name="circularProgressBarDrawable">@drawable/circular_progress_bar</item>
 
         <item name="tabRadioButtonTextColor">@drawable/tab_radio_text_color_selector</item>
 
@@ -122,10 +123,10 @@
         <item name="chatBubbleLeftImage">@drawable/ic_chat_bubble_left</item>
         <item name="chatBubbleRightImage">@drawable/ic_chat_bubble_right</item>
 
-        <item name="wallItemUserPostBackground" >@color/colorPrimary</item>
-        <item name="wallItemRumoursBigBackground" >@color/colorPrimary</item>
-        <item name="wallItemShopBackground" >@color/colorPrimary</item>
-        <item name="wallItemStoreBackground" >@color/colorPrimary</item>
+        <item name="wallItemUserPostBackground">@color/colorPrimary</item>
+        <item name="wallItemRumoursBigBackground">@color/colorPrimary</item>
+        <item name="wallItemShopBackground">@color/colorPrimary</item>
+        <item name="wallItemStoreBackground">@color/colorPrimary</item>
         <item name="wallItemNewsBackground">@color/colorPrimary</item>
         <item name="wallItemTipBackground">@color/colorPrimary</item>
 
@@ -137,36 +138,36 @@
         <item name="rumourSmallSeparatorColor">@color/green_dark_2</item>
 
         <item name="channelItemCaption">@color/white</item>
-        <item name="channelItemBackground" >@color/colorPrimary</item>
-        <item name="channelItemDate" >@color/lightGrey</item>
+        <item name="channelItemBackground">@color/colorPrimary</item>
+        <item name="channelItemDate">@color/lightGrey</item>
 
-        <item name="postCommentContainerColor" >@color/green_dark_2_semitransparent</item>
-        <item name="postCommentHintColor" >@color/lightGrey</item>
-        <item name="postCommentTextColor" >@color/white</item>
+        <item name="postCommentContainerColor">@color/green_dark_2_semitransparent</item>
+        <item name="postCommentHintColor">@color/lightGrey</item>
+        <item name="postCommentTextColor">@color/white</item>
 
 
-        <item name="newsLikeIcon" >@color/white</item>
-        <item name="newsLikedIcon" >@color/colorAccent</item>
-        <item name="newsPinIcon" >@color/white</item>
-        <item name="newsShareIcon" >@color/white</item>
-        <item name="newsCommentIcon" >@color/white</item>
+        <item name="newsLikeIcon">@color/white</item>
+        <item name="newsLikedIcon">@color/colorAccent</item>
+        <item name="newsPinIcon">@color/white</item>
+        <item name="newsShareIcon">@color/white</item>
+        <item name="newsCommentIcon">@color/white</item>
 
-        <item name="tvRadioHeadlineColor" >@color/white</item>
+        <item name="tvRadioHeadlineColor">@color/white</item>
 
         <!--<item name="playerControlsBackground" >@color/</item>-->
         <!--<item name="playerControlsPlayButton" >@color/</item>-->
         <!--<item name="playerControlsCaption" >@color/</item>-->
         <!--<item name="playerControlsMuteIcon" >@color/</item>-->
 
-        <item name="chatHeadInfoContainer" >@color/colorAccentLight</item>
+        <item name="chatHeadInfoContainer">@color/colorAccentLight</item>
 
-        <item name="videoChatButtonStyle" >@style/button_call</item>
+        <item name="videoChatButtonStyle">@style/button_call</item>
 
-        <item name="wallEditTextContainerBackground" >@color/green_dark_3</item>
-        <item name="wallEditSearchText" >@color/white</item>
-        <item name="wallEditSearchHint" >@color/colorPrimarySemiLight</item>
+        <item name="wallEditTextContainerBackground">@color/green_dark_3</item>
+        <item name="wallEditSearchText">@color/white</item>
+        <item name="wallEditSearchHint">@color/colorPrimarySemiLight</item>
 
-        <item name="wallUserContentTextColor" >@color/white</item>
+        <item name="wallUserContentTextColor">@color/white</item>
 
         <item name="videoChatOverlay">@color/light_green_1_semitransparent</item>
 
@@ -187,7 +188,9 @@
 
         <item name="greenCircle">@drawable/circle_green</item>
 
-        <item name="popupOnClickChangeTextColor">@drawable/button_onclick_change_text_color_initial</item>
+        <item name="popupOnClickChangeTextColor">
+            @drawable/button_onclick_change_text_color_initial
+        </item>
         <item name="buttonLogin">@drawable/button_login_login</item>
         <item name="buttonEditProfileImage">@drawable/button_edit_profile_image</item>
         <item name="phoneChatBackground">@drawable/phone_chat_background</item>
@@ -198,7 +201,7 @@
 
 
     </style>
-<!--*********************************************************************************************-->
+    <!--*********************************************************************************************-->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
 
@@ -213,48 +216,55 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
 
         <item name="wallBackgroundColor">@color/facebook_blue</item>
-
+        <item name="wallItemsColor">@color/colorPrimarySemiLight</item>
         <item name="colorPrimarySemiLight">@color/light_colorPrimarySemiLight</item>
         <item name="colorPrimaryLight">@color/light_colorPrimaryLight</item>
 
-        <item name="green_dark_3" >@color/light_green_dark_3</item>
-        <item name="green_dark_1" >@color/light_green_dark_1</item>
-        <item name="light_green_1_semitransparent" >@color/light_light_green_1_semitransparent</item>
-        <item name="green_dark_2" >@color/light_green_dark_2</item>
-        <item name="green_dark_2_semitransparent" >@color/light_green_dark_2_semitransparent</item>
+        <item name="green_dark_3">@color/light_green_dark_3</item>
+        <item name="green_dark_1">@color/light_green_dark_1</item>
+        <item name="light_green_1_semitransparent">@color/light_light_green_1_semitransparent</item>
+        <item name="green_dark_2">@color/light_green_dark_2</item>
+        <item name="green_dark_2_semitransparent">@color/light_green_dark_2_semitransparent</item>
 
-        <item name="light_green_2" >@color/light_light_green_2</item>
-        <item name="lightGrey" >@color/light_lightGrey</item>
-        <item name="white" >@color/light_white</item>
-        <item name="white_semitransparent" >@color/light_white_semitransparent</item>
-        <item name="light_green_1" >@color/light_light_green_1</item>
+        <item name="light_green_2">@color/light_light_green_2</item>
+        <item name="lightGrey">@color/light_lightGrey</item>
+        <item name="white">@color/light_white</item>
+        <item name="white_semitransparent">@color/light_white_semitransparent</item>
+        <item name="light_green_1">@color/light_light_green_1</item>
 
-        <item name="demo_yellow_semitransparent" >@color/light_demo_yellow_semitransparent</item>
-        <item name="demo_green_semitransparent" >@color/light_demo_green_semitransparent</item>
-        <item name="demo_blue_semitransparent" >@color/light_demo_blue_semitransparent</item>
-        <item name="demo_red_semitransparent" >@color/light_demo_red_semitransparent</item>
-        <item name="black_transparent_154" >@color/light_black_transparent_154</item>
+        <item name="demo_yellow_semitransparent">@color/light_demo_yellow_semitransparent</item>
+        <item name="demo_green_semitransparent">@color/light_demo_green_semitransparent</item>
+        <item name="demo_blue_semitransparent">@color/light_demo_blue_semitransparent</item>
+        <item name="demo_red_semitransparent">@color/light_demo_red_semitransparent</item>
+        <item name="black_transparent_154">@color/light_black_transparent_154</item>
 
-        <item name="facebook_blue" >@color/light_facebook_blue</item>
-        <item name="wall_comment_color" >@color/light_wall_comment_color</item>
-        <item name="wall_shop_description_background" >@color/light_wall_shop_description_background</item>
-        <item name="wall_shop_description_text_color" >@color/light_wall_shop_description_text_color</item>
-        <item name="black" >@color/light_black</item>
+        <item name="facebook_blue">@color/light_facebook_blue</item>
+        <item name="wall_comment_color">@color/light_wall_comment_color</item>
+        <item name="wall_shop_description_background">
+            @color/light_wall_shop_description_background
+        </item>
+        <item name="wall_shop_description_text_color">
+            @color/light_wall_shop_description_text_color
+        </item>
+        <item name="black">@color/light_black</item>
 
-        <item name="chat_input_edit_text_background" >@color/light_chat_input_edit_text_background</item>
-        <item name="wall_store_color" >@color/light_wall_store_color</item>
-        <item name="rumour_yellow" >@color/light_rumour_yellow</item>
+        <item name="chat_input_edit_text_background">@color/light_chat_input_edit_text_background
+        </item>
+        <item name="wall_store_color">@color/light_wall_store_color</item>
+        <item name="rumour_yellow">@color/light_rumour_yellow</item>
 
         <!--Images-->
-        <item name="userCoinIcon" >@drawable/skk_coin_large</item>
+        <item name="userCoinIcon">@drawable/skk_coin_large</item>
         <!--activity_lounge-->
-        <item name="tabRadioButtonSelectorRight" >@drawable/light_tab_radio_button_selector_right</item>
-        <item name="tabRadioButtonSelectorLeft" >@drawable/light_tab_radio_button_selector_left</item>
+        <item name="tabRadioButtonSelectorRight">@drawable/light_tab_radio_button_selector_right
+        </item>
+        <item name="tabRadioButtonSelectorLeft">@drawable/light_tab_radio_button_selector_left
+        </item>
 
         <item name="radioButtonCheckedLeft">@drawable/light_radio_button_checked_left</item>
         <item name="radioButtonNormalLeft">@drawable/light_radio_button_normal_left</item>
 
-        <item name="userLevelProgress" >@drawable/light_circle_shape</item>
+        <item name="userLevelProgress">@drawable/light_circle_shape</item>
 
         <item name="notificationIcon">@drawable/notification</item>
         <item name="profileImageIcon">@drawable/blank_profile_rounded</item>
@@ -266,8 +276,8 @@
         <item name="loginBackground">@drawable/background_login</item>
 
         <item name="chatAddUserIcon">@drawable/chat_add_user</item>
-        <item name="chatNotificationIcon" >@drawable/light_chat_head_notification</item>
-        <item name="blockedIcon" >@drawable/icon_blocked</item>
+        <item name="chatNotificationIcon">@drawable/light_chat_head_notification</item>
+        <item name="blockedIcon">@drawable/icon_blocked</item>
         <item name="chatHeadSelectedIcon">@drawable/light_chat_selected_user</item>
         <item name="chatBubbleIcon">@drawable/chat_bubble</item>
         <item name="popupCancelButtonIcon">@drawable/popup_cancel_button</item>
@@ -276,18 +286,18 @@
         <item name="chatBackground">@drawable/light_chat_background</item>
         <item name="arrowDownIcon">@drawable/down_arrow</item>
 
-        <item name="chatVoiceButtonPressedIcon" >@drawable/chat_button_voice_pressed</item>
-        <item name="chatVoiceButtonIcon" >@drawable/chat_button_voice</item>
-        <item name="chatVoiceSelector" >@drawable/chat_mic_selector</item>
-        <item name="chatCameraIcon" >@drawable/chat_button_camera</item>
-        <item name="chatGalleryIcon" >@drawable/chat_button_image</item>
-        <item name="chatAddButtonIcon" >@drawable/chat_add_menu_button</item>
-        <item name="chatMenuButtonIcon" >@drawable/chat_menu_button</item>
+        <item name="chatVoiceButtonPressedIcon">@drawable/chat_button_voice_pressed</item>
+        <item name="chatVoiceButtonIcon">@drawable/chat_button_voice</item>
+        <item name="chatVoiceSelector">@drawable/chat_mic_selector</item>
+        <item name="chatCameraIcon">@drawable/chat_button_camera</item>
+        <item name="chatGalleryIcon">@drawable/chat_button_image</item>
+        <item name="chatAddButtonIcon">@drawable/chat_add_menu_button</item>
+        <item name="chatMenuButtonIcon">@drawable/chat_menu_button</item>
 
-        <item name="textViewRoundBorderShape" >@drawable/textview_round_border</item>
-        <item name="videoCloseButtonIcon" >@drawable/video_close_button</item>
+        <item name="textViewRoundBorderShape">@drawable/textview_round_border</item>
+        <item name="videoCloseButtonIcon">@drawable/video_close_button</item>
 
-        <item name="downloadButtonIcon" >@drawable/download_button</item>
+        <item name="downloadButtonIcon">@drawable/download_button</item>
         <item name="closeIcon">@drawable/ic_close</item>
 
         <item name="playPauseSelector">@drawable/switch_play</item>
@@ -296,18 +306,18 @@
 
         <item name="radioLiveIcon">@drawable/radio_live</item>
 
-        <item name="soundSelector" >@drawable/switch_mute</item>
-        <item name="soundOnIcon" >@drawable/sound_on_icon</item>
-        <item name="soundOffIcon" >@drawable/sound_off_icon</item>
+        <item name="soundSelector">@drawable/switch_mute</item>
+        <item name="soundOnIcon">@drawable/sound_on_icon</item>
+        <item name="soundOffIcon">@drawable/sound_off_icon</item>
 
-        <item name="seekBarShape" >@drawable/seek_bar_custom</item>
+        <item name="seekBarShape">@drawable/seek_bar_custom</item>
 
-        <item name="seekBarAudioShape" >@drawable/seek_bar_audio</item>
+        <item name="seekBarAudioShape">@drawable/seek_bar_audio</item>
 
         <item name="wallBackground">@color/light_wall_background</item>
         <item name="chatInfoBackgroundColor">@color/colorPrimaryLight</item>
 
-        <item name="circularProgressBarDrawable" >@drawable/light_circular_progress_bar</item>
+        <item name="circularProgressBarDrawable">@drawable/light_circular_progress_bar</item>
 
         <item name="tabRadioButtonTextColor">@drawable/light_tab_radio_text_color_selector</item>
 
@@ -320,10 +330,10 @@
         <item name="chatBubbleLeftImage">@drawable/ic_light_chat_bubble_left</item>
         <item name="chatBubbleRightImage">@drawable/ic_light_chat_bubble_right</item>
 
-        <item name="wallItemUserPostBackground" >@color/light_wall_item_background</item>
-        <item name="wallItemRumoursBigBackground" >@color/light_wall_item_background</item>
-        <item name="wallItemShopBackground" >@color/light_wall_item_background</item>
-        <item name="wallItemStoreBackground" >@color/light_wall_item_background</item>
+        <item name="wallItemUserPostBackground">@color/light_wall_item_background</item>
+        <item name="wallItemRumoursBigBackground">@color/light_wall_item_background</item>
+        <item name="wallItemShopBackground">@color/light_wall_item_background</item>
+        <item name="wallItemStoreBackground">@color/light_wall_item_background</item>
         <item name="wallItemNewsBackground">@color/light_wall_item_background</item>
         <item name="wallItemTipBackground">@color/light_wall_item_background</item>
 
@@ -336,30 +346,31 @@
         <item name="rumourSmallSeparatorColor">@color/light_rumour_separator_color</item>
 
         <item name="channelItemCaption">@color/light_rumour_news_text_color</item>
-        <item name="channelItemBackground" >@color/white</item>
-        <item name="channelItemDate" >@color/light_rumour_separator_color</item>
+        <item name="channelItemBackground">@color/white</item>
+        <item name="channelItemDate">@color/light_rumour_separator_color</item>
 
-        <item name="postCommentContainerColor" >@color/light_post_comment_background_color</item>
-        <item name="postCommentHintColor" >@color/light_post_comment_hint_color</item>
-        <item name="postCommentTextColor" >@color/light_post_comment_text_color</item>
+        <item name="postCommentContainerColor">@color/light_post_comment_background_color</item>
+        <item name="postCommentHintColor">@color/light_post_comment_hint_color</item>
+        <item name="postCommentTextColor">@color/light_post_comment_text_color</item>
 
-        <item name="newsLikeIcon" >@color/colorPrimary</item>
-        <item name="newsLikedIcon" >@color/light_rumour_news_text_color</item>
-        <item name="newsPinIcon" >@color/colorPrimary</item>
-        <item name="newsShareIcon" >@color/colorPrimary</item>
-        <item name="newsCommentIcon" >@color/colorPrimary</item>
+        <item name="newsLikeIcon">@color/colorPrimary</item>
+        <item name="newsLikedIcon">@color/light_rumour_news_text_color</item>
+        <item name="newsPinIcon">@color/colorPrimary</item>
+        <item name="newsShareIcon">@color/colorPrimary</item>
+        <item name="newsCommentIcon">@color/colorPrimary</item>
 
-        <item name="tvRadioHeadlineColor" >@color/light_post_comment_text_color</item>
+        <item name="tvRadioHeadlineColor">@color/light_post_comment_text_color</item>
 
-        <item name="chatHeadInfoContainer" >@color/white</item>
+        <item name="chatHeadInfoContainer">@color/white</item>
 
-        <item name="videoChatButtonStyle" >@style/light_button_call</item>
+        <item name="videoChatButtonStyle">@style/light_button_call</item>
 
-        <item name="wallEditTextContainerBackground" >@color/light_post_comment_background_color</item>
-        <item name="wallEditSearchText" >@color/light_post_comment_text_color</item>
-        <item name="wallEditSearchHint" >@color/light_post_comment_hint_color</item>
+        <item name="wallEditTextContainerBackground">@color/light_post_comment_background_color
+        </item>
+        <item name="wallEditSearchText">@color/light_post_comment_text_color</item>
+        <item name="wallEditSearchHint">@color/light_post_comment_hint_color</item>
 
-        <item name="wallUserContentTextColor" >@color/light_green_main</item>
+        <item name="wallUserContentTextColor">@color/light_green_main</item>
         <item name="videoChatOverlay">@color/video_chat_overlay</item>
 
         <item name="webViewControlsBackground">@color/light_green_main</item>
@@ -385,7 +396,9 @@
 
         <item name="greenCircle">@drawable/light_circle_green</item>
 
-        <item name="popupOnClickChangeTextColor">@drawable/light_button_onclick_change_text_color_initial</item>
+        <item name="popupOnClickChangeTextColor">
+            @drawable/light_button_onclick_change_text_color_initial
+        </item>
         <item name="buttonLogin">@drawable/light_button_login_login</item>
         <item name="buttonEditProfileImage">@drawable/light_button_edit_profile_image</item>
     </style>

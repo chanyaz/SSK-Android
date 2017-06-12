@@ -171,12 +171,12 @@
                     android:id="@+id/uploaded_image_progress_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/uploaded_image"
+                    android:layout_alignEnd="@+id/uploaded_image"
                     android:layout_alignStart="@+id/uploaded_image"
                     android:layout_alignTop="@+id/uploaded_image"
-                    android:layout_alignEnd="@+id/uploaded_image"
-                    android:layout_alignBottom="@+id/uploaded_image"
                     android:padding="@dimen/margin_5"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/remove_uploaded_photo_button"
@@ -192,13 +192,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/margin_10"
                     android:layout_marginEnd="@dimen/margin_10"
+                    android:layout_marginStart="@dimen/margin_10"
                     android:layout_toEndOf="@+id/uploaded_image"
                     android:layout_toStartOf="@+id/post_post_button"
                     android:hint="@string/write_post_hint"
                     android:textColor="?phoneWallEditSearchText"
-                    app:backgroundTint="@color/transparent" />
+                    app:backgroundTint="?wallItemsColor" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/post_post_button"
@@ -210,7 +210,7 @@
                     android:layout_marginStart="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_20"
                     android:src="@drawable/btn_send"
-                    android:tint="?colorPrimarySemiLight"
+                    android:tint="?wallItemsColor"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -235,14 +235,14 @@
                     android:layout_width="@dimen/width_40"
                     android:layout_height="match_parent"
                     android:src="?chatCameraIcon"
-                    android:tint="?colorPrimarySemiLight" />
+                    android:tint="?wallItemsColor" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/image_button"
                     android:layout_width="@dimen/width_40"
                     android:layout_height="match_parent"
                     android:src="?chatGalleryIcon"
-                    android:tint="?colorPrimarySemiLight" />
+                    android:tint="?wallItemsColor" />
 
             </LinearLayout>
         </RelativeLayout>
