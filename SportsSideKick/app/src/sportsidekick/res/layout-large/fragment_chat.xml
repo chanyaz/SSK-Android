@@ -193,8 +193,7 @@
             android:clickable="true"
             android:gravity="center"
             android:padding="@dimen/half_margin"
-            android:visibility="gone"
-            android:weightSum="0.9">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/chat_menu_create"
@@ -203,7 +202,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_10"
                 android:layout_marginStart="@dimen/margin_20"
-                android:layout_weight="0.3"
+                android:layout_weight="0.25"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
@@ -217,11 +216,25 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_10"
                 android:layout_marginStart="@dimen/margin_10"
-                android:layout_weight="0.3"
+                android:layout_weight="0.25"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="Edit"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/chat_menu_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_weight="0.25"
+                android:background="?textViewRoundBorderShape"
+                android:gravity="center"
+                android:padding="@dimen/half_margin"
+                android:text="Delete"
                 android:textColor="@color/white" />
 
             <TextView
@@ -231,7 +244,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_20"
                 android:layout_marginStart="@dimen/margin_10"
-                android:layout_weight="0.3"
+                android:layout_weight="0.25"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
