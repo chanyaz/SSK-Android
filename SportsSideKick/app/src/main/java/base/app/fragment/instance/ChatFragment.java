@@ -146,6 +146,10 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.chat_menu_dots)
     ImageView chatMenuDotsImageView;
 
+
+    @BindView(R.id.chat_menu_delete)
+    TextView chatMenuDeleteButton;
+
     @BindView(R.id.chat_menu_edit)
     TextView chatMenuEditButton;
 
@@ -169,7 +173,7 @@ public class ChatFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity)
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, view);
@@ -193,7 +197,7 @@ public class ChatFragment extends BaseFragment {
         snappyLinearLayoutManager.setSnapDuration(1000);
         snappyLinearLayoutManager.setSeekDuration(1000);
         messageListView.setLayoutManager(snappyLinearLayoutManager);
-        if (!Utility.isTablet(getActivity()) && ImsManager.getInstance().getUserChatsList().size()==0 ) {
+        if (!Utility.isTablet(getActivity()) && ImsManager.getInstance().getUserChatsList().size() == 0) {
             ImsManager.getInstance().reload();
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -351,9 +355,11 @@ public class ChatFragment extends BaseFragment {
             UserInfo user = Model.getInstance().getUserInfo();
             if (user != null) {
                 if (user.getUserId().equals(currentlyActiveChat.getOwner())) {
+                    chatMenuDeleteButton.setVisibility(View.VISIBLE);
                     chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
                 } else {
                     chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
+                    chatMenuDeleteButton.setVisibility(View.GONE);
                 }
             } else {
                 chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
@@ -445,6 +451,12 @@ public class ChatFragment extends BaseFragment {
     public void chatMenuCreateOnClick() {
         EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
     }
+
+    @OnClick(R.id.chat_menu_delete)
+    public void chatMenuDeleteOnClick() {
+        currentlyActiveChat.deleteChat();
+    }
+
 
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
