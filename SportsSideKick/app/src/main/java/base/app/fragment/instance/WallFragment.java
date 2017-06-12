@@ -568,7 +568,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }));
         }
-        //sortByTimestamp();
+        sortByTimestamp();
         adapter.replaceAll(filteredWallItems);
         adapter.notifyDataSetChanged();
     }
@@ -824,7 +824,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             uploadedImage.setVisibility(View.GONE);
             removeUploadedImage.setVisibility(View.GONE);
             imageUploadProgressBar.setVisibility(View.GONE);
+
             WallModel.getInstance().mbPost(newPost);
+            Utility.hideKeyboard(getActivity());
         } else {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.wall_text_for_post), Toast.LENGTH_SHORT).show();
         }

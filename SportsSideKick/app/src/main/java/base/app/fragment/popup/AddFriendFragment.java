@@ -200,7 +200,6 @@ public class AddFriendFragment extends BaseFragment {
 
 
                 String text = s.toString();
-                //TODO @Filip, add item in the Api mutual friends List.
                 Task<List<UserInfo>> peopleTask = PeopleSearchManager.getInstance().searchPeople(text, 0);
                 peopleTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
                     @Override
