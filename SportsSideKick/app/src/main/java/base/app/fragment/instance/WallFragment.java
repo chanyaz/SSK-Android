@@ -563,7 +563,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }));
         }
-        //sortByTimestamp();
+        sortByTimestamp();
         adapter.replaceAll(filteredWallItems);
         adapter.notifyDataSetChanged();
     }
