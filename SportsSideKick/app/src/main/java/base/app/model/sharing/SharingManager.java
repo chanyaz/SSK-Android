@@ -155,11 +155,11 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
         if(response.containsKey("image")){
             String image = (String) response.get("image");
             Uri imageUrl =  Uri.parse(image);
-            contentBuilder.setImageUrl(imageUrl);
+            contentBuilder.setContentUrl(imageUrl);
         }
         if(response.containsKey("title")){
             String title = (String) response.get("title");
-            contentBuilder.setContentTitle(title);
+            contentBuilder.setQuote(title);
         }
         EventBus.getDefault().post(contentBuilder.build());
     }
