@@ -335,8 +335,13 @@ public class CreateChatFragment extends BaseFragment {
                 // Error occurred while creating the File
             }
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                if(Utility.isKitKat()){
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                }
+                if(Utility.isLollipopAndUp()){
+                    Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                }
             }
             startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE);
         }
