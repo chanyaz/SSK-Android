@@ -328,22 +328,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         startNewsTimer(newsTickerInfo, newsLabel);
     }
 
-    @Subscribe
-    public void onShareOnFacebookEvent(ShareLinkContent linkContent) {
-        if (ShareDialog.canShow(ShareLinkContent.class)) {
-            facebookShareDialog.show(linkContent);
-        }
-    }
 
-    @Subscribe
-    public void onShareOnTwitterEvent(TweetComposer.Builder event) {
-        event.show();
-    }
-
-    @Subscribe
-    public void onShareNativeEvent(NativeShareEvent event) {
-        startActivity(Intent.createChooser(event.getIntent(), getResources().getString(R.string.share_using)));
-    }
 
     private void setYourCoinsValue(String value) {
         yourCoinsValue.setText(value + " $$K");
