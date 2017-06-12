@@ -192,8 +192,11 @@ public class JoinChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_join_headline_close_fragment)
     public void closeFragment() {
-        ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
-        //  getActivity().onBackPressed();
+        if(Utility.isTablet(getActivity())){
+            ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+        }else {
+            getActivity().onBackPressed();
+        }
     }
 
     public void performSearch() {

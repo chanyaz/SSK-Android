@@ -3,6 +3,7 @@ package base.app.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -358,5 +359,15 @@ public class Utility {
                 activity.getWindow().setAttributes(winParams);
             }
         }
+    }
+    public static boolean isKitKat(){
+       return Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT;
+    }
+    public static boolean isLollipopAndUp(){
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    public static boolean isAnyCameraAvailable(Context context) {
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
     }
 }

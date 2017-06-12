@@ -342,7 +342,10 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon)
     public void likePost() {
-        likesCount.setText(String.valueOf(item.getLikeCount()+1));
+        if (item!=null)
+        {
+            likesCount.setText(String.valueOf(item.getLikeCount()+1));
+        }
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
         likesIconLiked.setVisibility(View.VISIBLE);
@@ -351,7 +354,10 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
-        likesCount.setText(String.valueOf(item.getLikeCount()-1));
+        if (item!=null)
+        {
+            likesCount.setText(String.valueOf(item.getLikeCount()-1));
+        }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
         likesIconLiked.setVisibility(View.GONE);
