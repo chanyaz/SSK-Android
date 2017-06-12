@@ -89,7 +89,6 @@
                     android:layout_toEndOf="@+id/uploaded_image"
                     android:layout_toStartOf="@+id/post_post_button"
                     android:hint="@string/write_post_hint"
-                    android:imeOptions="actionDone"
                     android:textColor="?wallEditSearchText"
                     android:textColorHint="?wallEditSearchHint"
                     app:backgroundTint="?wallItemsColor" />
