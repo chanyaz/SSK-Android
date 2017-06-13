@@ -107,6 +107,7 @@
     <attr name="popupConfirmationButtonIcon" format="reference" />
 
     <attr name="popupBottomBackgroundDarkShape" format="reference" />
+    <attr name="popupBottomBackgroundDarkShapeDialog" format="reference" />
     <attr name="chatBackground" format="reference" />
     <attr name="arrowDownIcon" format="reference" />
 
