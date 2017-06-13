@@ -1,7 +1,6 @@
 package base.app.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,20 +16,15 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.FragmentOrganizer;
@@ -71,7 +65,6 @@ import base.app.fragment.popup.WalletFragment;
 import base.app.fragment.popup.YourProfileFragment;
 import base.app.fragment.popup.YourStatementFragment;
 import base.app.model.Model;
-import base.app.model.sharing.NativeShareEvent;
 import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserEvent;
@@ -79,6 +72,8 @@ import base.app.model.user.UserInfo;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import base.app.util.ui.BlurBuilder;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoungeActivity extends BaseActivity implements LoginStateReceiver.LoginStateListener {
@@ -431,6 +426,9 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         if (user != null) {
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
+            }
+            if (user.getCircularAvatarUrl() != null) {
+                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             }
         }
     }
