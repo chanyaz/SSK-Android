@@ -164,7 +164,8 @@
             android:id="@+id/friend_requests"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@id/add_friend">
+            android:layout_toEndOf="@id/add_friend"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:id="@+id/requests_number"

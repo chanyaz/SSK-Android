@@ -367,6 +367,10 @@ public class Utility {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
+    public static boolean isNandUp(){
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+    }
+
     public static boolean isAnyCameraAvailable(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
     }

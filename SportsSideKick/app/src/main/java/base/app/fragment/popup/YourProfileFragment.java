@@ -70,8 +70,6 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     @BindView(R.id.subscribed_since_value)
     TextView subscribedSince;
 
-    @BindView(R.id.reset_button)
-    ImageView resetButton;
 
     @BindView(R.id.progressBar)
     ProgressBar progressBarCircle;

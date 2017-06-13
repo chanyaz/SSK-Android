@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -75,6 +76,10 @@ public class FriendsFragment extends BaseFragment {
 
     List<UserInfo> friends;
     List<UserInfo> officialAccount;
+
+    @BindView(R.id.friend_requests)
+    RelativeLayout friendRequestsContainer;
+
 
     public FriendsFragment() {
         // Required empty public constructor
@@ -156,11 +161,16 @@ public class FriendsFragment extends BaseFragment {
                     if (task.getResult() != null) {
                         if (friendRequestCount != null)
                             friendRequestCount.setText(String.valueOf(task.getResult().size()));
+                        if(task.getResult().size()>0){
+                            friendRequestsContainer.setVisibility(View.VISIBLE);
+                        }
+
                         return;
                     }
                 }
                 if (friendRequestCount != null)
                     friendRequestCount.setText("0");
+                friendRequestsContainer.setVisibility(View.GONE);
             }
         });
 
