@@ -132,7 +132,7 @@
             android:textColor="@color/white" />
 
     </RelativeLayout>
-ds
+
     <!-- BOTTOM BUTTONS CONTAINER -->
     <RelativeLayout
         android:id="@+id/bottom_buttons_container"
