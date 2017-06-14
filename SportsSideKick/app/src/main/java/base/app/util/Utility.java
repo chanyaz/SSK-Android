@@ -231,6 +231,30 @@ public class Utility {
         }
     }
 
+    public static String getDateForMatch(long timeStamp){
+        try{
+            DateFormat sdf = new SimpleDateFormat("EEE dd MMM");
+            Date netDate = (new Date(timeStamp*1000));
+            return sdf.format(netDate);
+        }
+        catch(Exception ex){
+            return "xx";
+        }
+    }
+
+
+    public static long getTimeDifference(long timeStamp){
+        try{
+            Date netDate = (new Date(timeStamp*1000));
+            Date date = new Date();
+            long diff = date.getTime() - netDate.getTime();
+            return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        }
+        catch(Exception ex){
+            return 0;
+        }
+    }
+
     public static void setListViewHeight(ListView listView, BaseAdapter baseAdapter) {
         if (listView != null) {
             int totalHeight = 0;

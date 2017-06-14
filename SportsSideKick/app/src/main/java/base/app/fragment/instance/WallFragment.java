@@ -343,7 +343,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.imageOptionsImageLoader());
             wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
             wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
-            wallTeamTime.setText(newsTickerInfo.getMatchDate());
+
+            String fullMatchTime = Utility.getTimeDifference(Long.parseLong(newsTickerInfo.getMatchDate())) + " " + "Days" + " - " +  Utility.getDateForMatch(Long.parseLong(newsTickerInfo.getMatchDate()));
+            wallTeamTime.setText(fullMatchTime);
         }
     }
 
