@@ -70,7 +70,7 @@
     <dimen name="popup_friend_profil_profile_image_size">65dp</dimen>
     <dimen name="popup_friend_profil_progress_bar_height">12dp</dimen>
     <dimen name="popup_friend_profil_next_level_background_size">35dp</dimen>
-    <dimen name="popup_friend_request_width">450dp</dimen>
+    <dimen name="popup_friend_request_width">520dp</dimen>
     <dimen name="popup_friend_request_height">400dp</dimen>
     <dimen name="popup_friend_request_button_size">30dp</dimen>
     <dimen name="popup_friend_request_bottom_buttons_container_height">60dp</dimen>

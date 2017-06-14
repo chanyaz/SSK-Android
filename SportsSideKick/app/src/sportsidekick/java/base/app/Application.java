@@ -51,6 +51,7 @@ public class Application extends MultiDexApplication {
         // TODO @Djordje - update according to recommended approach (this one is deprecated)
         // TODO @Djordje - It should be called automatically, test and remove it is like that
         FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.isInitialized();
         AppEventsLogger.activateApp(this);
 
         // Shared prefs initialization

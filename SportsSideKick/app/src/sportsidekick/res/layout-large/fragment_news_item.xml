@@ -376,7 +376,6 @@
             android:layout_marginStart="@dimen/margin_20"
             android:layout_marginTop="@dimen/margin_10"
             android:layout_marginBottom="@dimen/margin_10"
-            android:layout_marginEnd="@dimen/margin_20"
             android:layout_toEndOf="@+id/uploaded_image"
             android:layout_toStartOf="@+id/post_post_button"
             app:backgroundTint="?postCommentContainerColor"
@@ -386,17 +385,19 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/post_post_button"
-            android:layout_width="@dimen/width_25"
+            android:layout_width="@dimen/height_60"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_10"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingEnd="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingStart="@dimen/margin_20"
             android:adjustViewBounds="true"
             android:src="@drawable/btn_send"
             android:tint="@color/white"
             android:visibility="gone" />
+
     </RelativeLayout>
 
     <Button

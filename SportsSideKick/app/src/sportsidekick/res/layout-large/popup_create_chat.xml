@@ -168,12 +168,13 @@
             android:layout_height="@dimen/space_0"
             android:layout_centerHorizontal="true" />
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/private_chat_switch"
-            android:layout_width="@dimen/create_chat_switch_width"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/create_chat_name_label_height"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_10"
             android:layout_toEndOf="@+id/chat_search_friends_container_mid_line"
             android:gravity="center_vertical" />
 
@@ -260,5 +261,6 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/chat_search_friends_container"
         android:clipToPadding="false"
-        android:numColumns="auto_fit" />
+        android:numColumns="auto_fit"
+        android:layout_above="@+id/chat_friends_in_chat_container" />
 </RelativeLayout>

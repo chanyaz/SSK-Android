@@ -214,7 +214,6 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
-
     /**
      * getOpenRequests - gets the list of open friendship requests
      */
@@ -266,7 +265,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendDeleteFriend")
                 .setEventAttribute(GSConstants.USER_ID, userId)
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+           //     .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -374,7 +373,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendFollowFriend")
                 .setEventAttribute(GSConstants.USER_ID, userId)
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                //.setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -402,7 +401,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendUnFollowFriend")
                 .setEventAttribute(GSConstants.USER_ID, userId)
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                //.setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }

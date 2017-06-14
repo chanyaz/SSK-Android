@@ -141,6 +141,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsGetPublicChatGroupList")
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .setEventAttribute(ENTRY_COUNT, 50)
                 .setEventAttribute(OFFSET, 0)
                 .send(consumer);
         return source.getTask();
@@ -198,7 +199,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
         return source.getTask();
     }
 
-    Task<List<ChatInfo>> getAllOfficialChats() {
+    public Task<List<ChatInfo>> getAllOfficialChats() {
         final TaskCompletionSource<List<ChatInfo>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override

@@ -277,7 +277,7 @@ public class ChatInfo {
      */
     public int unreadMessageCount(){
         int count = 0;
-        if(Model.getInstance().getUserInfo()!=null){
+        if(Model.getInstance().getUserInfo()==null){
             Log.e(TAG,"*** error - no user!");
             return -1;
         }

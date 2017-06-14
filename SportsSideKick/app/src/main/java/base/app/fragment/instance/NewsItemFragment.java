@@ -26,6 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.greenrobot.eventbus.Subscribe;
 
 import base.app.activity.PhoneLoungeActivity;
+import base.app.util.SoundEffects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -260,16 +261,26 @@ public class NewsItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon)
     public void likePost() {
+        if (item!=null)
+        {
+            likesCount.setText(String.valueOf(item.getLikeCount()+1));
+        }
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
         likesIconLiked.setVisibility(View.VISIBLE);
+        SoundEffects.getDefault().playSound(SoundEffects.SOFT);
     }
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
+        if (item!=null)
+        {
+            likesCount.setText(String.valueOf(item.getLikeCount()-1));
+        }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
         likesIconLiked.setVisibility(View.GONE);
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
 
     @Subscribe

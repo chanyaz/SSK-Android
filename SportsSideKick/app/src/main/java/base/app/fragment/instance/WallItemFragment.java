@@ -50,6 +50,7 @@ import base.app.model.wall.WallModel;
 import base.app.model.wall.WallNewsShare;
 import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStoreItem;
+import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -341,16 +342,26 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon)
     public void likePost() {
+        if (item!=null)
+        {
+            likesCount.setText(String.valueOf(item.getLikeCount()+1));
+        }
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
         likesIconLiked.setVisibility(View.VISIBLE);
+        SoundEffects.getDefault().playSound(SoundEffects.SOFT);
     }
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
+        if (item!=null)
+        {
+            likesCount.setText(String.valueOf(item.getLikeCount()-1));
+        }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
         likesIconLiked.setVisibility(View.GONE);
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
 
     @Subscribe
