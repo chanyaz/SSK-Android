@@ -147,6 +147,7 @@
     <dimen name="height_1">1dp</dimen>
     <dimen name="height_500">500dp</dimen>
     <dimen name="width_500">500dp</dimen>
+    <dimen name="height_175">175dp</dimen>
     <dimen name="height_200">200dp</dimen>
     <dimen name="font_size_22">22sp</dimen>
     <dimen name="width_26">26dp</dimen>

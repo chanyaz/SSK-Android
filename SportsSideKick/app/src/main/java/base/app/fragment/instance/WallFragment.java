@@ -217,10 +217,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         final View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
         updateButtons();
-//TODO @Nemanja  WHY this is have in activity ?
         TutorialModel.getInstance().initialize(getActivity());
         this.loginStateReceiver = new LoginStateReceiver(this);
-
         wallItems = new ArrayList<>();
         wallItems.addAll(WallBase.getCache().values());
         filteredWallItems = new ArrayList<>();

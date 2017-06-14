@@ -81,6 +81,12 @@ public class NewsItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.comments_count)
     TextView commentsCount;
+
+    @Nullable
+    @BindView(R.id.read_more_arrow_image)
+    ImageView readMoreArrowImage;
+
+
     @Nullable
     @BindView(R.id.likes_icon)
     ImageView likesIcon;
@@ -137,7 +143,7 @@ public class NewsItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity)
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
         ButterKnife.bind(this, view);
@@ -295,9 +301,21 @@ public class NewsItemFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.share_buttons_container)
-    public void close_share_dialog() {
+    public void closeShareDialog() {
         if (shareButtons != null)
             shareButtons.setVisibility(View.GONE);
+    }
+
+    @Optional
+    @OnClick(R.id.read_more_holder)
+    public void readMoreClick() {
+        if (content.getMaxLines() == 3) {
+            content.setMaxLines(Integer.MAX_VALUE);
+            readMoreArrowImage.setRotation(90);
+        } else {
+            content.setMaxLines(3);
+            readMoreArrowImage.setRotation(-90);
+        }
     }
 
 

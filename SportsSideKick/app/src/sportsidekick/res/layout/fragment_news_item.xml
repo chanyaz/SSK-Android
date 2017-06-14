@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?green_dark_1">
 
     <RelativeLayout
@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
-
         android:background="@drawable/phone_background"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/close_news_button"
@@ -23,8 +23,8 @@
         <RelativeLayout
             android:id="@+id/back_button_holder"
             android:layout_width="wrap_content"
-            android:visibility="gone"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <TextView
                 style="@style/boldText"
@@ -257,7 +257,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-            //ovde budalo
 
             <View
                 android:id="@+id/top_horizontal_split_line"
@@ -272,14 +271,48 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/top_horizontal_split_line"
                 android:layout_margin="@dimen/margin_15"
+                android:animateLayoutChanges="true"
+                android:maxLines="3"
                 android:textColor="?wallItemTipTextContentColor" />
+
+            <RelativeLayout
+                android:id="@+id/read_more_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/content_text"
+                android:layout_centerHorizontal="true"
+                android:animateLayoutChanges="true"
+                android:animationCache="true">
+
+                <TextView
+                    android:id="@+id/read_more_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/read_more"
+                    android:textColor="?light_green_2"
+                    android:textSize="@dimen/font_size_10"
+                    />
+
+                <ImageView
+                    android:id="@+id/read_more_arrow_image"
+                    android:layout_width="@dimen/height_20"
+                    android:layout_height="@dimen/height_20"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/read_more_text"
+                    android:rotation="-90"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:tint="?light_green_2" />
+
+            </RelativeLayout>
 
             <View
                 android:id="@+id/bottom_horizontal_split_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/content_text"
-                android:background="@android:color/transparent" />
+                android:layout_below="@id/read_more_holder"
+                android:background="@color/green_dark_5" />
 
             <LinearLayout
                 android:id="@+id/tutorial_container"
@@ -428,14 +461,15 @@
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginEnd="@dimen/margin_15"
+            android:textSize="@dimen/font_size_12"
             android:layout_marginStart="@dimen/margin_15"
             android:layout_marginTop="@dimen/margin_5"
             android:layout_toEndOf="@+id/uploaded_image"
             android:layout_toStartOf="@+id/post_post_button"
-            app:backgroundTint="?white"
             android:hint="@string/enter_comment_hint"
             android:textColor="?green_dark_2"
-            android:textColorHint="?green_dark_1" />
+            android:textColorHint="?green_dark_1"
+            app:backgroundTint="?white" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/post_post_button"
@@ -443,12 +477,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginEnd="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_5"
             android:adjustViewBounds="true"
             android:src="@drawable/btn_send"
-            android:tint="@color/white"
+            android:tint="@color/green_dark_2"
             android:visibility="gone" />
 
     </RelativeLayout>

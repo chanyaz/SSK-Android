@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_200">
+    android:layout_height="@dimen/height_175">
 
     <ImageView
         android:id="@+id/image"
@@ -28,13 +28,13 @@
             android:textAlignment="viewStart"
             android:textColor="?colorPrimaryLight"
             android:textStyle="bold" />
-
         <TextView
             android:id="@+id/news_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/caption"
             android:ellipsize="end"
+            android:textSize="@dimen/font_size_10"
             android:maxLines="1"
             android:paddingBottom="@dimen/margin_5"
             android:paddingLeft="@dimen/margin_5"
