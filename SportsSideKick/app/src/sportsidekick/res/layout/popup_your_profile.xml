@@ -208,7 +208,7 @@
                         android:layout_below="@id/profile_image_container"
                         android:layout_marginTop="@dimen/margin_negative_15"
                         android:gravity="center"
-                        android:text="99"
+                        android:text="1"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
@@ -292,7 +292,6 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/contact_info_caption"
                         android:layout_marginStart="@dimen/margin_20"
-                        android:text="email@email.com"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_12" />
 
@@ -303,7 +302,6 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/contact_info_email"
                         android:layout_marginStart="@dimen/margin_20"
-                        android:text="01234 567 890"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_12" />
 
@@ -325,7 +323,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/subscribed_since_caption"
                         android:layout_below="@+id/subscribed_since_caption"
-                        android:text="07.12.16"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_12" />
 
@@ -346,7 +343,6 @@
                         android:layout_alignStart="@+id/location_caption"
                         android:layout_below="@+id/location_caption"
                         android:layout_centerHorizontal="true"
-                        android:text="Perth, AU"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_12" />
 
@@ -401,7 +397,7 @@
                         android:layout_below="@+id/chosen_language_caption"
                         android:layout_marginBottom="@dimen/margin_10"
                         android:layout_marginStart="@dimen/margin_20"
-                        android:text="English"
+                        android:text="@string/english"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_12" />
 
@@ -464,7 +460,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="52"
+                                android:text="1"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/font_size_25"
                                 android:textStyle="bold" />
@@ -517,7 +513,7 @@
                             android:layout_height="@dimen/popup_your_friends_next_level_cointainer_text_size"
                             android:layout_centerInParent="true"
                             android:gravity="center"
-                            android:text="99"
+                            android:text="1"
                             android:textColor="@color/white"
                             android:textStyle="bold" />
                     </RelativeLayout>

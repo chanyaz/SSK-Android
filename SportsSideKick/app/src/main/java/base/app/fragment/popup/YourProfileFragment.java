@@ -122,13 +122,14 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                     @Override
                     public void onClick(View v) {
                         getActivity().onBackPressed();
-                        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+                        //EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
                     }
                 }, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
                         Model.getInstance().logout();
-                        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+                        getActivity().onBackPressed();
+                       // EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
                     }
                 });
     }
