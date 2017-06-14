@@ -245,7 +245,6 @@ public class NewsItemFragment extends BaseFragment {
         comment.setWallId(item.getWallId());
         comment.setPostId(item.getPostId());
         comment.setTimestamp(Double.valueOf(System.currentTimeMillis() / 1000));
-
         WallModel.getInstance().postComment(item, comment);
         post.getText().clear();
     }
@@ -255,6 +254,7 @@ public class NewsItemFragment extends BaseFragment {
         commentsAdapter.getComments().add(event.getComment());
         commentsAdapter.notifyDataSetChanged();
         commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
 
     }
 
