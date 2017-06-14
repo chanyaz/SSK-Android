@@ -55,6 +55,7 @@ import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
@@ -102,6 +103,10 @@ public class WallItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.share_count)
     TextView shareCount;
+
+    @Nullable
+    @BindView(R.id.read_more_arrow_image)
+    ImageView readMoreArrowImage;
 
     @Nullable
     @BindView(R.id.pin_container)
@@ -344,7 +349,7 @@ public class WallItemFragment extends BaseFragment {
     public void likePost() {
         if (item!=null)
         {
-            likesCount.setText(String.valueOf(item.getLikeCount()+1));
+                likesCount.setText(String.valueOf(item.getLikeCount()+ 1));
         }
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
@@ -356,7 +361,10 @@ public class WallItemFragment extends BaseFragment {
     public void unLikePost() {
         if (item!=null)
         {
-            likesCount.setText(String.valueOf(item.getLikeCount()-1));
+            if (item.getLikeCount() >0)
+            {
+                likesCount.setText(String.valueOf(item.getLikeCount()-1));
+            }
         }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
@@ -392,6 +400,19 @@ public class WallItemFragment extends BaseFragment {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    @Optional
+    @OnClick(R.id.read_more_holder)
+    public void readMoreClick() {
+        if (content.getMaxLines() == 3) {
+            content.setMaxLines(Integer.MAX_VALUE);
+            readMoreArrowImage.setRotation(90);
+        } else {
+            content.setMaxLines(3);
+            readMoreArrowImage.setRotation(-90);
         }
     }
 }
