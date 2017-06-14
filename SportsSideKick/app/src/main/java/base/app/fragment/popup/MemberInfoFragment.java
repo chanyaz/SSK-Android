@@ -30,6 +30,7 @@ import base.app.adapter.FriendsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.VideoChatFragment;
+import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.friendship.FriendsManager;
 import base.app.model.im.ChatInfo;
@@ -339,7 +340,20 @@ public class MemberInfoFragment extends BaseFragment {
             public void onComplete(@NonNull Task<UserInfo> task) {
                 if (task.isSuccessful()) {
                     if (user.isaFriend()) {
-                        user.setaFriend(false);
+                        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.un_friend_title), getContext().getResources().getString(R.string.un_friend_message),
+                                new View.OnClickListener() {// Cancel listener
+                                    @Override
+                                    public void onClick(View v) {
+                                        getActivity().onBackPressed();
+                                    }
+                                }, new View.OnClickListener() {// Confirm listener
+                                    @Override
+                                    public void onClick(View v) {
+                                        getActivity().onBackPressed();
+                                        user.setaFriend(false);
+                                    }
+                                });
+
                     } else {
                         user.setFriendPendingRequest(true);
                     }

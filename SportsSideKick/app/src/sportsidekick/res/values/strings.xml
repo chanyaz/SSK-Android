@@ -461,4 +461,7 @@
     <string name="mins_ago">mins ago</string>
     <string name="friend_request_pending">Friend Request Pending</string>
 
+    <string name="un_friend_message"> Removing a friend will stop you following each other.</string>
+    <string name="un_friend_title">Are you sure you want to remove this friend?</string>
+
 </resources>
