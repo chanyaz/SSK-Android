@@ -463,6 +463,7 @@
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginEnd="@dimen/margin_15"
+            android:textSize="@dimen/font_size_12"
             android:layout_marginStart="@dimen/margin_15"
             android:layout_marginTop="@dimen/margin_5"
             android:layout_toEndOf="@+id/uploaded_image"
@@ -478,12 +479,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginEnd="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_5"
             android:adjustViewBounds="true"
             android:src="@drawable/btn_send"
-            android:tint="@color/white"
+            android:tint="@color/green_dark_2"
             android:visibility="gone" />
 
     </RelativeLayout>
