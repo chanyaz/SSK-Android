@@ -32,6 +32,7 @@ import base.app.Connection;
 import base.app.R;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.instance.WallFragment;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.RegistrationStateReceiver;
@@ -209,7 +210,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegister() {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
-        getActivity().onBackPressed();
+        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
     }
 
     @Override
