@@ -107,7 +107,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         if (!Utility.isTablet(getActivity())) {
             initFacebook();
         }
-        //TODO @Filip refactoring create butterKnife onClick
         forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
