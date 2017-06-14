@@ -168,8 +168,7 @@
                             android:layout_width="@dimen/width_26"
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
-                            android:background="@drawable/ic_like"
-                            app:backgroundTint="?green_dark_2"
+                            android:background="@drawable/ic_liked"
                             android:visibility="gone" />
 
 

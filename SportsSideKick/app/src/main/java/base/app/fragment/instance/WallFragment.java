@@ -308,27 +308,27 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
 
 
-        if (!Utility.isTablet(getActivity()))
-            scroll.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent ev) {
-                    int action = ev.getAction();
-                    if (action == MotionEvent.ACTION_MOVE) {
-                        if (wallBottomBarContainer.getVisibility() == View.VISIBLE) {
-                            wallBottomBarContainer.setVisibility(View.GONE);
-                            containerRelativeLayout.setVisibility(View.GONE);
-                        }
-                    } else if (action == MotionEvent.ACTION_UP) {
-                        if (wallBottomBarContainer.getVisibility() != View.VISIBLE) {
-                            wallBottomBarContainer.setVisibility(View.VISIBLE);
-                            containerRelativeLayout.setVisibility(View.VISIBLE);
-                        }
-
-
-                    }
-                    return false;
-                }
-            });
+//        if (!Utility.isTablet(getActivity()))
+//            scroll.setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View v, MotionEvent ev) {
+//                    int action = ev.getAction();
+//                    if (action == MotionEvent.ACTION_MOVE) {
+//                        if (wallBottomBarContainer.getVisibility() == View.VISIBLE) {
+//                            wallBottomBarContainer.setVisibility(View.GONE);
+//                            containerRelativeLayout.setVisibility(View.GONE);
+//                        }
+//                    } else if (action == MotionEvent.ACTION_UP) {
+//                        if (wallBottomBarContainer.getVisibility() != View.VISIBLE) {
+//                            wallBottomBarContainer.setVisibility(View.VISIBLE);
+//                            containerRelativeLayout.setVisibility(View.VISIBLE);
+//                        }
+//
+//
+//                    }
+//                    return false;
+//                }
+//            });
 
 
         return view;
