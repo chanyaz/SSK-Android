@@ -359,11 +359,15 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
-        if (item!=null)
-        {
-            if (item.getLikeCount() >0)
+        if (item != null) {
+            int count = Integer.valueOf(likesCount.getText().toString());
+            if (count >0)
             {
-                likesCount.setText(String.valueOf(item.getLikeCount()-1));
+                likesCount.setText(String.valueOf(count-1));
+            }
+            else if (count == 0)
+            {
+                likesCount.setText("0");
             }
         }
         WallModel.getInstance().setlikeVal(item, false);
