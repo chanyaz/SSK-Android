@@ -27,6 +27,7 @@ import java.util.List;
 import base.app.R;
 import base.app.adapter.ChatGroupAdapter;
 import base.app.adapter.FriendsAdapter;
+import base.app.events.OpenChatEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.VideoChatFragment;
@@ -318,12 +319,15 @@ public class MemberInfoFragment extends BaseFragment {
             userIds.add(info.getUserId());
         }
 
-
         userIds.add(newChatInfo.getOwner());
         newChatInfo.setUsersIds(userIds);
 
         ImsManager.getInstance().createNewChat(newChatInfo);
-        EventBus.getDefault().post(new FragmentEvent(getInitiator(), true));
+        getActivity().onBackPressed();
+
+        EventBus.getDefault().post(new OpenChatEvent(newChatInfo));
+
+        // EventBus.getDefault().post(new FragmentEvent(getInitiator(), true));
     }
 
     @Optional

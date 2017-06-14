@@ -60,6 +60,7 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.activity.PhoneLoungeActivity;
+import base.app.events.OpenChatEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -830,5 +831,10 @@ public class ChatFragment extends BaseFragment {
                     break;
             }
         }
+    }
+
+    @Subscribe
+    public void openChatEvent(OpenChatEvent event){
+        chatHeadsAdapter.notifyDataSetChanged();
     }
 }
