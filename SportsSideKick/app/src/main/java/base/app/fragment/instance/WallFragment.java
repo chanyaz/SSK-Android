@@ -84,6 +84,7 @@ import base.app.model.wall.WallRumor;
 import base.app.model.wall.WallStats;
 import base.app.model.wall.WallStoreItem;
 import base.app.util.Utility;
+import base.app.util.ui.GridItemDecoration;
 import base.app.util.ui.StaggeredLayoutManagerItemDecoration;
 import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
@@ -261,7 +262,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16, includeEdge, isTablet));
             } else {
                 int space = (int) getResources().getDimension(R.dimen.padding_12);
-                recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(space, includeEdge, isTablet));
+                recyclerView.addItemDecoration(new GridItemDecoration(space,2));
             }
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setNestedScrollingEnabled(false);
@@ -503,7 +504,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     public void onComplete(@NonNull Task<UserInfo> task) {
                         if (task.isSuccessful()) {
                             post.setPoster(task.getResult());
-                            wallItems.add(post);
+                            wallItems.add(0,post);
                         }
                         filterPosts();
                     }
@@ -568,7 +569,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }));
         }
-        sortByTimestamp();
+        //sortByTimestamp();
         adapter.replaceAll(filteredWallItems);
         adapter.notifyDataSetChanged();
     }
