@@ -33,6 +33,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import base.app.R;
 import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.CommentsAdapter;
@@ -184,6 +187,7 @@ public class WallItemFragment extends BaseFragment {
                 WallPost post = (WallPost) item;
                 ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(post.getTitle());
+                strap.setText(Utility.getTimeAgo(post.getTimestamp().longValue()));
                 content.setText(post.getBodyText());
                 if (post.getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
@@ -292,6 +296,13 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
+        // Sort by timestamp
+        Collections.sort(event.getCommentList(), new Comparator<PostComment>() {
+            @Override
+            public int compare(PostComment lhs, PostComment rhs) {
+                return rhs.getTimestamp().compareTo(lhs.getTimestamp());
+            }
+        });
         commentsAdapter.getComments().addAll(event.getCommentList());
         commentsAdapter.notifyDataSetChanged();
     }
@@ -338,16 +349,17 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentPosted(PostCommentCompleteEvent event) {
-        commentsAdapter.getComments().add(event.getComment());
+        commentsAdapter.getComments().add(0,event.getComment());
         commentsAdapter.notifyDataSetChanged();
-        commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+       // commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
 
     }
 
     @OnClick(R.id.likes_icon)
     public void likePost() {
-        if (item != null) {
-            likesCount.setText(String.valueOf(item.getLikeCount() + 1));
+        if (item!=null)
+        {
+                likesCount.setText(String.valueOf(item.getLikeCount()+ 1));
         }
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
@@ -358,7 +370,15 @@ public class WallItemFragment extends BaseFragment {
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
         if (item != null) {
-            likesCount.setText(String.valueOf(item.getLikeCount() - 1));
+            int count = Integer.valueOf(likesCount.getText().toString());
+            if (count >0)
+            {
+                likesCount.setText(String.valueOf(count-1));
+            }
+            else if (count == 0)
+            {
+                likesCount.setText("0");
+            }
         }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);

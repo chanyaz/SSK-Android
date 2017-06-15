@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -273,7 +274,15 @@ public class NewsItemFragment extends BaseFragment {
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
         if (item != null) {
-            likesCount.setText(String.valueOf(item.getLikeCount() - 1));
+            int count = Integer.valueOf(likesCount.getText().toString());
+            if (count >0)
+            {
+                likesCount.setText(String.valueOf(count-1));
+            }
+            else if (count == 0)
+            {
+                likesCount.setText("0");
+            }
         }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
