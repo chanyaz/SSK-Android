@@ -4,6 +4,7 @@ package base.app.fragment.instance;
 import android.Manifest;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -89,7 +91,8 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public View activeChatView;
     @BindView(R.id.inactive_container)
     public View inactiveChatView;
-
+    @BindView(R.id.nick_name_users)
+    TextView nickNameUsers;
     // local user feed
     @BindView(R.id.preview_video_view)
     public VideoView previewView;
@@ -98,7 +101,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     @BindView(R.id.disabled_video_icon)
     public View disabled;
 
-
+    private int userCounter;
     @BindView(R.id.disconnect_button)
     public ImageButton hangupButton;
     @BindView(R.id.toggle_mic_button)
@@ -115,7 +118,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @BindView(R.id.begin_your_call)
     Button beginYourCall;
-
+    @Nullable
+    @BindView(R.id.chronometer)
+    Chronometer chronometer;
 
     @BindView(R.id.logo)
     ImageView Logo;
@@ -211,8 +216,10 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         Slot slot = getNextFreeSlot();
         if (slot == null) {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.video_chat_maximum), Toast.LENGTH_LONG).show();
+            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.white_green_phone), PorterDuff.Mode.MULTIPLY);
             return;
         }
+        nickNameUsers.setText("");
         FragmentEvent fe = new FragmentEvent(StartingNewCallFragment.class);
         fe.setStringArrayList(getUserIdsFromSlots());
         EventBus.getDefault().post(fe);
@@ -240,8 +247,8 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 //TODO @Djordje deprecated
         if (Utility.isTablet(getActivity())) {
             text.setText(Html.fromHtml(getString(R.string.video_chat_text_1)));
-        }
-      else  {
+        } else {
+            chronometer.setFormat("%s");
             onLoginStateChange();
         }
 
@@ -251,6 +258,8 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             VideoChatModel.getInstance().setVideoChatEvent(null);
         }
         updateIconsColor();
+
+
         return view;
     }
 
@@ -260,13 +269,15 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             muteButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
             flipCameraButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
             videoButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            if(Utility.isTablet(getActivity())){
+            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);}
         } else {
             hangupButton.clearColorFilter();
             muteButton.clearColorFilter();
             flipCameraButton.clearColorFilter();
             videoButton.clearColorFilter();
-            addUserButton.clearColorFilter();
+            if(Utility.isTablet(getActivity())){
+            addUserButton.clearColorFilter();}
         }
 
     }
@@ -274,6 +285,17 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     private void setViewState(boolean active, boolean loading) {
         activeChatView.setVisibility(active && !loading ? View.VISIBLE : View.GONE);
         inactiveChatView.setVisibility(!active && !loading ? View.VISIBLE : View.GONE);
+        if (chronometer != null) {
+            if (active && !loading) {
+
+                chronometer.start();
+
+            } else {
+                chronometer.stop();
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                nickNameUsers.setText("");
+            }
+        }
         loadingView.setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
@@ -426,7 +448,8 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         });
     }
 
-    private void addUsersToView(List<String> users) {
+    private void addUsersToView(final List<String> users) {
+        userCounter = 0;
         if (users != null) {
             for (String userId : users) {
                 if (!userId.equals(Model.getInstance().getUserInfo().getUserId())) {
@@ -436,11 +459,40 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                         if (slot != null) {
                             slot.setUserId(userId);
                             addSlotToLayout(slot);
+                            if (!Utility.isTablet(getActivity())) {
+                                Model.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<UserInfo> task) {
+                                        if (task.isSuccessful()) {
+                                            userCounter++;
+                                            String myNames = nickNameUsers.getText().toString();
+                                            if (userCounter >= users.size() ) {
+                                                if (myNames.length() > 1) {
+                                                    nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());
+                                                    myNames = nickNameUsers.getText().toString();
+                                                    myNames = myNames.substring(1);
+                                                    nickNameUsers.setText(myNames + " & " + Model.getInstance().getUserInfo().getFirstName() + " " + Model.getInstance().getUserInfo().getLastName());
+                                                } else {
+                                                    nickNameUsers.setText(Model.getInstance().getUserInfo().getFirstName() + " " + Model.getInstance().getUserInfo().getLastName());
+                                                }
+                                            } else {
+                                                nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());
+                                            }
+
+                                        }
+                                    }
+                                });
+
+
+                            }
                         }
                     }
                 }
             }
         }
+
+
+
 
     }
 
@@ -756,7 +808,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
 
-    private void onLoginStateChange(){
+    private void onLoginStateChange() {
 
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             cameraLogo.setVisibility(View.GONE);
