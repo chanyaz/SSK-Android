@@ -4,14 +4,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,9 +27,11 @@ import java.util.List;
 import base.app.R;
 import base.app.adapter.ChatGroupAdapter;
 import base.app.adapter.FriendsAdapter;
+import base.app.events.OpenChatEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.VideoChatFragment;
+import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.friendship.FriendsManager;
 import base.app.model.im.ChatInfo;
@@ -50,6 +50,9 @@ import butterknife.Optional;
  */
 
 public class MemberInfoFragment extends BaseFragment {
+
+    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.18;
+
     @Nullable
     @BindView(R.id.profile_image)
     ImageView profileImage;
@@ -65,19 +68,35 @@ public class MemberInfoFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.online_status)
     TextView onlineStatus;
-    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.18;
-    @Nullable
-    @BindView(R.id.friend_button)
-    Button friendButton;
+
     @Nullable
     @BindView(R.id.reverse_is_in_recycler_view)
     RecyclerView publicChatRecyclerView;
     @Nullable
     @BindView(R.id.in_common_recycler_view)
     RecyclerView inCommonRecyclerView;
+
     @Nullable
-    @BindView(R.id.follow_button)
-    Button followButton;
+    @BindView(R.id.chat_button)
+    ImageView chatButtonImage;
+    @Nullable
+    @BindView(R.id.follow_button_image)
+    ImageView followButtonImage;
+    @Nullable
+    @BindView(R.id.friend_button_image)
+    ImageView friendButtonImage;
+
+    @Nullable
+    @BindView(R.id.chat_button_text)
+    TextView chatButtonText;
+    @Nullable
+    @BindView(R.id.follow_button_text)
+    TextView followButtonText;
+    @Nullable
+    @BindView(R.id.friend_button_text)
+    TextView friendButtonText;
+
+
     @Nullable
     @BindView(R.id.chat_room_progress_bar)
     AVLoadingIndicatorView roomProgressBar;
@@ -139,58 +158,101 @@ public class MemberInfoFragment extends BaseFragment {
 
         }
 
-
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(getPrimaryArgument());
-        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
-            @Override
-            public void onComplete(@NonNull Task<UserInfo> task) {
-                if (task.isSuccessful()) {
-                    user = task.getResult();
-                    profileName.setText(user.getFirstName() + " " + user.getLastName());
-                    //TODO @Filip refactoring Put this in a  string file
-                    onlineStatus.setText(user.isOnline() ? "online" : "offline");
-                    ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
-                    progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
-                    profileImageLevel.setText(String.valueOf(user.getLevel()));
-                    if (!Utility.isTablet(getActivity())) {
-                        if (user.getUserId() != null) {
-                            friendsCountText.setText(String.valueOf(user.getFriendsCount()));
-                            commentsCountText.setText(String.valueOf(user.getComments()));
-                            pinnedCountText.setText(String.valueOf(user.getWallPins()));
-                            profileNickText.setText("(" + user.getNicName() + ")");
-                            getMutualFriendsListWithUser(user);
-                            getAllUserChats(user);
-                        } else {
-                            assert roomProgressBar != null;
-                            roomProgressBar.setVisibility(View.GONE);
-                            assert friendProgressBar != null;
-                            friendProgressBar.setVisibility(View.GONE);
-                        }
-                    } else {
-                        if (user.isaFriend()) { // this user is my friend
-                            friendButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.friend_unfollow_button), null, null, null);
-                            friendButton.setText(getContext().getResources().getString(R.string.remove_friend));
-                        } else {
-                            friendButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.friend_follow_button), null, null, null);
-                            friendButton.setText(getContext().getResources().getString(R.string.friend_reqest));
-                        }
+        getUserTask.addOnCompleteListener(onUserDataLoadedListener);
+        return view;
+    }
 
-                        if (user.isiFollowHim()) { // I am friends this user
-                            followButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.friend_unfollow_button), null, null, null);
-                            followButton.setText(getContext().getResources().getString(R.string.friend_unfollow));
-                        } else {
-                            followButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.friend_follow_button), null, null, null);
-                            followButton.setText(getContext().getResources().getString(R.string.friend_follow));
-                        }
-                    }
+    private OnCompleteListener<UserInfo> onUserDataLoadedListener = new OnCompleteListener<UserInfo>() {
+        @Override
+        public void onComplete(@NonNull Task<UserInfo> task) {
+            if (task.isSuccessful()) {
+                user = task.getResult();
+                setupUIWithUserInfo(user);
+            }
+        }
+    };
+
+    private void setupUIWithUserInfo(UserInfo user){
+        profileName.setText(user.getFirstName() + " " + user.getLastName());
+        //TODO @Filip refactoring Put this in a  string file
+        onlineStatus.setText(user.isOnline() ? "online" : "offline");
+        ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
+        progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
+        profileImageLevel.setText(String.valueOf(user.getLevel()));
+        if (!Utility.isTablet(getActivity())) {
+            if (user.getUserId() != null) {
+                friendsCountText.setText(String.valueOf(user.getFriendsCount()));
+                commentsCountText.setText(String.valueOf(user.getComments()));
+                pinnedCountText.setText(String.valueOf(user.getWallPins()));
+                profileNickText.setText("(" + user.getNicName() + ")");
+                getMutualFriendsListWithUser(user);
+                getAllUserChats(user);
+            } else {
+                assert roomProgressBar != null;
+                roomProgressBar.setVisibility(View.GONE);
+                assert friendProgressBar != null;
+                friendProgressBar.setVisibility(View.GONE);
+            }
+        } else {
+            if (user.isaFriend()) { // this user is my friend
+                friendButtonImage.setImageResource(R.drawable.friend_unfollow_button);
+                friendButtonText.setText(getContext().getResources().getString(R.string.remove_friend));
+
+                if (user.isiFollowHim()) { // I am following this user
+                    followButtonImage.setImageResource(R.drawable.friend_unfollow_button);
+                    followButtonText.setText(getContext().getResources().getString(R.string.friend_unfollow));
+                } else {
+                    followButtonImage.setImageResource(R.drawable.friend_follow_button);
+                    followButtonText.setText(getContext().getResources().getString(R.string.friend_follow));
+                }
+
+                // enable all buttons!
+                changeViewClickable(true, friendButtonImage);
+                changeViewClickable(true, friendButtonText);
+                changeViewClickable(true, chatButtonImage);
+                changeViewClickable(true, chatButtonText);
+                changeViewClickable(true, followButtonImage);
+                changeViewClickable(true, followButtonText);
+
+            } else { // this user is not my friend
+
+                // set default value for follow button
+                followButtonImage.setImageResource(R.drawable.friend_follow_button);
+                followButtonText.setText(getContext().getResources().getString(R.string.friend_follow));
+                // disable chat button
+                changeViewClickable(false, chatButtonImage);
+                changeViewClickable(false, chatButtonText);
+                // disable follow button
+                changeViewClickable(false, followButtonImage);
+                changeViewClickable(false, followButtonText);
+
+                if(user.isFriendPendingRequest()){ // Check if request is pending - if so, disable button
+                    friendButtonImage.setImageResource(R.drawable.friend_unfollow_button);
+                    friendButtonText.setText(getContext().getResources().getString(R.string.friend_request_pending));
+                    // disable send request button -  request is sent
+                    changeViewClickable(false, friendButtonImage);
+                    changeViewClickable(false, friendButtonText);
+                } else {
+                    friendButtonImage.setImageResource(R.drawable.friend_follow_button);
+                    friendButtonText.setText(getContext().getResources().getString(R.string.friend_reqest));
+                    //enable send request button
+                    changeViewClickable(true, friendButtonImage);
+                    changeViewClickable(true, friendButtonText);
                 }
             }
-        });
 
 
-        return view;
+        }
+    }
 
-
+    private void changeViewClickable(boolean value, View view){
+        view.setClickable(value);
+        if(value){
+            view.setAlpha(1.0f);
+        } else {
+            view.setAlpha(0.5f);
+        }
     }
 
     private void getAllUserChats(final UserInfo user) {
@@ -203,7 +265,7 @@ public class MemberInfoFragment extends BaseFragment {
                     publicChatText.setText(getString(R.string.public_chats_profile) + " " + user.getFirstName() + " " + user.getLastName() + " " + getString(R.string.is_in));
                     publicChatsIsInCommonAdapter.setValues(task.getResult());
                 } else {
-//TODO add error handle, ios dont have
+                    //TODO add error handle, ios doesn't have it
                 }
 
                 assert roomProgressBar != null;
@@ -224,7 +286,7 @@ public class MemberInfoFragment extends BaseFragment {
                         friendsInCommonAdapter.getValues().addAll(task.getResult());
                         friendsInCommonAdapter.notifyDataSetChanged();
                     } else {
-//TODO add error handle, ios dont have
+                        //TODO add error handle, ios doesn't have it
                     }
                 assert friendProgressBar != null;
                 friendProgressBar.setVisibility(View.GONE);
@@ -257,16 +319,19 @@ public class MemberInfoFragment extends BaseFragment {
             userIds.add(info.getUserId());
         }
 
-
         userIds.add(newChatInfo.getOwner());
         newChatInfo.setUsersIds(userIds);
 
         ImsManager.getInstance().createNewChat(newChatInfo);
-        EventBus.getDefault().post(new FragmentEvent(getInitiator(), true));
+        getActivity().onBackPressed();
+
+        EventBus.getDefault().post(new OpenChatEvent(newChatInfo));
+
+        // EventBus.getDefault().post(new FragmentEvent(getInitiator(), true));
     }
 
     @Optional
-    @OnClick(R.id.friend_button)
+    @OnClick(R.id.friend_button_image)
     public void friendOnClick() {
         Task<UserInfo> manageFriendTask;
         if (user.isaFriend()) { // this user is my friend, remove it from friends
@@ -278,11 +343,28 @@ public class MemberInfoFragment extends BaseFragment {
             @Override
             public void onComplete(@NonNull Task<UserInfo> task) {
                 if (task.isSuccessful()) {
-                    user.setaFriend(!user.isaFriend());
+                    if (user.isaFriend()) {
+                        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.un_friend_title), getContext().getResources().getString(R.string.un_friend_message),
+                                new View.OnClickListener() {// Cancel listener
+                                    @Override
+                                    public void onClick(View v) {
+                                        getActivity().onBackPressed();
+                                    }
+                                }, new View.OnClickListener() {// Confirm listener
+                                    @Override
+                                    public void onClick(View v) {
+                                        getActivity().onBackPressed();
+                                        user.setaFriend(false);
+                                    }
+                                });
+
+                    } else {
+                        user.setFriendPendingRequest(true);
+                    }
+                    setupUIWithUserInfo(user);
                 }
             }
         });
-        EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
     }
 
     @Optional
@@ -300,7 +382,7 @@ public class MemberInfoFragment extends BaseFragment {
 
 
     @Optional
-    @OnClick(R.id.follow_button)
+    @OnClick(R.id.follow_button_image)
     public void followButton() {
         Task<UserInfo> changeFollowTask;
         if (user.isiFollowHim()) { // I am friends this user, un-follow him
@@ -313,14 +395,13 @@ public class MemberInfoFragment extends BaseFragment {
             public void onComplete(@NonNull Task<UserInfo> task) {
                 if (task.isSuccessful()) {
                     user.setiFollowHim(!user.isiFollowHim());
+                    setupUIWithUserInfo(user);
                 }
             }
         });
-        EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
     }
 
     private void startAlterDialog() {
-
         if (user != null) {
             String follow;
             String friend;
@@ -329,11 +410,9 @@ public class MemberInfoFragment extends BaseFragment {
             } else {
                 friend = getString(R.string.friend_reqest);
             }
-            if (user.isiFollowHim()) { // I am friends this user
-
+            if (user.isiFollowHim()) { // I am following this user
                 follow = getString(R.string.friend_unfollow);
             } else {
-
                 follow = getString(R.string.friend_follow);
             }
 
@@ -371,7 +450,6 @@ public class MemberInfoFragment extends BaseFragment {
     }
 
     private void reportAbuse() {
-
-//TODO @Filip add this api call
+        //TODO @Filip add this api call
     }
 }

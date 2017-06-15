@@ -73,7 +73,7 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
             @Override
             public void onClick(View view) {
 
-                if (viewHolder.getAdapterPosition() != getItemCount() - 1) {
+                if (viewHolder.getAdapterPosition() != getItemCount() - 1 && !viewHolder.itemView.isSelected()) {
                     notifyItemChanged(oldPosition);
                     if (!viewHolder.itemView.isSelected()) {
                         iDrawerCloseSideMenu.closeDrawerSideMenu(viewHolder.getAdapterPosition(), false);

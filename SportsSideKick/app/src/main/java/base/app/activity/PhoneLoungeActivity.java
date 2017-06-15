@@ -419,12 +419,16 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     }
 
     @Override
-    public void closeDrawerMenu(int position) {
-        NavigationDrawerItems.getInstance().setByPosition(position);
-        drawerLayout.closeDrawer(GravityCompat.END);
-        sideMenuAdapter.notifyDataSetChanged();
-        if (position > 3) {
-            menuAdapter.notifyItemRangeChanged(0, 3);
+    public void closeDrawerMenu(int position,boolean goodPosition) {
+        if(goodPosition) {
+            NavigationDrawerItems.getInstance().setByPosition(position);
+            drawerLayout.closeDrawer(GravityCompat.END);
+            sideMenuAdapter.notifyDataSetChanged();
+            if (position > 3) {
+                menuAdapter.notifyItemRangeChanged(0, 3);
+            }
+        }else {
+            drawerLayout.closeDrawer(GravityCompat.END);
         }
     }
 

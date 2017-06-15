@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -83,6 +84,7 @@ public class AddFriendFragment extends BaseFragment {
         isTablet = Utility.isTablet(getActivity());
         adapter = new FriendsAdapter(this.getClass());
         adapter.setInitiatorFragment(this.getClass());
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (isTablet) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             people.setLayoutManager(layoutManager);
@@ -98,6 +100,12 @@ public class AddFriendFragment extends BaseFragment {
         setTextWatcher();
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        super.onDestroyView();
     }
 
     @Optional
@@ -200,7 +208,6 @@ public class AddFriendFragment extends BaseFragment {
 
 
                 String text = s.toString();
-                //TODO @Filip, add item in the Api mutual friends List.
                 Task<List<UserInfo>> peopleTask = PeopleSearchManager.getInstance().searchPeople(text, 0);
                 peopleTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
                     @Override

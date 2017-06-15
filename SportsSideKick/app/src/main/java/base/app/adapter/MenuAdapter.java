@@ -96,19 +96,22 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
 
-                if (viewHolder.getAdapterPosition() != getItemCount() - 1) {
+                if (viewHolder.getAdapterPosition() != getItemCount() - 1 && !viewHolder.itemView.isSelected()) {
                     int position = viewHolder.getAdapterPosition();
                     notifyItemChanged(oldPosition);
                     oldPosition = viewHolder.getAdapterPosition();
                     NavigationDrawerItems.getInstance().setByPosition(viewHolder.getAdapterPosition());
                     viewHolder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
-                    drawerClose.closeDrawerMenu(viewHolder.getAdapterPosition());
+                    drawerClose.closeDrawerMenu(viewHolder.getAdapterPosition(),true);
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
                             EventBus.getDefault().post(new FragmentEvent(Constant.CLASS_LIST.get(viewHolder.getAdapterPosition())));
                         }
                     }, 400);
 
+                }
+                else {
+                    drawerClose.closeDrawerMenu(0,false);
                 }
 
             }
@@ -120,7 +123,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     public interface IDrawerClose {
 
-        void closeDrawerMenu(int position);
+        void closeDrawerMenu(int position,boolean good);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

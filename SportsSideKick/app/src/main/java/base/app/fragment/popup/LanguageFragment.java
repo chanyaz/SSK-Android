@@ -25,6 +25,7 @@ import base.app.fragment.instance.StatisticsFragment;
 import base.app.fragment.instance.StoreFragment;
 import base.app.fragment.instance.VideoChatFragment;
 import base.app.fragment.instance.WallFragment;
+import base.app.model.Model;
 import base.app.util.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
@@ -118,7 +119,9 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         //TODO @Filip deprecation and dont work
-        config.locale = locale;
+       // config.locale = locale;
+        config.setLocale(locale);
+        Model.getInstance().getUserInfo().setLanguage(languageToLoad);
         getActivity().recreate();
     }
 

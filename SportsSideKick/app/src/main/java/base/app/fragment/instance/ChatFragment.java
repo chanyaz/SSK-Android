@@ -4,12 +4,15 @@ package base.app.fragment.instance;
 import android.Manifest;
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -57,6 +60,7 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.activity.PhoneLoungeActivity;
+import base.app.events.OpenChatEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -143,6 +147,10 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.chat_menu_dots)
     ImageView chatMenuDotsImageView;
 
+
+    @BindView(R.id.chat_menu_delete)
+    TextView chatMenuDeleteButton;
+
     @BindView(R.id.chat_menu_edit)
     TextView chatMenuEditButton;
 
@@ -166,7 +174,7 @@ public class ChatFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity)
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, view);
@@ -190,7 +198,7 @@ public class ChatFragment extends BaseFragment {
         snappyLinearLayoutManager.setSnapDuration(1000);
         snappyLinearLayoutManager.setSeekDuration(1000);
         messageListView.setLayoutManager(snappyLinearLayoutManager);
-        if (!Utility.isTablet(getActivity()) && ImsManager.getInstance().getUserChatsList().size()==0 ) {
+        if (!Utility.isTablet(getActivity()) && ImsManager.getInstance().getUserChatsList().size() == 0) {
             ImsManager.getInstance().reload();
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -348,9 +356,11 @@ public class ChatFragment extends BaseFragment {
             UserInfo user = Model.getInstance().getUserInfo();
             if (user != null) {
                 if (user.getUserId().equals(currentlyActiveChat.getOwner())) {
+                    chatMenuDeleteButton.setVisibility(View.VISIBLE);
                     chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
                 } else {
                     chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
+                    chatMenuDeleteButton.setVisibility(View.GONE);
                 }
             } else {
                 chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
@@ -442,6 +452,12 @@ public class ChatFragment extends BaseFragment {
     public void chatMenuCreateOnClick() {
         EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
     }
+
+    @OnClick(R.id.chat_menu_delete)
+    public void chatMenuDeleteOnClick() {
+        currentlyActiveChat.deleteChat();
+    }
+
 
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
@@ -702,8 +718,13 @@ public class ChatFragment extends BaseFragment {
                         // Error occurred while creating the File
                     }
                     if (photoFile != null) {
-                        Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        if(Utility.isKitKat()){
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                        }
+                        if(Utility.isLollipopAndUp()){
+                            Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        }
                     }
                     startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_IMAGE_CAPTURE);
                 }
@@ -810,5 +831,10 @@ public class ChatFragment extends BaseFragment {
                     break;
             }
         }
+    }
+
+    @Subscribe
+    public void openChatEvent(OpenChatEvent event){
+        chatHeadsAdapter.notifyDataSetChanged();
     }
 }

@@ -33,7 +33,7 @@ import base.app.R;
 import base.app.activity.LoungeActivity;
 import base.app.adapter.ChatSearchExpandableAdapter;
 import base.app.adapter.FriendsInChatAdapter;
-import base.app.adapter.PublicChatsAdapter;
+import base.app.adapter.OfficialChatsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.friendship.FriendsManager;
@@ -69,7 +69,7 @@ public class JoinChatFragment extends BaseFragment {
 
     @BindView(R.id.chat_name_edit_text)
     EditText searchEditText;
-    PublicChatsAdapter chatsAdapter;
+    OfficialChatsAdapter chatsAdapter;
 
     List<ChatInfo> chatInfos;
     LinearLayoutManager friendsInChatLayoutManager;
@@ -110,15 +110,17 @@ public class JoinChatFragment extends BaseFragment {
                 }
             }
         });
+        chatsAdapter = new OfficialChatsAdapter(cellHeight, this);
+        Task<List<ChatInfo>> officialChats = ImsManager.getInstance().getAllOfficialChats();
+        officialChats.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<ChatInfo>> task) {
+                if (task.isSuccessful()) {
+                    chatsAdapter.add(task.getResult());
+                }
+            }
+        });
 
-        // Official chats - dummy
-        List<ChatInfo> publicChats = new ArrayList<>();
-        publicChats.add(new ChatInfo("", new ArrayList<String>(), "https://image.ibb.co/jNtCvk/fake_official_chat_henry.png", true, true, "1"));
-        publicChats.add(new ChatInfo("", new ArrayList<String>(), "https://image.ibb.co/fNv31Q/fake_official_chat_messi.png", true, true, "2"));
-        publicChats.add(new ChatInfo("", new ArrayList<String>(), "https://image.ibb.co/jj5go5/fake_official_chat_otar.png", true, true, "3"));
-        publicChats.add(new ChatInfo("", new ArrayList<String>(), "https://image.ibb.co/bCv31Q/fake_official_chat_rc7.png", true, true, "4"));
-        chatsAdapter = new PublicChatsAdapter(cellHeight);
-        chatsAdapter.add(publicChats);
         searchEditText.addTextChangedListener(textWatcher);
         recyclerView.setAdapter(chatsAdapter);
         return view;
@@ -145,8 +147,6 @@ public class JoinChatFragment extends BaseFragment {
                         FriendsInChatAdapter friendsInChatAdapter = new FriendsInChatAdapter(getActivity(), recyclerViewFriendsInContainer.getWidth());
                         friendsInChatAdapter.setValues(otherChats);
                         recyclerViewFriendsIn.setAdapter(friendsInChatAdapter);
-                        chatsAdapter = new PublicChatsAdapter(cellHeight);
-                        chatsAdapter.add(otherChats);
                     }
                 });
     }
@@ -192,8 +192,11 @@ public class JoinChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_join_headline_close_fragment)
     public void closeFragment() {
-        ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
-        //  getActivity().onBackPressed();
+        if(Utility.isTablet(getActivity())){
+            ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+        }else {
+            getActivity().onBackPressed();
+        }
     }
 
     public void performSearch() {

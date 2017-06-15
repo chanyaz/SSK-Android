@@ -70,8 +70,6 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     @BindView(R.id.subscribed_since_value)
     TextView subscribedSince;
 
-    @BindView(R.id.reset_button)
-    ImageView resetButton;
 
     @BindView(R.id.progressBar)
     ProgressBar progressBarCircle;
@@ -172,7 +170,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     }
 
     @Optional
-    @OnClick(R.id.reset_button)
+    @OnClick(R.id.light_theme_button)
     public void resetOnClick() {
         AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.reset_app),
                 new View.OnClickListener() {// Cancel

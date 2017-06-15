@@ -224,7 +224,7 @@
             android:layout_height="@dimen/space_0"
             android:layout_centerHorizontal="true" />
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/private_chat_switch"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/standard_button_height"

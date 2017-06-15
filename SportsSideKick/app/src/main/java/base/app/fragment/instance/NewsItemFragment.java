@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.greenrobot.eventbus.Subscribe;
 
 import base.app.activity.PhoneLoungeActivity;
+import base.app.util.SoundEffects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -245,7 +247,6 @@ public class NewsItemFragment extends BaseFragment {
         comment.setWallId(item.getWallId());
         comment.setPostId(item.getPostId());
         comment.setTimestamp(Double.valueOf(System.currentTimeMillis() / 1000));
-
         WallModel.getInstance().postComment(item, comment);
         post.getText().clear();
     }
@@ -255,21 +256,38 @@ public class NewsItemFragment extends BaseFragment {
         commentsAdapter.getComments().add(event.getComment());
         commentsAdapter.notifyDataSetChanged();
         commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
 
     }
 
     @OnClick(R.id.likes_icon)
     public void likePost() {
+        if (item != null) {
+            likesCount.setText(String.valueOf(item.getLikeCount() + 1));
+        }
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
         likesIconLiked.setVisibility(View.VISIBLE);
+        SoundEffects.getDefault().playSound(SoundEffects.SOFT);
     }
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
+        if (item != null) {
+            int count = Integer.valueOf(likesCount.getText().toString());
+            if (count >0)
+            {
+                likesCount.setText(String.valueOf(count-1));
+            }
+            else if (count == 0)
+            {
+                likesCount.setText("0");
+            }
+        }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
         likesIconLiked.setVisibility(View.GONE);
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
 
     @Subscribe

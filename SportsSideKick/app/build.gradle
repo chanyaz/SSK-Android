@@ -119,8 +119,8 @@ dependencies {
 //  Video chat is implemented with Twillio (it  resides on jcenter) - https://www.twilio.com/docs/api/video/download-video-sdks
     compile 'com.twilio:video-android:1.0.1'
 //  Facebook SDK is used for Analytics, Share and to populate Sign up data - https://developers.facebook.com/docs/android/
-    compile 'com.facebook.android:facebook-android-sdk:4.22.0'
-    compile('com.facebook.android:audience-network-sdk:4.22.0') {
+    compile 'com.facebook.android:facebook-android-sdk:4.23.0'
+    compile('com.facebook.android:audience-network-sdk:4.23.0') {
         exclude group: 'com.google.android.gms'
     }
 //  Twitter KIT used for share functionality - https://github.com/twitter/twitter-kit-android
