@@ -161,7 +161,7 @@
             android:src="@drawable/add_friend_button" />
 
         <RelativeLayout
-            android:id="@+id/friend_requests"
+            android:id="@+id/friend_requests_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toEndOf="@id/add_friend"

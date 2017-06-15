@@ -83,6 +83,9 @@ public class WallItemFragment extends BaseFragment {
     VideoView videoView;
     @BindView(R.id.comments_wall)
     RecyclerView commentsList;
+    @Nullable
+    @BindView(R.id.read_more_arrow_image)
+    ImageView readMoreArrowImage;
 
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
@@ -106,10 +109,6 @@ public class WallItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.share_count)
     TextView shareCount;
-
-    @Nullable
-    @BindView(R.id.read_more_arrow_image)
-    ImageView readMoreArrowImage;
 
     @Nullable
     @BindView(R.id.pin_container)
@@ -165,7 +164,7 @@ public class WallItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(getActivity() instanceof PhoneLoungeActivity) {
+        if (getActivity() instanceof PhoneLoungeActivity) {
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         }
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
