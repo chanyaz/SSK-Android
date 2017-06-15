@@ -91,6 +91,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public View activeChatView;
     @BindView(R.id.inactive_container)
     public View inactiveChatView;
+    @Nullable
     @BindView(R.id.nick_name_users)
     TextView nickNameUsers;
     // local user feed
@@ -219,7 +220,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.white_green_phone), PorterDuff.Mode.MULTIPLY);
             return;
         }
-        nickNameUsers.setText("");
+        if (nickNameUsers != null) {
+            nickNameUsers.setText("");
+        }
         FragmentEvent fe = new FragmentEvent(StartingNewCallFragment.class);
         fe.setStringArrayList(getUserIdsFromSlots());
         EventBus.getDefault().post(fe);
