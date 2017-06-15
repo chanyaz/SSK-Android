@@ -55,6 +55,7 @@ import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
@@ -79,6 +80,9 @@ public class WallItemFragment extends BaseFragment {
     VideoView videoView;
     @BindView(R.id.comments_wall)
     RecyclerView commentsList;
+    @Nullable
+    @BindView(R.id.read_more_arrow_image)
+    ImageView readMoreArrowImage;
 
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
@@ -157,7 +161,7 @@ public class WallItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(getActivity() instanceof PhoneLoungeActivity) {
+        if (getActivity() instanceof PhoneLoungeActivity) {
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         }
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
@@ -342,9 +346,8 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon)
     public void likePost() {
-        if (item!=null)
-        {
-            likesCount.setText(String.valueOf(item.getLikeCount()+1));
+        if (item != null) {
+            likesCount.setText(String.valueOf(item.getLikeCount() + 1));
         }
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
@@ -354,9 +357,8 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
-        if (item!=null)
-        {
-            likesCount.setText(String.valueOf(item.getLikeCount()-1));
+        if (item != null) {
+            likesCount.setText(String.valueOf(item.getLikeCount() - 1));
         }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
@@ -392,6 +394,19 @@ public class WallItemFragment extends BaseFragment {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    @Optional
+    @OnClick(R.id.read_more_holder)
+    public void readMoreClick() {
+        if (content.getMaxLines() == 3) {
+            content.setMaxLines(Integer.MAX_VALUE);
+            readMoreArrowImage.setRotation(90);
+        } else {
+            content.setMaxLines(3);
+            readMoreArrowImage.setRotation(-90);
         }
     }
 }
