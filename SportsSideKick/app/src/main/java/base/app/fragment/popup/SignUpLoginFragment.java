@@ -2,6 +2,7 @@ package base.app.fragment.popup;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.friendship.FriendRequest;
 import base.app.model.friendship.FriendsManager;
+import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,19 +39,21 @@ import butterknife.Optional;
 
 public class SignUpLoginFragment extends BaseFragment {
 
-
-
+    @Nullable
+    @BindView(R.id.textView)
+    TextView text;
 
     public SignUpLoginFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.popup_login_sing_up, container, false);
         ButterKnife.bind(this, view);
+
+        text.setText(Utility.fromHtml(getString(R.string.video_chat_text_1)));
 
         return view;
 
