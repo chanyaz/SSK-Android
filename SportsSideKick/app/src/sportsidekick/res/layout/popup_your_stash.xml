@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/margin_base_size_60"
-    android:background="?wallBackground"
+    android:background="?background_phone"
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
     android:layout_marginTop="@dimen/margin_base_size_60"
@@ -80,7 +80,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorPrimary"
+            android:background="?green_dark_phone_3"
             android:gravity="center"
             android:text="@string/profile"
             android:textColor="?white_semitransparent" />
@@ -91,7 +91,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorPrimary"
+            android:background="?green_dark_phone_3"
             android:gravity="center"
             android:text="@string/wallet"
             android:textColor="?white_semitransparent" />
@@ -101,7 +101,7 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?wallBackground"
+            android:background="?background_phone"
             android:gravity="center"
             android:text="@string/stash"
             android:textColor="?white" />

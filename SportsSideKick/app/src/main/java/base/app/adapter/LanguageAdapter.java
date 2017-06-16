@@ -90,7 +90,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.icon.setImageResource(languageImages[position]);
         holder.caption.setText(values[position]);
-        if (myLanguage.equals(values[position])) {
+        if (context.getString(R.string.this_language).equals(values[position])) {
             holder.background.setVisibility(View.VISIBLE);
         } else {
             holder.background.setVisibility(View.INVISIBLE);

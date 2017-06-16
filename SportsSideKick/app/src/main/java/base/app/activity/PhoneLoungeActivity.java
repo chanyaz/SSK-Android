@@ -386,7 +386,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @Override
     public void onBackPressed() {
         toggleBlur(false, null); // hide blurred view;
-
+        fragmentOrganizer.getOpenFragment();
+        if (youtubeList.contains(fragmentOrganizer.getOpenFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass()))
+            tvContainer.setVisibility(View.GONE);
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         if (barContainer.getVisibility() != View.VISIBLE)
             barContainer.setVisibility(View.VISIBLE);

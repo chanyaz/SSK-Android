@@ -247,10 +247,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_2)));
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
         slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
-
-        if (Utility.isTablet(getActivity())) {
-            text.setText(Utility.fromHtml(getString(R.string.video_chat_text_1)));
-        } else {
+        text.setText(Utility.fromHtml(getString(R.string.video_chat_text_1)));
+        if (!Utility.isTablet(getActivity()))
+        {
             chronometer.setFormat("%s");
             onLoginStateChange();
         }
@@ -272,15 +271,17 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             muteButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
             flipCameraButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
             videoButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            if(Utility.isTablet(getActivity())){
-            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);}
+            if (Utility.isTablet(getActivity())) {
+                addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            }
         } else {
             hangupButton.clearColorFilter();
             muteButton.clearColorFilter();
             flipCameraButton.clearColorFilter();
             videoButton.clearColorFilter();
-            if(Utility.isTablet(getActivity())){
-            addUserButton.clearColorFilter();}
+            if (Utility.isTablet(getActivity())) {
+                addUserButton.clearColorFilter();
+            }
         }
 
     }
@@ -469,7 +470,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                                         if (task.isSuccessful()) {
                                             userCounter++;
                                             String myNames = nickNameUsers.getText().toString();
-                                            if (userCounter >= users.size() ) {
+                                            if (userCounter >= users.size()) {
                                                 if (myNames.length() > 1) {
                                                     nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());
                                                     myNames = nickNameUsers.getText().toString();
@@ -493,8 +494,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                 }
             }
         }
-
-
 
 
     }

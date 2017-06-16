@@ -67,6 +67,7 @@ public class BaseActivity extends AppCompatActivity  {
     protected   CallbackManager callbackManager;
     protected ShareDialog facebookShareDialog;
     RelativeLayout notificationContainer;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

@@ -76,7 +76,7 @@ public class ClubRadioFragment extends BaseFragment {
                     adapter.getValues().addAll(task.getResult());
                     adapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
-                    if(!Utility.isTablet(getActivity())){
+                    if(!Utility.isTablet(getActivity()) && task.getResult().size()>0){
                         FragmentEvent fragmentEvent = new FragmentEvent(ClubRadioStationFragment.class);
                         fragmentEvent.setId(task.getResult().get(0).getName());
                         EventBus.getDefault().post(fragmentEvent);

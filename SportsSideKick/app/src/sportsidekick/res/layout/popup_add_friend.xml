@@ -140,7 +140,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:textColor="?white"
-            android:textColorHint="?white_semitransparent"
+            android:textColorHint="?white"
             android:textSize="@dimen/font_size_12" />
 
         <ImageView

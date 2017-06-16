@@ -53,7 +53,9 @@ public class SignUpLoginFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_login_sing_up, container, false);
         ButterKnife.bind(this, view);
 
-        text.setText(Utility.fromHtml(getString(R.string.video_chat_text_1)));
+        if (text != null) {
+            text.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
+        }
 
         return view;
 

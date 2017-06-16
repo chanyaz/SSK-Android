@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?colorAccentLight"
+    android:background="?background_phone"
     android:clickable="true"
     android:orientation="vertical">
 
@@ -84,7 +84,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?green_dark_2"
+            android:background="?green_dark_phone_3"
             android:gravity="center"
             android:text="@string/friends"
             android:textColor="?white" />
@@ -95,7 +95,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?green_dark_2"
+            android:background="?green_dark_phone_3"
             android:gravity="center"
             android:text="@string/find"
             android:textColor="?white" />
@@ -105,7 +105,7 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?colorAccentLight"
+            android:background="?background_phone"
             android:gravity="center"
             android:text="@string/request"
             android:textColor="?white" />
