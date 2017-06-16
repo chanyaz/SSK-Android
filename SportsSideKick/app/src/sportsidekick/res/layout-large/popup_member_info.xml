@@ -141,7 +141,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/chat_button"
+        android:id="@+id/chat_button_image"
         android:layout_width="@dimen/height_48"
         android:layout_height="@dimen/height_48"
         android:layout_above="@+id/follow_button_image"
@@ -155,12 +155,12 @@
         android:id="@+id/chat_button_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/chat_button"
-        android:layout_alignBottom="@+id/chat_button"
+        android:layout_alignTop="@+id/chat_button_image"
+        android:layout_alignBottom="@+id/chat_button_image"
         android:gravity="center_vertical"
         android:text="@string/chat_caption"
         android:textColor="@color/white"
-        android:layout_toEndOf="@+id/chat_button" />
+        android:layout_toEndOf="@+id/chat_button_image" />
 
     <ImageView
         android:id="@+id/follow_button_image"

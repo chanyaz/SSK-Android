@@ -44,9 +44,9 @@
                         android:id="@+id/fragment_rumors_top_image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
                         android:background="@drawable/image_rumours_background"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"/>
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:id="@+id/fragment_rumors_top_headline"

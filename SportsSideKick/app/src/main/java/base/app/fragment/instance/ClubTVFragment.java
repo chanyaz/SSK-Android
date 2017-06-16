@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import base.app.activity.PhoneLoungeActivity;
+import base.app.fragment.FragmentEvent;
 import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,8 +49,10 @@ public class ClubTVFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if (getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity) {
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
+
+        }
         View view = inflater.inflate(R.layout.fragment_club_tv, container, false);
 
         ButterKnife.bind(this, view);
@@ -82,6 +86,10 @@ public class ClubTVFragment extends BaseFragment {
         if (event.getEventType().equals(ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED)) {
             adapter.getValues().addAll(ClubModel.getInstance().getPlaylists());
             adapter.notifyDataSetChanged();
+            if (!Utility.isTablet(getActivity())) {
+                FragmentEvent fragmentEvent = new FragmentEvent(YoutubePlayerFragment.class);
+                EventBus.getDefault().post(fragmentEvent);
+            }
         }
     }
 

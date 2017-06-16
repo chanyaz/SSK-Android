@@ -77,6 +77,7 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
         isTablet = Utility.isTablet(getActivity());
         screenWidth = Utility.getDisplayWidth(getActivity());
         if (!isTablet) {
+            assert languageRecyclerView != null;
             languageRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
             languageRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
             languageRecyclerView.setHasFixedSize(true);
@@ -124,6 +125,7 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
         Model.getInstance().getUserInfo().setLanguage(languageToLoad);
         getActivity().recreate();
     }
+
 
 
     @Optional

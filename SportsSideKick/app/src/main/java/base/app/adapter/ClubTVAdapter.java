@@ -37,6 +37,7 @@ import base.app.util.Utility;
 public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder> {
 
     private static final String TAG = "Club Adapter";
+    private static final Double ITEM_HEIGHT = 0.15;
 
     private List<Playlist> values;
     private Context context;
@@ -53,6 +54,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         @Nullable
         @BindView(R.id.caption)
         TextView caption;
+
         ViewHolder(View v) {
             super(v);
             view = v;
@@ -61,7 +63,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
     }
 
     public ClubTVAdapter(Context context) {
-        values= new ArrayList<>();
+        values = new ArrayList<>();
         this.context = context;
     }
 
@@ -75,6 +77,10 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         final ViewHolder viewHolder;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tv_category_item, parent, false);
         viewHolder = new ViewHolder(view);
+        if (!Utility.isTablet(context)) {
+            int height = Utility.getDisplayHeight(context);
+            view.getLayoutParams().height = (int) (height * ITEM_HEIGHT);
+        }
         //setup click listener
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +108,10 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         String caption = originalCaption + countExtension;
         if (holder.caption != null) {
             holder.caption.setText(caption);
-            Spannable spannable = (Spannable)holder.caption.getText();
+            Spannable spannable = (Spannable) holder.caption.getText();
             int color = ContextCompat.getColor(context, R.color.lightGrey);
             ForegroundColorSpan thinSpan = new ForegroundColorSpan(color);
-            spannable.setSpan(thinSpan,startIndex,endIndex,Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            spannable.setSpan(thinSpan, startIndex, endIndex, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         }
 
 
@@ -119,7 +125,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        if (values==null)
+        if (values == null)
             return 0;
         return values.size();
     }

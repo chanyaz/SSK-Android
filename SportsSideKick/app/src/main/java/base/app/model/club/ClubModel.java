@@ -22,13 +22,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import base.app.Application;
 import base.app.BuildConfig;
 import base.app.events.ClubTVEvent;
+import base.app.fragment.FragmentEvent;
+import base.app.fragment.instance.YoutubePlayerFragment;
 import base.app.model.GSConstants;
+import base.app.util.Utility;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.Model.createRequest;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -43,23 +48,33 @@ public class ClubModel {
     private final ObjectMapper mapper; // jackson's object mapper
     private List<Station> stations;
 
-    public static ClubModel getInstance(){
-        if(instance==null){
+    public static ClubModel getInstance() {
+        if (instance == null) {
             instance = new ClubModel();
         }
         return instance;
     }
+
     private final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     private final GsonFactory jsonFactory = new GsonFactory();
 
 
     private List<Playlist> playlists;
     private List<Video> videos;
-    private HashMap<String,List<Video>> videosHashMap;
-    private  YouTube youtubeDataApi;
 
-    private ClubModel(){
-        mapper  = new ObjectMapper();
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
+
+    private HashMap<String, List<Video>> videosHashMap;
+    private YouTube youtubeDataApi;
+
+    private ClubModel() {
+        mapper = new ObjectMapper();
         playlists = new ArrayList<>();
         videos = new ArrayList<>();
         videosHashMap = new HashMap<>();
@@ -67,16 +82,19 @@ public class ClubModel {
     }
 
     public void requestAllPlaylists(String channelId) {
-        if (playlists.size()>0) {
+        if (playlists.size() > 0) {
             EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
         } else {
             new GetChannelPlaylistsAsyncTask(youtubeDataApi) {
                 @Override
                 protected void onPostExecute(Pair<String, List<Playlist>> stringListPair) {
                     super.onPostExecute(stringListPair);
-                    if (stringListPair!=null) {
+                    if (stringListPair != null) {
                         if (stringListPair.second != null) {
                             playlists.addAll(stringListPair.second);
+                        }
+                        if (!Utility.isTablet(getApplicationContext())) {
+                            ClubModel.getInstance().requestPlaylist(playlists.get(0).getId());
                         }
                         EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
                     }
@@ -85,8 +103,8 @@ public class ClubModel {
         }
     }
 
-    public void requestPlaylist(final String playlistId){
-        if(videosHashMap.containsKey(playlistId)){
+    public void requestPlaylist(final String playlistId) {
+        if (videosHashMap.containsKey(playlistId)) {
             EventBus.getDefault().post(new ClubTVEvent(playlistId, ClubTVEvent.Type.PLAYLIST_DOWNLOADED));
         } else {
             new GetPlaylistAsyncTask(youtubeDataApi) {
@@ -94,7 +112,7 @@ public class ClubModel {
                 protected void onPostExecute(Pair<String, List<Video>> stringListPair) {
                     super.onPostExecute(stringListPair);
                     List<Video> receivedVideos = stringListPair.second;
-                    videosHashMap.put(playlistId,receivedVideos);
+                    videosHashMap.put(playlistId, receivedVideos);
                     videos.addAll(receivedVideos);
                     EventBus.getDefault().post(new ClubTVEvent(playlistId, ClubTVEvent.Type.PLAYLIST_DOWNLOADED));
                 }
@@ -103,26 +121,27 @@ public class ClubModel {
 
     }
 
-    public Playlist getPlaylistById(String id){
-        for(Playlist playlist : playlists){
-            if(id.equals(playlist.getId())){
+    public Playlist getPlaylistById(String id) {
+        for (Playlist playlist : playlists) {
+            if (id.equals(playlist.getId())) {
                 return playlist;
             }
         }
         return null;
     }
-    public Video getVideoById(String id){
-        for(Video video : videos){
-            if(id.equals(video.getId())){
+
+    public Video getVideoById(String id) {
+        for (Video video : videos) {
+            if (id.equals(video.getId())) {
                 return video;
             }
         }
         return null;
     }
 
-    public String getPlaylistId(Video video){
-        for(Map.Entry<String,List<Video>> entry : videosHashMap.entrySet()){
-            if(entry.getValue().contains(video)){
+    public String getPlaylistId(Video video) {
+        for (Map.Entry<String, List<Video>> entry : videosHashMap.entrySet()) {
+            if (entry.getValue().contains(video)) {
                 return entry.getKey();
             }
         }
@@ -144,13 +163,14 @@ public class ClubModel {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.ITEMS);
-                    List<Station> receivedStations = mapper.convertValue(object, new TypeReference<List<Station>>(){});
-                    while(receivedStations.contains(null)){
+                    List<Station> receivedStations = mapper.convertValue(object, new TypeReference<List<Station>>() {
+                    });
+                    while (receivedStations.contains(null)) {
                         receivedStations.remove(null);
                     }
                     stations = receivedStations;
                     source.setResult(receivedStations);
-                }  else {
+                } else {
                     source.setException(new Exception("There was an error while trying to get stations."));
                 }
             }
@@ -161,10 +181,10 @@ public class ClubModel {
         return source.getTask();
     }
 
-    public Station getStationByName(String name){
-        if(stations!=null){
-            for(Station station : stations){
-                if(station.getName().equals(name)){
+    public Station getStationByName(String name) {
+        if (stations != null) {
+            for (Station station : stations) {
+                if (station.getName().equals(name)) {
                     return station;
                 }
             }

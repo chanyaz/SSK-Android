@@ -78,6 +78,9 @@
         <item name="popupCancelButtonIcon">@drawable/popup_cancel_button</item>
         <item name="popupConfirmationButtonIcon">@drawable/popup_confirmation_button</item>
         <item name="popupBottomBackgroundDarkShape">@drawable/popup_bottom_background_dark</item>
+
+        <item name="popupBottomBackgroundDarkShapeDialog">@drawable/popup_bottom_background_dark_dialog</item>
+
         <item name="chatBackground">@drawable/chat_background</item>
         <item name="arrowDownIcon">@drawable/down_arrow</item>
 
@@ -283,6 +286,9 @@
         <item name="popupCancelButtonIcon">@drawable/popup_cancel_button</item>
         <item name="popupConfirmationButtonIcon">@drawable/popup_confirmation_button</item>
         <item name="popupBottomBackgroundDarkShape">@drawable/popup_bottom_background_dark</item>
+
+        <item name="popupBottomBackgroundDarkShapeDialog">@drawable/popup_bottom_background_dark_dialog</item>
+
         <item name="chatBackground">@drawable/light_chat_background</item>
         <item name="arrowDownIcon">@drawable/down_arrow</item>
 

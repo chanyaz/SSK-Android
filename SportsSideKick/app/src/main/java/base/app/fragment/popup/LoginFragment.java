@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import base.app.fragment.instance.WallFragment;
 import base.app.model.user.RegistrationStateReceiver;
 import base.app.util.Utility;
 import butterknife.BindView;
@@ -106,7 +107,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         if (!Utility.isTablet(getActivity())) {
             initFacebook();
         }
-        //TODO @Filip refactoring create butterKnife onClick
         forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,9 +237,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
-
-            getActivity().onBackPressed();
-
+       // getActivity().onBackPressed();
+        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
     }
 
     @Override

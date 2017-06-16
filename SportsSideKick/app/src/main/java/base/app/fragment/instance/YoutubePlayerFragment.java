@@ -49,6 +49,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     private static final String TAG = "YOUTUBE PLAYER";
     private static final int SEEK_BAR_MAX = 10000;
+
     public YoutubePlayerFragment() {
         // Required empty public constructor
     }
@@ -78,19 +79,25 @@ public class YoutubePlayerFragment extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity)
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_video_player, container, false);
         YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.youtube_layout, youTubePlayerFragment).commit();
-        youTubePlayerFragment.initialize(Constant.YOUTUBE_API_KEY,this);
+        youTubePlayerFragment.initialize(Constant.YOUTUBE_API_KEY, this);
         ButterKnife.bind(this, view);
 
-        video = ClubModel.getInstance().getVideoById(getPrimaryArgument());
+        if (getPrimaryArgument() != null) {
+            video = ClubModel.getInstance().getVideoById(getPrimaryArgument());
+        } else {
+            if (ClubModel.getInstance().getVideos().size() != 0) {
+                video = ClubModel.getInstance().getVideos().get(0);
+            }
+        }
 
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
-        mute = (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)==0);
+        mute = (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) == 0);
         muteButton.setSelected(mute);
         isSeekBarTouched = false;
         seekBar.setMax(SEEK_BAR_MAX);
@@ -98,15 +105,18 @@ public class YoutubePlayerFragment extends BaseFragment implements
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                float percentage = ((float)seekBar.getProgress()/(float)seekBar.getMax());
-                int target = (int)(player.getDurationMillis()*percentage);
+                float percentage = ((float) seekBar.getProgress() / (float) seekBar.getMax());
+                int target = (int) (player.getDurationMillis() * percentage);
                 Log.d(TAG, "SEEK TO:  (%) " + percentage);
                 Log.d(TAG, "SEEK TO: (ms) " + target);
                 Log.d(TAG, "SEEK TO: (duration) " + player.getDurationMillis());
                 isSeekBarTouched = false;
                 player.seekToMillis(target);
             }
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {}
+
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            }
+
             public void onStartTrackingTouch(SeekBar seekBar) {
                 isSeekBarTouched = true;
             }
@@ -118,12 +128,12 @@ public class YoutubePlayerFragment extends BaseFragment implements
         return view;
     }
 
-    public void updateButtonsColor(){
-        if(ThemeManager.getInstance().isLightTheme()){
-            playButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.light_green_main),PorterDuff.Mode.MULTIPLY);
-            muteButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.light_green_main),PorterDuff.Mode.MULTIPLY);
-            fullScreenButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.light_green_main),PorterDuff.Mode.MULTIPLY);
-        }else {
+    public void updateButtonsColor() {
+        if (ThemeManager.getInstance().isLightTheme()) {
+            playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
+            muteButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
+            fullScreenButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
+        } else {
             playButton.clearColorFilter();
             muteButton.clearColorFilter();
             fullScreenButton.clearColorFilter();
@@ -131,13 +141,15 @@ public class YoutubePlayerFragment extends BaseFragment implements
     }
 
     YouTubePlayer player;
+
     // YouTube
     @Override
     public void onInitializationSuccess(Provider provider, YouTubePlayer player, boolean wasRestored) {
         if (!wasRestored) {
             player.setFullscreen(false);
             player.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS);
-            player.cueVideo(video.getId());
+            if (video != null)
+                player.cueVideo(video.getId());
             this.player = player;
             player.setOnFullscreenListener(this);
             player.setPlaybackEventListener(this);
@@ -182,29 +194,31 @@ public class YoutubePlayerFragment extends BaseFragment implements
     }
 
     @OnClick(R.id.fullscreen_button)
-    public void openFullscreen(){
+    public void openFullscreen() {
         player.setFullscreen(true);
     }
 
 
     @OnClick(R.id.play_button)
-    public void togglePlay(){
-       if(player.isPlaying()){
-           player.pause();
-       } else {
-           player.play();
-       }
-        if(ThemeManager.getInstance().isLightTheme()){
-            playButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.light_green_main),PorterDuff.Mode.MULTIPLY);
-        }else {
-            playButton.setColorFilter(ContextCompat.getColor(getActivity(),R.color.white),PorterDuff.Mode.MULTIPLY);
+    public void togglePlay() {
+        if (player.isPlaying()) {
+            player.pause();
+        } else {
+            player.play();
+        }
+        if (ThemeManager.getInstance().isLightTheme()) {
+            playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
+        } else {
+            playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.white), PorterDuff.Mode.MULTIPLY);
         }
     }
+
     final Handler updatesHandler = new Handler();
-    private void beginPlaybackUpdates(){
-        if(player!=null && player.isPlaying()){
+
+    private void beginPlaybackUpdates() {
+        if (player != null && player.isPlaying()) {
             updateTimeInfo();
-            if(!isSeekBarTouched){
+            if (!isSeekBarTouched) {
                 updateSeekBarProgress();
             }
             updatesHandler.postDelayed(new Runnable() {
@@ -218,7 +232,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @Override
     public void onFullscreen(boolean fullscreen) {
-        if(fullscreen){
+        if (fullscreen) {
             player.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
         } else {
             player.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS);
@@ -233,7 +247,6 @@ public class YoutubePlayerFragment extends BaseFragment implements
     }
 
 
-
     @Override
     public void onVideoEnded() {
         player.seekToMillis(0);
@@ -242,12 +255,13 @@ public class YoutubePlayerFragment extends BaseFragment implements
     }
 
     @Override
-    public void onError(YouTubePlayer.ErrorReason errorReason) {}
+    public void onError(YouTubePlayer.ErrorReason errorReason) {
+    }
 
     @OnClick(R.id.mute_button)
-    public void toggleMute(){
+    public void toggleMute() {
         mute = !mute;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_TOGGLE_MUTE, 0);
         } else {
             //noinspection deprecation
@@ -256,10 +270,10 @@ public class YoutubePlayerFragment extends BaseFragment implements
         muteButton.setSelected(mute);
     }
 
-    private void updateTimeInfo(){
+    private void updateTimeInfo() {
         long current = 0;
         long total = 0;
-        if(player!=null){
+        if (player != null) {
             current = player.getCurrentTimeMillis();
             total = player.getDurationMillis();
         }
@@ -267,15 +281,15 @@ public class YoutubePlayerFragment extends BaseFragment implements
         timeInfo.setText(text);
     }
 
-    private void updateSeekBarProgress(){
+    private void updateSeekBarProgress() {
         float current = player.getCurrentTimeMillis();
         float total = player.getDurationMillis();
-        float percentage = current/total;
-        seekBar.setProgress((int) (percentage*SEEK_BAR_MAX));
+        float percentage = current / total;
+        seekBar.setProgress((int) (percentage * SEEK_BAR_MAX));
     }
 
     @OnClick(R.id.playlist_button)
-    public void goBackToPlaylist(){
+    public void goBackToPlaylist() {
         FragmentEvent fragmentEvent = new FragmentEvent(ClubTvPlaylistFragment.class, true);
         fragmentEvent.setId(ClubModel.getInstance().getPlaylistId(video));
         EventBus.getDefault().post(fragmentEvent);
@@ -292,9 +306,14 @@ public class YoutubePlayerFragment extends BaseFragment implements
     }
 
     @Override
-    public void onLoading() {}
+    public void onLoading() {
+    }
+
     @Override
-    public void onAdStarted() {}
+    public void onAdStarted() {
+    }
+
     @Override
-    public void onVideoStarted() {}
+    public void onVideoStarted() {
+    }
 }

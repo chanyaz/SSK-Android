@@ -1,6 +1,9 @@
 package base.app.activity;
 
+import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.VoicemailContract;
 import android.support.percent.PercentRelativeLayout;
@@ -11,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -23,9 +27,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import base.app.Constant;
 import base.app.fragment.popup.SignUpLoginFragment;
+import base.app.util.ui.BlurBuilder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -100,6 +106,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         return drawerLayout;
     }
 
+    @BindView(R.id.fragment_popup_holder)
+    View popupHolder;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -120,16 +128,28 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @BindView(R.id.left_top_bar_container)
     RelativeLayout barContainer;
     ArrayList<Class> popupContainerFragments;
-    ArrayList<Class> slidePopupContainerFragments;
     SideMenuAdapter sideMenuAdapter;
     MenuAdapter menuAdapter;
     ArrayList<Class> popupLeftFragments;
+    ArrayList<Class> popupDialogFragments;
+    ArrayList<Class> youtubePlayer;
+    ArrayList<Class> youtubeList;
     int screenWidth;
+
+    @BindView(R.id.fragment_tv_container)
+    LinearLayout tvContainer;
 
     @BindView(R.id.notification_open)
     ImageView notificationIcon;
     @BindView(R.id.friends_open)
     ImageView friendsIcon;
+
+    @BindView(R.id.blurred_background)
+    RelativeLayout blurredBackground;
+
+    @BindView(R.id.fragment_dialog)
+    RelativeLayout popupDialogLayout;
+
 
     @OnClick(R.id.notification_open)
     public void notificationOpen() {
@@ -160,12 +180,12 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         Utility.setSystemBarColor(this);
     }
 
-    public void updateTopBar(){
-        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+    public void updateTopBar() {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             //Check if user is logged in
             notificationIcon.setVisibility(View.VISIBLE);
             friendsIcon.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             notificationIcon.setVisibility(View.GONE);
             friendsIcon.setVisibility(View.GONE);
         }
@@ -222,14 +242,12 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     }
 
-    public void setMarginTop(boolean set)
-    {
+    public void setMarginTop(boolean set) {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.ABOVE, R.id.side_menu_recycler);
-        if(set) {
+        if (set) {
             lp.addRule(RelativeLayout.BELOW, R.id.left_top_bar_container);
-        }
-        else {
+        } else {
             lp.addRule(RelativeLayout.BELOW, R.id.base_line_spliter);
         }
         fragmentHolder.setLayoutParams(lp);
@@ -245,14 +263,11 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         mainContainerFragments.add(NewsFragment.class);
         mainContainerFragments.add(StatisticsFragment.class);
         mainContainerFragments.add(RumoursFragment.class);
-        mainContainerFragments.add(ClubRadioFragment.class);
         mainContainerFragments.add(StoreFragment.class);
-        mainContainerFragments.add(ClubTVFragment.class);
         mainContainerFragments.add(VoicemailContract.class);
         mainContainerFragments.add(VideoChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
         popupContainerFragments = new ArrayList<>();
-        popupContainerFragments.add(AlertDialogFragment.class);
         popupContainerFragments.add(YourProfileFragment.class);
         popupContainerFragments.add(StashFragment.class);
         popupContainerFragments.add(YourStatementFragment.class);
@@ -272,17 +287,30 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupContainerFragments.add(SignUpLoginFragment.class);
         popupContainerFragments.add(CreateChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_popup_holder, popupContainerFragments, true);
+
+        popupDialogFragments = new ArrayList<>();
+        popupDialogFragments.add(AlertDialogFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.fragment_dialog, popupDialogFragments, true);
+
 //left Join
         popupLeftFragments = new ArrayList<>();
-        popupLeftFragments.add(ClubTvPlaylistFragment.class);
-        popupLeftFragments.add(YoutubePlayerFragment.class);
-        popupLeftFragments.add(ClubRadioStationFragment.class);
         popupLeftFragments.add(EditChatFragment.class);
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
         popupLeftFragments.add(NewsItemFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
 
+
+        youtubeList = new ArrayList<>();
+        youtubeList.add(ClubTVFragment.class);
+        youtubeList.add(ClubTvPlaylistFragment.class);
+        youtubeList.add(ClubRadioFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.play_list_holder, youtubeList, true);
+
+        youtubePlayer = new ArrayList<>();
+        youtubePlayer.add(YoutubePlayerFragment.class);
+        youtubePlayer.add(ClubRadioStationFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.youtube_holder, youtubePlayer, true);
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
 
@@ -295,13 +323,58 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         } else {
             SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         }
-        if (popupLeftFragments.contains(event.getType())) {
-            // this is popup event
+        tvContainer.setVisibility(View.GONE);
+        if (youtubeList.contains(event.getType()) || youtubePlayer.contains(event.getType())) {
+            tvContainer.setVisibility(View.VISIBLE);
+        } else if (popupLeftFragments.contains(event.getType())) {
+            // this is popup event - coming from left
             fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
             barContainer.setVisibility(View.INVISIBLE);
-        } else {
+            popupHolder.setVisibility(View.INVISIBLE);
+        } else if (popupContainerFragments.contains(event.getType())) {
+            // this is popup event
             fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
             barContainer.setVisibility(View.VISIBLE);
+            popupHolder.setVisibility(View.VISIBLE);
+        } else if (popupDialogFragments.contains(event.getType())) {
+            // this is popup event - Alert Dialog
+            if (fragmentLeftPopupHolder.getVisibility() == View.VISIBLE) {
+                toggleBlur(true, fragmentLeftPopupHolder);
+            } else if (popupHolder.getVisibility() == View.VISIBLE) {
+                //fragmentLeftPopupHolder is visible so we need to take photo from that layout
+                toggleBlur(true, popupHolder);
+            } else {
+                //main fragment view
+                toggleBlur(true, fragmentHolder);
+            }
+        } else {
+            //main fragments
+            tvContainer.setVisibility(View.GONE);
+            fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
+            barContainer.setVisibility(View.VISIBLE);
+            popupHolder.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void toggleBlur(boolean visible, final View fragmentView) {
+        if (visible) {
+            blurredBackground.setVisibility(View.VISIBLE);
+            if (rootView.getWidth() > 0) {
+                Bitmap image = BlurBuilder.blur(fragmentView);
+                blurredBackground.setBackground(new BitmapDrawable(this.getResources(), image));
+                blurredBackground.getBackground().setAlpha(230);
+            } else {
+                rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        Bitmap image = BlurBuilder.blur(fragmentView);
+                        blurredBackground.setBackground(new BitmapDrawable(PhoneLoungeActivity.this.getResources(), image));
+                        blurredBackground.getBackground().setAlpha(230);
+                    }
+                });
+            }
+        } else {
+            blurredBackground.setVisibility(View.GONE);
         }
     }
 
@@ -312,6 +385,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     @Override
     public void onBackPressed() {
+        toggleBlur(false, null); // hide blurred view;
 
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         if (barContainer.getVisibility() != View.VISIBLE)
@@ -358,12 +432,16 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     }
 
     @Override
-    public void closeDrawerMenu(int position) {
-        NavigationDrawerItems.getInstance().setByPosition(position);
-        drawerLayout.closeDrawer(GravityCompat.END);
-        sideMenuAdapter.notifyDataSetChanged();
-        if (position > 3) {
-            menuAdapter.notifyItemRangeChanged(0, 3);
+    public void closeDrawerMenu(int position, boolean goodPosition) {
+        if (goodPosition) {
+            NavigationDrawerItems.getInstance().setByPosition(position);
+            drawerLayout.closeDrawer(GravityCompat.END);
+            sideMenuAdapter.notifyDataSetChanged();
+            if (position > 3) {
+                menuAdapter.notifyItemRangeChanged(0, 3);
+            }
+        } else {
+            drawerLayout.closeDrawer(GravityCompat.END);
         }
     }
 

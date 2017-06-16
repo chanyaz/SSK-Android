@@ -13,9 +13,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import base.app.activity.PhoneLoungeActivity;
+import base.app.fragment.FragmentEvent;
+import base.app.util.Utility;
+import base.app.util.ui.GridItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import base.app.R;
@@ -38,6 +43,7 @@ public class ClubRadioFragment extends BaseFragment {
     AVLoadingIndicatorView progressBar;
 
     ClubRadioAdapter adapter;
+
     public ClubRadioFragment() {
         // Required empty public constructor
     }
@@ -46,7 +52,7 @@ public class ClubRadioFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity)
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_club_radio, container, false);
 
@@ -54,6 +60,10 @@ public class ClubRadioFragment extends BaseFragment {
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
+        if (!Utility.isTablet(getActivity())) {
+            int space = (int) getResources().getDimension(R.dimen.padding_12);
+            recyclerView.addItemDecoration(new GridItemDecoration(space, 2));
+        }
 
         adapter = new ClubRadioAdapter(getContext());
         recyclerView.setAdapter(adapter);
@@ -62,10 +72,15 @@ public class ClubRadioFragment extends BaseFragment {
         getStationsTask.addOnCompleteListener(new OnCompleteListener<List<Station>>() {
             @Override
             public void onComplete(@NonNull Task<List<Station>> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     adapter.getValues().addAll(task.getResult());
                     adapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
+                    if(!Utility.isTablet(getActivity())){
+                        FragmentEvent fragmentEvent = new FragmentEvent(ClubRadioStationFragment.class);
+                        fragmentEvent.setId(task.getResult().get(0).getName());
+                        EventBus.getDefault().post(fragmentEvent);
+                    }
                 }
             }
         });

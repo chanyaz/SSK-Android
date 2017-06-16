@@ -14,20 +14,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccentLight">
-<View
-    android:id="@+id/base_line_spliter"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_alignParentTop="true"/>
+
+        <View
+            android:id="@+id/base_line_spliter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true" />
+
         <RelativeLayout
             android:id="@+id/fragment_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/side_menu_recycler"
             android:layout_below="@+id/left_top_bar_container"
-            android:background="?green_dark_1">
+            android:background="?green_dark_1" />
 
-        </RelativeLayout>
+
         <!-- TICKER -->
         <RelativeLayout
             android:id="@+id/left_top_bar_container"
@@ -134,7 +136,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@color/transparent"></RelativeLayout>
+            android:background="@color/transparent" />
 
         <RelativeLayout
             android:id="@+id/fragment_left_popup_holder"
@@ -143,8 +145,48 @@
             android:layout_above="@+id/side_menu_recycler"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@color/transparent"></RelativeLayout>
+            android:background="@color/transparent" />
 
+        <RelativeLayout
+            android:id="@+id/blurred_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/transparent" />
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/transparent" />
+
+        <LinearLayout
+            android:id="@+id/fragment_tv_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/side_menu_recycler"
+            android:layout_below="@+id/left_top_bar_container"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/youtube_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@android:color/transparent" />
+
+
+            <RelativeLayout
+                android:id="@+id/play_list_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.percent.PercentRelativeLayout
@@ -291,8 +333,8 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:adjustViewBounds="true"
-                            android:src="?userCoinIcon"
                             android:contentDescription="@null"
+                            android:src="?userCoinIcon"
                             app:layout_heightPercent="25%" />
 
                         <TextView
@@ -318,10 +360,10 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="0"
-                            android:textStyle="bold"
                             android:textAlignment="center"
                             android:textColor="@color/light_colorPrimarySemiLight"
-                            android:textSize="@dimen/font_size_12" />
+                            android:textSize="@dimen/font_size_12"
+                            android:textStyle="bold" />
 
                     </android.support.percent.PercentRelativeLayout>
 

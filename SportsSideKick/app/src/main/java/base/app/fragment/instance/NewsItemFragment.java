@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -82,6 +83,12 @@ public class NewsItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.comments_count)
     TextView commentsCount;
+
+    @Nullable
+    @BindView(R.id.read_more_arrow_image)
+    ImageView readMoreArrowImage;
+
+
     @Nullable
     @BindView(R.id.likes_icon)
     ImageView likesIcon;
@@ -138,7 +145,7 @@ public class NewsItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity)
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
         ButterKnife.bind(this, view);
@@ -240,7 +247,6 @@ public class NewsItemFragment extends BaseFragment {
         comment.setWallId(item.getWallId());
         comment.setPostId(item.getPostId());
         comment.setTimestamp(Double.valueOf(System.currentTimeMillis() / 1000));
-
         WallModel.getInstance().postComment(item, comment);
         post.getText().clear();
     }
@@ -250,14 +256,14 @@ public class NewsItemFragment extends BaseFragment {
         commentsAdapter.getComments().add(event.getComment());
         commentsAdapter.notifyDataSetChanged();
         commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
 
     }
 
     @OnClick(R.id.likes_icon)
     public void likePost() {
-        if (item!=null)
-        {
-            likesCount.setText(String.valueOf(item.getLikeCount()+1));
+        if (item != null) {
+            likesCount.setText(String.valueOf(item.getLikeCount() + 1));
         }
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
@@ -267,9 +273,16 @@ public class NewsItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
-        if (item!=null)
-        {
-            likesCount.setText(String.valueOf(item.getLikeCount()-1));
+        if (item != null) {
+            int count = Integer.valueOf(likesCount.getText().toString());
+            if (count >0)
+            {
+                likesCount.setText(String.valueOf(count-1));
+            }
+            else if (count == 0)
+            {
+                likesCount.setText("0");
+            }
         }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
@@ -306,9 +319,21 @@ public class NewsItemFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.share_buttons_container)
-    public void close_share_dialog() {
+    public void closeShareDialog() {
         if (shareButtons != null)
             shareButtons.setVisibility(View.GONE);
+    }
+
+    @Optional
+    @OnClick(R.id.read_more_holder)
+    public void readMoreClick() {
+        if (content.getMaxLines() == 3) {
+            content.setMaxLines(Integer.MAX_VALUE);
+            readMoreArrowImage.setRotation(90);
+        } else {
+            content.setMaxLines(3);
+            readMoreArrowImage.setRotation(-90);
+        }
     }
 
 

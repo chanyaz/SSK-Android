@@ -77,7 +77,7 @@ public class MemberInfoFragment extends BaseFragment {
     RecyclerView inCommonRecyclerView;
 
     @Nullable
-    @BindView(R.id.chat_button)
+    @BindView(R.id.chat_button_image)
     ImageView chatButtonImage;
     @Nullable
     @BindView(R.id.follow_button_image)
@@ -173,7 +173,7 @@ public class MemberInfoFragment extends BaseFragment {
         }
     };
 
-    private void setupUIWithUserInfo(UserInfo user){
+    private void setupUIWithUserInfo(UserInfo user) {
         profileName.setText(user.getFirstName() + " " + user.getLastName());
         //TODO @Filip refactoring Put this in a  string file
         onlineStatus.setText(user.isOnline() ? "online" : "offline");
@@ -227,7 +227,7 @@ public class MemberInfoFragment extends BaseFragment {
                 changeViewClickable(false, followButtonImage);
                 changeViewClickable(false, followButtonText);
 
-                if(user.isFriendPendingRequest()){ // Check if request is pending - if so, disable button
+                if (user.isFriendPendingRequest()) { // Check if request is pending - if so, disable button
                     friendButtonImage.setImageResource(R.drawable.friend_unfollow_button);
                     friendButtonText.setText(getContext().getResources().getString(R.string.friend_request_pending));
                     // disable send request button -  request is sent
@@ -246,9 +246,9 @@ public class MemberInfoFragment extends BaseFragment {
         }
     }
 
-    private void changeViewClickable(boolean value, View view){
+    private void changeViewClickable(boolean value, View view) {
         view.setClickable(value);
-        if(value){
+        if (value) {
             view.setAlpha(1.0f);
         } else {
             view.setAlpha(0.5f);
@@ -299,6 +299,13 @@ public class MemberInfoFragment extends BaseFragment {
     public void confirmOnClick() {
         getActivity().onBackPressed();
         EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
+    }
+
+
+    @Optional
+    @OnClick(R.id.chat_button_image)
+    public void click() {
+        chatOnClick();
     }
 
     @Optional
@@ -416,14 +423,14 @@ public class MemberInfoFragment extends BaseFragment {
                 follow = getString(R.string.friend_follow);
             }
 
-            TextView report= new TextView(getActivity());
+            TextView report = new TextView(getActivity());
             report.setText(getString(R.string.report_abuse));
             report.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
             builder.setTitle(getString(R.string.what_would_you_like_to_do));
             builder.setItems(new CharSequence[]
-                          {getString(R.string.report_abuse), follow, friend, getString(R.string.cancel)},
+                            {getString(R.string.report_abuse), follow, friend, getString(R.string.cancel)},
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // The 'which' argument contains the index position

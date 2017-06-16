@@ -62,6 +62,7 @@ public class StartingNewCallFragment extends BaseFragment {
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.2;
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
+    @Nullable
     @BindView(R.id.chat_name_edit_text)
     EditText friendName;
     @BindView(R.id.progress_bar)
@@ -208,27 +209,29 @@ public class StartingNewCallFragment extends BaseFragment {
 
 
     private void setTextWatcher() {
-        friendName.addTextChangedListener(new TextWatcher() {
+        if (friendName != null) {
+            friendName.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+                }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            }
+                }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = s.toString();
-                friendsRecyclerView.setVisibility(View.INVISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
-                findUsers(text);
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String text = s.toString();
+                    friendsRecyclerView.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    findUsers(text);
 
-            }
-        });
+                }
+            });
+        }
     }
 
     private void findUsers(String sequence) {

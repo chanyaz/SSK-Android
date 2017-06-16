@@ -277,6 +277,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         holder.descriptionTextView.setText(news.getSubTitle());
                     }
 
+                    if (news.isLikedByUser()) {
+                        holder.likedIcon.setVisibility(View.VISIBLE);
+                        holder.likesIcon.setVisibility(View.GONE);
+                    } else {
+                        holder.likedIcon.setVisibility(View.GONE);
+                        holder.likesIcon.setVisibility(View.VISIBLE);
+                    }
 
                     Task<UserInfo> getUserTaskNews = Model.getInstance().getUserInfoById(news.getWallId());
                     getUserTaskNews.addOnCompleteListener(new OnCompleteListener<UserInfo>() {

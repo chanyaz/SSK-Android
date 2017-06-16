@@ -33,6 +33,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import base.app.R;
 import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.CommentsAdapter;
@@ -55,6 +58,7 @@ import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
@@ -79,6 +83,9 @@ public class WallItemFragment extends BaseFragment {
     VideoView videoView;
     @BindView(R.id.comments_wall)
     RecyclerView commentsList;
+    @Nullable
+    @BindView(R.id.read_more_arrow_image)
+    ImageView readMoreArrowImage;
 
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
@@ -157,7 +164,7 @@ public class WallItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(getActivity() instanceof PhoneLoungeActivity) {
+        if (getActivity() instanceof PhoneLoungeActivity) {
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
         }
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
@@ -180,6 +187,7 @@ public class WallItemFragment extends BaseFragment {
                 WallPost post = (WallPost) item;
                 ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(post.getTitle());
+                strap.setText(Utility.getTimeAgo(post.getTimestamp().longValue()));
                 content.setText(post.getBodyText());
                 if (post.getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
@@ -288,6 +296,13 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
+        // Sort by timestamp
+        Collections.sort(event.getCommentList(), new Comparator<PostComment>() {
+            @Override
+            public int compare(PostComment lhs, PostComment rhs) {
+                return rhs.getTimestamp().compareTo(lhs.getTimestamp());
+            }
+        });
         commentsAdapter.getComments().addAll(event.getCommentList());
         commentsAdapter.notifyDataSetChanged();
     }
@@ -334,9 +349,9 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentPosted(PostCommentCompleteEvent event) {
-        commentsAdapter.getComments().add(event.getComment());
+        commentsAdapter.getComments().add(0,event.getComment());
         commentsAdapter.notifyDataSetChanged();
-        commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+       // commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
 
     }
 
@@ -344,7 +359,7 @@ public class WallItemFragment extends BaseFragment {
     public void likePost() {
         if (item!=null)
         {
-            likesCount.setText(String.valueOf(item.getLikeCount()+1));
+                likesCount.setText(String.valueOf(item.getLikeCount()+ 1));
         }
         WallModel.getInstance().setlikeVal(item, true);
         likesIcon.setVisibility(View.GONE);
@@ -354,9 +369,16 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
-        if (item!=null)
-        {
-            likesCount.setText(String.valueOf(item.getLikeCount()-1));
+        if (item != null) {
+            int count = Integer.valueOf(likesCount.getText().toString());
+            if (count >0)
+            {
+                likesCount.setText(String.valueOf(count-1));
+            }
+            else if (count == 0)
+            {
+                likesCount.setText("0");
+            }
         }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
@@ -392,6 +414,19 @@ public class WallItemFragment extends BaseFragment {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    @Optional
+    @OnClick(R.id.read_more_holder)
+    public void readMoreClick() {
+        if (content.getMaxLines() == 3) {
+            content.setMaxLines(Integer.MAX_VALUE);
+            readMoreArrowImage.setRotation(90);
+        } else {
+            content.setMaxLines(3);
+            readMoreArrowImage.setRotation(-90);
         }
     }
 }

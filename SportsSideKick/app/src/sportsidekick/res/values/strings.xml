@@ -11,7 +11,7 @@
     <string name="login_sign_up">Sign up</string>
     <string name="login_login">Login</string>
     <string name="login_slider_text_1">Bringing fans together</string>
-    <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> fans </font> together</string>
+    <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> Fans </font> Together</string>
     <string name="login_slider_text_2">Coming soon</string>
     <string name="login_login_email">Email</string>
     <string name="login_login_password">Password</string>
@@ -34,7 +34,6 @@
     <string name="sign_up_passwoed">Password</string>
     <string name="sign_up_sign_up">Sign up</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
-
     <string name="dialog_ok">Ok</string>
     <string name="dialog_warning">Warning</string>
     <string name="dialog_message">You must enter your </string>
@@ -372,7 +371,6 @@
     <integer name="progress_bar_30">30</integer>
     <integer name="progress_bar_60">65</integer>
     <integer name="progress_bar_mid">50</integer>
-
     <string name="light_theme">darkTheme</string>
     <string name="dark_theme">lightTheme</string>
 
@@ -463,5 +461,7 @@
 
     <string name="un_friend_message"> Removing a friend will stop you following each other.</string>
     <string name="un_friend_title">Are you sure you want to remove this friend?</string>
+
+    <string name="read_more">Read more</string>
 
 </resources>

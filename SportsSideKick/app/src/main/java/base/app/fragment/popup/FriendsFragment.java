@@ -77,7 +77,8 @@ public class FriendsFragment extends BaseFragment {
     List<UserInfo> friends;
     List<UserInfo> officialAccount;
 
-    @BindView(R.id.friend_requests)
+    @Nullable
+    @BindView(R.id.friend_requests_container)
     RelativeLayout friendRequestsContainer;
 
 
@@ -161,7 +162,7 @@ public class FriendsFragment extends BaseFragment {
                     if (task.getResult() != null) {
                         if (friendRequestCount != null)
                             friendRequestCount.setText(String.valueOf(task.getResult().size()));
-                        if(task.getResult().size()>0){
+                        if (task.getResult().size() > 0) {
                             friendRequestsContainer.setVisibility(View.VISIBLE);
                         }
 
