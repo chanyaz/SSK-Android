@@ -9,7 +9,6 @@
         <ImageView
             android:id="@+id/image"
             app:layout_widthPercent="100%"
-            app:layout_aspectRatio="178%"
             android:scaleType="centerCrop"/>
         <TextView
             android:visibility="gone"

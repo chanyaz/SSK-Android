@@ -27,6 +27,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import base.app.Constant;
 import base.app.fragment.popup.SignUpLoginFragment;
@@ -131,8 +132,12 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     MenuAdapter menuAdapter;
     ArrayList<Class> popupLeftFragments;
     ArrayList<Class> popupDialogFragments;
-
+    ArrayList<Class> youtubePlayer;
+    ArrayList<Class> youtubeList;
     int screenWidth;
+
+    @BindView(R.id.fragment_tv_container)
+    LinearLayout tvContainer;
 
     @BindView(R.id.notification_open)
     ImageView notificationIcon;
@@ -258,14 +263,11 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         mainContainerFragments.add(NewsFragment.class);
         mainContainerFragments.add(StatisticsFragment.class);
         mainContainerFragments.add(RumoursFragment.class);
-        mainContainerFragments.add(ClubRadioFragment.class);
         mainContainerFragments.add(StoreFragment.class);
-        mainContainerFragments.add(ClubTVFragment.class);
         mainContainerFragments.add(VoicemailContract.class);
         mainContainerFragments.add(VideoChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
         popupContainerFragments = new ArrayList<>();
-
         popupContainerFragments.add(YourProfileFragment.class);
         popupContainerFragments.add(StashFragment.class);
         popupContainerFragments.add(YourStatementFragment.class);
@@ -292,15 +294,23 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
 //left Join
         popupLeftFragments = new ArrayList<>();
-        popupLeftFragments.add(ClubTvPlaylistFragment.class);
-        popupLeftFragments.add(YoutubePlayerFragment.class);
-        popupLeftFragments.add(ClubRadioStationFragment.class);
         popupLeftFragments.add(EditChatFragment.class);
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
         popupLeftFragments.add(NewsItemFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
 
+
+        youtubeList = new ArrayList<>();
+        youtubeList.add(ClubTVFragment.class);
+        youtubeList.add(ClubTvPlaylistFragment.class);
+        youtubeList.add(ClubRadioFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.play_list_holder, youtubeList, true);
+
+        youtubePlayer = new ArrayList<>();
+        youtubePlayer.add(YoutubePlayerFragment.class);
+        youtubePlayer.add(ClubRadioStationFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.youtube_holder, youtubePlayer, true);
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
 
@@ -313,8 +323,10 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         } else {
             SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         }
-
-        if (popupLeftFragments.contains(event.getType())) {
+        tvContainer.setVisibility(View.GONE);
+        if (youtubeList.contains(event.getType()) || youtubePlayer.contains(event.getType())) {
+            tvContainer.setVisibility(View.VISIBLE);
+        } else if (popupLeftFragments.contains(event.getType())) {
             // this is popup event - coming from left
             fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
             barContainer.setVisibility(View.INVISIBLE);
@@ -326,17 +338,18 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             popupHolder.setVisibility(View.VISIBLE);
         } else if (popupDialogFragments.contains(event.getType())) {
             // this is popup event - Alert Dialog
-            if(fragmentLeftPopupHolder.getVisibility()==View.VISIBLE){
-                toggleBlur(true,fragmentLeftPopupHolder);
-            }else if(popupHolder.getVisibility()==View.VISIBLE){
-                    //fragmentLeftPopupHolder is visible so we need to take photo from that layout
-                toggleBlur(true,popupHolder);
-            }else{
+            if (fragmentLeftPopupHolder.getVisibility() == View.VISIBLE) {
+                toggleBlur(true, fragmentLeftPopupHolder);
+            } else if (popupHolder.getVisibility() == View.VISIBLE) {
+                //fragmentLeftPopupHolder is visible so we need to take photo from that layout
+                toggleBlur(true, popupHolder);
+            } else {
                 //main fragment view
-                toggleBlur(true,fragmentHolder);
+                toggleBlur(true, fragmentHolder);
             }
         } else {
             //main fragments
+            tvContainer.setVisibility(View.GONE);
             fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
             barContainer.setVisibility(View.VISIBLE);
             popupHolder.setVisibility(View.INVISIBLE);
@@ -419,15 +432,15 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     }
 
     @Override
-    public void closeDrawerMenu(int position,boolean goodPosition) {
-        if(goodPosition) {
+    public void closeDrawerMenu(int position, boolean goodPosition) {
+        if (goodPosition) {
             NavigationDrawerItems.getInstance().setByPosition(position);
             drawerLayout.closeDrawer(GravityCompat.END);
             sideMenuAdapter.notifyDataSetChanged();
             if (position > 3) {
                 menuAdapter.notifyItemRangeChanged(0, 3);
             }
-        }else {
+        } else {
             drawerLayout.closeDrawer(GravityCompat.END);
         }
     }

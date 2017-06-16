@@ -8,8 +8,7 @@
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_105">
+        android:layout_height="wrap_content">
         <View
             android:id="@+id/youtube_layout"
             android:layout_marginBottom="@dimen/margin_16"
@@ -53,7 +52,7 @@
     <RelativeLayout
         android:id="@+id/controls_container"
         android:layout_alignBottom="@+id/video_player_dummy_container"
-        android:background="?green_dark_2"
+        android:background="?green_dark_phone_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -102,7 +101,7 @@
             android:id="@+id/seek_bar_audio"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_16"
+            android:layout_height="@dimen/margin_14"
             android:layout_marginEnd="@dimen/margin_20"
             android:thumb="@null"
             android:layout_centerVertical="true"
@@ -116,7 +115,7 @@
         android:id="@+id/seek_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_16"
+        android:layout_height="@dimen/margin_14"
         android:layout_alignEnd="@+id/controls_container"
         android:layout_alignStart="@+id/controls_container"
         android:layout_above="@+id/controls_container"

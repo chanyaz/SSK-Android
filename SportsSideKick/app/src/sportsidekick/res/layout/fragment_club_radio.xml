@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="?wallBackground"
     tools:context="base.app.fragment.instance.ClubRadioFragment">
 
@@ -19,12 +19,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_105">
+
         <View
             android:id="@+id/youtube_layout"
             android:layout_marginBottom="16dp"
             android:visibility="invisible"
             app:layout_aspectRatio="178%"
-            app:layout_widthPercent="100%"/>
+            app:layout_widthPercent="100%" />
     </android.support.percent.PercentRelativeLayout>
     <!--  /\/\/\/\/\/\/\ -->
 
@@ -35,5 +36,5 @@
         android:layout_alignTop="@+id/video_player_dummy_container"
         android:layout_alignBottom="@+id/video_player_dummy_container"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/full_margin" />
+       />
 </RelativeLayout>
