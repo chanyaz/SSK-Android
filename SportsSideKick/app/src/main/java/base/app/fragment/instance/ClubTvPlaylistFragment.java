@@ -19,6 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import base.app.activity.PhoneLoungeActivity;
 import base.app.util.Utility;
+import base.app.util.ui.GridItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -59,6 +60,8 @@ public class ClubTvPlaylistFragment extends BaseFragment {
         if (Utility.isTablet(getActivity())) {
             GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
             recyclerView.setLayoutManager(layoutManager);
+            int space = (int) getResources().getDimension(R.dimen.padding_8);
+            recyclerView.addItemDecoration(new GridItemDecoration(space,3));
         } else {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
