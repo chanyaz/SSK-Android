@@ -385,14 +385,14 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/post_post_button"
-            android:layout_width="@dimen/height_60"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_60"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:paddingBottom="@dimen/margin_10"
-            android:paddingEnd="@dimen/margin_20"
+            android:paddingEnd="@dimen/margin_5"
             android:paddingTop="@dimen/margin_10"
-            android:paddingStart="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_5"
             android:adjustViewBounds="true"
             android:src="@drawable/btn_send"
             android:tint="@color/white"

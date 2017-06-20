@@ -26,6 +26,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import base.app.activity.PhoneLoungeActivity;
 import base.app.util.SoundEffects;
 import butterknife.BindView;
@@ -235,6 +238,13 @@ public class NewsItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
+        // Sort by timestamp
+        Collections.sort(event.getCommentList(), new Comparator<PostComment>() {
+            @Override
+            public int compare(PostComment lhs, PostComment rhs) {
+                return rhs.getTimestamp().compareTo(lhs.getTimestamp());
+            }
+        });
         commentsAdapter.getComments().addAll(event.getCommentList());
         commentsAdapter.notifyDataSetChanged();
     }
