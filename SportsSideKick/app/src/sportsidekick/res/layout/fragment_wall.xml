@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/fragment_wall_bottom_bar"
         android:animateLayoutChanges="true"
-        android:background="?wallEditTextContainerBackground">
+        android:background="?phoneWallMenuBackground">
 
         <RelativeLayout
             android:id="@+id/your_post_container"
@@ -185,6 +185,7 @@
                     android:layout_alignEnd="@+id/uploaded_image"
                     android:layout_alignTop="@+id/uploaded_image"
                     android:src="@drawable/removephotobutton"
+                    android:tint="?colorPrimarySemiLight"
                     android:visibility="gone" />
 
                 <android.support.v7.widget.AppCompatEditText
@@ -210,7 +211,7 @@
                     android:layout_marginStart="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_20"
                     android:src="@drawable/btn_send"
-                    android:tint="?wallItemsColor"
+                    android:tint="?colorPrimarySemiLight"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -235,14 +236,14 @@
                     android:layout_width="@dimen/width_40"
                     android:layout_height="match_parent"
                     android:src="?chatCameraIcon"
-                    android:tint="?wallItemsColor" />
+                    android:tint="?colorPrimarySemiLight" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/image_button"
                     android:layout_width="@dimen/width_40"
                     android:layout_height="match_parent"
                     android:src="?chatGalleryIcon"
-                    android:tint="?wallItemsColor" />
+                    android:tint="?colorPrimarySemiLight" />
 
             </LinearLayout>
         </RelativeLayout>
