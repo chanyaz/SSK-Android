@@ -126,7 +126,6 @@ public class Utility {
             return blankOptions;
         }
         blankOptions = new DisplayImageOptions.Builder()
-                // TODO @Nemanja change when we have placeholder
 //                .showImageOnLoading(R.drawable.booking_top_image) // resource or drawable
 //                .showImageForEmptyUri(R.drawable.booking_top_image) // resource or drawable
 //                .showImageOnFail(R.drawable.booking_top_image) // resource or drawable

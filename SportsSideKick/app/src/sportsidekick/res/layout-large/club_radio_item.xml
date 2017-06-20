@@ -10,5 +10,4 @@
         app:layout_widthPercent="100%"
         app:layout_aspectRatio="200%"
         android:scaleType="centerCrop"/>
-dd
 </android.support.percent.PercentRelativeLayout>

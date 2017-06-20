@@ -8,5 +8,5 @@
         android:layout_centerHorizontal="true"
         android:background="@null"
         android:scaleType="centerCrop"
-        android:src="@drawable/add_chat_user"/>  <!-- TODO @Nemanja Why blank space in png image ? -->
+        android:src="@drawable/add_chat_user"/>
 </RelativeLayout>
