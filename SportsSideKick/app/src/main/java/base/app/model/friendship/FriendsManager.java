@@ -186,6 +186,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendAcceptFriendRequest")
                 .setEventAttribute(GSConstants.FRIEND_REQUEST_ID, friendRequestId)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }

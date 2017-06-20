@@ -407,7 +407,6 @@ public class WallModel extends GSMessageHandlerAbstract {
         createRequest("wallGetPostById")
                 .setEventAttribute(GSConstants.WALL_ID,wallId)
                 .setEventAttribute(GSConstants.POST_ID,postId)
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
 
     }

@@ -290,6 +290,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
         GSData data = new GSData(map);
         createRequest("imsCreateChatGroup")
                 .setEventAttribute(CHAT_INFO, data)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -345,6 +346,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
         };
         createRequest(IMS_JOIN_CHAT_GROUP)
                 .setEventAttribute(IMS_GROUP_ID, chatInfo.getChatId())
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -361,6 +363,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
             }
         };
         createRequest("imsDeleteChatGroup")
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(IMS_GROUP_ID, chatInfo.getChatId())
                 .send(consumer);
     }
