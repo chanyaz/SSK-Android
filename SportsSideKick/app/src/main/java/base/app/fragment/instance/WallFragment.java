@@ -847,13 +847,30 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
         if (Model.getInstance().getUserInfo() != null && Model.getInstance().getUserInfo().getUserType() == UserInfo.UserType.fan) {
             if (tip != null) {
-                tip.setType(WallBase.PostType.tip);
-                tip.setTimestamp((double) System.currentTimeMillis() / 1000);
-                tip.setPostId(Model.getInstance().getUserInfo().getUserId());
-                WallBase.getCache().put(tip.getPostId(), tip);
-                wallItems.add(tip);
-                EventBus.getDefault().post(new PostUpdateEvent(tip));
-            }
+                if(wallItems.size()>0){
+                    for(WallBase wallBase : wallItems){
+                        if(wallBase.getType()== WallBase.PostType.tip){
+                            WallTip wallTip = (WallTip) wallBase;
+                            if(tip.getTipNumber() != (wallTip.getTipNumber())){
+                                tip.setType(WallBase.PostType.tip);
+                                tip.setTimestamp((double) System.currentTimeMillis() / 1000);
+                                tip.setPostId(Model.getInstance().getUserInfo().getUserId());
+                                WallBase.getCache().put(tip.getPostId(), tip);
+                                wallItems.add(tip);
+                                EventBus.getDefault().post(new PostUpdateEvent(tip));
+                            }
+                        }
+                    }
+                }else {
+                    tip.setType(WallBase.PostType.tip);
+                    tip.setTimestamp((double) System.currentTimeMillis() / 1000);
+                    tip.setPostId(Model.getInstance().getUserInfo().getUserId());
+                    WallBase.getCache().put(tip.getPostId(), tip);
+                    wallItems.add(tip);
+                    EventBus.getDefault().post(new PostUpdateEvent(tip));
+                }
+
+               }
         }
     }
 
