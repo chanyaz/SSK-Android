@@ -76,6 +76,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @BindView(R.id.container)
     RelativeLayout mainContentContainer;
+    @Nullable
     @BindView(R.id.title_text)
     TextView titleText;
 
@@ -109,9 +110,9 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         this.passwordResetReceiver = new PasswordResetReceiver(this);
         if (!Utility.isTablet(getActivity())) {
             initFacebook();
-
+            titleText.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
         }
-        titleText.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
+
         forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -242,8 +243,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
-        // getActivity().onBackPressed();
-        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+        getActivity().onBackPressed();
     }
 
     @Override

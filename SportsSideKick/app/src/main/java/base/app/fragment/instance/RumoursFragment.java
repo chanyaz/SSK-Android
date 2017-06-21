@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -142,31 +143,18 @@ public class RumoursFragment extends BaseFragment {
 
         onTouchListener = new RecyclerTouchListener(getActivity(), rumourRecyclerView);
 
-        // TODO @Nemanja @Aca - this will crash the app!!!! TEST BEFORE COMMIT!!!
-//        onTouchListener.setClickable(new RecyclerTouchListener.OnRowClickListener() {
-//            @Override
-//            public void onRowClicked(int position) {
-//                // Do something
-//
-//            }
-//
-//            @Override
-//            public void onIndependentViewClicked(int independentViewID, int position) {
-//                // Do something
-//            }
-//        });
-//
-//        onTouchListener.setSwipeOptionViews(R.id.row_rumours_swipe_share)
-//                .setSwipeable(R.id.row_rumours_foreground_container, R.id.row_rumours_background_container, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
-//                    @Override
-//                    public void onSwipeOptionClicked(int viewID, int position) {
-//                        if (viewID == R.id.row_rumours_swipe_share) {
-//                            // Handle click on Share Button
-//                            Toast.makeText(getActivity(),"To be implemented !",Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-
+        if(!Utility.isTablet(getActivity())){ // On tablet there is no swipe so we need this only for Phone
+        onTouchListener.setSwipeOptionViews(R.id.row_rumours_swipe_share)
+                .setSwipeable(R.id.row_rumours_foreground_container, R.id.row_rumours_background_container, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
+                    @Override
+                    public void onSwipeOptionClicked(int viewID, int position) {
+                        if (viewID == R.id.row_rumours_swipe_share) {
+                            // Handle click on Share Button
+                            Toast.makeText(getActivity(),"To be implemented !",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        }
         return view;
     }
 

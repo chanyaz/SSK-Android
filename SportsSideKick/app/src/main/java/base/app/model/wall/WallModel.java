@@ -313,6 +313,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .setEventAttribute(GSConstants.WALL_ID,post.getWallId())
                 .setEventAttribute(GSConstants.POST_ID,post.getPostId())
                 .setEventAttribute(GSConstants.INCREASE,increase)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -367,6 +368,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         GSData data = new GSData(map);
         createRequest("wallAddPostComment")
                 .setEventAttribute(GSConstants.COMMENT,data)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -405,6 +407,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         createRequest("wallGetPostById")
                 .setEventAttribute(GSConstants.WALL_ID,wallId)
                 .setEventAttribute(GSConstants.POST_ID,postId)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
 
     }
