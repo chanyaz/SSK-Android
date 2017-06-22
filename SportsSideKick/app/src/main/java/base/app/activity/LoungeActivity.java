@@ -101,8 +101,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     ImageView logoOfFirstTeam;
     @BindView(R.id.logo_second_team)
     ImageView logoOfSecondTeam;
-    @BindView(R.id.your_coins)
-    LinearLayout yourCoinsContainer;
+
     @BindView(R.id.your_coins_value)
     TextView yourCoinsValue;
     @BindView(R.id.user_level)
@@ -111,7 +110,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     ImageView userLevelBackground;
     @BindView(R.id.user_level_progress)
     ProgressBar userLevelProgress;
-    @BindView(R.id.profile_button)
+    @BindView(R.id.user_image_container)
     RelativeLayout profileButton;
     @BindView(R.id.profile_image)
     ImageView profileImage;

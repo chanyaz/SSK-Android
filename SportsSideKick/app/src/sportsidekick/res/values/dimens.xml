@@ -98,7 +98,7 @@
     <dimen name="popup_your_walet_bundle">160dp</dimen>
     <dimen name="popup_friends_in_chat_notification_size">50dp</dimen>
 
-    <dimen name="activity_lounge_user_profile_size">52dp</dimen>
+    <dimen name="activity_lounge_user_profile_size">48dp</dimen>
     <dimen name="row_friends_notification_bubble_size">32dp</dimen>
 
     <dimen name="row_chat_bubble_user_size">60dp</dimen>
@@ -215,4 +215,7 @@
     <dimen name="height_120">120dp</dimen>
     <dimen name="height_1dp">1dp</dimen>
     <dimen name="margin_negative_30">-30dp</dimen>
+
+    <dimen name="profile_coin_height">38dp</dimen>
+    <dimen name="profile_coin_width">38dp</dimen>
 </resources>

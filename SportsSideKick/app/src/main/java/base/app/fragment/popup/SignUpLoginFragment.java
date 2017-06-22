@@ -22,6 +22,7 @@ import base.app.R;
 import base.app.adapter.FriendRequestsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.model.Model;
 import base.app.model.friendship.FriendRequest;
 import base.app.model.friendship.FriendsManager;
 import base.app.util.Utility;
@@ -55,6 +56,10 @@ public class SignUpLoginFragment extends BaseFragment {
 
         if (text != null) {
             text.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
+        }
+
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+            getActivity().onBackPressed();
         }
 
         return view;

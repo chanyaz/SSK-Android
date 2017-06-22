@@ -291,6 +291,13 @@ public class WallItemFragment extends BaseFragment {
                 }
             }
         });
+
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            post.setEnabled(true);
+        }else {
+            post.setEnabled(false);
+        }
+
         return view;
     }
 
@@ -357,32 +364,39 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon)
     public void likePost() {
-        if (item!=null)
-        {
+        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+            if (item!=null)
+            {
                 likesCount.setText(String.valueOf(item.getLikeCount()+ 1));
+            }
+            WallModel.getInstance().setlikeVal(item, true);
+            likesIcon.setVisibility(View.GONE);
+            likesIconLiked.setVisibility(View.VISIBLE);
+        }else {
+            //TODO Notify user that need to login in order to LIKE
         }
-        WallModel.getInstance().setlikeVal(item, true);
-        likesIcon.setVisibility(View.GONE);
-        likesIconLiked.setVisibility(View.VISIBLE);
+
         SoundEffects.getDefault().playSound(SoundEffects.SOFT);
     }
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
         if (item != null) {
             int count = Integer.valueOf(likesCount.getText().toString());
-            if (count >0)
-            {
-                likesCount.setText(String.valueOf(count-1));
-            }
-            else if (count == 0)
-            {
+            if (count > 0) {
+                likesCount.setText(String.valueOf(count - 1));
+            } else if (count == 0) {
                 likesCount.setText("0");
             }
         }
         WallModel.getInstance().setlikeVal(item, false);
         likesIcon.setVisibility(View.VISIBLE);
         likesIconLiked.setVisibility(View.GONE);
+    }else{
+            //TODO Notify user that need to login in order to UNLIKE
+           // This should never happen
+    }
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
 
@@ -398,23 +412,33 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook(View view) {
-        SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
+        }else {
+            //TODO Notify user that need to login in order to SHARE
+        }
+
     }
 
     @OnClick(R.id.share_twitter)
     public void sharePostTwitter(View view) {
-        PackageManager pkManager = getActivity().getPackageManager();
-        try {
-            PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
-            String getPkgInfo = pkgInfo.toString();
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            PackageManager pkManager = getActivity().getPackageManager();
+            try {
+                PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
+                String getPkgInfo = pkgInfo.toString();
 
-            if (getPkgInfo.contains("com.twitter.android")) {
-                SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
+                if (getPkgInfo.contains("com.twitter.android")) {
+                    SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
             }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
+        }else {
+            //TODO Notify user that need to login in order to SHARE
         }
+
     }
 
 
