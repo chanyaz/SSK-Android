@@ -27,6 +27,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Comparator;
 import java.util.List;
 
+import base.app.fragment.popup.LoginFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,6 +43,8 @@ import base.app.model.wall.WallNewsShare;
 import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStoreItem;
 import base.app.util.Utility;
+
+import static base.app.model.tutorial.TutorialModel.NOT_LOGGED_TIP_NUMBER;
 
 /**
  * Created by Djordje Krutil on 06/01/2017.
@@ -101,6 +104,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.wall_native_ad_social_context)
         TextView nativeAdSocialContext;
+
+        @Nullable
+        @BindView(R.id.tip_image)
+        ImageView lightIcon;
+
 
         ViewHolder(View v) {
             super(v);
@@ -321,6 +329,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     break;
                 case tip:
                     WallTip tip = (WallTip) values.get(index);
+                    if(holder.lightIcon!=null){
+                    if(tip.getTipNumber()==NOT_LOGGED_TIP_NUMBER){
+                        holder.lightIcon.setVisibility(View.GONE);
+                    }else {
+                        holder.lightIcon.setVisibility(View.VISIBLE);
+                    }}
                     if (holder.descriptionTextView != null) {
                         holder.descriptionTextView.setText(tip.getTipDescription());
                     }
@@ -363,9 +377,20 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
-                    fe.setId(values.get(finalIndex).getPostId());
-                    EventBus.getDefault().post(fe);
+                    if(values.get(finalIndex) instanceof WallTip){
+                        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+                            FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
+                            fe.setId(values.get(finalIndex).getPostId());
+                            EventBus.getDefault().post(fe);
+                        }else {
+                            EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+                        }
+                    }else {
+                        FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
+                        fe.setId(values.get(finalIndex).getPostId());
+                        EventBus.getDefault().post(fe);
+                    }
+
                 }
             });
         }

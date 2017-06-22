@@ -18,11 +18,13 @@ public class TutorialModel {
 
     private List<WallTip> tutorialItems;
 
+    public static final int NOT_LOGGED_TIP_NUMBER = 999;
+
     private TutorialModel() {
     }
 
     private static TutorialModel instance;
-
+    private WallTip notLoggedTip;
     public static TutorialModel getInstance() {
         if (instance == null) {
             instance = new TutorialModel();
@@ -34,6 +36,10 @@ public class TutorialModel {
         tutorialItems = new ArrayList<>();
 
         List<WallStep> wallSteps = new ArrayList<>();
+
+        notLoggedTip = new WallTip(NOT_LOGGED_TIP_NUMBER,"","",null,"Click here to log-in and enjoy the full functionality of the APP","",NOT_LOGGED_TIP_NUMBER);
+
+
         /* TIP 1: wall steps */
         wallSteps.add(new WallStep(
                 context.getResources().getString(R.string.tip_1_step_1),
@@ -388,5 +394,9 @@ public class TutorialModel {
 
     public List<WallTip> getTutorialItems() {
         return tutorialItems;
+    }
+
+    public WallTip getNotLoggedTip() {
+        return notLoggedTip;
     }
 }

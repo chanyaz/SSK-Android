@@ -843,43 +843,49 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     private void getNextTip() {
         WallTip tip = null;
-
-        if (TutorialModel.getInstance().getTutorialItems() != null) {
-            for (int i = 0; i < TutorialModel.getInstance().getTutorialItems().size(); i++) {
-                if (!TutorialModel.getInstance().getTutorialItems().get(i).hasBeenSeen()) {
-                    tip = TutorialModel.getInstance().getTutorialItems().get(i);
-                    break;
+        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+            if (TutorialModel.getInstance().getTutorialItems() != null) {
+                for (int i = 0; i < TutorialModel.getInstance().getTutorialItems().size(); i++) {
+                    if (!TutorialModel.getInstance().getTutorialItems().get(i).hasBeenSeen()) {
+                        tip = TutorialModel.getInstance().getTutorialItems().get(i);
+                        break;
+                    }
                 }
             }
-        }
 
-        if (Model.getInstance().getUserInfo() != null && Model.getInstance().getUserInfo().getUserType() == UserInfo.UserType.fan) {
-            if (tip != null) {
-                if(wallItems.size()>0){
-                    for(WallBase wallBase : wallItems){
-                        if(wallBase.getType()== WallBase.PostType.tip){
-                            WallTip wallTip = (WallTip) wallBase;
-                            if(tip.getTipNumber() != (wallTip.getTipNumber())){
-                                tip.setType(WallBase.PostType.tip);
-                                tip.setTimestamp((double) System.currentTimeMillis() / 1000);
-                                tip.setPostId(Model.getInstance().getUserInfo().getUserId());
-                                WallBase.getCache().put(tip.getPostId(), tip);
-                                wallItems.add(tip);
-                                EventBus.getDefault().post(new PostUpdateEvent(tip));
+            if (Model.getInstance().getUserInfo() != null && Model.getInstance().getUserInfo().getUserType() == UserInfo.UserType.fan) {
+                if (tip != null) {
+                    if(wallItems.size()>0){
+                        for(WallBase wallBase : wallItems){
+                            if(wallBase.getType()== WallBase.PostType.tip){
+                                WallTip wallTip = (WallTip) wallBase;
+                                if(tip.getTipNumber() != (wallTip.getTipNumber())){
+                                    tip.setType(WallBase.PostType.tip);
+                                    tip.setTimestamp((double) System.currentTimeMillis() / 1000);
+                                    tip.setPostId(Model.getInstance().getUserInfo().getUserId());
+                                    WallBase.getCache().put(tip.getPostId(), tip);
+                                    wallItems.add(tip);
+                                    EventBus.getDefault().post(new PostUpdateEvent(tip));
+                                }
                             }
                         }
+                    }else {
+                        tip.setType(WallBase.PostType.tip);
+                        tip.setTimestamp((double) System.currentTimeMillis() / 1000);
+                        tip.setPostId(Model.getInstance().getUserInfo().getUserId());
+                        WallBase.getCache().put(tip.getPostId(), tip);
+                        wallItems.add(tip);
+                        EventBus.getDefault().post(new PostUpdateEvent(tip));
                     }
-                }else {
-                    tip.setType(WallBase.PostType.tip);
-                    tip.setTimestamp((double) System.currentTimeMillis() / 1000);
-                    tip.setPostId(Model.getInstance().getUserInfo().getUserId());
-                    WallBase.getCache().put(tip.getPostId(), tip);
-                    wallItems.add(tip);
-                    EventBus.getDefault().post(new PostUpdateEvent(tip));
                 }
-
-               }
+            }
+        }else{
+            WallTip wall = TutorialModel.getInstance().getNotLoggedTip();
+            wall.setType(WallBase.PostType.tip);
+            wallItems.add(wall);
+            EventBus.getDefault().post(new PostUpdateEvent(wall));
         }
+
     }
 
     private void reloadWallFromModel() {
