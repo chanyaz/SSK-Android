@@ -387,153 +387,141 @@
                 android:textColor="?tabRadioButtonTextColor" />
         </RadioGroup>
 
-        <!-- COIN & PROFILE -->
-        <RelativeLayout
-            android:id="@+id/left_profile_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignEnd="@id/left_tab_selector"
-            android:layout_below="@id/left_tab_selector">
 
-            <!-- COIN ICON CONTAINER -->
-            <LinearLayout
-                android:id="@+id/your_coins"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentStart="true"
+           android:layout_toStartOf="@+id/tabs_container_1"
+           android:layout_alignParentBottom="true"
+           android:gravity="bottom"
+           android:layout_below="@+id/left_tab_selector"
+           android:layout_marginTop="@dimen/margin_4">
 
-                <ImageView
-                    android:id="@+id/user_coin_icon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/coin_bottom_margin"
-                    android:layout_marginLeft="@dimen/coin_lateral_margin"
-                    android:layout_marginRight="@dimen/coin_lateral_margin"
-                    android:adjustViewBounds="true"
-                    android:src="?userCoinIcon" />
+           <RelativeLayout
+               android:id="@+id/user_image_container"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerHorizontal="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@string/coins_caption"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_8" />
+               <ImageView
+                   android:id="@+id/profile_image"
+                   android:layout_width="@dimen/activity_lounge_user_profile_size"
+                   android:layout_height="@dimen/activity_lounge_user_profile_size"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginBottom="@dimen/padding_8"
+                   android:layout_marginLeft="@dimen/padding_8"
+                   android:layout_marginRight="@dimen/padding_8"
+                   android:adjustViewBounds="true"
+                   android:contentDescription="@string/image"
+                   android:padding="@dimen/padding_2"
+                   android:src="?profileImageLoungeIcon" />
 
-                <TextView
-                    android:id="@+id/your_coins_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_5"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="?colorAccent"
-                    android:textSize="@dimen/font_size_12" />
+               <ProgressBar
+                   android:id="@+id/user_level_progress"
+                   style="?android:attr/progressBarStyleHorizontal"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_alignBottom="@id/profile_image"
+                   android:layout_alignEnd="@id/profile_image"
+                   android:layout_alignStart="@id/profile_image"
+                   android:layout_alignTop="@id/profile_image"
+                   android:background="?userLevelProgress"
+                   android:indeterminate="false"
+                   android:max="@integer/progress_bar_max"
+                   android:progress="@integer/progress_bar_60"
+                   android:progressDrawable="?circularProgressBarDrawable"
+                   android:visibility="invisible"
+                   android:layout_centerHorizontal="true"/>
 
-            </LinearLayout>
+               <ImageView
+                   android:id="@+id/user_level_background"
+                   android:layout_width="@dimen/profile_level_marker_size"
+                   android:layout_height="@dimen/profile_level_marker_size"
+                   android:layout_alignEnd="@id/profile_image"
+                   android:layout_alignStart="@id/profile_image"
+                   android:contentDescription="@string/image"
+                   android:src="?nextLevelMarkerIcon"
+                   android:visibility="invisible"
+                   android:layout_below="@+id/profile_image"
+                   android:layout_marginTop="@dimen/margin_negative_20"/>
 
-            <RelativeLayout
-                android:id="@+id/profile_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/your_coins"
-                android:layout_marginBottom="@dimen/padding_16">
+               <TextView
+                   android:id="@+id/user_level"
+                   android:layout_width="@dimen/profile_level_marker_size"
+                   android:layout_height="@dimen/profile_level_marker_size"
+                   android:layout_alignEnd="@id/profile_image"
+                   android:layout_alignStart="@id/profile_image"
+                   android:layout_below="@+id/profile_image"
+                   android:layout_marginTop="@dimen/margin_negative_20"
+                   android:gravity="center"
+                   android:textColor="@color/white"
+                   android:textSize="@dimen/font_size_10"
+                   android:textStyle="bold"
+                   android:visibility="invisible" />
 
-                <RelativeLayout
-                    android:id="@+id/profile_image_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+           </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/profile_image"
-                        android:layout_width="@dimen/activity_lounge_user_profile_size"
-                        android:layout_height="@dimen/activity_lounge_user_profile_size"
-                        android:layout_centerInParent="true"
-                        android:layout_marginBottom="@dimen/padding_8"
-                        android:layout_marginLeft="@dimen/padding_8"
-                        android:layout_marginRight="@dimen/padding_8"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/image"
-                        android:padding="@dimen/padding_2"
-                        android:src="?profileImageLoungeIcon" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/profile_image"
-                        android:layout_alignEnd="@id/profile_image"
-                        android:layout_alignStart="@id/profile_image"
-                        android:layout_alignTop="@id/profile_image"
-                        android:layout_centerInParent="true">
-
-                        <ProgressBar
-                            android:id="@+id/user_level_progress"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="?userLevelProgress"
-                            android:indeterminate="false"
-                            android:max="@integer/progress_bar_max"
-                            android:progress="@integer/progress_bar_60"
-                            android:progressDrawable="?circularProgressBarDrawable"
-                            android:visibility="invisible" />
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/user_level_background"
-                    android:layout_width="@dimen/profile_level_marker_size"
-                    android:layout_height="@dimen/profile_level_marker_size"
-                    android:layout_alignEnd="@id/profile_image_container"
-                    android:layout_alignStart="@id/profile_image_container"
-                    android:layout_below="@id/profile_image_container"
-                    android:layout_marginTop="@dimen/margin_negative_20"
-                    android:contentDescription="@string/image"
-                    android:src="?nextLevelMarkerIcon"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/user_level"
-                    android:layout_width="@dimen/profile_level_marker_size"
-                    android:layout_height="@dimen/profile_level_marker_size"
-                    android:layout_alignEnd="@id/profile_image_container"
-                    android:layout_alignStart="@id/profile_image_container"
-                    android:layout_below="@id/profile_image_container"
-                    android:layout_marginTop="@dimen/margin_negative_19"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_10"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/profile_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@id/profile_image_container"
-                    android:layout_alignStart="@id/profile_image_container"
-                    android:layout_below="@id/profile_image_container"
-                    android:layout_marginLeft="@dimen/margin_5"
-                    android:layout_marginRight="@dimen/margin_5"
-                    android:layout_marginTop="@dimen/margin_5"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:lineSpacingExtra="@dimen/line_space_negative_5"
-                    android:maxLines="2"
-                    android:text="@string/login_sign_up_text"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_16"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+           <TextView
+               android:id="@+id/profile_name"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="@dimen/margin_5"
+               android:layout_marginRight="@dimen/margin_5"
+               android:layout_marginTop="@dimen/margin_5"
+               android:ellipsize="end"
+               android:gravity="center"
+               android:layout_centerHorizontal="true"
+               android:lineSpacingExtra="@dimen/line_space_negative_5"
+               android:minLines="1"
+               android:maxLines="2"
+               android:paddingBottom="@dimen/padding_8"
+               android:text="@string/login_sign_up_text"
+               android:textColor="@color/white"
+               android:textSize="@dimen/font_size_16"
+               android:textStyle="bold"
+               android:layout_below="@id/user_image_container"
+               android:layout_marginBottom="@dimen/padding_16"/>
 
 
-        </RelativeLayout>
+           <ImageView
+               android:id="@+id/user_coin_icon"
+               android:layout_width="@dimen/profile_coin_width"
+               android:layout_height="@dimen/profile_coin_height"
+               android:layout_centerHorizontal="true"
+               android:layout_marginBottom="@dimen/coin_bottom_margin"
+               android:layout_marginLeft="@dimen/coin_lateral_margin"
+               android:layout_marginRight="@dimen/coin_lateral_margin"
+               android:adjustViewBounds="true"
+               android:src="?userCoinIcon"
+               android:layout_below="@+id/profile_name" />
+
+           <TextView
+               android:id="@+id/user_coin_text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/user_coin_icon"
+               android:layout_centerHorizontal="true"
+               android:ellipsize="end"
+               android:maxLines="1"
+               android:text="@string/coins_caption"
+               android:textColor="@color/white"
+               android:textSize="@dimen/font_size_8" />
+
+           <TextView
+               android:id="@+id/your_coins_value"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/user_coin_text"
+               android:layout_centerHorizontal="true"
+               android:layout_marginBottom="@dimen/margin_10"
+               android:layout_marginTop="@dimen/margin_5"
+               android:ellipsize="end"
+               android:maxLines="1"
+               android:textColor="?colorAccent"
+               android:textSize="@dimen/font_size_12" />
+
+       </RelativeLayout>
 
         <!-- FOLLOWERS AND FRIENDS BUTTONS -->
         <LinearLayout
