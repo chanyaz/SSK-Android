@@ -350,12 +350,21 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick() {
-        WallFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
+       if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+           WallFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
+       }else if( Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.ANONYMOUS){
+           //TODO What to show to user ?
+       }
+
     }
 
     @OnClick(R.id.image_button)
     public void selectImageOnClick() {
-        WallFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
+        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+            WallFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
+        }else if( Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.ANONYMOUS){
+            //TODO What to show to user ?
+        }
     }
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -605,44 +614,43 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 Log.e(TAG, "There is no User info in cache for this wall item - check out whats going on?");
             }
         }
-
-        if (item instanceof WallNewsShare || item instanceof WallPost) {
-            if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                return true;
+            if (item instanceof WallNewsShare || item instanceof WallPost) {
+                if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    return true;
+                }
+                if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    return true;
+                }
+                if (item.getBodyText().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    return true;
+                }
             }
-            if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                return true;
+            if (item instanceof WallRumor || item instanceof WallStoreItem) {
+                if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    return true;
+                }
+                if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    return true;
+                }
             }
-            if (item.getBodyText().toLowerCase().contains(searchTerm.toLowerCase())) {
-                return true;
+            if (item instanceof WallStats) {
+                WallStats statsItem = (WallStats) item;
+                if (statsItem.getStatName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    return true;
+                }
+                if (statsItem.getSubText().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    return true;
+                }
             }
-        }
-        if (item instanceof WallRumor || item instanceof WallStoreItem) {
-            if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                return true;
+            if (item instanceof WallBetting) {
+                WallBetting betItem = (WallBetting) item;
+                if (betItem.getBetName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    return true;
+                }
+                if (betItem.getOutcome().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    return true;
+                }
             }
-            if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                return true;
-            }
-        }
-        if (item instanceof WallStats) {
-            WallStats statsItem = (WallStats) item;
-            if (statsItem.getStatName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                return true;
-            }
-            if (statsItem.getSubText().toLowerCase().contains(searchTerm.toLowerCase())) {
-                return true;
-            }
-        }
-        if (item instanceof WallBetting) {
-            WallBetting betItem = (WallBetting) item;
-            if (betItem.getBetName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                return true;
-            }
-            if (betItem.getOutcome().toLowerCase().contains(searchTerm.toLowerCase())) {
-                return true;
-            }
-        }
         return false;
     }
 
@@ -891,31 +899,44 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onResume() {
         super.onResume();
         getNextTip();
+        updateBottomBar();
     }
 
     private void reset() {
         WallModel.getInstance().clear();
+        updateBottomBar();
     }
 
     @Override
     public void onLogout() {
         reset();
+        updateBottomBar();
     }
 
     @Override
     public void onLoginAnonymously() {
         reset();
         reloadWallFromModel();
+        updateBottomBar();
     }
 
     @Override
     public void onLogin(UserInfo user) {
         reset();
         reloadWallFromModel();
+        updateBottomBar();
     }
 
     @Override
     public void onLoginError(Error error) {
         reset();
+    }
+
+    public void updateBottomBar(){
+        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+            commentText.setEnabled(true);
+        }else {
+            commentText.setEnabled(false);
+        }
     }
 }
