@@ -247,6 +247,8 @@ public class NewsItemFragment extends BaseFragment {
         });
         commentsAdapter.getComments().addAll(event.getCommentList());
         commentsAdapter.notifyDataSetChanged();
+        item.setCommentsCount(commentsAdapter.getComments().size());
+        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
     }
 
     @OnClick(R.id.post_post_button)
@@ -263,9 +265,10 @@ public class NewsItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentPosted(PostCommentCompleteEvent event) {
-        commentsAdapter.getComments().add(event.getComment());
+        commentsAdapter.getComments().add(0, event.getComment());
         commentsAdapter.notifyDataSetChanged();
         commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+        item.setCommentsCount(commentsAdapter.getComments().size());
         commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
 
     }
