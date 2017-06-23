@@ -13,7 +13,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +22,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -213,8 +211,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if (getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity) {
             ((PhoneLoungeActivity) getActivity()).setMarginTop(false);
+        }
         final View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
         updateButtons();
@@ -233,12 +232,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         commentText.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) { }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {  }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -257,7 +254,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         boolean includeEdge = isTablet;
         if (recyclerView != null) {
             recyclerView.setAdapter(adapter);
-
             if (Utility.isTablet(getActivity())) {
                 recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16, includeEdge, isTablet));
             } else {
@@ -269,69 +265,16 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             searchText.addTextChangedListener(textWatcher);
             filterPosts();
         }
-
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
                 WallModel.getInstance().fetchPreviousPageOfPosts(0);
             }
         });
-
         if (wallItems.size() > 0) {
             progressBar.setVisibility(View.GONE);
         }
-
-        if (getActivity() instanceof PhoneLoungeActivity) {
-            ((PhoneLoungeActivity) getActivity()).getDrawerLayout().addDrawerListener(new DrawerLayout.DrawerListener() {
-                @Override
-                public void onDrawerSlide(View drawerView, float slideOffset) {
-
-
-                }
-
-                @Override
-                public void onDrawerOpened(View drawerView) {
-
-                }
-
-                @Override
-                public void onDrawerClosed(View drawerView) {
-
-                }
-
-                @Override
-                public void onDrawerStateChanged(int newState) {
-
-                }
-            });
-        }
-
-
-//        if (!Utility.isTablet(getActivity()))
-//            scroll.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View v, MotionEvent ev) {
-//                    int action = ev.getAction();
-//                    if (action == MotionEvent.ACTION_MOVE) {
-//                        if (wallBottomBarContainer.getVisibility() == View.VISIBLE) {
-//                            wallBottomBarContainer.setVisibility(View.GONE);
-//                            containerRelativeLayout.setVisibility(View.GONE);
-//                        }
-//                    } else if (action == MotionEvent.ACTION_UP) {
-//                        if (wallBottomBarContainer.getVisibility() != View.VISIBLE) {
-//                            wallBottomBarContainer.setVisibility(View.VISIBLE);
-//                            containerRelativeLayout.setVisibility(View.VISIBLE);
-//                        }
-//
-//
-//                    }
-//                    return false;
-//                }
-//            });
-
-
         return view;
-
     }
 
     @Subscribe
@@ -350,21 +293,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick() {
-       if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
-           WallFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
-       }else if( Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.ANONYMOUS){
-           //TODO What to show to user ?
-       }
-
+        WallFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
     }
 
     @OnClick(R.id.image_button)
     public void selectImageOnClick() {
-        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
-            WallFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
-        }else if( Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.ANONYMOUS){
-            //TODO What to show to user ?
-        }
+        WallFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
     }
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -740,8 +674,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         int defaultColor;
         int selectedColor;
         int containerColor;
-        if (Utility.isTablet(getActivity())) {
-            //Tablet
+        if (Utility.isTablet(getActivity())) { //Tablet
             if (!ThemeManager.getInstance().isLightTheme()) {
                 defaultColor = R.color.white;
                 selectedColor = R.color.colorAccent;
@@ -750,9 +683,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 defaultColor = R.color.colorPrimary;
                 selectedColor = R.color.light_radio_button_background;
             }
-
-        } else {
-            //Phone
+        } else { //Phone
             if (!ThemeManager.getInstance().isLightTheme()) {
                 defaultColor = R.color.colorPrimary;
                 selectedColor = R.color.light_radio_button_background;
@@ -824,7 +755,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             if (uploadedImageUrl != null) {
                 newPost.setCoverImageUrl(uploadedImageUrl);
             } else if (videoDownloadUrl != null && videoThumbnailDownloadUrl != null) {
-                newPost.setCoverImageUrl(uploadedImageUrl);
+                newPost.setCoverImageUrl(videoThumbnailDownloadUrl);
                 newPost.setVidUrl(videoDownloadUrl);
             }
             uploadedImageUrl = null;
@@ -939,10 +870,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     public void updateBottomBar(){
-        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
-            commentText.setEnabled(true);
-        }else {
-            commentText.setEnabled(false);
-        }
+        buttonNewPost.setEnabled(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL);
     }
 }
