@@ -219,6 +219,12 @@ public class FriendsFragment extends BaseFragment {
     }
 
     @Optional
+    @OnClick(R.id.friend_requests_container)
+    public void displayFriendRequests() {
+        EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
+    }
+
+    @Optional
     @OnClick(R.id.add_friend)
     public void addFriend() {
         EventBus.getDefault().post(new FragmentEvent(AddFriendFragment.class));
