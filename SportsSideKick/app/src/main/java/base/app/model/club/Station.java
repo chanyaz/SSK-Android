@@ -1,5 +1,6 @@
 package base.app.model.club;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,6 +13,7 @@ import base.app.model.Id;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Station {
 
 
@@ -26,6 +28,8 @@ public class Station {
     private String coverImageUrl;
     @JsonProperty("isPodcast")
     private boolean isPodcast;
+    @JsonProperty("club_id")
+    private int clubId;
 
     public Station() { }
 
