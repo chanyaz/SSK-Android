@@ -18,16 +18,17 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.popup.CreateChatFragment;
+import base.app.model.Model;
 import base.app.model.im.ChatInfo;
 import base.app.model.im.event.ChatNotificationsEvent;
 import base.app.util.Utility;
 import base.app.util.ui.ThemeManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -116,7 +117,9 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+                            if(Model.getInstance().isRealUser()) {
+                                EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+                            }
                         }
                     });
             return viewHolder;

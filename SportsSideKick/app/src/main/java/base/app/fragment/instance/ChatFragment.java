@@ -4,15 +4,12 @@ package base.app.fragment.instance;
 import android.Manifest;
 import android.animation.LayoutTransition;
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -59,21 +56,14 @@ import java.util.List;
 import java.util.TimerTask;
 
 import base.app.BuildConfig;
-import base.app.activity.PhoneLoungeActivity;
-import base.app.events.OpenChatEvent;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Optional;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
-import permissions.dispatcher.OnShowRationale;
-import permissions.dispatcher.PermissionRequest;
-import permissions.dispatcher.RuntimePermissions;
 import base.app.R;
+import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.ChatHeadsAdapter;
 import base.app.adapter.MessageAdapter;
+import base.app.events.FullScreenImageEvent;
+import base.app.events.GameSparksEvent;
+import base.app.events.OpenChatEvent;
+import base.app.events.PlayVideoEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.IgnoreBackHandling;
@@ -89,10 +79,17 @@ import base.app.model.im.event.ChatNotificationsEvent;
 import base.app.model.im.event.ChatsInfoUpdatesEvent;
 import base.app.model.im.event.CreateNewChatSuccessEvent;
 import base.app.model.user.UserInfo;
-import base.app.events.FullScreenImageEvent;
-import base.app.events.GameSparksEvent;
-import base.app.events.PlayVideoEvent;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Optional;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
 import static base.app.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
 import static base.app.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
@@ -174,8 +171,9 @@ public class ChatFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if (getActivity() instanceof PhoneLoungeActivity)
+        if (getActivity() instanceof PhoneLoungeActivity) {
             ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
+        }
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, view);
 
@@ -437,7 +435,7 @@ public class ChatFragment extends BaseFragment {
     }
 
     public void sendButtonOnClick() {
-        if (currentlyActiveChat != null) {
+        if(Model.getInstance().isRealUser() && currentlyActiveChat != null) {
             ImsMessage message = ImsMessage.getDefaultMessage();
             message.setText(inputEditText.getText().toString().trim());
             currentlyActiveChat.sendMessage(message);
@@ -450,7 +448,9 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_create)
     public void chatMenuCreateOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+        if(Model.getInstance().isRealUser()){
+            EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+        }
     }
 
     @OnClick(R.id.chat_menu_delete)

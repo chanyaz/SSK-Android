@@ -86,6 +86,10 @@ public class Model {
         return null;
     }
 
+    public boolean isRealUser(){
+        return getLoggedInUserType() == Model.LoggedInUserType.REAL;
+    }
+
     public LoggedInUserType getLoggedInUserType() {
         return loggedInUserType;
     }

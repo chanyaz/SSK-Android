@@ -774,7 +774,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     private void getNextTip() {
         WallTip tip = null;
-        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
+        if(Model.getInstance().isRealUser()){
             if (TutorialModel.getInstance().getTutorialItems() != null) {
                 for (int i = 0; i < TutorialModel.getInstance().getTutorialItems().size(); i++) {
                     if (!TutorialModel.getInstance().getTutorialItems().get(i).hasBeenSeen()) {
@@ -870,6 +870,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     public void updateBottomBar(){
-        buttonNewPost.setEnabled(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL);
+        buttonNewPost.setEnabled(Model.getInstance().isRealUser());
     }
 }
