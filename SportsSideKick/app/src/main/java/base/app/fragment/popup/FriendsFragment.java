@@ -1,10 +1,8 @@
 package base.app.fragment.popup;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,22 +25,21 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.app.model.Model;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Optional;
 import base.app.R;
 import base.app.adapter.FriendsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.model.Model;
 import base.app.model.friendship.FriendRequest;
 import base.app.model.friendship.FriendsManager;
 import base.app.model.user.UserInfo;
+import base.app.util.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
-import base.app.util.Utility;
-import base.app.util.ui.LinearItemDecoration;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * Created by Djordje on 1/21/2017.
@@ -163,7 +160,9 @@ public class FriendsFragment extends BaseFragment {
                         if (friendRequestCount != null)
                             friendRequestCount.setText(String.valueOf(task.getResult().size()));
                         if (task.getResult().size() > 0) {
-                            friendRequestsContainer.setVisibility(View.VISIBLE);
+                            if (friendRequestsContainer != null) {
+                                friendRequestsContainer.setVisibility(View.VISIBLE);
+                            }
                         }
 
                         return;
@@ -171,7 +170,9 @@ public class FriendsFragment extends BaseFragment {
                 }
                 if (friendRequestCount != null)
                     friendRequestCount.setText("0");
-                friendRequestsContainer.setVisibility(View.GONE);
+                if (friendRequestsContainer != null) {
+                    friendRequestsContainer.setVisibility(View.GONE);
+                }
             }
         });
 
