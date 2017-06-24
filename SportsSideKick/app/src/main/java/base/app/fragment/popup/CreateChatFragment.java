@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -93,6 +93,8 @@ public class CreateChatFragment extends BaseFragment {
     Button confirmButton;
     @BindView(R.id.chat_name_edit_text)
     EditText chatNameEditText;
+    @BindView(R.id.caption_label)
+    TextView captionTextView;
     @BindView(R.id.join_a_chat)
     TextView joinChatTextView;
     @BindView(R.id.search_edit_text)
@@ -115,7 +117,6 @@ public class CreateChatFragment extends BaseFragment {
     public CreateChatFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -191,6 +192,25 @@ public class CreateChatFragment extends BaseFragment {
         addFriendsRecyclerView.addItemDecoration(new LinearItemSpacing(space, true, true));
         addFriendsRecyclerView.setAdapter(addFriendsAdapter);
 
+        final String captionText = String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + getString(R.string.unnamed_chat) +"'");
+        captionTextView.setText(captionText);
+
+        chatNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String value = getString(R.string.unnamed_chat);
+                if(!TextUtils.isEmpty(s)){
+                    value = s.toString();
+                }
+                captionTextView.setText(String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + value +"'"));
+            }
+        });
         return view;
     }
 
@@ -235,10 +255,11 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_headline_close_fragment)
     public void closeFragment() {
-        if ((getActivity() instanceof LoungeActivity))
+        if ((getActivity() instanceof LoungeActivity)) {
             ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
-        else
+        } else {
             getActivity().onBackPressed();
+        }
     }
 
     public void performSearch() {
@@ -307,7 +328,7 @@ public class CreateChatFragment extends BaseFragment {
             ImsManager.getInstance().createNewChat(newChatInfo);
             getActivity().onBackPressed();
         } else {
-            // TODO @Filip - Display error - no users to be selected!
+            // TODO @Filip - Display error - no users selected!
         }
     }
 

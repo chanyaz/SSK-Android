@@ -361,6 +361,7 @@ public class MemberInfoFragment extends BaseFragment {
                                     @Override
                                     public void onClick(View v) {
                                         getActivity().onBackPressed();
+                                        getActivity().onBackPressed();
                                         user.setaFriend(false);
                                     }
                                 });

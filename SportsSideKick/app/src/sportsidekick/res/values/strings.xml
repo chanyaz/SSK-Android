@@ -416,7 +416,6 @@
     <string name="join_with_facebook">Join now with<b> Facebook </b></string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="log_in_with_facebook">Log in with<b> Facebook </b></string>
-    <string name="add_friends_to_chat_phone">Add friends to \'Unnamed Chat\'</string>
     <string name="this_chat_is_public_phone">This chat is PUBLIC</string>
     <string name="this_chat_is_private_phone">This chat is PRIVATE</string>
     <string name="user_profile">User Profile</string>
@@ -463,5 +462,6 @@
     <string name="un_friend_title">Are you sure you want to remove this friend?</string>
 
     <string name="read_more">Read more</string>
+    <string name="unnamed_chat">Unnamed Chat</string>
 
 </resources>

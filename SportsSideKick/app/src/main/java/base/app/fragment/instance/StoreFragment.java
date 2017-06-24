@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.wang.avi.AVLoadingIndicatorView;
@@ -87,10 +86,9 @@ public class StoreFragment extends BaseFragment {
                     item = new WallStoreItem();
                     item.setType(WallBase.PostType.wallStoreItem);
                     item.setPoster(Model.getInstance().getUserInfo());
-//TODO @Djordje Krutil why, min sdk is 17 ?
+                    //TODO @Djordje Krutil why, min sdk is 17 ?
                     if (android.os.Build.VERSION.SDK_INT > 9) {
-                        StrictMode.ThreadPolicy policy =
-                                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                         StrictMode.setThreadPolicy(policy);
                     }
 

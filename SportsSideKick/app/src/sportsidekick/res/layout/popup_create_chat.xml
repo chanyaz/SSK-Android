@@ -208,7 +208,7 @@
         android:layout_height="@dimen/height_35"
         android:layout_below="@+id/chat_top_buttons_container"
         android:gravity="center"
-        android:text="@string/add_friends_to_chat_phone"
+        android:text="@string/manage_public_chat_caption"
         android:textColor="@color/white" />
 
     <RelativeLayout

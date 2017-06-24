@@ -69,10 +69,8 @@ public class QuizFragment extends StoreFragment {
     }
 
     @Subscribe
-    public void onUserLogin(UserEvent event)
-    {
-        if (event.getType()==onDetailsUpdated || event.getType()== onLogin)
-        {
+    public void onUserLogin(UserEvent event) {
+        if (event.getType()==onDetailsUpdated || event.getType()== onLogin) {
             setupFragment();
         }
     }

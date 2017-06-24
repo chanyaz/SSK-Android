@@ -171,6 +171,24 @@ public class EditChatFragment extends BaseFragment {
         int space = getResources().getDimensionPixelOffset(R.dimen.margin_15);
         membersRecyclerView.addItemDecoration(new LinearItemSpacing(space, true, true));
         membersRecyclerView.setAdapter(addFriendsAdapter);
+
+        chatNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String value = getString(R.string.unnamed_chat);
+                if(!TextUtils.isEmpty(s)){
+                    value = s.toString();
+                }
+                addFriendsInChatLabel.setText(String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + value +"'"));
+            }
+        });
+
         return view;
     }
 
@@ -237,7 +255,11 @@ public class EditChatFragment extends BaseFragment {
 
     @OnClick(R.id.close)
     public void closeFragment() {
-        ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+        if ((getActivity() instanceof LoungeActivity)) {
+            ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+        } else {
+            getActivity().onBackPressed();
+        }
     }
 
     public void performSearch() {
