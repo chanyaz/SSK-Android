@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.base.Enums;
 
 import java.util.HashMap;
 
@@ -102,9 +103,19 @@ public abstract class WallBase implements Shareable {
     @Nullable
     static WallBase postFactory(Object wallItem, ObjectMapper mapper) {
         JsonNode node = mapper.valueToTree(wallItem);
-        if (node.has("type") && node.get("type").canConvertToInt()) {
-            int typeValue = node.get("type").intValue();
-            PostType type = PostType.values()[typeValue - 1];
+        PostType type;
+        if (node.has("type")) {
+            if (node.get("type").canConvertToInt())
+            {
+                int typeValue = node.get("type").intValue();
+                type = PostType.values()[typeValue - 1];
+            }
+            else
+            {
+                String objectType = node.get("type").textValue();
+                type = PostType.valueOf(objectType);
+            }
+
             TypeReference typeReference = new TypeReference<WallBase>() {};
             switch (type) {
                 case post:
@@ -133,6 +144,14 @@ public abstract class WallBase implements Shareable {
                     break;
                 case tip:
                     typeReference = new TypeReference<WallTip>() {
+                    };
+                    break;
+                case official:
+                    typeReference = new TypeReference<WallNews>() {
+                    };
+                    break;
+                case webhouse:
+                    typeReference = new TypeReference<WallRumor>() {
                     };
             }
             WallBase item = mapper.convertValue(wallItem, typeReference);
@@ -328,6 +347,8 @@ public abstract class WallBase implements Shareable {
         newsOfficial,
         newsUnOfficial,
         tip,
-        nativeAd
+        nativeAd,
+        official,
+        webhouse
     }
 }
