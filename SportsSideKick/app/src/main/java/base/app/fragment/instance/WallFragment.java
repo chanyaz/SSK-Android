@@ -286,7 +286,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
             wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
 
-            String fullMatchTime = Utility.getTimeDifference(Long.parseLong(newsTickerInfo.getMatchDate())) + " " + "Days" + " - " +  Utility.getDateForMatch(Long.parseLong(newsTickerInfo.getMatchDate()));
+            String fullMatchTime = Utility.getTimeDifference(Long.parseLong(newsTickerInfo.getMatchDate())) + " " + getString(R.string.days) + " - " +  Utility.getDateForMatch(Long.parseLong(newsTickerInfo.getMatchDate()));
             wallTeamTime.setText(fullMatchTime);
         }
     }
@@ -447,7 +447,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     public void onComplete(@NonNull Task<UserInfo> task) {
                         if (task.isSuccessful()) {
                             post.setPoster(task.getResult());
-                            wallItems.add(0,post);
+                            wallItems.add(post);
                         }
                         filterPosts();
                     }
@@ -848,6 +848,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onLogout() {
         reset();
         updateBottomBar();
+        getNextTip();
     }
 
     @Override
@@ -855,6 +856,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         reset();
         reloadWallFromModel();
         updateBottomBar();
+        getNextTip();
     }
 
     @Override
@@ -862,6 +864,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         reset();
         reloadWallFromModel();
         updateBottomBar();
+        getNextTip();
     }
 
     @Override

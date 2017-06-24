@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import base.app.Constant;
@@ -278,6 +279,8 @@ public class Model {
 
         if(userDetails!=null){
             userDetails.put("action","register");
+            userDetails.put(CLUB_ID_TAG,CLUB_ID);
+            userDetails.put("language",  Locale.getDefault().getLanguage());
             Map<String,Object> map = request.getBaseData();
             map.put("scriptData",userDetails);
         }

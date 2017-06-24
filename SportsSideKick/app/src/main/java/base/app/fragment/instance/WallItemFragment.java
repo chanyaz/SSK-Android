@@ -312,6 +312,8 @@ public class WallItemFragment extends BaseFragment {
         });
         commentsAdapter.getComments().addAll(event.getCommentList());
         commentsAdapter.notifyDataSetChanged();
+        item.setCommentsCount(commentsAdapter.getComments().size());
+        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
     }
 
     @OnClick(R.id.share_container)
@@ -359,6 +361,8 @@ public class WallItemFragment extends BaseFragment {
         commentsAdapter.getComments().add(0,event.getComment());
         commentsAdapter.notifyDataSetChanged();
        // commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+        item.setCommentsCount(commentsAdapter.getComments().size());
+        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
 
     }
 

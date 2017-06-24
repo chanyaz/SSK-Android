@@ -244,6 +244,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
         getActivity().onBackPressed();
+        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
     }
 
     @Override

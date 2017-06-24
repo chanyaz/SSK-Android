@@ -43,6 +43,7 @@ import java.util.Map;
 import base.app.activity.PhoneLoungeActivity;
 import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.SignUpFragment;
+import base.app.fragment.popup.SignUpLoginFragment;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserEvent;
 import base.app.util.Utility;
@@ -240,26 +241,32 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         View view = inflater.inflate(R.layout.fragment_video_chat, container, false);
         ButterKnife.bind(this, view);
 
-        model = VideoChatModel.getInstance();
+        if(Model.getInstance().isRealUser()){
+            model = VideoChatModel.getInstance();
 //        localMedia = LocalMedia.create(getContext());
-        name.setText(getContext().getResources().getString(R.string.video_chat_you));
-        slots = new ArrayList<>();
-        slots.add(new Slot(ButterKnife.findById(view, R.id.slot_2)));
-        slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
-        slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
-        text.setText(Utility.fromHtml(getString(R.string.video_chat_text_1)));
-        if (!Utility.isTablet(getActivity()))
-        {
-            chronometer.setFormat("%s");
-            onLoginStateChange();
+            name.setText(getContext().getResources().getString(R.string.video_chat_you));
+            slots = new ArrayList<>();
+            slots.add(new Slot(ButterKnife.findById(view, R.id.slot_2)));
+            slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
+            slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
+            text.setText(Utility.fromHtml(getString(R.string.video_chat_text_1)));
+            if (!Utility.isTablet(getActivity()))
+            {
+                chronometer.setFormat("%s");
+                onLoginStateChange();
+            }
+
+            VideoChatEvent event = VideoChatModel.getInstance().getVideoChatEvent();
+            if (event != null) {
+                onVideoChatEvent(event);
+                VideoChatModel.getInstance().setVideoChatEvent(null);
+            }
+            updateIconsColor();
+        }else {
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }
 
-        VideoChatEvent event = VideoChatModel.getInstance().getVideoChatEvent();
-        if (event != null) {
-            onVideoChatEvent(event);
-            VideoChatModel.getInstance().setVideoChatEvent(null);
-        }
-        updateIconsColor();
+
 
 
         return view;

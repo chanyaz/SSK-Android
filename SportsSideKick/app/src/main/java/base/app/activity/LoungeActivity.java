@@ -59,6 +59,7 @@ import base.app.fragment.popup.LanguageFragment;
 import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.MemberInfoFragment;
 import base.app.fragment.popup.SignUpFragment;
+import base.app.fragment.popup.SignUpLoginFragment;
 import base.app.fragment.popup.StartingNewCallFragment;
 import base.app.fragment.popup.StashFragment;
 import base.app.fragment.popup.WalletFragment;
@@ -182,6 +183,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         leftContainerFragments.add(StoreFragment.class);
         leftContainerFragments.add(NewsItemFragment.class);
         leftContainerFragments.add(WallItemFragment.class);
+        leftContainerFragments.add(SignUpLoginFragment.class);
         fragmentOrganizer.setUpContainer(R.id.tabs_container_1, leftContainerFragments);
 
         ArrayList<Class> topRightContainerFragments = new ArrayList<>();
