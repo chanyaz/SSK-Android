@@ -127,22 +127,31 @@ public class NewsItemFragment extends BaseFragment {
 
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook(View view) {
-        SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
+        if(Model.getInstance().isRealUser()){
+            SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
+        }else {
+            //TODO notify user
+        }
     }
 
     @OnClick(R.id.share_twitter)
     public void sharePostTwitter(View view) {
-        PackageManager pkManager = getActivity().getPackageManager();
-        try {
-            PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
-            String getPkgInfo = pkgInfo.toString();
+        if(Model.getInstance().isRealUser()){
 
-            if (getPkgInfo.contains("com.twitter.android")) {
-                SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
+            PackageManager pkManager = getActivity().getPackageManager();
+            try {
+                PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
+                String getPkgInfo = pkgInfo.toString();
+
+                if (getPkgInfo.contains("com.twitter.android")) {
+                    SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
             }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
+        }else {
+            //TODO notify user
         }
     }
 
@@ -220,19 +229,23 @@ public class NewsItemFragment extends BaseFragment {
                 getActivity().onBackPressed();
             }
         });
+        if(Model.getInstance().isRealUser()){
+            shareButton.setOnTouchListener(new View.OnTouchListener() {
 
-        shareButton.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    shareButtons.setVisibility(View.VISIBLE);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    shareButtons.setVisibility(View.GONE);
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        shareButtons.setVisibility(View.VISIBLE);
+                    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                        shareButtons.setVisibility(View.GONE);
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }else {
+            post.setEnabled(false);
+        }
+
         return view;
     }
 
@@ -253,14 +266,18 @@ public class NewsItemFragment extends BaseFragment {
 
     @OnClick(R.id.post_post_button)
     public void newPost() {
-        PostComment comment = new PostComment();
-        comment.setComment(post.getText().toString());
-        comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
-        comment.setWallId(item.getWallId());
-        comment.setPostId(item.getPostId());
-        comment.setTimestamp(Double.valueOf(System.currentTimeMillis() / 1000));
-        WallModel.getInstance().postComment(item, comment);
-        post.getText().clear();
+        if(Model.getInstance().isRealUser()){
+            PostComment comment = new PostComment();
+            comment.setComment(post.getText().toString());
+            comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
+            comment.setWallId(item.getWallId());
+            comment.setPostId(item.getPostId());
+            comment.setTimestamp(Double.valueOf(System.currentTimeMillis() / 1000));
+            WallModel.getInstance().postComment(item, comment);
+            post.getText().clear();
+        }else {
+            //TODO notify user
+        }
     }
 
     @Subscribe
@@ -275,31 +292,40 @@ public class NewsItemFragment extends BaseFragment {
 
     @OnClick(R.id.likes_icon)
     public void likePost() {
-        if (item != null) {
-            likesCount.setText(String.valueOf(item.getLikeCount() + 1));
+        if(Model.getInstance().isRealUser()){
+            if (item != null) {
+                likesCount.setText(String.valueOf(item.getLikeCount() + 1));
+            }
+            WallModel.getInstance().setlikeVal(item, true);
+            likesIcon.setVisibility(View.GONE);
+            likesIconLiked.setVisibility(View.VISIBLE);
+
+        }else {
+            //TODO notify user
         }
-        WallModel.getInstance().setlikeVal(item, true);
-        likesIcon.setVisibility(View.GONE);
-        likesIconLiked.setVisibility(View.VISIBLE);
         SoundEffects.getDefault().playSound(SoundEffects.SOFT);
     }
 
     @OnClick(R.id.likes_icon_liked)
     public void unLikePost() {
-        if (item != null) {
-            int count = Integer.valueOf(likesCount.getText().toString());
-            if (count >0)
-            {
-                likesCount.setText(String.valueOf(count-1));
+        if(Model.getInstance().isRealUser()){
+            if (item != null) {
+                int count = Integer.valueOf(likesCount.getText().toString());
+                if (count >0)
+                {
+                    likesCount.setText(String.valueOf(count-1));
+                }
+                else if (count == 0)
+                {
+                    likesCount.setText("0");
+                }
             }
-            else if (count == 0)
-            {
-                likesCount.setText("0");
-            }
+            WallModel.getInstance().setlikeVal(item, false);
+            likesIcon.setVisibility(View.VISIBLE);
+            likesIconLiked.setVisibility(View.GONE);
+        }else {
+            //TODO notify user
         }
-        WallModel.getInstance().setlikeVal(item, false);
-        likesIcon.setVisibility(View.VISIBLE);
-        likesIconLiked.setVisibility(View.GONE);
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
 
@@ -315,19 +341,23 @@ public class NewsItemFragment extends BaseFragment {
 
     @OnClick(R.id.pin_icon)
     public void pinToWall() {
-        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
-                new View.OnClickListener() {// Cancel
-                    @Override
-                    public void onClick(View v) {
-                        getActivity().onBackPressed();
-                    }
-                }, new View.OnClickListener() { // Confirm
-                    @Override
-                    public void onClick(View v) {
-                        WallModel.getInstance().mbPost(item);
-                        getActivity().onBackPressed();
-                    }
-                });
+        if(Model.getInstance().isRealUser()){
+            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
+                    new View.OnClickListener() {// Cancel
+                        @Override
+                        public void onClick(View v) {
+                            getActivity().onBackPressed();
+                        }
+                    }, new View.OnClickListener() { // Confirm
+                        @Override
+                        public void onClick(View v) {
+                            WallModel.getInstance().mbPost(item);
+                            getActivity().onBackPressed();
+                        }
+                    });
+        }else {
+            //TODO notify user
+        }
     }
 
     @Optional

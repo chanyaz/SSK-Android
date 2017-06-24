@@ -210,6 +210,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegister() {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
+        getActivity().onBackPressed();
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
     }
 
