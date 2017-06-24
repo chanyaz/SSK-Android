@@ -149,7 +149,10 @@ public class StoreFragment extends BaseFragment {
 
         backButton.setOnClickListener(goBackClickListener);
         forwardButton.setOnClickListener(goForwardClickListener);
-        shareToWallButton.setOnClickListener(shareToWallOnClickListener);
+        if(Model.getInstance().isRealUser()){
+            shareToWallButton.setOnClickListener(shareToWallOnClickListener);
+        }
+
         homeButton.setOnClickListener(closeButtonOnClickListener);
 
         return view;
