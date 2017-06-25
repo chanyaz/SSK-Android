@@ -36,6 +36,7 @@ import base.app.fragment.instance.WallFragment;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.RegistrationStateReceiver;
+import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -210,7 +211,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegister() {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
-        getActivity().onBackPressed();
+        if(Utility.isTablet(getActivity())){
+            getActivity().onBackPressed();
+        }
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
     }
 
