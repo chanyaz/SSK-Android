@@ -61,8 +61,7 @@ public class StoreFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_with_web_view, container, false);
-        if (getActivity() instanceof PhoneLoungeActivity)
-            ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
+        setMarginTop(true);
         webContainer = view.findViewById(R.id.navigation_web_container);
 
         webView = (WebView) view.findViewById(R.id.web_view);

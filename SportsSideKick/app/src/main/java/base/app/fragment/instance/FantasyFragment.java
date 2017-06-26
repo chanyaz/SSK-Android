@@ -33,8 +33,7 @@ public class FantasyFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(getActivity() instanceof PhoneLoungeActivity)
-            ((PhoneLoungeActivity) getActivity()).setMarginTop(true);
+        setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_fantasy, container, false);
         WebView webView = (WebView) view.findViewById(R.id.web_view);
 

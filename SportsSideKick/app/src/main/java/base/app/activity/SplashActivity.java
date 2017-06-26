@@ -57,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
             EventBus.getDefault().register(this);
             waitingConnection.setVisibility(View.VISIBLE);
         }
-        if(!Utility.isTablet(this)){
+        if (!Utility.isTablet(this)) {
             Utility.setSystemBarColor(this);
         }
 
@@ -75,19 +75,19 @@ public class SplashActivity extends AppCompatActivity {
             EventBus.getDefault().unregister(this);
         }
         Model.getInstance();
-        final Intent intent = new Intent(this, LoungeActivity.class);
+        Intent main;
+        if (Utility.isTablet(this)) {
+            main = new Intent(this, LoungeActivity.class);
+        } else {
+            main = new Intent(this, PhoneLoungeActivity.class);
+        }
         if (!Prefs.getBoolean(Constant.IS_FIRST_TIME, true)) {
             Prefs.putBoolean(Constant.IS_FIRST_TIME, false);
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                intent.putExtras(extras);
+                main.putExtras(extras);
             }
         }
-        Intent main;
-        if (Utility.isTablet(this))
-            main = new Intent(this, LoungeActivity.class);
-        else
-            main = new Intent(this, PhoneLoungeActivity.class);
         startActivity(main);
         finish();
     }
