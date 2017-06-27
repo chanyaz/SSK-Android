@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.common.base.Enums;
 
 import java.util.HashMap;
 
@@ -150,7 +149,7 @@ public abstract class WallBase implements Shareable {
                     typeReference = new TypeReference<WallNews>() {
                     };
                     break;
-                case webhouse:
+                case webhose:
                     typeReference = new TypeReference<WallRumor>() {
                     };
             }
@@ -349,6 +348,6 @@ public abstract class WallBase implements Shareable {
         tip,
         nativeAd,
         official,
-        webhouse
+        webhose
     }
 }

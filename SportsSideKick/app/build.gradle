@@ -109,7 +109,7 @@ dependencies {
     compile files('libs/YoutubeAndroidPlayerApi.jar')
     compile 'com.google.apis:google-api-services-youtube:v3-rev181-1.22.0'
 
-//  Gamesparks SDK - whole backend is relying on it (it  resides on maven)
+//  Gamesparks SDK - whole backend is relying on it (it resides on maven)
     compile 'com.gamesparks.sdk:gamesparks-java-sdk:+'
 
 //  General data-binding package for Jackson used for parsing of GS response in model - https://github.com/FasterXML/jackson-databind
