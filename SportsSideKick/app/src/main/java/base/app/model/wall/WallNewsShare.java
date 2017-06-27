@@ -26,4 +26,8 @@ public class WallNewsShare extends WallBase{
     public SharingManager.ItemType getItemType() {
         return SharingManager.ItemType.WallPost;
     }
+
+    public String getVidUrl() {
+        return vidUrl;
+    }
 }

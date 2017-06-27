@@ -31,49 +31,57 @@ import base.app.model.user.UserInfo;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class WallBase implements Shareable {
 
-    private static final String TAG = "WALLBASE";
+    private static final String TAG = "WALL BASE";
+
     static private HashMap<String, WallBase> cache = new HashMap<>();
+    @JsonIgnore // NOTE: we set Post type in factory method, not trough automatic JSON parsing!
+    private PostType itemType = PostType.post;
+
+    public static void clear() {
+        cache.clear();
+    }
+
+    public enum PostType {
+        post,
+        newsShare,
+        betting,
+        stats,
+        rumor,
+        wallStoreItem,
+        newsOfficial,
+        newsUnOfficial,
+        tip,
+        nativeAd,
+        official,
+        webhose
+    }
 
     @JsonProperty("timestamp")
     protected Double timestamp;
-    @JsonIgnore // NOTE: we set Post type in factory method, not trough automatic JSON parsing!
-    protected PostType itemType = PostType.post;
     @JsonProperty("wallId")
-    protected String wallId = "";
+    private String wallId = "";
     @JsonProperty("postId")
-    protected String postId = "";
+    String postId = "";
     @JsonProperty("likeCount")
-    protected int likeCount = 0;
+    private int likeCount = 0;    // The total count of all likes
     @JsonProperty("likedByUser")
-    protected boolean likedByUser = false;
+    private boolean likedByUser = false;   // true if the user likes it, false if not
     @JsonProperty("commentsCount")
-    protected int commentsCount = 0;
+    protected int commentsCount = 0;    // The total count of all comments
     @JsonProperty("shareCount")
-    protected int shareCount = 0;
+    private int shareCount = 0;   // Total number of shares of a post
+    @JsonProperty("subTitle")
+    String subTitle;
     @JsonProperty("title")
     protected String title;
-    @JsonProperty("subTitle")
-    protected String subTitle;
     @JsonProperty("bodyText")
-    protected String bodyText;
+    String bodyText;
     @JsonProperty("coverImageUrl")
-    protected String coverImageUrl;
-    @JsonProperty("vidUrl")
-    protected String vidUrl;
+    String coverImageUrl;
     @JsonProperty("coverAspectRatio")
-    protected Float coverAspectRatio = 0.5625f;
+    private Float coverAspectRatio = 0.5625f;
 
-    private WallAdvert wallNativeAd;
-
-    public WallAdvert getWallNativeAd() {
-        return wallNativeAd;
-    }
-
-    public void setWallNativeAd(WallAdvert wallNativeAd) {
-        this.wallNativeAd = wallNativeAd;
-    }
-
-    UserInfo poster;
+    private UserInfo poster;
 
     public UserInfo getPoster() {
         return poster;
@@ -83,20 +91,8 @@ public abstract class WallBase implements Shareable {
         this.poster = poster;
     }
 
-    public static void clear() {
-        cache.clear();
-    }
-
-    public static String getTAG() {
-        return TAG;
-    }
-
     public static HashMap<String, WallBase> getCache() {
         return cache;
-    }
-
-    public static void setCache(HashMap<String, WallBase> cache) {
-        WallBase.cache = cache;
     }
 
     @Nullable
@@ -172,7 +168,6 @@ public abstract class WallBase implements Shareable {
     public String getTimestampAsString() {
         return String.valueOf(timestamp.longValue()/1000) + "." +  String.valueOf((int)(timestamp.longValue()%1000) + "00");
     }
-
 
     public Double getTimestamp() {
         return timestamp;
@@ -263,14 +258,6 @@ public abstract class WallBase implements Shareable {
         this.coverImageUrl = coverImageUrl;
     }
 
-    public String getVidUrl() {
-        return vidUrl;
-    }
-
-    public void setVidUrl(String vidUrl) {
-        this.vidUrl = vidUrl;
-    }
-
     public Float getCoverAspectRatio() {
         return coverAspectRatio;
     }
@@ -279,12 +266,10 @@ public abstract class WallBase implements Shareable {
         this.coverAspectRatio = coverAspectRatio;
     }
 
-
     @JsonProperty("type")
     public int getTypeAsInt() {
         return itemType.ordinal()+1;
     }
-
 
     @JsonIgnore
     public PostType getType() {
@@ -295,7 +280,6 @@ public abstract class WallBase implements Shareable {
     public void setType(PostType type) {
         this.itemType = type;
     }
-
 
     public void toggleLike() {
         likedByUser = !likedByUser;
@@ -314,6 +298,11 @@ public abstract class WallBase implements Shareable {
         });
     }
 
+    @Override
+    public void incrementShareCount(SharingManager.ShareTarget shareTarget) {
+        WallModel.getInstance().itemShared(this, shareTarget);
+    }
+
     public void setEqualTo(WallBase item) {
         this.timestamp = item.timestamp;
         this.itemType = item.itemType;
@@ -327,27 +316,8 @@ public abstract class WallBase implements Shareable {
         this.subTitle = item.subTitle;
         this.bodyText = item.bodyText;
         this.coverImageUrl = item.coverImageUrl;
-        this.vidUrl = item.vidUrl;
         this.coverAspectRatio = item.coverAspectRatio;
     }
 
-    @Override
-    public void incrementShareCount(SharingManager.ShareTarget shareTarget) {
-        WallModel.getInstance().itemShared(this, shareTarget);
-    }
 
-    public enum PostType {
-        post,
-        newsShare,
-        betting,
-        stats,
-        rumor,
-        wallStoreItem,
-        newsOfficial,
-        newsUnOfficial,
-        tip,
-        nativeAd,
-        official,
-        webhose
-    }
 }

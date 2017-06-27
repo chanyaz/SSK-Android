@@ -59,7 +59,6 @@ import javax.annotation.Nullable;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.WallAdapter;
 import base.app.events.GameSparksEvent;
 import base.app.events.PostCompleteEvent;
@@ -426,6 +425,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         imageUploadProgressBar.setVisibility(View.GONE);
     }
 
+    @Subscribe
+    public void onPostUpdated(PostUpdateEvent event) {
+        isNewPostVisible = creatingPostInProgress;
+        isFilterVisible = false;
+        isSearchVisible = false;
+        updateButtons();
+    }
 
     @Subscribe
     public void onPostUpdate(PostUpdateEvent event) {
@@ -641,14 +647,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         progressBar.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
         getNextTip();
-    }
-
-    @Subscribe
-    public void onPostUpdated(PostUpdateEvent event) {
-        isNewPostVisible = creatingPostInProgress;
-        isFilterVisible = false;
-        isSearchVisible = false;
-        updateButtons();
     }
 
     @Subscribe

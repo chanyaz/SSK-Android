@@ -33,13 +33,11 @@ public class WallNews extends WallBase {
         this.source = ((WallNews)item).source;
     }
 
-    @Override
     @JsonProperty("vidUrl")
     public String getVidUrl() {
         return vidUrl;
     }
 
-    @Override
     @JsonProperty("vidUrl")
     public void setVidUrl(String vidUrl) {
         this.vidUrl = vidUrl;

@@ -22,11 +22,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import base.app.events.CommentUpdateEvent;
+import base.app.events.GetCommentsCompleteEvent;
+import base.app.events.GetPostByIdEvent;
+import base.app.events.PostCommentCompleteEvent;
+import base.app.events.PostCompleteEvent;
+import base.app.events.PostLoadCompleteEvent;
+import base.app.events.PostUpdateEvent;
+import base.app.events.WallLikeUpdateEvent;
 import base.app.model.AWSFileUploader;
 import base.app.model.DateUtils;
 import base.app.model.GSConstants;
@@ -35,12 +42,6 @@ import base.app.model.friendship.FriendsManager;
 import base.app.model.sharing.SharingManager;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.UserInfo;
-import base.app.events.GetCommentsCompleteEvent;
-import base.app.events.GetPostByIdEvent;
-import base.app.events.PostCommentCompleteEvent;
-import base.app.events.PostCompleteEvent;
-import base.app.events.PostLoadCompleteEvent;
-import base.app.events.PostUpdateEvent;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CLUB_ID_TAG;
@@ -57,26 +58,17 @@ public class WallModel extends GSMessageHandlerAbstract {
     private static final String TAG = " WallModel";
     private static WallModel instance;
 
-    private static final long ONE_HOUR = 3600000;
-    private static final long D_LIMIT = 365 * 24 * ONE_HOUR;
+    private static final long ONE_HOUR =  24 * 60 * 60;
+    private static final long D_LIMIT = 365 * ONE_HOUR;
     private long deltaTimeIntervalForPaging  = ONE_HOUR; // One day
     private Date oldestFetchDate;
     private Date oldestFetchIntervalDateBound;
-
-    private final ObjectMapper mapper; // jackson's object mapper
-
-
     private int postsTotalFetchCount = 0;
     private int postsIntervalFetchCount = 0;
     private int minNumberOfPostsForInitialLoad = 20;
     private int minNumberOfPostsForIntervalLoad = 10;
 
-    HashMap<String, WallBase> cahchedItems;
-    public List<WallBase> getListCacheItems() {
-        return listCacheItems;
-    }
-    List<WallBase> listCacheItems;
-
+    private final ObjectMapper mapper; // jackson's object mapper
 
     public static WallModel getInstance(){
         if(instance==null){
@@ -97,10 +89,13 @@ public class WallModel extends GSMessageHandlerAbstract {
         Model.getInstance().setMessageHandlerDelegate(this);
     }
 
-    private void clearWallListeners(){}
+    private void clearWallListeners(){
+        Log.d(TAG, "Clear Wall Listeners (this thing does nothing?)");
+    }
 
     //user logged out so clearing all content.
     public void clear(){
+        WallBase.clear();
         clearWallListeners();
         postsTotalFetchCount = 0;
         postsIntervalFetchCount = 0;
@@ -108,24 +103,14 @@ public class WallModel extends GSMessageHandlerAbstract {
         minNumberOfPostsForIntervalLoad = 10;
     }
 
-    // NOT USED
-    private void onUserPosts(WallBase post){
-//        if(post.getTimestamp()) {
-//            if(post.timestamp.compare(oldestFetchDate) == ComparisonResult.orderedDescending ) {
-//                self.notifyPostUpdate.emit(post)
-//            }
-//        }
-    }
-
     private Task<Void> getUserPosts(final UserInfo userInfo, Date since,final Date toDate){
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
-        String sinceValue = DateUtils.dateToFirebaseDate(since);
-
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
-                    JSONArray jsonArrayOfPosts = (JSONArray) response.getScriptData().getBaseData().get(GSConstants.POSTS);
+                    JSONArray jsonArrayOfPosts =
+                            (JSONArray) response.getScriptData().getBaseData().get(GSConstants.POSTS);
                     if(jsonArrayOfPosts.size()>0){
                          for(Object postAsJson : jsonArrayOfPosts){
                             WallBase post = WallBase.postFactory(postAsJson, mapper);
@@ -142,15 +127,16 @@ public class WallModel extends GSMessageHandlerAbstract {
                     source.setResult(null);
                     return;
                 }
-                source.setException(new Exception("There was an error while trying to get user's posts."));
+                source.setException(
+                        new Exception("There was an error while trying to get user's posts.")
+                );
             }
         };
        GSRequestBuilder.LogEventRequest request = createRequest("wallGetUserPosts")
                 .setEventAttribute(GSConstants.USER_ID,userInfo.getUserId())
-                .setEventAttribute(GSConstants.SINCE_DATE,sinceValue);
+                .setEventAttribute(GSConstants.SINCE_DATE,DateUtils.dateToFirebaseDate(since));
         if(toDate!=null){
-            String untilValue = DateUtils.dateToFirebaseDate(toDate);
-            request.setEventAttribute(GSConstants.TO_DATE,untilValue);
+            request.setEventAttribute(GSConstants.TO_DATE,DateUtils.dateToFirebaseDate(toDate));
         }
         request.send(consumer);
         return source.getTask();
@@ -158,9 +144,8 @@ public class WallModel extends GSMessageHandlerAbstract {
 
 
      /** starts getting all posts related to that user, all posts that where posted by this user
-     and all posts posted by the people this user follows
-     you need to listen to mbPostUpdate events which will return
-     all old posts + new posts + updated posts **/
+     and all posts posted by the people this user follows you need to listen to mbPostUpdate events
+     which will return all old posts + new posts + updated posts **/
 
     public void fetchPosts() {
         if (getCurrentUser() == null){
@@ -171,11 +156,12 @@ public class WallModel extends GSMessageHandlerAbstract {
         postsTotalFetchCount = 0;
 
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
+
         final ArrayList<Task<Void>> tasks = new ArrayList<>();
         tasks.add(getUserPosts(getCurrentUser(), oldestFetchDate,null));
 
-
-        Task<List<UserInfo>> followingTask = FriendsManager.getInstance().getUserFollowingList(Model.getInstance().getUserInfo().getUserId(),0);
+        Task<List<UserInfo>> followingTask = FriendsManager.getInstance().
+                getUserFollowingList(Model.getInstance().getUserInfo().getUserId(),0);
         followingTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
@@ -218,7 +204,8 @@ public class WallModel extends GSMessageHandlerAbstract {
             return;
         }
         final ArrayList<Task<Void>> tasks = new ArrayList<>();
-        final Date newDate =new Date(oldestFetchDate.getTime() + 1000); // Add one second to exclude oldest post from last page
+        // Add one second to exclude oldest post from last page
+        final Date newDate =new Date(oldestFetchDate.getTime() + 1000);
         oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
 
         tasks.add(getUserPosts(uInfo, oldestFetchDate, newDate));
@@ -391,6 +378,11 @@ public class WallModel extends GSMessageHandlerAbstract {
         });
     }
 
+    /**
+     * get post by its id (used for loading from notification)
+     * @param  wallId the wall id
+     * @param  postId the post id
+     */
     public void getPostById(String wallId, String postId){
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -424,7 +416,6 @@ public class WallModel extends GSMessageHandlerAbstract {
             case "sharingCountIncremented":
                 parseShareCountMessage(data);
             default:
-                //Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
                 break;
         }
 
@@ -438,7 +429,9 @@ public class WallModel extends GSMessageHandlerAbstract {
                 case GSConstants.NEWS:
                 case GSConstants.RUMOUR:
                     WallBase post = WallBase.postFactory(data.get(GSConstants.ITEM), mapper);
-                    EventBus.getDefault().post(new PostUpdateEvent(post));
+                    if(post!=null){
+                        EventBus.getDefault().post(new PostUpdateEvent(post));
+                    }
                     break;
             }
         }
@@ -451,7 +444,15 @@ public class WallModel extends GSMessageHandlerAbstract {
             WallBase post = WallBase.postFactory(object, mapper);
             if(post!=null){
                 switch (operation){
+                    case GSConstants.OPERATION_LIKE:
+                        int likeCount = post.getLikeCount();
+                        String wallId = post.getWallId();
+                        String postId = post.getPostId();
+                        EventBus.getDefault().post(new WallLikeUpdateEvent(wallId,postId,likeCount));
+                        break;
                     case GSConstants.OPERATION_COMMENT:
+                        EventBus.getDefault().post(new CommentUpdateEvent(post));
+                        break;
                     case GSConstants.OPERATION_NEW_POST:
                     case GSConstants.OPERATION_UPDATE_POST:
                         EventBus.getDefault().post(new PostUpdateEvent(post));

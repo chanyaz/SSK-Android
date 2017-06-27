@@ -37,7 +37,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import base.app.R;
-import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.CommentsAdapter;
 import base.app.adapter.TutorialStepAdapter;
 import base.app.events.GetCommentsCompleteEvent;
@@ -190,7 +189,7 @@ public class WallItemFragment extends BaseFragment {
                 if (post.getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
                     imageHeader.setVisibility(View.GONE);
-                    videoView.setVideoURI(Uri.parse(item.getVidUrl()));
+                    videoView.setVideoURI(Uri.parse(post.getVidUrl()));
                     videoView.start();
                     videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
