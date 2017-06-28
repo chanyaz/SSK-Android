@@ -322,12 +322,15 @@ public class WallModel extends GSMessageHandlerAbstract {
                 }
             }
         };
-        createRequest("wallGetPostComments")
-            .setEventAttribute(GSConstants.WALL_ID,post.getWallId())
-            .setEventAttribute(GSConstants.POST_ID,post.getPostId())
-            .setEventAttribute(GSConstants.OFFSET,0)
-            .setEventAttribute(GSConstants.ENTRY_COUNT,30)
-            .send(consumer);
+        if(post!=null){
+            createRequest("wallGetPostComments")
+                    .setEventAttribute(GSConstants.WALL_ID,post.getWallId())
+                    .setEventAttribute(GSConstants.POST_ID,post.getPostId())
+                    .setEventAttribute(GSConstants.OFFSET,0)
+                    .setEventAttribute(GSConstants.ENTRY_COUNT,30)
+                    .send(consumer);
+        }
+
     }
 
     /**
