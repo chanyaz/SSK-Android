@@ -101,7 +101,7 @@
                 android:paddingBottom="@dimen/half_margin"
                 android:paddingEnd="@dimen/half_margin"
                 android:paddingStart="@dimen/space_0"
-                android:textColor="?colorAccentLight"
+                android:textColor="@color/white"
                 android:textSize="@dimen/font_size_12" />
 
             <TextView
