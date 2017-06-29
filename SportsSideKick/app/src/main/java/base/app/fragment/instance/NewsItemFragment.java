@@ -309,7 +309,7 @@ public class NewsItemFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.pin_icon)
+    @OnClick(R.id.pin_container)
     public void pinToWall() {
         if(Model.getInstance().isRealUser()){
             AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
@@ -328,13 +328,16 @@ public class NewsItemFragment extends BaseFragment {
         }else {
             //TODO notify user
         }
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
 
     @Optional
     @OnClick(R.id.share_buttons_container)
     public void closeShareDialog() {
-        if (shareButtons != null)
+        if (shareButtons != null) {
             shareButtons.setVisibility(View.GONE);
+        }
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
 
     @Optional

@@ -43,6 +43,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -770,7 +771,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             commentText.setText("");
             WallPost newPost = new WallPost();
             newPost.setType(WallBase.PostType.post);
-            newPost.setTitle(getContext().getResources().getString(R.string.wall_new_post_title));
+            UserInfo user = Model.getInstance().getUserInfo();
+            newPost.setTitle(WordUtils.capitalize(user.getFirstName()) + "," + WordUtils.capitalize(user.getLastName()));
             newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
             newPost.setTimestamp((double) System.currentTimeMillis());
             newPost.setBodyText(postContent);
