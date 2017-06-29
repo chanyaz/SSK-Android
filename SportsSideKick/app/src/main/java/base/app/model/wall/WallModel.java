@@ -58,9 +58,9 @@ public class WallModel extends GSMessageHandlerAbstract {
     private static final String TAG = " WallModel";
     private static WallModel instance;
 
-    private static final long ONE_HOUR =  24 * 60 * 60;
-    private static final long D_LIMIT = 365 * ONE_HOUR;
-    private long deltaTimeIntervalForPaging  = ONE_HOUR; // One day
+    private static final long ONE_HOUR =  60 * 60;
+    private static final long D_LIMIT = 365 * 24 * ONE_HOUR;
+    private long deltaTimeIntervalForPaging  = 24 * ONE_HOUR; // One day
     private Date oldestFetchDate;
     private Date oldestFetchIntervalDateBound;
     private int postsTotalFetchCount = 0;
@@ -205,8 +205,8 @@ public class WallModel extends GSMessageHandlerAbstract {
         }
         final ArrayList<Task<Void>> tasks = new ArrayList<>();
         // Add one second to exclude oldest post from last page
-        final Date newDate =new Date(oldestFetchDate.getTime() + 1000);
-        oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
+        final Date newDate = new Date(oldestFetchDate.getTime() + 1000);
+        oldestFetchDate = new Date(oldestFetchDate.getTime() - (deltaTimeIntervalForPaging*1000));
 
         tasks.add(getUserPosts(uInfo, oldestFetchDate, newDate));
 
@@ -409,6 +409,8 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     @Override
     public void onGSScriptMessage(String type, Map<String,Object> data){
+        Log.d(TAG, "Received Script message:" + type);
+        Log.d(TAG, "Received Script message:" + data.toString());
         switch (type){
             case "Wall":
                 parseWallMessage(data);

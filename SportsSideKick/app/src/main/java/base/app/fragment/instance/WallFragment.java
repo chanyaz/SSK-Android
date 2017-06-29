@@ -60,10 +60,12 @@ import javax.annotation.Nullable;
 import base.app.BuildConfig;
 import base.app.R;
 import base.app.adapter.WallAdapter;
+import base.app.events.CommentUpdateEvent;
 import base.app.events.GameSparksEvent;
 import base.app.events.PostCompleteEvent;
 import base.app.events.PostLoadCompleteEvent;
 import base.app.events.PostUpdateEvent;
+import base.app.events.WallLikeUpdateEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.IgnoreBackHandling;
 import base.app.model.Model;
@@ -426,18 +428,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Subscribe
-    public void onPostUpdated(PostUpdateEvent event) {
-        isNewPostVisible = creatingPostInProgress;
-        isFilterVisible = false;
-        isSearchVisible = false;
-        updateButtons();
-    }
-
-    @Subscribe
     public void onPostUpdate(PostUpdateEvent event) {
-        Log.d(TAG, "GOT POST with id: " + event.getId());
         final WallBase post = event.getPost();
         if (post != null) {
+            Log.d(TAG, "GOT POST with id: " + post.getPostId());
             for (WallBase item : wallItems) {
                 if (item.getWallId() == post.getWallId() && item.getPostId() == post.getPostId()) {
                     item.setEqualTo(post);
@@ -461,6 +455,39 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 filterPosts();
             }
             progressBar.setVisibility(View.GONE);
+        }
+
+        isNewPostVisible = creatingPostInProgress;
+        isFilterVisible = false;
+        isSearchVisible = false;
+        updateButtons();
+    }
+
+    @Subscribe
+    public void onUpdateLikeCount(WallLikeUpdateEvent event){
+        if (event.getWallId() != null) {
+            for(WallBase item : wallItems){
+                if(event.getWallId().equals(item.getWallId())
+                        && event.getPostId().equals(item.getPostId())){
+                    item.setLikeCount(event.getCount());
+                    filterPosts();
+                    return;
+                }
+            }
+        }
+    }
+
+    @Subscribe
+    public void onUpdateCommentCount(CommentUpdateEvent event){
+        if (event.getWallItem() != null) {
+            for(WallBase item : wallItems){
+                if(event.getWallItem().getWallId().equals(item.getWallId())
+                        && event.getWallItem().getPostId().equals(item.getPostId())){
+                    item.setLikeCount(event.getWallItem().getCommentsCount());
+                    filterPosts();
+                    return;
+                }
+            }
         }
     }
 

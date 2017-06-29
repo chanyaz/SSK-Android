@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,27 +28,26 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.Collections;
 import java.util.Comparator;
 
-import base.app.activity.PhoneLoungeActivity;
+import base.app.R;
+import base.app.adapter.CommentsAdapter;
+import base.app.events.GetCommentsCompleteEvent;
+import base.app.events.PostCommentCompleteEvent;
+import base.app.events.PostUpdateEvent;
+import base.app.fragment.BaseFragment;
+import base.app.model.AlertDialogManager;
+import base.app.model.Model;
+import base.app.model.news.NewsModel;
+import base.app.model.sharing.SharingManager;
+import base.app.model.wall.PostComment;
+import base.app.model.wall.WallBase;
+import base.app.model.wall.WallModel;
+import base.app.model.wall.WallNews;
 import base.app.util.SoundEffects;
+import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
-import base.app.R;
-import base.app.adapter.CommentsAdapter;
-import base.app.fragment.BaseFragment;
-import base.app.model.AlertDialogManager;
-import base.app.model.Model;
-import base.app.model.wall.PostComment;
-import base.app.model.wall.WallBase;
-import base.app.model.wall.WallModel;
-import base.app.model.sharing.SharingManager;
-import base.app.model.wall.WallNews;
-import base.app.model.news.NewsModel;
-import base.app.events.GetCommentsCompleteEvent;
-import base.app.events.PostCommentCompleteEvent;
-import base.app.events.PostUpdateEvent;
-import base.app.util.Utility;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
@@ -289,43 +287,16 @@ public class NewsItemFragment extends BaseFragment {
 
     }
 
-    @OnClick(R.id.likes_icon)
-    public void likePost() {
-        if(Model.getInstance().isRealUser()){
+    @OnClick({R.id.likes_icon_liked,R.id.likes_icon})
+    public void togglePostLike() {
+        if(Model.getInstance().isRealUser()) {
             if (item != null) {
-                likesCount.setText(String.valueOf(item.getLikeCount() + 1));
+                item.toggleLike();
+                likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
+                likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+                SoundEffects.getDefault().playSound(item.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }
-            WallModel.getInstance().setlikeVal(item, true);
-            likesIcon.setVisibility(View.GONE);
-            likesIconLiked.setVisibility(View.VISIBLE);
-
-        }else {
-            //TODO notify user
         }
-        SoundEffects.getDefault().playSound(SoundEffects.SOFT);
-    }
-
-    @OnClick(R.id.likes_icon_liked)
-    public void unLikePost() {
-        if(Model.getInstance().isRealUser()){
-            if (item != null) {
-                int count = Integer.valueOf(likesCount.getText().toString());
-                if (count >0)
-                {
-                    likesCount.setText(String.valueOf(count-1));
-                }
-                else if (count == 0)
-                {
-                    likesCount.setText("0");
-                }
-            }
-            WallModel.getInstance().setlikeVal(item, false);
-            likesIcon.setVisibility(View.VISIBLE);
-            likesIconLiked.setVisibility(View.GONE);
-        }else {
-            //TODO notify user
-        }
-        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
 
     @Subscribe

@@ -50,10 +50,10 @@ public abstract class WallBase implements Shareable {
         wallStoreItem,
         newsOfficial,
         newsUnOfficial,
-        tip,
-        nativeAd,
+        wallComment,
         official,
-        webhose
+        webhose,
+        tip
     }
 
     @JsonProperty("timestamp")
@@ -98,67 +98,71 @@ public abstract class WallBase implements Shareable {
     @Nullable
     static WallBase postFactory(Object wallItem, ObjectMapper mapper) {
         JsonNode node = mapper.valueToTree(wallItem);
-        PostType type;
         if (node.has("type")) {
-            if (node.get("type").canConvertToInt())
-            {
+            TypeReference typeReference = new TypeReference<WallBase>(){};
+            PostType type = null;
+
+            if (node.get("type").canConvertToInt()) {
                 int typeValue = node.get("type").intValue();
                 type = PostType.values()[typeValue - 1];
             }
-            else
-            {
-                String objectType = node.get("type").textValue();
-                type = PostType.valueOf(objectType);
+            else {
+                try{
+                    String objectType = node.get("type").textValue();
+                    type = PostType.valueOf(objectType);
+                } catch (IllegalArgumentException ex){
+                    Log.e(TAG,"Non existing post type:" + node.get("type").textValue());
+                }
             }
 
-            TypeReference typeReference = new TypeReference<WallBase>() {};
-            switch (type) {
-                case post:
-                    typeReference = new TypeReference<WallPost>() {
-                    };
-                    break;
-                case newsShare:
-                    typeReference = new TypeReference<WallNewsShare>() {
-                    };
-                    break;
-                case betting:
-                    typeReference = new TypeReference<WallBetting>() {
-                    };
-                    break;
-                case stats:
-                    typeReference = new TypeReference<WallStats>() {
-                    };
-                    break;
-                case rumor:
-                    typeReference = new TypeReference<WallRumor>() {
-                    };
-                    break;
-                case wallStoreItem:
-                    typeReference = new TypeReference<WallStoreItem>() {
-                    };
-                    break;
-                case tip:
-                    typeReference = new TypeReference<WallTip>() {
-                    };
-                    break;
-                case official:
-                    typeReference = new TypeReference<WallNews>() {
-                    };
-                    break;
-                case webhose:
-                    typeReference = new TypeReference<WallRumor>() {
-                    };
+            if (type != null) {
+                switch (type) {
+                    case post: case wallComment:
+                        typeReference = new TypeReference<WallPost>(){};
+                        break;
+                    case newsShare:
+                        typeReference = new TypeReference<WallNewsShare>(){};
+                        break;
+                    case betting:
+                        typeReference = new TypeReference<WallBetting>(){};
+                        break;
+                    case stats:
+                        typeReference = new TypeReference<WallStats>(){};
+                        break;
+                    case rumor:
+                        typeReference = new TypeReference<WallRumor>(){};
+                        break;
+                    case wallStoreItem:
+                        typeReference = new TypeReference<WallStoreItem>(){};
+                        break;
+                    case tip:
+                        typeReference = new TypeReference<WallTip>(){};
+                        break;
+                    case official:
+                        typeReference = new TypeReference<WallNews>() {};
+                        break;
+                    case webhose:
+                        typeReference = new TypeReference<WallRumor>() {};
+                }
             }
+
             WallBase item = mapper.convertValue(wallItem, typeReference);
             item.setType(type);
 
-            WallBase cachedItem = cache.get(item.getPostId());
-            if(cachedItem!=null){
-                cachedItem.setEqualTo(item);
-                item = cachedItem;
-            } else {
-                cache.put(item.getPostId(),item);
+            // TODO @Filip - Fix me - preventing cache of non-wall items
+            if(type != PostType.official &&
+                type != PostType.webhose &&
+                type != PostType.tip ){
+
+                WallBase cachedItem = cache.get(item.getPostId());
+                if(cachedItem!=null){
+                    cachedItem.setEqualTo(item);
+                    item = cachedItem;
+                } else {
+                    cache.put(item.getPostId(),item);
+                }
             }
+
             return item;
         }
         return null;

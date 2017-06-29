@@ -357,48 +357,21 @@ public class WallItemFragment extends BaseFragment {
     public void onCommentPosted(PostCommentCompleteEvent event) {
         commentsAdapter.getComments().add(0,event.getComment());
         commentsAdapter.notifyDataSetChanged();
-       // commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
         item.setCommentsCount(commentsAdapter.getComments().size());
         commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
 
     }
 
-    @OnClick(R.id.likes_icon)
-    public void likePost() {
-        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
-            if (item!=null)
-            {
-                likesCount.setText(String.valueOf(item.getLikeCount()+ 1));
-            }
-            WallModel.getInstance().setlikeVal(item, true);
-            likesIcon.setVisibility(View.GONE);
-            likesIconLiked.setVisibility(View.VISIBLE);
-        }else {
-            //TODO Notify user that need to login in order to LIKE
-        }
-
-        SoundEffects.getDefault().playSound(SoundEffects.SOFT);
-    }
-
-    @OnClick(R.id.likes_icon_liked)
-    public void unLikePost() {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
-        if (item != null) {
-            int count = Integer.valueOf(likesCount.getText().toString());
-            if (count > 0) {
-                likesCount.setText(String.valueOf(count - 1));
-            } else if (count == 0) {
-                likesCount.setText("0");
+    @OnClick({R.id.likes_icon_liked,R.id.likes_icon})
+    public void togglePostLike() {
+        if(Model.getInstance().isRealUser()) {
+            if (item != null) {
+                item.toggleLike();
+                likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
+                likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+                SoundEffects.getDefault().playSound(item.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }
         }
-        WallModel.getInstance().setlikeVal(item, false);
-        likesIcon.setVisibility(View.VISIBLE);
-        likesIconLiked.setVisibility(View.GONE);
-    }else{
-            //TODO Notify user that need to login in order to UNLIKE
-           // This should never happen
-    }
-        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
 
     @Subscribe
