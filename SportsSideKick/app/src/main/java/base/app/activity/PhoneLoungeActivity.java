@@ -1,6 +1,5 @@
 package base.app.activity;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -27,14 +26,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import base.app.Constant;
-import base.app.fragment.popup.SignUpLoginFragment;
-import base.app.util.ui.BlurBuilder;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
 import base.app.adapter.MenuAdapter;
 import base.app.adapter.SideMenuAdapter;
@@ -69,6 +61,7 @@ import base.app.fragment.popup.LanguageFragment;
 import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.MemberInfoFragment;
 import base.app.fragment.popup.SignUpFragment;
+import base.app.fragment.popup.SignUpLoginFragment;
 import base.app.fragment.popup.StartingNewCallFragment;
 import base.app.fragment.popup.StashFragment;
 import base.app.fragment.popup.WalletFragment;
@@ -81,9 +74,13 @@ import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
+import base.app.util.ui.BlurBuilder;
 import base.app.util.ui.LinearItemDecoration;
 import base.app.util.ui.NavigationDrawerItems;
 import base.app.util.ui.NoScrollRecycler;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PhoneLoungeActivity extends BaseActivity implements LoginStateReceiver.LoginStateListener, SideMenuAdapter.IDrawerCloseSideMenu, MenuAdapter.IDrawerClose {
@@ -150,6 +147,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @BindView(R.id.fragment_dialog)
     RelativeLayout popupDialogLayout;
 
+    @BindView(R.id.splash)
+    View splash;
 
     @OnClick(R.id.notification_open)
     public void notificationOpen() {
@@ -467,12 +466,14 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     @Override
     public void onLoginAnonymously() {
+        splash.setVisibility(View.GONE);
         resetUserDetails();
         updateTopBar();
     }
 
     @Override
     public void onLogin(UserInfo user) {
+        splash.setVisibility(View.GONE);
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());

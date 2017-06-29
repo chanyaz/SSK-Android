@@ -55,7 +55,6 @@ public class SplashActivity extends AppCompatActivity {
             initialiseModel();
         } else {
             EventBus.getDefault().register(this);
-            waitingConnection.setVisibility(View.VISIBLE);
         }
         if (!Utility.isTablet(this)) {
             Utility.setSystemBarColor(this);
@@ -67,6 +66,8 @@ public class SplashActivity extends AppCompatActivity {
     public void onConnectionEvent(Connection.OnChangeEvent event) {
         if (event.getStatus() == Connection.Status.reachable) {
             initialiseModel();
+        } else {
+            waitingConnection.setVisibility(View.VISIBLE);
         }
     }
 

@@ -10,7 +10,6 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -128,6 +127,9 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     RelativeLayout notificationContainer;
     @BindView(R.id.user_coin_icon)
     ImageView userCoinIcon;
+
+    @BindView(R.id.splash)
+    View splash;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -365,11 +367,13 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
 
     @Override
     public void onLoginAnonymously() {
+        splash.setVisibility(View.GONE);
         resetUserDetails();
     }
 
     @Override
     public void onLogin(UserInfo user) {
+        splash.setVisibility(View.GONE);
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());

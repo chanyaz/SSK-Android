@@ -78,8 +78,10 @@ public class NewsItemFragment extends BaseFragment {
     RelativeLayout postContainer;
     @BindView(R.id.post_text)
     EditText post;
-    @BindView(R.id.post_post_button)
+    @BindView(R.id.post_comment_button)
     ImageView postButton;
+    @BindView(R.id.post_comment_progress_bar)
+    View postCommentProgressBar;
 
     @Nullable
     @BindView(R.id.comments_count)
@@ -261,8 +263,8 @@ public class NewsItemFragment extends BaseFragment {
         commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
     }
 
-    @OnClick(R.id.post_post_button)
-    public void newPost() {
+    @OnClick(R.id.post_comment_button)
+    public void postComment() {
         if(Model.getInstance().isRealUser()){
             PostComment comment = new PostComment();
             comment.setComment(post.getText().toString());
@@ -272,6 +274,7 @@ public class NewsItemFragment extends BaseFragment {
             comment.setTimestamp(Double.valueOf(System.currentTimeMillis() / 1000));
             WallModel.getInstance().postComment(item, comment);
             post.getText().clear();
+            postCommentProgressBar.setVisibility(View.VISIBLE);
         }else {
             //TODO notify user
         }
@@ -279,6 +282,7 @@ public class NewsItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentPosted(PostCommentCompleteEvent event) {
+        postCommentProgressBar.setVisibility(View.GONE);
         commentsAdapter.getComments().add(0, event.getComment());
         commentsAdapter.notifyDataSetChanged();
         commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
@@ -321,7 +325,22 @@ public class NewsItemFragment extends BaseFragment {
                     }, new View.OnClickListener() { // Confirm
                         @Override
                         public void onClick(View v) {
-                            WallModel.getInstance().mbPost(item);
+                            WallNews itemToPost = new WallNews();
+                            itemToPost.setBodyText(item.getBodyText());
+                            itemToPost.setTitle(item.getTitle());
+
+                            if(item.getSource()!=null){
+                                itemToPost.setSubTitle(item.getSource());
+                            } else {
+                                itemToPost.setSubTitle("");
+                            }
+
+                            itemToPost.setTimestamp((double) System.currentTimeMillis());
+                            itemToPost.setCoverAspectRatio(0.666666f);
+                            if(item.getCoverImageUrl()!=null){
+                                itemToPost.setCoverImageUrl(item.getCoverImageUrl());
+                            }
+                            WallModel.getInstance().mbPost(itemToPost);
                             getActivity().onBackPressed();
                         }
                     });

@@ -22,7 +22,7 @@ public class WallNews extends WallBase {
     @JsonProperty("url")
     private String url;
     @JsonProperty("source")
-    private Float source;
+    private String source;
 
 
     @Override
@@ -54,12 +54,12 @@ public class WallNews extends WallBase {
     }
 
     @JsonProperty("source")
-    public Float getSource() {
+    public String getSource() {
         return source;
     }
 
     @JsonProperty("source")
-    public void setSource(Float source) {
+    public void setSource(String source) {
         this.source = source;
     }
 

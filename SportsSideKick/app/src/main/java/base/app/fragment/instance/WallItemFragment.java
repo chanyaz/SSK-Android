@@ -90,8 +90,10 @@ public class WallItemFragment extends BaseFragment {
     RelativeLayout postContainer;
     @BindView(R.id.post_text)
     EditText post;
-    @BindView(R.id.post_post_button)
+    @BindView(R.id.post_comment_button)
     ImageView postButton;
+    @BindView(R.id.post_comment_progress_bar)
+    View postCommentProgressBar;
 
     @Nullable
     @BindView(R.id.comments_count)
@@ -340,21 +342,25 @@ public class WallItemFragment extends BaseFragment {
         }, 1900);
     }
 
-    @OnClick(R.id.post_post_button)
-    public void newPost() {
-        PostComment comment = new PostComment();
-        comment.setComment(post.getText().toString());
-        comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
-        comment.setWallId(item.getWallId());
-        comment.setPostId(item.getPostId());
-        comment.setTimestamp((double) (System.currentTimeMillis() / 1000));
+    @OnClick(R.id.post_comment_button)
+    public void postComment() {
+        if(Model.getInstance().isRealUser()){
+            PostComment comment = new PostComment();
+            comment.setComment(post.getText().toString());
+            comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
+            comment.setWallId(item.getWallId());
+            comment.setPostId(item.getPostId());
+            comment.setTimestamp((double) (System.currentTimeMillis() / 1000));
 
-        WallModel.getInstance().postComment(item, comment);
-        post.getText().clear();
+            WallModel.getInstance().postComment(item, comment);
+            post.getText().clear();
+            postCommentProgressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Subscribe
     public void onCommentPosted(PostCommentCompleteEvent event) {
+        postCommentProgressBar.setVisibility(View.GONE);
         commentsAdapter.getComments().add(0,event.getComment());
         commentsAdapter.notifyDataSetChanged();
         item.setCommentsCount(commentsAdapter.getComments().size());

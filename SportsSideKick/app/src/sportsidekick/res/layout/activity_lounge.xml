@@ -588,6 +588,6 @@
         android:gravity="center"
         android:visibility="gone" />
 
-
+        <include android:id="@+id/splash" layout="@layout/activity_splash"/>
 
 </RelativeLayout>

@@ -67,7 +67,7 @@ public class AWSFileUploader {
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 context,    /* get the context for the application */
                 poolId,    /* Identity Pool ID */
-                regionType           /* Region for your identity pool--US_EAST_1 or EU_WEST_1*/
+                regionType /* Region for your identity pool--US_EAST_1 or EU_WEST_1*/
         );
 
         AmazonS3Client s3 = new AmazonS3Client(credentialsProvider);

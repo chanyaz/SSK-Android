@@ -18,11 +18,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
 import base.app.adapter.UserStatsAdapter;
 import base.app.fragment.BaseFragment;
@@ -33,6 +29,9 @@ import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import base.app.util.ui.ThemeManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 /**
@@ -198,10 +197,10 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     private void setupFragment() {
         UserInfo user = Model.getInstance().getUserInfo();
         if (user != null) {
-            Date subscribed = new Date(0);
+            double subscribedAsDouble = user.getSubscribedDate();
             ArrayList<Pair<String, String>> values = new ArrayList<>();
             values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf(user.getLevel())));
-            String daysUsingSSK = new SimpleDateFormat("d").format(subscribed);
+            String daysUsingSSK = new SimpleDateFormat("d").format(System.currentTimeMillis()-subscribedAsDouble);
             values.add(new Pair<>(getContext().getResources().getString(R.string.days_using), daysUsingSSK));
             values.add(new Pair<>(getContext().getResources().getString(R.string.friends), String.valueOf(user.getFriendsCount())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.following), String.valueOf(user.getFollowingCount())));
@@ -223,7 +222,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
             profilePhone.setText(user.getPhone());
             location.setText(user.getLocation().getCity() + ", " + user.getLocation().getCountry());
             DateFormat df = new SimpleDateFormat("dd MMM yyyy");
-            subscribedSince.setText(df.format(subscribed));
+            subscribedSince.setText(df.format(subscribedAsDouble));
 
             progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
             progressBarCaps.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));

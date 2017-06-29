@@ -4,6 +4,7 @@ package base.app.fragment.instance;
 import android.Manifest;
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -47,6 +49,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.apache.commons.io.FilenameUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -57,7 +60,6 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.ChatHeadsAdapter;
 import base.app.adapter.MessageAdapter;
 import base.app.events.FullScreenImageEvent;
@@ -91,6 +93,7 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
+import static android.content.Context.DOWNLOAD_SERVICE;
 import static base.app.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
 import static base.app.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
 import static base.app.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
@@ -414,7 +417,17 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.download_image_button)
     public void imageDownloadButtonOnClick() {
-        Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_image_downloaded), Toast.LENGTH_SHORT).show();
+        DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(urlInFullscreen);
+        String fileName = FilenameUtils.getName(uri.getPath());
+        DownloadManager.Request downloadRequest = new DownloadManager.Request(uri);
+        downloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        downloadRequest.setVisibleInDownloadsUi(true);
+        downloadRequest.setTitle("SSK - Downloading a chat image!");
+        //downloadRequest.setDescription("Android Data download using DownloadManager.");
+        //Set the local destination for the downloaded file to a path within the application's external files directory
+        downloadRequest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,fileName);
+        downloadManager.enqueue(downloadRequest);
     }
 
     @OnClick(R.id.video_close_image_button)
@@ -670,11 +683,13 @@ public class ChatFragment extends BaseFragment {
         });
     }
 
+    private String urlInFullscreen;
+
     @Subscribe
     public void showImageFullScreen(FullScreenImageEvent event) {
         fullScreenContainer.setVisibility(View.VISIBLE);
-        String uri = event.getId();
-        ImageLoader.getInstance().displayImage(uri, imageViewFullScreen);
+        urlInFullscreen = event.getId();
+        ImageLoader.getInstance().displayImage(urlInFullscreen, imageViewFullScreen);
     }
 
     /**
