@@ -50,8 +50,8 @@
         android:visibility="gone" />
     <ImageView
         android:id="@+id/close"
-        android:layout_width="@dimen/popup_friend_request_button_size"
-        android:layout_height="@dimen/popup_friend_request_button_size"
+        android:layout_width="@dimen/standard_button_height"
+        android:layout_height="@dimen/standard_button_height"
         android:src="?videoCloseButtonIcon"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
