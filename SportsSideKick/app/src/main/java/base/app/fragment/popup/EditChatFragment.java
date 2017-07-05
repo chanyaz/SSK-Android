@@ -70,6 +70,8 @@ import static base.app.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
 import static base.app.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
 import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
+
+
 /**
  * Created by Filip on 12/26/2016.
  * Copyright by Hypercube d.o.o.
@@ -78,7 +80,7 @@ import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 @RuntimePermissions
 public class EditChatFragment extends BaseFragment {
-
+    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.24;
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
     @BindView(R.id.confirm_button)
@@ -138,8 +140,13 @@ public class EditChatFragment extends BaseFragment {
                 });
 
         int screenWidth = Utility.getDisplayWidth(getActivity());
+         if(Utility.isTablet(getActivity()))
+        {
+            friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
+        }else {
+             friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
+         }
 
-        friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
         friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
 
