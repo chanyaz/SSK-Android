@@ -22,6 +22,7 @@ import base.app.R;
 import base.app.adapter.FriendRequestsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.IgnoreBackHandling;
 import base.app.model.Model;
 import base.app.model.friendship.FriendRequest;
 import base.app.model.friendship.FriendsManager;
@@ -37,7 +38,7 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 
-
+@IgnoreBackHandling
 public class SignUpLoginFragment extends BaseFragment {
 
     @Nullable
