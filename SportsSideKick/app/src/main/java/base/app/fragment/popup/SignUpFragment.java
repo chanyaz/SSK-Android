@@ -2,6 +2,7 @@ package base.app.fragment.popup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,6 +83,13 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public SignUpFragment() {
         // Required empty public constructor
     }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && !Utility.isTablet(getActivity())){
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class,true));
+        }
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,6 +97,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         View view = inflater.inflate(R.layout.popup_signup, container, false);
         ButterKnife.bind(this, view);
         this.registrationStateReceiver = new RegistrationStateReceiver(this);
+
         initFacebook();
 
         return view;

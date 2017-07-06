@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.VoicemailContract;
 import android.support.percent.PercentRelativeLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -385,7 +386,11 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @Override
     public void onBackPressed() {
         toggleBlur(false, null); // hide blurred view;
-        fragmentOrganizer.getOpenFragment();
+        Fragment fragmentOpened = fragmentOrganizer.getOpenFragment();
+        if (fragmentOrganizer.getBackFragment().getClass() == SignUpLoginFragment.class) {
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
+            return;
+        }
         if (youtubeList.contains(fragmentOrganizer.getOpenFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass()))
             tvContainer.setVisibility(View.GONE);
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
@@ -414,7 +419,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     public void onProfileClicked(View view) {
         drawerLayout.closeDrawer(GravityCompat.END);
-        if (yourLevel.getVisibility() == View.VISIBLE)
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL)
             EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
         else
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));

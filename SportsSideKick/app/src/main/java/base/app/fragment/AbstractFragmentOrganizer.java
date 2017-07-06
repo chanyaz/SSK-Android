@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Filip on 12/5/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
- *
+ * <p>
  * Abstract fragment organizer
  */
 
@@ -29,17 +29,17 @@ abstract class AbstractFragmentOrganizer {
 
     private int enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation;
 
-    AbstractFragmentOrganizer(FragmentManager fragmentManager){
+    AbstractFragmentOrganizer(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
-        setAnimations(0,0, 0, 0);
+        setAnimations(0, 0, 0, 0);
         EventBus.getDefault().register(this);
         containersWithoutBackStack = new ArrayList<>();
     }
 
-    Fragment createFragment(Class fragmentClass){
+    Fragment createFragment(Class fragmentClass) {
         try {
             Constructor constructor = fragmentClass.getConstructor();
-            return (Fragment)constructor.newInstance();
+            return (Fragment) constructor.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,37 +51,36 @@ abstract class AbstractFragmentOrganizer {
 
     public abstract boolean handleBackNavigation();
 
-    public void freeUpResources(){
+    public void freeUpResources() {
         EventBus.getDefault().unregister(this);
     }
 
     //TODO @Filip change to be private
-    public Fragment getOpenFragment(){
-        String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() -1).getName();
+    public Fragment getOpenFragment() {
+        String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
         return fragmentManager.findFragmentByTag(tag);
     }
-    protected Fragment getBackFragment(){
+
+    public Fragment getBackFragment() {
         try {
-            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() -2).getName();
+            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName();
             return fragmentManager.findFragmentByTag(tag);
-        }
-        catch (Exception e)
-        {
-            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() -1).getName();
+        } catch (Exception e) {
+            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
             return fragmentManager.findFragmentByTag(tag);
         }
 
     }
 
-    private boolean isFragmentOpen(Fragment fragment){
+    private boolean isFragmentOpen(Fragment fragment) {
         return isFragmentOpen(fragment, true);
     }
 
-    private boolean isFragmentOpen(Fragment fragment, boolean useArgs){
+    private boolean isFragmentOpen(Fragment fragment, boolean useArgs) {
         String fragmentTag = createFragmentTag(fragment, useArgs);
         if (fragmentManager.getBackStackEntryCount() != 0) {
             String name = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
-            if(!useArgs) {
+            if (!useArgs) {
                 name = name.substring(0, name.indexOf('-'));
             }
             return name.equals(fragmentTag);
@@ -92,7 +91,7 @@ abstract class AbstractFragmentOrganizer {
     private String createFragmentTag(Fragment fragment, boolean addArgs) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(fragment.getClass().getSimpleName());
-        if(addArgs) {
+        if (addArgs) {
             stringBuilder.append("-");
             if (fragment.getArguments() != null)
                 stringBuilder.append(fragment.getArguments().toString());
@@ -100,8 +99,8 @@ abstract class AbstractFragmentOrganizer {
         return stringBuilder.toString();
     }
 
-    String openFragment(Fragment fragment, Bundle arguments , int containerId) {
-        if(arguments!=null){
+    String openFragment(Fragment fragment, Bundle arguments, int containerId) {
+        if (arguments != null) {
             fragment.setArguments(arguments);
         }
         return openFragment(fragment, containerId);
@@ -118,26 +117,27 @@ abstract class AbstractFragmentOrganizer {
 
 
     private String openFragment(Fragment fragment, int containerId) {
-        if(isFragmentOpen(fragment)||containerId<=0){
+        if (isFragmentOpen(fragment) || containerId <= 0) {
             return "";
         }
         String fragmentTag = createFragmentTag(fragment, true);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (enterAnimation !=0 && exitAnimation !=0 && popEnterAnimation !=0 && popExitAnimation !=0){
-            transaction.setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation,  popExitAnimation);
+        if (enterAnimation != 0 && exitAnimation != 0 && popEnterAnimation != 0 && popExitAnimation != 0) {
+            transaction.setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation);
         }
 //        Log.d(TAG,"OPEN FRAGMENT: " + fragmentTag);
 //        Log.d(TAG,"OPEN IN : " + containerId);
 
-        if(containersWithoutBackStack.contains(containerId)){ // this container is without back stack
+        if (containersWithoutBackStack.contains(containerId)) { // this container is without back stack
             Fragment currentFragment = getOpenFragment();
-            if(currentFragment!=null && containerId==getFragmentContainer(currentFragment.getClass())){ // if currentFragment is member of the same container, remove it!
+            if (currentFragment != null && containerId == getFragmentContainer(currentFragment.getClass())) { // if currentFragment is member of the same container, remove it!
                 transaction.remove(currentFragment); // remove current fragment
             }
         }
-        transaction.replace(containerId, fragment, fragmentTag);
         transaction.addToBackStack(fragmentTag);
+        transaction.replace(containerId, fragment, fragmentTag);
         transaction.commit();
+
         return fragmentTag;
     }
 }
