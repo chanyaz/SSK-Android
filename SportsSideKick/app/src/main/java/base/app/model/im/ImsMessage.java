@@ -3,11 +3,25 @@ package base.app.model.im;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.GSData;
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+import com.google.android.gms.tasks.TaskCompletionSource;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import base.app.GSAndroidPlatform;
 import base.app.model.DateUtils;
 import base.app.model.Model;
+
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
+import static base.app.model.GSConstants.GROUP_ID;
+import static base.app.model.GSConstants.MESSAGE;
+import static base.app.model.GSConstants.MESSAGE_ID;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -18,6 +32,10 @@ import base.app.model.Model;
 @JsonIgnoreProperties(ignoreUnknown = true,value={"imageAspectRatio","timestampEpoch","timeAgo"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ImsMessage {
+
+    private static final String TAG = "IMS MESSAGE";
+
+    private final ObjectMapper mapper; // jackson's object mapper
 
     private static final float ASPECT_RATIO_DEFAULT = 0.5625f;
 
@@ -30,7 +48,7 @@ public class ImsMessage {
     private String timestamp;
     private String imageUrl;
     private String vidUrl;
-    private HashMap<String, Boolean> wasReadBy;
+    private List<String> wasReadBy;
 
     // Upload info
     private String localPath;
@@ -40,9 +58,12 @@ public class ImsMessage {
     private String type;
 
 
-    public ImsMessage(){}
+    public ImsMessage(){
+        mapper = new ObjectMapper();
+    }
 
     public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {
+        mapper = new ObjectMapper();
         this.text = text;
         this.senderId = senderId;
         this.timestamp = timestamp;
@@ -62,7 +83,7 @@ public class ImsMessage {
     public void determineSelfReadFlag(){
         String userId = Model.getInstance().getUserInfo().getUserId();
         if(wasReadBy!=null){
-            for(String key : wasReadBy.keySet()){
+            for(String key : wasReadBy){
                 if(userId.equals(key)){
                     readFlag = true;
                 }
@@ -97,11 +118,11 @@ public class ImsMessage {
         return this;
     }
 
-    public HashMap<String, Boolean> getWasReadBy() {
+    public List<String> getWasReadBy() {
         return wasReadBy;
     }
 
-    public ImsMessage setWasReadBy(HashMap<String, Boolean> wasReadBy) {
+    public ImsMessage setWasReadBy(List<String> wasReadBy) {
         this.wasReadBy = wasReadBy;
         return this;
     }
@@ -206,4 +227,69 @@ public class ImsMessage {
     public void setLocid(String locid) {
         this.locid = locid;
     }
+
+    void imsUpdateMessage(ChatInfo chatInfo, String clubId, final TaskCompletionSource<ImsMessage> source){
+        Map<String, Object> map = mapper.convertValue(this, new TypeReference<Map<String, Object>>() {});
+        GSData data = new GSData(map);
+        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+                .setEventKey("imsMessageUpdate")
+                .setEventAttribute(GROUP_ID, chatInfo.getChatId())
+                .setEventAttribute(MESSAGE, data)
+                .setEventAttribute(MESSAGE_ID, data)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                        GSData messageInfo = response.getScriptData().getObject("message");
+                        if(messageInfo!=null){
+                            ImsMessage.this.updateFrom(messageInfo.getBaseData());
+                        }
+                        if(source!=null){
+                            source.setResult(ImsMessage.this); // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
+                        }
+                    }
+                });
+    }
+
+    void updateFrom(Map<String, Object> data){
+        if (data.containsKey("_id")) {
+            setId((String) data.get("_id"));
+        }
+        if (data.containsKey("locid")) {
+            setLocid((String) data.get("locid"));
+        }
+        if (data.containsKey("text")) {
+            setText((String) data.get("text"));
+        }
+        if (data.containsKey("senderId")) {
+            setSenderId((String) data.get("senderId"));
+        }
+        if (data.containsKey("imageUrl")) {
+            setImageUrl((String) data.get("imageUrl"));
+        }
+        if (data.containsKey("vidUrl")) {
+            setVidUrl((String) data.get("vidUrl"));
+        }
+        if (data.containsKey("localPath")) {
+            setLocalPath((String) data.get("localPath"));
+        }
+        if (data.containsKey("uploadStatus")) {
+            setUploadStatus((String) data.get("uploadStatus"));
+        }
+        if (data.containsKey("type")) {
+            setType((String) data.get("type"));
+        }
+        if (data.containsKey("wasReadBy")) {
+            ImsMessage message = setWasReadBy((List<String>) data.get("wasReadBy"));
+        }
+
+        if (data.containsKey("readFlag")) {
+            setReadFlag((Boolean) data.get("readFlag"));
+        }
+        if (data.containsKey("imageAspectRatio")) {
+            setImageAspectRatio((Float) data.get("imageAspectRatio"));
+        }
+
+    }
+
 }

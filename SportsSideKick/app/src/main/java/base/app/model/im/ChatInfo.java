@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import base.app.model.Model;
 import base.app.model.im.event.ChatNotificationsEvent;
@@ -28,6 +29,8 @@ import base.app.model.im.event.ChatUpdateEvent;
 import base.app.model.im.event.MessageUpdateEvent;
 import base.app.model.im.event.UserIsTypingEvent;
 import base.app.model.user.UserInfo;
+
+import static base.app.ClubConfig.CLUB_ID;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -54,10 +57,10 @@ public class ChatInfo {
     private int unreadCount = 0;
     private boolean isMuted = false;
     private boolean isOfficial = false;
+    @JsonProperty("club_id")
+    private String clubId;
 
-
-
-    public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial, String chatId) {
+    public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial, String chatId, String clubId) {
         super();
         owner = Model.getInstance().getUserInfo().getUserId();
         this.chatId = chatId;
@@ -70,6 +73,7 @@ public class ChatInfo {
         this.avatarUrl = avatarUrl;
         this.isPublic = isPublic;
         this.isOfficial = isOfficial;
+        this.clubId = clubId;
     }
     public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial) {
         super();
@@ -94,9 +98,11 @@ public class ChatInfo {
         setAvatarUrl(info.getAvatarUrl());
         setOwner(info.getOwner());
         setIsPublic(info.getIsPublic());
+        setOfficial(info.isOfficial());
         setBlackList(info.getBlackList());
         setIsMuted(info.getIsMuted());
         setUnreadCount(info.getUnreadCount());
+        setClubId(info.getClubId());
 
         // This is different from iOS - do we really need this?
         if(info.getMessages()!=null){
@@ -217,7 +223,7 @@ public class ChatInfo {
             if(msg.getId().equals(message.getId())){
                 messages.set(i,message);
             }
-            EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
+            EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
         }
         EventBus.getDefault().post(new ChatUpdateEvent(this));
     }
@@ -230,29 +236,32 @@ public class ChatInfo {
             @Override
             public void onComplete(@NonNull Task<List<ImsMessage>> task) {
                 if(task.isSuccessful()){
-                    List<ImsMessage> messagesNewPage =task.getResult();
-                    for(ImsMessage m : messagesNewPage){
-                        boolean exists = false;
-                        for(ImsMessage mOld : messages){
-                            if(m.getId().equals(mOld.getId())){
-                                exists = true;
-                            }
-                        }
-                        if(!exists){
-                            Log.d(TAG,"Adding message to list: " + m.getId());
-                            messages.add(m);
-                        }
-                    }
-                    sortMessages();
+//                    TODO - This code is not present on iOS!
+//                    List<ImsMessage> messagesNewPage = task.getResult();
+//                    for(ImsMessage m : messagesNewPage){
+//                        boolean exists = false;
+//                        for(ImsMessage mOld : messages){
+//                            if(m.getId().equals(mOld.getId())){
+//                                exists = true;
+//                            }
+//                        }
+//                        if(!exists){
+//                            Log.d(TAG,"Adding message to list: " + m.getId());
+//                            messages.add(m);
+//                        }
+//                    }
+//                    sortMessages();
+                    // Instead, we have this:
+                    messages.addAll(task.getResult());
+
                     EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
                     EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
                 }
-
             }
         });
     }
 
-
+    // TODO - This code is not present on iOS!
     private void sortMessages(){
         Collections.sort(messages, new Comparator<ImsMessage>() {
             @Override
@@ -261,14 +270,35 @@ public class ChatInfo {
             }
         });
     }
+
     /**
      * Send message to the chat
      * @param  message to send
      */
-    public void sendMessage(ImsMessage message){
+    public Task<ChatInfo> sendMessage(ImsMessage message){
         ImsManager.getInstance().imsSendMessageToChat(this, message);
         messages.add(message);
         EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+        return null; // TODO
+    }
+
+    public void updateMessage(final ImsMessage message, final TaskCompletionSource<ImsMessage> completion){
+        if(message.getId()==null){
+            if(completion!=null){
+                completion.setResult(message);
+            }
+        }
+        TaskCompletionSource<ImsMessage> updateMessageCompletion = new TaskCompletionSource<>();
+        message.imsUpdateMessage(this,String.valueOf(CLUB_ID),updateMessageCompletion );
+        updateMessageCompletion.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
+            @Override
+            public void onComplete(@NonNull Task<ImsMessage> task) {
+                if(completion!=null){
+                    completion.setResult(task.getResult());
+                }
+                EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
+            }
+        });
     }
 
     /**
@@ -298,13 +328,17 @@ public class ChatInfo {
      * Mark this message status as read for this user
      * @param  message to update
      */
-    public void markMessageAsRead(ImsMessage message){
+    public void markMessageAsRead(ImsMessage message) {
         message.setReadFlag(true);
-        ImsManager.getInstance().markMessageAsRead(this, message);
+        if (message.getId() != null) {
+            ImsManager.getInstance().markMessageAsRead(this, message);
+        }
     }
 
-
     public void addUser(UserInfo uinfo){
+        if(Model.getInstance().getUserInfo()==null){
+            return;
+        }
         String currentUserId = Model.getInstance().getUserInfo().getUserId();
         if(owner.equals(currentUserId)){
             usersIds.add(uinfo.getUserId());
@@ -506,6 +540,24 @@ public class ChatInfo {
         ImsManager.getInstance().setMuteChat(this,isMuted);
     }
 
+    public void updateMessage(Map<String, Object> data){
+        String messageId = (String)data.get("_id");
+        String locid = (String)data.get("locid");
+
+        if(messageId==null && locid == null){
+            Log.e(TAG, "Error: Can't identify message");
+            return;
+        }
+
+        for(ImsMessage message : messages){
+            if(message.getLocid().equals(locid) || message.getId().equals(messageId)){
+                message.updateFrom(data);
+                EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
+            }
+        }
+
+    }
+
     public void addReceivedMessage(ImsMessage message){
         if (message.getLocid() != null){
             for(ImsMessage m : messages){
@@ -624,4 +676,23 @@ public class ChatInfo {
     private void setUnreadCount(int unreadCount) {
         this.unreadCount = unreadCount;
     }
+
+    public boolean isOfficial() {
+        return isOfficial;
+    }
+
+    public void setOfficial(boolean official) {
+        isOfficial = official;
+    }
+
+    @JsonProperty("club_id")
+    public String getClubId() {
+        return clubId;
+    }
+
+    @JsonProperty("club_id")
+    public void setClubId(String clubId) {
+        this.clubId = clubId;
+    }
+
 }

@@ -45,6 +45,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -450,7 +452,12 @@ public class ChatFragment extends BaseFragment {
         if(Model.getInstance().isRealUser() && currentlyActiveChat != null) {
             ImsMessage message = ImsMessage.getDefaultMessage();
             message.setText(inputEditText.getText().toString().trim());
-            currentlyActiveChat.sendMessage(message);
+            currentlyActiveChat.sendMessage(message).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
+                @Override
+                public void onComplete(@NonNull Task<ChatInfo> task) {
+
+                }
+            });
             currentlyActiveChat.setUserIsTyping(false);
         }
         inputEditText.setText("");
