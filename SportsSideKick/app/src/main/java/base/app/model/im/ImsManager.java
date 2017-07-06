@@ -46,6 +46,7 @@ import static base.app.model.GSConstants.MESSAGE;
 import static base.app.model.GSConstants.MESSAGES;
 import static base.app.model.GSConstants.MESSAGE_PAGE_SIZE;
 import static base.app.model.GSConstants.OFFSET;
+import static base.app.model.GSConstants.OPERATION_NEW;
 import static base.app.model.GSConstants.USER_ID;
 import static base.app.model.Model.createRequest;
 
@@ -392,14 +393,14 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
      **/
 
     // do not use this function, call the chat info one!
-    void imsSendMessageToChat(ChatInfo chatInfo, ImsMessage message) {
+    Task<ImsMessage> imsSendMessageToChat(ChatInfo chatInfo, final ImsMessage message) {
+        final TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
         String nic = Model.getInstance().getUserInfo().getNicName();
         if (TextUtils.isEmpty(nic)) {
-            nic = "New User"; // Maybe sth like this -> Model.getInstance().getUserInfo().getFirstName();
+            nic = "New User";
         }
         message.setLocid(AWSFileUploader.generateMongoOID());
-        Map<String, Object> map = mapper.convertValue(message, new TypeReference<Map<String, Object>>() {
-        });
+        Map<String, Object> map = mapper.convertValue(message, new TypeReference<Map<String, Object>>() {});
         GSData data = new GSData(map);
 
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
@@ -408,7 +409,18 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())
                 .setEventAttribute(MESSAGE, data)
                 .setEventAttribute("senderNic", nic)
-                .send(null);
+                .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
+
+                       GSData messageInfo = response.getScriptData().getObject("result");
+                        if(messageInfo!=null){
+                            message.updateFrom(messageInfo.getBaseData());
+                        }
+                        // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
+                    }
+                });
+        return source.getTask();
     }
 
     //use chat notifyChatUpdate signal to track chat messages!
@@ -577,12 +589,18 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 }
                 break;
             case "ImsMessage":
-                ImsMessage message = mapper.convertValue(data.get(MESSAGE), ImsMessage.class);
+                String operation = (String) data.get(GSConstants.OPERATION);
+
                 ChatInfo chatInfo = getChatInfoById((String) data.get(CHAT_ID));
                 if (chatInfo != null) {
-                    chatInfo.addReceivedMessage(message);
+                    if(OPERATION_NEW.equals(operation)){
+                        ImsMessage message = mapper.convertValue(data.get(MESSAGE), ImsMessage.class);
+                        chatInfo.addReceivedMessage(message);
+                    } else {
+                        chatInfo.updateMessage(data);
+                    }
                 } else {
-                    Log.e(TAG, "UNHANDLED ImsMessage " + message + " Error: chat not found with id:" + data.get(CHAT_ID));
+                    Log.e(TAG, "UNHANDLED ImsMessage Error: chat not found with id:" + data.get(CHAT_ID));
                 }
                 break;
         }
