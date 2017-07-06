@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="?background_phone"
+    android:background="?colorPrimarySemiLight"
     android:clickable="true">
 
     <RelativeLayout
@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:clickable="true"
-        android:background="@drawable/phone_background"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
@@ -23,7 +22,6 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:src="?closeIcon"
-            android:visibility="gone"
             android:tint="?colorPrimaryLight"
             android:background="@null"/>
 
@@ -43,9 +41,8 @@
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_below="@+id/headline_container"
-        android:layout_alignParentStart="true">
+        android:layout_below="@id/headline_container"
+        android:clickable="true">
 
     <View
         android:id="@+id/edit_top_vertical_spliter"
@@ -59,14 +56,14 @@
         android:layout_toStartOf="@+id/edit_top_vertical_spliter"
         android:gravity="center"
         android:text="@string/edit_chat"
-        android:textColor="?white" />
+        android:textColor="?colorAccent" />
 
     <TextView
         android:id="@+id/join_a_chat"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_toEndOf="@+id/edit_top_vertical_spliter"
-        android:background="?green_dark_phone_3"
+        android:background="?green_dark_3"
         android:gravity="center"
         android:text="@string/join_chat"
         android:textColor="?white_semitransparent" />
@@ -117,14 +114,14 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_60"
         android:layout_below="@+id/edit_top_vertical_spliter"
-        android:background="?green_dark_phone_4"
+        android:background="?green_dark_2"
         android:gravity="start|center_vertical"
         android:hint="@string/group_chat_name"
         android:imeOptions="flagNoExtractUi"
         android:maxLines="1"
         android:layout_toEndOf="@id/chat_image_view"
         android:textColor="@color/white"
-        android:textColorHint="?white"
+        android:textColorHint="?white_semitransparent"
         android:textSize="@dimen/font_size_14"
         android:padding="@dimen/margin_20"/>
 
@@ -182,8 +179,6 @@
             android:padding="@dimen/half_margin"
             android:layout_centerVertical="true"
             android:paddingStart="@dimen/padding_8"
-            android:paddingTop="@dimen/padding_2"
-            android:paddingBottom="@dimen/padding_2"
             android:paddingEnd="@dimen/space_0"
             android:drawablePadding="@dimen/padding_8"/>
 
@@ -199,15 +194,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/delete"
                 android:textAllCaps="false"
+                android:layout_centerInParent="true"
                 android:background="@drawable/textview_semi_transparent_round"
                 android:textSize="@dimen/font_size_14"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:textColor="@color/white"
                 android:paddingStart="@dimen/padding_16"
-                android:paddingEnd="@dimen/padding_16"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:paddingEnd="@dimen/padding_16"/>
         </RelativeLayout>
     </RelativeLayout>
 
@@ -215,7 +209,7 @@
         android:id="@+id/friends_in_chat_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?green_dark_phone_3"
+        android:background="?green_dark_2"
         android:layout_above="@+id/confirm_button">
 
         <TextView
@@ -225,7 +219,7 @@
             android:layout_centerHorizontal="true"
             android:text="@string/friends_in_chat"
             android:textColor="@color/white"
-            android:padding="@dimen/padding_4"/>
+            android:padding="@dimen/padding_8"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/members_recycler_view"
@@ -255,14 +249,15 @@
     <Button
         android:id="@+id/confirm_button"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:background="?colorAccent"
         android:scaleType="centerInside"
         android:textColor="?green_dark_2"
         android:text="@string/save"
         android:textAllCaps="false"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentBottom="true"/>
 
     <base.app.util.ui.AutofitRecyclerView
         android:id="@+id/friends_recycler_view"

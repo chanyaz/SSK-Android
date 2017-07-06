@@ -103,7 +103,16 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     private PasswordResetReceiver passwordResetReceiver;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && !Utility.isTablet(getActivity())){
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class,true));
+        }
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.popup_login, container, false);
         ButterKnife.bind(this, view);
         this.loginStateReceiver = new LoginStateReceiver(this);
@@ -122,6 +131,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                 forgotPasswordContainer.setVisibility(View.INVISIBLE);
             }
         });
+
         // --- TODO For testing only!
 //        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
 //        passwordEditText.setText("qwerty");

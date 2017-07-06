@@ -22,6 +22,8 @@ import base.app.R;
 import base.app.adapter.FriendRequestsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.IgnoreBackHandling;
+import base.app.fragment.instance.WallFragment;
 import base.app.model.Model;
 import base.app.model.friendship.FriendRequest;
 import base.app.model.friendship.FriendsManager;
@@ -37,7 +39,7 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 
-
+@IgnoreBackHandling
 public class SignUpLoginFragment extends BaseFragment {
 
     @Nullable
@@ -46,6 +48,13 @@ public class SignUpLoginFragment extends BaseFragment {
 
     public SignUpLoginFragment() {
         // Required empty public constructor
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && !Utility.isTablet(getActivity())){
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class,true));
+        }
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -58,9 +67,7 @@ public class SignUpLoginFragment extends BaseFragment {
             text.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
         }
 
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
-            getActivity().onBackPressed();
-        }
+
 
         return view;
 

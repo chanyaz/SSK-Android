@@ -103,11 +103,23 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.2.4'
 
 //  Other Google libraries for Youtube
-    compile 'com.google.http-client:google-http-client-android:1.20.0'
-    compile 'com.google.api-client:google-api-client-android:1.20.0'
-    compile 'com.google.api-client:google-api-client-gson:1.20.0'
+    compile ('com.google.http-client:google-http-client-android:1.20.0')
+            {
+                exclude group: 'org.apache.httpcomponents'
+            }
+    compile ('com.google.api-client:google-api-client-android:1.20.0')
+            {
+                exclude group: 'org.apache.httpcomponents'
+            }
+    compile ('com.google.api-client:google-api-client-gson:1.20.0')
+            {
+                exclude group: 'org.apache.httpcomponents'
+            }
     compile files('libs/YoutubeAndroidPlayerApi.jar')
-    compile 'com.google.apis:google-api-services-youtube:v3-rev181-1.22.0'
+    compile ('com.google.apis:google-api-services-youtube:v3-rev181-1.22.0')
+            {
+                exclude group: 'org.apache.httpcomponents'
+            }
 
 //  Gamesparks SDK - whole backend is relying on it (it resides on maven)
     compile 'com.gamesparks.sdk:gamesparks-java-sdk:+'

@@ -74,6 +74,7 @@ import base.app.util.Utility;
 import base.app.util.ui.BlurBuilder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoungeActivity extends BaseActivity implements LoginStateReceiver.LoginStateListener {
@@ -110,8 +111,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     ImageView userLevelBackground;
     @BindView(R.id.user_level_progress)
     ProgressBar userLevelProgress;
-    @BindView(R.id.user_image_container)
-    RelativeLayout profileButton;
+
     @BindView(R.id.profile_image)
     ImageView profileImage;
     @BindView(R.id.profile_name)
@@ -250,12 +250,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         ((RadioButton) ButterKnife.findById(this, R.id.chat_radio_button)).setChecked(true);
         ((RadioButton) ButterKnife.findById(this, R.id.club_tv_radio_button)).setChecked(true);
 
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-            }
-        });
+
     }
 
 
@@ -327,7 +322,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     }
 
 
-
     private void setYourCoinsValue(String value) {
         yourCoinsValue.setText(value + " $$K");
     }
@@ -388,12 +382,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
             yourLevel.setText(String.valueOf(user.getLevel()));
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
 
-            profileButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
-                }
-            });
+
         } else {
             resetUserDetails();
         }
@@ -408,12 +397,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         profileName.setText("Login / Signup");
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
         ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-            }
-        });
+
     }
 
     @Override
@@ -435,6 +419,15 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
             if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             }
+        }
+    }
+
+    @OnClick({R.id.user_image_container, R.id.profile_name})
+    public void onLogin() {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+        } else {
+            EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
         }
     }
 
