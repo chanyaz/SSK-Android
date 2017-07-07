@@ -293,7 +293,7 @@ public class WallItemFragment extends BaseFragment {
 
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             post.setEnabled(true);
-        }else {
+        } else {
             post.setEnabled(false);
         }
 
@@ -344,7 +344,7 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.post_comment_button)
     public void postComment() {
-        if(Model.getInstance().isRealUser()){
+        if (Model.getInstance().isRealUser()) {
             PostComment comment = new PostComment();
             comment.setComment(post.getText().toString());
             comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
@@ -361,16 +361,16 @@ public class WallItemFragment extends BaseFragment {
     @Subscribe
     public void onCommentPosted(PostCommentCompleteEvent event) {
         postCommentProgressBar.setVisibility(View.GONE);
-        commentsAdapter.getComments().add(0,event.getComment());
+        commentsAdapter.getComments().add(0, event.getComment());
         commentsAdapter.notifyDataSetChanged();
         item.setCommentsCount(commentsAdapter.getComments().size());
         commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
 
     }
 
-    @OnClick({R.id.likes_icon_liked,R.id.likes_icon})
+    @OnClick({R.id.likes_icon_liked, R.id.likes_icon})
     public void togglePostLike() {
-        if(Model.getInstance().isRealUser()) {
+        if (Model.getInstance().isRealUser()) {
             if (item != null) {
                 item.toggleLike();
                 likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
@@ -390,16 +390,18 @@ public class WallItemFragment extends BaseFragment {
         }
     }
 
+    @Optional
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook(View view) {
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
-        }else {
+        } else {
             //TODO Notify user that need to login in order to SHARE
         }
 
     }
 
+    @Optional
     @OnClick(R.id.share_twitter)
     public void sharePostTwitter(View view) {
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
@@ -415,7 +417,7 @@ public class WallItemFragment extends BaseFragment {
                 e.printStackTrace();
                 Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
             }
-        }else {
+        } else {
             //TODO Notify user that need to login in order to SHARE
         }
 
