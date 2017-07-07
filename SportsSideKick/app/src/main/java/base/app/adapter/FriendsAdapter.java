@@ -113,7 +113,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         viewHolder = new ViewHolder(view);
         if (screenWidth != 0) {
             view.getLayoutParams().height = RelativeLayout.LayoutParams.MATCH_PARENT;
-
             view.getLayoutParams().width = screenWidth;
         }
         if (layout == -1) {

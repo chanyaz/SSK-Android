@@ -216,7 +216,6 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
             if (((WallNews) item).getUrl() != null)
                 if (!((WallNews) item).getUrl().equals("") && ((WallNews) item).getWallId().equals("")) {
                     socialNetworkSelector(context, itemAsMap, shareTarget);
-
                     return;
                 }
         itemToShare = null;

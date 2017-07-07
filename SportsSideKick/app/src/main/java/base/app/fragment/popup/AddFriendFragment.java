@@ -39,7 +39,7 @@ import base.app.model.friendship.PeopleSearchManager;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import butterknife.Optional;
-
+import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 /**
  * Created by Djordje Krutil on 29.3.2017..
  * Copyright by Hypercube d.o.o.
@@ -88,6 +88,8 @@ public class AddFriendFragment extends BaseFragment {
         if (isTablet) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             people.setLayoutManager(layoutManager);
+            int screenWidth = Utility.getDisplayWidth(getActivity());
+            adapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
             people.setAdapter(adapter);
         } else {
             setCommonFriendAdapter();
