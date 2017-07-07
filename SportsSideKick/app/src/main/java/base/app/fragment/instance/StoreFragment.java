@@ -65,6 +65,14 @@ public class StoreFragment extends BaseFragment {
         webContainer = view.findViewById(R.id.navigation_web_container);
 
         webView = (WebView) view.findViewById(R.id.web_view);
+
+        progressBar = (AVLoadingIndicatorView) view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        backButton = (ImageView) view.findViewById(R.id.back_button);
+        forwardButton = (ImageView) view.findViewById(R.id.forward_button);
+        shareToWallButton = (ImageView) view.findViewById(R.id.share_to_wall_button);
+        homeButton = (ImageView) view.findViewById(R.id.home_button);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
@@ -136,13 +144,7 @@ public class StoreFragment extends BaseFragment {
 
         webView.loadUrl(url);
 
-        progressBar = (AVLoadingIndicatorView) view.findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.VISIBLE);
 
-        backButton = (ImageView) view.findViewById(R.id.back_button);
-        forwardButton = (ImageView) view.findViewById(R.id.forward_button);
-        shareToWallButton = (ImageView) view.findViewById(R.id.share_to_wall_button);
-        homeButton = (ImageView) view.findViewById(R.id.home_button);
 
         backButton.setOnClickListener(goBackClickListener);
         forwardButton.setOnClickListener(goForwardClickListener);
