@@ -6,7 +6,10 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -15,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -33,6 +37,7 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,10 +58,9 @@ import base.app.util.ui.SlideTextAnimation;
  */
 public class Utility {
 
-    public static void slideText (TextView slideTextOne, TextView slideTextTwo, View circleOne, View circleTwo, boolean visibleTextOne, Context context)
-    {
+    public static void slideText(TextView slideTextOne, TextView slideTextTwo, View circleOne, View circleTwo, boolean visibleTextOne, Context context) {
         SlideTextAnimation animation = new SlideTextAnimation(context);
-        if(slideTextOne!=null && slideTextTwo!=null && circleOne!=null && circleTwo!=null) {
+        if (slideTextOne != null && slideTextTwo != null && circleOne != null && circleTwo != null) {
             if (visibleTextOne) {
                 slideTextOne.startAnimation(animation.moveLeft());
                 slideTextOne.setVisibility(View.VISIBLE);
@@ -76,9 +80,9 @@ public class Utility {
     }
 
 
-    private  static volatile DisplayImageOptions blankOptionsUser;
-    private  static volatile DisplayImageOptions blankOptions;
-    private  static volatile DisplayImageOptions wallItemOptions;
+    private static volatile DisplayImageOptions blankOptionsUser;
+    private static volatile DisplayImageOptions blankOptions;
+    private static volatile DisplayImageOptions wallItemOptions;
 
     public static DisplayImageOptions getImageOptionsForUsers() {
         if (blankOptionsUser != null) {
@@ -100,7 +104,8 @@ public class Utility {
         return blankOptionsUser;
     }
 
-    private  static volatile DisplayImageOptions roundedImageOptions;
+    private static volatile DisplayImageOptions roundedImageOptions;
+
     public static DisplayImageOptions getRoundedImageOptions() {
         if (roundedImageOptions != null) {
             return roundedImageOptions;
@@ -196,8 +201,7 @@ public class Utility {
         return false;
     }
 
-    public static void showAlertDialog(String title, String message, Context context)
-    {
+    public static void showAlertDialog(String title, String message, Context context) {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context, R.style.AlertDialog).create();
         alertDialog.setTitle(title);
@@ -211,43 +215,41 @@ public class Utility {
         alertDialog.show();
     }
 
-    public static long getDaysUntilMatch(long timeStamp){
-        Date netDate = (new Date(timeStamp*1000));
+    public static long getDaysUntilMatch(long timeStamp) {
+        Date netDate = (new Date(timeStamp * 1000));
         Date date = new Date();
         long diff = date.getTime() - netDate.getTime();
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
-    public static String getDate(long timeStamp){
-        try{
+    public static String getDate(long timeStamp) {
+        try {
             DateFormat sdf = new SimpleDateFormat("EEE dd MMM");
-            Date netDate = (new Date(timeStamp*1000));
+            Date netDate = (new Date(timeStamp * 1000));
             Date date = new Date();
             long diff = date.getTime() - netDate.getTime();
             long daysTo = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
             StringBuilder sb = new StringBuilder(String.valueOf(daysTo));
             return sdf.format(diff);
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return "xx";
         }
     }
 
-    public static String getDateForMatch(long timeStamp){
-        try{
+    public static String getDateForMatch(long timeStamp) {
+        try {
             DateFormat sdf = new SimpleDateFormat("EEE dd MMM");
-            Date netDate = (new Date(timeStamp*1000));
+            Date netDate = (new Date(timeStamp * 1000));
             return sdf.format(netDate);
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return "xx";
         }
     }
 
-    public static String getTimeAgo(long timeStamp){
+    public static String getTimeAgo(long timeStamp) {
         //milliseconds
         Date date = new Date();
-        long different = date.getTime() - timeStamp*1000;
+        long different = date.getTime() - timeStamp * 1000;
 
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
@@ -262,14 +264,13 @@ public class Utility {
         return elapsedDays + " Days " + elapsedHours + " Hours ago";
     }
 
-    public static long getTimeDifference(long timeStamp){
-        try{
-            Date netDate = (new Date(timeStamp*1000));
+    public static long getTimeDifference(long timeStamp) {
+        try {
+            Date netDate = (new Date(timeStamp * 1000));
             Date date = new Date();
             long diff = date.getTime() - netDate.getTime();
             return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return 0;
         }
     }
@@ -290,11 +291,12 @@ public class Utility {
     }
 
 
-    public static float convertDpToPixel(float dp, Context context){
+    public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        return dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
+
     public static int getDisplayWidth(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
@@ -311,8 +313,7 @@ public class Utility {
         return size.y;
     }
 
-    public static HashMap<String, String> getClubConfig ()
-    {
+    public static HashMap<String, String> getClubConfig() {
         HashMap<String, String> config = new HashMap<>();
         config.put("Country", Prefs.getString("Country", "portugal"));
         config.put("Language", Prefs.getString("Language", "en"));
@@ -320,21 +321,20 @@ public class Utility {
         return config;
     }
 
-    public static void setClubConfig(String country, String id, String language)
-    {
+    public static void setClubConfig(String country, String id, String language) {
         Prefs.putString("Country", country);
         Prefs.putString("Language", language);
         Prefs.putString("ID", id);
     }
 
     public static void hideKeyboardFrom(Activity activity, View view, boolean hasFocus) {
-        if(!hasFocus) {
+        if (!hasFocus) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
-    public static void hideKeyboard(Activity activity){
+    public static void hideKeyboard(Activity activity) {
         try {
             InputMethodManager inputMethodManager =
                     (InputMethodManager) activity.getSystemService(
@@ -375,9 +375,9 @@ public class Utility {
     public static List<UserInfo> filter(List<UserInfo> users, String query) {
         String lowerCaseQuery = query.toLowerCase();
         List<UserInfo> filteredUserslList = new ArrayList<>();
-        if(users!=null){
+        if (users != null) {
             for (UserInfo user : users) {
-                String text =(user.getFirstName() + user.getLastName() + user.getNicName()).toLowerCase();
+                String text = (user.getFirstName() + user.getLastName() + user.getNicName()).toLowerCase();
                 if (text.contains(lowerCaseQuery)) {
                     filteredUserslList.add(user);
                 }
@@ -386,8 +386,8 @@ public class Utility {
         return filteredUserslList;
     }
 
-    public static Boolean isTablet(Context context){
-       return context.getResources().getBoolean(R.bool.is_tablet);
+    public static Boolean isTablet(Context context) {
+        return context.getResources().getBoolean(R.bool.is_tablet);
     }
 
     public static void setSystemBarColor(Activity activity) {
@@ -402,14 +402,16 @@ public class Utility {
             }
         }
     }
-    public static boolean isKitKat(){
-       return Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT;
+
+    public static boolean isKitKat() {
+        return Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT;
     }
-    public static boolean isLollipopAndUp(){
+
+    public static boolean isLollipopAndUp() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
-    public static boolean isNandUp(){
+    public static boolean isNandUp() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
     }
 
@@ -418,13 +420,44 @@ public class Utility {
     }
 
     @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+            result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+    public static Bitmap getBitmapFromView(View view) {
+        //Define a bitmap with the same size as the view
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        //Bind a canvas to it
+        Canvas canvas = new Canvas(returnedBitmap);
+        //Get the view's background
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null)
+            //has background drawable, then draw it on the canvas
+            bgDrawable.draw(canvas);
+        else
+            //does not have background drawable, then draw white background on the canvas
+            canvas.drawColor(Color.WHITE);
+        // draw the view on the canvas
+        view.draw(canvas);
+        //return the bitmap
+        return returnedBitmap;
+    }
+
+    public static String getBase64String(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, baos);
+
+        byte[] imageBytes = baos.toByteArray();
+
+        String base64String = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
+
+        return base64String;
     }
 }

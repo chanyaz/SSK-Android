@@ -91,18 +91,19 @@ public class StoreFragment extends BaseFragment {
                     Log.d("WEB VIEW", "Product page!");
                     homeButton.setVisibility(View.VISIBLE);
                     item = new WallStoreItem();
+
                     item.setType(WallBase.PostType.wallStoreItem);
                     item.setPoster(Model.getInstance().getUserInfo());
-                    if (url.toLowerCase().contains(getResources().getString(R.string.store_url_item).toLowerCase())) {
+                    if (url.toLowerCase().contains(getResources().getString(R.string.store_url_item).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item2).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item3).toLowerCase())) {
                         shareToWallButton.setVisibility(View.VISIBLE);
+                    } else {
+                        shareToWallButton.setVisibility(View.GONE);
                     }
 
-                    //TODO @Djordje Krutil why, min sdk is 17 ?
-                    if (android.os.Build.VERSION.SDK_INT > 9) {
-                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                        StrictMode.setThreadPolicy(policy);
-                    }
-
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
                     Elements imageDiv;
                     Elements priceDiv;
                     try {
@@ -151,7 +152,11 @@ public class StoreFragment extends BaseFragment {
 
         backButton.setOnClickListener(goBackClickListener);
         forwardButton.setOnClickListener(goForwardClickListener);
-        if (Model.getInstance().isRealUser()) {
+        if (Model.getInstance().
+
+                isRealUser())
+
+        {
             shareToWallButton.setOnClickListener(shareToWallOnClickListener);
         }
 
