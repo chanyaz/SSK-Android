@@ -466,8 +466,8 @@
 
 
 
-    <string name="permission_storage_rationale">Please Allow storage permission.</string>
-    <string name="permission_storage_denied">You need to enable permission in settings </string>
+    <string name="permission_storage_rationale">You need to enable Write permission.</string>
+    <string name="permission_storage_denied">You need to enable Write permission in settings </string>
     <string name="permission_storage_neverask">Never ask again.</string>
 
 </resources>
