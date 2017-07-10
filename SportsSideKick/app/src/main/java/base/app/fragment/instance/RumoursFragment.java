@@ -1,6 +1,8 @@
 package base.app.fragment.instance;
 
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
@@ -26,13 +28,20 @@ import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.RumoursNewsListAdapter;
 import base.app.adapter.RumoursTopFourNewsAdapter;
 import base.app.fragment.BaseFragment;
+import base.app.model.AlertDialogManager;
+import base.app.model.Model;
 import base.app.model.news.NewsModel;
 import base.app.model.news.NewsPageEvent;
+import base.app.model.sharing.SharingManager;
+import base.app.model.wall.WallModel;
+import base.app.model.wall.WallNews;
+import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import base.app.util.ui.GridSpacingItemDecoration;
 import base.app.util.ui.LinearItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Djordje on 01/03/2017.
@@ -149,7 +158,8 @@ public class RumoursFragment extends BaseFragment {
                     public void onSwipeOptionClicked(int viewID, int position) {
                         if (viewID == R.id.row_rumours_swipe_share) {
                             // Handle click on Share Button
-                            Toast.makeText(getActivity(),"To be implemented !",Toast.LENGTH_SHORT).show();
+                            pinToWall(rumoursSmallAdapter.getValues().get(position));
+
                         }
                     }
                 });
@@ -192,4 +202,42 @@ public class RumoursFragment extends BaseFragment {
         super.onPause();
         rumourRecyclerView.removeOnItemTouchListener(onTouchListener);
     }
+
+    public void pinToWall(final WallNews item) {
+        if(Model.getInstance().isRealUser()){
+            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
+                    new View.OnClickListener() {// Cancel
+                        @Override
+                        public void onClick(View v) {
+                            getActivity().onBackPressed();
+                        }
+                    }, new View.OnClickListener() { // Confirm
+                        @Override
+                        public void onClick(View v) {
+                            WallNews itemToPost = new WallNews();
+                            itemToPost.setBodyText(item.getBodyText());
+                            itemToPost.setTitle(item.getTitle());
+
+                            if(item.getSource()!=null){
+                                itemToPost.setSubTitle(item.getSource());
+                            } else {
+                                itemToPost.setSubTitle("");
+                            }
+
+                            itemToPost.setTimestamp((double) System.currentTimeMillis());
+                            itemToPost.setCoverAspectRatio(0.666666f);
+                            if(item.getCoverImageUrl()!=null){
+                                itemToPost.setCoverImageUrl(item.getCoverImageUrl());
+                            }
+                            WallModel.getInstance().mbPost(itemToPost);
+                            getActivity().onBackPressed();
+                        }
+                    });
+        }else {
+            //TODO notify user
+        }
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
+    }
+
+
 }
