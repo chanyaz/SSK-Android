@@ -1,6 +1,7 @@
 package base.app.fragment.instance;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.Build;
@@ -27,6 +28,7 @@ import com.google.api.services.youtube.model.Video;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.activity.PhoneLoungeActivity;
+import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -87,7 +89,9 @@ public class YoutubePlayerFragment extends BaseFragment implements
         transaction.add(R.id.youtube_layout, youTubePlayerFragment).commit();
         youTubePlayerFragment.initialize(Constant.YOUTUBE_API_KEY, this);
         ButterKnife.bind(this, view);
-
+        if (!Utility.isTablet(getActivity())) {
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }
         if (getPrimaryArgument() != null) {
             video = ClubModel.getInstance().getVideoById(getPrimaryArgument());
         } else {
@@ -293,6 +297,14 @@ public class YoutubePlayerFragment extends BaseFragment implements
         FragmentEvent fragmentEvent = new FragmentEvent(ClubTvPlaylistFragment.class, true);
         fragmentEvent.setId(ClubModel.getInstance().getPlaylistId(video));
         EventBus.getDefault().post(fragmentEvent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (!Utility.isTablet(getActivity())) {
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        super.onDestroyView();
     }
 
     @Override
