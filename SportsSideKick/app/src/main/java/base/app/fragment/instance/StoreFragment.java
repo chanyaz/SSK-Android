@@ -93,6 +93,10 @@ public class StoreFragment extends BaseFragment {
                     item = new WallStoreItem();
                     item.setType(WallBase.PostType.wallStoreItem);
                     item.setPoster(Model.getInstance().getUserInfo());
+                    if (url.toLowerCase().contains(getResources().getString(R.string.store_url_item).toLowerCase())) {
+                        shareToWallButton.setVisibility(View.VISIBLE);
+                    }
+
                     //TODO @Djordje Krutil why, min sdk is 17 ?
                     if (android.os.Build.VERSION.SDK_INT > 9) {
                         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -135,7 +139,7 @@ public class StoreFragment extends BaseFragment {
                         item.setCoverImageUrl(absoluteUrl);
                         item.setTimestamp((double) System.currentTimeMillis());
 
-                        shareToWallButton.setVisibility(View.VISIBLE);
+
                     }
                 }
                 Log.d("WEB VIEW", "Loaded successfully!");
@@ -145,10 +149,9 @@ public class StoreFragment extends BaseFragment {
         webView.loadUrl(url);
 
 
-
         backButton.setOnClickListener(goBackClickListener);
         forwardButton.setOnClickListener(goForwardClickListener);
-        if(Model.getInstance().isRealUser()){
+        if (Model.getInstance().isRealUser()) {
             shareToWallButton.setOnClickListener(shareToWallOnClickListener);
         }
 

@@ -234,7 +234,7 @@ public class RumoursFragment extends BaseFragment {
                         }
                     });
         }else {
-            //TODO notify user
+
         }
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }

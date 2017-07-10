@@ -2,6 +2,8 @@
 <resources>
     <string name="stats_url">http://hosted.stats.com/matchcast/football/clients/stats/index-new.html?lang=en&amp;league=liga</string>
     <string name="store_url">https://lojaverde.sporting.pt/en</string>
+    <string name="store_url_item">https://lojaverde.sporting.pt/en/equipments/match-equipment</string>
+
     <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
     <string name="quiz_url">http://sidekick.snack-media.com/quiz-list-en.html</string>
     <string name="clubtv_channelid">UCnJj6L93JX3Jrhzv81ayywA</string>
