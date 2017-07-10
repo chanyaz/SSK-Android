@@ -89,9 +89,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
         transaction.add(R.id.youtube_layout, youTubePlayerFragment).commit();
         youTubePlayerFragment.initialize(Constant.YOUTUBE_API_KEY, this);
         ButterKnife.bind(this, view);
-        if (!Utility.isTablet(getActivity())) {
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        }
+
         if (getPrimaryArgument() != null) {
             video = ClubModel.getInstance().getVideoById(getPrimaryArgument());
         } else {
@@ -173,12 +171,18 @@ public class YoutubePlayerFragment extends BaseFragment implements
     @Override
     public void onPlaying() {
         Log.d(TAG, "onPlaying");
+        if (!Utility.isTablet(getActivity())) {
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }
         playButton.setSelected(true);
         beginPlaybackUpdates();
     }
 
     @Override
     public void onPaused() {
+        if (!Utility.isTablet(getActivity())) {
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         playButton.setSelected(false);
     }
 
@@ -301,9 +305,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @Override
     public void onDestroyView() {
-        if (!Utility.isTablet(getActivity())) {
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
+
         super.onDestroyView();
     }
 
