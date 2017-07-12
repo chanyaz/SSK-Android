@@ -203,6 +203,11 @@
 
 
     </style>
+
+
+    <style name="fontTitilliumWebLight">
+        <item name="fontPath">fonts/TitilliumWeb-Light.ttf</item>
+    </style>
     <!--*********************************************************************************************-->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->

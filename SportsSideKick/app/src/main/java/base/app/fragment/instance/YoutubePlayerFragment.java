@@ -189,6 +189,9 @@ public class YoutubePlayerFragment extends BaseFragment implements
     @Override
     public void onStopped() {
         playButton.setSelected(false);
+        if (!Utility.isTablet(getActivity())) {
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 
     @Override
@@ -305,7 +308,9 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @Override
     public void onDestroyView() {
-
+        if (!Utility.isTablet(getActivity())) {
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         super.onDestroyView();
     }
 
@@ -316,6 +321,8 @@ public class YoutubePlayerFragment extends BaseFragment implements
             player.release();
             player = null;
         }
+
+
         super.onDestroy();
     }
 

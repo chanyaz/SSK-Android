@@ -390,6 +390,20 @@ public class Utility {
         return context.getResources().getBoolean(R.bool.is_tablet);
     }
 
+
+    public static Boolean isTablet2(Activity context) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        context.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        float yInches = metrics.heightPixels / metrics.ydpi;
+        float xInches = metrics.widthPixels / metrics.xdpi;
+        double diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
+        if (diagonalInches >= 7) {
+           return true;
+        } else {
+           return false;
+        }
+    }
+
     public static void setSystemBarColor(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.system_bar_color));

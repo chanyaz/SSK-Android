@@ -16,7 +16,7 @@
     <color name="lightGrey">#9ba1a3</color>
     <color name="white">#ffffff</color>
     <color name="white_semitransparent">#5fffffff</color>
-    <color name="light_green_1">#c3ff01</color>
+    <color name="light_green_1">#c3ff00</color>
     <color name="grey_b2b2b2">#b2b2b2</color>
     <color name="demo_yellow_semitransparent">#70ffef14</color>
     <color name="demo_green_semitransparent">#7a3ec722</color>
@@ -25,7 +25,7 @@
     <color name="black_transparent_154">#9a000000</color>
     <color name="green_dark_5_semitransparent">#8C00181e</color>
     <color name="facebook_blue">#3b5998</color>
-
+    <color name="green_dark_6">#01454b</color>
 
     <color name="wall_comment_color">#4d4e4c</color>
     <color name="wall_shop_description_background">#f6f7fa</color>
@@ -60,7 +60,7 @@
     <color name="light_colorAccent">#ffe324</color>
     <color name="light_colorAccentLight">#215456</color>
     <color name="light_colorPrimary">#00363b</color>
-    <color name="light_colorPrimarySemiLight">#266263</color> 
+    <color name="light_colorPrimarySemiLight">#266263</color>
     <color name="light_colorPrimaryLight">#00ab8d</color>
     <color name="light_green_dark_4">#162731</color>
     <color name="light_green_dark_3">#032227</color>
