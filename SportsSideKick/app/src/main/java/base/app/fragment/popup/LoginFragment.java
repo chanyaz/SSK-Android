@@ -131,7 +131,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         this.loginStateReceiver = new LoginStateReceiver(this);
         this.passwordResetReceiver = new PasswordResetReceiver(this);
         initFacebook();
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+
         if (titleText != null) {
             titleText.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
         }
@@ -152,6 +153,9 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         // ---
 
         if (Utility.isTablet(getActivity()))
+        {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
             new KeyboardChangeListener(getActivity()).setKeyBoardListener(new KeyboardChangeListener.KeyBoardListener() {
                 @Override
                 public void onKeyboardChange(boolean isShow, int keyboardHeight) {
@@ -174,6 +178,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                     }
                 }
             });
+        }
         return view;
     }
 
@@ -226,7 +231,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @Override
     public void onDestroyView() {
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onDestroyView();
     }
 

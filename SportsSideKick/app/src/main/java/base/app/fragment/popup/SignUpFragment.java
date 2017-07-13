@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,18 +58,18 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
     @BindView(R.id.sign_up_progress_bar)
     AVLoadingIndicatorView progressBar;
-
     @BindView(R.id.sign_up_text)
     TextView signUpText;
-
     @BindView(R.id.sign_up_firstname)
     TextView firstName;
     @BindView(R.id.sign_up_lastname)
     TextView lastName;
     @BindView(R.id.sign_up_email)
     TextView email;
+    @Nullable
     @BindView(R.id.sign_up_display_name)
     TextView displayName;
+    @Nullable
     @BindView(R.id.sign_up_phone)
     TextView phone;
     @BindView(R.id.sign_up_password)
@@ -83,10 +84,11 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public SignUpFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && !Utility.isTablet(getActivity())){
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class,true));
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && !Utility.isTablet(getActivity())) {
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
         }
         super.onCreate(savedInstanceState);
     }
@@ -96,6 +98,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
         View view = inflater.inflate(R.layout.popup_signup, container, false);
         ButterKnife.bind(this, view);
+        if (Utility.isTablet(getActivity())) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        }
         this.registrationStateReceiver = new RegistrationStateReceiver(this);
 
         initFacebook();
@@ -103,7 +108,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         return view;
     }
 
-    private void initFacebook(){
+    private void initFacebook() {
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
         callbackManager = CallbackManager.Factory.create();
         // Callback registration
@@ -121,7 +126,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
                                     email.setText(object.getString("email"));
                                     firstName.setText(object.getString("first_name"));
                                     lastName.setText(object.getString("last_name"));
-                                    displayName.setText(object.getString("first_name") + " " + object.getString("last_name"));
+                                    if (displayName != null) {
+                                        displayName.setText(object.getString("first_name") + " " + object.getString("last_name"));
+                                    }
                                     LoginManager.getInstance().logOut();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -145,21 +152,32 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         });
     }
 
+    @Override
+    public void onDestroyView() {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        super.onDestroyView();
+    }
+
+    @Optional
     @OnLongClick(R.id.or_label)
     public boolean populateWithDemoData() {
         Haikunator haikunator = new HaikunatorBuilder().setTokenLength(0).setDelimiter(" ").build();
         String name = haikunator.haikunate();
         firstName.setText(WordUtils.capitalize(name.substring(0, name.indexOf(" "))));
         lastName.setText(WordUtils.capitalize(name.substring(name.indexOf(" ") + 1)));
-        displayName.setText(name);
-        phone.setText(
-                new HaikunatorBuilder()
-                        .setTokenLength(10)
-                        .setDelimiter("")
-                        .setTokenChars("0123456789")
-                        .build()
-                        .haikunate().replaceAll("[^\\d.]", "")
-        );
+        if (displayName != null) {
+            displayName.setText(name);
+        }
+        if (phone != null) {
+            phone.setText(
+                    new HaikunatorBuilder()
+                            .setTokenLength(10)
+                            .setDelimiter("")
+                            .setTokenChars("0123456789")
+                            .build()
+                            .haikunate().replaceAll("[^\\d.]", "")
+            );
+        }
         email.setText(name.replace(" ", "@") + ".com");
         password.setText("qwerty");
         return true;
@@ -172,9 +190,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         if (TextUtils.isEmpty(firstName.getText()) ||
                 TextUtils.isEmpty(lastName.getText()) ||
                 TextUtils.isEmpty(email.getText()) ||
-                TextUtils.isEmpty(displayName.getText()) ||
+                TextUtils.isEmpty(displayName != null ? displayName.getText() : "string") ||
                 TextUtils.isEmpty(password.getText()) ||
-                TextUtils.isEmpty(phone.getText())) {
+                TextUtils.isEmpty(phone != null ? phone.getText() : "string")) {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.fiil_all_data), Toast.LENGTH_LONG).show();
         } else {
 
@@ -192,23 +210,28 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             HashMap<String, Object> userDetails = new HashMap<>();
             userDetails.put(GSConstants.FIRST_NAME, firstName.getText().toString());
             userDetails.put(GSConstants.LAST_NAME, lastName.getText().toString());
-            userDetails.put(GSConstants.PHONE, phone.getText().toString());
+            if (phone != null)
+                userDetails.put(GSConstants.PHONE, phone.getText().toString());
             userDetails.put(GSConstants.EMAIL, email.getText().toString());
             signUpText.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-            Model.getInstance().registrationRequest(
-                    displayName.getText().toString(),
-                    password.getText().toString(),
-                    email.getText().toString(),
-                    userDetails);
+
+            if (displayName != null) {
+                Model.getInstance().registrationRequest(
+                        displayName.getText().toString(),
+                        password.getText().toString(),
+                        email.getText().toString(),
+                        userDetails);
+            } else {
+                Model.getInstance().registrationRequest(
+                        firstName.getText().toString() + lastName.getText().toString(),
+                        password.getText().toString(),
+                        email.getText().toString(),
+                        userDetails);
+            }
         }
     }
 
-    @Optional
-    @OnClick(R.id.sign_up_login_button)
-    public void loginOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-    }
 
     @Override
     public void onDestroy() {
@@ -220,7 +243,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegister() {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
-        if(Utility.isTablet(getActivity())){
+        if (Utility.isTablet(getActivity())) {
             getActivity().onBackPressed();
         }
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
