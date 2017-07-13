@@ -24,6 +24,8 @@
     <color name="demo_red_semitransparent">#56ff0000</color>
     <color name="black_transparent_154">#9a000000</color>
     <color name="green_dark_5_semitransparent">#8C00181e</color>
+    <color name="green_login_semitransparent">#99021119</color>
+
     <color name="facebook_blue">#3b5998</color>
     <color name="green_dark_6">#01454b</color>
 
@@ -44,6 +46,8 @@
 
     <color name="wall_tip_text_caption_color">#4d4e4c</color>
     <color name="wall_tip_text_content_color">#4d4e4c</color>
+    <color name="text_shadow">#590b0c0c</color>
+
 
     <!--Phone Color-->
     <color name="gray_menu">#d3d4d8</color>

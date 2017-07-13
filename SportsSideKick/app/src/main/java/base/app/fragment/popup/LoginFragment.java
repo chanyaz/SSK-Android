@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import java.util.Arrays;
 
 import base.app.fragment.instance.WallFragment;
 import base.app.model.user.RegistrationStateReceiver;
+import base.app.util.KeyboardChangeListener;
 import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,9 +75,20 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @BindView(R.id.forgot_password_back)
     ImageView forgotPasswordBack;
+    @Nullable
+    @BindView(R.id.image_logo)
+    ImageView imageLogo;
+    @Nullable
+    @BindView(R.id.logo_fq_image)
+    ImageView logoFqImage;
+    @Nullable
+    @BindView(R.id.image_player)
+    ImageView imagePlayer;
 
-    @BindView(R.id.container)
-    RelativeLayout mainContentContainer;
+
+    @Nullable
+    @BindView(R.id.forgot_button)
+    TextView forgotButton;
     @Nullable
     @BindView(R.id.title_text)
     TextView titleText;
@@ -104,8 +117,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && !Utility.isTablet(getActivity())){
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class,true));
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && !Utility.isTablet(getActivity())) {
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
         }
         super.onCreate(savedInstanceState);
     }
@@ -117,8 +130,9 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         ButterKnife.bind(this, view);
         this.loginStateReceiver = new LoginStateReceiver(this);
         this.passwordResetReceiver = new PasswordResetReceiver(this);
-        if (!Utility.isTablet(getActivity())) {
-            initFacebook();
+        initFacebook();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        if (titleText != null) {
             titleText.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
         }
 
@@ -128,7 +142,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                 loginContainer.setVisibility(View.VISIBLE);
                 loginButtonContainer.setVisibility(View.VISIBLE);
                 resetButtonContainer.setVisibility(View.INVISIBLE);
-                forgotPasswordContainer.setVisibility(View.INVISIBLE);
+                forgotPasswordContainer.setVisibility(View.GONE);
             }
         });
 
@@ -136,6 +150,30 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 //        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
 //        passwordEditText.setText("qwerty");
         // ---
+
+        if (Utility.isTablet(getActivity()))
+            new KeyboardChangeListener(getActivity()).setKeyBoardListener(new KeyboardChangeListener.KeyBoardListener() {
+                @Override
+                public void onKeyboardChange(boolean isShow, int keyboardHeight) {
+                    if (isShow) {
+                        titleText.setVisibility(View.GONE);
+                        imageLogo.setVisibility(View.GONE);
+                        logoFqImage.setVisibility(View.GONE);
+                        forgotButton.setVisibility(View.GONE);
+                        imagePlayer.setImageResource(R.drawable.background_kayboard_open);
+
+
+                    } else {
+                        titleText.setVisibility(View.VISIBLE);
+                        imageLogo.setVisibility(View.VISIBLE);
+                        logoFqImage.setVisibility(View.VISIBLE);
+                        forgotButton.setVisibility(View.VISIBLE);
+                        imagePlayer.setImageResource(R.drawable.video_chat_background);
+
+
+                    }
+                }
+            });
         return view;
     }
 
@@ -186,6 +224,12 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         EventBus.getDefault().unregister(passwordResetReceiver);
     }
 
+    @Override
+    public void onDestroyView() {
+
+        super.onDestroyView();
+    }
+
     @OnClick(R.id.bottom_buttons_container_login)
     public void loginOnClick() {
         String email = emailEditText.getText().toString();
@@ -221,18 +265,25 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         getActivity().onBackPressed();
     }
 
-    @Optional
-    @OnClick(R.id.sign_up_button)
-    public void signUpOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(base.app.fragment.popup.SignUpFragment.class));
-
-    }
+//    @Optional
+//    @OnClick(R.id.sign_up_button)
+//    public void signUpOnClick() {
+//        EventBus.getDefault().post(new FragmentEvent(base.app.fragment.popup.SignUpFragment.class));
+//
+//    }
 
     @Optional
     @OnClick(R.id.forgot_button)
     public void forgotOnClick() {
-        loginContainer.setVisibility(View.INVISIBLE);
-        loginButtonContainer.setVisibility(View.INVISIBLE);
+        if (Utility.isTablet(getActivity())) {
+            loginButtonContainer.setVisibility(View.GONE);
+            loginContainer.setVisibility(View.GONE);
+        } else {
+            loginContainer.setVisibility(View.INVISIBLE);
+            loginButtonContainer.setVisibility(View.INVISIBLE);
+        }
+
+
         resetButtonContainer.setVisibility(View.VISIBLE);
         forgotPasswordContainer.setVisibility(View.VISIBLE);
     }
@@ -253,7 +304,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
-        if(Utility.isTablet(getActivity())){
+        if (Utility.isTablet(getActivity())) {
             getActivity().onBackPressed();
         }
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));

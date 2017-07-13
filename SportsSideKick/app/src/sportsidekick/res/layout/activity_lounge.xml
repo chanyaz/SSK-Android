@@ -578,7 +578,14 @@
         android:clickable="true"
         android:gravity="center"
         android:visibility="gone" />
-
+    <!-- POPUP LOGIN HOLDER -->
+    <RelativeLayout
+        android:id="@+id/popup_login_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone" />
     <!-- POPUP HOLDER -->
     <RelativeLayout
         android:id="@+id/popup_holder"

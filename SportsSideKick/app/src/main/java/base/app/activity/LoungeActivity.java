@@ -88,6 +88,8 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     View fragmentContainerLeft;
     @BindView(R.id.tabs_container_top_right)
     View fragmentContainerTopRight;
+    @BindView(R.id.popup_login_holder)
+    View popupLoginHolder;
     @BindView(R.id.bottom_right_container)
     View fragmentContainerBottomRight;
     @BindView(R.id.scrolling_news_title)
@@ -128,6 +130,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     @BindView(R.id.user_coin_icon)
     ImageView userCoinIcon;
 
+    ArrayList<Class>  loginContainerFragments;
     @BindView(R.id.splash)
     View splash;
 
@@ -185,7 +188,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         leftContainerFragments.add(StoreFragment.class);
         leftContainerFragments.add(NewsItemFragment.class);
         leftContainerFragments.add(WallItemFragment.class);
-        leftContainerFragments.add(SignUpLoginFragment.class);
+      //  leftContainerFragments.add(SignUpLoginFragment.class);
         fragmentOrganizer.setUpContainer(R.id.tabs_container_1, leftContainerFragments);
 
         ArrayList<Class> topRightContainerFragments = new ArrayList<>();
@@ -213,8 +216,8 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         popupContainerFragments.add(FriendRequestsFragment.class);
         popupContainerFragments.add(StartingNewCallFragment.class);
         popupContainerFragments.add(EditProfileFragment.class);
-        popupContainerFragments.add(LoginFragment.class);
-        popupContainerFragments.add(SignUpFragment.class);
+      //  popupContainerFragments.add(LoginFragment.class);
+      //  popupContainerFragments.add(SignUpFragment.class);
         popupContainerFragments.add(MemberInfoFragment.class);
         popupContainerFragments.add(FollowersFragment.class);
         popupContainerFragments.add(FollowingFragment.class);
@@ -223,12 +226,20 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         popupContainerFragments.add(AlertDialogFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder, popupContainerFragments, true);
 
+
+        loginContainerFragments = new ArrayList<>();
+        loginContainerFragments.add(SignUpLoginFragment.class);
+        loginContainerFragments.add(SignUpFragment.class);
+        loginContainerFragments.add(LoginFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments, true);
         //Fragments that slides in
         slidePopupContainerFragments = new ArrayList<>();
         slidePopupContainerFragments.add(CreateChatFragment.class);
         slidePopupContainerFragments.add(JoinChatFragment.class);
         slidePopupContainerFragments.add(EditChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder_right, slidePopupContainerFragments, true);
+
+
 
         radioButtonsFragmentMap = HashBiMap.create();
         radioButtonsFragmentMap.put(R.id.wall_radio_button, WallFragment.class);
@@ -243,6 +254,9 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         radioButtonsFragmentMap.put(R.id.club_radio_radio_button, ClubRadioFragment.class);
         radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
 
+
+
+
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
@@ -256,6 +270,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
 
     @Subscribe
     public void onFragmentEvent(FragmentEvent event) {
+        popupLoginHolder.setVisibility(View.GONE);
         if (event.isReturning()) {
             SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         } else {
@@ -266,6 +281,8 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
             toggleBlur(true);
         } else if (slidePopupContainerFragments.contains(event.getType())) {
             showSlidePopupFragmentContainer();
+        } else if (loginContainerFragments.contains(event.getType())) {
+            popupLoginHolder.setVisibility(View.VISIBLE);
         } else {
             if (radioButtonsFragmentMap.inverse().containsKey(event.getType())) {
                 // Detect which radio button was clicked and fetch what Fragment should be opened
@@ -427,7 +444,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
         } else {
-            EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }
     }
 
