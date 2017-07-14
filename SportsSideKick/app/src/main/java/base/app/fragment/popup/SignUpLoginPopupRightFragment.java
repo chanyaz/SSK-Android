@@ -41,6 +41,7 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment implement
     @Nullable
     @BindView(R.id.description)
     TextView description;
+    private LoginStateReceiver loginStateReceiver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment implement
         if (description != null) {
             description.setText(Utility.fromHtml(getString(R.string.login_slider_chat)));
         }
-
+        this.loginStateReceiver = new LoginStateReceiver(this);
         return view;
 
     }
@@ -86,4 +87,11 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment implement
     public void onLoginError(Error error) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(loginStateReceiver);
+    }
+
 }

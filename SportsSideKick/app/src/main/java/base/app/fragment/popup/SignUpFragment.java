@@ -244,6 +244,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegister() {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
+        Utility.hideKeyboard(getActivity());
         if(Utility.isTablet(getActivity()))
         {
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
