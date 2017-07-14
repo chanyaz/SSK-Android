@@ -44,6 +44,7 @@ import base.app.activity.PhoneLoungeActivity;
 import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.SignUpFragment;
 import base.app.fragment.popup.SignUpLoginFragment;
+import base.app.fragment.popup.SignUpLoginVideoFragment;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserEvent;
 import base.app.util.Utility;
@@ -262,7 +263,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             }
             updateIconsColor();
         }else {
-            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
+            if(Utility.isTablet(getActivity())) {
+                EventBus.getDefault().post(new FragmentEvent(SignUpLoginVideoFragment.class));
+            }
         }
 
 

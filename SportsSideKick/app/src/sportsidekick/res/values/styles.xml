@@ -502,6 +502,7 @@
         <item name="fontPath">fonts/TitilliumWeb-Bold.ttf</item>
     </style>
 
+
     <style name="toggle_button_filter">
         <item name="android:textColor">@drawable/filter_toggle_button_text_color</item>
         <item name="android:layout_centerVertical">true</item>

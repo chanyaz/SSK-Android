@@ -15,10 +15,91 @@
         android:elevation="@dimen/elevation_2"
         app:indicatorName="LineSpinFadeLoaderIndicator" />
 
+    <LinearLayout
+        android:id="@+id/login_holder"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/margin_16"
+        android:orientation="vertical"
+        android:background="@color/login_background"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/fontTitilliumWebLight"
+            android:textSize="@dimen/font_size_19"
+            android:padding="@dimen/padding_8"
+            android:textColor="@color/green_dark_2"
+            android:text="@string/to_access_full_features"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_16"
+
+            android:layout_marginBottom="@dimen/margin_20"
+            android:orientation="horizontal"
+            >
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.131" />
+
+            <Button
+                android:id="@+id/join_now_button"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/standard_button_height"
+                android:layout_weight="0.324"
+                android:background="@drawable/gym_bag_button_background"
+                android:text="@string/join_now"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_19" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.082"
+                style="@style/fontTitilliumWebLight"
+                android:textSize="@dimen/font_size_19"
+                android:padding="@dimen/padding_8"
+                android:textColor="@color/green_dark_2"
+                android:text="@string/or"
+                android:textAlignment="center"/>
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/standard_button_height"
+                android:layout_gravity="center"
+                android:layout_weight="0.324"
+                android:background="@drawable/light_button_edit_profile_image"
+                android:gravity="center"
+                android:text="@string/sign_in"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_19" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.131"  />
+        </LinearLayout>
+
+    </LinearLayout>
+
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/login_holder"
         app:srl_direction="bottom"
         android:layout_above="@+id/fragment_wall_bottom_bar">
         <android.support.v7.widget.RecyclerView

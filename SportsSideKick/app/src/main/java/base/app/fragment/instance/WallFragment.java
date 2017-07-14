@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,7 +69,10 @@ import base.app.events.PostLoadCompleteEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.events.WallLikeUpdateEvent;
 import base.app.fragment.BaseFragment;
+import base.app.fragment.FragmentEvent;
 import base.app.fragment.IgnoreBackHandling;
+import base.app.fragment.popup.LoginFragment;
+import base.app.fragment.popup.SignUpFragment;
 import base.app.model.Model;
 import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.tutorial.TutorialModel;
@@ -90,6 +94,7 @@ import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -193,7 +198,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @BindView(R.id.uploaded_image_progress_bar)
     View imageUploadProgressBar;
-
+    @Nullable
+    @BindView(R.id.login_holder)
+    LinearLayout loginHolder;
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
 
@@ -229,13 +236,22 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
         creatingPostInProgress = false;
 
+        if (loginHolder != null) {
+            if (Model.getInstance().isRealUser()) {
+                loginHolder.setVisibility(View.GONE);
+            } else {
+                loginHolder.setVisibility(View.VISIBLE);
+            }
+        }
         commentText.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {  }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -258,7 +274,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16, includeEdge, isTablet));
             } else {
                 int space = (int) getResources().getDimension(R.dimen.padding_12);
-                recyclerView.addItemDecoration(new GridItemDecoration(space,2));
+                recyclerView.addItemDecoration(new GridItemDecoration(space, 2));
             }
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setNestedScrollingEnabled(false);
@@ -286,7 +302,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
             wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
 
-            String fullMatchTime = Utility.getTimeDifference(Long.parseLong(newsTickerInfo.getMatchDate())) + " " + getString(R.string.days) + " - " +  Utility.getDateForMatch(Long.parseLong(newsTickerInfo.getMatchDate()));
+            String fullMatchTime = Utility.getTimeDifference(Long.parseLong(newsTickerInfo.getMatchDate())) + " " + getString(R.string.days) + " - " + Utility.getDateForMatch(Long.parseLong(newsTickerInfo.getMatchDate()));
             wallTeamTime.setText(fullMatchTime);
         }
     }
@@ -299,6 +315,18 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @OnClick(R.id.image_button)
     public void selectImageOnClick() {
         WallFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
+    }
+
+    @Optional
+    @OnClick(R.id.join_now_button)
+    public void joinOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
+    }
+
+    @Optional
+    @OnClick(R.id.login_button)
+    public void loginOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -334,10 +362,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                         // Error occurred while creating the File
                     }
                     if (photoFile != null) {
-                        if(Utility.isKitKat()){
+                        if (Utility.isKitKat()) {
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                         }
-                        if(Utility.isLollipopAndUp()){
+                        if (Utility.isLollipopAndUp()) {
                             Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         }
@@ -395,7 +423,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             case POST_IMAGE_FILE_UPLOADED:
                 if (event.getData() != null) {
                     uploadedImageUrl = (String) event.getData();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                             imageUploadProgressBar.setVisibility(View.GONE);
@@ -408,7 +436,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 break;
             case VIDEO_IMAGE_FILE_UPLOADED:
                 videoThumbnailDownloadUrl = (String) event.getData();
-                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         imageUploadProgressBar.setVisibility(View.GONE);
@@ -465,11 +493,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Subscribe
-    public void onUpdateLikeCount(WallLikeUpdateEvent event){
+    public void onUpdateLikeCount(WallLikeUpdateEvent event) {
         if (event.getWallId() != null) {
-            for(WallBase item : wallItems){
-                if(event.getWallId().equals(item.getWallId())
-                        && event.getPostId().equals(item.getPostId())){
+            for (WallBase item : wallItems) {
+                if (event.getWallId().equals(item.getWallId())
+                        && event.getPostId().equals(item.getPostId())) {
                     item.setLikeCount(event.getCount());
                     filterPosts();
                     return;
@@ -479,11 +507,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Subscribe
-    public void onUpdateCommentCount(CommentUpdateEvent event){
+    public void onUpdateCommentCount(CommentUpdateEvent event) {
         if (event.getWallItem() != null) {
-            for(WallBase item : wallItems){
-                if(event.getWallItem().getWallId().equals(item.getWallId())
-                        && event.getWallItem().getPostId().equals(item.getPostId())){
+            for (WallBase item : wallItems) {
+                if (event.getWallItem().getWallId().equals(item.getWallId())
+                        && event.getWallItem().getPostId().equals(item.getPostId())) {
                     item.setLikeCount(event.getWallItem().getCommentsCount());
                     filterPosts();
                     return;
@@ -580,43 +608,43 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 Log.e(TAG, "There is no User info in cache for this wall item - check out whats going on?");
             }
         }
-            if (item instanceof WallNewsShare || item instanceof WallPost) {
-                if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true;
-                }
-                if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true;
-                }
-                if (item.getBodyText().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true;
-                }
+        if (item instanceof WallNewsShare || item instanceof WallPost) {
+            if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
             }
-            if (item instanceof WallRumor || item instanceof WallStoreItem) {
-                if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true;
-                }
-                if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true;
-                }
+            if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
             }
-            if (item instanceof WallStats) {
-                WallStats statsItem = (WallStats) item;
-                if (statsItem.getStatName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true;
-                }
-                if (statsItem.getSubText().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true;
-                }
+            if (item.getBodyText().toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
             }
-            if (item instanceof WallBetting) {
-                WallBetting betItem = (WallBetting) item;
-                if (betItem.getBetName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true;
-                }
-                if (betItem.getOutcome().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true;
-                }
+        }
+        if (item instanceof WallRumor || item instanceof WallStoreItem) {
+            if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
             }
+            if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
+            }
+        }
+        if (item instanceof WallStats) {
+            WallStats statsItem = (WallStats) item;
+            if (statsItem.getStatName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
+            }
+            if (statsItem.getSubText().toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
+            }
+        }
+        if (item instanceof WallBetting) {
+            WallBetting betItem = (WallBetting) item;
+            if (betItem.getBetName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
+            }
+            if (betItem.getOutcome().toLowerCase().contains(searchTerm.toLowerCase())) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -799,7 +827,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     private void getNextTip() {
         WallTip tip = null;
-        if(Model.getInstance().isRealUser()){
+        if (Model.getInstance().isRealUser()) {
             if (TutorialModel.getInstance().getTutorialItems() != null) {
                 for (int i = 0; i < TutorialModel.getInstance().getTutorialItems().size(); i++) {
                     if (!TutorialModel.getInstance().getTutorialItems().get(i).hasBeenSeen()) {
@@ -811,11 +839,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
             if (Model.getInstance().getUserInfo() != null && Model.getInstance().getUserInfo().getUserType() == UserInfo.UserType.fan) {
                 if (tip != null) {
-                    if(wallItems.size()>0){
-                        for(WallBase wallBase : wallItems){
-                            if(wallBase.getType()== WallBase.PostType.tip){
+                    if (wallItems.size() > 0) {
+                        for (WallBase wallBase : wallItems) {
+                            if (wallBase.getType() == WallBase.PostType.tip) {
                                 WallTip wallTip = (WallTip) wallBase;
-                                if(tip.getTipNumber() != (wallTip.getTipNumber())){
+                                if (tip.getTipNumber() != (wallTip.getTipNumber())) {
                                     tip.setType(WallBase.PostType.tip);
                                     tip.setTimestamp((double) System.currentTimeMillis() / 1000);
                                     tip.setPostId(Model.getInstance().getUserInfo().getUserId());
@@ -825,7 +853,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                                 }
                             }
                         }
-                    }else {
+                    } else {
                         tip.setType(WallBase.PostType.tip);
                         tip.setTimestamp((double) System.currentTimeMillis() / 1000);
                         tip.setPostId(Model.getInstance().getUserInfo().getUserId());
@@ -835,7 +863,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     }
                 }
             }
-        }else{
+        } else {
             WallTip wall = TutorialModel.getInstance().getNotLoggedTip();
             wall.setType(WallBase.PostType.tip);
             wallItems.add(wall);
@@ -886,6 +914,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Override
     public void onLogin(UserInfo user) {
+        if (loginHolder != null) {
+            if (Model.getInstance().isRealUser()) {
+                loginHolder.setVisibility(View.GONE);
+            } else {
+                loginHolder.setVisibility(View.VISIBLE);
+            }
+        }
         reset();
         reloadWallFromModel();
         updateBottomBar();
@@ -897,7 +932,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         reset();
     }
 
-    public void updateBottomBar(){
+    public void updateBottomBar() {
         buttonNewPost.setEnabled(Model.getInstance().isRealUser());
     }
 }

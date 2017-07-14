@@ -97,7 +97,7 @@
     <color name="light_chat_input_edit_text_background">#e9eaed</color>
     <color name="light_wall_store_color">#fc6120</color>
     <color name="light_rumour_yellow">#fcfd42</color>
-
+    <color name="login_background">#e5e5e5</color>
     <color name="light_wall_background">#e5e5e5</color>
 
     <color name="light_radio_button_background">#00ab8d</color>

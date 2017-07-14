@@ -61,6 +61,8 @@ import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.MemberInfoFragment;
 import base.app.fragment.popup.SignUpFragment;
 import base.app.fragment.popup.SignUpLoginFragment;
+import base.app.fragment.popup.SignUpLoginPopupRightFragment;
+import base.app.fragment.popup.SignUpLoginVideoFragment;
 import base.app.fragment.popup.StartingNewCallFragment;
 import base.app.fragment.popup.StashFragment;
 import base.app.fragment.popup.WalletFragment;
@@ -190,7 +192,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         leftContainerFragments.add(StoreFragment.class);
         leftContainerFragments.add(NewsItemFragment.class);
         leftContainerFragments.add(WallItemFragment.class);
-      //  leftContainerFragments.add(SignUpLoginFragment.class);
+        leftContainerFragments.add(SignUpLoginVideoFragment.class);
         fragmentOrganizer.setUpContainer(R.id.tabs_container_1, leftContainerFragments);
 
         ArrayList<Class> topRightContainerFragments = new ArrayList<>();
@@ -198,6 +200,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         topRightContainerFragments.add(StatisticsFragment.class);
         topRightContainerFragments.add(FantasyFragment.class);
         topRightContainerFragments.add(QuizFragment.class);
+        topRightContainerFragments.add(SignUpLoginPopupRightFragment.class);
         fragmentOrganizer.setUpContainer(R.id.tabs_container_top_right, topRightContainerFragments);
 
         ArrayList<Class> bottomRightContainerFragments = new ArrayList<>();
@@ -409,6 +412,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
 
     private void resetUserDetails() {
         //reset profile name and picture to blank values
+        EventBus.getDefault().post(new FragmentEvent(SignUpLoginPopupRightFragment.class));
         setYourCoinsValue(String.valueOf(0));
         yourLevel.setVisibility(View.INVISIBLE);
         userLevelBackground.setVisibility(View.INVISIBLE);
@@ -441,7 +445,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         }
     }
 
-    @OnClick({R.id.user_image_container, R.id.profile_name})
+    @OnClick({R.id.user_image_container, R.id.profile_name,R.id.user_info_container})
     public void onLogin() {
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));

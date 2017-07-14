@@ -39,7 +39,6 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 
-@IgnoreBackHandling
 public class SignUpLoginFragment extends BaseFragment {
 
     @Nullable
