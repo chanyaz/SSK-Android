@@ -40,7 +40,7 @@
 
             <TextView
                 android:id="@+id/textView"
-                style="@style/fontTitilliumWebLight"
+                style="@style/shadow_text_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

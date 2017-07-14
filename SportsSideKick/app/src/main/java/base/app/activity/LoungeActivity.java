@@ -25,6 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
+import base.app.adapter.AccountCreatingAdapter;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.FragmentOrganizer;
 import base.app.fragment.instance.ChatFragment;
@@ -43,6 +44,7 @@ import base.app.fragment.instance.VideoChatFragment;
 import base.app.fragment.instance.WallFragment;
 import base.app.fragment.instance.WallItemFragment;
 import base.app.fragment.instance.YoutubePlayerFragment;
+import base.app.fragment.popup.AccountCreatingFragment;
 import base.app.fragment.popup.AddFriendFragment;
 import base.app.fragment.popup.AlertDialogFragment;
 import base.app.fragment.popup.CreateChatFragment;
@@ -231,6 +233,8 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         loginContainerFragments.add(SignUpLoginFragment.class);
         loginContainerFragments.add(SignUpFragment.class);
         loginContainerFragments.add(LoginFragment.class);
+        loginContainerFragments.add(AccountCreatingFragment.class);
+
         fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments, true);
         //Fragments that slides in
         slidePopupContainerFragments = new ArrayList<>();
@@ -253,8 +257,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         radioButtonsFragmentMap.put(R.id.club_tv_radio_button, ClubTVFragment.class);
         radioButtonsFragmentMap.put(R.id.club_radio_radio_button, ClubRadioFragment.class);
         radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
-
-
 
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));

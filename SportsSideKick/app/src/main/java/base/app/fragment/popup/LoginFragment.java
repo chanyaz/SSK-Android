@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import base.app.adapter.AccountCreatingAdapter;
 import base.app.fragment.instance.WallFragment;
 import base.app.model.user.RegistrationStateReceiver;
 import base.app.util.KeyboardChangeListener;
@@ -309,10 +310,13 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
-        if (Utility.isTablet(getActivity())) {
-            getActivity().onBackPressed();
+        if(Utility.isTablet(getActivity()))
+        {
+            EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         }
-        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+        else {
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+        }
     }
 
     @Override

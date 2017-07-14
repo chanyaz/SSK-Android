@@ -32,6 +32,7 @@ import java.util.HashMap;
 
 import base.app.Connection;
 import base.app.R;
+import base.app.adapter.AccountCreatingAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.WallFragment;
@@ -243,10 +244,13 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegister() {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
-        if (Utility.isTablet(getActivity())) {
-            getActivity().onBackPressed();
+        if(Utility.isTablet(getActivity()))
+        {
+            EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         }
-        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+        else {
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+        }
     }
 
     @Override

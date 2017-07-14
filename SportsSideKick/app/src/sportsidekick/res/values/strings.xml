@@ -468,9 +468,24 @@
     <string name="unnamed_chat">Unnamed Chat</string>
 
 
-
     <string name="permission_storage_rationale">You need to enable Write permission.</string>
     <string name="permission_storage_denied">You need to enable Write permission in settings </string>
     <string name="permission_storage_neverask">Never ask again.</string>
+
+    <string name="welcome_your_account_is_being_setup"><![CDATA[ Welcome, your account is being setup! While you\n wait, check out some of our <font color="#c3ff01"> awesome features! </font> ]]></string>
+    <string-array name="account_creating_text">
+        <item><![CDATA[ Lorem ipsum dolor sit amet, ad eum audire corrumpit conceptam, te corpora  ]]></item>
+        <item><![CDATA[ You can chat with <font color="#c3ff01"> friends, create groups </font> and \n even connect with your  <font color="#c3ff01"> favourite players! </font> ]]></item>
+        <item><![CDATA[ Ea usu alterum epicuri. Nec id sonet iudico. Sed at commune qualisque, dolorum deserunt et pri. Pri esse singulis gloriatur no. ]]></item>
+        <item><![CDATA[ Sed simul nobis et, saepe aperiri an sed. Idque tacimates eu vix. Eum ne percipit consetetur consequuntur. Ei vis vidisse admodum. Ius id timeam moderatius. Qui noluisse accusata salutatus at. Nec quo ]]></item>
+        <item><![CDATA[ Sed simul nobis et, saepe aperiri an sed. Idque tacimates eu vix. Eum ne percipit consetetur consequuntur. Ei vis vidisse admodum. Ius ]]></item>
+        <item><![CDATA[ His audiam propriae legendos ut. Est nonumy percipitur ad. Alii discere ad vim, ad nam vide zril probatus, ne mea numquam eloquentiam dissentiunt. </font> ]]></item>
+        <item><![CDATA[ Ex quo suas putent vivendo. Cu simul homero ponderum mel. At erat dolorum reprehendunt sed. ]]></item>
+        <item><![CDATA[ ceptam nec. Et sit soluta consequat instructior. Eam tale ubique similique et, eu graece assueverit vel. ]]></item>
+        <item><![CDATA[ Postulant molestiae in qui, ius eu duis congue tollit. Et eum albucius disputando conclusionemque, dicat faci ]]></item>
+
+
+    </string-array>
+    <string name="your_ready_to_play"><![CDATA[ Your ready to play.\n  <font color="#c3ff01"> Welcome to the team. </font> ]]></string>
 
 </resources>
