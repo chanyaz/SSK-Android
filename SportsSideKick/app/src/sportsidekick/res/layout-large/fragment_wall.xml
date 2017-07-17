@@ -22,7 +22,7 @@
         android:paddingTop="@dimen/margin_16"
         android:orientation="vertical"
         android:background="@color/login_background"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_height="wrap_content">
 
         <TextView
@@ -61,7 +61,8 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="@dimen/font_size_19" />
+                android:textSize="@dimen/font_size_19"
+                style="?android:attr/borderlessButtonStyle"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -85,7 +86,8 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="@dimen/font_size_19" />
+                android:textSize="@dimen/font_size_19"
+                style="?android:attr/borderlessButtonStyle"/>
 
             <View
                 android:layout_width="0dp"

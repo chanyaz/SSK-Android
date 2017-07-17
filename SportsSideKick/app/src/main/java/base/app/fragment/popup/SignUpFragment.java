@@ -1,9 +1,15 @@
 package base.app.fragment.popup;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +84,11 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
     @BindView(R.id.sign_up_facebook)
     LoginButton loginButton;
+
+    @Nullable
+    @BindView(R.id.politic_and_privacy_android)
+    TextView policyText;
+
     private CallbackManager callbackManager;
 
     private RegistrationStateReceiver registrationStateReceiver;
@@ -105,8 +116,48 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         this.registrationStateReceiver = new RegistrationStateReceiver(this);
 
         initFacebook();
-
+        setupPolicyText();
         return view;
+    }
+
+    public void setupPolicyText(){
+        SpannableString spannableString = new SpannableString(policyText.getText());
+        ClickableSpan clickableSpanTerms = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+                Toast.makeText(getActivity(),"Terms and Conditions of Use",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+                ds.setColor(Color.WHITE);
+            }
+        };
+        ClickableSpan clickableSpanPolicy = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+                Toast.makeText(getActivity(),"Privacy Policy",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+                ds.setColor(Color.WHITE);
+            }
+        };
+
+        spannableString.setSpan(clickableSpanTerms, 49, 78, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(clickableSpanPolicy, 83, 97, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        policyText.setMovementMethod(LinkMovementMethod.getInstance());
+        policyText.setHighlightColor(Color.TRANSPARENT);
+
+
+        policyText.setText(spannableString);
     }
 
     private void initFacebook() {

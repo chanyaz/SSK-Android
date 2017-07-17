@@ -23,6 +23,7 @@ import base.app.R;
 import base.app.adapter.UserStatsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.instance.WallFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.user.LoginStateReceiver;
@@ -125,8 +126,12 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                     @Override
                     public void onClick(View v) {
                         Model.getInstance().logout();
-                        getActivity().onBackPressed();
-                       // EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+                        if(Utility.isTablet(getActivity())){
+                            getActivity().onBackPressed();
+                        }else {
+                           // EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+                            getActivity().onBackPressed();
+                        }
                     }
                 });
     }
@@ -196,7 +201,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
 
     private void setupFragment() {
         UserInfo user = Model.getInstance().getUserInfo();
-        if (user != null) {
+        if (user != null && Model.getInstance().isRealUser()) {
             double subscribedAsDouble = user.getSubscribedDate();
             ArrayList<Pair<String, String>> values = new ArrayList<>();
             values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf(user.getLevel())));

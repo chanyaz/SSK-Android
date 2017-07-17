@@ -250,11 +250,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
             slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
             text.setText(Utility.fromHtml(getString(R.string.video_chat_text_1)));
-            if (!Utility.isTablet(getActivity()))
-            {
-                chronometer.setFormat("%s");
-                onLoginStateChange();
-            }
 
             VideoChatEvent event = VideoChatModel.getInstance().getVideoChatEvent();
             if (event != null) {
@@ -268,8 +263,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             }
         }
 
-
-
+        if (!Utility.isTablet(getActivity()))
+        {
+            chronometer.setFormat("%s");
+            onLoginStateChange();
+        }
 
         return view;
     }
@@ -821,7 +819,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     private void onLoginStateChange() {
 
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+        if (Model.getInstance().isRealUser()) {
             cameraLogo.setVisibility(View.GONE);
             loginContainer.setVisibility(View.GONE);
             Logo.setVisibility(View.VISIBLE);

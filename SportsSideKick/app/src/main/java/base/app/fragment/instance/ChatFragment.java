@@ -74,6 +74,8 @@ import base.app.fragment.IgnoreBackHandling;
 import base.app.fragment.popup.CreateChatFragment;
 import base.app.fragment.popup.EditChatFragment;
 import base.app.fragment.popup.JoinChatFragment;
+import base.app.fragment.popup.LoginFragment;
+import base.app.fragment.popup.SignUpFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.im.ChatInfo;
@@ -82,6 +84,7 @@ import base.app.model.im.ImsMessage;
 import base.app.model.im.event.ChatNotificationsEvent;
 import base.app.model.im.event.ChatsInfoUpdatesEvent;
 import base.app.model.im.event.CreateNewChatSuccessEvent;
+import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import butterknife.BindView;
@@ -129,10 +132,11 @@ public class ChatFragment extends BaseFragment {
     RelativeLayout videoViewContainer;
     @BindView(R.id.video_view)
     VideoView videoView;
+    @Nullable
     @BindView(R.id.image_fullscreen)
     ImageView imageViewFullScreen;
     @BindView(R.id.full_screen_container)
-
+    @Nullable
     RelativeLayout fullScreenContainer;
     @BindView(R.id.input_edit_text)
     EditText inputEditText;
@@ -155,6 +159,16 @@ public class ChatFragment extends BaseFragment {
 
     @BindView(R.id.chat_menu_edit)
     TextView chatMenuEditButton;
+    @Nullable
+    @BindView(R.id.logo)
+    ImageView Logo;
+    @Nullable
+    @BindView(R.id.login_container)
+    LinearLayout loginContainer;
+
+    @Nullable
+    @BindView(R.id.inactive_container)
+    RelativeLayout inactive_containerl;
 
     Drawable chatRightArrowDrawable;
     Drawable chatDotsDrawable;
@@ -279,7 +293,39 @@ public class ChatFragment extends BaseFragment {
             }
         });
         updateAllViews();
+
+        if (!Utility.isTablet(getActivity()))
+        {
+            onLoginStateChange();
+        }
+
         return view;
+    }
+
+
+    private void onLoginStateChange() {
+
+        if (Model.getInstance().isRealUser()) {
+            if (inactive_containerl != null) {
+                inactive_containerl.setVisibility(View.GONE);
+            }
+        } else {
+            if (loginContainer != null) {
+                loginContainer.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    @Optional
+    @OnClick(R.id.join_now_button)
+    public void joinOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
+    }
+
+    @Optional
+    @OnClick(R.id.login_button)
+    public void loginOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
     @Override
@@ -412,11 +458,12 @@ public class ChatFragment extends BaseFragment {
         view.setVisibility(visibility);
     }
 
+    @Optional
     @OnClick(R.id.close_image_button)
     public void imageCloseButtonOnClick() {
         fullScreenContainer.setVisibility(View.GONE);
     }
-
+    @Optional
     @OnClick(R.id.download_image_button)
     public void imageDownloadButtonOnClick() {
         DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
@@ -443,6 +490,7 @@ public class ChatFragment extends BaseFragment {
         //TODO open sticker
     }
 
+    @Optional
     @OnClick(R.id.vide_download_image_button)
     public void videoDownloadButtonOnClick() {
         Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_video_downloaded), Toast.LENGTH_SHORT).show();

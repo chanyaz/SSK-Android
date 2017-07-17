@@ -64,6 +64,7 @@ public class SignUpLoginFragment extends BaseFragment {
         if (text != null) {
             text.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
         }
+
         return view;
 
     }
