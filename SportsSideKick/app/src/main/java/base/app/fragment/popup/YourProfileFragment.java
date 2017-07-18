@@ -129,7 +129,6 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                         if(Utility.isTablet(getActivity())){
                             getActivity().onBackPressed();
                         }else {
-                           // EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
                             getActivity().onBackPressed();
                         }
                     }
@@ -248,7 +247,11 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             setupFragment();
         } else {
-            getActivity().onBackPressed();
+            if(Utility.isTablet(getActivity())){
+              //  getActivity().onBackPressed();
+            }else{
+                EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+            }
         }
     }
 
