@@ -201,7 +201,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         topRightContainerFragments.add(FantasyFragment.class);
         topRightContainerFragments.add(QuizFragment.class);
         topRightContainerFragments.add(SignUpLoginPopupRightFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.tabs_container_top_right, topRightContainerFragments);
+        fragmentOrganizer.setUpContainer(R.id.tabs_container_top_right, topRightContainerFragments);  //WITH BACK STACK
 
         ArrayList<Class> bottomRightContainerFragments = new ArrayList<>();
         bottomRightContainerFragments.add(ClubTVFragment.class);
@@ -209,7 +209,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         bottomRightContainerFragments.add(ClubRadioFragment.class);
         bottomRightContainerFragments.add(YoutubePlayerFragment.class);
         bottomRightContainerFragments.add(ClubRadioStationFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments);
+        fragmentOrganizer.setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments); //WITH BACK STACK
 
         popupContainerFragments = new ArrayList<>();
         popupContainerFragments.add(YourProfileFragment.class);
@@ -229,7 +229,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         popupContainerFragments.add(AddFriendFragment.class);
         popupContainerFragments.add(InviteFriendFragment.class);
         popupContainerFragments.add(AlertDialogFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.popup_holder, popupContainerFragments, true);
+        fragmentOrganizer.setUpContainer(R.id.popup_holder, popupContainerFragments, true);  //NO BACK STACK
 
 
         loginContainerFragments = new ArrayList<>();
@@ -238,13 +238,13 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         loginContainerFragments.add(LoginFragment.class);
         loginContainerFragments.add(AccountCreatingFragment.class);
 
-        fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments, true);
+        fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments, true);  //NO BACK STACK
         //Fragments that slides in
         slidePopupContainerFragments = new ArrayList<>();
         slidePopupContainerFragments.add(CreateChatFragment.class);
         slidePopupContainerFragments.add(JoinChatFragment.class);
         slidePopupContainerFragments.add(EditChatFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.popup_holder_right, slidePopupContainerFragments, true);
+        fragmentOrganizer.setUpContainer(R.id.popup_holder_right, slidePopupContainerFragments, true);  //NO BACK STACK
 
 
 
@@ -325,6 +325,10 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         }
         if (!fragmentOrganizer.handleBackNavigation()) {
             finish();
+        }else {
+            if(Utility.isTablet(this)){
+                    popupLoginHolder.setVisibility(View.GONE);
+            }
         }
     }
 
