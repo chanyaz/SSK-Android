@@ -278,13 +278,40 @@
         android:background="@color/colorPrimary"
         android:visibility="gone">
 
-        <VideoView
-            android:id="@+id/video_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <FrameLayout
+            android:id="@+id/video_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
             android:layout_above="@+id/vide_download_image_button"
             android:layout_below="@+id/video_close_image_button"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:background="@android:color/black">
+
+            <com.universalvideoview.UniversalVideoView
+                android:id="@+id/videoView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                app:uvv_autoRotation="false"
+                app:uvv_fitXY="false" />
+
+            <com.universalvideoview.UniversalMediaController
+                android:id="@+id/mediaController"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                app:uvv_scalable="false"
+                />
+
+        </FrameLayout>
+
+        <!--  <VideoView
+              android:id="@+id/video_view"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_above="@+id/vide_download_image_button"
+              android:layout_below="@+id/video_close_image_button"
+              android:layout_centerInParent="true" />-->
+
 
         <ImageView
             android:id="@+id/video_close_image_button"

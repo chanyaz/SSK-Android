@@ -49,6 +49,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
+import com.universalvideoview.UniversalMediaController;
+import com.universalvideoview.UniversalVideoView;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.apache.commons.io.FilenameUtils;
@@ -130,8 +132,15 @@ public class ChatFragment extends BaseFragment {
     ImageButton micButton;
     @BindView(R.id.video_view_container)
     RelativeLayout videoViewContainer;
-    @BindView(R.id.video_view)
-    VideoView videoView;
+
+    @Nullable
+    @BindView(R.id.mediaController)
+    UniversalMediaController mediaController;
+
+    @Nullable
+    @BindView(R.id.videoView)
+    UniversalVideoView videoView;
+
     @Nullable
     @BindView(R.id.image_fullscreen)
     ImageView imageViewFullScreen;
@@ -299,6 +308,11 @@ public class ChatFragment extends BaseFragment {
             onLoginStateChange();
         }
 
+        if (fullScreenContainer != null) {
+            fullScreenContainer.setOnClickListener(disabledClick);
+        }
+        videoViewContainer.setOnClickListener(disabledClick);
+
         return view;
     }
 
@@ -461,7 +475,9 @@ public class ChatFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.close_image_button)
     public void imageCloseButtonOnClick() {
-        fullScreenContainer.setVisibility(View.GONE);
+        if (fullScreenContainer != null) {
+            fullScreenContainer.setVisibility(View.GONE);
+        }
     }
     @Optional
     @OnClick(R.id.download_image_button)
@@ -482,6 +498,11 @@ public class ChatFragment extends BaseFragment {
     @OnClick(R.id.video_close_image_button)
     public void videoCloseButtonOnClick() {
         videoViewContainer.setVisibility(View.GONE);
+        if (videoView != null) {
+            videoView.stopPlayback();
+            videoView.closePlayer();
+            mediaController.reset();
+        }
     }
 
     @Optional
@@ -727,13 +748,60 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void playVideo(PlayVideoEvent event) {
+        if (videoView != null) {
+            videoView.setMediaController(mediaController);
+        }
+        if (mediaController != null) {
+            mediaController.setOnLoadingView(R.layout.loading);
+            mediaController.setOnErrorView(R.layout.error);
+            mediaController.reset();
+        }
         videoViewContainer.setVisibility(View.VISIBLE);
         videoView.setVideoURI(Uri.parse(event.getId()));
-        videoView.start();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                videoView.start();
+            }
+        });
+        mediaController.setOnErrorViewClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                videoCloseButtonOnClick();
+            }
+        });
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                videoViewContainer.setVisibility(View.GONE);
+               // videoViewContainer.setVisibility(View.GONE);
+                videoView.stopPlayback();
+                mediaController.reset();
+            }
+        });
+        videoView.setVideoViewCallback(new UniversalVideoView.VideoViewCallback() {
+            @Override
+            public void onScaleChange(boolean isFullscreen) {
+
+            }
+
+            @Override
+            public void onPause(MediaPlayer mediaPlayer) {
+
+            }
+
+            @Override
+            public void onStart(MediaPlayer mediaPlayer) {
+
+            }
+
+            @Override
+            public void onBufferingStart(MediaPlayer mediaPlayer) {
+
+            }
+
+            @Override
+            public void onBufferingEnd(MediaPlayer mediaPlayer) {
+
             }
         });
     }
@@ -906,4 +974,11 @@ public class ChatFragment extends BaseFragment {
     public void openChatEvent(OpenChatEvent event){
         chatHeadsAdapter.notifyDataSetChanged();
     }
+
+    View.OnClickListener disabledClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    };
 }
