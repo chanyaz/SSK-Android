@@ -142,7 +142,9 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             @Override
             public void onClick(View v) {
                 loginContainer.setVisibility(View.VISIBLE);
-                loginButtonContainer.setVisibility(View.VISIBLE);
+                if (loginButtonContainer != null) {
+                    loginButtonContainer.setVisibility(View.VISIBLE);
+                }
                 resetButtonContainer.setVisibility(View.INVISIBLE);
                 forgotPasswordContainer.setVisibility(View.GONE);
             }
@@ -162,18 +164,34 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                 public void onKeyboardChange(boolean isShow, int keyboardHeight) {
                     if (isShow) {
                         titleText.setVisibility(View.GONE);
-                        imageLogo.setVisibility(View.GONE);
-                        logoFqImage.setVisibility(View.GONE);
-                        forgotButton.setVisibility(View.GONE);
-                        imagePlayer.setImageResource(R.drawable.background_kayboard_open);
+                        if (imageLogo != null) {
+                            imageLogo.setVisibility(View.GONE);
+                        }
+                        if (logoFqImage != null) {
+                            logoFqImage.setVisibility(View.GONE);
+                        }
+                        if (forgotButton != null) {
+                            forgotButton.setVisibility(View.GONE);
+                        }
+                        if (imagePlayer != null) {
+                            imagePlayer.setImageResource(R.drawable.background_kayboard_open);
+                        }
 
 
                     } else {
                         titleText.setVisibility(View.VISIBLE);
-                        imageLogo.setVisibility(View.VISIBLE);
-                        logoFqImage.setVisibility(View.VISIBLE);
-                        forgotButton.setVisibility(View.VISIBLE);
-                        imagePlayer.setImageResource(R.drawable.video_chat_background);
+                        if (imageLogo != null) {
+                            imageLogo.setVisibility(View.VISIBLE);
+                        }
+                        if (logoFqImage != null) {
+                            logoFqImage.setVisibility(View.VISIBLE);
+                        }
+                        if (forgotButton != null) {
+                            forgotButton.setVisibility(View.VISIBLE);
+                        }
+                        if (imagePlayer != null) {
+                            imagePlayer.setImageResource(R.drawable.video_chat_background);
+                        }
 
 
                     }
@@ -282,11 +300,15 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     @OnClick(R.id.forgot_button)
     public void forgotOnClick() {
         if (Utility.isTablet(getActivity())) {
-            loginButtonContainer.setVisibility(View.GONE);
+            if (loginButtonContainer != null) {
+                loginButtonContainer.setVisibility(View.GONE);
+            }
             loginContainer.setVisibility(View.GONE);
         } else {
             loginContainer.setVisibility(View.INVISIBLE);
-            loginButtonContainer.setVisibility(View.INVISIBLE);
+            if (loginButtonContainer != null) {
+                loginButtonContainer.setVisibility(View.INVISIBLE);
+            }
         }
 
 

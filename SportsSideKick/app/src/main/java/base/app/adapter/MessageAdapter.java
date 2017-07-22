@@ -127,6 +127,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                                     EventBus.getDefault().post(new PlayVideoEvent(fVideoUrl));
                                 }
                             });
+                    holder.playButton.setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    EventBus.getDefault().post(new PlayVideoEvent(fVideoUrl));
+                                }
+                            });
                 } else {
                     holder.playButton.setVisibility(View.GONE);
                     holder.contentImage.setOnClickListener(new View.OnClickListener() {
@@ -179,11 +186,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private void setupAudioPlayButton(String url, final ImageView button){
         try {
-            MediaPlayer player = new MediaPlayer();
+            final MediaPlayer player = new MediaPlayer();
             player.setAudioStreamType(AudioManager.STREAM_MUSIC);
             player.setDataSource(url);
-            player.prepare();
-            player.start();
+            player.prepareAsync();
+            player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    player.start();
+                }
+            });
             button.setImageResource(R.drawable.pause_button_icon);
 
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

@@ -193,6 +193,7 @@ dependencies {
     compile 'com.nikhilpanju.recyclerviewenhanced:recyclerviewenhanced:1.1.0'
 //  Apache commons library to extract file name from url for image downloading - https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
-
+//  VideoView with controls
+    compile 'com.linsea:universalvideoview:1.1.0@aar'
 }
 apply plugin: 'com.google.gms.google-services'

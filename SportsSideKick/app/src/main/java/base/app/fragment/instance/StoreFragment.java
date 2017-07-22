@@ -59,6 +59,18 @@ public class StoreFragment extends BaseFragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        webView.setWebViewClient(null);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        webView.setWebViewClient(webViewClient);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_with_web_view, container, false);
         setMarginTop(true);
@@ -78,74 +90,7 @@ public class StoreFragment extends BaseFragment {
         webView.getSettings().setBuiltInZoomControls(true);
         setupFragment();
 
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                webContainer.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
-                if (view.getUrl().equals(getResources().getString(R.string.store_url))) {
-                    Log.d("WEB VIEW", "Home page!");
-                    homeButton.setVisibility(View.GONE);
-                    shareToWallButton.setVisibility(View.GONE);
-                } else {
-                    Log.d("WEB VIEW", "Product page!");
-                    homeButton.setVisibility(View.VISIBLE);
-                    item = new WallStoreItem();
-
-                    item.setType(WallBase.PostType.wallStoreItem);
-                    item.setPoster(Model.getInstance().getUserInfo());
-                    if (url.toLowerCase().contains(getResources().getString(R.string.store_url_item).toLowerCase())
-                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item2).toLowerCase())
-                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item3).toLowerCase())) {
-                        shareToWallButton.setVisibility(View.VISIBLE);
-                    } else {
-                        shareToWallButton.setVisibility(View.GONE);
-                    }
-
-                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                    StrictMode.setThreadPolicy(policy);
-                    Elements imageDiv;
-                    Elements priceDiv;
-                    try {
-                        doc = Jsoup.connect(url).get();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    if (doc != null) {
-                        imageDiv = doc.getElementsByClass("guideSize");
-                        Element imageElement;
-                        String absoluteUrl = "";
-                        if (imageDiv != null) {
-                            imageElement = imageDiv.select("img").first();
-                            if (imageElement != null) {
-                                absoluteUrl = imageElement.absUrl("src");
-                            }
-                        }
-
-                        priceDiv = doc.getElementsByClass("price");
-                        Element priceElement;
-                        String price = "";
-
-                        if (priceDiv != null) {
-                            priceElement = priceDiv.first();
-                            if (priceElement != null) {
-                                price = priceElement.text();
-                            }
-                        }
-
-                        item.setTitle(view.getTitle());
-                        item.setSubTitle(price);
-                        item.setUrl(url);
-                        item.setCoverImageUrl(absoluteUrl);
-                        item.setTimestamp((double) System.currentTimeMillis());
-
-
-                    }
-                }
-                Log.d("WEB VIEW", "Loaded successfully!");
-            }
-        });
+       // webView.setWebViewClient(webViewClient);
 
         webView.loadUrl(url);
 
@@ -164,6 +109,77 @@ public class StoreFragment extends BaseFragment {
 
         return view;
     }
+
+    WebViewClient webViewClient = new WebViewClient(){
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            webContainer.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            //TODO CRASH 87line - fragment not attached to activity - disable webview on PAUSE
+
+            if (view.getUrl().equals(getResources().getString(R.string.store_url))) {
+                Log.d("WEB VIEW", "Home page!");
+                homeButton.setVisibility(View.GONE);
+                shareToWallButton.setVisibility(View.GONE);
+            } else {
+                Log.d("WEB VIEW", "Product page!");
+                homeButton.setVisibility(View.VISIBLE);
+                item = new WallStoreItem();
+
+                item.setType(WallBase.PostType.wallStoreItem);
+                item.setPoster(Model.getInstance().getUserInfo());
+                if (url.toLowerCase().contains(getResources().getString(R.string.store_url_item).toLowerCase())
+                        || url.toLowerCase().contains(getResources().getString(R.string.store_url_item2).toLowerCase())
+                        || url.toLowerCase().contains(getResources().getString(R.string.store_url_item3).toLowerCase())) {
+                    shareToWallButton.setVisibility(View.VISIBLE);
+                } else {
+                    shareToWallButton.setVisibility(View.GONE);
+                }
+
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                Elements imageDiv;
+                Elements priceDiv;
+                try {
+                    doc = Jsoup.connect(url).get();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (doc != null) {
+                    imageDiv = doc.getElementsByClass("guideSize");
+                    Element imageElement;
+                    String absoluteUrl = "";
+                    if (imageDiv != null) {
+                        imageElement = imageDiv.select("img").first();
+                        if (imageElement != null) {
+                            absoluteUrl = imageElement.absUrl("src");
+                        }
+                    }
+
+                    priceDiv = doc.getElementsByClass("price");
+                    Element priceElement;
+                    String price = "";
+
+                    if (priceDiv != null) {
+                        priceElement = priceDiv.first();
+                        if (priceElement != null) {
+                            price = priceElement.text();
+                        }
+                    }
+
+                    item.setTitle(view.getTitle());
+                    item.setSubTitle(price);
+                    item.setUrl(url);
+                    item.setCoverImageUrl(absoluteUrl);
+                    item.setTimestamp((double) System.currentTimeMillis());
+
+
+                }
+            }
+            Log.d("WEB VIEW", "Loaded successfully!");
+        }
+    };
 
     protected void setupFragment() {
         url = getResources().getString(R.string.store_url);

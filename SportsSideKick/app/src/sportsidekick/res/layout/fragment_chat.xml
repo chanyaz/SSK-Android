@@ -278,13 +278,40 @@
         android:background="@color/colorPrimary"
         android:visibility="gone">
 
-        <VideoView
-            android:id="@+id/video_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <FrameLayout
+            android:id="@+id/video_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
             android:layout_above="@+id/vide_download_image_button"
             android:layout_below="@+id/video_close_image_button"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:background="@android:color/black">
+
+            <com.universalvideoview.UniversalVideoView
+                android:id="@+id/videoView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                app:uvv_autoRotation="false"
+                app:uvv_fitXY="false" />
+
+            <com.universalvideoview.UniversalMediaController
+                android:id="@+id/mediaController"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                app:uvv_scalable="false"
+                />
+
+        </FrameLayout>
+
+        <!--  <VideoView
+              android:id="@+id/video_view"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_above="@+id/vide_download_image_button"
+              android:layout_below="@+id/video_close_image_button"
+              android:layout_centerInParent="true" />-->
+
 
         <ImageView
             android:id="@+id/video_close_image_button"
@@ -309,41 +336,140 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/full_screen_container"
+        android:id="@+id/inactive_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:clickable="true"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/image_fullscreen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/download_image_button"
-            android:layout_below="@+id/close_image_button"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/video_chat_background" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:background="@drawable/phone_background"
+            android:contentDescription="@null" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:background="?green_dark_2_semitransparent"
-            android:scaleType="fitCenter" />
+            android:layout_marginLeft="@dimen/margin_40"
+            android:layout_marginRight="@dimen/margin_40">
 
-        <ImageView
-            android:id="@+id/close_image_button"
-            android:layout_width="@dimen/chat_button_size"
-            android:layout_height="@dimen/chat_button_size"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="@dimen/margin_8"
-            android:scaleType="fitCenter"
-            android:src="?videoCloseButtonIcon" />
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_80"
+                android:layout_above="@+id/text1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ssk_logo" />
 
-        <ImageView
-            android:id="@+id/download_image_button"
-            android:layout_width="@dimen/chat_button_size"
-            android:layout_height="@dimen/chat_button_size"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="@dimen/margin_8"
-            android:scaleType="fitCenter"
-            android:src="?downloadButtonIcon" />
+            <ImageView
+                android:id="@+id/camera_logo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_130"
+                android:layout_above="@+id/text1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/prelogin_video_chat"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/text2"
+                android:layout_centerHorizontal="true"
+                android:text="Aususs sunt verpas de teres rumor."
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_20" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/center_below"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_20"
+                android:text="Heuretes, turpis, et fiscina.Caniss sunt bullas de flavum demolitione.Bromiums unda in fortis quadrata!Cum tata cantare, omnes homoes desiderium barbatus, alter exemplares."
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_12" />
+
+            <View
+                android:id="@+id/center_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="@dimen/margin_60" />
+
+            <View
+                android:id="@+id/center_below"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_below="@+id/center_parent" />
+
+            <LinearLayout
+                android:id="@+id/login_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_30"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/standard_button_height"
+                    android:alpha="0.8"
+                    android:background="@drawable/button_login_transparent">
+
+                    <Button
+                        android:id="@+id/join_now_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:text="@string/join_now"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_18" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/standard_button_height"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:alpha="0.8"
+                    android:background="@drawable/button_login_transparent">
+
+                    <Button
+                        android:id="@+id/login_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:text="@string/login_login"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_18" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
+
 </RelativeLayout>

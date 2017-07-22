@@ -49,6 +49,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
+import com.universalvideoview.UniversalMediaController;
+import com.universalvideoview.UniversalVideoView;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.apache.commons.io.FilenameUtils;
@@ -74,6 +76,8 @@ import base.app.fragment.IgnoreBackHandling;
 import base.app.fragment.popup.CreateChatFragment;
 import base.app.fragment.popup.EditChatFragment;
 import base.app.fragment.popup.JoinChatFragment;
+import base.app.fragment.popup.LoginFragment;
+import base.app.fragment.popup.SignUpFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.im.ChatInfo;
@@ -82,6 +86,7 @@ import base.app.model.im.ImsMessage;
 import base.app.model.im.event.ChatNotificationsEvent;
 import base.app.model.im.event.ChatsInfoUpdatesEvent;
 import base.app.model.im.event.CreateNewChatSuccessEvent;
+import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import butterknife.BindView;
@@ -127,12 +132,20 @@ public class ChatFragment extends BaseFragment {
     ImageButton micButton;
     @BindView(R.id.video_view_container)
     RelativeLayout videoViewContainer;
-    @BindView(R.id.video_view)
-    VideoView videoView;
+
+    @Nullable
+    @BindView(R.id.mediaController)
+    UniversalMediaController mediaController;
+
+    @Nullable
+    @BindView(R.id.videoView)
+    UniversalVideoView videoView;
+
+    @Nullable
     @BindView(R.id.image_fullscreen)
     ImageView imageViewFullScreen;
     @BindView(R.id.full_screen_container)
-
+    @Nullable
     RelativeLayout fullScreenContainer;
     @BindView(R.id.input_edit_text)
     EditText inputEditText;
@@ -155,6 +168,16 @@ public class ChatFragment extends BaseFragment {
 
     @BindView(R.id.chat_menu_edit)
     TextView chatMenuEditButton;
+    @Nullable
+    @BindView(R.id.logo)
+    ImageView Logo;
+    @Nullable
+    @BindView(R.id.login_container)
+    LinearLayout loginContainer;
+
+    @Nullable
+    @BindView(R.id.inactive_container)
+    RelativeLayout inactive_containerl;
 
     Drawable chatRightArrowDrawable;
     Drawable chatDotsDrawable;
@@ -279,7 +302,44 @@ public class ChatFragment extends BaseFragment {
             }
         });
         updateAllViews();
+
+        if (!Utility.isTablet(getActivity()))
+        {
+            onLoginStateChange();
+        }
+
+        if (fullScreenContainer != null) {
+            fullScreenContainer.setOnClickListener(disabledClick);
+        }
+        videoViewContainer.setOnClickListener(disabledClick);
+
         return view;
+    }
+
+
+    private void onLoginStateChange() {
+
+        if (Model.getInstance().isRealUser()) {
+            if (inactive_containerl != null) {
+                inactive_containerl.setVisibility(View.GONE);
+            }
+        } else {
+            if (loginContainer != null) {
+                loginContainer.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    @Optional
+    @OnClick(R.id.join_now_button)
+    public void joinOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
+    }
+
+    @Optional
+    @OnClick(R.id.login_button)
+    public void loginOnClick() {
+        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
     @Override
@@ -412,11 +472,14 @@ public class ChatFragment extends BaseFragment {
         view.setVisibility(visibility);
     }
 
+    @Optional
     @OnClick(R.id.close_image_button)
     public void imageCloseButtonOnClick() {
-        fullScreenContainer.setVisibility(View.GONE);
+        if (fullScreenContainer != null) {
+            fullScreenContainer.setVisibility(View.GONE);
+        }
     }
-
+    @Optional
     @OnClick(R.id.download_image_button)
     public void imageDownloadButtonOnClick() {
         DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
@@ -435,6 +498,11 @@ public class ChatFragment extends BaseFragment {
     @OnClick(R.id.video_close_image_button)
     public void videoCloseButtonOnClick() {
         videoViewContainer.setVisibility(View.GONE);
+        if (videoView != null) {
+            videoView.stopPlayback();
+            videoView.closePlayer();
+            mediaController.reset();
+        }
     }
 
     @Optional
@@ -443,6 +511,7 @@ public class ChatFragment extends BaseFragment {
         //TODO open sticker
     }
 
+    @Optional
     @OnClick(R.id.vide_download_image_button)
     public void videoDownloadButtonOnClick() {
         Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_video_downloaded), Toast.LENGTH_SHORT).show();
@@ -679,13 +748,60 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void playVideo(PlayVideoEvent event) {
+        if (videoView != null) {
+            videoView.setMediaController(mediaController);
+        }
+        if (mediaController != null) {
+            mediaController.setOnLoadingView(R.layout.loading);
+            mediaController.setOnErrorView(R.layout.error);
+            mediaController.reset();
+        }
         videoViewContainer.setVisibility(View.VISIBLE);
         videoView.setVideoURI(Uri.parse(event.getId()));
-        videoView.start();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                videoView.start();
+            }
+        });
+        mediaController.setOnErrorViewClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                videoCloseButtonOnClick();
+            }
+        });
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                videoViewContainer.setVisibility(View.GONE);
+               // videoViewContainer.setVisibility(View.GONE);
+                videoView.stopPlayback();
+                mediaController.reset();
+            }
+        });
+        videoView.setVideoViewCallback(new UniversalVideoView.VideoViewCallback() {
+            @Override
+            public void onScaleChange(boolean isFullscreen) {
+
+            }
+
+            @Override
+            public void onPause(MediaPlayer mediaPlayer) {
+
+            }
+
+            @Override
+            public void onStart(MediaPlayer mediaPlayer) {
+
+            }
+
+            @Override
+            public void onBufferingStart(MediaPlayer mediaPlayer) {
+
+            }
+
+            @Override
+            public void onBufferingEnd(MediaPlayer mediaPlayer) {
+
             }
         });
     }
@@ -858,4 +974,11 @@ public class ChatFragment extends BaseFragment {
     public void openChatEvent(OpenChatEvent event){
         chatHeadsAdapter.notifyDataSetChanged();
     }
+
+    View.OnClickListener disabledClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    };
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="days">Days</string>
+    <string name="cant_start_video">Cant start video.</string>
 </resources>
