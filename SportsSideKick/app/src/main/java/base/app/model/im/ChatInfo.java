@@ -250,10 +250,10 @@ public class ChatInfo {
 //                            messages.add(m);
 //                        }
 //                    }
-//                    sortMessages();
+//
                     // Instead, we have this:
                     messages.addAll(task.getResult());
-
+                    sortMessages();
                     EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
                     EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
                 }
