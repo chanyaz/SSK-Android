@@ -276,10 +276,10 @@ public class ChatInfo {
      * @param  message to send
      */
     public Task<ChatInfo> sendMessage(ImsMessage message){
-        ImsManager.getInstance().imsSendMessageToChat(this, message);
+        Task<ChatInfo> chatInfoTask = ImsManager.getInstance().imsSendMessageToChat(this, message);
         messages.add(message);
         EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
-        return null; // TODO
+        return chatInfoTask;
     }
 
     public void updateMessage(final ImsMessage message, final TaskCompletionSource<ImsMessage> completion){

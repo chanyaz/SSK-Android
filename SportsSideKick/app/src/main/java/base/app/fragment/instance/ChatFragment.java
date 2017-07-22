@@ -43,7 +43,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -86,7 +85,6 @@ import base.app.model.im.ImsMessage;
 import base.app.model.im.event.ChatNotificationsEvent;
 import base.app.model.im.event.ChatsInfoUpdatesEvent;
 import base.app.model.im.event.CreateNewChatSuccessEvent;
-import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import butterknife.BindView;
@@ -501,7 +499,9 @@ public class ChatFragment extends BaseFragment {
         if (videoView != null) {
             videoView.stopPlayback();
             videoView.closePlayer();
-            mediaController.reset();
+            if (mediaController != null) {
+                mediaController.reset();
+            }
         }
     }
 
@@ -524,7 +524,7 @@ public class ChatFragment extends BaseFragment {
             currentlyActiveChat.sendMessage(message).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
                 @Override
                 public void onComplete(@NonNull Task<ChatInfo> task) {
-
+                    // TODO @Filip Update UI?
                 }
             });
             currentlyActiveChat.setUserIsTyping(false);
@@ -612,7 +612,7 @@ public class ChatFragment extends BaseFragment {
                 String downloadUrl = (String) event.getData();
                 ImsMessage message = ImsMessage.getDefaultMessage();
                 message.setImageUrl(downloadUrl);
-                currentlyActiveChat.sendMessage(message);
+                currentlyActiveChat.sendMessage(message);  // TODO @Filip Update UI with waiting dialog
                 break;
             case VIDEO_FILE_UPLOADED:
                 videoDownloadUrl = (String) event.getData();
@@ -623,7 +623,7 @@ public class ChatFragment extends BaseFragment {
                 ImsMessage messageVideo = ImsMessage.getDefaultMessage();
                 messageVideo.setVidUrl(videoDownloadUrl);
                 messageVideo.setImageUrl(videoThumbnailDownloadUrl);
-                currentlyActiveChat.sendMessage(messageVideo);
+                currentlyActiveChat.sendMessage(messageVideo); // TODO @Filip Update UI with waiting dialog
                 break;
         }
     }

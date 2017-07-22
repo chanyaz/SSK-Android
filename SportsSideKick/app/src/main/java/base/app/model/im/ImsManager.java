@@ -393,8 +393,8 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
      **/
 
     // do not use this function, call the chat info one!
-    Task<ImsMessage> imsSendMessageToChat(ChatInfo chatInfo, final ImsMessage message) {
-        final TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
+    Task<ChatInfo> imsSendMessageToChat(final ChatInfo chatInfo, final ImsMessage message) {
+        final TaskCompletionSource<ChatInfo> source = new TaskCompletionSource<>();
         String nic = Model.getInstance().getUserInfo().getNicName();
         if (TextUtils.isEmpty(nic)) {
             nic = "New User";
@@ -412,11 +412,11 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
-
                        GSData messageInfo = response.getScriptData().getObject("result");
                         if(messageInfo!=null){
                             message.updateFrom(messageInfo.getBaseData());
                         }
+                        source.setResult(chatInfo);
                         // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
                     }
                 });
