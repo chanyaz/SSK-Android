@@ -26,6 +26,7 @@ import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.WallFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
+import base.app.model.tutorial.TutorialModel;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
@@ -126,6 +127,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                     @Override
                     public void onClick(View v) {
                         Model.getInstance().logout();
+                        TutorialModel.getInstance().resetSeenInfo();
                         if(Utility.isTablet(getActivity())){
                             getActivity().onBackPressed();
                         }else {

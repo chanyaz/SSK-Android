@@ -25,6 +25,9 @@ public class TutorialModel {
 
     private static TutorialModel instance;
     private WallTip notLoggedTip;
+
+    private String userId = "";
+
     public static TutorialModel getInstance() {
         if (instance == null) {
             instance = new TutorialModel();
@@ -396,7 +399,21 @@ public class TutorialModel {
         return tutorialItems;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public WallTip getNotLoggedTip() {
         return notLoggedTip;
+    }
+
+    public void resetSeenInfo() {
+        for(WallTip tip : tutorialItems){
+            tip.markAsNotSeen();
+        }
     }
 }

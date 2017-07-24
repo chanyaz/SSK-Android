@@ -70,6 +70,7 @@ import base.app.fragment.popup.YourProfileFragment;
 import base.app.fragment.popup.YourStatementFragment;
 import base.app.model.Model;
 import base.app.model.ticker.NewsTickerInfo;
+import base.app.model.tutorial.TutorialModel;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
@@ -407,7 +408,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
             userLevelProgress.setVisibility(View.VISIBLE);
             yourLevel.setText(String.valueOf(user.getLevel()));
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
-
+            TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
 
         } else {
             resetUserDetails();

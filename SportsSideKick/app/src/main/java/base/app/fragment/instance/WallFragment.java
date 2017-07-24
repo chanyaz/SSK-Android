@@ -78,6 +78,7 @@ import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.tutorial.TutorialModel;
 import base.app.model.tutorial.WallTip;
 import base.app.model.user.LoginStateReceiver;
+import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
 import base.app.model.wall.WallBetting;
@@ -227,6 +228,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         TutorialModel.getInstance().initialize(getActivity());
         this.loginStateReceiver = new LoginStateReceiver(this);
         wallItems = new ArrayList<>();
+
+        if(WallBase.getCache().size()>0){
+            getNextTip();
+        }
+
         wallItems.addAll(WallBase.getCache().values());
         filteredWallItems = new ArrayList<>();
         WallModel.getInstance();
@@ -825,11 +831,25 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
     }
 
+    @Subscribe
+    public void updateTip(UserEvent event) {
+        if (event.getType() == UserEvent.Type.onDetailsUpdated) {
+            getNextTip();
+        }
+
+    }
+
     private void getNextTip() {
+
         WallTip tip = null;
         if (Model.getInstance().isRealUser()) {
+            if(!Model.getInstance().getUserInfo().getUserId().equals(TutorialModel.getInstance().getUserId())){
+                //Different user so we need to load new tutorials
+                TutorialModel.getInstance().resetSeenInfo();
+            }
             if (TutorialModel.getInstance().getTutorialItems() != null) {
                 for (int i = 0; i < TutorialModel.getInstance().getTutorialItems().size(); i++) {
+
                     if (!TutorialModel.getInstance().getTutorialItems().get(i).hasBeenSeen()) {
                         tip = TutorialModel.getInstance().getTutorialItems().get(i);
                         break;
@@ -845,7 +865,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                                 WallTip wallTip = (WallTip) wallBase;
                                 if (tip.getTipNumber() != (wallTip.getTipNumber())) {
                                     tip.setType(WallBase.PostType.tip);
-                                    tip.setTimestamp((double) System.currentTimeMillis() / 1000);
+                                    tip.setTimestamp(0.0);
                                     tip.setPostId(Model.getInstance().getUserInfo().getUserId());
                                     WallBase.getCache().put(tip.getPostId(), tip);
                                     wallItems.add(tip);
@@ -855,7 +875,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                         }
                     } else {
                         tip.setType(WallBase.PostType.tip);
-                        tip.setTimestamp((double) System.currentTimeMillis() / 1000);
+                        tip.setTimestamp(0.0);
                         tip.setPostId(Model.getInstance().getUserInfo().getUserId());
                         WallBase.getCache().put(tip.getPostId(), tip);
                         wallItems.add(tip);
@@ -888,8 +908,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public void onResume() {
         super.onResume();
-        getNextTip();
+//        getNextTip();
         updateBottomBar();
+       // reloadWallFromModel();
     }
 
     private void reset() {
@@ -907,9 +928,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public void onLoginAnonymously() {
         reset();
+        getNextTip();
         reloadWallFromModel();
         updateBottomBar();
-        getNextTip();
     }
 
     @Override
@@ -917,6 +938,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (loginHolder != null) {
             if (Model.getInstance().isRealUser()) {
                 loginHolder.setVisibility(View.GONE);
+                TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
             } else {
                 loginHolder.setVisibility(View.VISIBLE);
             }
@@ -925,6 +947,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         reloadWallFromModel();
         updateBottomBar();
         getNextTip();
+
     }
 
     @Override

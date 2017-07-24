@@ -111,6 +111,9 @@ public class WallTip extends WallBase {
         Prefs.putBoolean("tip_seen_" + tipNumber,true);
     }
 
+    public void markAsNotSeen(){
+        Prefs.putBoolean("tip_seen_" + tipNumber,false);
+    }
 
     @Override
     public SharingManager.ItemType getItemType() {
