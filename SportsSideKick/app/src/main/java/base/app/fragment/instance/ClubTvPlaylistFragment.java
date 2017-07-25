@@ -17,18 +17,17 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import base.app.activity.PhoneLoungeActivity;
+import base.app.R;
+import base.app.adapter.ClubTVPlaylistAdapter;
+import base.app.events.ClubTVEvent;
+import base.app.fragment.BaseFragment;
+import base.app.fragment.FragmentEvent;
+import base.app.model.club.ClubModel;
 import base.app.util.Utility;
 import base.app.util.ui.GridItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import base.app.R;
-import base.app.adapter.ClubTVPlaylistAdapter;
-import base.app.fragment.BaseFragment;
-import base.app.fragment.FragmentEvent;
-import base.app.model.club.ClubModel;
-import base.app.events.ClubTVEvent;
 import butterknife.Optional;
 
 /**
@@ -55,7 +54,8 @@ public class ClubTvPlaylistFragment extends BaseFragment {
         setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_club_tv, container, false);
         ButterKnife.bind(this, view);
-        playlist = ClubModel.getInstance().getPlaylistById(getPrimaryArgument());
+        String plyalistId = getPrimaryArgument();
+        playlist = ClubModel.getInstance().getPlaylistById(plyalistId);
         if (Utility.isTablet(getActivity())) {
             GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
             recyclerView.setLayoutManager(layoutManager);
