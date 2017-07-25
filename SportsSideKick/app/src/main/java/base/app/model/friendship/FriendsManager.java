@@ -16,6 +16,7 @@ package base.app.model.friendship;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.Task;
@@ -27,11 +28,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import base.app.GSAndroidPlatform;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.UserInfo;
-import base.app.GSAndroidPlatform;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CLUB_ID_TAG;
@@ -77,8 +78,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.FRIENDS);
-                    List<UserInfo> friends = mapper.convertValue(object, new TypeReference<List<UserInfo>>() {
-                    });
+                    List<UserInfo> friends = mapper.convertValue(object, new TypeReference<List<UserInfo>>() { });
                     while (friends.contains(null)) {
                         friends.remove(null);
                     }
@@ -139,10 +139,15 @@ public class FriendsManager extends GSMessageHandlerAbstract {
             @Override
             public void onEvent(GSResponseBuilder.CreateChallengeResponse response) {
                 if (!response.hasErrors()) {
-                    Object object = response.getScriptData().getBaseData().get(GSConstants.USER_INFO);
-                    UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {
-                    });
-                    source.setResult(user);
+                    GSData gsData = response.getScriptData();
+                    if(gsData!=null){
+                        if(gsData.getBaseData().containsKey(GSConstants.USER_INFO)){
+                            Object object = gsData.getBaseData().get(GSConstants.USER_INFO);
+                            UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {});
+                            source.setResult(user);
+                        }
+                    }
+                    source.setResult(null);
                 } else {
                     source.setException(new Exception("There was an error while trying to send a friend request."));
                 }
