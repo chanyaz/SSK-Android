@@ -1,5 +1,6 @@
 package base.app.model.club;
 
+import android.support.annotation.Nullable;
 import android.util.Pair;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -22,11 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import base.app.Application;
 import base.app.BuildConfig;
 import base.app.events.ClubTVEvent;
-import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.YoutubePlayerFragment;
 import base.app.model.GSConstants;
 import base.app.util.Utility;
 
@@ -121,7 +119,10 @@ public class ClubModel {
 
     }
 
-    public Playlist getPlaylistById(String id) {
+    public Playlist getPlaylistById(@Nullable String id) {
+        if(id==null){
+            return null;
+        }
         for (Playlist playlist : playlists) {
             if (id.equals(playlist.getId())) {
                 return playlist;
@@ -131,6 +132,9 @@ public class ClubModel {
     }
 
     public Video getVideoById(String id) {
+        if(id==null){
+            return null;
+        }
         for (Video video : videos) {
             if (id.equals(video.getId())) {
                 return video;
