@@ -386,8 +386,14 @@ public class Utility {
         return filteredUserslList;
     }
 
+    public static final String IS_TABLET = "IS_TABLET";
+
     public static Boolean isTablet(Context context) {
-        return context.getResources().getBoolean(R.bool.is_tablet);
+        if(context!=null) {
+            return context.getResources().getBoolean(R.bool.is_tablet);
+        } else {
+            return Prefs.getBoolean(IS_TABLET, false);
+        }
     }
 
 

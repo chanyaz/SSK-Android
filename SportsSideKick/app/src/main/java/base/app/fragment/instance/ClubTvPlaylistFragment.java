@@ -42,6 +42,7 @@ public class ClubTvPlaylistFragment extends BaseFragment {
     TextView captionTextView;
 
     ClubTVPlaylistAdapter adapter;
+    @Nullable
     Playlist playlist;
 
     public ClubTvPlaylistFragment() {
@@ -54,8 +55,8 @@ public class ClubTvPlaylistFragment extends BaseFragment {
         setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_club_tv, container, false);
         ButterKnife.bind(this, view);
-        String plyalistId = getPrimaryArgument();
-        playlist = ClubModel.getInstance().getPlaylistById(plyalistId);
+        String playlistId = getPrimaryArgument();
+        playlist = ClubModel.getInstance().getPlaylistById(playlistId);
         if (Utility.isTablet(getActivity())) {
             GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
             recyclerView.setLayoutManager(layoutManager);
@@ -68,7 +69,9 @@ public class ClubTvPlaylistFragment extends BaseFragment {
         adapter = new ClubTVPlaylistAdapter(getContext());
         recyclerView.setAdapter(adapter);
         if (captionTextView != null) {
-            captionTextView.setText(playlist.getSnippet().getTitle());
+            if (playlist != null) {
+                captionTextView.setText(playlist.getSnippet().getTitle());
+            }
         }
 
 
@@ -78,7 +81,9 @@ public class ClubTvPlaylistFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ClubModel.getInstance().requestPlaylist(playlist.getId());
+        if (playlist != null) {
+            ClubModel.getInstance().requestPlaylist(playlist.getId(), false);
+        }
     }
 
 

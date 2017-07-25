@@ -91,8 +91,8 @@ public class ClubModel {
                         if (stringListPair.second != null) {
                             playlists.addAll(stringListPair.second);
                         }
-                        if (!Utility.isTablet(getApplicationContext())) {
-                            ClubModel.getInstance().requestPlaylist(playlists.get(0).getId());
+                        if (!Utility.isTablet(getApplicationContext())) { // if on phone, download first playlist immediately
+                            ClubModel.getInstance().requestPlaylist(playlists.get(0).getId(), true);
                         }
                         EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));
                     }
@@ -101,7 +101,7 @@ public class ClubModel {
         }
     }
 
-    public void requestPlaylist(final String playlistId) {
+    public void requestPlaylist(final String playlistId, final boolean firstTime) {
         if (videosHashMap.containsKey(playlistId)) {
             EventBus.getDefault().post(new ClubTVEvent(playlistId, ClubTVEvent.Type.PLAYLIST_DOWNLOADED));
         } else {
@@ -113,6 +113,9 @@ public class ClubModel {
                     videosHashMap.put(playlistId, receivedVideos);
                     videos.addAll(receivedVideos);
                     EventBus.getDefault().post(new ClubTVEvent(playlistId, ClubTVEvent.Type.PLAYLIST_DOWNLOADED));
+                    if(firstTime){
+                        EventBus.getDefault().post(new ClubTVEvent(videos.get(0).getId(), ClubTVEvent.Type.FIRST_VIDEO_DATA_DOWNLOADED));
+                    }
                 }
             }.execute(playlistId);
         }
