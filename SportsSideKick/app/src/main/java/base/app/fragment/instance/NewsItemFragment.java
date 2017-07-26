@@ -22,11 +22,16 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import base.app.R;
 import base.app.adapter.CommentsAdapter;
@@ -37,6 +42,7 @@ import base.app.fragment.BaseFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.news.NewsModel;
+import base.app.model.news.NewsPageEvent;
 import base.app.model.sharing.SharingManager;
 import base.app.model.wall.PostComment;
 import base.app.model.wall.WallBase;
@@ -118,6 +124,10 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.share_twitter)
     ImageView shareTwitterButton;
 
+    @Nullable
+    @BindView(R.id.rumours_swipe_refresh_layout)
+    SwipyRefreshLayout swipeRefreshLayout;
+
     CommentsAdapter commentsAdapter;
     WallNews item;
 
@@ -155,7 +165,6 @@ public class NewsItemFragment extends BaseFragment {
         }
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setMarginTop(true);
@@ -174,7 +183,20 @@ public class NewsItemFragment extends BaseFragment {
             id = id.replace("UNOFFICIAL$$$", "");
             type = NewsModel.NewsType.UNOFFICIAL;
         }
+
         item = NewsModel.getInstance().getCachedItemById(id, type);
+
+        if (NewsModel.getInstance().getAllCachedItems(type).size() > 0) {
+            GetCommentsCompleteEvent event = new GetCommentsCompleteEvent(WallModel.getInstance().getAllCommentsCachedItems(WallModel.CommentType.NEWS_COMMENT));
+            if (event != null) {
+                onCommentsReceivedEvent(event);
+            } else {
+                WallModel.getInstance().setLoading(false, WallModel.CommentType.NEWS_COMMENT);
+                WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
+            }
+        } else {
+            WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
+        }
 
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         if (item.getCoverImageUrl() != null) {
@@ -192,15 +214,25 @@ public class NewsItemFragment extends BaseFragment {
 
 
         postContainer.setVisibility(View.VISIBLE);
-        WallModel.getInstance().getCommentsForPost(item);
+        WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
         commentsList.setNestedScrollingEnabled(false);
 
-        commentsCount.setText(String.valueOf(item.getCommentsCount()));
-        likesCount.setText(String.valueOf(item.getLikeCount()));
-        shareCount.setText(String.valueOf(item.getShareCount()));
+        if (commentsCount != null) {
+            commentsCount.setText(String.valueOf(item.getCommentsCount()));
+        }
+        if (likesCount != null) {
+            likesCount.setText(String.valueOf(item.getLikeCount()));
+        }
+        if (shareCount != null) {
+            shareCount.setText(String.valueOf(item.getShareCount()));
+        }
         if (item.isLikedByUser()) {
-            likesIcon.setVisibility(View.GONE);
-            likesIconLiked.setVisibility(View.VISIBLE);
+            if (likesIcon != null) {
+                likesIcon.setVisibility(View.GONE);
+            }
+            if (likesIconLiked != null) {
+                likesIconLiked.setVisibility(View.VISIBLE);
+            }
         }
 
         post.addTextChangedListener(new TextWatcher() {
@@ -223,45 +255,79 @@ public class NewsItemFragment extends BaseFragment {
             }
         });
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
-        if(Model.getInstance().isRealUser()){
-            shareButton.setOnTouchListener(new View.OnTouchListener() {
-
+        if (close != null) {
+            close.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        shareButtons.setVisibility(View.VISIBLE);
-                    } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                        shareButtons.setVisibility(View.GONE);
-                    }
-                    return false;
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
                 }
             });
+        }
+        if(Model.getInstance().isRealUser()){
+            if (shareButton != null) {
+                shareButton.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            if (shareButtons != null) {
+                                shareButtons.setVisibility(View.VISIBLE);
+                            }
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                            if (shareButtons != null) {
+                                shareButtons.setVisibility(View.GONE);
+                            }
+                        }
+                        return false;
+                    }
+                });
+            }
         }else {
             post.setEnabled(false);
         }
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                WallModel.getInstance().setLoading(false,WallModel.CommentType.NEWS_COMMENT);
+                WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
+              //  NewsModel.getInstance().setLoading(false, type);
+              //  NewsModel.getInstance().loadPage(type);
+
+            }
+        });
+
 
         return view;
     }
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
+        List<PostComment> commentList = event.getCommentList();
+
+//        //Delete duplicates from list
+//        Set<PostComment> set = new HashSet<>();
+//        set.addAll(commentList);
+//        commentList.clear();
+//        commentList.addAll(set);
+
         // Sort by timestamp
-        Collections.sort(event.getCommentList(), new Comparator<PostComment>() {
+        Collections.sort(commentList, new Comparator<PostComment>() {
             @Override
             public int compare(PostComment lhs, PostComment rhs) {
                 return rhs.getTimestamp().compareTo(lhs.getTimestamp());
             }
         });
-        commentsAdapter.getComments().addAll(event.getCommentList());
+        commentsAdapter.getComments().addAll(commentList);
         commentsAdapter.notifyDataSetChanged();
         item.setCommentsCount(commentsAdapter.getComments().size());
-        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        if (commentsCount != null) {
+            commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        }
+
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @OnClick(R.id.post_comment_button)
@@ -272,7 +338,7 @@ public class NewsItemFragment extends BaseFragment {
             comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getPostId());
-            comment.setTimestamp(Double.valueOf(System.currentTimeMillis() / 1000));
+            comment.setTimestamp((double) (System.currentTimeMillis() / 1000));
             WallModel.getInstance().postComment(item, comment);
             post.getText().clear();
             postCommentProgressBar.setVisibility(View.VISIBLE);
@@ -288,7 +354,9 @@ public class NewsItemFragment extends BaseFragment {
         commentsAdapter.notifyDataSetChanged();
         commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
         item.setCommentsCount(commentsAdapter.getComments().size());
-        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        if (commentsCount != null) {
+            commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        }
 
     }
 
@@ -297,8 +365,12 @@ public class NewsItemFragment extends BaseFragment {
         if(Model.getInstance().isRealUser()) {
             if (item != null) {
                 item.toggleLike();
-                likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
-                likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+                if (likesIcon != null) {
+                    likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
+                }
+                if (likesIconLiked != null) {
+                    likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+                }
                 SoundEffects.getDefault().playSound(item.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }
         }
@@ -308,9 +380,15 @@ public class NewsItemFragment extends BaseFragment {
     public void onPostUpdate(PostUpdateEvent event) {
         WallBase post = event.getPost();
         if ((post != null)) {
-            commentsCount.setText(String.valueOf(post.getCommentsCount()));
-            likesCount.setText(String.valueOf(post.getLikeCount()));
-            shareCount.setText(String.valueOf(post.getShareCount()));
+            if (commentsCount != null) {
+                commentsCount.setText(String.valueOf(post.getCommentsCount()));
+            }
+            if (likesCount != null) {
+                likesCount.setText(String.valueOf(post.getLikeCount()));
+            }
+            if (shareCount != null) {
+                shareCount.setText(String.valueOf(post.getShareCount()));
+            }
         }
     }
 
@@ -365,10 +443,14 @@ public class NewsItemFragment extends BaseFragment {
     public void readMoreClick() {
         if (content.getMaxLines() == 3) {
             content.setMaxLines(Integer.MAX_VALUE);
-            readMoreArrowImage.setRotation(90);
+            if (readMoreArrowImage != null) {
+                readMoreArrowImage.setRotation(90);
+            }
         } else {
             content.setMaxLines(3);
-            readMoreArrowImage.setRotation(-90);
+            if (readMoreArrowImage != null) {
+                readMoreArrowImage.setRotation(-90);
+            }
         }
     }
 

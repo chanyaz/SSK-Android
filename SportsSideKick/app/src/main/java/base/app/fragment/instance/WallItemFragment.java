@@ -30,6 +30,8 @@ import android.widget.VideoView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -154,6 +156,10 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.tutorial_earn_button)
     RelativeLayout tipEarnButton;
 
+    @Nullable
+    @BindView(R.id.rumours_swipe_refresh_layout)
+    SwipyRefreshLayout swipeRefreshLayout;
+
     CommentsAdapter commentsAdapter;
     WallBase item;
 
@@ -175,12 +181,14 @@ public class WallItemFragment extends BaseFragment {
         commentsList.setLayoutManager(commentLayoutManager);
         commentsList.setAdapter(commentsAdapter);
 
-        pinContainer.setVisibility(View.GONE);
+        if (pinContainer != null) {
+            pinContainer.setVisibility(View.GONE);
+        }
 
         item = WallBase.getCache().get(id);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
 
-        WallModel.getInstance().getCommentsForPost(item);
+        WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.WALL_COMMENT);
         switch (item.getType()) {
             case post:
                 WallPost post = (WallPost) item;
@@ -203,12 +211,22 @@ public class WallItemFragment extends BaseFragment {
                 postContainer.setVisibility(View.VISIBLE);
                 commentsList.setNestedScrollingEnabled(false);
 
-                commentsCount.setText(String.valueOf(post.getCommentsCount()));
-                likesCount.setText(String.valueOf(post.getLikeCount()));
-                shareCount.setText(String.valueOf(post.getShareCount()));
+                if (commentsCount != null) {
+                    commentsCount.setText(String.valueOf(post.getCommentsCount()));
+                }
+                if (likesCount != null) {
+                    likesCount.setText(String.valueOf(post.getLikeCount()));
+                }
+                if (shareCount != null) {
+                    shareCount.setText(String.valueOf(post.getShareCount()));
+                }
                 if (post.isLikedByUser()) {
-                    likesIcon.setVisibility(View.GONE);
-                    likesIconLiked.setVisibility(View.VISIBLE);
+                    if (likesIcon != null) {
+                        likesIcon.setVisibility(View.GONE);
+                    }
+                    if (likesIconLiked != null) {
+                        likesIconLiked.setVisibility(View.VISIBLE);
+                    }
                 }
                 break;
             case rumor:
@@ -218,12 +236,22 @@ public class WallItemFragment extends BaseFragment {
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());
 
-                commentsCount.setText(String.valueOf(news.getCommentsCount()));
-                likesCount.setText(String.valueOf(news.getLikeCount()));
-                shareCount.setText(String.valueOf(news.getShareCount()));
+                if (commentsCount != null) {
+                    commentsCount.setText(String.valueOf(news.getCommentsCount()));
+                }
+                if (likesCount != null) {
+                    likesCount.setText(String.valueOf(news.getLikeCount()));
+                }
+                if (shareCount != null) {
+                    shareCount.setText(String.valueOf(news.getShareCount()));
+                }
                 if (news.isLikedByUser()) {
-                    likesIcon.setVisibility(View.GONE);
-                    likesIconLiked.setVisibility(View.VISIBLE);
+                    if (likesIcon != null) {
+                        likesIcon.setVisibility(View.GONE);
+                    }
+                    if (likesIconLiked != null) {
+                        likesIconLiked.setVisibility(View.VISIBLE);
+                    }
                 }
 
                 break;
@@ -243,24 +271,44 @@ public class WallItemFragment extends BaseFragment {
 
                 commentsList.setAdapter(adapter);
 
-                buttonsContainer.setVisibility(View.GONE);
-                headerContainer.setVisibility(View.GONE);
-                topSplitLine.setVisibility(View.GONE);
-                bottomSplitLine.setVisibility(View.GONE);
+                if (buttonsContainer != null) {
+                    buttonsContainer.setVisibility(View.GONE);
+                }
+                if (headerContainer != null) {
+                    headerContainer.setVisibility(View.GONE);
+                }
+                if (topSplitLine != null) {
+                    topSplitLine.setVisibility(View.GONE);
+                }
+                if (bottomSplitLine != null) {
+                    bottomSplitLine.setVisibility(View.GONE);
+                }
                 content.setVisibility(View.GONE);
-                tutorialContainer.setVisibility(View.VISIBLE);
-                tutorialTitle.setText(tip.getTipTittle());
-                tutorialDescription.setText(tip.getTipDescription());
-                bottomTutorialContainer.setVisibility(View.VISIBLE);
-                bottomMessage.setText(tip.getTipEnding());
-                tipEarnButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Model.getInstance().markWallTipComplete(String.valueOf(tip.getTipNumber()));
-                        tip.markAsSeen();
-                        getActivity().onBackPressed();
-                    }
-                });
+                if (tutorialContainer != null) {
+                    tutorialContainer.setVisibility(View.VISIBLE);
+                }
+                if (tutorialTitle != null) {
+                    tutorialTitle.setText(tip.getTipTittle());
+                }
+                if (tutorialDescription != null) {
+                    tutorialDescription.setText(tip.getTipDescription());
+                }
+                if (bottomTutorialContainer != null) {
+                    bottomTutorialContainer.setVisibility(View.VISIBLE);
+                }
+                if (bottomMessage != null) {
+                    bottomMessage.setText(tip.getTipEnding());
+                }
+                if (tipEarnButton != null) {
+                    tipEarnButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Model.getInstance().markWallTipComplete(String.valueOf(tip.getTipNumber()));
+                            tip.markAsSeen();
+                            getActivity().onBackPressed();
+                        }
+                    });
+                }
                 break;
         }
 
@@ -297,6 +345,18 @@ public class WallItemFragment extends BaseFragment {
             post.setEnabled(false);
         }
 
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                    WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.WALL_COMMENT);
+                    //  NewsModel.getInstance().setLoading(false, type);
+                    //  NewsModel.getInstance().loadPage(type);
+
+                }
+            });
+        }
+
         return view;
     }
 
@@ -312,12 +372,19 @@ public class WallItemFragment extends BaseFragment {
         commentsAdapter.getComments().addAll(event.getCommentList());
         commentsAdapter.notifyDataSetChanged();
         item.setCommentsCount(commentsAdapter.getComments().size());
-        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        if (commentsCount != null) {
+            commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        }
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @OnClick(R.id.share_container)
     public void onShareClick(View view) {
-        shareButtonsContainer.setVisibility(View.VISIBLE);
+        if (shareButtonsContainer != null) {
+            shareButtonsContainer.setVisibility(View.VISIBLE);
+        }
 
         Animation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
@@ -364,7 +431,9 @@ public class WallItemFragment extends BaseFragment {
         commentsAdapter.getComments().add(0, event.getComment());
         commentsAdapter.notifyDataSetChanged();
         item.setCommentsCount(commentsAdapter.getComments().size());
-        commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        if (commentsCount != null) {
+            commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        }
 
     }
 
@@ -373,8 +442,12 @@ public class WallItemFragment extends BaseFragment {
         if (Model.getInstance().isRealUser()) {
             if (item != null) {
                 item.toggleLike();
-                likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
-                likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+                if (likesIcon != null) {
+                    likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
+                }
+                if (likesIconLiked != null) {
+                    likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+                }
                 SoundEffects.getDefault().playSound(item.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }
         }
@@ -384,9 +457,15 @@ public class WallItemFragment extends BaseFragment {
     public void onPostUpdate(PostUpdateEvent event) {
         WallBase post = event.getPost();
         if ((post != null)) {
-            commentsCount.setText(String.valueOf(post.getCommentsCount()));
-            likesCount.setText(String.valueOf(post.getLikeCount()));
-            shareCount.setText(String.valueOf(post.getShareCount()));
+            if (commentsCount != null) {
+                commentsCount.setText(String.valueOf(post.getCommentsCount()));
+            }
+            if (likesCount != null) {
+                likesCount.setText(String.valueOf(post.getLikeCount()));
+            }
+            if (shareCount != null) {
+                shareCount.setText(String.valueOf(post.getShareCount()));
+            }
         }
     }
 
@@ -429,10 +508,14 @@ public class WallItemFragment extends BaseFragment {
     public void readMoreClick() {
         if (content.getMaxLines() == 3) {
             content.setMaxLines(Integer.MAX_VALUE);
-            readMoreArrowImage.setRotation(90);
+            if (readMoreArrowImage != null) {
+                readMoreArrowImage.setRotation(90);
+            }
         } else {
             content.setMaxLines(3);
-            readMoreArrowImage.setRotation(-90);
+            if (readMoreArrowImage != null) {
+                readMoreArrowImage.setRotation(-90);
+            }
         }
     }
 }
