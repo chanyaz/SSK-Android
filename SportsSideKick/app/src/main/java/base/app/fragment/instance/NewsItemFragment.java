@@ -27,11 +27,10 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import base.app.R;
 import base.app.adapter.CommentsAdapter;
@@ -42,7 +41,6 @@ import base.app.fragment.BaseFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.news.NewsModel;
-import base.app.model.news.NewsPageEvent;
 import base.app.model.sharing.SharingManager;
 import base.app.model.wall.PostComment;
 import base.app.model.wall.WallBase;
@@ -78,7 +76,7 @@ public class NewsItemFragment extends BaseFragment {
     Button share;
 
     @BindView(R.id.comments_wall)
-    RecyclerView commentsList;
+    RecyclerView commentsListView;
 
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
@@ -96,7 +94,6 @@ public class NewsItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.read_more_arrow_image)
     ImageView readMoreArrowImage;
-
 
     @Nullable
     @BindView(R.id.likes_icon)
@@ -130,41 +127,12 @@ public class NewsItemFragment extends BaseFragment {
 
     CommentsAdapter commentsAdapter;
     WallNews item;
+    List<PostComment> comments;
 
     public NewsItemFragment() {
         // Required empty public constructor
     }
 
-    @OnClick(R.id.share_facebook)
-    public void sharePostFacebook(View view) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
-            SharingManager.getInstance().share(getContext(),  item, false, SharingManager.ShareTarget.facebook, view);
-        } else {
-            //TODO Notify user that need to login in order to SHARE
-        }
-
-    }
-
-    @OnClick(R.id.share_twitter)
-    public void sharePostTwitter(View view) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
-            PackageManager pkManager = getActivity().getPackageManager();
-            try {
-                PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
-                String getPkgInfo = pkgInfo.toString();
-
-                if (getPkgInfo.contains("com.twitter.android")) {
-                    SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
-                }
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
-            }
-        } else {
-            //TODO Notify user that need to login in order to SHARE
-        }
-
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setMarginTop(true);
@@ -172,11 +140,11 @@ public class NewsItemFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         String id = getPrimaryArgument();
-        LinearLayoutManager commentLayouManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        commentsAdapter = new CommentsAdapter();
-        commentsList.setLayoutManager(commentLayouManager);
-        commentsList.setAdapter(commentsAdapter);
-
+        LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        comments = new ArrayList<>();
+        commentsAdapter = new CommentsAdapter(comments);
+        commentsListView.setLayoutManager(commentLayoutManager);
+        commentsListView.setAdapter(commentsAdapter);
 
         NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
         if (id.contains("UNOFFICIAL$$$")) {
@@ -185,18 +153,6 @@ public class NewsItemFragment extends BaseFragment {
         }
 
         item = NewsModel.getInstance().getCachedItemById(id, type);
-
-        if (NewsModel.getInstance().getAllCachedItems(type).size() > 0) {
-            GetCommentsCompleteEvent event = new GetCommentsCompleteEvent(WallModel.getInstance().getAllCommentsCachedItems(WallModel.CommentType.NEWS_COMMENT));
-            if (event != null) {
-                onCommentsReceivedEvent(event);
-            } else {
-                WallModel.getInstance().setLoading(false, WallModel.CommentType.NEWS_COMMENT);
-                WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
-            }
-        } else {
-            WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
-        }
 
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         if (item.getCoverImageUrl() != null) {
@@ -214,8 +170,8 @@ public class NewsItemFragment extends BaseFragment {
 
 
         postContainer.setVisibility(View.VISIBLE);
-        WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
-        commentsList.setNestedScrollingEnabled(false);
+        WallModel.getInstance().getCommentsForPost(item);
+        commentsListView.setNestedScrollingEnabled(false);
 
         if (commentsCount != null) {
             commentsCount.setText(String.valueOf(item.getCommentsCount()));
@@ -286,16 +242,14 @@ public class NewsItemFragment extends BaseFragment {
             post.setEnabled(false);
         }
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                WallModel.getInstance().setLoading(false,WallModel.CommentType.NEWS_COMMENT);
-                WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
-              //  NewsModel.getInstance().setLoading(false, type);
-              //  NewsModel.getInstance().loadPage(type);
-
-            }
-        });
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                    WallModel.getInstance().getCommentsForPost(item, comments.size());
+                }
+            });
+        }
 
 
         return view;
@@ -303,26 +257,17 @@ public class NewsItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
-        List<PostComment> commentList = event.getCommentList();
+        if(event.getCommentList()!=null){
+            comments.addAll(event.getCommentList());
 
-//        //Delete duplicates from list
-//        Set<PostComment> set = new HashSet<>();
-//        set.addAll(commentList);
-//        commentList.clear();
-//        commentList.addAll(set);
-
-        // Sort by timestamp
-        Collections.sort(commentList, new Comparator<PostComment>() {
-            @Override
-            public int compare(PostComment lhs, PostComment rhs) {
-                return rhs.getTimestamp().compareTo(lhs.getTimestamp());
-            }
-        });
-        commentsAdapter.getComments().addAll(commentList);
-        commentsAdapter.notifyDataSetChanged();
-        item.setCommentsCount(commentsAdapter.getComments().size());
-        if (commentsCount != null) {
-            commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+            // Sort by timestamp
+            Collections.sort(comments, new Comparator<PostComment>() {
+                @Override
+                public int compare(PostComment lhs, PostComment rhs) {
+                    return rhs.getTimestamp().compareTo(lhs.getTimestamp());
+                }
+            });
+            commentsAdapter.notifyDataSetChanged();
         }
 
         if (swipeRefreshLayout != null) {
@@ -352,7 +297,7 @@ public class NewsItemFragment extends BaseFragment {
         postCommentProgressBar.setVisibility(View.GONE);
         commentsAdapter.getComments().add(0, event.getComment());
         commentsAdapter.notifyDataSetChanged();
-        commentsList.scrollToPosition(commentsAdapter.getComments().size() - 1);
+        commentsListView.scrollToPosition(commentsAdapter.getComments().size() - 1);
         item.setCommentsCount(commentsAdapter.getComments().size());
         if (commentsCount != null) {
             commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
@@ -389,6 +334,37 @@ public class NewsItemFragment extends BaseFragment {
             if (shareCount != null) {
                 shareCount.setText(String.valueOf(post.getShareCount()));
             }
+        }
+    }
+
+
+    @OnClick(R.id.share_facebook)
+    public void sharePostFacebook(View view) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            SharingManager.getInstance().share(getContext(),  item, false, SharingManager.ShareTarget.facebook, view);
+        } else {
+            //TODO Notify user that need to login in order to SHARE
+        }
+
+    }
+
+    @OnClick(R.id.share_twitter)
+    public void sharePostTwitter(View view) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+            PackageManager pkManager = getActivity().getPackageManager();
+            try {
+                PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
+                String getPkgInfo = pkgInfo.toString();
+
+                if (getPkgInfo.contains("com.twitter.android")) {
+                    SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            //TODO Notify user that need to login in order to SHARE
         }
     }
 

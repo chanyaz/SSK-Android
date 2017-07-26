@@ -35,6 +35,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -177,7 +178,7 @@ public class WallItemFragment extends BaseFragment {
 
         String id = getPrimaryArgument();
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        commentsAdapter = new CommentsAdapter();
+        commentsAdapter = new CommentsAdapter(new ArrayList<PostComment>());
         commentsList.setLayoutManager(commentLayoutManager);
         commentsList.setAdapter(commentsAdapter);
 
@@ -188,7 +189,7 @@ public class WallItemFragment extends BaseFragment {
         item = WallBase.getCache().get(id);
         DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
 
-        WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.WALL_COMMENT);
+        WallModel.getInstance().getCommentsForPost(item);
         switch (item.getType()) {
             case post:
                 WallPost post = (WallPost) item;
@@ -349,10 +350,7 @@ public class WallItemFragment extends BaseFragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                    WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.WALL_COMMENT);
-                    //  NewsModel.getInstance().setLoading(false, type);
-                    //  NewsModel.getInstance().loadPage(type);
-
+                    WallModel.getInstance().getCommentsForPost(item);
                 }
             });
         }
