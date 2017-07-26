@@ -7,6 +7,7 @@ package base.app.events;
 public class ClubTVEvent extends BusEvent {
 
     public enum Type {
+        FIRST_VIDEO_DATA_DOWNLOADED,
         PLAYLIST_DOWNLOADED,
         CHANNEL_PLAYLISTS_DOWNLOADED
     }

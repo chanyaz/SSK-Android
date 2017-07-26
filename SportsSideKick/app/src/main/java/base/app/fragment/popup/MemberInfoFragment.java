@@ -158,7 +158,7 @@ public class MemberInfoFragment extends BaseFragment {
 
         }
 
-        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(getPrimaryArgument());
+        Task<UserInfo> getUserTask = Model.getInstance().refreshUserInfo(getPrimaryArgument());
         getUserTask.addOnCompleteListener(onUserDataLoadedListener);
         return view;
     }

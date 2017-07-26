@@ -1,7 +1,6 @@
 package base.app.fragment.instance;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.Build;
@@ -10,7 +9,6 @@ import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,18 +24,22 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.api.services.youtube.model.Video;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
-import base.app.activity.PhoneLoungeActivity;
-import base.app.util.Utility;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.Constant;
 import base.app.R;
+import base.app.events.ClubTVEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.club.ClubModel;
+import base.app.util.Utility;
 import base.app.util.ui.ThemeManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.google.android.youtube.player.YouTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION;
 
 /**
  * Created by Filip on 1/25/2017.
@@ -123,9 +125,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
                 isSeekBarTouched = true;
             }
         });
-//      progressBar.setVisibility(View.VISIBLE);
         updateTimeInfo();
-
         updateButtonsColor();
         return view;
     }
@@ -171,27 +171,18 @@ public class YoutubePlayerFragment extends BaseFragment implements
     @Override
     public void onPlaying() {
         Log.d(TAG, "onPlaying");
-        if (!Utility.isTablet(getActivity())) {
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        }
         playButton.setSelected(true);
         beginPlaybackUpdates();
     }
 
     @Override
     public void onPaused() {
-        if (!Utility.isTablet(getActivity())) {
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
         playButton.setSelected(false);
     }
 
     @Override
     public void onStopped() {
         playButton.setSelected(false);
-        if (!Utility.isTablet(getActivity())) {
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
     }
 
     @Override
@@ -206,9 +197,11 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @OnClick(R.id.fullscreen_button)
     public void openFullscreen() {
-        player.setFullscreen(true);
+        if(player!=null){
+            player.	addFullscreenControlFlag(FULLSCREEN_FLAG_CONTROL_ORIENTATION);
+            player.setFullscreen(true);
+        }
     }
-
 
     @OnClick(R.id.play_button)
     public void togglePlay() {
@@ -254,7 +247,9 @@ public class YoutubePlayerFragment extends BaseFragment implements
     @Override
     public void onLoaded(String s) {
         updateTimeInfo();
-        player.play();
+        if (Utility.isTablet(getActivity())) {
+            player.play();
+        }
     }
 
 
@@ -308,9 +303,6 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @Override
     public void onDestroyView() {
-        if (!Utility.isTablet(getActivity())) {
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
         super.onDestroyView();
     }
 
@@ -338,5 +330,10 @@ public class YoutubePlayerFragment extends BaseFragment implements
     public void onVideoStarted() {
     }
 
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void displayPlaylist(ClubTVEvent event) {
+        if (event.getEventType().equals(ClubTVEvent.Type.FIRST_VIDEO_DATA_DOWNLOADED)) {
+            video = ClubModel.getInstance().getVideoById(event.getId());
+        }
+    }
 }

@@ -43,10 +43,12 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Utility.isTablet(this))
+        Prefs.putBoolean(Utility.IS_TABLET, Utility.isTablet(this));
+        if (Utility.isTablet(this)){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        else
+        } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         progressBar.setVisibility(View.VISIBLE);
