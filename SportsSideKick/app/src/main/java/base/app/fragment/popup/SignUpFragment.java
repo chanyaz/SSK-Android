@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,12 +91,40 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @BindView(R.id.politic_and_privacy_android)
     TextView policyText;
 
+    @Nullable
+    @BindView(R.id.popupSignupContainer)
+    RelativeLayout editTextContainer;
+
+
+    @Nullable
+    @BindView(R.id.facebook_button)
+    Button facebookButton;
+
+    @Nullable
+    @BindView(R.id.popupSignupJoinNowButton)
+    RelativeLayout joinNowContainer;
+
+
     private CallbackManager callbackManager;
 
     private RegistrationStateReceiver registrationStateReceiver;
 
     public SignUpFragment() {
         // Required empty public constructor
+    }
+
+    public void scaleViews(){
+        int width = Utility.getDisplayWidth(getActivity());
+        if (editTextContainer != null) {
+            editTextContainer.getLayoutParams().width = (int) (width * 0.55);
+        }
+        if (facebookButton != null) {
+            facebookButton.getLayoutParams().width = (int) (width * 0.4);
+        }
+        if (joinNowContainer != null) {
+            joinNowContainer.getLayoutParams().width = (int) (width * 0.4);
+        }
+
     }
 
     @Override
@@ -117,6 +147,10 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
         initFacebook();
         setupPolicyText();
+        if(Utility.isTablet(getActivity())){
+            scaleViews();
+        }
+
         return view;
     }
 

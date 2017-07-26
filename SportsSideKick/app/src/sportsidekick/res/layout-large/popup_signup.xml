@@ -46,43 +46,28 @@
         android:fitsSystemWindows="true"
         android:clickable="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:gravity="center">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_15"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.33" />
-
+            android:orientation="vertical"
+            android:gravity="center">
                 <Button
                     android:id="@+id/facebook_button"
                     style="@style/facebook_login_button_phone"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.33"
                     android:text="@string/join_with_facebook"
                     android:textAllCaps="false"
                     android:textColor="?white"
                     android:textSize="@dimen/font_size_16"
-                    android:padding="@dimen/padding_8"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.33" />
-            </LinearLayout>
+                    android:paddingTop="@dimen/padding_8"
+                    android:paddingBottom="@dimen/padding_8"
+                    android:layout_centerHorizontal="true"/>
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/sign_up_facebook"
@@ -92,112 +77,83 @@
                 android:text="@string/join_with_facebook"
                 android:visibility="gone" />
 
-
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/popupSignupContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_below="@+id/facebook_button"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_15">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.292" />
+                <View
+                    android:id="@+id/horizontal_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true"
+                    android:padding="@dimen/padding_8"/>
 
                     <EditText
                         android:id="@+id/sign_up_firstname"
                         style="@style/edit_text_login_phone"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.196"
                         android:hint="@string/sign_up_firstname"
                         android:inputType="text"
-                        android:textSize="@dimen/font_size_15" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.002" />
+                        android:textSize="@dimen/font_size_15"
+                        android:layout_toStartOf="@+id/horizontal_divider"/>
 
                     <EditText
                         android:id="@+id/sign_up_lastname"
                         style="@style/edit_text_login_phone"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.196"
                         android:hint="@string/sign_up_lastname"
                         android:inputType="text"
-                        android:textSize="@dimen/font_size_15" />
+                        android:textSize="@dimen/font_size_15"
+                        android:layout_toEndOf="@+id/horizontal_divider"/>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.292" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/sign_up_email"
+                    style="@style/edit_text_login_phone"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.292" />
-
-                    <EditText
-                        android:id="@+id/sign_up_email"
-                        style="@style/edit_text_login_phone"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.196"
-                        android:hint="@string/sign_up_email"
-                        android:inputType="text"
-                        android:textSize="@dimen/font_size_15" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.002" />
-
-                    <EditText
-                        android:id="@+id/sign_up_password"
-                        style="@style/edit_text_login_phone"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.196"
-                        android:hint="@string/login_login_password"
-                        android:inputType="textPassword"
-                        android:textSize="@dimen/font_size_15" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.292" />
-                </LinearLayout>
+                    android:hint="@string/sign_up_email"
+                    android:inputType="text"
+                    android:textSize="@dimen/font_size_15"
+                    android:layout_toStartOf="@+id/horizontal_divider"
+                    android:layout_below="@+id/sign_up_firstname"/>
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/sign_up_password"
+                    style="@style/edit_text_login_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_login_password"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/font_size_15"
+                    android:layout_toEndOf="@+id/horizontal_divider"
+                    android:layout_below="@+id/sign_up_lastname"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/popupSignupJoinNowButton"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.33" />
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/popupSignupContainer"
+                    android:layout_centerHorizontal="true">
 
                     <RelativeLayout
                         android:id="@+id/bottom_buttons_container_sign_up"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/standard_button_height"
-                        android:layout_weight="0.33"
-                        android:background="@drawable/button_login_login">
+                        android:background="@drawable/button_login_login"
+                        android:layout_centerHorizontal="true">
 
                         <TextView
                             android:id="@+id/sign_up_text"
@@ -219,11 +175,7 @@
 
                     </RelativeLayout>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.33" />
-                </LinearLayout>
+                </RelativeLayout>
 
 
                 <TextView
@@ -235,10 +187,9 @@
                     android:text="@string/sign_up_text"
                     android:textAlignment="center"
                     android:textColor="?white_semitransparent"
-                    android:textSize="@dimen/font_size_10" />
-            </LinearLayout>
-        </LinearLayout>
-
+                    android:textSize="@dimen/font_size_10"
+                    android:layout_below="@+id/popupSignupJoinNowButton"/>
+            </RelativeLayout>
 
     </RelativeLayout>
     <View
