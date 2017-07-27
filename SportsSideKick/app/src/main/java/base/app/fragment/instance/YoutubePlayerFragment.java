@@ -1,6 +1,7 @@
 package base.app.fragment.instance;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.Build;
@@ -21,6 +22,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.google.api.services.youtube.model.Video;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,8 +40,6 @@ import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.google.android.youtube.player.YouTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION;
 
 /**
  * Created by Filip on 1/25/2017.
@@ -198,22 +198,34 @@ public class YoutubePlayerFragment extends BaseFragment implements
     @OnClick(R.id.fullscreen_button)
     public void openFullscreen() {
         if(player!=null){
-            player.	addFullscreenControlFlag(FULLSCREEN_FLAG_CONTROL_ORIENTATION);
-            player.setFullscreen(true);
+            if(Utility.isTablet(getActivity())) {
+                  player.setFullscreen(true);
+            }else {
+                //  With this implementation we have problem - entering fullscreen mode
+                //  player.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_CONTROL_SYSTEM_UI );
+                //  player.setFullscreen(true);
+
+                //Standalone player
+                Intent intent = YouTubeStandalonePlayer.createVideoIntent(getActivity(), Constant.YOUTUBE_API_KEY, video.getId(),player.getCurrentTimeMillis(),true,false);
+                startActivity(intent);
+            }
         }
+
     }
 
     @OnClick(R.id.play_button)
     public void togglePlay() {
-        if (player.isPlaying()) {
-            player.pause();
-        } else {
-            player.play();
-        }
-        if (ThemeManager.getInstance().isLightTheme()) {
-            playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
-        } else {
-            playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.white), PorterDuff.Mode.MULTIPLY);
+        if (player != null) {
+            if (player.isPlaying()) {
+                player.pause();
+            } else {
+                player.play();
+            }
+            if (ThemeManager.getInstance().isLightTheme()) {
+                playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
+            } else {
+                playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.white), PorterDuff.Mode.MULTIPLY);
+            }
         }
     }
 
