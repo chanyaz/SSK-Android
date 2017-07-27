@@ -47,6 +47,7 @@
                 android:layout_marginBottom="@dimen/margin_30"
                 android:layout_marginTop="@dimen/margin_30"
                 android:text="@string/login_slider_text_1_phone"
+                android:textAlignment="center"
                 android:textColor="?white"
                 android:textSize="@dimen/font_size_28" />
 
