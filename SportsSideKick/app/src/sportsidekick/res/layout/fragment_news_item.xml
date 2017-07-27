@@ -58,12 +58,20 @@
         android:layout_alignParentEnd="true"
         android:background="@drawable/share_to_wall"
         android:visibility="gone" />
-
-    <ScrollView
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/rumours_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        app:srl_direction="bottom"
         android:layout_above="@+id/post_container"
         android:layout_below="@+id/top_buttons_container">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/newsItemScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -355,59 +363,6 @@
                 android:layout_below="@id/tutorial_container"
                 android:layout_marginTop="@dimen/margin_20" />
 
-            <LinearLayout
-                android:id="@+id/tutorial_container_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/comments_wall"
-                android:layout_marginBottom="@dimen/margin_20"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/tutorial_bottom_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_15"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
-
-                <RelativeLayout
-                    android:id="@+id/tutorial_earn_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="@dimen/width_160"
-                        android:layout_height="@dimen/height_90"
-                        android:layout_below="@+id/coin_image"
-                        android:layout_marginTop="@dimen/margin_negative_10"
-                        android:background="?green_dark_2_semitransparent">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentBottom="true"
-                            android:layout_margin="@dimen/margin_10"
-                            android:text="@string/tutorial_earn"
-                            android:textAlignment="center"
-                            android:textColor="@color/white" />
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/coin_image"
-                        android:layout_width="@dimen/width_50"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="@dimen/margin_10"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/tutorial_coins" />
-                </RelativeLayout>
-
-            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/share_buttons_container"
@@ -445,8 +400,8 @@
             </RelativeLayout>
 
         </RelativeLayout>
-    </ScrollView>
-
+    </android.support.v4.widget.NestedScrollView>
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
     <RelativeLayout
         android:id="@+id/post_container"
         android:layout_width="match_parent"

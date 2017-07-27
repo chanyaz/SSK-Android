@@ -58,6 +58,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     private static final String TAG = " WallModel";
     private static WallModel instance;
 
+
     private static final long ONE_HOUR =  60 * 60;
     private static final long D_LIMIT = 365 * 24 * ONE_HOUR;
     private long deltaTimeIntervalForPaging  = 24 * ONE_HOUR; // One day
@@ -70,12 +71,15 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     private final ObjectMapper mapper; // jackson's object mapper
 
+
     public static WallModel getInstance(){
         if(instance==null){
             instance = new WallModel();
         }
         return instance;
     }
+
+
 
     private WallModel(){
         oldestFetchDate = new Date();
@@ -189,6 +193,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             }
         });
     }
+
 
     /**
      * this func fetches the previous posts of the last X days previous to the posts presented.
@@ -309,7 +314,23 @@ public class WallModel extends GSMessageHandlerAbstract {
      * get all the Comments For the given Post
      *
      */
+    private static final int DEFAULT_COMMENTS_PAGE = 10;
     public void getCommentsForPost(WallBase post){
+        getCommentsForPost(post,0);
+    }
+
+    public void getCommentsForPost(WallBase post, int fetchedCount){
+        int pageSize = DEFAULT_COMMENTS_PAGE;
+        if(fetchedCount>=post.getCommentsCount()){
+            EventBus.getDefault().post(new GetCommentsCompleteEvent(null));
+            return;
+        }
+        int offset = post.getCommentsCount() - ((fetchedCount/DEFAULT_COMMENTS_PAGE) +1)*DEFAULT_COMMENTS_PAGE;
+        if(offset<0){
+            offset = 0;
+            pageSize = post.getCommentsCount()-fetchedCount;
+        }
+
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -322,15 +343,12 @@ public class WallModel extends GSMessageHandlerAbstract {
                 }
             }
         };
-        if(post!=null){
-            createRequest("wallGetPostComments")
-                    .setEventAttribute(GSConstants.WALL_ID,post.getWallId())
-                    .setEventAttribute(GSConstants.POST_ID,post.getPostId())
-                    .setEventAttribute(GSConstants.OFFSET,0)
-                    .setEventAttribute(GSConstants.ENTRY_COUNT,10)
-                    .send(consumer);
-        }
-
+        createRequest("wallGetPostComments")
+                .setEventAttribute(GSConstants.WALL_ID,post.getWallId())
+                .setEventAttribute(GSConstants.POST_ID,post.getPostId())
+                .setEventAttribute(GSConstants.OFFSET,offset)
+                .setEventAttribute(GSConstants.ENTRY_COUNT,pageSize)
+                .send(consumer);
     }
 
     /**
@@ -465,5 +483,6 @@ public class WallModel extends GSMessageHandlerAbstract {
             }
         }
     }
+
 }
 
