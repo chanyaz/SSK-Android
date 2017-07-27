@@ -480,4 +480,15 @@ public class Utility {
 
         return base64String;
     }
+
+    public static Bitmap createSquaredBitmap(Bitmap srcBmp) {
+        int dim = Math.max(srcBmp.getWidth(), srcBmp.getHeight());
+        Bitmap dstBmp = Bitmap.createBitmap(dim, dim, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(dstBmp);
+        canvas.drawColor(Color.WHITE);
+        canvas.drawBitmap(srcBmp, (dim - srcBmp.getWidth()) / 2, (dim - srcBmp.getHeight()) / 2, null);
+
+        return dstBmp;
+    }
 }

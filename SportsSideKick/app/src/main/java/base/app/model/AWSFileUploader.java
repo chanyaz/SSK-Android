@@ -19,6 +19,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.S3DataSource;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -31,6 +32,8 @@ import java.math.BigInteger;
 import java.util.Random;
 
 import base.app.events.GameSparksEvent;
+import base.app.util.Utility;
+import base.app.util.ui.ExifUtil;
 
 /**
  * Created by Filip on 3/17/2017.
@@ -55,14 +58,15 @@ public class AWSFileUploader {
     private String baseUrl;
     private String bucket;
     private TransferUtility transferUtility;
-    public static AWSFileUploader getInstance(){
-        if(instance==null){
+
+    public static AWSFileUploader getInstance() {
+        if (instance == null) {
             instance = new AWSFileUploader();
         }
         return instance;
     }
 
-    public void initialize(Context context){
+    public void initialize(Context context) {
         Regions regionType = Regions.EU_WEST_1;
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 context,    /* get the context for the application */
@@ -74,13 +78,13 @@ public class AWSFileUploader {
         transferUtility = new TransferUtility(s3, context);
     }
 
-    private AWSFileUploader(){
+    private AWSFileUploader() {
         poolId = AWSFileUploader.EUWest_PoolId;
         baseUrl = AWSFileUploader.EUWest_BaseUrl;
         bucket = AWSFileUploader.EUWest_Bucket;
     }
 
-    public void upload(final String filename, String filepath, final GameSparksEvent.Type event){
+    public void upload(final String filename, String filepath, final GameSparksEvent.Type event) {
         try {
             File file = new File(filepath);
             TransferObserver observer = transferUtility.upload(
@@ -107,36 +111,43 @@ public class AWSFileUploader {
                     EventBus.getDefault().post(new GameSparksEvent("Something went wrong, file not uploaded!", event, null));
                 }
             });
-        } catch (Exception e){
+        } catch (Exception e) {
             EventBus.getDefault().post(new GameSparksEvent("Something went wrong, file not uploaded!", event, null));
         }
     }
 
-    public void uploadThumbnail(String filename, String filepath,File filesDir,  GameSparksEvent.Type event) {
+    public void uploadThumbnail(String filename, String filepath, File filesDir, GameSparksEvent.Type event) {
         Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.MINI_KIND);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);
         try {
-            File file = new File(filesDir,"temp_thumbnail_video.jpg");
+            File file = new File(filesDir, "temp_thumbnail_video.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
-            upload(filename,file.getPath(),event);
+            upload(filename, file.getPath(), event);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void uploadCircularProfileImage(String filename, String filepath, File filesDir, GameSparksEvent.Type event){
+    public void uploadCircularProfileImage(String filename, String filepath, File filesDir, GameSparksEvent.Type event) {
         File image = new File(filepath);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
-        bitmap = Bitmap.createScaledBitmap(bitmap,250,250,true);
-        bitmap = getCircleBitmap(bitmap);
+        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
+        bitmap = ExifUtil.rotateBitmap(filepath, bitmap);
+        Bitmap outputBitmap;
+        if (bitmap.getWidth() >= bitmap.getHeight()) {
+            outputBitmap = Bitmap.createBitmap(bitmap, bitmap.getWidth() / 2 - bitmap.getHeight() / 2, 0, bitmap.getHeight(), bitmap.getHeight());
+        } else {
+            outputBitmap = Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2 - bitmap.getWidth() / 2, bitmap.getWidth(), bitmap.getWidth());
+        }
+        outputBitmap = Bitmap.createScaledBitmap(outputBitmap, 250, 250, true);
+        outputBitmap = getCircleBitmap(outputBitmap);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 70, bos);
+        outputBitmap.compress(Bitmap.CompressFormat.PNG, 70, bos);
         try {
-            File file = new File(filesDir,"temp_profile_circled.jpg");
+            File file = new File(filesDir, "temp_profile_circled.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
-            upload(filename,file.getPath(),event);
+            upload(filename, file.getPath(), event);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -165,11 +176,11 @@ public class AWSFileUploader {
         return output;
     }
 
-    public static String generateRandName(int length){
+    public static String generateRandName(int length) {
         String letters = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         String randomString = "";
         Random random = new Random();
-        for(int i = 0; i<length;i++){
+        for (int i = 0; i < length; i++) {
             int rand = random.nextInt(letters.length());
             char nextChar = letters.charAt(rand);
             randomString += nextChar;
