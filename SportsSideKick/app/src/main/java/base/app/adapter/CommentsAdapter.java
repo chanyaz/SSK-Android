@@ -1,9 +1,8 @@
 package base.app.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,16 +15,15 @@ import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.PostComment;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 04/03/2016.
@@ -62,8 +60,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         }
     }
 
-    public CommentsAdapter() {
-        comments = new ArrayList<>();
+    public CommentsAdapter(List<PostComment> comments) {
+        this.comments = comments;
     }
 
     @Override
