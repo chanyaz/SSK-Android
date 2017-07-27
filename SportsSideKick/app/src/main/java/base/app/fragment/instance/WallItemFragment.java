@@ -38,6 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import base.app.R;
 import base.app.adapter.CommentsAdapter;
@@ -163,7 +164,7 @@ public class WallItemFragment extends BaseFragment {
 
     CommentsAdapter commentsAdapter;
     WallBase item;
-
+    List<PostComment> comments;
 
     public WallItemFragment() {
         // Required empty public constructor
@@ -176,9 +177,10 @@ public class WallItemFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
         ButterKnife.bind(this, view);
 
+        comments = new ArrayList<>();
         String id = getPrimaryArgument();
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        commentsAdapter = new CommentsAdapter(new ArrayList<PostComment>());
+        commentsAdapter = new CommentsAdapter(comments);
         commentsList.setLayoutManager(commentLayoutManager);
         commentsList.setAdapter(commentsAdapter);
 
@@ -350,7 +352,7 @@ public class WallItemFragment extends BaseFragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                    WallModel.getInstance().getCommentsForPost(item);
+                    WallModel.getInstance().getCommentsForPost(item,comments.size());
                 }
             });
         }
@@ -360,19 +362,19 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
-        // Sort by timestamp
-        Collections.sort(event.getCommentList(), new Comparator<PostComment>() {
-            @Override
-            public int compare(PostComment lhs, PostComment rhs) {
-                return rhs.getTimestamp().compareTo(lhs.getTimestamp());
-            }
-        });
-        commentsAdapter.getComments().addAll(event.getCommentList());
-        commentsAdapter.notifyDataSetChanged();
-        item.setCommentsCount(commentsAdapter.getComments().size());
-        if (commentsCount != null) {
-            commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        if(event.getCommentList()!=null){
+            comments.addAll(event.getCommentList());
+
+            // Sort by timestamp
+            Collections.sort(comments, new Comparator<PostComment>() {
+                @Override
+                public int compare(PostComment lhs, PostComment rhs) {
+                    return rhs.getTimestamp().compareTo(lhs.getTimestamp());
+                }
+            });
+            commentsAdapter.notifyDataSetChanged();
         }
+
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
         }
