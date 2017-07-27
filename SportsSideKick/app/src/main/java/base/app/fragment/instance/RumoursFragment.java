@@ -46,7 +46,7 @@ public class RumoursFragment extends BaseFragment {
 
     final NewsModel.NewsType type = NewsModel.NewsType.UNOFFICIAL;
 
-    RumoursNewsListAdapter rumoursSmallAdapter;
+    RumoursNewsListAdapter rumoursNewsListAdapter;
 
     @Nullable
     @BindView(R.id.fragment_rumors_all_single_rumours_container)
@@ -66,7 +66,9 @@ public class RumoursFragment extends BaseFragment {
     public RumoursFragment() {
         // Required empty public constructor
     }
-    int spanSize = 1;
+
+    int spanSize = 2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -75,14 +77,18 @@ public class RumoursFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         hideElements(true);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),spanSize);
+        if (Utility.isTablet(getActivity())) {
+            spanSize = 2;
+        } else {
+            spanSize = 1;
+        }
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), spanSize);
         rumourRecyclerView.setLayoutManager(gridLayoutManager);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if(Utility.isTablet(getActivity())){
-                    switch (position){
+                if (Utility.isTablet(getActivity())) {
+                    switch (position) {
                         case 0:
                             return 2;
                         case 1:
@@ -96,14 +102,14 @@ public class RumoursFragment extends BaseFragment {
                         default:
                             return 2;
                     }
-                }else {
+                } else {
                     return 1;
                 }
 
             }
         });
-        rumoursSmallAdapter = new RumoursNewsListAdapter(getActivity());
-        rumourRecyclerView.setAdapter(rumoursSmallAdapter);
+        rumoursNewsListAdapter = new RumoursNewsListAdapter(getActivity());
+        rumourRecyclerView.setAdapter(rumoursNewsListAdapter);
 
         onTouchListener = new RecyclerTouchListener(getActivity(), rumourRecyclerView);
 
@@ -143,7 +149,7 @@ public class RumoursFragment extends BaseFragment {
         public void onSwipeOptionClicked(int viewID, int position) {
             if (viewID == R.id.row_rumours_swipe_share) {
                 // Handle click on Share Button
-                pinToWall(rumoursSmallAdapter.getRumours().get(position));
+                pinToWall(rumoursNewsListAdapter.getRumours().get(position));
             }
 
         }
@@ -151,6 +157,7 @@ public class RumoursFragment extends BaseFragment {
 
 
     int countOfTopRumours;
+
     @Subscribe
     public void onNewsReceived(NewsPageEvent event) {
         if (Utility.isTablet(getActivity())) {
@@ -162,8 +169,8 @@ public class RumoursFragment extends BaseFragment {
             swipeRefreshLayout.setRefreshing(false);
         }
         if (!event.getValues().isEmpty() && event.getValues().size() > countOfTopRumours - 1) {
-            rumoursSmallAdapter.addRumours(event.getValues(), countOfTopRumours);
-            rumoursSmallAdapter.notifyDataSetChanged();
+            rumoursNewsListAdapter.addRumours(event.getValues(), countOfTopRumours);
+            rumoursNewsListAdapter.notifyDataSetChanged();
         }
         hideElements(false);
 
