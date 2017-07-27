@@ -39,8 +39,6 @@ import base.app.model.DateUtils;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.friendship.FriendsManager;
-import base.app.model.news.NewsModel;
-import base.app.model.news.NewsPageEvent;
 import base.app.model.sharing.SharingManager;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.UserInfo;
@@ -60,13 +58,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     private static final String TAG = " WallModel";
     private static WallModel instance;
 
-    private int itemsPerPageWallComment;
-    private int itemsPerPageNewsComment;
-    private static final int DEFAULT_PAGE_NEWS_COMMENT = 1;
-    private static final int DEFAULT_PAGE_WALL_COMMENT = 1;
-    private int pageNewsComment = 0;
-    private int pageWallComment = 0;
-    private int page;
+
     private static final long ONE_HOUR =  60 * 60;
     private static final long D_LIMIT = 365 * 24 * ONE_HOUR;
     private long deltaTimeIntervalForPaging  = 24 * ONE_HOUR; // One day
@@ -77,12 +69,8 @@ public class WallModel extends GSMessageHandlerAbstract {
     private int minNumberOfPostsForInitialLoad = 20;
     private int minNumberOfPostsForIntervalLoad = 10;
 
-    private List<PostComment> wallComments;
-    private List<PostComment> newsComments;
-
     private final ObjectMapper mapper; // jackson's object mapper
-    private boolean isLoadingNewsComments;
-    private boolean isLoadingWallComments;
+
 
     public static WallModel getInstance(){
         if(instance==null){
@@ -91,13 +79,9 @@ public class WallModel extends GSMessageHandlerAbstract {
         return instance;
     }
 
-    public enum CommentType {
-        NEWS_COMMENT,WALL_COMMENT
-    }
+
 
     private WallModel(){
-        wallComments = new ArrayList<>();
-        newsComments = new ArrayList<>();
         oldestFetchDate = new Date();
         mapper  = new ObjectMapper();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
@@ -107,10 +91,6 @@ public class WallModel extends GSMessageHandlerAbstract {
             e.printStackTrace();
         }
         Model.getInstance().setMessageHandlerDelegate(this);
-        this.itemsPerPageWallComment = DEFAULT_PAGE_WALL_COMMENT;
-        this.itemsPerPageNewsComment = DEFAULT_PAGE_NEWS_COMMENT;
-        this.pageNewsComment = 0;
-        this.pageWallComment = 0;
     }
 
     private void clearWallListeners(){
@@ -213,6 +193,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             }
         });
     }
+
 
     /**
      * this func fetches the previous posts of the last X days previous to the posts presented.
@@ -329,33 +310,25 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
-    public void setLoading(boolean loading, CommentType type) {
-        if(type == CommentType.NEWS_COMMENT){
-            isLoadingNewsComments = loading;
-        } else {
-            isLoadingWallComments = loading;
-        }
-    }
-
     /**
      * get all the Comments For the given Post
      *
      */
+    private static final int DEFAULT_COMMENTS_PAGE = 10;
+    public void getCommentsForPost(WallBase post){
+        getCommentsForPost(post,0);
+    }
 
-    public void getCommentsForPost(WallBase post, final CommentType type){
-
-        final int page = type == CommentType.NEWS_COMMENT ? pageNewsComment : pageWallComment;
-        if (this.isLoadingNewsComments && type == CommentType.NEWS_COMMENT || this.isLoadingWallComments && type == CommentType.WALL_COMMENT){
+    public void getCommentsForPost(WallBase post, int fetchedCount){
+        int pageSize = DEFAULT_COMMENTS_PAGE;
+        if(fetchedCount>=post.getCommentsCount()){
+            EventBus.getDefault().post(new GetCommentsCompleteEvent(null));
             return;
         }
-
-        int itemsPerPage;
-        if(type==CommentType.NEWS_COMMENT){
-            isLoadingNewsComments = true;
-            itemsPerPage = itemsPerPageNewsComment;
-        }else {
-            itemsPerPage = itemsPerPageWallComment;
-            isLoadingWallComments = true;
+        int offset = post.getCommentsCount() - ((fetchedCount/DEFAULT_COMMENTS_PAGE) +1)*DEFAULT_COMMENTS_PAGE;
+        if(offset<0){
+            offset = 0;
+            pageSize = post.getCommentsCount()-fetchedCount;
         }
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -364,40 +337,18 @@ public class WallModel extends GSMessageHandlerAbstract {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.COMMENTS);
                     List<PostComment> comments = mapper.convertValue(object, new TypeReference<List<PostComment>>(){});
-
-                    if (comments.size() == 0 && page == 0) {
-                        if(type == CommentType.NEWS_COMMENT){
-                            isLoadingNewsComments = false;
-                        } else {
-                            isLoadingWallComments = false;
-                        }
-                        getCommentsForPost(null,type);
-                        return;
-                    }else {
-                    if(type==CommentType.NEWS_COMMENT){
-                        newsComments.addAll(comments);
-                        pageNewsComment++;
-                        EventBus.getDefault().post(new GetCommentsCompleteEvent(newsComments));
-                    } else {
-                        wallComments.addAll(comments);
-                        pageWallComment++;
-                        EventBus.getDefault().post(new GetCommentsCompleteEvent(wallComments));
-                    }
-                    }
+                    EventBus.getDefault().post(new GetCommentsCompleteEvent(comments));
                 } else {
                     EventBus.getDefault().post(new GetCommentsCompleteEvent(null));
                 }
             }
         };
-        if(post!=null){
-            createRequest("wallGetPostComments")
-                    .setEventAttribute(GSConstants.WALL_ID,post.getWallId())
-                    .setEventAttribute(GSConstants.POST_ID,post.getPostId())
-                    .setEventAttribute(GSConstants.OFFSET,page)
-                    .setEventAttribute(GSConstants.ENTRY_COUNT, itemsPerPage)
-                    .send(consumer);
-        }
-
+        createRequest("wallGetPostComments")
+                .setEventAttribute(GSConstants.WALL_ID,post.getWallId())
+                .setEventAttribute(GSConstants.POST_ID,post.getPostId())
+                .setEventAttribute(GSConstants.OFFSET,offset)
+                .setEventAttribute(GSConstants.ENTRY_COUNT,pageSize)
+                .send(consumer);
     }
 
     /**
@@ -532,8 +483,6 @@ public class WallModel extends GSMessageHandlerAbstract {
             }
         }
     }
-    public List<PostComment> getAllCommentsCachedItems(WallModel.CommentType type) {
-        return type == CommentType.NEWS_COMMENT ? newsComments : wallComments;
-    }
+
 }
 
