@@ -286,16 +286,18 @@ public class NewsItemFragment extends BaseFragment {
             post.setEnabled(false);
         }
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                WallModel.getInstance().setLoading(false,WallModel.CommentType.NEWS_COMMENT);
-                WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
-              //  NewsModel.getInstance().setLoading(false, type);
-              //  NewsModel.getInstance().loadPage(type);
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                    WallModel.getInstance().setLoading(false,WallModel.CommentType.NEWS_COMMENT);
+                    WallModel.getInstance().getCommentsForPost(item,WallModel.CommentType.NEWS_COMMENT);
+                  //  NewsModel.getInstance().setLoading(false, type);
+                  //  NewsModel.getInstance().loadPage(type);
 
-            }
-        });
+                }
+            });
+        }
 
 
         return view;
