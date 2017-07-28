@@ -1,5 +1,6 @@
 package base.app.fragment.popup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -199,6 +200,11 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             });
         }
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     public void initFacebook() {
