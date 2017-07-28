@@ -121,7 +121,6 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         createRequest("friendGetMutualFriendsListWithUser")
                 .setEventAttribute(GSConstants.USER_ID, userId)
                 .setEventAttribute(GSConstants.ENTRY_COUNT, "50")
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(GSConstants.OFFSET, offset)
                 .send(consumer);
         return source.getTask();

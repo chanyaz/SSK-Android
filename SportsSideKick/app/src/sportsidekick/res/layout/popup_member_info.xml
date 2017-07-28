@@ -498,7 +498,7 @@
         tools:layout_editor_absoluteY="527dp" />
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/common_friends_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
@@ -544,6 +544,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/public_chats_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -551,7 +552,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/common_friends_container"
         app:layout_constraintVertical_bias="0.0">
 
         <View
