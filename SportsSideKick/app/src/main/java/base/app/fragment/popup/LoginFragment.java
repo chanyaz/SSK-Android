@@ -1,8 +1,10 @@
 package base.app.fragment.popup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,23 +32,22 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import base.app.adapter.AccountCreatingAdapter;
-import base.app.fragment.instance.WallFragment;
-import base.app.model.user.RegistrationStateReceiver;
-import base.app.util.KeyboardChangeListener;
-import base.app.util.Utility;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.Connection;
 import base.app.R;
+import base.app.adapter.AccountCreatingAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.instance.WallFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.PasswordResetReceiver;
 import base.app.model.user.UserInfo;
+import base.app.util.KeyboardChangeListener;
+import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 /**
@@ -57,6 +58,7 @@ import butterknife.Optional;
 
 public class LoginFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener, PasswordResetReceiver.PasswordResetListener {
 
+    private static final String TAG = "LOGIN FRAGMENT";
     @BindView(R.id.login_email)
     EditText emailEditText;
     @BindView(R.id.login_password)
@@ -201,9 +203,15 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
     public void initFacebook() {
-        assert loginButton != null;
-        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+        if (loginButton != null) {
+            loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+        }
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -231,11 +239,12 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
             @Override
             public void onCancel() {
-                // App code
+                Log.d(TAG,"Facebook login canceled!");
             }
 
             @Override
             public void onError(FacebookException error) {
+                Log.d(TAG,"Facebook login error - error is:" + error.getLocalizedMessage());
             }
         });
 

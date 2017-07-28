@@ -3,8 +3,7 @@
     <string name="friend_requests">Friend Requests</string>
     <string name="this_language">Spanish</string>
     <string name="app_name">Sidekick</string>
-    <string name="facebook_app_id">102782376855276</string>
-    <string name="fb_login_protocol_scheme">fb11111111111111</string>
+
 
     <!-- Login screen -->
     <string name="terms_and_conditions">http://www.sortdirectkick.tv/terms</string>

@@ -178,7 +178,7 @@
                 android:imeActionId="@+id/action_send_message_id"
                 android:imeActionLabel="Send"
                 android:imeOptions="actionSend"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/padding_13"
                 android:paddingEnd="@dimen/padding_8"
@@ -344,7 +344,7 @@
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-      android:visibility="gone">
+        >
 
         <ImageView
             android:layout_width="match_parent"

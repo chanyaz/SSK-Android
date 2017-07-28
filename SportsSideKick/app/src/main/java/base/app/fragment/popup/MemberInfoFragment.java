@@ -122,6 +122,14 @@ public class MemberInfoFragment extends BaseFragment {
     @BindView(R.id.profile_nick)
     TextView profileNickText;
 
+    @Nullable
+    @BindView(R.id.public_chats_container)
+    View publicChatsContainer;
+
+    @Nullable
+    @BindView(R.id.common_friends_container)
+    View commonFriendsContainer;
+
 
     private Class initiatorFragment;
 
@@ -182,7 +190,7 @@ public class MemberInfoFragment extends BaseFragment {
         profileImageLevel.setText(String.valueOf(user.getLevel()));
         if (!Utility.isTablet(getActivity())) {
             if (user.getUserId() != null) {
-                friendsCountText.setText(String.valueOf(user.getFriendsCount()));
+                friendsCountText.setText(String.valueOf(user.getRequestedUserFriendsCount()));
                 commentsCountText.setText(String.valueOf(user.getComments()));
                 pinnedCountText.setText(String.valueOf(user.getWallPins()));
                 profileNickText.setText("(" + user.getNicName() + ")");
@@ -262,10 +270,21 @@ public class MemberInfoFragment extends BaseFragment {
             @Override
             public void onComplete(@NonNull Task<List<ChatInfo>> task) {
                 if (task.isSuccessful()) {
-                    publicChatText.setText(getString(R.string.public_chats_profile) + " " + user.getFirstName() + " " + user.getLastName() + " " + getString(R.string.is_in));
-                    publicChatsIsInCommonAdapter.setValues(task.getResult());
+                    if (task.getResult().size() > 0) {
+                        if (publicChatsContainer != null) {
+                            publicChatsContainer.setVisibility(View.VISIBLE);
+                        }
+                        publicChatText.setText(getString(R.string.public_chats_profile) + " " + user.getFirstName() + " " + user.getLastName() + " " + getString(R.string.is_in));
+                        publicChatsIsInCommonAdapter.setValues(task.getResult());
+                    } else {
+                        if (publicChatsContainer != null) {
+                            publicChatsContainer.setVisibility(View.GONE);
+                        }
+                    }
                 } else {
-                    //TODO add error handle, ios doesn't have it
+                    if (publicChatsContainer != null) {
+                        publicChatsContainer.setVisibility(View.GONE);
+                    }
                 }
 
                 assert roomProgressBar != null;
@@ -282,11 +301,18 @@ public class MemberInfoFragment extends BaseFragment {
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if (task.isSuccessful())
                     if (task.getResult().size() > 0) {
+
+                        if (commonFriendsContainer != null) {
+                            commonFriendsContainer.setVisibility(View.VISIBLE);
+                        }
                         friendsCommunityText.setText(getString(R.string.friend_you_and) + " " + user.getFirstName() + " " + getString(R.string.have_in_common));
                         friendsInCommonAdapter.getValues().addAll(task.getResult());
                         friendsInCommonAdapter.notifyDataSetChanged();
                     } else {
-                        //TODO add error handle, ios doesn't have it
+                        if (commonFriendsContainer != null) {
+                            commonFriendsContainer.setVisibility(View.GONE);
+                        }
+
                     }
                 assert friendProgressBar != null;
                 friendProgressBar.setVisibility(View.GONE);

@@ -60,8 +60,9 @@ public class UserInfo {
     private int currency=0;
     private int level=20;
     private float progress=0.65f;
-    private int wallPins= 11;
-    private int friendsCount = 11;
+    private int wallPins= 0;
+    private int friendsCount = 0;
+    private int requestedUserFriendsCount = 0;
     // --
 
     // read only
@@ -434,6 +435,14 @@ public class UserInfo {
 
     public void setFollowersCount(int followersCount) {
         this.followersCount = followersCount;
+    }
+
+    public int getRequestedUserFriendsCount() {
+        return requestedUserFriendsCount;
+    }
+
+    public void setRequestedUserFriendsCount(int requestedUserFriendsCount) {
+        this.requestedUserFriendsCount = requestedUserFriendsCount;
     }
 
     @Override
