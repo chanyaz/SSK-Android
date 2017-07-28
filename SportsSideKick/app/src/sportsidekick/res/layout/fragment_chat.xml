@@ -167,6 +167,8 @@
                 android:id="@+id/input_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:animateLayoutChanges="true"
                 android:background="?chat_input_edit_text_background"
                 android:gravity="start|center_vertical"
@@ -176,12 +178,14 @@
                 android:imeOptions="actionSend"
                 android:inputType="text"
                 android:maxLines="1"
+                android:paddingBottom="@dimen/padding_13"
+                android:paddingEnd="@dimen/padding_8"
                 android:paddingStart="@dimen/padding_16"
-                android:padding="@dimen/padding_8"
+                android:paddingTop="@dimen/padding_13"
                 android:privateImeOptions=""
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="?colorPrimarySemiLight"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_16" />
 
         </RelativeLayout>
 
