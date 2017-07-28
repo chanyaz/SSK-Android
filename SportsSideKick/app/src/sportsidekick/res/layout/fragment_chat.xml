@@ -334,10 +334,48 @@
             android:src="?downloadButtonIcon" />
 
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/full_screen_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:visibility="gone">
 
+        <ImageView
+            android:id="@+id/image_fullscreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/download_image_button"
+            android:layout_below="@+id/close_image_button"
+            android:layout_centerInParent="true"
+            android:background="?green_dark_2_semitransparent"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/close_image_button"
+            android:layout_width="@dimen/chat_button_size"
+            android:layout_height="@dimen/chat_button_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/margin_8"
+            android:scaleType="fitCenter"
+            android:src="?videoCloseButtonIcon" />
+
+        <ImageView
+            android:id="@+id/download_image_button"
+            android:layout_width="@dimen/chat_button_size"
+            android:layout_height="@dimen/chat_button_size"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/margin_8"
+            android:scaleType="fitCenter"
+            android:src="?downloadButtonIcon" />
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
+        android:visibility="visible"
         android:layout_height="match_parent">
 
         <ImageView
