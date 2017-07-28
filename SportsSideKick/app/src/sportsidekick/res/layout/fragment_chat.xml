@@ -1,11 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/chat_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?white_semitransparent"
-    android:windowSoftInputMode="adjustResize"
     tools:context="base.app.fragment.instance.ChatFragment">
 
     <!-- Background image -->
@@ -46,15 +44,15 @@
 
         <TextView
             android:id="@+id/chat_info_line_text"
+            android:layout_below="@+id/chat_heads_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_20"
-            android:layout_below="@+id/chat_heads_view"
-            android:background="?chatInfoBackgroundColor"
+            android:paddingStart="@dimen/margin_60"
+            android:paddingEnd="@dimen/margin_60"
             android:ellipsize="marquee"
             android:gravity="center"
             android:lines="1"
-            android:paddingEnd="@dimen/margin_60"
-            android:paddingStart="@dimen/margin_60"
+            android:background="?chatInfoBackgroundColor"
             android:textColor="?white_semitransparent"
             android:textSize="@dimen/font_size_10" />
     </RelativeLayout>
@@ -151,9 +149,9 @@
         <ImageButton
             android:id="@+id/menu_button"
             android:layout_width="@dimen/standard_button_height"
+            android:layout_marginEnd="@dimen/height_1"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/height_1"
             android:layout_toEndOf="@+id/chat_buttons_container"
             android:background="@null"
             android:src="?chatAddButtonIcon" />
@@ -169,8 +167,6 @@
                 android:id="@+id/input_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
                 android:animateLayoutChanges="true"
                 android:background="?chat_input_edit_text_background"
                 android:gravity="start|center_vertical"
@@ -180,14 +176,12 @@
                 android:imeOptions="actionSend"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingBottom="@dimen/padding_13"
-                android:paddingEnd="@dimen/padding_8"
                 android:paddingStart="@dimen/padding_16"
-                android:paddingTop="@dimen/padding_13"
+                android:padding="@dimen/padding_8"
                 android:privateImeOptions=""
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="?colorPrimarySemiLight"
-                android:textSize="@dimen/font_size_16" />
+                android:textSize="@dimen/font_size_10" />
 
         </RelativeLayout>
 
@@ -195,9 +189,9 @@
             android:id="@+id/chat_menu_dots"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/height_1"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/height_1"
             android:background="@null"
             android:src="?chatMenuButtonIcon" />
 
@@ -220,12 +214,12 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
+                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/create"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_10" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/chat_menu_edit"
@@ -235,12 +229,12 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
+                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="Edit"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_10" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/chat_menu_delete"
@@ -250,12 +244,12 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
+                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="Delete"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_10" />
+                android:textColor="@color/white" />
 
 
             <TextView
@@ -264,14 +258,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_5"
+                android:textSize="@dimen/font_size_10"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="Search"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_10" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -305,7 +299,8 @@
                 android:id="@+id/mediaController"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                app:uvv_scalable="false" />
+                app:uvv_scalable="false"
+                />
 
         </FrameLayout>
 
@@ -339,12 +334,49 @@
             android:src="?downloadButtonIcon" />
 
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/full_screen_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:visibility="gone">
 
+        <ImageView
+            android:id="@+id/image_fullscreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/download_image_button"
+            android:layout_below="@+id/close_image_button"
+            android:layout_centerInParent="true"
+            android:background="?green_dark_2_semitransparent"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/close_image_button"
+            android:layout_width="@dimen/chat_button_size"
+            android:layout_height="@dimen/chat_button_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/margin_8"
+            android:scaleType="fitCenter"
+            android:src="?videoCloseButtonIcon" />
+
+        <ImageView
+            android:id="@+id/download_image_button"
+            android:layout_width="@dimen/chat_button_size"
+            android:layout_height="@dimen/chat_button_size"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/margin_8"
+            android:scaleType="fitCenter"
+            android:src="?downloadButtonIcon" />
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:visibility="visible"
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="match_parent"

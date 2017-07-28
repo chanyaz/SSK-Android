@@ -480,6 +480,11 @@ public class ChatFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.download_image_button)
     public void imageDownloadButtonOnClick() {
+        ChatFragmentPermissionsDispatcher.invokeDownloadButtonWithCheck(this);
+    }
+
+    @NeedsPermission( {Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void invokeDownloadButton() {
         DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(urlInFullscreen);
         String fileName = FilenameUtils.getName(uri.getPath());
@@ -876,6 +881,8 @@ public class ChatFragment extends BaseFragment {
         audioRecordHandler  = new Handler();
         audioRecordHandler.postDelayed(audioRecordHandlerTask, 250);
     }
+
+
 
 
     TimerTask audioRecordHandlerTask = new TimerTask() {
