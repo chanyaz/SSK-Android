@@ -196,6 +196,8 @@
     <dimen name="margin_negative_100">-100dp</dimen>
     <dimen name="height_55">55dp</dimen>
     <dimen name="width_5">5dp</dimen>
+
+    <dimen name="padding_13">13dp</dimen>
     <dimen name="padding_12">12dp</dimen>
     <dimen name="height_70">70dp</dimen>
     <dimen name="width_70">70dp</dimen>
