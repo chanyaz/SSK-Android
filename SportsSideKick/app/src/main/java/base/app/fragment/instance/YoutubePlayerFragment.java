@@ -295,8 +295,10 @@ public class YoutubePlayerFragment extends BaseFragment implements
             current = player.getCurrentTimeMillis();
             total = player.getDurationMillis();
         }
-        String text = String.format(getResources().getString(R.string.time_info_player), current, total);
-        timeInfo.setText(text);
+        if(getActivity()!=null){
+            String text = String.format(getActivity().getResources().getString(R.string.time_info_player), current, total);
+            timeInfo.setText(text);
+        }
     }
 
     private void updateSeekBarProgress() {

@@ -3,6 +3,7 @@ package base.app.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.VoicemailContract;
 import android.support.percent.PercentRelativeLayout;
@@ -392,8 +393,15 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
             return;
         }
-        if (youtubeList.contains(fragmentOrganizer.getOpenFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass()))
+        if (youtubeList.contains(fragmentOrganizer.getOpenFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass())){
             tvContainer.setVisibility(View.GONE);
+        }
+        if(!Utility.isTablet(this)){
+            if(youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass())){
+                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack(); // Ensure that YouTubeFragment is never in back stack
+            }
+        }
+
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         if (barContainer.getVisibility() != View.VISIBLE)
             barContainer.setVisibility(View.VISIBLE);
