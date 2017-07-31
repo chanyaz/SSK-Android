@@ -393,6 +393,11 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
             return;
         }
+        if(popupHolder.getVisibility()==View.VISIBLE)
+        {
+            popupHolder.setVisibility(View.INVISIBLE);
+        }
+        if (youtubeList.contains(fragmentOrganizer.getOpenFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass()))
         if (youtubeList.contains(fragmentOrganizer.getOpenFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass())){
             tvContainer.setVisibility(View.GONE);
         }

@@ -30,6 +30,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  */
 public class Application extends MultiDexApplication {
 
+
+    private static Application instance;
+
+    public static Application getAppInstance() { return instance; }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -42,7 +47,7 @@ public class Application extends MultiDexApplication {
                 .timeout(5)
                 .connectedPollFrequency(60)
                 .disconnectedPollFrequency(1);
-
+        instance = this;
         Connection.getInstance().initialize(this);
 
         initImageLoader(getApplicationContext());
@@ -94,7 +99,7 @@ public class Application extends MultiDexApplication {
         ImageLoader.getInstance().init(config.build());
     }
 
-    public static void initTwitter(Context context){
+    public static void initTwitter(Context context) {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(Constant.TWITTER_KEY, Constant.TWITTER_SECRET);
         Fabric.with(context, new Twitter(authConfig));
     }

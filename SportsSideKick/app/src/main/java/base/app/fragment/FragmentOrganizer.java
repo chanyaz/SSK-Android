@@ -11,6 +11,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.Constant;
+import base.app.adapter.ClubTVPlaylistAdapter;
+import base.app.fragment.instance.ChatFragment;
+import base.app.fragment.instance.ClubRadioFragment;
+import base.app.fragment.instance.ClubRadioStationFragment;
+import base.app.fragment.instance.ClubTVFragment;
+import base.app.fragment.instance.ClubTvPlaylistFragment;
+import base.app.fragment.instance.FantasyFragment;
+import base.app.fragment.instance.NewsFragment;
+import base.app.fragment.instance.NewsItemFragment;
+import base.app.fragment.instance.QuizFragment;
+import base.app.fragment.instance.RumoursFragment;
+import base.app.fragment.instance.StatisticsFragment;
+import base.app.fragment.instance.StoreFragment;
+import base.app.fragment.instance.VideoChatFragment;
+import base.app.fragment.instance.WallFragment;
+import base.app.fragment.instance.WallItemFragment;
+import base.app.fragment.instance.YoutubePlayerFragment;
+import base.app.fragment.popup.AccountCreatingFragment;
+import base.app.fragment.popup.AddFriendFragment;
+import base.app.fragment.popup.AlertDialogFragment;
+import base.app.fragment.popup.CreateChatFragment;
+import base.app.fragment.popup.EditChatFragment;
+import base.app.fragment.popup.FollowersFragment;
+import base.app.fragment.popup.FollowingFragment;
+import base.app.fragment.popup.FriendRequestsFragment;
+import base.app.fragment.popup.FriendsFragment;
+import base.app.fragment.popup.InviteFriendFragment;
+import base.app.fragment.popup.JoinChatFragment;
+import base.app.fragment.popup.LanguageFragment;
+import base.app.fragment.popup.LoginFragment;
+import base.app.fragment.popup.MemberInfoFragment;
+import base.app.fragment.popup.ModalFragment;
+import base.app.fragment.popup.SignUpFragment;
+import base.app.fragment.popup.SignUpLoginFragment;
+import base.app.fragment.popup.SignUpLoginPopupRightFragment;
+import base.app.fragment.popup.SignUpLoginVideoFragment;
+import base.app.fragment.popup.StartingNewCallFragment;
+import base.app.fragment.popup.StashFragment;
+import base.app.fragment.popup.WalletFragment;
+import base.app.fragment.popup.YourProfileFragment;
+import base.app.fragment.popup.YourStatementFragment;
+import base.app.model.friendship.FriendRequest;
 import base.app.util.ui.NavigationDrawerItems;
 
 
@@ -77,7 +119,9 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
                 return true;
             }
 
+
         return true;
+
     }
 
 
