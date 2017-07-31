@@ -470,7 +470,7 @@ public class Utility {
             return returnedBitmap;
         }catch (Exception e)
         {
-            return Bitmap.createBitmap(0, 0, Bitmap.Config.ARGB_8888);
+            return Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
         }
 
 

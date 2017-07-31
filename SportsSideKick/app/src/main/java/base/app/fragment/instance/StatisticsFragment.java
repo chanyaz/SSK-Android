@@ -89,7 +89,7 @@ public class StatisticsFragment extends BaseFragment {
             public void onPageFinished(WebView view, String url) {
                 // page loaded successfully!
 
-                bitmap = Utility.getBitmapFromView(webView);
+
             }
         });
         String url = getResources().getString(R.string.stats_url);
@@ -99,25 +99,24 @@ public class StatisticsFragment extends BaseFragment {
 
     @OnClick(R.id.pin_button)
     public void pinOnClick() {
-        if (bitmap != null) {
-            if (Model.getInstance().isRealUser()) {
-                AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
-                        new View.OnClickListener() {// Cancel
-                            @Override
-                            public void onClick(View v) {
-                                getActivity().onBackPressed();
-                            }
-                        }, new View.OnClickListener() { // Confirm
-                            @Override
-                            public void onClick(View v) {
-                                StatisticsFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(StatisticsFragment.this);
-                                getActivity().onBackPressed();
-                            }
-                        });
-            }
-            SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-
+        if (Model.getInstance().isRealUser()) {
+            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
+                    new View.OnClickListener() {// Cancel
+                        @Override
+                        public void onClick(View v) {
+                            getActivity().onBackPressed();
+                        }
+                    }, new View.OnClickListener() { // Confirm
+                        @Override
+                        public void onClick(View v) {
+                            StatisticsFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(StatisticsFragment.this);
+                            getActivity().onBackPressed();
+                        }
+                    });
         }
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
+
+
     }
 
     @OnClick(R.id.share_button)
@@ -149,11 +148,12 @@ public class StatisticsFragment extends BaseFragment {
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection() {
         try {
+            bitmap = Utility.getBitmapFromView(webView);
             Model.getInstance().uploadImageForPost(saveToInternalStorage(bitmap));
 
 
         } catch (Exception e) {
-            Toast.makeText(getContext(), "Ne radi bajo moj", Toast.LENGTH_SHORT).show();
+
         }
     }
 
