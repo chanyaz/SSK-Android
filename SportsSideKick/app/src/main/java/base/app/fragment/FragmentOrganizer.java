@@ -11,6 +11,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.Constant;
+import base.app.adapter.ClubTVPlaylistAdapter;
+import base.app.fragment.instance.ChatFragment;
+import base.app.fragment.instance.ClubRadioFragment;
+import base.app.fragment.instance.ClubRadioStationFragment;
+import base.app.fragment.instance.ClubTVFragment;
+import base.app.fragment.instance.ClubTvPlaylistFragment;
+import base.app.fragment.instance.FantasyFragment;
+import base.app.fragment.instance.NewsFragment;
+import base.app.fragment.instance.NewsItemFragment;
+import base.app.fragment.instance.QuizFragment;
+import base.app.fragment.instance.RumoursFragment;
+import base.app.fragment.instance.StatisticsFragment;
+import base.app.fragment.instance.StoreFragment;
+import base.app.fragment.instance.VideoChatFragment;
+import base.app.fragment.instance.WallFragment;
+import base.app.fragment.instance.WallItemFragment;
+import base.app.fragment.instance.YoutubePlayerFragment;
+import base.app.fragment.popup.AccountCreatingFragment;
+import base.app.fragment.popup.AddFriendFragment;
+import base.app.fragment.popup.AlertDialogFragment;
+import base.app.fragment.popup.CreateChatFragment;
+import base.app.fragment.popup.EditChatFragment;
+import base.app.fragment.popup.FollowersFragment;
+import base.app.fragment.popup.FollowingFragment;
+import base.app.fragment.popup.FriendRequestsFragment;
+import base.app.fragment.popup.FriendsFragment;
+import base.app.fragment.popup.InviteFriendFragment;
+import base.app.fragment.popup.JoinChatFragment;
+import base.app.fragment.popup.LanguageFragment;
+import base.app.fragment.popup.LoginFragment;
+import base.app.fragment.popup.MemberInfoFragment;
+import base.app.fragment.popup.ModalFragment;
+import base.app.fragment.popup.SignUpFragment;
+import base.app.fragment.popup.SignUpLoginFragment;
+import base.app.fragment.popup.SignUpLoginPopupRightFragment;
+import base.app.fragment.popup.SignUpLoginVideoFragment;
+import base.app.fragment.popup.StartingNewCallFragment;
+import base.app.fragment.popup.StashFragment;
+import base.app.fragment.popup.WalletFragment;
+import base.app.fragment.popup.YourProfileFragment;
+import base.app.fragment.popup.YourStatementFragment;
+import base.app.model.friendship.FriendRequest;
 import base.app.util.ui.NavigationDrawerItems;
 
 
@@ -76,8 +118,97 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
                 NavigationDrawerItems.getInstance().setByPosition(i);
                 return true;
             }
-
+      //TODO  ACA
+//region Use it later
+//        if (fragment.getClass().equals(ChatFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(ClubRadioFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(ClubRadioStationFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(ClubTVFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(ClubTvPlaylistFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(FantasyFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(NewsFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(NewsItemFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(QuizFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(RumoursFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(StatisticsFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(StoreFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(VideoChatFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(WallFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(WallItemFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(YoutubePlayerFragment.class)) {
+//            return true;
+//        }
+//
+//        //Popup
+//        else if (fragment.getClass().equals(AccountCreatingFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(AddFriendFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(AlertDialogFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(CreateChatFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(EditChatFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(FollowersFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(FollowingFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(FriendRequestsFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(FriendsFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(InviteFriendFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(InviteFriendFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(JoinChatFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(LanguageFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(LoginFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(MemberInfoFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(ModalFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(SignUpFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(SignUpLoginFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(SignUpLoginPopupRightFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(SignUpLoginVideoFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(StartingNewCallFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(StashFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(WalletFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(YourProfileFragment.class)) {
+//            return true;
+//        } else if (fragment.getClass().equals(YourStatementFragment.class)) {
+//            return true;
+//        }
+//endregion
         return true;
+
     }
 
 

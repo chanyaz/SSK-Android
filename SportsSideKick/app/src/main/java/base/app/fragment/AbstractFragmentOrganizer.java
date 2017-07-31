@@ -12,6 +12,9 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.app.Application;
+import base.app.util.Utility;
+
 /**
  * Created by Filip on 12/5/2016.
  * Copyright by Hypercube d.o.o.
@@ -131,9 +134,14 @@ abstract class AbstractFragmentOrganizer {
         if (containersWithoutBackStack.contains(containerId)) { // this container is without back stack
             Fragment currentFragment = getOpenFragment();
             if (currentFragment != null && containerId == getFragmentContainer(currentFragment.getClass())) { // if currentFragment is member of the same container, remove it!
-                transaction.remove(currentFragment); // remove current fragment
+                if (Utility.isTablet(Application.getAppInstance())) {
+                    transaction.remove(currentFragment);
+                } else {
+                    fragmentManager.popBackStack();
+                }
             }
         }
+
         transaction.addToBackStack(fragmentTag);
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.commit();
