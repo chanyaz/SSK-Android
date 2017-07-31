@@ -12,6 +12,7 @@ import java.util.List;
 public class NavigationDrawerItems {
 
     private List<Boolean> itemSelector;
+    private int position = 0;
 
     public List<Boolean> getItemSelector() {
         return itemSelector;
@@ -27,25 +28,34 @@ public class NavigationDrawerItems {
 
             itemSelector.add(new Boolean(false));
         }
-        itemSelector.set(0,true);
+        itemSelector.set(0, true);
 
     }
 
-    public boolean getItemById(int id){
-      return  itemSelector.get(id).booleanValue();
+    public boolean getItemById(int id) {
+        return itemSelector.get(id).booleanValue();
     }
 
 
     public void setByPosition(int position) {
+        this.position = position;
         for (int i = 0; i < itemSelector.size(); i++) {
-            if (i == position)
-                itemSelector.set(i,true);
-            else
-                itemSelector.set(i,false);
+            if (i == position) {
+                itemSelector.set(i, true);
+            } else {
+                itemSelector.set(i, false);
+            }
 
         }
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
     private static NavigationDrawerItems instance;
 
