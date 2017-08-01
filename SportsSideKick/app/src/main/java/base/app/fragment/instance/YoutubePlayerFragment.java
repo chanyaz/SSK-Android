@@ -208,7 +208,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
                 //Standalone player
                 Intent intent = YouTubeStandalonePlayer.createVideoIntent(getActivity(), Constant.YOUTUBE_API_KEY, video.getId(),player.getCurrentTimeMillis(),true,false);
                 startActivity(intent);
-            }
+        }
         }
 
     }
