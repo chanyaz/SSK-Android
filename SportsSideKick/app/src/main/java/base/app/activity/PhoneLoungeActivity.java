@@ -390,6 +390,15 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         toggleBlur(false, null); // hide blurred view;
 
         Fragment fragmentOpened = fragmentOrganizer.getOpenFragment();
+        if (!Utility.isTablet(this)) {
+            if (popupLeftFragments.contains(fragmentOrganizer.getBackFragment().getClass())) {
+                fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
+
+            }
+            else {
+                fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
+            }
+        }
         if (fragmentOpened.getClass() == YoutubePlayerFragment.class) {
             YoutubePlayerFragment youtubePlayerFragment = (YoutubePlayerFragment) fragmentOpened;
             if (youtubePlayerFragment.isFullScreen()) {

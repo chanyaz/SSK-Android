@@ -119,6 +119,19 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
                 return true;
             }
 
+        if (fragment.getClass().equals(EditChatFragment.class)) {
+            NavigationDrawerItems.getInstance().setByPosition(1);
+            return true;
+        } else if (fragment.getClass().equals(JoinChatFragment.class)) {
+            NavigationDrawerItems.getInstance().setByPosition(1);
+            return true;
+        } else if (fragment.getClass().equals(WallItemFragment.class)) {
+            NavigationDrawerItems.getInstance().setByPosition(0);
+            return true;
+        } else if (fragment.getClass().equals(NewsItemFragment.class)) {
+            NavigationDrawerItems.getInstance().setByPosition(2);
+            return true;
+        }
 
         return true;
 
