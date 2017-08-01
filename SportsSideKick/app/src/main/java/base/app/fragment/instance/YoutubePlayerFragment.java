@@ -2,6 +2,7 @@ package base.app.fragment.instance;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.Build;
@@ -29,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import base.app.Application;
 import base.app.Constant;
 import base.app.R;
 import base.app.events.ClubTVEvent;
@@ -54,6 +56,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     private static final String TAG = "YOUTUBE PLAYER";
     private static final int SEEK_BAR_MAX = 10000;
+    boolean fullScreen = false;
 
     public YoutubePlayerFragment() {
         // Required empty public constructor
@@ -80,6 +83,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
     SeekBar seekBar;
 
     Video video;
+    boolean isTablet = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,7 +95,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
         transaction.add(R.id.youtube_layout, youTubePlayerFragment).commit();
         youTubePlayerFragment.initialize(Constant.YOUTUBE_API_KEY, this);
         ButterKnife.bind(this, view);
-
+        isTablet = Utility.isTablet(Application.getAppInstance());
         if (getPrimaryArgument() != null) {
             video = ClubModel.getInstance().getVideoById(getPrimaryArgument());
         } else {
@@ -197,18 +201,18 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @OnClick(R.id.fullscreen_button)
     public void openFullscreen() {
-        if(player!=null){
-            if(Utility.isTablet(getActivity())) {
-                  player.setFullscreen(true);
-            }else {
+        if (player != null) {
+            if (isTablet) {
+                player.setFullscreen(true);
+            } else {
                 //  With this implementation we have problem - entering fullscreen mode
-                //  player.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_CONTROL_SYSTEM_UI );
-                //  player.setFullscreen(true);
+                player.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION);
+                player.setFullscreen(true);
 
                 //Standalone player
-                Intent intent = YouTubeStandalonePlayer.createVideoIntent(getActivity(), Constant.YOUTUBE_API_KEY, video.getId(),player.getCurrentTimeMillis(),true,false);
-                startActivity(intent);
-        }
+//                Intent intent = YouTubeStandalonePlayer.createVideoIntent(getActivity(), Constant.YOUTUBE_API_KEY, video.getId(),player.getCurrentTimeMillis(),true,false);
+//                startActivity(intent);
+            }
         }
 
     }
@@ -248,6 +252,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @Override
     public void onFullscreen(boolean fullscreen) {
+        this.fullScreen = fullscreen;
         if (fullscreen) {
             player.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
         } else {
@@ -255,6 +260,14 @@ public class YoutubePlayerFragment extends BaseFragment implements
         }
     }
 
+    public boolean isFullScreen() {
+        return fullScreen;
+    }
+
+    public void setFullScreen(boolean fullScreen) {
+        this.fullScreen = fullScreen;
+        player.setFullscreen(fullScreen);
+    }
 
     @Override
     public void onLoaded(String s) {
@@ -295,7 +308,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
             current = player.getCurrentTimeMillis();
             total = player.getDurationMillis();
         }
-        if(getActivity()!=null){
+        if (getActivity() != null) {
             String text = String.format(getActivity().getResources().getString(R.string.time_info_player), current, total);
             timeInfo.setText(text);
         }
@@ -317,6 +330,9 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @Override
     public void onDestroyView() {
+        if (!isTablet) {
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         super.onDestroyView();
     }
 
@@ -350,4 +366,6 @@ public class YoutubePlayerFragment extends BaseFragment implements
             video = ClubModel.getInstance().getVideoById(event.getId());
         }
     }
+
+
 }

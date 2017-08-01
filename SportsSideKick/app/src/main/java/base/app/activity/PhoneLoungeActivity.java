@@ -388,23 +388,26 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @Override
     public void onBackPressed() {
         toggleBlur(false, null); // hide blurred view;
+
         Fragment fragmentOpened = fragmentOrganizer.getOpenFragment();
+        if (fragmentOpened.getClass() == YoutubePlayerFragment.class) {
+            YoutubePlayerFragment youtubePlayerFragment = (YoutubePlayerFragment) fragmentOpened;
+            if (youtubePlayerFragment.isFullScreen()) {
+                youtubePlayerFragment.setFullScreen(false);
+                return;
+            }
+        }
         if (fragmentOrganizer.getBackFragment().getClass() == SignUpLoginFragment.class) {
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
             return;
         }
-        if(popupHolder.getVisibility()==View.VISIBLE)
-        {
+        if (popupHolder.getVisibility() == View.VISIBLE) {
             popupHolder.setVisibility(View.INVISIBLE);
         }
-        if (youtubeList.contains(fragmentOrganizer.getOpenFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass())){
+        if (youtubeList.contains(fragmentOrganizer.getOpenFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass())) {
             tvContainer.setVisibility(View.GONE);
         }
-        if(!Utility.isTablet(this)){
-            if(youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass())){
-                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack(); // Ensure that YouTubeFragment is never in back stack
-            }
-        }
+
 
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         if (barContainer.getVisibility() != View.VISIBLE)
