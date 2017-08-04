@@ -165,6 +165,28 @@
             android:background="@color/transparent" />
         <include android:id="@+id/splash" layout="@layout/activity_splash"/>
         <LinearLayout
+            android:id="@+id/fragment_radio_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/side_menu_recycler"
+            android:layout_below="@+id/left_top_bar_container"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/radio_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent" />
+
+
+            <RelativeLayout
+                android:id="@+id/radio_list_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/fragment_tv_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

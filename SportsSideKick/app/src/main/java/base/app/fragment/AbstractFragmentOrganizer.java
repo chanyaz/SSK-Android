@@ -75,6 +75,23 @@ abstract class AbstractFragmentOrganizer {
 
     }
 
+    public Fragment get2BackFragment() {
+        try {
+            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 3).getName();
+            return fragmentManager.findFragmentByTag(tag);
+        } catch (Exception e) {
+            try {
+                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName();
+                return fragmentManager.findFragmentByTag(tag);
+            }catch (Exception es){
+                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
+                return fragmentManager.findFragmentByTag(tag);
+            }
+
+        }
+
+    }
+
     private boolean isFragmentOpen(Fragment fragment) {
         return isFragmentOpen(fragment, true);
     }

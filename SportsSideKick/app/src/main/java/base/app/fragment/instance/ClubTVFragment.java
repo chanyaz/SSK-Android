@@ -57,6 +57,7 @@ public class ClubTVFragment extends BaseFragment {
             GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
             recyclerView.setLayoutManager(layoutManager);
         } else {
+
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
         }
@@ -75,6 +76,10 @@ public class ClubTVFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         String channelId = getResources().getString(R.string.clubtv_channelid);
+        if (!Utility.isTablet(getActivity())) {
+            FragmentEvent fragmentEvent = new FragmentEvent(YoutubePlayerFragment.class);
+            EventBus.getDefault().post(fragmentEvent);
+        }
         ClubModel.getInstance().requestAllPlaylists(channelId); // This is first time we request club tv instance and playlists too
     }
 
@@ -83,10 +88,7 @@ public class ClubTVFragment extends BaseFragment {
         if (event.getEventType().equals(ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED)) {
             adapter.getValues().addAll(ClubModel.getInstance().getPlaylists());
             adapter.notifyDataSetChanged();
-            if (!Utility.isTablet(getActivity())) {
-                FragmentEvent fragmentEvent = new FragmentEvent(YoutubePlayerFragment.class);
-                EventBus.getDefault().post(fragmentEvent);
-            }
+
         }
     }
 

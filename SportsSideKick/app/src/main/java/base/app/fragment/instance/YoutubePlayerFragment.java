@@ -219,7 +219,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     @OnClick(R.id.play_button)
     public void togglePlay() {
-        if (player != null) {
+      if (player != null) {
             if (player.isPlaying()) {
                 player.pause();
             } else {

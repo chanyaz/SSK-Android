@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.VoicemailContract;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -29,6 +30,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import base.app.Constant;
 import base.app.R;
 import base.app.adapter.MenuAdapter;
 import base.app.adapter.SideMenuAdapter;
@@ -134,11 +136,14 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     ArrayList<Class> popupDialogFragments;
     ArrayList<Class> youtubePlayer;
     ArrayList<Class> youtubeList;
+    ArrayList<Class> radioList;
+    ArrayList<Class> radioPlayerList;
     int screenWidth;
 
     @BindView(R.id.fragment_tv_container)
     LinearLayout tvContainer;
-
+    @BindView(R.id.fragment_radio_container)
+    LinearLayout radioContainer;
     @BindView(R.id.notification_open)
     ImageView notificationIcon;
     @BindView(R.id.friends_open)
@@ -307,12 +312,19 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         youtubeList.add(ClubTVFragment.class);
         youtubeList.add(ClubTvPlaylistFragment.class);
         youtubeList.add(ClubRadioFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.play_list_holder, youtubeList, true);
+        fragmentOrganizer.setUpContainer(R.id.play_list_holder, youtubeList, false);
+
+        radioList = new ArrayList<>();
+        radioList.add(ClubRadioFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.radio_list_holder, radioList, false);
 
         youtubePlayer = new ArrayList<>();
         youtubePlayer.add(YoutubePlayerFragment.class);
-        youtubePlayer.add(ClubRadioStationFragment.class);
         fragmentOrganizer.setUpContainer(R.id.youtube_holder, youtubePlayer, true);
+
+        radioPlayerList = new ArrayList<>();
+        radioPlayerList.add(ClubRadioStationFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.radio_holder, radioPlayerList, true);
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
 
@@ -325,10 +337,23 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         } else {
             SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         }
-        tvContainer.setVisibility(View.GONE);
+
         if (youtubeList.contains(event.getType()) || youtubePlayer.contains(event.getType())) {
             tvContainer.setVisibility(View.VISIBLE);
-        } else if (popupLeftFragments.contains(event.getType())) {
+        } else
+        {
+            tvContainer.setVisibility(View.GONE);
+        }
+
+        if (radioList.contains(event.getType()) || radioPlayerList.contains(event.getType())) {
+            radioContainer.setVisibility(View.VISIBLE);
+        } else
+        {
+            radioContainer.setVisibility(View.GONE);
+        }
+
+
+            if (popupLeftFragments.contains(event.getType())) {
             // this is popup event - coming from left
             fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
             barContainer.setVisibility(View.INVISIBLE);
@@ -388,24 +413,83 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @Override
     public void onBackPressed() {
         toggleBlur(false, null); // hide blurred view;
-
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         Fragment fragmentOpened = fragmentOrganizer.getOpenFragment();
         if (!Utility.isTablet(this)) {
             if (popupLeftFragments.contains(fragmentOrganizer.getBackFragment().getClass())) {
                 fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
-
-            }
-            else {
+            } else {
                 fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
             }
         }
+        if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class) {
+            fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+        }
+
+
+        if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class && fragmentOrganizer.get2BackFragment().getClass() == ClubTVFragment.class && fragmentOpened.getClass() != YoutubePlayerFragment.class) {
+            NavigationDrawerItems.getInstance().setByPosition(7);
+            menuAdapter.notifyDataSetChanged();
+            sideMenuAdapter.notifyDataSetChanged();
+            if (drawerLayout.isDrawerOpen(GravityCompat.END))
+                drawerLayout.closeDrawer(GravityCompat.END);
+            tvContainer.setVisibility(View.VISIBLE);
+            return;
+        }
+
+
+        if (youtubeList.contains(fragmentOrganizer.getBackFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getBackFragment().getClass())) {
+            tvContainer.setVisibility(View.VISIBLE);
+        }
+        else {
+            tvContainer.setVisibility(View.GONE);
+        }
+
+        if (radioList.contains(fragmentOrganizer.getBackFragment().getClass()) || radioPlayerList.contains(fragmentOrganizer.getBackFragment().getClass())) {
+            radioContainer.setVisibility(View.VISIBLE);
+        } else
+        {
+            radioContainer.setVisibility(View.GONE);
+        }
+
+        if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class && fragmentOrganizer.get2BackFragment().getClass() == ClubTVFragment.class && fragmentOpened.getClass() != YoutubePlayerFragment.class) {
+            NavigationDrawerItems.getInstance().setByPosition(7);
+            menuAdapter.notifyDataSetChanged();
+            sideMenuAdapter.notifyDataSetChanged();
+            if (drawerLayout.isDrawerOpen(GravityCompat.END))
+                drawerLayout.closeDrawer(GravityCompat.END);
+            tvContainer.setVisibility(View.VISIBLE);
+            return;
+        }
+
+
         if (fragmentOpened.getClass() == YoutubePlayerFragment.class) {
             YoutubePlayerFragment youtubePlayerFragment = (YoutubePlayerFragment) fragmentOpened;
             if (youtubePlayerFragment.isFullScreen()) {
                 youtubePlayerFragment.setFullScreen(false);
                 return;
             }
+
+            if (fragmentOrganizer.getBackFragment().getClass() == ClubTVFragment.class) {
+
+                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+
+                for (int i = 0; i < Constant.CLASS_LIST.size(); i++)
+                    if (fragmentOrganizer.get2BackFragment().getClass().equals(Constant.CLASS_LIST.get(i))) {
+                        NavigationDrawerItems.getInstance().setByPosition(i);
+                        menuAdapter.notifyDataSetChanged();
+                        sideMenuAdapter.notifyDataSetChanged();
+                        return;
+
+                    }
+
+                // tvContainer.setVisibility(View.GONE);
+            }
+
         }
+
+
         if (fragmentOrganizer.getBackFragment().getClass() == SignUpLoginFragment.class) {
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
             return;
@@ -413,12 +497,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         if (popupHolder.getVisibility() == View.VISIBLE) {
             popupHolder.setVisibility(View.INVISIBLE);
         }
-        if (youtubeList.contains(fragmentOrganizer.getOpenFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getOpenFragment().getClass())) {
-            tvContainer.setVisibility(View.GONE);
-        }
 
 
-        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
+
         if (barContainer.getVisibility() != View.VISIBLE)
             barContainer.setVisibility(View.VISIBLE);
         if (fragmentOrganizer.handleNavigationFragment()) {
@@ -426,6 +507,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             sideMenuAdapter.notifyDataSetChanged();
             if (drawerLayout.isDrawerOpen(GravityCompat.END))
                 drawerLayout.closeDrawer(GravityCompat.END);
+
+
         } else {
             finish();
         }
