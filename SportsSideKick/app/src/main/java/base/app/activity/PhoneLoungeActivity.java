@@ -594,7 +594,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
-            yourLevel.setText(String.valueOf(user.getLevel()));
+            yourLevel.setText(String.valueOf((int)user.getProgress()));
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
             TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
         } else {

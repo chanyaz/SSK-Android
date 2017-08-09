@@ -187,7 +187,7 @@ public class MemberInfoFragment extends BaseFragment {
         onlineStatus.setText(user.isOnline() ? "online" : "offline");
         ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
         progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
-        profileImageLevel.setText(String.valueOf(user.getLevel()));
+        profileImageLevel.setText(String.valueOf((int)user.getProgress()));
         if (!Utility.isTablet(getActivity())) {
             if (user.getUserId() != null) {
                 friendsCountText.setText(String.valueOf(user.getRequestedUserFriendsCount()));

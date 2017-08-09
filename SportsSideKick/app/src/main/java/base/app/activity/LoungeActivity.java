@@ -26,7 +26,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.adapter.AccountCreatingAdapter;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.FragmentOrganizer;
 import base.app.fragment.instance.ChatFragment;
@@ -414,7 +413,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
-            yourLevel.setText(String.valueOf(user.getLevel()));
+            yourLevel.setText(String.valueOf((int)user.getProgress()));
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
             TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
 

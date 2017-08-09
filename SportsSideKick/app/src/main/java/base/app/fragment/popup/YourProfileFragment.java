@@ -205,7 +205,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
         if (user != null && Model.getInstance().isRealUser()) {
             double subscribedAsDouble = user.getSubscribedDate();
             ArrayList<Pair<String, String>> values = new ArrayList<>();
-            values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf(user.getLevel())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf((int)user.getProgress())));
             String daysUsingSSK = new SimpleDateFormat("d").format(System.currentTimeMillis()-subscribedAsDouble);
             values.add(new Pair<>(getContext().getResources().getString(R.string.days_using), daysUsingSSK));
             values.add(new Pair<>(getContext().getResources().getString(R.string.friends), String.valueOf(user.getFriendsCount())));
@@ -232,9 +232,9 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
 
             progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
             progressBarCaps.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
-            profileImageLevel.setText(String.valueOf(user.getLevel()));
-            capsValue.setText(String.valueOf(user.getLevel()));
-            nextCapsValue.setText(String.valueOf(user.getLevel() + 1));
+            profileImageLevel.setText(String.valueOf((int)user.getProgress()));
+            capsValue.setText(String.valueOf((int)user.getProgress()));
+            nextCapsValue.setText(String.valueOf((int)user.getProgress() + 1));
         }
     }
 
