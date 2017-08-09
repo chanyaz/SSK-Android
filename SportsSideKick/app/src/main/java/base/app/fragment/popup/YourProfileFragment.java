@@ -204,9 +204,9 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
         UserInfo user = Model.getInstance().getUserInfo();
         if (user != null && Model.getInstance().isRealUser()) {
             double subscribedAsDouble = user.getSubscribedDate();
+            String daysUsingSSK = String.valueOf((int)(System.currentTimeMillis()-subscribedAsDouble/1000*60*60*24));
             ArrayList<Pair<String, String>> values = new ArrayList<>();
             values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf((int)user.getProgress())));
-            String daysUsingSSK = new SimpleDateFormat("d").format(System.currentTimeMillis()-subscribedAsDouble);
             values.add(new Pair<>(getContext().getResources().getString(R.string.days_using), daysUsingSSK));
             values.add(new Pair<>(getContext().getResources().getString(R.string.friends), String.valueOf(user.getFriendsCount())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.following), String.valueOf(user.getFollowingCount())));
