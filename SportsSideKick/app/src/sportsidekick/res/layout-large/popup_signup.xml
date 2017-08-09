@@ -248,4 +248,59 @@
             android:visibility="gone" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/web_view_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/green_dark_2"
+        android:visibility="invisible"
+        >
+
+
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top_buttons_container_veb_view"
+            android:background="@color/green_dark_2"
+            android:visibility="visible"/>
+
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progress_bar_veb_view"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
+            android:layout_centerInParent="true"
+            android:elevation="@dimen/elevation_2"
+            android:visibility="visible"
+            app:indicatorName="LineSpinFadeLoaderIndicator"/>
+
+        <RelativeLayout
+            android:id="@+id/top_buttons_container_veb_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/phone_background"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/boldText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="1dp"
+                android:gravity="center_vertical"
+                android:text="@string/terms_and_privacy"
+                android:textAllCaps="true"
+                android:textColor="?white"
+                android:textSize="@dimen/font_size_16"
+                />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
 </RelativeLayout>

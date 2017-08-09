@@ -3,12 +3,10 @@ package base.app.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.VoicemailContract;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -340,20 +338,18 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         if (youtubeList.contains(event.getType()) || youtubePlayer.contains(event.getType())) {
             tvContainer.setVisibility(View.VISIBLE);
-        } else
-        {
+        } else {
             tvContainer.setVisibility(View.GONE);
         }
 
         if (radioList.contains(event.getType()) || radioPlayerList.contains(event.getType())) {
             radioContainer.setVisibility(View.VISIBLE);
-        } else
-        {
+        } else {
             radioContainer.setVisibility(View.GONE);
         }
 
 
-            if (popupLeftFragments.contains(event.getType())) {
+        if (popupLeftFragments.contains(event.getType())) {
             // this is popup event - coming from left
             fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
             barContainer.setVisibility(View.INVISIBLE);
@@ -425,6 +421,12 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class) {
             fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
         }
+        if (fragmentOpened.getClass() == SignUpFragment.class) {
+            if (((SignUpFragment) fragmentOpened).getTermsHolder().getVisibility() == View.VISIBLE) {
+                ((SignUpFragment) fragmentOpened).getTermsHolder().setVisibility(View.INVISIBLE);
+                return;
+            }
+        }
 
 
         if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class && fragmentOrganizer.get2BackFragment().getClass() == ClubTVFragment.class && fragmentOpened.getClass() != YoutubePlayerFragment.class) {
@@ -440,15 +442,13 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         if (youtubeList.contains(fragmentOrganizer.getBackFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getBackFragment().getClass())) {
             tvContainer.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             tvContainer.setVisibility(View.GONE);
         }
 
         if (radioList.contains(fragmentOrganizer.getBackFragment().getClass()) || radioPlayerList.contains(fragmentOrganizer.getBackFragment().getClass())) {
             radioContainer.setVisibility(View.VISIBLE);
-        } else
-        {
+        } else {
             radioContainer.setVisibility(View.GONE);
         }
 
@@ -497,7 +497,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         if (popupHolder.getVisibility() == View.VISIBLE) {
             popupHolder.setVisibility(View.INVISIBLE);
         }
-
 
 
         if (barContainer.getVisibility() != View.VISIBLE)

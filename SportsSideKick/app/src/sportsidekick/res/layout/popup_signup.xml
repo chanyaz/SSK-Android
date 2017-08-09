@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/margin_base_size_60"
-    android:background="?green_dark_1"
-    android:clickable="true">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_base_size_60"
+                android:background="?green_dark_1"
+                android:clickable="true">
 
 
     <!-- TOP BUTTONS CONTAINER -->
@@ -32,7 +32,7 @@
             android:textAllCaps="true"
             android:textColor="?white"
             android:textSize="@dimen/font_size_16"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/close_dialog_button"
@@ -43,7 +43,7 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
             android:tint="@color/light_colorPrimaryLight"
-            android:visibility="gone" />
+            android:visibility="gone"/>
     </RelativeLayout>
 
 
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
         android:layout_below="@+id/top_buttons_container"
-        android:background="@color/colorPrimary" />
+        android:background="@color/colorPrimary"/>
 
     <!-- CONTENT CONTAINER -->
 
@@ -76,7 +76,7 @@
             android:alpha="0.5"
             android:background="@drawable/phone_background"
             android:orientation="horizontal"
-            android:tileMode="repeat" />
+            android:tileMode="repeat"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                 android:text="@string/join_with_facebook"
                 android:textAllCaps="false"
                 android:textColor="?white"
-                android:textSize="@dimen/font_size_16" />
+                android:textSize="@dimen/font_size_16"/>
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/sign_up_facebook"
@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/join_with_facebook"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <ScrollView
                 android:layout_width="wrap_content"
@@ -127,13 +127,13 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_1"
                             android:layout_weight="3"
-                            android:background="@color/transparent" />
+                            android:background="@color/transparent"/>
 
                         <View
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_1"
                             android:layout_weight="1"
-                            android:background="?white" />
+                            android:background="?white"/>
 
                         <TextView
                             android:id="@+id/or_label"
@@ -143,19 +143,19 @@
                             android:gravity="center"
                             android:text="@string/sign_up_or"
                             android:textAllCaps="true"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"/>
 
                         <View
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_1"
                             android:layout_weight="1"
-                            android:background="?white" />
+                            android:background="?white"/>
 
                         <View
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height_1"
                             android:layout_weight="3"
-                            android:background="@color/transparent" />
+                            android:background="@color/transparent"/>
                     </LinearLayout>
 
                     <EditText
@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_firstname"
                         android:inputType="text"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"/>
 
                     <EditText
                         android:id="@+id/sign_up_lastname"
@@ -174,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_lastname"
                         android:inputType="text"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"/>
 
                     <EditText
                         android:id="@+id/sign_up_display_name"
@@ -183,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_username"
                         android:inputType="text"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"/>
 
                     <EditText
                         android:id="@+id/sign_up_email"
@@ -192,7 +192,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_email"
                         android:inputType="text"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"/>
 
                     <EditText
                         android:id="@+id/sign_up_phone"
@@ -201,7 +201,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_phone"
                         android:inputType="phone"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"/>
 
                     <EditText
                         android:id="@+id/sign_up_password"
@@ -210,7 +210,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/login_login_password"
                         android:inputType="textPassword"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"/>
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
@@ -231,7 +231,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/join_now"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/font_size_18" />
+                android:textSize="@dimen/font_size_18"/>
 
             <com.wang.avi.AVLoadingIndicatorView
                 android:id="@+id/sign_up_progress_bar"
@@ -240,7 +240,7 @@
                 android:layout_centerInParent="true"
                 android:elevation="@dimen/elevation_2"
                 android:visibility="gone"
-                app:indicatorName="LineSpinFadeLoaderIndicator" />
+                app:indicatorName="LineSpinFadeLoaderIndicator"/>
 
         </RelativeLayout>
 
@@ -256,7 +256,63 @@
             android:text="@string/sign_up_text"
             android:textAlignment="center"
             android:textColor="?white_semitransparent"
-            android:textSize="@dimen/font_size_10" />
+            android:textSize="@dimen/font_size_10"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/web_view_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/green_dark_2"
+        android:visibility="invisible"
+        >
+
+
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top_buttons_container_veb_view"
+            android:background="@color/green_dark_2"
+            android:visibility="visible"/>
+
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progress_bar_veb_view"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
+            android:layout_centerInParent="true"
+            android:elevation="@dimen/elevation_2"
+            android:visibility="visible"
+            app:indicatorName="LineSpinFadeLoaderIndicator"/>
+
+        <RelativeLayout
+            android:id="@+id/top_buttons_container_veb_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/phone_background"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/boldText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="1dp"
+                android:gravity="center_vertical"
+                android:text="@string/terms_and_privacy"
+                android:textAllCaps="true"
+                android:textColor="?white"
+                android:textSize="@dimen/font_size_16"
+                />
+
+
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

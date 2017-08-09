@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -320,6 +321,13 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     public void onBackPressed() {
         toggleBlur(false); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
+        Fragment fragmentOpened = fragmentOrganizer.getOpenFragment();
+        if (fragmentOpened.getClass() == SignUpFragment.class) {
+            if (((SignUpFragment) fragmentOpened).getTermsHolder().getVisibility() == View.VISIBLE) {
+                ((SignUpFragment) fragmentOpened).getTermsHolder().setVisibility(View.INVISIBLE);
+                return;
+            }
+        }
         if (fragmentOrganizer.getOpenFragment() instanceof JoinChatFragment ||
                 fragmentOrganizer.getOpenFragment() instanceof CreateChatFragment) {
             hideSlidePopupFragmentContainer();

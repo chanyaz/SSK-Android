@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +39,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 
 import base.app.Connection;
 import base.app.R;
@@ -64,6 +67,14 @@ import me.atrox.haikunator.HaikunatorBuilder;
 
 public class SignUpFragment extends BaseFragment implements RegistrationStateReceiver.RegistrationStateListener {
 
+    String url;
+    @BindView(R.id.web_view)
+    WebView webView;
+
+
+    View view;
+    @BindView(R.id.progress_bar_veb_view)
+    AVLoadingIndicatorView progressBarVebView;
 
     @BindView(R.id.sign_up_progress_bar)
     AVLoadingIndicatorView progressBar;
@@ -86,7 +97,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
     @BindView(R.id.sign_up_facebook)
     LoginButton loginButton;
-
+    @BindView(R.id.web_view_holder)
+    RelativeLayout termsHolder;
     @Nullable
     @BindView(R.id.politic_and_privacy_android)
     TextView policyText;
@@ -113,7 +125,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         // Required empty public constructor
     }
 
-    public void scaleViews(){
+    public void scaleViews() {
         int width = Utility.getDisplayWidth(getActivity());
         if (editTextContainer != null) {
             editTextContainer.getLayoutParams().width = (int) (width * 0.55);
@@ -147,20 +159,42 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
         initFacebook();
         setupPolicyText();
-        if(Utility.isTablet(getActivity())){
+        if (Utility.isTablet(getActivity())) {
             scaleViews();
         }
+        termsHolder.setVisibility(View.INVISIBLE);
+        setUpPolicyWebView();
 
         return view;
     }
 
-    public void setupPolicyText(){
+    private void setUpPolicyWebView() {
+
+        progressBarVebView.setVisibility(View.VISIBLE);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setSupportZoom(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.setVisibility(View.INVISIBLE);
+        webView.setWebViewClient(webViewClient);
+        url = getResources().getString(R.string.terms_i_privacy) + Locale.getDefault().getLanguage();
+    }
+
+    WebViewClient webViewClient = new WebViewClient() {
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            progressBar.setVisibility(View.GONE);
+            webView.setVisibility(View.VISIBLE);
+        }
+
+    };
+
+    public void setupPolicyText() {
         SpannableString spannableString = new SpannableString(policyText.getText());
         ClickableSpan clickableSpanTerms = new ClickableSpan() {
             @Override
             public void onClick(View view) {
                 //TODO
-                Toast.makeText(getActivity(),"Terms and Conditions of Use",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Terms and Conditions of Use", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -174,7 +208,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             @Override
             public void onClick(View view) {
                 //TODO
-                Toast.makeText(getActivity(),"Privacy Policy",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Privacy Policy", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -330,11 +364,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
         Utility.hideKeyboard(getActivity());
-        if(Utility.isTablet(getActivity()))
-        {
+        if (Utility.isTablet(getActivity())) {
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
-        }
-        else {
+        } else {
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         }
     }
@@ -365,6 +397,24 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             signUpText.setVisibility(View.VISIBLE);
         }
     }
+
+    public RelativeLayout getTermsHolder() {
+        return termsHolder;
+    }
+
+    public void setTermsHolder(RelativeLayout termsHolder) {
+        this.termsHolder = termsHolder;
+    }
+
+    @Optional
+    @OnClick(R.id.politic_and_privacy_android)
+    public void politicAndPrivacy() {
+        Utility.hideKeyboard(getActivity());
+        termsHolder.setVisibility(View.VISIBLE);
+        webView.loadUrl(url);
+
+    }
+
 
     @Optional
     @OnClick(R.id.facebook_button)
