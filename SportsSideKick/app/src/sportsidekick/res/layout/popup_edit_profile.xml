@@ -174,7 +174,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/edit_profile_divider"
                         android:animateLayoutChanges="true"
-                        android:background="@drawable/button_edit_profile_image">
+                        android:background="?buttonEditProfileImage">
 
                         <Button
                             android:id="@+id/picture_button"
