@@ -597,7 +597,7 @@ public class Model {
         }
     }
 
-    public void uploadVideoRecording(String filepath){
+    public void uploadChatVideoRecording(String filepath){
         String filename =
                 "video_" +
                         getUserIdForImageName() +
@@ -606,7 +606,7 @@ public class Model {
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.VIDEO_FILE_UPLOADED);
     }
 
-    public void uploadVideoRecordingThumbnail(String filepath, File filesDir){
+    public void uploadChatVideoRecordingThumbnail(String filepath, File filesDir){
         String filename = "video_thumb_" + currentUserInfo.getUserId() +  System.currentTimeMillis() + ".jpg";
         AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, filesDir, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
     }
@@ -620,7 +620,7 @@ public class Model {
         AWSFileUploader.getInstance().uploadCircularProfileImage(filename,filepath, filesDir, GameSparksEvent.Type.PROFILE_IMAGE_FILE_UPLOADED);
     }
 
-    public void uploadImageForPost(String filepath){
+    public void uploadImageForWallPost(String filepath){
         String filename =
                 "post_photo_" +
                         getUserIdForImageName() +
@@ -629,7 +629,16 @@ public class Model {
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.POST_IMAGE_FILE_UPLOADED);
     }
 
-    public void uploadPostVideoRecording(String filepath){
+    public void uploadImageForStats(String filepath){
+        String filename =
+                "post_photo_" +
+                        getUserIdForImageName() +
+                        System.currentTimeMillis() +
+                        ".jpg";
+        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.STATS_IMAGE_FILE_UPLOADED);
+    }
+
+    public void uploadWallPostVideoRecording(String filepath){
         String filename =
                 "post_video_" +
                         getUserIdForImageName() +
@@ -638,12 +647,12 @@ public class Model {
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.POST_VIDEO_FILE_UPLOADED);
     }
 
-    public void uploadPostVideoRecordingThumbnail(String filepath, File filesDir){
+    public void uploadWallPostVideoRecordingThumbnail(String filepath, File filesDir){
         String filename = "post_video_thumb_" + currentUserInfo.getUserId() +  System.currentTimeMillis() + ".jpg";
         AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, filesDir, GameSparksEvent.Type.POST_VIDEO_IMAGE_FILE_UPLOADED);
     }
 
-    public void uploadImageForMessage(String filepath){
+    public void uploadImageForChatMessage(String filepath){
         String filename =
                 "photo_" +
                         getUserIdForImageName() +
@@ -670,7 +679,7 @@ public class Model {
         AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.EDIT_CHAT_IMAGE_FILE_UPLOADED);
     }
 
-    public void uploadAudioRecording(String filepath){
+    public void uploadAudioRecordingForChat(String filepath){
         String filename =
                 "voiceRecording_" +
                         getUserIdForImageName() +

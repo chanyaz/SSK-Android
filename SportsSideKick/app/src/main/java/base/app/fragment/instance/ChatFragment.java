@@ -621,7 +621,7 @@ public class ChatFragment extends BaseFragment {
                 break;
             case VIDEO_FILE_UPLOADED:
                 videoDownloadUrl = (String) event.getData();
-                Model.getInstance().uploadVideoRecordingThumbnail(currentPath, getActivity().getFilesDir());
+                Model.getInstance().uploadChatVideoRecordingThumbnail(currentPath, getActivity().getFilesDir());
                 break;
             case VIDEO_IMAGE_FILE_UPLOADED:
                 String videoThumbnailDownloadUrl = (String) event.getData();
@@ -913,7 +913,7 @@ public class ChatFragment extends BaseFragment {
                 recorder.stop();
                 recorder.release();
                 Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_recording_stop), Toast.LENGTH_SHORT).show();
-                Model.getInstance().uploadAudioRecording(audioFilepath);
+                Model.getInstance().uploadAudioRecordingForChat(audioFilepath);
                 recorder = null;
             } catch (Exception e) {
                 Log.e(TAG, "Stop recording failed!");
@@ -961,17 +961,17 @@ public class ChatFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
-                    Model.getInstance().uploadImageForMessage(currentPath);
+                    Model.getInstance().uploadImageForChatMessage(currentPath);
                     break;
                 case REQUEST_CODE_CHAT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
-                    Model.getInstance().uploadImageForMessage(realPath);
+                    Model.getInstance().uploadImageForChatMessage(realPath);
                     break;
                 case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
                     Uri videoUri = intent.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), videoUri);
-                    Model.getInstance().uploadVideoRecording(currentPath);
+                    Model.getInstance().uploadChatVideoRecording(currentPath);
                     break;
             }
         }

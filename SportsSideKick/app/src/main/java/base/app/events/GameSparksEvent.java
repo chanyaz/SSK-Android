@@ -51,12 +51,14 @@ public class GameSparksEvent extends BusEvent {
             VIDEO_IMAGE_FILE_UPLOADED,
             VIDEO_FILE_UPLOADED,
             // wall post
-            POST_IMAGE_FILE_UPLOADED,
             POST_VIDEO_IMAGE_FILE_UPLOADED,
             POST_VIDEO_FILE_UPLOADED,
+            POST_IMAGE_FILE_UPLOADED,
             // create chat
             EDIT_CHAT_IMAGE_FILE_UPLOADED,
-            CREATE_CHAT_IMAGE_FILE_UPLOADED
+            CREATE_CHAT_IMAGE_FILE_UPLOADED,
+            // stats pin to wall post
+            STATS_IMAGE_FILE_UPLOADED
     }
 
 }

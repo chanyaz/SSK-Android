@@ -3,13 +3,9 @@ package base.app.fragment.instance;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -17,34 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import base.app.R;
-import base.app.activity.PhoneLoungeActivity;
 import base.app.events.GameSparksEvent;
 import base.app.fragment.BaseFragment;
-import base.app.model.AWSFileUploader;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.wall.WallModel;
-import base.app.model.wall.WallNews;
-import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStats;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
@@ -53,9 +38,6 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-
-import static base.app.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * A simple {@link BaseFragment} subclass.
@@ -129,7 +111,7 @@ public class StatisticsFragment extends BaseFragment {
     @SuppressWarnings("Unchecked cast")
     public void onEventDetected(GameSparksEvent event) {
         switch (event.getEventType()) {
-            case POST_IMAGE_FILE_UPLOADED:
+            case STATS_IMAGE_FILE_UPLOADED:
                 if (event.getData() != null) {
                     float imageAspectRatio = bitmap.getHeight() / bitmap.getWidth();
                     WallStats wallPost = new WallStats();
@@ -149,7 +131,7 @@ public class StatisticsFragment extends BaseFragment {
     public void invokeImageSelection() {
         try {
             bitmap = Utility.getBitmapFromView(webView);
-            Model.getInstance().uploadImageForPost(saveToInternalStorage(bitmap));
+            Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap));
 
 
         } catch (Exception e) {

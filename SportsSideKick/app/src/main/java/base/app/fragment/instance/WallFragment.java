@@ -30,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -394,7 +393,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_POST_IMAGE_CAPTURE:
-                    Model.getInstance().uploadImageForPost(currentPath);
+                    Model.getInstance().uploadImageForWallPost(currentPath);
                     imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
@@ -403,7 +402,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 case REQUEST_CODE_POST_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
-                    Model.getInstance().uploadImageForPost(realPath);
+                    Model.getInstance().uploadImageForWallPost(realPath);
                     imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
@@ -412,7 +411,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 case REQUEST_CODE_POST_VIDEO_CAPTURE:
                     Uri videoUri = intent.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), videoUri);
-                    Model.getInstance().uploadPostVideoRecording(currentPath);
+                    Model.getInstance().uploadWallPostVideoRecording(currentPath);
                     imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
@@ -425,6 +424,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Subscribe
     @SuppressWarnings("Unchecked cast")
     public void onEventDetected(GameSparksEvent event) {
+        Log.d(TAG, "event received in Chat Fragment: " + event.getEventType());
         switch (event.getEventType()) {
             case POST_IMAGE_FILE_UPLOADED:
                 if (event.getData() != null) {
@@ -436,11 +436,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                         }
                     });
                 }
-            case VIDEO_FILE_UPLOADED:
+            case POST_VIDEO_FILE_UPLOADED:
                 videoDownloadUrl = (String) event.getData();
-                Model.getInstance().uploadPostVideoRecordingThumbnail(currentPath, getActivity().getFilesDir());
+                Model.getInstance().uploadWallPostVideoRecordingThumbnail(currentPath, getActivity().getFilesDir());
                 break;
-            case VIDEO_IMAGE_FILE_UPLOADED:
+            case POST_VIDEO_IMAGE_FILE_UPLOADED:
                 videoThumbnailDownloadUrl = (String) event.getData();
                 ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener() {
                     @Override
@@ -460,6 +460,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         uploadedImage.setVisibility(View.GONE);
         removeUploadedImage.setVisibility(View.GONE);
         imageUploadProgressBar.setVisibility(View.GONE);
+        postCommentButton.setVisibility(View.GONE);
     }
 
     @Subscribe
@@ -717,6 +718,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         isNewPostVisible = false;
         isFilterVisible = false;
         isSearchVisible = false;
+        postCommentButton.setVisibility(View.GONE);
         updateButtons();
     }
 
@@ -725,6 +727,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         isNewPostVisible = true;
         isFilterVisible = false;
         isSearchVisible = false;
+        postCommentButton.setVisibility(View.VISIBLE);
         updateButtons();
     }
 
@@ -801,34 +804,33 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @OnClick(R.id.post_post_button)
     public void postPost() {
         String postContent = commentText.getText().toString();
+        commentText.setText("");
+        WallPost newPost = new WallPost();
+        newPost.setType(WallBase.PostType.post);
+        UserInfo user = Model.getInstance().getUserInfo();
+        newPost.setTitle(WordUtils.capitalize(user.getFirstName()) + "," + WordUtils.capitalize(user.getLastName()));
+        newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
+        newPost.setTimestamp((double) System.currentTimeMillis());
+
         if (!TextUtils.isEmpty(postContent)) {
-            commentText.setText("");
-            WallPost newPost = new WallPost();
-            newPost.setType(WallBase.PostType.post);
-            UserInfo user = Model.getInstance().getUserInfo();
-            newPost.setTitle(WordUtils.capitalize(user.getFirstName()) + "," + WordUtils.capitalize(user.getLastName()));
-            newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
-            newPost.setTimestamp((double) System.currentTimeMillis());
             newPost.setBodyText(postContent);
-
-            if (uploadedImageUrl != null) {
-                newPost.setCoverImageUrl(uploadedImageUrl);
-            } else if (videoDownloadUrl != null && videoThumbnailDownloadUrl != null) {
-                newPost.setCoverImageUrl(videoThumbnailDownloadUrl);
-                newPost.setVidUrl(videoDownloadUrl);
-            }
-            uploadedImageUrl = null;
-            videoDownloadUrl = null;
-            videoThumbnailDownloadUrl = null;
-            uploadedImage.setVisibility(View.GONE);
-            removeUploadedImage.setVisibility(View.GONE);
-            imageUploadProgressBar.setVisibility(View.GONE);
-
-            WallModel.getInstance().mbPost(newPost);
-            Utility.hideKeyboard(getActivity());
-        } else {
-            Toast.makeText(getContext(), getContext().getResources().getString(R.string.wall_text_for_post), Toast.LENGTH_SHORT).show();
         }
+
+        if (uploadedImageUrl != null) {
+            newPost.setCoverImageUrl(uploadedImageUrl);
+        } else if (videoDownloadUrl != null && videoThumbnailDownloadUrl != null) {
+            newPost.setCoverImageUrl(videoThumbnailDownloadUrl);
+            newPost.setVidUrl(videoDownloadUrl);
+        }
+        uploadedImageUrl = null;
+        videoDownloadUrl = null;
+        videoThumbnailDownloadUrl = null;
+        uploadedImage.setVisibility(View.GONE);
+        removeUploadedImage.setVisibility(View.GONE);
+        imageUploadProgressBar.setVisibility(View.GONE);
+
+        WallModel.getInstance().mbPost(newPost);
+        Utility.hideKeyboard(getActivity());
     }
 
     @Subscribe
