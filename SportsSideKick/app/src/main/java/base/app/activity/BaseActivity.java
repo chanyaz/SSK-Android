@@ -207,29 +207,35 @@ public class BaseActivity extends AppCompatActivity  {
         }
     }
 
-    protected void hideNotification(final View v) {
+    protected void hideNotification(final View notificationView) {
         Animation animationHide = AnimationUtils.loadAnimation(this, R.anim.slide_out_to_left);
-        v.startAnimation(animationHide);
+        notificationView.startAnimation(animationHide);
         animationHide.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation arg0) {
-            }
+            public void onAnimationStart(Animation arg0) {}
 
             @Override
-            public void onAnimationRepeat(Animation arg0) {
-            }
+            public void onAnimationRepeat(Animation arg0) {}
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                notificationContainer=(RelativeLayout) findViewById(R.id.left_notification_container);
-                notificationContainer .removeView(v);
-                v.setVisibility(View.GONE);
+                notificationContainer=findViewById(R.id.left_notification_container);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        notificationView.setVisibility(View.GONE);
+                        notificationContainer.removeView(notificationView);
+                    }
+                }, 100);
+
+
             }
         });
     }
 
     protected void showNotification(final View v, int time) {
-        notificationContainer=(RelativeLayout) findViewById(R.id.left_notification_container);
+        notificationContainer=findViewById(R.id.left_notification_container);
         notificationContainer.addView(v, 0);
 
         Animation animationShow = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_left);
