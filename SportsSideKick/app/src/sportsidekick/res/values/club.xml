@@ -7,6 +7,14 @@
     <string name="store_url_item">https://lojaverde.sporting.pt/en/equipments</string>
     <string name="store_url_item2">https://lojaverde.sporting.pt/en/lifestyle</string>
     <string name="store_url_item3">https://lojaverde.sporting.pt/en/children-baby</string>
+
+    <string name="store_url_item4"> https://lojaverde.sporting.pt/en/accessories-169</string>
+    <string name="store_url_item5">https://lojaverde.sporting.pt/en/modalidades</string>
+    <string name="store_url_item6">https://lojaverde.sporting.pt/en/multimedia-leisure</string>
+    <string name="store_url_item7">https://lojaverde.sporting.pt/en/home</string>
+    <string name="store_url_item8">https://lojaverde.sporting.pt/en/jornal-sporting</string>
+    <string name="store_url_item9">https://lojaverde.sporting.pt/en/cheques-prenda</string>
+
     <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
     <string name="quiz_url">http://sidekick.snack-media.com/quiz-list-en.html</string>
     <string name="clubtv_channelid">UCnJj6L93JX3Jrhzv81ayywA</string>
