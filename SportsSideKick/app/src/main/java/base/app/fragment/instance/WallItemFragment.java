@@ -445,7 +445,31 @@ public class WallItemFragment extends BaseFragment {
                 if (likesIconLiked != null) {
                     likesIconLiked.setEnabled(false);
                 }
+                if (likesIcon != null) {
+                    likesIcon.setEnabled(false);
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (likesIconLiked != null) {
+                            likesIconLiked.setEnabled(true);
+                        }
+                        if (likesIcon != null) {
+                            likesIcon.setEnabled(true);
+                        }
+                    }
+                }, 2000);
+
                 item.toggleLike();
+                if (likesIconLiked != null) {
+                    likesIconLiked.setEnabled(false);
+                }
+                if (likesIcon != null) {
+                    likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
+                }
+                if (likesIconLiked != null) {
+                    likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+                }
                 SoundEffects.getDefault().playSound(item.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }
         }
@@ -464,19 +488,6 @@ public class WallItemFragment extends BaseFragment {
             if (shareCount != null) {
                 shareCount.setText(String.valueOf(post.getShareCount()));
             }
-            post.setLikeCount(post.getLikeCount());
-        }
-
-
-
-        if (likesIcon != null) {
-            likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
-        }
-        if (likesIconLiked != null) {
-            likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
-        }
-        if (likesIconLiked != null) {
-            likesIconLiked.setEnabled(true);
         }
     }
 

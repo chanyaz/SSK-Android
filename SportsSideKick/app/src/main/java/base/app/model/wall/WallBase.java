@@ -285,11 +285,13 @@ public abstract class WallBase implements Shareable {
         this.itemType = type;
     }
 
-
-
     public void toggleLike() {
         likedByUser = !likedByUser;
-
+        if (likedByUser) {
+            likeCount += 1;
+        } else {
+            likeCount -= 1;
+        }
         WallModel.getInstance().setlikeVal(this, likedByUser).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
