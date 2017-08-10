@@ -548,7 +548,22 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_delete)
     public void chatMenuDeleteOnClick() {
-        currentlyActiveChat.deleteChat();
+
+        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.chat_delete_chat),
+                new View.OnClickListener() {// Cancel listener
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                    }
+                }, new View.OnClickListener() {// Confirm listener
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                        currentlyActiveChat.deleteChat();
+
+                    }
+                });
+
     }
 
 

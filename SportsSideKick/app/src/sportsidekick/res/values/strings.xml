@@ -252,6 +252,7 @@
     <string name="chat_video_downloaded">Video is downloaded.</string>
     <string name="are_you_sure">ARE YOU SURE?</string>
     <string name="chat_leave_chat">You will leave this chat</string>
+    <string name="chat_delete_chat">You will be deleting this chat</string>
     <string name="choose">Choose</string>
     <string name="chat_image_or_video">Take photo or record video?</string>
     <string name="chat_video">Video</string>
