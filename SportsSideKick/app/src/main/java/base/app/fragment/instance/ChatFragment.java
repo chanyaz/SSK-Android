@@ -794,7 +794,8 @@ public class ChatFragment extends BaseFragment {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                // videoViewContainer.setVisibility(View.GONE);
-                videoView.stopPlayback();
+                videoView.seekTo(0);
+                videoView.pause();
                 mediaController.reset();
             }
         });
