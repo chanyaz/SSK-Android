@@ -3,33 +3,17 @@ package base.app.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Base64;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.instacart.library.truetime.TrueTimeRx;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -38,7 +22,6 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 
 import base.app.R;
 import base.app.model.user.UserInfo;
-import base.app.util.ui.SlideTextAnimation;
 
 /**
  * Created by Djordje Krutil on 6.12.2016..
@@ -71,28 +53,6 @@ public class Utility {
         }
     }
 
-    public static void slideText(TextView slideTextOne, TextView slideTextTwo, View circleOne, View circleTwo, boolean visibleTextOne, Context context) {
-        SlideTextAnimation animation = new SlideTextAnimation(context);
-        if (slideTextOne != null && slideTextTwo != null && circleOne != null && circleTwo != null) {
-            if (visibleTextOne) {
-                slideTextOne.startAnimation(animation.moveLeft());
-                slideTextOne.setVisibility(View.VISIBLE);
-                slideTextTwo.startAnimation(animation.moveRight());
-                slideTextTwo.setVisibility(View.GONE);
-                circleOne.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_white));
-                circleTwo.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_green));
-            } else {
-                slideTextTwo.startAnimation(animation.moveLeft());
-                slideTextTwo.setVisibility(View.VISIBLE);
-                slideTextOne.startAnimation(animation.moveRight());
-                slideTextOne.setVisibility(View.GONE);
-                circleOne.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_green));
-                circleTwo.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_white));
-            }
-        }
-    }
-
-
     private static volatile DisplayImageOptions blankOptionsUser;
     private static volatile DisplayImageOptions blankOptions;
     private static volatile DisplayImageOptions wallItemOptions;
@@ -102,9 +62,9 @@ public class Utility {
             return blankOptionsUser;
         }
         blankOptionsUser = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.blank_profile_rounded) // resource or drawable
-                .showImageForEmptyUri(R.drawable.blank_profile_rounded) // resource or drawable
-                .showImageOnFail(R.drawable.blank_profile_rounded) // resource or drawable
+                .showImageOnLoading(R.drawable.blank_profile_rounded)
+                .showImageForEmptyUri(R.drawable.blank_profile_rounded)
+                .showImageOnFail(R.drawable.blank_profile_rounded)
                 .delayBeforeLoading(0) //delay
                 .resetViewBeforeLoading(true)  // default
                 .considerExifParams(false)
@@ -124,9 +84,6 @@ public class Utility {
             return roundedImageOptions;
         }
         roundedImageOptions = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.drawable.blank_profile_rounded) // resource or drawable
-//                .showImageForEmptyUri(R.drawable.blank_profile_rounded) // resource or drawable
-//                .showImageOnFail(R.drawable.blank_profile_rounded) // resource or drawable
                 .delayBeforeLoading(0) //delay
                 .resetViewBeforeLoading(true)  // default
                 .considerExifParams(false)
@@ -144,9 +101,6 @@ public class Utility {
             return blankOptions;
         }
         blankOptions = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.drawable.booking_top_image) // resource or drawable
-//                .showImageForEmptyUri(R.drawable.booking_top_image) // resource or drawable
-//                .showImageOnFail(R.drawable.booking_top_image) // resource or drawable
                 .delayBeforeLoading(0) //delay
                 .resetViewBeforeLoading(true)  // default
                 .considerExifParams(false)
@@ -164,10 +118,6 @@ public class Utility {
             return wallItemOptions;
         }
         wallItemOptions = new DisplayImageOptions.Builder()
-                //TODO @Nemanja change when we have placeholder
-//                .showImageOnLoading(R.drawable.booking_top_image) // resource or drawable
-//                .showImageForEmptyUri(R.drawable.booking_top_image) // resource or drawable
-//                .showImageOnFail(R.drawable.booking_top_image) // resource or drawable
                 .delayBeforeLoading(0) //delay
                 .resetViewBeforeLoading(true)  // default
                 .considerExifParams(false)
@@ -178,40 +128,6 @@ public class Utility {
                 .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
                 .build();
         return wallItemOptions;
-    }
-
-    public static boolean isValidEmail(String target) {
-        if (target == null) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
-    }
-
-
-    public static boolean isEditTextEmpty(EditText text, String filedName, AlertDialog alertDialog, Context context) {
-        if ("".compareTo(text.getText().toString()) == 0) {
-            if (alertDialog != null) {
-                alertDialog.setMessage(context.getString(R.string.dialog_message) + " " + filedName + "!");
-                alertDialog.show();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean internetAvailable(Context context) {
-        try {
-            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-            boolean connected = networkInfo != null && networkInfo.isAvailable() &&
-                    networkInfo.isConnected();
-            return connected;
-        } catch (Exception e) {
-            Log.v("connectivity", e.toString());
-        }
-        return false;
     }
 
     public static void showAlertDialog(String title, String message, Context context) {
@@ -273,7 +189,6 @@ public class Utility {
         different = different % daysInMilli;
 
         long elapsedHours = different / hoursInMilli;
-        different = different % hoursInMilli;
         return elapsedDays + " Days " + elapsedHours + " Hours ago";
     }
 
@@ -286,28 +201,6 @@ public class Utility {
         } catch (Exception ex) {
             return 0;
         }
-    }
-
-    public static void setListViewHeight(ListView listView, BaseAdapter baseAdapter) {
-        if (listView != null) {
-            int totalHeight = 0;
-            for (int size = 0; size < baseAdapter.getCount(); size++) {
-                View listItem = baseAdapter.getView(size, null, listView);
-                listItem.measure(0, 0);
-                totalHeight += listItem.getMeasuredHeight();
-            }
-
-            ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalHeight + (listView.getDividerHeight() * (baseAdapter.getCount() - 1));
-            listView.setLayoutParams(params);
-        }
-    }
-
-
-    public static float convertDpToPixel(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     public static int getDisplayWidth(Context context) {
@@ -332,19 +225,6 @@ public class Utility {
         config.put("Language", Prefs.getString("Language", "en"));
         config.put("ID", Prefs.getString("ID", "1680"));
         return config;
-    }
-
-    public static void setClubConfig(String country, String id, String language) {
-        Prefs.putString("Country", country);
-        Prefs.putString("Language", language);
-        Prefs.putString("ID", id);
-    }
-
-    public static void hideKeyboardFrom(Activity activity, View view, boolean hasFocus) {
-        if (!hasFocus) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     public static void hideKeyboard(Activity activity) {
@@ -409,20 +289,6 @@ public class Utility {
         }
     }
 
-
-    public static Boolean isTablet2(Activity context) {
-        DisplayMetrics metrics = new DisplayMetrics();
-        context.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        float yInches = metrics.heightPixels / metrics.ydpi;
-        float xInches = metrics.widthPixels / metrics.xdpi;
-        double diagonalInches = Math.sqrt(xInches * xInches + yInches * yInches);
-        if (diagonalInches >= 7) {
-           return true;
-        } else {
-           return false;
-        }
-    }
-
     public static void setSystemBarColor(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.system_bar_color));
@@ -444,14 +310,6 @@ public class Utility {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
-    public static boolean isNandUp() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
-    }
-
-    public static boolean isAnyCameraAvailable(Context context) {
-        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
-    }
-
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String html) {
         Spanned result;
@@ -461,54 +319,5 @@ public class Utility {
             result = Html.fromHtml(html);
         }
         return result;
-    }
-
-    public static Bitmap getBitmapFromView(View view) {
-        try {
-            //Define a bitmap with the same size as the view
-            Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-            //Bind a canvas to it
-            Canvas canvas = new Canvas(returnedBitmap);
-            //Get the view's background
-            Drawable bgDrawable = view.getBackground();
-            if (bgDrawable != null)
-                //has background drawable, then draw it on the canvas
-                bgDrawable.draw(canvas);
-            else
-                //does not have background drawable, then draw white background on the canvas
-                canvas.drawColor(Color.WHITE);
-            // draw the view on the canvas
-            view.draw(canvas);
-            //return the bitmap
-            return returnedBitmap;
-        }catch (Exception e)
-        {
-            return Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-        }
-
-
-    }
-
-    public static String getBase64String(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, baos);
-
-        byte[] imageBytes = baos.toByteArray();
-
-        String base64String = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
-
-        return base64String;
-    }
-
-    public static Bitmap createSquaredBitmap(Bitmap srcBmp) {
-        int dim = Math.max(srcBmp.getWidth(), srcBmp.getHeight());
-        Bitmap dstBmp = Bitmap.createBitmap(dim, dim, Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(dstBmp);
-        canvas.drawColor(Color.WHITE);
-        canvas.drawBitmap(srcBmp, (dim - srcBmp.getWidth()) / 2, (dim - srcBmp.getHeight()) / 2, null);
-
-        return dstBmp;
     }
 }

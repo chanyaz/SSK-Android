@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -61,19 +60,11 @@ public class StatisticsFragment extends BaseFragment {
         setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         ButterKnife.bind(this, view);
-        webView = (WebView) view.findViewById(R.id.web_view);
+        webView = view.findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setVisibility(View.VISIBLE);
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                // page loaded successfully!
-
-
-            }
-        });
         String url = getResources().getString(R.string.stats_url);
         webView.loadUrl(url);
         return view;
@@ -130,10 +121,9 @@ public class StatisticsFragment extends BaseFragment {
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection() {
         try {
-            bitmap = Utility.getBitmapFromView(webView);
+            webView.setDrawingCacheEnabled(true);
+            bitmap = webView.getDrawingCache();
             Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap));
-
-
         } catch (Exception e) {
 
         }
