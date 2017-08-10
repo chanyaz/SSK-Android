@@ -58,9 +58,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         @Nullable
         @BindView(R.id.confirm_button)
         ImageButton confirmButton;
-        @Nullable
-        @BindView(R.id.button_friend)
-        ImageButton buttonFriend;
+
 
         ViewHolder(View v) {
             super(v);
@@ -86,7 +84,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_request_item, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
         clickForTablet(viewHolder);
-        clickForPhone(viewHolder);
+//        clickForPhone(viewHolder);
         return viewHolder;
     }
 
@@ -136,37 +134,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
 
     }
 
-    private void clickForPhone(final ViewHolder viewHolder) {
-        if (viewHolder.buttonFriend != null) {
-            viewHolder.buttonFriend.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    final int position = viewHolder.getLayoutPosition();
-                    if (viewHolder.buttonFriend.isSelected()) {
-                        rejectFriendRequest(position);
-                    } else {
-                        acceptFriendRequest(position);
-                    }
-                }
-            });
-        }
 
-        if (viewHolder.buttonFriend != null) {
-            viewHolder.buttonFriend.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (viewHolder.buttonFriend.isSelected())
-                        viewHolder.buttonFriend.setSelected(false);
-                    else
-                        viewHolder.buttonFriend.setSelected(true);
-                    return true;
-                }
-            });
-
-        }
-
-
-    }
 
     private void rejectFriendRequest(final int position) {
         Task<Boolean> requestTask = FriendsManager.getInstance().rejectFriendRequest(values.get(position).getId());

@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_marginStart="@dimen/margin_20"
         android:layout_toEndOf="@+id/image_holder"
-        android:layout_toStartOf="@+id/button_friend_accept"
+        android:layout_toStartOf="@+id/button_friend_clear"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true">
         <TextView
@@ -52,7 +52,7 @@
     </RelativeLayout>
 
     <ImageButton
-        android:id="@+id/button_friend"
+        android:id="@+id/confirm_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
@@ -61,7 +61,20 @@
         android:scaleType="centerInside"
         android:layout_marginTop="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_16"
-        app:srcCompat="@drawable/add_friends_selector" />
+        app:srcCompat="@drawable/friend_request_accept" />
+
+    <ImageButton
+        android:id="@+id/deny_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:layout_toStartOf="@+id/confirm_button"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
+        app:srcCompat="@drawable/friend_request_clear" />
+
     <View
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
