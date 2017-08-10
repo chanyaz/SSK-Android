@@ -102,7 +102,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.325"
                     android:background="@drawable/gym_bag_button_background"
-                    android:text="@string/login_login"
+                    android:text="@string/sign_in"
                     android:gravity="center"
                     android:textAlignment="center"
                     android:textAllCaps="false"
