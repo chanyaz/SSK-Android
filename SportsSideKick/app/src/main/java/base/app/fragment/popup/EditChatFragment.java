@@ -166,7 +166,7 @@ public class EditChatFragment extends BaseFragment {
 
                         addFriendsAdapter.add(chatMembers);
                         addFriendsAdapter.notifyDataSetChanged();
-
+                        updateFirendsCountLabel();
 
                     }
                 });
@@ -230,7 +230,7 @@ public class EditChatFragment extends BaseFragment {
         } else if (friendCount == 1) {
             headlineFriendsInChat.setText(getContext().getResources().getString(R.string.chat_frend_in_chat));
         } else {
-            String friendsTotal = friendCount + friendsInChat;
+            String friendsTotal = friendCount + " " + friendsInChat;
             headlineFriendsInChat.setText(friendsTotal);
         }
     }
