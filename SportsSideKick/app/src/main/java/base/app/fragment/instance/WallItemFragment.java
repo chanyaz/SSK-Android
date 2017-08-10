@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -195,7 +196,7 @@ public class WallItemFragment extends BaseFragment {
         switch (item.getType()) {
             case post:
                 WallPost post = (WallPost) item;
-                ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), imageHeader, imageOptions);
+                Glide.with(this).load(post.getCoverImageUrl()).into(imageHeader);
                 title.setText(post.getTitle());
                 strap.setText(Utility.getTimeAgo(post.getTimestamp().longValue()));
                 content.setText(post.getBodyText());
