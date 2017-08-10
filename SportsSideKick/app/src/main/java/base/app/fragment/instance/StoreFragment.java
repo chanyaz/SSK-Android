@@ -21,13 +21,13 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.activity.PhoneLoungeActivity;
 import base.app.fragment.BaseFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.wall.WallBase;
 import base.app.model.wall.WallModel;
 import base.app.model.wall.WallStoreItem;
+import base.app.util.Utility;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -172,7 +172,7 @@ public class StoreFragment extends BaseFragment {
                     item.setSubTitle(price);
                     item.setUrl(url);
                     item.setCoverImageUrl(absoluteUrl);
-                    item.setTimestamp((double) System.currentTimeMillis());
+                    item.setTimestamp((double) Utility.getCurrentNTPTime());
 
 
                 }

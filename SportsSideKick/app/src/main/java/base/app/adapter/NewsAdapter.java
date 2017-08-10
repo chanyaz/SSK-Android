@@ -88,7 +88,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             ImageLoader.getInstance().displayImage(info.getCoverImageUrl(), holder.image, imageOptions);
         }
         holder.caption.setText(info.getTitle());
-        holder.date.setText("" + DateUtils.getRelativeTimeSpanString(info.getTimestamp().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS)); // TODO USE PLACEHOLDER!!!
+        holder.date.setText("" + DateUtils.getRelativeTimeSpanString(info.getTimestamp().longValue(),
+                Utility.getCurrentNTPTime(), DateUtils.HOUR_IN_MILLIS)); // TODO USE PLACEHOLDER!!!
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

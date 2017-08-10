@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.instacart.library.truetime.TrueTimeRx;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -57,6 +58,18 @@ import base.app.util.ui.SlideTextAnimation;
  * www.hypercubesoft.com
  */
 public class Utility {
+
+    public static long getCurrentNTPTime(){
+        if(TrueTimeRx.isInitialized()){
+            try {
+               return TrueTimeRx.now().getTime();
+            } catch (IllegalStateException ex){
+                return System.currentTimeMillis();
+            }
+        } else {
+            return System.currentTimeMillis();
+        }
+    }
 
     public static void slideText(TextView slideTextOne, TextView slideTextTwo, View circleOne, View circleTwo, boolean visibleTextOne, Context context) {
         SlideTextAnimation animation = new SlideTextAnimation(context);

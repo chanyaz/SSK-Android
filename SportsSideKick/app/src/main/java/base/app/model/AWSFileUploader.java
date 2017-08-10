@@ -19,7 +19,6 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.S3DataSource;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -189,7 +188,7 @@ public class AWSFileUploader {
     }
 
     public static String generateMongoOID() {
-        Long tsLong = System.currentTimeMillis() / 1000L;
+        Long tsLong = Utility.getCurrentNTPTime() / 1000L;
         return (getFirst8(Long.toHexString(tsLong)) + generateRandom() + generateRandom());
 
     }

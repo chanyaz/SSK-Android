@@ -357,7 +357,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
 
 
     private void setYourCoinsValue(String value) {
-        yourCoinsValue.setText(value + " $$K");
+        yourCoinsValue.setText(value);
     }
 
     public void onFriendsButtonClick(View view) {

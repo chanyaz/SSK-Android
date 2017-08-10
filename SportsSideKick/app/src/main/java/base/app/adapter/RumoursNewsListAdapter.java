@@ -2,8 +2,6 @@ package base.app.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -17,16 +15,13 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.app.model.wall.WallBase;
-import base.app.util.Utility;
-import base.app.util.ui.GridSpacingItemDecoration;
-import base.app.util.ui.LinearItemDecoration;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.NewsItemFragment;
 import base.app.model.wall.WallNews;
+import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 10/01/2017.
@@ -149,7 +144,8 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
             } else {
                 holder.bigRumourInfo.setText(bigInfo.getTitle());
         }
-            String time = "" + DateUtils.getRelativeTimeSpanString(bigInfo.getTimestamp().longValue(), System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS);
+            String time = "" + DateUtils.getRelativeTimeSpanString(bigInfo.getTimestamp().longValue(),
+                    Utility.getCurrentNTPTime(), DateUtils.HOUR_IN_MILLIS);
             holder.bigRumourTime.setText(time);
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override

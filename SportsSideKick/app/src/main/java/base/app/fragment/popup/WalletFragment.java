@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import base.app.model.Model;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import base.app.R;
@@ -23,6 +26,10 @@ import butterknife.Optional;
 
 public class WalletFragment extends BaseFragment {
 
+
+    @BindView(R.id.wallet_amount)
+    TextView walletAmount;
+
     public WalletFragment() {
         // Required empty public constructor
     }
@@ -32,6 +39,7 @@ public class WalletFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.popup_your_wallet, container, false);
         ButterKnife.bind(this, view);
+        walletAmount.setText(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
         return view;
     }
 

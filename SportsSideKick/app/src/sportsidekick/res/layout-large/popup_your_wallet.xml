@@ -127,10 +127,11 @@
                 android:textSize="@dimen/font_size_10" />
 
             <TextView
+                android:id="@+id/wallet_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/you_have_caption"
-                android:text="2,539 $$K"
+                android:text="0"
                 android:textColor="?colorAccent"
                 android:textSize="@dimen/font_size_16" />
         </RelativeLayout>
@@ -248,7 +249,7 @@
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginEnd="@dimen/margin_5"
             android:layout_marginStart="@dimen/margin_15"
-            android:text="10 $$K"
+            android:text="10"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_11" />
 
@@ -276,7 +277,7 @@
             android:layout_alignStart="@+id/bundle_2"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginStart="@dimen/margin_15"
-            android:text="100 $$K"
+            android:text="100"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_11" />
 
@@ -300,7 +301,7 @@
             android:layout_alignStart="@+id/bundle_3"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginStart="@dimen/margin_15"
-            android:text="500 $$K"
+            android:text="500"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_11" />
 
@@ -324,7 +325,7 @@
             android:layout_alignStart="@+id/bundle_4"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginStart="@dimen/margin_15"
-            android:text="1000 $$K"
+            android:text="1000"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_11" />
 
@@ -348,7 +349,7 @@
             android:layout_alignStart="@+id/bundle_5"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginStart="@dimen/margin_15"
-            android:text="1500 $$K"
+            android:text="1500"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_11" />
 
@@ -424,7 +425,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/margin_2"
-                android:text="$$K"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_25"
                 android:textStyle="bold" />

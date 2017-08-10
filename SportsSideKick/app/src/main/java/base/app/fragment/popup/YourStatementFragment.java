@@ -46,7 +46,7 @@ public class YourStatementFragment extends BaseFragment {
 
         ArrayList<Pair<String, String>> values = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            values.add(new Pair<>("Some line item " + i, "+" + i*100 + "$$K"));
+            values.add(new Pair<>("Some line item " + i, "+" + i*100));
         }
 
         StatementAdapter adapter = new StatementAdapter();

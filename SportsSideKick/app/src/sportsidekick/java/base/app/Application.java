@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.instacart.library.truetime.TrueTimeRx;
 import com.keiferstone.nonet.NoNet;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -17,10 +19,15 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
+import java.util.Date;
+
 import base.app.model.AWSFileUploader;
 import base.app.model.purchases.PurchaseModel;
 import base.app.util.SoundEffects;
 import io.fabric.sdk.android.Fabric;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -79,6 +86,17 @@ public class Application extends MultiDexApplication {
         SoundEffects.getDefault().initialize(this);
 
         PurchaseModel.getInstance().initialize(this);
+
+        TrueTimeRx.build()
+                .withSharedPreferences(this)
+                .initializeRx("time.apple.com")
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<Date>() {
+                    @Override
+                    public void accept(@NonNull Date date) throws Exception {
+                        Log.v("TrueTime", "TrueTime was initialized and we have a time: " + date);
+                    }
+        });
     }
 
     //region AppImage Loader

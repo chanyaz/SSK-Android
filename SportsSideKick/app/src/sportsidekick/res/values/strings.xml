@@ -305,7 +305,7 @@
     <string name="comments_made">Comments made</string>
     <string name="up_next">UP NEXT</string>
     <string name="live">LIVE</string>
-    <string name="tutorial_earn">Tap here to earn 5 $$K for viewing this How to!</string>
+    <string name="tutorial_earn">Tap here to earn 5 for viewing this How to!</string>
     <string name="add_users">ADD USERS</string>
     <string name="playlist">PLAYLIST</string>
     <string name="default_time">00:00 / 00:00</string>
@@ -345,7 +345,7 @@
     <string name="rewards_and_items_received">Rewards and items recieved from Gym Bags</string>
     <string name="you_have">YOU HAVE</string>
     <string name="bonus_gym_bag">+ BONUS GYM BAG</string>
-    <string name="bandles">$$K BUNDLES</string>
+    <string name="bandles">BUNDLES</string>
     <string name="vs">vs</string>
     <string name="login_sign_up_text">Login / Signup</string>
     <string name="add_new_chat">ADD NEW CHAT</string>

@@ -810,7 +810,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         UserInfo user = Model.getInstance().getUserInfo();
         newPost.setTitle(WordUtils.capitalize(user.getFirstName()) + "," + WordUtils.capitalize(user.getLastName()));
         newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
-        newPost.setTimestamp((double) System.currentTimeMillis());
+        newPost.setTimestamp((double) Utility.getCurrentNTPTime());
 
         if (!TextUtils.isEmpty(postContent)) {
             newPost.setBodyText(postContent);

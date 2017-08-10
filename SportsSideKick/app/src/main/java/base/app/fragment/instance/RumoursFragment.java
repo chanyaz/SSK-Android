@@ -239,7 +239,7 @@ public class RumoursFragment extends BaseFragment {
                                 itemToPost.setSubTitle("");
                             }
 
-                            itemToPost.setTimestamp((double) System.currentTimeMillis());
+                            itemToPost.setTimestamp((double) Utility.getCurrentNTPTime());
                             itemToPost.setCoverAspectRatio(0.666666f);
                             if (item.getCoverImageUrl() != null) {
                                 itemToPost.setCoverImageUrl(item.getCoverImageUrl());

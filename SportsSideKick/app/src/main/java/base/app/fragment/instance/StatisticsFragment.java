@@ -118,7 +118,7 @@ public class StatisticsFragment extends BaseFragment {
                     //TODO Copied from iOS
                     wallPost.setTitle("A Stats post");
                     wallPost.setSubTitle("Some subtitle");
-                    wallPost.setTimestamp((double) System.currentTimeMillis());
+                    wallPost.setTimestamp((double) Utility.getCurrentNTPTime());
                     wallPost.setBodyText("...");
                     wallPost.setCoverAspectRatio(imageAspectRatio);
                     wallPost.setCoverImageUrl((String) event.getData());

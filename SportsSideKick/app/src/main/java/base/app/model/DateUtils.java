@@ -2,6 +2,8 @@ package base.app.model;
 
 import java.util.Date;
 
+import base.app.util.Utility;
+
 /**
  * Created by Filip on 1/10/2017.
  * Copyright by Hypercube d.o.o.
@@ -40,7 +42,7 @@ public class DateUtils {
      * @return current time formatted as Firebase date
      */
     public static String currentTimeToFirebaseDate(){
-        return timestampToFirebaseDate(System.currentTimeMillis());
+        return timestampToFirebaseDate(Utility.getCurrentNTPTime());
     }
 
     public static String dateToFirebaseDate(Date date){
