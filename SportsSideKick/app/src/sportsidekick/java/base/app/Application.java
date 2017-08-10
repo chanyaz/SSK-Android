@@ -110,7 +110,6 @@ public class Application extends MultiDexApplication {
         config.denyCacheImageMultipleSizesInMemory();
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
         config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
-        config.diskCacheExtraOptions(480, 320, null);
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         config.writeDebugLogs(); //
         L.writeLogs(false);
