@@ -77,6 +77,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private int lightTextColorLeft;
     private int lightTextColorRight;
     public MessageAdapter(Context context) {
+        audioPlayer = new MediaPlayer();
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             textColor = ContextCompat.getColor(context,R.color.light_chat_content_right_color);
@@ -180,30 +181,37 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 holder.senderTextView.setText(nicName);
             }
         });
-
     }
 
-
+    private MediaPlayer audioPlayer;
     private void setupAudioPlayButton(String url, final ImageView button){
         try {
-            final MediaPlayer player = new MediaPlayer();
-            player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            player.setDataSource(url);
-            player.prepareAsync();
-            player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    player.start();
+            if(audioPlayer!=null){
+                if(audioPlayer.isPlaying()){
+                    audioPlayer.stop();
+                    audioPlayer.release();
                 }
-            });
-            button.setImageResource(R.drawable.pause_button_icon);
+                audioPlayer = new MediaPlayer();
+                audioPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                audioPlayer.setDataSource(url);
+                audioPlayer.prepareAsync();
+                audioPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        audioPlayer.start();
+                        button.setClickable(false);
+                    }
+                });
+                button.setImageResource(R.drawable.pause_button_icon);
+                audioPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        button.setImageResource(R.drawable.play_button_icon);
+                        button.setClickable(true);
+                    }
+                });
+            }
 
-            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    button.setImageResource(R.drawable.play_button_icon);
-                }
-            });
         } catch (Exception e) {
            Log.e(TAG,"Audio file can't be played!");
         }
