@@ -81,10 +81,22 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 }
                 break;
             case "Wall":
-                message = (String) data.get(GSConstants.MESSAGE);
-                WallPost wallPost = mapper.convertValue(data.get(GSConstants.POST), WallPost.class);
-                event = new NotificationReceivedEvent(4, "New Wall Post", message, 3);
-                EventBus.getDefault().post(event);
+                String operation = (String) data.get(GSConstants.OPERATION);
+                switch (operation){
+                    case GSConstants.OPERATION_LIKE:
+                        String action = (String) data.get(GSConstants.ACTION);
+                        if(action.equals(GSConstants.OPERATION_LIKE)){
+                            event = new NotificationReceivedEvent(4, "New Like", "", 3);
+                            EventBus.getDefault().post(event);
+                        }
+                        break;
+                    case GSConstants.OPERATION_NEW_POST:
+                        message = (String) data.get(GSConstants.MESSAGE);
+                        WallPost wallPost = mapper.convertValue(data.get(GSConstants.POST), WallPost.class);
+                        event = new NotificationReceivedEvent(4, "New Wall Post", message, 3);
+                        EventBus.getDefault().post(event);
+                        break;
+                }
                 break;
             default:
                 break;
