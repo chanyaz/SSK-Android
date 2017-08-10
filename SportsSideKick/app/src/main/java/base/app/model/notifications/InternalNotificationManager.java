@@ -86,7 +86,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                     case GSConstants.OPERATION_LIKE:
                         String action = (String) data.get(GSConstants.ACTION);
                         if(action.equals(GSConstants.OPERATION_LIKE)){
-                            event = new NotificationReceivedEvent(4, "New Like", "", 3);
+                            event = new NotificationReceivedEvent(4, "New Like", "", 99);
                             EventBus.getDefault().post(event);
                         }
                         break;
