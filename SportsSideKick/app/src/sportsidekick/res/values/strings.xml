@@ -41,7 +41,7 @@
     <string name="dialog_message_not_valid_email">Not valid email address.</string>
     <string name="dialog_interner_connection_falied">No interner connection. Try again later.</string>
     <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
-
+    <string name="uploading">Uploading…</string>
     <string name="wall_fragment_caption">Wall</string>
     <string name="video_chat_fragment_caption">Video Chat</string>
     <string name="news_fragment_caption">News</string>

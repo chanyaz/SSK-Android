@@ -14,6 +14,7 @@ import android.text.Spanned;
 import android.view.Display;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.instacart.library.truetime.TrueTimeRx;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -79,6 +80,9 @@ public class Utility {
 
     private static volatile DisplayImageOptions roundedImageOptions;
 
+    public static void toast(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    }
     public static DisplayImageOptions getRoundedImageOptions() {
         if (roundedImageOptions != null) {
             return roundedImageOptions;

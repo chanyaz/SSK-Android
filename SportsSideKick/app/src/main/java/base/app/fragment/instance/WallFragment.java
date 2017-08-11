@@ -228,7 +228,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         this.loginStateReceiver = new LoginStateReceiver(this);
         wallItems = new ArrayList<>();
 
-        if(WallBase.getCache().size()>0){
+        if (WallBase.getCache().size() > 0) {
             getNextTip();
         }
 
@@ -436,11 +436,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                         }
                     });
                 }
-            case POST_VIDEO_FILE_UPLOADED:
+            case POST_VIDEO_FILE_UPLOADED: {
                 videoDownloadUrl = (String) event.getData();
                 Model.getInstance().uploadWallPostVideoRecordingThumbnail(currentPath, getActivity().getFilesDir());
+                imageUploadProgressBar.setVisibility(View.GONE);
+            }
                 break;
-            case POST_VIDEO_IMAGE_FILE_UPLOADED:
+            case POST_VIDEO_IMAGE_FILE_UPLOADED: {
                 videoThumbnailDownloadUrl = (String) event.getData();
                 ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener() {
                     @Override
@@ -448,6 +450,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                         imageUploadProgressBar.setVisibility(View.GONE);
                     }
                 });
+            }
                 break;
         }
     }
@@ -803,34 +806,39 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.post_post_button)
     public void postPost() {
-        String postContent = commentText.getText().toString();
-        commentText.setText("");
-        WallPost newPost = new WallPost();
-        newPost.setType(WallBase.PostType.post);
-        UserInfo user = Model.getInstance().getUserInfo();
-        newPost.setTitle(WordUtils.capitalize(user.getFirstName()) + "," + WordUtils.capitalize(user.getLastName()));
-        newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
-        newPost.setTimestamp((double) Utility.getCurrentNTPTime());
+        if (imageUploadProgressBar.getVisibility() == View.VISIBLE) {
+            Utility.toast(getActivity(), getString(R.string.uploading));
+        } else {
+            String postContent = commentText.getText().toString();
+            commentText.setText("");
+            WallPost newPost = new WallPost();
+            newPost.setType(WallBase.PostType.post);
+            UserInfo user = Model.getInstance().getUserInfo();
+            newPost.setTitle(WordUtils.capitalize(user.getFirstName()) + "," + WordUtils.capitalize(user.getLastName()));
+            newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
+            newPost.setTimestamp((double) Utility.getCurrentNTPTime());
 
-        if (!TextUtils.isEmpty(postContent)) {
-            newPost.setBodyText(postContent);
+            if (!TextUtils.isEmpty(postContent)) {
+                newPost.setBodyText(postContent);
+            }
+
+            if (uploadedImageUrl != null) {
+                newPost.setCoverImageUrl(uploadedImageUrl);
+            } else if (videoDownloadUrl != null && videoThumbnailDownloadUrl != null) {
+                newPost.setCoverImageUrl(videoThumbnailDownloadUrl);
+                newPost.setVidUrl(videoDownloadUrl);
+            }
+            uploadedImageUrl = null;
+            videoDownloadUrl = null;
+            videoThumbnailDownloadUrl = null;
+            uploadedImage.setVisibility(View.GONE);
+            removeUploadedImage.setVisibility(View.GONE);
+            imageUploadProgressBar.setVisibility(View.GONE);
+
+            WallModel.getInstance().mbPost(newPost);
+            Utility.hideKeyboard(getActivity());
         }
 
-        if (uploadedImageUrl != null) {
-            newPost.setCoverImageUrl(uploadedImageUrl);
-        } else if (videoDownloadUrl != null && videoThumbnailDownloadUrl != null) {
-            newPost.setCoverImageUrl(videoThumbnailDownloadUrl);
-            newPost.setVidUrl(videoDownloadUrl);
-        }
-        uploadedImageUrl = null;
-        videoDownloadUrl = null;
-        videoThumbnailDownloadUrl = null;
-        uploadedImage.setVisibility(View.GONE);
-        removeUploadedImage.setVisibility(View.GONE);
-        imageUploadProgressBar.setVisibility(View.GONE);
-
-        WallModel.getInstance().mbPost(newPost);
-        Utility.hideKeyboard(getActivity());
     }
 
     @Subscribe
@@ -845,7 +853,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
         WallTip tip = null;
         if (Model.getInstance().isRealUser()) {
-            if(!Model.getInstance().getUserInfo().getUserId().equals(TutorialModel.getInstance().getUserId())){
+            if (!Model.getInstance().getUserInfo().getUserId().equals(TutorialModel.getInstance().getUserId())) {
                 //Different user so we need to load new tutorials
                 TutorialModel.getInstance().resetSeenInfo();
             }
@@ -912,7 +920,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         super.onResume();
 //        getNextTip();
         updateBottomBar();
-       // reloadWallFromModel();
+        // reloadWallFromModel();
     }
 
     private void reset() {
