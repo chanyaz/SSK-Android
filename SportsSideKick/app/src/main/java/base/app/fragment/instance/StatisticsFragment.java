@@ -86,17 +86,13 @@ public class StatisticsFragment extends BaseFragment {
                             getActivity().onBackPressed();
                         }
                     });
+        } else {
+            Toast.makeText(getContext(),"You have to be logged in in order to pin to wall",Toast.LENGTH_SHORT).show();
         }
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
 
 
     }
-
-    @OnClick(R.id.share_button)
-    public void shareOnClick() {
-
-    }
-
 
     @Subscribe
     @SuppressWarnings("Unchecked cast")

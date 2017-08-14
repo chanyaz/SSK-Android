@@ -21,14 +21,6 @@
         android:background="@drawable/ic_pin"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"/>
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/share_button"
-        android:layout_width="@dimen/width_35"
-        android:layout_height="@dimen/width_35"
-        android:layout_margin="@dimen/margin_5"
-        android:visibility="invisible"
-        android:background="@drawable/ic_share"
-        android:layout_toStartOf="@+id/pin_button"
-        android:layout_alignParentTop="true"/>
+
 
 </RelativeLayout>

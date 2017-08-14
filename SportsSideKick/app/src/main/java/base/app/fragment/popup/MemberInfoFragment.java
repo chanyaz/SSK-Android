@@ -249,8 +249,6 @@ public class MemberInfoFragment extends BaseFragment {
                     changeViewClickable(true, friendButtonText);
                 }
             }
-
-
         }
     }
 
