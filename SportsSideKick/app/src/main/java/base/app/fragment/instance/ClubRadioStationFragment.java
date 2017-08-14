@@ -158,6 +158,7 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
         if (player.isPlaying()) {
             player.stop();
             player.release();
+            playButton.setSelected(false);
         }
     }
 

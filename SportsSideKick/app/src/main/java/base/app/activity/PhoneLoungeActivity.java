@@ -442,26 +442,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             radioContainer.setVisibility(View.GONE);
         }
 
-        if (fragmentOpened.getClass() == ClubRadioStationFragment.class) {
-
-            if (fragmentOrganizer.getBackFragment().getClass() == ClubRadioFragment.class) {
-
-                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
-                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
-
-                for (int i = 0; i < Constant.CLASS_LIST.size(); i++)
-                    if (fragmentOrganizer.get2BackFragment().getClass().equals(Constant.CLASS_LIST.get(i))) {
-                        NavigationDrawerItems.getInstance().setByPosition(i);
-                        menuAdapter.notifyDataSetChanged();
-                        sideMenuAdapter.notifyDataSetChanged();
-                        return;
-
-                    }
-
-                // tvContainer.setVisibility(View.GONE);
-            }
-
-        }
 
         if (fragmentOrganizer.getBackFragment().getClass() == ClubRadioStationFragment.class && fragmentOrganizer.get2BackFragment().getClass() == ClubRadioFragment.class) {
             NavigationDrawerItems.getInstance().setByPosition(5);
@@ -496,12 +476,54 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+                if (fragmentOrganizer.get2BackFragment().getClass() == ClubRadioStationFragment.class) {
+                    radioContainer.setVisibility(View.VISIBLE);
+                    NavigationDrawerItems.getInstance().setByPosition(5);
+                    menuAdapter.notifyDataSetChanged();
+                    sideMenuAdapter.notifyDataSetChanged();
+                    if (drawerLayout.isDrawerOpen(GravityCompat.END))
+                        drawerLayout.closeDrawer(GravityCompat.END);
+                    return;
 
+                }
                 for (int i = 0; i < Constant.CLASS_LIST.size(); i++)
                     if (fragmentOrganizer.get2BackFragment().getClass().equals(Constant.CLASS_LIST.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
+
+                        return;
+
+                    }
+
+
+                // tvContainer.setVisibility(View.GONE);
+            }
+
+        }
+
+        if (fragmentOpened.getClass() == ClubRadioStationFragment.class) {
+
+            if (fragmentOrganizer.getBackFragment().getClass() == ClubRadioFragment.class) {
+
+                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+                if (fragmentOrganizer.get2BackFragment().getClass() == YoutubePlayerFragment.class) {
+                    tvContainer.setVisibility(View.VISIBLE);
+                    NavigationDrawerItems.getInstance().setByPosition(7);
+                    menuAdapter.notifyDataSetChanged();
+                    sideMenuAdapter.notifyDataSetChanged();
+                    if (drawerLayout.isDrawerOpen(GravityCompat.END))
+                        drawerLayout.closeDrawer(GravityCompat.END);
+                    return;
+
+                }
+                for (int i = 0; i < Constant.CLASS_LIST.size(); i++)
+                    if (fragmentOrganizer.get2BackFragment().getClass().equals(Constant.CLASS_LIST.get(i))) {
+                        NavigationDrawerItems.getInstance().setByPosition(i);
+                        menuAdapter.notifyDataSetChanged();
+                        sideMenuAdapter.notifyDataSetChanged();
+
                         return;
 
                     }
