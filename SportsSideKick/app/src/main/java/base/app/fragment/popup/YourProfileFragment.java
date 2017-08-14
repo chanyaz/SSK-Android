@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,6 +36,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+
+import static base.app.util.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -200,7 +203,27 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     }
 
 
+    private void setupLanguageSelection(){
+        String selectedLanguage = Prefs.getString(CHOSEN_LANGUAGE,"en");
+
+        switch (selectedLanguage) {
+            case "en":
+                languageValueTextView.setText(R.string.english);
+                languageIcon.setImageResource(R.drawable.english);
+                break;
+            case "pt":
+                languageValueTextView.setText(R.string.portuguese);
+                languageIcon.setImageResource(R.drawable.portuguese);
+                break;
+            case "zh":
+                languageValueTextView.setText(R.string.chinese);
+                languageIcon.setImageResource(R.drawable.chinese);
+                break;
+        }
+    }
+
     private void setupFragment() {
+        setupLanguageSelection();
         UserInfo user = Model.getInstance().getUserInfo();
         if (user != null && Model.getInstance().isRealUser()) {
             double subscribedAsDouble = user.getSubscribedDate();

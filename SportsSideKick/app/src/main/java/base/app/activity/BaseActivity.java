@@ -20,12 +20,14 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -56,6 +58,7 @@ import base.app.model.videoChat.VideoChatModel;
 import base.app.util.ui.ThemeManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static base.app.util.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.Utility.checkIfBundlesAreEqual;
 
 
@@ -70,7 +73,10 @@ public class BaseActivity extends AppCompatActivity  {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        String language = Prefs.getString(CHOSEN_LANGUAGE,"en");
+        Locale newLocale = new Locale(language);
+        Context context = ContextWrapper.wrap(newBase, newLocale);
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 
     @Override

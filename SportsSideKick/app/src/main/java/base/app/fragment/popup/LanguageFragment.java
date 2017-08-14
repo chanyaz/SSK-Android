@@ -1,43 +1,36 @@
 package base.app.fragment.popup;
 
-import android.content.res.Configuration;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
+import base.app.R;
+import base.app.activity.LoungeActivity;
+import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.LanguageAdapter;
-import base.app.fragment.instance.ChatFragment;
-import base.app.fragment.instance.ClubRadioFragment;
-import base.app.fragment.instance.ClubTVFragment;
-import base.app.fragment.instance.NewsFragment;
-import base.app.fragment.instance.RumoursFragment;
-import base.app.fragment.instance.StatisticsFragment;
-import base.app.fragment.instance.StoreFragment;
-import base.app.fragment.instance.VideoChatFragment;
-import base.app.fragment.instance.WallFragment;
+import base.app.fragment.BaseFragment;
+import base.app.fragment.FragmentEvent;
 import base.app.model.Model;
+import base.app.model.user.UserEvent;
+import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import base.app.R;
-import base.app.fragment.BaseFragment;
-import base.app.fragment.FragmentEvent;
 import butterknife.Optional;
 
-import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
+import static base.app.util.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Filip on 1/20/2017.
@@ -84,46 +77,80 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
             languageRecyclerView.setAdapter(new LanguageAdapter(getActivity(), this));
         }
 
-
+        String selectedLanguage = Prefs.getString(CHOSEN_LANGUAGE,"en");
+        showSelectedLanguage(selectedLanguage);
         return view;
     }
 
     @Optional
     @OnClick({R.id.english_icon, R.id.portuguese_icon, R.id.chinese_icon})
     public void languageIconOnClick(View view) {
-        englishSelectionView.setVisibility(View.INVISIBLE);
-        chineseSelectionView.setVisibility(View.INVISIBLE);
-        portugueseSelectionView.setVisibility(View.INVISIBLE);
-
         switch (view.getId()) {
             case R.id.english_icon:
-                englishSelectionView.setVisibility(View.VISIBLE);
                 languageToLoad = "en";
                 break;
             case R.id.portuguese_icon:
-                portugueseSelectionView.setVisibility(View.VISIBLE);
                 languageToLoad = "pt";
                 break;
             case R.id.chinese_icon:
-                chineseSelectionView.setVisibility(View.VISIBLE);
                 languageToLoad = "zh";
+                break;
+        }
+        showSelectedLanguage(languageToLoad);
+    }
+
+    private void showSelectedLanguage(String language){
+        if (englishSelectionView != null) {
+            englishSelectionView.setVisibility(View.INVISIBLE);
+        }
+        if (chineseSelectionView != null) {
+            chineseSelectionView.setVisibility(View.INVISIBLE);
+        }
+        if (portugueseSelectionView != null) {
+            portugueseSelectionView.setVisibility(View.INVISIBLE);
+        }
+        switch (language) {
+            case "en":
+                if (englishSelectionView != null) {
+                    englishSelectionView.setVisibility(View.VISIBLE);
+                }
+                break;
+            case "pt":
+                if (portugueseSelectionView != null) {
+                    portugueseSelectionView.setVisibility(View.VISIBLE);
+                }
+                break;
+            case "zh":
+                if (chineseSelectionView != null) {
+                    chineseSelectionView.setVisibility(View.VISIBLE);
+                }
                 break;
         }
     }
 
-    //TODO @Filip dont work
     @Optional
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
         EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        //TODO @Filip deprecation and dont work
-       // config.locale = locale;
-        config.setLocale(locale);
         Model.getInstance().getUserInfo().setLanguage(languageToLoad);
-        getActivity().recreate();
+        Prefs.putString(CHOSEN_LANGUAGE,languageToLoad);
+        Intent intent;
+        if (Utility.isTablet(getContext())) {
+            intent = new Intent(getActivity(), LoungeActivity.class);
+        } else {
+            intent = new Intent(getActivity(), PhoneLoungeActivity.class);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                UserInfo currentUser = Model.getInstance().getUserInfo();
+                EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogin, currentUser));
+            }
+        }, 300);
     }
 
 

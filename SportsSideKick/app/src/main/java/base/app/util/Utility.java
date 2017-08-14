@@ -42,6 +42,8 @@ import base.app.model.user.UserInfo;
  */
 public class Utility {
 
+    public static final String CHOSEN_LANGUAGE = "CHOSEN_LANGUAGE";
+
     public static long getCurrentNTPTime(){
         if(TrueTimeRx.isInitialized()){
             try {
