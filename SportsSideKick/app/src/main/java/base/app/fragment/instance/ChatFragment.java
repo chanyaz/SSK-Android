@@ -175,7 +175,7 @@ public class ChatFragment extends BaseFragment {
 
     @Nullable
     @BindView(R.id.inactive_container)
-    RelativeLayout inactive_containerl;
+    RelativeLayout inactiveContainer;
 
     Drawable chatRightArrowDrawable;
     Drawable chatDotsDrawable;
@@ -318,12 +318,8 @@ public class ChatFragment extends BaseFragment {
     private void onLoginStateChange() {
 
         if (Model.getInstance().isRealUser()) {
-            if (inactive_containerl != null) {
-                inactive_containerl.setVisibility(View.GONE);
-            }
-        } else {
-            if (loginContainer != null) {
-                loginContainer.setVisibility(View.VISIBLE);
+            if (inactiveContainer != null) {
+                inactiveContainer.setVisibility(View.GONE);
             }
         }
     }
@@ -436,6 +432,12 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.menu_button)
     public void chatButtonsMenuOnClick(View v) {
+        if(!Model.getInstance().isRealUser()){
+            if (inactiveContainer != null) {
+                inactiveContainer.setVisibility(View.VISIBLE);
+            }
+            return;
+        }
         if (currentlyActiveChat != null) {
             chatButtonsMenu.setVisibility(View.GONE);
             chatButtonsContainer.setVisibility(View.VISIBLE);
@@ -444,6 +446,12 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_dots)
     public void chatMenuDotsContainerOnClick() {
+        if(!Model.getInstance().isRealUser()){
+            if (inactiveContainer != null) {
+                inactiveContainer.setVisibility(View.VISIBLE);
+            }
+            return;
+        }
         if (currentlyActiveChat != null) {
             if (chatMenuDotsContainer.getVisibility() == View.GONE) {
                 animate(chatMenuDotsContainer, View.VISIBLE, R.anim.slide_in_left);
@@ -523,6 +531,14 @@ public class ChatFragment extends BaseFragment {
     }
 
     public void sendButtonOnClick() {
+        if(!Model.getInstance().isRealUser()){
+            if (inactiveContainer != null) {
+                inactiveContainer.setVisibility(View.VISIBLE);
+            }
+            return;
+        }
+
+
         if(Model.getInstance().isRealUser() && currentlyActiveChat != null) {
             ImsMessage message = ImsMessage.getDefaultMessage();
             message.setText(inputEditText.getText().toString().trim());
@@ -533,6 +549,10 @@ public class ChatFragment extends BaseFragment {
                 }
             });
             currentlyActiveChat.setUserIsTyping(false);
+        } else {
+            if (inactiveContainer != null) {
+                inactiveContainer.setVisibility(View.VISIBLE);
+            }
         }
         inputEditText.setText("");
         Utility.hideKeyboard(getActivity());
@@ -543,6 +563,10 @@ public class ChatFragment extends BaseFragment {
     public void chatMenuCreateOnClick() {
         if(Model.getInstance().isRealUser()){
             EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+        } else {
+            if (inactiveContainer != null) {
+                inactiveContainer.setVisibility(View.VISIBLE);
+            }
         }
     }
 
