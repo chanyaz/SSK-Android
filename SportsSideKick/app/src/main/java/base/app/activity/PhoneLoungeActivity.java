@@ -335,7 +335,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         } else {
             SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         }
-
+        if (fragmentOrganizer.getOpenFragment().getClass() == ClubRadioStationFragment.class) {
+            ((ClubRadioStationFragment) fragmentOrganizer.getOpenFragment()).stopPlaying();
+        }
         if (youtubeList.contains(event.getType()) || youtubePlayer.contains(event.getType())) {
             tvContainer.setVisibility(View.VISIBLE);
         } else {
@@ -372,7 +374,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             }
         } else {
             //main fragments
-            tvContainer.setVisibility(View.GONE);
             fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
             barContainer.setVisibility(View.VISIBLE);
             popupHolder.setVisibility(View.INVISIBLE);
@@ -429,17 +430,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         }
 
 
-        if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class && fragmentOrganizer.get2BackFragment().getClass() == ClubTVFragment.class && fragmentOpened.getClass() != YoutubePlayerFragment.class) {
-            NavigationDrawerItems.getInstance().setByPosition(7);
-            menuAdapter.notifyDataSetChanged();
-            sideMenuAdapter.notifyDataSetChanged();
-            if (drawerLayout.isDrawerOpen(GravityCompat.END))
-                drawerLayout.closeDrawer(GravityCompat.END);
-            tvContainer.setVisibility(View.VISIBLE);
-            return;
-        }
-
-
         if (youtubeList.contains(fragmentOrganizer.getBackFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getBackFragment().getClass())) {
             tvContainer.setVisibility(View.VISIBLE);
         } else {
@@ -450,6 +440,38 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             radioContainer.setVisibility(View.VISIBLE);
         } else {
             radioContainer.setVisibility(View.GONE);
+        }
+
+        if (fragmentOpened.getClass() == ClubRadioStationFragment.class) {
+
+            if (fragmentOrganizer.getBackFragment().getClass() == ClubRadioFragment.class) {
+
+                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+
+                for (int i = 0; i < Constant.CLASS_LIST.size(); i++)
+                    if (fragmentOrganizer.get2BackFragment().getClass().equals(Constant.CLASS_LIST.get(i))) {
+                        NavigationDrawerItems.getInstance().setByPosition(i);
+                        menuAdapter.notifyDataSetChanged();
+                        sideMenuAdapter.notifyDataSetChanged();
+                        return;
+
+                    }
+
+                // tvContainer.setVisibility(View.GONE);
+            }
+
+        }
+
+        if (fragmentOrganizer.getBackFragment().getClass() == ClubRadioStationFragment.class && fragmentOrganizer.get2BackFragment().getClass() == ClubRadioFragment.class) {
+            NavigationDrawerItems.getInstance().setByPosition(5);
+            fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+            menuAdapter.notifyDataSetChanged();
+            sideMenuAdapter.notifyDataSetChanged();
+            if (drawerLayout.isDrawerOpen(GravityCompat.END))
+                drawerLayout.closeDrawer(GravityCompat.END);
+            tvContainer.setVisibility(View.VISIBLE);
+            return;
         }
 
         if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class && fragmentOrganizer.get2BackFragment().getClass() == ClubTVFragment.class && fragmentOpened.getClass() != YoutubePlayerFragment.class) {
@@ -594,7 +616,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
-            yourLevel.setText(String.valueOf((int)user.getProgress()));
+            yourLevel.setText(String.valueOf((int) user.getProgress()));
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
             TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
         } else {
