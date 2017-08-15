@@ -164,7 +164,6 @@ public class Utility {
             Date date = new Date();
             long diff = date.getTime() - netDate.getTime();
             long daysTo = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-            StringBuilder sb = new StringBuilder(String.valueOf(daysTo));
             return sdf.format(diff);
         } catch (Exception ex) {
             return "xx";

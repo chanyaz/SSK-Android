@@ -98,8 +98,10 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         VideoChatItem itemToUpdate = null;
         if (isActive) {
             itemToUpdate = activeVideoChatItem;
-        } else if (pendingInvitations.containsKey(item.getId())){
-            itemToUpdate = pendingInvitations.get(item.getId());
+        } else {
+            if (pendingInvitations.containsKey(item.getId())) {
+                itemToUpdate = pendingInvitations.get(item.getId());
+            }
         }
         if(itemToUpdate!=null){
             itemToUpdate.update(item);

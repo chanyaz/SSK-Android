@@ -16,7 +16,7 @@ import base.app.R;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
- public class VerticalTextView extends TextView {
+ public class VerticalTextView extends android.support.v7.widget.AppCompatTextView {
 
         public final static int ORIENTATION_UP_TO_DOWN = 0;
         public final static int ORIENTATION_DOWN_TO_UP = 1;

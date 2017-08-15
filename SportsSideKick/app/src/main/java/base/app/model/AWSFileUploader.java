@@ -43,13 +43,8 @@ import base.app.util.ui.ExifUtil;
 public class AWSFileUploader {
 
     private static String EUWest_PoolId = "eu-west-1:8a0d240e-2ebb-4b62-b66b-2288bc88ce1f";
-    private static String USEast_PoolId = "us-east-1:7a808834-6423-4d2c-b11e-d2dc2b49f223";
-
     private static String EUWest_BaseUrl = "https://s3-eu-west-1.amazonaws.com/sskirbucket/";
-    private static String USEast_BaseUrl = "https://s3.amazonaws.com/sskusbucket/";
-
     private static String EUWest_Bucket = "sskirbucket";
-    private static String USEast_Bucket = "sskusbucket";
 
     private static AWSFileUploader instance;
 
@@ -65,7 +60,7 @@ public class AWSFileUploader {
         return instance;
     }
 
-    public void initialize(Context context) {
+    public void initialize(final Context context) {
         Regions regionType = Regions.EU_WEST_1;
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 context,    /* get the context for the application */
@@ -83,7 +78,7 @@ public class AWSFileUploader {
         bucket = AWSFileUploader.EUWest_Bucket;
     }
 
-    public void upload(final String filename, String filepath, final GameSparksEvent.Type event) {
+    void upload(final String filename, String filepath, final GameSparksEvent.Type event) {
         try {
             File file = new File(filepath);
             TransferObserver observer = transferUtility.upload(
@@ -115,10 +110,10 @@ public class AWSFileUploader {
         }
     }
 
-    public void uploadThumbnail(String filename, String filepath, File filesDir, GameSparksEvent.Type event) {
+    void uploadThumbnail(String filename, String filepath, File filesDir, GameSparksEvent.Type event) {
         Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.MINI_KIND);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+        bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);  // TODO @Filip - Magic number
         try {
             File file = new File(filesDir, "temp_thumbnail_video.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
@@ -139,10 +134,10 @@ public class AWSFileUploader {
         } else {
             outputBitmap = Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2 - bitmap.getWidth() / 2, bitmap.getWidth(), bitmap.getWidth());
         }
-        outputBitmap = Bitmap.createScaledBitmap(outputBitmap, 250, 250, true);
+        outputBitmap = Bitmap.createScaledBitmap(outputBitmap, 250, 250, true);  // TODO @Filip - Magic number
         outputBitmap = getCircleBitmap(outputBitmap);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        outputBitmap.compress(Bitmap.CompressFormat.PNG, 70, bos);
+        outputBitmap.compress(Bitmap.CompressFormat.PNG, 70, bos);  // TODO @Filip - Magic number
         try {
             File file = new File(filesDir, "temp_profile_circled.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
@@ -152,9 +147,9 @@ public class AWSFileUploader {
         }
     }
 
-    public static Bitmap getCircleBitmap(Bitmap bm) {
-        int sice = Math.min((bm.getWidth()), (bm.getHeight()));
-        Bitmap bitmap = ThumbnailUtils.extractThumbnail(bm, sice, sice);
+    private static Bitmap getCircleBitmap(Bitmap bm) {
+        int size = Math.min((bm.getWidth()), (bm.getHeight()));
+        Bitmap bitmap = ThumbnailUtils.extractThumbnail(bm, size, size);
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
 
@@ -188,18 +183,18 @@ public class AWSFileUploader {
     }
 
     public static String generateMongoOID() {
-        Long tsLong = Utility.getCurrentNTPTime() / 1000L;
+        Long tsLong = Utility.getCurrentNTPTime() / 1000L; // TODO @Filip - Magic number
         return (getFirst8(Long.toHexString(tsLong)) + generateRandom() + generateRandom());
 
     }
 
     private static String generateRandom() {
-        BigInteger b = new BigInteger(256, new Random());
+        BigInteger b = new BigInteger(256, new Random());  // TODO @Filip - Magic number
         long number = b.longValue();
         return getFirst8(Long.toHexString((number)));
     }
 
     private static String getFirst8(String str) {
-        return str.substring(0, Math.min(str.length(), 8));
+        return str.substring(0, Math.min(str.length(), 8));  // TODO @Filip - Magic number
     }
 }

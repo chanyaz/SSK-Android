@@ -26,9 +26,8 @@ import base.app.util.Utility;
 
 abstract class AbstractFragmentOrganizer {
 
-    private static final String TAG = "FRAGMENT ORGANIZER";
     FragmentManager fragmentManager;
-    protected List<Integer> containersWithoutBackStack;
+    List<Integer> containersWithoutBackStack;
 
     private int enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation;
 
@@ -39,6 +38,7 @@ abstract class AbstractFragmentOrganizer {
         containersWithoutBackStack = new ArrayList<>();
     }
 
+    @SuppressWarnings("unchecked")
     Fragment createFragment(Class fragmentClass) {
         try {
             Constructor constructor = fragmentClass.getConstructor();
@@ -77,14 +77,14 @@ abstract class AbstractFragmentOrganizer {
 
     public Fragment get2BackFragment() {
         try {
-            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 3).getName();
+            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 3).getName(); //TODO @Filip Magic numbers
             return fragmentManager.findFragmentByTag(tag);
         } catch (Exception e) {
             try {
-                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName();
+                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName(); //TODO @Filip Magic numbers
                 return fragmentManager.findFragmentByTag(tag);
-            }catch (Exception es){
-                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
+            } catch (Exception es) {
+                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName(); //TODO @Filip Magic numbers
                 return fragmentManager.findFragmentByTag(tag);
             }
 
@@ -113,8 +113,9 @@ abstract class AbstractFragmentOrganizer {
         stringBuilder.append(fragment.getClass().getSimpleName());
         if (addArgs) {
             stringBuilder.append("-");
-            if (fragment.getArguments() != null)
+            if (fragment.getArguments() != null) {
                 stringBuilder.append(fragment.getArguments().toString());
+            }
         }
         return stringBuilder.toString();
     }
@@ -126,7 +127,7 @@ abstract class AbstractFragmentOrganizer {
         return openFragment(fragment, containerId);
     }
 
-    public void setAnimations(int enter, int exit, int popEnter, int popExit) {
+    private void setAnimations(int enter, int exit, int popEnter, int popExit) {
         enterAnimation = enter;
         exitAnimation = exit;
         popEnterAnimation = popEnter;
@@ -145,8 +146,6 @@ abstract class AbstractFragmentOrganizer {
         if (enterAnimation != 0 && exitAnimation != 0 && popEnterAnimation != 0 && popExitAnimation != 0) {
             transaction.setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation);
         }
-//        Log.d(TAG,"OPEN FRAGMENT: " + fragmentTag);
-//        Log.d(TAG,"OPEN IN : " + containerId);
 
         if (containersWithoutBackStack.contains(containerId)) { // this container is without back stack
             Fragment currentFragment = getOpenFragment();

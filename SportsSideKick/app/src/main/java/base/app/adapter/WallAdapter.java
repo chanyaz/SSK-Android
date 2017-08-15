@@ -397,11 +397,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     private boolean isAdvert(int position) {
-        if(currentAdInterval>0){
-            return position%currentAdInterval == 0 && position>0;
-        } else {
-            return false;
-        }
+        return currentAdInterval > 0 && position % currentAdInterval == 0 && position > 0;
     }
 
     @Override
