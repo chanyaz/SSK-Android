@@ -21,12 +21,8 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
 import base.app.adapter.FriendsAdapter;
 import base.app.fragment.BaseFragment;
@@ -35,6 +31,9 @@ import base.app.model.Model;
 import base.app.model.friendship.FriendsManager;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Djordje Krutil on 28.3.2017..
@@ -81,6 +80,7 @@ public class FollowingFragment extends BaseFragment {
                 public void onComplete(@NonNull Task<List<UserInfo>> task) {
                     if (task.isSuccessful()) {
                         following = task.getResult();
+                        adapter.getValues().clear();
                         adapter.getValues().addAll(following);
                         adapter.notifyDataSetChanged();
                         followingRecyclerView.setVisibility(View.VISIBLE);

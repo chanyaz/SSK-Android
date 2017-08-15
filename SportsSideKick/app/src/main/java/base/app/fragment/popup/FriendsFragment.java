@@ -90,11 +90,11 @@ public class FriendsFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         officialAccount = new ArrayList<>();
         int screenWidth = Utility.getDisplayWidth(getActivity());
-        if (Utility.isTablet(getActivity()))
+        if (Utility.isTablet(getActivity())) {
             friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
-        else
+        } else {
             friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
-
+        }
 
         friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
@@ -125,7 +125,6 @@ public class FriendsFragment extends BaseFragment {
                     noResultText.setVisibility(View.VISIBLE);
                     friendsRecyclerView.setVisibility(View.GONE);
                 }
-
                 progressBar.setVisibility(View.GONE);
             }
         });
@@ -141,12 +140,10 @@ public class FriendsFragment extends BaseFragment {
                     officialAccount.addAll(task.getResult());
                     officialAccountAdapter.getValues().addAll(officialAccount);
                     officialAccountAdapter.notifyDataSetChanged();
-
                 } else {
                     noResultText.setVisibility(View.VISIBLE);
                     friendsRecyclerView.setVisibility(View.GONE);
                 }
-
                 progressBar.setVisibility(View.GONE);
             }
         });
@@ -157,35 +154,31 @@ public class FriendsFragment extends BaseFragment {
             public void onComplete(@NonNull Task<List<FriendRequest>> task) {
                 if (task.isSuccessful()) {
                     if (task.getResult() != null) {
-                        if (friendRequestCount != null)
+                        if (friendRequestCount != null) {
                             friendRequestCount.setText(String.valueOf(task.getResult().size()));
+                        }
                         if (task.getResult().size() > 0) {
                             if (friendRequestsContainer != null) {
                                 friendRequestsContainer.setVisibility(View.VISIBLE);
                             }
                         }
-
                         return;
                     }
                 }
-                if (friendRequestCount != null)
+                if (friendRequestCount != null) {
                     friendRequestCount.setText("0");
+                }
                 if (friendRequestsContainer != null) {
                     friendRequestsContainer.setVisibility(View.GONE);
                 }
             }
         });
-
-
         searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
 
             @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -196,7 +189,6 @@ public class FriendsFragment extends BaseFragment {
                 }
             }
         });
-
         return view;
     }
 

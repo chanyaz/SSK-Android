@@ -19,22 +19,19 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
 import base.app.adapter.FriendsAdapter;
 import base.app.fragment.BaseFragment;
-
 import base.app.fragment.FragmentEvent;
 import base.app.model.Model;
 import base.app.model.friendship.FriendsManager;
-import base.app.model.friendship.PeopleSearchManager;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Djordje Krutil on 28.3.2017..
@@ -72,6 +69,7 @@ public class FollowersFragment extends BaseFragment {
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if (task.isSuccessful()) {
                     folowers = task.getResult();
+                    adapter.getValues().clear();
                     adapter.getValues().addAll(folowers);
                     adapter.notifyDataSetChanged();
                     followersRecyclerView.setVisibility(View.VISIBLE);
@@ -96,8 +94,7 @@ public class FollowersFragment extends BaseFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (folowers != null)
-                {
+                if (folowers != null) {
                     adapter.getValues().clear();
                     adapter.getValues().addAll(Utility.filter(folowers, s.toString()));
                     adapter.notifyDataSetChanged();
