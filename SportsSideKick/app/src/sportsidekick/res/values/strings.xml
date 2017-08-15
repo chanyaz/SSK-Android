@@ -498,5 +498,7 @@
     <string name="to_access_full_features">To access full features…</string>
     <string name="or">or</string>
 
+    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
+    <string name="chat_with_friends_login"> Chat with friends.</string>
 
 </resources>

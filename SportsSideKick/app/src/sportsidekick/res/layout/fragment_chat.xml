@@ -308,15 +308,6 @@
 
         </FrameLayout>
 
-        <!--  <VideoView
-              android:id="@+id/video_view"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_above="@+id/vide_download_image_button"
-              android:layout_below="@+id/video_close_image_button"
-              android:layout_centerInParent="true" />-->
-
-
         <ImageView
             android:id="@+id/video_close_image_button"
             android:layout_width="@dimen/chat_button_size"
@@ -432,7 +423,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/text2"
                 android:layout_centerHorizontal="true"
-                android:text="Aususs sunt verpas de teres rumor."
+                android:text="@string/chat_with_friends_login"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_20" />
@@ -444,7 +435,7 @@
                 android:layout_above="@+id/center_below"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_20"
-                android:text="Heuretes, turpis, et fiscina.Caniss sunt bullas de flavum demolitione.Bromiums unda in fortis quadrata!Cum tata cantare, omnes homoes desiderium barbatus, alter exemplares."
+                android:text="@string/chat_with_friends_login_description"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_12" />
