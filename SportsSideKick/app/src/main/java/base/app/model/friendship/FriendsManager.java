@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -163,6 +164,10 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         List<String> usersToChallenge = new ArrayList<>();
         usersToChallenge.add(userId);
         request.setUsersToChallenge(usersToChallenge);
+
+        HashMap<String,Object> scriptData = new HashMap<>();
+        scriptData.put(CLUB_ID_TAG,CLUB_ID);
+        request.getBaseData().put("scriptData",scriptData);
 
         request.send(consumer);
         return source.getTask();

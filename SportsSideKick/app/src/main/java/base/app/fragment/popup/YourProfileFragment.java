@@ -3,6 +3,7 @@ package base.app.fragment.popup;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -249,7 +250,17 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
             profileName.setText(user.getFirstName() + " " + user.getLastName());
             profileEmail.setText(user.getEmail());
             profilePhone.setText(user.getPhone());
-            location.setText(user.getLocation().getCity() + ", " + user.getLocation().getCountry());
+            StringBuilder locationToDisplay = new StringBuilder("");
+            if(user.getLocation()!=null){
+                if(!TextUtils.isEmpty(user.getLocation().getCity())){
+                    locationToDisplay.append(user.getLocation().getCity());
+                    locationToDisplay.append(", ");
+                }
+                if(!TextUtils.isEmpty(user.getLocation().getCountry())){
+                    locationToDisplay.append(user.getLocation().getCountry());
+                }
+            }
+            location.setText(locationToDisplay.toString());
             DateFormat df = new SimpleDateFormat("dd MMM yyyy");
             subscribedSince.setText(df.format(subscribedAsDouble));
 
