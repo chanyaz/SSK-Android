@@ -67,6 +67,7 @@ public class UserInfo {
 
     // read only
     private boolean aFriend;
+    @JsonProperty("isFriendPendingRequest")
     private boolean isFriendPendingRequest;
     private boolean followsMe;
     private boolean iFollowHim;
@@ -397,10 +398,12 @@ public class UserInfo {
         this.aFriend = aFriend;
     }
 
+    @JsonProperty("isFriendPendingRequest")
     public boolean isFriendPendingRequest() {
         return isFriendPendingRequest;
     }
 
+    @JsonProperty("isFriendPendingRequest")
     public void setFriendPendingRequest(boolean friendPendingRequest) {
         isFriendPendingRequest = friendPendingRequest;
     }

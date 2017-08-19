@@ -145,6 +145,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                             Object object = gsData.getBaseData().get(GSConstants.USER_INFO);
                             UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {});
                             source.setResult(user);
+                            return;
                         }
                     }
                     source.setResult(null);
