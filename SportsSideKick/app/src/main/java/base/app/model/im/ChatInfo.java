@@ -282,11 +282,12 @@ public class ChatInfo {
         return chatInfoTask;
     }
 
-    public void updateMessage(final ImsMessage message, final TaskCompletionSource<ImsMessage> completion){
+    public void updateMessage(final ImsMessage message, final TaskCompletionSource<ChatInfo> completion){
         if(message.getId()==null){
             if(completion!=null){
-                completion.setResult(message);
+                completion.setResult(this);
             }
+            return;
         }
         TaskCompletionSource<ImsMessage> updateMessageCompletion = new TaskCompletionSource<>();
         message.imsUpdateMessage(this,String.valueOf(CLUB_ID),updateMessageCompletion );
@@ -294,7 +295,7 @@ public class ChatInfo {
             @Override
             public void onComplete(@NonNull Task<ImsMessage> task) {
                 if(completion!=null){
-                    completion.setResult(task.getResult());
+                    completion.setResult(ChatInfo.this);
                 }
                 EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
             }
@@ -540,7 +541,7 @@ public class ChatInfo {
         ImsManager.getInstance().setMuteChat(this,isMuted);
     }
 
-    public void updateMessage(Map<String, Object> data){
+    public void updateMessageJson(Map<String, Object> data){
         String messageId = (String)data.get("_id");
         String locid = (String)data.get("locid");
 

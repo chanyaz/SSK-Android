@@ -33,7 +33,6 @@ import java.util.Map;
 
 import base.app.Constant;
 import base.app.GSAndroidPlatform;
-import base.app.events.GameSparksEvent;
 import base.app.model.purchases.PurchaseModel;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.MessageHandler;
@@ -70,8 +69,9 @@ public class Model {
 
 
     private static Model instance;
-    public static Model getInstance(){
-        if(instance==null){
+
+    public static Model getInstance() {
+        if (instance == null) {
             instance = new Model();
         }
         return instance;
@@ -81,13 +81,13 @@ public class Model {
     private UserInfo currentUserInfo;
 
     public UserInfo getUserInfo() {
-        if(currentUserInfo!=null){
+        if (currentUserInfo != null) {
             return currentUserInfo;
         }
         return null;
     }
 
-    public boolean isRealUser(){
+    public boolean isRealUser() {
         return getLoggedInUserType() == Model.LoggedInUserType.REAL;
     }
 
@@ -97,10 +97,10 @@ public class Model {
 
     private LoggedInUserType loggedInUserType = NONE;
 
-    public void setLoggedInUserType(LoggedInUserType type){
+    public void setLoggedInUserType(LoggedInUserType type) {
         loggedInUserType = type;
         Log.d(TAG, "Logged in user type: " + loggedInUserType.name());
-        switch (type){
+        switch (type) {
             case NONE:
                 EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogout));
                 break;
@@ -119,48 +119,48 @@ public class Model {
 
     private Model() {
         userCache = new HashMap<>();
-        mapper  = new ObjectMapper();
+        mapper = new ObjectMapper();
         loggedInUserType = NONE;
     }
 
-    public void setMessageHandlerDelegate(GSMessageHandlerAbstract delegate){
+    public void setMessageHandlerDelegate(GSMessageHandlerAbstract delegate) {
         MessageHandler.getInstance().addDelegate(delegate);
     }
 
-    public void registerForPushNotifications(){
+    public void registerForPushNotifications() {
         Log.d(TAG, "Registering for push notifications");
-        firebaseToken =  FirebaseInstanceId.getInstance().getToken();
+        firebaseToken = FirebaseInstanceId.getInstance().getToken();
         GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
                 .setDeviceOS("ANDROID")
                 .setPushId(firebaseToken)
                 .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.PushRegistrationResponse pushRegistrationResponse) {
-                        if(!pushRegistrationResponse.hasErrors()){
+                        if (!pushRegistrationResponse.hasErrors()) {
                             String registrationId = pushRegistrationResponse.getRegistrationId();
                             Log.d(TAG, "Registration id is:" + registrationId);
-                             GSData scriptData = pushRegistrationResponse.getScriptData();
-                        }  else{
-                            Log.e(TAG,"There was an error at registerForPushNotifications call");
+                            GSData scriptData = pushRegistrationResponse.getScriptData();
+                        } else {
+                            Log.e(TAG, "There was an error at registerForPushNotifications call");
                         }
 
                     }
                 });
     }
 
-    public void unRegisterFromPushNotifications(){
+    public void unRegisterFromPushNotifications() {
         GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
                 .setDeviceOS("ANDROID")
                 .setPushId(null)
                 .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.PushRegistrationResponse pushRegistrationResponse) {
-                        if(!pushRegistrationResponse.hasErrors()){
+                        if (!pushRegistrationResponse.hasErrors()) {
                             String registrationId = pushRegistrationResponse.getRegistrationId();
                             Log.d(TAG, "Registration id is:" + registrationId);
                             GSData scriptData = pushRegistrationResponse.getScriptData();
-                        }  else{
-                            Log.e(TAG,"There was an error at registerForPushNotifications call");
+                        } else {
+                            Log.e(TAG, "There was an error at registerForPushNotifications call");
                         }
 
                     }
@@ -175,12 +175,12 @@ public class Model {
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if(response!=null){
-                    if(!response.hasErrors() && response.getScriptData().getObject(GSConstants.USER_INFO)!=null){
-                        Map<String,Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
+                if (response != null) {
+                    if (!response.hasErrors() && response.getScriptData().getObject(GSConstants.USER_INFO) != null) {
+                        Map<String, Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
                         UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
                         userCache.put(userInfo.getUserId(), userInfo);
-                        if(userInfo.getUserId().equals(currentUserInfo.getUserId())){
+                        if (userInfo.getUserId().equals(currentUserInfo.getUserId())) {
                             currentUserInfo = userInfo;
                             EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated));
                         }
@@ -195,14 +195,14 @@ public class Model {
 
     private String androidId;
 
-    public void initialize(final Context context){
+    public void initialize(final Context context) {
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         GSAndroidPlatform.initialise(context, Constant.GS_API_KEY, Constant.GS_API_SECRET, null, false, true);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
             public void onEvent(Boolean available) {
                 Log.d(TAG, "GS Available: " + available);
-                if(available) {
+                if (available) {
                     if (!GSAndroidPlatform.gs().isAuthenticated()) {
                         Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
                         login();
@@ -220,7 +220,7 @@ public class Model {
     private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> onAuthenticated = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
         @Override
         public void onEvent(GSResponseBuilder.AuthenticationResponse authenticationResponse) {
-            if(authenticationResponse != null) {
+            if (authenticationResponse != null) {
                 if (authenticationResponse.hasErrors()) {
                     Log.d(TAG, "AuthenticationResponse: " + authenticationResponse.toString());
                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
@@ -234,12 +234,12 @@ public class Model {
     private GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completeLogin = new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
         @Override
         public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
-            if(response != null) {
+            if (response != null) {
                 if (!response.hasErrors()) {
-                    if(!loggedInUserType.equals(REAL)){
+                    if (!loggedInUserType.equals(REAL)) {
                         setUser(response);
                         String dn = response.getDisplayName();
-                        setLoggedInUserType(dn !=null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
+                        setLoggedInUserType(dn != null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
                     }
                 }
             }
@@ -248,7 +248,7 @@ public class Model {
 
     private void getAccountDetails(GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completion) {
         GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createAccountDetailsRequest();
-        if(completion!=null){
+        if (completion != null) {
             request.send(completion);
         } else {
             GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> consumer = new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
@@ -261,40 +261,40 @@ public class Model {
         }
     }
 
-    private void onAccountDetails(GSResponseBuilder.AccountDetailsResponse response){
-        if(response != null) {
+    private void onAccountDetails(GSResponseBuilder.AccountDetailsResponse response) {
+        if (response != null) {
             if (response.hasErrors()) {
-               EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdateError));
+                EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdateError));
             } else {
                 setUser(response);
             }
         }
     }
 
-    public void registrationRequest(String displayName, String password, String email, HashMap<String, Object> userDetails){
+    public void registrationRequest(String displayName, String password, String email, HashMap<String, Object> userDetails) {
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest()
                 .setDisplayName(displayName)
                 .setNewPassword(password)
                 .setUserName(email);
 
-        if(userDetails!=null){
-            userDetails.put("action","register");
-            userDetails.put(CLUB_ID_TAG,CLUB_ID);
-            userDetails.put("language",  Locale.getDefault().getLanguage());
-            Map<String,Object> map = request.getBaseData();
-            map.put("scriptData",userDetails);
+        if (userDetails != null) {
+            userDetails.put("action", "register");
+            userDetails.put(CLUB_ID_TAG, CLUB_ID);
+            userDetails.put("language", Locale.getDefault().getLanguage());
+            Map<String, Object> map = request.getBaseData();
+            map.put("scriptData", userDetails);
         }
         request.send(new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse response) {
-                if(response!=null){
-                    if(response.hasErrors()){
+                if (response != null) {
+                    if (response.hasErrors()) {
                         EventBus.getDefault().post(new UserEvent(UserEvent.Type.onRegisterError));
                     } else {
                         getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
                             @Override
                             public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
-                                if(!response.hasErrors()){
+                                if (!response.hasErrors()) {
                                     setUser(response);
                                     setLoggedInUserType(REAL);
                                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onRegister));
@@ -309,9 +309,9 @@ public class Model {
 
     public void login() {
         GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
-        HashMap<String,Object> scriptData = new HashMap<>();
-        scriptData.put(CLUB_ID_TAG,CLUB_ID);
-        request.getBaseData().put("scriptData",scriptData);
+        HashMap<String, Object> scriptData = new HashMap<>();
+        scriptData.put(CLUB_ID_TAG, CLUB_ID);
+        request.getBaseData().put("scriptData", scriptData);
         request.setDeviceId(androidId);
         request.setDeviceModel(Build.MANUFACTURER);
         request.setDeviceName(Build.MODEL);
@@ -319,7 +319,7 @@ public class Model {
         request.send(onAuthenticated);
     }
 
-    public void login(String email, String password){
+    public void login(String email, String password) {
         GSAndroidPlatform.gs().getRequestBuilder().createAuthenticationRequest()
                 .setUserName(email)
                 .setPassword(password)
@@ -330,9 +330,9 @@ public class Model {
         GSAndroidPlatform.gs().getRequestBuilder().createEndSessionRequest().send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
-                if(endSessionResponse!=null){
-                    if(endSessionResponse.hasErrors()){
-                        Log.d(TAG,"Model.onSessionEnded() -> Error ending session!");
+                if (endSessionResponse != null) {
+                    if (endSessionResponse.hasErrors()) {
+                        Log.d(TAG, "Model.onSessionEnded() -> Error ending session!");
                     } else {
                         clearUser();
                         setLoggedInUserType(NONE);
@@ -343,15 +343,15 @@ public class Model {
         });
     }
 
-    public void resetPassword(String email){
+    public void resetPassword(String email) {
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("passwordRecoveryRequest");
         request.setEventAttribute(GSConstants.EMAIL, email);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if(response!=null){
-                    if(response.hasErrors()){
+                if (response != null) {
+                    if (response.hasErrors()) {
                         EventBus.getDefault().post(new UserEvent(UserEvent.Type.onPasswordResetRequestError));
                     } else {
                         EventBus.getDefault().post(new UserEvent(UserEvent.Type.onPasswordResetRequest));
@@ -364,7 +364,7 @@ public class Model {
     /**
      * RETURN ALL THE OFFICIAL USER ACCOUNTS! (PLAYERS and SPECIALS)
      */
-    public Task<List<UserInfo>> getOfficialAccounts(int offset){
+    public Task<List<UserInfo>> getOfficialAccounts(int offset) {
         final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersGetSpecialUsers");
@@ -377,7 +377,8 @@ public class Model {
                 if (!response.hasErrors()) {
                     // Parse response
                     Object object = response.getScriptData().getBaseData().get("usersInfo");
-                    List<UserInfo> officialAccounts = mapper.convertValue(object, new TypeReference<List<UserInfo>>(){});
+                    List<UserInfo> officialAccounts = mapper.convertValue(object, new TypeReference<List<UserInfo>>() {
+                    });
                     source.setResult(officialAccounts);
                 }
             }
@@ -385,32 +386,32 @@ public class Model {
         return source.getTask();
     }
 
-    public void setEmail(String email){
+    public void setEmail(String email) {
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
         request.setUserName(email);
         request.send(onDetailsUpdated);
     }
 
-    public void setPassword(String password, String oldPassword){
+    public void setPassword(String password, String oldPassword) {
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
         request.setNewPassword(password);
         request.setOldPassword(oldPassword);
         request.send(onDetailsUpdated);
     }
 
-    public void setLanguage(String language){
+    public void setLanguage(String language) {
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
         request.setLanguage(language);
         request.send(onDetailsUpdated);
     }
 
-    public void setDisplayName(String displayName){
+    public void setDisplayName(String displayName) {
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
         request.setDisplayName(displayName);
         request.send(onDetailsUpdated);
     }
 
-    public void setUserState(UserState state){
+    public void setUserState(UserState state) {
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("setUserState");
         request.setEventAttribute(GSConstants.STATE, state.toString());
@@ -423,47 +424,47 @@ public class Model {
 
     }
 
-    public void setProfileImageUrl(String profileImageUrl, boolean isCircular){
+    public void setProfileImageUrl(String profileImageUrl, boolean isCircular) {
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
         String key = isCircular ? "circularAvatarUrl" : "avatarUrl";
-        HashMap<String,Object> scriptData = new HashMap<>();
-        scriptData.put(key,profileImageUrl);
-        request.getBaseData().put("scriptData",scriptData);
+        HashMap<String, Object> scriptData = new HashMap<>();
+        scriptData.put(key, profileImageUrl);
+        request.getBaseData().put("scriptData", scriptData);
         request.send(onDetailsUpdated);
     }
 
-    public void setDetails(Map<String,String> details){
+    public void setDetails(Map<String, String> details) {
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        if(!details.get(GSConstants.EMAIL).equals(currentUserInfo.getEmail())){
+        if (!details.get(GSConstants.EMAIL).equals(currentUserInfo.getEmail())) {
             request.setUserName(details.get(GSConstants.EMAIL));
         }
 
-       String newNicName = details.get(GSConstants.NICNAME);
-        if(details.containsKey(GSConstants.NICNAME) && !TextUtils.isEmpty(newNicName)){
-            if(!newNicName.equals(currentUserInfo.getNicName())) {
+        String newNicName = details.get(GSConstants.NICNAME);
+        if (details.containsKey(GSConstants.NICNAME) && !TextUtils.isEmpty(newNicName)) {
+            if (!newNicName.equals(currentUserInfo.getNicName())) {
                 request.setDisplayName(details.get(GSConstants.NICNAME));
             }
         }
 
-        HashMap<String,Object> scriptData = new HashMap<>();
+        HashMap<String, Object> scriptData = new HashMap<>();
 
-        scriptData.put(GSConstants.FIRST_NAME,details.get(GSConstants.FIRST_NAME));
-        scriptData.put(GSConstants.LAST_NAME,details.get(GSConstants.LAST_NAME));
-        scriptData.put(GSConstants.PHONE,details.get(GSConstants.PHONE));
-        request.getBaseData().put("scriptData",scriptData);
+        scriptData.put(GSConstants.FIRST_NAME, details.get(GSConstants.FIRST_NAME));
+        scriptData.put(GSConstants.LAST_NAME, details.get(GSConstants.LAST_NAME));
+        scriptData.put(GSConstants.PHONE, details.get(GSConstants.PHONE));
+        request.getBaseData().put("scriptData", scriptData);
         request.send(onDetailsUpdated);
     }
 
     private void setUser(GSResponseBuilder.AccountDetailsResponse response) {
         String userId = response.getUserId();
-        if(userId==null){
-            Log.d(TAG,"GSModel.setUser() -> Couldn't retrieve User ID! Aborting!!");
+        if (userId == null) {
+            Log.d(TAG, "GSModel.setUser() -> Couldn't retrieve User ID! Aborting!!");
             return;
         }
         GSData scriptData = response.getScriptData();
-        Map<String,Object> data;
+        Map<String, Object> data;
         UserInfo info;
-        if(scriptData!=null){
+        if (scriptData != null) {
             data = scriptData.getBaseData();
             info = mapper.convertValue(data, UserInfo.class);
         } else {
@@ -471,14 +472,14 @@ public class Model {
         }
         currentUserInfo = info;
         userCache.put(info.getUserId(), info);
-        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated,currentUserInfo));
+        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUserInfo));
     }
 
     private GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> onDetailsUpdated = new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
         @Override
         public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse response) {
-            if(response!=null){
-                if(response.hasErrors()){
+            if (response != null) {
+                if (response.hasErrors()) {
                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdateError));
                 } else {
                     getAccountDetails(null);
@@ -488,26 +489,26 @@ public class Model {
     };
 
     private void setState(GSResponseBuilder.LogEventResponse response) {
-        if(response != null){
-            if(response.hasErrors()) {
+        if (response != null) {
+            if (response.hasErrors()) {
                 EventBus.getDefault().post(new UserEvent(UserEvent.Type.onStateUpdateError));
                 return;
             }
-            if(response.getScriptData()==null){
-                Log.d(TAG,"GSModel.setState() -> No scriptData returned");
+            if (response.getScriptData() == null) {
+                Log.d(TAG, "GSModel.setState() -> No scriptData returned");
                 return;
             }
-            if(response.getScriptData().getBaseData()==null){
-                Log.d(TAG,"GSModel.setState() -> No base data returned");
+            if (response.getScriptData().getBaseData() == null) {
+                Log.d(TAG, "GSModel.setState() -> No base data returned");
                 return;
             }
             String state = (String) response.getScriptData().getBaseData().get(GSConstants.STATE);
-            if(response.getScriptData().getBaseData().get(GSConstants.STATE)==null){
-                Log.d(TAG,"GSModel.setState() -> No state data returned");
+            if (response.getScriptData().getBaseData().get(GSConstants.STATE) == null) {
+                Log.d(TAG, "GSModel.setState() -> No state data returned");
                 return;
             }
             currentUserInfo.setUserState(UserState.valueOf(state));
-            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onStateUpdated,currentUserInfo.getUserState()));
+            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onStateUpdated, currentUserInfo.getUserState()));
         }
     }
 
@@ -520,21 +521,18 @@ public class Model {
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
 
 
-
-
     /**
      * this func return the userInfo related to the given user ID, it first
      * tryes to retrieve the info from cache if not found it will be fetched from DB
      * so the notification my be fired before this call returns.
      *
-     * @param  userId user id
+     * @param userId user id
      * @return Task<UserInfo> task that will be run on complete
-     *
      **/
     public Task<UserInfo> getUserInfoById(String userId) {
         final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         UserInfo info = getCachedUserInfoById(userId);
-        if(info!=null){
+        if (info != null) {
             source.setResult(info);
             return source.getTask();
         } else {
@@ -542,7 +540,7 @@ public class Model {
         }
     }
 
-    public Task<UserInfo> refreshUserInfo(String userId){
+    public Task<UserInfo> refreshUserInfo(String userId) {
         final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("getUserInfoById");
@@ -550,13 +548,13 @@ public class Model {
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if(!response.hasErrors() && response.getScriptData().getObject(GSConstants.USER_INFO)!=null){
-                    Map<String,Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
+                if (!response.hasErrors() && response.getScriptData().getObject(GSConstants.USER_INFO) != null) {
+                    Map<String, Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
                     UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
                     userCache.put(userInfo.getUserId(), userInfo);
                     source.setResult(userInfo);
-                } else{
-                    Log.e(TAG,"There was an error at refreshUserInfo call");
+                } else {
+                    Log.e(TAG, "There was an error at refreshUserInfo call");
                     source.setException(new Exception("GameSparks error!"));
                 }
             }
@@ -566,9 +564,9 @@ public class Model {
 
     public List<UserInfo> getCachedUserInfoById(Collection<String> userIds) {
         List<UserInfo> userInfos = new ArrayList<>();
-        for(String id : userIds){
+        for (String id : userIds) {
             UserInfo info = getCachedUserInfoById(id);
-            if(info!=null){
+            if (info != null) {
                 userInfos.add(info);
             }
         }
@@ -576,7 +574,7 @@ public class Model {
     }
 
     public UserInfo getCachedUserInfoById(String userId) {
-        if(userCache.containsKey(userId)){
+        if (userCache.containsKey(userId)) {
             return userCache.get(userId);
         } else {
             return null;
@@ -584,108 +582,109 @@ public class Model {
     }
 
 
-
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
     /** --- --- --- --- --- --- --- --            FILES                     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
-    /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
+    /**
+     * --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+     **/
 
-    private String getUserIdForImageName(){
-        if(currentUserInfo!=null){
+    private String getUserIdForImageName() {
+        if (currentUserInfo != null) {
             return currentUserInfo.getUserId();
         } else {
             return "unknown";
         }
     }
 
-    public void uploadChatVideoRecording(String filepath){
+    public void uploadChatVideoRecording(String filepath, final TaskCompletionSource<String> completion) {
         String filename =
                 "video_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".mov";
-        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.VIDEO_FILE_UPLOADED);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
-    public void uploadChatVideoRecordingThumbnail(String filepath, File filesDir){
-        String filename = "video_thumb_" + currentUserInfo.getUserId() +  System.currentTimeMillis() + ".jpg";
-        AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, filesDir, GameSparksEvent.Type.VIDEO_IMAGE_FILE_UPLOADED);
+    public void uploadChatVideoRecordingThumbnail(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
+        String filename = "video_thumb_" + currentUserInfo.getUserId() + System.currentTimeMillis() + ".jpg";
+        FileUploader.getInstance().uploadThumbnail(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForProfile(String filepath, File filesDir){
+    public void uploadImageForProfile(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".png";
-        AWSFileUploader.getInstance().uploadCircularProfileImage(filename,filepath, filesDir, GameSparksEvent.Type.PROFILE_IMAGE_FILE_UPLOADED);
+        FileUploader.getInstance().uploadCircularProfileImage(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForWallPost(String filepath){
+    public void uploadImageForWallPost(String filepath, final TaskCompletionSource<String> completion) {
         String filename =
                 "post_photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.POST_IMAGE_FILE_UPLOADED);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
-    public void uploadImageForStats(String filepath){
+    public void uploadImageForStats(String filepath, final TaskCompletionSource<String> completion) {
         String filename =
                 "post_photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.STATS_IMAGE_FILE_UPLOADED);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
-    public void uploadWallPostVideoRecording(String filepath){
+    public void uploadWallPostVideoRecording(String filepath, final TaskCompletionSource<String> completion) {
         String filename =
                 "post_video_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".mov";
-        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.POST_VIDEO_FILE_UPLOADED);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
-    public void uploadWallPostVideoRecordingThumbnail(String filepath, File filesDir){
-        String filename = "post_video_thumb_" + currentUserInfo.getUserId() +  System.currentTimeMillis() + ".jpg";
-        AWSFileUploader.getInstance().uploadThumbnail(filename,filepath, filesDir, GameSparksEvent.Type.POST_VIDEO_IMAGE_FILE_UPLOADED);
+    public void uploadWallPostVideoRecordingThumbnail(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
+        String filename = "post_video_thumb_" + currentUserInfo.getUserId() + System.currentTimeMillis() + ".jpg";
+        FileUploader.getInstance().uploadThumbnail(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForChatMessage(String filepath){
+    public void uploadImageForChatMessage(String filepath, final TaskCompletionSource<String> completion) {
         String filename =
                 "photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.MESSAGE_IMAGE_FILE_UPLOADED);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
-    public void uploadImageForCreateChat(String filepath){
+    public void uploadImageForCreateChat(String filepath, final TaskCompletionSource<String> completion) {
         String filename =
                 "photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.CREATE_CHAT_IMAGE_FILE_UPLOADED);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
-    public void uploadImageForEditChat(String filepath){
+    public void uploadImageForEditChat(String filepath, final TaskCompletionSource<String> completion) {
         String filename =
                 "photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.EDIT_CHAT_IMAGE_FILE_UPLOADED);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
-    public void uploadAudioRecordingForChat(String filepath){
+    public void uploadAudioRecordingForChat(String filepath, final TaskCompletionSource<String> completion) {
         String filename =
                 "voiceRecording_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".caf";
-        AWSFileUploader.getInstance().upload(filename,filepath, GameSparksEvent.Type.AUDIO_FILE_UPLOADED);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
     public static String getAudioFileName() {
@@ -708,11 +707,11 @@ public class Model {
     public static String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
-            return  cursor.getString(column_index);
+            return cursor.getString(column_index);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -720,7 +719,7 @@ public class Model {
         }
     }
 
-    public static GSRequestBuilder.LogEventRequest createRequest(String key){
+    public static GSRequestBuilder.LogEventRequest createRequest(String key) {
         return GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest().setEventKey(key);
     }
 }

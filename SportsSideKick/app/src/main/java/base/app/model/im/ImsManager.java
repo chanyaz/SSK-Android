@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import base.app.model.AWSFileUploader;
+import base.app.model.FileUploader;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.im.event.ChatNotificationsEvent;
@@ -47,6 +47,7 @@ import static base.app.model.GSConstants.MESSAGES;
 import static base.app.model.GSConstants.MESSAGE_PAGE_SIZE;
 import static base.app.model.GSConstants.OFFSET;
 import static base.app.model.GSConstants.OPERATION_NEW;
+import static base.app.model.GSConstants.OPERATION_UPDATE;
 import static base.app.model.GSConstants.USER_ID;
 import static base.app.model.Model.createRequest;
 
@@ -398,7 +399,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
         if (TextUtils.isEmpty(nic)) {
             nic = "New User";
         }
-        message.setLocid(AWSFileUploader.generateMongoOID());
+        message.setLocid(FileUploader.generateMongoOID());
         Map<String, Object> map = mapper.convertValue(message, new TypeReference<Map<String, Object>>() {});
         GSData data = new GSData(map);
 
@@ -595,8 +596,8 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                     if(OPERATION_NEW.equals(operation)){
                         ImsMessage message = mapper.convertValue(data.get(MESSAGE), ImsMessage.class);
                         chatInfo.addReceivedMessage(message);
-                    } else {
-                        chatInfo.updateMessage(data);
+                    } else if (OPERATION_UPDATE.equals(operation)) {
+                        chatInfo.updateMessageJson(data);
                     }
                 } else {
                     Log.e(TAG, "UNHANDLED ImsMessage Error: chat not found with id:" + data.get(CHAT_ID));

@@ -46,6 +46,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.universalvideoview.UniversalMediaController;
@@ -66,7 +67,6 @@ import base.app.R;
 import base.app.adapter.ChatHeadsAdapter;
 import base.app.adapter.MessageAdapter;
 import base.app.events.FullScreenImageEvent;
-import base.app.events.GameSparksEvent;
 import base.app.events.OpenChatEvent;
 import base.app.events.PlayVideoEvent;
 import base.app.fragment.BaseFragment;
@@ -78,6 +78,7 @@ import base.app.fragment.popup.JoinChatFragment;
 import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.SignUpFragment;
 import base.app.model.AlertDialogManager;
+import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.im.ChatInfo;
 import base.app.model.im.ImsManager;
@@ -185,6 +186,7 @@ public class ChatFragment extends BaseFragment {
     ChatInfo currentlyActiveChat;
 
     private MediaRecorder recorder = null;
+
     private String audioFilepath = null;
     String currentPath;
     String videoDownloadUrl;
@@ -499,9 +501,7 @@ public class ChatFragment extends BaseFragment {
         DownloadManager.Request downloadRequest = new DownloadManager.Request(uri);
         downloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         downloadRequest.setVisibleInDownloadsUi(true);
-        downloadRequest.setTitle("SSK - Downloading a chat image!");
-        //downloadRequest.setDescription("Android Data download using DownloadManager.");
-        //Set the local destination for the downloaded file to a path within the application's external files directory
+        downloadRequest.setTitle("SSK - Downloading a chat image");
         downloadRequest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,fileName);
         downloadManager.enqueue(downloadRequest);
     }
@@ -537,18 +537,9 @@ public class ChatFragment extends BaseFragment {
             }
             return;
         }
-
-
         if(Model.getInstance().isRealUser() && currentlyActiveChat != null) {
-            ImsMessage message = ImsMessage.getDefaultMessage();
-            message.setText(inputEditText.getText().toString().trim());
-            currentlyActiveChat.sendMessage(message).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
-                @Override
-                public void onComplete(@NonNull Task<ChatInfo> task) {
-                    // TODO @Filip Update UI?
-                }
-            });
-            currentlyActiveChat.setUserIsTyping(false);
+            String textMessage = inputEditText.getText().toString().trim();
+            sendTextMessage(textMessage);
         } else {
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
@@ -556,6 +547,14 @@ public class ChatFragment extends BaseFragment {
         }
         inputEditText.setText("");
         Utility.hideKeyboard(getActivity());
+    }
+
+    private void sendTextMessage(String text){
+        ImsMessage message = ImsMessage.getDefaultMessage();
+        message.setType(GSConstants.UploadType.text.name());
+        message.setText(text);
+        currentlyActiveChat.sendMessage(message);
+        currentlyActiveChat.setUserIsTyping(false);
     }
 
 
@@ -641,36 +640,134 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
+
+
+
+    private void sendAudioMessage(final String path){
+        final ImsMessage messageAudio = ImsMessage.getDefaultMessage();
+        messageAudio.setType(GSConstants.UploadType.audio.name());
+        messageAudio.setUploadStatus(GSConstants.UPLOADING);
+        messageAudio.setImageUrl("");
+        messageAudio.setLocalPath(path);
+        messageAudio.setImageAspectRatio(1);
+        currentlyActiveChat.sendMessage(messageAudio).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<ChatInfo> task) {
+                final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+                Model.getInstance().uploadAudioRecordingForChat(path, source);
+                source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if(task.isSuccessful()){
+                            messageAudio.setLocalPath(null);
+                            messageAudio.setImageUrl(task.getResult());
+                            messageAudio.setUploadStatus(GSConstants.UPLOADED);
+                            currentlyActiveChat.updateMessage(messageAudio,null);
+                            // TODO @Filip Hide waiting dialog ?
+                        } else {
+                            messageAudio.setImageUrl("");
+                            messageAudio.setUploadStatus(GSConstants.FAILED);
+                            currentlyActiveChat.updateMessage(messageAudio,null);
+                            // TODO @Filip Hide waiting dialog ? - show error?
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private void sendImageMessage(final String path){
+        final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
+        preppingImsObject.setType(GSConstants.UploadType.image.name());
+        preppingImsObject.setUploadStatus(GSConstants.UPLOADING);
+        preppingImsObject.setText(null);
+        preppingImsObject.setImageUrl(null);
+        preppingImsObject.setLocalPath(path);
+
+        currentlyActiveChat.sendMessage(preppingImsObject).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<ChatInfo> task) {
+                if(task.isSuccessful()){
+                    final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+                    Model.getInstance().uploadImageForChatMessage(path,source);
+                    source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            if(task.isSuccessful()){
+                                preppingImsObject.setImageUrl(task.getResult());
+                                preppingImsObject.setUploadStatus(GSConstants.UPLOADED);
+                                preppingImsObject.setLocalPath(null);
+                                currentlyActiveChat.updateMessage(preppingImsObject,null);
+                                // TODO @Filip Update UI with image
+                            } else {
+                                preppingImsObject.setImageUrl("");
+                                preppingImsObject.setUploadStatus(GSConstants.FAILED);
+                                currentlyActiveChat.updateMessage(preppingImsObject,null);
+                                // TODO @Filip Hide waiting dialog ? - show error?
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void sendVideoMessage(final String path){
+
+        final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
+        preppingImsObject.setType(GSConstants.UploadType.video.name());
+        preppingImsObject.setUploadStatus(GSConstants.UPLOADING);
+        preppingImsObject.setText(null);
+        preppingImsObject.setImageUrl(null);
+        preppingImsObject.setLocalPath(path);
+
+
+        currentlyActiveChat.sendMessage(preppingImsObject).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<ChatInfo> task) {
+                if(task.isSuccessful()){
+                    final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+                    Model.getInstance().uploadChatVideoRecordingThumbnail(path,getActivity().getFilesDir(),source);
+                    source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            if(task.isSuccessful()){
+                                final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+                                preppingImsObject.setImageUrl(task.getResult());
+                                Model.getInstance().uploadChatVideoRecording(currentPath, source);
+                                source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<String> task) {
+                                        if (task.isSuccessful()) {
+                                            preppingImsObject.setVidUrl(task.getResult());
+                                            preppingImsObject.setUploadStatus(GSConstants.UPLOADED);
+                                            preppingImsObject.setLocalPath(null);
+                                            currentlyActiveChat.updateMessage(preppingImsObject,null);
+                                        } else {
+                                            preppingImsObject.setVidUrl(null);
+                                            preppingImsObject.setUploadStatus(GSConstants.FAILED);
+                                            currentlyActiveChat.updateMessage(preppingImsObject,null);
+                                        }
+                                    }
+                                });
+                            } else {
+                                preppingImsObject.setImageUrl(null);
+                                preppingImsObject.setVidUrl(null);
+                                preppingImsObject.setUploadStatus(GSConstants.FAILED);
+                                currentlyActiveChat.updateMessage(preppingImsObject,null);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     /**
      * * ** ** ** ** ** ** ** ** ** ** ** **
      * Event listeners
      * * ** ** ** ** ** ** ** ** ** ** ** **
      **/
-    @Subscribe
-    @SuppressWarnings("Unchecked cast")
-    public void onChatEventDetected(GameSparksEvent event) {
-        Log.d(TAG, "event received in Chat Fragment: " + event.getEventType());
-        switch (event.getEventType()) {
-            case MESSAGE_IMAGE_FILE_UPLOADED:
-            case AUDIO_FILE_UPLOADED:
-                String downloadUrl = (String) event.getData();
-                ImsMessage message = ImsMessage.getDefaultMessage();
-                message.setImageUrl(downloadUrl);
-                currentlyActiveChat.sendMessage(message);  // TODO @Filip Update UI with waiting dialog
-                break;
-            case VIDEO_FILE_UPLOADED:
-                videoDownloadUrl = (String) event.getData();
-                Model.getInstance().uploadChatVideoRecordingThumbnail(currentPath, getActivity().getFilesDir());
-                break;
-            case VIDEO_IMAGE_FILE_UPLOADED:
-                String videoThumbnailDownloadUrl = (String) event.getData();
-                ImsMessage messageVideo = ImsMessage.getDefaultMessage();
-                messageVideo.setVidUrl(videoDownloadUrl);
-                messageVideo.setImageUrl(videoThumbnailDownloadUrl);
-                currentlyActiveChat.sendMessage(messageVideo); // TODO @Filip Update UI with waiting dialog
-                break;
-        }
-    }
 
     @Subscribe
     public void onEvent(ChatsInfoUpdatesEvent event) {
@@ -953,7 +1050,7 @@ public class ChatFragment extends BaseFragment {
                 recorder.stop();
                 recorder.release();
                 Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_recording_stop), Toast.LENGTH_SHORT).show();
-                Model.getInstance().uploadAudioRecordingForChat(audioFilepath);
+                sendAudioMessage(audioFilepath);
                 recorder = null;
             } catch (Exception e) {
                 Log.e(TAG, "Stop recording failed!");
@@ -1001,21 +1098,24 @@ public class ChatFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
-                    Model.getInstance().uploadImageForChatMessage(currentPath);
+
+                    sendImageMessage(currentPath);
                     break;
                 case REQUEST_CODE_CHAT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
-                    Model.getInstance().uploadImageForChatMessage(realPath);
+                    sendImageMessage(realPath);
                     break;
                 case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
                     Uri videoUri = intent.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), videoUri);
-                    Model.getInstance().uploadChatVideoRecording(currentPath);
+                    sendVideoMessage(currentPath);
+
                     break;
             }
         }
     }
+
 
     @Subscribe
     public void openChatEvent(OpenChatEvent event){

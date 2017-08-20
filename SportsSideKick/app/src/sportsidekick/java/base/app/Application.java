@@ -21,7 +21,7 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import java.util.Date;
 
-import base.app.model.AWSFileUploader;
+import base.app.model.FileUploader;
 import base.app.model.purchases.PurchaseModel;
 import base.app.util.SoundEffects;
 import io.fabric.sdk.android.Fabric;
@@ -81,7 +81,7 @@ public class Application extends MultiDexApplication {
                 .build()
         );
 
-        AWSFileUploader.getInstance().initialize(getApplicationContext());
+        FileUploader.getInstance().initialize(getApplicationContext());
 
         SoundEffects.getDefault().initialize(this);
 

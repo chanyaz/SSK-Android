@@ -17,7 +17,6 @@ import base.app.GSAndroidPlatform;
 import base.app.model.DateUtils;
 import base.app.model.Model;
 
-import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.GSConstants.GROUP_ID;
 import static base.app.model.GSConstants.MESSAGE;
@@ -235,8 +234,8 @@ public class ImsMessage {
                 .setEventKey("imsMessageUpdate")
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())
                 .setEventAttribute(MESSAGE, data)
-                .setEventAttribute(MESSAGE_ID, data)
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .setEventAttribute(MESSAGE_ID, getId())
+                .setEventAttribute(CLUB_ID_TAG, clubId)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -252,9 +251,7 @@ public class ImsMessage {
     }
 
     void updateFrom(Map<String, Object> data){
-        if (data.containsKey("_id")) {
-            setId((String) data.get("_id"));
-        }
+
         if (data.containsKey("locid")) {
             setLocid((String) data.get("locid"));
         }

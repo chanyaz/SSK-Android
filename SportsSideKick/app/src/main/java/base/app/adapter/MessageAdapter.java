@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -65,7 +66,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         @Nullable @BindView(R.id.profile_image) CircleImageView senderImageView;
         @BindView(R.id.content_image) ImageView contentImage;
         @BindView(R.id.play_button) ImageView playButton;
-
+        @Nullable @BindView(R.id.progress_bar) AVLoadingIndicatorView progressBar;
         ViewHolder(View view) {
             super(view);
             this.view = view;

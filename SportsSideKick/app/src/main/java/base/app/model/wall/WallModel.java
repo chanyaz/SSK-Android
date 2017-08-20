@@ -34,7 +34,7 @@ import base.app.events.PostCompleteEvent;
 import base.app.events.PostLoadCompleteEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.events.WallLikeUpdateEvent;
-import base.app.model.AWSFileUploader;
+import base.app.model.FileUploader;
 import base.app.model.DateUtils;
 import base.app.model.GSConstants;
 import base.app.model.Model;
@@ -263,7 +263,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      */
     public void mbPost(WallBase post){
         post.setWallId(getCurrentUser().getUserId());
-        post.setPostId(DateUtils.currentTimeToFirebaseDate() + AWSFileUploader.generateRandName(10));
+        post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -358,7 +358,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      */
     public Task<PostComment> postComment(final WallBase post, final PostComment comment){
         final TaskCompletionSource<PostComment> source = new TaskCompletionSource<>();
-        comment.setId(DateUtils.currentTimeToFirebaseDate() + AWSFileUploader.generateRandName(10));
+        comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {

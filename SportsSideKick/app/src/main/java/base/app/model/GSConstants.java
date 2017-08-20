@@ -69,4 +69,12 @@ public class GSConstants {
     public static final String DISPLAY_NAME = "displayName";
 
     public static final String CLUB_ID_TAG = "club_id";
+
+    public enum UploadType {
+        image, video, audio, text
+    }
+    public static final String UPLOADING = "uploading";
+    public static final String UPLOADED = "uploaded";
+    public static final String FAILED = "failed";
+
 }
