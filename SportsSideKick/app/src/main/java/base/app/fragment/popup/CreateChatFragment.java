@@ -28,8 +28,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
@@ -48,7 +50,6 @@ import base.app.R;
 import base.app.activity.LoungeActivity;
 import base.app.adapter.AddFriendsAdapter;
 import base.app.adapter.SelectableFriendsAdapter;
-import base.app.events.GameSparksEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.Model;
@@ -113,6 +114,7 @@ public class CreateChatFragment extends BaseFragment {
     List<UserInfo> userInfoList;
     AddFriendsAdapter addFriendsAdapter;
     String currentPath;
+    String uploadedImageUrl;
 
     public CreateChatFragment() {
         // Required empty public constructor
@@ -380,7 +382,7 @@ public class CreateChatFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE:
-                    Model.getInstance().uploadImageForCreateChat(currentPath);
+                    uploadImage(currentPath);
                     chatImageView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     ImageLoader.getInstance().displayImage(currentPath, chatImageView);
@@ -388,7 +390,7 @@ public class CreateChatFragment extends BaseFragment {
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
-                    Model.getInstance().uploadImageForCreateChat(realPath);
+                    uploadImage(realPath);
                     chatImageView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     ImageLoader.getInstance().displayImage(realPath, chatImageView);
@@ -397,6 +399,27 @@ public class CreateChatFragment extends BaseFragment {
         }
     }
 
+    private void uploadImage(String path){
+        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+        Model.getInstance().uploadImageForCreateChat(path,source);
+        source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(final @NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    uploadedImageUrl = task.getResult();
+                    uploadedImageUrl = task.getResult();
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+                } else {
+                    // TODO @Filip Handle error!
+                }
+            }
+        });
+    }
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showDeniedForCamera() {
         Toast.makeText(getContext(), R.string.permission_camera_denied, Toast.LENGTH_SHORT).show();
@@ -426,22 +449,4 @@ public class CreateChatFragment extends BaseFragment {
                 .show();
     }
 
-    String uploadedImageUrl;
-
-    @Subscribe
-    @SuppressWarnings("Unchecked cast")
-    public void onEventDetected(GameSparksEvent event) {
-        switch (event.getEventType()) {
-            case CREATE_CHAT_IMAGE_FILE_UPLOADED:
-                if (event.getData() != null) {
-                    uploadedImageUrl = (String) event.getData();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
-                }
-        }
-    }
 }

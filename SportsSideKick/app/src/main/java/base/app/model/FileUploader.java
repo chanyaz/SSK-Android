@@ -19,8 +19,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
-
-import org.greenrobot.eventbus.EventBus;
+import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -30,7 +29,6 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
 
-import base.app.events.GameSparksEvent;
 import base.app.util.Utility;
 import base.app.util.ui.ExifUtil;
 
@@ -40,22 +38,22 @@ import base.app.util.ui.ExifUtil;
  * www.hypercubesoft.com
  */
 
-public class AWSFileUploader {
+public class FileUploader {
 
     private static String EUWest_PoolId = "eu-west-1:8a0d240e-2ebb-4b62-b66b-2288bc88ce1f";
     private static String EUWest_BaseUrl = "https://s3-eu-west-1.amazonaws.com/sskirbucket/";
     private static String EUWest_Bucket = "sskirbucket";
 
-    private static AWSFileUploader instance;
+    private static FileUploader instance;
 
     private String poolId;
     private String baseUrl;
     private String bucket;
     private TransferUtility transferUtility;
 
-    public static AWSFileUploader getInstance() {
+    public static FileUploader getInstance() {
         if (instance == null) {
-            instance = new AWSFileUploader();
+            instance = new FileUploader();
         }
         return instance;
     }
@@ -72,13 +70,13 @@ public class AWSFileUploader {
         transferUtility = new TransferUtility(s3, context);
     }
 
-    private AWSFileUploader() {
-        poolId = AWSFileUploader.EUWest_PoolId;
-        baseUrl = AWSFileUploader.EUWest_BaseUrl;
-        bucket = AWSFileUploader.EUWest_Bucket;
+    private FileUploader() {
+        poolId = FileUploader.EUWest_PoolId;
+        baseUrl = FileUploader.EUWest_BaseUrl;
+        bucket = FileUploader.EUWest_Bucket;
     }
 
-    void upload(final String filename, String filepath, final GameSparksEvent.Type event) {
+    void upload(final String filename, String filepath, final TaskCompletionSource<String> completion) {
         try {
             File file = new File(filepath);
             TransferObserver observer = transferUtility.upload(
@@ -90,40 +88,40 @@ public class AWSFileUploader {
                 @Override
                 public void onStateChanged(int id, TransferState state) {
                     if (TransferState.COMPLETED.equals(state)) {
-                        EventBus.getDefault().post(new GameSparksEvent("File uploaded!", event, baseUrl + filename));
+                        if(completion!=null){
+                            completion.setResult(baseUrl + filename);
+                        }
                     }
-
                 }
 
                 @Override
-                public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
-                }
+                public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {}
 
                 @Override
                 public void onError(int id, Exception ex) {
                     // Notify about error
-                    EventBus.getDefault().post(new GameSparksEvent("Something went wrong, file not uploaded!", event, null));
+                    completion.setException(new Exception("Something went wrong, file not uploaded!"));
                 }
             });
         } catch (Exception e) {
-            EventBus.getDefault().post(new GameSparksEvent("Something went wrong, file not uploaded!", event, null));
+            completion.setException(new Exception("Something went wrong, file not uploaded!"));
         }
     }
 
-    void uploadThumbnail(String filename, String filepath, File filesDir, GameSparksEvent.Type event) {
+    void uploadThumbnail(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.MINI_KIND);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);  // TODO @Filip - Magic number
         try {
             File file = new File(filesDir, "temp_thumbnail_video.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
-            upload(filename, file.getPath(), event);
+            upload(filename, file.getPath(), completion);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void uploadCircularProfileImage(String filename, String filepath, File filesDir, GameSparksEvent.Type event) {
+    public void uploadCircularProfileImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         File image = new File(filepath);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
@@ -141,7 +139,7 @@ public class AWSFileUploader {
         try {
             File file = new File(filesDir, "temp_profile_circled.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
-            upload(filename, file.getPath(), event);
+            upload(filename, file.getPath(), completion);
         } catch (IOException e) {
             e.printStackTrace();
         }

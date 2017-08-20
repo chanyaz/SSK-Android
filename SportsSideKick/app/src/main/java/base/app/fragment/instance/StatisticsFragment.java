@@ -14,14 +14,15 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import org.greenrobot.eventbus.Subscribe;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.events.GameSparksEvent;
 import base.app.fragment.BaseFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
@@ -94,32 +95,32 @@ public class StatisticsFragment extends BaseFragment {
 
     }
 
-    @Subscribe
-    @SuppressWarnings("Unchecked cast")
-    public void onEventDetected(GameSparksEvent event) {
-        switch (event.getEventType()) {
-            case STATS_IMAGE_FILE_UPLOADED:
-                if (event.getData() != null) {
-                    float imageAspectRatio = bitmap.getHeight() / bitmap.getWidth();
-                    WallStats wallPost = new WallStats();
-                    //TODO Copied from iOS
-                    wallPost.setTitle("A Stats post");
-                    wallPost.setSubTitle("Some subtitle");
-                    wallPost.setTimestamp((double) Utility.getCurrentNTPTime());
-                    wallPost.setBodyText("...");
-                    wallPost.setCoverAspectRatio(imageAspectRatio);
-                    wallPost.setCoverImageUrl((String) event.getData());
-                    WallModel.getInstance().mbPost(wallPost);
-                }
-        }
-    }
-
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection() {
         try {
             webView.setDrawingCacheEnabled(true);
             bitmap = webView.getDrawingCache();
-            Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap));
+            final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+            Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap),source);
+            source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                @Override
+                public void onComplete(@NonNull Task<String> task) {
+                    if (task.isSuccessful()) {
+                        float imageAspectRatio = bitmap.getHeight() / bitmap.getWidth();
+                        WallStats wallPost = new WallStats();
+                        wallPost.setTitle("A Stats post");
+                        wallPost.setSubTitle("Some subtitle");
+                        wallPost.setTimestamp((double) Utility.getCurrentNTPTime());
+                        wallPost.setBodyText("...");
+                        wallPost.setCoverAspectRatio(imageAspectRatio);
+                        wallPost.setCoverImageUrl(task.getResult());
+                        WallModel.getInstance().mbPost(wallPost);
+                    } else {
+                        //TODO @Filip Handle error
+                    }
+                }
+            });
+
         } catch (Exception e) {
 
         }

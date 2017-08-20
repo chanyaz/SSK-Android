@@ -279,7 +279,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     }
 
     @Optional
-    @OnLongClick(R.id.or_label)
+    @OnLongClick({R.id.or_label,R.id.sign_up_firstname})
     public boolean populateWithDemoData() {
         Haikunator haikunator = new HaikunatorBuilder().setTokenLength(0).setDelimiter(" ").build();
         String name = haikunator.haikunate();

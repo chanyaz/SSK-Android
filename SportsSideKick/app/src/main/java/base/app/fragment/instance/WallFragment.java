@@ -34,6 +34,7 @@ import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -62,7 +63,6 @@ import base.app.BuildConfig;
 import base.app.R;
 import base.app.adapter.WallAdapter;
 import base.app.events.CommentUpdateEvent;
-import base.app.events.GameSparksEvent;
 import base.app.events.PostCompleteEvent;
 import base.app.events.PostLoadCompleteEvent;
 import base.app.events.PostUpdateEvent;
@@ -393,16 +393,16 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_POST_IMAGE_CAPTURE:
-                    Model.getInstance().uploadImageForWallPost(currentPath);
                     imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
+                    uploadImagePost(currentPath);
                     makePostContainerVisible();
                     break;
                 case REQUEST_CODE_POST_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
-                    Model.getInstance().uploadImageForWallPost(realPath);
+                    uploadImagePost(realPath);
                     imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
@@ -411,7 +411,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 case REQUEST_CODE_POST_VIDEO_CAPTURE:
                     Uri videoUri = intent.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), videoUri);
-                    Model.getInstance().uploadWallPostVideoRecording(currentPath);
+                    uploadVideoPost(currentPath);
                     imageUploadProgressBar.setVisibility(View.VISIBLE);
                     uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedImage.setVisibility(View.VISIBLE);
@@ -421,39 +421,59 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
     }
 
-    @Subscribe
-    @SuppressWarnings("Unchecked cast")
-    public void onEventDetected(GameSparksEvent event) {
-        Log.d(TAG, "event received in Chat Fragment: " + event.getEventType());
-        switch (event.getEventType()) {
-            case POST_IMAGE_FILE_UPLOADED:
-                if (event.getData() != null) {
-                    uploadedImageUrl = (String) event.getData();
+    private void uploadImagePost(String path){
+        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+        Model.getInstance().uploadImageForWallPost(path,source);
+            source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    uploadedImageUrl = task.getResult();
                     ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                             imageUploadProgressBar.setVisibility(View.GONE);
                         }
                     });
+                } else {
+                    // TODO @Filip Handle error!
                 }
-            case POST_VIDEO_FILE_UPLOADED: {
-                videoDownloadUrl = (String) event.getData();
-                Model.getInstance().uploadWallPostVideoRecordingThumbnail(currentPath, getActivity().getFilesDir());
-                imageUploadProgressBar.setVisibility(View.GONE);
             }
-                break;
-            case POST_VIDEO_IMAGE_FILE_UPLOADED: {
-                videoThumbnailDownloadUrl = (String) event.getData();
-                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener() {
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        imageUploadProgressBar.setVisibility(View.GONE);
-                    }
-                });
-            }
-                break;
-        }
+        });
     }
+    private void uploadVideoPost(final String path) {
+        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+        Model.getInstance().uploadWallPostVideoRecordingThumbnail(path, getActivity().getFilesDir(),source);
+        source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    videoDownloadUrl = task.getResult();
+                    final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+                    Model.getInstance().uploadWallPostVideoRecordingThumbnail(path, getActivity().getFilesDir(),source);
+                    source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            videoThumbnailDownloadUrl = task.getResult();
+                            if (task.isSuccessful()) {
+                                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener() {
+                                    @Override
+                                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                        imageUploadProgressBar.setVisibility(View.GONE);
+                                    }
+                                });
+                            } else {
+                                // TODO @Filip Handle error!
+                            }
+                        }
+                    });
+                } else {
+                    // TODO @Filip Handle error!
+                }
+            }
+        });
+    }
+
 
     @OnClick({R.id.uploaded_image, R.id.remove_uploaded_photo_button})
     public void removeUploadedContent() {

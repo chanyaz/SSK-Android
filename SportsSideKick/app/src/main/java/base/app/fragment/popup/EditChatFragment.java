@@ -24,8 +24,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,7 +45,6 @@ import base.app.R;
 import base.app.activity.LoungeActivity;
 import base.app.adapter.AddFriendsAdapter;
 import base.app.adapter.SelectableFriendsAdapter;
-import base.app.events.GameSparksEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.Model;
@@ -421,18 +422,38 @@ public class EditChatFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE:
-                    Model.getInstance().uploadImageForEditChat((currentPath));
+                    uploadImage(currentPath);
                     ImageLoader.getInstance().displayImage(currentPath,chatImageView);
                     break;
                 case REQUEST_CODE_CHAT_EDIT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
-                    Model.getInstance().uploadImageForEditChat(realPath);
+                    uploadImage(realPath);
                     ImageLoader.getInstance().displayImage(realPath,chatImageView);
                     break;
             }
         }
     }
+
+    private void uploadImage(String path){
+        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+        Model.getInstance().uploadImageForWallPost(path,source);
+        source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    uploadedImageUrl = task.getResult();
+                    if(uploadedImageUrl!=null){
+                        chatImageView.setVisibility(View.VISIBLE);
+                        ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader());
+                    }
+                } else {
+                    // TODO @Filip Handle error!
+                }
+            }
+        });
+    }
+
 
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showDeniedForCamera() {
@@ -461,19 +482,5 @@ public class EditChatFragment extends BaseFragment {
                     }
                 })
                 .show();
-    }
-
-
-    @Subscribe
-    @SuppressWarnings("Unchecked cast")
-    public void onEventDetected(GameSparksEvent event){
-        switch (event.getEventType()) {
-            case EDIT_CHAT_IMAGE_FILE_UPLOADED:
-                if(event.getData()!=null){
-                    uploadedImageUrl = (String)event.getData();
-                    chatImageView.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader());
-                }
-        }
     }
 }

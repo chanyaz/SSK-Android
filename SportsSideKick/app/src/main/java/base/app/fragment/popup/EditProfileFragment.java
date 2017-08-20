@@ -24,10 +24,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +39,6 @@ import java.util.Map;
 import base.app.BuildConfig;
 import base.app.Connection;
 import base.app.R;
-import base.app.events.GameSparksEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.GSConstants;
@@ -196,14 +197,14 @@ public class EditProfileFragment extends BaseFragment {
             switch (requestCode) {
                 case REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE:
                     Log.d(TAG, "CAPTURED IMAGE PATH IS: " + currentPath);
-                    Model.getInstance().uploadImageForProfile(currentPath, getContext().getFilesDir());
+                    uploadImage(currentPath);
                     break;
                 case REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
-                    Model.getInstance().uploadImageForProfile(realPath, getContext().getFilesDir());
+                    uploadImage(realPath);
                     break;
             }
         }
@@ -269,18 +270,23 @@ public class EditProfileFragment extends BaseFragment {
         getActivity().onBackPressed();
     }
 
-    @Subscribe
-    @SuppressWarnings("Unchecked cast")
-    public void onEventDetected(GameSparksEvent event) {
-        switch (event.getEventType()) {
-            case PROFILE_IMAGE_FILE_UPLOADED:
-                if (event.getData() != null) {
-                    String url = (String) event.getData();
-                    Model.getInstance().setProfileImageUrl(url, true);
-                    ImageLoader.getInstance().displayImage(url, profileImage, Utility.getImageOptionsForUsers());
-                }
 
-        }
+
+    private void uploadImage(String path){
+        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+        Model.getInstance().uploadImageForProfile(path, getContext().getFilesDir(), source);
+        source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    String uploadedImageUrl = task.getResult();
+                    Model.getInstance().setProfileImageUrl(uploadedImageUrl, true);
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, profileImage, Utility.getImageOptionsForUsers());
+                } else {
+                    // TODO @Filip Handle error!
+                }
+            }
+        });
     }
 
 

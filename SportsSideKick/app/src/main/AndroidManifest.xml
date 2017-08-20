@@ -44,7 +44,7 @@
         <activity
             android:name=".activity.LoungeActivity"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>
 
         <activity
