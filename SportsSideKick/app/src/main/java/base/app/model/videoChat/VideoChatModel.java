@@ -375,7 +375,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
                 update(data);
                 break;
             default:
-                Log.e(TAG,"UNHANDLED ScriptMessage type: " + type + " DATA: " + data);
+                Log.e(TAG,"Unhandled script message type: " + type + ", with data: " + data);
                 break;
         }
     }

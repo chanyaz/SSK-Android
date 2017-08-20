@@ -42,7 +42,7 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
-        //EventBus.getDefault().post(new ExternalNotificationEvent(remoteMessage.getData(), false));
+        //EventBus.getDefault().post(new ExternalNotificationEvent(remoteMessage.getMessage(), false));
 
     }
 

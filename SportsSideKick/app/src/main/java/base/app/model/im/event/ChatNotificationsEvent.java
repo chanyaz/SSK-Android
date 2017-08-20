@@ -1,6 +1,7 @@
 package base.app.model.im.event;
 
 import base.app.model.im.ChatInfo;
+import base.app.model.im.ImsMessage;
 
 /**
  * Created by Filip on 4/25/2017.
@@ -11,7 +12,8 @@ import base.app.model.im.ChatInfo;
 public class ChatNotificationsEvent {
 
     ChatInfo chatInfo;
-    Object chatId;
+    String chatInfoId;
+    ImsMessage message;
     Key key;
 
     public enum Key {
@@ -26,20 +28,25 @@ public class ChatNotificationsEvent {
         this.chatInfo = chatInfo;
         this.key = key;
     }
-
-
-    public ChatNotificationsEvent(Object data, Key key) {
-        this.chatId = data;
+    public ChatNotificationsEvent(String chatInfoId, Key key) {
+        this.chatInfoId = chatInfoId;
         this.key = key;
     }
 
+    public ChatNotificationsEvent(ImsMessage data, Key key) {
+        this.message = data;
+        this.key = key;
+    }
+    public String getChatInfoId() {
+        return chatInfoId;
+    }
 
     public ChatInfo getChatInfo() {
         return chatInfo;
     }
 
-    public Object getChatId() {
-        return chatId;
+    public ImsMessage getMessage() {
+        return message;
     }
 
     public Key getKey() {

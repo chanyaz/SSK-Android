@@ -284,20 +284,28 @@ public class ChatInfo {
 
     public void updateMessage(final ImsMessage message, final TaskCompletionSource<ChatInfo> completion){
         if(message.getId()==null){
+            Log.e(TAG,"Message is not being updated - missing ID");
             if(completion!=null){
                 completion.setResult(this);
             }
             return;
         }
         TaskCompletionSource<ImsMessage> updateMessageCompletion = new TaskCompletionSource<>();
-        message.imsUpdateMessage(this,String.valueOf(CLUB_ID),updateMessageCompletion );
+        message.imsUpdateMessage(this,String.valueOf(CLUB_ID),updateMessageCompletion);
         updateMessageCompletion.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
             @Override
             public void onComplete(@NonNull Task<ImsMessage> task) {
-                if(completion!=null){
-                    completion.setResult(ChatInfo.this);
+                if(task.isSuccessful()){
+                    if(completion!=null){
+                        completion.setResult(ChatInfo.this);
+                    }
+                    EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
+                } else {
+                    if(completion!=null && task.getException()!=null){
+                        completion.setException(task.getException());
+                    }
                 }
-                EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
+
             }
         });
     }

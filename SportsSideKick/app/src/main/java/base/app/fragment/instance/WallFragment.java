@@ -423,27 +423,29 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     private void uploadImagePost(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        Model.getInstance().uploadImageForWallPost(path,source);
-            source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+        source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if (task.isSuccessful()) {
                     uploadedImageUrl = task.getResult();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener() {
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            imageUploadProgressBar.setVisibility(View.GONE);
-                        }
-                    });
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage,
+                            Utility.imageOptionsImageLoader(),
+                            new SimpleImageLoadingListener() {
+                                @Override
+                                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                    imageUploadProgressBar.setVisibility(View.GONE);
+                                }
+                            });
                 } else {
                     // TODO @Filip Handle error!
                 }
             }
         });
+        Model.getInstance().uploadImageForWallPost(path,source);
+
     }
     private void uploadVideoPost(final String path) {
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        Model.getInstance().uploadWallPostVideoRecordingThumbnail(path, getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
@@ -456,12 +458,15 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                         public void onComplete(@NonNull Task<String> task) {
                             videoThumbnailDownloadUrl = task.getResult();
                             if (task.isSuccessful()) {
-                                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl, uploadedImage, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener() {
-                                    @Override
-                                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                        imageUploadProgressBar.setVisibility(View.GONE);
-                                    }
-                                });
+                                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl,
+                                        uploadedImage,
+                                        Utility.imageOptionsImageLoader(),
+                                        new SimpleImageLoadingListener() {
+                                            @Override
+                                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                                imageUploadProgressBar.setVisibility(View.GONE);
+                                            }
+                                        });
                             } else {
                                 // TODO @Filip Handle error!
                             }
@@ -472,6 +477,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }
         });
+        Model.getInstance().uploadWallPostVideoRecordingThumbnail(path, getActivity().getFilesDir(),source);
+
     }
 
 

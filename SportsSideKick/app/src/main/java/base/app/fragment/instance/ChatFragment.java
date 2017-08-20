@@ -189,7 +189,6 @@ public class ChatFragment extends BaseFragment {
 
     private String audioFilepath = null;
     String currentPath;
-    String videoDownloadUrl;
 
 
     public ChatFragment() {
@@ -551,7 +550,7 @@ public class ChatFragment extends BaseFragment {
 
     private void sendTextMessage(String text){
         ImsMessage message = ImsMessage.getDefaultMessage();
-        message.setType(GSConstants.UploadType.text.name());
+        message.setType(GSConstants.UPLOAD_TYPE_TEXT);
         message.setText(text);
         currentlyActiveChat.sendMessage(message);
         currentlyActiveChat.setUserIsTyping(false);
@@ -640,12 +639,9 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-
-
-
     private void sendAudioMessage(final String path){
         final ImsMessage messageAudio = ImsMessage.getDefaultMessage();
-        messageAudio.setType(GSConstants.UploadType.audio.name());
+        messageAudio.setType(GSConstants.UPLOAD_TYPE_AUDIO);
         messageAudio.setUploadStatus(GSConstants.UPLOADING);
         messageAudio.setImageUrl("");
         messageAudio.setLocalPath(path);
@@ -654,7 +650,6 @@ public class ChatFragment extends BaseFragment {
             @Override
             public void onComplete(@NonNull Task<ChatInfo> task) {
                 final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-                Model.getInstance().uploadAudioRecordingForChat(path, source);
                 source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
@@ -672,13 +667,14 @@ public class ChatFragment extends BaseFragment {
                         }
                     }
                 });
+                Model.getInstance().uploadAudioRecordingForChat(path, source);
             }
         });
     }
 
     private void sendImageMessage(final String path){
         final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
-        preppingImsObject.setType(GSConstants.UploadType.image.name());
+        preppingImsObject.setType(GSConstants.UPLOAD_TYPE_IMAGE);
         preppingImsObject.setUploadStatus(GSConstants.UPLOADING);
         preppingImsObject.setText(null);
         preppingImsObject.setImageUrl(null);
@@ -689,7 +685,6 @@ public class ChatFragment extends BaseFragment {
             public void onComplete(@NonNull Task<ChatInfo> task) {
                 if(task.isSuccessful()){
                     final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-                    Model.getInstance().uploadImageForChatMessage(path,source);
                     source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                         @Override
                         public void onComplete(@NonNull Task<String> task) {
@@ -707,6 +702,7 @@ public class ChatFragment extends BaseFragment {
                             }
                         }
                     });
+                    Model.getInstance().uploadImageForChatMessage(path,source);
                 }
             }
         });
@@ -715,7 +711,7 @@ public class ChatFragment extends BaseFragment {
     private void sendVideoMessage(final String path){
 
         final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
-        preppingImsObject.setType(GSConstants.UploadType.video.name());
+        preppingImsObject.setType(GSConstants.UPLOAD_TYPE_VIDEO);
         preppingImsObject.setUploadStatus(GSConstants.UPLOADING);
         preppingImsObject.setText(null);
         preppingImsObject.setImageUrl(null);
@@ -727,14 +723,12 @@ public class ChatFragment extends BaseFragment {
             public void onComplete(@NonNull Task<ChatInfo> task) {
                 if(task.isSuccessful()){
                     final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-                    Model.getInstance().uploadChatVideoRecordingThumbnail(path,getActivity().getFilesDir(),source);
                     source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                         @Override
                         public void onComplete(@NonNull Task<String> task) {
                             if(task.isSuccessful()){
-                                final TaskCompletionSource<String> source = new TaskCompletionSource<>();
                                 preppingImsObject.setImageUrl(task.getResult());
-                                Model.getInstance().uploadChatVideoRecording(currentPath, source);
+                                final TaskCompletionSource<String> source = new TaskCompletionSource<>();
                                 source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                                     @Override
                                     public void onComplete(@NonNull Task<String> task) {
@@ -750,6 +744,7 @@ public class ChatFragment extends BaseFragment {
                                         }
                                     }
                                 });
+                                Model.getInstance().uploadChatVideoRecording(currentPath, source);
                             } else {
                                 preppingImsObject.setImageUrl(null);
                                 preppingImsObject.setVidUrl(null);
@@ -758,6 +753,7 @@ public class ChatFragment extends BaseFragment {
                             }
                         }
                     });
+                    Model.getInstance().uploadChatVideoRecordingThumbnail(path,getActivity().getFilesDir(),source);
                 }
             }
         });
@@ -791,6 +787,19 @@ public class ChatFragment extends BaseFragment {
                 handleUpdatedChatUsers(chatInfo);
                 break;
             case CHANGED_CHAT_MESSAGE:
+                if(currentlyActiveChat!=null){
+                   List<ImsMessage> messages = currentlyActiveChat.getMessages();
+                    ImsMessage messageToUpdate = event.getMessage();
+                    if(messages!=null && messageToUpdate!=null){
+                        if(messages.contains(messageToUpdate)){
+                            messageAdapter.notifyItemChanged(messages.indexOf(messageToUpdate));
+                        } else {
+                            Log.e(TAG,"Active chat does not contain this message!");
+                        }
+                    } else {
+                        Log.e(TAG,"Message to be updated is not in active chat!");
+                    }
+                }
                 break;
             case UPDATED_CHAT_MESSAGES:
                 String chatId = null;
@@ -914,36 +923,9 @@ public class ChatFragment extends BaseFragment {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-               // videoViewContainer.setVisibility(View.GONE);
                 videoView.seekTo(0);
                 videoView.pause();
                 mediaController.reset();
-            }
-        });
-        videoView.setVideoViewCallback(new UniversalVideoView.VideoViewCallback() {
-            @Override
-            public void onScaleChange(boolean isFullscreen) {
-
-            }
-
-            @Override
-            public void onPause(MediaPlayer mediaPlayer) {
-
-            }
-
-            @Override
-            public void onStart(MediaPlayer mediaPlayer) {
-
-            }
-
-            @Override
-            public void onBufferingStart(MediaPlayer mediaPlayer) {
-
-            }
-
-            @Override
-            public void onBufferingEnd(MediaPlayer mediaPlayer) {
-
             }
         });
     }
@@ -1093,24 +1075,38 @@ public class ChatFragment extends BaseFragment {
         ChatFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
+
+    /**
+     * Since onStart is called after onActivity result, we have to store the code and delay
+     * uploading and sending of the message in order to make sure fragment is subscribed to EvenBus
+     */
+    @Override
+    public void onStart(){
+        super.onStart();
+        switch (resultFromPicker){
+            case REQUEST_CODE_CHAT_IMAGE_PICK:
+                sendImageMessage(currentPath);
+                break;
+            case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
+                sendVideoMessage(currentPath);
+                break;
+        }
+        resultFromPicker = -1; // Reset this value to prevent resending after onStart is triggered
+    }
+
+    private int resultFromPicker;
+
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+        resultFromPicker = -1;
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
-
-                    sendImageMessage(currentPath);
-                    break;
                 case REQUEST_CODE_CHAT_IMAGE_PICK:
-                    Uri selectedImageURI = intent.getData();
-                    String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
-                    sendImageMessage(realPath);
-                    break;
                 case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
-                    Uri videoUri = intent.getData();
-                    currentPath = Model.getRealPathFromURI(getContext(), videoUri);
-                    sendVideoMessage(currentPath);
-
+                    Uri uri = intent.getData();
+                    currentPath = Model.getRealPathFromURI(getContext(), uri);
+                case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
+                    resultFromPicker = requestCode;
                     break;
             }
         }
@@ -1124,8 +1120,6 @@ public class ChatFragment extends BaseFragment {
 
     View.OnClickListener disabledClick = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
-
-        }
+        public void onClick(View view) {}
     };
 }

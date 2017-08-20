@@ -1,5 +1,7 @@
 package base.app.model.im;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -229,6 +231,7 @@ public class ImsMessage {
 
     void imsUpdateMessage(ChatInfo chatInfo, String clubId, final TaskCompletionSource<ImsMessage> source){
         Map<String, Object> map = mapper.convertValue(this, new TypeReference<Map<String, Object>>() {});
+        map.remove("_id");
         GSData data = new GSData(map);
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsMessageUpdate")
@@ -239,19 +242,29 @@ public class ImsMessage {
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                        GSData messageInfo = response.getScriptData().getObject("message");
-                        if(messageInfo!=null){
-                            ImsMessage.this.updateFrom(messageInfo.getBaseData());
+                        if(!response.hasErrors()){
+                            GSData messageInfo = response.getScriptData().getObject("message");
+                            if(messageInfo!=null){
+                                ImsMessage.this.updateFrom(messageInfo.getBaseData());
+                            }
+                            if(source!=null){
+                                source.setResult(ImsMessage.this); // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
+                            }
+                        } else {
+                            Log.e(TAG,"Failed to update message!");
+                            if(source!=null){
+                                source.setException(new Exception("Something went wrong with update of IMS message."));
+                            }
                         }
-                        if(source!=null){
-                            source.setResult(ImsMessage.this); // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
-                        }
+
                     }
                 });
     }
 
     void updateFrom(Map<String, Object> data){
-
+        if (data.containsKey("_id")) {
+            setId((String) data.get("_id"));
+        }
         if (data.containsKey("locid")) {
             setLocid((String) data.get("locid"));
         }
@@ -277,7 +290,7 @@ public class ImsMessage {
             setType((String) data.get("type"));
         }
         if (data.containsKey("wasReadBy")) {
-            ImsMessage message = setWasReadBy((List<String>) data.get("wasReadBy"));
+           setWasReadBy((List<String>) data.get("wasReadBy"));
         }
 
         if (data.containsKey("readFlag")) {

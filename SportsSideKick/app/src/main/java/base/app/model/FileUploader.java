@@ -109,7 +109,7 @@ public class FileUploader {
     }
 
     void uploadThumbnail(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
-        Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.MINI_KIND);
+        Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);  // TODO @Filip - Magic number
         try {

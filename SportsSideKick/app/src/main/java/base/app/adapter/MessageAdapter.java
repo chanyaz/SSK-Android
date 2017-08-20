@@ -21,18 +21,21 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import base.app.R;
+import base.app.events.FullScreenImageEvent;
+import base.app.events.PlayVideoEvent;
+import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.im.ChatInfo;
 import base.app.model.im.ImsMessage;
 import base.app.model.user.UserInfo;
-import base.app.events.FullScreenImageEvent;
-import base.app.events.PlayVideoEvent;
 import base.app.util.Utility;
 import base.app.util.ui.ThemeManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static base.app.model.GSConstants.UPLOADING;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -104,39 +107,26 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
         }
+        int selectedTextColor;
         if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS){
-          setupAvatarFromRemoteUser(message,holder);
-            holder.textView.setTextColor(ThemeManager.getInstance().isLightTheme() ?  lightTextColorLeft : textColor );
+            setupAvatarFromRemoteUser(message,holder);
+            selectedTextColor = lightTextColorLeft;
         }else {
-            holder.textView.setTextColor(ThemeManager.getInstance().isLightTheme() ?  lightTextColorRight : textColor );
+            selectedTextColor = lightTextColorRight;
         }
+
+        holder.textView.setTextColor(ThemeManager.getInstance().isLightTheme() ?  selectedTextColor : textColor );
         holder.timeTextView.setText(message.getTimeAgo());
 
         final String imageUrl = message.getImageUrl();
-        String videoUrl = message.getVidUrl();
-        if(imageUrl!=null){
-            holder.textView.setVisibility(View.GONE);
-            if(imageUrl.contains("jpg") || imageUrl.contains("png")){
-                holder.contentImage.setVisibility(View.VISIBLE);
-                ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.imageOptionsImageLoader());
-                if(videoUrl!=null){ // its video, show play button and prepare player
-                    holder.playButton.setVisibility(View.VISIBLE);
-                    final String fVideoUrl = videoUrl;
-                    holder.contentImage.setOnClickListener(
-                            new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    EventBus.getDefault().post(new PlayVideoEvent(fVideoUrl));
-                                }
-                            });
-                    holder.playButton.setOnClickListener(
-                            new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    EventBus.getDefault().post(new PlayVideoEvent(fVideoUrl));
-                                }
-                            });
-                } else {
+        final String videoUrl = message.getVidUrl();
+
+        if(message.getType()!=null){
+            switch (message.getType()){
+                case GSConstants.UPLOAD_TYPE_IMAGE:
+                    holder.textView.setVisibility(View.GONE);
+                    holder.contentImage.setVisibility(View.VISIBLE);
+                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.imageOptionsImageLoader());
                     holder.playButton.setVisibility(View.GONE);
                     holder.contentImage.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -144,23 +134,57 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                             EventBus.getDefault().post(new FullScreenImageEvent(imageUrl));
                         }
                     });
-                }
-            } else { // its audio file
-                holder.playButton.setVisibility(View.VISIBLE);
-                holder.contentImage.setVisibility(View.GONE);
-                final ImageView contentView = holder.playButton;
-                holder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        setupAudioPlayButton(imageUrl,contentView);
-                    }
-                });
+                    break;
+                case GSConstants.UPLOAD_TYPE_VIDEO:
+                    holder.textView.setVisibility(View.GONE);
+                    holder.contentImage.setVisibility(View.VISIBLE);
+                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.imageOptionsImageLoader());
+                    holder.playButton.setVisibility(View.VISIBLE);
+                    holder.contentImage.setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    EventBus.getDefault().post(new PlayVideoEvent(videoUrl));
+                                }
+                            });
+                    holder.playButton.setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    EventBus.getDefault().post(new PlayVideoEvent(videoUrl));
+                                }
+                            });
+                    break;
+                case GSConstants.UPLOAD_TYPE_AUDIO:
+                    holder.textView.setVisibility(View.GONE);
+                    holder.playButton.setVisibility(View.VISIBLE);
+                    holder.contentImage.setVisibility(View.GONE);
+                    final ImageView contentView = holder.playButton;
+                    holder.view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            setupAudioPlayButton(imageUrl,contentView);
+                        }
+                    });
+                    break;
+                case GSConstants.UPLOAD_TYPE_TEXT:
+                    holder.playButton.setVisibility(View.GONE);
+                    holder.contentImage.setVisibility(View.GONE);
+                    holder.textView.setVisibility(View.VISIBLE);
+                    holder.textView.setText(message.getText());
+                    break;
             }
         } else {
-            holder.playButton.setVisibility(View.GONE);
-            holder.contentImage.setVisibility(View.GONE);
-            holder.textView.setVisibility(View.VISIBLE);
-            holder.textView.setText(message.getText());
+            Log.e(TAG,"Message type is null: " + message.getId());
+        }
+
+        if (holder.progressBar != null) {
+            if(UPLOADING.equals(message.getUploadStatus())){
+                holder.progressBar.setVisibility(View.VISIBLE);
+                holder.playButton.setVisibility(View.GONE);
+            } else {
+                holder.progressBar.setVisibility(View.GONE);
+            }
         }
     }
 
