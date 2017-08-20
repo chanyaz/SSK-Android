@@ -180,8 +180,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     EditText searchText;
 
     String currentPath;
-    String videoDownloadUrl;
     String uploadedImageUrl;
+    String videoDownloadUrl;
     String videoThumbnailDownloadUrl;
 
     @BindView(R.id.camera_button)
@@ -445,39 +445,43 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     }
     private void uploadVideoPost(final String path) {
-        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+        final TaskCompletionSource<String> thumbnailUploadSource = new TaskCompletionSource<>();
+        // Firstly, upload thumbnail of the video
+        thumbnailUploadSource.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if (task.isSuccessful()) {
-                    videoDownloadUrl = task.getResult();
-                    final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-                    Model.getInstance().uploadWallPostVideoRecordingThumbnail(path, getActivity().getFilesDir(),source);
-                    source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                    // store url of it, and then display it
+                    videoThumbnailDownloadUrl = task.getResult();
+                    ImageLoader.getInstance().displayImage(
+                            videoThumbnailDownloadUrl,
+                            uploadedImage,
+                            Utility.imageOptionsImageLoader());
+                    // then, upload video itself, and hide progressbar when its done
+                    final TaskCompletionSource<String> videoUploadSource = new TaskCompletionSource<>();
+                    videoUploadSource.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                         @Override
                         public void onComplete(@NonNull Task<String> task) {
-                            videoThumbnailDownloadUrl = task.getResult();
+                            videoDownloadUrl = task.getResult();
                             if (task.isSuccessful()) {
-                                ImageLoader.getInstance().displayImage(videoThumbnailDownloadUrl,
-                                        uploadedImage,
-                                        Utility.imageOptionsImageLoader(),
-                                        new SimpleImageLoadingListener() {
-                                            @Override
-                                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                                imageUploadProgressBar.setVisibility(View.GONE);
-                                            }
-                                        });
+                                imageUploadProgressBar.setVisibility(View.GONE);
                             } else {
-                                // TODO @Filip Handle error!
+                                Log.e(TAG, "Video can't be uploaded.");
                             }
                         }
                     });
+                    Model.getInstance().uploadWallPostVideoRecording(path,videoUploadSource);
                 } else {
-                    // TODO @Filip Handle error!
+                    Log.e(TAG, "Video thumbnail can't be uploaded.");
                 }
             }
         });
-        Model.getInstance().uploadWallPostVideoRecordingThumbnail(path, getActivity().getFilesDir(),source);
+        // invoke video thumbnail uploading
+        Model.getInstance().uploadWallPostVideoRecordingThumbnail(
+                path,
+                getActivity().getFilesDir(),
+                thumbnailUploadSource
+        );
 
     }
 
