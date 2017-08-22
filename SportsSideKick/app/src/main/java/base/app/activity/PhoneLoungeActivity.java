@@ -561,7 +561,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
         newsLabel.setText(newsTickerInfo.getNews().get(0));
         captionLabel.setText(newsTickerInfo.getTitle());
-        startNewsTimer(newsTickerInfo, newsLabel);
+        startNewsTimer(newsTickerInfo, newsLabel, null);
     }
 
     private void setYourCoinsValue(String value) {

@@ -344,13 +344,10 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
         newsLabel.setText(newsTickerInfo.getNews().get(0));
 
-        long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
-        daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(this,timestamp,false));
-
         captionLabel.setText(newsTickerInfo.getTitle());
         ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
         ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
-        startNewsTimer(newsTickerInfo, newsLabel);
+        startNewsTimer(newsTickerInfo, newsLabel, daysUntilMatchLabel);
     }
 
 

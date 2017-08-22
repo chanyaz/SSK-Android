@@ -55,6 +55,7 @@ import base.app.model.ticker.NextMatchModel;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.videoChat.VideoChatEvent;
 import base.app.model.videoChat.VideoChatModel;
+import base.app.util.NextMatchCountdown;
 import base.app.util.ui.ThemeManager;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -141,7 +142,7 @@ public class BaseActivity extends AppCompatActivity  {
         }
     }
 
-    protected void startNewsTimer(final NewsTickerInfo newsTickerInfo,final TextView newsLabel) {
+    protected void startNewsTimer(final NewsTickerInfo newsTickerInfo,final TextView newsLabel, final TextView daysUntilMatchLabel ) {
         count = 0;
         if (newsTimer != null) {
             newsTimer.cancel();
@@ -153,6 +154,10 @@ public class BaseActivity extends AppCompatActivity  {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if(daysUntilMatchLabel!=null){
+                            long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
+                            daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,false));
+                        }
                         newsLabel.setText(newsTickerInfo.getNews().get(count));
                         if (++count == newsTickerInfo.getNews().size()) {
                             count = 0;
