@@ -23,8 +23,6 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -150,35 +148,7 @@ public class Utility {
         alertDialog.show();
     }
 
-    public static long getDaysUntilMatch(long timeStamp) {
-        Date netDate = (new Date(timeStamp * 1000));
-        Date date = new Date();
-        long diff = date.getTime() - netDate.getTime();
-        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-    }
 
-    public static String getDate(long timeStamp) {
-        try {
-            DateFormat sdf = new SimpleDateFormat("EEE dd MMM");
-            Date netDate = (new Date(timeStamp * 1000));
-            Date date = new Date();
-            long diff = date.getTime() - netDate.getTime();
-            long daysTo = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-            return sdf.format(diff);
-        } catch (Exception ex) {
-            return "xx";
-        }
-    }
-
-    public static String getDateForMatch(long timeStamp) {
-        try {
-            DateFormat sdf = new SimpleDateFormat("EEE dd MMM");
-            Date netDate = (new Date(timeStamp * 1000));
-            return sdf.format(netDate);
-        } catch (Exception ex) {
-            return "xx";
-        }
-    }
 
     public static String getTimeAgo(long timeStamp) {
         //milliseconds

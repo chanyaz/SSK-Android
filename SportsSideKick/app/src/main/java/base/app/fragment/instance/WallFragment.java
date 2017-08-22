@@ -87,6 +87,7 @@ import base.app.model.wall.WallPost;
 import base.app.model.wall.WallRumor;
 import base.app.model.wall.WallStats;
 import base.app.model.wall.WallStoreItem;
+import base.app.util.NextMatchCountdown;
 import base.app.util.Utility;
 import base.app.util.ui.GridItemDecoration;
 import base.app.util.ui.StaggeredLayoutManagerItemDecoration;
@@ -216,7 +217,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -289,7 +289,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                WallModel.getInstance().fetchPreviousPageOfPosts(0);
+                // TODO WallModel.getInstance().fetchPreviousPageOfPosts(0);
             }
         });
         if (wallItems.size() > 0) {
@@ -298,17 +298,20 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         return view;
     }
 
+    /**
+     *     Update Match info - this method is for Phone only
+     */
     @Subscribe
     public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
-        //Update Match info for Phone only
         if (!Utility.isTablet(getActivity())) {
             ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.imageOptionsImageLoader());
             ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.imageOptionsImageLoader());
+
             wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
             wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
 
-            String fullMatchTime = Utility.getTimeDifference(Long.parseLong(newsTickerInfo.getMatchDate())) + " " + getString(R.string.days) + " - " + Utility.getDateForMatch(Long.parseLong(newsTickerInfo.getMatchDate()));
-            wallTeamTime.setText(fullMatchTime);
+            long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
+            wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(),timestamp,false));
         }
     }
 
@@ -933,11 +936,35 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     }
 
+    int offset = 0;
+    int pageSize = 20;
+    boolean fetchingPageOfPosts = false;
+
     private void reloadWallFromModel() {
         wallItems.clear();
         filteredWallItems.clear();
         adapter.notifyDataSetChanged();
-        WallModel.getInstance().fetchPosts();
+
+        offset = 0;
+        fetchingPageOfPosts = true;
+        final TaskCompletionSource<List<WallBase>> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<List<WallBase>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<WallBase>> task) {
+                fetchingPageOfPosts = false;
+
+            }
+        });
+
+
+        loadWallItemsPage(true,source);
+
+        // TODO WallModel.getInstance().fetchPosts();
+    }
+
+    private void loadWallItemsPage(boolean withSpinner,  final TaskCompletionSource<List<WallBase>> completion){
+        // TODO Show/hide spinner
+        WallModel.getInstance().loadWallPosts(offset,pageSize,null,completion);
     }
 
     @Override

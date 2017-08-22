@@ -10,20 +10,15 @@ import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.android.gms.tasks.Tasks;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.simple.JSONArray;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import base.app.events.CommentUpdateEvent;
@@ -31,14 +26,12 @@ import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.GetPostByIdEvent;
 import base.app.events.PostCommentCompleteEvent;
 import base.app.events.PostCompleteEvent;
-import base.app.events.PostLoadCompleteEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.events.WallLikeUpdateEvent;
-import base.app.model.FileUploader;
 import base.app.model.DateUtils;
+import base.app.model.FileUploader;
 import base.app.model.GSConstants;
 import base.app.model.Model;
-import base.app.model.friendship.FriendsManager;
 import base.app.model.sharing.SharingManager;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.UserInfo;
@@ -58,17 +51,6 @@ public class WallModel extends GSMessageHandlerAbstract {
     private static final String TAG = " WallModel";
     private static WallModel instance;
 
-
-    private static final long ONE_HOUR =  60 * 60;
-    private static final long D_LIMIT = 365 * 24 * ONE_HOUR;
-    private long deltaTimeIntervalForPaging  = 24 * ONE_HOUR; // One day
-    private Date oldestFetchDate;
-    private Date oldestFetchIntervalDateBound;
-    private int postsTotalFetchCount = 0;
-    private int postsIntervalFetchCount = 0;
-    private int minNumberOfPostsForInitialLoad = 20;
-    private int minNumberOfPostsForIntervalLoad = 10;
-
     private final ObjectMapper mapper; // jackson's object mapper
 
 
@@ -82,14 +64,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
 
     private WallModel(){
-        oldestFetchDate = new Date();
         mapper  = new ObjectMapper();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
-        try {
-            oldestFetchIntervalDateBound = sdf.parse("2016-10-15 00:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         Model.getInstance().setMessageHandlerDelegate(this);
     }
 
@@ -101,159 +76,48 @@ public class WallModel extends GSMessageHandlerAbstract {
     public void clear(){
         WallBase.clear();
         clearWallListeners();
-        postsTotalFetchCount = 0;
-        postsIntervalFetchCount = 0;
-        minNumberOfPostsForInitialLoad = 20;
-        minNumberOfPostsForIntervalLoad = 10;
     }
 
-    private Task<Void> getUserPosts(final UserInfo userInfo, Date since,final Date toDate){
-        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+    /**
+     * starts getting all posts related to that user, all posts that where posted by this user
+     * and all posts posted by the people this user follows
+     * you need to listen to mbPostUpdate events which will return all old posts + new posts
+     * + updated posts
+     */
+
+    public void loadWallPosts(int offset, int entryCount, Date since, final TaskCompletionSource<List<WallBase>> completion){
+        final UserInfo userInfo = Model.getInstance().getUserInfo();
+
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                List<WallBase> wallItems = new ArrayList<>();
                 if (!response.hasErrors()) {
-                    JSONArray jsonArrayOfPosts =
-                            (JSONArray) response.getScriptData().getBaseData().get(GSConstants.POSTS);
+                    JSONArray jsonArrayOfPosts = (JSONArray) response.getScriptData().getBaseData().get(GSConstants.ITEMS);
                     if(jsonArrayOfPosts.size()>0){
-                         for(Object postAsJson : jsonArrayOfPosts){
+                        for(Object postAsJson : jsonArrayOfPosts){
                             WallBase post = WallBase.postFactory(postAsJson, mapper);
-                             if(post!=null){
-                                 post.setSubTitle(userInfo.getNicName());
-                                 postsTotalFetchCount += 1;
-                                 EventBus.getDefault().post(new PostUpdateEvent(post));
-                                 if (toDate != null){
-                                     postsIntervalFetchCount += 1;
-                                 }
-                             }
+                            if(post!=null) {
+                                post.setSubTitle(userInfo.getNicName());
+                                wallItems.add(post);
+                            }
                         }
                     }
-                    source.setResult(null);
-                    return;
                 }
-                source.setException(
-                        new Exception("There was an error while trying to get user's posts.")
-                );
+                completion.setResult(wallItems);
             }
         };
-       GSRequestBuilder.LogEventRequest request = createRequest("wallGetUserPosts")
+
+        GSRequestBuilder.LogEventRequest request = createRequest("wallGetItems")
                 .setEventAttribute(GSConstants.USER_ID,userInfo.getUserId())
-                .setEventAttribute(GSConstants.SINCE_DATE,DateUtils.dateToFirebaseDate(since));
-        if(toDate!=null){
-            request.setEventAttribute(GSConstants.TO_DATE,DateUtils.dateToFirebaseDate(toDate));
+                .setEventAttribute(GSConstants.OFFSET,offset)
+                .setEventAttribute(GSConstants.ENTRY_COUNT,entryCount);
+        if(since!=null){
+            request.setEventAttribute(GSConstants.SINCE,DateUtils.dateToFirebaseDate(since));
         }
         request.send(consumer);
-        return source.getTask();
     }
 
-
-     /** starts getting all posts related to that user, all posts that where posted by this user
-     and all posts posted by the people this user follows you need to listen to mbPostUpdate events
-     which will return all old posts + new posts + updated posts **/
-
-    public void fetchPosts() {
-        if (getCurrentUser() == null){
-            Log.e(TAG, "There is no current user info - aborting Post fetch!");
-            return;
-        }
-        clearWallListeners();
-        postsTotalFetchCount = 0;
-
-        oldestFetchDate = new Date(oldestFetchDate.getTime() - deltaTimeIntervalForPaging);
-
-        final ArrayList<Task<Void>> tasks = new ArrayList<>();
-        tasks.add(getUserPosts(getCurrentUser(), oldestFetchDate,null));
-
-        Task<List<UserInfo>> followingTask = FriendsManager.getInstance().
-                getUserFollowingList(Model.getInstance().getUserInfo().getUserId(),0);
-        followingTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
-            @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
-                if(task.isSuccessful()){
-                    List<UserInfo> following = task.getResult();
-                    if(following!=null){
-                        for(UserInfo entry : following){
-                            tasks.add(getUserPosts(entry, oldestFetchDate,null));
-                        }
-                    }
-                    Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
-                    serviceGroupTask.addOnSuccessListener(
-                            new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void o) {
-                                    if(postsTotalFetchCount < 20){
-                                        fetchPreviousPageOfPosts(0);
-                                    } else {
-                                        EventBus.getDefault().post(new PostLoadCompleteEvent());
-                                    }
-                                }
-                            }
-                    );
-                }
-            }
-        });
-    }
-
-
-    /**
-     * this func fetches the previous posts of the last X days previous to the posts presented.
-     * the retrieved posts will be returned to the caller using the "PostUpdateEvent" event
-     * the posts are not ordered and may contain duplicated posts.
-     *
-     */
-    public void fetchPreviousPageOfPosts(int initialFetchCount) {
-        postsIntervalFetchCount = initialFetchCount;
-        UserInfo uInfo = getCurrentUser();
-        if (uInfo == null) {
-            EventBus.getDefault().post(new PostLoadCompleteEvent());
-            return;
-        }
-        final ArrayList<Task<Void>> tasks = new ArrayList<>();
-        // Add one second to exclude oldest post from last page
-        final Date newDate = new Date(oldestFetchDate.getTime() + 1000);
-        oldestFetchDate = new Date(oldestFetchDate.getTime() - (deltaTimeIntervalForPaging*1000));
-
-        tasks.add(getUserPosts(uInfo, oldestFetchDate, newDate));
-
-        Task<List<UserInfo>> followingTask = FriendsManager.getInstance().getUserFollowingList(uInfo.getUserId(), 0);
-        followingTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
-            @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
-                if (task.isSuccessful()) {
-                    List<UserInfo> following = task.getResult();
-                    if (following != null) {
-                        for (UserInfo entry : following) {
-                            tasks.add(getUserPosts(entry, oldestFetchDate, newDate));
-                        }
-                    }
-                    Task<Void> serviceGroupTask = Tasks.whenAll(tasks);
-                    serviceGroupTask.addOnSuccessListener(
-                            new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void o) {
-                                    boolean stillToLoad = postsTotalFetchCount < minNumberOfPostsForInitialLoad ||
-                                            postsIntervalFetchCount < minNumberOfPostsForIntervalLoad;
-                                    if (!stillToLoad) {
-                                        EventBus.getDefault().post(new PostLoadCompleteEvent());
-                                        return;
-                                    }
-                                    if (deltaTimeIntervalForPaging < D_LIMIT) {
-                                        deltaTimeIntervalForPaging *= 2;
-                                    }
-                                    boolean fetchNext = oldestFetchDate.compareTo(oldestFetchIntervalDateBound) > 0;
-
-                                    if (fetchNext) {
-                                        fetchPreviousPageOfPosts(postsIntervalFetchCount);
-                                        return;
-                                    }
-                                    EventBus.getDefault().post(new PostLoadCompleteEvent());
-                                }
-                            }
-                    );
-                }
-            }
-        });
-    }
 
     /**
      * posting a new blog on this user wall

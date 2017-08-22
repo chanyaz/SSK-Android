@@ -1,7 +1,6 @@
 package base.app.activity;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -74,6 +73,7 @@ import base.app.model.tutorial.TutorialModel;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
+import base.app.util.NextMatchCountdown;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import base.app.util.ui.BlurBuilder;
@@ -343,12 +343,10 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     @Subscribe
     public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
         newsLabel.setText(newsTickerInfo.getNews().get(0));
+
         long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
-        timeOfMatch.setText(Utility.getDate(timestamp));
-        long getDaysUntilMatch = Utility.getDaysUntilMatch(timestamp);
-        Resources res = getResources();
-        String daysValue = res.getQuantityString(R.plurals.days_until_match, (int) getDaysUntilMatch, (int) getDaysUntilMatch);
-        daysUntilMatchLabel.setText(daysValue);
+        daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(this,timestamp,false));
+
         captionLabel.setText(newsTickerInfo.getTitle());
         ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
         ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
