@@ -36,6 +36,8 @@ import java.util.Map;
 import base.app.model.wall.WallNews;
 import base.app.util.Utility;
 
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.Model.createRequest;
 
 /**
@@ -198,6 +200,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
         createRequest("sharingGetUrl")
                 .setEventAttribute("itemType", type.name())
                 .setEventAttribute("item", data)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }

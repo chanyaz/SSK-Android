@@ -51,8 +51,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -64,7 +62,6 @@ import base.app.R;
 import base.app.adapter.WallAdapter;
 import base.app.events.CommentUpdateEvent;
 import base.app.events.PostCompleteEvent;
-import base.app.events.PostLoadCompleteEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.events.WallLikeUpdateEvent;
 import base.app.fragment.BaseFragment;
@@ -289,7 +286,18 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                // TODO WallModel.getInstance().fetchPreviousPageOfPosts(0);
+                if(!fetchingPageOfPosts) {
+                    fetchingPageOfPosts = true;
+                    TaskCompletionSource<List<WallBase>> competition = new TaskCompletionSource<>();
+                    competition.getTask().addOnCompleteListener(new OnCompleteListener<List<WallBase>>() {
+                        @Override
+                        public void onComplete(@NonNull Task<List<WallBase>> task) {
+                            fetchingPageOfPosts = false;
+                        }
+                    });
+                    loadWallItemsPage(false,competition);
+
+                }
             }
         });
         if (wallItems.size() > 0) {
@@ -616,26 +624,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }));
         }
-        //sortByTimestamp();
         adapter.replaceAll(filteredWallItems);
         adapter.notifyDataSetChanged();
     }
-
-    private void sortByTimestamp() {
-        Collections.sort(wallItems, new Comparator<WallBase>() {
-            @Override
-            public int compare(WallBase o1, WallBase o2) {
-                return (int) (o2.getTimestamp() - o1.getTimestamp());
-            }
-        });
-        Collections.sort(Lists.newArrayList(filteredWallItems), new Comparator<WallBase>() {
-            @Override
-            public int compare(WallBase o1, WallBase o2) {
-                return (int) (o2.getTimestamp() - o1.getTimestamp());
-            }
-        });
-    }
-
 
     private boolean searchWallItem(String searchTerm, WallBase item) {
         UserInfo poster = item.getPoster();
@@ -739,14 +730,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }
         });
-    }
-
-    @Subscribe
-    public void onPostsLoaded(PostLoadCompleteEvent event) {
-        Log.d(TAG, "ALL POSTS LOADED!");
-        progressBar.setVisibility(View.GONE);
-        swipeRefreshLayout.setRefreshing(false);
-        getNextTip();
     }
 
     @Subscribe
@@ -884,57 +867,45 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     private void getNextTip() {
+        WallTip tipToBeDisplayed = null;
+        String currentUserId = Model.getInstance().getUserInfo().getUserId();
 
-        WallTip tip = null;
-        if (Model.getInstance().isRealUser()) {
-            if (!Model.getInstance().getUserInfo().getUserId().equals(TutorialModel.getInstance().getUserId())) {
-                //Different user so we need to load new tutorials
+        // in case a user is not logged in yet, show special tip
+        if (!Model.getInstance().isRealUser()) {
+            tipToBeDisplayed = TutorialModel.getInstance().getNotLoggedTip();
+        } else {
+            //Tips are displayed only to fans - not to admins and players
+            if (UserInfo.UserType.fan != Model.getInstance().getUserInfo().getUserType()) {
+                return;
+            }
+            // check if its a different, new user logged in - in that case reset tips progress
+            if (!currentUserId.equals(TutorialModel.getInstance().getUserId())) {
                 TutorialModel.getInstance().resetSeenInfo();
             }
-            if (TutorialModel.getInstance().getTutorialItems() != null) {
-                for (int i = 0; i < TutorialModel.getInstance().getTutorialItems().size(); i++) {
-
-                    if (!TutorialModel.getInstance().getTutorialItems().get(i).hasBeenSeen()) {
-                        tip = TutorialModel.getInstance().getTutorialItems().get(i);
+            // Find first tip that has not been seen already
+            List<WallTip> tips = TutorialModel.getInstance().getTutorialItems();
+            if (tips != null) {
+                for (WallTip tip : tips) {
+                        if (!tip.hasBeenSeen()) {
+                        tipToBeDisplayed = tip;
                         break;
                     }
                 }
             }
-
-            if (Model.getInstance().getUserInfo() != null && Model.getInstance().getUserInfo().getUserType() == UserInfo.UserType.fan) {
-                if (tip != null) {
-                    if (wallItems.size() > 0) {
-                        for (WallBase wallBase : wallItems) {
-                            if (wallBase.getType() == WallBase.PostType.tip) {
-                                WallTip wallTip = (WallTip) wallBase;
-                                if (tip.getTipNumber() != (wallTip.getTipNumber())) {
-                                    tip.setType(WallBase.PostType.tip);
-                                    tip.setTimestamp(0.0);
-                                    tip.setPostId(Model.getInstance().getUserInfo().getUserId());
-                                    WallBase.getCache().put(tip.getPostId(), tip);
-                                    wallItems.add(tip);
-                                    EventBus.getDefault().post(new PostUpdateEvent(tip));
-                                }
-                            }
-                        }
-                    } else {
-                        tip.setType(WallBase.PostType.tip);
-                        tip.setTimestamp(0.0);
-                        tip.setPostId(Model.getInstance().getUserInfo().getUserId());
-                        WallBase.getCache().put(tip.getPostId(), tip);
-                        wallItems.add(tip);
-                        EventBus.getDefault().post(new PostUpdateEvent(tip));
-                    }
-                }
-            }
-        } else {
-            WallTip wall = TutorialModel.getInstance().getNotLoggedTip();
-            wall.setType(WallBase.PostType.tip);
-            wallItems.add(wall);
-            EventBus.getDefault().post(new PostUpdateEvent(wall));
         }
 
+        if (tipToBeDisplayed != null) {
+            // Set this tip timestamp to distant future to make sure it appears at the top of the list
+            double distantFutureTimestamp = Utility.getCurrentNTPTime()+100000;
+            tipToBeDisplayed.setTimestamp(distantFutureTimestamp);
+            tipToBeDisplayed.setType(WallBase.PostType.tip);
+            tipToBeDisplayed.setPostId(currentUserId);
+            WallBase.getCache().put(currentUserId, tipToBeDisplayed);
+            wallItems.add(tipToBeDisplayed);
+            EventBus.getDefault().post(new PostUpdateEvent(tipToBeDisplayed));
+        }
     }
+
 
     int offset = 0;
     int pageSize = 20;
@@ -952,19 +923,33 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             @Override
             public void onComplete(@NonNull Task<List<WallBase>> task) {
                 fetchingPageOfPosts = false;
-
             }
         });
-
-
         loadWallItemsPage(true,source);
-
-        // TODO WallModel.getInstance().fetchPosts();
     }
 
     private void loadWallItemsPage(boolean withSpinner,  final TaskCompletionSource<List<WallBase>> completion){
-        // TODO Show/hide spinner
-        WallModel.getInstance().loadWallPosts(offset,pageSize,null,completion);
+        if(withSpinner){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        TaskCompletionSource<List<WallBase>> getWallPostCompletion = new TaskCompletionSource<>();
+        getWallPostCompletion.getTask().addOnCompleteListener(new OnCompleteListener<List<WallBase>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<WallBase>> task) {
+                if(task.isSuccessful()){
+                    List<WallBase> items = task.getResult();
+                    wallItems.addAll(items);
+                    completion.setResult(items);
+                    filterPosts();
+                    swipeRefreshLayout.setRefreshing(false);
+                    progressBar.setVisibility(View.GONE);
+                    offset +=pageSize;
+                } else {
+                    Log.d(TAG,"Failed to get posts!");
+                }
+            }
+        });
+        WallModel.getInstance().loadWallPosts(offset,pageSize,null,getWallPostCompletion);
     }
 
     @Override
@@ -976,9 +961,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public void onResume() {
         super.onResume();
-//        getNextTip();
         updateBottomBar();
-        // reloadWallFromModel();
     }
 
     private void reset() {

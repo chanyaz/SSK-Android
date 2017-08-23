@@ -431,8 +431,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     private static final Comparator<WallBase> WALL_BASE_TIMESTAMP_COMPARATOR = new Comparator<WallBase>() {
         @Override
         public int compare(WallBase a, WallBase b) {
-            Double timestampA = a.getTimestamp();
-            Double timestampB = b.getTimestamp();
+            Double timestampB = a.getTimestamp();
+            Double timestampA = b.getTimestamp();
             if(timestampA!=null & timestampB!=null){
                 return timestampA.compareTo(timestampB);
             } else {

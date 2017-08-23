@@ -6,7 +6,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.List;
 
-import base.app.model.Model;
 import base.app.model.sharing.SharingManager;
 import base.app.model.wall.WallBase;
 
@@ -118,5 +117,18 @@ public class WallTip extends WallBase {
     @Override
     public SharingManager.ItemType getItemType() {
         return null;
+    }
+
+    @Override
+    public void setEqualTo(WallBase item) {
+        super.setEqualTo(item);
+        setTipNumber(((WallTip)item).tipNumber);
+        setTipText(((WallTip)item).tipText);
+        setTipRead(((WallTip)item).tipRead);
+        setTitle(((WallTip)item).tipTittle);
+        setTipSteps(((WallTip)item).tipSteps);
+        setTipDescription(((WallTip)item).tipDescription);
+        setTipEnding(((WallTip)item).tipEnding);
+        setTipEarnings(((WallTip)item).tipEarnings);
     }
 }
