@@ -72,11 +72,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         @BindView(R.id.profile_name)
         TextView name;
         @Nullable
-        @BindView(R.id.number_mutual_friends)
-        TextView numberMutualFriends;
+        @BindView(R.id.friend_request_pending)
+        TextView pendingRequestLabel;
         @Nullable
         @BindView(R.id.button_add_friend)
         ImageButton buttonAddFriend;
+
+
 
         ViewHolder(View v) {
             super(v);
@@ -105,7 +107,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final ViewHolder viewHolder;
         View view;
-        if (layout == -1)
+        if (layout == -1) // Set default layout
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, parent, false);
         else {
             view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
@@ -115,9 +117,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             view.getLayoutParams().height = RelativeLayout.LayoutParams.MATCH_PARENT;
             view.getLayoutParams().width = screenWidth;
         }
-        if (layout == -1) {
-            clickForTablet(viewHolder);
-        } else {
+        clickForTablet(viewHolder);
+        if (layout != -1) {
             clickForRowFriendItem(viewHolder);
         }
         return viewHolder;
@@ -144,12 +145,22 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         if (holder.name != null) {
             holder.name.setText(info.getLastName() + " " + info.getFirstName());
         }
-        if (holder.buttonAddFriend != null)
-            if (info.isaFriend())
-                holder.buttonAddFriend.setSelected(true);
-            else
-                holder.buttonAddFriend.setSelected(false);
 
+        if(holder.pendingRequestLabel!=null){
+            if(info.isFriendPendingRequest()){
+                holder.pendingRequestLabel.setVisibility(View.VISIBLE);
+            } else {
+                holder.pendingRequestLabel.setVisibility(View.GONE);
+            }
+        }
+
+        if (holder.buttonAddFriend != null) {
+            if (info.isaFriend() || info.isFriendPendingRequest()) {
+                holder.buttonAddFriend.setSelected(true);
+            } else {
+                holder.buttonAddFriend.setSelected(false);
+            }
+        }
     }
 
     @Override
@@ -194,10 +205,17 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
                         public void onComplete(@NonNull Task<UserInfo> task) {
                             if (task.isSuccessful()) {
                                 user.setaFriend(!user.isaFriend());
-                                if (user.isaFriend()) {
+                                if (user.isaFriend() || user.isFriendPendingRequest()) {
                                     viewHolder.buttonAddFriend.setSelected(true);
                                 } else {
                                     viewHolder.buttonAddFriend.setSelected(false);
+                                }
+                                if(viewHolder.pendingRequestLabel!=null){
+                                    if(user.isFriendPendingRequest()){
+                                        viewHolder.pendingRequestLabel.setVisibility(View.VISIBLE);
+                                    } else {
+                                        viewHolder.pendingRequestLabel.setVisibility(View.GONE);
+                                    }
                                 }
                             }
                         }

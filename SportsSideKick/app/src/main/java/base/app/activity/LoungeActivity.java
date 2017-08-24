@@ -103,9 +103,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     @BindView(R.id.days_until_match_label)
     TextView daysUntilMatchLabel;
 
-    @BindView(R.id.time_of_match_label)
-    TextView timeOfMatch;
-
     @BindView(R.id.logo_first_team)
     ImageView logoOfFirstTeam;
     @BindView(R.id.logo_second_team)
@@ -343,7 +340,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         }
 
         long timestamp = Long.parseLong(info.getMatchDate());
-        timeOfMatch.setText(NextMatchCountdown.getDateForMatch(timestamp));
         daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,true));
 
     }

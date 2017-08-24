@@ -49,42 +49,19 @@
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_11"
             android:textStyle="bold" />
-
         <TextView
-            android:id="@+id/mutual_friends"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_name"
-            android:layout_toEndOf="@+id/number_mutual_friends"
-            android:ellipsize="end"
-            android:lines="1"
-            android:maxLines="1"
-            android:paddingStart="@dimen/padding_4"
-            android:text="@string/mutual_friends"
-            android:textColor="?light_green_1"
-            android:textSize="@dimen/font_size_11" />
-        <TextView
-            android:layout_toEndOf="@+id/friend_icon"
-            android:id="@+id/number_mutual_friends"
+            android:id="@+id/friend_request_pending"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
+            android:text="@string/request_pending"
             android:lines="1"
-            android:text="4"
-            android:paddingStart="@dimen/padding_4"
+            android:visibility="gone"
+            android:layout_alignParentEnd="true"
             android:maxLines="1"
-            android:layout_below="@+id/profile_name"
-            android:textColor="?light_green_1"
+            android:textColor="@color/white"
             android:textSize="@dimen/font_size_11"
-            />
+             />
 
-        <ImageView
-            android:id="@+id/friend_icon"
-            android:layout_width="@dimen/height_15"
-            android:layout_height="@dimen/height_15"
-            android:layout_below="@+id/profile_name"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/icon_green_group_friends" />
     </RelativeLayout>
 
     <ImageButton

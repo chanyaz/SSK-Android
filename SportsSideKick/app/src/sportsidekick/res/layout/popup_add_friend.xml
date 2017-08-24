@@ -182,7 +182,6 @@
         android:id="@+id/special_list_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_buttons_container"
         android:layout_below="@+id/search_container">
 
         <android.support.v7.widget.RecyclerView
@@ -198,44 +197,6 @@
             android:text="@string/no_result"
             android:textColor="?white_semitransparent"
             android:visibility="gone" />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/bottom_buttons_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edit_profile_label_text_size"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="@dimen/margin_negative_10"
-        android:background="?green_dark_2"
-        android:clickable="true">
-
-        <TextView
-            android:id="@+id/official_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/margin_4"
-            android:layout_marginTop="@dimen/margin_4"
-            android:gravity="center"
-            android:text="@string/friends_you_have_in_common"
-            android:textColor="?white"
-            android:textSize="@dimen/font_size_12" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/official_account">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/common_friend_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </android.support.v7.widget.RecyclerView>
-        </RelativeLayout>
 
     </RelativeLayout>
 

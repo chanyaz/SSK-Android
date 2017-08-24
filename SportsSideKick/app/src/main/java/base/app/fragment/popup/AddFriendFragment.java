@@ -25,20 +25,20 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.app.adapter.FindOfficialAdapter;
-import base.app.model.Model;
-import base.app.model.friendship.FriendsManager;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
+import base.app.adapter.FindOfficialAdapter;
 import base.app.adapter.FriendsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.model.Model;
 import base.app.model.friendship.PeopleSearchManager;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Optional;
+
 import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 /**
  * Created by Djordje Krutil on 29.3.2017..
@@ -49,7 +49,6 @@ public class AddFriendFragment extends BaseFragment {
 
     @BindView(R.id.people_recycler_view)
     RecyclerView people;
-    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.2;
     @BindView(R.id.add_friend_name)
     EditText friendName;
     @Nullable
@@ -66,15 +65,14 @@ public class AddFriendFragment extends BaseFragment {
     @BindView(R.id.no_result)
     TextView noResultCaption;
     @Nullable
-    @BindView(R.id.common_friend_list)
-    RecyclerView commonFriend;
+    FriendsAdapter adapter;
+
     @BindView(R.id.friends_list)
     RelativeLayout listContainer;
     FindOfficialAdapter officialAdapter;
     boolean isTablet;
     List<UserInfo> specialUserInfoList;
-    FriendsAdapter adapter;
-    FriendsAdapter commonFriendAdapter;
+
 
     @Nullable
     @Override
@@ -92,7 +90,6 @@ public class AddFriendFragment extends BaseFragment {
             adapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
             people.setAdapter(adapter);
         } else {
-            setCommonFriendAdapter();
             adapter.setLayout(R.layout.row_add_friend_item);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             people.setLayoutManager(layoutManager);
@@ -142,8 +139,6 @@ public class AddFriendFragment extends BaseFragment {
                 specialRecyclerView.setVisibility(View.INVISIBLE);
                 noResultSpecialText.setVisibility(View.VISIBLE);
             }
-
-
     }
 
 
@@ -186,9 +181,7 @@ public class AddFriendFragment extends BaseFragment {
     private void setTextWatcher() {
         friendName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -207,8 +200,6 @@ public class AddFriendFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
-
                 String text = s.toString();
                 Task<List<UserInfo>> peopleTask = PeopleSearchManager.getInstance().searchPeople(text, 0);
                 peopleTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
@@ -219,8 +210,6 @@ public class AddFriendFragment extends BaseFragment {
                                 onDataSetChange(true);
                                 adapter.setValues(task.getResult());
                                 adapter.notifyDataSetChanged();
-                                if (!isTablet)
-                                    commonFriendAddItems(task.getResult());
                             } else {
                                 onDataSetChange(false);
                             }
@@ -228,31 +217,11 @@ public class AddFriendFragment extends BaseFragment {
                             onDataSetChange(false);
                         }
                         progressBar.setVisibility(View.GONE);
-//
                     }
                 });
 
             }
         });
-    }
-
-    private void commonFriendAddItems(final List<UserInfo> result) {
-
-        commonFriendAdapter.setValues(new ArrayList<UserInfo>());
-        for (final UserInfo userInfo : result) {
-            Task<List<UserInfo>> peopleTask = FriendsManager.getInstance().getMutualFriendsListWithUser(userInfo.getUserId(), 0);
-            peopleTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
-                @Override
-                public void onComplete(@NonNull Task<List<UserInfo>> task) {
-                    if (task.isSuccessful()) {
-                        if (task.getResult().size() > 0) {
-                            commonFriendAdapter.getValues().addAll(task.getResult());
-                            commonFriendAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }
-            });
-        }
     }
 
     @Optional
@@ -268,15 +237,6 @@ public class AddFriendFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
     }
 
-    public void setCommonFriendAdapter() {
-        if (commonFriend != null) {
-            int screenWidth = Utility.getDisplayWidth(getActivity());
-            commonFriendAdapter = new FriendsAdapter(this.getClass());
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-            commonFriend.setLayoutManager(layoutManager);
-            commonFriendAdapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
-            commonFriend.setAdapter(commonFriendAdapter);
-        }
-    }
+
 
 }
