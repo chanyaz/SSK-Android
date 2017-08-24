@@ -596,13 +596,13 @@ public class Model {
         }
     }
 
-    public void uploadChatVideoRecording(String filepath, final TaskCompletionSource<String> completion) {
+    public void uploadChatVideoRecording(String filepath,File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "video_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".mov";
-        FileUploader.getInstance().upload(filename, filepath, completion);
+        FileUploader.getInstance().upladCompressedImage(filename, filepath, filesDir, completion);
     }
 
     public void uploadChatVideoRecordingThumbnail(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
@@ -619,31 +619,31 @@ public class Model {
         FileUploader.getInstance().uploadCircularProfileImage(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForWallPost(String filepath, final TaskCompletionSource<String> completion) {
+    public void uploadImageForWallPost(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "post_photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        FileUploader.getInstance().upload(filename, filepath, completion);
+        FileUploader.getInstance().upladCompressedImage(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForStats(String filepath, final TaskCompletionSource<String> completion) {
+    public void uploadImageForStats(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "post_photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        FileUploader.getInstance().upload(filename, filepath, completion);
+        FileUploader.getInstance().upladCompressedImage(filename, filepath, filesDir, completion);
     }
 
-    public void uploadWallPostVideoRecording(String filepath, final TaskCompletionSource<String> completion) {
+    public void uploadWallPostVideoRecording(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "post_video_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".mov";
-        FileUploader.getInstance().upload(filename, filepath, completion);
+        FileUploader.getInstance().upladCompressedImage(filename, filepath, filesDir, completion);
     }
 
     public void uploadWallPostVideoRecordingThumbnail(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
@@ -651,40 +651,40 @@ public class Model {
         FileUploader.getInstance().uploadThumbnail(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForChatMessage(String filepath, final TaskCompletionSource<String> completion) {
+    public void uploadImageForChatMessage(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        FileUploader.getInstance().upload(filename, filepath, completion);
+        FileUploader.getInstance().upladCompressedImage(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForCreateChat(String filepath, final TaskCompletionSource<String> completion) {
+    public void uploadImageForCreateChat(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        FileUploader.getInstance().upload(filename, filepath, completion);
+        FileUploader.getInstance().upladCompressedImage(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForEditChat(String filepath, final TaskCompletionSource<String> completion) {
+    public void uploadImageForEditChat(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "photo_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".jpg";
-        FileUploader.getInstance().upload(filename, filepath, completion);
+        FileUploader.getInstance().upladCompressedImage(filename, filepath, filesDir, completion);
     }
 
-    public void uploadAudioRecordingForChat(String filepath, final TaskCompletionSource<String> completion) {
+    public void uploadAudioRecordingForChat(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "voiceRecording_" +
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".caf";
-        FileUploader.getInstance().upload(filename, filepath, completion);
+        FileUploader.getInstance().upladCompressedImage(filename, filepath, filesDir, completion);
     }
 
     public static String getAudioFileName() {

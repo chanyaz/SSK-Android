@@ -457,7 +457,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }
         });
-        Model.getInstance().uploadImageForWallPost(path,source);
+        Model.getInstance().uploadImageForWallPost(path,getActivity().getFilesDir(),source);
 
     }
     private void uploadVideoPost(final String path) {
@@ -486,7 +486,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                             }
                         }
                     });
-                    Model.getInstance().uploadWallPostVideoRecording(path,videoUploadSource);
+                    Model.getInstance().uploadWallPostVideoRecording(path,getActivity().getFilesDir(),videoUploadSource);
                 } else {
                     Log.e(TAG, "Video thumbnail can't be uploaded.");
                 }

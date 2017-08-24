@@ -101,7 +101,7 @@ public class StatisticsFragment extends BaseFragment {
             webView.setDrawingCacheEnabled(true);
             bitmap = webView.getDrawingCache();
             final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-            Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap),source);
+            Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap),getActivity().getFilesDir(),source);
             source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                 @Override
                 public void onComplete(@NonNull Task<String> task) {

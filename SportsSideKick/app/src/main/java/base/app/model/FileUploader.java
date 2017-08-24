@@ -76,7 +76,7 @@ public class FileUploader {
         bucket = FileUploader.EUWest_Bucket;
     }
 
-    void upload(final String filename, String filepath, final TaskCompletionSource<String> completion) {
+    private void upload(final String filename, String filepath, final TaskCompletionSource<String> completion) {
         try {
             File file = new File(filepath);
             TransferObserver observer = transferUtility.upload(
@@ -114,6 +114,36 @@ public class FileUploader {
         bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);  // TODO @Filip - Magic number
         try {
             File file = new File(filesDir, "temp_thumbnail_video.jpg");
+            bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
+            upload(filename, file.getPath(), completion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void upladCompressedImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion){
+        File image = new File(filepath);
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
+        bitmap = ExifUtil.rotateBitmap(filepath, bitmap);
+        final int maxSize = 640;
+        int outWidth;
+        int outHeight;
+        int inWidth = bitmap.getWidth();
+        int inHeight = bitmap.getHeight();
+        if(inWidth > inHeight){
+            outWidth = maxSize;
+            outHeight = (inHeight * maxSize) / inWidth;
+        } else {
+            outHeight = maxSize;
+            outWidth = (inWidth * maxSize) / inHeight;
+        }
+
+        Bitmap resizedBitmap  = Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, true);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 70, bos);  // TODO @Filip - Magic number
+        try {
+            File file = new File(filesDir, filename);
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
             upload(filename, file.getPath(), completion);
         } catch (IOException e) {

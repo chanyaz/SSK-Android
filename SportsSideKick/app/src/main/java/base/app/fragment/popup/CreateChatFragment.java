@@ -401,7 +401,7 @@ public class CreateChatFragment extends BaseFragment {
 
     private void uploadImage(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        Model.getInstance().uploadImageForCreateChat(path,source);
+        Model.getInstance().uploadImageForCreateChat(path,getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(final @NonNull Task<String> task) {

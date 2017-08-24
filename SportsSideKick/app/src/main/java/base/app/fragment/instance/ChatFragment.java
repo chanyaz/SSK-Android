@@ -667,7 +667,7 @@ public class ChatFragment extends BaseFragment {
                         }
                     }
                 });
-                Model.getInstance().uploadAudioRecordingForChat(path, source);
+                Model.getInstance().uploadAudioRecordingForChat(path, getActivity().getFilesDir(), source);
             }
         });
     }
@@ -702,7 +702,7 @@ public class ChatFragment extends BaseFragment {
                             }
                         }
                     });
-                    Model.getInstance().uploadImageForChatMessage(path,source);
+                    Model.getInstance().uploadImageForChatMessage(path, getActivity().getFilesDir(),source);
                 }
             }
         });
@@ -744,7 +744,7 @@ public class ChatFragment extends BaseFragment {
                                         }
                                     }
                                 });
-                                Model.getInstance().uploadChatVideoRecording(currentPath, source);
+                                Model.getInstance().uploadChatVideoRecording(currentPath,getActivity().getFilesDir(), source);
                             } else {
                                 preppingImsObject.setImageUrl(null);
                                 preppingImsObject.setVidUrl(null);
