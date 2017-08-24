@@ -189,15 +189,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
 
 
-    private void displayDescription( String value, ViewHolder holder){
+    private void displayDescription(String value, ViewHolder holder){
         if (holder.descriptionTextView != null) {
             holder.descriptionTextView.setText(value);
         }
     }
 
-    private void displayCaption(WallBase post,ViewHolder holder){
+    private void displayCaption(String value,ViewHolder holder){
         if (holder.captionTextView != null) {
-            holder.captionTextView.setText(post.getTitle());
+            holder.captionTextView.setText(value);
         }
     }
 
@@ -279,7 +279,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case post:
                     WallPost post = (WallPost) values.get(index);
                     displayUserInfo(post,holder);
-                    displayCaption(post,holder);
+                    displayCaption(post.getBodyText(),holder);
                     displayDescription(post.getSubTitle(),holder);
                     displayPostImage(post,holder, Utility.getRoundedImageOptions());
                     displayLikes(post,holder);
@@ -291,7 +291,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case newsShare:
                     WallNewsShare news = (WallNewsShare) values.get(index);
                     displayUserInfo(news,holder);
-                    displayCaption(news,holder);
+                    displayCaption(news.getTitle(),holder);
                     displayDescription(news.getSubTitle(),holder);
                     displayPostImage(news,holder, Utility.getImageOptionsForWallItem());
                     displayLikes(news,holder);
@@ -300,7 +300,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     }
                     break;
                 case rumor:
-                    displayCaption(values.get(index),holder);
+                    displayCaption(values.get(index).getTitle(),holder);
                     break;
                 case tip:
                     WallTip tip = (WallTip) values.get(index);
@@ -316,7 +316,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case wallStoreItem:
                     WallStoreItem storeItem = (WallStoreItem) values.get(index);
                     displayUserInfo(storeItem,holder);
-                    displayCaption(storeItem,holder);
+                    displayCaption(storeItem.getTitle(),holder);
                     displayDescription(storeItem.getSubTitle(),holder);
                     displayPostImage(storeItem,holder, Utility.getImageOptionsForWallItem());
                     break;

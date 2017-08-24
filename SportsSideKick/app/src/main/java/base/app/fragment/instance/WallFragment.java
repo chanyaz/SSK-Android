@@ -577,48 +577,33 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
     }
 
+    private List<WallBase> filterList(final Class<?> cls){
+         return Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
+            @Override
+            public boolean apply(@Nullable WallBase input) {
+                return !(cls.isInstance(input));
+            }
+        }));
+    }
+
     @OnClick({R.id.news_filter_toggle, R.id.user_filter_toggle, R.id.stats_filter_toggle, R.id.rumours_filter_toggle, R.id.store_filter_toggle})
     public void filterPosts() {
         filteredWallItems = wallItems;
         if (newsToggleButton.isChecked()) {
-            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
-                @Override
-                public boolean apply(@Nullable WallBase input) {
-                    return !(input instanceof WallNewsShare);
-                }
-            }));
+            filteredWallItems = filterList(WallNewsShare.class);
         }
         if (userToggleButton.isChecked()) {
-            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
-                @Override
-                public boolean apply(@Nullable WallBase input) {
-                    return !(input instanceof WallPost);
-                }
-            }));
+            filteredWallItems = filterList(WallPost.class);
         }
         if (statsToggleButton.isChecked()) {
-            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
-                @Override
-                public boolean apply(@Nullable WallBase input) {
-                    return !(input instanceof WallStats);
-                }
-            }));
+            filteredWallItems = filterList(WallStats.class);
         }
         if (rumoursToggleButton.isChecked()) {
-            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
-                @Override
-                public boolean apply(@Nullable WallBase input) {
-                    return !(input instanceof WallRumor);
-                }
-            }));
+            filteredWallItems = filterList(WallRumor.class);
         }
         if (storeToggleButton.isChecked()) {
-            filteredWallItems = Lists.newArrayList(Iterables.filter(filteredWallItems, new Predicate<WallBase>() {
-                @Override
-                public boolean apply(@Nullable WallBase input) {
-                    return !(input instanceof WallStoreItem);
-                }
-            }));
+            filteredWallItems = filterList(WallStoreItem.class);
+
         }
         if (!TextUtils.isEmpty(searchText.getText())) {
             final String searchTerm = searchText.getText().toString();
@@ -634,13 +619,14 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     private boolean searchWallItem(String searchTerm, WallBase item) {
+        searchTerm = searchTerm.toLowerCase();
         UserInfo poster = item.getPoster();
         if (poster == null) {
             poster = Model.getInstance().getCachedUserInfoById(item.getWallId());
             if (poster != null) {
                 if (poster.getNicName() != null && poster.getFirstName() != null && poster.getLastName() != null) {
                     String allNames = poster.getNicName() + poster.getFirstName() + poster.getLastName();
-                    if (allNames.toLowerCase().contains(searchTerm.toLowerCase())) {
+                    if (allNames.toLowerCase().contains(searchTerm)) {
                         return true;
                     }
                 }
@@ -649,39 +635,39 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }
         }
         if (item instanceof WallNewsShare || item instanceof WallPost) {
-            if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (item.getTitle().toLowerCase().contains(searchTerm)) {
                 return true;
             }
-            if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (item.getSubTitle().toLowerCase().contains(searchTerm)) {
                 return true;
             }
-            if (item.getBodyText().toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (item.getBodyText().toLowerCase().contains(searchTerm)) {
                 return true;
             }
         }
         if (item instanceof WallRumor || item instanceof WallStoreItem) {
-            if (item.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (item.getTitle().toLowerCase().contains(searchTerm)) {
                 return true;
             }
-            if (item.getSubTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (item.getSubTitle().toLowerCase().contains(searchTerm)) {
                 return true;
             }
         }
         if (item instanceof WallStats) {
             WallStats statsItem = (WallStats) item;
-            if (statsItem.getStatName().toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (statsItem.getStatName().toLowerCase().contains(searchTerm)) {
                 return true;
             }
-            if (statsItem.getSubText().toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (statsItem.getSubText().toLowerCase().contains(searchTerm)) {
                 return true;
             }
         }
         if (item instanceof WallBetting) {
             WallBetting betItem = (WallBetting) item;
-            if (betItem.getBetName().toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (betItem.getBetName().toLowerCase().contains(searchTerm)) {
                 return true;
             }
-            if (betItem.getOutcome().toLowerCase().contains(searchTerm.toLowerCase())) {
+            if (betItem.getOutcome().toLowerCase().contains(searchTerm)) {
                 return true;
             }
         }
@@ -693,12 +679,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         private Timer timer = new Timer();
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
         @Override
         public void afterTextChanged(final Editable s) {
