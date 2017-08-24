@@ -20,6 +20,7 @@ import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdsManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,22 +28,21 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Comparator;
 import java.util.List;
 
-import base.app.fragment.popup.LoginFragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.WallItemFragment;
+import base.app.fragment.popup.LoginFragment;
 import base.app.model.Model;
 import base.app.model.tutorial.WallTip;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
-import base.app.model.wall.WallNews;
 import base.app.model.wall.WallNewsShare;
 import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStoreItem;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static base.app.model.tutorial.TutorialModel.NOT_LOGGED_TIP_NUMBER;
 
@@ -188,6 +188,69 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
 
+
+    private void displayDescription( String value, ViewHolder holder){
+        if (holder.descriptionTextView != null) {
+            holder.descriptionTextView.setText(value);
+        }
+    }
+
+    private void displayCaption(WallBase post,ViewHolder holder){
+        if (holder.captionTextView != null) {
+            holder.captionTextView.setText(post.getTitle());
+        }
+    }
+
+    private void displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions options){
+        if (holder.imageView != null) {
+            String coverImageUrl = post.getCoverImageUrl();
+            if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
+                ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), holder.imageView, options);
+                holder.imageView.setVisibility(View.VISIBLE);
+            } else {
+                holder.imageView.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void displayUserInfo(WallBase post, final ViewHolder holder){
+        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
+        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<UserInfo> task) {
+                if (task.isSuccessful()) {
+                    UserInfo user = task.getResult();
+                    if (user != null) {
+                        if (holder.userImage != null) {
+                            if(user.getCircularAvatarUrl() != null ){
+                                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(),
+                                        holder.userImage, Utility.imageOptionsImageLoader());
+                            } else {
+                                Log.e(TAG,"There is no avatar for this user, resolving to default image");
+                                holder.userImage.setImageResource(R.drawable.blank_profile_rounded);
+                            }
+                        }
+                        if (user.getNicName() != null) {
+                            holder.author.setText(user.getFirstName() + " " + user.getLastName());
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void displayLikes(WallBase post, final ViewHolder holder){
+        holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
+        holder.likesCount.setText(String.valueOf(post.getLikeCount()));
+        if (post.isLikedByUser()) {
+            holder.likedIcon.setVisibility(View.VISIBLE);
+            holder.likesIcon.setVisibility(View.GONE);
+        } else {
+            holder.likedIcon.setVisibility(View.GONE);
+            holder.likesIcon.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if(isAdvert(position)){
@@ -203,194 +266,77 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         holder.nativeAdMediaView.performClick();
                     }
                 });
-            } else {
-                // Hide view?
             }
         } else {
             // this is wall item
-            int index = position;
+            final int index;
             if(currentAdInterval>0){
                 index =  position - (position/currentAdInterval);
-
+            } else {
+                index = position;
             }
             switch (values.get(index).getType()) {
                 case post:
                     WallPost post = (WallPost) values.get(index);
-                    if (holder.imageView != null) {
-                        if (!TextUtils.isEmpty(post.getCoverImageUrl())) {
-                            ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), holder.imageView, Utility.getRoundedImageOptions());
-                            holder.imageView.setVisibility(View.VISIBLE);
-                        } else {
-                            holder.imageView.setVisibility(View.GONE);
-                        }
-                    }
+                    displayUserInfo(post,holder);
+                    displayCaption(post,holder);
+                    displayDescription(post.getSubTitle(),holder);
+                    displayPostImage(post,holder, Utility.getRoundedImageOptions());
+                    displayLikes(post,holder);
+
                     if (holder.playButton != null) {
                         holder.playButton.setVisibility(TextUtils.isEmpty(post.getVidUrl()) ? View.GONE : View.VISIBLE);
                     }
-                    if (holder.captionTextView != null) {
-                        holder.captionTextView.setText(post.getBodyText());
-                    }
-                    if (holder.descriptionTextView != null) {
-                        holder.descriptionTextView.setText(post.getSubTitle());
-                    }
-                    Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
-                    getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UserInfo> task) {
-                            if (task.isSuccessful()) {
-                                UserInfo user = task.getResult();
-                                if (user != null) {
-                                    if (user.getCircularAvatarUrl() != null && holder.userImage != null) {
-                                        ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), holder.userImage, Utility.imageOptionsImageLoader());
-                                    }
-                                    if (user.getNicName() != null) {
-                                        holder.author.setText(user.getFirstName() + " " + user.getLastName());
-                                    }
-                                }
-                            }
-                        }
-                    });
-                    if (holder.playButton != null) {
-                        holder.playButton.setVisibility(TextUtils.isEmpty(post.getVidUrl()) ? View.GONE : View.VISIBLE);
-                    }
-
-                    holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
-                    holder.likesCount.setText(String.valueOf(post.getLikeCount()));
-
-
-                    if (post.isLikedByUser()) {
-                        holder.likedIcon.setVisibility(View.VISIBLE);
-                        holder.likesIcon.setVisibility(View.GONE);
-                    } else {
-                        holder.likedIcon.setVisibility(View.GONE);
-                        holder.likesIcon.setVisibility(View.VISIBLE);
-                    }
-
                     break;
                 case newsShare:
                     WallNewsShare news = (WallNewsShare) values.get(index);
-                    if (holder.imageView != null) {
-                        if (!TextUtils.isEmpty(news.getCoverImageUrl()) || news.getCoverImageUrl() != null) {
-                            ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), holder.imageView, Utility.getImageOptionsForWallItem());
-                            holder.imageView.setVisibility(View.VISIBLE);
-                        }
-                    }
+                    displayUserInfo(news,holder);
+                    displayCaption(news,holder);
+                    displayDescription(news.getSubTitle(),holder);
+                    displayPostImage(news,holder, Utility.getImageOptionsForWallItem());
+                    displayLikes(news,holder);
                     if (holder.playButton != null) {
                         holder.playButton.setVisibility(TextUtils.isEmpty(news.getVidUrl()) ? View.GONE : View.VISIBLE);
                     }
-                    if (holder.captionTextView != null) {
-                        holder.captionTextView.setText(news.getTitle());
-                    }
-                    if (holder.descriptionTextView != null) {
-                        holder.descriptionTextView.setText(news.getSubTitle());
-                    }
-
-                    if (news.isLikedByUser()) {
-                        holder.likedIcon.setVisibility(View.VISIBLE);
-                        holder.likesIcon.setVisibility(View.GONE);
-                    } else {
-                        holder.likedIcon.setVisibility(View.GONE);
-                        holder.likesIcon.setVisibility(View.VISIBLE);
-                    }
-
-                    Task<UserInfo> getUserTaskNews = Model.getInstance().getUserInfoById(news.getWallId());
-                    getUserTaskNews.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UserInfo> task) {
-                            if (task.isSuccessful()) {
-                                UserInfo user = task.getResult();
-                                if (user != null) {
-                                    if (user.getCircularAvatarUrl() != null && holder.userImage != null) {
-                                        ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), holder.userImage, Utility.imageOptionsImageLoader());
-                                    }
-                                    if (user.getNicName() != null) {
-                                        holder.author.setText(user.getFirstName() + " " + user.getLastName());
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                    holder.commentsCount.setText(String.valueOf(news.getCommentsCount()));
-                    holder.likesCount.setText(String.valueOf(news.getLikeCount()));
-
-                    break;
-                case betting:
-                    // No items of this type yet!
-                    break;
-                case stats:
-                    // No items of this type yet!
                     break;
                 case rumor:
-                    WallNews rumour = (WallNews) values.get(index);
-                    if (holder.captionTextView != null) {
-                        holder.captionTextView.setText(rumour.getTitle());
-                    }
+                    displayCaption(values.get(index),holder);
                     break;
                 case tip:
                     WallTip tip = (WallTip) values.get(index);
+                    displayDescription(tip.getTipDescription(),holder);
+
                     if(holder.lightIcon!=null){
                     if(tip.getTipNumber()==NOT_LOGGED_TIP_NUMBER){
                         holder.lightIcon.setVisibility(View.GONE);
                     }else {
                         holder.lightIcon.setVisibility(View.VISIBLE);
                     }}
-                    if (holder.descriptionTextView != null) {
-                        holder.descriptionTextView.setText(tip.getTipDescription());
-                    }
                     break;
                 case wallStoreItem:
                     WallStoreItem storeItem = (WallStoreItem) values.get(index);
-                    if (holder.imageView != null) {
-                        String coverImageUrl = storeItem.getCoverImageUrl();
-                        if (!TextUtils.isEmpty(coverImageUrl) && coverImageUrl != null) {
-                            ImageLoader.getInstance().displayImage(coverImageUrl, holder.imageView, Utility.getImageOptionsForWallItem());
-                            holder.imageView.setVisibility(View.VISIBLE);
-                        }
-                    }
-                    if (holder.captionTextView != null) {
-                        holder.captionTextView.setText(storeItem.getTitle());
-                    }
-                    if (holder.descriptionTextView != null) {
-                        holder.descriptionTextView.setText(storeItem.getSubTitle());
-                    }
-                    Task<UserInfo> getStoreUserTask = Model.getInstance().getUserInfoById(storeItem.getWallId());
-                    getStoreUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UserInfo> task) {
-                            if (task.isSuccessful()) {
-                                UserInfo user = task.getResult();
-                                if (user != null) {
-                                    if (user.getCircularAvatarUrl() != null && holder.userImage != null) {
-                                        ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), holder.userImage, Utility.imageOptionsImageLoader());
-                                    }
-                                    if (user.getNicName() != null) {
-                                        holder.author.setText(user.getFirstName() + " " + user.getLastName());
-                                    }
-                                }
-                            }
-                        }
-                    });
+                    displayUserInfo(storeItem,holder);
+                    displayCaption(storeItem,holder);
+                    displayDescription(storeItem.getSubTitle(),holder);
+                    displayPostImage(storeItem,holder, Utility.getImageOptionsForWallItem());
                     break;
+                case betting:
+                case stats:
+                        // No items of this type yet!
+                        break;
             }
-            final int finalIndex = index;
+
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(values.get(finalIndex) instanceof WallTip){
-                        if(Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL){
-                            FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
-                            fe.setId(values.get(finalIndex).getPostId());
-                            EventBus.getDefault().post(fe);
-                        }else {
-                            EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
-                        }
+                    if( values.get(holder.getAdapterPosition()) instanceof WallTip
+                    && Model.getInstance().getLoggedInUserType() != Model.LoggedInUserType.REAL ){
+                        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
                     }else {
                         FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
-                        fe.setId(values.get(finalIndex).getPostId());
+                        fe.setId(values.get(holder.getAdapterPosition()).getPostId());
                         EventBus.getDefault().post(fe);
                     }
-
                 }
             });
         }
