@@ -71,6 +71,8 @@ import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.SignUpFragment;
 import base.app.model.Model;
 import base.app.model.ticker.NewsTickerInfo;
+import base.app.model.ticker.NextMatchModel;
+import base.app.model.ticker.NextMatchUpdateEvent;
 import base.app.model.tutorial.TutorialModel;
 import base.app.model.tutorial.WallTip;
 import base.app.model.user.LoginStateReceiver;
@@ -310,16 +312,19 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
      *     Update Match info - this method is for Phone only
      */
     @Subscribe
-    public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
+    public void updatePhoneNextMatchDisplay(NextMatchUpdateEvent event){
         if (!Utility.isTablet(getActivity())) {
-            ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.imageOptionsImageLoader());
-            ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.imageOptionsImageLoader());
-
-            wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
-            wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
-
+            NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
+            if(wallLeftTeamImage.getDrawable()==null){
+                ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.imageOptionsImageLoader());
+                ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.imageOptionsImageLoader());
+                wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
+                wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
+            }
             long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
-            wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(),timestamp,false));
+            if(wallTeamTime!=null){
+                wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(),timestamp,false));
+            }
         }
     }
 

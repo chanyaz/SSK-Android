@@ -69,6 +69,8 @@ import base.app.fragment.popup.YourProfileFragment;
 import base.app.fragment.popup.YourStatementFragment;
 import base.app.model.Model;
 import base.app.model.ticker.NewsTickerInfo;
+import base.app.model.ticker.NextMatchModel;
+import base.app.model.ticker.NextMatchUpdateEvent;
 import base.app.model.tutorial.TutorialModel;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserEvent;
@@ -97,14 +99,13 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     View popupLoginHolder;
     @BindView(R.id.bottom_right_container)
     View fragmentContainerBottomRight;
-    @BindView(R.id.scrolling_news_title)
-    TextView newsLabel;
-    @BindView(R.id.caption)
-    TextView captionLabel;
+
     @BindView(R.id.days_until_match_label)
     TextView daysUntilMatchLabel;
+
     @BindView(R.id.time_of_match_label)
     TextView timeOfMatch;
+
     @BindView(R.id.logo_first_team)
     ImageView logoOfFirstTeam;
     @BindView(R.id.logo_second_team)
@@ -222,8 +223,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         popupContainerFragments.add(FriendRequestsFragment.class);
         popupContainerFragments.add(StartingNewCallFragment.class);
         popupContainerFragments.add(EditProfileFragment.class);
-      //  popupContainerFragments.add(LoginFragment.class);
-      //  popupContainerFragments.add(SignUpFragment.class);
         popupContainerFragments.add(MemberInfoFragment.class);
         popupContainerFragments.add(FollowersFragment.class);
         popupContainerFragments.add(FollowingFragment.class);
@@ -231,7 +230,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         popupContainerFragments.add(InviteFriendFragment.class);
         popupContainerFragments.add(AlertDialogFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder, popupContainerFragments, true);  //NO BACK STACK
-
 
         loginContainerFragments = new ArrayList<>();
         loginContainerFragments.add(SignUpLoginFragment.class);
@@ -247,8 +245,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         slidePopupContainerFragments.add(EditChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.popup_holder_right, slidePopupContainerFragments, true);  //NO BACK STACK
 
-
-
         radioButtonsFragmentMap = HashBiMap.create();
         radioButtonsFragmentMap.put(R.id.wall_radio_button, WallFragment.class);
         radioButtonsFragmentMap.put(R.id.video_chat_radio_button, VideoChatFragment.class);
@@ -262,15 +258,12 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         radioButtonsFragmentMap.put(R.id.club_radio_radio_button, ClubRadioFragment.class);
         radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
 
-
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
         ((RadioButton) ButterKnife.findById(this, R.id.wall_radio_button)).setChecked(true);
         ((RadioButton) ButterKnife.findById(this, R.id.chat_radio_button)).setChecked(true);
         ((RadioButton) ButterKnife.findById(this, R.id.club_tv_radio_button)).setChecked(true);
-
-
     }
 
 
@@ -341,13 +334,18 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     }
 
     @Subscribe
-    public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
-        newsLabel.setText(newsTickerInfo.getNews().get(0));
+    public void update(NextMatchUpdateEvent event){
+        NewsTickerInfo info = NextMatchModel.getInstance().getTickerInfo();
+        // in case where there were no team images (first time initialisation)
+        if(logoOfFirstTeam.getDrawable()==null){
+            ImageLoader.getInstance().displayImage(info.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
+            ImageLoader.getInstance().displayImage(info.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
+        }
 
-        captionLabel.setText(newsTickerInfo.getTitle());
-        ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
-        ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
-        startNewsTimer(newsTickerInfo, newsLabel, daysUntilMatchLabel);
+        long timestamp = Long.parseLong(info.getMatchDate());
+        timeOfMatch.setText(NextMatchCountdown.getDateForMatch(timestamp));
+        daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,true));
+
     }
 
 
@@ -431,9 +429,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     }
 
     @Override
-    public void onLoginError(Error error) {
-
-    }
+    public void onLoginError(Error error) {}
 
     @Subscribe
     public void updateUserName(UserEvent event) {

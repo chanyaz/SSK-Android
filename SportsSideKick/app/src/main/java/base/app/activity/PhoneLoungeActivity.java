@@ -70,7 +70,6 @@ import base.app.fragment.popup.WalletFragment;
 import base.app.fragment.popup.YourProfileFragment;
 import base.app.fragment.popup.YourStatementFragment;
 import base.app.model.Model;
-import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.tutorial.TutorialModel;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserEvent;
@@ -111,10 +110,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @BindView(R.id.scrolling_news_title)
-    TextView newsLabel;
-    @BindView(R.id.caption)
-    TextView captionLabel;
+
     @BindView(R.id.user_level_progress)
     ProgressBar userLevelProgress;
     @BindView(R.id.your_coins_value)
@@ -454,7 +450,10 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             return;
         }
 
-        if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class && fragmentOrganizer.get2BackFragment().getClass() == ClubTVFragment.class && fragmentOpened.getClass() != YoutubePlayerFragment.class) {
+        if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class
+            && fragmentOrganizer.get2BackFragment().getClass() == ClubTVFragment.class
+            && fragmentOpened.getClass() != YoutubePlayerFragment.class
+        ){
             NavigationDrawerItems.getInstance().setByPosition(7);
             menuAdapter.notifyDataSetChanged();
             sideMenuAdapter.notifyDataSetChanged();
@@ -465,15 +464,14 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         }
 
 
-        if (fragmentOpened.getClass() == YoutubePlayerFragment.class) {
+        if (fragmentOpened instanceof YoutubePlayerFragment) {
             YoutubePlayerFragment youtubePlayerFragment = (YoutubePlayerFragment) fragmentOpened;
-            if (youtubePlayerFragment.isFullScreen()) {
+            if (youtubePlayerFragment.isFullScreen()){
                 youtubePlayerFragment.setFullScreen(false);
                 return;
             }
 
             if (fragmentOrganizer.getBackFragment().getClass() == ClubTVFragment.class) {
-
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
                 if (fragmentOrganizer.get2BackFragment().getClass() == ClubRadioStationFragment.class) {
@@ -481,31 +479,24 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
                     NavigationDrawerItems.getInstance().setByPosition(5);
                     menuAdapter.notifyDataSetChanged();
                     sideMenuAdapter.notifyDataSetChanged();
-                    if (drawerLayout.isDrawerOpen(GravityCompat.END))
+                    if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                         drawerLayout.closeDrawer(GravityCompat.END);
+                    }
                     return;
-
                 }
-                for (int i = 0; i < Constant.CLASS_LIST.size(); i++)
+                for (int i = 0; i < Constant.CLASS_LIST.size(); i++) {
                     if (fragmentOrganizer.get2BackFragment().getClass().equals(Constant.CLASS_LIST.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
-
                         return;
-
                     }
-
-
-                // tvContainer.setVisibility(View.GONE);
+                }
             }
-
         }
 
         if (fragmentOpened.getClass() == ClubRadioStationFragment.class) {
-
             if (fragmentOrganizer.getBackFragment().getClass() == ClubRadioFragment.class) {
-
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
                 if (fragmentOrganizer.get2BackFragment().getClass() == YoutubePlayerFragment.class) {
@@ -513,22 +504,18 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
                     NavigationDrawerItems.getInstance().setByPosition(7);
                     menuAdapter.notifyDataSetChanged();
                     sideMenuAdapter.notifyDataSetChanged();
-                    if (drawerLayout.isDrawerOpen(GravityCompat.END))
+                    if (drawerLayout.isDrawerOpen(GravityCompat.END)){
                         drawerLayout.closeDrawer(GravityCompat.END);
-                    return;
-
+                    }
                 }
-                for (int i = 0; i < Constant.CLASS_LIST.size(); i++)
+                for (int i = 0; i < Constant.CLASS_LIST.size(); i++) {
                     if (fragmentOrganizer.get2BackFragment().getClass().equals(Constant.CLASS_LIST.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
-
                         return;
-
                     }
-
-                // tvContainer.setVisibility(View.GONE);
+                }
             }
 
         }
@@ -541,27 +528,18 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         if (popupHolder.getVisibility() == View.VISIBLE) {
             popupHolder.setVisibility(View.INVISIBLE);
         }
-
-
-        if (barContainer.getVisibility() != View.VISIBLE)
+        if (barContainer.getVisibility() != View.VISIBLE) {
             barContainer.setVisibility(View.VISIBLE);
+        }
         if (fragmentOrganizer.handleNavigationFragment()) {
             menuAdapter.notifyDataSetChanged();
             sideMenuAdapter.notifyDataSetChanged();
-            if (drawerLayout.isDrawerOpen(GravityCompat.END))
+            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 drawerLayout.closeDrawer(GravityCompat.END);
-
-
+            }
         } else {
             finish();
         }
-    }
-
-    @Subscribe
-    public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
-        newsLabel.setText(newsTickerInfo.getNews().get(0));
-        captionLabel.setText(newsTickerInfo.getTitle());
-        startNewsTimer(newsTickerInfo, newsLabel, null);
     }
 
     private void setYourCoinsValue(String value) {

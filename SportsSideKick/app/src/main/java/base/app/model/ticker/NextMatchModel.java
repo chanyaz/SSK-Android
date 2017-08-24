@@ -22,7 +22,7 @@ public class NextMatchModel {
 
     private static NextMatchModel instance;
     private String language;
-    private static String DEFAULT_LANGUAGE = "en";
+    private static final String DEFAULT_LANGUAGE = "en";
     private final ObjectMapper mapper; // jackson's object mapper
     private NewsTickerInfo newsTickerInfo;
 
@@ -44,12 +44,11 @@ public class NextMatchModel {
     }
 
 
-    public NextMatchModel ()  {
+    private NextMatchModel ()  {
         mapper =  new ObjectMapper();
     }
 
-    public void getNextMatchInfo()
-    {
+    public void getNextMatchInfo() {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("tickerGetNextMatch")
                 .setEventAttribute("language", language)
@@ -57,20 +56,16 @@ public class NextMatchModel {
                  .send(onNextMatchLoaded);
     }
 
-    GSEventConsumer<GSResponseBuilder.LogEventResponse> onNextMatchLoaded = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+    private GSEventConsumer<GSResponseBuilder.LogEventResponse> onNextMatchLoaded = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
         @Override
         public void onEvent(GSResponseBuilder.LogEventResponse response) {
             if (!response.hasErrors()) {
                 GSData data = response.getScriptData();
-
-                if (data == null)
-                {
+                if (data == null) {
                     fallback();
                     return;
                 }
-
-                if (data.getObject("match") == null)
-                {
+                if (data.getObject("match") == null) {
                     fallback();
                     return;
                 }

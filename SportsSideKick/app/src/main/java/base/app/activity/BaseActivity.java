@@ -52,11 +52,12 @@ import base.app.model.sharing.NativeShareEvent;
 import base.app.model.sharing.SharingManager;
 import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.ticker.NextMatchModel;
+import base.app.model.ticker.NextMatchUpdateEvent;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.videoChat.VideoChatEvent;
 import base.app.model.videoChat.VideoChatModel;
-import base.app.util.NextMatchCountdown;
 import base.app.util.ui.ThemeManager;
+import butterknife.BindView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static base.app.util.Utility.CHOSEN_LANGUAGE;
@@ -142,7 +143,20 @@ public class BaseActivity extends AppCompatActivity  {
         }
     }
 
-    protected void startNewsTimer(final NewsTickerInfo newsTickerInfo,final TextView newsLabel, final TextView daysUntilMatchLabel ) {
+    @BindView(R.id.scrolling_news_title)
+    TextView newsLabel;
+    @BindView(R.id.caption)
+    TextView captionLabel;
+
+    @Subscribe
+    public void onTickerUpdate(NewsTickerInfo newsTickerInfo) {
+        newsLabel.setText(newsTickerInfo.getNews().get(0));
+        captionLabel.setText(newsTickerInfo.getTitle());
+        startNewsTimer(newsTickerInfo, newsLabel);
+    }
+
+
+    protected void startNewsTimer(final NewsTickerInfo newsTickerInfo,final TextView newsLabel) {
         count = 0;
         if (newsTimer != null) {
             newsTimer.cancel();
@@ -154,10 +168,9 @@ public class BaseActivity extends AppCompatActivity  {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(daysUntilMatchLabel!=null){
-                            long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
-                            daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,false));
-                        }
+                        // update next match info
+                        EventBus.getDefault().post(new NextMatchUpdateEvent());
+                        // update news label
                         newsLabel.setText(newsTickerInfo.getNews().get(count));
                         if (++count == newsTickerInfo.getNews().size()) {
                             count = 0;
@@ -182,17 +195,13 @@ public class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()) // share to facebook
-        {
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()){// share to facebook
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
-        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) // sign up Fragment - Continue with facebook
-        {
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()){ // sign up Fragment - Continue with facebook
             fragmentOrganizer.getOpenFragment().onActivityResult(requestCode, resultCode, data);
         }
-
         PurchaseModel.getInstance().onActivityResult(requestCode, resultCode, data);
-
     }
 
     @Override
