@@ -239,9 +239,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         });
     }
 
-    private void displayLikes(WallBase post, final ViewHolder holder){
+    private void displayCommentsAndLikesCount(WallBase post, final ViewHolder holder){
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
+
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
+
         if (post.isLikedByUser()) {
             holder.likedIcon.setVisibility(View.VISIBLE);
             holder.likesIcon.setVisibility(View.GONE);
@@ -282,7 +284,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     displayCaption(post.getBodyText(),holder);
                     displayDescription(post.getSubTitle(),holder);
                     displayPostImage(post,holder, Utility.getRoundedImageOptions());
-                    displayLikes(post,holder);
+                    displayCommentsAndLikesCount(post,holder);
 
                     if (holder.playButton != null) {
                         holder.playButton.setVisibility(TextUtils.isEmpty(post.getVidUrl()) ? View.GONE : View.VISIBLE);
@@ -294,7 +296,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     displayCaption(news.getTitle(),holder);
                     displayDescription(news.getSubTitle(),holder);
                     displayPostImage(news,holder, Utility.getImageOptionsForWallItem());
-                    displayLikes(news,holder);
+                    displayCommentsAndLikesCount(news,holder);
                     if (holder.playButton != null) {
                         holder.playButton.setVisibility(TextUtils.isEmpty(news.getVidUrl()) ? View.GONE : View.VISIBLE);
                     }

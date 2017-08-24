@@ -1,5 +1,6 @@
 package base.app.events;
 
+import base.app.model.wall.PostComment;
 import base.app.model.wall.WallBase;
 
 /**
@@ -9,6 +10,8 @@ import base.app.model.wall.WallBase;
  */
 
 public class CommentUpdateEvent extends BusEvent {
+
+    private PostComment comment;
 
     public CommentUpdateEvent(WallBase wallItem) {
         super("");
@@ -24,4 +27,12 @@ public class CommentUpdateEvent extends BusEvent {
     }
 
     WallBase wallItem;
+
+    public void setComment(PostComment comment) {
+        this.comment = comment;
+    }
+
+    public PostComment getComment() {
+        return comment;
+    }
 }

@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,8 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -44,6 +47,7 @@ import java.util.List;
 import base.app.R;
 import base.app.adapter.CommentsAdapter;
 import base.app.adapter.TutorialStepAdapter;
+import base.app.events.CommentUpdateEvent;
 import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.PostCommentCompleteEvent;
 import base.app.events.PostUpdateEvent;
@@ -51,6 +55,7 @@ import base.app.fragment.BaseFragment;
 import base.app.model.Model;
 import base.app.model.sharing.SharingManager;
 import base.app.model.tutorial.WallTip;
+import base.app.model.user.UserInfo;
 import base.app.model.wall.PostComment;
 import base.app.model.wall.WallBase;
 import base.app.model.wall.WallModel;
@@ -435,7 +440,35 @@ public class WallItemFragment extends BaseFragment {
         if (commentsCount != null) {
             commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
         }
+    }
 
+    @Subscribe
+    public void onCommentReceived(final CommentUpdateEvent event) {
+        WallBase eventsWallPost = event.getWallItem();
+        if (eventsWallPost != null) {
+            if (eventsWallPost.getWallId().equals(item.getWallId())
+                    && eventsWallPost.getPostId().equals(item.getPostId())) {
+
+                item.setCommentsCount(event.getWallItem().getCommentsCount());
+                final PostComment comment = event.getComment();
+
+                if(event.getComment()!=null) {
+                    Model.getInstance().getUserInfoById(comment.getPosterId())
+                            .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UserInfo> task) {
+                            if(task.isSuccessful()){
+                                commentsAdapter.getComments().add(0, comment);
+                                commentsAdapter.notifyDataSetChanged();
+                                if (commentsCount != null) {
+                                    commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
     }
 
     @OnClick({R.id.likes_icon_liked, R.id.likes_icon})

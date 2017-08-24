@@ -338,7 +338,11 @@ public class WallModel extends GSMessageHandlerAbstract {
                         EventBus.getDefault().post(new WallLikeUpdateEvent(wallId,postId,likeCount));
                         break;
                     case GSConstants.OPERATION_COMMENT:
-                        EventBus.getDefault().post(new CommentUpdateEvent(post));
+                        Object commentObject = data.get(GSConstants.COMMENT);
+                        PostComment comment = mapper.convertValue(commentObject, new TypeReference<PostComment>(){});
+                        CommentUpdateEvent event = new CommentUpdateEvent(post);
+                        event.setComment(comment);
+                        EventBus.getDefault().post(event);
                         break;
                     case GSConstants.OPERATION_NEW_POST:
                     case GSConstants.OPERATION_UPDATE_POST:

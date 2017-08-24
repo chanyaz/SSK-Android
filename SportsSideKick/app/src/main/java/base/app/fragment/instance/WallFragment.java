@@ -564,12 +564,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Subscribe
-    public void onUpdateCommentCount(CommentUpdateEvent event) {
+    public void onUpdateComment(CommentUpdateEvent event) {
         if (event.getWallItem() != null) {
             for (WallBase item : wallItems) {
                 if (event.getWallItem().getWallId().equals(item.getWallId())
                         && event.getWallItem().getPostId().equals(item.getPostId())) {
-                    item.setLikeCount(event.getWallItem().getCommentsCount());
+                    item.setCommentsCount(event.getWallItem().getCommentsCount());
                     filterPosts();
                     return;
                 }
