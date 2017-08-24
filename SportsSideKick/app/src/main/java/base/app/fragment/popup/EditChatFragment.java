@@ -437,7 +437,7 @@ public class EditChatFragment extends BaseFragment {
 
     private void uploadImage(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        Model.getInstance().uploadImageForWallPost(path,source);
+        Model.getInstance().uploadImageForProfile(path,getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
