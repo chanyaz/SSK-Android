@@ -8,12 +8,12 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
+import base.app.events.NotificationReceivedEvent;
 import base.app.model.GSConstants;
 import base.app.model.Model;
+import base.app.model.friendship.FriendsListChangedEvent;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.UserInfo;
-import base.app.model.wall.WallPost;
-import base.app.events.NotificationReceivedEvent;
 
 /**
  * Created by Filip on 4/19/2017.
@@ -71,7 +71,9 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 message = (String) data.get(GSConstants.MESSAGE);
                 UserInfo userInfo = mapper.convertValue(data.get(GSConstants.USER_INFO), UserInfo.class);
                 if(message!=null){
-                    if(message.contains("unfollowing")){
+                    if(message.contains("stoped following")){
+                        FriendsListChangedEvent eventToUpdateFriendsList = new FriendsListChangedEvent();
+                        EventBus.getDefault().post(eventToUpdateFriendsList);
                         event = new NotificationReceivedEvent(4, "Un-Followed", userInfo.getNicName(), 2);
                         EventBus.getDefault().post(event);
                     } else if(message.contains("following")){
@@ -89,12 +91,6 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                             event = new NotificationReceivedEvent(4, "New Like", "", 99);
                             EventBus.getDefault().post(event);
                         }
-                        break;
-                    case GSConstants.OPERATION_NEW_POST:
-                        message = (String) data.get(GSConstants.MESSAGE);
-                        WallPost wallPost = mapper.convertValue(data.get(GSConstants.POST), WallPost.class);
-                        event = new NotificationReceivedEvent(4, "New Wall Post", message, 3);
-                        EventBus.getDefault().post(event);
                         break;
                 }
                 break;

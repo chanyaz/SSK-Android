@@ -70,6 +70,7 @@ import base.app.fragment.IgnoreBackHandling;
 import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.SignUpFragment;
 import base.app.model.Model;
+import base.app.model.friendship.FriendsListChangedEvent;
 import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.ticker.NextMatchModel;
 import base.app.model.ticker.NextMatchUpdateEvent;
@@ -988,6 +989,14 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         updateBottomBar();
         getNextTip();
 
+    }
+
+    @Subscribe
+    public void handleFriendListChanged(FriendsListChangedEvent event){
+        reset();
+        reloadWallFromModel();
+        updateBottomBar();
+        getNextTip();
     }
 
     @Override

@@ -22,6 +22,8 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,10 +35,12 @@ import base.app.GSAndroidPlatform;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.GSMessageHandlerAbstract;
+import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CLUB_ID_TAG;
+import static base.app.model.GSConstants.OPERATION_UPDATE;
 import static base.app.model.Model.createRequest;
 
 
@@ -186,8 +190,9 @@ public class FriendsManager extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.USER_INFO);
-                    UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {
-                    });
+                    UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {});
+                    FriendsListChangedEvent event = new FriendsListChangedEvent();
+                    EventBus.getDefault().post(event);
                     source.setResult(user);
                 } else {
                     source.setException(new Exception("There was an error while trying to accept friend request."));
@@ -268,7 +273,9 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.USER_INFO);
                     UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {
                     });
-                    source.setResult(user);
+                    FriendsListChangedEvent event = new FriendsListChangedEvent();
+                    EventBus.getDefault().post(event);
+                   source.setResult(user);
                 } else {
                     source.setException(new Exception("There was an error while trying to delete a friend."));
                 }
@@ -276,7 +283,6 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendDeleteFriend")
                 .setEventAttribute(GSConstants.USER_ID, userId)
-           //     .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -384,7 +390,6 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendFollowFriend")
                 .setEventAttribute(GSConstants.USER_ID, userId)
-                //.setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -412,7 +417,6 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         };
         createRequest("friendUnFollowFriend")
                 .setEventAttribute(GSConstants.USER_ID, userId)
-                //.setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
     }
@@ -424,10 +428,17 @@ public class FriendsManager extends GSMessageHandlerAbstract {
             case "UserInfo":
                 String operation = (String) data.get(GSConstants.OPERATION);
                 if (operation != null) {
-                    if (!operation.equals("update")) {
+                    if (!operation.equals(OPERATION_UPDATE)) {
                         if (data.containsKey(GSConstants.USER_INFO)) {
                             UserInfo userInfo = mapper.convertValue(data.get(GSConstants.USER_INFO), UserInfo.class);
-                            // TODO @Filip Emit userInfo - a friend is updated! ( or its me?! ) - check implementation on iOS
+                            UserInfo currentUserInfo = Model.getInstance().getUserInfo();
+                            if(userInfo!=null && currentUserInfo != null){
+                                if (userInfo.getUserId().equals(currentUserInfo.getUserId())) {
+                                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated,currentUserInfo));
+                                }
+                            }
+
+
                         }
                     }
                 }
@@ -435,13 +446,16 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         }
     }
 
-    // TODO @Filip - check implementation on iOS
-//   func onMessage(msg:GSMessage?){
-//       if let extCode = msg?.getAttribute("extCode") as? String{
-//           if extCode ==  "FriendRequestAcceptedMessage"{
-//               NotificationCenter.default.post(name: SKKConstants.Keys.Notifications.Friends.kFriendsListChanged,
-//                       object: msg)
-//           }
-//       }
-//   }
+    @Override
+    public void onMessage(Map<String, Object> data){
+        if(data.containsKey("extCode")){
+            String extCode = (String) data.get("extCode");
+            switch (extCode){
+                case "FriendRequestAcceptedMessage":
+                    FriendsListChangedEvent event = new FriendsListChangedEvent();
+                    EventBus.getDefault().post(event);
+                    break;
+            }
+        }
+    }
 }

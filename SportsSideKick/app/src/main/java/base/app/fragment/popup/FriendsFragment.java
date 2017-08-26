@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.Model;
 import base.app.model.friendship.FriendRequest;
+import base.app.model.friendship.FriendsListChangedEvent;
 import base.app.model.friendship.FriendsManager;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
@@ -72,12 +74,13 @@ public class FriendsFragment extends BaseFragment {
     FriendsAdapter officialAccountAdapter;
 
     List<UserInfo> friends;
-    List<UserInfo> officialAccount;
+    List<UserInfo> officialAccounts;
 
     @Nullable
     @BindView(R.id.friend_requests_container)
     RelativeLayout friendRequestsContainer;
 
+    FriendsAdapter adapter;
 
     public FriendsFragment() {
         // Required empty public constructor
@@ -88,7 +91,7 @@ public class FriendsFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.popup_your_friends, container, false);
         ButterKnife.bind(this, view);
-        officialAccount = new ArrayList<>();
+        officialAccounts = new ArrayList<>();
         int screenWidth = Utility.getDisplayWidth(getActivity());
         if (Utility.isTablet(getActivity())) {
             friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
@@ -100,35 +103,18 @@ public class FriendsFragment extends BaseFragment {
         friendsRecyclerView.setHasFixedSize(true);
 
 
-        final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
+        adapter = new FriendsAdapter(this.getClass());
+        adapter.setInitiatorFragment(FriendsFragment.class);
+        friendsRecyclerView.setAdapter(adapter);
+
+        updateFriends();
+
         officialAccountAdapter = new FriendsAdapter(this.getClass());
         if (officialAccountRecyclerView != null) {
             officialAccountRecyclerView.setAdapter(officialAccountAdapter);
             officialAccountRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
             officialAccountAdapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
         }
-        adapter.setInitiatorFragment(FriendsFragment.class);
-        friendsRecyclerView.setAdapter(adapter);
-        Task<List<UserInfo>> friendsTask = FriendsManager.getInstance().getFriends(0);
-        friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
-            @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
-                if (task.isSuccessful()) {
-                    noResultText.setVisibility(View.GONE);
-                    friendsRecyclerView.setVisibility(View.VISIBLE);
-                    friends = task.getResult();
-                    adapter.getValues().clear();
-                    adapter.getValues().addAll(friends);
-                    adapter.notifyDataSetChanged();
-
-                } else {
-                    noResultText.setVisibility(View.VISIBLE);
-                    friendsRecyclerView.setVisibility(View.GONE);
-                }
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-
 
         Task<List<UserInfo>> officialTask = Model.getInstance().getOfficialAccounts(0);
         officialTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
@@ -137,8 +123,8 @@ public class FriendsFragment extends BaseFragment {
                 if (task.isSuccessful()) {
                     noResultText.setVisibility(View.GONE);
                     friendsRecyclerView.setVisibility(View.VISIBLE);
-                    officialAccount.addAll(task.getResult());
-                    officialAccountAdapter.getValues().addAll(officialAccount);
+                    officialAccounts.addAll(task.getResult());
+                    officialAccountAdapter.getValues().addAll(officialAccounts);
                     officialAccountAdapter.notifyDataSetChanged();
                 } else {
                     noResultText.setVisibility(View.VISIBLE);
@@ -232,4 +218,29 @@ public class FriendsFragment extends BaseFragment {
         }
     }
 
+    private void updateFriends(){
+        Task<List<UserInfo>> friendsTask = FriendsManager.getInstance().getFriends(0);
+        friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<UserInfo>> task) {
+                if (task.isSuccessful()) {
+                    noResultText.setVisibility(View.GONE);
+                    friendsRecyclerView.setVisibility(View.VISIBLE);
+                    friends = task.getResult();
+                    adapter.getValues().clear();
+                    adapter.getValues().addAll(friends);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    noResultText.setVisibility(View.VISIBLE);
+                    friendsRecyclerView.setVisibility(View.GONE);
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    @Subscribe
+    public void handleFriendsListChanged(FriendsListChangedEvent event){
+        updateFriends();
+    }
 }

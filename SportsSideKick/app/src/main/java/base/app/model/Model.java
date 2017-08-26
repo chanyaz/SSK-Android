@@ -182,7 +182,7 @@ public class Model {
                         userCache.put(userInfo.getUserId(), userInfo);
                         if (userInfo.getUserId().equals(currentUserInfo.getUserId())) {
                             currentUserInfo = userInfo;
-                            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated));
+                            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated,currentUserInfo));
                         }
                         source.setResult(userInfo);
                         return;

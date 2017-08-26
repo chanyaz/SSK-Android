@@ -48,9 +48,9 @@ public class MessageHandler {
                     for(GSMessageHandlerAbstract delegate : delegates){
                         delegate.onGSScriptMessage(type,data);
                     }
-                } else if(data.containsKey("extCode")){
+                } else if(scriptMessage.getString("extCode")!=null){
                     for(GSMessageHandlerAbstract delegate : delegates){
-                        delegate.onMessage(data);
+                        delegate.onMessage(scriptMessage.getBaseData());
                     }
                 }
             }
