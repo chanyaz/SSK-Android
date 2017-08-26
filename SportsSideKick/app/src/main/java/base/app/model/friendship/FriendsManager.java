@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.GSAndroidPlatform;
+import base.app.model.DateUtils;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.GSMessageHandlerAbstract;
@@ -165,13 +166,13 @@ public class FriendsManager extends GSMessageHandlerAbstract {
         c.add(Calendar.WEEK_OF_YEAR, 2);  // advances day by 2
         Date date = c.getTime(); // gets modified time
         request.setEndTime(date); //set the end time for two weeks
-        //request.getBaseData().put(GSConstants.TIMESTAMP_TAG, DateUtils.currentTimeToFirebaseDate()); TODO @Filip - Check what is wrong with this? Server is not accepting this value
         List<String> usersToChallenge = new ArrayList<>();
         usersToChallenge.add(userId);
         request.setUsersToChallenge(usersToChallenge);
 
         HashMap<String,Object> scriptData = new HashMap<>();
         scriptData.put(CLUB_ID_TAG,CLUB_ID);
+        scriptData.put(GSConstants.TIMESTAMP_TAG, DateUtils.currentTimeToFirebaseDate());
         request.getBaseData().put("scriptData",scriptData);
 
         request.send(consumer);

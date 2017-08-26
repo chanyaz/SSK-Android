@@ -70,7 +70,6 @@ public class AddFriendFragment extends BaseFragment {
     @BindView(R.id.friends_list)
     RelativeLayout listContainer;
     FindOfficialAdapter officialAdapter;
-    boolean isTablet;
     List<UserInfo> specialUserInfoList;
 
 
@@ -79,11 +78,9 @@ public class AddFriendFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.popup_add_friend, container, false);
         ButterKnife.bind(this, view);
-        isTablet = Utility.isTablet(getActivity());
         adapter = new FriendsAdapter(this.getClass());
-        adapter.setInitiatorFragment(this.getClass());
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        if (isTablet) {
+        if (Utility.isTablet(getActivity())) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             people.setLayoutManager(layoutManager);
             int screenWidth = Utility.getDisplayWidth(getActivity());
@@ -173,8 +170,6 @@ public class AddFriendFragment extends BaseFragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
-
-
     }
 
 

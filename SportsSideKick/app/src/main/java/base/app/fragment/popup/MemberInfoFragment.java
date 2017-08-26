@@ -364,35 +364,43 @@ public class MemberInfoFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.friend_button_image)
     public void friendOnClick() {
-        Task<UserInfo> manageFriendTask;
         if (user.isaFriend()) { // this user is my friend, remove it from friends
-            manageFriendTask = FriendsManager.getInstance().deleteFriend(user.getUserId());
-        } else { // send friend request
-            manageFriendTask = FriendsManager.getInstance().sendFriendRequest(user.getUserId());
+            AlertDialogManager.getInstance()
+                    .showAlertDialog(
+                            getContext().getResources().getString(R.string.un_friend_title),
+                            getContext().getResources().getString(R.string.un_friend_message),
+                            new View.OnClickListener() {// Cancel listener
+                                @Override
+                                public void onClick(View v) {
+                                    getActivity().onBackPressed();
+                                }
+                            }, new View.OnClickListener() {// Confirm listener
+                                @Override
+                                public void onClick(View v) {
+                                    removeUser();
+                                    getActivity().onBackPressed();
+                                }
+                            });
+        } else {
+            FriendsManager.getInstance().sendFriendRequest(user.getUserId()).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                @Override
+                public void onComplete(@NonNull Task<UserInfo> task) {
+                    if (task.isSuccessful()) {
+                        user.setFriendPendingRequest(true);
+                        setupUIWithUserInfo(user);
+                    }
+                }
+            });
         }
-        manageFriendTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+
+    }
+
+    private void removeUser(){
+        FriendsManager.getInstance().deleteFriend(user.getUserId()).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
             public void onComplete(@NonNull Task<UserInfo> task) {
                 if (task.isSuccessful()) {
-                    if (user.isaFriend()) {
-                        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.un_friend_title), getContext().getResources().getString(R.string.un_friend_message),
-                                new View.OnClickListener() {// Cancel listener
-                                    @Override
-                                    public void onClick(View v) {
-                                        getActivity().onBackPressed();
-                                    }
-                                }, new View.OnClickListener() {// Confirm listener
-                                    @Override
-                                    public void onClick(View v) {
-                                        getActivity().onBackPressed();
-                                        getActivity().onBackPressed();
-                                        user.setaFriend(false);
-                                    }
-                                });
-
-                    } else {
-                        user.setFriendPendingRequest(true);
-                    }
+                    user.setaFriend(false);
                     setupUIWithUserInfo(user);
                 }
             }
