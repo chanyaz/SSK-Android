@@ -272,7 +272,7 @@ public class Model {
     }
 
     public void registrationRequest(String displayName, String password, String email, HashMap<String, Object> userDetails) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest()
+        final GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest()
                 .setDisplayName(displayName)
                 .setNewPassword(password)
                 .setUserName(email);
@@ -289,7 +289,13 @@ public class Model {
             public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse response) {
                 if (response != null) {
                     if (response.hasErrors()) {
-                        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onRegisterError));
+                        UserEvent.Type errorType = UserEvent.Type.onRegisterError;
+                        Map responseData = response.getBaseData();
+                        Object errorObject = responseData.get("error");
+//                        return this.data.containsKey("scriptData") && this.data.get("scriptData") instanceof Map?new GSData((Map)this.data.get("scriptData")):null;
+                        Error error = new Error(errorObject.toString());
+                        UserEvent event = new UserEvent(errorType,error);
+                        EventBus.getDefault().post(event);
                     } else {
                         getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
                             @Override

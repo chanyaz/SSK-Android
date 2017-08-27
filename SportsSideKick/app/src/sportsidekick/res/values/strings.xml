@@ -296,7 +296,8 @@
     <string name="friend_unfollow">Un-Follow Friend</string>
     <string name="friend_follow">Follow Friend</string>
     <string name="fiil_all_data">You have to fill all data</string>
-    <string name="registarion_error">Registration error. Try again later.</string>
+    <string name="registration_error">Registration error. Try again later.</string>
+    <string name="registration_error_username_taken">Registration error - username already taken, please select a different username.</string>
     <string name="no_users_selected">No users selected!</string>
     <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
     <string name="logout_from_app">\"This will log you out of the app!</string>

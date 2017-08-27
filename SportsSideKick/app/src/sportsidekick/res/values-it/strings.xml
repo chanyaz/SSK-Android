@@ -278,7 +278,7 @@
     <string name="friend_unfollow">UN-FOLLOW</string>
     <string name="friend_follow">FOLLOW</string>
     <string name="fiil_all_data">You have to fill all data</string>
-    <string name="registarion_error">Registration error. Try again later.</string>
+    <string name="registration_error">Registration error. Try again later.</string>
     <string name="no_users_selected">No users selected!</string>
     <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
     <string name="logout_from_app">\"This will log you out of the app!</string>

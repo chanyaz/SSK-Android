@@ -31,7 +31,7 @@ import java.util.List;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.WallItemFragment;
-import base.app.fragment.popup.LoginFragment;
+import base.app.fragment.popup.SignUpLoginFragment;
 import base.app.model.Model;
 import base.app.model.tutorial.WallTip;
 import base.app.model.user.UserInfo;
@@ -333,7 +333,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if( values.get(holder.getAdapterPosition()) instanceof WallTip
                     && Model.getInstance().getLoggedInUserType() != Model.LoggedInUserType.REAL ){
-                        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+                        EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
                     }else {
                         FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
                         fe.setId(values.get(holder.getAdapterPosition()).getPostId());

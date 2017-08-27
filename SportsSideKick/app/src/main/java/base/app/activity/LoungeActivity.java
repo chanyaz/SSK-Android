@@ -445,7 +445,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     }
 
     @OnClick({R.id.user_image_container, R.id.profile_name,R.id.user_info_container})
-    public void onLogin() {
+    public void onLoginClick() {
         if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
             EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
         } else {

@@ -375,8 +375,13 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegisterError(Error error) {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
-        Toast.makeText(getContext(), getContext().getResources().getString(R.string.registarion_error), Toast.LENGTH_LONG).show();
-        // TODO @Filip inform user about registration failure
+        String errorMessage = getContext().getResources().getString(R.string.registration_error);
+        if(error!=null && error.getMessage()!=null){
+            if(error.getMessage().contains("TAKEN")){
+                errorMessage = getContext().getResources().getString(R.string.registration_error_username_taken);
+            }
+        }
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override
