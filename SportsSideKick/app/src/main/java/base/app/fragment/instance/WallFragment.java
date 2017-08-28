@@ -241,22 +241,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
         creatingPostInProgress = false;
 
-        if (loginHolder != null) {
-            if (Model.getInstance().isRealUser()) {
-                loginHolder.setVisibility(View.GONE);
-            } else {
-                loginHolder.setVisibility(View.VISIBLE);
-            }
-        }
         commentText.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) {}
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -972,17 +963,17 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         getNextTip();
         reloadWallFromModel();
         updateBottomBar();
+
+        if (!Model.getInstance().isRealUser() && loginHolder!=null) {
+            loginHolder.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onLogin(UserInfo user) {
-        if (loginHolder != null) {
-            if (Model.getInstance().isRealUser()) {
-                loginHolder.setVisibility(View.GONE);
-                TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
-            } else {
-                loginHolder.setVisibility(View.VISIBLE);
-            }
+        if (Model.getInstance().isRealUser() && loginHolder!=null) {
+            loginHolder.setVisibility(View.GONE);
+            TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
         }
         reset();
         reloadWallFromModel();

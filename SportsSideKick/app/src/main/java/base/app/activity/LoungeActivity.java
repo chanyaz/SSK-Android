@@ -127,13 +127,13 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     RelativeLayout slideFragmentContainer;
     ArrayList<Class> popupContainerFragments;
     ArrayList<Class> slidePopupContainerFragments;
+    ArrayList<Class>  loginContainerFragments;
     BiMap<Integer, Class> radioButtonsFragmentMap;
     @BindView(R.id.left_notification_container)
     RelativeLayout notificationContainer;
     @BindView(R.id.user_coin_icon)
     ImageView userCoinIcon;
 
-    ArrayList<Class>  loginContainerFragments;
     @BindView(R.id.splash)
     View splash;
 
