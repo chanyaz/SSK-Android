@@ -160,7 +160,7 @@ public class NewsItemFragment extends BaseFragment {
         }
         title.setText(item.getTitle());
         String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(),
-                Utility.getCurrentNTPTime(), DateUtils.HOUR_IN_MILLIS);
+                Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
         if (item.getSubTitle() != null) {
             strap.setText(item.getSubTitle() + " - " + time);
         } else {
@@ -284,7 +284,7 @@ public class NewsItemFragment extends BaseFragment {
             comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getPostId());
-            comment.setTimestamp((double) (Utility.getCurrentNTPTime() / 1000));
+            comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
             WallModel.getInstance().postComment(item, comment);
             post.getText().clear();
             postCommentProgressBar.setVisibility(View.VISIBLE);
@@ -391,7 +391,7 @@ public class NewsItemFragment extends BaseFragment {
                                 itemToPost.setSubTitle("");
                             }
 
-                            itemToPost.setTimestamp((double) Utility.getCurrentNTPTime());
+                            itemToPost.setTimestamp((double) Utility.getCurrentTime());
                             itemToPost.setCoverAspectRatio(0.666666f);
                             if(item.getCoverImageUrl()!=null){
                                 itemToPost.setCoverImageUrl(item.getCoverImageUrl());

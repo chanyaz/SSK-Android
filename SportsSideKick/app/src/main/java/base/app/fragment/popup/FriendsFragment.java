@@ -243,4 +243,6 @@ public class FriendsFragment extends BaseFragment {
     public void handleFriendsListChanged(FriendsListChangedEvent event){
         updateFriends();
     }
+
+
 }

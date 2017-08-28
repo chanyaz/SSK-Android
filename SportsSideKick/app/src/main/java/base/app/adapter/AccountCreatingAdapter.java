@@ -1,7 +1,6 @@
 package base.app.adapter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import base.app.R;
-import base.app.fragment.IgnoreBackHandling;
 import base.app.util.Utility;
-import base.app.util.ui.NavigationDrawerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,7 +23,6 @@ public class AccountCreatingAdapter extends RecyclerView.Adapter<AccountCreating
 
     private int oldPosition = -1;
     private String[] values;
-    private Context context;
     private int screenHeight;
     private OnClick onClickItem;
     private double itemHeight = 0.175;
@@ -57,7 +53,6 @@ public class AccountCreatingAdapter extends RecyclerView.Adapter<AccountCreating
         oldPosition = -1;
         this.onClickItem = onClickItem;
         screenHeight = Utility.getDisplayHeight(context);
-        this.context = context;
     }
 
 
@@ -81,8 +76,6 @@ public class AccountCreatingAdapter extends RecyclerView.Adapter<AccountCreating
                 notifyDataSetChanged();
             }
         });
-
-
         return viewHolder;
     }
 

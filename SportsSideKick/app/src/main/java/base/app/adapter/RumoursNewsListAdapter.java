@@ -145,7 +145,7 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
                 holder.bigRumourInfo.setText(bigInfo.getTitle());
         }
             String time = "" + DateUtils.getRelativeTimeSpanString(bigInfo.getTimestamp().longValue(),
-                    Utility.getCurrentNTPTime(), DateUtils.HOUR_IN_MILLIS);
+                    Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
             holder.bigRumourTime.setText(time);
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override

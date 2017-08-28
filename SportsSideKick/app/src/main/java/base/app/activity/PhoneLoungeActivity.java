@@ -196,7 +196,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         NavigationDrawerItems.getInstance().generateList(1);
         menuAdapter = new MenuAdapter(this, this);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         DisplayMetrics displaymetrics = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         screenWidth = (int) (displaymetrics.widthPixels * 0.5);
@@ -225,13 +224,10 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {
-
-            }
+            public void onDrawerOpened(View drawerView) {  }
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                //   getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             }
 

@@ -423,7 +423,7 @@ public class WallItemFragment extends BaseFragment {
             comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getPostId());
-            comment.setTimestamp((double) (Utility.getCurrentNTPTime() / 1000));
+            comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
 
             WallModel.getInstance().postComment(item, comment);
             post.getText().clear();

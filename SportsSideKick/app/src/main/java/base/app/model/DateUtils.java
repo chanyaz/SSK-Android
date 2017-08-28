@@ -42,7 +42,7 @@ public class DateUtils {
      * @return current time formatted as Firebase date
      */
     public static String currentTimeToFirebaseDate(){
-        return timestampToFirebaseDate(Utility.getCurrentNTPTime());
+        return timestampToFirebaseDate(Utility.getCurrentTime());
     }
 
     public static String dateToFirebaseDate(Date date){

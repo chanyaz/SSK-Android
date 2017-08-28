@@ -1,5 +1,6 @@
 package base.app.fragment.popup;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,7 +73,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @BindView(R.id.web_view)
     WebView webView;
 
-
     View view;
     @BindView(R.id.progress_bar_veb_view)
     AVLoadingIndicatorView progressBarVebView;
@@ -81,19 +82,19 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @BindView(R.id.sign_up_text)
     TextView signUpText;
     @BindView(R.id.sign_up_firstname)
-    TextView firstName;
+    EditText firstName;
     @BindView(R.id.sign_up_lastname)
-    TextView lastName;
+    EditText lastName;
     @BindView(R.id.sign_up_email)
-    TextView email;
+    EditText email;
     @Nullable
     @BindView(R.id.sign_up_display_name)
-    TextView displayName;
+    EditText displayName;
     @Nullable
     @BindView(R.id.sign_up_phone)
-    TextView phone;
+    EditText phone;
     @BindView(R.id.sign_up_password)
-    TextView password;
+    EditText password;
 
     @BindView(R.id.sign_up_facebook)
     LoginButton loginButton;
@@ -152,9 +153,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
         View view = inflater.inflate(R.layout.popup_signup, container, false);
         ButterKnife.bind(this, view);
-        if (Utility.isTablet(getActivity())) {
-            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        }
         this.registrationStateReceiver = new RegistrationStateReceiver(this);
 
         initFacebook();
@@ -165,7 +163,25 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         termsHolder.setVisibility(View.INVISIBLE);
         setUpPolicyWebView();
 
+        if(Utility.isTablet(getContext())){
+            View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
+            firstName.setOnFocusChangeListener(focusChangeListener);
+            lastName.setOnFocusChangeListener(focusChangeListener);
+            email.setOnFocusChangeListener(focusChangeListener);
+            password.setOnFocusChangeListener(focusChangeListener);
+        }
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 
     private void setUpPolicyWebView() {
@@ -192,10 +208,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         SpannableString spannableString = new SpannableString(policyText.getText());
         ClickableSpan clickableSpanTerms = new ClickableSpan() {
             @Override
-            public void onClick(View view) {
-                //TODO
-                Toast.makeText(getActivity(), "Terms and Conditions of Use", Toast.LENGTH_SHORT).show();
-            }
+            public void onClick(View view) { }
 
             @Override
             public void updateDrawState(TextPaint ds) {
@@ -206,10 +219,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         };
         ClickableSpan clickableSpanPolicy = new ClickableSpan() {
             @Override
-            public void onClick(View view) {
-                //TODO
-                Toast.makeText(getActivity(), "Privacy Policy", Toast.LENGTH_SHORT).show();
-            }
+            public void onClick(View view) { }
 
             @Override
             public void updateDrawState(TextPaint ds) {
@@ -223,8 +233,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         spannableString.setSpan(clickableSpanPolicy, 83, 97, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         policyText.setMovementMethod(LinkMovementMethod.getInstance());
         policyText.setHighlightColor(Color.TRANSPARENT);
-
-
         policyText.setText(spannableString);
     }
 
@@ -262,19 +270,15 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             }
 
             @Override
-            public void onCancel() {
-                // App code
-            }
+            public void onCancel() { }
 
             @Override
-            public void onError(FacebookException error) {
-            }
+            public void onError(FacebookException error) { }
         });
     }
 
     @Override
     public void onDestroyView() {
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onDestroyView();
     }
 
@@ -365,6 +369,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         signUpText.setVisibility(View.VISIBLE);
         Utility.hideKeyboard(getActivity());
         if (Utility.isTablet(getActivity())) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class));

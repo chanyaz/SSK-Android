@@ -815,7 +815,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             UserInfo user = Model.getInstance().getUserInfo();
             newPost.setTitle(WordUtils.capitalize(user.getFirstName()) + "," + WordUtils.capitalize(user.getLastName()));
             newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
-            newPost.setTimestamp((double) Utility.getCurrentNTPTime());
+            newPost.setTimestamp((double) Utility.getCurrentTime());
 
             if (!TextUtils.isEmpty(postContent)) {
                 newPost.setBodyText(postContent);
@@ -878,7 +878,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
         if (tipToBeDisplayed != null) {
             // Set this tip timestamp to distant future to make sure it appears at the top of the list
-            double distantFutureTimestamp = Utility.getCurrentNTPTime()+100000;
+            double distantFutureTimestamp = Utility.getCurrentTime()+100000;
             tipToBeDisplayed.setTimestamp(distantFutureTimestamp);
             tipToBeDisplayed.setType(WallBase.PostType.tip);
             tipToBeDisplayed.setPostId(currentUserId);

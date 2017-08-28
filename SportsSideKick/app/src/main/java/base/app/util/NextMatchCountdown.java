@@ -27,7 +27,7 @@ public class NextMatchCountdown {
      */
     public static String getTextValue(Context context, long matchTime, boolean isTablet){
         String countdownString = "";
-        long now = (Utility.getCurrentNTPTime() /1000);
+        long now = (Utility.getCurrentTime() /1000);
         long totalInterval = matchTime - now;
         int days = 0;
         int hours = 0;

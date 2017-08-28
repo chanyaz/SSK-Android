@@ -211,7 +211,7 @@ public class FileUploader {
     }
 
     public static String generateMongoOID() {
-        Long tsLong = Utility.getCurrentNTPTime() / 1000L; // TODO @Filip - Magic number
+        Long tsLong = Utility.getCurrentTime() / 1000L; // TODO @Filip - Magic number
         return (getFirst8(Long.toHexString(tsLong)) + generateRandom() + generateRandom());
 
     }

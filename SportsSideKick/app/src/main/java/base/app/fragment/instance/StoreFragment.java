@@ -188,7 +188,7 @@ public class StoreFragment extends BaseFragment {
             item.setSubTitle(price);
             item.setUrl(url);
             item.setCoverImageUrl(absoluteUrl);
-            item.setTimestamp((double) Utility.getCurrentNTPTime());
+            item.setTimestamp((double) Utility.getCurrentTime());
         }
     }
 

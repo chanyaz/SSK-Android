@@ -188,6 +188,7 @@ public class MemberInfoFragment extends BaseFragment {
         ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
         progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
         profileImageLevel.setText(String.valueOf((int)user.getProgress()));
+
         if (!Utility.isTablet(getActivity())) {
             if (user.getUserId() != null) {
                 friendsCountText.setText(String.valueOf(user.getRequestedUserFriendsCount()));
@@ -297,23 +298,29 @@ public class MemberInfoFragment extends BaseFragment {
         task.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
-                if (task.isSuccessful())
+                if (task.isSuccessful()) {
                     if (task.getResult().size() > 0) {
 
                         if (commonFriendsContainer != null) {
                             commonFriendsContainer.setVisibility(View.VISIBLE);
                         }
-                        friendsCommunityText.setText(getString(R.string.friend_you_and) + " " + user.getFirstName() + " " + getString(R.string.have_in_common));
-                        friendsInCommonAdapter.getValues().addAll(task.getResult());
-                        friendsInCommonAdapter.notifyDataSetChanged();
+                        if (friendsCommunityText != null) {
+                            friendsCommunityText.setText(getString(R.string.friend_you_and) + " " + user.getFirstName() + " " + getString(R.string.have_in_common));
+                            friendsInCommonAdapter.getValues().clear();
+                            friendsInCommonAdapter.getValues().addAll(task.getResult());
+                            friendsInCommonAdapter.notifyDataSetChanged();
+                        }
+
                     } else {
                         if (commonFriendsContainer != null) {
                             commonFriendsContainer.setVisibility(View.GONE);
                         }
 
                     }
-                assert friendProgressBar != null;
-                friendProgressBar.setVisibility(View.GONE);
+                }
+                if (friendProgressBar != null) {
+                    friendProgressBar.setVisibility(View.GONE);
+                }
             }
         });
     }

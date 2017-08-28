@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -79,7 +78,6 @@ public class AddFriendFragment extends BaseFragment {
         final View view = inflater.inflate(R.layout.popup_add_friend, container, false);
         ButterKnife.bind(this, view);
         adapter = new FriendsAdapter(this.getClass());
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (Utility.isTablet(getActivity())) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             people.setLayoutManager(layoutManager);
@@ -93,15 +91,9 @@ public class AddFriendFragment extends BaseFragment {
             people.setAdapter(adapter);
             setSpecialUserList();
         }
-        setTextWatcher();
+        setupEditTextListeners();
 
         return view;
-    }
-
-    @Override
-    public void onDestroyView() {
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        super.onDestroyView();
     }
 
     @Optional
@@ -120,8 +112,6 @@ public class AddFriendFragment extends BaseFragment {
             listContainer.setVisibility(View.VISIBLE);
             people.setVisibility(View.GONE);
         }
-
-
     }
 
 
@@ -173,8 +163,12 @@ public class AddFriendFragment extends BaseFragment {
     }
 
 
-    private void setTextWatcher() {
-        friendName.addTextChangedListener(new TextWatcher() {
+    private void setupEditTextListeners() {
+            if(Utility.isTablet(getContext())){
+                View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
+                friendName.setOnFocusChangeListener(focusChangeListener);
+            }
+            friendName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -231,7 +225,6 @@ public class AddFriendFragment extends BaseFragment {
     public void profileOnClick() {
         EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
     }
-
 
 
 }

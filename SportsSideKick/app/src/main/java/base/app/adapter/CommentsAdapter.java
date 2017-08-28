@@ -94,7 +94,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
                     }
                     String time = "" + DateUtils.getRelativeTimeSpanString(
-                            comment.getTimestamp().longValue()*1000, Utility.getCurrentNTPTime(), DateUtils.MINUTE_IN_MILLIS);
+                            comment.getTimestamp().longValue()*1000, Utility.getCurrentTime(), DateUtils.MINUTE_IN_MILLIS);
                     holder.messageInfo.setText(user.getFirstName() + " " + user.getLastName() + " | " + time);
                 }
             }

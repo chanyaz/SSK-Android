@@ -12,11 +12,11 @@ import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.instacart.library.truetime.TrueTimeRx;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -42,17 +42,9 @@ public class Utility {
 
     public static final String CHOSEN_LANGUAGE = "CHOSEN_LANGUAGE";
 
-    public static long getCurrentNTPTime(){
-        if(TrueTimeRx.isInitialized()){
-            try {
-               return TrueTimeRx.now().getTime();
-            } catch (IllegalStateException ex){
-                return System.currentTimeMillis();
-            }
-        } else {
-            return System.currentTimeMillis();
-        }
-    }
+    public static long getCurrentTime(){
+        return System.currentTimeMillis();
+    } // Previously used NPT time but now its not needed - TODO remove?
 
     private static volatile DisplayImageOptions blankOptionsUser;
     private static volatile DisplayImageOptions blankOptions;
@@ -295,4 +287,20 @@ public class Utility {
         }
         return result;
     }
+
+    public static View.OnFocusChangeListener getAdjustResizeFocusListener(final Activity activity){
+        return new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                } else {
+                    activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                }
+            }
+        };
+    }
+
+
+
 }

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -152,14 +151,15 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             }
         });
 
-        // --- TODO For testing only!
-//        emailEditText.setText(Prefs.getString("LAST_TEST_EMAIL","marco@polo.com"));
-//        passwordEditText.setText("qwerty");
-        // ---
-
         if (Utility.isTablet(getActivity()))
         {
-            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+            if(Utility.isTablet(getContext())){
+                View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
+                emailEditText.setOnFocusChangeListener(focusChangeListener);
+                passwordEditText.setOnFocusChangeListener(focusChangeListener);
+                emailForgotPassword.setOnFocusChangeListener(focusChangeListener);
+            }
 
             new KeyboardChangeListener(getActivity()).setKeyBoardListener(new KeyboardChangeListener.KeyBoardListener() {
                 @Override
@@ -259,7 +259,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @Override
     public void onDestroyView() {
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onDestroyView();
     }
 
@@ -274,16 +273,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
         if (!Connection.getInstance().alertIfNotReachable(getActivity(), new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        })) {
-            return;
-        }
-
-        // --- TODO For testing only!
-        //Prefs.putString("LAST_TEST_EMAIL",email);
-        // ---
+            public void onClick(View v) { getActivity().onBackPressed(); }
+        }))
 
         Model.getInstance().login(email, password);
         loginText.setVisibility(View.INVISIBLE);
@@ -297,13 +288,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         Model.getInstance().resetPassword(email);
         getActivity().onBackPressed();
     }
-
-//    @Optional
-//    @OnClick(R.id.sign_up_button)
-//    public void signUpOnClick() {
-//        EventBus.getDefault().post(new FragmentEvent(base.app.fragment.popup.SignUpFragment.class));
-//
-//    }
 
     @Optional
     @OnClick(R.id.forgot_button)
@@ -319,22 +303,15 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                 loginButtonContainer.setVisibility(View.INVISIBLE);
             }
         }
-
-
         resetButtonContainer.setVisibility(View.VISIBLE);
         forgotPasswordContainer.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onLogout() {
-//        progressBar.setVisibility(View.GONE);
-//        showLoginForms();
-    }
+    public void onLogout() {}
 
     @Override
-    public void onLoginAnonymously() {
-
-    }
+    public void onLoginAnonymously() {}
 
     @Override
     public void onLogin(UserInfo user) {
@@ -342,8 +319,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
         Utility.hideKeyboard(getActivity());
-        if(Utility.isTablet(getActivity()))
-        {
+        if(Utility.isTablet(getActivity())) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         }
         else {
@@ -367,24 +344,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                     }
                 }
         );
-    }
-
-    // To animate view slide out from left to right
-    public void slideToRight(View view) {
-        TranslateAnimation animate = new TranslateAnimation(0, view.getWidth(), 0, 0);
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.VISIBLE);
-    }
-
-    // To animate view slide out from right to left
-    public void slideToLeft(View view) {
-        TranslateAnimation animate = new TranslateAnimation(0, -view.getWidth(), 0, 0);
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.INVISIBLE);
     }
 
     @Override

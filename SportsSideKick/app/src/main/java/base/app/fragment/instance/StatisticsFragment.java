@@ -110,7 +110,7 @@ public class StatisticsFragment extends BaseFragment {
                         WallStats wallPost = new WallStats();
                         wallPost.setTitle("A Stats post");
                         wallPost.setSubTitle("Some subtitle");
-                        wallPost.setTimestamp((double) Utility.getCurrentNTPTime());
+                        wallPost.setTimestamp((double) Utility.getCurrentTime());
                         wallPost.setBodyText("...");
                         wallPost.setCoverAspectRatio(imageAspectRatio);
                         wallPost.setCoverImageUrl(task.getResult());

@@ -89,7 +89,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         }
         holder.caption.setText(info.getTitle());
         holder.date.setText("" + DateUtils.getRelativeTimeSpanString(info.getTimestamp().longValue(),
-                Utility.getCurrentNTPTime(), DateUtils.HOUR_IN_MILLIS)); // TODO USE PLACEHOLDER!!!
+                Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS)); // TODO USE PLACEHOLDER!!!
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
