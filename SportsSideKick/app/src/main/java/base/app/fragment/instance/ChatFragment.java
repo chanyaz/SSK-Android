@@ -229,9 +229,28 @@ public class ChatFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 if (currentlyActiveChat != null) {
-                    currentlyActiveChat.loadPreviousMessagesPage();
-                } else {
-                    swipeRefreshLayout.setRefreshing(false);
+                    final ChatInfo refreshingChat = currentlyActiveChat;
+                    Task<List<ImsMessage>> nextPageTask = currentlyActiveChat.loadPreviousMessagesPage();
+                    nextPageTask.addOnCompleteListener(new OnCompleteListener<List<ImsMessage>>() {
+                        @Override
+                        public void onComplete(@NonNull Task<List<ImsMessage>> task) {
+                            if(task.isSuccessful()){
+                                List<ImsMessage> messages = task.getResult();
+                                if(messages!=null){
+                                    if(messages.size()>0){
+                                        refreshingChat.addReceivedMessage(messages);
+                                        if(currentlyActiveChat!=null){
+                                            if(currentlyActiveChat.equals(refreshingChat)){
+                                                messageAdapter.notifyDataSetChanged();
+                                                messageListView.smoothScrollToPosition(0);
+                                            }
+                                        }
+                                    }
+                                }
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -835,18 +854,7 @@ public class ChatFragment extends BaseFragment {
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
                 messageAdapter.notifyDataSetChanged();
-
-                String lastMessageSenderId = null;
-                List<ImsMessage> messages = currentlyActiveChat.getMessages();
-                if(messages!=null && messages.size()>0){
-                    lastMessageSenderId = messages.get(messages.size()-1).getSenderId();
-                }
-                UserInfo user = Model.getInstance().getUserInfo();
-                if(lastMessageSenderId!=null && user!=null && lastMessageSenderId.equals(user.getUserId())){
-                    messageListView.smoothScrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
-                } else {
-                    messageListView.smoothScrollToPosition(0); // Scroll to top
-                }
+                messageListView.smoothScrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
             }
         }
     }

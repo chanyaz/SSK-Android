@@ -105,11 +105,11 @@ public class ChatInfo {
         setClubId(info.getClubId());
 
         // This is different from iOS - do we really need this?
-        if(info.getMessages()!=null){
-            if(info.getMessages().size()>0){
-                setMessages(info.getMessages());
-            }
-        }
+//        if(info.getMessages()!=null){
+//            if(info.getMessages().size()>0){
+//                setMessages(info.getMessages());
+//            }
+//        }
     }
 
     // don't use that, it is called on login
@@ -231,38 +231,26 @@ public class ChatInfo {
     /**
      * Load Message history, this func load the previusly archived messages in this chat
      */
-    public void loadPreviousMessagesPage(){
-        ImsManager.getInstance().loadPreviousPageOfMessages(this).addOnCompleteListener(new OnCompleteListener<List<ImsMessage>>() {
-            @Override
-            public void onComplete(@NonNull Task<List<ImsMessage>> task) {
-                if(task.isSuccessful()){
-//                    TODO - This code is not present on iOS!
-//                    List<ImsMessage> messagesNewPage = task.getResult();
-//                    for(ImsMessage m : messagesNewPage){
-//                        boolean exists = false;
-//                        for(ImsMessage mOld : messages){
-//                            if(m.getId().equals(mOld.getId())){
-//                                exists = true;
-//                            }
-//                        }
-//                        if(!exists){
-//                            Log.d(TAG,"Adding message to list: " + m.getId());
-//                            messages.add(m);
-//                        }
-//                    }
-//
-                    // Instead, we have this:
-                    messages.addAll(task.getResult());
-                    sortMessages();
-                    EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
-                    EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
-                }
-            }
-        });
+    public Task<List<ImsMessage>> loadPreviousMessagesPage(){
+       return ImsManager.getInstance().loadPreviousPageOfMessages(this);
+
+        //.addOnCompleteListener(new OnCompleteListener<List<ImsMessage>>() {
+//            @Override
+//            public void onComplete(@NonNull Task<List<ImsMessage>> task) {
+//                if(task.isSuccessful()){
+//                    List<ImsMessage> messages = task.getResult();
+
+//                    messages.addAll(task.getResult());
+//                    sortMessages();
+//                    EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
+//                    EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
+//                }
+//            }
+//        });
     }
 
     // TODO - This code is not present on iOS!
-    private void sortMessages(){
+    public void sortMessages(){
         Collections.sort(messages, new Comparator<ImsMessage>() {
             @Override
             public int compare(ImsMessage lhs, ImsMessage rhs) {

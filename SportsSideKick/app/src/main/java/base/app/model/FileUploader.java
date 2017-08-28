@@ -121,7 +121,7 @@ public class FileUploader {
         }
     }
 
-    public void upladCompressedImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion){
+    public void uploadCompressedImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion){
         File image = new File(filepath);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);

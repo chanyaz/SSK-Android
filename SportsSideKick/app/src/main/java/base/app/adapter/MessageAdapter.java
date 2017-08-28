@@ -103,7 +103,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ImsMessage message = chatInfo.getMessages().get(position);
+        ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
         }
@@ -264,7 +264,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         } else {
             return 0;
         }
-
     }
 
     @Override
