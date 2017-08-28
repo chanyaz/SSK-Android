@@ -721,6 +721,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         isSearchVisible = false;
         postCommentButton.setVisibility(View.GONE);
         updateButtons();
+        recyclerView.smoothScrollToPosition(0);
     }
 
     private void makePostContainerVisible() {
