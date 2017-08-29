@@ -273,8 +273,12 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
         if (!Connection.getInstance().alertIfNotReachable(getActivity(), new View.OnClickListener() {
             @Override
-            public void onClick(View v) { getActivity().onBackPressed(); }
-        }))
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        })) {
+            return;
+        }
 
         Model.getInstance().login(email, password);
         loginText.setVisibility(View.INVISIBLE);
