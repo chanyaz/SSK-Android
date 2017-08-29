@@ -847,11 +847,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
 
     }
-
     private void getNextTip() {
         WallTip tipToBeDisplayed = null;
-        String currentUserId = Model.getInstance().getUserInfo().getUserId();
-
+        String currentUserId = null;
         // in case a user is not logged in yet, show special tip
         if (!Model.getInstance().isRealUser()) {
             tipToBeDisplayed = TutorialModel.getInstance().getNotLoggedTip();
@@ -860,6 +858,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             if (UserInfo.UserType.fan != Model.getInstance().getUserInfo().getUserType()) {
                 return;
             }
+            currentUserId = Model.getInstance().getUserInfo().getUserId();
             // check if its a different, new user logged in - in that case reset tips progress
             if (!currentUserId.equals(TutorialModel.getInstance().getUserId())) {
                 TutorialModel.getInstance().resetSeenInfo();
@@ -881,8 +880,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             double distantFutureTimestamp = Utility.getCurrentTime()+100000;
             tipToBeDisplayed.setTimestamp(distantFutureTimestamp);
             tipToBeDisplayed.setType(WallBase.PostType.tip);
-            tipToBeDisplayed.setPostId(currentUserId);
-            WallBase.getCache().put(currentUserId, tipToBeDisplayed);
+            if(currentUserId!=null){
+                tipToBeDisplayed.setPostId(currentUserId);
+                WallBase.getCache().put(currentUserId, tipToBeDisplayed);
+            }
             wallItems.add(tipToBeDisplayed);
             EventBus.getDefault().post(new PostUpdateEvent(tipToBeDisplayed));
         }

@@ -46,6 +46,11 @@ import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
  */
 public class AddFriendFragment extends BaseFragment {
 
+    @BindView(R.id.top_buttons_container)
+    View topBarContainer;
+
+    RelativeLayout view;
+
     @BindView(R.id.people_recycler_view)
     RecyclerView people;
     @BindView(R.id.add_friend_name)
@@ -75,7 +80,7 @@ public class AddFriendFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.popup_add_friend, container, false);
+        View view = inflater.inflate(R.layout.popup_add_friend, container, false);
         ButterKnife.bind(this, view);
         adapter = new FriendsAdapter(this.getClass());
         if (Utility.isTablet(getActivity())) {
@@ -92,7 +97,7 @@ public class AddFriendFragment extends BaseFragment {
             setSpecialUserList();
         }
         setupEditTextListeners();
-
+        this.view = (RelativeLayout) view;
         return view;
     }
 
@@ -102,30 +107,34 @@ public class AddFriendFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(InviteFriendFragment.class));
     }
 
+    int defaultTopMargin;
+
     private void onDataSetChange(boolean visible) {
-        if (visible) {
-            noResultCaption.setVisibility(View.GONE);
-            people.setVisibility(View.VISIBLE);
-            listContainer.setVisibility(View.VISIBLE);
-        } else {
-            noResultCaption.setVisibility(View.VISIBLE);
-            listContainer.setVisibility(View.VISIBLE);
-            people.setVisibility(View.GONE);
+        if (Utility.isTablet(getActivity())) {
+            topBarContainer.setVisibility(visible ? View.GONE : View.VISIBLE);
+            RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams)view.getLayoutParams();
+            int desiredMargin;
+            if(visible){
+                defaultTopMargin = relativeParams.topMargin;
+                desiredMargin = 0;
+            } else {
+                desiredMargin = defaultTopMargin;
+            }
+            relativeParams.setMargins(relativeParams.leftMargin, desiredMargin, relativeParams.rightMargin, relativeParams.bottomMargin);  // left, top, right, bottom
+            view.setLayoutParams(relativeParams);
         }
+        noResultCaption.setVisibility(visible ? View.GONE : View.VISIBLE);
+        people.setVisibility(visible ? View.VISIBLE : View.GONE);
+        listContainer.setVisibility(View.VISIBLE);
     }
 
 
     private void onSpecialDataSetChange(boolean visible) {
-        if (specialListContainer != null && specialRecyclerView != null && noResultSpecialText != null)
-            if (visible) {
-                noResultSpecialText.setVisibility(View.GONE);
-                specialRecyclerView.setVisibility(View.VISIBLE);
-                specialListContainer.setVisibility(View.VISIBLE);
-            } else {
-                specialListContainer.setVisibility(View.VISIBLE);
-                specialRecyclerView.setVisibility(View.INVISIBLE);
-                noResultSpecialText.setVisibility(View.VISIBLE);
-            }
+        if (specialListContainer != null && specialRecyclerView != null && noResultSpecialText != null){
+            noResultSpecialText.setVisibility(visible ? View.GONE : View.VISIBLE);
+            specialRecyclerView.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+            specialListContainer.setVisibility(View.VISIBLE);
+        }
     }
 
 
