@@ -2,7 +2,6 @@ package base.app.adapter;
 
 import android.content.Context;
 import android.os.Handler;
-import android.provider.VoicemailContract;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,27 +12,13 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.Constant;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.ChatFragment;
-import base.app.fragment.instance.ClubRadioFragment;
-import base.app.fragment.instance.ClubTVFragment;
-import base.app.fragment.instance.ClubTvPlaylistFragment;
-import base.app.fragment.instance.NewsFragment;
-import base.app.fragment.instance.RumoursFragment;
-import base.app.fragment.instance.StatisticsFragment;
-import base.app.fragment.instance.StoreFragment;
-import base.app.fragment.instance.VideoChatFragment;
-import base.app.fragment.instance.WallFragment;
 import base.app.util.Utility;
 import base.app.util.ui.NavigationDrawerItems;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Aleksandar Marinkovic on 18/04/2017.
@@ -46,7 +31,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     private static final String TAG = "Menu Adapter";
     private int oldPosition;
     private String[] values;
-    private Context context;
     private int screenWidth;
     private IDrawerClose drawerClose;
 
@@ -74,7 +58,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         NavigationDrawerItems.getInstance().generateList(myImages.length);
         this.drawerClose = drawerClose;
         screenWidth = Utility.getDisplayWidth(context);
-        this.context = context;
     }
 
 
@@ -95,20 +78,19 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (viewHolder.getAdapterPosition() != getItemCount() - 1 && !viewHolder.itemView.isSelected()) {
-                    int position = viewHolder.getAdapterPosition();
+                int position = viewHolder.getAdapterPosition();
+                if (!viewHolder.itemView.isSelected()) {
                     notifyItemChanged(oldPosition);
-                    oldPosition = viewHolder.getAdapterPosition();
-                    NavigationDrawerItems.getInstance().setByPosition(viewHolder.getAdapterPosition());
+                    oldPosition = position;
+                    NavigationDrawerItems.getInstance().setByPosition(position);
                     viewHolder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
                     drawerClose.closeDrawerMenu(viewHolder.getAdapterPosition(),true);
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                            EventBus.getDefault().post(new FragmentEvent(Constant.CLASS_LIST.get(viewHolder.getAdapterPosition())));
+                            Class fragmentToStart = Constant.CLASS_LIST.get(viewHolder.getAdapterPosition());
+                            EventBus.getDefault().post(new FragmentEvent(fragmentToStart));
                         }
-                    }, 400);
-
+                    }, 200);
                 }
                 else {
                     drawerClose.closeDrawerMenu(0,false);
@@ -140,8 +122,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (values == null)
+        if (values == null) {
             return 0;
+        }
         return myImages.length;
     }
 
@@ -154,10 +137,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             R.drawable.menu_club_radio_selector,
             R.drawable.menu_shop_selector,
             R.drawable.menu_club_tv_selector,
-            R.drawable.menu_video_chat_selector,
-            R.drawable.menu_menu_selector,
-
-
+            R.drawable.menu_video_chat_selector
     };
 
 

@@ -91,7 +91,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @BindView(R.id.activity_main)
     View rootView;
     @BindView(R.id.menu_recycler_view)
-    RecyclerView menu_recycler_view;
+    RecyclerView menuRecyclerView;
     @BindView(R.id.drawer_container)
     PercentRelativeLayout drawerContainer;
     @BindView(R.id.fragment_left_popup_holder)
@@ -207,9 +207,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         double space = Utility.getDisplayWidth(this);
         space = space * 0.005;
-        menu_recycler_view.addItemDecoration(new LinearItemDecoration((int) space, true, false));
-        menu_recycler_view.setLayoutManager(gridLayoutManager);
-        menu_recycler_view.setAdapter(menuAdapter);
+        menuRecyclerView.addItemDecoration(new LinearItemDecoration((int) space, true, false));
+        menuRecyclerView.setLayoutManager(gridLayoutManager);
+        menuRecyclerView.setAdapter(menuAdapter);
 
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -289,7 +289,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupDialogFragments.add(AlertDialogFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_dialog, popupDialogFragments, true);
 
-//left Join
+        //left Join
         popupLeftFragments = new ArrayList<>();
         popupLeftFragments.add(EditChatFragment.class);
         popupLeftFragments.add(JoinChatFragment.class);

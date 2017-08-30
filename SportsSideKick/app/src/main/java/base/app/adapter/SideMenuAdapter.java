@@ -30,7 +30,6 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
     private static final String TAG = "Side Menu Adapter";
     private int oldPosition;
 
-    private Context context;
     private int screenWidth;
     private IDrawerCloseSideMenu iDrawerCloseSideMenu;
 
@@ -51,9 +50,7 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
 
     public SideMenuAdapter(Context context, IDrawerCloseSideMenu iDrawerCloseSideMenu) {
         this.iDrawerCloseSideMenu = iDrawerCloseSideMenu;
-
         screenWidth = Utility.getDisplayWidth(context);
-        this.context = context;
     }
 
     @Override
