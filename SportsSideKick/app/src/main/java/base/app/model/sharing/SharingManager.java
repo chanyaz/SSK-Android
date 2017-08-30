@@ -308,6 +308,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                 .setEventAttribute("shareType", shareTarget.ordinal())
                 .setEventAttribute("itemType", item.getItemType().ordinal())
                 .setEventAttribute("item", data)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
 
         return source.getTask();
