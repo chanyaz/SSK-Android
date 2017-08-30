@@ -2,13 +2,13 @@ package base.app.fragment.instance;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,16 +38,28 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import base.app.activity.PhoneLoungeActivity;
+import base.app.R;
+import base.app.activity.LoungeActivity;
+import base.app.events.AddUsersToCallEvent;
+import base.app.events.StartCallEvent;
+import base.app.fragment.BaseFragment;
+import base.app.fragment.FragmentEvent;
+import base.app.fragment.popup.AlertDialogFragment;
 import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.SignUpFragment;
-import base.app.fragment.popup.SignUpLoginFragment;
 import base.app.fragment.popup.SignUpLoginVideoFragment;
-import base.app.model.user.LoginStateReceiver;
+import base.app.fragment.popup.StartingNewCallFragment;
+import base.app.model.AlertDialogManager;
+import base.app.model.Model;
 import base.app.model.user.UserEvent;
+import base.app.model.user.UserInfo;
+import base.app.model.videoChat.Slot;
+import base.app.model.videoChat.VideoChatEvent;
+import base.app.model.videoChat.VideoChatItem;
+import base.app.model.videoChat.VideoChatModel;
 import base.app.util.Utility;
+import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,22 +70,6 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-import base.app.R;
-import base.app.activity.LoungeActivity;
-import base.app.fragment.BaseFragment;
-import base.app.fragment.FragmentEvent;
-import base.app.fragment.popup.AlertDialogFragment;
-import base.app.fragment.popup.StartingNewCallFragment;
-import base.app.model.AlertDialogManager;
-import base.app.model.Model;
-import base.app.model.user.UserInfo;
-import base.app.model.videoChat.Slot;
-import base.app.model.videoChat.VideoChatEvent;
-import base.app.model.videoChat.VideoChatItem;
-import base.app.model.videoChat.VideoChatModel;
-import base.app.events.AddUsersToCallEvent;
-import base.app.events.StartCallEvent;
-import base.app.util.ui.ThemeManager;
 
 /**
  * Created by Djordje on 01/31/2016.
@@ -318,6 +314,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
     public void onVideoChatEventReceived(VideoChatEvent event) {
+        Activity activity = getActivity();
         switch (event.getType()) {
             case onUserInvited:
                 ArrayList<String> users = new ArrayList<>();
@@ -361,13 +358,17 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                 });
                 break;
             case onInvitationRevoked:
-                if (((LoungeActivity) getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
-                    getActivity().onBackPressed();
+                if(activity instanceof LoungeActivity){
+                    if(((LoungeActivity) getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
+                        getActivity().onBackPressed();
+                    }
                 }
                 break;
             case onChatClosed:
-                if (((LoungeActivity) getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
-                    getActivity().onBackPressed();
+                if(activity instanceof LoungeActivity){
+                    if(((LoungeActivity) getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
+                        getActivity().onBackPressed();
+                    }
                 }
                 if (room != null && room.getName().equals(event.getId())) {
                     disconnect();
@@ -529,7 +530,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         if (room != null) {
             model.leave(room.getName());
         }
-        clearListeners();
         cleanupRemoteParticipants();
         room = null;
         setViewState(false, false);
@@ -560,6 +560,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     private void completeConnect() {
         localAudioTrack = LocalAudioTrack.create(getContext(), true);
         camera = new CameraCapturer(getContext(), CameraCapturer.CameraSource.FRONT_CAMERA);
+        if(localVideoTrack!=null){
+            localVideoTrack.release();
+        }
         localVideoTrack = LocalVideoTrack.create(getContext(), true, camera);
         List<LocalAudioTrack> localAudioTracks = new ArrayList<LocalAudioTrack>() {{
             add(localAudioTrack);
@@ -581,35 +584,10 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         room = Video.connect(getContext(), connectOptions, this);
     }
 
-//    private void completeConnect() {
-//        if (localAudioTrack == null) {
-//            localAudioTrack = localMedia.addAudioTrack(true);
-//        }
-//        if (localMedia.getVideoTracks().size() == 0) {
-//            startPreview();
-//        }
-//        // Connect to a room
-//        ConnectOptions connectOptions = new ConnectOptions.Builder(token)
-//                .roomName(roomId)
-//                .localMedia(localMedia)
-//                .build();
-//
-//        room = Video.connect(getContext(), connectOptions, this);
-//    }
-
     private void startPreview() {
         localVideoTrack.addRenderer(previewView);
     }
 
-//    private void startPreview() {
-//        camera = new CameraCapturer(getContext(), CameraCapturer.CameraSource.FRONT_CAMERA);
-//        localVideoTrack = localMedia.addVideoTrack(true, camera);
-//        if (localVideoTrack == null) {
-//            Log.e(TAG, "Failed to add video track");
-//        } else {
-//            localVideoTrack.addRenderer(previewView);
-//        }
-//    }
 
 
     private void cleanupRemoteParticipants() {
@@ -694,23 +672,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         });
 
     }
-
-
-    private void clearListeners() {
-        clearListeners(false);
-    }
-
-    private void clearListeners(boolean destroy) {
-//        if destroy == true {
-//            self.onInvited              = nil
-//            self.onInvitationRevoked    = nil
-//            self.onRoomClosed           = nil
-//        }
-//
-//        self.onRemoteUserInvitationRejected = nil
-//        self.onRemoteUserInvited            = nil
-    }
-
 
     @Override
     public void onConnected(Room room) {
@@ -831,5 +792,4 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             beginYourCall.setVisibility(View.GONE);
         }
     }
-
 }

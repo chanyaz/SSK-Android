@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.twilio.video.AudioTrack;
 import com.twilio.video.Participant;
+import com.twilio.video.VideoScaleType;
 import com.twilio.video.VideoTrack;
 import com.twilio.video.VideoView;
 
@@ -26,8 +27,6 @@ import base.app.model.user.UserInfo;
  */
 
 public class Slot implements Participant.Listener{
-
-
 
     View view;
 
@@ -56,7 +55,7 @@ public class Slot implements Participant.Listener{
         if(this.participant==null){
             setUserId(null);
         } else {
-            participant.setListener(this);
+            this.participant.setListener(this);
             if(userId!=null && userId.equals(this.participant.getIdentity())){
                 return;
             }
@@ -91,7 +90,7 @@ public class Slot implements Participant.Listener{
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
-        if(userInfo!=null){
+        if(this.userInfo!=null){
             label.setText(userInfo.getNicName());
         } else {
             label.setText("...");
@@ -117,7 +116,6 @@ public class Slot implements Participant.Listener{
             if ( tracks!=null && tracks.size() > 0 ){
                 for(VideoTrack track: tracks) {
                         track.removeRenderer(this.video);
-                        participant.setListener(null);
                 }
             }
         }
@@ -155,26 +153,33 @@ public class Slot implements Participant.Listener{
 
     @Override
     public void onVideoTrackAdded(Participant participant, VideoTrack videoTrack) {
-        if(this.videoTrack !=null){
-            videoTrack.removeRenderer(video);
-            videoTrack = null;
-        }
-        this.videoTrack = videoTrack;
-        if (videoTrack != null) {
-            setVideo(true);
-            videoTrack.addRenderer(video);
+        if(participant.equals(this.participant)) {
+            if (this.videoTrack != null) {
+                this.videoTrack.removeRenderer(video);
+                this.videoTrack = null;
+            }
+            this.videoTrack = videoTrack;
+            if (this.videoTrack != null) {
+                this.videoTrack.addRenderer(video);
+                video.setVideoScaleType(VideoScaleType.ASPECT_FIT);
+                setVideo(true);
+            }
         }
     }
 
     @Override
     public void onVideoTrackRemoved(Participant participant, VideoTrack videoTrack) {
-        if(this.videoTrack!=null){
-            if(videoTrack.getTrackId().equals(this.videoTrack.getTrackId())){
-                videoTrack.removeRenderer(video);
-                this.videoTrack = null;
+        if(participant.equals(this.participant)){
+            if(this.videoTrack!=null){
+                if(videoTrack.getTrackId().equals(this.videoTrack.getTrackId())){
+                    this.videoTrack.removeRenderer(video);
+                    this.videoTrack = null;
+                    //video.release();
+                }
             }
+            setVideo(false);
         }
-        setVideo(false);
+
     }
 
     @Override
