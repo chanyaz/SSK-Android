@@ -2,6 +2,7 @@ package base.app.fragment.popup;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -25,9 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.adapter.ChatGroupAdapter;
 import base.app.adapter.FriendsAdapter;
 import base.app.events.OpenChatEvent;
+import base.app.events.StartCallEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.VideoChatFragment;
@@ -70,8 +71,8 @@ public class MemberInfoFragment extends BaseFragment {
     TextView onlineStatus;
 
     @Nullable
-    @BindView(R.id.reverse_is_in_recycler_view)
-    RecyclerView publicChatRecyclerView;
+    @BindView(R.id.all_friends_recycler_view)
+    RecyclerView allFriendsRecyclerView;
     @Nullable
     @BindView(R.id.in_common_recycler_view)
     RecyclerView inCommonRecyclerView;
@@ -134,7 +135,7 @@ public class MemberInfoFragment extends BaseFragment {
     private Class initiatorFragment;
 
     FriendsAdapter friendsInCommonAdapter;
-    ChatGroupAdapter publicChatsIsInCommonAdapter;
+    FriendsAdapter allFriendsAdapter;
 
     public MemberInfoFragment() {
         // Required empty public constructor
@@ -154,13 +155,17 @@ public class MemberInfoFragment extends BaseFragment {
             int width = Utility.getDisplayWidth(getActivity());
             friendsInCommonAdapter = new FriendsAdapter(this.getClass());
             int screenWidth = (int) (GRID_PERCENT_CELL_WIDTH_PHONE * width);
-            publicChatsIsInCommonAdapter = new ChatGroupAdapter(getActivity(), screenWidth);
+            allFriendsAdapter = new FriendsAdapter(this.getClass());
+            allFriendsAdapter.screenWidth(screenWidth);
+
+
+
             friendsInCommonAdapter.screenWidth(screenWidth);
-            LinearLayoutManager publicChatsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            LinearLayoutManager allFriendsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager friendsInCommonLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-            publicChatRecyclerView.setLayoutManager(publicChatsLayoutManager);
+            allFriendsRecyclerView.setLayoutManager(allFriendsLayoutManager);
             inCommonRecyclerView.setLayoutManager(friendsInCommonLayoutManager);
-            publicChatRecyclerView.setAdapter(publicChatsIsInCommonAdapter);
+            allFriendsRecyclerView.setAdapter(allFriendsAdapter);
             inCommonRecyclerView.setAdapter(friendsInCommonAdapter);
 
 
@@ -264,17 +269,19 @@ public class MemberInfoFragment extends BaseFragment {
 
     private void getAllUserChats(final UserInfo user) {
 
-        Task<List<ChatInfo>> taskAllChats = ImsManager.getInstance().getAllPublicChatsForUser(user.getUserId());
-        taskAllChats.addOnCompleteListener(new OnCompleteListener<List<ChatInfo>>() {
+        Task<List<UserInfo>> taskAllChats = FriendsManager.getInstance().getFriendsForUser(user.getUserId(), 0,30);
+        taskAllChats.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
-            public void onComplete(@NonNull Task<List<ChatInfo>> task) {
+            public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if (task.isSuccessful()) {
                     if (task.getResult().size() > 0) {
                         if (publicChatsContainer != null) {
                             publicChatsContainer.setVisibility(View.VISIBLE);
                         }
-                        publicChatText.setText(getString(R.string.public_chats_profile) + " " + user.getFirstName() + " " + user.getLastName() + " " + getString(R.string.is_in));
-                        publicChatsIsInCommonAdapter.setValues(task.getResult());
+                        publicChatText.setText(user.getFirstName() + " " + getString(R.string.friends_list));
+                        allFriendsAdapter.getValues().clear();
+                        allFriendsAdapter.getValues().addAll(task.getResult());
+                        allFriendsAdapter.notifyDataSetChanged();
                     } else {
                         if (publicChatsContainer != null) {
                             publicChatsContainer.setVisibility(View.GONE);
@@ -417,8 +424,14 @@ public class MemberInfoFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.video_button)
     public void videoButton() {
-        //TODO finish this
         EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                ArrayList<UserInfo> usersToCall = new ArrayList<>();
+                usersToCall.add(user);
+                EventBus.getDefault().post(new StartCallEvent(usersToCall));
+            }
+        }, 500);
     }
 
     @Optional

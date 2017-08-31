@@ -102,6 +102,36 @@ public class FriendsManager extends GSMessageHandlerAbstract {
     }
 
     /**
+     * GetFriends - returns the user friends list
+     *
+     * @return the user friends list
+     */
+    public Task<List<UserInfo>> getFriendsForUser(String userId, int offset, int entryCount) {
+        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.FRIENDS);
+                    List<UserInfo> friends = mapper.convertValue(object, new TypeReference<List<UserInfo>>() { });
+                    while (friends.contains(null)) {
+                        friends.remove(null);
+                    }
+                    source.setResult(friends);
+                } else {
+                    source.setException(new Exception("There was an error while trying to get a list of friends."));
+                }
+            }
+        };
+        createRequest("friendGetFriendsList")
+                .setEventAttribute(GSConstants.USER_ID, userId)
+                .setEventAttribute(GSConstants.ENTRY_COUNT, entryCount)
+                .setEventAttribute(GSConstants.OFFSET, offset)
+                .send(consumer);
+        return source.getTask();
+    }
+
+    /**
      * getMutualFriendsListWithUser - returns the mutual friends list with the given user
      *
      * @return the user friends list

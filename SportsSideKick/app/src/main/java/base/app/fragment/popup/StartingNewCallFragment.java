@@ -1,8 +1,6 @@
 package base.app.fragment.popup;
 
-import android.graphics.Path;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -28,25 +25,23 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.app.adapter.AddFriendsAdapter;
-import base.app.model.friendship.PeopleSearchManager;
-import base.app.model.user.AddFriendsEvent;
-import base.app.util.ui.LinearItemSpacing;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
+import base.app.adapter.AddFriendsAdapter;
 import base.app.adapter.SelectableFriendsAdapter;
+import base.app.events.AddUsersToCallEvent;
+import base.app.events.StartCallEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.AlertDialogManager;
 import base.app.model.friendship.FriendsManager;
+import base.app.model.user.AddFriendsEvent;
 import base.app.model.user.UserInfo;
-import base.app.events.AddUsersToCallEvent;
-import base.app.events.StartCallEvent;
+import base.app.util.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
-import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;

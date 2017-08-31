@@ -569,8 +569,8 @@
             android:textColor="?white" />
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/all_friends_recycler_view"
             android:layout_toLeftOf="@+id/left_scroll_chat"
-            android:id="@+id/reverse_is_in_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/public_chat_text" />
