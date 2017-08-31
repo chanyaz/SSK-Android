@@ -66,8 +66,8 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         //Extract data for display!
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.logo_ssk)
-                .setContentTitle("SIDEKICK")
+                .setSmallIcon(R.drawable.logo_fq)
+                .setContentTitle("Fanschat")
                 .setContentText(alert)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
