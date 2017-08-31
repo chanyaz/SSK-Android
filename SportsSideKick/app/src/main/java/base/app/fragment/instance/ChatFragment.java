@@ -1092,6 +1092,7 @@ public class ChatFragment extends BaseFragment {
     public void onStart(){
         super.onStart();
         switch (resultFromPicker){
+            case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
             case REQUEST_CODE_CHAT_IMAGE_PICK:
                 sendImageMessage(currentPath);
                 break;
