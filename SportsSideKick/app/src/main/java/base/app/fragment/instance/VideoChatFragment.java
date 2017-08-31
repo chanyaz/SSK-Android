@@ -259,7 +259,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             }
         }
 
-        if (!Utility.isTablet(getActivity()))
+        if (Utility.isPhone(getActivity()))
         {
             chronometer.setFormat("%s");
             onLoginStateChange();
@@ -471,7 +471,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                         if (slot != null) {
                             slot.setUserId(userId);
                             addSlotToLayout(slot);
-                            if (!Utility.isTablet(getActivity())) {
+                            if (Utility.isPhone(getActivity())) {
                                 Model.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                                     @Override
                                     public void onComplete(@NonNull Task<UserInfo> task) {
@@ -743,7 +743,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @Subscribe
     public void updateUserName(UserEvent event) {
-        if (!Utility.isTablet(getActivity())) {
+        if (Utility.isPhone(getActivity())) {
             onLoginStateChange();
         }
 

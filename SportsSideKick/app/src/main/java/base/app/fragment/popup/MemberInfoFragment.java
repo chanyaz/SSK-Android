@@ -151,7 +151,7 @@ public class MemberInfoFragment extends BaseFragment {
             initiatorFragment = FriendsFragment.class; // Resolve to default parent!
         }
         ButterKnife.bind(this, view);
-        if (!Utility.isTablet(getActivity())) {
+        if (Utility.isPhone(getActivity())) {
             int width = Utility.getDisplayWidth(getActivity());
             friendsInCommonAdapter = new FriendsAdapter(this.getClass());
             int screenWidth = (int) (GRID_PERCENT_CELL_WIDTH_PHONE * width);
@@ -194,7 +194,7 @@ public class MemberInfoFragment extends BaseFragment {
         progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
         profileImageLevel.setText(String.valueOf((int)user.getProgress()));
 
-        if (!Utility.isTablet(getActivity())) {
+        if (Utility.isPhone(getActivity())) {
             if (user.getUserId() != null) {
                 friendsCountText.setText(String.valueOf(user.getRequestedUserFriendsCount()));
                 commentsCountText.setText(String.valueOf(user.getComments()));

@@ -248,6 +248,10 @@ public class Utility {
 
     public static final String IS_TABLET = "IS_TABLET";
 
+    public static Boolean isPhone(Context context){
+        return !isTablet(context);
+    }
+
     public static Boolean isTablet(Context context) {
         if(context!=null) {
             return context.getResources().getBoolean(R.bool.is_tablet);

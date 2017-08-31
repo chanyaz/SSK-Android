@@ -59,7 +59,7 @@ public class ClubRadioFragment extends BaseFragment {
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        if (!Utility.isTablet(getActivity())) {
+        if (Utility.isPhone(getActivity())) {
             int space = (int) getResources().getDimension(R.dimen.padding_12);
             recyclerView.addItemDecoration(new GridItemDecoration(space, 2));
         }
@@ -75,7 +75,7 @@ public class ClubRadioFragment extends BaseFragment {
                     adapter.getValues().addAll(task.getResult());
                     adapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
-                    if(!Utility.isTablet(getActivity()) && task.getResult().size()>0){
+                    if(Utility.isPhone(getActivity()) && task.getResult().size()>0){
                         FragmentEvent fragmentEvent = new FragmentEvent(ClubRadioStationFragment.class);
                         fragmentEvent.setId(task.getResult().get(0).getName());
                         EventBus.getDefault().post(fragmentEvent);

@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             EventBus.getDefault().register(this);
         }
-        if (!Utility.isTablet(this)) {
+        if (Utility.isPhone(this)) {
             Utility.setSystemBarColor(this);
         }
 

@@ -222,7 +222,7 @@ public class ChatFragment extends BaseFragment {
         snappyLinearLayoutManager.setSnapDuration(1000);
         snappyLinearLayoutManager.setSeekDuration(1000);
         messageListView.setLayoutManager(snappyLinearLayoutManager);
-        if (!Utility.isTablet(getActivity()) && ImsManager.getInstance().getUserChatsList().size() == 0) {
+        if (Utility.isPhone(getActivity()) && ImsManager.getInstance().getUserChatsList().size() == 0) {
             ImsManager.getInstance().reload();
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -321,7 +321,7 @@ public class ChatFragment extends BaseFragment {
         });
         updateAllViews();
 
-        if (!Utility.isTablet(getActivity()))
+        if (Utility.isPhone(getActivity()))
         {
             onLoginStateChange();
         }

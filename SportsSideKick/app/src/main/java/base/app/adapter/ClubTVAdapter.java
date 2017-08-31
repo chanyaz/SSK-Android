@@ -77,7 +77,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         final ViewHolder viewHolder;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tv_category_item, parent, false);
         viewHolder = new ViewHolder(view);
-        if (!Utility.isTablet(context)) {
+        if (Utility.isPhone(context)) {
             int height = Utility.getDisplayHeight(context);
             view.getLayoutParams().height = (int) (height * ITEM_HEIGHT);
         }

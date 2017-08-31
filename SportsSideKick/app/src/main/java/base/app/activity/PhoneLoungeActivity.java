@@ -264,6 +264,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         mainContainerFragments.add(VoicemailContract.class);
         mainContainerFragments.add(VideoChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
+
         popupContainerFragments = new ArrayList<>();
         popupContainerFragments.add(YourProfileFragment.class);
         popupContainerFragments.add(StashFragment.class);
@@ -403,39 +404,41 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     public void onBackPressed() {
         toggleBlur(false, null); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-        Fragment fragmentOpened = fragmentOrganizer.getOpenFragment();
-        if (!Utility.isTablet(this)) {
-            if (popupLeftFragments.contains(fragmentOrganizer.getBackFragment().getClass())) {
-                fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
-            } else {
-                fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
-            }
+        Fragment currentFragment = fragmentOrganizer.getOpenFragment();
+        Class<? extends Fragment> previousFragment = fragmentOrganizer.getBackFragment().getClass();
+        Class<? extends Fragment> penultimateFragment = fragmentOrganizer.getPenultimateFragment().getClass();
+
+        if (popupLeftFragments.contains(previousFragment)) {
+            fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
+        } else {
+            fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
         }
-        if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class) {
+
+        if (previousFragment == YoutubePlayerFragment.class) {
             fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
         }
-        if (fragmentOpened.getClass() == SignUpFragment.class) {
-            if (((SignUpFragment) fragmentOpened).getTermsHolder().getVisibility() == View.VISIBLE) {
-                ((SignUpFragment) fragmentOpened).getTermsHolder().setVisibility(View.INVISIBLE);
+
+        if (currentFragment instanceof SignUpFragment) {
+            if (((SignUpFragment) currentFragment).getTermsHolder().getVisibility() == View.VISIBLE) {
+                ((SignUpFragment) currentFragment).getTermsHolder().setVisibility(View.INVISIBLE);
                 return;
             }
         }
 
 
-        if (youtubeList.contains(fragmentOrganizer.getBackFragment().getClass()) || youtubePlayer.contains(fragmentOrganizer.getBackFragment().getClass())) {
+        if (youtubeList.contains(previousFragment) || youtubePlayer.contains(previousFragment)) {
             tvContainer.setVisibility(View.VISIBLE);
         } else {
             tvContainer.setVisibility(View.GONE);
         }
 
-        if (radioList.contains(fragmentOrganizer.getBackFragment().getClass()) || radioPlayerList.contains(fragmentOrganizer.getBackFragment().getClass())) {
+        if (radioList.contains(previousFragment) || radioPlayerList.contains(previousFragment)) {
             radioContainer.setVisibility(View.VISIBLE);
         } else {
             radioContainer.setVisibility(View.GONE);
         }
 
-
-        if (fragmentOrganizer.getBackFragment().getClass() == ClubRadioStationFragment.class && fragmentOrganizer.get2BackFragment().getClass() == ClubRadioFragment.class) {
+        if (previousFragment == ClubRadioStationFragment.class && penultimateFragment == ClubRadioFragment.class) {
             NavigationDrawerItems.getInstance().setByPosition(5);
             fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
             menuAdapter.notifyDataSetChanged();
@@ -446,9 +449,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             return;
         }
 
-        if (fragmentOrganizer.getBackFragment().getClass() == YoutubePlayerFragment.class
-            && fragmentOrganizer.get2BackFragment().getClass() == ClubTVFragment.class
-            && fragmentOpened.getClass() != YoutubePlayerFragment.class
+        if (previousFragment == YoutubePlayerFragment.class
+            && penultimateFragment == ClubTVFragment.class
+            && currentFragment instanceof YoutubePlayerFragment
         ){
             NavigationDrawerItems.getInstance().setByPosition(7);
             menuAdapter.notifyDataSetChanged();
@@ -460,17 +463,17 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         }
 
 
-        if (fragmentOpened instanceof YoutubePlayerFragment) {
-            YoutubePlayerFragment youtubePlayerFragment = (YoutubePlayerFragment) fragmentOpened;
+        if (currentFragment instanceof YoutubePlayerFragment) {
+            YoutubePlayerFragment youtubePlayerFragment = (YoutubePlayerFragment) currentFragment;
             if (youtubePlayerFragment.isFullScreen()){
                 youtubePlayerFragment.setFullScreen(false);
                 return;
             }
 
-            if (fragmentOrganizer.getBackFragment().getClass() == ClubTVFragment.class) {
+            if (previousFragment == ClubTVFragment.class) {
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
-                if (fragmentOrganizer.get2BackFragment().getClass() == ClubRadioStationFragment.class) {
+                if (penultimateFragment == ClubRadioStationFragment.class) {
                     radioContainer.setVisibility(View.VISIBLE);
                     NavigationDrawerItems.getInstance().setByPosition(5);
                     menuAdapter.notifyDataSetChanged();
@@ -481,7 +484,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
                     return;
                 }
                 for (int i = 0; i < Constant.CLASS_LIST.size(); i++) {
-                    if (fragmentOrganizer.get2BackFragment().getClass().equals(Constant.CLASS_LIST.get(i))) {
+                    if (penultimateFragment.equals(Constant.CLASS_LIST.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
@@ -491,11 +494,11 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             }
         }
 
-        if (fragmentOpened.getClass() == ClubRadioStationFragment.class) {
-            if (fragmentOrganizer.getBackFragment().getClass() == ClubRadioFragment.class) {
+        if (currentFragment.getClass() == ClubRadioStationFragment.class) {
+            if (previousFragment == ClubRadioFragment.class) {
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
-                if (fragmentOrganizer.get2BackFragment().getClass() == YoutubePlayerFragment.class) {
+                if (penultimateFragment == YoutubePlayerFragment.class) {
                     tvContainer.setVisibility(View.VISIBLE);
                     NavigationDrawerItems.getInstance().setByPosition(7);
                     menuAdapter.notifyDataSetChanged();
@@ -505,7 +508,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
                     }
                 }
                 for (int i = 0; i < Constant.CLASS_LIST.size(); i++) {
-                    if (fragmentOrganizer.get2BackFragment().getClass().equals(Constant.CLASS_LIST.get(i))) {
+                    if (penultimateFragment.equals(Constant.CLASS_LIST.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
@@ -517,7 +520,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         }
 
 
-        if (fragmentOrganizer.getBackFragment().getClass() == SignUpLoginFragment.class) {
+        if (previousFragment == SignUpLoginFragment.class) {
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
             return;
         }

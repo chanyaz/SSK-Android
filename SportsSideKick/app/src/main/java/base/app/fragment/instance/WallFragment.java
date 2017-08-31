@@ -305,7 +305,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
      */
     @Subscribe
     public void updatePhoneNextMatchDisplay(NextMatchUpdateEvent event){
-        if (!Utility.isTablet(getActivity())) {
+        if (Utility.isPhone(getActivity())) {
             NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
             if(wallLeftTeamImage.getDrawable()==null){
                 ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.imageOptionsImageLoader());

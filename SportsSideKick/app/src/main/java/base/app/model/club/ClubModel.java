@@ -91,7 +91,7 @@ public class ClubModel {
                         if (stringListPair.second != null) {
                             playlists.addAll(stringListPair.second);
                         }
-                        if (!Utility.isTablet(getApplicationContext())) { // if on phone, download first playlist immediately
+                        if (Utility.isPhone(getApplicationContext())) { // if on phone, download first playlist immediately
                             ClubModel.getInstance().requestPlaylist(playlists.get(0).getId(), true);
                         }
                         EventBus.getDefault().post(new ClubTVEvent(null, ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED));

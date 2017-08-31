@@ -1,32 +1,19 @@
 package base.app.fragment.popup;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
-
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.List;
-
 import base.app.R;
-import base.app.adapter.FriendRequestsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.IgnoreBackHandling;
 import base.app.fragment.instance.WallFragment;
 import base.app.model.Model;
-import base.app.model.friendship.FriendRequest;
-import base.app.model.friendship.FriendsManager;
 import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +37,7 @@ public class SignUpLoginFragment extends BaseFragment {
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && !Utility.isTablet(getActivity())){
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && Utility.isPhone(getActivity())){
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class,true));
         }
         super.onCreate(savedInstanceState);

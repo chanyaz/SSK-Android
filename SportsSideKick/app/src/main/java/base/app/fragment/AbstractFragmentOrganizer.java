@@ -64,6 +64,9 @@ abstract class AbstractFragmentOrganizer {
         return fragmentManager.findFragmentByTag(tag);
     }
 
+    /**
+     * @return previous fragment
+     */
     public Fragment getBackFragment() {
         try {
             String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName();
@@ -75,7 +78,10 @@ abstract class AbstractFragmentOrganizer {
 
     }
 
-    public Fragment get2BackFragment() {
+    /**
+     * @return fragment previous to last fragment
+     */
+    public Fragment getPenultimateFragment() {
         try {
             String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 3).getName(); //TODO @Filip Magic numbers
             return fragmentManager.findFragmentByTag(tag);

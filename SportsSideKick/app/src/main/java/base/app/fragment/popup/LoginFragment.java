@@ -119,7 +119,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && !Utility.isTablet(getActivity())) {
+        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && Utility.isPhone(getActivity())) {
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
         }
         super.onCreate(savedInstanceState);
