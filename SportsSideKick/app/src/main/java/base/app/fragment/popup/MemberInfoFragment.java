@@ -114,8 +114,8 @@ public class MemberInfoFragment extends BaseFragment {
     @BindView(R.id.comments_text)
     TextView commentsCountText;
     @Nullable
-    @BindView(R.id.pinned_text)
-    TextView pinnedCountText;
+    @BindView(R.id.posts_count_value)
+    TextView postsCountText;
     @Nullable
     @BindView(R.id.friends_text)
     TextView friendsCountText;
@@ -198,7 +198,7 @@ public class MemberInfoFragment extends BaseFragment {
             if (user.getUserId() != null) {
                 friendsCountText.setText(String.valueOf(user.getRequestedUserFriendsCount()));
                 commentsCountText.setText(String.valueOf(user.getComments()));
-                pinnedCountText.setText(String.valueOf(user.getWallPins()));
+                postsCountText.setText(String.valueOf(user.getWallPosts()));
                 profileNickText.setText("(" + user.getNicName() + ")");
                 getMutualFriendsListWithUser(user);
                 getAllUserChats(user);
