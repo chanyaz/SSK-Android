@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -199,7 +200,7 @@ public class BaseActivity extends AppCompatActivity  {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
         if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()){ // sign up Fragment - Continue with facebook
-            fragmentOrganizer.getOpenFragment().onActivityResult(requestCode, resultCode, data);
+            fragmentOrganizer.onActivityResult(requestCode, resultCode, data);
         }
         PurchaseModel.getInstance().onActivityResult(requestCode, resultCode, data);
     }
@@ -213,17 +214,13 @@ public class BaseActivity extends AppCompatActivity  {
         super.onDestroy();
     }
 
-    public FragmentOrganizer getFragmentOrganizer() {
-        return fragmentOrganizer;
-    }
-
     @Subscribe
     public void onVideoChatEvent(VideoChatEvent event) {
-        if (!(fragmentOrganizer.getOpenFragment() instanceof VideoChatFragment)) {
+        // Open VideoChat fragment if its not open in case of Video Chat Event - TODO
+        Fragment currentFragment =  fragmentOrganizer.getCurrentFragment();
+        if (!(currentFragment instanceof VideoChatFragment)) {
             EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
             VideoChatModel.getInstance().setVideoChatEvent(event);
-        } else {
-            ((VideoChatFragment) fragmentOrganizer.getOpenFragment()).onVideoChatEvent(event);
         }
     }
 

@@ -62,7 +62,7 @@ public class Constant {
     public static final String NOTIFICATION_BODY = "body";
     public static final String NOTIFICATION_TYPE = "notificationType";
 
-    public static final List<Class> CLASS_LIST = Collections.unmodifiableList(
+    public static final List<Class> PHONE_MENU_OPTIONS = Collections.unmodifiableList(
             new ArrayList<Class>() {{
                 add(WallFragment.class);
                 add(ChatFragment.class);

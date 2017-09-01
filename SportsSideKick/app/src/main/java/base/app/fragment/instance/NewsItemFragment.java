@@ -341,8 +341,8 @@ public class NewsItemFragment extends BaseFragment {
 
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook(View view) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
-            SharingManager.getInstance().share(getContext(),  item, false, SharingManager.ShareTarget.facebook, view);
+        if (Model.getInstance().isRealUser()) {
+            SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
         } else {
             //TODO Notify user that need to login in order to SHARE
         }
@@ -351,7 +351,7 @@ public class NewsItemFragment extends BaseFragment {
 
     @OnClick(R.id.share_twitter)
     public void sharePostTwitter(View view) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+        if (Model.getInstance().isRealUser()) {
             PackageManager pkManager = getActivity().getPackageManager();
             try {
                 PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);

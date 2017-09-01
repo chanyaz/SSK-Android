@@ -40,12 +40,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.activity.LoungeActivity;
 import base.app.events.AddUsersToCallEvent;
 import base.app.events.StartCallEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.popup.AlertDialogFragment;
 import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.SignUpFragment;
 import base.app.fragment.popup.SignUpLoginVideoFragment;
@@ -358,18 +356,8 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                 });
                 break;
             case onInvitationRevoked:
-                if(activity instanceof LoungeActivity){
-                    if(((LoungeActivity) getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
-                        getActivity().onBackPressed();
-                    }
-                }
                 break;
             case onChatClosed:
-                if(activity instanceof LoungeActivity){
-                    if(((LoungeActivity) getActivity()).getFragmentOrganizer().getOpenFragment() instanceof AlertDialogFragment) {
-                        getActivity().onBackPressed();
-                    }
-                }
                 if (room != null && room.getName().equals(event.getId())) {
                     disconnect();
                 }
@@ -490,12 +478,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                                             } else {
                                                 nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());
                                             }
-
                                         }
                                     }
                                 });
-
-
                             }
                         }
                     }

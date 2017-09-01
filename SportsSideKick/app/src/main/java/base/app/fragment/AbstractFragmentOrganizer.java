@@ -58,8 +58,7 @@ abstract class AbstractFragmentOrganizer {
         EventBus.getDefault().unregister(this);
     }
 
-    //TODO @Filip change to be private
-    public Fragment getOpenFragment() {
+    public Fragment getCurrentFragment() {
         String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
         return fragmentManager.findFragmentByTag(tag);
     }
@@ -67,7 +66,8 @@ abstract class AbstractFragmentOrganizer {
     /**
      * @return previous fragment
      */
-    public Fragment getBackFragment() {
+    public Fragment getPreviousFragment() {
+        //TODO @Filip Magic numbers
         try {
             String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName();
             return fragmentManager.findFragmentByTag(tag);
@@ -82,15 +82,16 @@ abstract class AbstractFragmentOrganizer {
      * @return fragment previous to last fragment
      */
     public Fragment getPenultimateFragment() {
-        try {
-            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 3).getName(); //TODO @Filip Magic numbers
+        //TODO @Filip Magic numbers
+          try {
+            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 3).getName();
             return fragmentManager.findFragmentByTag(tag);
         } catch (Exception e) {
             try {
-                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName(); //TODO @Filip Magic numbers
+                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName();
                 return fragmentManager.findFragmentByTag(tag);
             } catch (Exception es) {
-                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName(); //TODO @Filip Magic numbers
+                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
                 return fragmentManager.findFragmentByTag(tag);
             }
 
@@ -147,23 +148,28 @@ abstract class AbstractFragmentOrganizer {
         if (isFragmentOpen(fragment) || containerId <= 0) {
             return "";
         }
-        String fragmentTag = createFragmentTag(fragment, true);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (enterAnimation != 0 && exitAnimation != 0 && popEnterAnimation != 0 && popExitAnimation != 0) {
             transaction.setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation);
         }
 
-        if (containersWithoutBackStack.contains(containerId)) { // this container is without back stack
-            Fragment currentFragment = getOpenFragment();
-            if (currentFragment != null && containerId == getFragmentContainer(currentFragment.getClass())) { // if currentFragment is member of the same container, remove it!
+        // this is for containers without back stack
+        if (containersWithoutBackStack.contains(containerId)) {
+            Fragment currentFragment = getCurrentFragment();
+            // check if current fragment is in this type of containers
+            if (currentFragment != null && containerId == getFragmentContainer(currentFragment.getClass())) {
+                // if currentFragment is member of the same container, remove it
                 if (Utility.isTablet(Application.getAppInstance())) {
+                    // On tablet, fragment is removed in transaction
                     transaction.remove(currentFragment);
                 } else {
+                    // On phone, fragment is popped from back stack
                     fragmentManager.popBackStack();
                 }
             }
         }
 
+        String fragmentTag = createFragmentTag(fragment, true);
         transaction.addToBackStack(fragmentTag);
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.commit();

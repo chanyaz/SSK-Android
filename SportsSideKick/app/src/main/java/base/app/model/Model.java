@@ -236,7 +236,7 @@ public class Model {
         public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
             if (response != null) {
                 if (!response.hasErrors()) {
-                    if (!loggedInUserType.equals(REAL)) {
+                    if (!isRealUser()) {
                         setUser(response);
                         String dn = response.getDisplayName();
                         setLoggedInUserType(dn != null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);

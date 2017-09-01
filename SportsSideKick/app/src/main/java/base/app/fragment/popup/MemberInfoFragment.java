@@ -268,11 +268,11 @@ public class MemberInfoFragment extends BaseFragment {
     }
 
     private void getAllUserChats(final UserInfo user) {
-
         Task<List<UserInfo>> taskAllChats = FriendsManager.getInstance().getFriendsForUser(user.getUserId(), 0,30);
         taskAllChats.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
+                if (getActivity() == null) return;
                 if (task.isSuccessful()) {
                     if (task.getResult().size() > 0) {
                         if (publicChatsContainer != null) {
@@ -306,8 +306,8 @@ public class MemberInfoFragment extends BaseFragment {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if (task.isSuccessful()) {
+                    if (getActivity() == null) return;
                     if (task.getResult().size() > 0) {
-
                         if (commonFriendsContainer != null) {
                             commonFriendsContainer.setVisibility(View.VISIBLE);
                         }
@@ -317,12 +317,8 @@ public class MemberInfoFragment extends BaseFragment {
                             friendsInCommonAdapter.getValues().addAll(task.getResult());
                             friendsInCommonAdapter.notifyDataSetChanged();
                         }
-
-                    } else {
-                        if (commonFriendsContainer != null) {
-                            commonFriendsContainer.setVisibility(View.GONE);
-                        }
-
+                    } else if (commonFriendsContainer != null) {
+                        commonFriendsContainer.setVisibility(View.GONE);
                     }
                 }
                 if (friendProgressBar != null) {

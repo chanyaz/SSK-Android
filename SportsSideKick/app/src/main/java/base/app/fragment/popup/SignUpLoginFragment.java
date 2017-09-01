@@ -37,7 +37,7 @@ public class SignUpLoginFragment extends BaseFragment {
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && Utility.isPhone(getActivity())){
+        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())){
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class,true));
         }
         super.onCreate(savedInstanceState);

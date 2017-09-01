@@ -1,5 +1,6 @@
 package base.app.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,48 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.Constant;
-import base.app.adapter.ClubTVPlaylistAdapter;
-import base.app.fragment.instance.ChatFragment;
-import base.app.fragment.instance.ClubRadioFragment;
-import base.app.fragment.instance.ClubRadioStationFragment;
-import base.app.fragment.instance.ClubTVFragment;
-import base.app.fragment.instance.ClubTvPlaylistFragment;
-import base.app.fragment.instance.FantasyFragment;
-import base.app.fragment.instance.NewsFragment;
 import base.app.fragment.instance.NewsItemFragment;
-import base.app.fragment.instance.QuizFragment;
-import base.app.fragment.instance.RumoursFragment;
-import base.app.fragment.instance.StatisticsFragment;
-import base.app.fragment.instance.StoreFragment;
-import base.app.fragment.instance.VideoChatFragment;
-import base.app.fragment.instance.WallFragment;
 import base.app.fragment.instance.WallItemFragment;
-import base.app.fragment.instance.YoutubePlayerFragment;
-import base.app.fragment.popup.AccountCreatingFragment;
-import base.app.fragment.popup.AddFriendFragment;
-import base.app.fragment.popup.AlertDialogFragment;
-import base.app.fragment.popup.CreateChatFragment;
 import base.app.fragment.popup.EditChatFragment;
-import base.app.fragment.popup.FollowersFragment;
-import base.app.fragment.popup.FollowingFragment;
-import base.app.fragment.popup.FriendRequestsFragment;
-import base.app.fragment.popup.FriendsFragment;
-import base.app.fragment.popup.InviteFriendFragment;
 import base.app.fragment.popup.JoinChatFragment;
-import base.app.fragment.popup.LanguageFragment;
-import base.app.fragment.popup.LoginFragment;
-import base.app.fragment.popup.MemberInfoFragment;
-import base.app.fragment.popup.ModalFragment;
-import base.app.fragment.popup.SignUpFragment;
-import base.app.fragment.popup.SignUpLoginFragment;
-import base.app.fragment.popup.SignUpLoginPopupRightFragment;
-import base.app.fragment.popup.SignUpLoginVideoFragment;
-import base.app.fragment.popup.StartingNewCallFragment;
-import base.app.fragment.popup.StashFragment;
-import base.app.fragment.popup.WalletFragment;
-import base.app.fragment.popup.YourProfileFragment;
-import base.app.fragment.popup.YourStatementFragment;
-import base.app.model.friendship.FriendRequest;
 import base.app.util.ui.NavigationDrawerItems;
 
 
@@ -93,14 +56,22 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         openFragment(createFragment(event.getType()), arguments, getFragmentContainer(event.getType()));
     }
 
+    /**
+     * Handles system back button and returns
+     * @return true in case this is the last fragment
+     */
     @Override
     public boolean handleBackNavigation() {
-        Fragment fragment = getOpenFragment();
-        if (fragment.getClass().isAnnotationPresent(IgnoreBackHandling.class)) {
+        Fragment currentFragment = getCurrentFragment();
+        // In case this fragment is annotated with IgnoreBackHandling annotation
+        if (currentFragment.getClass().isAnnotationPresent(IgnoreBackHandling.class)) {
             return true;
         }
-        if (fragment.getClass().equals(initialFragment)) {
+        // If this fragment is initial fragment, return false
+        // in order to close the app
+        if (currentFragment.getClass().equals(initialFragment)) {
             return false;
+        // This is a fragment that should be closed
         } else {
             fragmentManager.popBackStack();
             return true;
@@ -108,17 +79,21 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
 
     }
 
+    /**
+     * Phone only - used to update navigation menu
+     */
     public boolean handleNavigationFragment() {
-        if (getOpenFragment().getClass().equals(initialFragment))
+        if (getCurrentFragment().getClass().equals(initialFragment)) {
             return false;
+        }
         fragmentManager.popBackStack();
-        Fragment fragment = getBackFragment();
-        for (int i = 0; i < Constant.CLASS_LIST.size(); i++)
-            if (fragment.getClass().equals(Constant.CLASS_LIST.get(i))) {
+        Fragment fragment = getPreviousFragment();
+        for (int i = 0; i < Constant.PHONE_MENU_OPTIONS.size(); i++) {
+            if (fragment.getClass().equals(Constant.PHONE_MENU_OPTIONS.get(i))) {
                 NavigationDrawerItems.getInstance().setByPosition(i);
                 return true;
             }
-
+        }
         if (fragment.getClass().equals(EditChatFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(1);
             return true;
@@ -132,11 +107,8 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
             NavigationDrawerItems.getInstance().setByPosition(2);
             return true;
         }
-
         return true;
-
     }
-
 
     protected int getFragmentContainer(Class fragment) {
         for (int i = 0; i < containersMap.size(); i++) {
@@ -159,6 +131,13 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         containersMap.put(containerResourceId, containerFragments);
         if (withoutBackStack) {
             containersWithoutBackStack.add(containerResourceId);
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Fragment currentFragment = getCurrentFragment();
+        if (currentFragment != null) {
+            currentFragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

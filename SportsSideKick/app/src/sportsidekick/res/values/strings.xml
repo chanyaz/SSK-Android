@@ -514,5 +514,6 @@
 
     <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
     <string name="chat_with_friends_login"> Chat with friends.</string>
+    <string name="login_or_signup">Login / Signup</string>
 
 </resources>

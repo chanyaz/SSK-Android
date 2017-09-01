@@ -42,7 +42,6 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.activity.LoungeActivity;
 import base.app.adapter.AddFriendsAdapter;
 import base.app.adapter.SelectableFriendsAdapter;
 import base.app.fragment.BaseFragment;
@@ -70,8 +69,6 @@ import permissions.dispatcher.RuntimePermissions;
 import static base.app.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
 import static base.app.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
 import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
-
-
 
 /**
  * Created by Filip on 12/26/2016.
@@ -263,11 +260,11 @@ public class EditChatFragment extends BaseFragment {
 
     @OnClick(R.id.close)
     public void closeFragment() {
-        if ((getActivity() instanceof LoungeActivity)) {
-            ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
-        } else {
+       // if ((getActivity() instanceof LoungeActivity)) {
+     //       ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+      //  } else {
             getActivity().onBackPressed();
-        }
+     //  }
     }
 
     public void performSearch() {

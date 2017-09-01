@@ -203,10 +203,8 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
         getActivity().onBackPressed();
     }
 
-
     private void setupLanguageSelection(){
         String selectedLanguage = Prefs.getString(CHOSEN_LANGUAGE,"en");
-
         switch (selectedLanguage) {
             case "en":
                 languageValueTextView.setText(R.string.english);
@@ -280,14 +278,10 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
 
     @Override
     public void onLogout() {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+        if (Model.getInstance().isRealUser()) {
             setupFragment();
-        } else {
-            if(Utility.isTablet(getActivity())){
-              //  getActivity().onBackPressed();
-            }else{
-                EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
-            }
+        } else if(Utility.isPhone(getActivity())){
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         }
     }
 

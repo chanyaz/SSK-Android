@@ -26,11 +26,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
-import base.app.activity.LoungeActivity;
 import base.app.adapter.ChatSearchExpandableAdapter;
 import base.app.adapter.FriendsInChatAdapter;
 import base.app.adapter.OfficialChatsAdapter;
@@ -42,6 +38,9 @@ import base.app.model.im.ImsManager;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -89,11 +88,7 @@ public class JoinChatFragment extends BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
         if (Utility.isTablet(getActivity())) {
             recyclerView.getLayoutParams().height = (int) (Utility.getDisplayHeight(getActivity()) * 0.55);
-        } else {
-
-
         }
-        // final int cellHeight = recyclerView.getLayoutParams().height / 2;
         final int cellHeight = (int) (Utility.getDisplayHeight(getActivity()) * 0.55) / 2;
         friendsInChatLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewFriendsIn.setLayoutManager(friendsInChatLayoutManager);
@@ -192,11 +187,11 @@ public class JoinChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_join_headline_close_fragment)
     public void closeFragment() {
-        if(Utility.isTablet(getActivity())){
-            ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
-        }else {
+    //    if(Utility.isTablet(getActivity())){
+    //        ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+    //    }else {
             getActivity().onBackPressed();
-        }
+    //    }
     }
 
     public void performSearch() {
@@ -216,12 +211,10 @@ public class JoinChatFragment extends BaseFragment {
         private Timer timer = new Timer();
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
         @Override
         public void afterTextChanged(final Editable s) {

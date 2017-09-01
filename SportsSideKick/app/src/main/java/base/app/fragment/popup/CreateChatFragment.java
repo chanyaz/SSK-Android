@@ -47,7 +47,6 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.activity.LoungeActivity;
 import base.app.adapter.AddFriendsAdapter;
 import base.app.adapter.SelectableFriendsAdapter;
 import base.app.fragment.BaseFragment;
@@ -257,11 +256,11 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_headline_close_fragment)
     public void closeFragment() {
-        if ((getActivity() instanceof LoungeActivity)) {
-            ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
-        } else {
+     //   if ((getActivity() instanceof LoungeActivity)) {
+     //       ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+    //    } else {
             getActivity().onBackPressed();
-        }
+     //   }
     }
 
     public void performSearch() {

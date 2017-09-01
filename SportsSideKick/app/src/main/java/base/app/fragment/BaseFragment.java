@@ -61,7 +61,7 @@ public abstract class BaseFragment extends Fragment {
         return null;
     }
 
-    protected Class getInitiator() {
+    public Class getInitiator() {
         if (getArguments().containsKey(INITIATOR)) {
             String className = getArguments().getString(INITIATOR);
             try {

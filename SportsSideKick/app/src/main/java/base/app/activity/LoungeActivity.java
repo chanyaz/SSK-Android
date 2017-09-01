@@ -4,11 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -75,6 +72,7 @@ import base.app.model.tutorial.TutorialModel;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
+import base.app.model.videoChat.VideoChatEvent;
 import base.app.util.NextMatchCountdown;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
@@ -89,14 +87,17 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     public static final String TAG = "Lounge Activity";
     @BindView(R.id.activity_main)
     View rootView;
-    @BindView(R.id.popup_holder)
-    View popupHolder;
+
     @BindView(R.id.tabs_container_1)
     View fragmentContainerLeft;
     @BindView(R.id.tabs_container_top_right)
     View fragmentContainerTopRight;
+
+    @BindView(R.id.popup_holder)
+    View popupHolder;
     @BindView(R.id.popup_login_holder)
     View popupLoginHolder;
+
     @BindView(R.id.bottom_right_container)
     View fragmentContainerBottomRight;
 
@@ -123,12 +124,11 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     TextView profileName;
     @BindView(R.id.notification_number)
     TextView notificationNumber;
-    @BindView(R.id.popup_holder_right)
-    RelativeLayout slideFragmentContainer;
+
     ArrayList<Class> popupContainerFragments;
-    ArrayList<Class> slidePopupContainerFragments;
     ArrayList<Class>  loginContainerFragments;
     BiMap<Integer, Class> radioButtonsFragmentMap;
+
     @BindView(R.id.left_notification_container)
     RelativeLayout notificationContainer;
     @BindView(R.id.user_coin_icon)
@@ -192,7 +192,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         leftContainerFragments.add(NewsItemFragment.class);
         leftContainerFragments.add(WallItemFragment.class);
         leftContainerFragments.add(SignUpLoginVideoFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.tabs_container_1, leftContainerFragments);
+        fragmentOrganizer.setUpContainer(R.id.tabs_container_1, leftContainerFragments); //WITH BACK STACK
 
         ArrayList<Class> topRightContainerFragments = new ArrayList<>();
         topRightContainerFragments.add(ChatFragment.class);
@@ -226,6 +226,11 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         popupContainerFragments.add(AddFriendFragment.class);
         popupContainerFragments.add(InviteFriendFragment.class);
         popupContainerFragments.add(AlertDialogFragment.class);
+
+        popupContainerFragments.add(CreateChatFragment.class);
+        popupContainerFragments.add(JoinChatFragment.class);
+        popupContainerFragments.add(EditChatFragment.class);
+
         fragmentOrganizer.setUpContainer(R.id.popup_holder, popupContainerFragments, true);  //NO BACK STACK
 
         loginContainerFragments = new ArrayList<>();
@@ -234,13 +239,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         loginContainerFragments.add(LoginFragment.class);
         loginContainerFragments.add(AccountCreatingFragment.class);
 
-        fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments, true);  //NO BACK STACK
-        //Fragments that slides in
-        slidePopupContainerFragments = new ArrayList<>();
-        slidePopupContainerFragments.add(CreateChatFragment.class);
-        slidePopupContainerFragments.add(JoinChatFragment.class);
-        slidePopupContainerFragments.add(EditChatFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.popup_holder_right, slidePopupContainerFragments, true);  //NO BACK STACK
+        fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments);  //NO BACK STACK
 
         radioButtonsFragmentMap = HashBiMap.create();
         radioButtonsFragmentMap.put(R.id.wall_radio_button, WallFragment.class);
@@ -272,16 +271,16 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         } else {
             SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         }
+
         if (popupContainerFragments.contains(event.getType())) {
-            // this is popup event
+            // this is popup fragment, show blurred background
             toggleBlur(true);
-        } else if (slidePopupContainerFragments.contains(event.getType())) {
-            showSlidePopupFragmentContainer();
         } else if (loginContainerFragments.contains(event.getType())) {
+            // this is login fragment, display login fragments container
             popupLoginHolder.setVisibility(View.VISIBLE);
         } else {
             if (radioButtonsFragmentMap.inverse().containsKey(event.getType())) {
-                // Detect which radio button was clicked and fetch what Fragment should be opened
+                // Detect which radio button was clicked and fetch what Fragment is about to be opened
                 int radioButtonId = radioButtonsFragmentMap.inverse().get(event.getType());
                 for (int id : radioButtonsFragmentMap.keySet()) {
                     RadioButton button = ButterKnife.findById(this, radioButtonId);
@@ -310,23 +309,10 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     public void onBackPressed() {
         toggleBlur(false); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-        Fragment fragmentOpened = fragmentOrganizer.getOpenFragment();
-        if (fragmentOpened.getClass() == SignUpFragment.class) {
-            if (((SignUpFragment) fragmentOpened).getTermsHolder().getVisibility() == View.VISIBLE) {
-                ((SignUpFragment) fragmentOpened).getTermsHolder().setVisibility(View.INVISIBLE);
-                return;
-            }
-        }
-        if (fragmentOrganizer.getOpenFragment() instanceof JoinChatFragment ||
-                fragmentOrganizer.getOpenFragment() instanceof CreateChatFragment) {
-            hideSlidePopupFragmentContainer();
-        }
         if (!fragmentOrganizer.handleBackNavigation()) {
             finish();
         }else {
-            if(Utility.isTablet(this)){
-                    popupLoginHolder.setVisibility(View.GONE);
-            }
+            popupLoginHolder.setVisibility(View.GONE);
         }
     }
 
@@ -338,7 +324,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
             ImageLoader.getInstance().displayImage(info.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
             ImageLoader.getInstance().displayImage(info.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
         }
-
         long timestamp = Long.parseLong(info.getMatchDate());
         daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,true));
 
@@ -361,22 +346,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         notificationNumber.setText(number);
     }
 
-    public void hideSlidePopupFragmentContainer() {
-        popupSlideFragmentContainerVisibility(View.GONE, R.anim.slide_in_right);
-    }
-
-    public void showSlidePopupFragmentContainer() {
-        popupSlideFragmentContainerVisibility(View.VISIBLE, R.anim.slide_in_left);
-    }
-
-    Animation animation;
-
-    private void popupSlideFragmentContainerVisibility(int visibility, int anim) {
-        animation = AnimationUtils.loadAnimation(this, anim);
-        slideFragmentContainer.startAnimation(animation);
-        slideFragmentContainer.setVisibility(visibility);
-    }
-
     @Override
     public void onLogout() {
         resetUserDetails();
@@ -391,7 +360,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     @Override
     public void onLogin(UserInfo user) {
         splash.setVisibility(View.GONE);
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+        if (Model.getInstance().isRealUser()) {
             if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             }
@@ -418,7 +387,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         yourLevel.setVisibility(View.INVISIBLE);
         userLevelBackground.setVisibility(View.INVISIBLE);
         userLevelProgress.setVisibility(View.INVISIBLE);
-        profileName.setText("Login / Signup");
+        profileName.setText(R.string.login_or_signup);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
         ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
 
@@ -446,10 +415,22 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
 
     @OnClick({R.id.user_image_container, R.id.profile_name,R.id.user_info_container})
     public void onLoginClick() {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+        if (Model.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
+        }
+    }
+
+    @Subscribe
+    public void onVideoChatEventReceived(VideoChatEvent event) {
+        switch (event.getType()) {
+            case onInvitationRevoked:
+            case onChatClosed:
+                if(fragmentOrganizer.getCurrentFragment() instanceof AlertDialogFragment){
+                    onBackPressed();
+                }
+                break;
         }
     }
 

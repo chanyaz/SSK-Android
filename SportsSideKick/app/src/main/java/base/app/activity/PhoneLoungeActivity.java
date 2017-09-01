@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.provider.VoicemailContract;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -32,6 +31,7 @@ import base.app.Constant;
 import base.app.R;
 import base.app.adapter.MenuAdapter;
 import base.app.adapter.SideMenuAdapter;
+import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.FragmentOrganizer;
 import base.app.fragment.instance.ChatFragment;
@@ -88,6 +88,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class PhoneLoungeActivity extends BaseActivity implements LoginStateReceiver.LoginStateListener, SideMenuAdapter.IDrawerCloseSideMenu, MenuAdapter.IDrawerClose {
 
     public static final String TAG = "Lounge Activity";
+
     @BindView(R.id.activity_main)
     View rootView;
     @BindView(R.id.menu_recycler_view)
@@ -101,9 +102,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @BindView(R.id.side_menu_recycler)
     NoScrollRecycler sideMenuRecycler;
 
-    public DrawerLayout getDrawerLayout() {
-        return drawerLayout;
-    }
 
     @BindView(R.id.fragment_popup_holder)
     View popupHolder;
@@ -123,16 +121,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     ImageView userLevelBackground;
     @BindView(R.id.left_top_bar_container)
     RelativeLayout barContainer;
-    ArrayList<Class> popupContainerFragments;
-    SideMenuAdapter sideMenuAdapter;
-    MenuAdapter menuAdapter;
-    ArrayList<Class> popupLeftFragments;
-    ArrayList<Class> popupDialogFragments;
-    ArrayList<Class> youtubePlayer;
-    ArrayList<Class> youtubeList;
-    ArrayList<Class> radioList;
-    ArrayList<Class> radioPlayerList;
-    int screenWidth;
+
+
 
     @BindView(R.id.fragment_tv_container)
     LinearLayout tvContainer;
@@ -146,11 +136,20 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @BindView(R.id.blurred_background)
     RelativeLayout blurredBackground;
 
-    @BindView(R.id.fragment_dialog)
-    RelativeLayout popupDialogLayout;
-
     @BindView(R.id.splash)
     View splash;
+
+    SideMenuAdapter sideMenuAdapter;
+    MenuAdapter menuAdapter;
+    int screenWidth;
+
+    ArrayList<Class> popupContainerFragments;
+    ArrayList<Class> popupLeftFragments;
+    ArrayList<Class> popupDialogFragments;
+    ArrayList<Class> youtubePlayer;
+    ArrayList<Class> youtubeList;
+    ArrayList<Class> radioList;
+    ArrayList<Class> radioPlayerList;
 
     @OnClick(R.id.notification_open)
     public void notificationOpen() {
@@ -182,14 +181,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     }
 
     public void updateTopBar() {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
-            //Check if user is logged in
-            notificationIcon.setVisibility(View.VISIBLE);
-            friendsIcon.setVisibility(View.VISIBLE);
-        } else {
-            notificationIcon.setVisibility(View.GONE);
-            friendsIcon.setVisibility(View.GONE);
-        }
+        int visibility = Model.getInstance().isRealUser() ? View.VISIBLE : View.GONE;
+        notificationIcon.setVisibility(visibility);
+        friendsIcon.setVisibility(visibility);
     }
 
     private void setToolbar() {
@@ -224,7 +218,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {  }
+            public void onDrawerOpened(View drawerView) {}
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -232,9 +226,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             }
 
             @Override
-            public void onDrawerStateChanged(int newState) {
-
-            }
+            public void onDrawerStateChanged(int newState) {}
         });
 
     }
@@ -261,7 +253,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         mainContainerFragments.add(StatisticsFragment.class);
         mainContainerFragments.add(RumoursFragment.class);
         mainContainerFragments.add(StoreFragment.class);
-        mainContainerFragments.add(VoicemailContract.class);
         mainContainerFragments.add(VideoChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
 
@@ -290,7 +281,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupDialogFragments.add(AlertDialogFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_dialog, popupDialogFragments, true);
 
-        //left Join
         popupLeftFragments = new ArrayList<>();
         popupLeftFragments.add(EditChatFragment.class);
         popupLeftFragments.add(JoinChatFragment.class);
@@ -318,25 +308,30 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         fragmentOrganizer.setUpContainer(R.id.radio_holder, radioPlayerList, true);
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
-
     }
 
     @Subscribe
     public void onFragmentEvent(FragmentEvent event) {
+        // play different sound on fragment transition
         if (event.isReturning()) {
             SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         } else {
             SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         }
-        if (fragmentOrganizer.getOpenFragment().getClass() == ClubRadioStationFragment.class) {
-            ((ClubRadioStationFragment) fragmentOrganizer.getOpenFragment()).stopPlaying();
+
+        // stop playing radio when fragment is changed ( TODO Wrong place to do this? )
+        if (fragmentOrganizer.getCurrentFragment().getClass() == ClubRadioStationFragment.class) {
+            ((ClubRadioStationFragment) fragmentOrganizer.getCurrentFragment()).stopPlaying();
         }
+
+        // make tv container visible or hidden
         if (youtubeList.contains(event.getType()) || youtubePlayer.contains(event.getType())) {
             tvContainer.setVisibility(View.VISIBLE);
         } else {
             tvContainer.setVisibility(View.GONE);
         }
 
+        // make radio container visible or hidden
         if (radioList.contains(event.getType()) || radioPlayerList.contains(event.getType())) {
             radioContainer.setVisibility(View.VISIBLE);
         } else {
@@ -404,10 +399,17 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     public void onBackPressed() {
         toggleBlur(false, null); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-        Fragment currentFragment = fragmentOrganizer.getOpenFragment();
-        Class<? extends Fragment> previousFragment = fragmentOrganizer.getBackFragment().getClass();
+        Fragment currentFragment = fragmentOrganizer.getCurrentFragment();
+        Class<? extends Fragment> previousFragment = fragmentOrganizer.getPreviousFragment().getClass();
         Class<? extends Fragment> penultimateFragment = fragmentOrganizer.getPenultimateFragment().getClass();
 
+        if(currentFragment instanceof MemberInfoFragment){
+            Class initiator = ((BaseFragment)currentFragment).getInitiator();
+            EventBus.getDefault().post(new FragmentEvent(initiator, true));
+            return;
+        }
+
+        // Hiding fragments - TODO Instead of popping them from backstack?
         if (popupLeftFragments.contains(previousFragment)) {
             fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
         } else {
@@ -415,23 +417,26 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         }
 
         if (previousFragment == YoutubePlayerFragment.class) {
-            fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+            fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
         }
 
+        // Hiding terms on Sign up fragment - TODO Should be handled on fragment itself
         if (currentFragment instanceof SignUpFragment) {
-            if (((SignUpFragment) currentFragment).getTermsHolder().getVisibility() == View.VISIBLE) {
-                ((SignUpFragment) currentFragment).getTermsHolder().setVisibility(View.INVISIBLE);
+            View termsHolder = ((SignUpFragment) currentFragment).getTermsHolder();
+            if (termsHolder.getVisibility() == View.VISIBLE) {
+                termsHolder.setVisibility(View.INVISIBLE);
                 return;
             }
         }
 
-
+        // make tv container visible or hidden
         if (youtubeList.contains(previousFragment) || youtubePlayer.contains(previousFragment)) {
             tvContainer.setVisibility(View.VISIBLE);
         } else {
             tvContainer.setVisibility(View.GONE);
         }
 
+        // make radio container visible or hidden
         if (radioList.contains(previousFragment) || radioPlayerList.contains(previousFragment)) {
             radioContainer.setVisibility(View.VISIBLE);
         } else {
@@ -440,7 +445,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         if (previousFragment == ClubRadioStationFragment.class && penultimateFragment == ClubRadioFragment.class) {
             NavigationDrawerItems.getInstance().setByPosition(5);
-            fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+            fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
             menuAdapter.notifyDataSetChanged();
             sideMenuAdapter.notifyDataSetChanged();
             if (drawerLayout.isDrawerOpen(GravityCompat.END))
@@ -456,8 +461,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             NavigationDrawerItems.getInstance().setByPosition(7);
             menuAdapter.notifyDataSetChanged();
             sideMenuAdapter.notifyDataSetChanged();
-            if (drawerLayout.isDrawerOpen(GravityCompat.END))
+            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 drawerLayout.closeDrawer(GravityCompat.END);
+            }
             tvContainer.setVisibility(View.VISIBLE);
             return;
         }
@@ -471,8 +477,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             }
 
             if (previousFragment == ClubTVFragment.class) {
-                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
-                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 if (penultimateFragment == ClubRadioStationFragment.class) {
                     radioContainer.setVisibility(View.VISIBLE);
                     NavigationDrawerItems.getInstance().setByPosition(5);
@@ -483,8 +489,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
                     }
                     return;
                 }
-                for (int i = 0; i < Constant.CLASS_LIST.size(); i++) {
-                    if (penultimateFragment.equals(Constant.CLASS_LIST.get(i))) {
+                for (int i = 0; i < Constant.PHONE_MENU_OPTIONS.size(); i++) {
+                    if (penultimateFragment.equals(Constant.PHONE_MENU_OPTIONS.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
@@ -496,8 +502,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         if (currentFragment.getClass() == ClubRadioStationFragment.class) {
             if (previousFragment == ClubRadioFragment.class) {
-                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
-                fragmentOrganizer.getOpenFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 if (penultimateFragment == YoutubePlayerFragment.class) {
                     tvContainer.setVisibility(View.VISIBLE);
                     NavigationDrawerItems.getInstance().setByPosition(7);
@@ -507,8 +513,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
                         drawerLayout.closeDrawer(GravityCompat.END);
                     }
                 }
-                for (int i = 0; i < Constant.CLASS_LIST.size(); i++) {
-                    if (penultimateFragment.equals(Constant.CLASS_LIST.get(i))) {
+                for (int i = 0; i < Constant.PHONE_MENU_OPTIONS.size(); i++) {
+                    if (penultimateFragment.equals(Constant.PHONE_MENU_OPTIONS.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
@@ -516,9 +522,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
                     }
                 }
             }
-
         }
-
 
         if (previousFragment == SignUpLoginFragment.class) {
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
@@ -547,10 +551,11 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     public void onProfileClicked(View view) {
         drawerLayout.closeDrawer(GravityCompat.END);
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL)
+        if (Model.getInstance().isRealUser()){
             EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
-        else
+        } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
+        }
     }
 
     @Override
@@ -587,7 +592,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         } else {
             NavigationDrawerItems.getInstance().setByPosition(position);
             menuAdapter.notifyDataSetChanged();
-
         }
     }
 
@@ -607,7 +611,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     @Override
     public void onLogin(UserInfo user) {
         splash.setVisibility(View.GONE);
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL) {
+        if (Model.getInstance().isRealUser()) {
             if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             }

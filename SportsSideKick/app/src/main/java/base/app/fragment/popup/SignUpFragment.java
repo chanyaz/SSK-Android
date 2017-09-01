@@ -142,7 +142,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Model.getInstance().getLoggedInUserType() == Model.LoggedInUserType.REAL && Utility.isPhone(getActivity())) {
+        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
             EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
         }
         super.onCreate(savedInstanceState);
@@ -176,7 +176,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
     }
 
     @Override
@@ -408,27 +407,22 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         }
     }
 
-    public RelativeLayout getTermsHolder() {
-        return termsHolder;
-    }
-
-    public void setTermsHolder(RelativeLayout termsHolder) {
-        this.termsHolder = termsHolder;
-    }
-
     @Optional
     @OnClick(R.id.politic_and_privacy_android)
     public void politicAndPrivacy() {
         Utility.hideKeyboard(getActivity());
         termsHolder.setVisibility(View.VISIBLE);
         webView.loadUrl(url);
-
     }
-
 
     @Optional
     @OnClick(R.id.facebook_button)
     public void setLoginFacebook() {
         loginButton.performClick();
     }
+
+    public RelativeLayout getTermsHolder() {
+        return termsHolder;
+    }
+
 }

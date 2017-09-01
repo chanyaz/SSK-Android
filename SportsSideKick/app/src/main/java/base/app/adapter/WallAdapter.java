@@ -331,8 +331,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if( values.get(holder.getAdapterPosition()) instanceof WallTip
-                    && Model.getInstance().getLoggedInUserType() != Model.LoggedInUserType.REAL ){
+                    if( values.get(holder.getAdapterPosition()) instanceof WallTip && Model.getInstance().isRealUser() ){
                         EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
                     }else {
                         FragmentEvent fe = new FragmentEvent(WallItemFragment.class);

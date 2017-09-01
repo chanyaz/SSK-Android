@@ -76,7 +76,7 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
                         iDrawerCloseSideMenu.closeDrawerSideMenu(viewHolder.getAdapterPosition(), false);
                         oldPosition = viewHolder.getAdapterPosition();
                         viewHolder.itemView.setSelected(true);
-                        EventBus.getDefault().post(new FragmentEvent(Constant.CLASS_LIST.get(viewHolder.getAdapterPosition())));
+                        EventBus.getDefault().post(new FragmentEvent(Constant.PHONE_MENU_OPTIONS.get(viewHolder.getAdapterPosition())));
 
               //      }
                 } else {

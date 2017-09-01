@@ -87,7 +87,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                     drawerClose.closeDrawerMenu(viewHolder.getAdapterPosition(),true);
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                            Class fragmentToStart = Constant.CLASS_LIST.get(viewHolder.getAdapterPosition());
+                            Class fragmentToStart = Constant.PHONE_MENU_OPTIONS.get(viewHolder.getAdapterPosition());
                             EventBus.getDefault().post(new FragmentEvent(fragmentToStart));
                         }
                     }, 200);
