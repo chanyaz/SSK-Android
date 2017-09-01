@@ -297,7 +297,11 @@ public class ImsMessage {
             setReadFlag((Boolean) data.get("readFlag"));
         }
         if (data.containsKey("imageAspectRatio")) {
-            setImageAspectRatio((Float) data.get("imageAspectRatio"));
+            Object imageAspectRatioData =  data.get("imageAspectRatio");
+            if(imageAspectRatioData instanceof Long){
+                setImageAspectRatio(((Long)imageAspectRatioData).floatValue());
+            } else if(imageAspectRatioData instanceof Float)
+            setImageAspectRatio(((Float)imageAspectRatioData));
         }
 
     }

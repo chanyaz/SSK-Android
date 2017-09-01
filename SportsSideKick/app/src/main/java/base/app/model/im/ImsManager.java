@@ -597,7 +597,8 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                         ImsMessage message = mapper.convertValue(data.get(MESSAGE), ImsMessage.class);
                         chatInfo.addReceivedMessage(message);
                     } else if (OPERATION_UPDATE.equals(operation)) {
-                        chatInfo.updateMessageJson(data);
+                        Map<String,Object> messageAsMap = (Map<String,Object>) data.get(MESSAGE);
+                        chatInfo.updateMessageJson(messageAsMap);
                     }
                 } else {
                     Log.e(TAG, "UNHANDLED ImsMessage Error: chat not found with id:" + data.get(CHAT_ID));
