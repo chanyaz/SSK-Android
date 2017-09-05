@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ import base.app.events.OpenChatEvent;
 import base.app.events.StartCallEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.instance.ChatFragment;
 import base.app.fragment.instance.VideoChatFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
@@ -81,6 +83,13 @@ public class MemberInfoFragment extends BaseFragment {
     @BindView(R.id.chat_button_image)
     ImageView chatButtonImage;
     @Nullable
+    @BindView(R.id.chat_button_phone_image)
+    ImageView chatButtonPhoneImage;
+
+
+
+
+    @Nullable
     @BindView(R.id.follow_button_image)
     ImageView followButtonImage;
     @Nullable
@@ -90,6 +99,11 @@ public class MemberInfoFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.chat_button_text)
     TextView chatButtonText;
+
+    @Nullable
+    @BindView(R.id.chat_button_phone_caption)
+    TextView chatButtonPhoneCaption;
+
     @Nullable
     @BindView(R.id.follow_button_text)
     TextView followButtonText;
@@ -122,6 +136,13 @@ public class MemberInfoFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.profile_nick)
     TextView profileNickText;
+
+    @Nullable
+    @BindView(R.id.video_button)
+    ConstraintLayout videoButton;
+    @Nullable
+    @BindView(R.id.more_button)
+    ConstraintLayout moreButton;
 
     @Nullable
     @BindView(R.id.public_chats_container)
@@ -158,8 +179,6 @@ public class MemberInfoFragment extends BaseFragment {
             allFriendsAdapter = new FriendsAdapter(this.getClass());
             allFriendsAdapter.screenWidth(screenWidth);
 
-
-
             friendsInCommonAdapter.screenWidth(screenWidth);
             LinearLayoutManager allFriendsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             LinearLayoutManager friendsInCommonLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -195,6 +214,24 @@ public class MemberInfoFragment extends BaseFragment {
         profileImageLevel.setText(String.valueOf((int)user.getProgress()));
 
         if (Utility.isPhone(getActivity())) {
+
+            // setup buttons depending on friendship state
+            if(user.isaFriend()){
+                videoButton.setVisibility(View.VISIBLE);
+                moreButton.setVisibility(View.VISIBLE);
+                chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.chat));
+                changeViewClickable(true,chatButtonPhoneImage);
+            } else {
+                if(user.isFriendPendingRequest()){
+                    chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request_pending));
+                    changeViewClickable(false,chatButtonPhoneImage);
+                } else {
+                    chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_reqest));
+                    changeViewClickable(true,chatButtonPhoneImage);
+                }
+            }
+
+
             if (user.getUserId() != null) {
                 friendsCountText.setText(String.valueOf(user.getRequestedUserFriendsCount()));
                 commentsCountText.setText(String.valueOf(user.getComments()));
@@ -203,10 +240,12 @@ public class MemberInfoFragment extends BaseFragment {
                 getMutualFriendsListWithUser(user);
                 getAllUserChats(user);
             } else {
-                assert roomProgressBar != null;
-                roomProgressBar.setVisibility(View.GONE);
-                assert friendProgressBar != null;
-                friendProgressBar.setVisibility(View.GONE);
+                if (roomProgressBar != null) {
+                    roomProgressBar.setVisibility(View.GONE);
+                }
+                if (friendProgressBar != null) {
+                    friendProgressBar.setVisibility(View.GONE);
+                }
             }
         } else {
             if (user.isaFriend()) { // this user is my friend
@@ -346,14 +385,20 @@ public class MemberInfoFragment extends BaseFragment {
     @OnClick(R.id.chat_button)
     public void chatOnClick() {
         // TODO @Filip Check if chat exists?
+
+        // on phone, change this button's behaviour to send friend request if this is not a friend
+        if(Utility.isPhone(getActivity()) && !user.isaFriend()){
+            friendOnClick();
+            return;
+        }
+
         List<UserInfo> selectedUsers = new ArrayList<>();
         selectedUsers.add(user);
         String chatName = user.getNicName() + " & " + Model.getInstance().getUserInfo().getNicName();
-        boolean isPrivate = true;
 
         ChatInfo newChatInfo = new ChatInfo();
         newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
-        newChatInfo.setIsPublic(!isPrivate);
+        newChatInfo.setIsPublic(true);
         newChatInfo.setName(chatName);
         ArrayList<String> userIds = new ArrayList<>();
         for (UserInfo info : selectedUsers) {
@@ -368,7 +413,9 @@ public class MemberInfoFragment extends BaseFragment {
 
         EventBus.getDefault().post(new OpenChatEvent(newChatInfo));
 
-        // EventBus.getDefault().post(new FragmentEvent(getInitiator(), true));
+        if(Utility.isPhone(getActivity())){
+            EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
+        }
     }
 
     @Optional
@@ -419,7 +466,7 @@ public class MemberInfoFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.video_button)
-    public void videoButton() {
+    public void videoButtonOnClick() {
         EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -432,14 +479,14 @@ public class MemberInfoFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.more_button)
-    public void moreButton() {
+    public void moreButtonOnClick() {
         startAlterDialog();
     }
 
 
     @Optional
     @OnClick(R.id.follow_button_image)
-    public void followButton() {
+    public void followButtonOnClick() {
         Task<UserInfo> changeFollowTask;
         if (user.isiFollowHim()) { // I am friends this user, un-follow him
             changeFollowTask = FriendsManager.getInstance().unFollowUser(user.getUserId());
@@ -489,7 +536,7 @@ public class MemberInfoFragment extends BaseFragment {
                                     reportAbuse();
                                     break;
                                 case 1:
-                                    followButton();
+                                    followButtonOnClick();
                                     break;
                                 case 2:
                                     friendOnClick();

@@ -15,11 +15,15 @@ import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import base.app.fragment.FragmentEvent;
+import base.app.fragment.popup.MemberInfoFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import base.app.R;
@@ -40,6 +44,8 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
 
     private List<FriendRequest> values;
 
+    private Class initiatorFragment;
+
     public List<FriendRequest> getValues() {
         return values;
     }
@@ -52,6 +58,9 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         TextView name;
         @BindView(R.id.date)
         TextView date;
+        @BindView(R.id.date_prefix)
+        TextView datePrefix;
+
         @Nullable
         @BindView(R.id.deny_button)
         ImageButton denyButton;
@@ -69,7 +78,8 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
 
     SimpleDateFormat sdf;
 
-    public FriendRequestsAdapter() {
+    public FriendRequestsAdapter(Class initiatorFragment) {
+        this.initiatorFragment = initiatorFragment;
         values = new ArrayList<>();
         sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
     }
@@ -83,8 +93,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_request_item, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
-        clickForTablet(viewHolder);
-//        clickForPhone(viewHolder);
+        setupClickListeners(viewHolder);
         return viewHolder;
     }
 
@@ -94,8 +103,14 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         final FriendRequest info = values.get(position);
         holder.name.setText(info.getSender().getNicName());
         if (info.getTimestamp() != null) {
+            holder.datePrefix.setVisibility(View.VISIBLE);
+            holder.date.setVisibility(View.VISIBLE);
             holder.date.setText(sdf.format(info.getTimestamp()));
+        } else {
+            holder.datePrefix.setVisibility(View.GONE);
+            holder.date.setVisibility(View.GONE);
         }
+
         DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         String avatarUrl = info.getSender().getCircularAvatarUrl();
         if (avatarUrl == null) {
@@ -106,32 +121,41 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
 
     @Override
     public int getItemCount() {
-        if (values == null)
+        if (values == null){
             return 0;
+        }
         return values.size();
     }
 
-    private void clickForTablet(final ViewHolder viewHolder) {
+    private void setupClickListeners(final ViewHolder viewHolder) {
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                values.get(viewHolder.getLayoutPosition());
+                FragmentEvent fragmentEvent = new FragmentEvent(MemberInfoFragment.class);
+                fragmentEvent.setInitiatorFragment(initiatorFragment);
+                int position = viewHolder.getLayoutPosition();
+                fragmentEvent.setId(values.get(position).getSender().getUserId());
+                EventBus.getDefault().post(fragmentEvent);
+            }
+        });
+
         if (viewHolder.confirmButton != null) {
             viewHolder.confirmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final int position = viewHolder.getLayoutPosition();
-                    acceptFriendRequest(position);
+                    acceptFriendRequest(viewHolder.getLayoutPosition());
                 }
             });
         }
-
         if (viewHolder.denyButton != null) {
             viewHolder.denyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final int position = viewHolder.getLayoutPosition();
-                    rejectFriendRequest(position);
+                    rejectFriendRequest(viewHolder.getLayoutPosition());
                 }
             });
         }
-
     }
 
 

@@ -63,7 +63,7 @@ public class FriendRequestsFragment extends BaseFragment {
         requestsRecyclerView.setLayoutManager(layoutManager);
 
 
-        final FriendRequestsAdapter adapter = new FriendRequestsAdapter();
+        final FriendRequestsAdapter adapter = new FriendRequestsAdapter(this.getClass());
         requestsRecyclerView.setAdapter(adapter);
 
         Task<List<FriendRequest>> task = FriendsManager.getInstance().getOpenFriendRequests(0);

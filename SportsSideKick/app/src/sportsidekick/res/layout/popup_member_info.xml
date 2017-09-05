@@ -316,6 +316,7 @@
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/chat_button_phone_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerInside"
@@ -335,6 +336,7 @@
                 tools:layout_editor_absoluteY="316dp" />
 
             <TextView
+                android:id="@+id/chat_button_phone_caption"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:ellipsize="end"
@@ -352,6 +354,7 @@
             android:id="@+id/video_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:layout_weight="1">
 
             <ImageView
@@ -429,6 +432,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/more_button"
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
