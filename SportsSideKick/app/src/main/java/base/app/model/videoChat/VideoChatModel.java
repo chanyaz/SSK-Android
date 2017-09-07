@@ -64,12 +64,15 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
 
     private String getUserId() {
-        return Model.getInstance().getUserInfo().getUserId();
+        if(Model.getInstance().getUserInfo()!=null) {
+            return Model.getInstance().getUserInfo().getUserId();
+        } else {
+            return null;
+        }
     }
 
-    private boolean isInvitationValid(VideoChatItem chat)
-    {
-        boolean inChat = chat.getParticipants().containsKey(this.getUserId());
+    private boolean isInvitationValid(VideoChatItem chat) {
+        boolean inChat = chat.getParticipants().containsKey(getUserId());
         boolean hasOthers = chat.participants.size() > 1;
         boolean hasActiveParticipants = false;
 
@@ -349,6 +352,13 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
             if(users.size()>0){
                 return users;
             }
+        }
+        return null;
+    }
+
+    public VideoChatItem getPendingInvite(String id){
+        if(pendingInvitations.containsKey(id)){
+           return pendingInvitations.get(id);
         }
         return null;
     }

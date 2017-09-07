@@ -1,20 +1,18 @@
 package base.app.fragment.instance;
 
 
-import android.util.Base64;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import org.greenrobot.eventbus.Subscribe;
-
-import java.io.UnsupportedEncodingException;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import base.app.R;
 import base.app.fragment.BaseFragment;
-import base.app.model.Model;
-import base.app.model.user.UserEvent;
-import base.app.model.user.UserInfo;
-
-import static base.app.model.user.UserEvent.Type.onDetailsUpdated;
-import static base.app.model.user.UserEvent.Type.onLogin;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 12/6/2016.
@@ -24,55 +22,21 @@ import static base.app.model.user.UserEvent.Type.onLogin;
  * A simple {@link BaseFragment} subclass.
  */
 
-public class QuizFragment extends StoreFragment {
+public class QuizFragment extends BaseFragment {
 
-    public QuizFragment() {
-        // Required empty public constructor
-    }
+    @BindView(R.id.image)
+    ImageView image;
+
+    public QuizFragment() {}
 
     @Override
-    protected void setupFragment(){
-        UserInfo userInfo = Model.getInstance().getUserInfo();
-        String userId = userInfo.getUserId();
-        String firstName = userInfo.getFirstName();
-        String lastName = userInfo.getFirstName();
-        String nick = userInfo.getNicName();
-
-        try {
-            if (userId != null && firstName!=null && lastName!=null && nick!=null)
-            {
-                String base64userId = Base64.encodeToString(userId.getBytes("UTF-8"), Base64.DEFAULT);
-                String base64firstName = Base64.encodeToString(firstName.getBytes("UTF-8"), Base64.DEFAULT);
-                String base64lastName = Base64.encodeToString(lastName.getBytes("UTF-8"), Base64.DEFAULT);
-                String base64nick = Base64.encodeToString(nick.getBytes("UTF-8"), Base64.DEFAULT);
-
-                String urlTemp = getResources().getString(R.string.quiz_url);
-
-                StringBuilder urlBuilder = new StringBuilder(urlTemp);
-                urlBuilder
-                        .append("?userid=")
-                        .append(base64userId)
-                        .append("&fname=")
-                        .append(base64firstName)
-                        .append("&lname=")
-                        .append(base64lastName)
-                        .append("&nick=")
-                        .append(base64nick);
-
-                url = urlBuilder.toString();
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        withNavigation = false;
-    }
-
-    @Subscribe
-    public void onUserLogin(UserEvent event) {
-        if (event.getType()==onDetailsUpdated || event.getType()== onLogin) {
-            setupFragment();
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setMarginTop(true);
+        View view = inflater.inflate(R.layout.fragment_fantasy, container, false);
+        String url = getResources().getString(R.string.quiz_url);
+        ButterKnife.bind(this,view);
+        ImageLoader.getInstance().displayImage(url,image);
+        return view;
     }
 
 

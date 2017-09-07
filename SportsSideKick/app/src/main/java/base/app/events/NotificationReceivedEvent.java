@@ -9,10 +9,26 @@ public class NotificationReceivedEvent extends BusEvent {
 
     private int closeTime;
     private String title;
+    private String postId;
     private String description;
-    private int type;
+    private Type type;
 
-    public NotificationReceivedEvent(int closeTIme, String title, String description, int type) {
+    public enum Type {
+        FRIEND_REQUESTS,
+        FOLLOWERS,
+        LIKES,
+    }
+
+    public NotificationReceivedEvent(int closeTime, String title, String description, Type type, String postId) {
+        super("");
+        this.closeTime = closeTime;
+        this.title = title;
+        this.postId = postId;
+        this.description = description;
+        this.type = type;
+    }
+
+    public NotificationReceivedEvent(int closeTIme, String title, String description, Type type) {
         super("");
         this.closeTime = closeTIme;
         this.title = title;
@@ -32,7 +48,12 @@ public class NotificationReceivedEvent extends BusEvent {
         return description;
     }
 
-    public int getType() {
+    public Type getType() {
         return type;
+    }
+
+
+    public String getPostId() {
+        return postId;
     }
 }

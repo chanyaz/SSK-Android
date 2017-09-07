@@ -16,7 +16,7 @@ import base.app.model.Model;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfo {
 
-    public static enum UserType {
+    public enum UserType {
         fan, player, special
     }
 
@@ -473,9 +473,7 @@ public class UserInfo {
             return false;
         if (fantasyUUID != null ? !fantasyUUID.equals(userInfo.fantasyUUID) : userInfo.fantasyUUID != null)
             return false;
-        if (fantasyToken != null ? !fantasyToken.equals(userInfo.fantasyToken) : userInfo.fantasyToken != null)
-            return false;
-        return true;
+        return fantasyToken != null ? fantasyToken.equals(userInfo.fantasyToken) : userInfo.fantasyToken == null;
     }
 
     @Override

@@ -9,15 +9,18 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Map;
 
 import base.app.R;
-import base.app.activity.BaseActivity;
+import base.app.activity.SplashActivity;
+
+import static base.app.Constant.NOTIFICATION_DATA;
 
 
 public class SskFirebaseMessagingService extends FirebaseMessagingService {
@@ -42,8 +45,7 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
-        //EventBus.getDefault().post(new ExternalNotificationEvent(remoteMessage.getMessage(), false));
-
+        EventBus.getDefault().post(new ExternalNotificationEvent(remoteMessage.getData(), false));
     }
 
     /**
@@ -55,16 +57,18 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         Map<String,String> messageData = remoteMessage.getData();
         String alert = null;
         if(messageData.containsKey("alert")){
-             alert = (String) messageData.get("alert");
+             alert = messageData.get("alert");
         }
-        Gson gson = new Gson();
-        Intent intent = new Intent(this, BaseActivity.class);
+        Intent intent = new Intent(this, SplashActivity.class);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("SSK_PUSH_NOTIFICATION_DATA",gson.toJson(messageData));
+        intent.putExtra(NOTIFICATION_DATA,new Gson().toJson(messageData));
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         //Extract data for display!
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        // TODO - Starting from Android O (API 26) there are channel_ids for notifications - implement it
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo_fq)
                 .setContentTitle("Fanschat")

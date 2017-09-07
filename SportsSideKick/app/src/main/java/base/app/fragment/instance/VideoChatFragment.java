@@ -2,7 +2,6 @@ package base.app.fragment.instance;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -312,7 +311,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
     public void onVideoChatEventReceived(VideoChatEvent event) {
-        Activity activity = getActivity();
         switch (event.getType()) {
             case onUserInvited:
                 ArrayList<String> users = new ArrayList<>();
@@ -400,7 +398,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
     private void acceptCallFromPushNotification(String roomId) {
-        acceptInvitation(roomId);
+
     }
 
     @Subscribe
@@ -739,8 +737,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-
         super.onResume();
+        String id = getPrimaryArgument();
+        if(id!=null){
+            acceptCallFromPushNotification(id);
+        }
     }
 
     @Override

@@ -15,7 +15,7 @@
     <string name="store_url_item8">https://lojaverde.sporting.pt/en/jornal-sporting</string>
     <string name="store_url_item9">https://lojaverde.sporting.pt/en/cheques-prenda</string>
 
-    <string name="fantasy_url">https://www.fanfeud.co.uk/client/clients/</string>
-    <string name="quiz_url">http://sidekick.snack-media.com/quiz-list-en.html</string>
+    <string name="fantasy_url">https://s3-eu-west-1.amazonaws.com/sskirbucket/graphics/fantasy.png</string>
+    <string name="quiz_url">https://s3-eu-west-1.amazonaws.com/sskirbucket/graphics/quiz.png</string>
     <string name="clubtv_channelid">UCnJj6L93JX3Jrhzv81ayywA</string>
 </resources>

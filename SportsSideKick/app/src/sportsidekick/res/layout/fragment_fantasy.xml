@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     tools:context="base.app.fragment.instance.FantasyFragment">
 
-    <WebView
-        android:id="@+id/web_view"
+    <ImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         android:visibility="visible">
-    </WebView>
+    </ImageView>
 
 </RelativeLayout>

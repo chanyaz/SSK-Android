@@ -14,6 +14,7 @@ import base.app.model.Model;
 import base.app.model.friendship.FriendsListChangedEvent;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.UserInfo;
+import base.app.model.wall.WallBase;
 
 /**
  * Created by Filip on 4/19/2017.
@@ -45,11 +46,11 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
             NotificationReceivedEvent event;
             switch (extCode){
                 case "FriendRequestAcceptedMessage":
-                    event = new NotificationReceivedEvent(2, "Accepted Friend Request", "", 1);
+                    event = new NotificationReceivedEvent(2, "Accepted Friend Request", "", NotificationReceivedEvent.Type.FRIEND_REQUESTS);
                     EventBus.getDefault().post(event);
                     break;
                 case "FriendRequestMessage":
-                    event = new NotificationReceivedEvent(4, "New Friend Request", "", 1);
+                    event = new NotificationReceivedEvent(4, "New Friend Request", "", NotificationReceivedEvent.Type.FRIEND_REQUESTS);
                     EventBus.getDefault().post(event);
                     break;
             }
@@ -74,10 +75,10 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                     if(message.contains("stoped following")){
                         FriendsListChangedEvent eventToUpdateFriendsList = new FriendsListChangedEvent();
                         EventBus.getDefault().post(eventToUpdateFriendsList);
-                        event = new NotificationReceivedEvent(4, "Un-Followed", userInfo.getNicName(), 2);
+                        event = new NotificationReceivedEvent(4, "Un-Followed", userInfo.getNicName(), NotificationReceivedEvent.Type.FOLLOWERS);
                         EventBus.getDefault().post(event);
                     } else if(message.contains("following")){
-                        event = new NotificationReceivedEvent(4, "New Follower", userInfo.getNicName(), 2);
+                        event = new NotificationReceivedEvent(4, "New Follower", userInfo.getNicName(), NotificationReceivedEvent.Type.FOLLOWERS);
                         EventBus.getDefault().post(event);
                     }
                 }
@@ -87,9 +88,21 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 switch (operation){
                     case GSConstants.OPERATION_LIKE:
                         String action = (String) data.get(GSConstants.ACTION);
+
+
+
                         if(action.equals(GSConstants.OPERATION_LIKE)){
-                            event = new NotificationReceivedEvent(4, "New Like", "", 99);
-                            EventBus.getDefault().post(event);
+                            if(data.containsKey(GSConstants.POST)){
+                                WallBase post = WallBase.postFactory(data.get(GSConstants.POST), mapper);
+                                if(post!=null){
+                                    String postId = post.getPostId();
+                                    event = new NotificationReceivedEvent(4, "New Like", "", NotificationReceivedEvent.Type.LIKES,postId);
+                                    EventBus.getDefault().post(event);
+                                }
+                            }
+
+
+
                         }
                         break;
                 }

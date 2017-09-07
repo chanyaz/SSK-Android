@@ -96,7 +96,7 @@ public abstract class WallBase implements Shareable {
     }
 
     @Nullable
-    static WallBase postFactory(Object wallItem, ObjectMapper mapper) {
+    public static WallBase postFactory(Object wallItem, ObjectMapper mapper) {
         JsonNode node = mapper.valueToTree(wallItem);
         if (node.has("type")) {
             TypeReference typeReference = new TypeReference<WallBase>(){};
