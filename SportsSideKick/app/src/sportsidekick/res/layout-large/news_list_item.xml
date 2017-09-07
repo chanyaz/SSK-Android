@@ -36,8 +36,8 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingBottom="@dimen/margin_5"
-            android:paddingLeft="@dimen/margin_5"
-            android:paddingRight="@dimen/margin_5" />
+            android:paddingStart="@dimen/margin_5"
+            android:paddingEnd="@dimen/margin_5" />
     </RelativeLayout>
 
 

@@ -69,8 +69,8 @@
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin_20"
-            android:layout_marginRight="@dimen/margin_20"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
             android:layout_marginTop="@dimen/margin_15"
             android:numColumns="auto_fit"
             android:clipToPadding="false"/>

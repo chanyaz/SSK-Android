@@ -243,8 +243,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/margin_40"
-            android:layout_marginRight="@dimen/margin_40">
+            android:layout_marginStart="@dimen/margin_40"
+            android:layout_marginEnd="@dimen/margin_40">
 
             <ImageView
                 android:id="@+id/logo"

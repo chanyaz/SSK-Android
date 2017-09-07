@@ -75,7 +75,7 @@
             style="@style/edit_text_login"
             android:layout_width="@dimen/width_290"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:ellipsize="end"
             android:hint="@string/add_friend_hint"
             android:inputType="text"
@@ -126,8 +126,8 @@
             android:minHeight="@dimen/height_48"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/margin_10"
-            android:layout_marginLeft="@dimen/margin_10"
-            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_20" />
 
         <com.wang.avi.AVLoadingIndicatorView

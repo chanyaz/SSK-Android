@@ -70,7 +70,7 @@
     <string name="button_allow">Allow</string>
     <string name="button_deny">Deny</string>
     <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-    <string name="permission_microphone_neverask">Never ask for audio recording permission again.</string>
+    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
 
     <string name="this_chat_is_public">This chat is public</string>
     <string name="this_chat_is_private">This chat is private</string>
@@ -230,7 +230,7 @@
 
     <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
     <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat</string>
-    <string name="video_chat_permission_microphone_neverask">Never ask for audio and video recording permission again.</string>
+    <string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>
 
     <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
     <string name="permission_camera_neverask">Never ask for camera permission again.</string>

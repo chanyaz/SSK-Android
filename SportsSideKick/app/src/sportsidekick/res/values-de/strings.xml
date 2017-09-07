@@ -66,7 +66,7 @@
     <string name="button_allow">Allow</string>
     <string name="button_deny">Deny</string>
     <string name="permission_microphone_denied">You need to enable micrphone in settings to send audio messages.</string>
-    <string name="permission_microphone_neverask">Never ask for audio recording permission again.</string>
+    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
 
     <string name="this_chat_is_public">This chat is private</string>
     <string name="this_chat_is_private">This chat is public</string>
