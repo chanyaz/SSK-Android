@@ -21,14 +21,14 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.app.model.friendship.FriendsManager;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.popup.MemberInfoFragment;
+import base.app.model.friendship.FriendsManager;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 1/17/2017.

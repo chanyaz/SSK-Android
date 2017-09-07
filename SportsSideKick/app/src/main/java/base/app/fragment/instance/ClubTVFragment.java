@@ -10,22 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import base.app.activity.PhoneLoungeActivity;
+import base.app.R;
+import base.app.adapter.ClubTVAdapter;
+import base.app.events.ClubTVEvent;
+import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.IgnoreBackHandling;
+import base.app.model.club.ClubModel;
 import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import base.app.R;
-import base.app.adapter.ClubTVAdapter;
-import base.app.fragment.BaseFragment;
-import base.app.fragment.IgnoreBackHandling;
-import base.app.model.club.ClubModel;
-import base.app.events.ClubTVEvent;
 
 /**
  * A simple {@link BaseFragment} subclass.

@@ -2,24 +2,18 @@ package base.app.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 
+import base.app.R;
+import base.app.model.tutorial.WallStep;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import base.app.R;
-import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.NewsItemFragment;
-import base.app.model.tutorial.WallStep;
-import base.app.model.wall.WallNews;
 
 /**
  * Created by Djordje on 04/01/2017.

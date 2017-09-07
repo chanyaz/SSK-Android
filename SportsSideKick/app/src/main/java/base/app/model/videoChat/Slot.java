@@ -14,11 +14,11 @@ import com.twilio.video.VideoView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 4/2/2017.

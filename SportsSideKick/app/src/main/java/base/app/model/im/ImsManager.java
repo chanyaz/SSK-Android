@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import base.app.GSAndroidPlatform;
 import base.app.model.FileUploader;
 import base.app.model.GSConstants;
 import base.app.model.Model;
@@ -29,7 +30,6 @@ import base.app.model.im.event.CreateNewChatSuccessEvent;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;
-import base.app.GSAndroidPlatform;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CHATS_INFO;

@@ -7,16 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import base.app.R;
-import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.ChatFragment;
 import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Optional;
 
 /**
  * Created by Aleksandar Marinkovic on 30/05/2017.

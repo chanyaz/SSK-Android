@@ -17,15 +17,15 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
 import base.app.adapter.FriendRequestsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.friendship.FriendRequest;
 import base.app.model.friendship.FriendsManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 /**

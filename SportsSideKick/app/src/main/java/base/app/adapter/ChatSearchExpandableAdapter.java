@@ -21,10 +21,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.HashMap;
 import java.util.List;
 
-import base.app.Application;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import base.app.R;
 import base.app.fragment.popup.JoinChatFragment;
 import base.app.model.Model;
@@ -33,6 +29,9 @@ import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
 import base.app.util.ui.LinearItemSpacing;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Nemanja Jovanovic on 12/04/2017.

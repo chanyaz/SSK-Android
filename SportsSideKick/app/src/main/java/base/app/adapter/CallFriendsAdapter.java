@@ -14,11 +14,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 1/31/2017.

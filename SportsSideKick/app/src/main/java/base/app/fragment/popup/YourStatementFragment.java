@@ -12,13 +12,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
 import base.app.adapter.StatementAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Filip on 1/19/2017.

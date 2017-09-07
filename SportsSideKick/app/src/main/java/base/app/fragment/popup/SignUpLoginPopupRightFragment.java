@@ -10,11 +10,8 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.IgnoreBackHandling;
 import base.app.fragment.instance.ChatFragment;
-import base.app.fragment.instance.WallFragment;
 import base.app.model.Model;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;

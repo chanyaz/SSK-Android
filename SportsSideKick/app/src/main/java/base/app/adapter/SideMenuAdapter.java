@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.Constant;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.util.Utility;
 import base.app.util.ui.NavigationDrawerItems;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Aleksandar Marinkovic on 18/04/2017.

@@ -6,8 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.view.Gravity;
-import android.widget.TextView;
 
 import base.app.R;
 

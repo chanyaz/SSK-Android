@@ -1,7 +1,6 @@
 package base.app.fragment.instance;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,16 +15,15 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-import base.app.util.ui.GridItemDecoration;
-import base.app.activity.PhoneLoungeActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.adapter.NewsAdapter;
 import base.app.fragment.BaseFragment;
-import base.app.model.wall.WallNews;
 import base.app.model.news.NewsModel;
 import base.app.model.news.NewsPageEvent;
+import base.app.model.wall.WallNews;
+import base.app.util.ui.GridItemDecoration;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 12/29/2016.

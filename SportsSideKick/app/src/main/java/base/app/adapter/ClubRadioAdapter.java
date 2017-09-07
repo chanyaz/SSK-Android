@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.api.services.youtube.model.Playlist;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -17,14 +16,13 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.ClubRadioStationFragment;
-import base.app.fragment.instance.ClubTvPlaylistFragment;
 import base.app.model.club.Station;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 1/30/2017.

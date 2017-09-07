@@ -1,53 +1,28 @@
 package base.app.fragment.popup;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import base.app.R;
-import base.app.activity.LoungeActivity;
 import base.app.adapter.AccountCreatingAdapter;
-import base.app.adapter.ChatSearchExpandableAdapter;
-import base.app.adapter.FriendsInChatAdapter;
-import base.app.adapter.OfficialChatsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.IgnoreBackHandling;
 import base.app.fragment.instance.WallFragment;
-import base.app.model.friendship.FriendsManager;
-import base.app.model.im.ChatInfo;
-import base.app.model.im.ImsManager;
-import base.app.model.user.UserInfo;
 import base.app.util.Utility;
-import base.app.util.ui.AnimatedExpandableListView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

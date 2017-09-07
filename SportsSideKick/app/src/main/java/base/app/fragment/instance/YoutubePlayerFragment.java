@@ -1,7 +1,6 @@
 package base.app.fragment.instance;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
@@ -23,7 +22,6 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.google.api.services.youtube.model.Video;
 
 import org.greenrobot.eventbus.EventBus;

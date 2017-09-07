@@ -8,14 +8,14 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import base.app.model.Model;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.model.Model;
 import base.app.model.purchases.PurchaseModel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 /**

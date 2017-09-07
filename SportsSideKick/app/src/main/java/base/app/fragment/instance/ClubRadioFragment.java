@@ -17,18 +17,17 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import base.app.activity.PhoneLoungeActivity;
+import base.app.R;
+import base.app.adapter.ClubRadioAdapter;
+import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.IgnoreBackHandling;
+import base.app.model.club.ClubModel;
+import base.app.model.club.Station;
 import base.app.util.Utility;
 import base.app.util.ui.GridItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import base.app.R;
-import base.app.adapter.ClubRadioAdapter;
-import base.app.fragment.BaseFragment;
-import base.app.fragment.IgnoreBackHandling;
-import base.app.model.club.ClubModel;
-import base.app.model.club.Station;
 
 /**
  * A simple {@link BaseFragment} subclass.

@@ -14,18 +14,18 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
 import base.app.adapter.StashAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.achievements.Achievement;
 import base.app.model.achievements.AchievementManager;
+import base.app.util.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
-import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;

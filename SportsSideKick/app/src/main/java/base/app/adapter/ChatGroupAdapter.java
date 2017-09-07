@@ -1,32 +1,23 @@
 package base.app.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.fragment.FragmentEvent;
-import base.app.fragment.popup.CreateChatFragment;
 import base.app.model.im.ChatInfo;
-import base.app.model.im.event.ChatNotificationsEvent;
 import base.app.util.Utility;
-import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;

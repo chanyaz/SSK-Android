@@ -17,13 +17,13 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.NewsItemFragment;
 import base.app.model.wall.WallNews;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 12/29/2016.

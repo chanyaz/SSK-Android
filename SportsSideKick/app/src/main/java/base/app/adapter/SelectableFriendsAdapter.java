@@ -19,13 +19,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import base.app.util.SoundEffects;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.model.user.AddFriendsEvent;
 import base.app.model.user.UserInfo;
+import base.app.util.SoundEffects;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 12/14/2016.

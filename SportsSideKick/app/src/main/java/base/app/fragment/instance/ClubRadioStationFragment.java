@@ -19,10 +19,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
-import base.app.activity.PhoneLoungeActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.Constant;
 import base.app.R;
 import base.app.fragment.BaseFragment;
@@ -30,6 +26,9 @@ import base.app.fragment.FragmentEvent;
 import base.app.model.club.ClubModel;
 import base.app.model.club.Station;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Filip on 1/30/2017.

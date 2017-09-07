@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Base64;
 
-
 import com.gamesparks.sdk.GS;
 import com.gamesparks.sdk.IGSPlatform;
 

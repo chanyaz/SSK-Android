@@ -22,15 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.popup.MemberInfoFragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import base.app.R;
 import base.app.model.friendship.FriendRequest;
 import base.app.model.friendship.FriendsManager;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 21/01/2017.

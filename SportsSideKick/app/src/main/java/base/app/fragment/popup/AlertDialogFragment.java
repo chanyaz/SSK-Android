@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
 import base.app.fragment.BaseFragment;
 import base.app.model.AlertDialogManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Nemanja Jovanovic on 28/03/2017.

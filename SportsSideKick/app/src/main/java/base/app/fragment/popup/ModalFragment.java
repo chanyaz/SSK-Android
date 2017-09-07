@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import base.app.R;
 import base.app.fragment.BaseFragment;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Djordje on 22/01/2017.

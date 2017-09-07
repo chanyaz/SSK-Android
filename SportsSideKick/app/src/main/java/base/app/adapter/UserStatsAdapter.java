@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.app.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import base.app.R;
-import base.app.util.Utility;
 
 /**
  * Created by Filip on 1/17/2017.

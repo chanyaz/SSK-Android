@@ -14,12 +14,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.Comparator;
 import java.util.List;
 
-import base.app.fragment.popup.JoinChatFragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import base.app.R;
+import base.app.fragment.popup.JoinChatFragment;
 import base.app.model.im.ChatInfo;
 import base.app.util.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 12/14/2016.

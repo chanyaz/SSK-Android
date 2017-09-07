@@ -1,7 +1,6 @@
 package base.app.model.news;
 
 
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
@@ -14,8 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import base.app.model.wall.WallNews;
 import base.app.GSAndroidPlatform;
+import base.app.model.wall.WallNews;
 import base.app.util.Utility;
 
 
