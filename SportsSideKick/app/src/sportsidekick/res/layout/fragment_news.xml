@@ -41,7 +41,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:gravity="center"
-                        android:text="NEWS"
+                        android:text="@string/news"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="40sp"

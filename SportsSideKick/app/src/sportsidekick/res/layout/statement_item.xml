@@ -17,8 +17,7 @@
         android:layout_width="@dimen/space_0"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:gravity="end"
-        android:text="Some line text"/>
+        android:gravity="end"/>
     <TextView
         android:id="@+id/value"
         android:layout_weight="1.5"
@@ -26,6 +25,5 @@
         android:layout_height="wrap_content"
         android:textColor="?colorAccent"
         android:gravity="start"
-        android:layout_marginStart="@dimen/margin_30"
-        android:text="Some line text"/>
+        android:layout_marginStart="@dimen/margin_30"/>
 </LinearLayout>

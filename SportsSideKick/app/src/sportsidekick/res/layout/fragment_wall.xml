@@ -73,7 +73,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/wall_team_left_image"
                                 android:padding="@dimen/padding_8"
-                                android:text="VS"
+                                android:text="@string/vs"
                                 android:textColor="@color/white" />
 
                             <ImageView
@@ -101,7 +101,7 @@
                             android:layout_below="@id/wall_top_info"
                             android:layout_centerHorizontal="true"
                             android:padding="@dimen/padding_8"
-                            android:text="Next match"
+                            android:text="@string/next_match"
                             android:textColor="@color/colorPrimaryLight" />
 
                         <TextView

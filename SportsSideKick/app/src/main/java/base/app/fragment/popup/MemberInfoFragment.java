@@ -226,7 +226,7 @@ public class MemberInfoFragment extends BaseFragment {
                     chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request_pending));
                     changeViewClickable(false,chatButtonPhoneImage);
                 } else {
-                    chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_reqest));
+                    chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request));
                     changeViewClickable(true,chatButtonPhoneImage);
                 }
             }
@@ -254,7 +254,7 @@ public class MemberInfoFragment extends BaseFragment {
 
                 if (user.isiFollowHim()) { // I am following this user
                     followButtonImage.setImageResource(R.drawable.friend_unfollow_button);
-                    followButtonText.setText(getContext().getResources().getString(R.string.friend_unfollow));
+                    followButtonText.setText(getContext().getResources().getString(R.string.friend_un_follow));
                 } else {
                     followButtonImage.setImageResource(R.drawable.friend_follow_button);
                     followButtonText.setText(getContext().getResources().getString(R.string.friend_follow));
@@ -288,7 +288,7 @@ public class MemberInfoFragment extends BaseFragment {
                     changeViewClickable(false, friendButtonText);
                 } else {
                     friendButtonImage.setImageResource(R.drawable.friend_follow_button);
-                    friendButtonText.setText(getContext().getResources().getString(R.string.friend_reqest));
+                    friendButtonText.setText(getContext().getResources().getString(R.string.friend_request));
                     //enable send request button
                     changeViewClickable(true, friendButtonImage);
                     changeViewClickable(true, friendButtonText);
@@ -511,10 +511,10 @@ public class MemberInfoFragment extends BaseFragment {
             if (user.isaFriend()) {
                 friend = getString(R.string.remove_friend);
             } else {
-                friend = getString(R.string.friend_reqest);
+                friend = getString(R.string.friend_request);
             }
             if (user.isiFollowHim()) { // I am following this user
-                follow = getString(R.string.friend_unfollow);
+                follow = getString(R.string.friend_un_follow);
             } else {
                 follow = getString(R.string.friend_follow);
             }

@@ -387,7 +387,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         yourLevel.setVisibility(View.INVISIBLE);
         userLevelBackground.setVisibility(View.INVISIBLE);
         userLevelProgress.setVisibility(View.INVISIBLE);
-        profileName.setText(R.string.login_or_signup);
+        profileName.setText(R.string.login_or_sign_up);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
         ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
 

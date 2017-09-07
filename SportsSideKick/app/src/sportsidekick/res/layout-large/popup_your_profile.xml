@@ -169,7 +169,7 @@
                 android:layout_below="@id/profile_image_container"
                 android:layout_marginTop="@dimen/margin_negative_19"
                 android:gravity="center"
-                android:text="99"
+                android:text="@string/max_level_value"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -221,7 +221,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/contact_info_caption"
-                android:text="email@email.com"
                 android:textColor="@color/white"
                 android:layout_alignEnd="@+id/text_center" />
 
@@ -231,7 +230,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/contact_info_email"
-                android:text="01234 567 890"
                 android:textColor="@color/white" />
 
             <TextView
@@ -250,7 +248,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/contact_info_caption"
                 android:layout_below="@+id/subscribed_since_caption"
-                android:text="07.12.16"
                 android:textColor="@color/white"
                 android:layout_toStartOf="@+id/password_caption" />
 
@@ -269,7 +266,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/location_caption"
                 android:layout_below="@+id/location_caption"
-                android:text="Perth, AU"
                 android:textColor="@color/white" />
 
             <TextView
@@ -288,7 +284,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/password_caption"
                 android:layout_below="@+id/password_caption"
-                android:text="*******"
+                android:text="@string/password_placeholder"
                 android:textColor="@color/white" />
 
             <TextView
@@ -316,7 +312,6 @@
                 android:layout_below="@+id/chosen_language_caption"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_toEndOf="@+id/language_icon"
-                android:text="English"
                 android:textColor="@color/white" />
         </RelativeLayout>
 
@@ -366,7 +361,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="52"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_25"
                         android:textStyle="bold" />
@@ -419,7 +413,7 @@
                     android:layout_height="@dimen/popup_your_friends_next_level_cointainer_text_size"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    android:text="99"
+                    android:text="@string/max_level_value"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
             </RelativeLayout>

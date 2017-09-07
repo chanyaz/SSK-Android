@@ -45,7 +45,6 @@
         android:paddingEnd="@dimen/space_0"
         android:paddingStart="@dimen/padding_8"
         android:paddingTop="@dimen/space_0"
-        android:text="05 Sep 2016"
         android:textColor="?channelItemDate"
         android:textSize="@dimen/font_size_10" />
 

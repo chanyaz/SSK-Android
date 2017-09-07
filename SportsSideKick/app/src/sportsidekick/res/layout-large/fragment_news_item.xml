@@ -135,7 +135,6 @@
                         android:id="@+id/likes_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -160,7 +159,7 @@
                         android:id="@+id/pin_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="--"
+                        android:text="@string/pin_count_placeholder"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -185,7 +184,6 @@
                         android:id="@+id/share_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="30"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -210,7 +208,6 @@
                         android:id="@+id/comments_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20"
                         android:textColor="@color/white" />
                 </LinearLayout>
 

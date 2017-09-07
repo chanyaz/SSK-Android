@@ -223,11 +223,11 @@ public class CreateChatFragment extends BaseFragment {
             addFriendsAdapter.add(event.getUserInfo());
         }
         int friendCount = addFriendsAdapter.getItemCount();
-        String friendsInchat = " " + getContext().getResources().getString(R.string.chat_frends_in_chat);
+        String friendsInchat = " " + getContext().getResources().getString(R.string.chat_friends_in_chat);
         if (friendCount == 0) {
             headlineFriendsInChat.setText(friendsInchat);
         } else if (friendCount == 1) {
-            headlineFriendsInChat.setText(getContext().getResources().getString(R.string.chat_frend_in_chat));
+            headlineFriendsInChat.setText(getContext().getResources().getString(R.string.chat_friend_in_chat));
         } else {
             String friendsTotal = friendCount + friendsInchat;
             headlineFriendsInChat.setText(friendsTotal);

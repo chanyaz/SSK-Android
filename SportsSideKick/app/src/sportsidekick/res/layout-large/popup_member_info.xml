@@ -106,7 +106,7 @@
             android:layout_below="@id/profile_image_container"
             android:layout_marginTop="@dimen/margin_negative_17"
             android:gravity="center"
-            android:text="99"
+            android:text="@string/max_level_value"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_10"
             android:textStyle="normal" />

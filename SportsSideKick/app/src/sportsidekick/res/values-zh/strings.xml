@@ -17,12 +17,12 @@
     <string name="forgot_password_button_text">重置密码</string>
     <string name="sign_up_facebook">用 Facebook 注册</string>
     <string name="sign_up_or">或者</string>
-    <string name="sign_up_firstname">名字</string>
-    <string name="sign_up_lastname">姓氏</string>
+    <string name="sign_up_first_name">名字</string>
+    <string name="sign_up_last_name">姓氏</string>
     <string name="sign_up_username">用户名</string>
     <string name="sign_up_email">电子邮件</string>
     <string name="sign_up_phone">电话</string>
-    <string name="sign_up_passwoed">密码</string>
+    <string name="sign_up_password">密码</string>
     <string name="sign_up_sign_up">注册</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
@@ -30,7 +30,7 @@
     <string name="dialog_warning">Warning</string>
     <string name="dialog_message">You must enter your </string>
     <string name="dialog_message_not_valid_email">请输入有效的电子邮件地址！</string>
-    <string name="dialog_interner_connection_falied">您需要连接到互联网，才能使用 使用 Sports Sidekick</string>
+    <string name="dialog_internet_connection_failed">您需要连接到互联网，才能使用 使用 Sports Sidekick</string>
     <string name="dialog_message_facebook_error">无法收到您的公开个人资料。请再试一次！</string>
 
     <string name="wall_fragment_caption">墙</string>

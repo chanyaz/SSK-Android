@@ -220,7 +220,7 @@
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:textColor="@color/white" />
 
             <TextView
@@ -234,7 +234,7 @@
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:textColor="@color/white" />
 
             <TextView
@@ -248,7 +248,7 @@
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
-                android:text="Search"
+                android:text="@string/search"
                 android:textColor="@color/white" />
 
         </LinearLayout>

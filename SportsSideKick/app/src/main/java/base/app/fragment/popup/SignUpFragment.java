@@ -316,7 +316,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
                 TextUtils.isEmpty(displayName != null ? displayName.getText() : "string") ||
                 TextUtils.isEmpty(password.getText()) ||
                 TextUtils.isEmpty(phone != null ? phone.getText() : "string")) {
-            Toast.makeText(getContext(), getContext().getResources().getString(R.string.fiil_all_data), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.fill_all_data), Toast.LENGTH_LONG).show();
         } else {
 
             if (!Connection.getInstance().alertIfNotReachable(getActivity(),

@@ -22,12 +22,12 @@
     <string name="forgot_password_button_text">KENNWORT ZURÜCKSETZEN</string>
     <string name="sign_up_facebook">Mit Facebook registrieren</string>
     <string name="sign_up_or">ODER</string>
-    <string name="sign_up_firstname">Vorname</string>
-    <string name="sign_up_lastname">Nachname</string>
+    <string name="sign_up_first_name">Vorname</string>
+    <string name="sign_up_last_name">Nachname</string>
     <string name="sign_up_username">Benutzername</string>
     <string name="sign_up_email">E-mail</string>
     <string name="sign_up_phone">Telefon</string>
-    <string name="sign_up_passwoed">Kennwort</string>
+    <string name="sign_up_password">Kennwort</string>
     <string name="sign_up_sign_up">Registrieren</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
@@ -35,7 +35,7 @@
     <string name="dialog_warning">Warning</string>
     <string name="dialog_message">Du musst deinen </string>
     <string name="dialog_message_not_valid_email">Bitte eine gültige E-Mail-Adresse eingeben.</string>
-    <string name="dialog_interner_connection_falied">Du musst mit dem Internet verbunden sein, um Sports Sidekick nutzen zu können</string>
+    <string name="dialog_internet_connection_failed">Du musst mit dem Internet verbunden sein, um Sports Sidekick nutzen zu können</string>
     <string name="dialog_message_facebook_error">Dein öffentliches Profil kann nicht abgerufen werden. Bitte erneut versuchen!</string>
 
     <string name="wall_fragment_caption">Pinnwand</string>

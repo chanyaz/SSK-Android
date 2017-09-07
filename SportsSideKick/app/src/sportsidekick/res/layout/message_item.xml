@@ -78,7 +78,7 @@
         android:layout_below="@+id/content_container"
         android:layout_toEndOf="@+id/sender"
         android:alpha="0.5"
-        android:text=" | "
+        android:text="@string/message_time_splitter"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_10" />
 

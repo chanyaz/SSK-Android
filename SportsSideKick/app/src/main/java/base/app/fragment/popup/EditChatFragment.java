@@ -222,11 +222,11 @@ public class EditChatFragment extends BaseFragment {
 
     private void updateFirendsCountLabel(){
         int friendCount = addFriendsAdapter.getItemCount();
-        String friendsInChat = getContext().getResources().getString(R.string.chat_frends_in_chat);
+        String friendsInChat = getContext().getResources().getString(R.string.chat_friends_in_chat);
         if (friendCount == 0) {
             headlineFriendsInChat.setText(friendsInChat);
         } else if (friendCount == 1) {
-            headlineFriendsInChat.setText(getContext().getResources().getString(R.string.chat_frend_in_chat));
+            headlineFriendsInChat.setText(getContext().getResources().getString(R.string.chat_friend_in_chat));
         } else {
             String friendsTotal = friendCount + " " + friendsInChat;
             headlineFriendsInChat.setText(friendsTotal);

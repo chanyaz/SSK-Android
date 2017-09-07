@@ -25,12 +25,12 @@
     <string name="forgot_password_error">Error</string>
     <string name="sign_up_facebook">Sign up with Facebook</string>
     <string name="sign_up_or">or</string>
-    <string name="sign_up_firstname">First name</string>
-    <string name="sign_up_lastname">Last name</string>
+    <string name="sign_up_first_name">First name</string>
+    <string name="sign_up_last_name">Last name</string>
     <string name="sign_up_username">Display name</string>
     <string name="sign_up_email">Email</string>
     <string name="sign_up_phone">Phone</string>
-    <string name="sign_up_passwoed">Password</string>
+    <string name="sign_up_password">Password</string>
     <string name="sign_up_sign_up">Sign up</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
@@ -38,7 +38,7 @@
     <string name="dialog_warning">Warning</string>
     <string name="dialog_message">You must enter your </string>
     <string name="dialog_message_not_valid_email">Not valid email address.</string>
-    <string name="dialog_interner_connection_falied">No interner connection. Try again later.</string>
+    <string name="dialog_internet_connection_failed">No interner connection. Try again later.</string>
     <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
 
     <string name="wall_fragment_caption">Wall</string>
@@ -258,13 +258,13 @@
     <string name="video_chat_maximum">Sorry you can only video call with a maximum of 3 friends, and this call is already full!</string>
     <string name="video_chat_you">You</string>
     <string name="video_chat_receive_call">Receiving a call from</string>
-    <string name="video_chat_accpet_call">Accept the call?</string>
+    <string name="video_chat_accept_call">Accept the call?</string>
     <string name="permissions">Permissions</string>
     <string name="wall_new_post_title">Not sure we need title here</string>
     <string name="wall_new_post_subtitle">A subtitle...</string>
     <string name="wall_text_for_post">Please enter some text for post!</string>
-    <string name="chat_frends_in_chat">Friends in Chat</string>
-    <string name="chat_frend_in_chat">1 Friend in Chat</string>
+    <string name="chat_friends_in_chat">Friends in Chat</string>
+    <string name="chat_friend_in_chat">1 Friend in Chat</string>
     <string name="chat_choose_option">Choose option</string>
     <string name="chat_choose_from_library">Choose from library</string>
     <string name="chat_use_camera">Use Camera</string>
@@ -274,10 +274,10 @@
     <string name="enter_valid_password_and_display_name">Please enter valid password and displayName!</string>
     <string name="login_try_again">Please re-enter your password and try again</string>
     <string name="remove_friend">REMOVE FRIEND</string>
-    <string name="friend_reqest">SEND FRIEND REQUEST</string>
-    <string name="friend_unfollow">UN-FOLLOW</string>
+    <string name="friend_request">SEND FRIEND REQUEST</string>
+    <string name="friend_un_follow">UN-FOLLOW</string>
     <string name="friend_follow">FOLLOW</string>
-    <string name="fiil_all_data">You have to fill all data</string>
+    <string name="fill_all_data">You have to fill all data</string>
     <string name="registration_error">Registration error. Try again later.</string>
     <string name="no_users_selected">No users selected!</string>
     <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
@@ -339,7 +339,7 @@
     <string name="rewards_and_items_received">Rewards and items recieved from Gym Bags</string>
     <string name="you_have">YOU HAVE</string>
     <string name="bonus_gym_bag">+ BONUS GYM BAG</string>
-    <string name="bandles">BUNDLES</string>
+    <string name="bundles">BUNDLES</string>
     <string name="vs">vs</string>
     <string name="login_sign_up_text">Login / Signup</string>
     <string name="add_new_chat">ADD NEW CHAT</string>

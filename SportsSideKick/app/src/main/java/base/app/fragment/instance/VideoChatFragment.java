@@ -335,7 +335,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                             } else if (userInfo.getNicName() != null) {
                                 usersName = userInfo.getNicName();
                             }
-                            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.video_chat_receive_call) + " \'" + usersName + " \'?", getContext().getResources().getString(R.string.video_chat_accpet_call),
+                            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.video_chat_receive_call) + " \'" + usersName + " \'?", getContext().getResources().getString(R.string.video_chat_accept_call),
                                     new View.OnClickListener() {// Cancel
                                         @Override
                                         public void onClick(View v) {

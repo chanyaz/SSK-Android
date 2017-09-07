@@ -63,7 +63,7 @@ public class AccountCreatingFragment extends BaseFragment implements AccountCrea
         View view = inflater.inflate(R.layout.popup_account_creating, container, false);
         ButterKnife.bind(this, view);
         animatonEnable = true;
-        values = getActivity().getResources().getStringArray(R.array.account_creating_text);
+        values = new String[0]; // TODO - get values to display while creating an account
         if (titleText != null) {
             titleText.setText(Utility.fromHtml(getString(R.string.welcome_your_account_is_being_setup)));
         }

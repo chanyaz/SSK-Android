@@ -177,7 +177,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_20"
             android:layout_marginTop="@dimen/margin_10"
-            android:text="@string/bandles"
+            android:text="@string/bundles"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_15"
             android:textStyle="bold" />

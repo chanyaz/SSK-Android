@@ -92,7 +92,6 @@
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="204"
                 android:textColor="?lightGrey"
                 android:textSize="@dimen/font_size_10" />
 

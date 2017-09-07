@@ -51,7 +51,6 @@
         android:layout_marginBottom="@dimen/margin_5"
         android:layout_marginTop="@dimen/margin_5"
         android:maxLines="2"
-        android:text="Demo caption Demo caption Demo caption Demo caption"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_9" />

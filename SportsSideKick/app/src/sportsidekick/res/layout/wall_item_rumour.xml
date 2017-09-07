@@ -54,7 +54,6 @@
             android:lineSpacingMultiplier="1.2"
             android:maxLines="3"
             android:padding="@dimen/padding_16"
-            android:text="Text caption"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18"
             android:textStyle="bold" />
