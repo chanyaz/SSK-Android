@@ -2,7 +2,6 @@ package base.app.fragment.instance;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +36,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -49,6 +49,7 @@ import base.app.adapter.CommentsAdapter;
 import base.app.adapter.TutorialStepAdapter;
 import base.app.events.CommentUpdateEvent;
 import base.app.events.GetCommentsCompleteEvent;
+import base.app.events.GetPostByIdEvent;
 import base.app.events.PostCommentCompleteEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.fragment.BaseFragment;
@@ -185,6 +186,7 @@ public class WallItemFragment extends BaseFragment {
 
         comments = new ArrayList<>();
         String id = getPrimaryArgument();
+
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         commentsAdapter = new CommentsAdapter(comments);
         commentsList.setLayoutManager(commentLayoutManager);
@@ -194,9 +196,69 @@ public class WallItemFragment extends BaseFragment {
             pinContainer.setVisibility(View.GONE);
         }
 
-        item = WallBase.getCache().get(id);
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
 
+        item = WallBase.getCache().get(id);
+        if(item == null){
+            // this item is not in cache - fetch it
+            String postId;
+            String wallId = null;
+            if(id.contains("$$$")){
+                String[] parts = StringUtils.split(id,"$$$");
+                if(parts.length==2){
+                    postId = parts[0];
+                    wallId = parts[1];
+                } else {
+                    postId = StringUtils.remove(id,"$$$");
+                }
+                WallModel.getInstance().getPostById(postId,wallId);
+            }
+        } else {
+            initializeWithData();
+        }
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        post.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() != 0) {
+                    postButton.setVisibility(View.VISIBLE);
+                } else {
+                    postButton.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        post.setEnabled(Model.getInstance().isRealUser());
+
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                    WallModel.getInstance().getCommentsForPost(item,comments.size());
+                }
+            });
+        }
+
+        return view;
+    }
+
+    private void initializeWithData(){
+        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
         WallModel.getInstance().getCommentsForPost(item);
         switch (item.getType()) {
             case post:
@@ -210,12 +272,6 @@ public class WallItemFragment extends BaseFragment {
                     imageHeader.setVisibility(View.GONE);
                     videoView.setVideoURI(Uri.parse(post.getVidUrl()));
                     videoView.start();
-                    videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mediaPlayer) {
-//                    videoView.setVisibility(View.GONE);
-                        }
-                    });
                 }
                 postContainer.setVisibility(View.VISIBLE);
                 commentsList.setNestedScrollingEnabled(false);
@@ -320,46 +376,6 @@ public class WallItemFragment extends BaseFragment {
                 }
                 break;
         }
-
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
-
-        post.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    postButton.setVisibility(View.VISIBLE);
-                } else {
-                    postButton.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        post.setEnabled(Model.getInstance().isRealUser());
-
-        if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                    WallModel.getInstance().getCommentsForPost(item,comments.size());
-                }
-            });
-        }
-
-        return view;
     }
 
     @Subscribe
@@ -435,6 +451,15 @@ public class WallItemFragment extends BaseFragment {
         item.setCommentsCount(commentsAdapter.getComments().size());
         if (commentsCount != null) {
             commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+        }
+    }
+
+
+    @Subscribe
+    public void onPostById(GetPostByIdEvent event){
+        item = event.getPost();
+        if(item!=null){
+            initializeWithData();
         }
     }
 

@@ -163,7 +163,7 @@ public class BaseActivity extends AppCompatActivity  {
                 Log.d(TAG,"Post id is : " + postId);
                 if(SharingManager.ItemType.WallPost.name().equals(postType)){
                     FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
-                    wallItemFragmentEvent.setId(postId);
+                    wallItemFragmentEvent.setId(postId + "$$$");
                     // TODO - Load wall item before displaying it ( or this is handled in fragment? )
                     EventBus.getDefault().post(wallItemFragmentEvent);
                 } else if(SharingManager.ItemType.News.name().equals(postType)){
@@ -191,8 +191,9 @@ public class BaseActivity extends AppCompatActivity  {
                 EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
             } else if (notificationData.containsKey("wallId") && notificationData.containsKey("postId")) {
                 String postId = notificationData.get("postId");
+                String wallId = notificationData.get("wallId");
                 FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
-                wallItemFragmentEvent.setId(postId);
+                wallItemFragmentEvent.setId(postId + "$$$" + wallId );
                 // TODO - Load wall item before displaying it ( or this is handled in fragment? )
                 EventBus.getDefault().post(wallItemFragmentEvent);
             } else if(notificationData.containsKey("newsItem") && notificationData.containsKey("newsType")){
@@ -298,9 +299,8 @@ public class BaseActivity extends AppCompatActivity  {
 
     @Subscribe
     public void onVideoChatEvent(VideoChatEvent event) {
-        // Open VideoChat fragment if its not open in case of Video Chat Event - TODO
         Fragment currentFragment =  fragmentOrganizer.getCurrentFragment();
-        if (!(currentFragment instanceof VideoChatFragment)) {
+        if (!(currentFragment instanceof VideoChatFragment) && event.getType().equals(VideoChatEvent.Type.onSelfInvited)) {
             EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
             VideoChatModel.getInstance().setVideoChatEvent(event);
         }
