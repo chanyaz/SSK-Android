@@ -37,7 +37,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_8"
         android:gravity="center"
-        android:text="@string/sporting_cp_title"
         android:textColor="?tvRadioHeadlineColor"
         android:textSize="@dimen/font_size_16" />
 

@@ -102,16 +102,7 @@
                     android:text="@string/create_call"
                     android:textColor="?white" />
 
-                <TextView
-                    android:id="@+id/join_a_chat"
-                    android:layout_width="@dimen/space_0"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/margin_1"
-                    android:layout_weight="1"
-                    android:background="@color/green_dark_phone_3"
-                    android:gravity="center"
-                    android:text="@string/call_history"
-                    android:textColor="?white_semitransparent" />
+
 
             </LinearLayout>
 

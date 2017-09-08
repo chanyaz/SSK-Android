@@ -68,7 +68,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@+id/row_last_chat_time"
-                    android:text="@string/last_chat"
                     android:textColor="?colorPrimaryLight"
                     android:textSize="@dimen/font_size_12" />
 

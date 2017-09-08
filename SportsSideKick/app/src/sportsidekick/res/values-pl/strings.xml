@@ -2,19 +2,15 @@
 
     <string name="friend_requests">Friend Requests</string>
     <string name="this_language">Polish</string>
-    <string name="app_name">Sidekick</string>
 
 
     <!-- Login screen -->
     <string name="terms_and_conditions">http://www.sortdirectkick.tv/terms</string>
     <string name="login_sign_up">Sign up</string>
     <string name="login_login">Log In</string>
-    <string name="login_slider_text_1">Bringing fans together</string>
     <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> fans </font> together</string>
-    <string name="login_slider_text_2">Coming soon</string>
     <string name="login_login_email">Email</string>
     <string name="login_login_password">Password</string>
-    <string name="login_login_login">Login</string>
     <string name="login_login_forgot_text">Forgot?</string>
     <string name="login_login_message_login_failed">Login failed. Try again later!</string>
     <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
@@ -34,9 +30,8 @@
     <string name="sign_up_sign_up">Sign up</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
-    <string name="dialog_ok">Ok</string>
+    <string name="dialog_ok">OK</string>
     <string name="dialog_warning">Warning</string>
-    <string name="dialog_message">You must enter your </string>
     <string name="dialog_message_not_valid_email">Not valid email address.</string>
     <string name="dialog_internet_connection_failed">No interner connection. Try again later.</string>
     <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
@@ -47,10 +42,8 @@
     <string name="rumors_fragment_caption">Rumors</string>
     <string name="shop_fragment_caption">Shop</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="club_radio_caption">Club Radio</string>
     <string name="sporting_cp_title">Sporting CP</string>
-    <string name="demo">demo</string>
     <string name="club_tv_caption">Club TV</string>
     <string name="fantasy_caption">Fantasy</string>
     <string name="statistics_caption">Statistics</string>
@@ -89,7 +82,6 @@
     <string name="your_statement">Your Statement</string>
     <string name="choose_your_language">Choose your language</string>
     <string name="english">English</string>
-    <string name="chinese">Chinese</string>
     <string name="portuguese">Portuguese</string>
     <string name="friend_profile">Friend Profile</string>
     <string name="member_since">Member since</string>
@@ -233,7 +225,7 @@
     <string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>
 
     <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-    <string name="permission_camera_neverask">Never ask for camera permission again.</string>
+    <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
     <string name="permission_camera_rationale">Please enable camera in order to take image.</string>
 
     <string name="chat_join_group">Join Group</string>
@@ -277,7 +269,6 @@
     <string name="friend_request">SEND FRIEND REQUEST</string>
     <string name="friend_un_follow">UN-FOLLOW</string>
     <string name="friend_follow">FOLLOW</string>
-    <string name="fill_all_data">You have to fill all data</string>
     <string name="registration_error">Registration error. Try again later.</string>
     <string name="no_users_selected">No users selected!</string>
     <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
@@ -302,7 +293,6 @@
     <string name="tutorial_earn">Tap here to earn 5 for viewing this How to!</string>
     <string name="add_users">ADD USERS</string>
     <string name="playlist">PLAYLIST</string>
-    <string name="default_time">00:00 / 00:00</string>
     <string name="write_post_hint">Write your post here.</string>
     <string name="user">User</string>
     <string name="stats">Stats</string>
@@ -338,16 +328,12 @@
     <string name="login_or_sign_up">Login / Signup</string>
     <string name="rewards_and_items_received">Rewards and items recieved from Gym Bags</string>
     <string name="you_have">YOU HAVE</string>
-    <string name="bonus_gym_bag">+ BONUS GYM BAG</string>
-    <string name="bundles">BUNDLES</string>
     <string name="vs">vs</string>
     <string name="login_sign_up_text">Login / Signup</string>
     <string name="add_new_chat">ADD NEW CHAT</string>
-    <string name="demo_caption">Demo caption Demo caption Demo caption Demo caption</string>
     <string name="comment_text">Comment text</string>
     <string name="chat_hint">Enter your message here...</string>
     <string name="create">Create</string>
-    <string name="demo_content">Demo content.</string>
     <string name="caps">CAPS</string>
     <string name="join_official_chat"><![CDATA[Join Official Chat >]]></string>
     <string name="join_group">Join Group</string>
@@ -355,8 +341,6 @@
     <string name="step">Step</string>
     <string name="soccer_boot">SOCCER BOOT</string>
     <string name="profile_frame">Profile frame</string>
-    <string name="caption">CAPTION</string>
-    <string name="caption_low">Caption</string>
     <string name="value">Value</string>
     <string name="shop">Shop</string>
     <string name="store_big">STORE</string>
@@ -370,9 +354,6 @@
     <integer name="progress_bar_30">30</integer>
     <integer name="progress_bar_60">65</integer>
     <integer name="progress_bar_mid">50</integer>
-
-    <string name="light_theme">darkTheme</string>
-    <string name="dark_theme">lightTheme</string>
 
 
     <!--Phone-->
@@ -404,7 +385,6 @@
     <string name="first_name_profile">First Name:</string>
     <string name="email">Email:</string>
     <string name="password">Password:</string>
-    <string name="about_you">About you</string>
     <string name="profile">Profile</string>
     <string name="stash">Stash</string>
     <string name="join_official_account"><![CDATA[Join official Account >]]></string>
@@ -423,7 +403,6 @@
     <string name="chat">Chat</string>
     <string name="play_game">Play Game</string>
     <string name="more">More</string>
-    <string name="pinned">Pinned</string>
     <string name="comments">Comments</string>
     <string name="friend_you_and">Friend you and</string>
     <string name="have_in_common">have in common</string>

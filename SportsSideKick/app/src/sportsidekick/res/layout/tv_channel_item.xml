@@ -29,7 +29,6 @@
         android:bufferType="spannable"
         android:lines="2"
         android:padding="@dimen/padding_8"
-        android:text="@string/caption"
         android:textColor="?channelItemCaption"
         android:textSize="@dimen/font_size_11" />
 

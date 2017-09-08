@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="stats_url">http://hosted.stats.com/matchcast/football/clients/stats/index-new.html?lang=en&amp;league=liga</string>
-    <string name="store_url">https://lojaverde.sporting.pt/en</string>
+    <string name="store_url" translatable="false">https://lojaverde.sporting.pt/en</string>
 
     <string name="terms_i_privacy">http://sportssidekick.tv/terms?lang=</string>
-    <string name="store_url_item">https://lojaverde.sporting.pt/en/equipments</string>
-    <string name="store_url_item2">https://lojaverde.sporting.pt/en/lifestyle</string>
-    <string name="store_url_item3">https://lojaverde.sporting.pt/en/children-baby</string>
+    <string name="store_url_item" translatable="false">https://lojaverde.sporting.pt/en/equipments</string>
+    <string name="store_url_item2" translatable="false">https://lojaverde.sporting.pt/en/lifestyle</string>
+    <string name="store_url_item3" translatable="false">https://lojaverde.sporting.pt/en/children-baby</string>
 
-    <string name="store_url_item4"> https://lojaverde.sporting.pt/en/accessories-169</string>
-    <string name="store_url_item5">https://lojaverde.sporting.pt/en/modalidades</string>
-    <string name="store_url_item6">https://lojaverde.sporting.pt/en/multimedia-leisure</string>
-    <string name="store_url_item7">https://lojaverde.sporting.pt/en/home</string>
-    <string name="store_url_item8">https://lojaverde.sporting.pt/en/jornal-sporting</string>
-    <string name="store_url_item9">https://lojaverde.sporting.pt/en/cheques-prenda</string>
+    <string name="store_url_item4" translatable="false"> https://lojaverde.sporting.pt/en/accessories-169</string>
+    <string name="store_url_item5" translatable="false">https://lojaverde.sporting.pt/en/modalidades</string>
+    <string name="store_url_item6" translatable="false">https://lojaverde.sporting.pt/en/multimedia-leisure</string>
+    <string name="store_url_item7" translatable="false">https://lojaverde.sporting.pt/en/home</string>
+    <string name="store_url_item8" translatable="false">https://lojaverde.sporting.pt/en/jornal-sporting</string>
+    <string name="store_url_item9" translatable="false">https://lojaverde.sporting.pt/en/cheques-prenda</string>
 
-    <string name="fantasy_url">https://s3-eu-west-1.amazonaws.com/sskirbucket/graphics/fantasy.png</string>
+    <string name="fantasy_url" translatable="false">https://s3-eu-west-1.amazonaws.com/sskirbucket/graphics/fantasy.png</string>
     <string name="quiz_url">https://s3-eu-west-1.amazonaws.com/sskirbucket/graphics/quiz.png</string>
-    <string name="clubtv_channelid">UCnJj6L93JX3Jrhzv81ayywA</string>
+    <string name="clubtv_channelid" translatable="false">UCnJj6L93JX3Jrhzv81ayywA</string>
 </resources>

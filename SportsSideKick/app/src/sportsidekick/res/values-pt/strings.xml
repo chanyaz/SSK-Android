@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">SportsSideKick</string>
     <string name="this_language">Polish</string>
     <string name="wall_fragment_caption">Wall</string>
     <string name="video_chat_fragment_caption">Video Chat</string>
@@ -7,10 +6,8 @@
     <string name="rumors_fragment_caption">Rumors</string>
     <string name="shop_fragment_caption">Shop</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="club_radio_caption">Club Radio</string>
     <string name="sporting_cp_title">Sporting CP</string>
-    <string name="demo">demo</string>
     <string name="club_tv_caption">Club TV</string>
     <string name="fantasy_caption">Fantasy</string>
     <string name="statistics_caption">Statistics</string>

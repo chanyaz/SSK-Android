@@ -156,7 +156,7 @@ public class Utility {
         different = different % daysInMilli;
 
         long elapsedHours = different / hoursInMilli;
-        return elapsedDays + " Days " + elapsedHours + " Hours ago";
+        return elapsedDays + " Days " + elapsedHours + " Hours ago"; // TODO Hardcoded strings!
     }
 
     public static long getTimeDifference(long timeStamp) {
@@ -186,7 +186,7 @@ public class Utility {
         return size.y;
     }
 
-    public static HashMap<String, String> getClubConfig() {
+    public static HashMap<String, String> getClubConfig() { // TODO WTF IS THIS!?!
         HashMap<String, String> config = new HashMap<>();
         config.put("Country", Prefs.getString("Country", "portugal"));
         config.put("Language", Prefs.getString("Language", "en"));

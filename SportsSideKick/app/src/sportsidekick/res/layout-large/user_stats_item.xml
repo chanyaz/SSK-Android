@@ -13,7 +13,6 @@
         android:ellipsize="end"
         android:gravity="end"
         android:lines="1"
-        android:text="@string/caption_low"
         android:textColor="@color/white" />
 
     <TextView
@@ -25,6 +24,5 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:lines="1"
-        android:text="@string/value"
         android:textColor="?colorAccent" />
 </LinearLayout>

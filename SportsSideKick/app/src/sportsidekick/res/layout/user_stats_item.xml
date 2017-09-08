@@ -14,7 +14,6 @@
         android:gravity="end"
         android:textSize="@dimen/font_size_12"
         android:lines="1"
-        android:text="@string/caption_low"
         android:textColor="@color/white" />
 
     <TextView
@@ -27,6 +26,5 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:lines="1"
-        android:text="@string/value"
         android:textColor="?colorAccent" />
 </LinearLayout>

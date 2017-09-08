@@ -20,6 +20,5 @@
             android:lines="3"
             android:padding="@dimen/padding_8"
             android:textSize="@dimen/font_size_11"
-            android:textColor="?channelItemCaption"
-            android:text="@string/caption"/>
+            android:textColor="?channelItemCaption"/>
 </android.support.percent.PercentRelativeLayout>

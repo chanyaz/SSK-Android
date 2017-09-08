@@ -44,7 +44,7 @@
             android:layout_centerInParent="true"
             android:textStyle="bold"
             android:textColor="?white"
-            android:text="@string/about_you" />
+            android:text="@string/your_profile" />
         <RelativeLayout
             android:id="@+id/back_button_holder"
             android:layout_width="wrap_content"

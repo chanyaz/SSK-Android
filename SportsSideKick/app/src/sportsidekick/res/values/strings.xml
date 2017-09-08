@@ -1,30 +1,33 @@
 <resources>
 
+    <!-- links and API keys -->
     <string name="friend_requests">Friend Requests</string>
     <string name="this_language">English</string>
-    <string name="app_name">Sidekick</string>
-    <string name="facebook_app_id">102782376855276</string>
-    <string name="fb_login_protocol_scheme">fb11111111111111</string>
+    <string name="app_name" translatable="false">FansChat</string>
+    <string name="facebook_app_id" translatable="false">102782376855276</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb11111111111111</string>
 
-    <!-- Login screen -->
+
+    <!-- Terms and privacy -->
     <string name="terms_and_conditions">http://www.sortdirectkick.tv/terms</string>
     <string name="terms_and_privacy">Terms &amp; Privacy</string>
+
+    <!-- Sign in/ Sign up screen -->
     <string name="login_sign_up">Sign up</string>
     <string name="login_login">Login</string>
-    <string name="login_slider_text_1">Bringing fans together</string>
     <string name="login_slider_text_1_phone"><![CDATA[ Bringing <font color="#c3ff01"> Fans </font> Together</font>]]></string>
-    <string name="login_slider_text_2">Coming soon</string>
     <string name="login_login_email">Email</string>
     <string name="login_login_password">Password</string>
-    <string name="login_login_login">Login</string>
     <string name="login_login_forgot_text">Forgot?</string>
     <string name="login_login_message_login_failed">Login failed. Try again later!</string>
     <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
+
     <string name="forgot_password_text">Reset your password</string>
     <string name="forgot_password_button_text">Reset Password</string>
     <string name="forgot_password_message">Please check your email for password reset options.</string>
     <string name="forgot_password_error_message">Please enter a valid email address!</string>
     <string name="forgot_password_error">Error</string>
+
     <string name="sign_up_facebook">Sign up with Facebook</string>
     <string name="sign_up_or">or</string>
     <string name="sign_up_first_name">First name</string>
@@ -35,23 +38,35 @@
     <string name="sign_up_password">Password</string>
     <string name="sign_up_sign_up">Sign up</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
+
+    <!-- General -->
+    <string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>
+    <string name="demo" translatable="false">demo</string>
+
     <string name="dialog_ok">OK</string>
+    <string name="button_allow">Allow</string>
+    <string name="button_deny">Deny</string>
     <string name="dialog_warning">Warning</string>
-    <string name="dialog_message">You must enter your </string>
-    <string name="dialog_message_not_valid_email">Not valid email address.</string>
-    <string name="dialog_internet_connection_failed">No interner connection. Try again later.</string>
-    <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
     <string name="uploading">Uploading…</string>
+
+
+    <!-- Languages -->
+    <string name="english">English</string>
+    <string name="chinese" translatable="false">Chinese</string>
+    <string name="portuguese">Portuguese</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_message_not_valid_email">Please enter a valid email address!</string>
+    <string name="dialog_internet_connection_failed">You need to be connected to the internet to do this</string>
+    <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
+
+    <!-- Fragment captions -->
     <string name="wall_fragment_caption">Wall</string>
     <string name="video_chat_fragment_caption">Video Chat</string>
     <string name="news_fragment_caption">News</string>
     <string name="rumors_fragment_caption">Rumors</string>
     <string name="shop_fragment_caption">Shop</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="club_radio_caption">Club Radio</string>
-    <string name="sporting_cp_title">Sporting CP</string>
-    <string name="demo">demo</string>
     <string name="club_tv_caption">Club TV</string>
     <string name="fantasy_caption">Fantasy</string>
     <string name="statistics_caption">Statistics</string>
@@ -60,18 +75,29 @@
     <string name="rumours_caption">Rumours</string>
     <string name="video_chat_caption">Video Chat</string>
     <string name="wall_caption">Wall</string>
-    <string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>
     <string name="news_caption">News</string>
     <string name="quiz_caption">Quiz</string>
+
     <string name="coins_caption">YOU HAVE</string>
 
     <string name="days">" Days "</string>
     <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+
     <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-    <string name="button_allow">Allow</string>
-    <string name="button_deny">Deny</string>
     <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
     <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
+
+    <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
+    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat</string>
+    <string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>
+
+    <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
+    <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
+    <string name="permission_camera_rationale">You need to enable microphone in settings to send audio messages.</string>
+
+    <string name="share_using">Share with:</string>
+    <string name="enter_comment_hint">Enter a comment …</string>
+    <string name="tutorial_step">STEP</string>
 
     <string name="this_chat_is_public">This chat is public</string>
     <string name="this_chat_is_private">This chat is private</string>
@@ -89,9 +115,7 @@
     <string name="chosen_language">Chosen language</string>
     <string name="your_statement">Your Statement</string>
     <string name="choose_your_language">Choose your language</string>
-    <string name="english">English</string>
-    <string name="chinese">Chinese</string>
-    <string name="portuguese">Portuguese</string>
+
     <string name="friend_profile">Friend Profile</string>
     <string name="member_since">Member since</string>
     <string name="follows_you">Follows you</string>
@@ -107,7 +131,11 @@
     <string name="video_chat_text_1"><![CDATA[ Watch the match with your <font color="#c3ff01">friends.</font>]]></string>
     <string name="video_chat_text_1_phone">Watch the match with your <font color="#c3ff01">friends.</font></string>
 
-    <string name="video_chat_text_2">Video chat allows you to call up to 3 friends for a\n group video chat, so you can experience the action\n with the poeple you love wherever you are!</string>
+    <string name="video_chat_text_2">
+        Video chat allows you to call up to 3 friends for a\n
+        group video chat, so you can experience the action\n
+        with the people you love wherever you are!</string>
+
     <string name="video_chat_button_text">Begin your call</string>
     <string name="starting_new_call_search_hint">Search public chats</string>
     <string name="starting_new_call_search_title">Starting New Call</string>
@@ -238,20 +266,14 @@
     <string name="tip_13_end">You can Navigate back and forward using the menu at the bottom of the Shop module.</string>
     <string name="tip_13_step_1">Open the Shop module by tapping the Shop tab on the top left of the screen.</string>
     <string name="tip_13_step_2">You can Navigate back and forward using the menu at the bottom of the Shop module.</string>
-    <string name="share_using">Share with:</string>
-    <string name="enter_comment_hint">Enter a comment …</string>
-    <string name="tutorial_step">STEP</string>
 
-    <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat</string>
-    <string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>
 
-    <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-    <string name="permission_camera_neverask">Never ask for camera permission again.</string>
-    <string name="permission_camera_rationale">Please enable camera in order to take image.</string>
+
+
+
 
     <string name="chat_join_group">Join Group</string>
-    <string name="chat_already_in_group">You are already in group</string>
+    <string name="chat_already_in_group">You are already in thi chat.</string>
     <string name="chat_members">Members</string>
     <string name="chat_edit">Edit</string>
     <string name="chat_Leave">Leave</string>
@@ -259,11 +281,11 @@
     <string name="chat_image_downloaded">Image is downloaded.</string>
     <string name="chat_video_downloaded">Video is downloaded.</string>
     <string name="are_you_sure">ARE YOU SURE?</string>
-    <string name="chat_leave_chat">You will leave this chat</string>
-    <string name="chat_delete_chat">You will be deleting this chat</string>
+    <string name="chat_leave_chat">Leave this chat?</string>
+    <string name="chat_delete_chat">This will permanently delete this chat; are you sure?</string>
     <string name="choose">Choose</string>
     <string name="chat_image_or_video">Take photo or record video?</string>
-    <string name="chat_video">Video</string>
+    <string name="chat_video">Video Chat</string>
     <string name="chat_image">Image</string>
     <string name="chat_hold">Hold down to record</string>
     <string name="chat_recording_stop">Recording stopped</string>
@@ -292,12 +314,11 @@
     <string name="friend_request">Send Friend Request</string>
     <string name="friend_un_follow">Un-Follow Friend</string>
     <string name="friend_follow">Follow Friend</string>
-    <string name="fill_all_data">You have to fill all data</string>
     <string name="registration_error">Registration error. Try again later.</string>
     <string name="registration_error_username_taken">Registration error - username already taken, please select a different username.</string>
     <string name="no_users_selected">No users selected!</string>
     <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-    <string name="logout_from_app">\"This will log you out of the app!</string>
+    <string name="logout_from_app">This will log you out of the app!</string>
     <string name="reset_app">This will reset the app!</string>
     <string name="caps_level">Caps level</string>
     <string name="days_using">Days using SSK</string>
@@ -316,9 +337,9 @@
     <string name="up_next">UP NEXT</string>
     <string name="live">LIVE</string>
     <string name="tutorial_earn">Tap here to earn 5 for viewing this How to!</string>
-    <string name="add_users">ADD USERS</string>
+    <string name="add_users">Add friends to this chat</string>
     <string name="playlist">PLAYLIST</string>
-    <string name="default_time">00:00 / 00:00</string>
+    <string name="default_time" translatable="false">00:00 / 00:00</string>
     <string name="write_post_hint">Write your post here.</string>
     <string name="user">User</string>
     <string name="stats">Stats</string>
@@ -328,7 +349,7 @@
     <string name="you">You</string>
     <string name="add_friend">Add a friend</string>
     <string name="invite_friend">Invite a friend</string>
-    <string name="add_friend_hint">Enter friend\'s name, email or phone number.</string>
+    <string name="add_friend_hint">Enter your friend\'s name, email or phone number in the search field.</string>
     <string name="chat_name">Chat name</string>
     <string name="your_chat_name">Enter a name for your chat</string>
     <string name="add_friends_to_chat">Add friends to chat</string>
@@ -353,16 +374,16 @@
     <string name="login_or_sign_up">Login / Signup</string>
     <string name="rewards_and_items_received">Rewards and items received from Gym Bags</string>
     <string name="you_have">YOU HAVE</string>
-    <string name="bonus_gym_bag">+ BONUS GYM BAG</string>
-    <string name="bundles">BUNDLES</string>
+    <string name="bonus_gym_bag" translatable="false">+ BONUS GYM BAG</string>
+    <string name="bundles" translatable="false">BUNDLES</string>
     <string name="vs">vs</string>
     <string name="login_sign_up_text">Login / Signup</string>
     <string name="add_new_chat">ADD NEW CHAT</string>
-    <string name="demo_caption">Demo caption Demo caption Demo caption Demo caption</string>
+    <string name="demo_caption" translatable="false">Demo caption Demo caption Demo caption Demo caption</string>
     <string name="comment_text">Comment text</string>
     <string name="chat_hint">Enter your message here…</string>
     <string name="create">Create</string>
-    <string name="demo_content">Demo content.</string>
+    <string name="demo_content" translatable="false">Demo content.</string>
     <string name="caps">CAPS</string>
     <string name="join_official_chat"><![CDATA[Join Official Chat >]]></string>
     <string name="join_group">Join Group</string>
@@ -370,8 +391,6 @@
     <string name="step">Step</string>
     <string name="soccer_boot">SOCCER BOOT</string>
     <string name="profile_frame">Profile frame</string>
-    <string name="caption">CAPTION</string>
-    <string name="caption_low">Caption</string>
     <string name="value">Value</string>
     <string name="shop">Shop</string>
     <string name="store_big">STORE</string>
@@ -385,8 +404,6 @@
     <integer name="progress_bar_30">30</integer>
     <integer name="progress_bar_60">65</integer>
     <integer name="progress_bar_mid">50</integer>
-    <string name="light_theme">darkTheme</string>
-    <string name="dark_theme">lightTheme</string>
 
 
     <!--Phone-->
@@ -400,7 +417,6 @@
         <item>Shop</item>
         <item>Club TV</item>
         <item>Video Chat</item>
-        <item>Menu 10</item>
     </string-array>
 
     <string name="go_to_profile">Go to Profile ></string>
@@ -418,7 +434,6 @@
     <string name="first_name_profile">First Name:</string>
     <string name="email">Email:</string>
     <string name="password">Password:</string>
-    <string name="about_you">About you</string>
     <string name="profile">Profile</string>
     <string name="stash">Stash</string>
     <string name="join_official_account"><![CDATA[Join official Account >]]></string>
@@ -429,7 +444,7 @@
     <string name="sign_in">Sign In</string>
 
 
-    <string name="join_with_facebook">Join now with<b> Facebook </b></string>
+    <string name="join_with_facebook"><![CDATA[Join official Account >]]></string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="log_in_with_facebook">Login with<b> Facebook </b></string>
     <string name="sign_in_with_facebook">Sign in with<b> Facebook </b></string>
@@ -450,8 +465,7 @@
     <string name="report_abuse">Report Abuse</string>
     <string name="cancel">Cancel</string>
     <string name="start_call">Start Call</string>
-    <string name="call_history">Call History</string>
-    <string name="create_call">Create Call</string>
+    <string name="create_call">Starting New Call</string>
     <string name="friends_in_video_chat">Friends in Video Chat</string>
     <string name="friend_in_video_chat">1 Friend in Video Chat</string>
     <string name="search_your_friends">Search your friends</string>
@@ -471,7 +485,6 @@
         <item>Spanish</item>
     </string-array>
 
-    <string name="last_chat">Last Chat</string>
 
     <string name="mins_ago">mins ago</string>
     <string name="friend_request_pending">Friend Request Pending</string>
@@ -504,12 +517,12 @@
     <string name="delete">Delete</string>
     <string name="search">Search</string>
     <string name="news">NEWS</string>
-    <string name="pin_count_placeholder">--</string>
+    <string name="pin_count_placeholder" translatable="false">--</string>
     <string name="next_match">Next match</string>
-    <string name="ellipsis">…</string>
+    <string name="ellipsis" translatable="false">…</string>
     <string name="message_time_splitter">|</string>
-    <string name="password_placeholder">***********</string>
-    <string name="max_level_value">99</string>
+    <string name="password_placeholder" translatable="false">***********</string>
+    <string name="max_level_value" translatable="false">99</string>
     <string name="reset">Reset</string>
     <string name="offline">offline</string>
     <string name="watch_promo">Watch promo</string>

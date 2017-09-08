@@ -459,7 +459,7 @@ public class EditChatFragment extends BaseFragment {
 
     @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showNeverAskForCamera() {
-        Toast.makeText(getContext(), R.string.permission_camera_neverask, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.permission_camera_never_ask, Toast.LENGTH_SHORT).show();
     }
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})

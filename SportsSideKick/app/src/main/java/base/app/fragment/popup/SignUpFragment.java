@@ -306,18 +306,36 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         return true;
     }
 
+
+    private boolean validateInputs(){
+        int idOfMessageResourceToDisplay = -1;
+        if (TextUtils.isEmpty(firstName.getText())) {
+            idOfMessageResourceToDisplay = R.string.demo;
+        } else if (TextUtils.isEmpty(email.getText())) {
+            idOfMessageResourceToDisplay = R.string.demo;
+        } else if (TextUtils.isEmpty(displayName != null ? displayName.getText() : "string")) {
+            idOfMessageResourceToDisplay = R.string.demo;
+        } else if (TextUtils.isEmpty(password.getText())) {
+            idOfMessageResourceToDisplay = R.string.demo;
+        } else if (TextUtils.isEmpty(phone != null ? phone.getText() : "string")) {
+            idOfMessageResourceToDisplay = R.string.demo;
+        } else if (TextUtils.isEmpty(lastName.getText())) {
+            idOfMessageResourceToDisplay = R.string.demo;
+        }
+        if (idOfMessageResourceToDisplay >= 0) {
+            String message = getContext().getResources().getString(idOfMessageResourceToDisplay);
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Optional
     @OnClick(R.id.bottom_buttons_container_sign_up)
     public void signUpOnClick() {
 
-        if (TextUtils.isEmpty(firstName.getText()) ||
-                TextUtils.isEmpty(lastName.getText()) ||
-                TextUtils.isEmpty(email.getText()) ||
-                TextUtils.isEmpty(displayName != null ? displayName.getText() : "string") ||
-                TextUtils.isEmpty(password.getText()) ||
-                TextUtils.isEmpty(phone != null ? phone.getText() : "string")) {
-            Toast.makeText(getContext(), getContext().getResources().getString(R.string.fill_all_data), Toast.LENGTH_LONG).show();
-        } else {
+       if(validateInputs()) {
 
             if (!Connection.getInstance().alertIfNotReachable(getActivity(),
                     new View.OnClickListener() {
