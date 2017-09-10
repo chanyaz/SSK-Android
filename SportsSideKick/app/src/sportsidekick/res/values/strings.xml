@@ -9,7 +9,6 @@
 
 
     <!-- Terms and privacy -->
-    <string name="terms_and_conditions">http://www.sortdirectkick.tv/terms</string>
     <string name="terms_and_privacy">Terms &amp; Privacy</string>
 
     <!-- Sign in/ Sign up screen -->
@@ -37,10 +36,10 @@
     <string name="sign_up_phone">Phone</string>
     <string name="sign_up_password">Password</string>
     <string name="sign_up_sign_up">Sign up</string>
-    <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
+    <string name="sign_up_text">By singing up, you are agree to Fanschart\'\"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
     <!-- General -->
-    <string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>
+    <string name="scrolling_news_demo_value" translatable="false">Sporting CP pens deal with FHK</string>
     <string name="demo" translatable="false">demo</string>
 
     <string name="dialog_ok">OK</string>
@@ -53,7 +52,7 @@
     <!-- Languages -->
     <string name="english">English</string>
     <string name="chinese" translatable="false">Chinese</string>
-    <string name="portuguese">Portuguese</string>
+    <string name="portuguese" translatable="false">Portuguese</string>
 
     <!-- Dialogs -->
     <string name="dialog_message_not_valid_email">Please enter a valid email address!</string>
@@ -97,7 +96,6 @@
 
     <string name="share_using">Share with:</string>
     <string name="enter_comment_hint">Enter a comment …</string>
-    <string name="tutorial_step">STEP</string>
 
     <string name="this_chat_is_public">This chat is public</string>
     <string name="this_chat_is_private">This chat is private</string>
@@ -125,7 +123,7 @@
     <string name="your_friends_title">Your Friends</string>
     <string name="your_friends_search_hint">Search your friends</string>
     <string name="your_friends_request">Friend requests</string>
-    <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
+    <string name="time_info_player" translatable="false">%1$tM:%1$tS / %2$tM:%2$tS</string>
 
     <!-- video chat -->
     <string name="video_chat_text_1"><![CDATA[ Watch the match with your <font color="#c3ff01">friends.</font>]]></string>
@@ -297,9 +295,8 @@
     <string name="video_chat_receive_call">Receiving a call from</string>
     <string name="video_chat_accept_call">Accept the call?</string>
     <string name="permissions">Permissions</string>
-    <string name="wall_new_post_title">Not sure we need title here</string>
-    <string name="wall_new_post_subtitle">A subtitle…</string>
-    <string name="wall_text_for_post">Please enter some text for post!</string>
+    <string name="wall_new_post_subtitle" translatable="false">A subtitle…</string>
+    <string name="wall_text_for_post">Write your post here.</string>
     <string name="chat_friends_in_chat">Friends in Chat</string>
     <string name="chat_friend_in_chat">1 Friend in Chat</string>
     <string name="chat_choose_option">Choose option</string>
@@ -319,7 +316,7 @@
     <string name="no_users_selected">No users selected!</string>
     <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
     <string name="logout_from_app">This will log you out of the app!</string>
-    <string name="reset_app">This will reset the app!</string>
+    <string name="reset_app">This action will reload the application.</string>
     <string name="caps_level">Caps level</string>
     <string name="days_using">Days using SSK</string>
     <string name="friends">Friends</string>
@@ -351,7 +348,7 @@
     <string name="invite_friend">Invite a friend</string>
     <string name="add_friend_hint">Enter your friend\'s name, email or phone number in the search field.</string>
     <string name="chat_name">Chat name</string>
-    <string name="your_chat_name">Enter a name for your chat</string>
+    <string name="your_chat_name">Name Your Chat</string>
     <string name="add_friends_to_chat">Add friends to chat</string>
     <string name="search_for_member">Search for a member</string>
     <string name="friends_in_chat">Friends in Chat</string>
@@ -388,14 +385,10 @@
     <string name="join_official_chat"><![CDATA[Join Official Chat >]]></string>
     <string name="join_group">Join Group</string>
     <string name="rumour">RUMOUR</string>
-    <string name="step">Step</string>
-    <string name="soccer_boot">SOCCER BOOT</string>
-    <string name="profile_frame">Profile frame</string>
+    <string name="soccer_boot" translatable="false">SOCCER BOOT</string>
     <string name="value">Value</string>
     <string name="shop">Shop</string>
     <string name="store_big">STORE</string>
-    <string name="tip">TIP</string>
-    <string name="try_to_following_the_official_sporting_account">Try to following the official sporting account</string>
     <string name="waiting_for_active_internet_connection">Waiting for active internet connection…</string>
     <string name="no_connection_title">No Connection</string>
     <string name="no_connection_message">You need to be connected to the internet to do this</string>
@@ -453,7 +446,6 @@
     <string name="user_profile">User Profile</string>
     <string name="video_chat">Video Chat</string>
     <string name="chat">Chat</string>
-    <string name="play_game">Play Game</string>
     <string name="more">More</string>
     <string name="posts">Posts</string>
     <string name="comments">Comments</string>
@@ -503,7 +495,7 @@
 
     <string name="welcome_your_account_is_being_setup"><![CDATA[ Welcome, your account is being setup! While you\n wait, check out some of our <font color="#c3ff01"> awesome features! </font> ]]></string>
 
-    <string name="your_ready_to_play"><![CDATA[ Your ready to play.\n  <font color="#c3ff01"> Welcome to the team. </font> ]]></string>
+    <string name="your_ready_to_play"><![CDATA[ You are ready to play.\n  <font color="#c3ff01"> Welcome to the team. </font> ]]></string>
     <string name="login_slider_chat"><![CDATA[ You can chat with  <font color="#c3ff01"> friends, create groups </font>and even\n connect with your <font color="#c3ff01"> favourite players! </font>]]></string>
     <string name="chat_with_friends"><![CDATA[ Chat with  <font color="#c3ff01"> friends. </font>]]></string>
     <string name="to_access_full_features">To access full features…</string>
@@ -525,6 +517,6 @@
     <string name="max_level_value" translatable="false">99</string>
     <string name="reset">Reset</string>
     <string name="offline">offline</string>
-    <string name="watch_promo">Watch promo</string>
+    <string name="watch_promo" translatable="false">Watch promo</string>
 
 </resources>

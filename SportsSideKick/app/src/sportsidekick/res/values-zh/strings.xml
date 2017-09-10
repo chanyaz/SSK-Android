@@ -2,7 +2,6 @@
     <string name="friend_requests">Friend Requests</string>
     <string name="this_language">Chinese</string>
     <!-- Login scree -->
-    <string name="terms_and_conditions">http://www.sortdirectkick.tv/terms</string>
     <string name="login_sign_up">注册</string>
     <string name="login_login">登录</string>
     <string name="login_login_email">电子邮件</string>
@@ -36,7 +35,6 @@
     <string name="shop_fragment_caption">商店</string>
 
     <string name="club_radio_caption">俱乐部电台</string>
-    <string name="sporting_cp_title">Sporting CP</string>
     <string name="club_tv_caption">俱乐部电视</string>
     <string name="fantasy_caption">幻想</string>
     <string name="statistics_caption">统计数据</string>
@@ -45,7 +43,6 @@
     <string name="rumours_caption">传言</string>
     <string name="video_chat_caption">视频聊天</string>
     <string name="wall_caption">墙</string>
-    <string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>
     <string name="news_caption">新闻</string>
     <string name="quiz_caption">迷题</string>
     <string name="coins_caption">你拥有</string>
@@ -75,7 +72,6 @@
     <string name="your_statement">Your Statement</string>
     <string name="choose_your_language">选择您的语言</string>
     <string name="english">English</string>
-    <string name="portuguese">Portugese</string>
     <string name="friend_profile">好友信息</string>
     <string name="member_since">Member since</string>
     <string name="follows_you">关注您</string>
@@ -85,7 +81,6 @@
     <string name="your_friends_title">您的朋友</string>
     <string name="your_friends_search_hint">搜索您的朋友</string>
     <string name="your_friends_request">交友请求</string>
-    <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
 
     <!-- video chat -->
     <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>

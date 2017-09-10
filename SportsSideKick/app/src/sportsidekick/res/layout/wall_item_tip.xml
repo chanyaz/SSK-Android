@@ -28,7 +28,6 @@
                 android:paddingEnd="@dimen/padding_8"
                 android:paddingStart="@dimen/padding_8"
                 android:paddingTop="@dimen/padding_8"
-                android:text="@string/tip"
                 android:textColor="?wallItemTipTextCaptionColor"/>
         </com.github.rongi.rotate_layout.layout.RotateLayout>
 
@@ -48,7 +47,6 @@
             android:maxLines="3"
             android:minLines="3"
             android:padding="@dimen/padding_8"
-            android:text="@string/try_to_following_the_official_sporting_account"
             android:textColor="?wallItemTipTextContentColor"
             android:textStyle="bold" />
 

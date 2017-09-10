@@ -5,7 +5,6 @@
 
 
     <!-- Login screen -->
-    <string name="terms_and_conditions">http://www.sortdirectkick.tv/terms</string>
     <string name="login_sign_up">Sign up</string>
     <string name="login_login">Log In</string>
     <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> fans </font> together</string>
@@ -43,7 +42,6 @@
     <string name="shop_fragment_caption">Shop</string>
 
     <string name="club_radio_caption">Club Radio</string>
-    <string name="sporting_cp_title">Sporting CP</string>
     <string name="club_tv_caption">Club TV</string>
     <string name="fantasy_caption">Fantasy</string>
     <string name="statistics_caption">Statistics</string>
@@ -52,7 +50,6 @@
     <string name="rumours_caption">Rumours</string>
     <string name="video_chat_caption">Video Chat</string>
     <string name="wall_caption">Wall</string>
-    <string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>
     <string name="news_caption">News</string>
     <string name="quiz_caption">Quiz</string>
     <string name="coins_caption">YOU HAVE</string>
@@ -82,7 +79,6 @@
     <string name="your_statement">Your Statement</string>
     <string name="choose_your_language">Choose your language</string>
     <string name="english">English</string>
-    <string name="portuguese">Portuguese</string>
     <string name="friend_profile">Friend Profile</string>
     <string name="member_since">Member since</string>
     <string name="follows_you">Follows you</string>
@@ -92,7 +88,6 @@
     <string name="your_friends_title">Your Friends</string>
     <string name="your_friends_search_hint">Search your friends</string>
     <string name="your_friends_request">Friend requests</string>
-    <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
 
     <!-- video chat -->
     <string name="video_chat_text_1"><![CDATA[ Watch the match with your <font color="#c3ff01">friends.</font>]]></string>
@@ -218,7 +213,6 @@
     <string name="tip_13_step_2">You can Navigate back and forward using the menu at the bottom of the Shop module.</string>
     <string name="share_using">Share with:</string>
     <string name="enter_comment_hint">Enter a comment ...</string>
-    <string name="tutorial_step">STEP</string>
 
     <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
     <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat</string>
@@ -252,7 +246,6 @@
     <string name="video_chat_receive_call">Receiving a call from</string>
     <string name="video_chat_accept_call">Accept the call?</string>
     <string name="permissions">Permissions</string>
-    <string name="wall_new_post_title">Not sure we need title here</string>
     <string name="wall_new_post_subtitle">A subtitle...</string>
     <string name="wall_text_for_post">Please enter some text for post!</string>
     <string name="chat_friends_in_chat">Friends in Chat</string>
@@ -338,14 +331,9 @@
     <string name="join_official_chat"><![CDATA[Join Official Chat >]]></string>
     <string name="join_group">Join Group</string>
     <string name="rumour">RUMOUR</string>
-    <string name="step">Step</string>
-    <string name="soccer_boot">SOCCER BOOT</string>
-    <string name="profile_frame">Profile frame</string>
     <string name="value">Value</string>
     <string name="shop">Shop</string>
     <string name="store_big">STORE</string>
-    <string name="tip">TIP</string>
-    <string name="try_to_following_the_official_sporting_account">Try to following the official sporting account</string>
     <string name="waiting_for_active_internet_connection">Waiting for active internet connection...</string>
     <string name="no_connection_title">No Connection</string>
     <string name="no_connection_message">You need to be connected to the internet to do this</string>
@@ -401,7 +389,6 @@
     <string name="user_profile">User Profile</string>
     <string name="video_chat">Video Chat</string>
     <string name="chat">Chat</string>
-    <string name="play_game">Play Game</string>
     <string name="more">More</string>
     <string name="comments">Comments</string>
     <string name="friend_you_and">Friend you and</string>

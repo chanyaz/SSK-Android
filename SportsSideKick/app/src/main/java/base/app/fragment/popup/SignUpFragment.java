@@ -191,7 +191,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setVisibility(View.INVISIBLE);
         webView.setWebViewClient(webViewClient);
-        url = getResources().getString(R.string.terms_i_privacy) + Locale.getDefault().getLanguage();
+        url = getResources().getString(R.string.terms_and_privacy_url) + Locale.getDefault().getLanguage();
     }
 
     WebViewClient webViewClient = new WebViewClient() {

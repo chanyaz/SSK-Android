@@ -7,7 +7,6 @@
     <string name="shop_fragment_caption">Shop</string>
 
     <string name="club_radio_caption">Club Radio</string>
-    <string name="sporting_cp_title">Sporting CP</string>
     <string name="club_tv_caption">Club TV</string>
     <string name="fantasy_caption">Fantasy</string>
     <string name="statistics_caption">Statistics</string>
@@ -16,7 +15,6 @@
     <string name="rumours_caption">Rumours</string>
     <string name="video_chat_caption">Video Chat</string>
     <string name="wall_caption">Wall</string>
-    <string name="scrolling_news_demo_value">Sporting CP pens deal with FHK</string>
     <string name="news_caption">News</string>
     <string name="quiz_caption">Quiz</string>
 
