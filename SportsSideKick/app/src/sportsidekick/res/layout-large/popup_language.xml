@@ -27,111 +27,15 @@
         android:layout_below="@+id/caption"
         android:background="@android:color/black" />
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/language_recycler_view"
+        android:layout_marginStart="@dimen/margin_15"
+        android:layout_marginEnd="@dimen/margin_15"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
-        android:layout_below="@+id/caption"
-        android:layout_margin="@dimen/margin_20">
-
-        <ImageView
-            android:id="@+id/english_background"
-            android:layout_width="@dimen/popup_language_image_element_size"
-            android:layout_height="@dimen/popup_language_image_element_size"
-            android:layout_alignParentStart="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/lang_backing"
-            android:visibility="invisible" />
-
-        <ImageView
-            android:id="@+id/english_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/english_background"
-            android:layout_alignEnd="@+id/english_background"
-            android:layout_alignStart="@+id/english_background"
-            android:layout_alignTop="@+id/english_background"
-            android:paddingTop="@dimen/margin_5"
-            android:scaleType="fitCenter"
-            android:src="@drawable/english" />
-
-        <TextView
-            android:id="@+id/english_caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/english_background"
-            android:layout_alignStart="@+id/english_background"
-            android:layout_below="@+id/english_background"
-            android:gravity="center"
-            android:text="@string/english"
-            android:textColor="@color/white" />
-
-        <ImageView
-            android:id="@+id/chinese_background"
-            android:layout_width="@dimen/popup_language_image_element_size"
-            android:layout_height="@dimen/popup_language_image_element_size"
-            android:layout_centerHorizontal="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/lang_backing"
-            android:visibility="invisible" />
-
-        <ImageView
-            android:id="@+id/chinese_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/chinese_background"
-            android:layout_alignEnd="@+id/chinese_background"
-            android:layout_alignStart="@+id/chinese_background"
-            android:layout_alignTop="@+id/chinese_background"
-            android:paddingTop="@dimen/margin_5"
-            android:scaleType="fitCenter"
-            android:src="@drawable/chinese" />
-
-        <TextView
-            android:id="@+id/chinese_caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/chinese_background"
-            android:layout_alignStart="@+id/chinese_background"
-            android:layout_below="@+id/chinese_background"
-            android:gravity="center"
-            android:text="@string/chinese"
-            android:textColor="@color/white" />
-
-        <ImageView
-            android:id="@+id/portuguese_background"
-            android:layout_width="@dimen/popup_language_image_element_size"
-            android:layout_height="@dimen/popup_language_image_element_size"
-            android:layout_alignParentEnd="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/lang_backing"
-            android:visibility="invisible" />
-
-        <ImageView
-            android:id="@+id/portuguese_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/portuguese_background"
-            android:layout_alignEnd="@+id/portuguese_background"
-            android:layout_alignStart="@+id/portuguese_background"
-            android:layout_alignTop="@+id/portuguese_background"
-            android:paddingTop="@dimen/margin_5"
-            android:scaleType="fitCenter"
-            android:src="@drawable/portuguese" />
-
-        <TextView
-            android:id="@+id/portuguese_caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/portuguese_background"
-            android:layout_alignStart="@+id/portuguese_background"
-            android:layout_below="@+id/portuguese_background"
-            android:gravity="center"
-            android:text="@string/portuguese"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
+        android:layout_below="@+id/top_split_line">
+    </android.support.v7.widget.RecyclerView>
 
     <!-- BOTTOM BUTTONS CONTAINER -->
     <RelativeLayout

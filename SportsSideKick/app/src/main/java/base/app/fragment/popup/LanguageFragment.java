@@ -3,11 +3,12 @@ package base.app.fragment.popup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -23,8 +24,6 @@ import base.app.model.Model;
 import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
-import base.app.util.ui.AutofitDecoration;
-import base.app.util.ui.AutofitRecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,100 +39,33 @@ import static base.app.util.Utility.CHOSEN_LANGUAGE;
 
 public class LanguageFragment extends BaseFragment implements LanguageAdapter.LanguageOnClick {
 
-    @Nullable
-    @BindView(R.id.english_background)
-    ImageView englishSelectionView;
-    @Nullable
-    @BindView(R.id.chinese_background)
-    ImageView chineseSelectionView;
-    @Nullable
-    @BindView(R.id.portuguese_background)
-    ImageView portugueseSelectionView;
-    String languageToLoad = "en";
-    boolean isTablet = true;
-    @Nullable
-    @BindView(R.id.auto_language_recycler_view)
-    AutofitRecyclerView languageRecyclerView;
-    int screenWidth;
+    String selectedLanguage;
+    @BindView(R.id.language_recycler_view)
+    RecyclerView languageRecyclerView;
 
     public LanguageFragment() {
         // Required empty public constructor
     }
-
-    public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.popup_language, container, false);
         ButterKnife.bind(this, view);
-        isTablet = Utility.isTablet(getActivity());
-        screenWidth = Utility.getDisplayWidth(getActivity());
-        if (!isTablet) {
-            assert languageRecyclerView != null;
-            languageRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
-            languageRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
-            languageRecyclerView.setHasFixedSize(true);
-            languageRecyclerView.setAdapter(new LanguageAdapter(getActivity(), this));
-        }
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3, LinearLayoutManager.VERTICAL,false);
+        languageRecyclerView.setLayoutManager(layoutManager);
+        languageRecyclerView.setAdapter(new LanguageAdapter(getActivity(), this));
 
-        String selectedLanguage = Prefs.getString(CHOSEN_LANGUAGE,"en");
-        showSelectedLanguage(selectedLanguage);
+        selectedLanguage = Prefs.getString(CHOSEN_LANGUAGE, "en");
         return view;
-    }
-
-    @Optional
-    @OnClick({R.id.english_icon, R.id.portuguese_icon, R.id.chinese_icon})
-    public void languageIconOnClick(View view) {
-        switch (view.getId()) {
-            case R.id.english_icon:
-                languageToLoad = "en";
-                break;
-            case R.id.portuguese_icon:
-                languageToLoad = "pt";
-                break;
-            case R.id.chinese_icon:
-                languageToLoad = "zh";
-                break;
-        }
-        showSelectedLanguage(languageToLoad);
-    }
-
-    private void showSelectedLanguage(String language){
-        if (englishSelectionView != null) {
-            englishSelectionView.setVisibility(View.INVISIBLE);
-        }
-        if (chineseSelectionView != null) {
-            chineseSelectionView.setVisibility(View.INVISIBLE);
-        }
-        if (portugueseSelectionView != null) {
-            portugueseSelectionView.setVisibility(View.INVISIBLE);
-        }
-        switch (language) {
-            case "en":
-                if (englishSelectionView != null) {
-                    englishSelectionView.setVisibility(View.VISIBLE);
-                }
-                break;
-            case "pt":
-                if (portugueseSelectionView != null) {
-                    portugueseSelectionView.setVisibility(View.VISIBLE);
-                }
-                break;
-            case "zh":
-                if (chineseSelectionView != null) {
-                    chineseSelectionView.setVisibility(View.VISIBLE);
-                }
-                break;
-        }
     }
 
     @Optional
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
         EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
-        Model.getInstance().getUserInfo().setLanguage(languageToLoad);
-        Prefs.putString(CHOSEN_LANGUAGE,languageToLoad);
+        Model.getInstance().getUserInfo().setLanguage(selectedLanguage);
+        Prefs.putString(CHOSEN_LANGUAGE, selectedLanguage);
         Intent intent;
         if (Utility.isTablet(getContext())) {
             intent = new Intent(getActivity(), LoungeActivity.class);
@@ -168,8 +100,8 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
     }
 
     @Override
-    public void languageChange(String language,String  shortLanguage) {
-        languageToLoad = shortLanguage;
+    public void languageChange(String language,String shortLanguage) {
+        selectedLanguage = shortLanguage;
         confirmOnClick();
 
     }

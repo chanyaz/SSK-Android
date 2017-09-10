@@ -398,18 +398,17 @@
     <integer name="progress_bar_60">65</integer>
     <integer name="progress_bar_mid">50</integer>
 
-
     <!--Phone-->
     <string-array name="menu_navigation">
-        <item>Wall</item>
-        <item>Chat</item>
-        <item>News</item>
-        <item>Stats</item>
-        <item>Rumours</item>
-        <item>Club Radio</item>
-        <item>Shop</item>
-        <item>Club TV</item>
-        <item>Video Chat</item>
+        <item>@string/wall_caption</item>
+        <item>@string/chat_caption</item>
+        <item>@string/news_caption</item>
+        <item>@string/statistics_caption</item>
+        <item>@string/rumours_caption</item>
+        <item>@string/club_radio_caption</item>
+        <item>@string/shop_caption</item>
+        <item>@string/club_tv_caption</item>
+        <item>@string/video_chat_caption</item>
     </string-array>
 
     <string name="go_to_profile">Go to Profile ></string>
@@ -475,6 +474,7 @@
         <item>Portuguese</item>
         <item>Russian</item>
         <item>Spanish</item>
+        <item>Arabic</item>
     </string-array>
 
 

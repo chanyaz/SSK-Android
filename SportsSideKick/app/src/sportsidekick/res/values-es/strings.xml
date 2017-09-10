@@ -343,21 +343,6 @@
     <integer name="progress_bar_60">65</integer>
     <integer name="progress_bar_mid">50</integer>
 
-
-    <!--Phone-->
-    <string-array name="menu_navigation">
-        <item>Wall</item>
-        <item>Chat</item>
-        <item>News</item>
-        <item>Stats</item>
-        <item>Rumours</item>
-        <item>Club Radio</item>
-        <item>Shop</item>
-        <item>Club TV</item>
-        <item>Video Chat</item>
-        <item>Menu 10</item>
-    </string-array>
-
     <string name="go_to_profile">Go to Profile ></string>
     <string name="find">Find</string>
     <string name="request">Request</string>

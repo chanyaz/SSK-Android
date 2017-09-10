@@ -127,8 +127,8 @@
         android:padding="@dimen/padding_8"
         android:layout_below="@+id/top_split_line"/>
 
-    <base.app.util.ui.AutofitRecyclerView
-        android:id="@+id/auto_language_recycler_view"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/language_recycler_view"
         android:layout_marginStart="@dimen/margin_15"
         android:layout_marginEnd="@dimen/margin_15"
         android:layout_width="match_parent"
@@ -136,7 +136,7 @@
         android:layout_below="@+id/chosen_language_text">
 
 
-    </base.app.util.ui.AutofitRecyclerView>
+    </android.support.v7.widget.RecyclerView>
 
 
 </RelativeLayout>

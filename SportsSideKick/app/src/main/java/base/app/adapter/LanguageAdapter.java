@@ -25,10 +25,9 @@ import butterknife.ButterKnife;
 
 public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHolder> {
 
-    private Context context;
-    private String myLanguage;
+    private String currentLanguage;
     private String[] values;
-    LanguageOnClick languageOnClick;
+    private LanguageOnClick languageOnClick;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
@@ -49,9 +48,8 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
 
     public LanguageAdapter(Context context, LanguageOnClick languageOnClick) {
         if (context != null) {
-            this.context = context;
             values = context.getResources().getStringArray(R.array.language_names);
-            myLanguage = context.getString(R.string.this_language);
+            currentLanguage = context.getString(R.string.this_language);
         }
         this.languageOnClick = languageOnClick;
     }
@@ -64,51 +62,53 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!myLanguage.equals(values[viewHolder.getAdapterPosition()])) {
-                    languageOnClick.languageChange(values[viewHolder.getAdapterPosition()],short_language.get(viewHolder.getAdapterPosition()));
+                int position = viewHolder.getAdapterPosition();
+                if (!currentLanguage.equals(values[position])) {
+                    languageOnClick.languageChange(values[position], languageShortName.get(position));
                 }
             }
         });
         return viewHolder;
     }
 
-
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.icon.setImageResource(languageImages[position]);
-        holder.caption.setText(values[position]);
-        if (context.getString(R.string.this_language).equals(values[position])) {
+        String itemLanguage = values[position];
+        holder.icon.setImageResource(languageIcons.get(position));
+        holder.caption.setText(itemLanguage);
+        if (itemLanguage.equals(currentLanguage)) {
             holder.background.setVisibility(View.VISIBLE);
         } else {
             holder.background.setVisibility(View.INVISIBLE);
         }
-
-
     }
 
 
     @Override
     public int getItemCount() {
-        if (languageImages == null)
-            return 0;
-        return languageImages.length;
+        if (languageIcons != null){
+            return languageIcons.size();
+        }
+        return 0;
     }
 
 
-    public static final int[] languageImages = {
-            R.drawable.bengali,
-            R.drawable.chinese,
-            R.drawable.english,
-            R.drawable.french,
-            R.drawable.german,
-            R.drawable.indonesian,
-            R.drawable.italian,
-            R.drawable.polish,
-            R.drawable.portuguese,
-            R.drawable.russian,
-            R.drawable.spanish,
-    };
+    private static final List<Integer> languageIcons = Collections.unmodifiableList(
+        new ArrayList<Integer>() {{
+            add(R.drawable.bengali);
+            add(R.drawable.chinese);
+            add(R.drawable.english);
+            add(R.drawable.french);
+            add(R.drawable.german);
+            add(R.drawable.indonesian);
+            add(R.drawable.italian);
+            add(R.drawable.polish);
+            add(R.drawable.portuguese);
+            add(R.drawable.russian);
+            add(R.drawable.spanish);
+            add(R.drawable.arabic);
+        }});
 
 
     public interface LanguageOnClick {
@@ -116,7 +116,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     }
 
 
-    public static final List<String> short_language = Collections.unmodifiableList(
+    private static final List<String> languageShortName = Collections.unmodifiableList(
             new ArrayList<String>() {{
                 add("bh");
                 add("zh");
@@ -129,6 +129,6 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
                 add("pt");
                 add("ru");
                 add("es");
-                // etc
+                add("ar");
             }});
 }
