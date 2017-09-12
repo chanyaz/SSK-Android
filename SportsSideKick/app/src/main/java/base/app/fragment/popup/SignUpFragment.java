@@ -168,6 +168,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             lastName.setOnFocusChangeListener(focusChangeListener);
             email.setOnFocusChangeListener(focusChangeListener);
             password.setOnFocusChangeListener(focusChangeListener);
+            displayName.setOnFocusChangeListener(focusChangeListener);
+            phone.setOnFocusChangeListener(focusChangeListener);
         }
         return view;
     }

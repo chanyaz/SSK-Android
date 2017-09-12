@@ -120,16 +120,37 @@
                             android:inputType="text"
                             android:textSize="@dimen/font_size_15" />
 
+                        <EditText
+                            android:id="@+id/sign_up_display_name"
+                            style="@style/edit_text_login_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/sign_up_username"
+                            android:layout_below="@+id/sign_up_firstname"
+                            android:layout_toStartOf="@+id/horizontal_divider"
+                            android:inputType="text"
+                            android:textSize="@dimen/font_size_15"/>
+
+                        <EditText
+                            android:id="@+id/sign_up_phone"
+                            style="@style/edit_text_login_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/sign_up_firstname"
+                            android:layout_toEndOf="@+id/horizontal_divider"
+                            android:hint="@string/sign_up_phone"
+                            android:inputType="phone"
+                            android:textSize="@dimen/font_size_15"/>
 
                         <EditText
                             android:id="@+id/sign_up_email"
                             style="@style/edit_text_login_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/sign_up_firstname"
+                            android:layout_below="@+id/sign_up_display_name"
                             android:layout_toStartOf="@+id/horizontal_divider"
                             android:hint="@string/sign_up_email"
-                            android:inputType="text"
+                            android:inputType="textEmailAddress"
                             android:textSize="@dimen/font_size_15" />
 
 
@@ -138,7 +159,7 @@
                             style="@style/edit_text_login_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/sign_up_lastname"
+                            android:layout_below="@+id/sign_up_display_name"
                             android:layout_toEndOf="@+id/horizontal_divider"
                             android:hint="@string/login_login_password"
                             android:inputType="textPassword"
