@@ -55,6 +55,7 @@ import base.app.model.videoChat.Slot;
 import base.app.model.videoChat.VideoChatEvent;
 import base.app.model.videoChat.VideoChatItem;
 import base.app.model.videoChat.VideoChatModel;
+import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
@@ -349,6 +350,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                                             getActivity().onBackPressed();
                                         }
                                     });
+                            SoundEffects.getDefault().playSound(SoundEffects.AUDIO_CALL);
                         }
                     }
                 });

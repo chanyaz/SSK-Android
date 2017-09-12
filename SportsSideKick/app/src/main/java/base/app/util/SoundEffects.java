@@ -21,6 +21,7 @@ public class SoundEffects {
     public static final int ROLL_OVER = 2; // "close" states (closing a popup / coming back from a wall post etc
     public static final int SOFT = 3; // in any instances where selecting a users profile
     public static final int SUBTLE = 4; //  "open" states (opening a popup / opening a wall post / pressing a button)
+    public static final int AUDIO_CALL = 5; //  play a sound for a video call
 
     private static final int PRIORITY = 1;
     private static final int NO_LOOP = 0;
@@ -54,6 +55,7 @@ public class SoundEffects {
         soundPoolMap.put(ROLL_OVER, soundPool.load(context, R.raw.roll_over_button_sound, 1));
         soundPoolMap.put(SOFT, soundPool.load(context, R.raw.soft_click_button_sound, 1));
         soundPoolMap.put(SUBTLE, soundPool.load(context, R.raw.subtle_button_sound, 1));
+        soundPoolMap.put(AUDIO_CALL, soundPool.load(context, R.raw.audio_call, 2));
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
     }
