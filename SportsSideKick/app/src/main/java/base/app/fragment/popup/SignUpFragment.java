@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
@@ -228,8 +227,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             }
         };
 
-        spannableString.setSpan(clickableSpanTerms, 49, 78, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(clickableSpanPolicy, 83, 97, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         policyText.setMovementMethod(LinkMovementMethod.getInstance());
         policyText.setHighlightColor(Color.TRANSPARENT);
         policyText.setText(spannableString);

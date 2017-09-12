@@ -258,7 +258,7 @@ public class WallItemFragment extends BaseFragment {
     }
 
     private void initializeWithData(){
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         WallModel.getInstance().getCommentsForPost(item);
         switch (item.getType()) {
             case post:

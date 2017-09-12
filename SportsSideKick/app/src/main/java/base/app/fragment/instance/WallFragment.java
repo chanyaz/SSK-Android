@@ -75,9 +75,7 @@ import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.ticker.NextMatchModel;
 import base.app.model.ticker.NextMatchUpdateEvent;
 import base.app.model.tutorial.TutorialModel;
-import base.app.model.tutorial.WallTip;
 import base.app.model.user.LoginStateReceiver;
-import base.app.model.user.UserEvent;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
 import base.app.model.wall.WallBetting;
@@ -228,9 +226,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         this.loginStateReceiver = new LoginStateReceiver(this);
         wallItems = new ArrayList<>();
 
-        if (WallBase.getCache().size() > 0) {
-            getNextTip();
-        }
+//        if (WallBase.getCache().size() > 0) {
+//            getNextTip();
+//        }
 
         wallItems.addAll(WallBase.getCache().values());
         filteredWallItems = new ArrayList<>();
@@ -308,8 +306,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (Utility.isPhone(getActivity())) {
             NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
             if(wallLeftTeamImage.getDrawable()==null){
-                ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.imageOptionsImageLoader());
-                ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.imageOptionsImageLoader());
+                ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.getDefaultImageOptions());
+                ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.getDefaultImageOptions());
                 wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
                 wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
             }
@@ -437,7 +435,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 if (task.isSuccessful()) {
                     uploadedImageUrl = task.getResult();
                     ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage,
-                            Utility.imageOptionsImageLoader(),
+                            Utility.getDefaultImageOptions(),
                             new SimpleImageLoadingListener() {
                                 @Override
                                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
@@ -464,7 +462,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     ImageLoader.getInstance().displayImage(
                             videoThumbnailDownloadUrl,
                             uploadedImage,
-                            Utility.imageOptionsImageLoader());
+                            Utility.getDefaultImageOptions());
                     // then, upload video itself, and hide progressbar when its done
                     final TaskCompletionSource<String> videoUploadSource = new TaskCompletionSource<>();
                     videoUploadSource.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
@@ -839,55 +837,19 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
 
     }
-
-    @Subscribe
-    public void updateTip(UserEvent event) {
-        if (event.getType() == UserEvent.Type.onDetailsUpdated) {
-            getNextTip();
-        }
-
-    }
-    private void getNextTip() {
-        WallTip tipToBeDisplayed = null;
-        String currentUserId = null;
-        // in case a user is not logged in yet, show special tip
-        if (!Model.getInstance().isRealUser()) {
-            tipToBeDisplayed = TutorialModel.getInstance().getNotLoggedTip();
-        } else {
-            //Tips are displayed only to fans - not to admins and players
-            if (UserInfo.UserType.fan != Model.getInstance().getUserInfo().getUserType()) {
-                return;
-            }
-            currentUserId = Model.getInstance().getUserInfo().getUserId();
-            // check if its a different, new user logged in - in that case reset tips progress
-            if (!currentUserId.equals(TutorialModel.getInstance().getUserId())) {
-                TutorialModel.getInstance().resetSeenInfo();
-            }
-            // Find first tip that has not been seen already
-            List<WallTip> tips = TutorialModel.getInstance().getTutorialItems();
-            if (tips != null) {
-                for (WallTip tip : tips) {
-                        if (!tip.hasBeenSeen()) {
-                        tipToBeDisplayed = tip;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (tipToBeDisplayed != null) {
-            // Set this tip timestamp to distant future to make sure it appears at the top of the list
-            double distantFutureTimestamp = Utility.getCurrentTime()+100000;
-            tipToBeDisplayed.setTimestamp(distantFutureTimestamp);
-            tipToBeDisplayed.setType(WallBase.PostType.tip);
-            if(currentUserId!=null){
-                tipToBeDisplayed.setPostId(currentUserId);
-                WallBase.getCache().put(currentUserId, tipToBeDisplayed);
-            }
-            wallItems.add(tipToBeDisplayed);
-            EventBus.getDefault().post(new PostUpdateEvent(tipToBeDisplayed));
-        }
-    }
+//
+//    @Subscribe
+//    public void updateTip(UserEvent event) {
+//        if (event.getType() == UserEvent.Type.onDetailsUpdated) {
+//            getNextTip();
+//        }
+//
+//    }
+//    private void getNextTip() {
+//        // Tips are disabled - this method is useless now.
+//        WallTip tipToBeDisplayed = null;
+//        String currentUserId = null;
+//    }
 
 
     int offset = 0;
@@ -956,13 +918,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onLogout() {
         reset();
         updateBottomBar();
-        getNextTip();
+    //    getNextTip();
     }
 
     @Override
     public void onLoginAnonymously() {
         reset();
-        getNextTip();
+       // getNextTip();
         reloadWallFromModel();
         updateBottomBar();
 
@@ -980,7 +942,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         reset();
         reloadWallFromModel();
         updateBottomBar();
-        getNextTip();
+       // getNextTip();
 
     }
 
@@ -989,7 +951,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         reset();
         reloadWallFromModel();
         updateBottomBar();
-        getNextTip();
+      //  getNextTip();
     }
 
     @Override

@@ -72,7 +72,7 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
         station = ClubModel.getInstance().getStationByName(getPrimaryArgument());
         captionTextView.setText(station.getName());
         // display image
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         String imageUrl = station.getCoverImageUrl();
         ImageLoader.getInstance().displayImage(imageUrl, backgroundImage, imageOptions);
 

@@ -407,7 +407,7 @@ public class CreateChatFragment extends BaseFragment {
                 if (task.isSuccessful()) {
                     uploadedImageUrl = task.getResult();
                     uploadedImageUrl = task.getResult();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader(), new SimpleImageLoadingListener(){
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.getDefaultImageOptions(), new SimpleImageLoadingListener(){
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                             progressBar.setVisibility(View.GONE);

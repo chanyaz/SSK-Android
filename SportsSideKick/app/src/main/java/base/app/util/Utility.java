@@ -46,15 +46,16 @@ public class Utility {
         return System.currentTimeMillis();
     } // Previously used NPT time but now its not needed - TODO remove?
 
-    private static volatile DisplayImageOptions blankOptionsUser;
-    private static volatile DisplayImageOptions blankOptions;
+    private static volatile DisplayImageOptions userImageOptions;
+    private static volatile DisplayImageOptions defaultOptions;
     private static volatile DisplayImageOptions wallItemOptions;
+    private static volatile DisplayImageOptions cameraContentOptions;
 
     public static DisplayImageOptions getImageOptionsForUsers() {
-        if (blankOptionsUser != null) {
-            return blankOptionsUser;
+        if (userImageOptions != null) {
+            return userImageOptions;
         }
-        blankOptionsUser = new DisplayImageOptions.Builder()
+        userImageOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.blank_profile_rounded)
                 .showImageForEmptyUri(R.drawable.blank_profile_rounded)
                 .showImageOnFail(R.drawable.blank_profile_rounded)
@@ -67,7 +68,7 @@ public class Utility {
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
                 .build();
-        return blankOptionsUser;
+        return userImageOptions;
     }
 
     private static volatile DisplayImageOptions roundedImageOptions;
@@ -92,11 +93,11 @@ public class Utility {
         return roundedImageOptions;
     }
 
-    public static DisplayImageOptions imageOptionsImageLoader() {
-        if (blankOptions != null) {
-            return blankOptions;
+    public static DisplayImageOptions getDefaultImageOptions() {
+        if (defaultOptions != null) {
+            return defaultOptions;
         }
-        blankOptions = new DisplayImageOptions.Builder()
+        defaultOptions = new DisplayImageOptions.Builder()
                 .delayBeforeLoading(0) //delay
                 .resetViewBeforeLoading(true)  // default
                 .considerExifParams(false)
@@ -106,7 +107,7 @@ public class Utility {
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
                 .build();
-        return blankOptions;
+        return defaultOptions;
     }
 
     public static DisplayImageOptions getImageOptionsForWallItem() {
@@ -122,6 +123,23 @@ public class Utility {
                 .bitmapConfig(Bitmap.Config.RGB_565) // default
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
+                .build();
+        return wallItemOptions;
+    }
+
+    public static DisplayImageOptions getImageOptionsForUserContent() {
+        if (cameraContentOptions != null) {
+            return cameraContentOptions;
+        }
+        cameraContentOptions = new DisplayImageOptions.Builder()
+                .delayBeforeLoading(0) //delay
+                .resetViewBeforeLoading(true)  // default
+                .considerExifParams(true)
+                .cacheInMemory(true) // default
+                .cacheOnDisk(true) // default
+                .bitmapConfig(Bitmap.Config.RGB_565) // default
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(150, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
                 .build();
         return wallItemOptions;
     }

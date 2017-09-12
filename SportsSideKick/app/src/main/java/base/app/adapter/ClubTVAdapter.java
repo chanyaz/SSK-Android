@@ -116,7 +116,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
 
 
         // display image
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
         if (holder.image != null) {
             ImageLoader.getInstance().displayImage(imageUrl, holder.image, imageOptions);

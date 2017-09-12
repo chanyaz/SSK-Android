@@ -126,7 +126,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_IMAGE:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.imageOptionsImageLoader());
+                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.getDefaultImageOptions());
                     holder.playButton.setVisibility(View.GONE);
                     holder.contentImage.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -138,7 +138,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_VIDEO:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.imageOptionsImageLoader());
+                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.getDefaultImageOptions());
                     holder.playButton.setVisibility(View.VISIBLE);
                     holder.contentImage.setOnClickListener(
                             new View.OnClickListener() {

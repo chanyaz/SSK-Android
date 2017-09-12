@@ -224,7 +224,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         if (holder.userImage != null) {
                             if(user.getCircularAvatarUrl() != null ){
                                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(),
-                                        holder.userImage, Utility.imageOptionsImageLoader());
+                                        holder.userImage, Utility.getDefaultImageOptions());
                             } else {
                                 Log.e(TAG,"There is no avatar for this user, resolving to default image");
                                 holder.userImage.setImageResource(R.drawable.blank_profile_rounded);

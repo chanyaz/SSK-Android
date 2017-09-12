@@ -321,8 +321,8 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         NewsTickerInfo info = NextMatchModel.getInstance().getTickerInfo();
         // in case where there were no team images (first time initialisation)
         if(logoOfFirstTeam.getDrawable()==null){
-            ImageLoader.getInstance().displayImage(info.getFirstClubUrl(), logoOfFirstTeam, Utility.imageOptionsImageLoader());
-            ImageLoader.getInstance().displayImage(info.getSecondClubUrl(), logoOfSecondTeam, Utility.imageOptionsImageLoader());
+            ImageLoader.getInstance().displayImage(info.getFirstClubUrl(), logoOfFirstTeam, Utility.getDefaultImageOptions());
+            ImageLoader.getInstance().displayImage(info.getSecondClubUrl(), logoOfSecondTeam, Utility.getDefaultImageOptions());
         }
         long timestamp = Long.parseLong(info.getMatchDate());
         daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,true));
@@ -389,7 +389,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         userLevelProgress.setVisibility(View.INVISIBLE);
         profileName.setText(R.string.login_or_sign_up);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-        ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
+        ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.getDefaultImageOptions());
 
     }
 

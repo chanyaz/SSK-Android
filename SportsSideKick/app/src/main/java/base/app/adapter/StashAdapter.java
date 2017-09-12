@@ -74,7 +74,7 @@ public class StashAdapter extends RecyclerView.Adapter<StashAdapter.ViewHolder> 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         final Achievement info = values.get(position);
         holder.awardName.setText(info.getName());
         holder.profileFrame.setText(info.getDescription());

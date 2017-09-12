@@ -634,6 +634,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         userLevelBackground.setVisibility(View.INVISIBLE);
         userLevelProgress.setVisibility(View.INVISIBLE);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-        ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.imageOptionsImageLoader());
+        ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.getDefaultImageOptions());
     }
 }

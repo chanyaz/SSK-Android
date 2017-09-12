@@ -79,7 +79,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        final DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         final PostComment comment = comments.get(position);
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(comment.getPosterId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {

@@ -88,7 +88,7 @@ public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.View
     public void onBindViewHolder(ClubRadioAdapter.ViewHolder holder, final int position) {
         final Station info = values.get(position);
         // display image
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         String imageUrl = info.getCoverImageUrl();
         ImageLoader.getInstance().displayImage(imageUrl, holder.image, imageOptions);
     }

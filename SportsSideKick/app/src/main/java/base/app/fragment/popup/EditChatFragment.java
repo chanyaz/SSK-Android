@@ -204,7 +204,7 @@ public class EditChatFragment extends BaseFragment {
         chatNameEditText.setText(chatInfo.getChatTitle());
         String captionText = String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + chatInfo.getChatTitle() +"'");
         if(chatInfo.getChatAvatarUrl()!=null){
-            ImageLoader.getInstance().displayImage(chatInfo.getChatAvatarUrl(), chatImageView, Utility.imageOptionsImageLoader());
+            ImageLoader.getInstance().displayImage(chatInfo.getChatAvatarUrl(), chatImageView, Utility.getDefaultImageOptions());
             chatImageView.setVisibility(View.VISIBLE);
         }
         addFriendsInChatLabel.setText(captionText);
@@ -442,7 +442,7 @@ public class EditChatFragment extends BaseFragment {
                     uploadedImageUrl = task.getResult();
                     if(uploadedImageUrl!=null){
                         chatImageView.setVisibility(View.VISIBLE);
-                        ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.imageOptionsImageLoader());
+                        ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.getDefaultImageOptions());
                     }
                 } else {
                     // TODO @Filip Handle error!

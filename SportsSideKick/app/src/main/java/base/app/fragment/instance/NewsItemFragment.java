@@ -154,7 +154,7 @@ public class NewsItemFragment extends BaseFragment {
 
         item = NewsModel.getInstance().getCachedItemById(id, type);
 
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         if (item.getCoverImageUrl() != null) {
             ImageLoader.getInstance().displayImage(item.getCoverImageUrl(), imageHeader, imageOptions);
         }

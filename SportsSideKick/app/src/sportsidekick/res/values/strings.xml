@@ -436,7 +436,7 @@
     <string name="sign_in">Sign In</string>
 
 
-    <string name="join_with_facebook"><![CDATA[Join official Account >]]></string>
+    <string name="join_with_facebook">Join now with<b> Facebook </b></string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="log_in_with_facebook">Login with<b> Facebook </b></string>
     <string name="sign_in_with_facebook">Sign in with<b> Facebook </b></string>

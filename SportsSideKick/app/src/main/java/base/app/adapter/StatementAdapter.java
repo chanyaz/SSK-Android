@@ -74,7 +74,7 @@ public class StatementAdapter extends RecyclerView.Adapter<StatementAdapter.View
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        DisplayImageOptions imageOptions = Utility.imageOptionsImageLoader();
+        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         final Pair<String,String> info = values.get(position);
         holder.date.setText(sdf.format(new Date()));
         holder.line.setText(info.first);
