@@ -86,6 +86,7 @@ import base.app.model.im.ImsMessage;
 import base.app.model.im.event.ChatNotificationsEvent;
 import base.app.model.im.event.ChatsInfoUpdatesEvent;
 import base.app.model.im.event.CreateNewChatSuccessEvent;
+import base.app.model.im.event.UserIsTypingEvent;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import butterknife.BindView;
@@ -1121,6 +1122,23 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
+
+    @Subscribe
+    public void handleUserIsTypingEvent(UserIsTypingEvent event){
+        if(currentlyActiveChat!=null){
+            if(event.getChatId().equals(currentlyActiveChat.getChatId())){
+                List<UserInfo> users = event.getUsers();
+                if(users.size()==1){
+                    String userName = users.get(0).getNicName();
+                    infoLineTextView.setText(getString(R.string.single_user_is_typing,userName));
+                } else if (users.size()>1) {
+                    infoLineTextView.setText(R.string.multiple_users_are_typing);
+                } else {
+                    updateChatTitleText();
+                }
+            }
+        }
+    }
 
     @Subscribe
     public void openChatEvent(OpenChatEvent event){

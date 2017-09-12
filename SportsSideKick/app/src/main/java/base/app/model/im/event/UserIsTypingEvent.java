@@ -13,12 +13,18 @@ import base.app.model.user.UserInfo;
 public class UserIsTypingEvent {
 
     List<UserInfo> users;
+    String chatId;
 
-    public UserIsTypingEvent(List<UserInfo> users) {
+    public UserIsTypingEvent(String chatId, List<UserInfo> users) {
+        this.chatId = chatId;
         this.users = users;
     }
 
     public List<UserInfo> getUsers() {
         return users;
+    }
+
+    public String getChatId() {
+        return chatId;
     }
 }

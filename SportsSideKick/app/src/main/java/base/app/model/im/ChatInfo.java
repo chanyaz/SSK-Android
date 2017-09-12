@@ -491,7 +491,7 @@ public class ChatInfo {
                 }
             }
         }
-        EventBus.getDefault().post(new UserIsTypingEvent(usersTypingInfo));
+        EventBus.getDefault().post(new UserIsTypingEvent(chatId,usersTypingInfo));
     }
 
     /**

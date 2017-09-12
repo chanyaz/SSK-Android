@@ -518,5 +518,7 @@
     <string name="reset">Reset</string>
     <string name="offline">offline</string>
     <string name="watch_promo" translatable="false">Watch promo</string>
+    <string name="single_user_is_typing">%1$s! is typing...</string>
+    <string name="multiple_users_are_typing">Multiple users are typing...</string>
 
 </resources>
