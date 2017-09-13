@@ -38,10 +38,6 @@ public class Application extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-//        TODO - For testing purposes
-//        Bugfender.init(this, "X8jor58iPHDDUYWUBDPjZvVwWoMnMWkP", BuildConfig.DEBUG);
-//        Bugfender.enableLogcatLogging();
-//        Bugfender.enableUIEventLogging(this);
 
         NoNet.configure()
                 .endpoint("http://google.com")
@@ -76,10 +72,9 @@ public class Application extends MultiDexApplication {
         );
 
         FileUploader.getInstance().initialize(getApplicationContext());
-
         SoundEffects.getDefault().initialize(this);
-
         PurchaseModel.getInstance().initialize(this);
+
     }
 
     //region AppImage Loader
@@ -93,7 +88,7 @@ public class Application extends MultiDexApplication {
         config.denyCacheImageMultipleSizesInMemory();
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
         config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
-        config.diskCacheExtraOptions(480, 320, null);
+        config.diskCacheExtraOptions(640, 480, null);
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         config.writeDebugLogs(); //
         L.writeLogs(false);
