@@ -3,6 +3,7 @@ package base.app.adapter;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +14,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
@@ -26,6 +31,7 @@ import base.app.events.FullScreenImageEvent;
 import base.app.events.PlayVideoEvent;
 import base.app.model.GSConstants;
 import base.app.model.Model;
+import base.app.model.TranslateManager;
 import base.app.model.im.ChatInfo;
 import base.app.model.im.ImsMessage;
 import base.app.model.user.UserInfo;
@@ -49,6 +55,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private static final String TAG = "Message Adapter";
 
     public void setChatInfo(ChatInfo chatInfo) {
+        translatedMessages.clear();
         this.chatInfo = chatInfo;
     }
 
@@ -57,8 +64,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private static final int VIEW_TYPE_MESSAGE_THIS_USER = 0;
     private static final int VIEW_TYPE_MESSAGE_OTHER_USERS = 1;
 
-
-
+    List<ImsMessage> translatedMessages;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -81,6 +87,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private int lightTextColorLeft;
     private int lightTextColorRight;
     public MessageAdapter(Context context) {
+        translatedMessages = new ArrayList<>();
         audioPlayer = new MediaPlayer();
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -102,7 +109,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
@@ -120,6 +127,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         final String imageUrl = message.getImageUrl();
         final String videoUrl = message.getVidUrl();
+
+        holder.view.setTag(message.getId());
 
         if(message.getType()!=null){
             switch (message.getType()){
@@ -168,10 +177,44 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     });
                     break;
                 case GSConstants.UPLOAD_TYPE_TEXT:
+                    holder.view.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view) {
+                            String messageId = (String) view.getTag();
+                            TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
+                            // TODO - Open popup to select language, then on confirm click execute following
+                            TranslateManager.getInstance().translateMessage(messageId,"es",source);
+                            source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
+                                @Override
+                                public void onComplete(@NonNull Task<ImsMessage> task) {
+                                    if(task.isSuccessful()){
+                                        // TODO Implement a method to add message and check if exists
+                                        translatedMessages.add(task.getResult());
+                                        notifyItemChanged(holder.getAdapterPosition());
+                                    } else {
+                                        // TODO Notify that translation has failed and hide progress dialog
+                                    }
+                                }
+                            });
+                        }
+                    });
+
                     holder.playButton.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.GONE);
                     holder.textView.setVisibility(View.VISIBLE);
-                    holder.textView.setText(message.getText());
+
+                    String translatedValue = null;
+                    for(ImsMessage translated : translatedMessages){
+                        if(message.getId().equals(translated.getId())){
+                            translatedValue = translated.getText();
+                        }
+                    }
+                    if(translatedValue!=null){
+                        holder.textView.setText(translatedValue);
+                    } else {
+                        holder.textView.setText(message.getText());
+                    }
+
                     break;
             }
         } else {
@@ -187,7 +230,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             }
         }
     }
-
 
     private void setupAvatarFromRemoteUser(ImsMessage message,final ViewHolder holder){
         holder.senderTextView.setText("New User");

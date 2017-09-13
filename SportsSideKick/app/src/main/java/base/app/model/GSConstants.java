@@ -78,4 +78,8 @@ public class GSConstants {
     public static final String UPLOADED = "uploaded";
     public static final String FAILED = "failed";
 
+    public static final String ITEM_ID = "itemId";
+    public static final String LANGUAGE = "language";
+
+
 }

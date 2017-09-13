@@ -12,6 +12,8 @@ import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
+import org.json.simple.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -248,7 +250,8 @@ public class ImsMessage {
                                 ImsMessage.this.updateFrom(messageInfo.getBaseData());
                             }
                             if(source!=null){
-                                source.setResult(ImsMessage.this); // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
+                                // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
+                                source.setResult(ImsMessage.this);
                             }
                         } else {
                             Log.e(TAG,"Failed to update message!");
@@ -261,9 +264,17 @@ public class ImsMessage {
                 });
     }
 
-    void updateFrom(Map<String, Object> data){
+    public void updateFrom(Map<String, Object> data){
         if (data.containsKey("_id")) {
-            setId((String) data.get("_id"));
+            Object id = data.get("_id");
+            if(id instanceof String){
+                setId((String)id);
+            } else {
+                JSONObject idAsObject = (JSONObject)id;
+                if(idAsObject.containsKey("$oid")){
+                    setId((String) idAsObject.get("$oid"));
+                }
+            }
         }
         if (data.containsKey("locid")) {
             setLocid((String) data.get("locid"));

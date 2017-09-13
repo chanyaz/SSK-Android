@@ -65,6 +65,7 @@ import base.app.fragment.popup.WalletFragment;
 import base.app.fragment.popup.YourProfileFragment;
 import base.app.fragment.popup.YourStatementFragment;
 import base.app.model.Model;
+import base.app.model.TranslateManager;
 import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.ticker.NextMatchModel;
 import base.app.model.ticker.NextMatchUpdateEvent;
@@ -156,6 +157,8 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         });
         setNumberOfNotification("4");
         setupFragments();
+
+        TranslateManager.getInstance().initialize(this);
     }
 
     private void toggleBlur(boolean visible) {

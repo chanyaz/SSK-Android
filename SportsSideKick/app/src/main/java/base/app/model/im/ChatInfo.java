@@ -233,20 +233,6 @@ public class ChatInfo {
      */
     public Task<List<ImsMessage>> loadPreviousMessagesPage(){
        return ImsManager.getInstance().loadPreviousPageOfMessages(this);
-
-        //.addOnCompleteListener(new OnCompleteListener<List<ImsMessage>>() {
-//            @Override
-//            public void onComplete(@NonNull Task<List<ImsMessage>> task) {
-//                if(task.isSuccessful()){
-//                    List<ImsMessage> messages = task.getResult();
-
-//                    messages.addAll(task.getResult());
-//                    sortMessages();
-//                    EventBus.getDefault().post(new ChatNotificationsEvent(ChatInfo.this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
-//                    EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
-//                }
-//            }
-//        });
     }
 
     // TODO - This code is not present on iOS!
