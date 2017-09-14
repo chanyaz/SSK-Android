@@ -46,6 +46,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.adapter.CommentsAdapter;
+import base.app.adapter.CommentsAdapter;
 import base.app.adapter.TutorialStepAdapter;
 import base.app.events.CommentUpdateEvent;
 import base.app.events.GetCommentsCompleteEvent;
@@ -381,7 +382,11 @@ public class WallItemFragment extends BaseFragment {
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
         if(event.getCommentList()!=null){
-            comments.addAll(event.getCommentList());
+            for(PostComment comment : event.getCommentList()){
+                if(!comments.contains(comment)){
+                    comments.add(comment);
+                }
+            }
 
             // Sort by timestamp
             Collections.sort(comments, new Comparator<PostComment>() {

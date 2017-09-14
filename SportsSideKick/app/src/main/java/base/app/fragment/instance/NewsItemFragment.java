@@ -259,7 +259,11 @@ public class NewsItemFragment extends BaseFragment {
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
         if(event.getCommentList()!=null){
-            comments.addAll(event.getCommentList());
+            for(PostComment comment : event.getCommentList()){
+                if(!comments.contains(comment)){
+                    comments.add(comment);
+                }
+            }
 
             // Sort by timestamp
             Collections.sort(comments, new Comparator<PostComment>() {
