@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="stats_url" translatable="false">http://hosted.stats.com/matchcast/football/clients/stats/index-new.html?lang=en&amp;league=liga</string>
+    <string name="stats_url" translatable="false">http://hosted.stats.com/port</string>
     <string name="store_url" translatable="false">https://lojaverde.sporting.pt/en</string>
 
     <string name="terms_and_privacy_url" translatable="false">http://sportssidekick.tv/terms?lang=</string>
