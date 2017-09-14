@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -67,6 +68,7 @@ public class StatisticsFragment extends BaseFragment {
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setVisibility(View.VISIBLE);
         String url = getResources().getString(R.string.stats_url);
+        webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(url);
         return view;
     }
