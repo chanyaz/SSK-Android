@@ -60,8 +60,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         }
     }
 
-    public CommentsAdapter(List<PostComment> comments) {
+    String defaultImageForUserUrl;
+
+    public CommentsAdapter(List<PostComment> comments, String defaultImageForUserUrl) {
         this.comments = comments;
+        this.defaultImageForUserUrl = defaultImageForUserUrl;
     }
 
     @Override
@@ -79,29 +82,47 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         final PostComment comment = comments.get(position);
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(comment.getPosterId());
+        holder.view.setTag(comment.getPosterId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
             public void onComplete(@NonNull Task<UserInfo> task) {
                 if (task.isSuccessful()) {
                     UserInfo user = task.getResult();
-
-                    String userImage = user.getCircularAvatarUrl();
-                    if (userImage != null) {
-                        ImageLoader.getInstance().displayImage(userImage, holder.profileImage, imageOptions);
-
+                    Object tag =  holder.view.getTag();
+                    if(tag!=null){
+                        String holdersCurrentUser = (String)tag;
+                        if(user.getUserId().equals(holdersCurrentUser)){
+                            setupWithUserInfo(comment,holder,user);
+                        }
                     }
-                    String time = "" + DateUtils.getRelativeTimeSpanString(
-                            comment.getTimestamp().longValue()*1000, Utility.getCurrentTime(), DateUtils.MINUTE_IN_MILLIS);
-                    holder.messageInfo.setText(user.getFirstName() + " " + user.getLastName() + " | " + time);
+
                 }
             }
         });
         holder.comment.setText(comment.getComment());
     }
 
+    private void setupWithUserInfo(PostComment comment, ViewHolder holder, UserInfo user){
+        final DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
+        String userImage = user.getCircularAvatarUrl();
+        if (userImage != null) {
+            ImageLoader.getInstance().displayImage(userImage, holder.profileImage, imageOptions);
+        } else if(defaultImageForUserUrl!=null){
+            ImageLoader.getInstance().displayImage(defaultImageForUserUrl, holder.profileImage, imageOptions);
+        }
+        String time = "" + DateUtils.getRelativeTimeSpanString(
+                comment.getTimestamp().longValue()*1000,
+                Utility.getCurrentTime(),
+                DateUtils.MINUTE_IN_MILLIS
+        );
+        holder.messageInfo.setText(
+                user.getFirstName() + " " +
+                        user.getLastName() + " | "
+                        + time
+        );
+    }
     @Override
     public int getItemCount() {
         if (comments == null)

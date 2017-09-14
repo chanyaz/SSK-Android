@@ -189,7 +189,8 @@ public class WallItemFragment extends BaseFragment {
         String id = getPrimaryArgument();
 
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        commentsAdapter = new CommentsAdapter(comments);
+        String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", getActivity().getPackageName());
+        commentsAdapter = new CommentsAdapter(comments,imgUri);
         commentsList.setLayoutManager(commentLayoutManager);
         commentsList.setAdapter(commentsAdapter);
 
