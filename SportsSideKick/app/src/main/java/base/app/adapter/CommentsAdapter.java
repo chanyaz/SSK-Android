@@ -118,11 +118,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                 DateUtils.MINUTE_IN_MILLIS
         );
         holder.messageInfo.setText(
-                user.getFirstName() + " " +
-                        user.getLastName() + " | "
-                        + time
+            user.getFirstName() + " " +
+            user.getLastName() + " | "
+            + time
         );
     }
+
     @Override
     public int getItemCount() {
         if (comments == null)

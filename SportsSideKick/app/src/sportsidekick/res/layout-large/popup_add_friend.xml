@@ -7,9 +7,9 @@
     android:layout_marginEnd="@dimen/margin_90"
     android:layout_marginStart="@dimen/margin_90"
     android:layout_marginTop="@dimen/margin_40"
-    android:fitsSystemWindows="true"
     android:background="@drawable/popup_bottom_background"
-    android:clickable="true">
+    android:clickable="true"
+    android:fitsSystemWindows="true">
 
     <!-- TOP BUTTONS CONTAINER -->
     <RelativeLayout
@@ -96,46 +96,39 @@
 
     </RelativeLayout>
 
-    <!-- FRIENDS  LIST-->
-    <RelativeLayout
-        android:id="@+id/friends_list"
+
+
+    <TextView
+        android:id="@+id/no_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:visibility="gone"   android:layout_below="@id/enter_friend_name"
+        android:layout_centerInParent="true"
+        android:text="@string/no_results"
+        android:textColor="?white_semitransparent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/people_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_150"
         android:layout_below="@id/enter_friend_name"
-        android:visibility="gone">
+        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_20"
+        android:minHeight="@dimen/height_48"
+        android:visibility="gone" />
 
-        <View
-            android:id="@+id/top_split_line"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_1"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/black" />
-
-        <TextView
-            android:id="@+id/no_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/no_result"
-            android:textColor="?white_semitransparent"
-            android:visibility="gone" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/people_recycler_view"
-            android:layout_width="match_parent"
-            android:minHeight="@dimen/height_48"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_10"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:layout_marginTop="@dimen/margin_20" />
-
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/progress_bar"
-            android:layout_width="@dimen/prodgres_bar"
-            android:layout_height="@dimen/prodgres_bar"
-            android:layout_centerInParent="true"
-            android:elevation="@dimen/elevation_2"
-            app:indicatorName="LineSpinFadeLoaderIndicator" />
-    </RelativeLayout>
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/prodgres_bar"
+        android:layout_height="@dimen/prodgres_bar"
+        android:visibility="gone"      android:layout_below="@id/enter_friend_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:elevation="@dimen/elevation_2"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
 </RelativeLayout>
