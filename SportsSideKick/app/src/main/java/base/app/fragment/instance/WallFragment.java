@@ -74,7 +74,6 @@ import base.app.model.friendship.FriendsListChangedEvent;
 import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.ticker.NextMatchModel;
 import base.app.model.ticker.NextMatchUpdateEvent;
-import base.app.model.tutorial.TutorialModel;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
@@ -222,13 +221,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         final View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
         updateButtons();
-        TutorialModel.getInstance().initialize(getActivity());
         this.loginStateReceiver = new LoginStateReceiver(this);
         wallItems = new ArrayList<>();
-
-//        if (WallBase.getCache().size() > 0) {
-//            getNextTip();
-//        }
 
         wallItems.addAll(WallBase.getCache().values());
         filteredWallItems = new ArrayList<>();
@@ -837,20 +831,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
 
     }
-//
-//    @Subscribe
-//    public void updateTip(UserEvent event) {
-//        if (event.getType() == UserEvent.Type.onDetailsUpdated) {
-//            getNextTip();
-//        }
-//
-//    }
-//    private void getNextTip() {
-//        // Tips are disabled - this method is useless now.
-//        WallTip tipToBeDisplayed = null;
-//        String currentUserId = null;
-//    }
-
 
     int offset = 0;
     int pageSize = 20;
@@ -924,7 +904,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public void onLoginAnonymously() {
         reset();
-       // getNextTip();
         reloadWallFromModel();
         updateBottomBar();
 
@@ -937,12 +916,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onLogin(UserInfo user) {
         if (Model.getInstance().isRealUser() && loginHolder!=null) {
             loginHolder.setVisibility(View.GONE);
-            TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
         }
         reset();
         reloadWallFromModel();
         updateBottomBar();
-       // getNextTip();
 
     }
 
@@ -951,7 +928,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         reset();
         reloadWallFromModel();
         updateBottomBar();
-      //  getNextTip();
     }
 
     @Override

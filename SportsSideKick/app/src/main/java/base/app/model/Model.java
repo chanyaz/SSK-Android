@@ -608,7 +608,7 @@ public class Model {
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".mov";
-        FileUploader.getInstance().uploadCompressedImage(filename, filepath, filesDir, completion);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
     public void uploadChatVideoRecordingThumbnail(String filepath, File filesDir, final TaskCompletionSource<String> completion) {

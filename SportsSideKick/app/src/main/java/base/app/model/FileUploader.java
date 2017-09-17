@@ -76,7 +76,7 @@ public class FileUploader {
         bucket = FileUploader.EUWest_Bucket;
     }
 
-    private void upload(final String filename, String filepath, final TaskCompletionSource<String> completion) {
+    public void upload(final String filename, String filepath, final TaskCompletionSource<String> completion) {
         try {
             File file = new File(filepath);
             TransferObserver observer = transferUtility.upload(
