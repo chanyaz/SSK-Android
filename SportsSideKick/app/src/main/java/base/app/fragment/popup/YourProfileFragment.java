@@ -131,7 +131,6 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                     @Override
                     public void onClick(View v) {
                         Model.getInstance().logout();
-                        TutorialModel.getInstance().resetSeenInfo();
                         if(Utility.isTablet(getActivity())){
                             getActivity().onBackPressed();
                         }else {

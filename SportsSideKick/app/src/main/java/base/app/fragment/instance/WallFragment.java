@@ -898,7 +898,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onLogout() {
         reset();
         updateBottomBar();
-    //    getNextTip();
     }
 
     @Override
