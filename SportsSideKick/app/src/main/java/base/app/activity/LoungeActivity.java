@@ -40,7 +40,6 @@ import base.app.fragment.instance.VideoChatFragment;
 import base.app.fragment.instance.WallFragment;
 import base.app.fragment.instance.WallItemFragment;
 import base.app.fragment.instance.YoutubePlayerFragment;
-import base.app.fragment.popup.AccountCreatingFragment;
 import base.app.fragment.popup.AddFriendFragment;
 import base.app.fragment.popup.AlertDialogFragment;
 import base.app.fragment.popup.CreateChatFragment;
@@ -240,7 +239,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         loginContainerFragments.add(SignUpLoginFragment.class);
         loginContainerFragments.add(SignUpFragment.class);
         loginContainerFragments.add(LoginFragment.class);
-        loginContainerFragments.add(AccountCreatingFragment.class);
 
         fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments);  //NO BACK STACK
 

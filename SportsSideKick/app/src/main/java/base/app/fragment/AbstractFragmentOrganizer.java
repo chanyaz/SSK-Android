@@ -29,11 +29,8 @@ abstract class AbstractFragmentOrganizer {
     FragmentManager fragmentManager;
     List<Integer> containersWithoutBackStack;
 
-    private int enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation;
-
     AbstractFragmentOrganizer(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
-        setAnimations(0, 0, 0, 0);
         EventBus.getDefault().register(this);
         containersWithoutBackStack = new ArrayList<>();
     }
@@ -58,45 +55,41 @@ abstract class AbstractFragmentOrganizer {
         EventBus.getDefault().unregister(this);
     }
 
+
+    private String getFragmentTagAt(int position){
+        if(fragmentManager.getBackStackEntryCount()>=position){
+            return fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - position).getName();
+        }
+        return null;
+    }
+
     public Fragment getCurrentFragment() {
-        String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
-        return fragmentManager.findFragmentByTag(tag);
+        return fragmentManager.findFragmentByTag(getFragmentTagAt(1));
     }
 
     /**
      * @return previous fragment
      */
     public Fragment getPreviousFragment() {
-        //TODO @Filip Magic numbers
-        try {
-            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName();
-            return fragmentManager.findFragmentByTag(tag);
-        } catch (Exception e) {
-            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
-            return fragmentManager.findFragmentByTag(tag);
+        Fragment fragment = fragmentManager.findFragmentByTag(getFragmentTagAt(2));
+        if(fragment==null){
+            fragment = getCurrentFragment();
         }
-
+        return fragment;
     }
 
     /**
      * @return fragment previous to last fragment
      */
     public Fragment getPenultimateFragment() {
-        //TODO @Filip Magic numbers
-          try {
-            String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 3).getName();
-            return fragmentManager.findFragmentByTag(tag);
-        } catch (Exception e) {
-            try {
-                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName();
-                return fragmentManager.findFragmentByTag(tag);
-            } catch (Exception es) {
-                String tag = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
-                return fragmentManager.findFragmentByTag(tag);
-            }
-
+        Fragment fragment = fragmentManager.findFragmentByTag(getFragmentTagAt(3));
+        if(fragment==null){
+            fragment = getPreviousFragment();
         }
-
+        if(fragment==null){
+            fragment = getCurrentFragment();
+        }
+        return fragment;
     }
 
     private boolean isFragmentOpen(Fragment fragment) {
@@ -106,7 +99,7 @@ abstract class AbstractFragmentOrganizer {
     private boolean isFragmentOpen(Fragment fragment, boolean useArgs) {
         String fragmentTag = createFragmentTag(fragment, useArgs);
         if (fragmentManager.getBackStackEntryCount() != 0) {
-            String name = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
+            String name = getFragmentTagAt(1);
             if (!useArgs) {
                 name = name.substring(0, name.indexOf('-'));
             }
@@ -134,12 +127,6 @@ abstract class AbstractFragmentOrganizer {
         return openFragment(fragment, containerId);
     }
 
-    private void setAnimations(int enter, int exit, int popEnter, int popExit) {
-        enterAnimation = enter;
-        exitAnimation = exit;
-        popEnterAnimation = popEnter;
-        popExitAnimation = popExit;
-    }
 
     protected abstract int getFragmentContainer(Class fragment);
 
@@ -149,9 +136,6 @@ abstract class AbstractFragmentOrganizer {
             return "";
         }
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (enterAnimation != 0 && exitAnimation != 0 && popEnterAnimation != 0 && popExitAnimation != 0) {
-            transaction.setCustomAnimations(enterAnimation, exitAnimation, popEnterAnimation, popExitAnimation);
-        }
 
         // this is for containers without back stack
         if (containersWithoutBackStack.contains(containerId)) {

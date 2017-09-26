@@ -525,7 +525,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         }
 
         if (previousFragment == SignUpLoginFragment.class) {
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
+            //EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
             return;
         }
         if (popupHolder.getVisibility() == View.VISIBLE) {

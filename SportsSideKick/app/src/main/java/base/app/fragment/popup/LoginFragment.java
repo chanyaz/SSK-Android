@@ -36,7 +36,6 @@ import base.app.R;
 import base.app.adapter.AccountCreatingAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.WallFragment;
 import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.user.LoginStateReceiver;
@@ -120,7 +119,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
+            getActivity().onBackPressed();
+            //EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
         }
         super.onCreate(savedInstanceState);
     }
@@ -332,7 +332,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         }
         else {
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+            getActivity().onBackPressed();
+            //EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         }
     }
 

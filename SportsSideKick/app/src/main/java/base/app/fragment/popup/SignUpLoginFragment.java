@@ -1,5 +1,6 @@
 package base.app.fragment.popup;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import org.greenrobot.eventbus.EventBus;
 import base.app.R;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.WallFragment;
 import base.app.model.Model;
 import base.app.util.Utility;
 import butterknife.BindView;
@@ -35,25 +35,23 @@ public class SignUpLoginFragment extends BaseFragment {
     public SignUpLoginFragment() {
         // Required empty public constructor
     }
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())){
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class,true));
-        }
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.popup_login_sing_up, container, false);
         ButterKnife.bind(this, view);
         if (text != null) {
             text.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
         }
-
         return view;
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())){
+            getActivity().onBackPressed();
+        }
     }
 
     @Optional
