@@ -155,6 +155,10 @@ public class NewsItemFragment extends BaseFragment {
 
         item = NewsModel.getInstance().getCachedItemById(id, type);
 
+        if(item==null){
+            // TODO This item is not in cache, fetch it individually!
+        }
+
         DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         if (item.getCoverImageUrl() != null) {
             ImageLoader.getInstance().displayImage(item.getCoverImageUrl(), imageHeader, imageOptions);

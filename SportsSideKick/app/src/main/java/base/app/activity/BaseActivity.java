@@ -122,33 +122,30 @@ public class BaseActivity extends AppCompatActivity  {
         if (isFistTimeStartingApp) {
             // in case we are starting this app for first time, ignore intent's data
             Prefs.putBoolean(Constant.IS_FIRST_TIME, false);
-            Uri deeplink = intent.getData();
-            handleDeepLink(deeplink);
         } else  if (extras != null && !extras.isEmpty()) {
-
             if (savedIntentData == null) {
                 savedIntentData = new Bundle();
             }
             // make sure we are not handling the same intent
             if (!checkIfBundlesAreEqual(savedIntentData, extras)) {
-                String action = intent.getAction();
-                if(Intent.ACTION_VIEW.equals(action)){
-                    Uri deeplink = intent.getData();
-                    handleDeepLink(deeplink);
-                } else {
-                    ObjectMapper mapper = new ObjectMapper();
-                    String notificationData = extras.getString(Constant.NOTIFICATION_DATA, "");
-                    try {
-                        Map<String, String> dataMap = mapper.readValue(
-                                notificationData, new TypeReference<Map<String, String>>() {});
-                        handleNotificationEvent(new ExternalNotificationEvent(dataMap, true));
-                        savedIntentData = extras;
-                    } catch (IOException e) {
-                        Log.e(TAG, "Error parsing notification data!");
-                        e.printStackTrace();
-                    }
+                ObjectMapper mapper = new ObjectMapper();
+                String notificationData = extras.getString(Constant.NOTIFICATION_DATA, "");
+                try {
+                    Map<String, String> dataMap = mapper.readValue(
+                            notificationData, new TypeReference<Map<String, String>>() {});
+                    handleNotificationEvent(new ExternalNotificationEvent(dataMap, true));
+                    savedIntentData = extras;
+                } catch (IOException e) {
+                    Log.e(TAG, "Error parsing notification data!");
+                    e.printStackTrace();
                 }
             }
+        }
+        String action = intent.getAction();
+        if(Intent.ACTION_VIEW.equals(action)){
+            Uri deeplink = intent.getData();
+            Log.d(TAG,"deeplink : " + deeplink.toString());
+            handleDeepLink(deeplink);
         }
     }
 
@@ -164,12 +161,10 @@ public class BaseActivity extends AppCompatActivity  {
                 if(SharingManager.ItemType.WallPost.name().equals(postType)){
                     FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
                     wallItemFragmentEvent.setId(postId + "$$$");
-                    // TODO - Load wall item before displaying it ( or this is handled in fragment? )
                     EventBus.getDefault().post(wallItemFragmentEvent);
                 } else if(SharingManager.ItemType.News.name().equals(postType)){
                     FragmentEvent newsItemFragmentEvent = new FragmentEvent(NewsItemFragment.class);
                     newsItemFragmentEvent.setId(postId);
-                    // TODO - Load news item before displaying it ( or this is handled in fragment? )
                     EventBus.getDefault().post(newsItemFragmentEvent);
                 }
             }
