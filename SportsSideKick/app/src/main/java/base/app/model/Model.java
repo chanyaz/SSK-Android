@@ -275,12 +275,12 @@ public class Model {
         final GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest()
                 .setDisplayName(displayName)
                 .setNewPassword(password)
+                .setLanguage(Locale.getDefault().getLanguage())
                 .setUserName(email);
 
         if (userDetails != null) {
             userDetails.put("action", "register");
             userDetails.put(CLUB_ID_TAG, CLUB_ID);
-            userDetails.put("language", Locale.getDefault().getLanguage());
             Map<String, Object> map = request.getBaseData();
             map.put("scriptData", userDetails);
         }
@@ -292,7 +292,6 @@ public class Model {
                         UserEvent.Type errorType = UserEvent.Type.onRegisterError;
                         Map responseData = response.getBaseData();
                         Object errorObject = responseData.get("error");
-//                        return this.data.containsKey("scriptData") && this.data.get("scriptData") instanceof Map?new GSData((Map)this.data.get("scriptData")):null;
                         Error error = new Error(errorObject.toString());
                         UserEvent event = new UserEvent(errorType,error);
                         EventBus.getDefault().post(event);
