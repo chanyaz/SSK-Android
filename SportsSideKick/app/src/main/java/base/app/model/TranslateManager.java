@@ -136,4 +136,8 @@ public class TranslateManager {
                     }
                 });
     }
+
+    public HashMap<String, String> getLanguageList() {
+        return languagesList;
+    }
 }

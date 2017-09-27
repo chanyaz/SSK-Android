@@ -1,6 +1,7 @@
 package base.app.adapter;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
@@ -31,12 +32,12 @@ import base.app.events.FullScreenImageEvent;
 import base.app.events.PlayVideoEvent;
 import base.app.model.GSConstants;
 import base.app.model.Model;
-import base.app.model.TranslateManager;
 import base.app.model.im.ChatInfo;
 import base.app.model.im.ImsMessage;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import base.app.util.ui.ThemeManager;
+import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -53,6 +54,7 @@ import static base.app.model.GSConstants.UPLOADING;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
     private static final String TAG = "Message Adapter";
+    private TranslationView translationView;
 
     public void setChatInfo(ChatInfo chatInfo) {
         translatedMessages.clear();
@@ -66,6 +68,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     List<ImsMessage> translatedMessages;
 
+    public void setTranslationView(TranslationView translationView) {
+        this.translationView = translationView;
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         View view;
@@ -75,6 +81,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         @Nullable @BindView(R.id.profile_image) CircleImageView senderImageView;
         @BindView(R.id.content_image) ImageView contentImage;
         @BindView(R.id.play_button) ImageView playButton;
+        @BindView(R.id.content_container) View contentContainer;
         @Nullable @BindView(R.id.progress_bar) AVLoadingIndicatorView progressBar;
         ViewHolder(View view) {
             super(view);
@@ -109,7 +116,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
@@ -181,21 +188,29 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         @Override
                         public void onClick(View view) {
                             String messageId = (String) view.getTag();
+
+                            // Get the x, y location and store it in the locationValues[] array
+                            // locationValues[0] = x, locationValues[1] = y.
+                            int[] locationValues = new int[2];
+                            holder.contentContainer.getLocationOnScreen(locationValues);
+
+                            //Initialize the Point with x, and y positions
+                            Point location = new Point();
+                            location.x = locationValues[0] + holder.contentContainer.getWidth() ;
+                            location.y = locationValues[1] + holder.contentContainer.getHeight()/2 ;
+
                             TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
-                            // TODO - Open popup to select language, then on confirm click execute following
-                            TranslateManager.getInstance().translateMessage(messageId,"es",source);
                             source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
                                 @Override
                                 public void onComplete(@NonNull Task<ImsMessage> task) {
-                                    if(task.isSuccessful()){
-                                        // TODO Implement a method to add message and check if exists
-                                        translatedMessages.add(task.getResult());
-                                        notifyItemChanged(holder.getAdapterPosition());
-                                    } else {
-                                        // TODO Notify that translation has failed and hide progress dialog
-                                    }
+                                if(task.isSuccessful()){
+                                    ImsMessage translatedMessage = task.getResult();
+                                    updateWithTranslatedMessage(translatedMessage,position);
+                                }
                                 }
                             });
+                            translationView.showMessageTranslationPopup(location,messageId, source);
+
                         }
                     });
 
@@ -214,7 +229,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     } else {
                         holder.textView.setText(message.getText());
                     }
-
                     break;
             }
         } else {
@@ -322,6 +336,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             return VIEW_TYPE_MESSAGE_OTHER_USERS;
         }
         return VIEW_TYPE_MESSAGE_OTHER_USERS;
+    }
+
+    public void updateWithTranslatedMessage(ImsMessage message, int position){
+        translatedMessages.add(message);
+        notifyItemChanged(position);
     }
 
 }
