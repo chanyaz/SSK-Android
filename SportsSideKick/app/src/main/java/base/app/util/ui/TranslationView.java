@@ -21,6 +21,7 @@ import com.google.common.collect.HashBiMap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 
 import base.app.R;
 import base.app.model.TranslateManager;
@@ -82,13 +83,20 @@ public class TranslationView extends RelativeLayout {
         languagePicker = popupLayout.findViewById(R.id.language_picker);
         progressBar = findViewById(R.id.progress);
 
-        languagesBiMap = HashBiMap.create(TranslateManager.getInstance().getLanguageList());
-        Collection<String> languages = languagesBiMap.values();
-        languagesList = new ArrayList<>(languages);
-        Collections.sort(languagesList);
+        HashMap<String,String> mapOfLanguages = TranslateManager.getInstance().getLanguageList();
+
         languagePicker.setMinValue(0);
-        languagePicker.setMaxValue(languagesList.size() - 1);
-        languagePicker.setDisplayedValues(languagesList.toArray(new String[languagesList.size()]));
+
+        if(mapOfLanguages!=null && mapOfLanguages.size() > 0){
+            languagesBiMap = HashBiMap.create(mapOfLanguages);
+            Collection<String> languages = languagesBiMap.values();
+            languagesList = new ArrayList<>(languages);
+            Collections.sort(languagesList);
+            if(languagesList.size()>1){
+                languagePicker.setMaxValue(languagesList.size() - 1);
+                languagePicker.setDisplayedValues(languagesList.toArray(new String[languagesList.size()]));
+            }
+        }
 
         popup = new PopupWindow(getContext());
         popup.setContentView(popupLayout);
@@ -225,9 +233,14 @@ public class TranslationView extends RelativeLayout {
     };
 
     private String getSelectedLanguageCode() {
-        int index = languagePicker.getValue();
-        String selectedLanguageName = languagesList.get(index);
-        return languagesBiMap.inverse().get(selectedLanguageName);
+        if(languagesBiMap!=null && languagesList!=null){
+            if(languagesBiMap.size()>0 && languagesList.size() >0){
+                int index = languagePicker.getValue();
+                String selectedLanguageName = languagesList.get(index);
+                return languagesBiMap.inverse().get(selectedLanguageName);
+            }
+        }
+        return "en";
     }
 
     private OnClickListener onCloseClickListener = new OnClickListener() {

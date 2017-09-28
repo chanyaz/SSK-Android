@@ -18,6 +18,7 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import base.app.model.FileUploader;
+import base.app.model.TranslateManager;
 import base.app.model.purchases.PurchaseModel;
 import base.app.util.SoundEffects;
 import io.fabric.sdk.android.Fabric;
@@ -74,7 +75,7 @@ public class Application extends MultiDexApplication {
         FileUploader.getInstance().initialize(getApplicationContext());
         SoundEffects.getDefault().initialize(this);
         PurchaseModel.getInstance().initialize(this);
-
+        TranslateManager.getInstance().initialize(this);
     }
 
     //region AppImage Loader

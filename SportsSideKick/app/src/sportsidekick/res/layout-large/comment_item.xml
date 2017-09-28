@@ -34,7 +34,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/post_text"
-            android:text="DEMO TEXT DEMO TEXT DEMO TEXT DEMO TEXT"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginStart="@dimen/margin_10"
             android:textSize="@dimen/font_size_10"

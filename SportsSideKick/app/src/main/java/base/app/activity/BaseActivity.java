@@ -113,6 +113,7 @@ public class BaseActivity extends AppCompatActivity  {
         facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
         notificationContainer= findViewById(R.id.left_notification_container);
         PurchaseModel.getInstance().onCreate(this);
+
     }
 
     protected Bundle savedIntentData = null;
