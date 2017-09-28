@@ -93,7 +93,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
 
                         if(action.equals(GSConstants.OPERATION_LIKE)){
                             if(data.containsKey(GSConstants.POST)){
-                                WallBase post = WallBase.postFactory(data.get(GSConstants.POST), mapper);
+                                WallBase post = WallBase.postFactory(data.get(GSConstants.POST), mapper, true);
                                 if(post!=null){
                                     String postId = post.getPostId();
                                     event = new NotificationReceivedEvent(4, "New Like", "", NotificationReceivedEvent.Type.LIKES,postId);

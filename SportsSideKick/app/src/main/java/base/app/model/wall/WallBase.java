@@ -96,7 +96,7 @@ public abstract class WallBase implements Shareable {
     }
 
     @Nullable
-    public static WallBase postFactory(Object wallItem, ObjectMapper mapper) {
+    public static WallBase postFactory(Object wallItem, ObjectMapper mapper, boolean putInCache) {
         JsonNode node = mapper.valueToTree(wallItem);
         if (node.has("type")) {
             TypeReference typeReference = new TypeReference<WallBase>(){};
@@ -150,7 +150,9 @@ public abstract class WallBase implements Shareable {
             item.setType(type);
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
-            if(type != PostType.official &&
+            if(
+                putInCache &&
+                type != PostType.official &&
                 type != PostType.webhose &&
                 type != PostType.tip ){
 

@@ -1155,4 +1155,9 @@ public class ChatFragment extends BaseFragment {
         public void onClick(View view) {}
     };
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        translationView.setVisibility(View.GONE);
+    }
 }

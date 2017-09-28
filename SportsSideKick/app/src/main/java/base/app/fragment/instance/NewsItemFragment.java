@@ -3,6 +3,8 @@ package base.app.fragment.instance;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +22,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -48,6 +53,7 @@ import base.app.model.wall.WallModel;
 import base.app.model.wall.WallNews;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
+import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -90,10 +96,6 @@ public class NewsItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.comments_count)
     TextView commentsCount;
-
-    @Nullable
-    @BindView(R.id.read_more_arrow_image)
-    ImageView readMoreArrowImage;
 
     @Nullable
     @BindView(R.id.likes_icon)
@@ -154,7 +156,6 @@ public class NewsItemFragment extends BaseFragment {
         }
 
         item = NewsModel.getInstance().getCachedItemById(id, type);
-
         if(item==null){
             // TODO This item is not in cache, fetch it individually!
         }
@@ -163,17 +164,7 @@ public class NewsItemFragment extends BaseFragment {
         if (item.getCoverImageUrl() != null) {
             ImageLoader.getInstance().displayImage(item.getCoverImageUrl(), imageHeader, imageOptions);
         }
-        title.setText(item.getTitle());
-        String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(),
-                Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
-        if (item.getSubTitle() != null) {
-            strap.setText(item.getSubTitle() + " - " + time);
-        } else {
-            strap.setText(time);
-        }
-
-        content.setText(item.getBodyText());
-
+        setupTextualContent(item);
 
         postContainer.setVisibility(View.VISIBLE);
         WallModel.getInstance().getCommentsForPost(item);
@@ -257,8 +248,19 @@ public class NewsItemFragment extends BaseFragment {
             });
         }
 
-
         return view;
+    }
+
+    private void setupTextualContent(WallNews item){
+        title.setText(item.getTitle());
+        String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(),
+                Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
+        if (item.getSubTitle() != null) {
+            strap.setText(item.getSubTitle() + " - " + time);
+        } else {
+            strap.setText(time);
+        }
+        content.setText(item.getBodyText());
     }
 
     @Subscribe
@@ -269,7 +271,6 @@ public class NewsItemFragment extends BaseFragment {
                     comments.add(comment);
                 }
             }
-
             // Sort by timestamp
             Collections.sort(comments, new Comparator<PostComment>() {
                 @Override
@@ -279,7 +280,6 @@ public class NewsItemFragment extends BaseFragment {
             });
             commentsAdapter.notifyDataSetChanged();
         }
-
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
         }
@@ -298,7 +298,7 @@ public class NewsItemFragment extends BaseFragment {
             post.getText().clear();
             postCommentProgressBar.setVisibility(View.VISIBLE);
         }else {
-            //TODO notify user
+            //TODO Notify user that need to login
         }
     }
 
@@ -319,7 +319,28 @@ public class NewsItemFragment extends BaseFragment {
     public void togglePostLike() {
         if(Model.getInstance().isRealUser()) {
             if (item != null) {
+                if (likesIconLiked != null) {
+                    likesIconLiked.setEnabled(false);
+                }
+                if (likesIcon != null) {
+                    likesIcon.setEnabled(false);
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (likesIconLiked != null) {
+                            likesIconLiked.setEnabled(true);
+                        }
+                        if (likesIcon != null) {
+                            likesIcon.setEnabled(true);
+                        }
+                    }
+                }, 2000);
+
                 item.toggleLike();
+                if (likesIconLiked != null) {
+                    likesIconLiked.setEnabled(false);
+                }
                 if (likesIcon != null) {
                     likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
                 }
@@ -425,20 +446,49 @@ public class NewsItemFragment extends BaseFragment {
     }
 
     @Optional
-    @OnClick(R.id.read_more_holder)
-    public void readMoreClick() {
+    @OnClick(R.id.read_more_text)
+    public void readMoreClick(View view) {
         if (content.getMaxLines() == 3) {
             content.setMaxLines(Integer.MAX_VALUE);
-            if (readMoreArrowImage != null) {
-                readMoreArrowImage.setRotation(90);
-            }
+            ((TextView)view).setText(R.string.read_more_closed);
         } else {
             content.setMaxLines(3);
-            if (readMoreArrowImage != null) {
-                readMoreArrowImage.setRotation(-90);
-            }
+            ((TextView)view).setText(R.string.read_more_open);
         }
     }
 
+    @OnClick(R.id.close_button)
+    public void closeOnClick() {
+        getActivity().onBackPressed();
+    }
 
+    @BindView(R.id.translation_view)
+    TranslationView translationView;
+
+    @OnClick(R.id.translate)
+    public void onTranslateClick(View view){
+        String postId = item.getPostId();
+        TaskCompletionSource<WallNews> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+            @Override
+            public void onComplete(@NonNull Task<WallNews> task) {
+                if(task.isSuccessful()){
+                    WallNews translatedNews = task.getResult();
+                    updateWithTranslatedPost(translatedNews);
+                }
+            }
+        });
+        translationView.showTranslationPopup(view,postId, source, TranslationView.TranslationType.TRANSLATE_NEWS);
+    }
+
+    private void updateWithTranslatedPost(WallNews translatedNews){
+        setupTextualContent(translatedNews);
+        Toast.makeText(getContext(),"Got translated post!",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        translationView.setVisibility(View.GONE);
+    }
 }

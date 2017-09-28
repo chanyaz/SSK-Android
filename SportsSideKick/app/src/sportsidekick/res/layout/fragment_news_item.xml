@@ -14,12 +14,6 @@
         android:orientation="horizontal"
         android:visibility="gone">
 
-        <Button
-            android:id="@+id/close_news_button"
-            android:layout_width="@dimen/margin_90"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent" />
-
         <RelativeLayout
             android:id="@+id/back_button_holder"
             android:layout_width="wrap_content"
@@ -282,34 +276,37 @@
 
             <RelativeLayout
                 android:id="@+id/read_more_holder"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/content_text"
                 android:layout_centerHorizontal="true"
                 android:animateLayoutChanges="true"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:animationCache="true">
+
+                <TextView
+                    android:id="@+id/translate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_16"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:text="Translate post >"
+                    android:textColor="?light_green_2"
+                    android:textSize="@dimen/font_size_10"
+                    />
 
                 <TextView
                     android:id="@+id/read_more_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/read_more"
+                    android:paddingStart="@dimen/padding_16"
+                    android:layout_toEndOf="@+id/translate"
+                    android:text="@string/read_more_closed"
                     android:textColor="?light_green_2"
                     android:textSize="@dimen/font_size_10"
                     />
-
-                <ImageView
-                    android:id="@+id/read_more_arrow_image"
-                    android:layout_width="@dimen/height_20"
-                    android:layout_height="@dimen/height_20"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/read_more_text"
-                    android:rotation="-90"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                    android:tint="?light_green_2" />
-
             </RelativeLayout>
 
             <View
@@ -455,4 +452,18 @@
         android:layout_height="@dimen/margin_1"
         android:layout_alignParentBottom="true"
         android:background="@color/grey_b2b2b2" />
+
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="@dimen/standard_button_height"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/close_button" />
+
+    <base.app.util.ui.TranslationView
+        android:id="@+id/translation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 </RelativeLayout>

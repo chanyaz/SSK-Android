@@ -1,7 +1,6 @@
 package base.app.adapter;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
@@ -54,7 +53,9 @@ import static base.app.model.GSConstants.UPLOADING;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
     private static final String TAG = "Message Adapter";
+
     private TranslationView translationView;
+    private List<ImsMessage> translatedMessages;
 
     public void setChatInfo(ChatInfo chatInfo) {
         translatedMessages.clear();
@@ -66,7 +67,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private static final int VIEW_TYPE_MESSAGE_THIS_USER = 0;
     private static final int VIEW_TYPE_MESSAGE_OTHER_USERS = 1;
 
-    List<ImsMessage> translatedMessages;
 
     public void setTranslationView(TranslationView translationView) {
         this.translationView = translationView;
@@ -189,16 +189,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         public void onClick(View view) {
                             String messageId = (String) view.getTag();
 
-                            // Get the x, y location and store it in the locationValues[] array
-                            // locationValues[0] = x, locationValues[1] = y.
-                            int[] locationValues = new int[2];
-                            holder.contentContainer.getLocationOnScreen(locationValues);
-
-                            //Initialize the Point with x, and y positions
-                            Point location = new Point();
-                            location.x = locationValues[0] + holder.contentContainer.getWidth() ;
-                            location.y = locationValues[1] + holder.contentContainer.getHeight()/2 ;
-
                             TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
                             source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
                                 @Override
@@ -209,7 +199,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                                 }
                                 }
                             });
-                            translationView.showMessageTranslationPopup(location,messageId, source);
+                            translationView.showTranslationPopup(holder.contentContainer,messageId, source, TranslationView.TranslationType.TRANSLATE_IMS);
 
                         }
                     });
@@ -333,7 +323,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     return VIEW_TYPE_MESSAGE_THIS_USER;
                 }
             }
-            return VIEW_TYPE_MESSAGE_OTHER_USERS;
         }
         return VIEW_TYPE_MESSAGE_OTHER_USERS;
     }
