@@ -31,6 +31,7 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -65,6 +66,7 @@ import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStoreItem;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
+import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -85,17 +87,12 @@ public class WallItemFragment extends BaseFragment {
     TextView strap;
     @BindView(R.id.content_text)
     TextView content;
-    @BindView(R.id.close_news_button)
-    Button close;
     @BindView(R.id.share_news_to_wall_button)
     Button share;
     @BindView(R.id.content_video)
     VideoView videoView;
     @BindView(R.id.comments_wall)
     RecyclerView commentsList;
-    @Nullable
-    @BindView(R.id.read_more_arrow_image)
-    ImageView readMoreArrowImage;
 
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
@@ -185,10 +182,11 @@ public class WallItemFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         comments = new ArrayList<>();
-        String id = getPrimaryArgument();
 
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        commentsAdapter = new CommentsAdapter(comments);
+        String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", getActivity().getPackageName());
+        commentsAdapter = new CommentsAdapter(comments,imgUri);
+        commentsAdapter.setTranslationView(translationView);
         commentsList.setLayoutManager(commentLayoutManager);
         commentsList.setAdapter(commentsAdapter);
 
@@ -196,10 +194,14 @@ public class WallItemFragment extends BaseFragment {
             pinContainer.setVisibility(View.GONE);
         }
 
+        if(Utility.isPhone(getContext())){
+            ButterKnife.findById(view,R.id.close_button).setVisibility(View.GONE);
+        }
 
+        String id = getPrimaryArgument();
         item = WallBase.getCache().get(id);
+        // Probably came here from Deeplink/Notification - if item is not in cache, fetch it
         if(item == null){
-            // this item is not in cache - fetch it
             String postId;
             String wallId = null;
             if(id.contains("$$$")){
@@ -213,33 +215,17 @@ public class WallItemFragment extends BaseFragment {
                 WallModel.getInstance().getPostById(postId,wallId);
             }
         } else {
-            initializeWithData();
+            initializeWithData(true, item);
         }
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
-
         post.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void afterTextChanged(Editable s) {
-            }
-
+            public void afterTextChanged(Editable s) {}
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() != 0) {
-                    postButton.setVisibility(View.VISIBLE);
-                } else {
-                    postButton.setVisibility(View.GONE);
-                }
+                postButton.setVisibility(s.length() != 0 ? View.VISIBLE : View.GONE);
             }
         });
 
@@ -257,9 +243,11 @@ public class WallItemFragment extends BaseFragment {
         return view;
     }
 
-    private void initializeWithData(){
+    private void initializeWithData(boolean fetchComments, WallBase item){
         DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
-        WallModel.getInstance().getCommentsForPost(item);
+        if(fetchComments){
+            WallModel.getInstance().getCommentsForPost(item);
+        }
         switch (item.getType()) {
             case post:
                 WallPost post = (WallPost) item;
@@ -381,7 +369,11 @@ public class WallItemFragment extends BaseFragment {
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
         if(event.getCommentList()!=null){
-            comments.addAll(event.getCommentList());
+            for(PostComment comment : event.getCommentList()){
+                if(!comments.contains(comment)){
+                    comments.add(comment);
+                }
+            }
 
             // Sort by timestamp
             Collections.sort(comments, new Comparator<PostComment>() {
@@ -398,8 +390,13 @@ public class WallItemFragment extends BaseFragment {
         }
     }
 
+    @OnClick(R.id.close_button)
+    public void closeOnClick() {
+        getActivity().onBackPressed();
+    }
+
     @OnClick(R.id.share_container)
-    public void onShareClick(View view) {
+    public void onShareClick() {
         if (shareButtonsContainer != null) {
             shareButtonsContainer.setVisibility(View.VISIBLE);
         }
@@ -436,10 +433,11 @@ public class WallItemFragment extends BaseFragment {
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getPostId());
             comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
-
             WallModel.getInstance().postComment(item, comment);
             post.getText().clear();
             postCommentProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            //TODO notify user
         }
     }
 
@@ -459,7 +457,7 @@ public class WallItemFragment extends BaseFragment {
     public void onPostById(GetPostByIdEvent event){
         item = event.getPost();
         if(item!=null){
-            initializeWithData();
+            initializeWithData(true, item);
         }
     }
 
@@ -579,19 +577,47 @@ public class WallItemFragment extends BaseFragment {
     }
 
 
+    // TODO - Same code in this and News Item fragment - decide how to solve
+
     @Optional
-    @OnClick(R.id.read_more_holder)
-    public void readMoreClick() {
+    @OnClick(R.id.read_more_text)
+    public void readMoreClick(View view) {
         if (content.getMaxLines() == 3) {
             content.setMaxLines(Integer.MAX_VALUE);
-            if (readMoreArrowImage != null) {
-                readMoreArrowImage.setRotation(90);
-            }
+            ((TextView)view).setText(R.string.read_more_closed);
         } else {
             content.setMaxLines(3);
-            if (readMoreArrowImage != null) {
-                readMoreArrowImage.setRotation(-90);
-            }
+            ((TextView)view).setText(R.string.read_more_open);
         }
+    }
+
+    @BindView(R.id.translation_view)
+    TranslationView translationView;
+
+    @OnClick(R.id.translate)
+    public void onTranslateClick(View view){
+        String postId = item.getPostId();
+        TaskCompletionSource<WallBase> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
+            @Override
+            public void onComplete(@NonNull Task<WallBase> task) {
+                if(task.isSuccessful()){
+                    WallBase translatedPost = task.getResult();
+                    updateWithTranslatedPost(translatedPost);
+                }
+            }
+        });
+        translationView.showTranslationPopup(view,postId, source,TranslationView.TranslationType.TRANSLATE_WALL, item.getType());
+    }
+
+    private void updateWithTranslatedPost(WallBase translatedPost){
+        Toast.makeText(getContext(),"Got translated post!",Toast.LENGTH_SHORT).show();
+        initializeWithData(false, translatedPost);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        translationView.setVisibility(View.GONE);
     }
 }

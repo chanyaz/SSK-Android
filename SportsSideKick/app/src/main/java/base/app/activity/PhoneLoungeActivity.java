@@ -525,7 +525,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         }
 
         if (previousFragment == SignUpLoginFragment.class) {
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
+            //EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
             return;
         }
         if (popupHolder.getVisibility() == View.VISIBLE) {
@@ -612,6 +612,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     public void onLogin(UserInfo user) {
         splash.setVisibility(View.GONE);
         if (Model.getInstance().isRealUser()) {
+
+            String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
+
             if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             }

@@ -40,7 +40,6 @@ import base.app.fragment.instance.VideoChatFragment;
 import base.app.fragment.instance.WallFragment;
 import base.app.fragment.instance.WallItemFragment;
 import base.app.fragment.instance.YoutubePlayerFragment;
-import base.app.fragment.popup.AccountCreatingFragment;
 import base.app.fragment.popup.AddFriendFragment;
 import base.app.fragment.popup.AlertDialogFragment;
 import base.app.fragment.popup.CreateChatFragment;
@@ -65,7 +64,6 @@ import base.app.fragment.popup.WalletFragment;
 import base.app.fragment.popup.YourProfileFragment;
 import base.app.fragment.popup.YourStatementFragment;
 import base.app.model.Model;
-import base.app.model.TranslateManager;
 import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.ticker.NextMatchModel;
 import base.app.model.ticker.NextMatchUpdateEvent;
@@ -158,7 +156,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         setNumberOfNotification("4");
         setupFragments();
 
-        TranslateManager.getInstance().initialize(this);
     }
 
     private void toggleBlur(boolean visible) {
@@ -240,7 +237,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         loginContainerFragments.add(SignUpLoginFragment.class);
         loginContainerFragments.add(SignUpFragment.class);
         loginContainerFragments.add(LoginFragment.class);
-        loginContainerFragments.add(AccountCreatingFragment.class);
 
         fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments);  //NO BACK STACK
 

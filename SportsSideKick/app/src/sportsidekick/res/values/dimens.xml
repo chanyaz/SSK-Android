@@ -221,4 +221,5 @@
 
     <dimen name="profile_coin_height">38dp</dimen>
     <dimen name="profile_coin_width">38dp</dimen>
+    <dimen name="translation_popup_picker_height">90dp</dimen>
 </resources>

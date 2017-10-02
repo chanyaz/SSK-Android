@@ -3,6 +3,7 @@ package base.app.fragment.instance;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -74,7 +75,6 @@ import base.app.model.friendship.FriendsListChangedEvent;
 import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.ticker.NextMatchModel;
 import base.app.model.ticker.NextMatchUpdateEvent;
-import base.app.model.tutorial.TutorialModel;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
@@ -217,18 +217,14 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("Wall lifecycle", "On Create View");
         // Inflate the layout for this fragment
         setMarginTop(false);
         final View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
         updateButtons();
-        TutorialModel.getInstance().initialize(getActivity());
         this.loginStateReceiver = new LoginStateReceiver(this);
         wallItems = new ArrayList<>();
-
-//        if (WallBase.getCache().size() > 0) {
-//            getNextTip();
-//        }
 
         wallItems.addAll(WallBase.getCache().values());
         filteredWallItems = new ArrayList<>();
@@ -837,26 +833,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
 
     }
-//
-//    @Subscribe
-//    public void updateTip(UserEvent event) {
-//        if (event.getType() == UserEvent.Type.onDetailsUpdated) {
-//            getNextTip();
-//        }
-//
-//    }
-//    private void getNextTip() {
-//        // Tips are disabled - this method is useless now.
-//        WallTip tipToBeDisplayed = null;
-//        String currentUserId = null;
-//    }
-
 
     int offset = 0;
     int pageSize = 20;
     boolean fetchingPageOfPosts = false;
 
     private void reloadWallFromModel() {
+        Log.d("Wall lifecycle", "Reloading wall from model.");
         wallItems.clear();
         filteredWallItems.clear();
         adapter.notifyDataSetChanged();
@@ -883,6 +866,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             public void onComplete(@NonNull Task<List<WallBase>> task) {
                 if(task.isSuccessful()){
                     List<WallBase> items = task.getResult();
+                    Log.d("Wall lifecycle", "Loaded Wall Items -  number of items: " + items.size());
                     wallItems.addAll(items);
                     completion.setResult(items);
                     filterPosts();
@@ -890,6 +874,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     progressBar.setVisibility(View.GONE);
                     offset +=pageSize;
                 } else {
+                    Log.d("Wall lifecycle", "Loaded Wall Items -  Failed");
                     Log.d(TAG,"Failed to get posts!");
                 }
             }
@@ -900,62 +885,80 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d("Wall lifecycle", "On Destroy");
         EventBus.getDefault().unregister(loginStateReceiver);
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("Wall lifecycle", "On Attach");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("Wall lifecycle", "On Detach");
+    }
+
+    @Override
     public void onResume() {
+        Log.d("Wall lifecycle", "On Resume");
         super.onResume();
         updateBottomBar();
     }
 
     private void reset() {
+        Log.d("Wall lifecycle", "Reset - wall is cleared");
         WallModel.getInstance().clear();
         updateBottomBar();
     }
 
     @Override
     public void onLogout() {
+        Log.d("Wall lifecycle", "Logout");
         reset();
         updateBottomBar();
-    //    getNextTip();
     }
 
     @Override
     public void onLoginAnonymously() {
+        if (!Model.getInstance().isRealUser() && loginHolder!=null) {
+            Log.d("Wall lifecycle", "Login Anonymously - Anonymous user");
+            loginHolder.setVisibility(View.VISIBLE);
+        } else {
+            Log.d("Wall lifecycle", "Login Anonymously - Real user -- (THIS SHOULD NOT HAPPEN!");
+        }
         reset();
-       // getNextTip();
         reloadWallFromModel();
         updateBottomBar();
-
-        if (!Model.getInstance().isRealUser() && loginHolder!=null) {
-            loginHolder.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
     public void onLogin(UserInfo user) {
         if (Model.getInstance().isRealUser() && loginHolder!=null) {
+            Log.d("Wall lifecycle", "Login - Real user");
             loginHolder.setVisibility(View.GONE);
-            TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
+        } else {
+            Log.d("Wall lifecycle", "Login - Anonymous user");
         }
         reset();
         reloadWallFromModel();
         updateBottomBar();
-       // getNextTip();
 
     }
 
     @Subscribe
     public void handleFriendListChanged(FriendsListChangedEvent event){
+        Log.d("Wall lifecycle", "Friend List Changed");
         reset();
         reloadWallFromModel();
         updateBottomBar();
-      //  getNextTip();
     }
 
     @Override
     public void onLoginError(Error error) {
+        Log.d("Wall lifecycle", "Login Error");
         reset();
     }
 

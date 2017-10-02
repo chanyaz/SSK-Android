@@ -89,6 +89,7 @@ import base.app.model.im.event.CreateNewChatSuccessEvent;
 import base.app.model.im.event.UserIsTypingEvent;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -191,6 +192,8 @@ public class ChatFragment extends BaseFragment {
     private String audioFilepath = null;
     String currentPath;
 
+    @BindView(R.id.translation_view)
+    TranslationView translationView;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -217,6 +220,8 @@ public class ChatFragment extends BaseFragment {
 
         messageAdapter = new MessageAdapter(getContext());
         messageListView.setAdapter(messageAdapter);
+
+        messageAdapter.setTranslationView(translationView);
 
         SnappyLinearLayoutManager snappyLinearLayoutManager = new SnappyLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         snappyLinearLayoutManager.setSnapInterpolator(new AccelerateDecelerateInterpolator());
@@ -1149,4 +1154,10 @@ public class ChatFragment extends BaseFragment {
         @Override
         public void onClick(View view) {}
     };
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        translationView.setVisibility(View.GONE);
+    }
 }

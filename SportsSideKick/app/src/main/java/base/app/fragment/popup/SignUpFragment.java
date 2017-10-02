@@ -47,7 +47,6 @@ import base.app.R;
 import base.app.adapter.AccountCreatingAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.WallFragment;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.RegistrationStateReceiver;
@@ -140,14 +139,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
-        }
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.popup_signup, container, false);
@@ -177,6 +168,10 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
+            getActivity().onBackPressed();
+            //EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
+        }
     }
 
     @Override
@@ -388,7 +383,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         } else {
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+            getActivity().onBackPressed();
+            //EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         }
     }
 

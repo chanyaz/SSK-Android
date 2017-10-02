@@ -92,9 +92,14 @@ public class SplashActivity extends AppCompatActivity {
         Uri data = getIntent().getData();
         if (extras != null) {
             main.putExtras(extras);
+        }
+        if(action!=null) {
             main.setAction(action);
+        }
+        if(data!= null){
             main.setData(data);
         }
+
 
         // start activity
         startActivity(main);

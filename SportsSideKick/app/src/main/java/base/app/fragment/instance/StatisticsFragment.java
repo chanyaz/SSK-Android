@@ -8,15 +8,22 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,6 +37,7 @@ import base.app.model.wall.WallModel;
 import base.app.model.wall.WallStats;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
@@ -52,6 +60,14 @@ public class StatisticsFragment extends BaseFragment {
 
     Bitmap bitmap = null;
     WebView webView;
+    String javascriptString = "javascript:( function () { var style = document.createElement('style'); style.innerHTML = '{border-bottom: 0 none;} footer {display: none;}'; document.head.appendChild(style) } ) ()";
+
+    @BindView(R.id.progress_bar)
+    AVLoadingIndicatorView progressBar;
+
+
+    @BindView(R.id.pin_button)
+    ImageView pinButton;
 
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -63,13 +79,34 @@ public class StatisticsFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         webView = view.findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setSupportZoom(true);
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.setVisibility(View.VISIBLE);
+        webView.getSettings().setSupportZoom(false);
+        webView.getSettings().setBuiltInZoomControls(false);
+        webView.setVisibility(View.GONE);
+        pinButton.setVisibility(View.GONE);
         String url = getResources().getString(R.string.stats_url);
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url){
+                webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
+                webView.loadUrl("javascript:(function() { document.getElementById('shs_siteNav').remove(); })()");
+                webView.loadUrl(javascriptString);
+                webView.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+                pinButton.setVisibility(View.VISIBLE);
+            }
+        });
+
         webView.loadUrl(url);
         return view;
     }
+
+    public int pxToDp(int px) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
+    }
+
 
     @OnClick(R.id.pin_button)
     public void pinOnClick() {

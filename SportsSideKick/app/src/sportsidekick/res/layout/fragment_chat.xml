@@ -504,5 +504,9 @@
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
-
+    <base.app.util.ui.TranslationView
+        android:id="@+id/translation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 </RelativeLayout>

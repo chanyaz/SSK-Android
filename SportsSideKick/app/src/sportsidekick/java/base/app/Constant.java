@@ -21,12 +21,13 @@ import base.app.fragment.instance.WallFragment;
  */
 public class Constant {
 
-//    KEVIN-SSK
-//    public static final String GS_API_KEY = "G310534qEf4N";
-//    public static final String GS_API_SECRET = "iUeAGN7Sp8rka4lmBT5UNdfv2JBDVhSz";
+//    SSK-TESTFLIGHT
+    public static final String GS_API_KEY = "F310416NEM5b";
+    public static final String GS_API_SECRET = "WlLzz12Eem8G9Rx6N8yktSsXpLCWVXDw";
 
-    public static final String GS_API_KEY = "Z306867fEYlY";
-    public static final String GS_API_SECRET = "Rx34NFmkNwSah80VZFGPmTXmCesdK5Sy";
+// SSK-DEV
+//    public static final String GS_API_KEY = "Z306867fEYlY";
+//    public static final String GS_API_SECRET = "Rx34NFmkNwSah80VZFGPmTXmCesdK5Sy";
 
     public static final int LOGIN_TEXT_TIME= 3000;
     public static final String YOUTUBE_API_KEY = "AIzaSyAVYoyvyouNeFJBvlLG9yQMfIuQ3EaNadY";

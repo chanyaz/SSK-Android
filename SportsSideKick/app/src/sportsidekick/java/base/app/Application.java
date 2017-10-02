@@ -18,13 +18,14 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import base.app.model.FileUploader;
+import base.app.model.TranslateManager;
 import base.app.model.purchases.PurchaseModel;
 import base.app.util.SoundEffects;
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
- * Created by Djordje Krutil on 5.12.2016..
+ * Created by Djordje Krutil on 5.12.2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
@@ -74,7 +75,7 @@ public class Application extends MultiDexApplication {
         FileUploader.getInstance().initialize(getApplicationContext());
         SoundEffects.getDefault().initialize(this);
         PurchaseModel.getInstance().initialize(this);
-
+        TranslateManager.getInstance().initialize(this);
     }
 
     //region AppImage Loader
