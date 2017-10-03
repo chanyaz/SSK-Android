@@ -56,7 +56,7 @@
     <RelativeLayout
         android:id="@+id/controls_container"
         android:layout_alignBottom="@+id/video_player_dummy_container"
-        android:background="?green_dark_2"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

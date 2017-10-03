@@ -141,7 +141,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_toEndOf="@id/search_icon"
-                android:background="?green_dark_2"
+                android:background="@color/colorPrimary"
                 android:hint="@string/your_friends_search_hint"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="text"

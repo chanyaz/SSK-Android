@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="status_online_color">#4ff70e</color>
+    <color name="light_green_1">#c3ff00</color>
+    <color name="colorAccent">#ffe324</color>
+    <color name="rumour_yellow">#fcfd42</color>
+    <color name="light_button_chat">#fdfe24</color>
+
+    <color name="green_dark_5">#00181e</color>
+    <color name="green_dark_5_semitransparent">#8C00181e</color>
+    <color name="green_dark_3">#032227</color>
+    <color name="green_dark_4">#162731</color>
+    <color name="green_login_semitransparent">#99021119</color>
+    <color name="green_dark_phone_4">#022426</color>
+    <color name="green_dark_2_semitransparent">#a800363b</color>
+    <color name="colorPrimary">#00363b</color>
+    <color name="green_dark_6">#01454b</color>
+    <color name="green_light_3">#255d5e</color>
+    <color name="colorAccentLight">#215456</color>
+    <color name="light_green_1_semitransparent">#a8215456</color>
+    <color name="colorPrimarySemiLight">#266263</color>
+    <color name="colorPrimaryLight">#00ab8d</color>
+
+    <color name="transparent">#00ffffff</color>
+
+    <color name="black_transparent_154">#9a000000</color>
+    <color name="black">#000000</color>
+    <color name="text_shadow">#590b0c0c</color>
+    <color name="colorGreyDark">#4d4e4c</color>
+    <color name="colorGray">#9ba1a3</color>
+    <color name="colorGreySemiLight">#b2b2b2</color>
+    <color name="white_green_phone">#a2b4b8</color>
+    <color name="login_background">#e5e5e5</color>
+    <color name="chat_content_right_color">#e6f7f4</color>
+    <color name="gray_menu">#d3d4d8</color>
+    <color name="colorGrayLight">#e9eaee</color>
+    <color name="white_semitransparent">#5fffffff</color>
+    <color name="wall_shop_description_background">#f6f7fa</color>
+    <color name="white">#ffffff</color>
+
+    <color name="facebook_blue">#3b5998</color>
+    <color name="wall_shop_description_text_color">#0be5ff</color>
+    <color name="red">#d10212</color>
+    <color name="wall_store_color">#fc6120</color>
+
+    <color name="system_bar_color">#022b31</color>
+    <color name="menu_name_color">#02a286</color>
+
+
+</resources>

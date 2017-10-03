@@ -3,7 +3,7 @@
     android:id="@+id/row_join_chat_search_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?green_dark_1"
+    android:background="@color/colorAccentLight"
     android:orientation="vertical">
 
     <RelativeLayout

@@ -38,7 +38,7 @@
             android:visibility="gone"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:tint="@color/light_colorPrimaryLight"
+            android:tint="@color/colorPrimaryLight"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
     </RelativeLayout>
@@ -99,7 +99,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?green_dark_2"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/find"
             android:textColor="?white_semitransparent" />
@@ -109,7 +109,7 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?green_dark_2"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/request"
             android:textColor="?white_semitransparent" />
@@ -192,7 +192,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="?green_dark_2"
+        android:background="@color/colorPrimary"
         android:layout_marginBottom="@dimen/margin_negative_10"
         android:clickable="true"
         app:layout_heightPercent="19%">

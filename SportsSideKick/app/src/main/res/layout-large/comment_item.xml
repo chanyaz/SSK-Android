@@ -38,7 +38,7 @@
             android:layout_marginStart="@dimen/margin_10"
             android:textSize="@dimen/font_size_10"
             android:layout_marginTop="@dimen/margin_5"
-            android:textColor="?lightGrey" />
+            android:textColor="?colorGray" />
 
         <TextView
             android:id="@+id/translate"
@@ -51,7 +51,7 @@
             android:layout_marginTop="@dimen/margin_5"
             android:layout_toEndOf="@+id/message_information"
             android:text="Translate"
-            android:textColor="?lightGrey"
+            android:textColor="?colorGray"
             android:textSize="@dimen/font_size_10"
             />
 

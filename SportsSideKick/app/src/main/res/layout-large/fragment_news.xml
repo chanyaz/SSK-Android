@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="base.app.fragment.instance.NewsFragment"
-    android:background="?wallBackground">
+    android:background="@color/colorAccentLight">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"

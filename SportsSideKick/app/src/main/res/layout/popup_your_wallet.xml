@@ -7,7 +7,7 @@
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
     android:layout_marginTop="@dimen/margin_base_size_60"
-    android:background="?background_phone"
+    android:background="@color/colorAccentLight"
     android:clickable="true"
     tools:ignore="MissingPrefix">
 
@@ -46,7 +46,7 @@
                         android:visibility="gone"
                         android:background="@android:color/transparent"
                         android:scaleType="centerInside"
-                        android:tint="?wallBackground"
+                        android:tint="@color/colorAccentLight"
                         android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
                 </RelativeLayout>
             </RelativeLayout>
@@ -78,7 +78,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="?wallBackground"
+                    android:background="@color/colorAccentLight"
                     android:gravity="center"
                     android:text="@string/wallet"
                     android:textColor="?white" />

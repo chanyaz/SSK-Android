@@ -25,7 +25,6 @@ import base.app.model.Model;
 import base.app.model.im.ChatInfo;
 import base.app.model.im.event.ChatNotificationsEvent;
 import base.app.util.Utility;
-import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -78,13 +77,12 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     }
     Context context;
     int selectedChatColor;
-    int lightSelectedChatColor;
+
     public ChatHeadsAdapter(Context context) {
         values = new ArrayList<>();
         this.context = context;
         if(context!=null){
             selectedChatColor = ContextCompat.getColor(context,(R.color.colorAccent));
-            lightSelectedChatColor = ContextCompat.getColor(context,(R.color.light_chat_head_selected_color));
         }
     }
 
@@ -164,7 +162,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                 }
             }
             if (focusedItem == position) {
-                holder.imageView.setBorderColor(ThemeManager.getInstance().isLightTheme() ? lightSelectedChatColor : selectedChatColor);
+                holder.imageView.setBorderColor(selectedChatColor);
             } else {
                 holder.imageView.setBorderColor(Color.TRANSPARENT);
             }

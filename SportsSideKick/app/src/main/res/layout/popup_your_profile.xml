@@ -6,7 +6,7 @@
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
     android:layout_marginTop="@dimen/margin_base_size_90"
-    android:background="@color/background_phone"
+    android:background="@color/colorAccentLight"
     android:clickable="true">
 
     <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
@@ -47,7 +47,7 @@
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                android:tint="@color/light_colorPrimaryLight"
+                android:tint="@color/colorPrimaryLight"
                 android:visibility="gone" />
         </RelativeLayout>
     </RelativeLayout>
@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/background_phone"
+            android:background="@color/colorAccentLight"
             android:gravity="center"
             android:text="@string/profile"
             android:textColor="?white" />
@@ -78,7 +78,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/green_dark_phone_3"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/wallet"
             android:textColor="?white_semitransparent" />
@@ -88,7 +88,7 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/green_dark_phone_3"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/stash"
             android:textColor="?white_semitransparent" />
@@ -144,7 +144,7 @@
 
                 android:layout_marginBottom="@dimen/margin_20"
                 android:layout_marginTop="@dimen/margin_20"
-                android:background="?wallBackground"
+                android:background="@color/colorAccentLight"
                 android:clickable="true">
 
                 <!-- VIEW IN MIDDLE TO SPLIT EASIER -->

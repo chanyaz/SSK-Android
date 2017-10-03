@@ -27,7 +27,7 @@
         android:id="@+id/row_rumours_foreground_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_phone"
+        android:background="@color/colorAccentLight"
         android:focusable="true"
         android:orientation="vertical"
         android:visibility="gone"/>
@@ -64,7 +64,7 @@
         <View
             android:layout_width="@dimen/width_5"
             android:layout_height="@dimen/height_1"
-            android:background="?light_green_2" />
+            android:background="@color/colorPrimaryLight" />
 
         <TextView
             android:id="@+id/row_rumors_time"
@@ -73,7 +73,7 @@
             android:layout_marginStart="@dimen/margin_5"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="?lightGrey" />
+            android:textColor="?colorGray" />
     </LinearLayout>
 
     <View

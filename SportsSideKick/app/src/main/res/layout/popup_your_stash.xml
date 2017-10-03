@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/margin_base_size_60"
-    android:background="?background_phone"
+    android:background="@color/colorAccentLight"
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
     android:layout_marginTop="@dimen/margin_base_size_60"
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="?wallBackground">
+        android:background="@color/colorAccentLight">
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/progress_bar"
@@ -57,7 +57,7 @@
                 android:layout_alignParentStart="true"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
-                android:tint="@color/light_colorPrimaryLight"
+                android:tint="@color/colorPrimaryLight"
                 android:visibility="gone"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
@@ -80,7 +80,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?green_dark_phone_3"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/profile"
             android:textColor="?white_semitransparent" />
@@ -91,7 +91,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?green_dark_phone_3"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/wallet"
             android:textColor="?white_semitransparent" />
@@ -101,7 +101,7 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?background_phone"
+            android:background="@color/colorAccentLight"
             android:gravity="center"
             android:text="@string/stash"
             android:textColor="?white" />

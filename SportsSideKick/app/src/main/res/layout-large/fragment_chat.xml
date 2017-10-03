@@ -91,14 +91,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:animateLayoutChanges="true"
-        android:background="?chat_input_edit_text_background">
+        android:background="@color/colorGrayLight">
 
         <RelativeLayout
             android:id="@+id/chat_buttons_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
-            android:background="?chat_input_edit_text_background"
+            android:background="@color/colorGrayLight"
             android:visibility="gone">
 
             <ImageButton
@@ -159,7 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true"
-                android:background="?chat_input_edit_text_background"
+                android:background="@color/colorGrayLight"
                 android:gravity="start|center_vertical"
                 android:hint="@string/chat_hint"
                 android:imeActionId="@+id/action_send_message_id"
@@ -189,7 +189,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toStartOf="@+id/chat_menu_dots"
-            android:background="?chat_input_edit_text_background"
+            android:background="@color/colorGrayLight"
             android:clickable="true"
             android:gravity="center"
             android:padding="@dimen/half_margin"

@@ -23,6 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textColor="@color/menu_name_color" />
+            android:textColor="@color/colorPrimaryLight" />
     </LinearLayout>
 </RelativeLayout>

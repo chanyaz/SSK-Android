@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?wallBackground"
+    android:background="@color/colorAccentLight"
     tools:context="base.app.fragment.instance.WallFragment">
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout

@@ -89,7 +89,6 @@ import base.app.util.NextMatchCountdown;
 import base.app.util.Utility;
 import base.app.util.ui.GridItemDecoration;
 import base.app.util.ui.StaggeredLayoutManagerItemDecoration;
-import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -732,30 +731,18 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         int selectedColor;
         int containerColor;
         if (Utility.isTablet(getActivity())) { //Tablet
-            if (!ThemeManager.getInstance().isLightTheme()) {
-                defaultColor = R.color.white;
-                selectedColor = R.color.colorAccent;
-
-            } else {
-                defaultColor = R.color.colorPrimary;
-                selectedColor = R.color.light_radio_button_background;
-            }
+            defaultColor = R.color.white;
+            selectedColor = R.color.colorAccent;
         } else { //Phone
-            if (!ThemeManager.getInstance().isLightTheme()) {
-                defaultColor = R.color.colorPrimary;
-                selectedColor = R.color.light_radio_button_background;
-                containerColor = R.color.wall_bottom_bar_background_color;
-            } else {
-                defaultColor = R.color.colorPrimary;
-                selectedColor = R.color.light_radio_button_background;
-                containerColor = R.color.wall_bottom_bar_background_color;
-            }
+            defaultColor = R.color.colorPrimary;
+            selectedColor = R.color.colorPrimaryLight;
+            containerColor = R.color.colorGrayLight;
             int wallBottomBarColor;
 
             if (isNewPostVisible || isFilterVisible || isSearchVisible) {
                 wallBottomBarColor = R.color.white;
             } else {
-                wallBottomBarColor = R.color.wall_bottom_bar_background_color;
+                wallBottomBarColor = R.color.colorGrayLight;
             }
             wallBottomBarContainer.setBackgroundColor(ContextCompat.getColor(getActivity(), wallBottomBarColor));
             newPostContainer.setBackgroundColor(ContextCompat.getColor(getActivity(), containerColor));

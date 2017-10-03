@@ -35,7 +35,6 @@ import base.app.model.im.ChatInfo;
 import base.app.model.im.ImsMessage;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
-import base.app.util.ui.ThemeManager;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,16 +90,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     private int textColor;
-    private int lightTextColorLeft;
-    private int lightTextColorRight;
     public MessageAdapter(Context context) {
         translatedMessages = new ArrayList<>();
         audioPlayer = new MediaPlayer();
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            textColor = ContextCompat.getColor(context,R.color.light_chat_content_right_color);
-            lightTextColorLeft = ContextCompat.getColor(context,R.color.light_chat_content_left_color);
-            lightTextColorRight = ContextCompat.getColor(context,R.color.light_chat_content_right_color);
+            textColor = ContextCompat.getColor(context,R.color.chat_content_right_color);
         }
     }
 
@@ -121,15 +116,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
         }
-        int selectedTextColor;
-        if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS){
-            setupAvatarFromRemoteUser(message,holder);
-            selectedTextColor = lightTextColorLeft;
-        }else {
-            selectedTextColor = lightTextColorRight;
+
+        if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS) {
+            setupAvatarFromRemoteUser(message, holder);
         }
 
-        holder.textView.setTextColor(ThemeManager.getInstance().isLightTheme() ?  selectedTextColor : textColor );
+        holder.textView.setTextColor(textColor);
         holder.timeTextView.setText(message.getTimeAgo());
 
         final String imageUrl = message.getImageUrl();

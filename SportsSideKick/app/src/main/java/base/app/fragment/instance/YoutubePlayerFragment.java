@@ -36,7 +36,6 @@ import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.club.ClubModel;
 import base.app.util.Utility;
-import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -133,15 +132,9 @@ public class YoutubePlayerFragment extends BaseFragment implements
     }
 
     public void updateButtonsColor() {
-        if (ThemeManager.getInstance().isLightTheme()) {
-            playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
-            muteButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
-            fullScreenButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
-        } else {
-            playButton.clearColorFilter();
-            muteButton.clearColorFilter();
-            fullScreenButton.clearColorFilter();
-        }
+        playButton.clearColorFilter();
+        muteButton.clearColorFilter();
+        fullScreenButton.clearColorFilter();
     }
 
     YouTubePlayer player;
@@ -223,11 +216,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
             } else {
                 player.play();
             }
-            if (ThemeManager.getInstance().isLightTheme()) {
-                playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.light_green_main), PorterDuff.Mode.MULTIPLY);
-            } else {
-                playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.white), PorterDuff.Mode.MULTIPLY);
-            }
+          playButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.white), PorterDuff.Mode.MULTIPLY);
         }
     }
 

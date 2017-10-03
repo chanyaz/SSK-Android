@@ -89,7 +89,7 @@
                         android:layout_marginEnd="@dimen/margin_10"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:textColor="?lightGrey"
+                        android:textColor="?colorGray"
                         android:textSize="@dimen/font_size_16" />
 
                 </RelativeLayout>
@@ -218,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_1"
                 android:layout_below="@id/top_buttons_contaniner"
-                android:background="?green_dark_2" />
+                android:background="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/content_text"
@@ -233,7 +233,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@id/content_text"
-                android:background="?green_dark_2" />
+                android:background="@color/colorPrimary" />
 
             <LinearLayout
                 android:id="@+id/tutorial_container"
@@ -257,7 +257,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="?green_dark_2" />
+                    android:background="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/tutorial_description"
@@ -413,7 +413,7 @@
             android:layout_marginEnd="@dimen/margin_20"
             android:layout_marginTop="@dimen/margin_5"
             android:adjustViewBounds="true"
-            app:indicatorColor="@color/green_dark_2"
+            app:indicatorColor="@color/colorPrimary"
             android:visibility="gone" />
 
     </RelativeLayout>

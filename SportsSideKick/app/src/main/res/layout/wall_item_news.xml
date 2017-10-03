@@ -117,7 +117,7 @@
                 android:layout_toStartOf="@id/likes_container"
                 android:maxLines="1"
                 android:textSize="@dimen/font_size_10"
-                android:textColor="?lightGrey"/>
+                android:textColor="?colorGray"/>
         </RelativeLayout>
     </RelativeLayout>
 

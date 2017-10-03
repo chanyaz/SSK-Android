@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="?background_phone"
+    android:background="@color/colorAccentLight"
     android:clickable="true">
 
     <RelativeLayout
@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_toEndOf="@+id/edit_top_vertical_spliter"
-        android:background="?green_dark_phone_3"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:text="@string/join_chat"
         android:textColor="?white_semitransparent" />
@@ -215,7 +215,7 @@
         android:id="@+id/friends_in_chat_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?green_dark_phone_3"
+        android:background="@color/colorPrimary"
         android:layout_above="@+id/confirm_button">
 
         <TextView
@@ -258,7 +258,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:background="?colorAccent"
         android:scaleType="centerInside"
-        android:textColor="?green_dark_2"
+        android:textColor="@color/colorPrimary"
         android:text="@string/save"
         android:textAllCaps="false"
         android:layout_alignParentBottom="true"

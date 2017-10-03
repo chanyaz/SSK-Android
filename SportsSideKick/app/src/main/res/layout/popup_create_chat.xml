@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/background_phone"
+    android:background="@color/colorAccentLight"
     android:clickable="true"
     android:orientation="vertical">
 
@@ -95,7 +95,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="@color/background_phone"
+                    android:background="@color/colorAccentLight"
                     android:gravity="center"
                     android:text="@string/create_chat"
                     android:textColor="?white" />
@@ -106,7 +106,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="@color/green_dark_phone_3"
+                    android:background="@color/colorPrimary"
                     android:gravity="center"
                     android:text="@string/join_chat"
                     android:textColor="?white_semitransparent" />
@@ -117,7 +117,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:visibility="gone"
-                    android:background="@color/green_dark_phone_3"
+                    android:background="@color/colorPrimary"
                     android:gravity="center"
                     android:text="@string/request"
                     android:textColor="?white_semitransparent" />
@@ -275,7 +275,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/confirm_button"
-        android:background="@color/green_dark_phone_3">
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/chat_friends_in_chat_headline"
@@ -310,7 +310,7 @@
         android:scaleType="centerInside"
         android:text="@string/create_chat"
         android:textAllCaps="false"
-        android:textColor="?green_dark_2" />
+        android:textColor="@color/colorPrimary" />
 
     <base.app.util.ui.AutofitRecyclerView
         android:id="@+id/friends_recycler_view"

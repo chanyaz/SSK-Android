@@ -92,11 +92,7 @@
             android:maxLines="2"
             android:text="@string/add_friend_hint"
             android:textColor="?wall_shop_description_background" />
-
-
     </RelativeLayout>
-
-
 
     <TextView
         android:id="@+id/no_results"

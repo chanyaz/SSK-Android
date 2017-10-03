@@ -127,7 +127,7 @@
                 android:layout_height="@dimen/height_60"
                 android:layout_below="@+id/edit_top_vertical_spliter"
                 android:layout_toEndOf="@id/chat_image_view"
-                android:background="?green_dark_2"
+                android:background="@color/colorPrimary"
                 android:gravity="start|center_vertical"
                 android:hint="@string/group_chat_name"
                 android:imeOptions="flagNoExtractUi"
@@ -222,7 +222,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/confirm_button"
-            android:background="?green_dark_2">
+            android:background="@color/colorPrimary">
 
             <TextView
                 android:id="@+id/friends_in_chat_headline"
@@ -269,7 +269,7 @@
             android:scaleType="centerInside"
             android:text="@string/save"
             android:textAllCaps="false"
-            android:textColor="?green_dark_2" />
+            android:textColor="@color/colorPrimary" />
 
         <base.app.util.ui.AutofitRecyclerView
             android:id="@+id/friends_recycler_view"

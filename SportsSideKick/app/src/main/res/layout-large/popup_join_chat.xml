@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_alignStart="@+id/middle"
         android:layout_gravity="center"
-        android:background="?green_dark_2"
+        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
 
@@ -120,7 +120,7 @@
                 android:layout_height="@dimen/height_60"
                 android:layout_below="@+id/top_vertical_spliter"
                 android:layout_toStartOf="@+id/chat_join_search_button"
-                android:background="?green_dark_2"
+                android:background="@color/colorPrimary"
                 android:gravity="start|center_vertical"
                 android:hint="@string/search_public_chats"
                 android:imeOptions="flagNoExtractUi"
@@ -169,7 +169,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="?green_dark_2"
+            android:background="@color/colorPrimary"
             android:minHeight="@dimen/margin_90">
 
             <TextView

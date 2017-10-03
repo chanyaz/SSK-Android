@@ -210,7 +210,7 @@
             android:layout_marginEnd="@dimen/half_margin"
             android:layout_toEndOf="@+id/left_tab_selector"
             android:layout_toStartOf="@+id/middle_split"
-            android:background="?wallBackground" />
+            android:background="@color/colorAccentLight" />
 
 
         <RelativeLayout
@@ -222,7 +222,7 @@
             android:layout_marginStart="@dimen/half_margin"
             android:layout_toEndOf="@+id/middle_split"
             android:layout_toStartOf="@+id/right_tab_selector"
-            android:background="?wallBackground" />
+            android:background="@color/colorAccentLight" />
 
         <!-- CLUB CONTAINER -->
         <RelativeLayout
@@ -233,7 +233,7 @@
             android:layout_marginStart="@dimen/half_margin"
             android:layout_toEndOf="@+id/middle_split"
             android:layout_toStartOf="@+id/right_tab_selector"
-            android:background="?wallBackground" />
+            android:background="@color/colorAccentLight" />
 
 
         <!-- TOP RIGHT RADIO GROUP -->

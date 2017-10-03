@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_dark_phone_3"
+    android:background="@color/colorPrimary"
     android:clickable="true"
     android:orientation="vertical">
 
@@ -80,7 +80,7 @@
         android:id="@+id/profile_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/background_phone"
+        android:background="@color/colorAccentLight"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -523,7 +523,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/background_phone" />
+            android:background="@color/colorAccentLight" />
 
         <TextView
             android:id="@+id/public_chat_text"
@@ -561,7 +561,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/background_phone"
+        android:background="@color/colorAccentLight"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintHorizontal_bias="0.0"
@@ -586,7 +586,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textAlignment="center"
-                    android:textColor="@color/light_green_2"
+                    android:textColor="@color/colorPrimaryLight"
                     android:textSize="@dimen/font_size_25" />
 
                 <TextView
@@ -628,7 +628,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textAlignment="center"
-                    android:textColor="@color/light_green_2"
+                    android:textColor="@color/colorPrimaryLight"
                     android:textSize="@dimen/font_size_25" />
 
                 <TextView
@@ -669,7 +669,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textAlignment="center"
-                    android:textColor="@color/light_green_2"
+                    android:textColor="@color/colorPrimaryLight"
                     android:textSize="@dimen/font_size_25" />
 
                 <TextView

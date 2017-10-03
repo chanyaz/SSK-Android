@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/margin_base_size_60"
-    android:background="?green_dark_1"
+    android:background="@color/colorAccentLight"
     android:clickable="true">
 
     <View
@@ -277,7 +277,7 @@
             android:layout_alignParentTop="true"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:tint="@color/light_colorPrimaryLight"
+            android:tint="@color/colorPrimaryLight"
             android:visibility="gone" />
         <TextView
             style="@style/boldText"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?green_dark_1">
+    android:background="@color/colorAccentLight">
 
     <RelativeLayout
         android:id="@+id/top_buttons_container"
@@ -128,7 +128,7 @@
                         android:layout_marginEnd="@dimen/margin_10"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:textColor="?lightGrey"
+                        android:textColor="?colorGray"
                         android:textSize="@dimen/font_size_12" />
 
                 </RelativeLayout>
@@ -163,7 +163,7 @@
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:background="@drawable/ic_like"
-                            app:backgroundTint="?green_dark_2" />
+                            app:backgroundTint="@color/colorPrimary" />
 
                         <android.support.v7.widget.AppCompatImageView
                             android:id="@+id/likes_icon_liked"
@@ -178,7 +178,7 @@
                             android:id="@+id/likes_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="?green_dark_2" />
+                            android:textColor="@color/colorPrimary" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -195,7 +195,7 @@
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:background="@drawable/ic_pin"
-                            app:backgroundTint="?green_dark_2" />
+                            app:backgroundTint="@color/colorPrimary" />
 
 
                         <TextView
@@ -203,7 +203,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/pin_count_placeholder"
-                            android:textColor="?green_dark_2" />
+                            android:textColor="@color/colorPrimary" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -220,14 +220,14 @@
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:background="@drawable/ic_share"
-                            app:backgroundTint="?green_dark_2" />
+                            app:backgroundTint="@color/colorPrimary" />
 
 
                         <TextView
                             android:id="@+id/share_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="?green_dark_2" />
+                            android:textColor="@color/colorPrimary" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -244,14 +244,14 @@
                             android:layout_height="@dimen/height_26"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:background="@drawable/ic_comment"
-                            app:backgroundTint="?green_dark_2" />
+                            app:backgroundTint="@color/colorPrimary" />
 
 
                         <TextView
                             android:id="@+id/comments_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="?green_dark_2" />
+                            android:textColor="@color/colorPrimary" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -292,7 +292,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
                     android:text="Translate post >"
-                    android:textColor="?light_green_2"
+                    android:textColor="@color/colorPrimaryLight"
                     android:textSize="@dimen/font_size_10"
                     />
 
@@ -304,7 +304,7 @@
                     android:paddingStart="@dimen/padding_16"
                     android:layout_toEndOf="@+id/translate"
                     android:text="@string/read_more_closed"
-                    android:textColor="?light_green_2"
+                    android:textColor="@color/colorPrimaryLight"
                     android:textSize="@dimen/font_size_10"
                     />
             </RelativeLayout>
@@ -338,7 +338,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="?green_dark_2" />
+                    android:background="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/tutorial_description"
@@ -414,8 +414,8 @@
             android:layout_marginStart="@dimen/margin_15"
             android:layout_marginTop="@dimen/margin_5"
             android:hint="@string/enter_comment_hint"
-            android:textColor="?green_dark_2"
-            android:textColorHint="?green_dark_1"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorAccentLight"
             app:backgroundTint="?white" />
 
         <android.support.v7.widget.AppCompatImageView
@@ -429,7 +429,7 @@
             android:layout_marginTop="@dimen/margin_5"
             android:adjustViewBounds="true"
             android:src="@drawable/btn_send"
-            android:tint="@color/green_dark_2"
+            android:tint="@color/colorPrimary"
             android:visibility="gone" />
 
         <com.wang.avi.AVLoadingIndicatorView
@@ -442,7 +442,7 @@
             android:layout_marginEnd="@dimen/margin_20"
             android:layout_marginTop="@dimen/margin_5"
             android:adjustViewBounds="true"
-            app:indicatorColor="@color/green_dark_2"
+            app:indicatorColor="@color/colorPrimary"
             app:indicatorName="LineSpinFadeLoaderIndicator"
             android:visibility="gone" />
     </RelativeLayout>
@@ -451,7 +451,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_1"
         android:layout_alignParentBottom="true"
-        android:background="@color/grey_b2b2b2" />
+        android:background="@color/colorGreySemiLight" />
 
     <Button
         android:id="@+id/close_button"

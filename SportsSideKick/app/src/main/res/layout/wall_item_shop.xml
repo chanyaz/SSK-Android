@@ -51,7 +51,7 @@
                 android:maxLines="1"
                 android:layout_marginStart="@dimen/margin_10"
                 android:scrollHorizontally="true"
-                android:textColor="?lightGrey" />
+                android:textColor="?colorGray" />
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/width_55"
                 android:layout_height="@dimen/height_30"

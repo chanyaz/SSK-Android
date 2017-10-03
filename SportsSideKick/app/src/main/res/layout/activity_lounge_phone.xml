@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/side_menu_recycler"
             android:layout_below="@+id/left_top_bar_container"
-            android:background="?green_dark_1" />
+            android:background="@color/colorAccentLight" />
 
 
         <!-- TICKER -->
@@ -386,7 +386,7 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:textAlignment="center"
-                            android:textColor="@color/light_colorPrimarySemiLight"
+                            android:textColor="@color/colorPrimarySemiLight"
                             android:textSize="@dimen/font_size_12"
                             android:textStyle="bold" />
 

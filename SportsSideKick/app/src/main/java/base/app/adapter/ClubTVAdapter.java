@@ -109,7 +109,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         if (holder.caption != null) {
             holder.caption.setText(caption);
             Spannable spannable = (Spannable) holder.caption.getText();
-            int color = ContextCompat.getColor(context, R.color.lightGrey);
+            int color = ContextCompat.getColor(context, R.color.colorGray);
             ForegroundColorSpan thinSpan = new ForegroundColorSpan(color);
             spannable.setSpan(thinSpan, startIndex, endIndex, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         }

@@ -86,13 +86,13 @@
                 android:layout_height="@dimen/height_15"
                 android:layout_marginEnd="@dimen/margin_2"
                 android:background="@drawable/ic_comment"
-                app:backgroundTint="?lightGrey" />
+                app:backgroundTint="?colorGray" />
 
             <TextView
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?lightGrey"
+                android:textColor="?colorGray"
                 android:textSize="@dimen/font_size_10" />
 
         </LinearLayout>
@@ -116,7 +116,7 @@
                     android:layout_height="@dimen/height_15"
                     android:layout_marginEnd="@dimen/margin_2"
                     android:background="@drawable/ic_like"
-                    app:backgroundTint="?lightGrey" />
+                    app:backgroundTint="?colorGray" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/liked_icon"
@@ -132,7 +132,7 @@
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?lightGrey"
+                android:textColor="?colorGray"
                 android:textSize="@dimen/font_size_10" />
         </LinearLayout>
 
@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/likes_container"
             android:maxLines="1"
-            android:textColor="?lightGrey"
+            android:textColor="?colorGray"
             android:textSize="@dimen/font_size_10" />
     </RelativeLayout>
 

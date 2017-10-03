@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?green_dark_1"
+    android:background="@color/colorAccentLight"
     android:clickable="true"
     android:fitsSystemWindows="false"
     android:isScrollContainer="false">
@@ -265,7 +265,7 @@
             android:layout_alignParentTop="true"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:tint="@color/light_colorPrimaryLight"
+            android:tint="@color/colorPrimaryLight"
             android:visibility="gone" />
     </RelativeLayout>
 
@@ -274,7 +274,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:background="@color/green_dark_2"
+        android:background="@color/colorPrimary"
         android:visibility="invisible"
         >
 
@@ -284,7 +284,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/top_buttons_container_veb_view"
-            android:background="@color/green_dark_2"
+            android:background="@color/colorPrimary"
             android:visibility="visible"/>
 
 

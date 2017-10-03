@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?wallBackground"
+    android:background="@color/colorAccentLight"
     android:clickable="true">
 
     <RelativeLayout
@@ -60,7 +60,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?wallBackground"
+            android:background="@color/colorAccentLight"
             android:gravity="center"
             android:text="@string/profile"
             android:textColor="?white" />

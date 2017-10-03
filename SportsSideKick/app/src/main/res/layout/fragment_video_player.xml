@@ -109,7 +109,7 @@
         android:lines="1"
         android:padding="@dimen/padding_8"
         android:text="@string/default_time"
-        android:textColor="?lightGrey"
+        android:textColor="?colorGray"
         android:textSize="@dimen/font_size_12" />
 
 </RelativeLayout>

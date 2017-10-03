@@ -57,15 +57,13 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (Utility.isTablet(context)) {
-                IMAGE_SIZE = 0.06;
-                background =  ContextCompat.getColor(context, R.color.green_dark_1);
-                backgroundExpanded =  ContextCompat.getColor(context, R.color.colorPrimary);
+                IMAGE_SIZE = 0.06f;
             } else {
-                IMAGE_SIZE = 0.09;
-                background =  ContextCompat.getColor(context, R.color.background_phone);
-                backgroundExpanded =  ContextCompat.getColor(context, R.color.green_dark_phone_3);
+                IMAGE_SIZE = 0.09f;
             }
 
+            background =  ContextCompat.getColor(context, R.color.colorAccentLight);
+            backgroundExpanded =  ContextCompat.getColor(context, R.color.colorPrimary);
             screenHeight = Utility.getDisplayHeight(context);
         }
         this.parentItems = parents;

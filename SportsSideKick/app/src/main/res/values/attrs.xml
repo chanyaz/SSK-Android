@@ -38,13 +38,10 @@
     <attr name="colorPrimaryLight" format="reference" />
     <attr name="colorAccentLight" format="reference" />
     <attr name="green_dark_3" format="reference" />
-    <attr name="green_dark_1" format="reference" />
     <attr name="light_green_1_semitransparent" format="reference" />
-    <attr name="green_dark_2" format="reference" />
     <attr name="green_dark_2_semitransparent" format="reference" />
 
-    <attr name="light_green_2" format="reference" />
-    <attr name="lightGrey" format="reference" />
+    <attr name="colorGray" format="reference" />
     <attr name="white" format="reference" />
     <attr name="white_semitransparent" format="reference" />
     <attr name="light_green_1" format="reference" />
@@ -61,7 +58,6 @@
     <attr name="wall_shop_description_text_color" format="reference" />
     <attr name="black" format="reference" />
 
-    <attr name="chat_input_edit_text_background" format="reference" />
     <attr name="wall_store_color" format="reference" />
     <attr name="rumour_yellow" format="reference" />
 
@@ -235,8 +231,6 @@
 
     <attr name="phoneChatBackground" format="reference" />
     <attr name="green_dark_phone_4" format="reference" />
-    <attr name="green_dark_phone_3" format="reference" />
-    <attr name="background_phone" format="reference" />
     <attr name="light_button_chat" format="reference" />
 
 

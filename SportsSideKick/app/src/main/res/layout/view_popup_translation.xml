@@ -45,7 +45,7 @@
         android:layout_marginStart="@dimen/margin_10"
         android:text="No thanks"
         android:background="@drawable/button_translate_close"
-        android:textColor="@color/lightGrey"
+        android:textColor="@color/colorGray"
         android:textAllCaps="false"/>
 
 </RelativeLayout>
