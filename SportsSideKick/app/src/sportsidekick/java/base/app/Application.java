@@ -97,7 +97,7 @@ public class Application extends MultiDexApplication {
     }
 
     public static void initTwitter(Context context) {
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(Constant.TWITTER_KEY, Constant.TWITTER_SECRET);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(Keys.TWITTER_KEY, Keys.TWITTER_SECRET);
         Fabric.with(context, new Twitter(authConfig));
     }
 

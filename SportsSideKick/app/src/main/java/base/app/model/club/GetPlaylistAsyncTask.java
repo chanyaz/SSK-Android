@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.app.Constant;
+import base.app.Keys;
 
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -67,7 +67,7 @@ public abstract class GetPlaylistAsyncTask extends AsyncTask<String, Void, Pair<
                     .setPageToken(nextPageToken)
                     .setFields(YOUTUBE_PLAYLIST_FIELDS)
                     .setMaxResults(YOUTUBE_PLAYLIST_MAX_RESULTS)
-                    .setKey(Constant.YOUTUBE_API_KEY)
+                    .setKey(Keys.YOUTUBE_API_KEY)
                     .execute();
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +92,7 @@ public abstract class GetPlaylistAsyncTask extends AsyncTask<String, Void, Pair<
             videoListResponse = mYouTubeDataApi.videos()
                     .list(YOUTUBE_VIDEOS_PART)
                     .setFields(YOUTUBE_VIDEOS_FIELDS)
-                    .setKey(Constant.YOUTUBE_API_KEY)
+                    .setKey(Keys.YOUTUBE_API_KEY)
                     .setId(TextUtils.join(",", videoIds)).execute();
         } catch (IOException e) {
             e.printStackTrace();

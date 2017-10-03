@@ -29,7 +29,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import base.app.Application;
-import base.app.Constant;
+import base.app.Keys;
 import base.app.R;
 import base.app.events.ClubTVEvent;
 import base.app.fragment.BaseFragment;
@@ -90,7 +90,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
         YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.youtube_layout, youTubePlayerFragment).commit();
-        youTubePlayerFragment.initialize(Constant.YOUTUBE_API_KEY, this);
+        youTubePlayerFragment.initialize(Keys.YOUTUBE_API_KEY, this);
         ButterKnife.bind(this, view);
         isTablet = Utility.isTablet(Application.getAppInstance());
         if (getPrimaryArgument() != null) {

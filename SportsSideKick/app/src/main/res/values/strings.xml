@@ -3,10 +3,6 @@
     <!-- links and API keys -->
     <string name="friend_requests">Friend Requests</string>
     <string name="this_language">English</string>
-    <string name="app_name" translatable="false">FansChat</string>
-    <string name="facebook_app_id" translatable="false">102782376855276</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb11111111111111</string>
-
 
     <!-- Terms and privacy -->
     <string name="terms_and_privacy">Terms &amp; Privacy</string>
