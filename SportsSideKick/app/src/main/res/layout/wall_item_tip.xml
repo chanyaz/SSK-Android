@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/row_wall_small_cell_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?wallItemTipBackground">
+
+        <com.github.rongi.rotate_layout.layout.RotateLayout
+            android:id="@+id/row_wall_small_cell_headline_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/description"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/rumour_headerz"
+            app:angle="90"> <!-- Specify rotate angle here -->
+
+            <TextView
+                android:id="@+id/caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/padding_12"
+                android:paddingEnd="@dimen/padding_8"
+                android:paddingStart="@dimen/padding_8"
+                android:paddingTop="@dimen/padding_8"
+                android:textColor="?wallItemTipTextCaptionColor"/>
+        </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/row_wall_small_cell_headline_container"
+            android:layout_toStartOf="@+id/tip_image"
+            android:ellipsize="end"
+            android:textSize="@dimen/font_size_14"
+            android:isScrollContainer="false"
+            android:lineSpacingMultiplier="1.1"
+            android:maxLines="3"
+            android:minLines="3"
+            android:padding="@dimen/padding_8"
+            android:textColor="?wallItemTipTextContentColor"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/tip_image"
+            android:layout_width="@dimen/width_40"
+            android:layout_height="@dimen/width_40"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_10"
+            android:src="@drawable/tip_item" />
+    </RelativeLayout>
+</RelativeLayout>

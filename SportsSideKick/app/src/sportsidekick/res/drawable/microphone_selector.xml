@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/disable_microphone_button" android:state_selected="true" />
-    <item android:drawable="@drawable/enable_microphone_button"  />
-</selector>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_70"
+    android:layout_margin="@dimen/margin_10">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <com.github.rongi.rotate_layout.layout.RotateLayout
+            android:id="@+id/step_number_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/step_text_container"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/rumour_headerz"
+            app:angle="90"> <!-- Specify rotate angle here -->
+
+            <TextView
+                android:id="@+id/step_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="12dp"
+                android:paddingEnd="@dimen/padding_8"
+                android:paddingStart="@dimen/padding_8"
+                android:paddingTop="@dimen/padding_8"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary" />
+        </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+        <RelativeLayout
+            android:id="@+id/step_text_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/step_number_container"
+            android:layout_toStartOf="@+id/step_image_contaner"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/step_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_margin="@dimen/margin_10"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/step_image_contaner"
+            android:layout_width="@dimen/width_70"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="?colorPrimaryLight">
+
+            <ImageView
+                android:id="@+id/step_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_10" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

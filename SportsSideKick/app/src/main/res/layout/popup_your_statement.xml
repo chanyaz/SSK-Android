@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/popup_your_statement_size"
+    android:layout_height="@dimen/popup_your_statement_size"
+    android:background="@drawable/popup_bottom_background"
+    android:orientation="vertical"
+    android:clickable="true">
+    <TextView
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:gravity="center"
+        android:text="@string/your_statement"
+        android:textColor="?colorAccent" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_2"
+        android:layout_alignParentTop="true"
+        android:background="?colorAccent" />
+    <View
+        android:id="@+id/top_split_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_1"
+        android:layout_below="@+id/caption"
+        android:background="@android:color/black" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/stats_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/caption"
+        android:layout_margin="@dimen/margin_20" />
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="@dimen/popup_manage_chat_private_confirm_button_height"
+        android:layout_height="@dimen/popup_manage_chat_private_confirm_button_height"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/top_split_line"
+        android:layout_alignParentEnd="true"
+        android:src="?videoCloseButtonIcon"/>
+</RelativeLayout>

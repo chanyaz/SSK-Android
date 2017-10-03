@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_join_chat_search_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?green_dark_1"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/row_join_chat_search_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_16">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/row_join_chat_search_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/row_join_chat_search_image"
+            android:paddingEnd="@dimen/space_0"
+            android:paddingStart="@dimen/padding_16">
+
+            <TextView
+                android:id="@+id/row_join_chat_search_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/row_join_chat_search_name">
+
+                <ImageView
+                    android:id="@+id/row_join_chat_search_icon"
+                    android:layout_width="@dimen/chat_send_button_size"
+                    android:layout_height="@dimen/chat_send_button_size"
+                    android:src="@drawable/ic_following_default"
+                    android:tint="?light_green_1" />
+
+                <TextView
+                    android:id="@+id/row_join_chat_search_members_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/row_join_chat_search_icon"
+                    android:textColor="?colorPrimaryLight" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="@dimen/height_1"
+        android:background="?black_transparent_154"/>
+</RelativeLayout>

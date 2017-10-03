@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorAccentLight"
+    android:clickable="true">
+
+    <!-- TOP BUTTONS CONTAINER -->
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/phone_background"
+        android:orientation="horizontal"
+        android:tileMode="repeat">
+
+        <TextView
+            style="@style/boldText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="1dp"
+            android:gravity="center_vertical"
+            android:text="@string/friends"
+            android:textColor="?white"
+            android:textSize="@dimen/font_size_18" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/close_dialog_button"
+            android:layout_width="@dimen/standard_button_height"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:tint="@color/light_colorPrimaryLight"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/center_split"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_1"
+        android:layout_below="@+id/top_buttons_container"
+        android:layout_centerHorizontal="true"
+        android:background="?colorPrimaryLight">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorPrimaryLight" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_weight="1"
+            android:background="?colorPrimaryLight" />
+    </LinearLayout>
+    <!-- TOP BUTTONS CONTAINER -->
+    <LinearLayout
+        android:id="@+id/top_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/center_split"
+        android:background="@color/green_dark_4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/your_friends_open_button"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?green_dark_2"
+            android:gravity="center"
+            android:text="@string/friends"
+            android:textColor="?white" />
+
+        <TextView
+            android:id="@+id/add_friend"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_1"
+            android:layout_weight="1"
+            android:background="?colorAccentLight"
+            android:gravity="center"
+            android:text="@string/find"
+            android:textColor="?white" />
+
+        <TextView
+            android:id="@+id/friend_requests"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?green_dark_2"
+            android:gravity="center"
+            android:text="@string/request"
+            android:textColor="?white" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/spliter_profile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_2"
+        android:layout_below="@+id/top_container"
+        android:background="@color/green_dark_3" />
+
+    <RelativeLayout
+        android:id="@+id/search_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_48"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/spliter_profile"
+        android:background="@color/green_dark_phone_4">
+
+
+        <EditText
+            android:id="@+id/add_friend_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_toStartOf="@+id/search_icon"
+            android:background="@null"
+            android:hint="@string/your_friends_search_hint"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="?white"
+            android:textColorHint="?white"
+            android:textSize="@dimen/font_size_12" />
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="@dimen/height_48"
+            android:layout_height="@dimen/height_48"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?colorPrimaryLight"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_search" />
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/people_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_container"
+        android:visibility="visible" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/official_accounts_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_container" />
+
+    <TextView
+        android:id="@+id/no_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_results"
+        android:textColor="?white_semitransparent"
+        android:visibility="gone" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/prodgres_bar"
+        android:layout_height="@dimen/prodgres_bar"
+        android:layout_centerInParent="true"
+        android:elevation="@dimen/elevation_2"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
+
+</RelativeLayout>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/width_500"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/margin_base_size_60"
+    android:layout_marginEnd="@dimen/margin_base_size_90"
+    android:layout_marginStart="@dimen/margin_base_size_90"
+    android:layout_marginTop="@dimen/margin_base_size_60"
+    android:clickable="true">
+
+    <!-- TOP BUTTONS CONTAINER -->
+    <RelativeLayout
+        android:id="@+id/top_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentTop="true"
+        android:background="?colorPrimarySemiLight"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/top_vertical_spliter"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/you_following_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="?colorAccentLight"
+            android:gravity="center"
+            android:text="@string/following"
+            android:textColor="?white_semitransparent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:gravity="center"
+            android:text="@string/followers"
+            android:textColor="?colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toStartOf="@+id/top_vertical_spliter"
+            android:background="?colorPrimaryLight" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/top_vertical_spliter"
+            android:background="?colorAccent" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/caption_label"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/create_chat_caption_label"
+        android:layout_below="@+id/top_buttons_container"
+        android:gravity="center"
+        android:background="?colorPrimarySemiLight"
+        android:text="@string/friends_following_you"
+        android:textColor="@color/white" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/prodgres_bar"
+        android:layout_height="@dimen/prodgres_bar"
+        android:layout_centerInParent="true"
+        android:elevation="@dimen/elevation_2"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
+
+    <!-- FRIENDS  LIST-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_below="@id/caption_label"
+        android:background="?colorPrimarySemiLight">
+
+        <TextView
+            android:id="@+id/no_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_friends"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:textColor="?white_semitransparent"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/followers_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_20"/>
+
+    </RelativeLayout>
+
+
+    <!-- BOTTOM BUTTONS CONTAINER -->
+    <RelativeLayout
+        android:id="@+id/bottom_buttons_container"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/popup_bottom_background"
+        android:clickable="true">
+
+        <View
+            android:id="@+id/bottom_split_line"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_1"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
+
+        <ImageButton
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="?popupConfirmationButtonIcon" />
+
+        <RelativeLayout
+            android:id="@+id/search_container"
+            android:layout_width="@dimen/popup_your_friends_search_container"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:background="?attr/popupBottomLeftBackground">
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_20"
+                android:src="@drawable/popup_search_icon" />
+
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_toEndOf="@id/search_icon"
+                android:background="?green_dark_2"
+                android:hint="@string/your_friends_search_hint"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="?white_semitransparent"
+                android:textColorHint="?white_semitransparent"
+                android:textSize="@dimen/font_size_12" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <!-- SPLITTERS -->
+    <View
+        android:id="@+id/top_split_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_1"
+        android:layout_below="@+id/top_buttons_container"
+        android:background="@android:color/black" />
+
+</RelativeLayout>

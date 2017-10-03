@@ -36,6 +36,11 @@ android {
             versionCode 6
             versionName "5.0.0.6"
         }
+        brugge {
+            applicationId "tv.sportssidekick.brugge"
+            versionCode 6
+            versionName "5.0.0.6"
+        }
     }
 
     lintOptions {

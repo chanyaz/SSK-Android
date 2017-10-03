@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<ImageView
+
+    android:id="@+id/background"
+    android:layout_width="@dimen/width_80"
+    android:layout_height="@dimen/height_80"
+    android:layout_centerHorizontal="true"
+    android:src="@drawable/acheivement_backing_circle"/>
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/width_90"
+        android:layout_height="@dimen/height_90"
+        android:src="@drawable/soccer_boot"/>
+    <TextView
+        android:id="@+id/award_name"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/font_size_12"
+        android:gravity="center_horizontal"
+        android:lines="1"
+        android:layout_below="@+id/background"
+        android:layout_height="wrap_content"
+        android:text="@string/soccer_boot"
+        android:textColor="?colorAccent"/>
+    <TextView
+        android:id="@+id/profile_frame"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/award_name"
+        android:textSize="@dimen/font_size_11"
+        android:textStyle="italic"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/received_from"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/profile_frame"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_10"
+        android:lines="2"
+        android:textColor="?white_semitransparent"/>
+</RelativeLayout>
