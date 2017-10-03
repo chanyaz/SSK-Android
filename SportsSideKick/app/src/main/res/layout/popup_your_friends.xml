@@ -7,7 +7,7 @@
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
     android:layout_marginTop="@dimen/margin_base_size_60"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryMediumLight"
     android:clickable="true">
 
     <!-- TOP BUTTONS CONTAINER -->
@@ -38,7 +38,7 @@
             android:visibility="gone"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:tint="@color/colorPrimaryLight"
+            android:tint="@color/colorPrimaryVeryLight"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
     </RelativeLayout>
@@ -50,7 +50,7 @@
         android:layout_height="@dimen/height_1"
         android:layout_below="@+id/top_buttons_container"
         android:layout_centerHorizontal="true"
-        android:background="?colorPrimaryLight">
+        android:background="@color/colorPrimaryVeryLight">
 
         <View
             android:layout_width="match_parent"
@@ -64,13 +64,13 @@
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorPrimaryLight" />
+            android:background="@color/colorPrimaryVeryLight" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_weight="1"
-            android:background="?colorPrimaryLight" />
+            android:background="@color/colorPrimaryVeryLight" />
     </LinearLayout>
     <!-- TOP BUTTONS CONTAINER -->
     <LinearLayout
@@ -79,7 +79,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/center_split"
-        android:background="@color/green_dark_4"
+        android:background="@color/colorPrimaryDark"
         android:orientation="horizontal">
 
         <TextView
@@ -120,7 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
         android:layout_below="@+id/top_container"
-        android:background="@color/green_dark_3" />
+        android:background="@color/colorPrimaryVeryDark" />
 
     <RelativeLayout
         android:id="@+id/search_container"
@@ -128,7 +128,7 @@
         android:layout_height="@dimen/height_48"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/spliter_profile"
-        android:background="@color/green_dark_phone_4">
+        android:background="@color/colorPrimaryMediumDark">
 
 
         <EditText
@@ -136,7 +136,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_20"
-            android:background="@color/green_dark_phone_4"
+            android:background="@color/colorPrimaryMediumDark"
             android:textColor="?white"
             android:hint="@string/your_friends_search_hint"
             android:imeOptions="actionDone"
@@ -153,7 +153,7 @@
             android:layout_height="@dimen/height_48"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="?colorPrimaryLight"
+            android:background="@color/colorPrimaryVeryLight"
             android:scaleType="centerInside"
             android:src="@drawable/icon_search" />
     </RelativeLayout>

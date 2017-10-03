@@ -60,7 +60,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/half_margin"
-                android:textColor="?light_green_1" />
+                android:textColor="@color/colorAccentSemiDark" />
 
             <ImageView
                 android:id="@+id/logo_first_team"
@@ -210,7 +210,7 @@
             android:layout_marginEnd="@dimen/half_margin"
             android:layout_toEndOf="@+id/left_tab_selector"
             android:layout_toStartOf="@+id/middle_split"
-            android:background="@color/colorAccentLight" />
+            android:background="@color/colorPrimaryMediumLight" />
 
 
         <RelativeLayout
@@ -222,7 +222,7 @@
             android:layout_marginStart="@dimen/half_margin"
             android:layout_toEndOf="@+id/middle_split"
             android:layout_toStartOf="@+id/right_tab_selector"
-            android:background="@color/colorAccentLight" />
+            android:background="@color/colorPrimaryMediumLight" />
 
         <!-- CLUB CONTAINER -->
         <RelativeLayout
@@ -233,7 +233,7 @@
             android:layout_marginStart="@dimen/half_margin"
             android:layout_toEndOf="@+id/middle_split"
             android:layout_toStartOf="@+id/right_tab_selector"
-            android:background="@color/colorAccentLight" />
+            android:background="@color/colorPrimaryMediumLight" />
 
 
         <!-- TOP RIGHT RADIO GROUP -->

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryMediumLight"
     tools:context="base.app.fragment.instance.VideoChatFragment">
 
     <RelativeLayout
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentBottom="true"
-        android:background="@color/gray_menu">
+        android:background="@color/colorGraySemiLight">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,7 +95,7 @@
             android:id="@+id/relativeLayout3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?green_dark_phone_4"
+            android:background="@color/colorPrimaryMediumDark"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

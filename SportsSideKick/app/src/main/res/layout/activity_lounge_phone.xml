@@ -13,7 +13,7 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccentLight">
+        android:background="@color/colorPrimaryMediumLight">
 
         <View
             android:id="@+id/base_line_spliter"
@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/side_menu_recycler"
             android:layout_below="@+id/left_top_bar_container"
-            android:background="@color/colorAccentLight" />
+            android:background="@color/colorPrimaryMediumLight" />
 
 
         <!-- TICKER -->
@@ -76,7 +76,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/half_margin"
-                android:textColor="?light_green_1"
+                android:textColor="@color/colorAccentSemiDark"
                 android:textSize="@dimen/font_size_10" />
 
             <ImageView
@@ -220,7 +220,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/gray_menu"
+        android:background="@color/colorGraySemiLight"
         app:layout_widthPercent="50%">
         <!--android:layout_gravity="end"-->
         <android.support.percent.PercentRelativeLayout
@@ -228,7 +228,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_negative_2"
-            android:background="@color/gray_menu">
+            android:background="@color/colorGraySemiLight">
 
             <android.support.percent.PercentRelativeLayout
                 android:id="@+id/profile"
@@ -252,7 +252,7 @@
                     android:maxLines="1"
                     android:text="@string/go_to_profile"
                     android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryLight"
+                    android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="@dimen/font_size_8" />
 
                 <RelativeLayout
@@ -374,7 +374,7 @@
                             android:maxLines="1"
                             android:text="@string/coins_caption"
                             android:textAlignment="center"
-                            android:textColor="@color/green_dark_3"
+                            android:textColor="@color/colorPrimaryVeryDark"
                             android:textSize="@dimen/font_size_8" />
 
                         <TextView
@@ -404,7 +404,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/profile"
                 android:layout_gravity="start"
-                android:background="@color/gray_menu"
+                android:background="@color/colorGraySemiLight"
                 android:choiceMode="singleChoice"
                 android:dividerHeight="0dp"
                 android:footerDividersEnabled="false"

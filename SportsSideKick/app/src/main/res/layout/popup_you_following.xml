@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toEndOf="@+id/top_vertical_spliter"
-            android:background="?colorAccentLight"
+            android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
             android:text="@string/followers"
             android:textColor="?white_semitransparent" />
@@ -56,7 +56,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/top_vertical_spliter"
-            android:background="?colorPrimaryLight" />
+            android:background="@color/colorPrimaryVeryLight" />
     </RelativeLayout>
 
 
@@ -186,7 +186,7 @@
             android:layout_toEndOf="@id/follow_more"
             android:gravity="center_vertical"
             android:text="@string/follow_more"
-            android:textColor="?colorPrimaryLight"
+            android:textColor="@color/colorPrimaryVeryLight"
             android:textSize="@dimen/font_size_20"
             android:textStyle="normal" />
 

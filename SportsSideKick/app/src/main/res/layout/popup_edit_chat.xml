@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryMediumLight"
     android:clickable="true">
 
     <RelativeLayout
@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:src="?closeIcon"
             android:visibility="gone"
-            android:tint="?colorPrimaryLight"
+            android:tint="@color/colorPrimaryVeryLight"
             android:background="@null"/>
 
         <TextView
@@ -85,7 +85,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_toEndOf="@+id/edit_top_vertical_spliter"
-        android:background="?colorPrimaryLight" />
+        android:background="@color/colorPrimaryVeryLight" />
 
     <TextView
         android:id="@+id/name_label"
@@ -117,7 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_60"
         android:layout_below="@+id/edit_top_vertical_spliter"
-        android:background="?green_dark_phone_4"
+        android:background="@color/colorPrimaryMediumDark"
         android:gravity="start|center_vertical"
         android:hint="@string/group_chat_name"
         android:imeOptions="flagNoExtractUi"
@@ -134,7 +134,7 @@
             android:layout_height="@dimen/create_chat_name_label_height"
             android:layout_alignParentEnd="true"
             android:src="@drawable/chat_camera_button"
-            android:background="?colorPrimaryLight"
+            android:background="@color/colorPrimaryVeryLight"
             android:layout_below="@+id/edit_top_vertical_spliter"
             android:clickable="true"/>
 

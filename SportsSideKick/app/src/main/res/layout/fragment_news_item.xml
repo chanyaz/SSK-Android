@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccentLight">
+    android:background="@color/colorPrimaryMediumLight">
 
     <RelativeLayout
         android:id="@+id/top_buttons_container"
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/header_container"
-                android:background="?light_green_1">
+                android:background="@color/colorAccentSemiDark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -292,7 +292,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
                     android:text="Translate post >"
-                    android:textColor="@color/colorPrimaryLight"
+                    android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="@dimen/font_size_10"
                     />
 
@@ -304,7 +304,7 @@
                     android:paddingStart="@dimen/padding_16"
                     android:layout_toEndOf="@+id/translate"
                     android:text="@string/read_more_closed"
-                    android:textColor="@color/colorPrimaryLight"
+                    android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="@dimen/font_size_10"
                     />
             </RelativeLayout>
@@ -314,7 +314,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/read_more_holder"
-                android:background="@color/green_dark_5" />
+                android:background="@color/colorPrimaryAbsoluteDark" />
 
             <LinearLayout
                 android:id="@+id/tutorial_container"
@@ -415,7 +415,7 @@
             android:layout_marginTop="@dimen/margin_5"
             android:hint="@string/enter_comment_hint"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorAccentLight"
+            android:textColorHint="@color/colorPrimaryMediumLight"
             app:backgroundTint="?white" />
 
         <android.support.v7.widget.AppCompatImageView
@@ -446,12 +446,6 @@
             app:indicatorName="LineSpinFadeLoaderIndicator"
             android:visibility="gone" />
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/margin_1"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorGreySemiLight" />
 
     <Button
         android:id="@+id/close_button"

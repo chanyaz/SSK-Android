@@ -28,7 +28,7 @@ sdad
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toStartOf="@+id/top_vertical_spliter"
-            android:background="?colorAccentLight"
+            android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
             android:text="@string/add_friend"
             android:textColor="?white_semitransparent" />
@@ -56,7 +56,7 @@ sdad
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/top_vertical_spliter"
-            android:background="?colorPrimaryLight" />
+            android:background="@color/colorPrimaryVeryLight" />
     </RelativeLayout>
 
 
@@ -88,7 +88,7 @@ sdad
             android:layout_toStartOf="@id/invite_friend_name"
             android:maxLines="2"
             android:text="@string/enter_friend_name_invite"
-            android:textColor="?wall_shop_description_background" />
+            android:textColor="@color/colorGraySemiLight" />
 
     </RelativeLayout>
 

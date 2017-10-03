@@ -62,7 +62,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
                 IMAGE_SIZE = 0.09f;
             }
 
-            background =  ContextCompat.getColor(context, R.color.colorAccentLight);
+            background =  ContextCompat.getColor(context, R.color.colorPrimaryMediumLight);
             backgroundExpanded =  ContextCompat.getColor(context, R.color.colorPrimary);
             screenHeight = Utility.getDisplayHeight(context);
         }

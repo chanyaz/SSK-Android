@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryMediumLight"
     android:clickable="true">
 
     <RelativeLayout
@@ -30,7 +30,7 @@
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                android:tint="?colorPrimaryLight"
+                android:tint="@color/colorPrimaryVeryLight"
                 android:visibility="gone" />
 
         </RelativeLayout>
@@ -51,7 +51,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/top_toolbar"
-        android:background="@color/green_dark_5"
+        android:background="@color/colorPrimaryAbsoluteDark"
         android:orientation="horizontal">
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorAccentLight"
+            android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
             android:text="@string/profile"
             android:textColor="?white" />
@@ -105,13 +105,13 @@
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorPrimaryLight" />
+            android:background="@color/colorPrimaryVeryLight" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_weight="1"
-            android:background="?colorPrimaryLight" />
+            android:background="@color/colorPrimaryVeryLight" />
     </LinearLayout>
 
     <ScrollView
@@ -133,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
 
-                    android:background="@color/green_dark_5" />
+                    android:background="@color/colorPrimaryAbsoluteDark" />
 
                 <TextView
                     android:id="@+id/edit_your_profile"
@@ -212,7 +212,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_3" />
+                    android:background="@color/colorPrimaryVeryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -224,7 +224,7 @@
                         android:layout_width="@dimen/edit_profile_label_text_size"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@color/green_light_3"
+                        android:background="@color/colorPrimaryLight"
                         android:paddingBottom="@dimen/padding_16"
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
@@ -256,7 +256,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_3" />
+                    android:background="@color/colorPrimaryVeryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -268,7 +268,7 @@
                         android:layout_width="@dimen/edit_profile_label_text_size"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@color/green_light_3"
+                        android:background="@color/colorPrimaryLight"
                         android:paddingBottom="@dimen/padding_16"
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
@@ -301,7 +301,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_3" />
+                    android:background="@color/colorPrimaryVeryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -313,7 +313,7 @@
                         android:layout_width="@dimen/edit_profile_label_text_size"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@color/green_light_3"
+                        android:background="@color/colorPrimaryLight"
                         android:paddingBottom="@dimen/padding_16"
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
@@ -345,7 +345,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_3" />
+                    android:background="@color/colorPrimaryVeryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -357,7 +357,7 @@
                         android:layout_width="@dimen/edit_profile_label_text_size"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@color/green_light_3"
+                        android:background="@color/colorPrimaryLight"
                         android:paddingBottom="@dimen/padding_16"
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
@@ -389,7 +389,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_3" />
+                    android:background="@color/colorPrimaryVeryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -401,7 +401,7 @@
                         android:layout_width="@dimen/edit_profile_label_text_size"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@color/green_light_3"
+                        android:background="@color/colorPrimaryLight"
                         android:paddingBottom="@dimen/padding_16"
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
@@ -434,7 +434,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_3" />
+                    android:background="@color/colorPrimaryVeryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -446,7 +446,7 @@
                         android:layout_width="@dimen/edit_profile_label_text_size"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@color/green_light_3"
+                        android:background="@color/colorPrimaryLight"
                         android:paddingBottom="@dimen/padding_16"
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
@@ -479,7 +479,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_3" />
+                    android:background="@color/colorPrimaryVeryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -491,7 +491,7 @@
                         android:layout_width="@dimen/edit_profile_label_text_size"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@color/green_light_3"
+                        android:background="@color/colorPrimaryLight"
                         android:paddingBottom="@dimen/padding_16"
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
@@ -536,7 +536,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/green_dark_3" />
+                    android:background="@color/colorPrimaryVeryDark" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -557,7 +557,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@string/done"
-                        android:textColor="?green_dark_3"
+                        android:textColor="@color/colorPrimaryVeryDark"
                         android:textStyle="bold" />
                 </RelativeLayout>
 

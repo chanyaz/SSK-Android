@@ -3,7 +3,7 @@
     android:id="@+id/row_join_chat_search_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryMediumLight"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -43,7 +43,7 @@
                     android:layout_width="@dimen/chat_send_button_size"
                     android:layout_height="@dimen/chat_send_button_size"
                     android:src="@drawable/ic_following_default"
-                    android:tint="?light_green_1" />
+                    android:tint="@color/colorAccentSemiDark" />
 
                 <TextView
                     android:id="@+id/row_join_chat_search_friends_count"
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/row_join_chat_search_icon"
-                    android:textColor="?light_green_1" />
+                    android:textColor="@color/colorAccentSemiDark" />
 
                 <TextView
                     android:id="@+id/row_join_chat_search_members_count"
@@ -60,7 +60,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/row_join_chat_search_friends_count"
                     android:layout_toStartOf="@+id/row_last_chat_label"
-                    android:textColor="?colorPrimaryLight" />
+                    android:textColor="@color/colorPrimaryVeryLight" />
 
                 <TextView
                     android:id="@+id/row_last_chat_label"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@+id/row_last_chat_time"
-                    android:textColor="?colorPrimaryLight"
+                    android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="@dimen/font_size_12" />
 
                 <TextView

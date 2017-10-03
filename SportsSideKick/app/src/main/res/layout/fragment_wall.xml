@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryMediumLight"
     tools:context="base.app.fragment.instance.WallFragment">
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
@@ -102,7 +102,7 @@
                             android:layout_centerHorizontal="true"
                             android:padding="@dimen/padding_8"
                             android:text="@string/next_match"
-                            android:textColor="@color/colorPrimaryLight" />
+                            android:textColor="@color/colorPrimaryVeryLight" />
 
                         <TextView
                             android:id="@+id/wall_team_time"

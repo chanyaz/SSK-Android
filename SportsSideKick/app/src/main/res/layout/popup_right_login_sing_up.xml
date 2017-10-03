@@ -43,7 +43,7 @@
                     android:layout_width="@dimen/height_70"
                     android:layout_height="@dimen/height_70"
                     android:layout_gravity="center"
-                    android:src="@drawable/scp_white_logo" />
+                    android:src="@drawable/club_logo" />
 
 
                 <TextView

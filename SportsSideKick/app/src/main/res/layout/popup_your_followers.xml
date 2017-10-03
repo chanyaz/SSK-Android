@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toStartOf="@+id/top_vertical_spliter"
-            android:background="?colorAccentLight"
+            android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
             android:text="@string/following"
             android:textColor="?white_semitransparent" />
@@ -48,7 +48,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_toStartOf="@+id/top_vertical_spliter"
-            android:background="?colorPrimaryLight" />
+            android:background="@color/colorPrimaryVeryLight" />
 
         <View
             android:layout_width="match_parent"

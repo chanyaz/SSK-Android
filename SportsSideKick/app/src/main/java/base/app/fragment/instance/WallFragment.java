@@ -735,7 +735,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             selectedColor = R.color.colorAccent;
         } else { //Phone
             defaultColor = R.color.colorPrimary;
-            selectedColor = R.color.colorPrimaryLight;
+            selectedColor = R.color.colorPrimaryVeryLight;
             containerColor = R.color.colorGrayLight;
             int wallBottomBarColor;
 

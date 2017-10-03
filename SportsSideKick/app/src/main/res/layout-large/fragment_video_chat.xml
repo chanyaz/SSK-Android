@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryMediumLight"
     tools:context="base.app.fragment.instance.VideoChatFragment">
 
     <RelativeLayout
@@ -171,11 +171,11 @@
             android:scaleType="centerCrop"
             android:src="?loginBackground" />
 
-        <ImageView
+        <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?videoChatOverlay"
-            android:contentDescription="@null" />
+            android:background="@color/colorPrimary"
+            android:alpha="0.65" />
 
         <RelativeLayout
             android:layout_width="match_parent"

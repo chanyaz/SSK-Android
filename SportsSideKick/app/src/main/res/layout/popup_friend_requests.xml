@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryMediumLight"
     android:clickable="true"
     android:orientation="vertical">
 
@@ -36,7 +36,7 @@
             android:visibility="gone"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:tint="@color/colorPrimaryLight" />
+            android:tint="@color/colorPrimaryVeryLight" />
     </RelativeLayout>
 
 
@@ -46,21 +46,21 @@
         android:layout_height="@dimen/height_1"
         android:layout_below="@+id/top_buttons_container"
         android:layout_centerHorizontal="true"
-        android:background="?colorPrimaryLight">
+        android:background="@color/colorPrimaryVeryLight">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorPrimaryLight" />
+            android:background="@color/colorPrimaryVeryLight" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorPrimaryLight" />
+            android:background="@color/colorPrimaryVeryLight" />
 
         <View
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/center_split"
-        android:background="@color/green_dark_4"
+        android:background="@color/colorPrimaryDark"
         android:orientation="horizontal">
 
         <TextView
@@ -105,7 +105,7 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorAccentLight"
+            android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
             android:text="@string/request"
             android:textColor="?white" />
@@ -116,7 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
         android:layout_below="@+id/top_container"
-        android:background="@color/green_dark_4" />
+        android:background="@color/colorPrimaryDark" />
 
     <RelativeLayout
         android:layout_width="match_parent"

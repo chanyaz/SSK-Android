@@ -33,7 +33,7 @@
                 android:layout_width="@dimen/height_80"
                 android:layout_height="@dimen/height_80"
                 android:layout_gravity="center"
-                android:src="@drawable/scp_white_logo" />
+                android:src="@drawable/club_logo" />
 
 
             <TextView
@@ -133,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.7"
-            android:background="@color/green_dark_6" />
+            android:background="@color/colorPrimarySlightlyLight" />
 
         <TextView
             style="@style/boldText"
@@ -155,7 +155,7 @@
             android:layout_alignParentTop="true"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:tint="@color/colorPrimaryLight"
+            android:tint="@color/colorPrimaryVeryLight"
             android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

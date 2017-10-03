@@ -334,7 +334,7 @@
             android:layout_above="@+id/download_image_button"
             android:layout_below="@+id/close_image_button"
             android:layout_centerInParent="true"
-            android:background="?green_dark_2_semitransparent"
+            android:background="@color/colorPrimarySemiDarkSemiTransparent"
             android:scaleType="fitCenter" />
 
         <ImageView

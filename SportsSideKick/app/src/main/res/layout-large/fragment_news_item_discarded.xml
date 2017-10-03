@@ -305,7 +305,7 @@
                         android:layout_height="@dimen/height_90"
                         android:layout_below="@+id/coin_image"
                         android:layout_marginTop="@dimen/margin_negative_10"
-                        android:background="?green_dark_2_semitransparent">
+                        android:background="@color/colorPrimarySemiDarkSemiTransparent">
 
                         <TextView
                             android:layout_width="match_parent"

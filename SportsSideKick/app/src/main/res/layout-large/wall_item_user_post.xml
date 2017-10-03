@@ -35,7 +35,7 @@
             android:layout_marginStart="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_10"
             android:src="?profileImageIcon"
-            app:civ_border_color="?colorPrimaryLight"
+            app:civ_border_color="@color/colorPrimaryVeryLight"
             app:civ_border_width="@dimen/width_2" />
 
         <ImageView

@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="?green_dark_2_semitransparent"
+        android:background="@color/colorPrimarySemiDarkSemiTransparent"
         android:orientation="horizontal">
 
         <Button

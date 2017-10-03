@@ -32,19 +32,13 @@
     </declare-styleable>
 
     <!--Colors-->
-    <attr name="wallBackgroundColor" format="reference" />
+    <attr name="nativeAdBackground" format="reference" />
     <attr name="wallItemsColor" format="reference" />
     <attr name="colorPrimarySemiLight" format="reference" />
-    <attr name="colorPrimaryLight" format="reference" />
-    <attr name="colorAccentLight" format="reference" />
-    <attr name="green_dark_3" format="reference" />
-    <attr name="light_green_1_semitransparent" format="reference" />
-    <attr name="green_dark_2_semitransparent" format="reference" />
 
     <attr name="colorGray" format="reference" />
     <attr name="white" format="reference" />
     <attr name="white_semitransparent" format="reference" />
-    <attr name="light_green_1" format="reference" />
 
     <attr name="demo_yellow_semitransparent" format="reference" />
     <attr name="demo_green_semitransparent" format="reference" />
@@ -52,14 +46,9 @@
     <attr name="demo_red_semitransparent" format="reference" />
     <attr name="black_transparent_154" format="reference" />
 
-    <attr name="facebook_blue" format="reference" />
     <attr name="wall_comment_color" format="reference" />
-    <attr name="wall_shop_description_background" format="reference" />
     <attr name="wall_shop_description_text_color" format="reference" />
     <attr name="black" format="reference" />
-
-    <attr name="wall_store_color" format="reference" />
-    <attr name="rumour_yellow" format="reference" />
 
     <attr name="wallBackground" format="reference" />
     <attr name="chatInfoBackgroundColor" format="reference" />
@@ -192,8 +181,6 @@
     <attr name="playerControlsCaption" format="reference" />
     <attr name="playerControlsMuteIcon" format="reference" />
 
-    <attr name="chatHeadInfoContainer" format="reference" />
-
     <attr name="wallItemUserPostCaption" format="reference" />
 
     <attr name="videoChatButtonStyle" format="reference" />
@@ -230,8 +217,5 @@
 
 
     <attr name="phoneChatBackground" format="reference" />
-    <attr name="green_dark_phone_4" format="reference" />
-    <attr name="light_button_chat" format="reference" />
-
 
 </resources>

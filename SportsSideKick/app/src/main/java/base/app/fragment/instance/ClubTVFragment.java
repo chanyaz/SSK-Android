@@ -73,7 +73,7 @@ public class ClubTVFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        String channelId = getResources().getString(R.string.clubtv_channelid);
+        String channelId = getResources().getString(R.string.club_tv_channel_id);
         if (Utility.isPhone(getActivity())) {
             FragmentEvent fragmentEvent = new FragmentEvent(YoutubePlayerFragment.class);
             EventBus.getDefault().post(fragmentEvent);

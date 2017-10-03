@@ -34,7 +34,7 @@
             android:maxLines="2"
             android:minLines="2"
             android:padding="@dimen/padding_8"
-            android:textColor="?colorPrimaryLight" />
+            android:textColor="@color/colorPrimaryVeryLight" />
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/wall_native_ad_media_view"
-        android:background="?wallBackgroundColor"
+        android:background="?nativeAdBackground"
         android:clickable="true">
 
         <TextView

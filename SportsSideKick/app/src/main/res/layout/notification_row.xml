@@ -41,6 +41,6 @@
             android:layout_marginStart="@dimen/margin_10"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/light_green_1" />
+            android:textColor="@color/colorAccentSemiDark" />
     </LinearLayout>
 </RelativeLayout>

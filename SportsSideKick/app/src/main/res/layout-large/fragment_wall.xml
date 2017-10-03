@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorAccentLight"
+    android:background="@color/colorPrimaryMediumLight"
     tools:context="base.app.fragment.instance.WallFragment">
 
 
@@ -198,7 +198,7 @@
                 android:layout_width="@dimen/width_2"
                 android:layout_height="match_parent"
                 android:layout_toStartOf="@+id/media_buttons"
-                android:background="?light_green_1_semitransparent" />
+                android:background="@color/colorPrimarySlightlyLight" />
 
             <LinearLayout
                 android:id="@+id/media_buttons"
