@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -56,6 +57,8 @@ public class TranslationView extends RelativeLayout {
     TranslationType type;
     WallBase.PostType postType;
 
+    ViewTreeObserver observer;
+
     public TranslationView(Context context) {
         super(context);
         initView();
@@ -66,21 +69,35 @@ public class TranslationView extends RelativeLayout {
         initView();
     }
 
+    int height, width;
     public TranslationView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
+
+
         initView();
     }
 
     private void initView() {
-        inflate(getContext(), R.layout.view_translation, this);
+        final View view = inflate(getContext(), R.layout.view_translation, this);
         popupLayout = (RelativeLayout) inflate(getContext(), R.layout.view_popup_translation, null);
 
         popupLayout.findViewById(R.id.close).setOnClickListener(onCloseClickListener);
         popupLayout.findViewById(R.id.translate).setOnClickListener(onTranslateClickListener);
         languagePicker = popupLayout.findViewById(R.id.language_picker);
         progressBar = findViewById(R.id.progress);
-        root = findViewById(R.id.viewTranslationRoot);
-        root.setOnClickListener(onCloseClickListener);
+
+        view.setOnClickListener(onCloseClickListener);
+        observer= view.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        height = view.getHeight();
+                        width = view.getWidth();
+                    }
+                });
+
         HashMap<String,String> mapOfLanguages = TranslateManager.getInstance().getLanguageList();
 
         languagePicker.setMinValue(0);
@@ -99,8 +116,6 @@ public class TranslationView extends RelativeLayout {
         popupLayout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                 MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
 
-        measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
     }
 
     private Point calculateLocationOfPopup(View view) {
@@ -137,14 +152,15 @@ public class TranslationView extends RelativeLayout {
 
         LayoutParams params = (LayoutParams) popupLayout.getLayoutParams();
 
-        int maxX = getWidth() - popupLayout.getWidth();
-        int maxY = getHeight() - popupLayout.getHeight();
-
-        if( p.x>maxX){
-            p.x = maxX;
-        }
-        if( p.y>maxY){
-            p.y = maxY;
+        if(width > 0 && height > 0 ){
+            int maxX = width - popupLayout.getMeasuredWidth();
+            int maxY = height - popupLayout.getMeasuredHeight();
+            if( p.x>maxX){
+                p.x = maxX;
+            }
+            if( p.y>maxY){
+                p.y = maxY;
+            }
         }
         params.setMargins(p.x, p.y + OFFSET_Y, 0, 0);
     }

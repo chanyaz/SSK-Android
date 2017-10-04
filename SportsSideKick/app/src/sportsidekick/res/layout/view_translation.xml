@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_transparent_154"
-    android:clickable="true"
-    android:id="@+id/viewTranslationRoot">
+    android:clickable="true">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress"
