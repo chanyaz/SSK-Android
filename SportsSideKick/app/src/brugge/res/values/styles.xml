@@ -17,7 +17,7 @@
         <item name="white">@color/white</item>
         <item name="white_semitransparent">@color/white_semitransparent</item>
         <item name="black_transparent_154">@color/black_transparent_154</item>
-        <item name="colorGray">@color/colorGray</item>
+        <item name="colorGray">@color/colorGrayDark</item>
 
         <!-- App items colors -->
         <item name="wallItemsColor">@color/white</item>
@@ -54,7 +54,7 @@
         <item name="wallEditTextContainerBackground">@color/colorPrimaryVeryDark</item>
         <item name="wallEditSearchText">@color/white</item>
         <item name="wallEditSearchHint">@color/colorPrimarySemiLight</item>
-        <item name="wallUserContentTextColor">@color/white</item>
+
         <item name="webViewControlsBackground">@color/colorPrimary</item>
         <item name="playerBackground">@color/colorPrimarySemiLight</item>
         <item name="phoneWallMenuBackground">@color/colorGrayLight</item>
@@ -122,6 +122,13 @@
         <item name="buttonLogin">@drawable/button_login_login</item>
         <item name="buttonEditProfileImage">@drawable/button_edit_profile_image</item>
         <item name="videoChatButtonStyle">@style/button_call</item>
+
+        <!--Wall Item User Post-->
+        <item name="wallUserContentTextColor">@color/colorGrayDark</item>
+        <item name="wallUserContentColor">@color/colorGrayDark</item>
+
+        <item name="colorAccentSemiDarkRef">@color/colorAccentLightDark</item>
+        <item name="colorPrimaryVeryLightRef">@color/colorGrayDark</item>
     </style>
 
 
@@ -258,4 +265,5 @@
         <item name="fontPath">fonts/TitilliumWeb-Light.ttf</item>
         <item name="android:textSize">@dimen/font_size_28</item>
     </style>
+
 </resources>

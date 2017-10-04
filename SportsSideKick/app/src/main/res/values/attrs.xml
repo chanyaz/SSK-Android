@@ -193,6 +193,7 @@
     <attr name="wallEditSearchHint" format="reference" />
 
     <attr name="wallUserContentTextColor" format="reference" />
+    <attr name="wallUserContentColor" format="reference" />
 
     <attr name="webViewControlsBackground" format="reference" />
 
@@ -217,5 +218,8 @@
 
 
     <attr name="phoneChatBackground" format="reference" />
+
+    <attr name="colorAccentSemiDarkRef" format="reference" />
+    <attr name="colorPrimaryVeryLightRef" format="reference" />
 
 </resources>

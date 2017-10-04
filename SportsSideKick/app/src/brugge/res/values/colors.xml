@@ -2,6 +2,7 @@
 <resources>
 
     <color name="colorAccentDark"                           >#4ff70e</color>
+    <color name="colorAccentLightDark"                      >#c3ff00</color>
     <color name="colorAccentSemiDark"                       >#fcff23</color>
 
     <color name="colorAccent"                               >#0177bf</color>
@@ -33,6 +34,7 @@
     <color name="chat_content_right_color"                  >#e6f7f4</color>
     <color name="colorGraySemiLight"                        >#d3d4d8</color>
     <color name="colorGrayLight"                            >#e9eaee</color>
+    <color name="colorGrayDark"                            >#454644</color>
     <color name="white_semitransparent"                   >#5fffffff</color>
     <color name="white"                                     >#f6f6f6</color>
 

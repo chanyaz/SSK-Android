@@ -34,7 +34,7 @@
             android:maxLines="2"
             android:minLines="2"
             android:padding="@dimen/padding_5"
-            android:textColor="@color/colorPrimaryVeryLight"
+            android:textColor="?colorPrimaryVeryLightRef"
             android:textSize="@dimen/font_size_16"
             android:textStyle="bold" />
 
