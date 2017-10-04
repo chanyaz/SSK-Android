@@ -2,13 +2,10 @@ package base.app.util.ui;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.NumberPicker;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -38,10 +35,9 @@ import base.app.model.wall.WallNews;
 
 public class TranslationView extends RelativeLayout {
 
-    PopupWindow popup;
     NumberPicker languagePicker;
     View progressBar;
-    View popupLayout;
+    RelativeLayout popupLayout;
 
     ArrayList<String> languagesList;
     BiMap<String, String> languagesBiMap;
@@ -76,7 +72,7 @@ public class TranslationView extends RelativeLayout {
 
     private void initView() {
         inflate(getContext(), R.layout.view_translation, this);
-        popupLayout = inflate(getContext(), R.layout.view_popup_translation, null);
+        popupLayout = (RelativeLayout) inflate(getContext(), R.layout.view_popup_translation, null);
 
         popupLayout.findViewById(R.id.close).setOnClickListener(onCloseClickListener);
         popupLayout.findViewById(R.id.translate).setOnClickListener(onTranslateClickListener);
@@ -98,10 +94,7 @@ public class TranslationView extends RelativeLayout {
             }
         }
 
-        popup = new PopupWindow(getContext());
-        popup.setContentView(popupLayout);
-        popup.setBackgroundDrawable(new BitmapDrawable(getContext().getResources()));
-
+        addView(popupLayout);
         popupLayout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                 MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
     }
@@ -112,10 +105,13 @@ public class TranslationView extends RelativeLayout {
         int[] locationValues = new int[2];
         view.getLocationOnScreen(locationValues);
 
+        int[] locationValuesParent = new int[2];
+        getLocationOnScreen(locationValuesParent);
+
         //Initialize the Point with x, and y positions
         Point location = new Point();
-        location.x = locationValues[0] + view.getWidth();
-        location.y = locationValues[1] + view.getHeight() / 2;
+        location.x = locationValues[0] + view.getWidth() - locationValuesParent[0];
+        location.y = locationValues[1] + (view.getHeight() / 2 ) - locationValuesParent[1];
 
         return location;
     }
@@ -133,7 +129,11 @@ public class TranslationView extends RelativeLayout {
         Point p = calculateLocationOfPopup(view);
         int OFFSET_Y = -popupLayout.getMeasuredHeight() / 2;
         // Displaying the popup at the specified location + offsets.
-        popup.showAtLocation(this, Gravity.NO_GRAVITY, p.x, p.y + OFFSET_Y);
+
+        addView(popupLayout);
+
+        LayoutParams params = (LayoutParams) popupLayout.getLayoutParams();
+        params.setMargins(p.x, p.y + OFFSET_Y, 0, 0);
     }
 
     private void translateMessage() {
@@ -230,8 +230,8 @@ public class TranslationView extends RelativeLayout {
                     translateWallNews();
                     break;
             }
-            if(popup!=null){
-                popup.dismiss();
+            if(popupLayout!=null){
+                removeView(popupLayout);
             }
         }
     };
@@ -257,8 +257,8 @@ public class TranslationView extends RelativeLayout {
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-        if(popup!=null){
-            popup.dismiss();
+        if(popupLayout!=null){
+            removeView(popupLayout);
         }
     }
 }
