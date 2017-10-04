@@ -7,5 +7,5 @@ package base.app;
  */
 
 public class ClubConfig {
-    public static final int CLUB_ID = 1680;
+    public static final int CLUB_ID = 1685;
 }

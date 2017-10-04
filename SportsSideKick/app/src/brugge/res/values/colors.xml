@@ -2,27 +2,27 @@
 <resources>
 
     <color name="colorAccentDark"                           >#4ff70e</color>
-    <color name="colorAccentSemiDark"                       >#c3ff00</color>
+    <color name="colorAccentSemiDark"                       >#fcff23</color>
 
-    <color name="colorAccent"                               >#ffe324</color>
+    <color name="colorAccent"                               >#0177bf</color>
 
-    <color name="colorAccentLight"                          >#fdfe24</color>
+    <color name="colorAccentLight"                          >#0177bf</color>
 
-    <color name="colorPrimaryAbsoluteDark"                  >#00181e</color>
-    <color name="colorPrimaryVeryDark"                      >#032227</color>
-    <color name="colorPrimaryDark"                          >#162731</color>
-    <color name="colorPrimaryMediumDark"                    >#022426</color>
-    <color name="colorPrimaryMediumDarkSemiTransparent"   >#99021119</color>
-    <color name="colorPrimarySemiDark"                      >#022b31</color>
-    <color name="colorPrimarySemiDarkSemiTransparent"     >#a800363b</color>
+    <color name="colorPrimaryAbsoluteDark"                  >#052c44</color>
+    <color name="colorPrimaryVeryDark"                      >#052c44</color>
+    <color name="colorPrimaryDark"                          >#052c44</color>
+    <color name="colorPrimaryMediumDark"                    >#052c44</color>
+    <color name="colorPrimaryMediumDarkSemiTransparent"   >#99052c44</color>
+    <color name="colorPrimarySemiDark"                      >#052c44</color>
+    <color name="colorPrimarySemiDarkSemiTransparent"     >#a8052c44</color>
 
-    <color name="colorPrimary"                              >#00363b</color>
+    <color name="colorPrimary"                              >#0177bf</color>
 
-    <color name="colorPrimarySlightlyLight"                 >#01454b</color>
-    <color name="colorPrimaryMediumLight"                   >#215456</color>
-    <color name="colorPrimarySemiLight"                     >#266263</color>
-    <color name="colorPrimaryLight"                         >#255d5e</color>
-    <color name="colorPrimaryVeryLight"                     >#00ab8d</color>
+    <color name="colorPrimarySlightlyLight"                 >#052c44</color>
+    <color name="colorPrimaryMediumLight"                   >#e5e5e5</color>
+    <color name="colorPrimarySemiLight"                     >#e5e5e5</color>
+    <color name="colorPrimaryLight"                         >#0177bf</color>
+    <color name="colorPrimaryVeryLight"                     >#0177bf</color>
 
     <color name="transparent"                             >#00ffffff</color>
 
@@ -34,11 +34,7 @@
     <color name="colorGraySemiLight"                        >#d3d4d8</color>
     <color name="colorGrayLight"                            >#e9eaee</color>
     <color name="white_semitransparent"                   >#5fffffff</color>
-    <color name="white"                                     >#ffffff</color>
+    <color name="white"                                     >#f6f6f6</color>
 
     <color name="facebook_blue"                             >#3b5998</color>
-
-
-
-
 </resources>

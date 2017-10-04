@@ -1,0 +1,261 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+
+        <!--System Colors-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccentSemiDark</item>
+        <item name="colorControlActivated">@color/colorAccentSemiDark</item>
+        <item name="colorControlHighlight">@color/colorAccentSemiDark</item>
+        <item name="colorPrimarySemiLight">@color/colorPrimarySemiLight</item>
+
+        <item name="black">@color/black</item>
+        <item name="white">@color/white</item>
+        <item name="white_semitransparent">@color/white_semitransparent</item>
+        <item name="black_transparent_154">@color/black_transparent_154</item>
+        <item name="colorGray">@color/colorGray</item>
+
+        <!-- App items colors -->
+        <item name="wallItemsColor">@color/white</item>
+        <item name="nativeAdBackground">@color/facebook_blue</item>
+        <item name="chatHeadBackgroundColor">@color/colorPrimarySemiLight</item>
+        <item name="chatInfoBackgroundColor">@color/colorPrimary</item>
+
+        <item name="wallMenuBackground">@color/colorPrimary</item>
+        <item name="wallItemUserPostBackground">@color/white</item>
+        <item name="wallItemRumoursBigBackground">@color/white</item>
+        <item name="wallItemShopBackground">@color/white</item>
+        <item name="wallItemStoreBackground">@color/white</item>
+        <item name="wallItemNewsBackground">@color/white</item>
+        <item name="wallItemTipBackground">@color/white</item>
+        <item name="wallItemTipTextCaptionColor">@color/white</item>
+
+        <item name="tvCategoryBackground">@color/colorPrimary</item>
+        <item name="wallItemTipTextContentColor">@color/white</item>
+        <item name="rumoursTimeTextColor">@color/colorAccent</item>
+        <item name="rumourSmallContentColor">@color/white</item>
+        <item name="rumourSmallSeparatorColor">@color/colorPrimary</item>
+        <item name="channelItemCaption">@color/white</item>
+        <item name="channelItemBackground">@color/colorPrimary</item>
+        <item name="channelItemDate">@color/colorGray</item>
+        <item name="postCommentContainerColor">@color/colorPrimarySemiDarkSemiTransparent</item>
+        <item name="postCommentHintColor">@color/colorGray</item>
+        <item name="postCommentTextColor">@color/white</item>
+        <item name="newsLikeIcon">@color/white</item>
+        <item name="newsLikedIcon">@color/colorAccent</item>
+        <item name="newsPinIcon">@color/white</item>
+        <item name="newsShareIcon">@color/white</item>
+        <item name="newsCommentIcon">@color/white</item>
+        <item name="tvRadioHeadlineColor">@color/white</item>
+        <item name="wallEditTextContainerBackground">@color/colorPrimaryVeryDark</item>
+        <item name="wallEditSearchText">@color/white</item>
+        <item name="wallEditSearchHint">@color/colorPrimarySemiLight</item>
+        <item name="wallUserContentTextColor">@color/white</item>
+        <item name="webViewControlsBackground">@color/colorPrimary</item>
+        <item name="playerBackground">@color/colorPrimarySemiLight</item>
+        <item name="phoneWallMenuBackground">@color/colorGrayLight</item>
+        <item name="phoneWallEditSearchText">@color/colorPrimary</item>
+
+        <!-- Drawables -->
+        <item name="phoneChatBackground">@color/colorPrimaryMediumLight</item>
+        <item name="chatAddUserIcon">@drawable/chat_add_user</item>
+        <item name="chatNotificationIcon">@drawable/chat_head_notification</item>
+        <item name="chatBubbleIcon">@drawable/chat_bubble</item>
+        <item name="chatBackground">@color/colorPrimaryMediumLight</item>
+        <item name="chatVoiceButtonPressedIcon">@drawable/chat_button_voice_pressed</item>
+        <item name="chatVoiceButtonIcon">@drawable/chat_button_voice</item>
+        <item name="chatVoiceSelector">@drawable/chat_mic_selector</item>
+        <item name="chatCameraIcon">@drawable/chat_button_camera</item>
+        <item name="chatGalleryIcon">@drawable/chat_button_image</item>
+        <item name="chatAddButtonIcon">@drawable/chat_add_menu_button</item>
+        <item name="chatMenuButtonIcon">@drawable/chat_menu_button</item>
+        <item name="chatBubbleLeftImage">@drawable/ic_chat_bubble_left</item>
+        <item name="chatBubbleRightImage">@drawable/ic_chat_bubble_right</item>
+
+
+        <item name="tabRadioButtonSelectorRight">@drawable/tab_radio_button_selector_right</item>
+        <item name="tabRadioButtonSelectorLeft">@drawable/tab_radio_button_selector_left</item>
+        <item name="radioButtonCheckedLeft">@drawable/radio_button_checked_left</item>
+        <item name="radioButtonNormalLeft">@drawable/radio_button_normal_left</item>
+        <item name="userLevelProgress">@drawable/circle_shape</item>
+        <item name="userCoinIcon">@drawable/skk_coin_large</item>
+        <item name="logoIcon">@drawable/sportingportugal</item>
+        <item name="ligaBanner">@drawable/liga</item>
+        <item name="notificationIcon">@drawable/notification</item>
+        <item name="profileImageIcon">@drawable/blank_profile_rounded</item>
+        <item name="nextLevelMarkerIcon">@drawable/next_level_marker</item>
+        <item name="friendsIcon">@drawable/icon_your_friends</item>
+        <item name="followersIcon">@drawable/icon_followers</item>
+        <item name="appBackground">@color/colorPrimary</item>
+        <item name="loginBackground">@drawable/background_login</item>
+        <item name="blockedIcon">@drawable/icon_blocked</item>
+        <item name="arrowDownIcon">@drawable/down_arrow</item>
+        <item name="popupCancelButtonIcon">@drawable/popup_cancel_button</item>
+        <item name="popupConfirmationButtonIcon">@drawable/popup_confirmation_button</item>
+        <item name="popupBottomBackgroundDarkShape">@drawable/popup_bottom_background_dark</item>
+        <item name="popupBottomBackgroundDarkShapeDialog">@drawable/popup_bottom_background_dark_dialog</item>
+        <item name="textViewRoundBorderShape">@drawable/textview_round_border</item>
+        <item name="videoCloseButtonIcon">@drawable/video_close_button</item>
+        <item name="downloadButtonIcon">@drawable/download_button</item>
+        <item name="closeIcon">@drawable/ic_close</item>
+        <item name="playPauseSelector">@drawable/switch_play</item>
+        <item name="playIcon">@drawable/play_icon</item>
+        <item name="pauseIcon">@drawable/pause_icon</item>
+        <item name="radioLiveIcon">@drawable/radio_live</item>
+        <item name="soundSelector">@drawable/switch_mute</item>
+        <item name="soundOnIcon">@drawable/sound_on_icon</item>
+        <item name="soundOffIcon">@drawable/sound_off_icon</item>
+        <item name="seekBarShape">@drawable/seek_bar_custom</item>
+        <item name="seekBarAudioShape">@drawable/seek_bar_audio</item>
+        <item name="circularProgressBarDrawable">@drawable/circular_progress_bar</item>
+        <item name="tabRadioButtonTextColor">@drawable/tab_radio_text_color_selector</item>
+        <item name="profileImageLoungeIcon">@drawable/blank_profile_rounded</item>
+        <item name="popupLoginButtonBackground">@drawable/popup_login_button_background</item>
+        <item name="popupBottomBackground">@drawable/popup_bottom_background</item>
+        <item name="popupBottomLeftBackground">@drawable/popup_bottom_left_background</item>
+        <item name="greenCircle">@drawable/circle_green</item>
+        <item name="popupOnClickChangeTextColor">@drawable/button_onclick_change_text_color_initial</item>
+        <item name="buttonLogin">@drawable/button_login_login</item>
+        <item name="buttonEditProfileImage">@drawable/button_edit_profile_image</item>
+        <item name="videoChatButtonStyle">@style/button_call</item>
+    </style>
+
+
+    <style name="fontTitilliumWebLight">
+        <item name="fontPath">fonts/TitilliumWeb-Light.ttf</item>
+    </style>
+
+    <style name="boldText">
+        <item name="fontPath">fonts/TitilliumWeb-Bold.ttf</item>
+    </style>
+
+    <!-- Alert dialog style -->
+    <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/colorPrimaryVeryDark</item>
+    </style>
+
+    <!-- This will set the fade in animation on all your activities by default -->
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="button_login_main">
+        <item name="android:textColor">@drawable/button_onclick_change_text_color_initial</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/button_login_home</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="button_login_login">
+        <item name="android:textColor">@drawable/button_onclick_change_text_color_login</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/button_login_login</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="button_call">
+        <item name="android:textColor">@drawable/button_onclick_change_text_color_login</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/button_call</item>
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:paddingRight">40dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="button_facebook">
+        <item name="android:textAllCaps">false</item>
+        <!--<item name="android:background">@drawable/button_facebook</item>-->
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="edit_text_login">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/button_login_home</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorHint">@color/colorGray</item>
+    </style>
+
+    <style name="sign_up_edit_text">
+        <item name="android:textAlignment">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColorHint">@color/colorGray</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="toggle_button_filter">
+        <item name="android:textColor">@drawable/filter_toggle_button_text_color</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/filter_toggle_button</item>
+        <item name="android:layout_marginLeft">@dimen/margin_20</item>
+        <item name="android:layout_marginRight">@dimen/margin_20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="phone_toggle_button_filter">
+        <item name="android:textColor">@drawable/filter_toggle_button_text_color</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/filter_toggle_button</item>
+        <item name="android:layout_marginLeft">@dimen/margin_8</item>
+        <item name="android:layout_marginRight">@dimen/margin_8</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="facebook_login_button_phone">
+        <item name="android:textSize">@dimen/font_size_12</item>
+        <item name="android:background">@drawable/facebook_button</item>
+        <item name="android:textColor">?white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="edit_text_login_phone">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">@dimen/padding_12</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorHint">@android:color/white</item>
+    </style>
+
+    <style name="shadow_text_login">
+        <item name="android:shadowColor">#590b0c0c</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="fontPath">fonts/TitilliumWeb-Light.ttf</item>
+        <item name="android:textSize">@dimen/font_size_28</item>
+    </style>
+</resources>
