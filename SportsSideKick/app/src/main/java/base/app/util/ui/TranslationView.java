@@ -93,9 +93,11 @@ public class TranslationView extends RelativeLayout {
                 languagePicker.setDisplayedValues(languagesList.toArray(new String[languagesList.size()]));
             }
         }
-
         addView(popupLayout);
         popupLayout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+
+        measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                 MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
     }
 
@@ -112,7 +114,6 @@ public class TranslationView extends RelativeLayout {
         Point location = new Point();
         location.x = locationValues[0] + view.getWidth() - locationValuesParent[0];
         location.y = locationValues[1] + (view.getHeight() / 2 ) - locationValuesParent[1];
-
         return location;
     }
     public void showTranslationPopup(View view, String id, TaskCompletionSource completion, TranslationType type) {
@@ -133,6 +134,16 @@ public class TranslationView extends RelativeLayout {
         addView(popupLayout);
 
         LayoutParams params = (LayoutParams) popupLayout.getLayoutParams();
+
+        int maxX = getWidth() - popupLayout.getWidth();
+        int maxY = getHeight() - popupLayout.getHeight();
+
+        if( p.x>maxX){
+            p.x = maxX;
+        }
+        if( p.y>maxY){
+            p.y = maxY;
+        }
         params.setMargins(p.x, p.y + OFFSET_Y, 0, 0);
     }
 
