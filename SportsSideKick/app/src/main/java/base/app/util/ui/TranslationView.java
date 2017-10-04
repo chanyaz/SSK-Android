@@ -37,6 +37,7 @@ public class TranslationView extends RelativeLayout {
 
     NumberPicker languagePicker;
     View progressBar;
+    RelativeLayout root;
     RelativeLayout popupLayout;
 
     ArrayList<String> languagesList;
@@ -78,7 +79,8 @@ public class TranslationView extends RelativeLayout {
         popupLayout.findViewById(R.id.translate).setOnClickListener(onTranslateClickListener);
         languagePicker = popupLayout.findViewById(R.id.language_picker);
         progressBar = findViewById(R.id.progress);
-
+        root = findViewById(R.id.viewTranslationRoot);
+        root.setOnClickListener(onCloseClickListener);
         HashMap<String,String> mapOfLanguages = TranslateManager.getInstance().getLanguageList();
 
         languagePicker.setMinValue(0);
