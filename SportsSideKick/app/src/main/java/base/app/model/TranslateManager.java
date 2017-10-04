@@ -83,7 +83,7 @@ public class TranslateManager {
                 .setEventKey("translateContent")
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, NEWS)
-                .setEventAttribute("clubId", CLUB_ID)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(LANGUAGE, language)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
@@ -131,7 +131,7 @@ public class TranslateManager {
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
                         if(!response.hasErrors()){
                             Map<String,Object> data = response.getScriptData().getObject("item").getBaseData();
-                            data.put("clubId",postType);
+                            data.put(CLUB_ID_TAG,postType);
                             WallBase item = null;
                             if(data!=null){
                                 item = WallBase.postFactory(data,mapper, false);
@@ -166,7 +166,7 @@ public class TranslateManager {
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, IMS)
                 .setEventAttribute(ITEM_TYPE, IMS)
-                .setEventAttribute("clubId", "")
+                .setEventAttribute(CLUB_ID_TAG, "")
                 .setEventAttribute(LANGUAGE, language)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
@@ -209,7 +209,7 @@ public class TranslateManager {
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, WALL_COMMENT)
                 .setEventAttribute(LANGUAGE, language)
-                .setEventAttribute("clubId", "")
+                .setEventAttribute(CLUB_ID_TAG, "")
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {

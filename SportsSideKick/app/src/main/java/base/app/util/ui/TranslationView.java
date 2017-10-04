@@ -213,7 +213,9 @@ public class TranslationView extends RelativeLayout {
     OnClickListener onTranslateClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            progressBar.setVisibility(VISIBLE);
+            if(progressBar!=null) {
+                progressBar.setVisibility(VISIBLE);
+            }
             switch (type) {
                 case TRANSLATE_WALL:
                     translateWallItem();
@@ -228,7 +230,9 @@ public class TranslationView extends RelativeLayout {
                     translateWallNews();
                     break;
             }
-            popup.dismiss();
+            if(popup!=null){
+                popup.dismiss();
+            }
         }
     };
 
@@ -253,6 +257,8 @@ public class TranslationView extends RelativeLayout {
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-        popup.dismiss();
+        if(popup!=null){
+            popup.dismiss();
+        }
     }
 }
