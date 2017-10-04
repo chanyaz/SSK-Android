@@ -252,15 +252,17 @@ public class NewsItemFragment extends BaseFragment {
     }
 
     private void setupTextualContent(WallNews item){
-        title.setText(item.getTitle());
-        String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(),
-                Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
-        if (item.getSubTitle() != null) {
-            strap.setText(item.getSubTitle() + " - " + time);
-        } else {
-            strap.setText(time);
+        if(item!=null){
+            title.setText(item.getTitle());
+            String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(),
+                    Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
+            if (item.getSubTitle() != null) {
+                strap.setText(item.getSubTitle() + " - " + time);
+            } else {
+                strap.setText(time);
+            }
+            content.setText(item.getBodyText());
         }
-        content.setText(item.getBodyText());
     }
 
     @Subscribe
@@ -483,7 +485,6 @@ public class NewsItemFragment extends BaseFragment {
 
     private void updateWithTranslatedPost(WallNews translatedNews){
         setupTextualContent(translatedNews);
-        Toast.makeText(getContext(),"Got translated post!",Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -21,6 +21,8 @@ import base.app.model.wall.WallBase;
 import base.app.model.wall.WallNews;
 import base.app.util.XmlLanguageMapParser;
 
+import static base.app.ClubConfig.CLUB_ID;
+import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.GSConstants.ITEM_ID;
 import static base.app.model.GSConstants.ITEM_TYPE;
 import static base.app.model.GSConstants.LANGUAGE;
@@ -38,7 +40,7 @@ public class TranslateManager {
 
     private static TranslateManager instance;
     private static final String DEFAULT_LANGUAGE = "es";
-    private static final String IMS = "IMs", WALL_POST = "WallPost", WALL_COMMENT = "WallComment";
+    private static final String IMS = "IMs", WALL_POST = "WallPost",  NEWS = "News", WALL_COMMENT = "WallComment";
 
     private HashMap<String, String> languagesList;
 
@@ -80,7 +82,8 @@ public class TranslateManager {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateContent")
                 .setEventAttribute(ITEM_ID, itemId)
-                .setEventAttribute(ITEM_TYPE, WALL_POST)
+                .setEventAttribute(ITEM_TYPE, NEWS)
+                .setEventAttribute("clubId", CLUB_ID)
                 .setEventAttribute(LANGUAGE, language)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
@@ -89,7 +92,7 @@ public class TranslateManager {
                             GSData data = response.getScriptData().getObject("item");
                             WallNews item = null;
                             if(data!=null){
-                                item = mapper.convertValue(data, new TypeReference<WallNews>(){});
+                                item = mapper.convertValue(data.getBaseData(), new TypeReference<WallNews>(){});
                             }
                             if(completion!=null){
                                 if(item!=null) {
@@ -122,12 +125,13 @@ public class TranslateManager {
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, WALL_POST)
                 .setEventAttribute(LANGUAGE, language)
+                .setEventAttribute(CLUB_ID_TAG, "")
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
                         if(!response.hasErrors()){
                             Map<String,Object> data = response.getScriptData().getObject("item").getBaseData();
-                            data.put("type",postType);
+                            data.put("clubId",postType);
                             WallBase item = null;
                             if(data!=null){
                                 item = WallBase.postFactory(data,mapper, false);
@@ -161,6 +165,8 @@ public class TranslateManager {
                 .setEventKey("translateContent")
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, IMS)
+                .setEventAttribute(ITEM_TYPE, IMS)
+                .setEventAttribute("clubId", "")
                 .setEventAttribute(LANGUAGE, language)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
@@ -203,6 +209,7 @@ public class TranslateManager {
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, WALL_COMMENT)
                 .setEventAttribute(LANGUAGE, language)
+                .setEventAttribute("clubId", "")
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
