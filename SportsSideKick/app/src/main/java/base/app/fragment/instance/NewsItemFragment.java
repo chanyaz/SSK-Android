@@ -453,10 +453,10 @@ public class NewsItemFragment extends BaseFragment {
     public void readMoreClick(View view) {
         if (content.getMaxLines() == 3) {
             content.setMaxLines(Integer.MAX_VALUE);
-            ((TextView)view).setText(R.string.read_more_closed);
+            ((TextView)view).setText(R.string.read_more_open);
         } else {
             content.setMaxLines(3);
-            ((TextView)view).setText(R.string.read_more_open);
+            ((TextView)view).setText(R.string.read_more_closed);
         }
     }
 
