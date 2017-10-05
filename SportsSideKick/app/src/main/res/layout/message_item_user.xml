@@ -61,7 +61,7 @@
         android:layout_toStartOf="@+id/spliter"
         android:alpha="0.5"
         android:text="@string/you"
-        android:textColor="@color/white"
+        android:textColor="?chatDetailsColorRef"
         android:textSize="@dimen/font_size_10" />
 
     <TextView
@@ -72,7 +72,7 @@
         android:layout_toStartOf="@+id/timestamp"
         android:alpha="0.5"
         android:text="@string/message_time_splitter"
-        android:textColor="@color/white"
+        android:textColor="?chatDetailsColorRef"
         android:textSize="@dimen/font_size_10" />
 
     <TextView
@@ -83,6 +83,6 @@
         android:layout_below="@+id/content_container"
         android:layout_marginEnd="@dimen/margin_15"
         android:alpha="0.5"
-        android:textColor="@color/white"
+        android:textColor="?chatDetailsColorRef"
         android:textSize="@dimen/font_size_10" />
 </RelativeLayout>

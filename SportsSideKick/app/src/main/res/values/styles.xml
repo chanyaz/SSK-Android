@@ -126,6 +126,9 @@
         <item name="colorAccentSemiDarkRef">@color/colorAccentSemiDark</item>
 
         <item name="colorPrimaryVeryLightRef">@color/colorPrimaryVeryLight</item>
+
+        <item name="chatDetailsColorRef">@color/white</item>
+
     </style>
 
 

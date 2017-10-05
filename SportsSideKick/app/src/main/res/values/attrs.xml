@@ -222,4 +222,5 @@
     <attr name="colorAccentSemiDarkRef" format="reference" />
     <attr name="colorPrimaryVeryLightRef" format="reference" />
 
+    <attr name="chatDetailsColorRef" format="reference"/>
 </resources>
