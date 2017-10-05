@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,6 +46,8 @@ public class TranslationView extends RelativeLayout {
     BiMap<String, String> languagesBiMap;
 
     TaskCompletionSource completion;
+
+    private static final String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
 
     public enum TranslationType {
         TRANSLATE_WALL,
@@ -112,6 +115,9 @@ public class TranslationView extends RelativeLayout {
                 languagePicker.setDisplayedValues(languagesList.toArray(new String[languagesList.size()]));
             }
         }
+
+        languagePicker.setValue(Prefs.getInt(SELECTED_LANGUAGE,0));
+
         addView(popupLayout);
         popupLayout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                 MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
@@ -242,6 +248,7 @@ public class TranslationView extends RelativeLayout {
     OnClickListener onTranslateClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            Prefs.putInt(SELECTED_LANGUAGE,languagePicker.getValue());
             if(progressBar!=null) {
                 progressBar.setVisibility(VISIBLE);
             }

@@ -486,7 +486,7 @@
     <string name="un_friend_title">Are you sure you want to remove this friend?</string>
 
     <string name="read_more_closed">Read more  &gt;</string>
-    <string name="read_more_open">Read more  &lt;</string>
+    <string name="read_more_open">Read less  &lt;</string>
     <string name="unnamed_chat">Unnamed Chat</string>
 
     <string name="permission_storage_rationale">You need to enable Write permission.</string>
