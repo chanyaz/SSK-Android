@@ -15,7 +15,7 @@
 
         <item name="black">@color/black</item>
         <item name="white">@color/white</item>
-        <item name="white_semitransparent">@color/white_semitransparent</item>
+        <item name="white_semitransparent">@color/colorGray</item>
         <item name="black_transparent_154">@color/black_transparent_154</item>
         <item name="colorGray">@color/colorGrayDark</item>
 
@@ -23,7 +23,7 @@
         <item name="wallItemsColor">@color/white</item>
         <item name="nativeAdBackground">@color/facebook_blue</item>
         <item name="chatHeadBackgroundColor">@color/colorPrimarySemiLight</item>
-        <item name="chatInfoBackgroundColor">@color/colorPrimary</item>
+        <item name="chatInfoBackgroundColor">@color/white</item>
 
         <item name="wallMenuBackground">@color/colorPrimary</item>
         <item name="wallItemUserPostBackground">@color/white</item>
