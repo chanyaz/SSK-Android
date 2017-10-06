@@ -178,7 +178,7 @@
             android:layout_marginBottom="@dimen/margin_20"
             android:layout_marginTop="@dimen/margin_10"
             android:text="@string/bundles"
-            android:textColor="@color/white"
+            android:textColor="?bundlesCaptionColorRef"
             android:textSize="@dimen/font_size_15"
             android:textStyle="bold" />
 
@@ -426,7 +426,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/margin_2"
                 android:text=""
-                android:textColor="@color/white"
+                android:textColor="?bundlesCaptionColorRef"
                 android:textSize="@dimen/font_size_25"
                 android:textStyle="bold" />
 
@@ -438,7 +438,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/margin_2"
                 android:text="Kit Bags"
-                android:textColor="@color/white"
+                android:textColor="?bundlesCaptionColorRef"
                 android:textSize="@dimen/font_size_25"
                 android:textStyle="bold" />
 

@@ -174,7 +174,7 @@
             android:maxLines="1"
             android:nextFocusDown="@+id/last_name_edit_text"
             android:nextFocusForward="@+id/last_name_edit_text"
-            android:textColor="@color/white"
+            android:textColor="?editUserInfoTextColorColorRef"
             android:textSize="@dimen/font_size_12" />
 
 
@@ -193,7 +193,7 @@
             android:maxLines="1"
             android:nextFocusDown="@+id/nickname_edit_text"
             android:nextFocusForward="@+id/nickname_edit_text"
-            android:textColor="@color/white"
+            android:textColor="?editUserInfoTextColorColorRef"
             android:textSize="@dimen/font_size_12" />
 
         <AutoCompleteTextView
@@ -211,7 +211,7 @@
             android:maxLines="1"
             android:nextFocusDown="@+id/email_edit_text"
             android:nextFocusForward="@+id/email_edit_text"
-            android:textColor="@color/white"
+            android:textColor="?editUserInfoTextColorColorRef"
             android:textSize="@dimen/font_size_12" />
 
         <AutoCompleteTextView
@@ -229,7 +229,7 @@
             android:maxLines="1"
             android:nextFocusDown="@+id/telephone_edit_text"
             android:nextFocusForward="@+id/telephone_edit_text"
-            android:textColor="@color/white"
+            android:textColor="?editUserInfoTextColorColorRef"
             android:textSize="@dimen/font_size_12" />
 
         <AutoCompleteTextView
@@ -246,7 +246,7 @@
             android:lines="1"
             android:maxLines="1"
             android:nextFocusForward="@+id/confirm_button"
-            android:textColor="@color/white"
+            android:textColor="?editUserInfoTextColorColorRef"
             android:textSize="@dimen/font_size_12" />
 
     </RelativeLayout>

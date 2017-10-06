@@ -223,4 +223,25 @@
     <attr name="colorPrimaryVeryLightRef" format="reference" />
 
     <attr name="chatDetailsColorRef" format="reference"/>
+
+    <!-- * * * * * * * * * P O P U P S * * * * * * * * * * * *-->
+    <!--Your profile-->
+    <attr name="yourProfileUserNameColorRef" format="reference"/>
+    <attr name="yourProfileInfoHeadlineColorRef" format="reference"/>
+    <attr name="yourProfileInfoDetailsColorRef" format="reference"/>
+
+    <!--Edit Profile-->
+    <attr name="editUserInfoBackgroundColorRef" format="reference"/>
+    <attr name="editUserInfoTextColorColorRef" format="reference"/>
+    <attr name="editUserInfoUnderlineColorRef" format="reference"/>
+
+    <!--Your Stash-->
+    <attr name="stashDescriptionColorRef" format="reference"/>
+
+    <!--Your Wallet-->
+    <attr name="bundlesCaptionColorRef" format="reference"/>
+
+    <!--Your Friends-->
+    <attr name="searchFieldBackgroundRef" format="reference"/>
+
 </resources>

@@ -183,7 +183,7 @@
                 android:layout_marginTop="@dimen/margin_15"
                 android:gravity="center"
                 android:text="@string/login_or_sign_up"
-                android:textColor="@color/white"
+                android:textColor="?yourProfileUserNameColorRef"
                 android:textSize="@dimen/font_size_16"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -221,7 +221,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/contact_info_caption"
-                android:textColor="@color/white"
+                android:textColor="?yourProfileInfoDetailsColorRef"
                 android:layout_alignEnd="@+id/text_center" />
 
             <TextView
@@ -230,7 +230,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/contact_info_email"
-                android:textColor="@color/white" />
+                android:textColor="?yourProfileInfoDetailsColorRef" />
 
             <TextView
                 android:id="@+id/subscribed_since_caption"
@@ -248,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/contact_info_caption"
                 android:layout_below="@+id/subscribed_since_caption"
-                android:textColor="@color/white"
+                android:textColor="?yourProfileInfoDetailsColorRef"
                 android:layout_toStartOf="@+id/password_caption" />
 
             <TextView
@@ -266,7 +266,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/location_caption"
                 android:layout_below="@+id/location_caption"
-                android:textColor="@color/white" />
+                android:textColor="?yourProfileInfoDetailsColorRef" />
 
             <TextView
                 android:id="@+id/password_caption"
@@ -285,7 +285,7 @@
                 android:layout_alignStart="@+id/password_caption"
                 android:layout_below="@+id/password_caption"
                 android:text="@string/password_placeholder"
-                android:textColor="@color/white" />
+                android:textColor="?yourProfileInfoDetailsColorRef" />
 
             <TextView
                 android:id="@+id/chosen_language_caption"
@@ -312,7 +312,7 @@
                 android:layout_below="@+id/chosen_language_caption"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_toEndOf="@+id/language_icon"
-                android:textColor="@color/white" />
+                android:textColor="?yourProfileInfoDetailsColorRef" />
         </RelativeLayout>
 
         <!-- LEFT HORIZONTAL SPLITTER -->
