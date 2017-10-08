@@ -28,9 +28,9 @@
             android:layout_height="@dimen/standard_button_height"
             android:layout_toStartOf="@+id/top_vertical_spliter"
             android:gravity="center"
-            android:background="?colorPrimarySemiLight"
+            android:background="?addFriendButtonBackgroundColorRef"
             android:text="@string/following"
-            android:textColor="?colorAccent" />
+            android:textColor="?addFriendButtonTextColorRef" />
 
         <TextView
             android:id="@+id/your_followers_button"
@@ -40,7 +40,7 @@
             android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
             android:text="@string/followers"
-            android:textColor="?white_semitransparent" />
+            android:textColor="?addFriendButtonInviteTextColorRef" />
 
         <View
             android:layout_width="match_parent"

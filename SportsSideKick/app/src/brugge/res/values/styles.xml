@@ -145,6 +145,35 @@
         <item name="bundlesCaptionColorRef">@color/colorPrimary</item>
 
         <item name="searchFieldBackgroundRef">@color/transparent</item>
+
+        <item name="addFriendButtonBackgroundColorRef">@color/colorAccent</item>
+        <item name="addFriendButtonTextColorRef">@color/white</item>
+        <item name="addFriendInfoColorRef">@color/colorGrayDark</item>
+        <item name="addFriendButtonInviteTextColorRef">@color/black</item>
+
+        <item name="inviteFriendButtonColorRef">@color/white</item>
+
+        <item name="profileStatusColorRef">@color/colorPrimary</item>
+        <item name="profileNameColorRef">@color/colorGrayDark</item>
+
+        <item name="chatEditTextColorRef">@color/colorGrayDark</item>
+        <item name="chatEditTextHintColorRef">@color/colorGray</item>
+        <item name="chatEditTextBackgroundColorRef">@color/white</item>
+
+        <item name="chatSlideButtonBackgroundColorRef">@color/colorPrimary</item>
+        <item name="chatSlideButtonTextColorRef">@color/white</item>
+
+        <item name="chatSlideSecondButtonBackgroundColorRef">@color/colorPrimaryMediumLight</item>
+        <item name="chatSlideSecondButtonTextColorRef">@color/black</item>
+
+        <item name="chatJoinSearchBackgroundColorRef">@color/colorGrayLight</item>
+        <item name="chatJoinSearchTextColorRef">@color/colorGrayDark</item>
+
+        <item name="chatJoinBackgroundColorRef">@color/white</item>
+        <item name="chatJoinChatsHeadlineColorRef">@color/colorPrimary</item>
+
+        <item name="chatCreateButtonTextColorRef">@color/white</item>
+
     </style>
 
 

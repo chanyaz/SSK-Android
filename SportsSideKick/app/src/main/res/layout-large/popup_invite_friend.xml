@@ -16,7 +16,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentTop="true"
         android:orientation="horizontal">
-sdad
+
         <View
             android:id="@+id/top_vertical_spliter"
             android:layout_width="@dimen/space_0"
@@ -31,16 +31,16 @@ sdad
             android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
             android:text="@string/add_friend"
-            android:textColor="?white_semitransparent" />
+            android:textColor="?addFriendButtonInviteTextColorRef" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toEndOf="@+id/top_vertical_spliter"
-            android:background="?colorPrimarySemiLight"
+            android:background="?addFriendButtonBackgroundColorRef"
             android:gravity="center"
             android:text="@string/invite_friend"
-            android:textColor="?colorAccent" />
+            android:textColor="?addFriendButtonTextColorRef" />
 
         <View
             android:layout_width="match_parent"
@@ -88,7 +88,7 @@ sdad
             android:layout_toStartOf="@id/invite_friend_name"
             android:maxLines="2"
             android:text="@string/enter_friend_name_invite"
-            android:textColor="@color/colorGraySemiLight" />
+            android:textColor="?addFriendInfoColorRef" />
 
     </RelativeLayout>
 
@@ -109,7 +109,7 @@ sdad
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/invite"
-            android:textColor="@color/colorPrimary"
+            android:textColor="?inviteFriendButtonColorRef"
             android:textSize="@dimen/font_size_18" />
 
         <com.wang.avi.AVLoadingIndicatorView

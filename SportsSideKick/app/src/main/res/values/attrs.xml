@@ -244,4 +244,39 @@
     <!--Your Friends-->
     <attr name="searchFieldBackgroundRef" format="reference"/>
 
+    <!--Add a friend & following and followers  & Invite a friend-->
+    <attr name="addFriendButtonBackgroundColorRef" format="reference"/>
+    <attr name="addFriendButtonTextColorRef" format="reference"/>
+    <attr name="addFriendInfoColorRef" format="reference"/>
+    <attr name="addFriendButtonInviteTextColorRef" format="reference"/>
+    <attr name="inviteFriendButtonColorRef" format="reference"/>
+
+    <!--Member Info-->
+
+    <attr name="profileStatusColorRef" format="reference"/>
+    <attr name="profileNameColorRef" format="reference"/>
+
+    <!--Fragments - not popups-->
+    <!--Chat-->
+    <attr name="chatEditTextColorRef" format="reference"/>
+    <attr name="chatEditTextHintColorRef" format="reference"/>
+    <attr name="chatEditTextBackgroundColorRef" format="reference"/>
+
+    <attr name="chatSlideButtonBackgroundColorRef" format="reference"/>
+    <attr name="chatSlideButtonTextColorRef" format="reference"/>
+
+    <attr name="chatSlideSecondButtonBackgroundColorRef" format="reference"/>
+    <attr name="chatSlideSecondButtonTextColorRef" format="reference"/>
+    <!--EditChat-->
+
+
+
+    <!--JoinChat-->
+
+    <attr name="chatJoinSearchBackgroundColorRef" format="reference"/>
+    <attr name="chatJoinSearchTextColorRef" format="reference"/>
+    <attr name="chatJoinBackgroundColorRef" format="reference"/>
+    <attr name="chatJoinChatsHeadlineColorRef" format="reference"/>
+
+    <attr name="chatCreateButtonTextColorRef" format="reference"/>
 </resources>

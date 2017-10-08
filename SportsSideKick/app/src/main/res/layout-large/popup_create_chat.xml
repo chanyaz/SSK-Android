@@ -9,13 +9,14 @@
         android:layout_centerInParent="true"
         android:layout_height="0dp"/>
     <RelativeLayout
-        android:layout_alignStart="@+id/middle"
         android:layout_gravity="center"
         android:background="?colorPrimarySemiLight"
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/middle">
 
         <RelativeLayout
             android:id="@+id/chat_headline_container"
@@ -62,19 +63,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standard_button_height"
                 android:layout_toStartOf="@+id/top_vertical_spliter"
+                android:background="?chatSlideButtonBackgroundColorRef"
                 android:gravity="center"
                 android:text="@string/create_chat"
-                android:textColor="?colorAccent" />
+                android:textColor="?chatSlideButtonTextColorRef" />
 
             <TextView
                 android:id="@+id/join_a_chat"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standard_button_height"
                 android:layout_toEndOf="@+id/top_vertical_spliter"
-                android:background="@color/colorPrimaryVeryDark"
+                android:background="?chatSlideSecondButtonBackgroundColorRef"
                 android:gravity="center"
                 android:text="@string/join_chat"
-                android:textColor="?white_semitransparent" />
+                android:textColor="?chatSlideSecondButtonTextColorRef" />
 
             <View
                 android:layout_width="match_parent"
@@ -126,7 +128,6 @@
                 android:padding="@dimen/margin_10"
                 android:visibility="gone"/>
 
-
             <EditText
                 android:id="@+id/chat_name_edit_text"
                 android:layout_width="match_parent"
@@ -134,13 +135,13 @@
                 android:layout_below="@+id/top_vertical_spliter"
                 android:layout_toEndOf="@id/chat_image_view"
                 android:layout_toStartOf="@+id/chat_popup_image_button"
-                android:background="@color/colorPrimary"
+                android:background="?chatJoinSearchBackgroundColorRef"
                 android:gravity="start|center_vertical"
                 android:hint="@string/your_chat_name"
                 android:imeOptions="flagNoExtractUi"
                 android:maxLines="1"
                 android:padding="@dimen/margin_20"
-                android:textColor="@color/white"
+                android:textColor="?chatJoinSearchTextColorRef"
                 android:textColorHint="?white_semitransparent"
                 android:textSize="@dimen/font_size_14" />
 
@@ -227,7 +228,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/confirm_button"
-            android:background="@color/colorPrimary">
+            android:background="?chatJoinBackgroundColorRef">
 
             <TextView
                 android:id="@+id/chat_friends_in_chat_headline"
@@ -236,7 +237,7 @@
                 android:layout_centerHorizontal="true"
                 android:padding="@dimen/padding_8"
                 android:text="@string/friends_in_chat"
-                android:textColor="@color/white" />
+                android:textColor="?chatJoinChatsHeadlineColorRef" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/chat_friends_in_chat_recycler_view"
@@ -262,7 +263,7 @@
             android:scaleType="centerInside"
             android:text="@string/create_chat"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="?chatCreateButtonTextColorRef" />
 
         <base.app.util.ui.AutofitRecyclerView
             android:id="@+id/friends_recycler_view"

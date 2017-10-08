@@ -169,7 +169,7 @@
                 android:maxLines="1"
                 android:padding="@dimen/padding_8"
                 android:privateImeOptions=""
-                android:textColor="@color/colorPrimary"
+                android:textColor="?chatEditTextColorRef"
                 android:textColorHint="?colorPrimarySemiLight"
                 android:textSize="@dimen/font_size_16" />
 

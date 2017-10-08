@@ -32,15 +32,16 @@
             android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
             android:text="@string/following"
-            android:textColor="?white_semitransparent" />
+            android:textColor="?addFriendButtonInviteTextColorRef" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_toEndOf="@+id/top_vertical_spliter"
             android:gravity="center"
+            android:background="?addFriendButtonBackgroundColorRef"
             android:text="@string/followers"
-            android:textColor="?colorAccent" />
+            android:textColor="?addFriendButtonTextColorRef" />
 
         <View
             android:layout_width="match_parent"

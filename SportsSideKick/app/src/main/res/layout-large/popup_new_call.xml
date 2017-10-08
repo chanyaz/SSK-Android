@@ -115,7 +115,8 @@
             android:layout_width="@dimen/popup_your_friends_search_container"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:background="@drawable/popup_bottom_left_background">
+            android:background="@drawable/popup_bottom_left_background"
+            android:layout_below="@+id/bottom_split_line">
 
             <ImageView
                 android:id="@+id/search_icon"
@@ -133,7 +134,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_toEndOf="@id/search_icon"
-                android:background="@color/colorPrimary"
+                android:background="?searchFieldBackgroundRef"
                 android:hint="@string/starting_new_call_search_hint"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="text"

@@ -120,7 +120,7 @@
             android:layout_below="@id/profile_image_container"
             android:layout_marginTop="@dimen/margin_8"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="?profileNameColorRef"
             android:textSize="@dimen/font_size_16"
             android:textStyle="bold" />
 
@@ -132,7 +132,7 @@
             android:layout_alignStart="@id/profile_image_container"
             android:layout_below="@id/profile_name"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="?profileStatusColorRef"
             android:textSize="@dimen/font_size_10"
             android:textStyle="normal" />
 
