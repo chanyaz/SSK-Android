@@ -222,6 +222,7 @@ public class ChatFragment extends BaseFragment {
         messageListView.setAdapter(messageAdapter);
 
         messageAdapter.setTranslationView(translationView);
+        translationView.setParentView(view);
 
         SnappyLinearLayoutManager snappyLinearLayoutManager = new SnappyLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         snappyLinearLayoutManager.setSnapInterpolator(new AccelerateDecelerateInterpolator());

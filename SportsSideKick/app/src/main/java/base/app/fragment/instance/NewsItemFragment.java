@@ -149,6 +149,7 @@ public class NewsItemFragment extends BaseFragment {
         commentsListView.setLayoutManager(commentLayoutManager);
         commentsListView.setAdapter(commentsAdapter);
         commentsAdapter.setTranslationView(translationView);
+        translationView.setParentView(view);
 
         NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
         if (id.contains("UNOFFICIAL$$$")) {
