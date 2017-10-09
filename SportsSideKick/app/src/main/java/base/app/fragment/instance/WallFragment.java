@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -733,6 +734,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (Utility.isTablet(getActivity())) { //Tablet
             defaultColor = R.color.white;
             selectedColor = R.color.colorAccent;
+            //TODO Change this (drawable)
+            if(BuildConfig.FLAVOR.equals("brugge")){
+                selectedColor = R.color.colorGrayDark;
+            }
         } else { //Phone
             defaultColor = R.color.colorPrimary;
             selectedColor = R.color.colorPrimaryVeryLight;

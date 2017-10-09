@@ -37,6 +37,7 @@
     <color name="colorGrayDark"                            >#454644</color>
     <color name="white_semitransparent"                   >#5fffffff</color>
     <color name="white"                                     >#f6f6f6</color>
+    <color name="colorWhiteLight"                                >#f6f7fa</color>
 
     <color name="facebook_blue"                             >#3b5998</color>
 </resources>

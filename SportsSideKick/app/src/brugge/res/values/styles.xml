@@ -91,7 +91,7 @@
         <item name="friendsIcon">@drawable/icon_your_friends</item>
         <item name="followersIcon">@drawable/icon_followers</item>
         <item name="appBackground">@color/colorPrimary</item>
-        <item name="loginBackground">@drawable/background_login</item>
+        <item name="loginBackground">@drawable/video_chat_back</item>
         <item name="blockedIcon">@drawable/icon_blocked</item>
         <item name="arrowDownIcon">@drawable/down_arrow</item>
         <item name="popupCancelButtonIcon">@drawable/popup_cancel_button</item>
@@ -158,7 +158,7 @@
 
         <item name="chatEditTextColorRef">@color/colorGrayDark</item>
         <item name="chatEditTextHintColorRef">@color/colorGray</item>
-        <item name="chatEditTextBackgroundColorRef">@color/white</item>
+        <item name="chatEditTextBackgroundColorRef">@color/colorWhiteLight</item>
 
         <item name="chatSlideButtonBackgroundColorRef">@color/colorPrimary</item>
         <item name="chatSlideButtonTextColorRef">@color/white</item>

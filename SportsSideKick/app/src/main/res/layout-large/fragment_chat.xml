@@ -159,7 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true"
-                android:background="@color/colorGrayLight"
+                android:background="?chatEditTextBackgroundColorRef"
                 android:gravity="start|center_vertical"
                 android:hint="@string/chat_hint"
                 android:imeActionId="@+id/action_send_message_id"
