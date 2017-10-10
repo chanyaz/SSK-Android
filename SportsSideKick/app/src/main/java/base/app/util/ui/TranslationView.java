@@ -1,14 +1,11 @@
 package base.app.util.ui;
 
 import android.content.Context;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.View;
 import android.widget.NumberPicker;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -17,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,15 +36,32 @@ import base.app.model.wall.WallNews;
 
 public class TranslationView extends RelativeLayout {
 
-    PopupWindow popup;
-    NumberPicker languagePicker;
+    private static final String TAG = "Translation View";
+    private static final String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
+
+    View container;
     View progressBar;
-    View popupLayout;
+    NumberPicker languagePicker;
+    RelativeLayout popupLayout;
 
     ArrayList<String> languagesList;
     BiMap<String, String> languagesBiMap;
 
     TaskCompletionSource completion;
+
+
+
+    String itemId;
+    TranslationType type;
+    WallBase.PostType postType;
+
+    int[] referenceLocation;
+    int referenceHeight, referenceWidth;
+    private View parentView;
+
+    public void setParentView(View parentView) {
+        this.parentView = parentView;
+    }
 
     public enum TranslationType {
         TRANSLATE_WALL,
@@ -55,9 +70,6 @@ public class TranslationView extends RelativeLayout {
         TRANSLATE_COMMENT
     }
 
-    String itemId;
-    TranslationType type;
-    WallBase.PostType postType;
 
     public TranslationView(Context context) {
         super(context);
@@ -76,17 +88,16 @@ public class TranslationView extends RelativeLayout {
 
     private void initView() {
         inflate(getContext(), R.layout.view_translation, this);
-        popupLayout = inflate(getContext(), R.layout.view_popup_translation, null);
-
-        popupLayout.findViewById(R.id.close).setOnClickListener(onCloseClickListener);
-        popupLayout.findViewById(R.id.translate).setOnClickListener(onTranslateClickListener);
-        languagePicker = popupLayout.findViewById(R.id.language_picker);
+        findViewById(R.id.close).setOnClickListener(onCloseClickListener);
+        findViewById(R.id.translate).setOnClickListener(onTranslateClickListener);
+        container = findViewById(R.id.root);
+        popupLayout = findViewById(R.id.popup);
+        languagePicker = findViewById(R.id.language_picker);
         progressBar = findViewById(R.id.progress);
+        container.setOnClickListener(onCloseClickListener);
 
         HashMap<String,String> mapOfLanguages = TranslateManager.getInstance().getLanguageList();
-
         languagePicker.setMinValue(0);
-
         if(mapOfLanguages!=null && mapOfLanguages.size() > 0){
             languagesBiMap = HashBiMap.create(mapOfLanguages);
             Collection<String> languages = languagesBiMap.values();
@@ -97,43 +108,67 @@ public class TranslationView extends RelativeLayout {
                 languagePicker.setDisplayedValues(languagesList.toArray(new String[languagesList.size()]));
             }
         }
-
-        popup = new PopupWindow(getContext());
-        popup.setContentView(popupLayout);
-        popup.setBackgroundDrawable(new BitmapDrawable(getContext().getResources()));
-
-        popupLayout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+        languagePicker.setValue(Prefs.getInt(SELECTED_LANGUAGE,0));
     }
 
-    private Point calculateLocationOfPopup(View view) {
-        // Get the x, y location and store it in the locationValues[] array
-        // locationValues[0] = x, locationValues[1] = y.
-        int[] locationValues = new int[2];
-        view.getLocationOnScreen(locationValues);
-
-        //Initialize the Point with x, and y positions
-        Point location = new Point();
-        location.x = locationValues[0] + view.getWidth();
-        location.y = locationValues[1] + view.getHeight() / 2;
-
-        return location;
-    }
-    public void showTranslationPopup(View view, String id, TaskCompletionSource completion, TranslationType type) {
-        showTranslationPopup(view,id,completion,type,null);
+    public void showTranslationPopup(View clickedView, String id, TaskCompletionSource completion, TranslationType type) {
+        showTranslationPopup(clickedView,id,completion,type,null);
     }
 
-    public void showTranslationPopup(View view, String id, TaskCompletionSource completion, TranslationType type, WallBase.PostType postType) {
+    public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, WallBase.PostType postType) {
         this.type = type;
         this.completion = completion;
         itemId = id;
         this.postType = postType;
+        popupLayout.setVisibility(VISIBLE);
+        progressBar.setVisibility(GONE);
+        container.requestLayout();
+        popupLayout.requestLayout();
+
+        referenceLocation = new int[2];
+        referenceView.getLocationOnScreen(referenceLocation);
+        referenceHeight = referenceView.getHeight();
+        referenceWidth = referenceView.getWidth();
         this.setVisibility(VISIBLE);
+    }
+
+    private void positionPopup(int[] referenceLocation, int referenceHeight, int referenceWidth){
+        popupLayout.measure(
+                MeasureSpec.makeMeasureSpec(popupLayout.getWidth(), MeasureSpec.EXACTLY),
+                MeasureSpec.makeMeasureSpec(popupLayout.getHeight(), MeasureSpec.EXACTLY));
+
+        popupLayout.measure(popupLayout.getWidth(),popupLayout.getHeight());
+
+        int parentHeight = parentView.getHeight();
+        int parentWidth = parentView.getWidth();
+        int popupHeight = popupLayout.getMeasuredHeight();
+        int popupWidth = popupLayout.getMeasuredWidth();
+
+        Log.d(TAG,"Parent h:" + parentHeight + " w: " + parentWidth);
+        Log.d(TAG,"Popup h:" + popupHeight + " w: " + popupWidth);
+
+        int[] parentLocation = new int[2];
+        container.getLocationOnScreen(parentLocation);
+
+        int startMargin = referenceLocation[0] + referenceWidth - parentLocation[0];
+        int topMargin = referenceLocation[1] + (referenceHeight / 2 ) - parentLocation[1];
+
         // offset to align the popup to view
-        Point p = calculateLocationOfPopup(view);
-        int OFFSET_Y = -popupLayout.getMeasuredHeight() / 2;
-        // Displaying the popup at the specified location + offsets.
-        popup.showAtLocation(this, Gravity.NO_GRAVITY, p.x, p.y + OFFSET_Y);
+        topMargin = topMargin - (popupHeight/2);
+
+        int maxStartMargin = parentWidth - popupWidth;
+        int maxTopMargin = parentHeight - popupHeight;
+
+        if(parentWidth > 0 &&  startMargin > maxStartMargin ){
+            startMargin = maxStartMargin;
+        }
+        if(parentHeight > 0 && topMargin > maxTopMargin){
+            topMargin = maxTopMargin;
+        }
+
+        LayoutParams params = (RelativeLayout.LayoutParams) popupLayout.getLayoutParams();
+        params.setMargins(startMargin, topMargin, 0, 0);
+        popupLayout.requestLayout();
     }
 
     private void translateMessage() {
@@ -154,7 +189,6 @@ public class TranslationView extends RelativeLayout {
         });
         TranslateManager.getInstance().translateMessage(itemId, getSelectedLanguageCode(), source);
     }
-
 
     private void translateWallItem() {
         TaskCompletionSource<WallBase> source = new TaskCompletionSource<>();
@@ -213,6 +247,8 @@ public class TranslationView extends RelativeLayout {
     OnClickListener onTranslateClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            Prefs.putInt(SELECTED_LANGUAGE,languagePicker.getValue());
+            popupLayout.setVisibility(GONE);
             progressBar.setVisibility(VISIBLE);
             switch (type) {
                 case TRANSLATE_WALL:
@@ -228,7 +264,6 @@ public class TranslationView extends RelativeLayout {
                     translateWallNews();
                     break;
             }
-            popup.dismiss();
         }
     };
 
@@ -253,6 +288,11 @@ public class TranslationView extends RelativeLayout {
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-        popup.dismiss();
+        if(popupLayout!=null){
+            removeView(popupLayout);
+        }
+        if(visibility==VISIBLE){
+            positionPopup(referenceLocation,referenceHeight,referenceWidth);
+        }
     }
 }

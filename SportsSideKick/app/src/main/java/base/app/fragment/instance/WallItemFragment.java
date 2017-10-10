@@ -187,6 +187,7 @@ public class WallItemFragment extends BaseFragment {
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", getActivity().getPackageName());
         commentsAdapter = new CommentsAdapter(comments,imgUri);
         commentsAdapter.setTranslationView(translationView);
+        translationView.setParentView(view);
         commentsList.setLayoutManager(commentLayoutManager);
         commentsList.setAdapter(commentsAdapter);
 
@@ -584,10 +585,10 @@ public class WallItemFragment extends BaseFragment {
     public void readMoreClick(View view) {
         if (content.getMaxLines() == 3) {
             content.setMaxLines(Integer.MAX_VALUE);
-            ((TextView)view).setText(R.string.read_more_closed);
+            ((TextView)view).setText(R.string.read_more_open);
         } else {
             content.setMaxLines(3);
-            ((TextView)view).setText(R.string.read_more_open);
+            ((TextView)view).setText(R.string.read_more_closed);
         }
     }
 

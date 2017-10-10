@@ -148,6 +148,8 @@ public class NewsItemFragment extends BaseFragment {
         commentsAdapter = new CommentsAdapter(comments,imgUri);
         commentsListView.setLayoutManager(commentLayoutManager);
         commentsListView.setAdapter(commentsAdapter);
+        commentsAdapter.setTranslationView(translationView);
+        translationView.setParentView(view);
 
         NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
         if (id.contains("UNOFFICIAL$$$")) {
@@ -252,15 +254,17 @@ public class NewsItemFragment extends BaseFragment {
     }
 
     private void setupTextualContent(WallNews item){
-        title.setText(item.getTitle());
-        String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(),
-                Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
-        if (item.getSubTitle() != null) {
-            strap.setText(item.getSubTitle() + " - " + time);
-        } else {
-            strap.setText(time);
+        if(item!=null){
+            title.setText(item.getTitle());
+            String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(),
+                    Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
+            if (item.getSubTitle() != null) {
+                strap.setText(item.getSubTitle() + " - " + time);
+            } else {
+                strap.setText(time);
+            }
+            content.setText(item.getBodyText());
         }
-        content.setText(item.getBodyText());
     }
 
     @Subscribe
@@ -450,10 +454,10 @@ public class NewsItemFragment extends BaseFragment {
     public void readMoreClick(View view) {
         if (content.getMaxLines() == 3) {
             content.setMaxLines(Integer.MAX_VALUE);
-            ((TextView)view).setText(R.string.read_more_closed);
+            ((TextView)view).setText(R.string.read_more_open);
         } else {
             content.setMaxLines(3);
-            ((TextView)view).setText(R.string.read_more_open);
+            ((TextView)view).setText(R.string.read_more_closed);
         }
     }
 
@@ -483,7 +487,6 @@ public class NewsItemFragment extends BaseFragment {
 
     private void updateWithTranslatedPost(WallNews translatedNews){
         setupTextualContent(translatedNews);
-        Toast.makeText(getContext(),"Got translated post!",Toast.LENGTH_SHORT).show();
     }
 
     @Override
