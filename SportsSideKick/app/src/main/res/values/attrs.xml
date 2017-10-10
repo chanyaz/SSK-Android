@@ -219,7 +219,6 @@
 
     <attr name="phoneChatBackground" format="reference" />
 
-    <attr name="colorAccentSemiDarkRef" format="reference" />
     <attr name="colorPrimaryVeryLightRef" format="reference" />
 
     <attr name="chatDetailsColorRef" format="reference"/>
@@ -231,7 +230,6 @@
     <attr name="yourProfileInfoDetailsColorRef" format="reference"/>
 
     <!--Edit Profile-->
-    <attr name="editUserInfoBackgroundColorRef" format="reference"/>
     <attr name="editUserInfoTextColorColorRef" format="reference"/>
     <attr name="editUserInfoUnderlineColorRef" format="reference"/>
 

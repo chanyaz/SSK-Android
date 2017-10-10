@@ -127,15 +127,12 @@
         <item name="wallUserContentTextColor">@color/colorGrayDark</item>
         <item name="wallUserContentColor">@color/colorGrayDark</item>
 
-        <item name="colorAccentSemiDarkRef">@color/colorAccentLightDark</item>
         <item name="colorPrimaryVeryLightRef">@color/colorGrayDark</item>
 
         <item name="chatDetailsColorRef">@color/colorGrayDark</item>
 
         <item name="yourProfileUserNameColorRef">@color/colorGrayDark</item>
         <item name="yourProfileInfoDetailsColorRef">@color/colorGrayDark</item>
-
-        <item name="editUserInfoBackgroundColorRef">@color/white</item>
 
         <item name="editUserInfoTextColorColorRef">@color/colorPrimary</item>
         <item name="editUserInfoUnderlineColorRef">@color/colorPrimarySemiLight</item>
