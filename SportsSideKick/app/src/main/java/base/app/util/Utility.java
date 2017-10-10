@@ -282,12 +282,13 @@ public class Utility {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimarySemiDark));
         } else {
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-                WindowManager.LayoutParams winParams = activity.getWindow().getAttributes();
-                final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-                winParams.flags |= bits;
-                activity.getWindow().setAttributes(winParams);
-            }
+            //TODO - @Filip This moves app behind topbar on KITKAT
+//            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+//                WindowManager.LayoutParams winParams = activity.getWindow().getAttributes();
+//                final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+//                winParams.flags |= bits;
+//                activity.getWindow().setAttributes(winParams);
+//            }
         }
     }
 
