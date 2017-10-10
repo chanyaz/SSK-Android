@@ -65,7 +65,6 @@ import base.app.model.user.LoginStateReceiver;
 import base.app.model.videoChat.VideoChatEvent;
 import base.app.model.videoChat.VideoChatModel;
 import base.app.util.Utility;
-import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -101,7 +100,6 @@ public class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ThemeManager.getInstance().assignTheme(this);
         setContentView(R.layout.activity_base); // TODO @Aleksandar - Do we need this layout at all?
         callbackManager = CallbackManager.Factory.create();
         Model.getInstance().initialize(this);

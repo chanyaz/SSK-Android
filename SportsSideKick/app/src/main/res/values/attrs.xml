@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SpannedGridLayoutManager">
+        <attr name="android:orientation" />
+        <attr name="spanCount" />
+        <attr name="aspectRatio" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="DonutProgress">
+        <attr name="donut_progress" format="integer" />
+        <attr name="donut_max" format="integer" />
+        <attr name="donut_unfinished_color" format="color" />
+        <attr name="donut_finished_color" format="color" />
+        <attr name="donut_finished_stroke_width" format="dimension" />
+        <attr name="donut_unfinished_stroke_width" format="dimension" />
+        <attr name="donut_text_size" format="dimension" />
+        <attr name="donut_text_color" format="color" />
+        <attr name="donut_text" format="string" />
+        <attr name="donut_prefix_text" format="string" />
+        <attr name="donut_suffix_text" format="string" />
+        <attr name="donut_background_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="verticaltextview">
+        <attr name="direction">
+            <enum name="uptodown" value="0" />
+            <enum name="downtoup" value="1" />
+            <enum name="lefttoright" value="2" />
+            <enum name="righttoleft" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <!--Colors-->
+    <attr name="nativeAdBackground" format="reference" />
+    <attr name="wallItemsColor" format="reference" />
+    <attr name="colorPrimarySemiLight" format="reference" />
+
+    <attr name="colorGray" format="reference" />
+    <attr name="white" format="reference" />
+    <attr name="white_semitransparent" format="reference" />
+
+    <attr name="demo_yellow_semitransparent" format="reference" />
+    <attr name="demo_green_semitransparent" format="reference" />
+    <attr name="demo_blue_semitransparent" format="reference" />
+    <attr name="demo_red_semitransparent" format="reference" />
+    <attr name="black_transparent_154" format="reference" />
+
+    <attr name="wall_comment_color" format="reference" />
+    <attr name="wall_shop_description_text_color" format="reference" />
+    <attr name="black" format="reference" />
+
+    <attr name="wallBackground" format="reference" />
+    <attr name="chatInfoBackgroundColor" format="reference" />
+
+    <!--Images-->
+    <attr name="userCoinIcon" format="reference" />
+
+    <!--activity_lounge-->
+    <attr name="tabRadioButtonSelectorRight" format="reference" />
+    <attr name="tabRadioButtonSelectorLeft" format="reference" />
+
+    <attr name="radioButtonCheckedLeft" format="reference" />
+    <attr name="radioButtonNormalLeft" format="reference" />
+
+    <attr name="tabRadioButtonTextColor" format="reference" />
+
+
+    <attr name="userLevelProgress" format="reference" />
+
+    <attr name="logoIcon" format="reference" />
+    <attr name="ligaBanner" format="reference" />
+
+    <attr name="notificationIcon" format="reference" />
+    <attr name="profileImageIcon" format="reference" />
+    <attr name="nextLevelMarkerIcon" format="reference" />
+    <attr name="friendsIcon" format="reference" />
+    <attr name="followersIcon" format="reference" />
+    <attr name="appBackground" format="reference" />
+
+    <attr name="loginBackground" format="reference" />
+
+    <attr name="chatAddUserIcon" format="reference" />
+
+    <attr name="chatNotificationIcon" format="reference" />
+    <attr name="blockedIcon" format="reference" />
+
+    <attr name="chatHeadSelectedIcon" format="reference" />
+    <attr name="userCountIcon" format="reference" />
+    <attr name="chatBubbleIcon" format="reference" />
+    <attr name="popupCancelButtonIcon" format="reference" />
+    <attr name="popupConfirmationButtonIcon" format="reference" />
+
+    <attr name="popupBottomBackgroundDarkShape" format="reference" />
+    <attr name="popupBottomBackgroundDarkShapeDialog" format="reference" />
+    <attr name="chatBackground" format="reference" />
+    <attr name="arrowDownIcon" format="reference" />
+
+    <attr name="chatVoiceButtonPressedIcon" format="reference" />
+    <attr name="chatVoiceButtonIcon" format="reference" />
+    <attr name="chatVoiceSelector" format="reference" />
+
+    <attr name="chatCameraIcon" format="reference" />
+    <attr name="chatGalleryIcon" format="reference" />
+    <attr name="chatAddButtonIcon" format="reference" />
+    <attr name="chatMenuButtonIcon" format="reference" />
+
+    <attr name="textViewRoundBorderShape" format="reference" />
+    <attr name="videoCloseButtonIcon" format="reference" />
+    <attr name="downloadButtonIcon" format="reference" />
+    <attr name="closeIcon" format="reference" />
+
+    <attr name="playPauseSelector" format="reference" />
+    <attr name="playIcon" format="reference" />
+    <attr name="pauseIcon" format="reference" />
+
+    <attr name="radioLiveIcon" format="reference" />
+
+    <attr name="soundSelector" format="reference" />
+    <attr name="soundOnIcon" format="reference" />
+    <attr name="soundOffIcon" format="reference" />
+
+    <attr name="seekBarShape" format="reference" />
+    <attr name="seekBarAudioShape" format="reference" />
+
+    <!--*****************************************************************************************-->
+
+    <attr name="circularProgressBarDrawable" format="reference" />
+    <attr name="chatHeadBackgroundColor" format="reference" />
+
+    <attr name="wallMenuBackground" format="reference" />
+    <attr name="phoneWallMenuBackground" format="reference" />
+
+
+    <attr name="wallMenuNewPostIcon" format="reference" />
+    <attr name="wallMenuFilterIcon" format="reference" />
+    <attr name="wallMenuSearchIcon" format="reference" />
+
+
+    <attr name="themeName" format="reference" />
+    <attr name="wallItemContentBackground" format="reference" />
+
+    <attr name="chatBubbleLeftImage" format="reference" />
+    <attr name="chatBubbleRightImage" format="reference" />
+
+    <attr name="wallItemUserPostBackground" format="reference" />
+    <attr name="wallItemRumoursBigBackground" format="reference" />
+    <attr name="wallItemShopBackground" format="reference" />
+    <attr name="wallItemStoreBackground" format="reference" />
+    <attr name="wallItemNewsBackground" format="reference" />
+    <attr name="wallItemTipBackground" format="reference" />
+
+    <attr name="wallItemTipTextCaptionColor" format="reference" />
+    <attr name="wallItemTipTextContentColor" format="reference" />
+
+    <attr name="tvCategoryBackground" format="reference" />
+    <attr name="rumoursTimeTextColor" format="reference" />
+    <attr name="rumourSmallContentColor" format="reference" />
+
+    <attr name="rumourSmallSeparatorColor" format="reference" />
+
+    <attr name="channelItemCaption" format="reference" />
+    <attr name="channelItemBackground" format="reference" />
+
+    <attr name="channelItemDate" format="reference" />
+
+    <attr name="postCommentContainerColor" format="reference" />
+    <attr name="postCommentHintColor" format="reference" />
+    <attr name="postCommentTextColor" format="reference" />
+
+    <attr name="newsLikeIcon" format="reference" />
+    <attr name="newsLikedIcon" format="reference" />
+    <attr name="newsPinIcon" format="reference" />
+    <attr name="newsShareIcon" format="reference" />
+    <attr name="newsCommentIcon" format="reference" />
+
+    <attr name="tvRadioHeadlineColor" format="reference" />
+
+    <attr name="playerControlsBackground" format="reference" />
+    <attr name="playerControlsPlayButton" format="reference" />
+    <attr name="playerControlsCaption" format="reference" />
+    <attr name="playerControlsMuteIcon" format="reference" />
+
+    <attr name="wallItemUserPostCaption" format="reference" />
+
+    <attr name="videoChatButtonStyle" format="reference" />
+    <attr name="videoChatOverlay" format="reference" />
+
+
+    <attr name="wallEditTextContainerBackground" format="reference" />
+    <attr name="wallEditSearchBackground" format="reference" />
+    <attr name="wallEditSearchText" format="reference" />
+    <attr name="wallEditSearchHint" format="reference" />
+
+    <attr name="wallUserContentTextColor" format="reference" />
+    <attr name="wallUserContentColor" format="reference" />
+
+    <attr name="webViewControlsBackground" format="reference" />
+
+    <attr name="playerBackground" format="reference" />
+    <attr name="profileImageLoungeIcon" format="reference" />
+
+    <!--*****************************************************************************************-->
+
+    <attr name="phoneWallEditSearchText" format="reference" />
+    <attr name="phoneWallEditSearchHint" format="reference" />
+
+
+    <!--Added for 4.2 - 4.4-->
+    <attr name="popupLoginButtonBackground" format="reference" />
+    <attr name="popupBottomBackground" format="reference" />
+    <attr name="popupBottomLeftBackground" format="reference" />
+    <attr name="greenCircle" format="reference" />
+
+    <attr name="popupOnClickChangeTextColor" format="reference" />
+    <attr name="buttonLogin" format="reference" />
+    <attr name="buttonEditProfileImage" format="reference" />
+
+
+    <attr name="phoneChatBackground" format="reference" />
+
+    <attr name="colorAccentSemiDarkRef" format="reference" />
+    <attr name="colorPrimaryVeryLightRef" format="reference" />
+
+    <attr name="chatDetailsColorRef" format="reference"/>
+
+    <!-- * * * * * * * * * P O P U P S * * * * * * * * * * * *-->
+    <!--Your profile-->
+    <attr name="yourProfileUserNameColorRef" format="reference"/>
+    <attr name="yourProfileInfoHeadlineColorRef" format="reference"/>
+    <attr name="yourProfileInfoDetailsColorRef" format="reference"/>
+
+    <!--Edit Profile-->
+    <attr name="editUserInfoBackgroundColorRef" format="reference"/>
+    <attr name="editUserInfoTextColorColorRef" format="reference"/>
+    <attr name="editUserInfoUnderlineColorRef" format="reference"/>
+
+    <!--Your Stash-->
+    <attr name="stashDescriptionColorRef" format="reference"/>
+
+    <!--Your Wallet-->
+    <attr name="bundlesCaptionColorRef" format="reference"/>
+
+    <!--Your Friends-->
+    <attr name="searchFieldBackgroundRef" format="reference"/>
+
+    <!--Add a friend & following and followers  & Invite a friend-->
+    <attr name="addFriendButtonBackgroundColorRef" format="reference"/>
+    <attr name="addFriendButtonTextColorRef" format="reference"/>
+    <attr name="addFriendInfoColorRef" format="reference"/>
+    <attr name="addFriendButtonInviteTextColorRef" format="reference"/>
+    <attr name="inviteFriendButtonColorRef" format="reference"/>
+
+    <!--Member Info-->
+
+    <attr name="profileStatusColorRef" format="reference"/>
+    <attr name="profileNameColorRef" format="reference"/>
+
+    <!--Fragments - not popups-->
+    <!--Chat-->
+    <attr name="chatEditTextColorRef" format="reference"/>
+    <attr name="chatEditTextHintColorRef" format="reference"/>
+    <attr name="chatEditTextBackgroundColorRef" format="reference"/>
+
+    <attr name="chatSlideButtonBackgroundColorRef" format="reference"/>
+    <attr name="chatSlideButtonTextColorRef" format="reference"/>
+
+    <attr name="chatSlideSecondButtonBackgroundColorRef" format="reference"/>
+    <attr name="chatSlideSecondButtonTextColorRef" format="reference"/>
+    <!--EditChat-->
+
+
+
+    <!--JoinChat-->
+
+    <attr name="chatJoinSearchBackgroundColorRef" format="reference"/>
+    <attr name="chatJoinSearchTextColorRef" format="reference"/>
+    <attr name="chatJoinBackgroundColorRef" format="reference"/>
+    <attr name="chatJoinChatsHeadlineColorRef" format="reference"/>
+
+    <attr name="chatCreateButtonTextColorRef" format="reference"/>
+</resources>

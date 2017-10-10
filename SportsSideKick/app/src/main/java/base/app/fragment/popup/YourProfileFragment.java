@@ -30,7 +30,6 @@ import base.app.model.Model;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
-import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -188,7 +187,6 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                 }, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
-                        ThemeManager.getInstance().changeTheme(getActivity());
                         getActivity().onBackPressed();
                     }
                 });

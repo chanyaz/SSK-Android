@@ -1,0 +1,475 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryMediumLight"
+    tools:context="base.app.fragment.instance.WallFragment">
+
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/container"
+        app:srl_direction="bottom">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/wall_top_image_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/wall_top_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/image_wall_background"
+                        android:scaleType="centerCrop"/>
+
+                    <RelativeLayout
+                        android:id="@+id/wall_top_info_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true">
+
+                        <RelativeLayout
+                            android:id="@+id/wall_top_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/wall_team_left_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:padding="@dimen/padding_8"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/wall_team_left_image"
+                                android:layout_width="@dimen/width_50"
+                                android:layout_height="@dimen/height_50"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@id/wall_team_left_name" />
+
+                            <TextView
+                                android:id="@+id/wall_team_vs"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@id/wall_team_left_image"
+                                android:padding="@dimen/padding_8"
+                                android:text="@string/vs"
+                                android:textColor="@color/white" />
+
+                            <ImageView
+                                android:id="@+id/wall_team_right_image"
+                                android:layout_width="@dimen/width_50"
+                                android:layout_height="@dimen/height_50"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@id/wall_team_vs" />
+
+                            <TextView
+                                android:id="@+id/wall_team_right_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@id/wall_team_right_image"
+                                android:padding="@dimen/padding_8"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/wall_team_next_match"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/wall_top_info"
+                            android:layout_centerHorizontal="true"
+                            android:padding="@dimen/padding_8"
+                            android:text="@string/next_match"
+                            android:textColor="@color/colorPrimaryVeryLight" />
+
+                        <TextView
+                            android:id="@+id/wall_team_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/wall_team_next_match"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/login_holder"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/wall_top_image_container"
+                    android:animateLayoutChanges="true"
+                    android:paddingTop="@dimen/margin_16"
+                    android:orientation="vertical"
+                    android:background="@color/login_background"
+                    android:layout_marginBottom="@dimen/height_30"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/fontTitilliumWebLight"
+                        android:textSize="@dimen/font_size_19"
+                        android:padding="@dimen/padding_8"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/to_access_full_features"
+                        android:textAlignment="center" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:layout_marginBottom="@dimen/margin_20"
+                        android:orientation="horizontal" >
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.131" />
+
+                        <Button
+                            android:id="@+id/join_now_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/standard_button_height"
+                            android:layout_weight="0.324"
+                            android:background="@drawable/gym_bag_button_background"
+                            android:text="@string/join_now"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_19"
+                            style="?android:attr/borderlessButtonStyle"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.082"
+                            style="@style/fontTitilliumWebLight"
+                            android:textSize="@dimen/font_size_19"
+                            android:padding="@dimen/padding_8"
+                            android:textColor="@color/colorPrimary"
+                            android:text="@string/or"
+                            android:textAlignment="center"/>
+                        <Button
+                            android:id="@+id/login_button"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/standard_button_height"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.324"
+                            android:background="@drawable/light_button_edit_profile_image"
+                            android:gravity="center"
+                            android:text="@string/sign_in"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_size_19"
+                            style="?android:attr/borderlessButtonStyle"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.131"  />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/progress_bar"
+                    android:layout_width="@dimen/prodgres_bar"
+                    android:layout_height="@dimen/prodgres_bar"
+                    android:layout_below="@id/login_holder"
+                    android:layout_centerInParent="true"
+                    android:elevation="@dimen/elevation_2"
+                    app:indicatorName="LineSpinFadeLoaderIndicator" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_wall_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/login_holder"
+                    />
+
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fragment_wall_bottom_bar"
+        android:animateLayoutChanges="true"
+        android:background="?phoneWallMenuBackground">
+
+        <RelativeLayout
+            android:id="@+id/your_post_container"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:animateLayoutChanges="true"
+            android:clickable="true"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/vertical_separator">
+
+                <ImageView
+                    android:id="@+id/uploaded_image"
+                    android:layout_width="@dimen/width_40"
+                    android:layout_height="@dimen/width_40"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/uploaded_image_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/uploaded_image"
+                    android:layout_alignEnd="@+id/uploaded_image"
+                    android:layout_alignStart="@+id/uploaded_image"
+                    android:layout_alignTop="@+id/uploaded_image"
+                    android:padding="@dimen/margin_5"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/remove_uploaded_photo_button"
+                    android:layout_width="@dimen/width_20"
+                    android:layout_height="@dimen/height_20"
+                    android:layout_alignEnd="@+id/uploaded_image"
+                    android:layout_alignTop="@+id/uploaded_image"
+                    android:src="@drawable/removephotobutton"
+                    android:tint="?colorPrimarySemiLight"
+                    android:visibility="gone" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/post_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/margin_10"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_toEndOf="@+id/uploaded_image"
+                    android:layout_toStartOf="@+id/post_post_button"
+                    android:hint="@string/write_post_hint"
+                    android:textColor="?phoneWallEditSearchText"
+                    app:backgroundTint="?wallItemsColor" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/post_post_button"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/btn_send"
+                    android:tint="?colorPrimarySemiLight"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/vertical_separator"
+                android:layout_width="@dimen/width_2"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/media_buttons"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:id="@+id/media_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/camera_button"
+                    android:layout_width="@dimen/width_40"
+                    android:layout_height="match_parent"
+                    android:src="?chatCameraIcon"
+                    android:tint="?colorPrimarySemiLight" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/image_button"
+                    android:layout_width="@dimen/width_40"
+                    android:layout_height="match_parent"
+                    android:src="?chatGalleryIcon"
+                    android:tint="?colorPrimarySemiLight" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/wall_filter_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentStart="true"
+            android:animateLayoutChanges="true"
+            android:clickable="true"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ToggleButton
+                    android:id="@+id/news_filter_toggle"
+                    style="@style/phone_toggle_button_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/wall_button_size"
+                    android:textOff="@string/news_caption"
+                    android:textOn="@string/news_caption" />
+
+                <ToggleButton
+                    android:id="@+id/user_filter_toggle"
+                    style="@style/phone_toggle_button_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/wall_button_size"
+                    android:textOff="@string/user"
+                    android:textOn="@string/user" />
+
+                <ToggleButton
+                    android:id="@+id/stats_filter_toggle"
+                    style="@style/phone_toggle_button_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/wall_button_size"
+                    android:textOff="@string/stats"
+                    android:textOn="@string/stats" />
+
+                <ToggleButton
+                    android:id="@+id/rumours_filter_toggle"
+                    style="@style/phone_toggle_button_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/wall_button_size"
+                    android:textOff="@string/rumors_fragment_caption"
+                    android:textOn="@string/rumors_fragment_caption" />
+
+                <ToggleButton
+                    android:id="@+id/store_filter_toggle"
+                    style="@style/phone_toggle_button_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/wall_button_size"
+                    android:textOff="@string/store"
+                    android:textOn="@string/store" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/search_wall_post"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:animateLayoutChanges="true"
+            android:clickable="true"
+            android:visibility="gone">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/search_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:hint="@string/search_wall_posts_hint"
+                android:textColor="?phoneWallEditSearchText"
+                app:backgroundTint="@color/transparent" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/shadow"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/height_3dp"
+        android:layout_above="@+id/fragment_wall_bottom_bar"
+        android:background="@drawable/top_gradient_drawable" />
+
+    <RelativeLayout
+        android:id="@+id/fragment_wall_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_button_height"
+        android:background="?phoneWallMenuBackground"
+        android:clickable="true"
+        android:animateLayoutChanges="true"
+        android:gravity="center"
+        android:layout_above="@+id/shadow_1"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:id="@+id/fragment_wall_new_post"
+            android:layout_width="@dimen/wall_button_size"
+            android:layout_height="@dimen/wall_button_size"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/padding_8"
+            android:layout_marginStart="@dimen/padding_16"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_toStartOf="@+id/fragment_wall_filter"
+            android:background="@drawable/wall_new_post_selector" />
+
+        <Button
+            android:id="@+id/fragment_wall_filter"
+            android:layout_width="@dimen/wall_button_size"
+            android:layout_height="@dimen/wall_button_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@drawable/wall_filter_selector" />
+
+        <Button
+            android:id="@+id/fragment_wall_search"
+            android:layout_width="@dimen/wall_button_size"
+            android:layout_height="@dimen/wall_button_size"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/padding_16"
+            android:layout_marginStart="@dimen/padding_8"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_toEndOf="@id/fragment_wall_filter"
+            android:background="@drawable/wall_search_selector" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/shadow_1"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/height_1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/top_gradient_drawable" />
+</RelativeLayout>

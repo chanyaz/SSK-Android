@@ -17,7 +17,7 @@ apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.0'
+    buildToolsVersion '26.0.2'
     defaultConfig {
 
         minSdkVersion 17
@@ -33,6 +33,11 @@ android {
     productFlavors {
         sportsidekick {
             applicationId "tv.sportssidekick.sportssidekick"
+            versionCode 6
+            versionName "5.0.0.6"
+        }
+        brugge {
+            applicationId "tv.sportssidekick.brugge"
             versionCode 6
             versionName "5.0.0.6"
         }
@@ -197,7 +202,7 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
 //  VideoView with controls
     compile 'com.linsea:universalvideoview:1.1.0@aar'
-//  TrueTime for Android - NTP client for Android : https://github.com/instacart/truetime-android
+//  TrueTime for Android - NTP client for Android : https://github.com/instacart/truetime-android TODO - @Filip There is no need for this anymore
     compile 'com.github.instacart.truetime-android:library-extension-rx:3.3'
 //  Image loader library - https://github.com/bumptech/glide/tree/3.0
     compile 'com.github.bumptech.glide:glide:3.8.0'

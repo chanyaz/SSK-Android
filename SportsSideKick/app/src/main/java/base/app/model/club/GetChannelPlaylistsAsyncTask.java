@@ -12,7 +12,7 @@ import com.google.api.services.youtube.model.PlaylistListResponse;
 import java.io.IOException;
 import java.util.List;
 
-import base.app.Constant;
+import base.app.Keys;
 
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +60,7 @@ public abstract class GetChannelPlaylistsAsyncTask extends AsyncTask<String, Voi
                     .setPageToken(nextPageToken)
                     .setFields(YOUTUBE_CHANNEL_FIELDS)
                     .setMaxResults(YOUTUBE_PLAYLIST_MAX_RESULTS)
-                    .setKey(Constant.YOUTUBE_API_KEY)
+                    .setKey(Keys.YOUTUBE_API_KEY)
                     .execute();
         } catch (IOException e) {
             e.printStackTrace();

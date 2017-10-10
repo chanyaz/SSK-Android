@@ -57,7 +57,6 @@ import base.app.model.videoChat.VideoChatItem;
 import base.app.model.videoChat.VideoChatModel;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
-import base.app.util.ui.ThemeManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -213,7 +212,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         Slot slot = getNextFreeSlot();
         if (slot == null) {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.video_chat_maximum), Toast.LENGTH_LONG).show();
-            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.white_green_phone), PorterDuff.Mode.MULTIPLY);
+            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorGray), PorterDuff.Mode.MULTIPLY);
             return;
         }
         if (nickNameUsers != null) {
@@ -267,24 +266,13 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
     public void updateIconsColor() {
-        if (ThemeManager.getInstance().isLightTheme()) {
-            hangupButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            muteButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            flipCameraButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            videoButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            if (Utility.isTablet(getActivity())) {
-                addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-            }
-        } else {
-            hangupButton.clearColorFilter();
-            muteButton.clearColorFilter();
-            flipCameraButton.clearColorFilter();
-            videoButton.clearColorFilter();
-            if (Utility.isTablet(getActivity())) {
-                addUserButton.clearColorFilter();
-            }
+        hangupButton.clearColorFilter();
+        muteButton.clearColorFilter();
+        flipCameraButton.clearColorFilter();
+        videoButton.clearColorFilter();
+        if (Utility.isTablet(getActivity())) {
+            addUserButton.clearColorFilter();
         }
-
     }
 
     private void setViewState(boolean active, boolean loading) {

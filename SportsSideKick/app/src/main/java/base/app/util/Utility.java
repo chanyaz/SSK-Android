@@ -280,7 +280,7 @@ public class Utility {
 
     public static void setSystemBarColor(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.system_bar_color));
+            activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimarySemiDark));
         } else {
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
                 WindowManager.LayoutParams winParams = activity.getWindow().getAttributes();

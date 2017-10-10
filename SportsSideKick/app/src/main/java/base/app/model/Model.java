@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import base.app.Constant;
 import base.app.GSAndroidPlatform;
+import base.app.Keys;
 import base.app.model.purchases.PurchaseModel;
 import base.app.model.user.GSMessageHandlerAbstract;
 import base.app.model.user.MessageHandler;
@@ -197,7 +197,7 @@ public class Model {
 
     public void initialize(final Context context) {
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        GSAndroidPlatform.initialise(context, Constant.GS_API_KEY, Constant.GS_API_SECRET, null, false, true);
+        GSAndroidPlatform.initialise(context, Keys.GS_API_KEY, Keys.GS_API_SECRET, null, false, true);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
             public void onEvent(Boolean available) {
