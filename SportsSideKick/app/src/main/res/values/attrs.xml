@@ -79,7 +79,10 @@
     <attr name="appBackground" format="reference" />
 
     <attr name="loginBackground" format="reference" />
+    <attr name="alertDialogTextColor" format="reference" />
+    <attr name="messageUserTextColor" format="reference" />
 
+    <attr name="chatEditTextHintColor" format="reference" />
     <attr name="chatAddUserIcon" format="reference" />
 
     <attr name="chatNotificationIcon" format="reference" />
@@ -277,4 +280,12 @@
     <attr name="chatJoinChatsHeadlineColorRef" format="reference"/>
 
     <attr name="chatCreateButtonTextColorRef" format="reference"/>
+
+    <!-- Members and Friends -->
+
+    <attr name="memberInfoElementsTint" format="reference"/>
+    <attr name="friendItemTextColor" format="reference"/>
+
+
+
 </resources>

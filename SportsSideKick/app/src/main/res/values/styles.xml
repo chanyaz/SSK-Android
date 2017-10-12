@@ -57,7 +57,13 @@
         <item name="phoneWallMenuBackground">@color/colorGrayLight</item>
         <item name="phoneWallEditSearchText">@color/colorPrimary</item>
 
+        <item name="alertDialogTextColor">@color/white</item>
+        <item name="messageUserTextColor">@color/white</item>
+        <item name="chatEditTextHintColor">@color/colorPrimarySemiLight</item>
+
         <!-- Drawables -->
+        <item name="secondaryLoginBackground">@drawable/video_chat_background</item>
+
         <item name="tabRadioButtonSelectorRight">@drawable/tab_radio_button_selector_right</item>
         <item name="tabRadioButtonSelectorLeft">@drawable/tab_radio_button_selector_left</item>
         <item name="radioButtonCheckedLeft">@drawable/radio_button_checked_left</item>
@@ -166,6 +172,11 @@
         <item name="chatJoinChatsHeadlineColorRef">@color/white</item>
 
         <item name="chatCreateButtonTextColorRef">@color/colorPrimary</item>
+
+        <item name="memberInfoElementsTint">@color/white</item>
+        <item name="friendItemTextColor">@color/white</item>
+
+
 
     </style>
 

@@ -184,7 +184,7 @@
                 android:paddingTop="@dimen/padding_13"
                 android:privateImeOptions=""
                 android:textColor="@color/colorPrimary"
-                android:textColorHint="?colorPrimarySemiLight"
+                android:textColorHint="?chatEditTextHintColor"
                 android:textSize="@dimen/font_size_16" />
 
         </RelativeLayout>
@@ -372,13 +372,6 @@
         android:layout_width="match_parent"
         android:visibility="gone"
         android:layout_height="match_parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            android:src="@drawable/video_chat_background" />
 
         <ImageView
             android:layout_width="match_parent"

@@ -304,17 +304,17 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     private boolean validateInputs(){
         int idOfMessageResourceToDisplay = -1;
         if (TextUtils.isEmpty(firstName.getText())) {
-            idOfMessageResourceToDisplay = R.string.demo;
+            idOfMessageResourceToDisplay = R.string.fist_name_warning;
         } else if (TextUtils.isEmpty(email.getText())) {
-            idOfMessageResourceToDisplay = R.string.demo;
+            idOfMessageResourceToDisplay = R.string.email_validation_warning;
         } else if (TextUtils.isEmpty(displayName != null ? displayName.getText() : "string")) {
-            idOfMessageResourceToDisplay = R.string.demo;
+            idOfMessageResourceToDisplay = R.string.display_name_validation_warning;
         } else if (TextUtils.isEmpty(password.getText())) {
-            idOfMessageResourceToDisplay = R.string.demo;
+            idOfMessageResourceToDisplay = R.string.password_validation_warning;
         } else if (TextUtils.isEmpty(phone != null ? phone.getText() : "string")) {
-            idOfMessageResourceToDisplay = R.string.demo;
+            idOfMessageResourceToDisplay = R.string.phone_number_validation_warning;
         } else if (TextUtils.isEmpty(lastName.getText())) {
-            idOfMessageResourceToDisplay = R.string.demo;
+            idOfMessageResourceToDisplay = R.string.last_name_validation_warning;
         }
         if (idOfMessageResourceToDisplay >= 0) {
             String message = getContext().getResources().getString(idOfMessageResourceToDisplay);

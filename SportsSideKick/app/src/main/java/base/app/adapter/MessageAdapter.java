@@ -5,7 +5,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -89,13 +88,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-    private int textColor;
     public MessageAdapter(Context context) {
         translatedMessages = new ArrayList<>();
         audioPlayer = new MediaPlayer();
         if (context != null) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            textColor = ContextCompat.getColor(context,R.color.chat_content_right_color);
         }
     }
 
@@ -121,7 +118,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             setupAvatarFromRemoteUser(message, holder);
         }
 
-        holder.textView.setTextColor(textColor);
         holder.timeTextView.setText(message.getTimeAgo());
 
         final String imageUrl = message.getImageUrl();

@@ -170,7 +170,7 @@
                 android:padding="@dimen/padding_8"
                 android:privateImeOptions=""
                 android:textColor="?chatEditTextColorRef"
-                android:textColorHint="?colorPrimarySemiLight"
+                android:textColorHint="?chatEditTextHintColor"
                 android:textSize="@dimen/font_size_16" />
 
         </RelativeLayout>

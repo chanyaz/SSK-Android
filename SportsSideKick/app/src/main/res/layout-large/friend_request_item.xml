@@ -25,13 +25,13 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"/>
+        android:textColor="?friendItemTextColor"/>
     <TextView
         android:id="@+id/date_prefix"
         android:layout_below="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="?friendItemTextColor"
         android:text="@string/requested_on"/>
     <TextView
         android:id="@+id/date"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:layout_toEndOf="@+id/date_prefix"
-        android:textColor="@color/white"/>
+        android:textColor="?friendItemTextColor"/>
     </RelativeLayout>
 
     <RelativeLayout

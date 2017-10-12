@@ -35,8 +35,14 @@
     <string name="sign_up_text">By singing up, you are agree to Fanschart\'\"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
     <!-- General -->
-    <string name="scrolling_news_demo_value" translatable="false">Sporting CP pens deal with FHK</string>
     <string name="demo" translatable="false">demo</string>
+    <string name="scrolling_news_demo_value" translatable="false">Sporting CP pens deal with FHK</string>
+    <string name="fist_name_warning">Please fill in your first name.</string>
+    <string name="email_validation_warning">Please fill in your email.</string>
+    <string name="display_name_validation_warning" translatable="false">Please fill in your display name.</string>
+    <string name="password_validation_warning">Please fill in your password.</string>
+    <string name="phone_number_validation_warning">Please fill in your phone number.</string>
+    <string name="last_name_validation_warning">Please fill in your last name.</string>
 
     <string name="dialog_ok">OK</string>
     <string name="button_allow">Allow</string>

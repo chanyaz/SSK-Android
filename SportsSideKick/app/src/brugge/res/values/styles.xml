@@ -50,7 +50,7 @@
         <item name="newsPinIcon">@color/white</item>
         <item name="newsShareIcon">@color/white</item>
         <item name="newsCommentIcon">@color/white</item>
-        <item name="tvRadioHeadlineColor">@color/white</item>
+        <item name="tvRadioHeadlineColor">@color/black</item>
         <item name="wallEditTextContainerBackground">@color/colorPrimaryVeryDark</item>
         <item name="wallEditSearchText">@color/white</item>
         <item name="wallEditSearchHint">@color/colorPrimarySemiLight</item>
@@ -59,6 +59,10 @@
         <item name="playerBackground">@color/colorPrimarySemiLight</item>
         <item name="phoneWallMenuBackground">@color/colorGrayLight</item>
         <item name="phoneWallEditSearchText">@color/colorPrimary</item>
+
+        <item name="alertDialogTextColor">@color/black</item>
+        <item name="messageUserTextColor">@color/black</item>
+        <item name="chatEditTextHintColor">@color/black_transparent_154</item>
 
         <!-- Drawables -->
         <item name="phoneChatBackground">@color/colorPrimaryMediumLight</item>
@@ -91,7 +95,7 @@
         <item name="friendsIcon">@drawable/icon_your_friends</item>
         <item name="followersIcon">@drawable/icon_followers</item>
         <item name="appBackground">@color/colorPrimary</item>
-        <item name="loginBackground">@drawable/video_chat_back</item>
+        <item name="loginBackground">@drawable/background_login</item>
         <item name="blockedIcon">@drawable/icon_blocked</item>
         <item name="arrowDownIcon">@drawable/down_arrow</item>
         <item name="popupCancelButtonIcon">@drawable/popup_cancel_button</item>
@@ -170,6 +174,10 @@
         <item name="chatJoinChatsHeadlineColorRef">@color/colorPrimary</item>
 
         <item name="chatCreateButtonTextColorRef">@color/white</item>
+
+        <item name="memberInfoElementsTint">@color/colorGrayDark</item>
+        <item name="friendItemTextColor">@color/colorGrayDark</item>
+
 
     </style>
 
