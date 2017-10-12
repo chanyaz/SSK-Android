@@ -612,7 +612,6 @@ public class WallItemFragment extends BaseFragment {
     }
 
     private void updateWithTranslatedPost(WallBase translatedPost){
-        Toast.makeText(getContext(),"Got translated post!",Toast.LENGTH_SHORT).show();
         initializeWithData(false, translatedPost);
     }
 

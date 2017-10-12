@@ -92,6 +92,22 @@ public class Utility {
                 .build();
         return roundedImageOptions;
     }
+    public static DisplayImageOptions getImageOptionsForTicker() {
+        if (defaultOptions != null) {
+            return defaultOptions;
+        }
+        defaultOptions = new DisplayImageOptions.Builder()
+                .delayBeforeLoading(0) //delay
+                .resetViewBeforeLoading(false)  // default
+                .considerExifParams(false)
+                .cacheInMemory(false) // default
+                .cacheOnDisk(false) // default
+                .bitmapConfig(Bitmap.Config.RGB_565) // default
+                .imageScaleType(ImageScaleType.NONE_SAFE)
+                .build();
+        return defaultOptions;
+    }
+
 
     public static DisplayImageOptions getDefaultImageOptions() {
         if (defaultOptions != null) {

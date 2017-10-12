@@ -361,6 +361,7 @@
                         android:id="@+id/password_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/chosen_language_value"
                         android:layout_alignStart="@+id/password_caption"
                         android:layout_below="@+id/password_caption"
                         android:text="@string/password_placeholder"

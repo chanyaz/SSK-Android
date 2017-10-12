@@ -205,7 +205,11 @@ dependencies {
 //  TrueTime for Android - NTP client for Android : https://github.com/instacart/truetime-android TODO - @Filip There is no need for this anymore
     compile 'com.github.instacart.truetime-android:library-extension-rx:3.3'
 //  Image loader library - https://github.com/bumptech/glide/tree/3.0
-    compile 'com.github.bumptech.glide:glide:3.8.0'
+    compile 'com.github.bumptech.glide:glide:4.2.0'
+//  Image loader library - https://github.com/square/picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+
 
 //  Number picker used for translation popup to select language - https://github.com/ShawnLin013/NumberPicker
     compile 'com.shawnlin:number-picker:2.4.4'

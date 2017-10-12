@@ -27,18 +27,18 @@
 
         <item name="wallMenuBackground">@color/colorPrimary</item>
         <item name="wallItemUserPostBackground">@color/white</item>
-        <item name="wallItemRumoursBigBackground">@color/white</item>
+        <item name="wallItemRumoursBigBackground">@color/colorPrimarySlightlyLight</item>
         <item name="wallItemShopBackground">@color/white</item>
         <item name="wallItemStoreBackground">@color/white</item>
         <item name="wallItemNewsBackground">@color/white</item>
         <item name="wallItemTipBackground">@color/white</item>
-        <item name="wallItemTipTextCaptionColor">@color/white</item>
+        <item name="wallItemTipTextCaptionColor">@color/colorPrimarySlightlyLight</item>
 
         <item name="tvCategoryBackground">@color/colorPrimary</item>
         <item name="wallItemTipTextContentColor">@color/white</item>
         <item name="rumoursTimeTextColor">@color/colorAccent</item>
-        <item name="rumourSmallContentColor">@color/white</item>
-        <item name="rumourSmallSeparatorColor">@color/colorPrimary</item>
+        <item name="rumourSmallContentColor">@color/black</item>
+        <item name="rumourSmallSeparatorColor">@color/black_transparent_154</item>
         <item name="channelItemCaption">@color/white</item>
         <item name="channelItemBackground">@color/colorPrimary</item>
         <item name="channelItemDate">@color/colorGray</item>

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -302,8 +301,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (Utility.isPhone(getActivity())) {
             NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
             if(wallLeftTeamImage.getDrawable()==null){
-                ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.getDefaultImageOptions());
-                ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.getDefaultImageOptions());
+                ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.getImageOptionsForTicker());
+                ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.getImageOptionsForTicker());
                 wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
                 wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
             }

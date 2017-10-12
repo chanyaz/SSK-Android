@@ -21,14 +21,6 @@ import base.app.fragment.instance.WallFragment;
  */
 public class Constant {
 
-//    SSK-TESTFLIGHT
-//    public static final String GS_API_KEY = "F310416NEM5b";
-//    public static final String GS_API_SECRET = "WlLzz12Eem8G9Rx6N8yktSsXpLCWVXDw";
-
-// SSK-DEV
-    public static final String GS_API_KEY = "Z306867fEYlY";
-    public static final String GS_API_SECRET = "Rx34NFmkNwSah80VZFGPmTXmCesdK5Sy";
-
     public static final int LOGIN_TEXT_TIME= 3000;
     public static final String RADIO_VOLUME = "RADIO_VOLUME";
 
@@ -54,16 +46,16 @@ public class Constant {
     public static final String NOTIFICATION_DATA = "SSK_PUSH_NOTIFICATION_DATA";
 
     public static final List<Class> PHONE_MENU_OPTIONS = Collections.unmodifiableList(
-            new ArrayList<Class>() {{
-                add(WallFragment.class);
-                add(ChatFragment.class);
-                add(NewsFragment.class);
-                add(StatisticsFragment.class);
-                add(RumoursFragment.class);
-                add(ClubRadioFragment.class);
-                add(StoreFragment.class);
-                add(ClubTVFragment.class);
-                add(VideoChatFragment.class);
+        new ArrayList<Class>() {{
+            add(WallFragment.class);
+            add(ChatFragment.class);
+            add(NewsFragment.class);
+            add(StatisticsFragment.class);
+            add(RumoursFragment.class);
+            add(ClubRadioFragment.class);
+            add(StoreFragment.class);
+            add(ClubTVFragment.class);
+            add(VideoChatFragment.class);
     }});
 
 

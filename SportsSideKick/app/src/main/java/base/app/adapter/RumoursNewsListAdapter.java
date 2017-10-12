@@ -56,41 +56,12 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
         @Nullable
         @BindView(R.id.row_rumors_time)
         TextView time;
-
-        @Nullable
-        @BindView(R.id.fragment_rumors_single_rumour_info_1)
-        TextView rumourDescription1;
-        @Nullable
-        @BindView(R.id.fragment_rumors_single_rumour_info_2)
-        TextView rumourDescription2;
-        @Nullable
-        @BindView(R.id.fragment_rumors_single_rumour_info_3)
-        TextView rumourDescription3;
-        @Nullable
-        @BindView(R.id.fragment_rumors_single_rumour_info_4)
-        TextView rumourDescription4;
-        @Nullable
-        @BindView(R.id.fragment_rumors_single_rumour_time_1)
-        TextView rumourTime1;
-        @Nullable
-        @BindView(R.id.fragment_rumors_single_rumour_time_2)
-        TextView rumourTime2;
-        @Nullable
-        @BindView(R.id.fragment_rumors_single_rumour_time_3)
-        TextView rumourTime3;
-        @Nullable
-        @BindView(R.id.fragment_rumors_single_rumour_time_4)
-        TextView rumourTime4;
         @Nullable
         @BindView(R.id.fragment_rumors_top_headline)
         TextView headline;
         @Nullable
         @BindView(R.id.fragment_rumors_top_image)
         ImageView image;
-        @Nullable
-        @BindView(R.id.fragment_rumors_all_big_list)
-        RecyclerView top4news;
-
         @Nullable
         @BindView(R.id.fragment_rumors_single_rumour_info)
         TextView bigRumourInfo;
@@ -144,8 +115,12 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
             } else {
                 holder.bigRumourInfo.setText(bigInfo.getTitle());
         }
-            String time = "" + DateUtils.getRelativeTimeSpanString(bigInfo.getTimestamp().longValue(),
-                    Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
+            CharSequence time =
+                    DateUtils.getRelativeTimeSpanString(
+                        bigInfo.getTimestamp().longValue(),
+                        Utility.getCurrentTime(),
+                        DateUtils.HOUR_IN_MILLIS
+                    );
             holder.bigRumourTime.setText(time);
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override

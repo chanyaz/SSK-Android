@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -48,9 +47,6 @@ public class RumoursFragment extends BaseFragment {
 
     RumoursNewsListAdapter rumoursNewsListAdapter;
 
-    @Nullable
-    @BindView(R.id.fragment_rumors_all_single_rumours_container)
-    RelativeLayout singleRumoursContainer;
     @BindView(R.id.fragment_rumors_recycler_view)
     RecyclerView rumourRecyclerView;
 
@@ -61,7 +57,6 @@ public class RumoursFragment extends BaseFragment {
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
 
-    RecyclerTouchListener onTouchListener;
 
     public RumoursFragment() {
         // Required empty public constructor
@@ -111,7 +106,6 @@ public class RumoursFragment extends BaseFragment {
         rumoursNewsListAdapter = new RumoursNewsListAdapter(getActivity());
         rumourRecyclerView.setAdapter(rumoursNewsListAdapter);
 
-        onTouchListener = new RecyclerTouchListener(getActivity(), rumourRecyclerView);
 
         if (NewsModel.getInstance().getAllCachedItems(type).size() > 0) {
             NewsPageEvent event = new NewsPageEvent(NewsModel.getInstance().getAllCachedItems(type));
@@ -133,13 +127,7 @@ public class RumoursFragment extends BaseFragment {
             }
         });
 
-        onTouchListener
-                .setSwipeOptionViews(R.id.row_rumours_swipe_share)
-                .setSwipeable(
-                        R.id.row_rumours_foreground_container,
-                        R.id.row_rumours_background_container,
-                        swipeListener
-                );
+
 
         return view;
     }
@@ -193,7 +181,6 @@ public class RumoursFragment extends BaseFragment {
             nonSwipePositions.add(1);
             nonSwipePositions.add(2);
         }
-        onTouchListener.setUnSwipeableRows(nonSwipePositions.toArray(new Integer[nonSwipePositions.size()]));
     }
 
     private void hideElements(boolean hide) {
@@ -209,13 +196,11 @@ public class RumoursFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        rumourRecyclerView.addOnItemTouchListener(onTouchListener);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        rumourRecyclerView.removeOnItemTouchListener(onTouchListener);
     }
 
     public void pinToWall(final WallNews item) {

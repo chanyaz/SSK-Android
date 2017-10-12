@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/step_text_container"
             android:layout_alignParentTop="true"
-            android:background="@drawable/rumour_headerz"
+            android:background="@drawable/rumour_headers"
             app:angle="90"> <!-- Specify rotate angle here -->
 
             <TextView

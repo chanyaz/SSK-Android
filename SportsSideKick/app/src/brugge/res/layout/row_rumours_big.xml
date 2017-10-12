@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/padding_8"
-    android:layout_marginEnd="@dimen/padding_8"
-    android:layout_marginBottom="@dimen/padding_8">
+    android:layout_marginEnd="@dimen/padding_8">
+
 
     <RelativeLayout
         android:id="@+id/row_rumours_background_container"
@@ -42,7 +42,8 @@
         android:id="@+id/fragment_rumors_single_rumour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?wallItemRumoursBigBackground">
+        android:background="?wallItemRumoursBigBackground"
+        android:layout_marginBottom="@dimen/margin_16">
 
         <com.github.rongi.rotate_layout.layout.RotateLayout
             android:id="@+id/fragment_rumors_single_rumour_headline_container"
@@ -51,13 +52,14 @@
             android:layout_alignBottom="@+id/fragment_rumors_single_rumour_info_container"
             android:layout_alignParentTop="true"
             android:background="@drawable/rumour_headers"
-            app:angle="90"> <!-- Specify rotate angle here -->
+            app:angle="90">
 
             <TextView
                 android:id="@+id/fragment_rumors_single_rumour_headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textSize="@dimen/font_size_11"
                 android:paddingBottom="@dimen/padding_12"
                 android:paddingEnd="@dimen/padding_8"
                 android:paddingStart="@dimen/padding_8"
@@ -76,11 +78,12 @@
                 android:id="@+id/fragment_rumors_single_rumour_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
                 android:ellipsize="end"
                 android:isScrollContainer="false"
-                android:maxLines="3"
-                android:minLines="3"
+                android:textSize="@dimen/font_size_11"
+                android:maxLines="2"
+                android:minLines="2"
                 android:padding="@dimen/padding_8"
                 android:textColor="?wallItemTipTextContentColor" />
 
@@ -89,11 +92,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:textSize="@dimen/font_size_11"
                 android:layout_below="@id/fragment_rumors_single_rumour_info"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:padding="@dimen/padding_8"
-                android:singleLine="true"
                 android:textColor="?rumoursTimeTextColor" />
         </RelativeLayout>
     </RelativeLayout>
