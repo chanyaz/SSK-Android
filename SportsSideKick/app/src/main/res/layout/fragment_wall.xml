@@ -24,20 +24,20 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <RelativeLayout
                     android:id="@+id/wall_top_image_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_10">
 
                     <ImageView
                         android:id="@+id/wall_top_image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/image_wall_background_todo"
+                        android:scaleType="centerCrop"
                         android:layout_alignParentTop="true"
-                        android:background="@drawable/image_wall_background"
-                        android:scaleType="centerCrop"/>
-
+                        android:layout_alignParentStart="true" />
                     <RelativeLayout
                         android:id="@+id/wall_top_info_container"
                         android:layout_width="match_parent"

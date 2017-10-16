@@ -55,7 +55,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     public MenuAdapter(Context context, IDrawerClose drawerClose) {
         values = context.getResources().getStringArray(R.array.menu_navigation);
-        NavigationDrawerItems.getInstance().generateList(myImages.length);
+        NavigationDrawerItems.getInstance().generateList(icons.length);
         this.drawerClose = drawerClose;
         screenWidth = Utility.getDisplayWidth(context);
     }
@@ -115,7 +115,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         if (holder.itemView.isSelected())
             oldPosition = position;
         assert holder.image != null;
-        holder.image.setImageResource(myImages[position]);
+        holder.image.setImageResource(icons[position]);
         holder.menu_text.setText(values[position]);
 
     }
@@ -125,10 +125,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         if (values == null) {
             return 0;
         }
-        return myImages.length;
+        return icons.length;
     }
 
-    private static final int[] myImages = {
+    private static final int[] icons = {
             R.drawable.menu_wall_selector,
             R.drawable.menu_chat_selector,
             R.drawable.menu_news_selector,

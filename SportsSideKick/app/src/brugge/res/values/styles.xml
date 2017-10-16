@@ -178,6 +178,10 @@
         <item name="memberInfoElementsTint">@color/colorGrayDark</item>
         <item name="friendItemTextColor">@color/colorGrayDark</item>
 
+        <item name="phoneLoungeTeamCaptionColor">@color/colorPrimary</item>
+        <item name="phoneLoungeTickerColor">@color/black</item>
+        <item name="phoneLoungeIconsColor">@color/colorPrimary</item>
+        <item name="phoneLoungeIconsColorSelected">@color/black</item>
 
     </style>
 

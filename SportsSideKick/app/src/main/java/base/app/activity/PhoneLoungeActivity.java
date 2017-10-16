@@ -175,7 +175,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         setupFragments();
         setToolbar();
-        setMarginTop(false);
         updateTopBar();
         Utility.setSystemBarColor(this);
     }
@@ -207,41 +206,18 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                float slideOffsetMyScreen = slideOffset * +(float) (screenWidth * 0.22);
-                sideMenuRecycler.setTranslationY(slideOffsetMyScreen);
-                fragmentHolder.setPivotY(1);
-                fragmentHolder.setTranslationY(slideOffsetMyScreen);
-                fragmentLeftPopupHolder.setTranslationY(slideOffsetMyScreen);
-                drawerLayout.bringChildToFront(drawerView);
-                drawerLayout.requestLayout();
-            }
-
+            public void onDrawerSlide(View drawerView, float slideOffset) {}
             @Override
             public void onDrawerOpened(View drawerView) {}
-
             @Override
             public void onDrawerClosed(View drawerView) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             }
-
             @Override
             public void onDrawerStateChanged(int newState) {}
         });
 
     }
-
-    public void setMarginTop(boolean set) {
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.ABOVE, R.id.side_menu_recycler);
-        if (set) {
-            lp.addRule(RelativeLayout.BELOW, R.id.left_top_bar_container);
-        } else {
-            lp.addRule(RelativeLayout.BELOW, R.id.base_line_spliter);
-        }
-        fragmentHolder.setLayoutParams(lp);
-    }
-
 
     private void setupFragments() {
         fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);

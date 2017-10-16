@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -38,8 +37,6 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
         @Nullable
         @BindView(R.id.menu_image)
         ImageView image;
-        @BindView(R.id.menu_text)
-        TextView menu_text;
 
         ViewHolder(View v) {
             super(v);
@@ -62,7 +59,7 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final ViewHolder viewHolder;
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_menu_navigation, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_menu_bottom_navigation, parent, false);
         view.setLayoutParams(new RecyclerView.LayoutParams((screenWidth / 5), RecyclerView.LayoutParams.MATCH_PARENT));
         viewHolder = new ViewHolder(view);
         //setup click listener
@@ -70,22 +67,17 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
             @Override
             public void onClick(View view) {
 
-                if (viewHolder.getAdapterPosition() != getItemCount() - 1 /*&& !viewHolder.itemView.isSelected()*/) {
+                if (viewHolder.getAdapterPosition() != (getItemCount() - 1)){
                     notifyItemChanged(oldPosition);
-                 //   if (!viewHolder.itemView.isSelected()) {
-                        iDrawerCloseSideMenu.closeDrawerSideMenu(viewHolder.getAdapterPosition(), false);
-                        oldPosition = viewHolder.getAdapterPosition();
-                        viewHolder.itemView.setSelected(true);
-                        EventBus.getDefault().post(new FragmentEvent(Constant.PHONE_MENU_OPTIONS.get(viewHolder.getAdapterPosition())));
-
-              //      }
+                    iDrawerCloseSideMenu.closeDrawerSideMenu(viewHolder.getAdapterPosition(), false);
+                    oldPosition = viewHolder.getAdapterPosition();
+                    viewHolder.itemView.setSelected(true);
+                    EventBus.getDefault().post(new FragmentEvent(Constant.PHONE_MENU_OPTIONS.get(viewHolder.getAdapterPosition())));
                 } else {
                     iDrawerCloseSideMenu.closeDrawerSideMenu(viewHolder.getAdapterPosition(), true);
                 }
-
             }
         });
-
         return viewHolder;
     }
 
@@ -94,22 +86,23 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
-        if (holder.itemView.isSelected())
+        if (holder.itemView.isSelected()) {
             oldPosition = position;
-        assert holder.image != null;
-        holder.image.setImageResource(myImages[position]);
-
-
+        }
+        if(holder.image != null) {
+            holder.image.setImageResource(icons[position]);
+        }
     }
 
     @Override
     public int getItemCount() {
-        if (myImages == null)
+        if (icons == null) {
             return 0;
-        return myImages.length;
+        }
+        return icons.length;
     }
 
-    private static final int[] myImages = {
+    private static final int[] icons = {
             R.drawable.menu_wall_selector,
             R.drawable.menu_chat_selector,
             R.drawable.menu_news_selector,
@@ -120,7 +113,6 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
     };
 
     public interface IDrawerCloseSideMenu {
-
         void closeDrawerSideMenu(int position, boolean openDrawer);
     }
 

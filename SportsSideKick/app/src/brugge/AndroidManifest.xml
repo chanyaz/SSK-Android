@@ -71,7 +71,7 @@
         <!-- 6.2. Change Value in this object to correct Facebook app Id -->
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider102782376855276"
+            android:authorities="com.facebook.app.FacebookContentProvider102782376855276-TODO-CHANGE"
             android:exported="true" />
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"

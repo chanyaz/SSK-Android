@@ -218,7 +218,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("Wall lifecycle", "On Create View");
         // Inflate the layout for this fragment
-        setMarginTop(false);
         final View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
         updateButtons();

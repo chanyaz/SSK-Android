@@ -208,6 +208,11 @@
     <attr name="phoneWallEditSearchText" format="reference" />
     <attr name="phoneWallEditSearchHint" format="reference" />
 
+    <attr name="phoneLoungeTeamCaptionColor" format="reference"/>
+    <attr name="phoneLoungeTickerColor" format="reference"/>
+
+    <attr name="phoneLoungeIconsColor" format="reference"/>
+    <attr name="phoneLoungeIconsColorSelected" format="reference"/>
 
     <!--Added for 4.2 - 4.4-->
     <attr name="popupLoginButtonBackground" format="reference" />

@@ -51,7 +51,6 @@ public class ClubRadioFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_club_radio, container, false);
 
         ButterKnife.bind(this, view);

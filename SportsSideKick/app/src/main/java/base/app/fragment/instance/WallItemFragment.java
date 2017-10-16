@@ -177,7 +177,6 @@ public class WallItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
         ButterKnife.bind(this, view);
 

@@ -87,10 +87,4 @@ public abstract class BaseFragment extends Fragment {
         Utility.hideKeyboard(getActivity());
     }
 
-    public void setMarginTop(boolean marginTop) {
-
-        if (getActivity() instanceof PhoneLoungeActivity) {
-            ((PhoneLoungeActivity) getActivity()).setMarginTop(marginTop);
-        }
-    }
 }

@@ -62,7 +62,6 @@
         <item name="chatEditTextHintColor">@color/colorPrimarySemiLight</item>
 
         <!-- Drawables -->
-        <item name="secondaryLoginBackground">@drawable/video_chat_background</item>
 
         <item name="tabRadioButtonSelectorRight">@drawable/tab_radio_button_selector_right</item>
         <item name="tabRadioButtonSelectorLeft">@drawable/tab_radio_button_selector_left</item>
@@ -176,7 +175,11 @@
         <item name="memberInfoElementsTint">@color/white</item>
         <item name="friendItemTextColor">@color/white</item>
 
+        <item name="phoneLoungeTeamCaptionColor">@color/white</item>
+        <item name="phoneLoungeTickerColor">@color/white</item>
 
+        <item name="phoneLoungeIconsColor">@color/white</item>
+        <item name="phoneLoungeIconsColorSelected">@color/black</item>
 
     </style>
 

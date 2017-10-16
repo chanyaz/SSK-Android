@@ -31,7 +31,6 @@ public class QuizFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setMarginTop(true);
         View view = inflater.inflate(R.layout.fragment_fantasy, container, false);
         String url = getResources().getString(R.string.quiz_url);
         ButterKnife.bind(this,view);
