@@ -29,11 +29,7 @@
             android:layout_below="@+id/left_top_bar_container"
             android:background="@color/colorPrimaryMediumLight" >
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="base_line_spliter" />
+
         </RelativeLayout>
 
         <!-- TICKER -->

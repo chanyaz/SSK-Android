@@ -27,14 +27,13 @@
                 <RelativeLayout
                     android:id="@+id/wall_top_image_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_10">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/wall_top_image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/image_wall_background_todo"
+                        android:background="@drawable/image_wall_background"
                         android:scaleType="centerCrop"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentStart="true" />
@@ -55,14 +54,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:padding="@dimen/padding_8"
+                                android:paddingEnd="@dimen/padding_2"
                                 android:textColor="@color/white"
+                                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                                android:textSize="@dimen/font_size_28"
                                 android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/wall_team_left_image"
-                                android:layout_width="@dimen/width_50"
-                                android:layout_height="@dimen/height_50"
+                                android:layout_width="@dimen/width_70"
+                                android:layout_height="@dimen/height_70"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/wall_team_left_name" />
 
@@ -73,13 +74,14 @@
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/wall_team_left_image"
                                 android:padding="@dimen/padding_8"
+                                android:textSize="@dimen/font_size_20"
                                 android:text="@string/vs"
                                 android:textColor="@color/white" />
 
                             <ImageView
                                 android:id="@+id/wall_team_right_image"
-                                android:layout_width="@dimen/width_50"
-                                android:layout_height="@dimen/height_50"
+                                android:layout_width="@dimen/width_70"
+                                android:layout_height="@dimen/height_70"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/wall_team_vs" />
 
@@ -89,6 +91,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/wall_team_right_image"
+                                android:paddingStart="@dimen/padding_2"
+                                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                                android:textSize="@dimen/font_size_28"
                                 android:padding="@dimen/padding_8"
                                 android:textColor="@color/white"
                                 android:textStyle="bold" />
@@ -100,7 +105,6 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/wall_top_info"
                             android:layout_centerHorizontal="true"
-                            android:padding="@dimen/padding_8"
                             android:text="@string/next_match"
                             android:textColor="@color/colorPrimaryVeryLight" />
 
@@ -212,6 +216,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/login_holder"
+                    android:layout_margin="@dimen/margin_negative_10"
                     />
 
             </RelativeLayout>

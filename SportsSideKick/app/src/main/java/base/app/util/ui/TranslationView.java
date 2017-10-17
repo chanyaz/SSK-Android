@@ -150,25 +150,26 @@ public class TranslationView extends RelativeLayout {
         int[] parentLocation = new int[2];
         container.getLocationOnScreen(parentLocation);
 
-        int startMargin = referenceLocation[0] + referenceWidth - parentLocation[0];
-        int topMargin = referenceLocation[1] + (referenceHeight / 2 ) - parentLocation[1];
+        if(referenceLocation!=null){
+            int startMargin = referenceLocation[0] + referenceWidth - parentLocation[0];
+            int topMargin = referenceLocation[1] + (referenceHeight / 2 ) - parentLocation[1];
+            // offset to align the popup to view
+            topMargin = topMargin - (popupHeight/2);
 
-        // offset to align the popup to view
-        topMargin = topMargin - (popupHeight/2);
+            int maxStartMargin = parentWidth - popupWidth;
+            int maxTopMargin = parentHeight - popupHeight;
 
-        int maxStartMargin = parentWidth - popupWidth;
-        int maxTopMargin = parentHeight - popupHeight;
+            if(parentWidth > 0 &&  startMargin > maxStartMargin ){
+                startMargin = maxStartMargin;
+            }
+            if(parentHeight > 0 && topMargin > maxTopMargin){
+                topMargin = maxTopMargin;
+            }
 
-        if(parentWidth > 0 &&  startMargin > maxStartMargin ){
-            startMargin = maxStartMargin;
+            LayoutParams params = (RelativeLayout.LayoutParams) popupLayout.getLayoutParams();
+            params.setMargins(startMargin, topMargin, 0, 0);
+            popupLayout.requestLayout();
         }
-        if(parentHeight > 0 && topMargin > maxTopMargin){
-            topMargin = maxTopMargin;
-        }
-
-        LayoutParams params = (RelativeLayout.LayoutParams) popupLayout.getLayoutParams();
-        params.setMargins(startMargin, topMargin, 0, 0);
-        popupLayout.requestLayout();
     }
 
     private void translateMessage() {
