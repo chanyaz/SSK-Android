@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -21,6 +23,7 @@ import base.app.fragment.BaseFragment;
 import base.app.model.news.NewsModel;
 import base.app.model.news.NewsPageEvent;
 import base.app.model.wall.WallNews;
+import base.app.util.Utility;
 import base.app.util.ui.GridItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +46,13 @@ public class NewsFragment extends BaseFragment {
     @BindView(R.id.news_recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.progress_bar)
-    AVLoadingIndicatorView progres;
+    AVLoadingIndicatorView progressBar;
+
+    @BindView(R.id.top_image)
+    ImageView topImage;
+
+    @BindView(R.id.top_caption)
+    TextView topCaption;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -54,6 +63,11 @@ public class NewsFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
+
+        if(Utility.isTablet(getContext())){
+            topImage.setVisibility(View.GONE);
+            topCaption.setVisibility(View.GONE);
+        }
 
         adapter = new NewsAdapter();
 
@@ -69,7 +83,7 @@ public class NewsFragment extends BaseFragment {
         if (existingItems!=null && existingItems.size() > 0)
         {
             adapter.getValues().addAll(existingItems);
-            progres.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
         }
         else {
             NewsModel.getInstance().loadPage(type);
@@ -88,7 +102,7 @@ public class NewsFragment extends BaseFragment {
 
     @Subscribe
     public void onNewsReceived(NewsPageEvent event) {
-        progres.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
         adapter.getValues().addAll(event.getValues());
         adapter.notifyDataSetChanged();

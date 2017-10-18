@@ -123,6 +123,8 @@
         <item name="phoneChatBackground">@drawable/phone_chat_background</item>
 
         <item name="videoChatButtonStyle">@style/button_call</item>
+        <item name="nextMatchTextPhoneColor">@color/colorPrimaryVeryLight</item>
+        <item name="createPostPhoneButtonColor">@color/colorPrimarySemiLight</item>
 
         <!--Wall Item User Post-->
         <item name="wallUserContentTextColor">@color/white</item>
@@ -181,6 +183,10 @@
         <item name="phoneLoungeIconsColor">@color/white</item>
         <item name="phoneLoungeIconsColorSelected">@color/black</item>
 
+
+        <item name="wallRecyclerListPhoneTopMargin">@dimen/margin_negative_10</item>
+        <item name="newsRecyclerListPhoneTopMargin">@dimen/margin_negative_30</item>
+
     </style>
 
 
@@ -190,6 +196,10 @@
 
     <style name="boldText">
         <item name="fontPath">fonts/TitilliumWeb-Bold.ttf</item>
+    </style>
+
+    <style name="semiBoldText">
+        <item name="fontPath">fonts/TitilliumWeb-SemiBold.ttf</item>
     </style>
 
     <!-- Alert dialog style -->

@@ -2,33 +2,25 @@ package base.app.fragment.instance;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import base.app.R;
 import base.app.adapter.RumoursNewsListAdapter;
 import base.app.fragment.BaseFragment;
-import base.app.model.AlertDialogManager;
-import base.app.model.Model;
 import base.app.model.news.NewsModel;
 import base.app.model.news.NewsPageEvent;
-import base.app.model.wall.WallModel;
-import base.app.model.wall.WallNews;
-import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,73 +39,66 @@ public class RumoursFragment extends BaseFragment {
 
     RumoursNewsListAdapter rumoursNewsListAdapter;
 
-    @BindView(R.id.fragment_rumors_recycler_view)
-    RecyclerView rumourRecyclerView;
-
-    @Nullable
-    @BindView(R.id.rumours_swipe_refresh_layout)
+    @BindView(R.id.news_recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
-    @Nullable
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
 
+    @BindView(R.id.top_image)
+    ImageView topImage;
+
+    @BindView(R.id.top_caption)
+    TextView topCaption;
 
     public RumoursFragment() {
         // Required empty public constructor
     }
 
-    int spanSize = 2;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_rumours, container, false);
+
+        // On both phone and tablet, Rumours page looks similar to News, so we are going to reuse the layout for both.
+        // Note that image for header background is different on tablet and phone for SCP, for Brugge there are duplicated resources.
+        View view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
 
-        hideElements(true);
-        if (Utility.isTablet(getActivity())) {
-            spanSize = 2;
+        if(Utility.isPhone(getContext())){
+            topImage.setImageResource(R.drawable.image_rumours_background);
         } else {
-            spanSize = 1;
+            topImage.setImageResource(R.drawable.image_rumours_background_tablet);
         }
+        topCaption.setText(R.string.rumours_caption);
+
+        hideElements(true);
+
+        // On tablet, span size is 2 (first 4 items are half width of screen)
+        int spanSize = Utility.isTablet(getContext()) ? 2 : 1;
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), spanSize);
-        rumourRecyclerView.setLayoutManager(gridLayoutManager);
+
+        recyclerView.setLayoutManager(gridLayoutManager);
+
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 if (Utility.isTablet(getActivity())) {
-                    switch (position) {
-                        case 0:
-                            return 2;
-                        case 1:
-                            return 1;
-                        case 2:
-                            return 1;
-                        case 3:
-                            return 1;
-                        case 4:
-                            return 1;
-                        default:
-                            return 2;
+                    if(position<4){
+                        return 1; // first 4 items are half width
+                    } else {
+                        return 2; // other items are full width
                     }
                 } else {
                     return 1;
                 }
-
             }
         });
         rumoursNewsListAdapter = new RumoursNewsListAdapter(getActivity());
-        rumourRecyclerView.setAdapter(rumoursNewsListAdapter);
-
+        recyclerView.setAdapter(rumoursNewsListAdapter);
 
         if (NewsModel.getInstance().getAllCachedItems(type).size() > 0) {
             NewsPageEvent event = new NewsPageEvent(NewsModel.getInstance().getAllCachedItems(type));
-            if (event != null) {
-                onNewsReceived(event);
-            } else {
-                NewsModel.getInstance().setLoading(false, type);
-                NewsModel.getInstance().loadPage(type);
-            }
+            onNewsReceived(event);
         } else {
             NewsModel.getInstance().loadPage(type);
         }
@@ -125,118 +110,24 @@ public class RumoursFragment extends BaseFragment {
                 NewsModel.getInstance().loadPage(type);
             }
         });
-
-
-
         return view;
     }
 
-    RecyclerTouchListener.OnSwipeOptionsClickListener swipeListener = new RecyclerTouchListener.OnSwipeOptionsClickListener() {
-        @Override
-        public void onSwipeOptionClicked(int viewID, int position) {
-            if (viewID == R.id.row_rumours_swipe_share) {
-                // Handle click on Share Button
-                pinToWall(rumoursNewsListAdapter.getRumours().get(position));
-            }
-
-        }
-    };
-
-
-    int countOfTopRumours;
-
     @Subscribe
     public void onNewsReceived(NewsPageEvent event) {
-        if (Utility.isTablet(getActivity())) {
-            countOfTopRumours = 4;
-        } else {
-            countOfTopRumours = 2;
-        }
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
         }
-        if (!event.getValues().isEmpty() && event.getValues().size() > countOfTopRumours - 1) {
-            rumoursNewsListAdapter.addRumours(event.getValues(), countOfTopRumours);
+        if (!event.getValues().isEmpty() && event.getValues().size() > 0) {
+            rumoursNewsListAdapter.addRumours(event.getValues());
             rumoursNewsListAdapter.notifyDataSetChanged();
         }
         hideElements(false);
-
-        setUnswipeable();
-
-    }
-
-    private void setUnswipeable() {
-        List<Integer> nonSwipePositions = new ArrayList<>();
-        if (Utility.isTablet(getActivity())) {
-            nonSwipePositions.clear();
-            nonSwipePositions.add(0);
-            nonSwipePositions.add(1);
-            nonSwipePositions.add(2);
-            nonSwipePositions.add(3);
-            nonSwipePositions.add(4);
-        } else {
-            nonSwipePositions.clear();
-            nonSwipePositions.add(0);
-            nonSwipePositions.add(1);
-            nonSwipePositions.add(2);
-        }
     }
 
     private void hideElements(boolean hide) {
-        if (hide) {
-            //  fragmentContainer.setVisibility(View.GONE);
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            //  fragmentContainer.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
+        if(progressBar!=null){
+            progressBar.setVisibility(hide ? View.VISIBLE : View.GONE);
         }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    public void pinToWall(final WallNews item) {
-        if (Model.getInstance().isRealUser()) {
-            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
-                    new View.OnClickListener() {// Cancel
-                        @Override
-                        public void onClick(View v) {
-                            getActivity().onBackPressed();
-                        }
-                    }, new View.OnClickListener() { // Confirm
-                        @Override
-                        public void onClick(View v) {
-                            WallNews itemToPost = new WallNews();
-                            itemToPost.setBodyText(item.getBodyText());
-                            itemToPost.setTitle(item.getTitle());
-
-                            if (item.getSource() != null) {
-                                itemToPost.setSubTitle(item.getSource());
-                            } else {
-                                itemToPost.setSubTitle("");
-                            }
-
-                            itemToPost.setTimestamp((double) Utility.getCurrentTime());
-                            itemToPost.setCoverAspectRatio(0.666666f);
-                            if (item.getCoverImageUrl() != null) {
-                                itemToPost.setCoverImageUrl(item.getCoverImageUrl());
-                            }
-                            WallModel.getInstance().mbPost(itemToPost);
-                            getActivity().onBackPressed();
-                        }
-                    });
-        } else {
-
-        }
-        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-    }
-
-
 }

@@ -182,7 +182,11 @@
         <item name="phoneLoungeTickerColor">@color/black</item>
         <item name="phoneLoungeIconsColor">@color/colorPrimary</item>
         <item name="phoneLoungeIconsColorSelected">@color/black</item>
+        <item name="nextMatchTextPhoneColor">@color/white</item>
+        <item name="createPostPhoneButtonColor">@color/black</item>
 
+        <item name="wallRecyclerListPhoneTopMargin">@dimen/margin_10</item>
+        <item name="newsRecyclerListPhoneTopMargin">@dimen/margin_10</item>
     </style>
 
 

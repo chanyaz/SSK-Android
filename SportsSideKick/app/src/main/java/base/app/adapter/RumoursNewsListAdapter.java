@@ -7,7 +7,6 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,21 +30,17 @@ import butterknife.ButterKnife;
 
 public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsListAdapter.ViewHolder> {
 
-    private static final String TAG = "Rumours Small Adapter";
-    private static final int IMAGE = 2;
-    private static final int BIG_ITEM = 3;
-    private static final int ITEM = 4;
+    private static final int BIG_ITEM = 1;
+    private static final int ITEM = 2;
     private List<WallNews> values = new ArrayList<>();
 
     Context context;
-    private int countOfTopRumours;
     public List<WallNews> getRumours() {
         return values;
     }
 
-    public void addRumours(List<WallNews> rumours,int countOfTopRumours){
+    public void addRumours(List<WallNews> rumours){
         values.addAll(rumours);
-        this.countOfTopRumours = countOfTopRumours;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -56,16 +51,10 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
         @Nullable
         @BindView(R.id.row_rumors_time)
         TextView time;
-        @Nullable
-        @BindView(R.id.fragment_rumors_top_headline)
-        TextView headline;
-        @Nullable
-        @BindView(R.id.fragment_rumors_top_image)
-        ImageView image;
+
         @Nullable
         @BindView(R.id.fragment_rumors_single_rumour_info)
         TextView bigRumourInfo;
-
         @Nullable
         @BindView(R.id.fragment_rumors_single_rumour_time)
         TextView bigRumourTime;
@@ -80,72 +69,53 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
     public RumoursNewsListAdapter(Context context) {
         values = new ArrayList<>();
         this.context = context;
-        WallNews image = new WallNews();
-        values.add(0,image);
     }
 
     @Override
     public RumoursNewsListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewHolder viewHolder;
         View view;
-        if (viewType == IMAGE) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_rumours_image, parent, false);
-        } else if(viewType == BIG_ITEM){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_rumours_big, parent, false);
+        int layoutResource;
 
+        if(viewType == BIG_ITEM){
+            layoutResource = R.layout.row_rumours_big;
         }else{
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_rumours, parent, false);
+            layoutResource = R.layout.row_rumours;
         }
+        view = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);
         viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if (getItemViewType(position) == IMAGE) {
-            //IMAGE ONLY
-            holder.view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {}
-            });
-        }else if (getItemViewType(position) == BIG_ITEM) {
-            final WallNews bigInfo = values.get(position);
-            if (bigInfo.getSubTitle() != null) {
-                holder.bigRumourInfo.setText(bigInfo.getSubTitle());
+        final WallNews info = values.get(position);
+        if (getItemViewType(position) == BIG_ITEM) {
+            if (info.getSubTitle() != null) {
+                holder.bigRumourInfo.setText(info.getSubTitle());
             } else {
-                holder.bigRumourInfo.setText(bigInfo.getTitle());
-        }
-            CharSequence time =
-                    DateUtils.getRelativeTimeSpanString(
-                        bigInfo.getTimestamp().longValue(),
-                        Utility.getCurrentTime(),
-                        DateUtils.HOUR_IN_MILLIS
-                    );
+                holder.bigRumourInfo.setText(info.getTitle());
+            }
+            String time = DateUtils.getRelativeTimeSpanString(
+                info.getTimestamp().longValue(),
+                Utility.getCurrentTime(),
+                DateUtils.HOUR_IN_MILLIS
+            ).toString();
             holder.bigRumourTime.setText(time);
-            holder.view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                    fe.setId("UNOFFICIAL$$$" + bigInfo.getPostId());
-                    EventBus.getDefault().post(fe);
-                }
-            });
-        }
-        else if (getItemViewType(position) == ITEM) {
-            final WallNews info = values.get(position);
+
+        } else if (getItemViewType(position) == ITEM) {
             holder.description.setText(info.getTitle());
             String time = "Recent";
             holder.time.setText(time);
-            holder.view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                    fe.setId("UNOFFICIAL$$$" + info.getPostId());
-                    EventBus.getDefault().post(fe);
-                }
-            });
         }
-
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
+                fe.setId("UNOFFICIAL$$$" + info.getPostId());
+                EventBus.getDefault().post(fe);
+            }
+        });
     }
 
     @Override
@@ -153,27 +123,17 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
         if (values != null) {
             return values.size();
         }
-        return 1;
-
+        return 0;
     }
 
     @Override
     public int getItemViewType(int position) {
-        //return super.getItemViewType(position);
-        if (position == 0) {
-            return IMAGE;
-        } else if(countOfTopRumours == 2){
-                if(position==1 || position ==2){
-                    return BIG_ITEM;
-                }else {
-                    return ITEM;
-                }
-            }else if(countOfTopRumours == 4){
-                if(position==1 || position ==2 || position ==3 || position ==4){
-                    return BIG_ITEM;
-                }else {
-                    return ITEM;
-                }
+        if(Utility.isPhone(context) ){ // on phone, first 2 items are different
+            if(position<2) {
+                return BIG_ITEM;
+            }
+        } else if (position <=3){ // on tablet, first 4 items different from others
+            return BIG_ITEM;
         }
         return ITEM;
     }

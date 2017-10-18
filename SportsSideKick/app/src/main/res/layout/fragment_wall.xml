@@ -56,6 +56,8 @@
                                 android:layout_centerVertical="true"
                                 android:paddingEnd="@dimen/padding_2"
                                 android:textColor="@color/white"
+                                android:maxLines="1"
+                                android:maxLength="6"
                                 fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                                 android:textSize="@dimen/font_size_28"
                                 android:textStyle="bold" />
@@ -89,6 +91,8 @@
                                 android:id="@+id/wall_team_right_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:maxLength="6"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/wall_team_right_image"
                                 android:paddingStart="@dimen/padding_2"
@@ -105,8 +109,9 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/wall_top_info"
                             android:layout_centerHorizontal="true"
+                            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                             android:text="@string/next_match"
-                            android:textColor="@color/colorPrimaryVeryLight" />
+                            android:textColor="?nextMatchTextPhoneColor" />
 
                         <TextView
                             android:id="@+id/wall_team_time"
@@ -216,7 +221,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/login_holder"
-                    android:layout_margin="@dimen/margin_negative_10"
+                    android:layout_marginTop="?wallRecyclerListPhoneTopMargin"
                     />
 
             </RelativeLayout>
@@ -301,7 +306,7 @@
                     android:layout_marginTop="@dimen/margin_10"
                     android:scaleType="centerInside"
                     android:src="@drawable/btn_send"
-                    android:tint="?colorPrimarySemiLight"
+                    android:tint="?createPostPhoneButtonColor"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -326,14 +331,14 @@
                     android:layout_width="@dimen/width_40"
                     android:layout_height="match_parent"
                     android:src="?chatCameraIcon"
-                    android:tint="?colorPrimarySemiLight" />
+                    android:tint="?createPostPhoneButtonColor" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/image_button"
                     android:layout_width="@dimen/width_40"
                     android:layout_height="match_parent"
                     android:src="?chatGalleryIcon"
-                    android:tint="?colorPrimarySemiLight" />
+                    android:tint="?createPostPhoneButtonColor" />
 
             </LinearLayout>
         </RelativeLayout>
@@ -382,8 +387,8 @@
                     style="@style/phone_toggle_button_filter"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wall_button_size"
-                    android:textOff="@string/rumors_fragment_caption"
-                    android:textOn="@string/rumors_fragment_caption" />
+                    android:textOff="@string/rumours_caption"
+                    android:textOn="@string/rumours_caption" />
 
                 <ToggleButton
                     android:id="@+id/store_filter_toggle"

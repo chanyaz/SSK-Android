@@ -269,8 +269,8 @@
                     style="@style/toggle_button_filter"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/wall_button_size"
-                    android:textOff="@string/rumors_fragment_caption"
-                    android:textOn="@string/rumors_fragment_caption" />
+                    android:textOff="@string/rumours_caption"
+                    android:textOn="@string/rumours_caption" />
 
                 <ToggleButton
                     android:id="@+id/store_filter_toggle"

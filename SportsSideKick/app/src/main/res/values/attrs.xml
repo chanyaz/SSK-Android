@@ -207,6 +207,11 @@
 
     <!--*****************************************************************************************-->
 
+    <attr name="wallRecyclerListPhoneTopMargin" format="reference" />
+    <attr name="newsRecyclerListPhoneTopMargin" format="reference" />
+
+    <attr name="createPostPhoneButtonColor" format="reference" />
+    <attr name="nextMatchTextPhoneColor" format="reference" />
     <attr name="phoneWallEditSearchText" format="reference" />
     <attr name="phoneWallEditSearchHint" format="reference" />
 
