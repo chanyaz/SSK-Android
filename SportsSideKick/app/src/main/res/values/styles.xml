@@ -60,6 +60,7 @@
         <item name="alertDialogTextColor">@color/white</item>
         <item name="messageUserTextColor">@color/white</item>
         <item name="chatEditTextHintColor">@color/colorPrimarySemiLight</item>
+        <item name="chatPopupsCaptionColor">@color/white</item>
 
         <!-- Drawables -->
 
@@ -163,8 +164,8 @@
         <item name="chatSlideButtonBackgroundColorRef">@color/colorPrimaryVeryDark</item>
         <item name="chatSlideButtonTextColorRef">@color/white_semitransparent</item>
 
-        <item name="chatSlideSecondButtonBackgroundColorRef">@color/white</item>
-        <item name="chatSlideSecondButtonTextColorRef">@color/colorAccent</item>
+        <item name="chatSlideSecondButtonBackgroundColorRef">@color/colorPrimary</item>
+        <item name="chatSlideSecondButtonTextColorRef">@color/white_semitransparent</item>
 
         <item name="chatJoinSearchBackgroundColorRef">@color/colorPrimary</item>
         <item name="chatJoinSearchTextColorRef">@color/white</item>
@@ -187,6 +188,20 @@
         <item name="wallRecyclerListPhoneTopMargin">@dimen/margin_negative_10</item>
         <item name="newsRecyclerListPhoneTopMargin">@dimen/margin_negative_30</item>
 
+        <!--<item name="chatEditTextPhoneColorRef"></item>-->
+        <!--<item name="chatEditTextHintPhoneColorRef">@color/</item>-->
+        <!--<item name="chatEditTextBackgroundPhoneColorRef">@color/</item>-->
+        <item name="chatSlideSecondButtonBackgroundPhoneColorRef">@color/colorPrimary</item>
+        <item name="chatSlideSecondButtonTextPhoneColorRef">@color/white_semitransparent</item>
+        <item name="chatSlideButtonBackgroundPhoneColorRef">@color/colorPrimaryMediumLight</item>
+        <item name="chatSlideButtonTextPhoneColorRef">@color/white</item>
+        <item name="chatCreateButtonTextPhoneColorRef">@color/colorPrimary</item>
+
+        <item name="chatPrivateTextColorRef">@color/white</item>
+        <item name="chatPrivateTextColorPhoneRef">@color/white</item>
+
+        <item name="chatDescriptionTextColorRef">@color/white</item>
+        <item name="chatDescriptionTextPhoneColorRef">@color/white</item>
     </style>
 
 

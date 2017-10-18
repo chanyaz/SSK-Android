@@ -42,7 +42,7 @@
                 android:gravity="center"
                 android:padding="@dimen/padding_8"
                 android:text="@string/chat_caption"
-                android:textColor="@color/white" />
+                android:textColor="?chatPopupsCaptionColor" />
 
         </RelativeLayout>
 
@@ -77,6 +77,7 @@
                 android:gravity="center"
                 android:text="@string/join_chat"
                 android:textColor="?chatSlideSecondButtonTextColorRef" />
+
 
             <View
                 android:layout_width="match_parent"
@@ -164,7 +165,7 @@
             android:layout_below="@+id/chat_top_buttons_container"
             android:gravity="center"
             android:text="@string/add_friends_to_chat"
-            android:textColor="@color/white" />
+            android:textColor="?chatDescriptionTextColorRef" />
 
         <RelativeLayout
             android:id="@+id/chat_search_friends_container"
@@ -196,7 +197,7 @@
                 android:layout_toEndOf="@+id/private_chat_switch"
                 android:gravity="center_vertical"
                 android:text="@string/this_chat_is_public"
-                android:textColor="@color/white" />
+                android:textColor="?chatPrivateTextColorRef" />
 
             <EditText
                 android:id="@+id/search_edit_text"
@@ -275,4 +276,6 @@
             android:numColumns="auto_fit"
             android:layout_above="@+id/chat_friends_in_chat_container" />
     </RelativeLayout>
+
+
 </RelativeLayout>

@@ -207,6 +207,8 @@
 
     <!--*****************************************************************************************-->
 
+    <attr name="chatPopupsCaptionColor" format="reference" />
+
     <attr name="wallRecyclerListPhoneTopMargin" format="reference" />
     <attr name="newsRecyclerListPhoneTopMargin" format="reference" />
 
@@ -274,12 +276,24 @@
     <attr name="chatEditTextColorRef" format="reference"/>
     <attr name="chatEditTextHintColorRef" format="reference"/>
     <attr name="chatEditTextBackgroundColorRef" format="reference"/>
-
     <attr name="chatSlideButtonBackgroundColorRef" format="reference"/>
     <attr name="chatSlideButtonTextColorRef" format="reference"/>
-
     <attr name="chatSlideSecondButtonBackgroundColorRef" format="reference"/>
     <attr name="chatSlideSecondButtonTextColorRef" format="reference"/>
+    <attr name="chatPrivateTextColorRef" format="reference"/>
+
+    <attr name="chatEditTextPhoneColorRef" format="reference"/>
+    <attr name="chatEditTextHintPhoneColorRef" format="reference"/>
+    <attr name="chatEditTextBackgroundPhoneColorRef" format="reference"/>
+    <attr name="chatSlideSecondButtonBackgroundPhoneColorRef" format="reference"/>
+    <attr name="chatSlideSecondButtonTextPhoneColorRef" format="reference"/>
+    <attr name="chatSlideButtonBackgroundPhoneColorRef" format="reference"/>
+    <attr name="chatSlideButtonTextPhoneColorRef" format="reference"/>
+    <attr name="chatPrivateTextColorPhoneRef" format="reference"/>
+
+    <attr name="chatDescriptionTextColorRef" format="reference"/>
+    <attr name="chatDescriptionTextPhoneColorRef" format="reference"/>
+
     <!--EditChat-->
 
 
@@ -292,6 +306,8 @@
     <attr name="chatJoinChatsHeadlineColorRef" format="reference"/>
 
     <attr name="chatCreateButtonTextColorRef" format="reference"/>
+
+    <attr name="chatCreateButtonTextPhoneColorRef" format="reference"/>
 
     <!-- Members and Friends -->
 

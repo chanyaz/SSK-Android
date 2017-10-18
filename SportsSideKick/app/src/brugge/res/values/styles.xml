@@ -187,6 +187,21 @@
 
         <item name="wallRecyclerListPhoneTopMargin">@dimen/margin_10</item>
         <item name="newsRecyclerListPhoneTopMargin">@dimen/margin_10</item>
+
+        <item name="chatPopupsCaptionColor">@color/colorPrimary</item>
+
+        <item name="chatSlideSecondButtonBackgroundPhoneColorRef">@color/colorGrayLight</item>
+        <item name="chatSlideSecondButtonTextPhoneColorRef">@color/black</item>
+        <item name="chatSlideButtonBackgroundPhoneColorRef">@color/colorPrimary</item>
+        <item name="chatSlideButtonTextPhoneColorRef">@color/white</item>
+        <item name="chatCreateButtonTextPhoneColorRef">@color/white</item>
+
+        <item name="chatPrivateTextColorRef">@color/black</item>
+        <item name="chatPrivateTextColorPhoneRef">@color/black</item>
+
+        <item name="chatDescriptionTextColorRef">@color/black</item>
+        <item name="chatDescriptionTextPhoneColorRef">@color/black</item>
+
     </style>
 
 
