@@ -248,6 +248,9 @@ public class Model {
 
     private void getAccountDetails(GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completion) {
         GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createAccountDetailsRequest();
+        HashMap<String, Object> scriptData = new HashMap<>();
+        scriptData.put(CLUB_ID_TAG, CLUB_ID);
+        request.getBaseData().put("scriptData", scriptData);
         if (completion != null) {
             request.send(completion);
         } else {
@@ -374,8 +377,8 @@ public class Model {
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersGetSpecialUsers");
         request.setEventAttribute(GSConstants.OFFSET, offset);
-        request.setEventAttribute(GSConstants.ENTRY_COUNT, 50);
-
+        request.setEventAttribute(GSConstants.OFFSET, offset);
+        request.setEventAttribute(CLUB_ID_TAG, CLUB_ID);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
