@@ -162,12 +162,12 @@
         <item name="chatEditTextBackgroundColorRef">@color/colorGrayLight</item>
 
         <item name="chatSlideButtonBackgroundColorRef">@color/colorPrimaryVeryDark</item>
-        <item name="chatSlideButtonTextColorRef">@color/white_semitransparent</item>
+        <item name="chatSlideButtonTextColorRef">@color/white</item>
 
         <item name="chatSlideSecondButtonBackgroundColorRef">@color/colorPrimary</item>
         <item name="chatSlideSecondButtonTextColorRef">@color/white_semitransparent</item>
 
-        <item name="chatJoinSearchBackgroundColorRef">@color/colorPrimary</item>
+        <item name="chatJoinSearchBackgroundColorRef">@color/colorPrimaryMediumDark</item>
         <item name="chatJoinSearchTextColorRef">@color/white</item>
 
         <item name="chatJoinBackgroundColorRef">@color/colorPrimary</item>
