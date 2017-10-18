@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/chat_caption"
-            android:textColor="@color/white"
+            android:textColor="?popupsCaptionColor"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -59,17 +59,19 @@
         android:layout_toStartOf="@+id/edit_top_vertical_spliter"
         android:gravity="center"
         android:text="@string/edit_chat"
-        android:textColor="?white" />
+        android:background="?popupSelectedCaptionBackgroundColorRef"
+        android:textColor="?popupSelectedCaptionTextColorRef"
+        />
 
     <TextView
         android:id="@+id/join_a_chat"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_toEndOf="@+id/edit_top_vertical_spliter"
-        android:background="@color/colorPrimary"
         android:gravity="center"
         android:text="@string/join_chat"
-        android:textColor="?white_semitransparent" />
+        android:background="?popupNonSelectedCaptionBackgroundColorRef"
+        android:textColor="?popupNonSelectedCaptionTextColorRef" />
 
     <View
         android:layout_width="match_parent"

@@ -168,7 +168,7 @@
         <item name="chatSlideSecondButtonTextColorRef">@color/black</item>
 
         <item name="chatJoinSearchBackgroundColorRef">@color/colorGrayDark</item>
-        <item name="chatJoinSearchTextColorRef">@color/black</item>
+        <item name="chatJoinSearchTextColorRef">@color/white</item>
 
         <item name="chatJoinBackgroundColorRef">@color/white</item>
         <item name="chatJoinChatsHeadlineColorRef">@color/colorPrimary</item>
@@ -188,7 +188,7 @@
         <item name="wallRecyclerListPhoneTopMargin">@dimen/margin_10</item>
         <item name="newsRecyclerListPhoneTopMargin">@dimen/margin_10</item>
 
-        <item name="chatPopupsCaptionColor">@color/colorPrimary</item>
+        <item name="popupsCaptionColor">@color/colorPrimary</item>
 
         <item name="chatSlideSecondButtonBackgroundPhoneColorRef">@color/colorGrayLight</item>
         <item name="chatSlideSecondButtonTextPhoneColorRef">@color/black</item>
@@ -201,6 +201,13 @@
 
         <item name="chatDescriptionTextColorRef">@color/black</item>
         <item name="chatDescriptionTextPhoneColorRef">@color/black</item>
+
+        <item name="popupSelectedCaptionBackgroundColorRef">@color/colorPrimary</item>
+        <item name="popupSelectedCaptionTextColorRef">@color/white</item>
+        <item name="popupNonSelectedCaptionBackgroundColorRef">@color/colorPrimaryMediumLight</item>
+        <item name="popupNonSelectedCaptionTextColorRef">@color/black</item>
+        <item name="editProfileTextColorRef">@color/black</item>
+        <item name="editLanguageTextColorRef">@color/black</item>
 
     </style>
 
@@ -317,7 +324,7 @@
     </style>
 
     <style name="edit_text_login_phone">
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingRight">15dp</item>
         <item name="android:paddingTop">4dp</item>
@@ -327,7 +334,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColorHint">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/black</item>
     </style>
 
     <style name="shadow_text_login">

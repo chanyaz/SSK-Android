@@ -28,7 +28,7 @@
         android:layout_marginTop="@dimen/margin_20"
         android:layout_below="@+id/caption"
         android:layout_marginEnd="@dimen/margin_40"
-        android:textColor="@color/white"
+        android:textColor="?alertDialogTextColor"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"/>
 

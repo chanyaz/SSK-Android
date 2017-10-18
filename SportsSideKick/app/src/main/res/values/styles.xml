@@ -60,7 +60,7 @@
         <item name="alertDialogTextColor">@color/white</item>
         <item name="messageUserTextColor">@color/white</item>
         <item name="chatEditTextHintColor">@color/colorPrimarySemiLight</item>
-        <item name="chatPopupsCaptionColor">@color/white</item>
+        <item name="popupsCaptionColor">@color/white</item>
 
         <!-- Drawables -->
 
@@ -188,9 +188,7 @@
         <item name="wallRecyclerListPhoneTopMargin">@dimen/margin_negative_10</item>
         <item name="newsRecyclerListPhoneTopMargin">@dimen/margin_negative_30</item>
 
-        <!--<item name="chatEditTextPhoneColorRef"></item>-->
-        <!--<item name="chatEditTextHintPhoneColorRef">@color/</item>-->
-        <!--<item name="chatEditTextBackgroundPhoneColorRef">@color/</item>-->
+
         <item name="chatSlideSecondButtonBackgroundPhoneColorRef">@color/colorPrimary</item>
         <item name="chatSlideSecondButtonTextPhoneColorRef">@color/white_semitransparent</item>
         <item name="chatSlideButtonBackgroundPhoneColorRef">@color/colorPrimaryMediumLight</item>
@@ -202,6 +200,16 @@
 
         <item name="chatDescriptionTextColorRef">@color/white</item>
         <item name="chatDescriptionTextPhoneColorRef">@color/white</item>
+
+        <item name="popupSelectedCaptionBackgroundColorRef">@color/colorPrimary</item>
+        <item name="popupSelectedCaptionTextColorRef">@color/white</item>
+        <item name="popupNonSelectedCaptionBackgroundColorRef">@color/colorPrimaryMediumLight</item>
+        <item name="popupNonSelectedCaptionTextColorRef">@color/white</item>
+
+        <item name="editProfileTextColorRef">@color/white</item>
+        <item name="editLanguageTextColorRef">@color/white</item>
+
+
     </style>
 
 

@@ -36,5 +36,5 @@
         android:lines="1"
         android:layout_below="@+id/background"
         android:gravity="center"
-        android:textColor="@color/white" />
+        android:textColor="?friendItemTextColor" />
 </RelativeLayout>

@@ -50,7 +50,7 @@
                 android:layout_marginTop="@dimen/margin_30"
                 android:text="@string/login_slider_text_1_phone"
                 android:textAlignment="center"
-                android:textColor="?white"
+                android:textColor="?popupsCaptionColor"
                 android:textSize="@dimen/font_size_22" />
 
             <TextView
@@ -63,7 +63,7 @@
                 android:layout_marginTop="@dimen/margin_15"
                 android:text="@string/login_slider_chat"
                 android:textAlignment="center"
-                android:textColor="?white"
+                android:textColor="?popupsCaptionColor"
                 android:textSize="@dimen/font_size_18" />
 
 

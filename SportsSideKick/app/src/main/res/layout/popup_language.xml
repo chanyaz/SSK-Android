@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/your_profile"
-            android:textColor="?white"
+            android:textColor="?popupsCaptionColor"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -57,10 +57,10 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryMediumLight"
+            android:background="?popupSelectedCaptionBackgroundColorRef"
             android:gravity="center"
             android:text="@string/profile"
-            android:textColor="?white" />
+            android:textColor="?popupSelectedCaptionTextColorRef" />
 
         <TextView
             android:id="@+id/your_wallet_button"
@@ -68,20 +68,20 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="?popupNonSelectedCaptionBackgroundColorRef"
             android:gravity="center"
             android:text="@string/wallet"
-            android:textColor="?white_semitransparent" />
+            android:textColor="?popupNonSelectedCaptionTextColorRef" />
 
         <TextView
             android:id="@+id/your_stash_button"
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="?popupNonSelectedCaptionBackgroundColorRef"
             android:gravity="center"
             android:text="@string/stash"
-            android:textColor="?white_semitransparent" />
+            android:textColor="?popupNonSelectedCaptionTextColorRef" />
     </LinearLayout>
 
     <LinearLayout
@@ -120,12 +120,12 @@
         android:id="@+id/chosen_language_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:text="@string/choose_your_language"
-        android:textColor="@color/white"
+        android:textColor="?editLanguageTextColorRef"
         android:textSize="@dimen/font_size_12"
         android:padding="@dimen/padding_8"
-        android:layout_below="@+id/top_split_line"/>
+        android:layout_below="@+id/top_buttons_container"
+        android:layout_centerHorizontal="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/language_recycler_view"

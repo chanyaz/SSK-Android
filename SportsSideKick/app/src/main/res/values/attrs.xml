@@ -207,7 +207,7 @@
 
     <!--*****************************************************************************************-->
 
-    <attr name="chatPopupsCaptionColor" format="reference" />
+    <attr name="popupsCaptionColor" format="reference" />
 
     <attr name="wallRecyclerListPhoneTopMargin" format="reference" />
     <attr name="newsRecyclerListPhoneTopMargin" format="reference" />
@@ -313,7 +313,11 @@
 
     <attr name="memberInfoElementsTint" format="reference"/>
     <attr name="friendItemTextColor" format="reference"/>
-
-
+    <attr name="popupSelectedCaptionBackgroundColorRef" format="reference"/>
+    <attr name="popupSelectedCaptionTextColorRef" format="reference"/>
+    <attr name="popupNonSelectedCaptionBackgroundColorRef" format="reference"/>
+    <attr name="popupNonSelectedCaptionTextColorRef" format="reference"/>
+    <attr name="editProfileTextColorRef" format="reference"/>
+    <attr name="editLanguageTextColorRef" format="reference"/>
 
 </resources>

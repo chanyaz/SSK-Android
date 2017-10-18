@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_8"
         android:text="@string/ellipsis"
-        android:textColor="@color/white"
+        android:textColor="?friendItemTextColor"
         android:textSize="@dimen/font_size_12"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -101,7 +101,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/margin_20"
                     android:text="@string/login_slider_text_1_phone"
-                    android:textColor="?white"
+                    android:textColor="?popupsCaptionColor"
                     android:textSize="@dimen/font_size_25" />
 
                 <Button
@@ -141,7 +141,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_1"
                         android:layout_weight="1"
-                        android:background="?white" />
+                        android:textColor="?popupsCaptionColor" />
 
                     <TextView
                         android:id="@+id/or_label"
@@ -151,13 +151,13 @@
                         android:gravity="center"
                         android:text="@string/sign_up_or"
                         android:textAllCaps="true"
-                        android:textColor="@color/white" />
+                        android:textColor="?popupsCaptionColor" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height_1"
                         android:layout_weight="1"
-                        android:background="?white" />
+                        android:textColor="?popupsCaptionColor" />
 
                     <View
                         android:layout_width="0dp"
@@ -288,7 +288,7 @@
             android:gravity="center_vertical"
             android:text="@string/join_now_sign_in"
             android:textAllCaps="true"
-            android:textColor="?white"
+            android:textColor="?popupsCaptionColor"
             android:textSize="@dimen/font_size_16"
             />
 
@@ -307,5 +307,5 @@
         android:layout_marginStart="@dimen/margin_60"
         android:layout_marginTop="@dimen/margin_20"
         android:text="@string/forgot_your_password"
-        android:textColor="?white" />
+        android:textColor="?popupsCaptionColor" />
 </RelativeLayout>

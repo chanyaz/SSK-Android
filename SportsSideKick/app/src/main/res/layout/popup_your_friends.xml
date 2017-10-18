@@ -28,7 +28,7 @@
             android:layout_marginEnd="1dp"
             android:gravity="center_vertical"
             android:text="@string/friends"
-            android:textColor="?white"
+            android:textColor="?popupsCaptionColor"
             android:textSize="@dimen/font_size_18" />
 
         <android.support.v7.widget.AppCompatImageButton
@@ -88,10 +88,10 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?colorPrimarySemiLight"
+            android:background="?popupSelectedCaptionBackgroundColorRef"
             android:gravity="center"
             android:text="@string/friends"
-            android:textColor="?white" />
+            android:textColor="?popupSelectedCaptionTextColorRef" />
 
         <TextView
             android:id="@+id/add_friend"
@@ -99,20 +99,20 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="?popupNonSelectedCaptionBackgroundColorRef"
             android:gravity="center"
             android:text="@string/find"
-            android:textColor="?white_semitransparent" />
+            android:textColor="?popupNonSelectedCaptionTextColorRef" />
 
         <TextView
             android:id="@+id/friend_requests"
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="?popupNonSelectedCaptionBackgroundColorRef"
             android:gravity="center"
             android:text="@string/request"
-            android:textColor="?white_semitransparent" />
+            android:textColor="?popupNonSelectedCaptionTextColorRef" />
     </LinearLayout>
 
     <View

@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="@string/your_profile"
-                    android:textColor="?white"
+                    android:textColor="?popupsCaptionColor"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -67,10 +67,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="?colorPrimary"
+                    android:background="?popupNonSelectedCaptionBackgroundColorRef"
                     android:gravity="center"
                     android:text="@string/profile"
-                    android:textColor="?white_semitransparent" />
+                    android:textColor="?popupNonSelectedCaptionTextColorRef" />
 
                 <TextView
                     android:id="@+id/your_wallet_button"
@@ -78,20 +78,20 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="@color/colorPrimaryMediumLight"
+                    android:background="?popupSelectedCaptionBackgroundColorRef"
                     android:gravity="center"
                     android:text="@string/wallet"
-                    android:textColor="?white" />
+                    android:textColor="?popupSelectedCaptionTextColorRef" />
 
                 <TextView
                     android:id="@+id/your_stash_button"
                     android:layout_width="@dimen/space_0"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="?colorPrimary"
+                    android:background="?popupNonSelectedCaptionBackgroundColorRef"
                     android:gravity="center"
                     android:text="@string/stash"
-                    android:textColor="?white_semitransparent" />
+                    android:textColor="?popupNonSelectedCaptionTextColorRef" />
             </LinearLayout>
 
             <LinearLayout
@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:text="@string/you_have"
-                        android:textColor="@color/white"
+                        android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_10" />
 
                     <TextView
@@ -206,7 +206,7 @@
                     android:layout_marginBottom="@dimen/margin_20"
                     android:layout_marginTop="@dimen/margin_10"
                     android:text="@string/bundles"
-                    android:textColor="@color/white"
+                    android:textColor="?popupsCaptionColor"
                     android:textSize="@dimen/font_size_15"
                     android:textStyle="bold" />
 

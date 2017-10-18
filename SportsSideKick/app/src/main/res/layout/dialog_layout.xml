@@ -19,6 +19,7 @@
             android:layout_marginStart="@dimen/margin_80"
             android:layout_marginTop="@dimen/margin_20"
             android:gravity="center"
+            android:text="CAPTION"
             android:textAllCaps="true"
             android:textColor="?colorAccent" />
 
@@ -34,11 +35,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/dialog_caption"
             android:layout_marginBottom="@dimen/margin_20"
+            android:text="CONTENT"
             android:layout_marginEnd="@dimen/margin_40"
             android:layout_marginStart="@dimen/margin_40"
             android:layout_marginTop="@dimen/margin_20"
             android:gravity="center_horizontal"
-            android:textColor="@color/white" />
+            android:textColor="?alertDialogTextColor" />
 
 
         <!-- BOTTOM BUTTONS CONTAINER -->
