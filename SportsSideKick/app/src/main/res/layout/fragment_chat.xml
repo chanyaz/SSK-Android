@@ -316,7 +316,8 @@
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
-            android:src="?videoCloseButtonIcon" />
+            android:src="?videoCloseButtonIcon"
+            android:tint="?videoCloseButtonChatColorRef"/>
 
         <ImageView
             android:id="@+id/vide_download_image_button"
@@ -355,6 +356,7 @@
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
+            android:tint="?videoCloseButtonChatColorRef"
             android:src="?videoCloseButtonIcon" />
 
         <ImageView

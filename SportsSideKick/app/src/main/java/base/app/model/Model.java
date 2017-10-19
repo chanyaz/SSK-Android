@@ -692,7 +692,7 @@ public class Model {
                         getUserIdForImageName() +
                         System.currentTimeMillis() +
                         ".caf";
-        FileUploader.getInstance().uploadCompressedImage(filename, filepath, filesDir, completion);
+        FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
     public static String getAudioFileName() {

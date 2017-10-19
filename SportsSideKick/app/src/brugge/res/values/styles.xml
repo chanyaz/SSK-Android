@@ -209,6 +209,8 @@
         <item name="editProfileTextColorRef">@color/black</item>
         <item name="editLanguageTextColorRef">@color/black</item>
 
+        <item name="videoCloseButtonChatColorRef">@color/white</item>
+
     </style>
 
 

@@ -112,6 +112,7 @@
 
     <attr name="textViewRoundBorderShape" format="reference" />
     <attr name="videoCloseButtonIcon" format="reference" />
+    <attr name="videoCloseButtonChatColorRef" format="reference" />
     <attr name="downloadButtonIcon" format="reference" />
     <attr name="closeIcon" format="reference" />
 

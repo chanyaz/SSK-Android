@@ -970,7 +970,7 @@ public class ChatFragment extends BaseFragment {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.choose));
         chooseDialog.setMessage(getContext().getResources().getString(R.string.chat_image_or_video));
-        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_video), new DialogInterface.OnClickListener() {
+        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.record_video), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);

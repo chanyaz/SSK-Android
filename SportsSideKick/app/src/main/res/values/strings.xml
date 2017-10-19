@@ -522,5 +522,6 @@
     <string name="watch_promo" translatable="false">Watch promo</string>
     <string name="single_user_is_typing">%1$s! is typing...</string>
     <string name="multiple_users_are_typing">Multiple users are typing...</string>
+    <string name="record_video">Record Video</string>
 
 </resources>
