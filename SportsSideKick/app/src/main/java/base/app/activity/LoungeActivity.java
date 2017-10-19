@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -352,13 +353,19 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
 
     @Override
     public void onLoginAnonymously() {
-        splash.setVisibility(View.GONE);
         resetUserDetails();
+        Handler handler = new Handler();
+        // delaying splash hiding to give enough time for login to be triggered
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                splash.setVisibility(View.GONE);
+            }
+        },3000);
     }
 
     @Override
     public void onLogin(UserInfo user) {
-        splash.setVisibility(View.GONE);
         if (Model.getInstance().isRealUser()) {
             if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
@@ -377,6 +384,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         } else {
             resetUserDetails();
         }
+        splash.setVisibility(View.GONE);
     }
 
     private void resetUserDetails() {

@@ -68,7 +68,8 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-        <!-- 6.2. Change Value in this object to correct Facebook app Id -->
+        <!-- 6.2. Ch
+        ange Value in this object to correct Facebook app Id -->
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider102782376855276-TODO-CHANGE"

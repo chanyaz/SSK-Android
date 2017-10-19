@@ -597,7 +597,44 @@
         android:gravity="center"
         android:visibility="gone" />
 
-        <include android:id="@+id/splash" layout="@layout/activity_splash"
-            android:visibility="gone"/>
+    <RelativeLayout
+        android:id="@+id/splash"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="?loginBackground" />
+
+        <RelativeLayout
+            android:id="@+id/splash_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_bar_width"
+            android:layout_height="@dimen/progress_bar_height"
+            android:layout_centerInParent="true"
+            android:elevation="@dimen/elevation_2"
+            android:visibility="visible"
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
+        <TextView
+            android:id="@+id/waiting_connection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/progress_bar"
+            android:text="@string/waiting_for_active_internet_connection"
+            />
+    </RelativeLayout>
 </RelativeLayout>

@@ -893,9 +893,17 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Override
     public void onResume() {
-        Log.d("Wall lifecycle", "On Resume");
         super.onResume();
         updateBottomBar();
+        if (loginHolder!=null) {
+            if(Model.getInstance().isRealUser()) {
+                Log.d("Wall lifecycle", "On Resume - Real user");
+                loginHolder.setVisibility(View.GONE);
+            } else {
+                Log.d("Wall lifecycle", "On Resume - Anonymous user");
+                loginHolder.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void reset() {

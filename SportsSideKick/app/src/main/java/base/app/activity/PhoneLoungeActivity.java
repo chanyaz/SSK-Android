@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -172,7 +173,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         setContentView(R.layout.activity_lounge_phone);
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
-
+        splash.setVisibility(View.VISIBLE);
         setupFragments();
         setToolbar();
         updateTopBar();
@@ -579,18 +580,22 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     @Override
     public void onLoginAnonymously() {
-        splash.setVisibility(View.GONE);
         resetUserDetails();
         updateTopBar();
+        Handler handler = new Handler();
+        // delaying splash hiding to give enough time for login to be triggered
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                splash.setVisibility(View.GONE);
+            }
+        },3000);
     }
 
     @Override
     public void onLogin(UserInfo user) {
-        splash.setVisibility(View.GONE);
         if (Model.getInstance().isRealUser()) {
-
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-
             if (user.getCircularAvatarUrl() != null) {
                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             }
@@ -605,6 +610,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             resetUserDetails();
         }
         updateTopBar();
+        splash.setVisibility(View.GONE);
     }
 
     private void resetUserDetails() {
