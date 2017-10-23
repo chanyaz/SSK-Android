@@ -24,9 +24,9 @@ public class GSAndroidPlatform implements IGSPlatform
 {
 	private static final String GS_CURR_STATUS = "GSCurrStatus";
 
-	private static GS gs;
-	private Handler 	mainHandler;
-	private Context 	ctx;
+    private static GS gs;
+    private Handler mainHandler;
+    private Context ctx;
 
 	public static GS initialise(final Context ctx, String apiKey, String secret, String credential, boolean liveMode, boolean autoUpdate){
 		if (gs == null){

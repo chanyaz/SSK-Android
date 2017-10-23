@@ -369,18 +369,29 @@
             android:scaleType="fitCenter"
             android:src="?downloadButtonIcon" />
     </RelativeLayout>
+
+    <!--** ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  -->
+    <!-- THIS IS INACTIVE CONTAINER -->
     <RelativeLayout
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.9"
+            android:scaleType="centerCrop"
+            android:src="@drawable/video_chat_background" />
+
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.6"
             android:background="@drawable/phone_background"
-            android:contentDescription="@null" />
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -399,18 +410,6 @@
                 android:contentDescription="@null"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ssk_logo" />
-
-            <ImageView
-                android:id="@+id/camera_logo"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_130"
-                android:layout_above="@+id/text1"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/margin_20"
-                android:contentDescription="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/prelogin_video_chat"
-                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/text1"
@@ -448,6 +447,7 @@
                 android:layout_height="0dp"
                 android:layout_below="@+id/center_parent" />
 
+            <!-- LOGIN CONTAINER -->
             <LinearLayout
                 android:id="@+id/login_container"
                 android:layout_width="match_parent"
@@ -499,6 +499,10 @@
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
+    <!--** ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  -->
+
+
+
     <base.app.util.ui.TranslationView
         android:id="@+id/translation_view"
         android:layout_width="match_parent"

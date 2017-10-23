@@ -129,7 +129,7 @@ dependencies {
             }
 
 //  Gamesparks SDK - whole backend is relying on it (it resides on maven)
-    compile 'com.gamesparks.sdk:gamesparks-java-sdk:+'
+    compile 'com.gamesparks.sdk:gamesparks-java-sdk:0.3.2-SNAPSHOT'
 
 //  General data-binding package for Jackson used for parsing of GS response in model - https://github.com/FasterXML/jackson-databind
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr1'

@@ -341,7 +341,6 @@ public class ChatFragment extends BaseFragment {
 
 
     private void onLoginStateChange() {
-
         if (Model.getInstance().isRealUser()) {
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.GONE);
@@ -368,6 +367,17 @@ public class ChatFragment extends BaseFragment {
         findActiveChat();
         //! Update UI
         updateAllViews();
+    }
+
+    public void onResume(){
+        super.onResume();
+        if (inactiveContainer != null) {
+            if (Model.getInstance().isRealUser()) {
+                inactiveContainer.setVisibility(View.GONE);
+            } else {
+                inactiveContainer.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override

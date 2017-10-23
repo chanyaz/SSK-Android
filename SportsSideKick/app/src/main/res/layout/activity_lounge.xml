@@ -56,11 +56,18 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="@dimen/margin_10"
                 android:layout_toEndOf="@+id/logo"
-                android:layout_toStartOf="@+id/days_until_match_label"
+                android:layout_toStartOf="@+id/next_match_container"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/half_margin"
                 android:textColor="@color/colorAccentSemiDark" />
+
+        <RelativeLayout
+            android:id="@+id/next_match_container"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/logo_first_team"
@@ -116,8 +123,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_12" />
 
-
-
             <TextView
                 android:id="@+id/up_next_label"
                 android:layout_width="wrap_content"
@@ -137,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true" />
-
+        </RelativeLayout>
         </RelativeLayout>
 
         <!-- ADS CONTAINER -->

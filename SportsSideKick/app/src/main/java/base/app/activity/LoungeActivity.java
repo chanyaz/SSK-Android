@@ -137,6 +137,10 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
     @BindView(R.id.splash)
     View splash;
 
+    @BindView(R.id.next_match_container)
+    RelativeLayout nextMatchContainer;
+
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -318,15 +322,19 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
 
     @Subscribe
     public void update(NextMatchUpdateEvent event){
-        NewsTickerInfo info = NextMatchModel.getInstance().getTickerInfo();
-        // in case where there were no team images (first time initialisation)
-        if(logoOfFirstTeam.getDrawable()==null){
-            ImageLoader.getInstance().displayImage(info.getFirstClubUrl(), logoOfFirstTeam, Utility.getDefaultImageOptions());
-            ImageLoader.getInstance().displayImage(info.getSecondClubUrl(), logoOfSecondTeam, Utility.getDefaultImageOptions());
+        if(NextMatchModel.getInstance().isNextMatchUpcoming()){
+            NewsTickerInfo info = NextMatchModel.getInstance().getTickerInfo();
+            // in case where there were no team images (first time initialisation)
+            if(logoOfFirstTeam.getDrawable()==null){
+                ImageLoader.getInstance().displayImage(info.getFirstClubUrl(), logoOfFirstTeam, Utility.getDefaultImageOptions());
+                ImageLoader.getInstance().displayImage(info.getSecondClubUrl(), logoOfSecondTeam, Utility.getDefaultImageOptions());
+            }
+            long timestamp = Long.parseLong(info.getMatchDate());
+            daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,true));
+            nextMatchContainer.setVisibility(View.VISIBLE);
+        } else {
+            nextMatchContainer.setVisibility(View.GONE);
         }
-        long timestamp = Long.parseLong(info.getMatchDate());
-        daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,true));
-
     }
 
 

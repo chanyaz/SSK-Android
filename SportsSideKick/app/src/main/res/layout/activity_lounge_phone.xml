@@ -32,7 +32,6 @@
 
         </RelativeLayout>
 
-        <!-- TICKER -->
         <RelativeLayout
             android:id="@+id/left_top_bar_container"
             android:layout_width="match_parent"

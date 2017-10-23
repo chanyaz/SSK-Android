@@ -202,6 +202,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
 
+    @Nullable
+    @BindView(R.id.wall_top_image_container)
+    RelativeLayout nextMatchContainer;
+
     boolean isNewPostVisible, isFilterVisible, isSearchVisible;
     List<WallBase> wallItems;
     private List<WallBase> filteredWallItems;
@@ -298,16 +302,21 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Subscribe
     public void updatePhoneNextMatchDisplay(NextMatchUpdateEvent event){
         if (Utility.isPhone(getActivity())) {
-            NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
-            if(wallLeftTeamImage.getDrawable()==null){
-                ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.getImageOptionsForTicker());
-                ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.getImageOptionsForTicker());
-                wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
-                wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
-            }
-            long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
-            if(wallTeamTime!=null){
-                wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(),timestamp,false));
+            if(NextMatchModel.getInstance().isNextMatchUpcoming()){
+                nextMatchContainer.setVisibility(View.VISIBLE);
+                NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
+                if(wallLeftTeamImage.getDrawable()==null){
+                    ImageLoader.getInstance().displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, Utility.getImageOptionsForTicker());
+                    ImageLoader.getInstance().displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, Utility.getImageOptionsForTicker());
+                    wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
+                    wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
+                }
+                long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
+                if(wallTeamTime!=null){
+                    wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(),timestamp,false));
+                }
+            } else {
+                nextMatchContainer.setVisibility(View.GONE);
             }
         }
     }

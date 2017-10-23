@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.GSAndroidPlatform;
+import base.app.util.Utility;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CLUB_ID_TAG;
@@ -43,7 +45,6 @@ public class NextMatchModel {
         return instance;
     }
 
-
     private NextMatchModel ()  {
         mapper =  new ObjectMapper();
     }
@@ -70,13 +71,29 @@ public class NextMatchModel {
                     return;
                 }
                 GSData matchData = data.getObject("match");
-                setTickerInfo(mapper.convertValue(matchData.getBaseData(),NewsTickerInfo.class));
+                saveTickerInfoToCache(matchData.getBaseData().toString());
+                NewsTickerInfo info = mapper.convertValue(matchData.getBaseData(),NewsTickerInfo.class);
+                setTickerInfo(info);
             }
             else {
                 fallback();
             }
         }
     };
+
+    public boolean isNextMatchUpcoming(){
+        if(newsTickerInfo!=null){
+            if(newsTickerInfo.getMatchDate()!=null){
+                long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
+                long now = (Utility.getCurrentTime() /1000);
+                long secondsUntilNextMatch = now - timestamp;
+                if(secondsUntilNextMatch<=60*110){
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 
     private void fallback(){
         if(DEFAULT_LANGUAGE.equals(this.language)){
@@ -86,8 +103,16 @@ public class NextMatchModel {
         getNextMatchInfo();
     }
 
-    private void changeLanguage (String language)
-    {
+    private void changeLanguage (String language) {
         this.language = language;
+    }
+
+    public void saveTickerInfoToCache(String info){
+        Prefs.putString("TICKER_INFO",info);
+    }
+
+    public NewsTickerInfo loadTickerInfoFromCache(){
+        String infoAsString = Prefs.getString("TICKER_INFO",null);
+        return mapper.convertValue(infoAsString,NewsTickerInfo.class);
     }
 }
