@@ -1,5 +1,7 @@
 package base.app.model.ticker;
 
+import android.support.annotation.Nullable;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
@@ -7,6 +9,8 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.io.IOException;
 
 import base.app.GSAndroidPlatform;
 import base.app.util.Utility;
@@ -86,9 +90,11 @@ public class NextMatchModel {
             if(newsTickerInfo.getMatchDate()!=null){
                 long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
                 long now = (Utility.getCurrentTime() /1000);
-                long secondsUntilNextMatch = now - timestamp;
-                if(secondsUntilNextMatch<=60*110){
-                    return false;
+                long secondsFromMatchStart = now - timestamp;
+                if(now<timestamp){ // match start is in future
+                    return true;
+                } else if(secondsFromMatchStart<=60*110){ // match started in less than 110 minutes
+                    return true;
                 }
             }
         }
@@ -111,8 +117,14 @@ public class NextMatchModel {
         Prefs.putString("TICKER_INFO",info);
     }
 
-    public NewsTickerInfo loadTickerInfoFromCache(){
+   @Nullable
+   public NewsTickerInfo loadTickerInfoFromCache(){
         String infoAsString = Prefs.getString("TICKER_INFO",null);
-        return mapper.convertValue(infoAsString,NewsTickerInfo.class);
+        try {
+            newsTickerInfo =  mapper.readValue(infoAsString,NewsTickerInfo.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return newsTickerInfo;
     }
 }

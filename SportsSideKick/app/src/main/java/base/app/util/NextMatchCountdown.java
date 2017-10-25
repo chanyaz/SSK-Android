@@ -16,6 +16,32 @@ import base.app.R;
 
 public class NextMatchCountdown {
 
+
+    public static String getCountdownValue(long matchTime) {
+        String countdownString = "";
+        long now = (Utility.getCurrentTime() / 1000);
+        long totalInterval = matchTime - now;
+        int days = 0;
+        int hours = 0;
+        int minutes = 0;
+        int seconds = 0;
+        while (totalInterval > 86400) {  // counting days
+            days += 1;
+            totalInterval -= 86400;
+        }
+        while (totalInterval > 3600) {
+            hours += 1;
+            totalInterval -= 3600;
+        }
+        while (totalInterval > 60) {
+            minutes += 1;
+            totalInterval -= 60;
+        }
+        seconds = (int) totalInterval;
+
+        return String.format("%02d:%02d:%02d:%02d", days,hours,minutes,seconds);
+    }
+
     /**
      *
      * This code is rewritten from iOS, without any improvement and refactoring!

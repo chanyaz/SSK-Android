@@ -24,6 +24,10 @@ public class NewsTickerInfo {
     public NewsTickerInfo() {
     }
 
+
+
+//    {"firstClubName":"RFC","secondClubUrl":"http:\/\/desporto_stats.imgs.sapo.pt\/3\/Teams\/M74559.png","club_id":1680,"title":"SPORTING CP","news":["Rúben Semedo for under-21's","Champions League: B. Dortmund, 1-Sporting CP, 0","Alvalade youngsters break down the yellow wall and climb up the Group F table","Sporting CP pens deal with FHK","Bruno de Carvalho in the USA to celebrate 50th Anniversary"],"language":"en","secondClubName":"SCP","_id":{"$oid":"58b41c47dbb71400011a91c2"},"firstClubUrl":"http:\/\/desporto_stats.imgs.sapo.pt\/3\/Teams\/M74557.png","matchDate":"1509138000"}
+
     /**
      *
      * @param news

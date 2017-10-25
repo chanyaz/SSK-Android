@@ -49,8 +49,6 @@ public class TranslationView extends RelativeLayout {
 
     TaskCompletionSource completion;
 
-
-
     String itemId;
     TranslationType type;
     WallBase.PostType postType;

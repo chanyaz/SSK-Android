@@ -28,10 +28,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public class SplashActivity extends AppCompatActivity {
 
-    @BindView(R.id.splash_container)
-    View fragmentContainer;
-    @BindView(R.id.progress_bar)
-    View progressBar;
     @BindView(R.id.waiting_connection)
     View waitingConnection;
 
@@ -49,9 +45,8 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.next_match_view);
         ButterKnife.bind(this);
-        progressBar.setVisibility(View.VISIBLE);
 
         if (Connection.getInstance().reachable()) {
             initialiseModel();

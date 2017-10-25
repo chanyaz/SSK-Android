@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimarySlightlyLight"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/tiled_background_dense"   />
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:alpha="0.4"
+        android:scaleType="centerCrop"
+        android:src="@drawable/video_chat_background" />
+
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/waiting_connection">
+
+        <ImageView
+            android:id="@+id/club_logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/club_logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/label"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/label_left"
+            style="@style/shadow_text_login"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_below="@+id/club_logo"
+            android:layout_centerHorizontal="true"
+            android:text="@string/bringing"
+            android:textColor="@color/white"
+            fontPath="fonts/TitilliumWeb-SemiLight.ttf"
+            app:autoSizeMaxTextSize="70sp"
+            app:autoSizeMinTextSize="20sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
+            android:layout_marginBottom="@dimen/margin_30"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/label"
+            app:layout_constraintBottom_toTopOf="@+id/next_match_container"
+            app:layout_constraintHorizontal_bias="1.0" />
+
+        <TextView
+            android:id="@+id/label"
+            style="@style/shadow_text_login"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_below="@+id/club_logo"
+            android:layout_centerHorizontal="true"
+            android:text="@string/fans"
+            android:textColor="@color/colorAccentSemiDark"
+            fontPath="fonts/TitilliumWeb-SemiLight.ttf"
+            app:autoSizeMaxTextSize="70sp"
+            app:autoSizeMinTextSize="20sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
+            android:layout_marginBottom="@dimen/margin_30"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/next_match_container"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/label_right"
+            style="@style/shadow_text_login"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_below="@+id/club_logo"
+            android:layout_centerHorizontal="true"
+            android:text="@string/together"
+            android:textColor="@color/white"
+            fontPath="fonts/TitilliumWeb-SemiLight.ttf"
+            app:autoSizeMaxTextSize="70sp"
+            app:autoSizeMinTextSize="20sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
+            android:layout_marginBottom="@dimen/margin_30"
+            app:layout_constraintLeft_toRightOf="@+id/label"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/next_match_container"
+            app:layout_constraintHorizontal_bias="0.0" />
+
+        <RelativeLayout
+            android:id="@+id/next_match_container"
+            android:layout_width="wrap_content"
+         android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/label"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:background="@drawable/background_next_match_countdown"
+            app:layout_constraintBottom_toTopOf="@+id/fc_logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+                android:id="@+id/next_match_label"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_20"
+                android:text="@string/next_match"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16" />
+
+            <RelativeLayout
+                android:id="@+id/teams_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/next_match_label"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp">
+
+                <TextView
+                    android:id="@+id/left_name"
+                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:paddingEnd="@dimen/padding_2"
+                    android:text="BEN"
+                    android:textColor="@color/white"
+                    app:autoSizeMaxTextSize="@dimen/font_size_28"
+                    app:autoSizeMinTextSize="@dimen/font_size_20"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/left_image"
+                    android:layout_width="@dimen/width_70"
+                    android:layout_height="@dimen/height_70"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/left_name"
+                     />
+
+                <TextView
+                    android:id="@+id/vs"
+                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/left_image"
+                    android:layout_margin="@dimen/padding_8"
+                    android:text="@string/vs"
+                    android:textColor="@color/colorAccentLight"
+                    android:textSize="@dimen/font_size_20" />
+
+                <ImageView
+                    android:id="@+id/right_image"
+                    android:layout_width="@dimen/width_70"
+                    android:layout_height="@dimen/height_70"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/vs"
+                     />
+
+                <TextView
+                    android:id="@+id/right_name"
+                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/right_image"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/padding_2"
+                    android:text="BEN"
+                    android:textColor="@color/white"
+                    app:autoSizeMaxTextSize="@dimen/font_size_28"
+                    app:autoSizeMinTextSize="@dimen/font_size_20"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/teams_info"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/margin_10"
+                android:text=" Sun 14 Dec"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_18" />
+
+            <TextView
+                android:id="@+id/countdown"
+                fontPath="fonts/bold_dot_digital-7.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_60"
+                android:layout_alignEnd="@+id/teams_info"
+                android:layout_alignStart="@+id/teams_info"
+                android:layout_below="@+id/date"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="02:04:36:19"
+                android:textColor="@color/colorAccent"
+                app:autoSizeMaxTextSize="160sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="1sp"
+                app:autoSizeTextType="uniform" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/fc_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/next_match_container"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/logo_fq"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/waiting_connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/waiting_for_active_internet_connection"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+</RelativeLayout>
