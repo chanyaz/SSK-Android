@@ -27,6 +27,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.events.FullScreenImageEvent;
+import base.app.events.MessageSelectedEvent;
 import base.app.events.PlayVideoEvent;
 import base.app.model.GSConstants;
 import base.app.model.Model;
@@ -109,7 +110,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
+        final ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
         }
@@ -191,6 +192,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
                         }
                     });
+
+                    if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_THIS_USER) {
+                        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                EventBus.getDefault().post(new MessageSelectedEvent(message));
+                                return true;
+                            }
+                        });
+                    }
 
                     holder.playButton.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.GONE);

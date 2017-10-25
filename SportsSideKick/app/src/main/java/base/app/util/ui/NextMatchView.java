@@ -72,6 +72,7 @@ public class NextMatchView extends RelativeLayout {
         ButterKnife.bind(view);
         NewsTickerInfo info = NextMatchModel.getInstance().loadTickerInfoFromCache();
         if(info!=null && NextMatchModel.getInstance().isNextMatchUpcoming()){
+            updateCountdownTimer();
             if(logoOfFirstTeam.getDrawable()==null){
                 ImageLoader.getInstance().displayImage(info.getFirstClubUrl(), logoOfFirstTeam, Utility.getDefaultImageOptions());
                 ImageLoader.getInstance().displayImage(info.getSecondClubUrl(), logoOfSecondTeam, Utility.getDefaultImageOptions());
@@ -80,10 +81,10 @@ public class NextMatchView extends RelativeLayout {
             nameOfFirstTeam.setText(info.getFirstClubName());
             nameOfSecondTeam.setText(info.getSecondClubName());
             dateTextView.setText(NextMatchCountdown.getTextValue(getContext(),timestamp,true));
-            updateCountdownTimer();
+
 
             final Handler handler = new Handler();
-            final int delay = 500; //milliseconds
+            final int delay = 100; //milliseconds
 
             handler.postDelayed(new Runnable(){
                 public void run(){
@@ -91,7 +92,6 @@ public class NextMatchView extends RelativeLayout {
                     handler.postDelayed(this, delay);
                 }
             }, delay);
-
             nextMatchContainer.setVisibility(View.VISIBLE);
         } else {
             nextMatchContainer.setVisibility(View.GONE);

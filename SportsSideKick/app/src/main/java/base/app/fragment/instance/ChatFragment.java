@@ -67,6 +67,7 @@ import base.app.R;
 import base.app.adapter.ChatHeadsAdapter;
 import base.app.adapter.MessageAdapter;
 import base.app.events.FullScreenImageEvent;
+import base.app.events.MessageSelectedEvent;
 import base.app.events.OpenChatEvent;
 import base.app.events.PlayVideoEvent;
 import base.app.fragment.BaseFragment;
@@ -169,6 +170,13 @@ public class ChatFragment extends BaseFragment {
 
     @BindView(R.id.chat_menu_edit)
     TextView chatMenuEditButton;
+
+    @BindView(R.id.chat_menu_search)
+    TextView chatMenuSearchButton;
+
+    @BindView(R.id.chat_menu_create)
+    TextView chatMenuCreateButton;
+
     @Nullable
     @BindView(R.id.logo)
     ImageView Logo;
@@ -446,12 +454,21 @@ public class ChatFragment extends BaseFragment {
         if (currentlyActiveChat != null) {
             UserInfo user = Model.getInstance().getUserInfo();
             if (user != null) {
-                if (user.getUserId().equals(currentlyActiveChat.getOwner())) {
+                if(selectedMessage!=null){
+                    chatMenuSearchButton.setVisibility(View.GONE);
+                    chatMenuCreateButton.setVisibility(View.GONE);
                     chatMenuDeleteButton.setVisibility(View.VISIBLE);
                     chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
                 } else {
-                    chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
-                    chatMenuDeleteButton.setVisibility(View.GONE);
+                    chatMenuSearchButton.setVisibility(View.VISIBLE);
+                    chatMenuCreateButton.setVisibility(View.VISIBLE);
+                    if (user.getUserId().equals(currentlyActiveChat.getOwner())) {
+                        chatMenuDeleteButton.setVisibility(View.VISIBLE);
+                        chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
+                    } else {
+                        chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
+                        chatMenuDeleteButton.setVisibility(View.GONE);
+                    }
                 }
             } else {
                 chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
@@ -466,7 +483,7 @@ public class ChatFragment extends BaseFragment {
      **/
 
     @OnClick(R.id.menu_button)
-    public void chatButtonsMenuOnClick(View v) {
+    public void chatButtonsMenuOnClick() {
         if(!Model.getInstance().isRealUser()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
@@ -488,28 +505,50 @@ public class ChatFragment extends BaseFragment {
             return;
         }
         if (currentlyActiveChat != null) {
-            if (chatMenuDotsContainer.getVisibility() == View.GONE) {
-                animate(chatMenuDotsContainer, View.VISIBLE, R.anim.slide_in_left);
-                chatMenuDotsContainer.setVisibility(View.VISIBLE);
-                chatMenuDotsImageView.setImageDrawable(chatRightArrowDrawable);
-                setupEditChatButton();
-            } else {
-                chatMenuDotsContainer.setVisibility(View.GONE);
-                animate(chatMenuDotsContainer, View.GONE, R.anim.slide_in_right);
-                chatMenuDotsImageView.setImageDrawable(chatDotsDrawable);
-                if (chatButtonsMenu.getVisibility() == View.GONE) {
-                    chatButtonsMenu.setVisibility(View.VISIBLE);
-                    chatButtonsContainer.setVisibility(View.GONE);
-                }
+            selectedMessage = null;
+            animateChatMenu();
+        }
+    }
+
+    private void animateChatMenu(){
+        if (chatMenuDotsContainer.getVisibility() == View.GONE) {
+            animate(chatMenuDotsContainer, View.VISIBLE, R.anim.slide_in_left);
+            chatMenuDotsContainer.setVisibility(View.VISIBLE);
+            chatMenuDotsImageView.setImageDrawable(chatRightArrowDrawable);
+            setupEditChatButton();
+        } else {
+            chatMenuDotsContainer.setVisibility(View.GONE);
+            animate(chatMenuDotsContainer, View.GONE, R.anim.slide_in_right);
+            chatMenuDotsImageView.setImageDrawable(chatDotsDrawable);
+            if (chatButtonsMenu.getVisibility() == View.GONE) {
+                chatButtonsMenu.setVisibility(View.VISIBLE);
+                chatButtonsContainer.setVisibility(View.GONE);
             }
         }
     }
 
-    Animation animation;
+    ImsMessage selectedMessage;
+
+    @Subscribe
+    public void setSelectedMessage(MessageSelectedEvent event){
+        this.selectedMessage = event.getSelectedMessage();
+        animateChatMenu();
+//       HANDLE THIS BUTTONS
+//       R.id.chat_menu_edit
+//       R.id.chat_menu_delete
+
+//       @BindView(R.id.chat_menu_delete)
+//       TextView chatMenuDeleteButton;
+
+//       @BindView(R.id.chat_menu_edit)
+//       TextView chatMenuEditButton;
+    }
+
+    Animation activeAnimation;
 
     private void animate(View view, int visibility, int anim) {
-        animation = AnimationUtils.loadAnimation(getActivity(), anim);
-        view.startAnimation(animation);
+        activeAnimation = AnimationUtils.loadAnimation(getActivity(), anim);
+        view.startAnimation(activeAnimation);
         view.setVisibility(visibility);
     }
 

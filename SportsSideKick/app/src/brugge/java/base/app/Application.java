@@ -57,6 +57,8 @@ public class Application extends MultiDexApplication {
         FacebookSdk.isInitialized();
         AppEventsLogger.activateApp(this);
 
+        NextMatchModel.getInstance().loadTickerInfoFromCache();
+
         // Shared prefs initialization
         new Prefs.Builder()
                 .setContext(this)

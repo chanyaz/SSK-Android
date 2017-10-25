@@ -120,10 +120,12 @@ public class NextMatchModel {
    @Nullable
    public NewsTickerInfo loadTickerInfoFromCache(){
         String infoAsString = Prefs.getString("TICKER_INFO",null);
-        try {
-            newsTickerInfo =  mapper.readValue(infoAsString,NewsTickerInfo.class);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(newsTickerInfo==null){
+            try {
+                newsTickerInfo =  mapper.readValue(infoAsString,NewsTickerInfo.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return newsTickerInfo;
     }
