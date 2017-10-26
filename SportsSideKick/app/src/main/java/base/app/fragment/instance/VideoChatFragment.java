@@ -175,7 +175,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @OnClick(R.id.begin_your_call)
     public void onConnect() {
-        VideoChatFragmentPermissionsDispatcher.onConnectClickedWithCheck(this, getView());
+        VideoChatFragmentPermissionsDispatcher.onConnectClickedWithPermissionCheck(this, getView());
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
@@ -294,7 +294,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     // -> setListeners
     @Subscribe
     public void onVideoChatEvent(VideoChatEvent event) {
-        VideoChatFragmentPermissionsDispatcher.onVideoChatEventReceivedWithCheck(this, event);
+        VideoChatFragmentPermissionsDispatcher.onVideoChatEventReceivedWithPermissionCheck(this, event);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})

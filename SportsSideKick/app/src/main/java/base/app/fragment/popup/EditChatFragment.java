@@ -245,14 +245,14 @@ public class EditChatFragment extends BaseFragment {
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_choose_from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               EditChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(EditChatFragment.this);
+               EditChatFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(EditChatFragment.this);
 
             }
         });
         chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.chat_use_camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EditChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(EditChatFragment.this);
+                EditChatFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(EditChatFragment.this);
             }
         });
         chooseDialog.show();

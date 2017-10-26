@@ -116,7 +116,7 @@ public class StatisticsFragment extends BaseFragment {
                     }, new View.OnClickListener() { // Confirm
                         @Override
                         public void onClick(View v) {
-                            StatisticsFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(StatisticsFragment.this);
+                            StatisticsFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(StatisticsFragment.this);
                             getActivity().onBackPressed();
                         }
                     });

@@ -323,12 +323,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick() {
-        WallFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
+        WallFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(this);
     }
 
     @OnClick(R.id.image_button)
     public void selectImageOnClick() {
-        WallFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
+        WallFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(this);
     }
 
     @Optional

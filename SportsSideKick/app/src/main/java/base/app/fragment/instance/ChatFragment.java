@@ -307,7 +307,7 @@ public class ChatFragment extends BaseFragment {
                 if (currentlyActiveChat != null) {
                     switch (motionEvent.getAction()) {
                         case MotionEvent.ACTION_DOWN:
-                            ChatFragmentPermissionsDispatcher.startRecordingWithCheck(ChatFragment.this);
+                            ChatFragmentPermissionsDispatcher.startRecordingWithPermissionCheck(ChatFragment.this);
                             micButton.setSelected(true);
                             break;
                         case MotionEvent.ACTION_UP:
@@ -562,7 +562,7 @@ public class ChatFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.download_image_button)
     public void imageDownloadButtonOnClick() {
-        ChatFragmentPermissionsDispatcher.invokeDownloadButtonWithCheck(this);
+        ChatFragmentPermissionsDispatcher.invokeDownloadButtonWithPermissionCheck(this);
     }
 
     @NeedsPermission( {Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -701,14 +701,14 @@ public class ChatFragment extends BaseFragment {
     @OnClick(R.id.image_button)
     public void selectImageOnClick() {
         if (currentlyActiveChat != null) {
-            ChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
+            ChatFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(this);
         }
     }
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick() {
         if (currentlyActiveChat != null) {
-            ChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(this);
+            ChatFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(this);
         }
     }
 

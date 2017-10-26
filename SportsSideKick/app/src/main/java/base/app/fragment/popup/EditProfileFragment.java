@@ -147,7 +147,7 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.camera_button)
     public void cameraButtonOnClick() {
-        EditProfileFragmentPermissionsDispatcher.invokeImageCaptureWithCheck(this);
+        EditProfileFragmentPermissionsDispatcher.invokeImageCaptureWithPermissionCheck(this);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -177,7 +177,7 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.picture_button)
     public void selectImageOnClick() {
-        EditProfileFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(this);
+        EditProfileFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(this);
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})

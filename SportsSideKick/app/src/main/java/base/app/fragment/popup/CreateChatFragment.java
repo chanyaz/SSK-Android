@@ -242,13 +242,13 @@ public class CreateChatFragment extends BaseFragment {
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_choose_from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                CreateChatFragmentPermissionsDispatcher.invokeImageSelectionWithCheck(CreateChatFragment.this);
+                CreateChatFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(CreateChatFragment.this);
             }
         });
         chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.chat_use_camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                CreateChatFragmentPermissionsDispatcher.invokeCameraCaptureWithCheck(CreateChatFragment.this);
+                CreateChatFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(CreateChatFragment.this);
             }
         });
         chooseDialog.show();
