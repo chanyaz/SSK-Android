@@ -20,6 +20,7 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import base.app.model.FileUploader;
 import base.app.model.TranslateManager;
 import base.app.model.purchases.PurchaseModel;
+import base.app.model.ticker.NextMatchModel;
 import base.app.util.SoundEffects;
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -57,7 +58,6 @@ public class Application extends MultiDexApplication {
         FacebookSdk.isInitialized();
         AppEventsLogger.activateApp(this);
 
-        NextMatchModel.getInstance().loadTickerInfoFromCache();
 
         // Shared prefs initialization
         new Prefs.Builder()
@@ -67,6 +67,7 @@ public class Application extends MultiDexApplication {
                 .setUseDefaultSharedPreference(true)
                 .build();
 
+        NextMatchModel.getInstance().loadTickerInfoFromCache();
         // Custom fonts
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/TitilliumWeb-Regular.ttf")

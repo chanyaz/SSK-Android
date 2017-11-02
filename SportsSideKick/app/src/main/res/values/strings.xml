@@ -92,12 +92,12 @@
     <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
 
     <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat</string>
+    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
     <string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>
 
+    <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
     <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-    <string name="permission_camera_rationale">You need to enable microphone in settings to send audio messages.</string>
 
     <string name="share_using">Share with:</string>
     <string name="enter_comment_hint">Enter a comment …</string>

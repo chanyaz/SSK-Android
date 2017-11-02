@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.greenrobot.eventbus.EventBus;
 import org.json.simple.JSONArray;
 
@@ -38,6 +39,7 @@ import base.app.model.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CLUB_ID_TAG;
+import static base.app.model.GSConstants.OPERATION_DELTE_POST;
 import static base.app.model.Model.createRequest;
 
 /**
@@ -149,6 +151,21 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .send(consumer);
     }
 
+    public Task<Void> deletePost(final WallBase post){
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                source.setResult(null);
+            }
+        };
+        createRequest("wallDeletePost")
+                .setEventAttribute(GSConstants.POST_ID,post.getPostId())
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .send(consumer);
+        return source.getTask();
+    }
+
     public Task<Void> setlikeVal(final WallBase post, final boolean val){
         int increase = val ? 1 : -1;
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
@@ -245,6 +262,23 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
+    public  Task<Void> deletePostComent(PostComment comment){
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                source.setResult(null);
+            }
+        };
+        Map<String, Object> map = mapper.convertValue(comment, new TypeReference<Map<String, Object>>(){});
+        GSData data = new GSData(map);
+        createRequest("wallDeletePostComment")
+                .setEventAttribute(GSConstants.COMMENT,data)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .send(consumer);
+        return source.getTask();
+    }
+
     /**
      * post was shared to a share target
      * @param  item post, the target
@@ -288,6 +322,20 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     }
 
+    public Task<Void> wallSetMuteValue(String value){
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                source.setResult(null);
+            }
+        };
+        createRequest("wallSetMuteValue")
+                .setEventAttribute(GSConstants.VALUE,value)
+                .send(consumer);
+        return source.getTask();
+    }
+
     private UserInfo getCurrentUser(){
         return Model.getInstance().getUserInfo();
     }
@@ -305,7 +353,6 @@ public class WallModel extends GSMessageHandlerAbstract {
             default:
                 break;
         }
-
     }
 
     private void parseShareCountMessage(Map<String, Object> data) {
@@ -352,6 +399,13 @@ public class WallModel extends GSMessageHandlerAbstract {
                     case GSConstants.OPERATION_NEW_POST:
                     case GSConstants.OPERATION_UPDATE_POST:
                         EventBus.getDefault().post(new PostUpdateEvent(post));
+                    case GSConstants.OPERATION_DELTE_COMMENT:
+                    case OPERATION_DELTE_POST:
+                        throw new NotImplementedException("Handling of delete events not yet implemented!");
+//                                    self.notifyPostDeleted.emit(post)
+//                                    self.notifyCommentDeleted.emit(postComment)
+
+
                 }
             }
         }

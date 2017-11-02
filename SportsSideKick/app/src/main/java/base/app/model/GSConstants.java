@@ -46,9 +46,11 @@ public class GSConstants {
     public static final String COMMENTS = "comments";
     public static final String COMMENT = "comment";
     public static final String OPERATION = "operation";
+    public static final String OPERATION_DELTE_POST = "delete";
     public static final String OPERATION_UPDATE_POST = "update_post";
     public static final String OPERATION_NEW_POST = "new_post";
     public static final String OPERATION_COMMENT = "comment";
+    public static final String OPERATION_DELTE_COMMENT = "comment deleted";
     public static final String OPERATION_LIKE = "like";
     public static final String OPERATION_NEW = "new";
     public static final String OPERATION_UPDATE = "update";
@@ -80,6 +82,5 @@ public class GSConstants {
 
     public static final String ITEM_ID = "itemId";
     public static final String LANGUAGE = "language";
-
-
+    public static final String VALUE = "value";
 }

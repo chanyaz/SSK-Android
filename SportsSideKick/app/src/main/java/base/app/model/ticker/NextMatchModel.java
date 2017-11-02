@@ -41,7 +41,6 @@ public class NextMatchModel {
         EventBus.getDefault().post(newsTickerInfo);
     }
 
-
     public static NextMatchModel getInstance(){
         if(instance==null){
             instance = new NextMatchModel();
@@ -120,7 +119,7 @@ public class NextMatchModel {
    @Nullable
    public NewsTickerInfo loadTickerInfoFromCache(){
         String infoAsString = Prefs.getString("TICKER_INFO",null);
-        if(newsTickerInfo==null){
+        if(newsTickerInfo==null && infoAsString!=null){
             try {
                 newsTickerInfo =  mapper.readValue(infoAsString,NewsTickerInfo.class);
             } catch (IOException e) {

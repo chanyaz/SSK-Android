@@ -575,7 +575,9 @@ public class ChatFragment extends BaseFragment {
         downloadRequest.setVisibleInDownloadsUi(true);
         downloadRequest.setTitle("SSK - Downloading a chat image");
         downloadRequest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,fileName);
-        downloadManager.enqueue(downloadRequest);
+        if (downloadManager != null) {
+            downloadManager.enqueue(downloadRequest);
+        }
     }
 
     @OnClick(R.id.video_close_image_button)
@@ -996,9 +998,13 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void showImageFullScreen(FullScreenImageEvent event) {
-        fullScreenContainer.setVisibility(View.VISIBLE);
+        if (fullScreenContainer != null) {
+            fullScreenContainer.setVisibility(View.VISIBLE);
+        }
         urlInFullscreen = event.getId();
-        ImageLoader.getInstance().displayImage(urlInFullscreen, imageViewFullScreen);
+        if (imageViewFullScreen != null) {
+            ImageLoader.getInstance().displayImage(urlInFullscreen, imageViewFullScreen);
+        }
     }
 
     /**
@@ -1102,7 +1108,26 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showRationaleForCamera(final PermissionRequest request) {
+        new AlertDialog.Builder(getContext(), R.style.AlertDialog)
+                .setMessage(R.string.permission_camera_rationale)
+                .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        request.proceed();
+                    }
+                })
+                .setNegativeButton(R.string.button_deny, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        request.cancel();
+                    }
+                })
+                .show();
+    }
+
+    @OnShowRationale({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForMicrophone(final PermissionRequest request) {
         new AlertDialog.Builder(getContext(), R.style.AlertDialog)
                 .setMessage(R.string.permission_microphone_rationale)
