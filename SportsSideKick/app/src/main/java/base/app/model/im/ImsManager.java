@@ -46,9 +46,11 @@ import static base.app.model.GSConstants.MESSAGE;
 import static base.app.model.GSConstants.MESSAGES;
 import static base.app.model.GSConstants.MESSAGE_PAGE_SIZE;
 import static base.app.model.GSConstants.OFFSET;
+import static base.app.model.GSConstants.OPERATION_DELETE_MESSAGE;
 import static base.app.model.GSConstants.OPERATION_NEW;
 import static base.app.model.GSConstants.OPERATION_UPDATE;
 import static base.app.model.GSConstants.USER_ID;
+import static base.app.model.GSConstants._ID;
 import static base.app.model.Model.createRequest;
 
 /**
@@ -599,6 +601,18 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                     } else if (OPERATION_UPDATE.equals(operation)) {
                         Map<String,Object> messageAsMap = (Map<String,Object>) data.get(MESSAGE);
                         chatInfo.updateMessageJson(messageAsMap);
+                    } else if(OPERATION_DELETE_MESSAGE.equals(operation)) {
+                        ImsMessage message = mapper.convertValue(data.get(MESSAGE), ImsMessage.class);
+                        String messageId = message.getId();
+                        ImsMessage messageToDelete = null;
+                        for(ImsMessage m : chatInfo.getMessages()){
+                            if(m.getId().equals(messageId)){
+                                messageToDelete = m;
+                            }
+                        }
+                        if(messageToDelete!=null){
+                            chatInfo.deleteMessage(messageToDelete);
+                        }
                     }
                 } else {
                     Log.e(TAG, "UNHANDLED ImsMessage Error: chat not found with id:" + data.get(CHAT_ID));

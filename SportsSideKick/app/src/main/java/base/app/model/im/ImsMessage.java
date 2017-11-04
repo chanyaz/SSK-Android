@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.json.simple.JSONObject;
@@ -314,7 +315,40 @@ public class ImsMessage {
             } else if(imageAspectRatioData instanceof Float)
             setImageAspectRatio(((Float)imageAspectRatioData));
         }
+    }
 
+    // do not use this function, call the chat info one!
+    public void imsDeleteMessage(ChatInfo chatInfo, int clubId,  final TaskCompletionSource<ImsMessage> source){
+        Map<String, Object> map = mapper.convertValue(this, new TypeReference<Map<String, Object>>() {});
+        map.remove("_id");
+        GSData data = new GSData(map);
+        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+                .setEventKey("imsMessageDelete")
+                .setEventAttribute(GROUP_ID, chatInfo.getChatId())
+                .setEventAttribute(MESSAGE, data)
+                .setEventAttribute(MESSAGE_ID, getId())
+                .setEventAttribute(CLUB_ID_TAG, clubId)
+                .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                        if(!response.hasErrors()){
+                            GSData messageInfo = response.getScriptData().getObject("message");
+                            if(messageInfo!=null){
+                                ImsMessage.this.updateFrom(messageInfo.getBaseData());
+                            }
+                            if(source!=null){
+                                // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
+                                source.setResult(ImsMessage.this);
+                            }
+                        } else {
+                            Log.e(TAG,"Failed to delete message!");
+                            if(source!=null){
+                                source.setException(new Exception("Something went wrong with delete of IMS message."));
+                            }
+                        }
+
+                    }
+                });
     }
 
 }

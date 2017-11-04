@@ -454,7 +454,7 @@ public class ChatFragment extends BaseFragment {
         if (currentlyActiveChat != null) {
             UserInfo user = Model.getInstance().getUserInfo();
             if (user != null) {
-                if(selectedMessage!=null){
+                if(messageForEdit !=null){
                     chatMenuSearchButton.setVisibility(View.GONE);
                     chatMenuCreateButton.setVisibility(View.GONE);
                     chatMenuDeleteButton.setVisibility(View.VISIBLE);
@@ -505,7 +505,7 @@ public class ChatFragment extends BaseFragment {
             return;
         }
         if (currentlyActiveChat != null) {
-            selectedMessage = null;
+            messageForEdit = null;
             animateChatMenu();
         }
     }
@@ -527,11 +527,11 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    ImsMessage selectedMessage;
+    ImsMessage messageForEdit;
 
     @Subscribe
-    public void setSelectedMessage(MessageSelectedEvent event){
-        this.selectedMessage = event.getSelectedMessage();
+    public void setMessageForEdit(MessageSelectedEvent event){
+        this.messageForEdit = event.getSelectedMessage();
         animateChatMenu();
 //       HANDLE THIS BUTTONS
 //       R.id.chat_menu_edit
@@ -624,11 +624,17 @@ public class ChatFragment extends BaseFragment {
     }
 
     private void sendTextMessage(String text){
-        ImsMessage message = ImsMessage.getDefaultMessage();
-        message.setType(GSConstants.UPLOAD_TYPE_TEXT);
-        message.setText(text);
-        currentlyActiveChat.sendMessage(message);
-        currentlyActiveChat.setUserIsTyping(false);
+        if(messageForEdit!=null){
+            messageForEdit.setText(text);
+            currentlyActiveChat.updateMessage(messageForEdit,null);
+            messageForEdit = null;
+        } else {
+            ImsMessage message = ImsMessage.getDefaultMessage();
+            message.setType(GSConstants.UPLOAD_TYPE_TEXT);
+            message.setText(text);
+            currentlyActiveChat.sendMessage(message);
+            currentlyActiveChat.setUserIsTyping(false);
+        }
     }
 
 
@@ -645,22 +651,30 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_delete)
     public void chatMenuDeleteOnClick() {
-        AlertDialogManager.getInstance().showAlertDialog(
-                getContext().getResources().getString(R.string.are_you_sure),
-                getContext().getResources().getString(R.string.chat_delete_chat),
-                new View.OnClickListener() {// Cancel listener
-                    @Override
-                    public void onClick(View v) {
-                        getActivity().onBackPressed();
+        if(messageForEdit !=null){
+            if(currentlyActiveChat!=null){
+                currentlyActiveChat.deleteMessage(messageForEdit,null);
+                animateChatMenu();
+            }
+        } else {
+            AlertDialogManager.getInstance().showAlertDialog(
+                    getContext().getResources().getString(R.string.are_you_sure),
+                    getContext().getResources().getString(R.string.chat_delete_chat),
+                    new View.OnClickListener() {// Cancel listener
+                        @Override
+                        public void onClick(View v) {
+                            getActivity().onBackPressed();
+                        }
+                    }, new View.OnClickListener() {// Confirm listener
+                        @Override
+                        public void onClick(View v) {
+                            getActivity().onBackPressed();
+                            currentlyActiveChat.deleteChat();
+                            animateChatMenu();
+                        }
                     }
-                }, new View.OnClickListener() {// Confirm listener
-                    @Override
-                    public void onClick(View v) {
-                        getActivity().onBackPressed();
-                        currentlyActiveChat.deleteChat();
-                    }
-                }
-        );
+            );
+        }
     }
 
 
@@ -668,29 +682,35 @@ public class ChatFragment extends BaseFragment {
     public void chatMenuEditOnClick() {
         UserInfo user = Model.getInstance().getUserInfo();
         if (currentlyActiveChat != null && user != null) {
-            if (Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())) {
-                FragmentEvent fe = new FragmentEvent(EditChatFragment.class);
-                fe.setId(currentlyActiveChat.getChatId());
-                EventBus.getDefault().post(fe);
+            if(messageForEdit !=null){
+                Toast.makeText(getContext(),"Edit mode for chat message activated",Toast.LENGTH_SHORT).show();
+                animateChatMenu();
+                inputEditText.setText(messageForEdit.getText());
             } else {
-                AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.chat_leave_chat),
-                        new View.OnClickListener() {// Cancel listener
-                            @Override
-                            public void onClick(View v) {
-                                getActivity().onBackPressed();
-                            }
-                        }, new View.OnClickListener() {// Confirm listener
-                            @Override
-                            public void onClick(View v) {
-                                getActivity().onBackPressed();
-                                currentlyActiveChat.deleteChat();
-                                if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {
-                                    chatMenuDotsContainerOnClick();
+                if (Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())) {
+                    FragmentEvent fe = new FragmentEvent(EditChatFragment.class);
+                    fe.setId(currentlyActiveChat.getChatId());
+                    EventBus.getDefault().post(fe);
+                } else {
+                    AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.chat_leave_chat),
+                            new View.OnClickListener() {// Cancel listener
+                                @Override
+                                public void onClick(View v) {
+                                    getActivity().onBackPressed();
                                 }
-                            }
-                        });
+                            }, new View.OnClickListener() {// Confirm listener
+                                @Override
+                                public void onClick(View v) {
+                                    getActivity().onBackPressed();
+                                    currentlyActiveChat.deleteChat();
+                                    if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {
+                                        chatMenuDotsContainerOnClick();
+                                    }
+                                }
+                            });
 
-                chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
+                    chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
+                }
             }
         }
     }
@@ -861,6 +881,9 @@ public class ChatFragment extends BaseFragment {
             case UPDATED_CHAT_USERS:
                 handleUpdatedChatUsers(chatInfo);
                 break;
+            case DELETED_CHAT_MESSAGE:
+                messageAdapter.notifyDataSetChanged();
+                break;
             case CHANGED_CHAT_MESSAGE:
                 if(currentlyActiveChat!=null){
                    List<ImsMessage> messages = currentlyActiveChat.getMessages();
@@ -916,8 +939,9 @@ public class ChatFragment extends BaseFragment {
     }
 
     private void setCurrentChatNotification(ChatInfo chatInfo) {
+        messageForEdit = null;
         if (currentlyActiveChat != null) {
-            if (currentlyActiveChat.getChatId().equals(chatInfo.getChatId())) { // Its the same chat - hide edit buttons
+            if (currentlyActiveChat.getChatId().equals(chatInfo.getChatId())) { // Its the same chat - hide or show edit buttons
                 chatMenuDotsContainerOnClick();
             } else { // its not the same chat, so hide edit buttons if those are visible
                 if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {

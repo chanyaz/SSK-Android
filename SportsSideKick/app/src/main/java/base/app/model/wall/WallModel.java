@@ -399,7 +399,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     case GSConstants.OPERATION_NEW_POST:
                     case GSConstants.OPERATION_UPDATE_POST:
                         EventBus.getDefault().post(new PostUpdateEvent(post));
-                    case GSConstants.OPERATION_DELTE_COMMENT:
+                    case GSConstants.OPERATION_DELETE_COMMENT:
                     case OPERATION_DELTE_POST:
                         throw new NotImplementedException("Handling of delete events not yet implemented!");
 //                                    self.notifyPostDeleted.emit(post)

@@ -21,6 +21,7 @@ public class GSConstants {
     public static final String IS_TYPING_VALUE = "isTypingValue";
     public static final String MESSAGE = "message";
     public static final String MESSAGE_ID = "messageId";
+    public static final String _ID = "_id";
     public static final String MESSAGE_PAGE_SIZE = "15";
     public static final String FRIENDS = "friends";
     public static final String USER_ID = "userId";
@@ -50,10 +51,11 @@ public class GSConstants {
     public static final String OPERATION_UPDATE_POST = "update_post";
     public static final String OPERATION_NEW_POST = "new_post";
     public static final String OPERATION_COMMENT = "comment";
-    public static final String OPERATION_DELTE_COMMENT = "comment deleted";
+    public static final String OPERATION_DELETE_COMMENT = "comment deleted";
     public static final String OPERATION_LIKE = "like";
     public static final String OPERATION_NEW = "new";
     public static final String OPERATION_UPDATE = "update";
+    public static final String OPERATION_DELETE_MESSAGE= "delete";
     public static final String ACTION = "action";
     public static final String ITEMS = "items";
     public static final String USER_ACHIEVEMENTS = "userAchievements";

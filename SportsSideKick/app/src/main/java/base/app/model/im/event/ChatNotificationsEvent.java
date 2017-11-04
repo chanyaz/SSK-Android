@@ -20,6 +20,7 @@ public class ChatNotificationsEvent {
         UPDATED_CHAT_USERS, // iOS - kUpdatedChatUsers
         CHANGED_CHAT_MESSAGE, // iOS - kChangedChatMessage
         UPDATED_CHAT_MESSAGES, // iOS - kUpdatedChatMessages
+        DELETED_CHAT_MESSAGE, // iOS - kDeletedChatMessage
         SET_CURRENT_CHAT // iOS - kSetCurrentChat
     }
 

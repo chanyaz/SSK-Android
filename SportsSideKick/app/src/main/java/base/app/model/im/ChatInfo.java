@@ -575,7 +575,36 @@ public class ChatInfo {
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }
 
+    public void deleteMessage(final ImsMessage message, final TaskCompletionSource<ImsMessage> completion){
+        if(message.getId() == null && completion == null) {
+            completion.setResult(null);
+        }
+        deleteMessage(message);
+        TaskCompletionSource<ImsMessage> deleteMessageCompletion = new TaskCompletionSource<>();
+        message.imsDeleteMessage(this, CLUB_ID,deleteMessageCompletion);
 
+        //deleteMessage(message);
+        deleteMessageCompletion.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
+            @Override
+            public void onComplete(@NonNull Task<ImsMessage> task) {
+                if(task.isSuccessful()){
+                    if(completion!=null){
+                        completion.setResult(message);
+                    }
+                    EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.DELETED_CHAT_MESSAGE));
+                } else {
+                    if(completion!=null && task.getException()!=null){
+                        completion.setException(task.getException());
+                    }
+                }
+            }
+        });
+    }
+
+    public void deleteMessage(ImsMessage message) {
+        messages.remove(message);
+        EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.DELETED_CHAT_MESSAGE));
+    }
 
     @JsonProperty("_id")
     public String getChatId() {
