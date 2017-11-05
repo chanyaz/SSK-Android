@@ -64,6 +64,7 @@ import base.app.adapter.WallAdapter;
 import base.app.events.CommentDeleteEvent;
 import base.app.events.CommentUpdateEvent;
 import base.app.events.PostCompleteEvent;
+import base.app.events.PostDeletedEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.events.WallLikeUpdateEvent;
 import base.app.fragment.BaseFragment;
@@ -725,6 +726,21 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         postCommentButton.setVisibility(View.GONE);
         updateButtons();
         recyclerView.smoothScrollToPosition(0);
+    }
+
+    @Subscribe
+    public void onPostDeleted(PostDeletedEvent event) {
+        WallBase deletedItem = event.getPost();
+        WallBase itemToDelete = null;
+        for(WallBase post : wallItems){
+            if(post.getPostId().equals(deletedItem.getPostId())){
+                itemToDelete = post;
+            }
+        }
+        if(itemToDelete!=null){
+            wallItems.remove(itemToDelete);
+            filterPosts();
+        }
     }
 
     private void makePostContainerVisible() {

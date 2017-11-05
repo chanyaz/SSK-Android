@@ -28,6 +28,7 @@ import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.GetPostByIdEvent;
 import base.app.events.PostCommentCompleteEvent;
 import base.app.events.PostCompleteEvent;
+import base.app.events.PostDeletedEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.events.WallLikeUpdateEvent;
 import base.app.model.DateUtils;
@@ -160,8 +161,13 @@ public class WallModel extends GSMessageHandlerAbstract {
                 source.setResult(null);
             }
         };
+
+        Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>(){});
+        map.put("type", post.getTypeAsInt());
+        GSData data = new GSData(map);
+
         createRequest("wallDeletePost")
-                .setEventAttribute(GSConstants.POST_ID,post.getPostId())
+                .setEventAttribute(GSConstants.POST,data)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
@@ -409,8 +415,8 @@ public class WallModel extends GSMessageHandlerAbstract {
                         EventBus.getDefault().post(deleteCommnetEvent);
                         break;
                     case GSConstants.OPERATION_DELTE_POST:
-//                                    self.notifyPostDeleted.emit(post)
-                       // break;
+                       EventBus.getDefault().post(new PostDeletedEvent(post));
+                       break;
 
                 }
             }

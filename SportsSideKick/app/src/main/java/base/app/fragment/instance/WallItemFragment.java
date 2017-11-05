@@ -53,6 +53,7 @@ import base.app.events.CommentUpdateEvent;
 import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.GetPostByIdEvent;
 import base.app.events.PostCommentCompleteEvent;
+import base.app.events.PostDeletedEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.fragment.BaseFragment;
 import base.app.model.Model;
@@ -156,6 +157,10 @@ public class WallItemFragment extends BaseFragment {
     ImageView shareButton;
 
     @Nullable
+    @BindView(R.id.delete)
+    TextView delete;
+
+    @Nullable
     @BindView(R.id.share_buttons_container)
     View shareButtonsContainer;
 
@@ -217,6 +222,13 @@ public class WallItemFragment extends BaseFragment {
             }
         } else {
             initializeWithData(true, item);
+        }
+
+        String userId = Model.getInstance().getUserInfo().getUserId();
+        if(item.getWallId()!=null){
+            if(item.getWallId().equals(userId)){
+                delete.setVisibility(View.VISIBLE);
+            }
         }
 
         post.addTextChangedListener(new TextWatcher() {
@@ -563,6 +575,18 @@ public class WallItemFragment extends BaseFragment {
             }
         }
     }
+
+    @Optional
+    @OnClick(R.id.delete)
+    public void deletePostOnClick(View view){
+        WallModel.getInstance().deletePost(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                getActivity().onBackPressed();
+            }
+        });
+    }
+
 
     @Optional
     @OnClick(R.id.share_facebook)

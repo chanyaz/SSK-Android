@@ -307,6 +307,19 @@
                     android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="@dimen/font_size_10"
                     />
+
+                <TextView
+                    android:id="@+id/delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="@dimen/padding_16"
+                    android:layout_toEndOf="@+id/read_more_text"
+                    android:text="@string/delete"
+                    android:textColor="@color/colorPrimaryVeryLight"
+                    android:textSize="@dimen/font_size_10"
+                    android:visibility="gone"
+                    />
             </RelativeLayout>
 
             <View
