@@ -672,7 +672,7 @@ public class ChatInfo {
         this.messages = messages;
     }
 
-    private boolean getIsMuted() {
+    public boolean getIsMuted() {
         return isMuted;
     }
 

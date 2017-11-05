@@ -12,6 +12,8 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import base.app.Application;
 import base.app.util.Utility;
 
@@ -56,6 +58,7 @@ abstract class AbstractFragmentOrganizer {
     }
 
 
+    @Nullable
     private String getFragmentTagAt(int position){
         if(fragmentManager.getBackStackEntryCount()>=position){
             return fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - position).getName();
@@ -63,6 +66,7 @@ abstract class AbstractFragmentOrganizer {
         return null;
     }
 
+    @Nullable
     public Fragment getCurrentFragment() {
         return fragmentManager.findFragmentByTag(getFragmentTagAt(1));
     }
@@ -70,6 +74,7 @@ abstract class AbstractFragmentOrganizer {
     /**
      * @return previous fragment
      */
+    @Nullable
     public Fragment getPreviousFragment() {
         Fragment fragment = fragmentManager.findFragmentByTag(getFragmentTagAt(2));
         if(fragment==null){
@@ -81,6 +86,7 @@ abstract class AbstractFragmentOrganizer {
     /**
      * @return fragment previous to last fragment
      */
+    @Nullable
     public Fragment getPenultimateFragment() {
         Fragment fragment = fragmentManager.findFragmentByTag(getFragmentTagAt(3));
         if(fragment==null){

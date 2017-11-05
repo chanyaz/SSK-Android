@@ -172,8 +172,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                 });
             }
         }
-
-
     }
 
     private void setupWithUserInfo(PostComment comment, ViewHolder holder, UserInfo user){

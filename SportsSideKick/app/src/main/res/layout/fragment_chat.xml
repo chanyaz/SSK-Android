@@ -265,6 +265,20 @@
                 android:padding="@dimen/half_margin"
                 android:text="@string/search"
                 android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/chat_menu_alerts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_5"
+                android:layout_marginStart="@dimen/margin_5"
+                android:layout_weight="0.25"
+                android:textSize="@dimen/font_size_10"
+                android:background="?textViewRoundBorderShape"
+                android:gravity="center"
+                android:padding="@dimen/half_margin"
+                android:text="@string/alerts_on"
+                android:textColor="@color/white" />
         </LinearLayout>
     </RelativeLayout>
 

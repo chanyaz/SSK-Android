@@ -165,6 +165,9 @@ public class ChatFragment extends BaseFragment {
     ImageView chatMenuDotsImageView;
 
 
+    @BindView(R.id.chat_menu_alerts)
+    TextView chatMenuAlertsButton;
+
     @BindView(R.id.chat_menu_delete)
     TextView chatMenuDeleteButton;
 
@@ -455,19 +458,25 @@ public class ChatFragment extends BaseFragment {
             UserInfo user = Model.getInstance().getUserInfo();
             if (user != null) {
                 if(messageForEdit !=null){
+                    chatMenuDeleteButton.setVisibility(View.VISIBLE);
                     chatMenuSearchButton.setVisibility(View.GONE);
                     chatMenuCreateButton.setVisibility(View.GONE);
-                    chatMenuDeleteButton.setVisibility(View.VISIBLE);
+                    chatMenuAlertsButton.setVisibility(View.GONE);
                     chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
                 } else {
+                    chatMenuDeleteButton.setVisibility(View.GONE);
+                    chatMenuAlertsButton.setVisibility(View.VISIBLE);
+                    if(currentlyActiveChat.getIsMuted()){
+                        chatMenuAlertsButton.setText(R.string.alerts_off);
+                    } else {
+                        chatMenuAlertsButton.setText(R.string.alerts_on);
+                    }
                     chatMenuSearchButton.setVisibility(View.VISIBLE);
                     chatMenuCreateButton.setVisibility(View.VISIBLE);
                     if (user.getUserId().equals(currentlyActiveChat.getOwner())) {
-                        chatMenuDeleteButton.setVisibility(View.VISIBLE);
                         chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
                     } else {
                         chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
-                        chatMenuDeleteButton.setVisibility(View.GONE);
                     }
                 }
             } else {
@@ -656,24 +665,16 @@ public class ChatFragment extends BaseFragment {
                 currentlyActiveChat.deleteMessage(messageForEdit,null);
                 animateChatMenu();
             }
+        }
+    }
+
+    @OnClick(R.id.chat_menu_alerts)
+    public void chatMenuAlertsOnClick() {
+        currentlyActiveChat.setMuteChat(!currentlyActiveChat.getIsMuted());
+        if(currentlyActiveChat.getIsMuted()){
+            chatMenuAlertsButton.setText(R.string.alerts_off);
         } else {
-            AlertDialogManager.getInstance().showAlertDialog(
-                    getContext().getResources().getString(R.string.are_you_sure),
-                    getContext().getResources().getString(R.string.chat_delete_chat),
-                    new View.OnClickListener() {// Cancel listener
-                        @Override
-                        public void onClick(View v) {
-                            getActivity().onBackPressed();
-                        }
-                    }, new View.OnClickListener() {// Confirm listener
-                        @Override
-                        public void onClick(View v) {
-                            getActivity().onBackPressed();
-                            currentlyActiveChat.deleteChat();
-                            animateChatMenu();
-                        }
-                    }
-            );
+            chatMenuAlertsButton.setText(R.string.alerts_on);
         }
     }
 
