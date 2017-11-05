@@ -536,6 +536,23 @@
                     android:layout_height="@dimen/height_1"
                     android:background="@color/colorPrimaryVeryDark" />
 
+                <TextView
+                    android:id="@+id/wall_notifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:background="@android:color/transparent"
+                    android:text="@string/enable_wall_notifications"
+                    android:textColor="?editProfileTextColorRef"
+                    android:textSize="@dimen/font_size_12"
+                    android:padding="@dimen/padding_8" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_1"
+                    android:background="@color/colorPrimaryVeryDark" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -558,7 +575,6 @@
                         android:textColor="@color/colorPrimaryVeryDark"
                         android:textStyle="bold" />
                 </RelativeLayout>
-
 
             </LinearLayout>
         </RelativeLayout>

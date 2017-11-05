@@ -43,6 +43,7 @@ public class UserInfo {
     private String fantasyToken;
 
     private boolean isOnline;
+    private boolean wallMute = false;
     private Model.UserState userState;
 
     //TODO @Filip Hook up with GS when backend is avaliable
@@ -446,6 +447,16 @@ public class UserInfo {
 
     public void setRequestedUserFriendsCount(int requestedUserFriendsCount) {
         this.requestedUserFriendsCount = requestedUserFriendsCount;
+    }
+
+    @JsonProperty("wallMute")
+    public boolean isWallMute() {
+        return wallMute;
+    }
+
+    @JsonProperty("wallMute")
+    public void setWallMute(boolean wallMute) {
+        this.wallMute = wallMute;
     }
 
     @Override

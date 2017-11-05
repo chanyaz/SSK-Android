@@ -44,6 +44,7 @@ import base.app.fragment.FragmentEvent;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;
+import base.app.model.wall.WallModel;
 import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,6 +69,9 @@ import static base.app.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
 
 @RuntimePermissions
 public class EditProfileFragment extends BaseFragment {
+
+    UserInfo user;
+    boolean isMuted;
 
     @BindView(R.id.profile_image)
     ImageView profileImage;
@@ -95,6 +99,9 @@ public class EditProfileFragment extends BaseFragment {
     @BindView(R.id.language_image)
     ImageView languageImage;
 
+    @BindView(R.id.wall_notifications)
+    TextView wallNotifications;
+
     private static final String TAG = "Edit Profile Fragment";
     String currentPath;
 
@@ -107,7 +114,7 @@ public class EditProfileFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_edit_profile, container, false);
         ButterKnife.bind(this, view);
 
-        UserInfo user = Model.getInstance().getUserInfo();
+        user = Model.getInstance().getUserInfo();
         if (user != null) {
             ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
             firstNameEditText.setText(user.getFirstName());
@@ -118,13 +125,37 @@ public class EditProfileFragment extends BaseFragment {
             if (languageEditText != null) {
                 languageEditText.setText(user.getLanguage());
             }
-            if(user.getLanguage()!=null){
-            Drawable drawable = getDrawable(user.getLanguage().toLowerCase());
-            if (drawable != null && languageImage != null)
-                languageImage.setImageDrawable(drawable);}
-
+            if(user.getLanguage()!=null) {
+                Drawable drawable = getDrawable(user.getLanguage().toLowerCase());
+                if (drawable != null && languageImage != null) {
+                    languageImage.setImageDrawable(drawable);
+                }
+            }
+            isMuted = user.isWallMute();
+            updateMuteUI();
         }
         return view;
+    }
+
+    @Optional
+    @OnClick(R.id.wall_notifications)
+    public void muteWall() {
+        isMuted = !isMuted;
+        WallModel.getInstance().wallSetMuteValue(user.isWallMute() ? "true" : "false").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                user.setWallMute(isMuted);
+                updateMuteUI();
+            }
+        });
+    }
+
+    private void updateMuteUI(){
+        if(isMuted){
+            wallNotifications.setText(R.string.enable_wall_notifications);
+        } else {
+            wallNotifications.setText(R.string.disable_wall_notifications);
+        }
     }
 
     @Optional
@@ -251,7 +282,11 @@ public class EditProfileFragment extends BaseFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getActivity().onBackPressed();
+                        if(Utility.isPhone(getContext())){
+                            EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
+                        } else {
+                            getActivity().onBackPressed();
+                        }
                     }
                 }
         )) {
@@ -267,7 +302,11 @@ public class EditProfileFragment extends BaseFragment {
         map.put(GSConstants.CLUB_ID_TAG, String.valueOf(CLUB_ID));
         //Todo @refactoring  put password and language
         Model.getInstance().setDetails(map);
-        getActivity().onBackPressed();
+        if(Utility.isPhone(getContext())){
+            EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
+        } else {
+            getActivity().onBackPressed();
+        }
     }
 
 

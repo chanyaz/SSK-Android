@@ -514,6 +514,8 @@
     <string name="delete">Delete</string>
     <string name="alerts_on">Alerts-ON</string>
     <string name="alerts_off">Alerts-OFF</string>
+    <string name="enable_wall_notifications">Enable wall notifications</string>
+    <string name="disable_wall_notifications">Disable wall notifications</string>
     <string name="search">Search</string>
     <string name="news">NEWS</string>
     <string name="pin_count_placeholder" translatable="false">--</string>
