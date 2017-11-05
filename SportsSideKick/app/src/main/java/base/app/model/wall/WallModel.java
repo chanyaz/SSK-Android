@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import base.app.events.CommentDeleteEvent;
 import base.app.events.CommentUpdateEvent;
 import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.GetPostByIdEvent;
@@ -262,7 +263,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
-    public  Task<Void> deletePostComent(PostComment comment){
+    public Task<Void> deletePostComment(PostComment comment){
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -399,12 +400,17 @@ public class WallModel extends GSMessageHandlerAbstract {
                     case GSConstants.OPERATION_NEW_POST:
                     case GSConstants.OPERATION_UPDATE_POST:
                         EventBus.getDefault().post(new PostUpdateEvent(post));
+                        break;
                     case GSConstants.OPERATION_DELETE_COMMENT:
-                    case OPERATION_DELTE_POST:
-                        throw new NotImplementedException("Handling of delete events not yet implemented!");
+                        Object deletedCommentObject = data.get(GSConstants.COMMENT);
+                        PostComment deletedComment = mapper.convertValue(deletedCommentObject, new TypeReference<PostComment>(){});
+                        CommentDeleteEvent deleteCommnetEvent = new CommentDeleteEvent(post);
+                        deleteCommnetEvent.setComment(deletedComment);
+                        EventBus.getDefault().post(deleteCommnetEvent);
+                        break;
+                    case GSConstants.OPERATION_DELTE_POST:
 //                                    self.notifyPostDeleted.emit(post)
-//                                    self.notifyCommentDeleted.emit(postComment)
-
+                       // break;
 
                 }
             }

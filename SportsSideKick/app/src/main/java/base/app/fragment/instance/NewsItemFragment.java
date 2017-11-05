@@ -39,6 +39,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.adapter.CommentsAdapter;
+import base.app.events.CommentDeleteEvent;
 import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.PostCommentCompleteEvent;
 import base.app.events.PostUpdateEvent;
@@ -315,8 +316,28 @@ public class NewsItemFragment extends BaseFragment {
         if (commentsCount != null) {
             commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
         }
-
     }
+
+    @Subscribe
+    public void onDeleteComment(CommentDeleteEvent event) {
+        WallBase wallItem = event.getWallItem();
+        if (wallItem != null) {
+            if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
+                PostComment commentToDelete = null;
+                PostComment deletedComment = event.getComment();
+                for(PostComment comment : comments){
+                    if(comment.getId().equals(deletedComment.getId())){
+                        commentToDelete = comment;
+                    }
+                }
+                if(commentToDelete!=null){
+                    comments.remove(commentToDelete);
+                    commentsAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
 
     @OnClick({R.id.likes_icon_liked,R.id.likes_icon})
     public void togglePostLike() {

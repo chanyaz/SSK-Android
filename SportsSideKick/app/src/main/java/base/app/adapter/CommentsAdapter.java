@@ -23,6 +23,7 @@ import base.app.R;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.PostComment;
+import base.app.model.wall.WallModel;
 import base.app.util.Utility;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
@@ -62,7 +63,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         TextView messageInfo;
         @BindView(R.id.translate)
         TextView translate;
-
+        @BindView(R.id.edit)
+        TextView edit;
+        @BindView(R.id.delete)
+        TextView delete;
         ViewHolder(View v) {
             super(v);
             view = v;
@@ -146,6 +150,29 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
              translationView.showTranslationPopup(holder.translate,commentId, source, TranslationView.TranslationType.TRANSLATE_COMMENT);
          }
      });
+
+        holder.edit.setVisibility(View.GONE);
+        holder.delete.setVisibility(View.GONE);
+
+        // check if this comment belongs to this user
+        if(Model.getInstance().getUserInfo()!=null){
+            if(Model.getInstance().getUserInfo().getUserId().equals(comment.getPosterId())){
+                holder.edit.setVisibility(View.VISIBLE);
+                holder.delete.setVisibility(View.VISIBLE);
+                holder.edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
+                holder.delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        WallModel.getInstance().deletePostComment(comment);
+                    }
+                });
+            }
+        }
+
 
     }
 

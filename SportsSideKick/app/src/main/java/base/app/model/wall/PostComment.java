@@ -82,5 +82,6 @@ public class PostComment {
     public void setTimestamp(Double timestamp) {
         this.timestamp = timestamp;
     }
+
 }
 

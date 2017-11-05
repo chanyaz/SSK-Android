@@ -48,6 +48,7 @@ import java.util.List;
 import base.app.R;
 import base.app.adapter.CommentsAdapter;
 import base.app.adapter.TutorialStepAdapter;
+import base.app.events.CommentDeleteEvent;
 import base.app.events.CommentUpdateEvent;
 import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.GetPostByIdEvent;
@@ -463,10 +464,10 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentReceived(final CommentUpdateEvent event) {
-        WallBase eventsWallPost = event.getWallItem();
-        if (eventsWallPost != null) {
-            if (eventsWallPost.getWallId().equals(item.getWallId())
-                    && eventsWallPost.getPostId().equals(item.getPostId())) {
+        WallBase wallItem = event.getWallItem();
+        if (wallItem != null) {
+            if (wallItem.getWallId().equals(item.getWallId())
+                    && wallItem.getPostId().equals(item.getPostId())) {
 
                 item.setCommentsCount(event.getWallItem().getCommentsCount());
                 final PostComment comment = event.getComment();
@@ -485,6 +486,26 @@ public class WallItemFragment extends BaseFragment {
                             }
                         }
                     });
+                }
+            }
+        }
+    }
+
+    @Subscribe
+    public void onDeleteComment(CommentDeleteEvent event) {
+        WallBase wallItem = event.getWallItem();
+        if (wallItem != null) {
+            if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
+                PostComment commentToDelete = null;
+                PostComment deletedComment = event.getComment();
+                for(PostComment comment : comments){
+                    if(comment.getId().equals(deletedComment.getId())){
+                        commentToDelete = comment;
+                    }
+                }
+                if(commentToDelete!=null){
+                    comments.remove(commentToDelete);
+                    commentsAdapter.notifyDataSetChanged();
                 }
             }
         }
