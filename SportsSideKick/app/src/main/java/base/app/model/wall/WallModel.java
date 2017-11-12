@@ -24,6 +24,7 @@ import java.util.Map;
 
 import base.app.events.CommentDeleteEvent;
 import base.app.events.CommentUpdateEvent;
+import base.app.events.CommentUpdatedEvent;
 import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.GetPostByIdEvent;
 import base.app.events.PostCommentCompleteEvent;
@@ -114,6 +115,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
         GSRequestBuilder.LogEventRequest request = createRequest("wallGetItems")
                 .setEventAttribute(GSConstants.USER_ID,userInfo.getUserId())
+                .setEventAttribute(GSConstants.LANGUAGE,"")
                 .setEventAttribute(GSConstants.OFFSET,offset)
                 .setEventAttribute(GSConstants.ENTRY_COUNT,entryCount);
         if(since!=null){
@@ -286,6 +288,24 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
+    public Task<Void> updatePostComment(PostComment comment) {
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                source.setResult(null);
+            }
+        };
+        Map<String, Object> map = mapper.convertValue(comment, new TypeReference<Map<String, Object>>(){});
+        GSData data = new GSData(map);
+        createRequest("wallUpdatePostComment")
+                .setEventAttribute(GSConstants.COMMENT,data)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .send(consumer);
+        return source.getTask();
+    }
+
     /**
      * post was shared to a share target
      * @param  item post, the target
@@ -410,15 +430,21 @@ public class WallModel extends GSMessageHandlerAbstract {
                     case GSConstants.OPERATION_DELETE_COMMENT:
                         Object deletedCommentObject = data.get(GSConstants.COMMENT);
                         PostComment deletedComment = mapper.convertValue(deletedCommentObject, new TypeReference<PostComment>(){});
-                        CommentDeleteEvent deleteCommnetEvent = new CommentDeleteEvent(post);
-                        deleteCommnetEvent.setComment(deletedComment);
-                        EventBus.getDefault().post(deleteCommnetEvent);
+                        CommentDeleteEvent deleteCommentEvent = new CommentDeleteEvent(post);
+                        deleteCommentEvent.setComment(deletedComment);
+                        EventBus.getDefault().post(deleteCommentEvent);
+                        break;
+                    case GSConstants.OPERATION_UPDATE_COMMENT:
+                        Object updatedCommentObject = data.get(GSConstants.COMMENT);
+                        PostComment updatedComment = mapper.convertValue(updatedCommentObject, new TypeReference<PostComment>(){});
+                        CommentUpdatedEvent updatedCommentEvent = new CommentUpdatedEvent(post);
+                        updatedCommentEvent.setComment(updatedComment);
+                        EventBus.getDefault().post(updatedCommentEvent);
                         break;
                     case GSConstants.OPERATION_DELTE_POST:
                        EventBus.getDefault().post(new PostDeletedEvent(post));
                        break;
-
-                }
+                   }
             }
         }
     }
