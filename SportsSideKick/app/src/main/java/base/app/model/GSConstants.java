@@ -52,6 +52,7 @@ public class GSConstants {
     public static final String OPERATION_NEW_POST = "new_post";
     public static final String OPERATION_COMMENT = "comment";
     public static final String OPERATION_DELETE_COMMENT = "comment deleted";
+    public static final String OPERATION_UPDATE_COMMENT = "comment updated";
     public static final String OPERATION_LIKE = "like";
     public static final String OPERATION_NEW = "new";
     public static final String OPERATION_UPDATE = "update";

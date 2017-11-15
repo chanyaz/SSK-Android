@@ -49,11 +49,12 @@ import base.app.R;
 import base.app.adapter.CommentsAdapter;
 import base.app.adapter.TutorialStepAdapter;
 import base.app.events.CommentDeleteEvent;
+import base.app.events.CommentSelectedEvent;
 import base.app.events.CommentUpdateEvent;
+import base.app.events.CommentUpdatedEvent;
 import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.GetPostByIdEvent;
 import base.app.events.PostCommentCompleteEvent;
-import base.app.events.PostDeletedEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.fragment.BaseFragment;
 import base.app.model.Model;
@@ -440,18 +441,42 @@ public class WallItemFragment extends BaseFragment {
     @OnClick(R.id.post_comment_button)
     public void postComment() {
         if (Model.getInstance().isRealUser()) {
-            PostComment comment = new PostComment();
-            comment.setComment(post.getText().toString());
-            comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
-            comment.setWallId(item.getWallId());
-            comment.setPostId(item.getPostId());
-            comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
-            WallModel.getInstance().postComment(item, comment);
-            post.getText().clear();
-            postCommentProgressBar.setVisibility(View.VISIBLE);
+            if(commentForEdit==null){
+                sendComment();
+            } else {
+                updateComment();
+            }
+
         } else {
             //TODO notify user
         }
+    }
+
+    private void sendComment(){
+        PostComment comment = new PostComment();
+        comment.setComment(post.getText().toString());
+        comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
+        comment.setWallId(item.getWallId());
+        comment.setPostId(item.getPostId());
+        comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
+        WallModel.getInstance().postComment(item, comment);
+        post.getText().clear();
+        postCommentProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void updateComment(){
+        commentForEdit.setComment(post.getText().toString());
+        WallModel.getInstance().postComment(item, commentForEdit);
+        post.getText().clear();
+        postCommentProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    PostComment commentForEdit;
+
+    @Subscribe
+    public void setCommentForEdit(CommentSelectedEvent event){
+        this.commentForEdit = event.getSelectedComment();
+        post.setText(commentForEdit.getComment());
     }
 
     @Subscribe
@@ -471,6 +496,28 @@ public class WallItemFragment extends BaseFragment {
         item = event.getPost();
         if(item!=null){
             initializeWithData(true, item);
+        }
+    }
+
+    @Subscribe
+    public void onCommentUpdated(final CommentUpdatedEvent event) {
+        WallBase wallItem = event.getWallItem();
+        if(wallItem != null && wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
+            PostComment receivedComment = event.getComment();
+            PostComment commentToUpdate = null;
+            List<PostComment> commentsInAdapter = commentsAdapter.getComments();
+            for(PostComment comment : commentsInAdapter){
+                if(comment.getId().equals(receivedComment.getId())){
+                    commentToUpdate = comment;
+                }
+            }
+
+            if(commentToUpdate!=null){
+                int position = commentsInAdapter.indexOf(commentToUpdate);
+                commentsInAdapter.remove(commentToUpdate);
+                commentsInAdapter.add(position,receivedComment);
+                commentsAdapter.notifyDataSetChanged();
+            }
         }
     }
 

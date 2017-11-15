@@ -16,10 +16,13 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.events.CommentSelectedEvent;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.PostComment;
@@ -162,6 +165,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                 holder.edit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        EventBus.getDefault().post(new CommentSelectedEvent(comment));
                     }
                 });
                 holder.delete.setOnClickListener(new View.OnClickListener() {
