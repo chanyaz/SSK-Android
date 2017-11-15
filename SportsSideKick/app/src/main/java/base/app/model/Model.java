@@ -315,6 +315,147 @@ public class Model {
         });
     }
 
+    public void registerFromFacebook(String token, String email, HashMap<String, Object> userData){
+        final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest();
+        if (userData != null) {
+            userData.put("initial_email",email);
+            userData.put(CLUB_ID_TAG, CLUB_ID);
+            Map<String, Object> map = request.getBaseData();
+            map.put("scriptData", userData);
+        }
+      request.setAccessToken(token)
+              .setDoNotLinkToCurrentPlayer(false)
+              .setSwitchIfPossible(true)
+              .send(handleFBAuth);
+    }
+
+    private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> handleFBAuth = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
+        @Override
+        public void onEvent(GSResponseBuilder.AuthenticationResponse authenticationResponse) {
+            if (authenticationResponse != null) {
+                if (authenticationResponse.hasErrors()) {
+                    Log.d(TAG, "Facebook AuthenticationResponse: " + authenticationResponse.toString());
+                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
+                } else {
+                    boolean isNewPlayer = authenticationResponse.getNewPlayer();
+                    if(isNewPlayer){
+                        onRegisteredFB.onEvent(authenticationResponse);
+                    } else {
+                        onAuthenticatedFB.onEvent(authenticationResponse);
+                    }
+
+                }
+            }
+        }
+    };
+
+    private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> onAuthenticatedFB = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
+        @Override
+        public void onEvent(GSResponseBuilder.AuthenticationResponse authenticationResponse) {
+            if (authenticationResponse != null) {
+                if (authenticationResponse.hasErrors()) {
+                    Log.d(TAG, "Facebook onRegisteredFB AuthenticationResponse: " + authenticationResponse.toString());
+                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
+                } else {
+                    getAccountDetails(completeLogin);
+                }
+            }
+        }
+    };
+
+
+    private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> onRegisteredFB = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
+        @Override
+        public void onEvent(GSResponseBuilder.AuthenticationResponse authenticationResponse) {
+            if (authenticationResponse != null) {
+                if (authenticationResponse.hasErrors()) {
+                    Log.d(TAG, "Facebook onRegisteredFB AuthenticationResponse: " + authenticationResponse.toString());
+                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
+                } else {
+                    // AT THIS STAGE, WE NEED TO COMPLETE THE TRADITIONAL REGISTRATION STAGE
+                    // BUT WE SHOULD ALSO UPDATE THE USER DATA
+
+                    GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+                    HashMap<String, Object> data = new HashMap<>();
+                    data.put("action","register");
+                    data.put(CLUB_ID_TAG, CLUB_ID);
+
+                    String firstName = authenticationResponse.getScriptData().getString("firstName");
+
+
+                    Map<String, Object> map = request.getBaseData();
+                    map.put("scriptData", data);
+
+                    request.setUserName("");
+                    request.send(onRegisteredFBCompleted);
+                    //TODO - from swift to java
+//                    print(self.userData)
+//                    let request:GSChangeUserDetailsRequest = GSChangeUserDetailsRequest()
+//                    request.timeout = 60
+//                    var _data = [AnyHashable:Any]()
+//                    _data["action"] = "register"
+//                    _data["club_id"] = self.clubId
+//
+//                    if let firstName = self.userData["firstName"] {
+//                        _data["firstName"] = firstName
+//                    }
+//                    if let lastName = self.userData["lastName"] {
+//                        _data["lastName"] = lastName
+//                    }
+//                    if let phone = self.userData["phone"] {
+//                        _data["phone"] = phone
+//                    }
+//                    if let avatarUrl = self.userData["avatarUrl"] {
+//                        _data["avatarUrl"] = avatarUrl
+//                    }
+//
+//                    var initialEmail:String = ""
+//
+//                    let scriptData = response!.getScriptData()
+//                    if let email = scriptData?["initial_email"] as? String{
+//                        initialEmail = email
+//
+//                        request.setUserName(initialEmail)
+//                        request.setScriptData(_data)
+//                        request.setCallback(self.onRegisteredFBCompleted)
+//                        self.gs.send(request)
+//                    }
+                }
+            }
+    }};
+
+    private GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> onRegisteredFBCompleted = new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
+        @Override
+        public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse response) {
+            if (response != null) {
+                if (response.hasErrors()) {
+                    // We don't need to error if the request was successful, as that means we logged the user in!
+                    GSData scriptData = response.getScriptData();
+                    boolean successful = (boolean) scriptData.getBaseData().get("success");
+                    if(!successful){
+                        UserEvent.Type errorType = UserEvent.Type.onRegisterError;
+                        Map responseData = response.getBaseData();
+                        Object errorObject = responseData.get("error");
+                        Error error = new Error(errorObject.toString());
+                        UserEvent event = new UserEvent(errorType,error);
+                        EventBus.getDefault().post(event);
+                        return;
+                    }
+                }
+                getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
+                        if (!response.hasErrors()) {
+                            setUser(response);
+                            setLoggedInUserType(REAL);
+                            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onRegister));
+                        }
+                    }
+                });
+            }
+        }
+    };
+
     public void login() {
         GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
         HashMap<String, Object> scriptData = new HashMap<>();

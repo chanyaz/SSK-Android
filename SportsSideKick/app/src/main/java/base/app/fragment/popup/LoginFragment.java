@@ -120,7 +120,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
             getActivity().onBackPressed();
-            //EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
         }
         super.onCreate(savedInstanceState);
     }
@@ -194,8 +193,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                         if (imagePlayer != null) {
                             imagePlayer.setImageResource(R.drawable.video_chat_background);
                         }
-
-
                     }
                 }
             });
@@ -210,44 +207,43 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     public void initFacebook() {
         if (loginButton != null) {
-            loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-        }
-        callbackManager = CallbackManager.Factory.create();
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                // Application code
-                                try {
-                                    emailEditText.setText(object.getString("email"));
-                                    LoginManager.getInstance().logOut();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+            loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends","user_birthday", "user_photos"));
+            callbackManager = CallbackManager.Factory.create();
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    // App code
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            loginResult.getAccessToken(),
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(JSONObject object, GraphResponse response) {
+                                    // Application code
+                                    try {
+                                        emailEditText.setText(object.getString("email"));
+                                        LoginManager.getInstance().logOut();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "name,email,first_name,last_name");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
+                            });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id, name, first_name, last_name, picture.type(large), email, friends, birthday, age_range, location, gender");
+                    request.setParameters(parameters);
+                    request.executeAsync();
+                }
 
-            @Override
-            public void onCancel() {
-                Log.d(TAG,"Facebook login canceled!");
-            }
+                @Override
+                public void onCancel() {
+                    Log.d(TAG,"Facebook login canceled!");
+                }
 
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG,"Facebook login error - error is:" + error.getLocalizedMessage());
-            }
-        });
-
+                @Override
+                public void onError(FacebookException error) {
+                    Log.d(TAG,"Facebook login error - error is:" + error.getLocalizedMessage());
+                }
+            });
+        }
     }
 
     @Override
@@ -385,7 +381,8 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     @Optional
     @OnClick(R.id.facebook_button)
     public void setLoginFacebook() {
-        assert loginButton != null;
-        loginButton.performClick();
+        if(loginButton!=null) {
+            loginButton.performClick();
+        }
     }
 }
