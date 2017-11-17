@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"  android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_5">
 
     <View
         android:id="@+id/strip"
         android:layout_width="@dimen/width_5"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccentDark"/>
+        android:layout_height="@dimen/width_5"
+        android:background="@color/colorAccentDark"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/likes_and_comments"   />
 
     <ImageView
         android:id="@+id/image"
@@ -18,6 +19,7 @@
         android:layout_alignBottom="@id/likes_and_comments"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/news_holder_image" />
 
@@ -36,7 +38,6 @@
         android:textColor="?black"
         android:textSize="@dimen/font_size_16" />
 
-
     <RelativeLayout
         android:id="@+id/likes_and_comments"
         android:layout_width="match_parent"
@@ -50,8 +51,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/author_user_image"
-            android:layout_width="@dimen/width_26"
-            android:layout_height="@dimen/height_26"
+            android:layout_width="@dimen/width_20"
+            android:layout_height="@dimen/height_20"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
             android:layout_marginStart="@dimen/margin_10"
@@ -129,14 +130,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/likes_and_comments"
-        android:layout_toEndOf="@+id/strip"
+        android:layout_alignParentStart="true"
+        android:visibility="visible"
         android:background="@color/colorGrayMediumLight">
+
+
+        <View
+            android:id="@+id/strip_bottom"
+            android:layout_width="@dimen/width_5"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/text_comment"
+            android:background="@color/colorAccentDark"
+
+            />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/comment_author_user_image"
             android:layout_width="@dimen/width_26"
             android:layout_height="@dimen/height_26"
-            android:layout_alignParentStart="true"
+            android:layout_toRightOf="@+id/strip_bottom"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="@dimen/margin_10"
             android:layout_marginStart="@dimen/margin_10"

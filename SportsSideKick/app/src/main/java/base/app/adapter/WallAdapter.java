@@ -256,7 +256,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     WallPost post = (WallPost) values.get(index);
                     displayUserInfo(post,holder);
                     displayCaption(post.getBodyText(),holder);
-                    displayPostImage(post,holder, Utility.getRoundedImageOptions());
+                    displayPostImage(post,holder, Utility.getImageOptionsForWallItem());
                     displayCommentsAndLikesCount(post,holder);
 
                     if (holder.playButton != null) {

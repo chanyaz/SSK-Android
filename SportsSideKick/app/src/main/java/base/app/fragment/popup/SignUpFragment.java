@@ -23,22 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -230,43 +221,43 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     }
 
     private void initFacebook() {
-        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-        // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                // Application code
-                                try {
-                                    email.setText(object.getString("email"));
-                                    firstName.setText(object.getString("first_name"));
-                                    lastName.setText(object.getString("last_name"));
-                                    if (displayName != null) {
-                                        displayName.setText(object.getString("first_name") + " " + object.getString("last_name"));
-                                    }
-                                    LoginManager.getInstance().logOut();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "name,email,first_name,last_name");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() { }
-
-            @Override
-            public void onError(FacebookException error) { }
-        });
+//        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+//        // Callback registration
+//        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                // App code
+//                GraphRequest request = GraphRequest.newMeRequest(
+//                        loginResult.getAccessToken(),
+//                        new GraphRequest.GraphJSONObjectCallback() {
+//                            @Override
+//                            public void onCompleted(JSONObject object, GraphResponse response) {
+//                                // Application code
+//                                try {
+//                                    email.setText(object.getString("email"));
+//                                    firstName.setText(object.getString("first_name"));
+//                                    lastName.setText(object.getString("last_name"));
+//                                    if (displayName != null) {
+//                                        displayName.setText(object.getString("first_name") + " " + object.getString("last_name"));
+//                                    }
+//                                    LoginManager.getInstance().logOut();
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        });
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "name,email,first_name,last_name");
+//                request.setParameters(parameters);
+//                request.executeAsync();
+//            }
+//
+//            @Override
+//            public void onCancel() { }
+//
+//            @Override
+//            public void onError(FacebookException error) { }
+//        });
     }
 
     @Override
