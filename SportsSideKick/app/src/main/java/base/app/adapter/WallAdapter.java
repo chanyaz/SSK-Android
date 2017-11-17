@@ -31,9 +31,7 @@ import java.util.List;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.WallItemFragment;
-import base.app.fragment.popup.SignUpLoginFragment;
 import base.app.model.Model;
-import base.app.model.tutorial.WallTip;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
 import base.app.model.wall.WallNewsShare;
@@ -43,8 +41,6 @@ import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static base.app.model.tutorial.TutorialModel.NOT_LOGGED_TIP_NUMBER;
 
 /**
  * Created by Djordje Krutil on 06/01/2017.
@@ -62,14 +58,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
-
-
+        // Content view bindings
         @Nullable
-        @BindView(R.id.caption)
-        TextView captionTextView;
-        @Nullable
-        @BindView(R.id.description)
-        TextView descriptionTextView;
+        @BindView(R.id.text_content)
+        TextView contentTextView;
         @Nullable
         @BindView(R.id.play_button)
         ImageView playButton;
@@ -82,6 +74,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.author)
         TextView author;
+        // Like & comments view bindings
         @Nullable
         @BindView(R.id.likes_count)
         TextView likesCount;
@@ -94,7 +87,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.comments_count)
         TextView commentsCount;
-
+        // Ad view bindings
         @Nullable
         @BindView(R.id.wall_native_ad_media_view)
         MediaView nativeAdMediaView;
@@ -104,11 +97,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.wall_native_ad_social_context)
         TextView nativeAdSocialContext;
-
-        @Nullable
-        @BindView(R.id.tip_image)
-        ImageView lightIcon;
-
 
         ViewHolder(View v) {
             super(v);
@@ -132,7 +120,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     private void initializeNativeAdManagerAndRequestAds(int adsFrequency) {
         // Initialize a NativeAdsManager and request a number of ads
-        AdSettings.addTestDevice("1669b3492b83373dc025ed1cc9943c63"); //samsung tablet
+        AdSettings.addTestDevice("1669b3492b83373dc025ed1cc9943c63"); //Samsung tablet
         AdSettings.addTestDevice("9d381cd4828b3659af83f6c494b452e8"); //kindle tablet
         manager = new NativeAdsManager(context, "102782376855276_240749436391902", ADS_COUNT);
         manager.setListener(new NativeAdsManager.Listener() {
@@ -144,7 +132,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onAdError(AdError adError) {
                 // Ad error callback
@@ -156,7 +143,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        int viewResourceId;
+        int viewResourceId =-1;
         if(viewType == WALL_ADVERT_VIEW_TYPE){
             viewResourceId = R.layout.wall_native_ad;
         }else {
@@ -170,34 +157,23 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case rumor:
                     viewResourceId = R.layout.wall_item_rumour;
                     break;
-                case tip:
-                    viewResourceId = R.layout.wall_item_tip;
-                    break;
                 case wallStoreItem:
                     viewResourceId = R.layout.wall_item_shop;
                     break;
-                default: // Somehow, we got unknown type as viewType argument, return default cell
-                    viewResourceId = R.layout.wall_item_rumour;
-                    break;
             }
         }
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(viewResourceId, parent, false);
+        View view = null;
+        if(viewResourceId!=-1){
+            view = LayoutInflater.from(parent.getContext()).inflate(viewResourceId, parent, false);
+        }
         return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
 
-
-    private void displayDescription(String value, ViewHolder holder){
-        if (holder.descriptionTextView != null) {
-            holder.descriptionTextView.setText(value);
-        }
-    }
-
     private void displayCaption(String value,ViewHolder holder){
-        if (holder.captionTextView != null) {
-            holder.captionTextView.setText(value);
+        if (holder.contentTextView != null) {
+            holder.contentTextView.setText(value);
         }
     }
 
@@ -230,7 +206,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                                 holder.userImage.setImageResource(R.drawable.blank_profile_rounded);
                             }
                         }
-                        if (user.getNicName() != null) {
+                        if (user.getNicName() != null && holder.author!=null) {
                             holder.author.setText(user.getFirstName() + " " + user.getLastName());
                         }
                     }
@@ -241,9 +217,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     private void displayCommentsAndLikesCount(WallBase post, final ViewHolder holder){
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
-
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
-
         if (post.isLikedByUser()) {
             holder.likedIcon.setVisibility(View.VISIBLE);
             holder.likesIcon.setVisibility(View.GONE);
@@ -282,7 +256,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     WallPost post = (WallPost) values.get(index);
                     displayUserInfo(post,holder);
                     displayCaption(post.getBodyText(),holder);
-                    displayDescription(post.getSubTitle(),holder);
                     displayPostImage(post,holder, Utility.getRoundedImageOptions());
                     displayCommentsAndLikesCount(post,holder);
 
@@ -293,8 +266,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case newsShare:
                     WallNewsShare news = (WallNewsShare) values.get(index);
                     displayUserInfo(news,holder);
-                    displayCaption(news.getTitle(),holder);
-                    displayDescription(news.getSubTitle(),holder);
+                    displayCaption(news.getBodyText(),holder);
                     displayPostImage(news,holder, Utility.getImageOptionsForWallItem());
                     displayCommentsAndLikesCount(news,holder);
                     if (holder.playButton != null) {
@@ -304,22 +276,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case rumor:
                     displayCaption(values.get(index).getTitle(),holder);
                     break;
-                case tip:
-                    WallTip tip = (WallTip) values.get(index);
-                    displayDescription(tip.getTipDescription(),holder);
-
-                    if(holder.lightIcon!=null){
-                    if(tip.getTipNumber()==NOT_LOGGED_TIP_NUMBER){
-                        holder.lightIcon.setVisibility(View.GONE);
-                    }else {
-                        holder.lightIcon.setVisibility(View.VISIBLE);
-                    }}
-                    break;
                 case wallStoreItem:
                     WallStoreItem storeItem = (WallStoreItem) values.get(index);
                     displayUserInfo(storeItem,holder);
                     displayCaption(storeItem.getTitle(),holder);
-                    displayDescription(storeItem.getSubTitle(),holder);
                     displayPostImage(storeItem,holder, Utility.getImageOptionsForWallItem());
                     break;
                 case betting:
@@ -327,17 +287,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         // No items of this type yet!
                         break;
             }
-
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if( values.get(holder.getAdapterPosition()) instanceof WallTip && Model.getInstance().isRealUser() ){
-                        EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
-                    }else {
-                        FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
-                        fe.setId(values.get(holder.getAdapterPosition()).getPostId());
-                        EventBus.getDefault().post(fe);
-                    }
+                FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
+                fe.setId(values.get(holder.getAdapterPosition()).getPostId());
+                EventBus.getDefault().post(fe);
                 }
             });
         }

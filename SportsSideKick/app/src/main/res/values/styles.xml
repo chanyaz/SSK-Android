@@ -18,6 +18,7 @@
         <item name="white_semitransparent">@color/white_semitransparent</item>
         <item name="black_transparent_154">@color/black_transparent_154</item>
         <item name="colorGray">@color/colorGray</item>
+        <item name="colorGrayMediumLight">@color/colorGrayMediumLight</item>
 
         <!-- App items colors -->
         <item name="wallItemsColor">@color/white</item>

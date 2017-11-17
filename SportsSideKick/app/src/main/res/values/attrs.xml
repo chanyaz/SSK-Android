@@ -39,6 +39,7 @@
     <attr name="colorPrimarySemiLight" format="reference" />
 
     <attr name="colorGray" format="reference" />
+    <attr name="colorGrayMediumLight" format="reference" />
     <attr name="white" format="reference" />
     <attr name="white_semitransparent" format="reference" />
 

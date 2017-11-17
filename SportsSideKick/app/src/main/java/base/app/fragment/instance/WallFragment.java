@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
@@ -61,7 +62,6 @@ import javax.annotation.Nullable;
 import base.app.BuildConfig;
 import base.app.R;
 import base.app.adapter.WallAdapter;
-import base.app.events.CommentDeleteEvent;
 import base.app.events.CommentUpdateEvent;
 import base.app.events.PostCompleteEvent;
 import base.app.events.PostDeletedEvent;
@@ -79,7 +79,6 @@ import base.app.model.ticker.NextMatchModel;
 import base.app.model.ticker.NextMatchUpdateEvent;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.user.UserInfo;
-import base.app.model.wall.PostComment;
 import base.app.model.wall.WallBase;
 import base.app.model.wall.WallBetting;
 import base.app.model.wall.WallModel;
@@ -90,8 +89,6 @@ import base.app.model.wall.WallStats;
 import base.app.model.wall.WallStoreItem;
 import base.app.util.NextMatchCountdown;
 import base.app.util.Utility;
-import base.app.util.ui.GridItemDecoration;
-import base.app.util.ui.StaggeredLayoutManagerItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -260,17 +257,17 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
         isTablet = Utility.isTablet(getActivity());
 
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), StaggeredGridLayoutManager.VERTICAL,false);
         adapter = new WallAdapter(getActivity());
-        boolean includeEdge = isTablet;
         if (recyclerView != null) {
             recyclerView.setAdapter(adapter);
-            if (Utility.isTablet(getActivity())) {
-                recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16, includeEdge, isTablet));
-            } else {
-                int space = (int) getResources().getDimension(R.dimen.padding_12);
-                recyclerView.addItemDecoration(new GridItemDecoration(space, 2));
-            }
+//            boolean includeEdge = isTablet;
+//            if (Utility.isTablet(getActivity())) {
+//                recyclerView.addItemDecoration(new StaggeredLayoutManagerItemDecoration(16, includeEdge, isTablet));
+//            } else {
+//                int space = (int) getResources().getDimension(R.dimen.padding_12);
+//                recyclerView.addItemDecoration(new GridItemDecoration(space, 2));
+//            }
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setNestedScrollingEnabled(false);
             searchText.addTextChangedListener(textWatcher);
@@ -289,7 +286,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                         }
                     });
                     loadWallItemsPage(false,competition);
-
                 }
             }
         });

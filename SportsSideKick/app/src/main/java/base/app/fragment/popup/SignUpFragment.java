@@ -231,7 +231,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
     private void initFacebook() {
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-        callbackManager = CallbackManager.Factory.create();
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
