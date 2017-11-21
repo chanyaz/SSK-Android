@@ -31,7 +31,7 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="@dimen/height_145"
-        android:layout_height="@dimen/height_145"
+        android:layout_height="@dimen/height_150"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"

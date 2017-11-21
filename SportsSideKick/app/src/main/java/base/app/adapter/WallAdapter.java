@@ -70,10 +70,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @BindView(R.id.image)
         ImageView imageView;
         @Nullable
-        @BindView(R.id.user_image)
+        @BindView(R.id.author_user_image)
         CircleImageView userImage;
         @Nullable
-        @BindView(R.id.author)
+        @BindView(R.id.author_name)
         TextView author;
         // Like & comments view bindings
         @Nullable
@@ -181,16 +181,19 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    private void displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions options){
+    private boolean displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions options){
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
                 ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), holder.imageView, options);
                 holder.imageView.setVisibility(View.VISIBLE);
+                return true;
             } else {
                 holder.imageView.setVisibility(View.GONE);
+                return false;
             }
         }
+        return false;
     }
 
     private void displayUserInfo(WallBase post, final ViewHolder holder){
@@ -259,8 +262,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case post:
                     WallPost post = (WallPost) values.get(index);
                     displayUserInfo(post,holder);
+                    boolean hasImage = displayPostImage(post,holder, Utility.getImageOptionsForWallItem());
+                    if(holder.contentTextView!=null){
+                        if(hasImage){
+                            holder.contentTextView.setMaxLines(3);
+                        } else {
+                            holder.contentTextView.setMaxLines(6);
+                        }
+                    }
                     displayCaption(post.getBodyText(),holder);
-                    displayPostImage(post,holder, Utility.getImageOptionsForWallItem());
                     displayCommentsAndLikes(post,holder);
 
                     if (holder.playButton != null) {
