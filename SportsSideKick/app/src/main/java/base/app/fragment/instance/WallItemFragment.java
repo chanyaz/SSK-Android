@@ -424,7 +424,6 @@ public class WallItemFragment extends BaseFragment {
             } else {
                 updateComment();
             }
-
         } else {
             //TODO notify user
         }
