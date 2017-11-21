@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/profile_image"
-        android:layout_width="@dimen/width_50"
-        android:layout_height="@dimen/height_50"
+        android:layout_width="@dimen/width_30"
+        android:layout_height="@dimen/height_30"
         android:layout_gravity="top"
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginStart="@dimen/margin_15"
@@ -25,35 +25,45 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_15"
             android:layout_marginTop="@dimen/margin_5"
-            android:background="?chatBubbleIcon"
             android:minLines="1"
             android:text="@string/comment_text"
             android:textAlignment="viewStart"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/message_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/post_text"
-            android:layout_marginBottom="@dimen/margin_5"
-            android:layout_marginStart="@dimen/margin_10"
+            android:text="@string/comment_text"
             android:layout_marginTop="@dimen/margin_5"
-            android:textColor="?colorGray"
+            android:textColor="@color/colorGray"
             android:textSize="@dimen/font_size_10" />
 
         <TextView
             android:id="@+id/translate"
+            android:layout_below="@id/message_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/post_text"
-            android:paddingEnd="@dimen/padding_16"
-            android:layout_marginBottom="@dimen/margin_5"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_marginTop="@dimen/margin_5"
-            android:layout_toEndOf="@+id/message_information"
+            android:padding="@dimen/margin_5"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/padding_10"
             android:text="@string/translate"
-            android:textColor="?colorGray"
+            android:textColor="@color/colorPrimaryVeryLight"
+            android:textSize="@dimen/font_size_10" />
+
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/message_information"
+            android:padding="@dimen/margin_5"
+            android:layout_toEndOf="@+id/translate"
+            android:paddingEnd="@dimen/padding_10"
+            android:text="@string/delete"
+            android:visibility="gone"
+            android:textColor="@color/colorPrimaryVeryLight"
             android:textSize="@dimen/font_size_10"
             />
 
@@ -61,31 +71,15 @@
             android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/post_text"
-            android:paddingEnd="@dimen/padding_16"
-            android:layout_marginBottom="@dimen/margin_5"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_marginTop="@dimen/margin_5"
-            android:layout_toEndOf="@+id/translate"
+            android:layout_below="@id/message_information"
+            android:paddingEnd="@dimen/padding_10"
+            android:layout_toEndOf="@+id/delete"
             android:text="@string/edit"
-            android:textColor="?colorGray"
+            android:textColor="@color/colorPrimaryVeryLight"
             android:visibility="gone"
+            android:padding="@dimen/margin_5"
             android:textSize="@dimen/font_size_10"
-            />
-        <TextView
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/post_text"
-            android:paddingEnd="@dimen/padding_16"
-            android:layout_marginBottom="@dimen/margin_5"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_marginTop="@dimen/margin_5"
-            android:layout_toEndOf="@+id/edit"
-            android:text="@string/delete"
-            android:visibility="gone"
-            android:textColor="?colorGray"
-            android:textSize="@dimen/font_size_10"
+            android:layout_marginBottom="@dimen/padding_10"
             />
     </RelativeLayout>
 </LinearLayout>

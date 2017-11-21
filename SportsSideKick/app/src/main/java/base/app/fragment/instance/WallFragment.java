@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -121,9 +122,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @BindView(R.id.scroll)
     NestedScrollView scroll;
 
-    @Nullable
-    @BindView(R.id.container)
-    RelativeLayout containerRelativeLayout;
 
     @BindView(R.id.fragment_wall_filter)
     Button buttonFilter;
@@ -213,6 +211,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     boolean creatingPostInProgress;
     boolean isTablet;
+
+
 
     public WallFragment() {
         // Required empty public constructor
@@ -318,6 +318,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 nextMatchContainer.setVisibility(View.GONE);
             }
         }
+    }
+
+    @OnClick(R.id.fab)
+    public void fabOnClick() {
+        Toast.makeText(getContext(),"To be implemented",Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.camera_button)

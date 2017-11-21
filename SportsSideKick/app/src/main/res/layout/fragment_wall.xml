@@ -234,6 +234,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/fragment_wall_bottom_bar"
+        android:visibility="gone"
         android:animateLayoutChanges="true"
         android:background="?phoneWallMenuBackground">
 
@@ -428,7 +429,7 @@
     <View
         android:id="@+id/shadow"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/height_3dp"
+        android:layout_height="@dimen/height_2"
         android:layout_above="@+id/fragment_wall_bottom_bar"
         android:background="@drawable/top_gradient_drawable" />
 
@@ -439,6 +440,7 @@
         android:background="?phoneWallMenuBackground"
         android:clickable="true"
         android:animateLayoutChanges="true"
+        android:visibility="gone"
         android:gravity="center"
         android:layout_above="@+id/shadow_1"
         android:layout_alignParentStart="true">
@@ -482,5 +484,18 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/height_1dp"
         android:layout_alignParentBottom="true"
+        android:visibility="gone"
         android:background="@drawable/top_gradient_drawable" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/margin_16"
+        app:backgroundTint="@color/black"
+        android:src="@drawable/fab_plus"
+        android:tint="@color/white"/>
 </RelativeLayout>

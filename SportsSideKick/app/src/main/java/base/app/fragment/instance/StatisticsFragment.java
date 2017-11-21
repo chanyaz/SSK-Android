@@ -92,7 +92,6 @@ public class StatisticsFragment extends BaseFragment {
                 pinButton.setVisibility(View.VISIBLE);
             }
         });
-
         webView.loadUrl(url);
         return view;
     }

@@ -14,6 +14,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimaryVeryLight" />
 
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/author_user_image"
         android:layout_width="@dimen/width_26"
@@ -36,6 +37,21 @@
         android:scaleType="centerCrop"
         android:src="@drawable/news_holder_image"
         android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/author_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/author_user_image"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_alignBottom="@+id/author_user_image"
+        android:gravity="center_vertical|start"
+        android:layout_toStartOf="@+id/image"
+        android:text="Karen Smith"
+        android:textColor="@color/colorPrimaryVeryLight"
+        android:background="?white"
+        />
 
     <TextView
         android:id="@+id/text_content"
@@ -128,11 +144,4 @@
                 android:textSize="@dimen/font_size_10" />
         </LinearLayout>
     </RelativeLayout>
-
-    <View
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_2"
-        android:layout_below="@id/likes_and_comments"
-        android:background="@drawable/wall_item_shadow" />
 </RelativeLayout>

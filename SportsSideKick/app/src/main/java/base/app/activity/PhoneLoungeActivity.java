@@ -100,7 +100,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     View fragmentLeftPopupHolder;
     @BindView(R.id.fragment_holder)
     View fragmentHolder;
-    @BindView(R.id.side_menu_recycler)
+    @BindView(R.id.bottom_menu_recycler_view)
     NoScrollRecycler sideMenuRecycler;
 
 

@@ -72,13 +72,11 @@ public class NewsItemFragment extends BaseFragment {
     ImageView imageHeader;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.strap)
-    TextView strap;
+
     @BindView(R.id.content_text)
     TextView content;
     @Nullable
-    @BindView(R.id.close_news_button)
-    Button close;
+
     @BindView(R.id.share_news_to_wall_button)
     Button share;
 
@@ -125,7 +123,7 @@ public class NewsItemFragment extends BaseFragment {
     ImageView shareTwitterButton;
 
     @Nullable
-    @BindView(R.id.rumours_swipe_refresh_layout)
+    @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
 
     CommentsAdapter commentsAdapter;
@@ -210,14 +208,6 @@ public class NewsItemFragment extends BaseFragment {
             }
         });
 
-        if (close != null) {
-            close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getActivity().onBackPressed();
-                }
-            });
-        }
         if(Model.getInstance().isRealUser()){
             if (shareButton != null) {
                 shareButton.setOnTouchListener(new View.OnTouchListener() {
@@ -256,13 +246,10 @@ public class NewsItemFragment extends BaseFragment {
     private void setupTextualContent(WallNews item){
         if(item!=null){
             title.setText(item.getTitle());
-            String time = "" + DateUtils.getRelativeTimeSpanString(item.getTimestamp().longValue(),
-                    Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS);
-            if (item.getSubTitle() != null) {
-                strap.setText(item.getSubTitle() + " - " + time);
-            } else {
-                strap.setText(time);
-            }
+            String time = "" + DateUtils.getRelativeTimeSpanString(
+                    item.getTimestamp().longValue(),
+                    Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS
+            );
             content.setText(item.getBodyText());
         }
     }

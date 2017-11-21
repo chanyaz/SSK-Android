@@ -36,6 +36,7 @@ import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
 import base.app.model.wall.WallNewsShare;
 import base.app.model.wall.WallPost;
+import base.app.model.wall.WallStats;
 import base.app.model.wall.WallStoreItem;
 import base.app.util.Utility;
 import butterknife.BindView;
@@ -160,6 +161,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case wallStoreItem:
                     viewResourceId = R.layout.wall_item_shop;
                     break;
+                case stats:
+                    viewResourceId = R.layout.wall_item_stats;
+                    break;
             }
         }
         View view = null;
@@ -215,7 +219,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         });
     }
 
-    private void displayCommentsAndLikesCount(WallBase post, final ViewHolder holder){
+    private void displayCommentsAndLikes(WallBase post, final ViewHolder holder){
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
         if (post.isLikedByUser()) {
@@ -257,7 +261,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     displayUserInfo(post,holder);
                     displayCaption(post.getBodyText(),holder);
                     displayPostImage(post,holder, Utility.getImageOptionsForWallItem());
-                    displayCommentsAndLikesCount(post,holder);
+                    displayCommentsAndLikes(post,holder);
 
                     if (holder.playButton != null) {
                         holder.playButton.setVisibility(TextUtils.isEmpty(post.getVidUrl()) ? View.GONE : View.VISIBLE);
@@ -268,24 +272,31 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     displayUserInfo(news,holder);
                     displayCaption(news.getBodyText(),holder);
                     displayPostImage(news,holder, Utility.getImageOptionsForWallItem());
-                    displayCommentsAndLikesCount(news,holder);
+                    displayCommentsAndLikes(news,holder);
                     if (holder.playButton != null) {
                         holder.playButton.setVisibility(TextUtils.isEmpty(news.getVidUrl()) ? View.GONE : View.VISIBLE);
                     }
                     break;
                 case rumor:
                     displayCaption(values.get(index).getTitle(),holder);
+                    displayCommentsAndLikes(values.get(index),holder);
                     break;
                 case wallStoreItem:
                     WallStoreItem storeItem = (WallStoreItem) values.get(index);
                     displayUserInfo(storeItem,holder);
                     displayCaption(storeItem.getTitle(),holder);
                     displayPostImage(storeItem,holder, Utility.getImageOptionsForWallItem());
+                    displayCommentsAndLikes(storeItem,holder);
+                    break;
+                case stats:
+                    WallStats statsItem = (WallStats) values.get(index);
+                    displayUserInfo(statsItem,holder);
+                    displayCaption(statsItem.getTitle(),holder);
+                    displayPostImage(statsItem,holder, Utility.getImageOptionsForWallItem());
+                    displayCommentsAndLikes(statsItem,holder);
                     break;
                 case betting:
-                case stats:
-                        // No items of this type yet!
-                        break;
+                    break;
             }
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override

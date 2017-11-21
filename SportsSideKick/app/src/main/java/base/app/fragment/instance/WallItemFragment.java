@@ -86,8 +86,6 @@ public class WallItemFragment extends BaseFragment {
     ImageView imageHeader;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.strap)
-    TextView strap;
     @BindView(R.id.content_text)
     TextView content;
     @BindView(R.id.share_news_to_wall_button)
@@ -127,14 +125,11 @@ public class WallItemFragment extends BaseFragment {
     LinearLayout pinContainer;
 
     @Nullable
-    @BindView(R.id.top_buttons_contaniner)
+    @BindView(R.id.social_buttons_container)
     LinearLayout buttonsContainer;
     @Nullable
     @BindView(R.id.header_container)
     RelativeLayout headerContainer;
-    @Nullable
-    @BindView(R.id.top_horizontal_split_line)
-    View topSplitLine;
     @Nullable
     @BindView(R.id.bottom_horizontal_split_line)
     View bottomSplitLine;
@@ -147,12 +142,7 @@ public class WallItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.tutorial_description)
     TextView tutorialDescription;
-    @Nullable
-    @BindView(R.id.tutorial_container_bottom)
-    LinearLayout bottomTutorialContainer;
-    @Nullable
-    @BindView(R.id.tutorial_bottom_message)
-    TextView bottomMessage;
+
     @Nullable
     @BindView(R.id.share_icon)
     ImageView shareButton;
@@ -166,11 +156,7 @@ public class WallItemFragment extends BaseFragment {
     View shareButtonsContainer;
 
     @Nullable
-    @BindView(R.id.tutorial_earn_button)
-    RelativeLayout tipEarnButton;
-
-    @Nullable
-    @BindView(R.id.rumours_swipe_refresh_layout)
+    @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
 
     CommentsAdapter commentsAdapter;
@@ -267,7 +253,6 @@ public class WallItemFragment extends BaseFragment {
                 WallPost post = (WallPost) item;
                 Glide.with(this).load(post.getCoverImageUrl()).into(imageHeader);
                 title.setText(post.getTitle());
-                strap.setText(Utility.getTimeAgo(post.getTimestamp().longValue()));
                 content.setText(post.getBodyText());
                 if (post.getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
@@ -344,9 +329,6 @@ public class WallItemFragment extends BaseFragment {
                 if (headerContainer != null) {
                     headerContainer.setVisibility(View.GONE);
                 }
-                if (topSplitLine != null) {
-                    topSplitLine.setVisibility(View.GONE);
-                }
                 if (bottomSplitLine != null) {
                     bottomSplitLine.setVisibility(View.GONE);
                 }
@@ -359,22 +341,6 @@ public class WallItemFragment extends BaseFragment {
                 }
                 if (tutorialDescription != null) {
                     tutorialDescription.setText(tip.getTipDescription());
-                }
-                if (bottomTutorialContainer != null) {
-                    bottomTutorialContainer.setVisibility(View.VISIBLE);
-                }
-                if (bottomMessage != null) {
-                    bottomMessage.setText(tip.getTipEnding());
-                }
-                if (tipEarnButton != null) {
-                    tipEarnButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Model.getInstance().markWallTipComplete(String.valueOf(tip.getTipNumber()));
-                            tip.markAsSeen();
-                            getActivity().onBackPressed();
-                        }
-                    });
                 }
                 break;
         }
