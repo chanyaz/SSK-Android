@@ -57,6 +57,7 @@ import base.app.events.GetPostByIdEvent;
 import base.app.events.PostCommentCompleteEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.fragment.BaseFragment;
+import base.app.model.DateUtils;
 import base.app.model.Model;
 import base.app.model.sharing.SharingManager;
 import base.app.model.tutorial.WallTip;
@@ -159,6 +160,15 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
 
+
+    @Nullable
+    @BindView(R.id.source)
+    TextView source;
+
+    @Nullable
+    @BindView(R.id.time)
+    TextView time;
+
     CommentsAdapter commentsAdapter;
     WallBase item;
     List<PostComment> comments;
@@ -254,6 +264,7 @@ public class WallItemFragment extends BaseFragment {
                 Glide.with(this).load(post.getCoverImageUrl()).into(imageHeader);
                 title.setText(post.getTitle());
                 content.setText(post.getBodyText());
+                time.setText(DateUtils.getTimeAgo(post.getTimestamp()));
                 if (post.getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
                     imageHeader.setVisibility(View.GONE);
@@ -287,7 +298,7 @@ public class WallItemFragment extends BaseFragment {
                 ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());
-
+                time.setText(DateUtils.getTimeAgo(news.getTimestamp()));
                 if (commentsCount != null) {
                     commentsCount.setText(String.valueOf(news.getCommentsCount()));
                 }
@@ -315,6 +326,7 @@ public class WallItemFragment extends BaseFragment {
                 WallStoreItem storeItem = (WallStoreItem) item;
                 ImageLoader.getInstance().displayImage(storeItem.getCoverImageUrl(), imageHeader, imageOptions);
                 title.setText(storeItem.getTitle());
+                time.setText(DateUtils.getTimeAgo(storeItem.getTimestamp()));
                 break;
             case tip:
                 final WallTip tip = (WallTip) item;

@@ -29,6 +29,7 @@ import base.app.R;
 import base.app.events.FullScreenImageEvent;
 import base.app.events.MessageSelectedEvent;
 import base.app.events.PlayVideoEvent;
+import base.app.model.DateUtils;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.im.ChatInfo;
@@ -119,7 +120,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             setupAvatarFromRemoteUser(message, holder);
         }
 
-        holder.timeTextView.setText(message.getTimeAgo());
+        holder.timeTextView.setText(DateUtils.getTimeAgo(message.getTimestampEpoch()));
 
         final String imageUrl = message.getImageUrl();
         final String videoUrl = message.getVidUrl();

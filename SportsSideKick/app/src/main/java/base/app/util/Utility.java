@@ -24,11 +24,9 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import base.app.R;
 import base.app.model.user.UserInfo;
@@ -174,36 +172,6 @@ public class Utility {
         alertDialog.show();
     }
 
-
-
-    public static String getTimeAgo(long timeStamp) {
-        //milliseconds
-        Date date = new Date();
-        long different = date.getTime() - timeStamp * 1000;
-
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
-
-        long elapsedDays = different / daysInMilli;
-        different = different % daysInMilli;
-
-        long elapsedHours = different / hoursInMilli;
-        return elapsedDays + " Days " + elapsedHours + " Hours ago"; // TODO Hardcoded strings!
-    }
-
-    public static long getTimeDifference(long timeStamp) {
-        try {
-            Date netDate = (new Date(timeStamp * 1000));
-            Date date = new Date();
-            long diff = date.getTime() - netDate.getTime();
-            return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        } catch (Exception ex) {
-            return 0;
-        }
-    }
-
     public static int getDisplayWidth(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
@@ -297,14 +265,6 @@ public class Utility {
     public static void setSystemBarColor(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimarySemiDark));
-        } else {
-            //TODO - @Filip This moves app behind topbar on KITKAT
-//            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-//                WindowManager.LayoutParams winParams = activity.getWindow().getAttributes();
-//                final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-//                winParams.flags |= bits;
-//                activity.getWindow().setAttributes(winParams);
-//            }
         }
     }
 
@@ -339,7 +299,4 @@ public class Utility {
             }
         };
     }
-
-
-
 }

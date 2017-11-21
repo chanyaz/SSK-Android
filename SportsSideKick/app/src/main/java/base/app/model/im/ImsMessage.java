@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
-import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.json.simple.JSONObject;
@@ -200,17 +199,6 @@ public class ImsMessage {
 
     public void initializeTimestamp(){
         timestampEpoch = DateUtils.getTimestampFromFirebaseDate(timestamp);
-    }
-
-    public String getTimeAgo(){
-        String timeAgo = android.text.format.DateUtils.getRelativeTimeSpanString(timestampEpoch).toString();
-        if(timeAgo.equals("0 minutes ago")){
-            timeAgo = "Just Now";
-        } else {
-            timeAgo = timeAgo.replace(" minutes","m");
-            timeAgo = timeAgo.replace(" minute","m");
-        }
-        return timeAgo;
     }
 
     @JsonProperty("_id")
