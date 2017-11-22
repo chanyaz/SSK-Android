@@ -52,6 +52,7 @@ import base.app.fragment.instance.YoutubePlayerFragment;
 import base.app.fragment.popup.AddFriendFragment;
 import base.app.fragment.popup.AlertDialogFragment;
 import base.app.fragment.popup.CreateChatFragment;
+import base.app.fragment.popup.CreatePostFragment;
 import base.app.fragment.popup.EditChatFragment;
 import base.app.fragment.popup.EditProfileFragment;
 import base.app.fragment.popup.FollowersFragment;
@@ -263,6 +264,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
         popupLeftFragments.add(NewsItemFragment.class);
+        popupLeftFragments.add(CreatePostFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
 
 
@@ -386,7 +388,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             return;
         }
 
-        // Hiding fragments - TODO Instead of popping them from backstack?
+        // Hiding fragments - TODO Instead of popping them from back stack?
         if (popupLeftFragments.contains(previousFragment)) {
             fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
         } else {

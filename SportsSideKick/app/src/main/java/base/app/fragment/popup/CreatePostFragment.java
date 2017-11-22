@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +37,7 @@ import base.app.R;
 import base.app.events.PostCompleteEvent;
 import base.app.fragment.BaseFragment;
 import base.app.model.Model;
+import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
 import base.app.model.wall.WallModel;
 import base.app.model.wall.WallPost;
@@ -63,26 +66,30 @@ public class CreatePostFragment extends BaseFragment {
     String uploadedImageUrl;
     String videoDownloadUrl;
     String videoThumbnailDownloadUrl;
-    boolean creatingPostInProgress;
-    
-    @BindView(R.id.camera_button)
+
+    @BindView(R.id.camera)
     ImageView cameraButton;
-    @BindView(R.id.image_button)
-    ImageView imageButton;
-    @BindView(R.id.uploaded_image)
+    @BindView(R.id.gallery)
+    ImageView galleryButton;
+
+    @BindView(R.id.content_image)
     ImageView uploadedImage;
-    @BindView(R.id.remove_uploaded_photo_button)
-    ImageView removeUploadedContent;
-    @BindView(R.id.uploaded_image_progress_bar)
+    @BindView(R.id.remove)
+    View removeUploadedContent;
+    @BindView(R.id.progress_bar)
     View uploadProgressBar;
     
     @BindView(R.id.caption)
     EditText captionText;
-    @BindView(R.id.post_text)
+    @BindView(R.id.content)
     EditText contentText;
 
-    @BindView(R.id.post_post_button)
-    ImageView postButton;
+    @BindView(R.id.author_name)
+    TextView authorName;
+    @BindView(R.id.author_user_image)
+    ImageView authorImage;
+
+    String defaultImageUri;
 
     public CreatePostFragment() {
         // Required empty public constructor
@@ -90,52 +97,92 @@ public class CreatePostFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_news_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_post, container, false);
         ButterKnife.bind(this, view);
-        creatingPostInProgress = false;
+        defaultImageUri = "drawable://" + getResources().getIdentifier("image_rumours_background", "drawable", getActivity().getPackageName());
+        setupUserInfo();
         return view;
     }
 
-    private void makePostContainerVisible() {
-        creatingPostInProgress = true;
-        postButton.setVisibility(View.VISIBLE);
+    private void setupUserInfo(){
+        UserInfo info = Model.getInstance().getUserInfo();
+        if(info!=null){
+            authorName.setText(String.format("%s %s", info.getFirstName(), info.getFirstName()));
+            if(info.getCircularAvatarUrl() != null ){
+                ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),
+                        authorImage, Utility.getDefaultImageOptions());
+            } else {
+                Log.e(TAG,"There is no avatar for this user, resolving to default image");
+                authorImage.setImageResource(R.drawable.blank_profile_rounded);
+            }
+        }
+
     }
 
-    @OnClick(R.id.post_post_button)
+
+    @OnClick(R.id.camera)
+    public void cameraButtonOnClick() {
+        CreatePostFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(this);
+    }
+
+    @OnClick(R.id.gallery)
+    public void selectImageOnClick() {
+        CreatePostFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(this);
+    }
+
+    @OnClick({R.id.content_image, R.id.remove})
+    public void removeUploadedContent() {
+        uploadedImageUrl = null;
+        videoDownloadUrl = null;
+        videoThumbnailDownloadUrl = null;
+        removeUploadedContent.setVisibility(View.GONE);
+        uploadProgressBar.setVisibility(View.INVISIBLE);
+        cameraButton.setVisibility(View.VISIBLE);
+        galleryButton.setVisibility(View.VISIBLE);
+
+        uploadedImage.setAlpha(0.5f);
+        ImageLoader.getInstance().displayImage(defaultImageUri, uploadedImage, Utility.getDefaultImageOptions());
+    }
+
+    @OnClick(R.id.close_dialog_button)
+    public void onBackButton() {
+        // TODO Close fragment
+        getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.post)
     public void postPost() {
+        String captionContent = captionText.getText().toString();
+        String postContent = contentText.getText().toString();
+        if (TextUtils.isEmpty(captionContent)) {
+            Toast.makeText(getContext(),"Please fill in the caption in order to post this to your wall.",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(postContent)) {
+            Toast.makeText(getContext(),"Please fill in the content in order to post this to your wall.",Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (uploadProgressBar.getVisibility() == View.VISIBLE) {
             Utility.toast(getActivity(), getString(R.string.uploading));
-        } else {
-            WallPost newPost = new WallPost();
-            String captionContent = captionText.getText().toString();
-            String postContent = contentText.getText().toString();
-            if (!TextUtils.isEmpty(captionContent)) {
-                newPost.setTitle(captionContent);
-            } else {
-                // TODO - Display warning that caption is missing
-            }
-
-            if (!TextUtils.isEmpty(postContent)) {
-                newPost.setBodyText(postContent);
-            } else {
-               // TODO - Display warning that body text is missing
-            }
-
-            newPost.setType(WallBase.PostType.post);
-            newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
-            newPost.setTimestamp((double) Utility.getCurrentTime());
-
-            if (uploadedImageUrl != null) {
-                newPost.setCoverImageUrl(uploadedImageUrl);
-            } else if (videoDownloadUrl != null && videoThumbnailDownloadUrl != null) {
-                newPost.setCoverImageUrl(videoThumbnailDownloadUrl);
-                newPost.setVidUrl(videoDownloadUrl);
-            }
-            WallModel.getInstance().mbPost(newPost);
-            Utility.hideKeyboard(getActivity());
-
-            // TODO - Wait or close fragment?
+            return;
         }
+
+        WallPost newPost = new WallPost();
+        newPost.setTitle(captionContent);
+        newPost.setBodyText(postContent);
+        newPost.setType(WallBase.PostType.post);
+        newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
+        newPost.setTimestamp((double) Utility.getCurrentTime());
+
+        if (uploadedImageUrl != null) {
+            newPost.setCoverImageUrl(uploadedImageUrl);
+        } else if (videoDownloadUrl != null && videoThumbnailDownloadUrl != null) {
+            newPost.setCoverImageUrl(videoThumbnailDownloadUrl);
+            newPost.setVidUrl(videoDownloadUrl);
+        }
+        WallModel.getInstance().mbPost(newPost);
+        Utility.hideKeyboard(getActivity());
+        getActivity().onBackPressed();
     }
     
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -149,7 +196,7 @@ public class CreatePostFragment extends BaseFragment {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.choose));
         chooseDialog.setMessage(getContext().getResources().getString(R.string.chat_image_or_video));
-        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_video), new DialogInterface.OnClickListener() {
+        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.record_video), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -186,36 +233,14 @@ public class CreatePostFragment extends BaseFragment {
         chooseDialog.show();
     }
 
-    @OnClick(R.id.camera_button)
-    public void cameraButtonOnClick() {
-        CreatePostFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(this);
-    }
-
-    @OnClick(R.id.image_button)
-    public void selectImageOnClick() {
-        CreatePostFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(this);
-    }
-
-    @OnClick({R.id.uploaded_image, R.id.remove_uploaded_photo_button})
-    public void removeUploadedContent() {
-        uploadedImageUrl = null;
-        videoDownloadUrl = null;
-        videoThumbnailDownloadUrl = null;
-        uploadedImage.setVisibility(View.GONE);
-        removeUploadedContent.setVisibility(View.GONE);
-        uploadProgressBar.setVisibility(View.GONE);
-    }
-
     @Subscribe
     public void onPostCompleted(PostCompleteEvent event) {
-        creatingPostInProgress = false;
-        postButton.setVisibility(View.GONE);
+       //TODO - Close fragment?
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // TODO Uncomment on build
         CreatePostFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
@@ -224,29 +249,29 @@ public class CreatePostFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_POST_IMAGE_CAPTURE:
+                    cameraButton.setVisibility(View.GONE);
+                    galleryButton.setVisibility(View.GONE);
                     uploadProgressBar.setVisibility(View.VISIBLE);
-                    uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedContent.setVisibility(View.VISIBLE);
                     uploadImagePost(currentPath);
-                    makePostContainerVisible();
                     break;
                 case REQUEST_CODE_POST_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImagePost(realPath);
+                    cameraButton.setVisibility(View.GONE);
+                    galleryButton.setVisibility(View.GONE);
                     uploadProgressBar.setVisibility(View.VISIBLE);
-                    uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedContent.setVisibility(View.VISIBLE);
-                    makePostContainerVisible();
                     break;
                 case REQUEST_CODE_POST_VIDEO_CAPTURE:
                     Uri videoUri = intent.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), videoUri);
                     uploadVideoPost(currentPath);
+                    cameraButton.setVisibility(View.GONE);
+                    galleryButton.setVisibility(View.GONE);
                     uploadProgressBar.setVisibility(View.VISIBLE);
-                    uploadedImage.setVisibility(View.VISIBLE);
                     removeUploadedContent.setVisibility(View.VISIBLE);
-                    makePostContainerVisible();
                     break;
             }
         }
@@ -264,7 +289,8 @@ public class CreatePostFragment extends BaseFragment {
                             new SimpleImageLoadingListener() {
                                 @Override
                                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                    uploadProgressBar.setVisibility(View.GONE);
+                                    uploadProgressBar.setVisibility(View.INVISIBLE);
+                                    uploadedImage.setAlpha(1.0f);
                                 }
                             });
                 } else {
@@ -295,7 +321,8 @@ public class CreatePostFragment extends BaseFragment {
                         public void onComplete(@NonNull Task<String> task) {
                             videoDownloadUrl = task.getResult();
                             if (task.isSuccessful()) {
-                                uploadProgressBar.setVisibility(View.GONE);
+                                uploadProgressBar.setVisibility(View.INVISIBLE);
+                                uploadedImage.setAlpha(1.0f);
                             } else {
                                 Log.e(TAG, "Video can't be uploaded.");
                             }

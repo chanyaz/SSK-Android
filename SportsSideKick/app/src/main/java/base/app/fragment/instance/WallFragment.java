@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,8 +40,10 @@ import base.app.events.WallLikeUpdateEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.IgnoreBackHandling;
+import base.app.fragment.popup.CreatePostFragment;
 import base.app.fragment.popup.LoginFragment;
 import base.app.fragment.popup.SignUpFragment;
+import base.app.fragment.popup.SignUpLoginFragment;
 import base.app.model.Model;
 import base.app.model.friendship.FriendsListChangedEvent;
 import base.app.model.ticker.NewsTickerInfo;
@@ -180,7 +181,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.fab)
     public void fabOnClick() {
-        Toast.makeText(getContext(),"To be implemented",Toast.LENGTH_SHORT).show();
+        if (Model.getInstance().isRealUser()){
+            EventBus.getDefault().post(new FragmentEvent(CreatePostFragment.class));
+        } else {
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
+        }
     }
 
     @Optional
@@ -254,7 +259,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
     }
 
-    @OnClick({R.id.news_filter_toggle, R.id.user_filter_toggle, R.id.stats_filter_toggle, R.id.rumours_filter_toggle, R.id.store_filter_toggle})
     public void filterPosts() {
         adapter.replaceAll(wallItems);
         adapter.notifyDataSetChanged();
