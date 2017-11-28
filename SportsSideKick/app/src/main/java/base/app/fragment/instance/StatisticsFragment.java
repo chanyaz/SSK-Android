@@ -66,7 +66,7 @@ public class StatisticsFragment extends BaseFragment {
     @BindView(R.id.pin_button)
     ImageView pinButton;
 
-
+boolean firstLoad=true;
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,16 +80,19 @@ public class StatisticsFragment extends BaseFragment {
         webView.setVisibility(View.GONE);
         pinButton.setVisibility(View.GONE);
         String url = getResources().getString(R.string.stats_url);
-
+        firstLoad=true;
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url){
-                webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
-                webView.loadUrl("javascript:(function() { document.getElementById('shs_siteNav').remove(); })()");
-                webView.loadUrl(javascriptString);
-                webView.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
-                pinButton.setVisibility(View.VISIBLE);
+                if(firstLoad) {
+                    webView.loadUrl(javascriptString);
+                    webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
+                    webView.loadUrl("javascript:(function() { document.getElementById('shs_siteNav').remove(); })()");
+                    webView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    pinButton.setVisibility(View.VISIBLE);
+                    firstLoad=false;
+                }
             }
         });
         webView.loadUrl(url);
