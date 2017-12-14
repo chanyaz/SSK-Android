@@ -25,6 +25,7 @@
 
     <TextView
         android:id="@+id/text_content"
+        android:lineSpacingMultiplier="0.8"
         android:layout_toEndOf="@+id/strip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +35,6 @@
         android:maxLines="3"
         android:padding="@dimen/padding_12"
         android:scrollHorizontally="true"
-        android:lineSpacingMultiplier="0.92"
         android:text="@string/demo_content_lorem_long"
         android:textColor="?black"
         android:textSize="@dimen/font_size_16" />

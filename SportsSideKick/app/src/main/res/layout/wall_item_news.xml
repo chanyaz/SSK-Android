@@ -16,6 +16,7 @@
 
     <TextView
         android:id="@+id/text_content"
+        android:lineSpacingMultiplier="0.8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
