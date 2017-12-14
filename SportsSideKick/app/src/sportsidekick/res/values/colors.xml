@@ -15,13 +15,13 @@
     <color name="colorPrimarySemiDark"                      >#022b31</color>
     <color name="colorPrimarySemiDarkSemiTransparent"     >#a800363b</color>
 
-    <color name="colorPrimary"                              >#00363b</color>
+    <color name="colorPrimary"                              >#023639</color>
 
-    <color name="colorPrimarySlightlyLight"                 >#01454b</color>
-    <color name="colorPrimaryMediumLight"                   >#215456</color>
-    <color name="colorPrimarySemiLight"                     >#266263</color>
-    <color name="colorPrimaryLight"                         >#255d5e</color>
-    <color name="colorPrimaryVeryLight"                     >#00ab8d</color>
+    <color name="colorPrimarySlightlyLight"                 >#005e30</color>
+    <color name="colorPrimaryMediumLight"                   >#115e38</color>
+    <color name="colorPrimarySemiLight"                     >#1e6341</color>
+    <color name="colorPrimaryLight"                         >#2c6147</color>
+    <color name="colorPrimaryVeryLight"                     >#00A352</color>
 
     <color name="transparent"                             >#00ffffff</color>
 
