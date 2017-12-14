@@ -6,7 +6,7 @@
 
     <View
         android:id="@+id/strip"
-        android:layout_width="@dimen/width_5"
+        android:layout_width="@dimen/width_6"
         android:layout_height="@dimen/width_5"
         android:background="@color/colorAccentDark"
         android:layout_alignParentTop="true"
