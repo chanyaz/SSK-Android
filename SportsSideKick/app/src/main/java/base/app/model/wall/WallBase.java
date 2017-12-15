@@ -51,6 +51,7 @@ public abstract class WallBase implements Shareable {
         newsOfficial,
         newsUnOfficial,
         wallComment,
+        rumourShare,
         official,
         webhose,
         tip
@@ -80,6 +81,12 @@ public abstract class WallBase implements Shareable {
     String coverImageUrl;
     @JsonProperty("coverAspectRatio")
     private Float coverAspectRatio = 0.5625f;
+    @JsonProperty("referencedItemClub")
+    private String referencedItemClub = "";
+    @JsonProperty("referencedItemId")
+    private String referencedItemId = "";
+    @JsonProperty("sharedComment")
+    private String sharedComment = "";
 
     private UserInfo poster;
 
@@ -270,6 +277,30 @@ public abstract class WallBase implements Shareable {
 
     public void setCoverAspectRatio(Float coverAspectRatio) {
         this.coverAspectRatio = coverAspectRatio;
+    }
+
+    public String getReferencedItemClub() {
+        return referencedItemClub;
+    }
+
+    public void setReferencedItemClub(String referencedItemClub) {
+        this.referencedItemClub = referencedItemClub;
+    }
+
+    public String getReferencedItemId() {
+        return referencedItemId;
+    }
+
+    public void setReferencedItemId(String referencedItemId) {
+        this.referencedItemId = referencedItemId;
+    }
+
+    public String getSharedComment() {
+        return sharedComment;
+    }
+
+    public void setSharedComment(String sharedComment) {
+        this.sharedComment = sharedComment;
     }
 
     @JsonProperty("type")

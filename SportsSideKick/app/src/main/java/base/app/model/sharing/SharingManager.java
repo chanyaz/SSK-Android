@@ -81,7 +81,8 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
     // These are used to match types on Cloud Code so we can pull from the correct collection.
     public enum ItemType {
         WallPost,
-        News
+        News,
+        NewsShare
     }
 
     Shareable itemToShare;

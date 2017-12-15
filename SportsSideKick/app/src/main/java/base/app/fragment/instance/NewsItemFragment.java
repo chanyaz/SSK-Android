@@ -422,7 +422,15 @@ public class NewsItemFragment extends BaseFragment {
                     }, new View.OnClickListener() { // Confirm
                         @Override
                         public void onClick(View v) {
+                            String sharingMessage = "Test sharing comment"; // TODO: Replace with real sharing comment that user entered
+
                             WallNews itemToPost = new WallNews();
+                            if (sharingMessage.isEmpty()) {
+                            } else {
+                                itemToPost.setReferencedItemClub(Utility.getClubConfig().get("ID"));
+                                itemToPost.setReferencedItemId(item.getPostId());
+                                itemToPost.setSharedComment(sharingMessage);
+                            }
                             itemToPost.setBodyText(item.getBodyText());
                             itemToPost.setTitle(item.getTitle());
 
