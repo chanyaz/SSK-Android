@@ -112,7 +112,7 @@ public class CreatePostFragment extends BaseFragment {
                 ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),
                         authorImage, Utility.getDefaultImageOptions());
             } else {
-                Log.e(TAG,"There is no avatar for this user, resolving to default image");
+                Log.v(TAG,"There is no avatar for this user, resolving to default image");
                 authorImage.setImageResource(R.drawable.blank_profile_rounded);
             }
         }

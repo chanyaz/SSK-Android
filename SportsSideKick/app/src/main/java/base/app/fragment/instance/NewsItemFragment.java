@@ -425,25 +425,24 @@ public class NewsItemFragment extends BaseFragment {
                             String sharingMessage = "Test sharing comment"; // TODO: Replace with real sharing comment that user entered
 
                             WallNews itemToPost = new WallNews();
+                            itemToPost.setTimestamp((double) Utility.getCurrentTime());
                             if (sharingMessage.isEmpty()) {
+                                itemToPost.setTitle(item.getTitle());
+                                itemToPost.setBodyText(item.getBodyText());
+                                itemToPost.setCoverAspectRatio(0.666666f);
+                                if(item.getSource()!=null){
+                                    itemToPost.setSubTitle(item.getSource());
+                                } else {
+                                    itemToPost.setSubTitle("");
+                                }
+                                if(item.getCoverImageUrl()!=null){
+                                    itemToPost.setCoverImageUrl(item.getCoverImageUrl());
+                                }
                             } else {
+                                itemToPost.setType(WallBase.PostType.newsShare);
                                 itemToPost.setReferencedItemClub(Utility.getClubConfig().get("ID"));
                                 itemToPost.setReferencedItemId(item.getPostId());
                                 itemToPost.setSharedComment(sharingMessage);
-                            }
-                            itemToPost.setBodyText(item.getBodyText());
-                            itemToPost.setTitle(item.getTitle());
-
-                            if(item.getSource()!=null){
-                                itemToPost.setSubTitle(item.getSource());
-                            } else {
-                                itemToPost.setSubTitle("");
-                            }
-
-                            itemToPost.setTimestamp((double) Utility.getCurrentTime());
-                            itemToPost.setCoverAspectRatio(0.666666f);
-                            if(item.getCoverImageUrl()!=null){
-                                itemToPost.setCoverImageUrl(item.getCoverImageUrl());
                             }
                             WallModel.getInstance().mbPost(itemToPost);
                             getActivity().onBackPressed();

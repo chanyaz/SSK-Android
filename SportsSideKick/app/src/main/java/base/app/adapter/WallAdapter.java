@@ -88,6 +88,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.comments_count)
         TextView commentsCount;
+        @Nullable
+        @BindView(R.id.text_comment)
+        TextView textComment;
         // Ad view bindings
         @Nullable
         @BindView(R.id.wall_native_ad_media_view)
@@ -209,7 +212,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(),
                                         holder.userImage, Utility.getDefaultImageOptions());
                             } else {
-                                Log.e(TAG,"There is no avatar for this user, resolving to default image");
+                                Log.v(TAG,"There is no avatar for this user, resolving to default image");
                                 holder.userImage.setImageResource(R.drawable.blank_profile_rounded);
                             }
                         }
@@ -231,6 +234,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         } else {
             holder.likedIcon.setVisibility(View.GONE);
             holder.likesIcon.setVisibility(View.VISIBLE);
+        }
+        if (post.hasSharedComment()) {
+            holder.textComment.setText(post.getSharedComment());
         }
     }
 

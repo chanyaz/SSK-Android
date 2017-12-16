@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.greenrobot.eventbus.EventBus;
 import org.json.simple.JSONArray;
 
@@ -42,7 +41,6 @@ import base.app.model.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CLUB_ID_TAG;
-import static base.app.model.GSConstants.OPERATION_DELTE_POST;
 import static base.app.model.Model.createRequest;
 
 /**

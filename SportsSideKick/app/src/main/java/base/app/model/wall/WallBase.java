@@ -299,6 +299,10 @@ public abstract class WallBase implements Shareable {
         return sharedComment;
     }
 
+    public boolean hasSharedComment() {
+        return !sharedComment.replaceAll(" ", "").isEmpty();
+    }
+
     public void setSharedComment(String sharedComment) {
         this.sharedComment = sharedComment;
     }
