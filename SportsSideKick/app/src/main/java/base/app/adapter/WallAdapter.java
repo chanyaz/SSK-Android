@@ -131,11 +131,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             @Override
             public void onAdsLoaded() {
                 //Ads Loaded callback
-                if(manager.getUniqueNativeAdCount()>0){
+                if (manager.getUniqueNativeAdCount() > 0) {
                     currentAdInterval = ADS_INTERVAL;
                     notifyDataSetChanged();
                 }
             }
+
             @Override
             public void onAdError(AdError adError) {
                 // Ad error callback
@@ -147,10 +148,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        int viewResourceId =-1;
-        if(viewType == WALL_ADVERT_VIEW_TYPE){
+        int viewResourceId = -1;
+        if (viewType == WALL_ADVERT_VIEW_TYPE) {
             viewResourceId = R.layout.wall_native_ad;
-        }else {
+        } else {
             switch (postTypeValues[viewType]) {
                 case post:
                     viewResourceId = R.layout.wall_item_user_post;
@@ -170,7 +171,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             }
         }
         View view = null;
-        if(viewResourceId!=-1){
+        if (viewResourceId != -1) {
             view = LayoutInflater.from(parent.getContext()).inflate(viewResourceId, parent, false);
         }
         return new ViewHolder(view);
@@ -178,13 +179,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
 
-    private void displayCaption(String value,ViewHolder holder){
+    private void displayCaption(String value, ViewHolder holder) {
         if (holder.contentTextView != null) {
             holder.contentTextView.setText(value);
         }
     }
 
-    private boolean displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions options){
+    private boolean displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions options) {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
@@ -199,7 +200,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return false;
     }
 
-    private void displayUserInfo(WallBase post, final ViewHolder holder){
+    private void displayUserInfo(WallBase post, final ViewHolder holder) {
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
@@ -208,15 +209,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     UserInfo user = task.getResult();
                     if (user != null) {
                         if (holder.userImage != null) {
-                            if(user.getCircularAvatarUrl() != null ){
+                            if (user.getCircularAvatarUrl() != null) {
                                 ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(),
                                         holder.userImage, Utility.getDefaultImageOptions());
                             } else {
-                                Log.v(TAG,"There is no avatar for this user, resolving to default image");
+                                Log.v(TAG, "There is no avatar for this user, resolving to default image");
                                 holder.userImage.setImageResource(R.drawable.blank_profile_rounded);
                             }
                         }
-                        if (user.getNicName() != null && holder.author!=null) {
+                        if (user.getNicName() != null && holder.author != null) {
                             holder.author.setText(user.getFirstName() + " " + user.getLastName());
                         }
                     }
@@ -225,7 +226,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         });
     }
 
-    private void displayCommentsAndLikes(WallBase post, final ViewHolder holder){
+    private void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
         if (post.isLikedByUser()) {
@@ -240,12 +241,31 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
+    private void displayParentCaptionAndPosterPhoto(WallNewsShare newsItem, final ViewHolder holder) {
+        displayCaption(newsItem.getTitle(), holder);
+        /* TODO Show poster's photo
+        WallModel.getInstance().getPostById(
+                null,
+                newsItem.getPostId(),
+                new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                        if (!response.hasErrors()) {
+                            // Load parent post
+                            Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
+                            WallBase post = WallBase.postFactory(object, new ObjectMapper(), true);
+                        }
+                    }
+                });
+                */
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        if(isAdvert(position)){
+        if (isAdvert(position)) {
             // this is advert, show it!
             final NativeAd advert = manager.nextNativeAd();
-            if(advert!=null){
+            if (advert != null) {
                 holder.nativeAdMediaView.setNativeAd(advert);
                 holder.nativeAdBody.setText(advert.getAdTitle());
                 holder.nativeAdSocialContext.setText(advert.getAdBody());
@@ -259,25 +279,25 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         } else {
             // this is wall item
             final int index;
-            if(currentAdInterval>0){
-                index =  position - (position/currentAdInterval);
+            if (currentAdInterval > 0) {
+                index = position - (position / currentAdInterval);
             } else {
                 index = position;
             }
             switch (values.get(index).getType()) {
                 case post:
                     WallPost post = (WallPost) values.get(index);
-                    displayUserInfo(post,holder);
-                    boolean hasImage = displayPostImage(post,holder, Utility.getImageOptionsForWallItem());
-                    if(holder.contentTextView!=null){
-                        if(hasImage){
+                    displayUserInfo(post, holder);
+                    boolean hasImage = displayPostImage(post, holder, Utility.getImageOptionsForWallItem());
+                    if (holder.contentTextView != null) {
+                        if (hasImage) {
                             holder.contentTextView.setMaxLines(3);
                         } else {
                             holder.contentTextView.setMaxLines(6);
                         }
                     }
-                    displayCaption(post.getBodyText(),holder);
-                    displayCommentsAndLikes(post,holder);
+                    displayCaption(post.getBodyText(), holder);
+                    displayCommentsAndLikes(post, holder);
 
                     if (holder.playButton != null) {
                         holder.playButton.setVisibility(TextUtils.isEmpty(post.getVidUrl()) ? View.GONE : View.VISIBLE);
@@ -285,31 +305,37 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     break;
                 case newsShare:
                     WallNewsShare news = (WallNewsShare) values.get(index);
-                    displayUserInfo(news,holder);
-                    displayCaption(news.getBodyText(),holder);
-                    displayPostImage(news,holder, Utility.getImageOptionsForWallItem());
-                    displayCommentsAndLikes(news,holder);
+                    displayUserInfo(news, holder);
+                    displayCaption(news.getBodyText(), holder);
+                    displayPostImage(news, holder, Utility.getImageOptionsForWallItem());
+                    displayCommentsAndLikes(news, holder);
+                    if (!news.getReferencedItemId().isEmpty()) {
+                        displayParentCaptionAndPosterPhoto(news, holder);
+                        holder.userImage.setVisibility(View.GONE);
+                    } else {
+                        holder.userImage.setVisibility(View.VISIBLE);
+                    }
                     if (holder.playButton != null) {
                         holder.playButton.setVisibility(TextUtils.isEmpty(news.getVidUrl()) ? View.GONE : View.VISIBLE);
                     }
                     break;
                 case rumor:
-                    displayCaption(values.get(index).getTitle(),holder);
-                    displayCommentsAndLikes(values.get(index),holder);
+                    displayCaption(values.get(index).getTitle(), holder);
+                    displayCommentsAndLikes(values.get(index), holder);
                     break;
                 case wallStoreItem:
                     WallStoreItem storeItem = (WallStoreItem) values.get(index);
-                    displayUserInfo(storeItem,holder);
-                    displayCaption(storeItem.getTitle(),holder);
-                    displayPostImage(storeItem,holder, Utility.getImageOptionsForWallItem());
-                    displayCommentsAndLikes(storeItem,holder);
+                    displayUserInfo(storeItem, holder);
+                    displayCaption(storeItem.getTitle(), holder);
+                    displayPostImage(storeItem, holder, Utility.getImageOptionsForWallItem());
+                    displayCommentsAndLikes(storeItem, holder);
                     break;
                 case stats:
                     WallStats statsItem = (WallStats) values.get(index);
-                    displayUserInfo(statsItem,holder);
-                    displayCaption(statsItem.getTitle(),holder);
-                    displayPostImage(statsItem,holder, Utility.getImageOptionsForWallItem());
-                    displayCommentsAndLikes(statsItem,holder);
+                    displayUserInfo(statsItem, holder);
+                    displayCaption(statsItem.getTitle(), holder);
+                    displayPostImage(statsItem, holder, Utility.getImageOptionsForWallItem());
+                    displayCommentsAndLikes(statsItem, holder);
                     break;
                 case betting:
                     break;
@@ -317,9 +343,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
-                fe.setId(values.get(holder.getAdapterPosition()).getPostId());
-                EventBus.getDefault().post(fe);
+                    FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
+                    fe.setId(values.get(holder.getAdapterPosition()).getPostId());
+                    EventBus.getDefault().post(fe);
                 }
             });
         }
@@ -331,11 +357,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if(isAdvert(position)){
+        if (isAdvert(position)) {
             return WALL_ADVERT_VIEW_TYPE;
         } else {
             int index = position;
-            if(currentAdInterval>0) {
+            if (currentAdInterval > 0) {
                 index = position - (position / currentAdInterval);
             }
             return values.get(index).getType().ordinal();
@@ -344,8 +370,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if(currentAdInterval>0){
-            return values.size() + values.size()/currentAdInterval;
+        if (currentAdInterval > 0) {
+            return values.size() + values.size() / currentAdInterval;
         } else {
             return values.size();
         }
@@ -362,7 +388,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         public int compare(WallBase a, WallBase b) {
             Double timestampB = a.getTimestamp();
             Double timestampA = b.getTimestamp();
-            if(timestampA!=null & timestampB!=null){
+            if (timestampA != null & timestampB != null) {
                 return timestampA.compareTo(timestampB);
             } else {
                 return 0;
@@ -394,7 +420,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
         @Override
         public int compare(WallBase a, WallBase b) {
-            if(a!=null && b!=null){
+            if (a != null && b != null) {
                 return WALL_BASE_TIMESTAMP_COMPARATOR.compare(a, b);
             } else {
                 return 0;

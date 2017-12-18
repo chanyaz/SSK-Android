@@ -1,6 +1,7 @@
 package base.app.model.wall;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -327,24 +328,30 @@ public class WallModel extends GSMessageHandlerAbstract {
      * @param  wallId the wall id
      * @param  postId the post id
      */
-    public void getPostById(String wallId, String postId){
-        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-            @Override
-            public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    WallBase post = WallBase.postFactory(object, mapper, true);
-                    EventBus.getDefault().post(new GetPostByIdEvent(post));
-                } else {
-                    EventBus.getDefault().post(new GetPostByIdEvent(null));
+    public void getPostById(String wallId, String postId,
+                            @Nullable GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer){
+        if (consumer == null) {
+            consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+                @Override
+                public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                    if (!response.hasErrors()) {
+                        Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
+                        WallBase post = WallBase.postFactory(object, mapper, true);
+                        EventBus.getDefault().post(new GetPostByIdEvent(post));
+                    } else {
+                        EventBus.getDefault().post(new GetPostByIdEvent(null));
+                    }
                 }
-            }
-        };
+            };
+        }
         createRequest("wallGetPostById")
                 .setEventAttribute(GSConstants.WALL_ID,wallId)
                 .setEventAttribute(GSConstants.POST_ID,postId)
                 .send(consumer);
+    }
 
+    public void getPostById(String wallId, String postId) {
+        getPostById(wallId, postId, null);
     }
 
     public Task<Void> wallSetMuteValue(String value){
