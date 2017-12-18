@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimarySlightlyLight">
+    android:id="@+id/nextMatchOverlay"
+    tools:background="@color/colorPrimarySlightlyLight">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/tiled_background_dense" />
+        android:background="@drawable/tiled_background_dense"/>
 
     <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.4"
-        android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@drawable/video_chat_background" />
-
+        tools:src="@drawable/video_chat_background" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/container"

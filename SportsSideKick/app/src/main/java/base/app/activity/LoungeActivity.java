@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -326,8 +327,8 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
             NewsTickerInfo info = NextMatchModel.getInstance().getTickerInfo();
             // in case where there were no team images (first time initialisation)
             if(logoOfFirstTeam.getDrawable()==null){
-                ImageLoader.getInstance().displayImage(info.getFirstClubUrl(), logoOfFirstTeam, Utility.getDefaultImageOptions());
-                ImageLoader.getInstance().displayImage(info.getSecondClubUrl(), logoOfSecondTeam, Utility.getDefaultImageOptions());
+                Glide.with(this).load(info.getFirstClubUrl()).into(logoOfFirstTeam);
+                Glide.with(this).load(info.getSecondClubUrl()).into(logoOfSecondTeam);
             }
             long timestamp = Long.parseLong(info.getMatchDate());
             daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,true));

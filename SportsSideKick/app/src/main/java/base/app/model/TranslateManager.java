@@ -26,7 +26,6 @@ import static base.app.model.GSConstants.CLUB_ID_TAG;
 import static base.app.model.GSConstants.ITEM_ID;
 import static base.app.model.GSConstants.ITEM_TYPE;
 import static base.app.model.GSConstants.LANGUAGE;
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by Filip on 9/12/2017.
@@ -102,7 +101,7 @@ public class TranslateManager {
                                 }
                             }
                         } else {
-                            Log.e(TAG,"Failed to translate Wall Post!");
+                            Log.e("TAG","Failed to translate Wall Post!");
                             if(completion!=null){
                                 completion.setException(new Exception("Something went wrong with translation of News."));
                             }
@@ -144,7 +143,7 @@ public class TranslateManager {
                                 }
                             }
                         } else {
-                            Log.e(TAG,"Failed to translate Wall Post!");
+                            Log.e("TAG","Failed to translate Wall Post!");
                             if(completion!=null){
                                 completion.setException(new Exception("Something went wrong with translation of Wall Post."));
                             }
@@ -186,7 +185,7 @@ public class TranslateManager {
                                 }
                             }
                         } else {
-                            Log.e(TAG,"Failed to translate message!");
+                            Log.e("TAG","Failed to translate message!");
                             if(completion!=null){
                                 completion.setException(new Exception("Something went wrong with translation of the message."));
                             }
@@ -227,7 +226,7 @@ public class TranslateManager {
                                 }
                             }
                         } else {
-                            Log.e(TAG, "Failed to translate message!");
+                            Log.e("TAG", "Failed to translate message!");
                             if (completion != null) {
                                 completion.setException(new Exception("Something went wrong with translation of Comment."));
                             }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -65,9 +66,9 @@ public class RumoursFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         if(Utility.isPhone(getContext())){
-            topImage.setImageResource(R.drawable.image_rumours_background);
+            Glide.with(getContext()).load(R.drawable.image_rumours_background).into(topImage);
         } else {
-            topImage.setImageResource(R.drawable.image_rumours_background_tablet);
+            Glide.with(getContext()).load(R.drawable.image_rumours_background_tablet).into(topImage);
         }
         topCaption.setText(R.string.rumours_caption);
 

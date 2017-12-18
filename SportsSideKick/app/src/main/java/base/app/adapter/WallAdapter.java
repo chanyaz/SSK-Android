@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.MediaView;
@@ -189,7 +190,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
-                ImageLoader.getInstance().displayImage(post.getCoverImageUrl(), holder.imageView, options);
+                Glide.with(holder.imageView.getContext())
+                        .load(post.getCoverImageUrl())
+                        .into(holder.imageView);
+
                 holder.imageView.setVisibility(View.VISIBLE);
                 return true;
             } else {

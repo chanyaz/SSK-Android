@@ -8,13 +8,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.bumptech.glide.Glide;
 
 import base.app.R;
 import base.app.model.ticker.NewsTickerInfo;
 import base.app.model.ticker.NextMatchModel;
 import base.app.util.NextMatchCountdown;
-import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -74,8 +73,8 @@ public class NextMatchView extends RelativeLayout {
         if(info!=null && NextMatchModel.getInstance().isNextMatchUpcoming()){
             updateCountdownTimer();
             if(logoOfFirstTeam.getDrawable()==null){
-                ImageLoader.getInstance().displayImage(info.getFirstClubUrl(), logoOfFirstTeam, Utility.getDefaultImageOptions());
-                ImageLoader.getInstance().displayImage(info.getSecondClubUrl(), logoOfSecondTeam, Utility.getDefaultImageOptions());
+                Glide.with(this).load(info.getFirstClubUrl()).into(logoOfFirstTeam);
+                Glide.with(this).load(info.getSecondClubUrl()).into(logoOfSecondTeam);
             }
             timestamp = Long.parseLong(info.getMatchDate());
             nameOfFirstTeam.setText(info.getFirstClubName());

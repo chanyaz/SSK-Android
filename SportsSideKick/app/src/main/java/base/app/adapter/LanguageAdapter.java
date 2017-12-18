@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +30,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     private String currentLanguage;
     private String[] values;
     private LanguageOnClick languageOnClick;
+    private Context mContext;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
@@ -47,6 +50,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     }
 
     public LanguageAdapter(Context context, LanguageOnClick languageOnClick) {
+        mContext = context;
         if (context != null) {
             values = context.getResources().getStringArray(R.array.language_names);
             currentLanguage = context.getString(R.string.this_language);
@@ -75,7 +79,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         String itemLanguage = values[position];
-        holder.icon.setImageResource(languageIcons.get(position));
+        Glide.with(mContext).load(languageIcons.get(position)).into(holder.icon);
         holder.caption.setText(itemLanguage);
         if (itemLanguage.equals(currentLanguage)) {
             holder.background.setVisibility(View.VISIBLE);

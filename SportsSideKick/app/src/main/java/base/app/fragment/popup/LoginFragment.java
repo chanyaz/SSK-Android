@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -191,7 +192,9 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
                             forgotButton.setVisibility(View.VISIBLE);
                         }
                         if (imagePlayer != null) {
-                            imagePlayer.setImageResource(R.drawable.video_chat_background);
+                            Glide.with(getContext())
+                                    .load(R.drawable.video_chat_background)
+                                    .into(imagePlayer);
                         }
                     }
                 }

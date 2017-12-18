@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,6 +32,10 @@ public class SplashActivity extends AppCompatActivity {
 
     @BindView(R.id.waiting_connection)
     View waitingConnection;
+    @BindView(R.id.background)
+    ImageView background;
+    @BindView(R.id.nextMatchOverlay)
+    View nextMatchOverlay;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -56,7 +62,7 @@ public class SplashActivity extends AppCompatActivity {
         if (Utility.isPhone(this)) {
             Utility.setSystemBarColor(this);
         }
-
+        Glide.with(this).load(R.drawable.video_chat_background).into(background);
     }
 
     @Subscribe
@@ -95,9 +101,10 @@ public class SplashActivity extends AppCompatActivity {
             main.setData(data);
         }
 
-
         // start activity
         startActivity(main);
         finish();
+
+        nextMatchOverlay.setVisibility(View.GONE);
     }
 }

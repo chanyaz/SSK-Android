@@ -215,6 +215,9 @@
 
     </style>
 
+    <style name="AppTheme.Splash" parent="AppTheme">
+        <item name="android:windowBackground">@color/colorPrimarySlightlyLight</item>
+    </style>
 
     <style name="fontTitilliumWebLight">
         <item name="fontPath">fonts/TitilliumWeb-Light.ttf</item>
