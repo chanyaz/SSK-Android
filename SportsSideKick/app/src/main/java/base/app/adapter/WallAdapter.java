@@ -22,7 +22,6 @@ import com.facebook.ads.NativeAdsManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -190,11 +189,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
+                int width = holder.imageView.getLayoutParams().width;
+                int height = (int) (width / post.getCoverAspectRatio());
+
+                holder.imageView.setVisibility(View.VISIBLE);
+                holder.imageView.getLayoutParams().height = height;
+
                 Glide.with(holder.imageView.getContext())
                         .load(post.getCoverImageUrl())
                         .into(holder.imageView);
-
-                holder.imageView.setVisibility(View.VISIBLE);
                 return true;
             } else {
                 holder.imageView.setVisibility(View.GONE);
@@ -214,8 +217,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     if (user != null) {
                         if (holder.userImage != null) {
                             if (user.getCircularAvatarUrl() != null) {
-                                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(),
-                                        holder.userImage, Utility.getDefaultImageOptions());
+                                Glide.with(context)
+                                        .load(user.getCircularAvatarUrl())
+                                        .into(holder.userImage);
                             } else {
                                 Log.v(TAG, "There is no avatar for this user, resolving to default image");
                                 holder.userImage.setImageResource(R.drawable.blank_profile_rounded);

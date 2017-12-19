@@ -3,8 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-
         <!--System Colors-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -216,7 +214,8 @@
     </style>
 
     <style name="AppTheme.Splash" parent="AppTheme">
-        <item name="android:windowBackground">@color/colorPrimarySlightlyLight</item>
+        <item name="android:windowBackground">@color/colorPrimarySemiDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimarySemiDark</item>
     </style>
 
     <style name="fontTitilliumWebLight">
@@ -234,12 +233,6 @@
     <!-- Alert dialog style -->
     <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColor">@color/colorPrimaryVeryDark</item>
-    </style>
-
-    <!-- This will set the fade in animation on all your activities by default -->
-    <style name="WindowAnimationTransition">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <style name="button_login_main">

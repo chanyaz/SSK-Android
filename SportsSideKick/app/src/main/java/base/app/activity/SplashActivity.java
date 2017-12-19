@@ -15,6 +15,8 @@ import com.pixplicity.easyprefs.library.Prefs;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Locale;
+
 import base.app.Connection;
 import base.app.R;
 import base.app.model.Model;
@@ -22,6 +24,8 @@ import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static base.app.util.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Djordje Krutil on 5.12.2016.
@@ -39,7 +43,10 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        String language = Prefs.getString(CHOSEN_LANGUAGE,"en");
+        Locale newLocale = new Locale(language);
+        Context context = ContextWrapper.wrap(newBase, newLocale);
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 
     @Override
@@ -101,7 +108,6 @@ public class SplashActivity extends AppCompatActivity {
             main.setData(data);
         }
 
-        // start activity
         startActivity(main);
         finish();
 
