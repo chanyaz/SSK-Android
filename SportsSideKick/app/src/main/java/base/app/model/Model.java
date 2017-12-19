@@ -240,6 +240,8 @@ public class Model {
                         setUser(response);
                         String dn = response.getDisplayName();
                         setLoggedInUserType(dn != null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
+                    } else {
+                        setLoggedInUserType(REAL);
                     }
                 }
             }

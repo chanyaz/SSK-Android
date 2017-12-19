@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.MediaView;
@@ -39,6 +40,7 @@ import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStats;
 import base.app.model.wall.WallStoreItem;
 import base.app.util.Utility;
+import base.app.util.ui.PositionedCropTransformation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -185,7 +187,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    private boolean displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions options) {
+    private boolean displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions _) {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
@@ -195,8 +197,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 holder.imageView.setVisibility(View.VISIBLE);
                 holder.imageView.getLayoutParams().height = height;
 
+                RequestOptions options = new RequestOptions()
+                        .transform(new PositionedCropTransformation(context, 0.5f, 0f));
                 Glide.with(holder.imageView.getContext())
                         .load(post.getCoverImageUrl())
+                        .apply(options)
                         .into(holder.imageView);
                 return true;
             } else {

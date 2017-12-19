@@ -161,7 +161,6 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
         });
         setNumberOfNotification("4");
         setupFragments();
-
     }
 
     private void toggleBlur(boolean visible) {
