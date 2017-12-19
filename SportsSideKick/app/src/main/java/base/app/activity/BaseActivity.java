@@ -3,6 +3,7 @@ package base.app.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.LayoutRes;
@@ -12,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
@@ -100,7 +103,7 @@ public class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base); // TODO @Aleksandar - Do we need this layout at all?
+
         callbackManager = CallbackManager.Factory.create();
         Model.getInstance().initialize(this);
         VideoChatModel.getInstance();
@@ -112,6 +115,14 @@ public class BaseActivity extends AppCompatActivity  {
         notificationContainer= findViewById(R.id.left_notification_container);
         PurchaseModel.getInstance().onCreate(this);
 
+        makeStatusBarTransparent();
+    }
+
+    private void makeStatusBarTransparent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow(); // in Activity's onCreate() for instance
+            window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
     }
 
     protected Bundle savedIntentData = null;

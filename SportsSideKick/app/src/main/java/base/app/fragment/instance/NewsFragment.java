@@ -76,11 +76,11 @@ public class NewsFragment extends BaseFragment {
 
         recyclerView.setAdapter(adapter);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setNestedScrollingEnabled(false);
         int space = (int) getResources().getDimension(R.dimen.padding_12);
-        recyclerView.addItemDecoration(new GridItemDecoration(space,2));
+        recyclerView.addItemDecoration(new GridItemDecoration(space,1));
 
         List<WallNews> existingItems = NewsModel.getInstance().getAllCachedItems(type);
         if (existingItems!=null && existingItems.size() > 0)

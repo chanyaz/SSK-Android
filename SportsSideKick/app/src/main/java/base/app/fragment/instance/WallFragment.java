@@ -82,6 +82,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @BindView(R.id.wall_top_image_container)
     RelativeLayout nextMatchContainer;
     @Nullable
+    @BindView(R.id.wall_top_image)
+    ImageView wallTopImage;
+    @Nullable
     @BindView(R.id.wall_team_left_name)
     TextView wallLeftTeamName;
     @Nullable
@@ -154,6 +157,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (wallItems.size() > 0) {
             progressBar.setVisibility(View.GONE);
         }
+        // TODO: Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
         return view;
     }
 

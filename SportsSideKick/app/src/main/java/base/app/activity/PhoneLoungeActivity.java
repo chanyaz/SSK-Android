@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -103,6 +104,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     View fragmentHolder;
     @BindView(R.id.bottom_menu_recycler_view)
     NoScrollRecycler sideMenuRecycler;
+    @BindView(R.id.logo)
+    ImageView logoImageView;
 
 
     @BindView(R.id.fragment_popup_holder)
@@ -179,6 +182,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         setToolbar();
         updateTopBar();
         Utility.setSystemBarColor(this);
+
+        Glide.with(this).load(R.drawable.sportingportugal).into(logoImageView);
     }
 
     public void updateTopBar() {
