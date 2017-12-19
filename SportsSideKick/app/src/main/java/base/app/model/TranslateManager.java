@@ -79,7 +79,7 @@ public class TranslateManager {
      */
     public void translateNews(String itemId, String language, final TaskCompletionSource<WallNews> completion){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("translateComment")
+                .setEventKey("translateNewsItem")
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, NEWS)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
@@ -120,7 +120,7 @@ public class TranslateManager {
      */
     public void translatePost(String itemId, String language, final TaskCompletionSource<WallBase> completion, final WallBase.PostType postType){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("translateComment")
+                .setEventKey("translateWallPost")
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, WALL_POST)
                 .setEventAttribute(LANGUAGE, language)
