@@ -347,7 +347,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         }
     }
 
-    private void toggleBlur(boolean visible, final View fragmentView) {
+    public void toggleBlur(boolean visible, final View fragmentView) {
         if (visible) {
             blurredBackground.setVisibility(View.VISIBLE);
             if (rootView.getWidth() > 0) {
@@ -376,11 +376,23 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     @Override
     public void onBackPressed() {
-        toggleBlur(false, null); // hide blurred view;
-        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-        Fragment currentFragment = fragmentOrganizer.getCurrentFragment();
         Class<? extends Fragment> previousFragment = fragmentOrganizer.getPreviousFragment().getClass();
         Class<? extends Fragment> penultimateFragment = fragmentOrganizer.getPenultimateFragment().getClass();
+        Fragment currentFragment = fragmentOrganizer.getCurrentFragment();
+
+        if (currentFragment.getClass() == NewsItemFragment.class) {
+            if (previousFragment == ClubRadioFragment.class) {
+                Fragment fragment = fragmentOrganizer.getCurrentFragment();
+                View overlay = fragment.getView().findViewById(R.id.commentInputOverlay);
+                if (overlay.getVisibility() == View.VISIBLE) {
+                    overlay.setVisibility(View.GONE);
+                    return;
+                }
+            }
+        }
+
+        toggleBlur(false, null); // hide blurred view;
+        SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
 
         if(currentFragment instanceof MemberInfoFragment){
             Class initiator = ((BaseFragment)currentFragment).getInitiator();

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/top_buttons_container"
@@ -42,7 +43,6 @@
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
         </RelativeLayout>
     </RelativeLayout>
-
 
     <Button
         android:id="@+id/share_news_to_wall_button"
@@ -424,56 +424,7 @@
         </android.support.v4.widget.NestedScrollView>
     </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
-    <RelativeLayout
-        android:id="@+id/post_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorGrayLight">
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/post_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_5"
-            android:layout_marginEnd="@dimen/margin_15"
-            android:textSize="@dimen/font_size_12"
-            android:layout_marginStart="@dimen/margin_15"
-            android:layout_marginTop="@dimen/margin_5"
-            android:hint="@string/enter_comment_hint"
-            android:textColor="@color/black"
-            android:textColorHint="@color/colorGrayDark"
-            app:backgroundTint="@color/colorGrayLight" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/post_comment_button"
-            android:layout_width="@dimen/width_25"
-            android:layout_height="@dimen/width_25"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_5"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_5"
-            android:adjustViewBounds="true"
-            android:src="@drawable/btn_send"
-            android:tint="@color/black"
-            android:visibility="gone" />
-
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/post_comment_progress_bar"
-            android:layout_width="@dimen/width_25"
-            android:layout_height="@dimen/width_25"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/margin_5"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_5"
-            android:adjustViewBounds="true"
-            app:indicatorColor="@color/colorPrimary"
-            app:indicatorName="LineSpinFadeLoaderIndicator"
-            android:visibility="gone" />
-    </RelativeLayout>
+    <include layout="@layout/include_input_field"/>
 
     <Button
         android:id="@+id/close_button"
@@ -490,4 +441,30 @@
         android:layout_alignBottom="@+id/post_container"
         android:layout_alignParentStart="true"
         android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/commentInputOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <View
+            android:id="@+id/blurredContainer"
+            android:layout_width="match_parent"
+            android:background="#83000000"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
+
+            <include layout="@layout/include_input_field"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 </RelativeLayout>

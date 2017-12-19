@@ -79,7 +79,7 @@ public class TranslateManager {
      */
     public void translateNews(String itemId, String language, final TaskCompletionSource<WallNews> completion){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("translateContent")
+                .setEventKey("translateComment")
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, NEWS)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
@@ -120,7 +120,7 @@ public class TranslateManager {
      */
     public void translatePost(String itemId, String language, final TaskCompletionSource<WallBase> completion, final WallBase.PostType postType){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("translateContent")
+                .setEventKey("translateComment")
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, WALL_POST)
                 .setEventAttribute(LANGUAGE, language)
@@ -161,7 +161,7 @@ public class TranslateManager {
      */
     public void translateMessage(String itemId, String language , final TaskCompletionSource<ImsMessage> completion){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("translateContent")
+                .setEventKey("translateComment")
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, IMS)
                 .setEventAttribute(ITEM_TYPE, IMS)
@@ -204,7 +204,7 @@ public class TranslateManager {
      */
     public void translatePostComment(String itemId, String language , final TaskCompletionSource<PostComment> completion){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("translateContent")
+                .setEventKey("translateComment")
                 .setEventAttribute(ITEM_ID, itemId)
                 .setEventAttribute(ITEM_TYPE, WALL_COMMENT)
                 .setEventAttribute(LANGUAGE, language)

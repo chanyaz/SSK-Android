@@ -152,7 +152,6 @@
             android:layout_alignParentTop="true"
             android:background="@color/transparent" />
 
-
         <RelativeLayout
             android:id="@+id/fragment_dialog"
             android:layout_width="match_parent"

@@ -38,13 +38,13 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
+import base.app.activity.PhoneLoungeActivity;
 import base.app.adapter.CommentsAdapter;
 import base.app.events.CommentDeleteEvent;
 import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.PostCommentCompleteEvent;
 import base.app.events.PostUpdateEvent;
 import base.app.fragment.BaseFragment;
-import base.app.model.AlertDialogManager;
 import base.app.model.Model;
 import base.app.model.news.NewsModel;
 import base.app.model.sharing.SharingManager;
@@ -125,6 +125,12 @@ public class NewsItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
+    @Nullable
+    @BindView(R.id.commentInputOverlay)
+    View commentInputOverlay;
+    @Nullable
+    @BindView(R.id.blurredContainer)
+    View blurredContainer;
 
     CommentsAdapter commentsAdapter;
     WallNews item;
@@ -413,7 +419,13 @@ public class NewsItemFragment extends BaseFragment {
     @OnClick(R.id.pin_container)
     public void pinToWall() {
         if(Model.getInstance().isRealUser()){
-            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
+            commentInputOverlay.setVisibility(View.VISIBLE);
+            PhoneLoungeActivity activity = (PhoneLoungeActivity) getActivity();
+            // TODO: activity.toggleBlur(true, blurredContainer);
+            post.requestFocus();
+
+
+            /*AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
                     new View.OnClickListener() {// Cancel
                         @Override
                         public void onClick(View v) {
@@ -447,7 +459,7 @@ public class NewsItemFragment extends BaseFragment {
                             WallModel.getInstance().mbPost(itemToPost);
                             getActivity().onBackPressed();
                         }
-                    });
+                    });*/
         }else {
             //TODO notify user
         }
