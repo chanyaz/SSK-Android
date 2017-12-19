@@ -59,7 +59,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     private Context context;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
         // Content view bindings
         @Nullable
@@ -181,13 +181,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
 
-    private void displayCaption(String value, ViewHolder holder) {
+    static void displayCaption(String value, ViewHolder holder) {
         if (holder.contentTextView != null) {
             holder.contentTextView.setText(value);
         }
     }
 
-    private boolean displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions _) {
+    static boolean displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions _) {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
@@ -198,7 +198,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 holder.imageView.getLayoutParams().height = height;
 
                 RequestOptions options = new RequestOptions()
-                        .transform(new PositionedCropTransformation(context, 0.5f, 0f));
+                        .transform(new PositionedCropTransformation(
+                                holder.view.getContext(), 0.5f, 0f));
                 Glide.with(holder.imageView.getContext())
                         .load(post.getCoverImageUrl())
                         .apply(options)
@@ -212,7 +213,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return false;
     }
 
-    private void displayUserInfo(WallBase post, final ViewHolder holder) {
+    static void displayUserInfo(WallBase post, final ViewHolder holder) {
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
@@ -222,7 +223,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     if (user != null) {
                         if (holder.userImage != null) {
                             if (user.getCircularAvatarUrl() != null) {
-                                Glide.with(context)
+                                Glide.with(holder.view)
                                         .load(user.getCircularAvatarUrl())
                                         .into(holder.userImage);
                             } else {
@@ -239,7 +240,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         });
     }
 
-    private void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
+    static void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
         if (post.isLikedByUser()) {

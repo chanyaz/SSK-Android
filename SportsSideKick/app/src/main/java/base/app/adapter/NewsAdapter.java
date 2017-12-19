@@ -1,15 +1,9 @@
 package base.app.adapter;
 
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,8 +15,12 @@ import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.NewsItemFragment;
 import base.app.model.wall.WallNews;
 import base.app.util.Utility;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
+import static base.app.adapter.WallAdapter.ViewHolder;
+import static base.app.adapter.WallAdapter.displayCaption;
+import static base.app.adapter.WallAdapter.displayCommentsAndLikes;
+import static base.app.adapter.WallAdapter.displayPostImage;
+import static base.app.adapter.WallAdapter.displayUserInfo;
 
 /**
  * Created by Djordje on 12/29/2016.
@@ -31,7 +29,7 @@ import butterknife.ButterKnife;
  */
 
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     private static final int VIEW_TYPE_CELL = 2;
     private static final String TAG = "News Adapter";
 
@@ -39,25 +37,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     public List<WallNews> getValues() {
         return values;
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public View view;
-        @Nullable
-        @BindView(R.id.image)
-        ImageView image;
-        @Nullable
-        @BindView(R.id.caption)
-        TextView caption;
-        @Nullable
-        @BindView(R.id.news_date)
-        TextView date;
-
-        ViewHolder(View v) {
-            super(v);
-            view = v;
-            ButterKnife.bind(this, view);
-        }
     }
 
     public NewsAdapter() {
@@ -70,26 +49,26 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     @Override
-    public NewsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        ViewHolder viewHolder;
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list_item, parent, false);
-        viewHolder = new ViewHolder(view);
+    public WallAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        WallAdapter.ViewHolder viewHolder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wall_item_news, parent, false);
+        viewHolder = new WallAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final WallNews info = values.get(position);
-        Glide.with(holder.view).load(info.getCoverImageUrl()).into(holder.image);
-        holder.caption.setText(info.getTitle());
-        holder.date.setText("" + DateUtils.getRelativeTimeSpanString(info.getTimestamp().longValue(),
-                Utility.getCurrentTime(), DateUtils.HOUR_IN_MILLIS)); // TODO USE PLACEHOLDER!!!
+        final WallNews news = values.get(position);
+        displayUserInfo(news, holder);
+        displayCaption(news.getBodyText(), holder);
+        displayPostImage(news, holder, Utility.getImageOptionsForWallItem());
+        displayCommentsAndLikes(news, holder);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                fe.setId(info.getPostId());
+                fe.setId(news.getPostId());
                 EventBus.getDefault().post(fe);
             }
         });

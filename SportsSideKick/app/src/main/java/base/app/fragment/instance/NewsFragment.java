@@ -25,7 +25,6 @@ import base.app.model.news.NewsModel;
 import base.app.model.news.NewsPageEvent;
 import base.app.model.wall.WallNews;
 import base.app.util.Utility;
-import base.app.util.ui.GridItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -80,7 +79,6 @@ public class NewsFragment extends BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setNestedScrollingEnabled(false);
         int space = (int) getResources().getDimension(R.dimen.padding_12);
-        recyclerView.addItemDecoration(new GridItemDecoration(space,1));
 
         List<WallNews> existingItems = NewsModel.getInstance().getAllCachedItems(type);
         if (existingItems!=null && existingItems.size() > 0)
