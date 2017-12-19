@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -67,6 +68,8 @@ public class NewsFragment extends BaseFragment {
         if(Utility.isTablet(getContext())){
             topImage.setVisibility(View.GONE);
             topCaption.setVisibility(View.GONE);
+        } else {
+            Glide.with(getActivity()).load(R.drawable.image_wall_background).load(topImage);
         }
 
         adapter = new NewsAdapter();

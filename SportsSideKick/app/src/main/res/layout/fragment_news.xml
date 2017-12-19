@@ -1,10 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryMediumLight"
-    tools:context="base.app.fragment.instance.WallFragment">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="base.app.fragment.instance.WallFragment">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
@@ -12,7 +11,7 @@
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
         android:elevation="@dimen/elevation_2"
-        app:indicatorName="LineSpinFadeLoaderIndicator" />
+        app:indicatorName="LineSpinFadeLoaderIndicator"/>
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -27,37 +26,42 @@
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/top_image"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/image_news_background"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter" />
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/top_caption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignBottom="@+id/top_image"
-                    android:gravity="center"
-                    android:text="@string/news"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textAllCaps="true"
-                    android:textSize="@dimen/font_size_36"
-                    android:shadowColor="@color/black_transparent_154"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2"
-                    style="@style/semiBoldText"
-                />
+                    <ImageView
+                        android:id="@+id/top_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        tools:src="@drawable/image_wall_background"/>
+
+                    <TextView
+                        android:id="@+id/top_caption"
+                        style="@style/semiBoldText"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:shadowColor="@color/black_transparent_154"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="2"
+                        android:text="@string/news"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_36"
+                        />
+
+                </FrameLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/news_recycler_view"
@@ -67,7 +71,7 @@
                     android:layout_marginTop="?newsRecyclerListPhoneTopMargin"
                     />
 
-            </RelativeLayout>
+            </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 </RelativeLayout>

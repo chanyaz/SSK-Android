@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -85,7 +85,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         final WallNews info = values.get(position);
         if (info.getCoverImageUrl() != null)
         {
-            ImageLoader.getInstance().displayImage(info.getCoverImageUrl(), holder.image, imageOptions);
+            Glide.with(holder.view).load(info.getCoverImageUrl()).into(holder.image);
         }
         holder.caption.setText(info.getTitle());
         holder.date.setText("" + DateUtils.getRelativeTimeSpanString(info.getTimestamp().longValue(),

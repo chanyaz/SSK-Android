@@ -10,6 +10,7 @@
         <item name="colorControlActivated">@color/colorAccentSemiDark</item>
         <item name="colorControlHighlight">@color/colorAccentSemiDark</item>
         <item name="colorPrimarySemiLight">@color/colorPrimarySemiLight</item>
+        <item name="android:windowBackground">@color/colorPrimaryMediumLight</item>
 
         <item name="black">@color/black</item>
         <item name="white">@color/white</item>
@@ -178,7 +179,7 @@
         <item name="friendItemTextColor">@color/white</item>
 
         <item name="phoneLoungeTeamCaptionColor">@color/white</item>
-        <item name="phoneLoungeTickerColor">@color/white</item>
+        <item name="phoneLoungeTickerColor">@color/phoneLoungeTickerColor</item>
 
         <item name="phoneLoungeIconsColor">@color/white</item>
         <item name="phoneLoungeIconsColorSelected">@color/black</item>
