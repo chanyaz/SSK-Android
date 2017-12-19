@@ -85,7 +85,7 @@
                 android:layout_width="@dimen/width_20"
                 android:layout_height="@dimen/height_20"
                 android:layout_marginEnd="@dimen/margin_2"
-                android:background="@drawable/ic_comment"
+                android:background="@drawable/ic_comments_count"
                 app:backgroundTint="?colorGray" />
 
             <TextView
