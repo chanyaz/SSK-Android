@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:alpha="0.4"
         android:scaleType="centerCrop"
-        tools:src="@drawable/video_chat_background" />
+        android:src="@drawable/video_chat_background" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/container"
