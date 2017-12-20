@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:background="@color/white">
 
     <RelativeLayout
@@ -30,7 +30,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/back"
                 android:textColor="?white"
-                android:textSize="@dimen/font_size_18" />
+                android:textSize="@dimen/font_size_18"/>
 
             <ImageButton
                 android:id="@+id/close_dialog_button"
@@ -40,7 +40,7 @@
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
         </RelativeLayout>
     </RelativeLayout>
 
@@ -51,7 +51,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:background="@drawable/share_to_wall"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -89,13 +89,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
-                            android:scaleType="fitXY" />
+                            android:scaleType="fitXY"/>
 
                         <VideoView
                             android:id="@+id/content_video"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/height_500"
-                            android:visibility="gone" />
+                            android:visibility="gone"/>
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -127,7 +127,7 @@
                                 android:layout_height="@dimen/height_26"
                                 android:layout_marginEnd="@dimen/margin_5"
                                 android:background="@drawable/ic_like"
-                                app:backgroundTint="@color/white" />
+                                app:backgroundTint="@color/white"/>
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/likes_icon_liked"
@@ -135,14 +135,14 @@
                                 android:layout_height="@dimen/height_26"
                                 android:layout_marginEnd="@dimen/margin_5"
                                 android:background="@drawable/ic_liked"
-                                app:backgroundTint="@color/colorAccent"
-                                android:visibility="gone" />
+                                android:visibility="gone"
+                                app:backgroundTint="@color/colorAccent"/>
 
                             <TextView
                                 android:id="@+id/likes_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"/>
 
                         </LinearLayout>
 
@@ -160,14 +160,13 @@
                                 android:layout_height="@dimen/height_26"
                                 android:layout_marginEnd="@dimen/margin_5"
                                 android:background="@drawable/ic_share"
-                                app:backgroundTint="@color/white" />
-
+                                app:backgroundTint="@color/white"/>
 
                             <TextView
                                 android:id="@+id/share_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -184,12 +183,13 @@
                                 android:layout_height="@dimen/height_26"
                                 android:layout_marginEnd="@dimen/margin_5"
                                 android:background="@drawable/ic_comment"
-                                app:backgroundTint="@color/white" />
+                                app:backgroundTint="@color/white"/>
+
                             <TextView
                                 android:id="@+id/comments_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -206,15 +206,14 @@
                                 android:layout_height="@dimen/height_26"
                                 android:layout_marginEnd="@dimen/margin_5"
                                 android:background="@drawable/ic_pin"
-                                app:backgroundTint="@color/white" />
-
+                                app:backgroundTint="@color/white"/>
 
                             <TextView
                                 android:id="@+id/pin_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/pin_count_placeholder"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -222,48 +221,48 @@
 
                 <TextView
                     android:id="@+id/source"
-                    android:layout_below="@id/social_buttons_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/social_buttons_container"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_10"
                     android:ellipsize="end"
                     android:text="The world game"
                     android:textColor="@color/colorGray"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_12"/>
 
                 <TextView
                     android:id="@+id/time_separator"
-                    android:layout_below="@id/social_buttons_container"
-                    android:layout_toEndOf="@+id/source"
-                    android:layout_marginStart="@dimen/margin_5"
-                    android:layout_marginEnd="@dimen/margin_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/social_buttons_container"
+                    android:layout_marginEnd="@dimen/margin_5"
+                    android:layout_marginStart="@dimen/margin_5"
                     android:layout_marginTop="@dimen/margin_10"
+                    android:layout_toEndOf="@+id/source"
                     android:ellipsize="end"
                     android:text="-"
                     android:textColor="@color/colorGray"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_12"/>
 
                 <TextView
                     android:id="@+id/time"
-                    android:layout_below="@id/social_buttons_container"
-                    android:layout_toEndOf="@+id/time_separator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/social_buttons_container"
                     android:layout_marginEnd="@dimen/margin_5"
                     android:layout_marginTop="@dimen/margin_10"
+                    android:layout_toEndOf="@+id/time_separator"
                     android:ellipsize="end"
                     android:text="Just now"
                     android:textColor="@color/colorGray"
-                    android:textSize="@dimen/font_size_12" />
+                    android:textSize="@dimen/font_size_12"/>
 
                 <TextView
                     android:id="@+id/title"
-                    android:layout_below="@id/source"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/source"
                     android:layout_marginEnd="@dimen/margin_5"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_5"
@@ -271,21 +270,21 @@
                     android:text="@string/demo_content_lorem_medium"
                     android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="@dimen/font_size_18"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/content_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/title"
-                    android:layout_marginTop="@dimen/margin_5"
-                    android:layout_marginStart="@dimen/margin_15"
-                    android:layout_marginEnd="@dimen/margin_15"
                     android:layout_marginBottom="@dimen/margin_5"
-                    android:text="@string/demo_content_lorem_long"
+                    android:layout_marginEnd="@dimen/margin_15"
+                    android:layout_marginStart="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_5"
                     android:animateLayoutChanges="true"
                     android:maxLines="3"
-                    android:textColor="@color/black" />
+                    android:text="@string/demo_content_lorem_long"
+                    android:textColor="@color/black"/>
 
                 <RelativeLayout
                     android:id="@+id/read_more_holder"
@@ -302,12 +301,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:padding="@dimen/padding_5"
                         android:layout_centerVertical="true"
+                        android:padding="@dimen/padding_5"
                         android:paddingStart="@dimen/padding_16"
                         android:text="Translate post >"
                         android:textColor="@color/colorPrimaryVeryLight"
-                        android:textSize="@dimen/font_size_10" />
+                        android:textSize="@dimen/font_size_10"/>
 
                     <TextView
                         android:id="@+id/read_more_text"
@@ -319,7 +318,7 @@
                         android:paddingStart="@dimen/padding_10"
                         android:text="@string/read_more_closed"
                         android:textColor="@color/colorPrimaryVeryLight"
-                        android:textSize="@dimen/font_size_10" />
+                        android:textSize="@dimen/font_size_10"/>
 
                     <TextView
                         android:id="@+id/delete"
@@ -331,17 +330,17 @@
                         android:text="@string/delete"
                         android:textColor="@color/colorPrimaryVeryLight"
                         android:textSize="@dimen/font_size_10"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
                 <View
                     android:id="@+id/bottom_horizontal_split_line"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginStart="@dimen/padding_10"
-                    android:layout_marginEnd="@dimen/padding_10"
                     android:layout_below="@+id/read_more_holder"
-                    android:background="@color/colorPrimaryVeryLight" />
+                    android:layout_marginEnd="@dimen/padding_10"
+                    android:layout_marginStart="@dimen/padding_10"
+                    android:background="@color/colorPrimaryVeryLight"/>
 
                 <LinearLayout
                     android:id="@+id/tutorial_container"
@@ -360,12 +359,12 @@
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="?colorAccent"
-                        android:textSize="@dimen/font_size_18" />
+                        android:textSize="@dimen/font_size_18"/>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_1"
-                        android:background="@color/colorPrimary" />
+                        android:background="@color/colorPrimary"/>
 
                     <TextView
                         android:id="@+id/tutorial_description"
@@ -373,7 +372,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_15"
                         android:textAlignment="center"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"/>
 
                 </LinearLayout>
 
@@ -382,8 +381,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tutorial_container"
-                    android:layout_marginTop="@dimen/margin_20" />
-
+                    android:layout_marginTop="@dimen/margin_20"/>
 
                 <RelativeLayout
                     android:id="@+id/share_buttons_container"
@@ -407,7 +405,7 @@
                         android:layout_marginEnd="@dimen/margin_30"
                         android:layout_marginStart="@dimen/margin_30"
                         android:layout_marginTop="@dimen/margin_10"
-                        android:src="@drawable/ic_share_facebook" />
+                        android:src="@drawable/ic_share_facebook"/>
 
                     <ImageView
                         android:id="@+id/share_twitter"
@@ -417,7 +415,7 @@
                         android:layout_marginEnd="@dimen/margin_10"
                         android:layout_marginTop="@dimen/margin_10"
                         android:layout_toEndOf="@+id/share_facebook"
-                        android:src="@drawable/ic_shate_twitter" />
+                        android:src="@drawable/ic_shate_twitter"/>
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -432,7 +430,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/close_button" />
+        android:background="@drawable/close_button"/>
 
     <base.app.util.ui.TranslationView
         android:id="@+id/translation_view"
@@ -440,7 +438,7 @@
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/post_container"
         android:layout_alignParentStart="true"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/commentInputOverlay"
@@ -452,14 +450,38 @@
         <View
             android:id="@+id/blurredContainer"
             android:layout_width="match_parent"
-            android:background="#83000000"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="#83000000"/>
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="right"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:text="Post"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <LinearLayout
+            android:id="@+id/post_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="bottom">
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/wall_item_news"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"/>
 
             <include layout="@layout/include_input_field"/>
 

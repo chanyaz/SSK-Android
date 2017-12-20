@@ -141,23 +141,6 @@ public class Utility {
         return wallItemOptions;
     }
 
-    public static DisplayImageOptions getImageOptionsForUserContent() {
-        if (cameraContentOptions != null) {
-            return cameraContentOptions;
-        }
-        cameraContentOptions = new DisplayImageOptions.Builder()
-                .delayBeforeLoading(0) //delay
-                .resetViewBeforeLoading(true)  // default
-                .considerExifParams(true)
-                .cacheInMemory(true) // default
-                .cacheOnDisk(true) // default
-                .bitmapConfig(Bitmap.Config.RGB_565) // default
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .displayer(new FadeInBitmapDisplayer(150, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
-                .build();
-        return wallItemOptions;
-    }
-
     public static void showAlertDialog(String title, String message, Context context) {
         AlertDialog alertDialog;
         alertDialog = new AlertDialog.Builder(context, R.style.AlertDialog).create();

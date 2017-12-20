@@ -22,7 +22,6 @@ import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdsManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -39,7 +38,6 @@ import base.app.model.wall.WallNewsShare;
 import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStats;
 import base.app.model.wall.WallStoreItem;
-import base.app.util.Utility;
 import base.app.util.ui.PositionedCropTransformation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -187,7 +185,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    static boolean displayPostImage(WallBase post, ViewHolder holder, DisplayImageOptions _) {
+    static boolean displayPostImage(WallBase post, ViewHolder holder) {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
@@ -302,7 +300,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case post:
                     WallPost post = (WallPost) values.get(index);
                     displayUserInfo(post, holder);
-                    boolean hasImage = displayPostImage(post, holder, Utility.getImageOptionsForWallItem());
+                    boolean hasImage = displayPostImage(post, holder);
                     if (holder.contentTextView != null) {
                         if (hasImage) {
                             holder.contentTextView.setMaxLines(3);
@@ -321,7 +319,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     WallNewsShare news = (WallNewsShare) values.get(index);
                     displayUserInfo(news, holder);
                     displayCaption(news.getBodyText(), holder);
-                    displayPostImage(news, holder, Utility.getImageOptionsForWallItem());
+                    displayPostImage(news, holder);
                     displayCommentsAndLikes(news, holder);
                     if (!news.getReferencedItemId().isEmpty()) {
                         displayParentCaptionAndPosterPhoto(news, holder);
@@ -341,14 +339,14 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     WallStoreItem storeItem = (WallStoreItem) values.get(index);
                     displayUserInfo(storeItem, holder);
                     displayCaption(storeItem.getTitle(), holder);
-                    displayPostImage(storeItem, holder, Utility.getImageOptionsForWallItem());
+                    displayPostImage(storeItem, holder);
                     displayCommentsAndLikes(storeItem, holder);
                     break;
                 case stats:
                     WallStats statsItem = (WallStats) values.get(index);
                     displayUserInfo(statsItem, holder);
                     displayCaption(statsItem.getTitle(), holder);
-                    displayPostImage(statsItem, holder, Utility.getImageOptionsForWallItem());
+                    displayPostImage(statsItem, holder);
                     displayCommentsAndLikes(statsItem, holder);
                     break;
                 case betting:

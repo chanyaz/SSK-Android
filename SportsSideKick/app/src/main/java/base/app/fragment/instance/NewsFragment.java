@@ -1,7 +1,7 @@
 package base.app.fragment.instance;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +60,6 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
 
@@ -75,10 +74,9 @@ public class NewsFragment extends BaseFragment {
 
         recyclerView.setAdapter(adapter);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setNestedScrollingEnabled(false);
-        int space = (int) getResources().getDimension(R.dimen.padding_12);
 
         List<WallNews> existingItems = NewsModel.getInstance().getAllCachedItems(type);
         if (existingItems!=null && existingItems.size() > 0)
@@ -98,7 +96,6 @@ public class NewsFragment extends BaseFragment {
             }
         });
         return view;
-
     }
 
     @Subscribe

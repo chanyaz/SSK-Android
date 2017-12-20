@@ -6,13 +6,15 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_marginBottom="@dimen/margin_5">
 
+    <!--TODO: Do we need an image placeholder for news?-->
     <ImageView
         android:id="@+id/image"
         android:layout_width="@dimen/height_120"
         android:layout_height="match_parent"
         android:layout_alignBottom="@id/likes_and_comments"
         android:layout_alignParentStart="true"
-        android:src="@drawable/news_holder_image" />
+        tools:scaleType="centerCrop"
+        tools:src="@drawable/news_holder_image" />
 
     <TextView
         android:id="@+id/text_content"
@@ -40,8 +42,10 @@
         android:paddingEnd="@dimen/margin_10"
         android:paddingBottom="@dimen/margin_5">
 
+        <!--TODO: Show author image if this is a pinned item, not official news-->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/author_user_image"
+            android:visibility="gone"
             android:layout_width="@dimen/width_20"
             android:layout_height="@dimen/height_20"
             android:layout_alignParentStart="true"
@@ -121,7 +125,7 @@
         android:layout_below="@id/likes_and_comments"
         android:background="@color/colorGrayMediumLight"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/comment_author_user_image"

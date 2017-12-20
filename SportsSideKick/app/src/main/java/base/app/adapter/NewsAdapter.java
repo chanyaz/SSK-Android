@@ -14,7 +14,6 @@ import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.NewsItemFragment;
 import base.app.model.wall.WallNews;
-import base.app.util.Utility;
 
 import static base.app.adapter.WallAdapter.ViewHolder;
 import static base.app.adapter.WallAdapter.displayCaption;
@@ -62,7 +61,7 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         final WallNews news = values.get(position);
         displayUserInfo(news, holder);
         displayCaption(news.getBodyText(), holder);
-        displayPostImage(news, holder, Utility.getImageOptionsForWallItem());
+        displayPostImage(news, holder);
         displayCommentsAndLikes(news, holder);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
