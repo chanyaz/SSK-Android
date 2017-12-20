@@ -59,6 +59,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
+import static base.app.util.Utility.getCurrentTime;
+import static base.app.util.Utility.hideKeyboard;
+import static base.app.util.Utility.showKeyboard;
+
 /**
  * Created by Djordje Krutil on 30.12.2016..
  * Copyright by Hypercube d.o.o.
@@ -89,12 +93,15 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
     @BindView(R.id.post_text)
-    EditText post;
+    EditText inputFieldComment;
     @BindView(R.id.post_comment_button)
     ImageView postButton;
     @BindView(R.id.post_comment_progress_bar)
     View postCommentProgressBar;
 
+    @Nullable
+    @BindView(R.id.comments_count_header)
+    TextView commentsCountHeader;
     @Nullable
     @BindView(R.id.comments_count)
     TextView commentsCount;
@@ -105,6 +112,9 @@ public class NewsItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.likes_icon_liked)
     ImageView likesIconLiked;
+    @Nullable
+    @BindView(R.id.likes_count_header)
+    TextView likesCountHeader;
     @Nullable
     @BindView(R.id.likes_count)
     TextView likesCount;
@@ -128,12 +138,15 @@ public class NewsItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
-    @Nullable
     @BindView(R.id.commentInputOverlay)
     View commentInputOverlay;
     @Nullable
     @BindView(R.id.blurredContainer)
     View blurredContainer;
+    @BindView(R.id.closeButtonSharedComment)
+    View closeButtonSharedComment;
+    @BindView(R.id.postButtonSharedComment)
+    View postButtonSharedComment;
 
     CommentsAdapter commentsAdapter;
     WallNews item;
@@ -157,11 +170,13 @@ public class NewsItemFragment extends BaseFragment {
             // TODO This item is not in cache, fetch it individually!
             return view;
         }
-
         showHeaderImage();
         showTextContent(item);
+
         showSharingPreviewImage();
         showSharingAvatar();
+
+        showCommentsLikesCount();
         showComments(view);
 
         autoHideShowPostButton();
@@ -175,7 +190,49 @@ public class NewsItemFragment extends BaseFragment {
                 }
             });
         }
+        setClickListeners();
         return view;
+    }
+
+    private void setClickListeners() {
+        closeButtonSharedComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSharedCommentOverlay();
+            }
+        });
+        postButtonSharedComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pinToWall();
+            }
+        });
+    }
+
+    private void showCommentsLikesCount() {
+        postContainer.setVisibility(View.VISIBLE);
+        WallModel.getInstance().getCommentsForPost(item);
+        commentsListView.setNestedScrollingEnabled(false);
+
+        if (commentsCountHeader != null) {
+            commentsCountHeader.setText(String.valueOf(item.getCommentsCount()));
+            commentsCount.setText(String.valueOf(item.getCommentsCount()));
+        }
+        if (likesCountHeader != null) {
+            likesCountHeader.setText(String.valueOf(item.getLikeCount()));
+            likesCount.setText(String.valueOf(item.getLikeCount()));
+        }
+        if (shareCount != null) {
+            shareCount.setText(String.valueOf(item.getShareCount()));
+        }
+        if (item.isLikedByUser()) {
+            if (likesIcon != null) {
+                likesIcon.setVisibility(View.GONE);
+            }
+            if (likesIconLiked != null) {
+                likesIconLiked.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private WallNews loadFromCacheBy(String id) {
@@ -191,29 +248,6 @@ public class NewsItemFragment extends BaseFragment {
         Glide.with(getContext())
                 .load(item.getCoverImageUrl())
                 .into(imageHeader);
-        showTextContent(item);
-
-        postContainer.setVisibility(View.VISIBLE);
-        WallModel.getInstance().getCommentsForPost(item);
-        commentsListView.setNestedScrollingEnabled(false);
-
-        if (commentsCount != null) {
-            commentsCount.setText(String.valueOf(item.getCommentsCount()));
-        }
-        if (likesCount != null) {
-            likesCount.setText(String.valueOf(item.getLikeCount()));
-        }
-        if (shareCount != null) {
-            shareCount.setText(String.valueOf(item.getShareCount()));
-        }
-        if (item.isLikedByUser()) {
-            if (likesIcon != null) {
-                likesIcon.setVisibility(View.GONE);
-            }
-            if (likesIconLiked != null) {
-                likesIconLiked.setVisibility(View.VISIBLE);
-            }
-        }
     }
 
     private void showSharingPreviewImage() {
@@ -276,12 +310,12 @@ public class NewsItemFragment extends BaseFragment {
                 });
             }
         } else {
-            post.setEnabled(false);
+            inputFieldComment.setEnabled(false);
         }
     }
 
     private void autoHideShowPostButton() {
-        post.addTextChangedListener(new TextWatcher() {
+        inputFieldComment.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -328,13 +362,13 @@ public class NewsItemFragment extends BaseFragment {
     public void postComment() {
         if (Model.getInstance().isRealUser()) {
             PostComment comment = new PostComment();
-            comment.setComment(post.getText().toString());
+            comment.setComment(inputFieldComment.getText().toString());
             comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getPostId());
-            comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
+            comment.setTimestamp((double) (getCurrentTime() / 1000));
             WallModel.getInstance().postComment(item, comment);
-            post.getText().clear();
+            inputFieldComment.getText().clear();
             postCommentProgressBar.setVisibility(View.VISIBLE);
         } else {
             //TODO Notify user that need to login
@@ -372,7 +406,6 @@ public class NewsItemFragment extends BaseFragment {
             }
         }
     }
-
 
     @OnClick({R.id.likes_icon_liked, R.id.likes_icon})
     public void togglePostLike() {
@@ -427,7 +460,6 @@ public class NewsItemFragment extends BaseFragment {
         }
     }
 
-
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook(View view) {
         if (Model.getInstance().isRealUser()) {
@@ -458,54 +490,60 @@ public class NewsItemFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.pin_container)
     public void pinToWall() {
+        String sharingMessage = inputFieldComment.getText().toString();
+
+        WallNews itemToPost = new WallNews();
+        itemToPost.setTimestamp((double) Utility.getCurrentTime());
+        if (sharingMessage.isEmpty()) {
+            itemToPost.setTitle(item.getTitle());
+            itemToPost.setBodyText(item.getBodyText());
+            itemToPost.setCoverAspectRatio(0.666666f);
+            if (item.getSource() != null) {
+                itemToPost.setSubTitle(item.getSource());
+            } else {
+                itemToPost.setSubTitle("");
+            }
+            if (item.getCoverImageUrl() != null) {
+                itemToPost.setCoverImageUrl(item.getCoverImageUrl());
+            }
+        } else {
+            itemToPost.setType(WallBase.PostType.newsShare);
+            itemToPost.setReferencedItemClub(Utility.getClubConfig().get("ID"));
+            itemToPost.setReferencedItemId(item.getPostId());
+            itemToPost.setSharedComment(sharingMessage);
+        }
+        WallModel.getInstance().mbPost(itemToPost);
+        getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.pin_container)
+    public void showSharedCommentOverlay() {
         if (Model.getInstance().isRealUser()) {
             commentInputOverlay.setVisibility(View.VISIBLE);
+
+            inputFieldComment.requestFocus();
+            showKeyboard(getContext());
+
+            // Blur background
             PhoneLoungeActivity activity = (PhoneLoungeActivity) getActivity();
-            // TODO: activity.toggleBlur(true, blurredContainer);
-            post.requestFocus();
-
-
-            /*AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
-                    new View.OnClickListener() {// Cancel
-                        @Override
-                        public void onClick(View v) {
-                            getActivity().onBackPressed();
-                        }
-                    }, new View.OnClickListener() { // Confirm
-                        @Override
-                        public void onClick(View v) {
-                            String sharingMessage = "Test sharing comment"; // TODO: Replace with real sharing comment that user entered
-
-                            WallNews itemToPost = new WallNews();
-                            itemToPost.setTimestamp((double) Utility.getCurrentTime());
-                            if (sharingMessage.isEmpty()) {
-                                itemToPost.setTitle(item.getTitle());
-                                itemToPost.setBodyText(item.getBodyText());
-                                itemToPost.setCoverAspectRatio(0.666666f);
-                                if(item.getSource()!=null){
-                                    itemToPost.setSubTitle(item.getSource());
-                                } else {
-                                    itemToPost.setSubTitle("");
-                                }
-                                if(item.getCoverImageUrl()!=null){
-                                    itemToPost.setCoverImageUrl(item.getCoverImageUrl());
-                                }
-                            } else {
-                                itemToPost.setType(WallBase.PostType.newsShare);
-                                itemToPost.setReferencedItemClub(Utility.getClubConfig().get("ID"));
-                                itemToPost.setReferencedItemId(item.getPostId());
-                                itemToPost.setSharedComment(sharingMessage);
-                            }
-                            WallModel.getInstance().mbPost(itemToPost);
-                            getActivity().onBackPressed();
-                        }
-                    });*/
+            activity.toggleBlur(true, blurredContainer);
         } else {
-            //TODO notify user
+            Toast.makeText(getContext(),
+                    "Please login to pin news articles",
+                    Toast.LENGTH_SHORT).show();
         }
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
+    }
+
+    public void hideSharedCommentOverlay() {
+        commentInputOverlay.setVisibility(View.GONE);
+
+        hideKeyboard(getContext());
+
+        // Disable background blur
+        PhoneLoungeActivity activity = (PhoneLoungeActivity) getActivity();
+        activity.toggleBlur(false, null);
     }
 
     @Optional

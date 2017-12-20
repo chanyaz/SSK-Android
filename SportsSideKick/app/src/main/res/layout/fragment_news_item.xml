@@ -139,7 +139,7 @@
                                 app:backgroundTint="@color/colorAccent"/>
 
                             <TextView
-                                android:id="@+id/likes_count"
+                                android:id="@+id/likes_count_header"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/white"/>
@@ -186,7 +186,7 @@
                                 app:backgroundTint="@color/white"/>
 
                             <TextView
-                                android:id="@+id/comments_count"
+                                android:id="@+id/comments_count_header"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/white"/>
@@ -454,6 +454,7 @@
             android:background="#83000000"/>
 
         <ImageButton
+            android:id="@+id/closeButtonSharedComment"
             android:layout_width="48dp"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
@@ -461,6 +462,7 @@
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <Button
+            android:id="@+id/postButtonSharedComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
