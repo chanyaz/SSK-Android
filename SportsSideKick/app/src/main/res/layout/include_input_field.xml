@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_container"
     android:layout_width="match_parent"
@@ -10,20 +10,38 @@
     android:background="@color/colorGrayLight"
     tools:showIn="@layout/fragment_news_item">
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/post_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/margin_5"
-        android:layout_marginEnd="@dimen/margin_15"
-        android:textSize="@dimen/font_size_12"
-        android:layout_marginStart="@dimen/margin_15"
-        android:layout_marginTop="@dimen/margin_5"
-        android:hint="@string/enter_comment_hint"
-        android:textColor="@color/black"
-        android:textColorHint="@color/colorGrayDark"
-        app:backgroundTint="@color/colorGrayLight"/>
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/author_user_image"
+            android:layout_width="@dimen/width_26"
+            android:layout_height="@dimen/height_26"
+            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@color/black"
+            android:src="?profileImageIcon"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/post_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_5"
+            android:layout_marginEnd="@dimen/margin_15"
+            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_weight="1"
+            android:hint="@string/enter_comment_hint"
+            android:textColor="@color/black"
+            android:textColorHint="@color/colorGrayDark"
+            android:textSize="@dimen/font_size_12"
+            app:backgroundTint="@color/colorGrayLight"/>
+
+    </LinearLayout>
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/post_comment_button"
@@ -49,7 +67,8 @@
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginTop="@dimen/margin_5"
         android:adjustViewBounds="true"
+        android:visibility="gone"
         app:indicatorColor="@color/colorPrimary"
-        app:indicatorName="LineSpinFadeLoaderIndicator"
-        android:visibility="gone"/>
+        app:indicatorName="LineSpinFadeLoaderIndicator"/>
+
 </RelativeLayout>

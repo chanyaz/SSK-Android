@@ -46,6 +46,7 @@ import base.app.fragment.BaseFragment;
 import base.app.model.Model;
 import base.app.model.news.NewsModel;
 import base.app.model.sharing.SharingManager;
+import base.app.model.user.UserInfo;
 import base.app.model.wall.PostComment;
 import base.app.model.wall.WallBase;
 import base.app.model.wall.WallModel;
@@ -70,6 +71,8 @@ public class NewsItemFragment extends BaseFragment {
     ImageView imageHeader;
     @BindView(R.id.image)
     ImageView image;
+    @BindView(R.id.author_user_image)
+    ImageView authorUserImage;
     @BindView(R.id.title)
     TextView title;
 
@@ -158,6 +161,7 @@ public class NewsItemFragment extends BaseFragment {
         showHeaderImage();
         showTextContent(item);
         showSharingPreviewImage();
+        showSharingAvatar();
         showComments(view);
 
         autoHideShowPostButton();
@@ -221,6 +225,23 @@ public class NewsItemFragment extends BaseFragment {
     private void showTextContent(WallNews item) {
         title.setText(item.getTitle());
         content.setText(item.getBodyText());
+    }
+
+    private void showSharingAvatar() {
+        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(item.getWallId());
+        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<UserInfo> task) {
+                if (task.isSuccessful()) {
+                    UserInfo user = task.getResult();
+                    if (user != null) {
+                        Glide.with(getContext())
+                                .load(user.getCircularAvatarUrl())
+                                .into(authorUserImage);
+                    }
+                }
+            }
+        });
     }
 
     private void showComments(View view) {
