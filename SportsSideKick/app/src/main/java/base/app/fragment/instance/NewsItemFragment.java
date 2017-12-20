@@ -2,10 +2,12 @@ package base.app.fragment.instance;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -79,17 +81,13 @@ public class NewsItemFragment extends BaseFragment {
     ImageView authorUserImage;
     @BindView(R.id.title)
     TextView title;
-
     @BindView(R.id.content_text)
     TextView content;
     @Nullable
-
     @BindView(R.id.share_news_to_wall_button)
     Button share;
-
     @BindView(R.id.comments_wall)
     RecyclerView commentsListView;
-
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
     @BindView(R.id.post_text)
@@ -98,17 +96,17 @@ public class NewsItemFragment extends BaseFragment {
     ImageView postButton;
     @BindView(R.id.post_comment_progress_bar)
     View postCommentProgressBar;
-
     @Nullable
     @BindView(R.id.comments_count_header)
     TextView commentsCountHeader;
     @Nullable
     @BindView(R.id.comments_count)
     TextView commentsCount;
-
     @Nullable
     @BindView(R.id.likes_icon)
     ImageView likesIcon;
+    @BindView(R.id.pin_icon)
+    ImageView pinIcon;
     @Nullable
     @BindView(R.id.likes_icon_liked)
     ImageView likesIconLiked;
@@ -124,7 +122,6 @@ public class NewsItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.share_icon)
     ImageView shareButton;
-
     @Nullable
     @BindView(R.id.share_buttons_container)
     View shareButtons;
@@ -134,7 +131,6 @@ public class NewsItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.share_twitter)
     ImageView shareTwitterButton;
-
     @Nullable
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
@@ -191,6 +187,8 @@ public class NewsItemFragment extends BaseFragment {
             });
         }
         setClickListeners();
+
+        inputFieldComment.setText(R.string.hint_sharing_message);
         return view;
     }
 
@@ -232,6 +230,11 @@ public class NewsItemFragment extends BaseFragment {
             if (likesIconLiked != null) {
                 likesIconLiked.setVisibility(View.VISIBLE);
             }
+        }
+        if (!item.getReferencedItemId().isEmpty()) {
+            pinIcon.setColorFilter(
+                    ContextCompat.getColor(getContext(), R.color.colorAccentSemiDark),
+                    PorterDuff.Mode.MULTIPLY);
         }
     }
 

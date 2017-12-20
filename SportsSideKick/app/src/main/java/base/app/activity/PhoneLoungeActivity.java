@@ -1,6 +1,5 @@
 package base.app.activity;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -86,9 +85,11 @@ import base.app.util.ui.NoScrollRecycler;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class PhoneLoungeActivity extends BaseActivity implements LoginStateReceiver.LoginStateListener, SideMenuAdapter.IDrawerCloseSideMenu, MenuAdapter.IDrawerClose {
+public class PhoneLoungeActivity extends BaseActivity
+        implements LoginStateReceiver.LoginStateListener,
+        SideMenuAdapter.IDrawerCloseSideMenu,
+        MenuAdapter.IDrawerClose {
 
     public static final String TAG = "Lounge Activity";
 
@@ -106,14 +107,10 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     NoScrollRecycler sideMenuRecycler;
     @BindView(R.id.logo)
     ImageView logoImageView;
-
-
     @BindView(R.id.fragment_popup_holder)
     View popupHolder;
-
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-
     @BindView(R.id.user_level_progress)
     ProgressBar userLevelProgress;
     @BindView(R.id.your_coins_value)
@@ -126,9 +123,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     ImageView userLevelBackground;
     @BindView(R.id.left_top_bar_container)
     RelativeLayout barContainer;
-
-
-
     @BindView(R.id.fragment_tv_container)
     LinearLayout tvContainer;
     @BindView(R.id.fragment_radio_container)
@@ -137,10 +131,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     ImageView notificationIcon;
     @BindView(R.id.friends_open)
     ImageView friendsIcon;
-
     @BindView(R.id.blurred_background)
     RelativeLayout blurredBackground;
-
     @BindView(R.id.splash)
     View splash;
 
@@ -158,17 +150,11 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     @OnClick(R.id.notification_open)
     public void notificationOpen() {
-
     }
 
     @OnClick(R.id.friends_open)
     public void friendsOpen() {
         EventBus.getDefault().post(new FragmentEvent(FriendsFragment.class));
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
@@ -213,17 +199,22 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {}
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+            }
+
             @Override
-            public void onDrawerOpened(View drawerView) {}
+            public void onDrawerOpened(View drawerView) {
+            }
+
             @Override
             public void onDrawerClosed(View drawerView) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             }
-            @Override
-            public void onDrawerStateChanged(int newState) {}
-        });
 
+            @Override
+            public void onDrawerStateChanged(int newState) {
+            }
+        });
     }
 
     private void setupFragments() {
@@ -375,11 +366,6 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onBackPressed() {
         Class<? extends Fragment> previousFragment = fragmentOrganizer.getPreviousFragment().getClass();
         Class<? extends Fragment> penultimateFragment = fragmentOrganizer.getPenultimateFragment().getClass();
@@ -399,8 +385,8 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         toggleBlur(false, null); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
 
-        if(currentFragment instanceof MemberInfoFragment){
-            Class initiator = ((BaseFragment)currentFragment).getInitiator();
+        if (currentFragment instanceof MemberInfoFragment) {
+            Class initiator = ((BaseFragment) currentFragment).getInitiator();
             EventBus.getDefault().post(new FragmentEvent(initiator, true));
             return;
         }
@@ -451,9 +437,9 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
         }
 
         if (previousFragment == YoutubePlayerFragment.class
-            && penultimateFragment == ClubTVFragment.class
-            && currentFragment instanceof YoutubePlayerFragment
-        ){
+                && penultimateFragment == ClubTVFragment.class
+                && currentFragment instanceof YoutubePlayerFragment
+                ) {
             NavigationDrawerItems.getInstance().setByPosition(7);
             menuAdapter.notifyDataSetChanged();
             sideMenuAdapter.notifyDataSetChanged();
@@ -467,7 +453,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
         if (currentFragment instanceof YoutubePlayerFragment) {
             YoutubePlayerFragment youtubePlayerFragment = (YoutubePlayerFragment) currentFragment;
-            if (youtubePlayerFragment.isFullScreen()){
+            if (youtubePlayerFragment.isFullScreen()) {
                 youtubePlayerFragment.setFullScreen(false);
                 return;
             }
@@ -505,7 +491,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
                     NavigationDrawerItems.getInstance().setByPosition(7);
                     menuAdapter.notifyDataSetChanged();
                     sideMenuAdapter.notifyDataSetChanged();
-                    if (drawerLayout.isDrawerOpen(GravityCompat.END)){
+                    if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                         drawerLayout.closeDrawer(GravityCompat.END);
                     }
                 }
@@ -547,7 +533,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
 
     public void onProfileClicked(View view) {
         drawerLayout.closeDrawer(GravityCompat.END);
-        if (Model.getInstance().isRealUser()){
+        if (Model.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
@@ -608,7 +594,7 @@ public class PhoneLoungeActivity extends BaseActivity implements LoginStateRecei
             public void run() {
                 splash.setVisibility(View.GONE);
             }
-        },3000);
+        }, 3000);
     }
 
     @Override

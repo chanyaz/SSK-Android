@@ -6,15 +6,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
@@ -71,35 +68,31 @@ import base.app.util.Utility;
 import butterknife.BindView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
 import static base.app.util.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.Utility.checkIfBundlesAreEqual;
 
 
-public class BaseActivity extends AppCompatActivity  {
+abstract class BaseActivity extends AppCompatActivity {
 
     public static final String TAG = "Base Activity";
     protected FragmentOrganizer fragmentOrganizer;
     protected LoginStateReceiver loginStateReceiver;
-    protected   CallbackManager callbackManager;
+    protected CallbackManager callbackManager;
     protected ShareDialog facebookShareDialog;
     RelativeLayout notificationContainer;
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        String language = Prefs.getString(CHOSEN_LANGUAGE,"en");
+        String language = Prefs.getString(CHOSEN_LANGUAGE, "en");
         Locale newLocale = new Locale(language);
         Context context = ContextWrapper.wrap(newBase, newLocale);
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 
-    @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        super.setContentView(layoutResID);
-
-    }
-
     Timer newsTimer;
     int count;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +105,7 @@ public class BaseActivity extends AppCompatActivity  {
         InternalNotificationManager.getInstance();
         // this part is optional
         facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
-        notificationContainer= findViewById(R.id.left_notification_container);
+        notificationContainer = findViewById(R.id.left_notification_container);
         PurchaseModel.getInstance().onCreate(this);
 
         makeStatusBarTransparent();
@@ -120,19 +113,19 @@ public class BaseActivity extends AppCompatActivity  {
 
     private void makeStatusBarTransparent() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = getWindow(); // in Activity's onCreate() for instance
-            window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            getWindow().setFlags(FLAG_LAYOUT_NO_LIMITS, FLAG_LAYOUT_NO_LIMITS);
         }
     }
 
     protected Bundle savedIntentData = null;
+
     protected void handleStartingIntent(Intent intent) {
         boolean isFistTimeStartingApp = Prefs.getBoolean(Constant.IS_FIRST_TIME, true);
         Bundle extras = intent.getExtras();
         if (isFistTimeStartingApp) {
             // in case we are starting this app for first time, ignore intent's data
             Prefs.putBoolean(Constant.IS_FIRST_TIME, false);
-        } else  if (extras != null && !extras.isEmpty()) {
+        } else if (extras != null && !extras.isEmpty()) {
             if (savedIntentData == null) {
                 savedIntentData = new Bundle();
             }
@@ -142,7 +135,8 @@ public class BaseActivity extends AppCompatActivity  {
                 String notificationData = extras.getString(Constant.NOTIFICATION_DATA, "");
                 try {
                     Map<String, String> dataMap = mapper.readValue(
-                            notificationData, new TypeReference<Map<String, String>>() {});
+                            notificationData, new TypeReference<Map<String, String>>() {
+                            });
                     handleNotificationEvent(new ExternalNotificationEvent(dataMap, true));
                     savedIntentData = extras;
                 } catch (IOException e) {
@@ -152,27 +146,27 @@ public class BaseActivity extends AppCompatActivity  {
             }
         }
         String action = intent.getAction();
-        if(Intent.ACTION_VIEW.equals(action)){
+        if (Intent.ACTION_VIEW.equals(action)) {
             Uri deeplink = intent.getData();
-            Log.d(TAG,"deeplink : " + deeplink.toString());
+            Log.d(TAG, "deeplink : " + deeplink.toString());
             handleDeepLink(deeplink);
         }
     }
 
-    private void handleDeepLink(Uri uri){
-        if(uri!=null){
-            String lastPathSegment =uri.getLastPathSegment();
+    private void handleDeepLink(Uri uri) {
+        if (uri != null) {
+            String lastPathSegment = uri.getLastPathSegment();
             String[] parts = StringUtils.split(lastPathSegment, ":");
-            if(parts!=null && parts.length==3){
+            if (parts != null && parts.length == 3) {
                 String clubId = parts[2];
                 String postType = parts[1];
                 String postId = parts[0]; // WallPost ?
-                Log.d(TAG,"Post id is : " + postId);
-                if(SharingManager.ItemType.WallPost.name().equals(postType)){
+                Log.d(TAG, "Post id is : " + postId);
+                if (SharingManager.ItemType.WallPost.name().equals(postType)) {
                     FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
                     wallItemFragmentEvent.setId(postId + "$$$");
                     EventBus.getDefault().post(wallItemFragmentEvent);
-                } else if(SharingManager.ItemType.News.name().equals(postType)){
+                } else if (SharingManager.ItemType.News.name().equals(postType)) {
                     FragmentEvent newsItemFragmentEvent = new FragmentEvent(NewsItemFragment.class);
                     newsItemFragmentEvent.setId(postId);
                     EventBus.getDefault().post(newsItemFragmentEvent);
@@ -198,19 +192,19 @@ public class BaseActivity extends AppCompatActivity  {
                 String postId = notificationData.get("postId");
                 String wallId = notificationData.get("wallId");
                 FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
-                wallItemFragmentEvent.setId(postId + "$$$" + wallId );
+                wallItemFragmentEvent.setId(postId + "$$$" + wallId);
                 // TODO - Load wall item before displaying it ( or this is handled in fragment? )
                 EventBus.getDefault().post(wallItemFragmentEvent);
-            } else if(notificationData.containsKey("newsItem") && notificationData.containsKey("newsType")){
-                if( "official".equals(notificationData.get("newsType"))){
+            } else if (notificationData.containsKey("newsItem") && notificationData.containsKey("newsType")) {
+                if ("official".equals(notificationData.get("newsType"))) {
                     EventBus.getDefault().post(NewsFragment.class);
                 } else {
                     EventBus.getDefault().post(RumoursFragment.class);
                 }
-                if(!"-1".equals(notificationData.get("newsItem"))){
+                if (!"-1".equals(notificationData.get("newsItem"))) {
                     FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
                     String id = notificationData.get("newsItem");
-                    if("official".equals(notificationData.get("newsType"))){
+                    if ("official".equals(notificationData.get("newsType"))) {
                         fe.setId("UNOFFICIAL$$$" + id);
                     } else {
                         fe.setId(id);
@@ -219,9 +213,9 @@ public class BaseActivity extends AppCompatActivity  {
                     //EventBus.getDefault().post(fe);
                 }
 
-            }else if (notificationData.containsKey("statsItem")){
+            } else if (notificationData.containsKey("statsItem")) {
                 EventBus.getDefault().post(StatisticsFragment.class);
-            } else if(notificationData.containsKey("conferenceId")){
+            } else if (notificationData.containsKey("conferenceId")) {
                 String conferenceId = notificationData.get("conferenceId");
                 FragmentEvent fe = new FragmentEvent(VideoChatFragment.class);
                 fe.setId(conferenceId);
@@ -245,7 +239,7 @@ public class BaseActivity extends AppCompatActivity  {
     }
 
 
-    protected void startNewsTimer(final NewsTickerInfo newsTickerInfo,final TextView newsLabel) {
+    protected void startNewsTimer(final NewsTickerInfo newsTickerInfo, final TextView newsLabel) {
         count = 0;
         if (newsTimer != null) {
             newsTimer.cancel();
@@ -284,10 +278,10 @@ public class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()){// share to facebook
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()) {// share to facebook
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
-        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()){ // sign up Fragment - Continue with facebook
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) { // sign up Fragment - Continue with facebook
             fragmentOrganizer.onActivityResult(requestCode, resultCode, data);
         }
         PurchaseModel.getInstance().onActivityResult(requestCode, resultCode, data);
@@ -304,7 +298,7 @@ public class BaseActivity extends AppCompatActivity  {
 
     @Subscribe
     public void onVideoChatEvent(VideoChatEvent event) {
-        Fragment currentFragment =  fragmentOrganizer.getCurrentFragment();
+        Fragment currentFragment = fragmentOrganizer.getCurrentFragment();
         if (!(currentFragment instanceof VideoChatFragment) && event.getType().equals(VideoChatEvent.Type.onSelfInvited)) {
             EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
             VideoChatModel.getInstance().setVideoChatEvent(event);
@@ -316,14 +310,16 @@ public class BaseActivity extends AppCompatActivity  {
         notificationView.startAnimation(animationHide);
         animationHide.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation arg0) {}
+            public void onAnimationStart(Animation arg0) {
+            }
 
             @Override
-            public void onAnimationRepeat(Animation arg0) {}
+            public void onAnimationRepeat(Animation arg0) {
+            }
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                notificationContainer=findViewById(R.id.left_notification_container);
+                notificationContainer = findViewById(R.id.left_notification_container);
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -332,14 +328,12 @@ public class BaseActivity extends AppCompatActivity  {
                         notificationContainer.removeView(notificationView);
                     }
                 }, 100);
-
-
             }
         });
     }
 
     protected void showNotification(final View v, int time) {
-        notificationContainer=findViewById(R.id.left_notification_container);
+        notificationContainer = findViewById(R.id.left_notification_container);
         notificationContainer.addView(v, 0);
 
         Animation animationShow = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_left);
@@ -377,7 +371,7 @@ public class BaseActivity extends AppCompatActivity  {
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(Utility.isTablet(getApplicationContext())) {
+                        if (Utility.isTablet(getApplicationContext())) {
                             EventBus.getDefault().post(new FragmentEvent(FollowersFragment.class));
                         }
                     }
@@ -388,7 +382,7 @@ public class BaseActivity extends AppCompatActivity  {
                     @Override
                     public void onClick(View v) {
                         String postId = event.getPostId();
-                        if(postId!=null){
+                        if (postId != null) {
                             FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
                             fe.setId(postId);
                             EventBus.getDefault().post(fe);
@@ -416,6 +410,4 @@ public class BaseActivity extends AppCompatActivity  {
     public void onShareNativeEvent(NativeShareEvent event) {
         startActivity(Intent.createChooser(event.getIntent(), getResources().getString(R.string.share_using)));
     }
-
-
 }
