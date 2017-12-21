@@ -264,13 +264,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/source"
                     android:layout_marginEnd="@dimen/margin_5"
+                    android:lineSpacingMultiplier="0.85"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_5"
                     android:ellipsize="end"
                     android:text="@string/demo_content_lorem_medium"
                     android:textColor="@color/colorPrimaryVeryLight"
-                    android:textSize="@dimen/font_size_18"
-                    android:textStyle="bold"/>
+                    android:textSize="28sp"/>
 
                 <TextView
                     android:id="@+id/content_text"
@@ -436,8 +436,8 @@
         android:id="@+id/translation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/post_container"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/top_buttons_container"
         android:visibility="gone"/>
 
     <FrameLayout
@@ -445,13 +445,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        tools:visibility="visible">
-
-        <View
-            android:id="@+id/blurredContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#83000000"/>
+        tools:visibility="gone">
 
         <ImageButton
             android:id="@+id/closeButtonSharedComment"
@@ -488,6 +482,13 @@
             <include layout="@layout/include_input_field"/>
 
         </LinearLayout>
+
+        <View
+            android:id="@+id/blurredContainer"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:background="#83000000"/>
 
     </FrameLayout>
 
