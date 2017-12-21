@@ -71,7 +71,7 @@
         android:scrollHorizontally="true"
         android:text="@string/demo_content_lorem_long"
         android:textColor="?black"
-        android:textSize="@dimen/font_size_16" />
+        android:textSize="20sp" />
 
     <RelativeLayout
         android:id="@+id/likes_and_comments"
