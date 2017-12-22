@@ -426,13 +426,15 @@
 
     <include layout="@layout/include_input_field"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/close_button"
-        android:layout_width="@dimen/standard_button_height"
-        android:layout_height="@dimen/standard_button_height"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/close_button"/>
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="-8dp"
+        android:tint="#dc1a424a"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
 
     <base.app.util.ui.TranslationView
         android:id="@+id/translation_view"
