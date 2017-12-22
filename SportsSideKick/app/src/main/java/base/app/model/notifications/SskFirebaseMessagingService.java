@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Map;
 
 import base.app.R;
-import base.app.activity.PhoneLoungeActivity;
+import base.app.activity.MainActivity;
 
 import static base.app.Constant.NOTIFICATION_DATA;
 
@@ -59,7 +59,7 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         if(messageData.containsKey("alert")){
              alert = messageData.get("alert");
         }
-        Intent intent = new Intent(this, PhoneLoungeActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(NOTIFICATION_DATA,new Gson().toJson(messageData));

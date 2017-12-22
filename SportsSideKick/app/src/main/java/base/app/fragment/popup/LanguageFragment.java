@@ -15,8 +15,8 @@ import com.pixplicity.easyprefs.library.Prefs;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.activity.LoungeActivity;
-import base.app.activity.PhoneLoungeActivity;
+import base.app.activity.MainActivityTablet;
+import base.app.activity.MainActivity;
 import base.app.adapter.LanguageAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
@@ -68,9 +68,9 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
         Prefs.putString(CHOSEN_LANGUAGE, selectedLanguage);
         Intent intent;
         if (Utility.isTablet(getContext())) {
-            intent = new Intent(getActivity(), LoungeActivity.class);
+            intent = new Intent(getActivity(), MainActivityTablet.class);
         } else {
-            intent = new Intent(getActivity(), PhoneLoungeActivity.class);
+            intent = new Intent(getActivity(), MainActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

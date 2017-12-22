@@ -8,7 +8,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-import base.app.activity.PhoneLoungeActivity;
 import base.app.events.BusEvent;
 import base.app.util.Utility;
 

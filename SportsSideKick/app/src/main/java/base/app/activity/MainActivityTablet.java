@@ -83,7 +83,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class LoungeActivity extends BaseActivity implements LoginStateReceiver.LoginStateListener {
+public class MainActivityTablet extends BaseActivity implements LoginStateReceiver.LoginStateListener {
 
     public static final String TAG = "Lounge Activity";
     @BindView(R.id.activity_main)
@@ -175,7 +175,7 @@ public class LoungeActivity extends BaseActivity implements LoginStateReceiver.L
                     @Override
                     public void onGlobalLayout() {
                         Bitmap image = BlurBuilder.blur(rootView);
-                        popupHolder.setBackground(new BitmapDrawable(LoungeActivity.this.getResources(), image));
+                        popupHolder.setBackground(new BitmapDrawable(MainActivityTablet.this.getResources(), image));
                         popupHolder.getBackground().setAlpha(230);
                     }
                 });

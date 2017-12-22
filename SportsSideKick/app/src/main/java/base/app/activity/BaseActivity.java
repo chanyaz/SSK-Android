@@ -64,6 +64,7 @@ import base.app.model.ticker.NextMatchUpdateEvent;
 import base.app.model.user.LoginStateReceiver;
 import base.app.model.videoChat.VideoChatEvent;
 import base.app.model.videoChat.VideoChatModel;
+import base.app.util.ContextWrapper;
 import base.app.util.Utility;
 import butterknife.BindView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;

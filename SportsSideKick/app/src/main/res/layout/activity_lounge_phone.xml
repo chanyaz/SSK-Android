@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="48dp"
     tools:layout_marginBottom="0dp"
-    tools:context="base.app.activity.PhoneLoungeActivity">
+    tools:context="base.app.activity.MainActivity">
 
     <android.support.percent.PercentRelativeLayout
 

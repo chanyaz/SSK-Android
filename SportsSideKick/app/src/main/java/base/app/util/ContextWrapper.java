@@ -1,4 +1,4 @@
-package base.app.activity;
+package base.app.util;
 
 import android.content.Context;
 import android.content.res.Configuration;

@@ -38,7 +38,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
-import base.app.activity.PhoneLoungeActivity;
+import base.app.activity.MainActivity;
 import base.app.adapter.CommentsAdapter;
 import base.app.events.CommentDeleteEvent;
 import base.app.events.GetCommentsCompleteEvent;
@@ -529,7 +529,7 @@ public class NewsItemFragment extends BaseFragment {
             showKeyboard(getContext());
 
             // Blur background
-            PhoneLoungeActivity activity = (PhoneLoungeActivity) getActivity();
+            MainActivity activity = (MainActivity) getActivity();
             activity.toggleBlur(true, blurredContainer);
         } else {
             Toast.makeText(getContext(),
@@ -545,7 +545,7 @@ public class NewsItemFragment extends BaseFragment {
         hideKeyboard(getContext());
 
         // Disable background blur
-        PhoneLoungeActivity activity = (PhoneLoungeActivity) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         activity.toggleBlur(false, null);
     }
 

@@ -86,7 +86,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PhoneLoungeActivity extends BaseActivity
+public class MainActivity extends BaseActivity
         implements LoginStateReceiver.LoginStateListener,
         SideMenuAdapter.IDrawerCloseSideMenu,
         MenuAdapter.IDrawerClose {
@@ -355,7 +355,7 @@ public class PhoneLoungeActivity extends BaseActivity
                     @Override
                     public void onGlobalLayout() {
                         Bitmap image = BlurBuilder.blur(fragmentView);
-                        blurredBackground.setBackground(new BitmapDrawable(PhoneLoungeActivity.this.getResources(), image));
+                        blurredBackground.setBackground(new BitmapDrawable(MainActivity.this.getResources(), image));
                         blurredBackground.getBackground().setAlpha(230);
                     }
                 });
