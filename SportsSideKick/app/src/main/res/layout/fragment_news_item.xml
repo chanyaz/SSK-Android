@@ -42,6 +42,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
         </RelativeLayout>
+
     </RelativeLayout>
 
     <Button
@@ -64,6 +65,9 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/newsItemScrollView"
             android:layout_width="match_parent"
+            android:paddingBottom="56dp"
+            tools:paddingBottom="0dp"
+            android:clipToPadding="false"
             android:layout_height="match_parent">
 
             <RelativeLayout
@@ -126,7 +130,7 @@
                                 android:layout_width="@dimen/width_26"
                                 android:layout_height="@dimen/height_26"
                                 android:layout_marginEnd="@dimen/margin_5"
-                                android:background="@drawable/ic_like"
+                                android:background="@drawable/ic_like_count"
                                 app:backgroundTint="@color/white"/>
 
                             <android.support.v7.widget.AppCompatImageView
@@ -134,7 +138,7 @@
                                 android:layout_width="@dimen/width_26"
                                 android:layout_height="@dimen/height_26"
                                 android:layout_marginEnd="@dimen/margin_5"
-                                android:background="@drawable/ic_liked"
+                                android:background="@drawable/ic_like_count_liked"
                                 android:visibility="gone"
                                 app:backgroundTint="@color/colorAccent"/>
 
