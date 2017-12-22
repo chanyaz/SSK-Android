@@ -26,8 +26,6 @@ import butterknife.ButterKnife;
 
 public class NextMatchView extends RelativeLayout {
 
-    private static final String TAG = "Next Match View";
-
     @BindView(R.id.next_match_container)
     View nextMatchContainer;
 
@@ -49,26 +47,20 @@ public class NextMatchView extends RelativeLayout {
     @BindView(R.id.countdown)
     TextView countdownTextView;
 
-    long timestamp;
+    @BindView(R.id.background)
+    ImageView background;
 
-    public NextMatchView(Context context) {
-        super(context);
-        initView();
-    }
+    long timestamp;
 
     public NextMatchView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
     }
 
-    public NextMatchView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        initView();
-    }
-
     private void initView() {
         View view = inflate(getContext(), R.layout.next_match_view, this);
         ButterKnife.bind(view);
+
         NewsTickerInfo info = NextMatchModel.getInstance().loadTickerInfoFromCache();
         if(info!=null && NextMatchModel.getInstance().isNextMatchUpcoming()){
             updateCountdownTimer();
@@ -81,7 +73,6 @@ public class NextMatchView extends RelativeLayout {
             nameOfSecondTeam.setText(info.getSecondClubName());
             dateTextView.setText(NextMatchCountdown.getTextValue(getContext(),timestamp,true));
 
-
             final Handler handler = new Handler();
             final int delay = 100; //milliseconds
 
@@ -92,6 +83,10 @@ public class NextMatchView extends RelativeLayout {
                 }
             }, delay);
             nextMatchContainer.setVisibility(View.VISIBLE);
+
+            Glide.with(getContext())
+                    .load(R.drawable.video_chat_background)
+                    .into(background);
         } else {
             nextMatchContainer.setVisibility(View.GONE);
         }

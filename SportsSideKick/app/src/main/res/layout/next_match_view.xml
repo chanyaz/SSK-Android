@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nextMatchOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/nextMatchOverlay"
-    android:background="@color/colorPrimarySlightlyLight">
+    android:background="@color/colorPrimarySlightlyLight"
+    tools:ignore="MissingPrefix">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/waiting_connection"
         android:background="@drawable/tiled_background_dense"/>
 
     <ImageView
@@ -18,7 +22,7 @@
         android:layout_height="match_parent"
         android:alpha="0.4"
         android:scaleType="centerCrop"
-        android:src="@drawable/video_chat_background" />
+        tools:src="@drawable/video_chat_background"/>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/container"
@@ -40,7 +44,7 @@
             android:src="@drawable/club_logo"
             app:layout_constraintBottom_toTopOf="@+id/label"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <TextView
             android:id="@+id/label_left"
@@ -63,7 +67,7 @@
             app:layout_constraintBottom_toTopOf="@+id/next_match_container"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/label" />
+            app:layout_constraintRight_toLeftOf="@+id/label"/>
 
         <TextView
             android:id="@+id/label"
@@ -85,7 +89,7 @@
             app:layout_constraintBottom_toTopOf="@+id/next_match_container"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            tools:layout_editor_absoluteX="0dp"/>
 
         <TextView
             android:id="@+id/label_right"
@@ -108,7 +112,7 @@
             app:layout_constraintBottom_toTopOf="@+id/next_match_container"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toRightOf="@+id/label"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <RelativeLayout
             android:id="@+id/next_match_container"
@@ -135,7 +139,7 @@
                 android:layout_marginTop="@dimen/margin_20"
                 android:text="@string/next_match"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_16" />
+                android:textSize="@dimen/font_size_16"/>
 
             <RelativeLayout
                 android:id="@+id/teams_info"
@@ -150,12 +154,12 @@
                     android:id="@+id/left_name"
                     fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:layout_width="wrap_content"
-                    android:minWidth="@dimen/width_60"
-                    android:minHeight="@dimen/height_30"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="end"
                     android:maxLines="1"
+                    android:minHeight="@dimen/height_30"
+                    android:minWidth="@dimen/width_60"
                     android:paddingEnd="@dimen/padding_2"
                     android:text="BEN"
                     android:textColor="@color/white"
@@ -163,14 +167,14 @@
                     app:autoSizeMaxTextSize="@dimen/font_size_28"
                     app:autoSizeMinTextSize="@dimen/font_size_20"
                     app:autoSizeStepGranularity="1sp"
-                    app:autoSizeTextType="uniform" />
+                    app:autoSizeTextType="uniform"/>
 
                 <ImageView
                     android:id="@+id/left_image"
                     android:layout_width="@dimen/width_60"
                     android:layout_height="@dimen/height_60"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/left_name" />
+                    android:layout_toEndOf="@+id/left_name"/>
 
                 <TextView
                     android:id="@+id/vs"
@@ -182,26 +186,26 @@
                     android:layout_toEndOf="@+id/left_image"
                     android:text="@string/vs"
                     android:textColor="@color/colorAccentLight"
-                    android:textSize="@dimen/font_size_20" />
+                    android:textSize="@dimen/font_size_20"/>
 
                 <ImageView
                     android:id="@+id/right_image"
                     android:layout_width="@dimen/width_60"
                     android:layout_height="@dimen/height_60"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/vs" />
+                    android:layout_toEndOf="@+id/vs"/>
 
-               <!-- SECOND TEAM   -->
+                <!-- SECOND TEAM   -->
                 <TextView
                     android:id="@+id/right_name"
                     fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:layout_width="wrap_content"
-                    android:minWidth="@dimen/width_60"
-                    android:minHeight="@dimen/height_30"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/right_image"
                     android:maxLines="1"
+                    android:minHeight="@dimen/height_30"
+                    android:minWidth="@dimen/width_60"
                     android:paddingStart="@dimen/padding_2"
                     android:text="BEN"
                     android:textColor="@color/white"
@@ -209,7 +213,7 @@
                     app:autoSizeMaxTextSize="@dimen/font_size_28"
                     app:autoSizeMinTextSize="@dimen/font_size_20"
                     app:autoSizeStepGranularity="1sp"
-                    app:autoSizeTextType="uniform" />
+                    app:autoSizeTextType="uniform"/>
             </RelativeLayout>
 
             <TextView
@@ -221,7 +225,7 @@
                 android:layout_margin="@dimen/margin_10"
                 android:text=" Sun 14 Dec"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_18" />
+                android:textSize="@dimen/font_size_18"/>
 
             <TextView
                 android:id="@+id/countdown"
@@ -239,7 +243,7 @@
                 app:autoSizeMaxTextSize="160sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform" />
+                app:autoSizeTextType="uniform"/>
         </RelativeLayout>
 
         <ImageView
@@ -252,7 +256,7 @@
             android:src="@drawable/logo_fq"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 
     <TextView
@@ -263,6 +267,6 @@
         android:text="@string/waiting_for_active_internet_connection"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 </RelativeLayout>

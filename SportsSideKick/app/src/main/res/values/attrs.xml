@@ -59,7 +59,7 @@
     <!--Images-->
     <attr name="userCoinIcon" format="reference" />
 
-    <!--activity_lounge-->
+    activity_main_tabletunge-->
     <attr name="tabRadioButtonSelectorRight" format="reference" />
     <attr name="tabRadioButtonSelectorLeft" format="reference" />
 

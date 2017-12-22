@@ -150,7 +150,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lounge);
+        setContentView(R.layout.activity_main_tablet);
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
         popupHolder.setOnClickListener(new View.OnClickListener() {

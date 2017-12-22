@@ -160,7 +160,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lounge_phone);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
         splash.setVisibility(View.VISIBLE);
