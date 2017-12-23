@@ -28,6 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import base.app.BuildConfig;
 import base.app.Constant;
 import base.app.R;
 import base.app.adapter.MenuAdapter;
@@ -170,6 +171,10 @@ public class MainActivity extends BaseActivity
         Utility.setSystemBarColor(this);
 
         Glide.with(this).load(R.drawable.sportingportugal).into(logoImageView);
+
+        if (BuildConfig.DEBUG) {
+            splash.setVisibility(View.GONE);
+        }
     }
 
     public void updateTopBar() {

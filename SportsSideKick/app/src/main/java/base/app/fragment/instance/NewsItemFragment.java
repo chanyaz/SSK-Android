@@ -143,6 +143,8 @@ public class NewsItemFragment extends BaseFragment {
     View closeButtonSharedComment;
     @BindView(R.id.postButtonSharedComment)
     View postButtonSharedComment;
+    @BindView(R.id.text_content)
+    TextView textContent;
 
     CommentsAdapter commentsAdapter;
     WallNews item;
@@ -262,6 +264,7 @@ public class NewsItemFragment extends BaseFragment {
     private void showTextContent(WallNews item) {
         title.setText(item.getTitle());
         content.setText(item.getBodyText());
+        textContent.setText(item.getTitle());
     }
 
     private void showSharingAvatar() {
@@ -525,12 +528,12 @@ public class NewsItemFragment extends BaseFragment {
         if (Model.getInstance().isRealUser()) {
             commentInputOverlay.setVisibility(View.VISIBLE);
 
-            inputFieldComment.requestFocus();
             showKeyboard(getContext());
+            inputFieldComment.performClick();
 
             // Blur background
             MainActivity activity = (MainActivity) getActivity();
-            activity.toggleBlur(true, blurredContainer);
+            // TODO: activity.toggleBlur(true, blurredContainer);
         } else {
             Toast.makeText(getContext(),
                     "Please login to pin news articles",

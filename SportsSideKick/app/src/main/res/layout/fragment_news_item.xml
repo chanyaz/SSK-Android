@@ -238,8 +238,8 @@
                     android:layout_marginTop="@dimen/margin_10"
                     android:ellipsize="end"
                     android:text="The world game"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/font_size_12"/>
+                    android:textColor="#4d4e4c"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/time_separator"
@@ -252,8 +252,8 @@
                     android:layout_toEndOf="@+id/source"
                     android:ellipsize="end"
                     android:text="-"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/font_size_12"/>
+                    android:textColor="#4d4e4c"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/time"
@@ -265,8 +265,8 @@
                     android:layout_toEndOf="@+id/time_separator"
                     android:ellipsize="end"
                     android:text="Just now"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/font_size_12"/>
+                    android:textColor="#4d4e4c"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/title"
@@ -318,7 +318,7 @@
                         android:paddingStart="@dimen/padding_16"
                         android:text="Translate post >"
                         android:textColor="@color/colorPrimaryVeryLight"
-                        android:textSize="@dimen/font_size_10"/>
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:id="@+id/read_more_text"
@@ -330,7 +330,7 @@
                         android:paddingStart="@dimen/padding_10"
                         android:text="@string/read_more_closed"
                         android:textColor="@color/colorPrimaryVeryLight"
-                        android:textSize="@dimen/font_size_10"/>
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:id="@+id/delete"
@@ -341,7 +341,7 @@
                         android:paddingStart="@dimen/padding_16"
                         android:text="@string/delete"
                         android:textColor="@color/colorPrimaryVeryLight"
-                        android:textSize="@dimen/font_size_10"
+                        android:textSize="12sp"
                         android:visibility="gone"/>
                 </RelativeLayout>
 
@@ -349,6 +349,7 @@
                     android:id="@+id/bottom_horizontal_split_line"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
+                    android:alpha="0.5"
                     android:layout_below="@+id/read_more_holder"
                     android:layout_marginEnd="@dimen/padding_10"
                     android:layout_marginStart="@dimen/padding_10"
@@ -458,6 +459,7 @@
     <FrameLayout
         android:id="@+id/commentInputOverlay"
         android:layout_width="match_parent"
+        android:background="#94000000"
         android:layout_height="match_parent"
         android:visibility="gone"
         tools:visibility="gone">
@@ -485,7 +487,7 @@
             android:id="@+id/post_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_marginTop="100dp"
             android:orientation="vertical">
 
             <include

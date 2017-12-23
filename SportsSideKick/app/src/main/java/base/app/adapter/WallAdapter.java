@@ -91,6 +91,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.text_comment)
         TextView textComment;
+        @Nullable
+        @BindView(R.id.comment_container)
+        View commentContainer;
         // Ad view bindings
         @Nullable
         @BindView(R.id.wall_native_ad_media_view)
@@ -248,9 +251,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             holder.likedIcon.setVisibility(View.GONE);
             holder.likesIcon.setVisibility(View.VISIBLE);
         }
-        if (post.hasSharedComment()) {
-            holder.textComment.setText(post.getSharedComment());
-        }
     }
 
     private void displayParentCaptionAndPosterPhoto(WallNewsShare newsItem, final ViewHolder holder) {
@@ -318,9 +318,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case newsShare:
                     WallNewsShare news = (WallNewsShare) values.get(index);
                     displayUserInfo(news, holder);
-                    displayCaption(news.getBodyText(), holder);
+                    displayCaption(news.getTitle(), holder);
                     displayPostImage(news, holder);
                     displayCommentsAndLikes(news, holder);
+                    if (news.hasSharedComment()) {
+                        holder.textComment.setText(news.getSharedComment());
+                        holder.commentContainer.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.commentContainer.setVisibility(View.GONE);
+                    }
                     if (!news.getReferencedItemId().isEmpty()) {
                         displayParentCaptionAndPosterPhoto(news, holder);
                         holder.userImage.setVisibility(View.GONE);

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -157,7 +158,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (wallItems.size() > 0) {
             progressBar.setVisibility(View.GONE);
         }
-        // TODO: Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
+        Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
         return view;
     }
 
