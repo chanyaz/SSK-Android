@@ -6,8 +6,6 @@ import android.view.View;
 
 /**
  * Created by Djordje Krutil on 09/01/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class StaggeredLayoutManagerItemDecoration extends RecyclerView.ItemDecoration {

@@ -18,8 +18,6 @@ import static base.app.model.Model.createRequest;
 
 /**
  * Created by Filip on 3/26/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class AchievementManager {

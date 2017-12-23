@@ -11,8 +11,6 @@ import base.app.GSAndroidPlatform;
 
 /**
  * Created by Filip Jovanovic on 09/02/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class AnalyticsManager {

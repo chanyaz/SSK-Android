@@ -6,8 +6,6 @@ import base.app.model.user.UserInfo;
 
 /**
  * Created by Filip on 4/2/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class StartCallEvent extends BusEvent{

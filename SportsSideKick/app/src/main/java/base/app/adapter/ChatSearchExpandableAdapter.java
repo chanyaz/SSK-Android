@@ -35,8 +35,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Nemanja Jovanovic on 12/04/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {

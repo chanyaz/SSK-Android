@@ -20,8 +20,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 10/23/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class NextMatchView extends RelativeLayout {

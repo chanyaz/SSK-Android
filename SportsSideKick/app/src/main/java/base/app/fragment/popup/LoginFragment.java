@@ -32,7 +32,6 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import base.app.Connection;
 import base.app.R;
 import base.app.adapter.AccountCreatingAdapter;
 import base.app.fragment.BaseFragment;
@@ -51,8 +50,6 @@ import butterknife.Optional;
 
 /**
  * Created by Filip on 1/16/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class LoginFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener, PasswordResetReceiver.PasswordResetListener {
@@ -269,20 +266,6 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.enter_valid_password_and_display_name), Toast.LENGTH_SHORT).show();
             return;
         }
-
-        if (!Connection.getInstance() .alertIfNotReachable
-                (getActivity(),
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                getActivity().onBackPressed();
-                            }
-                        }
-                )
-            ) {
-            return;
-        }
-
         Model.getInstance().login(email, password);
         loginText.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);

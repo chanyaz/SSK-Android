@@ -20,8 +20,6 @@ import base.app.util.Utility;
 
 /**
  * Created by Djordje Krutil on 27.12.2016..
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 public class NewsModel {
 

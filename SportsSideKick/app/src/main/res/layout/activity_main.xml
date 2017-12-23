@@ -116,13 +116,6 @@
                 android:textStyle="bold"
                 android:visibility="gone"/>
 
-            <RelativeLayout
-                android:id="@+id/left_notification_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"/>
-
         </RelativeLayout>
 
         <base.app.util.ui.NoScrollRecycler

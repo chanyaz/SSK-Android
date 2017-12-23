@@ -28,8 +28,6 @@ import static base.app.model.GSConstants.MESSAGE_ID;
 
 /**
  * Created by Filip on 12/7/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true,value={"imageAspectRatio","timestampEpoch","timeAgo"})

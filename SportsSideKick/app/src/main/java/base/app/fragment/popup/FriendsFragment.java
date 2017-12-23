@@ -45,8 +45,6 @@ import butterknife.Optional;
 
 /**
  * Created by Djordje on 1/21/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class FriendsFragment extends BaseFragment {

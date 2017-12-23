@@ -48,8 +48,6 @@ import butterknife.Optional;
 
 /**
  * Created by Filip on 28/03/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class MemberInfoFragment extends BaseFragment {

@@ -4,8 +4,6 @@ import base.app.events.BusEvent;
 
 /**
  * Created by Filip on 3/31/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class VideoChatEvent extends BusEvent{

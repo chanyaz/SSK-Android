@@ -79,8 +79,6 @@ import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH_PH
 
 /**
  * Created by Filip on 12/26/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 @RuntimePermissions
 public class CreateChatFragment extends BaseFragment {

@@ -7,8 +7,6 @@ import base.app.events.BusEvent;
 
 /**
  * Created by Filip on 12/5/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class FragmentEvent extends BusEvent {

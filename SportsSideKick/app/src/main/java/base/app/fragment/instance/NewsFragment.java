@@ -30,8 +30,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 12/29/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  * <p>
  * A simple {@link BaseFragment} subclass.
  */

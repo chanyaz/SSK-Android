@@ -21,8 +21,6 @@ import static base.app.model.GSConstants.CLUB_ID_TAG;
 
 /**
  * Created by Djordje Krutil on 9.3.2017..
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 public class NextMatchModel {
 

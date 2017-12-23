@@ -2,8 +2,6 @@ package base.app.model.purchases;
 
 /**
  * Created by Filip on 5/4/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class PurchaseCompletedEvent {

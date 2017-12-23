@@ -24,8 +24,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Nemanja Jovanovic on 10/04/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdapter.ViewHolder> {

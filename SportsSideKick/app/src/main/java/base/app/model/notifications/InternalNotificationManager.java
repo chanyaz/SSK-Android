@@ -18,8 +18,6 @@ import base.app.model.wall.WallBase;
 
 /**
  * Created by Filip on 4/19/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class InternalNotificationManager extends GSMessageHandlerAbstract {

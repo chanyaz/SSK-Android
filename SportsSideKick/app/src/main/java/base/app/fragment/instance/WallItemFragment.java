@@ -37,7 +37,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
-import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -78,8 +77,6 @@ import butterknife.Optional;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 public class WallItemFragment extends BaseFragment {
 
@@ -208,12 +205,12 @@ public class WallItemFragment extends BaseFragment {
             String postId;
             String wallId = null;
             if(id.contains("$$$")){
-                String[] parts = StringUtils.split(id,"$$$");
+                String[] parts = id.split("$$$");
                 if(parts.length==2){
                     postId = parts[0];
                     wallId = parts[1];
                 } else {
-                    postId = StringUtils.remove(id,"$$$");
+                    postId = id.replace(id,"$$$");
                 }
                 WallModel.getInstance().getPostById(postId,wallId);
             }

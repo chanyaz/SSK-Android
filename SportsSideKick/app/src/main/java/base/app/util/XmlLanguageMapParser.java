@@ -10,8 +10,6 @@ import java.util.HashMap;
 
 /**
  * Created by Filip on 9/12/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class XmlLanguageMapParser {

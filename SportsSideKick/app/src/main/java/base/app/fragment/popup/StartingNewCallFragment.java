@@ -48,8 +48,6 @@ import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Djordje on 1/21/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class StartingNewCallFragment extends BaseFragment {

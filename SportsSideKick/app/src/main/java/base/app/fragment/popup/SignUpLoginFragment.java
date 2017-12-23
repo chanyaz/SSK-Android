@@ -22,8 +22,6 @@ import butterknife.Optional;
 
 /**
  * Created by Aleksandar Marinkovic on 30/05/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class SignUpLoginFragment extends BaseFragment {

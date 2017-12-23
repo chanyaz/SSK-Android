@@ -11,8 +11,6 @@ import base.app.model.wall.WallBase;
 
 /**
  * Created by Filip on 3/30/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

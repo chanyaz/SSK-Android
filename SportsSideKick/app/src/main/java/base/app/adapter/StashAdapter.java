@@ -21,8 +21,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 1/17/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class StashAdapter extends RecyclerView.Adapter<StashAdapter.ViewHolder> {

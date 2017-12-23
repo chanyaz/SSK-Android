@@ -24,8 +24,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 10/01/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsListAdapter.ViewHolder> {

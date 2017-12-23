@@ -34,8 +34,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 21/01/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAdapter.ViewHolder> {

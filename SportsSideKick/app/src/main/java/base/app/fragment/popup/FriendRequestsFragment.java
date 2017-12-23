@@ -30,8 +30,6 @@ import butterknife.Optional;
 
 /**
  * Created by Djordje on 21/01/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 

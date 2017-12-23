@@ -2,8 +2,6 @@ package base.app;
 
 /**
  * Created by Filip on 10/3/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class Keys {

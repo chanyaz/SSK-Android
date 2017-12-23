@@ -10,6 +10,7 @@ import android.util.Base64;
 
 import com.gamesparks.sdk.GS;
 import com.gamesparks.sdk.IGSPlatform;
+import com.gamesparks.sdk.api.GSData;
 
 import java.io.File;
 
@@ -77,6 +78,36 @@ public class GSAndroidPlatform implements IGSPlatform
 		if (mainHandler != null){
 			mainHandler.post(job);
 		}
+	}
+
+	@Override
+	public String getDeviceId() {
+		return null;
+	}
+
+	@Override
+	public String getDeviceOS() {
+		return null;
+	}
+
+	@Override
+	public String getPlatform() {
+		return null;
+	}
+
+	@Override
+	public String getSDK() {
+		return null;
+	}
+
+	@Override
+	public String getDeviceType() {
+		return null;
+	}
+
+	@Override
+	public GSData getDeviceStats() {
+		return null;
 	}
 
 	@Override

@@ -1,0 +1,327 @@
+package base.app.activity
+
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.KITKAT
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+import android.widget.TextView
+import base.app.Constant
+import base.app.GSAndroidPlatform
+import base.app.R
+import base.app.events.NotificationReceivedEvent
+import base.app.fragment.FragmentEvent
+import base.app.fragment.FragmentOrganizer
+import base.app.fragment.instance.*
+import base.app.fragment.popup.FollowersFragment
+import base.app.fragment.popup.FriendsFragment
+import base.app.model.Model
+import base.app.model.notifications.ExternalNotificationEvent
+import base.app.model.notifications.InternalNotificationManager
+import base.app.model.purchases.PurchaseModel
+import base.app.model.sharing.NativeShareEvent
+import base.app.model.sharing.SharingManager
+import base.app.model.ticker.NewsTickerInfo
+import base.app.model.ticker.NextMatchModel
+import base.app.model.ticker.NextMatchUpdateEvent
+import base.app.model.user.LoginStateReceiver
+import base.app.model.videoChat.VideoChatEvent
+import base.app.model.videoChat.VideoChatModel
+import base.app.util.ContextWrapper
+import base.app.util.Utility
+import base.app.util.Utility.CHOSEN_LANGUAGE
+import base.app.util.Utility.checkIfBundlesAreEqual
+import butterknife.BindView
+import com.facebook.CallbackManager
+import com.facebook.internal.CallbackManagerImpl
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.pixplicity.easyprefs.library.Prefs
+import com.twitter.sdk.android.tweetcomposer.TweetComposer
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import java.io.IOException
+import java.util.*
+
+internal abstract class BaseActivity : AppCompatActivity() {
+
+    protected var fragmentOrganizer: FragmentOrganizer? = null
+    protected var loginStateReceiver: LoginStateReceiver? = null
+    private lateinit var callbackManager: CallbackManager
+    private lateinit var facebookShareDialog: ShareDialog
+
+    var newsTimer: Timer? = null
+    var count: Int = 0
+
+    private var savedIntentData: Bundle? = null
+
+    @BindView(R.id.scrolling_news_title)
+    var newsLabel: TextView? = null
+    @BindView(R.id.caption)
+    var captionLabel: TextView? = null
+
+    override fun attachBaseContext(newBase: Context) {
+        val language = Prefs.getString(CHOSEN_LANGUAGE, "en")
+        val newLocale = Locale(language)
+        val context = ContextWrapper.wrap(newBase, newLocale)
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context))
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        callbackManager = CallbackManager.Factory.create()
+        Model.getInstance().initialize(this)
+        VideoChatModel.getInstance()
+        facebookShareDialog = ShareDialog(this)
+        // internal notifications initialization
+        InternalNotificationManager.getInstance()
+        // this part is optional
+        facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance())
+        PurchaseModel.getInstance().onCreate(this)
+
+        makeStatusBarTransparent()
+    }
+
+    private fun makeStatusBarTransparent() {
+        if (SDK_INT >= KITKAT) {
+            window.setFlags(FLAG_LAYOUT_NO_LIMITS, FLAG_LAYOUT_NO_LIMITS)
+        }
+    }
+
+    protected fun handleStartingIntent(intent: Intent) {
+        val isFistTimeStartingApp = Prefs.getBoolean(Constant.IS_FIRST_TIME, true)
+        val extras = intent.extras
+        if (isFistTimeStartingApp) {
+            // in case we are starting this app for first time, ignore intent's data
+            Prefs.putBoolean(Constant.IS_FIRST_TIME, false)
+        } else if (extras != null && !extras.isEmpty) {
+            if (savedIntentData == null) {
+                savedIntentData = Bundle()
+            }
+            // make sure we are not handling the same intent
+            if (!checkIfBundlesAreEqual(savedIntentData, extras)) {
+                val mapper = ObjectMapper()
+                val notificationData = extras.getString(Constant.NOTIFICATION_DATA, "")
+                try {
+                    val dataMap = mapper.readValue<Map<String, String>>(
+                            notificationData, object : TypeReference<Map<String, String>>() {
+
+                    })
+                    handleNotificationEvent(ExternalNotificationEvent(dataMap, true))
+                    savedIntentData = extras
+                } catch (e: IOException) {
+                    Log.e(TAG, "Error parsing notification data!")
+                    e.printStackTrace()
+                }
+
+            }
+        }
+        val action = intent.action
+        if (Intent.ACTION_VIEW == action) {
+            val deeplink = intent.data
+            Log.d(TAG, "deeplink : " + deeplink!!.toString())
+            handleDeepLink(deeplink)
+        }
+    }
+
+    private fun handleDeepLink(uri: Uri?) {
+        if (uri != null) {
+            val lastPathSegment = uri.lastPathSegment
+            val parts = lastPathSegment.split(":")
+            if (parts != null && parts!!.size == 3) {
+                val clubId = parts!![2]
+                val postType = parts!![1]
+                val postId = parts!![0] // WallPost ?
+                Log.d(TAG, "Post id is : " + postId)
+                if (SharingManager.ItemType.WallPost.name == postType) {
+                    val wallItemFragmentEvent = FragmentEvent(WallItemFragment::class.java)
+                    wallItemFragmentEvent.id = postId + "$$$"
+                    EventBus.getDefault().post(wallItemFragmentEvent)
+                } else if (SharingManager.ItemType.News.name == postType) {
+                    val newsItemFragmentEvent = FragmentEvent(NewsItemFragment::class.java)
+                    newsItemFragmentEvent.id = postId
+                    EventBus.getDefault().post(newsItemFragmentEvent)
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        NextMatchModel.getInstance().getNextMatchInfo()
+        handleStartingIntent(intent)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    protected fun handleNotificationEvent(event: ExternalNotificationEvent) {
+        val notificationData = event.data
+        if (event.isFromBackground) {
+            if (notificationData.containsKey("chatId")) {
+                EventBus.getDefault().post(FragmentEvent(ChatFragment::class.java))
+            } else if (notificationData.containsKey("wallId") && notificationData.containsKey("postId")) {
+                val postId = notificationData["postId"]
+                val wallId = notificationData["wallId"]
+                val wallItemFragmentEvent = FragmentEvent(WallItemFragment::class.java)
+                wallItemFragmentEvent.id = "$postId$$$$wallId"
+                // TODO - Load wall item before displaying it ( or this is handled in fragment? )
+                EventBus.getDefault().post(wallItemFragmentEvent)
+            } else if (notificationData.containsKey("newsItem") && notificationData.containsKey("newsType")) {
+                if ("official" == notificationData["newsType"]) {
+                    EventBus.getDefault().post(NewsFragment::class.java)
+                } else {
+                    EventBus.getDefault().post(RumoursFragment::class.java)
+                }
+                if ("-1" != notificationData["newsItem"]) {
+                    val fe = FragmentEvent(NewsItemFragment::class.java)
+                    val id = notificationData["newsItem"]
+                    if ("official" == notificationData["newsType"]) {
+                        fe.id = "UNOFFICIAL$$$$id"
+                    } else {
+                        fe.id = id
+                    }
+                    // TODO - Load news item before displaying it
+                    //EventBus.getDefault().post(fe);
+                }
+
+            } else if (notificationData.containsKey("statsItem")) {
+                EventBus.getDefault().post(StatisticsFragment::class.java)
+            } else if (notificationData.containsKey("conferenceId")) {
+                val conferenceId = notificationData["conferenceId"]
+                val fe = FragmentEvent(VideoChatFragment::class.java)
+                fe.id = conferenceId
+                EventBus.getDefault().post(fe)
+            }
+        } else {
+            // TODO Handle Push notifications while app is active
+        }
+    }
+
+    @Subscribe
+    fun onTickerUpdate(newsTickerInfo: NewsTickerInfo) {
+        newsLabel!!.text = newsTickerInfo.news[0]
+        captionLabel!!.text = newsTickerInfo.title
+        startNewsTimer(newsTickerInfo, newsLabel!!)
+    }
+
+
+    protected fun startNewsTimer(newsTickerInfo: NewsTickerInfo, newsLabel: TextView) {
+        count = 0
+        if (newsTimer != null) {
+            newsTimer!!.cancel()
+        }
+        newsTimer = Timer()
+        newsTimer!!.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                runOnUiThread {
+                    // update next match info
+                    EventBus.getDefault().post(NextMatchUpdateEvent())
+                    // update news label
+                    newsLabel.text = newsTickerInfo.news[count]
+                    if (++count == newsTickerInfo.news.size) {
+                        count = 0
+                    }
+                }
+            }
+        }, 0, Constant.LOGIN_TEXT_TIME.toLong())
+
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        GSAndroidPlatform.gs().start()
+
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()) {// share to facebook
+            callbackManager.onActivityResult(requestCode, resultCode, data)
+        }
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) { // sign up Fragment - Continue with facebook
+            fragmentOrganizer!!.onActivityResult(requestCode, resultCode, data)
+        }
+        PurchaseModel.getInstance().onActivityResult(requestCode, resultCode, data)
+    }
+
+    public override fun onDestroy() {
+        fragmentOrganizer!!.freeUpResources()
+        EventBus.getDefault().unregister(this)
+        EventBus.getDefault().unregister(loginStateReceiver)
+        PurchaseModel.getInstance().onDestroy()
+        super.onDestroy()
+    }
+
+    @Subscribe
+    fun onVideoChatEvent(event: VideoChatEvent) {
+        val currentFragment = fragmentOrganizer!!.currentFragment
+        if (currentFragment !is VideoChatFragment && event.type == VideoChatEvent.Type.onSelfInvited) {
+            EventBus.getDefault().post(FragmentEvent(VideoChatFragment::class.java))
+            VideoChatModel.getInstance().videoChatEvent = event
+        }
+    }
+
+    @Subscribe
+    fun onNewNotification(event: NotificationReceivedEvent) {
+        val vi = applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val v = vi.inflate(R.layout.notification_row, null)
+
+        val title = v.findViewById<TextView>(R.id.notification_title)
+        title.text = event.title
+
+        val description = v.findViewById<TextView>(R.id.notification_description)
+        description.text = event.description
+
+        when (event.type) {
+            NotificationReceivedEvent.Type.FRIEND_REQUESTS -> v.setOnClickListener { EventBus.getDefault().post(FragmentEvent(FriendsFragment::class.java)) }
+            NotificationReceivedEvent.Type.FOLLOWERS -> v.setOnClickListener {
+                if (Utility.isTablet(applicationContext)) {
+                    EventBus.getDefault().post(FragmentEvent(FollowersFragment::class.java))
+                }
+            }
+            NotificationReceivedEvent.Type.LIKES -> v.setOnClickListener {
+                val postId = event.postId
+                if (postId != null) {
+                    val fe = FragmentEvent(WallItemFragment::class.java)
+                    fe.id = postId
+                    EventBus.getDefault().post(fe)
+                }
+            }
+        }
+        // TODO: Show notification system using Notification Manager
+    }
+
+    @Subscribe
+    fun onShareOnFacebookEvent(linkContent: ShareLinkContent) {
+        if (ShareDialog.canShow(ShareLinkContent::class.java)) {
+            facebookShareDialog.show(linkContent)
+        }
+    }
+
+    @Subscribe
+    fun onShareOnTwitterEvent(event: TweetComposer.Builder) {
+        event.show()
+    }
+
+    @Subscribe
+    fun onShareNativeEvent(event: NativeShareEvent) {
+        startActivity(Intent.createChooser(event.intent, resources.getString(R.string.share_using)))
+    }
+
+    companion object {
+
+        val TAG = "Base Activity"
+    }
+}

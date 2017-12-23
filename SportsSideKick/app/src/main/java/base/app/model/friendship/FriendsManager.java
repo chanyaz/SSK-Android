@@ -2,8 +2,6 @@ package base.app.model.friendship;
 
 /**
  * Created by Filip on 12/27/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 

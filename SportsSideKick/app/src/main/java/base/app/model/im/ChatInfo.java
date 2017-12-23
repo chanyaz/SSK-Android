@@ -34,8 +34,6 @@ import static base.app.ClubConfig.CLUB_ID;
 
 /**
  * Created by Filip on 12/7/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)

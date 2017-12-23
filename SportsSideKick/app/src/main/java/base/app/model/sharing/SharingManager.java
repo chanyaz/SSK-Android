@@ -42,8 +42,6 @@ import static base.app.model.Model.createRequest;
 
 /**
  * Created by Filip on 4/4/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class SharingManager implements FacebookCallback<Sharer.Result> {

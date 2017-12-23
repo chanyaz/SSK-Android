@@ -19,8 +19,6 @@ import java.util.List;
 
 /**
  * Created by Filip on 11/14/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class FacebookModel {

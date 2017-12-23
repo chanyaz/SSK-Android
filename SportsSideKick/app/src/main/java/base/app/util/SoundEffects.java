@@ -11,8 +11,6 @@ import base.app.R;
 
 /**
  * Created by Filip on 2/6/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class SoundEffects {

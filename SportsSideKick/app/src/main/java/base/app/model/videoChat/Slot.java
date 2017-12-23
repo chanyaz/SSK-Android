@@ -22,8 +22,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 4/2/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class Slot implements Participant.Listener{

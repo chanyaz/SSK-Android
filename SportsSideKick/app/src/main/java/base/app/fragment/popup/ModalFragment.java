@@ -12,8 +12,6 @@ import butterknife.OnClick;
 
 /**
  * Created by Djordje on 22/01/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 

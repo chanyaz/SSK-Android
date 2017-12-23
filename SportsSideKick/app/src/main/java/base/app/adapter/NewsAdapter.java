@@ -23,8 +23,6 @@ import static base.app.adapter.WallAdapter.displayUserInfo;
 
 /**
  * Created by Djordje on 12/29/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 

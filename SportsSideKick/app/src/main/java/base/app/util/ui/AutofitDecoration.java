@@ -9,8 +9,6 @@ import base.app.R;
 
 /**
  * Created by Nemanja Jovanovic on 30/03/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 public class AutofitDecoration extends RecyclerView.ItemDecoration {
     private int margin;

@@ -34,8 +34,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 04/03/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 

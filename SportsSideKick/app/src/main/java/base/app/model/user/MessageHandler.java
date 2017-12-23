@@ -11,8 +11,6 @@ import base.app.GSAndroidPlatform;
 
 /**
  * Created by Filip on 3/13/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class MessageHandler {

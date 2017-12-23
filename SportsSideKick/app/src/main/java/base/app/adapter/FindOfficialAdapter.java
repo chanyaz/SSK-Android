@@ -25,8 +25,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Aleksandar Marinkovic on 25-May-17.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class FindOfficialAdapter extends RecyclerView.Adapter<FindOfficialAdapter.ViewHolder> {

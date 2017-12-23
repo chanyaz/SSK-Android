@@ -9,8 +9,6 @@ import java.util.Locale;
 
 /**
  * Created by Filip on 8/14/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class ContextWrapper extends android.content.ContextWrapper {

@@ -17,8 +17,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 04/01/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class TutorialStepAdapter extends RecyclerView.Adapter<TutorialStepAdapter.ViewHolder> {

@@ -67,8 +67,6 @@ import static base.app.util.Utility.showKeyboard;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 public class NewsItemFragment extends BaseFragment {
 

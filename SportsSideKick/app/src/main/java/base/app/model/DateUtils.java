@@ -7,8 +7,6 @@ import base.app.util.Utility;
 
 /**
  * Created by Filip on 1/10/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class DateUtils {

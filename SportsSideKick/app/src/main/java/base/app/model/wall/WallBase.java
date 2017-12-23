@@ -23,8 +23,6 @@ import base.app.model.user.UserInfo;
 
 /**
  * Created by Filip on 1/6/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

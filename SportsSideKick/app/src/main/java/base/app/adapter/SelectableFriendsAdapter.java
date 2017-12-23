@@ -29,8 +29,6 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 12/14/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  * <p>
  * Selectable Users Adapter for use in chat and video chat fragments
  */
