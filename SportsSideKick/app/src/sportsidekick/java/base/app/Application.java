@@ -9,9 +9,12 @@ import com.keiferstone.nonet.NoNet;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import base.app.model.FileUploader;
+import base.app.model.Model;
 import base.app.model.TranslateManager;
+import base.app.model.notifications.InternalNotificationReciever;
 import base.app.model.purchases.PurchaseModel;
 import base.app.model.ticker.NextMatchModel;
+import base.app.model.videoChat.VideoChatModel;
 import base.app.util.SoundEffects;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -59,5 +62,9 @@ public class Application extends MultiDexApplication {
         SoundEffects.getDefault().initialize(this);
         PurchaseModel.getInstance().initialize(this);
         TranslateManager.getInstance().initialize(this);
+
+        Model.getInstance().initialize(this);
+        VideoChatModel.getInstance();
+        InternalNotificationReciever.init();
     }
 }

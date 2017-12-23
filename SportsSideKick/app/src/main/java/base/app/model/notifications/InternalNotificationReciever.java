@@ -20,19 +20,19 @@ import base.app.model.wall.WallBase;
  * Created by Filip on 4/19/2017.
  */
 
-public class InternalNotificationManager extends GSMessageHandlerAbstract {
+public class InternalNotificationReciever extends GSMessageHandlerAbstract {
 
-    private static InternalNotificationManager instance;
+    private static InternalNotificationReciever instance;
     private final ObjectMapper mapper; // jackson's object mapper
 
-    public static InternalNotificationManager getInstance(){
+    public static InternalNotificationReciever init(){
         if(instance==null){
-            instance = new InternalNotificationManager();
+            instance = new InternalNotificationReciever();
         }
         return instance;
     }
 
-    private InternalNotificationManager(){
+    private InternalNotificationReciever(){
         mapper  = new ObjectMapper();
         Model.getInstance().setMessageHandlerDelegate(this);
     }

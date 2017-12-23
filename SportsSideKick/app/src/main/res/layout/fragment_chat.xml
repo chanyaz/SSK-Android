@@ -1,17 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?white_semitransparent"
-    tools:context="base.app.fragment.instance.ChatFragment">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?white_semitransparent"
+
+                tools:context="base.app.fragment.instance.ChatFragment"
+                tools:ignore="ContentDescription">
 
     <!-- Background image -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="?phoneChatBackground" />
+        android:src="?phoneChatBackground"/>
 
     <!-- Empty chat info text -->
     <TextView
@@ -22,8 +24,7 @@
         android:gravity="center"
         android:text="@string/no_message_text"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_10" />
-
+        android:textSize="@dimen/font_size_10"/>
 
     <RelativeLayout
         android:id="@+id/chat_info_line"
@@ -40,21 +41,21 @@
             android:layout_alignParentTop="true"
             android:background="?chatHeadBackgroundColor"
             android:focusableInTouchMode="true"
-            android:scrollbars="none" />
+            android:scrollbars="none"/>
 
         <TextView
             android:id="@+id/chat_info_line_text"
-            android:layout_below="@+id/chat_heads_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_20"
-            android:paddingStart="@dimen/margin_60"
-            android:paddingEnd="@dimen/margin_60"
-            android:ellipsize="marquee"
-            android:gravity="center"
-            android:lines="1"
+            android:layout_below="@+id/chat_heads_view"
             android:background="?chatInfoBackgroundColor"
+            android:gravity="center"
+            android:paddingEnd="@dimen/margin_60"
+            android:paddingStart="@dimen/margin_60"
+            android:singleLine="true"
             android:textColor="?white_semitransparent"
-            android:textSize="@dimen/font_size_10" />
+            android:textSize="@dimen/font_size_10"/>
+
     </RelativeLayout>
 
     <!-- Messages container -->
@@ -69,18 +70,16 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/message_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
         android:id="@+id/progress_bar"
-        android:layout_width="@dimen/prodgres_bar"
-        android:layout_height="@dimen/prodgres_bar"
+        style="?android:progressBarStyleSmall"
+        android:layout_width="@dimen/progress_bar"
+        android:layout_height="@dimen/progress_bar"
         android:layout_centerInParent="true"
-        android:elevation="@dimen/elevation_2"
-        android:visibility="gone"
-        app:indicatorName="LineSpinFadeLoaderIndicator" />
-
+        android:visibility="gone"/>
 
     <!-- Input container -->
     <RelativeLayout
@@ -108,7 +107,7 @@
                 android:layout_centerVertical="true"
                 android:background="@null"
                 android:cropToPadding="true"
-                android:src="@drawable/chat_mic_selector" />
+                android:src="@drawable/chat_mic_selector"/>
 
             <ImageButton
                 android:id="@+id/camera_button"
@@ -117,7 +116,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/mic_button"
                 android:background="@null"
-                android:src="?chatCameraIcon" />
+                android:src="?chatCameraIcon"/>
 
             <ImageButton
                 android:id="@+id/image_button"
@@ -126,7 +125,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/camera_button"
                 android:background="@null"
-                android:src="?chatGalleryIcon" />
+                android:src="?chatGalleryIcon"/>
 
             <ImageButton
                 android:id="@+id/sticker_button"
@@ -135,26 +134,26 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/image_button"
                 android:background="@null"
-                android:src="@drawable/chat_button_sticker" />
+                android:src="@drawable/chat_button_sticker"/>
 
             <View
                 android:id="@+id/chat_menu_divider"
                 android:layout_width="@dimen/width_2"
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/sticker_button"
-                android:background="@color/white" />
+                android:background="@color/white"/>
 
         </RelativeLayout>
 
         <ImageButton
             android:id="@+id/menu_button"
             android:layout_width="@dimen/standard_button_height"
-            android:layout_marginEnd="@dimen/height_1"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/height_1"
             android:layout_toEndOf="@+id/chat_buttons_container"
             android:background="@null"
-            android:src="?chatAddButtonIcon" />
+            android:src="?chatAddButtonIcon"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -173,7 +172,6 @@
                 android:background="@color/colorGrayLight"
                 android:gravity="start|center_vertical"
                 android:hint="@string/chat_hint"
-                android:imeActionId="@+id/action_send_message_id"
                 android:imeActionLabel="Send"
                 android:imeOptions="actionSend"
                 android:inputType="text"
@@ -185,7 +183,7 @@
                 android:privateImeOptions=""
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="?chatEditTextHintColor"
-                android:textSize="@dimen/font_size_16" />
+                android:textSize="@dimen/font_size_16"/>
 
         </RelativeLayout>
 
@@ -193,11 +191,11 @@
             android:id="@+id/chat_menu_dots"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/height_1"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/height_1"
             android:background="@null"
-            android:src="?chatMenuButtonIcon" />
+            android:src="?chatMenuButtonIcon"/>
 
         <LinearLayout
             android:id="@+id/chat_menu_dots_container"
@@ -206,9 +204,11 @@
             android:layout_toStartOf="@+id/chat_menu_dots"
             android:background="@color/colorGrayLight"
             android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
             android:padding="@dimen/half_margin"
             android:visibility="gone">
+
             <TextView
                 android:id="@+id/chat_menu_create"
                 android:layout_width="match_parent"
@@ -217,12 +217,13 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
-                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/create"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10"/>
+
             <TextView
                 android:id="@+id/chat_menu_edit"
                 android:layout_width="match_parent"
@@ -231,12 +232,13 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
-                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/edit"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10"/>
+
             <TextView
                 android:id="@+id/chat_menu_delete"
                 android:layout_width="match_parent"
@@ -245,26 +247,28 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
-                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/delete"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10"/>
+
             <TextView
                 android:id="@+id/chat_menu_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_5"
-                android:textSize="@dimen/font_size_10"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/search"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10"/>
+
             <TextView
                 android:id="@+id/chat_menu_alerts"
                 android:layout_width="match_parent"
@@ -273,12 +277,12 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
-                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/alerts_on"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -293,7 +297,7 @@
             android:id="@+id/video_layout"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
-            android:layout_above="@+id/vide_download_image_button"
+            android:layout_above="@+id/video_download_image_button"
             android:layout_below="@+id/video_close_image_button"
             android:layout_centerInParent="true"
             android:background="@android:color/black">
@@ -304,14 +308,13 @@
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 app:uvv_autoRotation="false"
-                app:uvv_fitXY="false" />
+                app:uvv_fitXY="false"/>
 
             <com.universalvideoview.UniversalMediaController
                 android:id="@+id/mediaController"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                app:uvv_scalable="false"
-                />
+                app:uvv_scalable="false"/>
         </FrameLayout>
 
         <ImageView
@@ -326,22 +329,24 @@
             android:tint="?videoCloseButtonChatColorRef"/>
 
         <ImageView
-            android:id="@+id/vide_download_image_button"
+            android:id="@+id/video_download_image_button"
             android:layout_width="@dimen/chat_button_size"
             android:layout_height="@dimen/chat_button_size"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
-            android:src="?downloadButtonIcon" />
+            android:src="?downloadButtonIcon"/>
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/full_screen_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         android:clickable="true"
+        android:focusable="true"
         android:visibility="gone">
 
         <ImageView
@@ -352,7 +357,7 @@
             android:layout_below="@+id/close_image_button"
             android:layout_centerInParent="true"
             android:background="@color/colorPrimarySemiDarkSemiTransparent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"/>
 
         <ImageView
             android:id="@+id/close_image_button"
@@ -362,8 +367,8 @@
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
-            android:tint="?videoCloseButtonChatColorRef"
-            android:src="?videoCloseButtonIcon" />
+            android:src="?videoCloseButtonIcon"
+            android:tint="?videoCloseButtonChatColorRef"/>
 
         <ImageView
             android:id="@+id/download_image_button"
@@ -373,7 +378,7 @@
             android:layout_alignParentStart="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
-            android:src="?downloadButtonIcon" />
+            android:src="?downloadButtonIcon"/>
     </RelativeLayout>
 
     <!--** ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  -->
@@ -381,30 +386,28 @@
     <RelativeLayout
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
-        android:visibility="visible"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.9"
             android:scaleType="centerCrop"
-            android:src="@drawable/video_chat_background" />
-
+            android:src="@drawable/video_chat_background"/>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.6"
-            android:background="@drawable/phone_background"
-            />
+            android:background="@drawable/phone_background"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/margin_40"
-            android:layout_marginEnd="@dimen/margin_40">
+            android:layout_marginEnd="@dimen/margin_40"
+            android:layout_marginStart="@dimen/margin_40">
 
             <ImageView
                 android:id="@+id/logo"
@@ -415,7 +418,7 @@
                 android:layout_marginBottom="@dimen/margin_20"
                 android:contentDescription="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ssk_logo" />
+                android:src="@drawable/ssk_logo"/>
 
             <TextView
                 android:id="@+id/text1"
@@ -426,7 +429,7 @@
                 android:text="@string/chat_with_friends_login"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_20" />
+                android:textSize="@dimen/font_size_20"/>
 
             <TextView
                 android:id="@+id/text2"
@@ -438,20 +441,20 @@
                 android:text="@string/chat_with_friends_login_description"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_12" />
+                android:textSize="@dimen/font_size_12"/>
 
             <View
                 android:id="@+id/center_parent"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="@dimen/margin_60" />
+                android:layout_marginBottom="@dimen/margin_60"/>
 
             <View
                 android:id="@+id/center_below"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_below="@+id/center_parent" />
+                android:layout_below="@+id/center_parent"/>
 
             <!-- LOGIN CONTAINER -->
             <LinearLayout
@@ -463,7 +466,6 @@
                 android:layout_marginTop="@dimen/margin_30"
                 android:orientation="vertical"
                 android:visibility="visible">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -480,9 +482,8 @@
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_18" />
+                        android:textSize="@dimen/font_size_18"/>
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -500,14 +501,12 @@
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_18" />
+                        android:textSize="@dimen/font_size_18"/>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
     <!--** ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  -->
-
-
 
     <base.app.util.ui.TranslationView
         android:id="@+id/translation_view"
