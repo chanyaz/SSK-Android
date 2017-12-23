@@ -26,7 +26,6 @@ import butterknife.Optional;
 
 public class SignUpLoginFragment extends BaseFragment {
 
-    @Nullable
     @BindView(R.id.textView)
     TextView text;
 

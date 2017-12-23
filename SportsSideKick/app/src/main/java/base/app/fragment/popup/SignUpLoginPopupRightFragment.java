@@ -33,7 +33,6 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment implement
         // Required empty public constructor
     }
 
-    @Nullable
     @BindView(R.id.description)
     TextView description;
     private LoginStateReceiver loginStateReceiver;

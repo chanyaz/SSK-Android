@@ -86,13 +86,10 @@ public class EditProfileFragment extends BaseFragment {
     EditText emailEditText;
     @BindView(R.id.telephone_edit_text)
     EditText phoneEditText;
-    @Nullable
     @BindView(R.id.password_edit_text)
     EditText passwordEditText;
-    @Nullable
     @BindView(R.id.language_edit_text)
     TextView languageEditText;
-    @Nullable
     @BindView(R.id.language_image)
     ImageView languageImage;
 

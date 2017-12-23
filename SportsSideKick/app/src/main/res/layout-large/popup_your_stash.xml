@@ -18,13 +18,13 @@
         android:layout_below="@+id/top_buttons_container"
         android:background="?colorPrimarySemiLight">
 
-        <com.wang.avi.AVLoadingIndicatorView
+        <ProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="@dimen/prodgres_bar"
-            android:layout_height="@dimen/prodgres_bar"
+            android:layout_width="@dimen/progress_bar"
+            android:layout_height="@dimen/progress_bar"
             android:layout_centerInParent="true"
             android:elevation="@dimen/elevation_2"
-            app:indicatorName="LineSpinFadeLoaderIndicator" />
+            style="?android:progressBarStyleSmall" />
 
     </RelativeLayout>
 

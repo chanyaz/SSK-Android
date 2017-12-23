@@ -41,8 +41,8 @@ import base.app.fragment.instance.ClubRadioFragment;
 import base.app.fragment.instance.ClubRadioStationFragment;
 import base.app.fragment.instance.ClubTVFragment;
 import base.app.fragment.instance.ClubTvPlaylistFragment;
+import base.app.fragment.instance.NewsDetailFragment;
 import base.app.fragment.instance.NewsFragment;
-import base.app.fragment.instance.NewsItemFragment;
 import base.app.fragment.instance.RumoursFragment;
 import base.app.fragment.instance.StatisticsFragment;
 import base.app.fragment.instance.StoreFragment;
@@ -264,7 +264,7 @@ public class MainActivity extends BaseActivity
         popupLeftFragments.add(EditChatFragment.class);
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
-        popupLeftFragments.add(NewsItemFragment.class);
+        popupLeftFragments.add(NewsDetailFragment.class);
         popupLeftFragments.add(CreatePostFragment.class);
         getFragmentOrganizer().setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
 
@@ -376,7 +376,7 @@ public class MainActivity extends BaseActivity
         Class<? extends Fragment> penultimateFragment = getFragmentOrganizer().getPenultimateFragment().getClass();
         Fragment currentFragment = getFragmentOrganizer().getCurrentFragment();
 
-        if (currentFragment.getClass() == NewsItemFragment.class) {
+        if (currentFragment.getClass() == NewsDetailFragment.class) {
             if (previousFragment == ClubRadioFragment.class) {
                 Fragment fragment = getFragmentOrganizer().getCurrentFragment();
                 View overlay = fragment.getView().findViewById(R.id.commentInputOverlay);

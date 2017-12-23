@@ -118,14 +118,13 @@
         android:minHeight="@dimen/height_48"
         android:visibility="gone" />
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
         android:id="@+id/progress_bar"
-        android:layout_width="@dimen/prodgres_bar"
-        android:layout_height="@dimen/prodgres_bar"
+        android:layout_width="@dimen/progress_bar"
+        android:layout_height="@dimen/progress_bar"
         android:visibility="gone"      android:layout_below="@id/enter_friend_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_10"
         android:layout_marginBottom="@dimen/margin_10"
-        android:elevation="@dimen/elevation_2"
-        app:indicatorName="LineSpinFadeLoaderIndicator" />
+        style="?android:progressBarStyleSmall" />
 </RelativeLayout>

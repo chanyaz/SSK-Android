@@ -29,7 +29,7 @@
     <color name="black_transparent_154"                   >#9a000000</color>
     <color name="colorGray"                                 >#9ba1a3</color>
     <color name="colorGrayMediumLight"                      >#f6f6f6</color>
-    <color name="login_background"                          >#e5e5e5</color>
+    <color name="backgroundLight"                          >#e5e5e5</color>
     <color name="chat_content_right_color"                  >#e6f7f4</color>
     <color name="colorGraySemiLight"                        >#d3d4d8</color>
     <color name="colorGrayLight"                            >#e9eaee</color>

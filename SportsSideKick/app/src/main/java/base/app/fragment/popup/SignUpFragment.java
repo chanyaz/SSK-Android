@@ -56,10 +56,8 @@ public class SignUpFragment extends BaseFragment
     EditText lastName;
     @BindView(R.id.sign_up_email)
     EditText email;
-    @Nullable
     @BindView(R.id.sign_up_display_name)
     EditText displayName;
-    @Nullable
     @BindView(R.id.sign_up_phone)
     EditText phone;
     @BindView(R.id.sign_up_password)
@@ -69,20 +67,16 @@ public class SignUpFragment extends BaseFragment
     LoginButton loginButton;
     @BindView(R.id.web_view_holder)
     RelativeLayout termsHolder;
-    @Nullable
     @BindView(R.id.politic_and_privacy_android)
     TextView policyText;
 
-    @Nullable
     @BindView(R.id.popupSignupContainer)
     RelativeLayout editTextContainer;
 
 
-    @Nullable
     @BindView(R.id.facebook_button)
     Button facebookButton;
 
-    @Nullable
     @BindView(R.id.popupSignupJoinNowButton)
     RelativeLayout joinNowContainer;
 

@@ -264,14 +264,14 @@
                                         android:textColor="@android:color/black"
                                         android:textSize="@dimen/font_size_18" />
 
-                                    <com.wang.avi.AVLoadingIndicatorView
+                                    <ProgressBar
                                         android:id="@+id/login_progress_bar"
-                                        android:layout_width="@dimen/prodgres_bar"
-                                        android:layout_height="@dimen/prodgres_bar"
+                                        android:layout_width="@dimen/progress_bar"
+                                        android:layout_height="@dimen/progress_bar"
                                         android:layout_centerInParent="true"
                                         android:elevation="@dimen/elevation_2"
                                         android:visibility="gone"
-                                        app:indicatorName="LineSpinFadeLoaderIndicator" />
+                                        style="?android:progressBarStyleSmall" />
 
                                 </RelativeLayout>
 
@@ -294,14 +294,14 @@
                                         android:textSize="@dimen/font_size_18"
                                         android:visibility="visible" />
 
-                                    <com.wang.avi.AVLoadingIndicatorView
+                                    <ProgressBar
                                         android:id="@+id/reset_progress_bar"
-                                        android:layout_width="@dimen/prodgres_bar"
-                                        android:layout_height="@dimen/prodgres_bar"
+                                        android:layout_width="@dimen/progress_bar"
+                                        android:layout_height="@dimen/progress_bar"
                                         android:layout_centerInParent="true"
                                         android:elevation="@dimen/elevation_2"
                                         android:visibility="gone"
-                                        app:indicatorName="LineSpinFadeLoaderIndicator" />
+                                        style="?android:progressBarStyleSmall" />
 
                                 </RelativeLayout>
 

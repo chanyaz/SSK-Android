@@ -102,67 +102,49 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.post_comment_progress_bar)
     View postCommentProgressBar;
 
-    @Nullable
     @BindView(R.id.comments_count)
     TextView commentsCount;
-    @Nullable
     @BindView(R.id.likes_icon)
     ImageView likesIcon;
-    @Nullable
     @BindView(R.id.likes_icon_liked)
     ImageView likesIconLiked;
-    @Nullable
     @BindView(R.id.likes_count)
     TextView likesCount;
-    @Nullable
     @BindView(R.id.share_count)
     TextView shareCount;
 
-    @Nullable
     @BindView(R.id.pin_container)
     LinearLayout pinContainer;
 
-    @Nullable
     @BindView(R.id.social_buttons_container)
     LinearLayout buttonsContainer;
-    @Nullable
     @BindView(R.id.header_container)
     RelativeLayout headerContainer;
-    @Nullable
     @BindView(R.id.bottom_horizontal_split_line)
     View bottomSplitLine;
-    @Nullable
     @BindView(R.id.tutorial_container)
     LinearLayout tutorialContainer;
-    @Nullable
     @BindView(R.id.tutorial_title)
     TextView tutorialTitle;
-    @Nullable
     @BindView(R.id.tutorial_description)
     TextView tutorialDescription;
 
-    @Nullable
     @BindView(R.id.share_icon)
     ImageView shareButton;
 
-    @Nullable
     @BindView(R.id.delete)
     TextView delete;
 
-    @Nullable
     @BindView(R.id.share_buttons_container)
     View shareButtonsContainer;
 
-    @Nullable
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
 
 
-    @Nullable
     @BindView(R.id.source)
     TextView source;
 
-    @Nullable
     @BindView(R.id.time)
     TextView time;
 

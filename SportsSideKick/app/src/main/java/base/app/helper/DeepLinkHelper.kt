@@ -7,7 +7,7 @@ import android.util.Log
 import base.app.Constant
 import base.app.activity.BaseActivity
 import base.app.fragment.FragmentEvent
-import base.app.fragment.instance.NewsItemFragment
+import base.app.fragment.instance.NewsDetailFragment
 import base.app.fragment.instance.WallItemFragment
 import base.app.model.notifications.ExternalNotificationEvent
 import base.app.model.sharing.SharingManager
@@ -66,7 +66,7 @@ fun BaseActivity.handleDeepLink(uri: Uri?) {
                 wallItemFragmentEvent.id = postId + "$$$"
                 EventBus.getDefault().post(wallItemFragmentEvent)
             } else if (SharingManager.ItemType.News.name == postType) {
-                val newsItemFragmentEvent = FragmentEvent(NewsItemFragment::class.java)
+                val newsItemFragmentEvent = FragmentEvent(NewsDetailFragment::class.java)
                 newsItemFragmentEvent.id = postId
                 EventBus.getDefault().post(newsItemFragmentEvent)
             }

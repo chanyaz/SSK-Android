@@ -32,8 +32,8 @@ import base.app.fragment.instance.ClubRadioStationFragment;
 import base.app.fragment.instance.ClubTVFragment;
 import base.app.fragment.instance.ClubTvPlaylistFragment;
 import base.app.fragment.instance.FantasyFragment;
+import base.app.fragment.instance.NewsDetailFragment;
 import base.app.fragment.instance.NewsFragment;
-import base.app.fragment.instance.NewsItemFragment;
 import base.app.fragment.instance.QuizFragment;
 import base.app.fragment.instance.RumoursFragment;
 import base.app.fragment.instance.StatisticsFragment;
@@ -194,7 +194,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         leftContainerFragments.add(NewsFragment.class);
         leftContainerFragments.add(RumoursFragment.class);
         leftContainerFragments.add(StoreFragment.class);
-        leftContainerFragments.add(NewsItemFragment.class);
+        leftContainerFragments.add(NewsDetailFragment.class);
         leftContainerFragments.add(WallItemFragment.class);
         leftContainerFragments.add(SignUpLoginVideoFragment.class);
         getFragmentOrganizer().setUpContainer(R.id.tabs_container_1, leftContainerFragments); //WITH BACK STACK

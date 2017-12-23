@@ -60,7 +60,6 @@ public class AddFriendFragment extends BaseFragment {
     @BindView(R.id.people_recycler_view)
     RecyclerView peopleRecyclerView;
 
-    @Nullable
     @BindView(R.id.official_accounts_recycler_view)
     RecyclerView officialAccountsRecyclerView;
 

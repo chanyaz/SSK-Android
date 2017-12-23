@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:background="@color/colorGrayLight"
-    tools:showIn="@layout/fragment_news_item">
+    tools:showIn="@layout/fragment_news_detail">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +57,7 @@
         android:tint="@color/black"
         android:visibility="gone"/>
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
         android:id="@+id/post_comment_progress_bar"
         android:layout_width="@dimen/width_25"
         android:layout_height="@dimen/width_25"
@@ -69,6 +69,6 @@
         android:adjustViewBounds="true"
         android:visibility="gone"
         app:indicatorColor="@color/colorPrimary"
-        app:indicatorName="LineSpinFadeLoaderIndicator"/>
+        style="?android:progressBarStyleSmall"/>
 
 </RelativeLayout>

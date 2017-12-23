@@ -59,14 +59,14 @@
             android:src="@drawable/hangup_button" />
     </RelativeLayout>
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="@dimen/width_50"
         android:layout_height="@dimen/height_50"
         android:layout_centerInParent="true"
         android:elevation="@dimen/elevation_2"
         android:visibility="gone"
-        app:indicatorName="LineSpinFadeLoaderIndicator" />
+        style="?android:progressBarStyleSmall" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/active_container"

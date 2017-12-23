@@ -28,7 +28,7 @@ fun BaseActivity.handleNotificationEvent(event: ExternalNotificationEvent) {
                 EventBus.getDefault().post(RumoursFragment::class.java)
             }
             if ("-1" != notificationData["newsItem"]) {
-                val fe = FragmentEvent(NewsItemFragment::class.java)
+                val fe = FragmentEvent(NewsDetailFragment::class.java)
                 val id = notificationData["newsItem"]
                 if ("official" == notificationData["newsType"]) {
                     fe.id = "UNOFFICIAL$$$$id"

@@ -35,7 +35,6 @@ public class ClubTVFragment extends BaseFragment {
     RecyclerView recyclerView;
 
     ClubTVAdapter adapter;
-    @Nullable
     @BindView(R.id.back_button)
     View backButton;
 

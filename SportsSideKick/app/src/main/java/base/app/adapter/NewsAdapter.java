@@ -12,7 +12,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.NewsItemFragment;
+import base.app.fragment.instance.NewsDetailFragment;
 import base.app.model.wall.WallNews;
 
 import static base.app.adapter.WallAdapter.ViewHolder;
@@ -64,7 +64,7 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
+                FragmentEvent fe = new FragmentEvent(NewsDetailFragment.class);
                 fe.setId(news.getPostId());
                 EventBus.getDefault().post(fe);
             }

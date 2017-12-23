@@ -24,7 +24,6 @@ public class SignUpLoginVideoFragment extends SignUpLoginFragment {
         // Required empty public constructor
     }
 
-    @Nullable
     @BindView(R.id.description)
     TextView description;
 

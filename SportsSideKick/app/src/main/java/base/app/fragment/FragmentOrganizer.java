@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.Constant;
-import base.app.fragment.instance.NewsItemFragment;
+import base.app.fragment.instance.NewsDetailFragment;
 import base.app.fragment.instance.WallItemFragment;
 import base.app.fragment.popup.EditChatFragment;
 import base.app.fragment.popup.JoinChatFragment;
@@ -101,7 +101,7 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         } else if (fragment.getClass().equals(WallItemFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(0);
             return true;
-        } else if (fragment.getClass().equals(NewsItemFragment.class)) {
+        } else if (fragment.getClass().equals(NewsDetailFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(2);
             return true;
         }

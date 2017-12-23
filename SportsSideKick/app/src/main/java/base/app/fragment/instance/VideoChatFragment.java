@@ -84,7 +84,6 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public View activeChatView;
     @BindView(R.id.inactive_container)
     public View inactiveChatView;
-    @Nullable
     @BindView(R.id.nick_name_users)
     TextView nickNameUsers;
     // local user feed
@@ -106,19 +105,16 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public ImageButton videoButton;
     @BindView(R.id.add_users_button)
     public ImageButton addUserButton;
-    @Nullable
     @BindView(R.id.camera_logo)
     ImageView cameraLogo;
 
     @BindView(R.id.begin_your_call)
     Button beginYourCall;
-    @Nullable
     @BindView(R.id.chronometer)
     Chronometer chronometer;
 
     @BindView(R.id.logo)
     ImageView Logo;
-    @Nullable
     @BindView(R.id.login_container)
     LinearLayout loginContainer;
 
