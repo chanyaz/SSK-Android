@@ -456,7 +456,7 @@
         android:visibility="gone"
         tools:layout_height="0dp"/>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/commentInputOverlay"
         android:layout_width="match_parent"
         android:background="#94000000"
@@ -469,6 +469,7 @@
             android:layout_width="48dp"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
+            android:layout_above="@id/post_container"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
@@ -476,8 +477,9 @@
             android:id="@+id/postButtonSharedComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@id/post_container"
             android:layout_marginTop="16dp"
-            android:layout_gravity="right"
+            android:layout_alignParentRight="true"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:text="Post"
@@ -487,7 +489,7 @@
             android:id="@+id/post_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
             <include
@@ -507,6 +509,6 @@
             android:layout_height="match_parent"
             android:background="#83000000"/>
 
-    </FrameLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
