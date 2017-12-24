@@ -190,7 +190,8 @@ public class NewsItemFragment extends BaseFragment {
         }
         setClickListeners();
 
-        inputFieldComment.setText(R.string.hint_sharing_message);
+        EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
+        sharedMessageField.setHint(R.string.hint_sharing_message);
         return view;
     }
 
@@ -497,7 +498,8 @@ public class NewsItemFragment extends BaseFragment {
     }
 
     public void pinToWall() {
-        String sharingMessage = inputFieldComment.getText().toString();
+        EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
+        String sharingMessage = sharedMessageField.getText().toString();
 
         WallNews itemToPost = new WallNews();
         itemToPost.setTimestamp((double) Utility.getCurrentTime());
@@ -529,7 +531,9 @@ public class NewsItemFragment extends BaseFragment {
             commentInputOverlay.setVisibility(View.VISIBLE);
 
             showKeyboard(getContext());
-            inputFieldComment.performClick();
+
+            EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
+            sharedMessageField.requestFocus();
 
             // Blur background
             MainActivity activity = (MainActivity) getActivity();
