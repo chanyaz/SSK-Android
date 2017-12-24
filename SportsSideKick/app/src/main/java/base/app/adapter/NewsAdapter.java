@@ -12,7 +12,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.NewsDetailFragment;
+import base.app.fragment.instance.NewsItemFragment;
 import base.app.model.wall.WallNews;
 
 import static base.app.adapter.WallAdapter.ViewHolder;
@@ -23,6 +23,8 @@ import static base.app.adapter.WallAdapter.displayUserInfo;
 
 /**
  * Created by Djordje on 12/29/2016.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 
@@ -64,7 +66,7 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fe = new FragmentEvent(NewsDetailFragment.class);
+                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
                 fe.setId(news.getPostId());
                 EventBus.getDefault().post(fe);
             }

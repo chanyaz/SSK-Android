@@ -34,6 +34,8 @@ import base.app.util.ui.ExifUtil;
 
 /**
  * Created by Filip on 3/17/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class FileUploader {

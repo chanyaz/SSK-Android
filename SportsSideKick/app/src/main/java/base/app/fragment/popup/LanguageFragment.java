@@ -33,6 +33,8 @@ import static base.app.util.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Filip on 1/20/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class LanguageFragment extends BaseFragment implements LanguageAdapter.LanguageOnClick {

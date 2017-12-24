@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import base.app.BuildConfig;
+import base.app.Connection;
 import base.app.R;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
@@ -62,6 +63,8 @@ import static base.app.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
 
 /**
  * Created by Filip on 1/19/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 @RuntimePermissions
@@ -86,10 +89,13 @@ public class EditProfileFragment extends BaseFragment {
     EditText emailEditText;
     @BindView(R.id.telephone_edit_text)
     EditText phoneEditText;
+    @Nullable
     @BindView(R.id.password_edit_text)
     EditText passwordEditText;
+    @Nullable
     @BindView(R.id.language_edit_text)
     TextView languageEditText;
+    @Nullable
     @BindView(R.id.language_image)
     ImageView languageImage;
 
@@ -272,6 +278,21 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
+        if (!Connection.getInstance().alertIfNotReachable(getActivity(),
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(Utility.isPhone(getContext())){
+                            EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
+                        } else {
+                            getActivity().onBackPressed();
+                        }
+                    }
+                }
+        )) {
+            return;
+        }
+
         Map<String, String> map = new HashMap<>();
         map.put(GSConstants.FIRST_NAME, firstNameEditText.getText().toString());
         map.put(GSConstants.LAST_NAME, lastNameEditText.getText().toString());

@@ -54,6 +54,8 @@ import static base.app.Constant.REQUEST_CODE_POST_VIDEO_CAPTURE;
 
 /**
  * Created by Filip on 11/21/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 @RuntimePermissions

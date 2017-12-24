@@ -6,6 +6,8 @@ import base.app.events.BusEvent;
 
 /**
  * Created by Filip on 4/19/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class NativeShareEvent extends BusEvent{

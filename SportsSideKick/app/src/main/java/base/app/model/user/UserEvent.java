@@ -4,6 +4,8 @@ import base.app.model.Model;
 
 /**
  * Created by Filip on 4/25/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class UserEvent {

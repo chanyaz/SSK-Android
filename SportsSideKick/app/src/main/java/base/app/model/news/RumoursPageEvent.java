@@ -6,6 +6,8 @@ import base.app.model.wall.WallNews;
 
 /**
  * Created by Filip on 2/3/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class RumoursPageEvent {

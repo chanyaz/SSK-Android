@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/backgroundLight"
+    android:background="@color/login_background"
     tools:context="base.app.fragment.instance.WallFragment">
 
 
-    <ProgressBar
+    <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
-        android:layout_width="@dimen/progress_bar"
-        android:layout_height="@dimen/progress_bar"
+        android:layout_width="@dimen/prodgres_bar"
+        android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
-        style="?android:progressBarStyleSmall" />
+        android:elevation="@dimen/elevation_2"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     <LinearLayout
         android:id="@+id/login_holder"
@@ -21,7 +22,7 @@
         android:animateLayoutChanges="true"
         android:paddingTop="@dimen/margin_16"
         android:orientation="vertical"
-        android:background="@color/backgroundLight"
+        android:background="@color/login_background"
         android:visibility="gone"
         android:layout_height="wrap_content">
 

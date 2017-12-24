@@ -11,6 +11,8 @@ import base.app.R;
 
 /**
  * Created by Djordje Krutil on 09/01/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
  public class VerticalTextView extends android.support.v7.widget.AppCompatTextView {
 

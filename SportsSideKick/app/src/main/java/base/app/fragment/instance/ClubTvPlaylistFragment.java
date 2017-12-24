@@ -37,6 +37,7 @@ public class ClubTvPlaylistFragment extends BaseFragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @Nullable
     @BindView(R.id.caption)
     TextView captionTextView;
 

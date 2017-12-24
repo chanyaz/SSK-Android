@@ -48,78 +48,107 @@ import butterknife.Optional;
 
 /**
  * Created by Filip on 28/03/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class MemberInfoFragment extends BaseFragment {
 
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.18;
 
+    @Nullable
     @BindView(R.id.profile_image)
     ImageView profileImage;
+    @Nullable
     @BindView(R.id.profile_name)
     TextView profileName;
+    @Nullable
     @BindView(R.id.progressBar)
     ProgressBar progressBarCircle;
+    @Nullable
     @BindView(R.id.profile_image_level)
     TextView profileImageLevel;
+    @Nullable
     @BindView(R.id.online_status)
     TextView onlineStatus;
 
+    @Nullable
     @BindView(R.id.all_friends_recycler_view)
     RecyclerView allFriendsRecyclerView;
+    @Nullable
     @BindView(R.id.in_common_recycler_view)
     RecyclerView inCommonRecyclerView;
 
+    @Nullable
     @BindView(R.id.chat_button_image)
     ImageView chatButtonImage;
+    @Nullable
     @BindView(R.id.chat_button_phone_image)
     ImageView chatButtonPhoneImage;
 
 
 
 
+    @Nullable
     @BindView(R.id.follow_button_image)
     ImageView followButtonImage;
+    @Nullable
     @BindView(R.id.friend_button_image)
     ImageView friendButtonImage;
 
+    @Nullable
     @BindView(R.id.chat_button_text)
     TextView chatButtonText;
 
+    @Nullable
     @BindView(R.id.chat_button_phone_caption)
     TextView chatButtonPhoneCaption;
 
+    @Nullable
     @BindView(R.id.follow_button_text)
     TextView followButtonText;
+    @Nullable
     @BindView(R.id.friend_button_text)
     TextView friendButtonText;
 
 
+    @Nullable
     @BindView(R.id.chat_room_progress_bar)
     AVLoadingIndicatorView roomProgressBar;
+    @Nullable
     @BindView(R.id.friend_progress_bar)
     AVLoadingIndicatorView friendProgressBar;
+    @Nullable
     @BindView(R.id.friends_community)
     TextView friendsCommunityText;
+    @Nullable
     @BindView(R.id.public_chat_text)
     TextView publicChatText;
+    @Nullable
     @BindView(R.id.comments_text)
     TextView commentsCountText;
+    @Nullable
     @BindView(R.id.posts_count_value)
     TextView postsCountText;
+    @Nullable
     @BindView(R.id.friends_text)
     TextView friendsCountText;
+    @Nullable
     @BindView(R.id.profile_nick)
     TextView profileNickText;
 
+    @Nullable
     @BindView(R.id.video_button)
     ConstraintLayout videoButton;
+    @Nullable
     @BindView(R.id.more_button)
     ConstraintLayout moreButton;
 
+    @Nullable
     @BindView(R.id.public_chats_container)
     View publicChatsContainer;
 
+    @Nullable
     @BindView(R.id.common_friends_container)
     View commonFriendsContainer;
 

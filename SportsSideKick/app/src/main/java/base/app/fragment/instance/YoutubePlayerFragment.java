@@ -42,6 +42,8 @@ import butterknife.OnClick;
 
 /**
  * Created by Filip on 1/25/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 public class YoutubePlayerFragment extends BaseFragment implements
         YouTubePlayer.OnInitializedListener,

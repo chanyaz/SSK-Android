@@ -37,6 +37,8 @@ import butterknife.OnClick;
 
 /**
  * Created by Djordje Krutil on 28.3.2017..
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 public class FollowingFragment extends BaseFragment {
 

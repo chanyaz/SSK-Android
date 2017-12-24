@@ -64,6 +64,8 @@ import butterknife.Optional;
 
 /**
  * Created by Filip on 12/5/2016.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  * <p>
  * A simple {@link BaseFragment} subclass.
  */
@@ -77,24 +79,32 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @BindView(R.id.fragment_wall_recycler_view)
     RecyclerView recyclerView;
 
+    @Nullable
     @BindView(R.id.wall_top_image_container)
     RelativeLayout nextMatchContainer;
+    @Nullable
     @BindView(R.id.wall_top_image)
     ImageView wallTopImage;
+    @Nullable
     @BindView(R.id.wall_team_left_name)
     TextView wallLeftTeamName;
+    @Nullable
     @BindView(R.id.wall_team_left_image)
     ImageView wallLeftTeamImage;
+    @Nullable
     @BindView(R.id.wall_team_right_image)
     ImageView wallRightTeamImage;
+    @Nullable
     @BindView(R.id.wall_team_right_name)
     TextView wallRightTeamName;
+    @Nullable
     @BindView(R.id.wall_team_time)
     TextView wallTeamTime;
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
 
+    @Nullable
     @BindView(R.id.login_holder)
     LinearLayout loginHolder;
     @BindView(R.id.swipe_refresh_layout)

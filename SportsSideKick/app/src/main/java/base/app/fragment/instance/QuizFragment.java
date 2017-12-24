@@ -16,6 +16,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 12/6/2016.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  *
  * A simple {@link BaseFragment} subclass.
  */

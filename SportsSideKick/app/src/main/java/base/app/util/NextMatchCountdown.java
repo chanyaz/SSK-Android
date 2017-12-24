@@ -10,6 +10,8 @@ import base.app.R;
 
 /**
  * Created by Filip on 8/22/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class NextMatchCountdown {

@@ -14,6 +14,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Aleksandar Marinkovic on 30/05/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 
@@ -24,6 +26,7 @@ public class SignUpLoginVideoFragment extends SignUpLoginFragment {
         // Required empty public constructor
     }
 
+    @Nullable
     @BindView(R.id.description)
     TextView description;
 

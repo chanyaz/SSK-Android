@@ -7,6 +7,8 @@ import android.view.View;
 
 /**
  * Created by Aleksandar Marinkovic on 18/04/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class LinearItemDecoration extends RecyclerView.ItemDecoration {

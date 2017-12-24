@@ -9,6 +9,8 @@ import base.app.fragment.popup.AlertDialogFragment;
 
 /**
  * Created by Nemanja Jovanovic on 29/03/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class AlertDialogManager {

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.Constant;
-import base.app.fragment.instance.NewsDetailFragment;
+import base.app.fragment.instance.NewsItemFragment;
 import base.app.fragment.instance.WallItemFragment;
 import base.app.fragment.popup.EditChatFragment;
 import base.app.fragment.popup.JoinChatFragment;
@@ -21,6 +21,8 @@ import base.app.util.ui.NavigationDrawerItems;
 
 /**
  * Created by Filip on 12/5/2016.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class FragmentOrganizer extends AbstractFragmentOrganizer {
@@ -101,7 +103,7 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         } else if (fragment.getClass().equals(WallItemFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(0);
             return true;
-        } else if (fragment.getClass().equals(NewsDetailFragment.class)) {
+        } else if (fragment.getClass().equals(NewsItemFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(2);
             return true;
         }

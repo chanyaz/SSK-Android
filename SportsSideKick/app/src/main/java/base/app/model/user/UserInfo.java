@@ -9,7 +9,9 @@ import java.util.List;
 import base.app.model.Model;
 
 /**
- * Created by Djordje Krutil on 6.12.2016. eliav
+ * Created by Djordje Krutil on 6.12.2016.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com eliav
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfo {

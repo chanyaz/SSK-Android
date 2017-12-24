@@ -45,6 +45,8 @@ import static base.app.model.GSConstants.UPLOADING;
 
 /**
  * Created by Filip on 12/14/2016.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  *
  * Message Adapter for use in chat fragment
  */

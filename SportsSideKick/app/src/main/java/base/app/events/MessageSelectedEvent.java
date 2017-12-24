@@ -4,6 +4,8 @@ import base.app.model.im.ImsMessage;
 
 /**
  * Created by Filip on 10/25/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class MessageSelectedEvent extends BusEvent {

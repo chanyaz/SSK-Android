@@ -16,6 +16,8 @@ import base.app.fragment.instance.WallFragment;
 
 /**
  * Created by Djordje Krutil on 6.12.2016..
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 public class Constant {
 
@@ -55,4 +57,8 @@ public class Constant {
             add(ClubTVFragment.class);
             add(VideoChatFragment.class);
     }});
+
+
+
+
 }

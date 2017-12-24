@@ -223,10 +223,11 @@
 
     </RelativeLayout>
 
-    <ProgressBar
+    <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"
-        android:layout_width="@dimen/progress_bar"
-        android:layout_height="@dimen/progress_bar"
+        android:layout_width="@dimen/prodgres_bar"
+        android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
-        style="?android:progressBarStyleSmall" />
+        android:elevation="@dimen/elevation_2"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
 </android.support.percent.PercentRelativeLayout>

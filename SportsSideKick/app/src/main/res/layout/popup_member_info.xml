@@ -498,13 +498,13 @@
             android:layout_alignParentEnd="true"
             android:scaleType="centerInside" />
 
-        <ProgressBar
+        <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/friend_progress_bar"
-            android:layout_width="@dimen/progress_bar"
-            android:layout_height="@dimen/progress_bar"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
             android:elevation="@dimen/elevation_2"
-            style="?android:progressBarStyleSmall" />
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     </RelativeLayout>
 
@@ -547,13 +547,13 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:scaleType="centerInside" />
-        <ProgressBar
+        <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/chat_room_progress_bar"
-            android:layout_width="@dimen/progress_bar"
-            android:layout_height="@dimen/progress_bar"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
             android:elevation="@dimen/elevation_2"
-            style="?android:progressBarStyleSmall" />
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     </RelativeLayout>
 

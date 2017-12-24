@@ -45,6 +45,8 @@ import butterknife.Optional;
 
 /**
  * Created by Djordje on 1/21/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class FriendsFragment extends BaseFragment {
@@ -57,6 +59,7 @@ public class FriendsFragment extends BaseFragment {
 
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
+    @Nullable
     @BindView(R.id.friend_requests_count)
     TextView friendRequestCount;
 
@@ -65,6 +68,7 @@ public class FriendsFragment extends BaseFragment {
 
     @BindView(R.id.search_edit_text)
     EditText searchText;
+    @Nullable
     @BindView(R.id.official_account_list)
     RecyclerView officialAccountRecyclerView;
     FriendsAdapter officialAccountAdapter;
@@ -72,6 +76,7 @@ public class FriendsFragment extends BaseFragment {
     List<UserInfo> friends;
     List<UserInfo> officialAccounts;
 
+    @Nullable
     @BindView(R.id.friend_requests_container)
     RelativeLayout friendRequestsContainer;
 

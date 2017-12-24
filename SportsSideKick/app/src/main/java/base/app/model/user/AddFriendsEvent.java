@@ -4,6 +4,8 @@ import base.app.events.BusEvent;
 
 /**
  * Created by Nemanja Jovanovic on 24/04/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class AddFriendsEvent extends BusEvent {

@@ -44,6 +44,8 @@ import butterknife.OnClick;
 
 /**
  * Created by Filip on 12/26/2016.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class JoinChatFragment extends BaseFragment {

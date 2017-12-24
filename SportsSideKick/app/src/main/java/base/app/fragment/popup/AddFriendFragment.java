@@ -43,6 +43,8 @@ import butterknife.Optional;
 import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 /**
  * Created by Djordje Krutil on 29.3.2017..
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 public class AddFriendFragment extends BaseFragment {
 
@@ -60,6 +62,7 @@ public class AddFriendFragment extends BaseFragment {
     @BindView(R.id.people_recycler_view)
     RecyclerView peopleRecyclerView;
 
+    @Nullable
     @BindView(R.id.official_accounts_recycler_view)
     RecyclerView officialAccountsRecyclerView;
 

@@ -67,10 +67,12 @@ import static base.app.util.Utility.showKeyboard;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
-public class NewsDetailFragment extends BaseFragment {
+public class NewsItemFragment extends BaseFragment {
 
-    private static final String TAG = "NewsDetailFragment";
+    private static final String TAG = "NewsItemFragment";
     @BindView(R.id.content_image)
     ImageView imageHeader;
     @BindView(R.id.image)
@@ -81,6 +83,7 @@ public class NewsDetailFragment extends BaseFragment {
     TextView title;
     @BindView(R.id.content_text)
     TextView content;
+    @Nullable
     @BindView(R.id.share_news_to_wall_button)
     Button share;
     @BindView(R.id.comments_wall)
@@ -93,34 +96,47 @@ public class NewsDetailFragment extends BaseFragment {
     ImageView postButton;
     @BindView(R.id.post_comment_progress_bar)
     View postCommentProgressBar;
+    @Nullable
     @BindView(R.id.comments_count_header)
     TextView commentsCountHeader;
+    @Nullable
     @BindView(R.id.comments_count)
     TextView commentsCount;
+    @Nullable
     @BindView(R.id.likes_icon)
     ImageView likesIcon;
     @BindView(R.id.pin_icon)
     ImageView pinIcon;
+    @Nullable
     @BindView(R.id.likes_icon_liked)
     ImageView likesIconLiked;
+    @Nullable
     @BindView(R.id.likes_count_header)
     TextView likesCountHeader;
+    @Nullable
     @BindView(R.id.likes_count)
     TextView likesCount;
+    @Nullable
     @BindView(R.id.share_count)
     TextView shareCount;
+    @Nullable
     @BindView(R.id.share_icon)
     ImageView shareButton;
+    @Nullable
     @BindView(R.id.share_buttons_container)
     View shareButtons;
+    @Nullable
     @BindView(R.id.share_facebook)
     ImageView shareFacebookButton;
+    @Nullable
     @BindView(R.id.share_twitter)
     ImageView shareTwitterButton;
+    @Nullable
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
     @BindView(R.id.commentInputOverlay)
     View commentInputOverlay;
+    @Nullable
     @BindView(R.id.blurredContainer)
     View blurredContainer;
     @BindView(R.id.closeButtonSharedComment)
@@ -134,7 +150,7 @@ public class NewsDetailFragment extends BaseFragment {
     WallNews item;
     List<PostComment> comments;
 
-    public NewsDetailFragment() {
+    public NewsItemFragment() {
         // Required empty public constructor
     }
 

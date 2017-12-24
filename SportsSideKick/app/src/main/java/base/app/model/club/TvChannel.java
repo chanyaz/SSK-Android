@@ -4,6 +4,8 @@ import java.util.Date;
 
 /**
  * Created by Filip on 1/24/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class TvChannel {

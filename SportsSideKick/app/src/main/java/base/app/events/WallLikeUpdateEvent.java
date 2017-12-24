@@ -2,6 +2,8 @@ package base.app.events;
 
 /**
  * Created by Filip on 6/27/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class WallLikeUpdateEvent extends BusEvent {

@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by Aleksandar Marinkovic on 15-Mar-17.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class NavigationDrawerItems {

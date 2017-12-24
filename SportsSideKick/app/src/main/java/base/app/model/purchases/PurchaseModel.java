@@ -35,6 +35,8 @@ import base.app.model.user.UserInfo;
 
 /**
  * Created by Filip on 4/20/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class PurchaseModel {

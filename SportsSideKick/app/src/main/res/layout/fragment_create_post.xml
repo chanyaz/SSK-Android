@@ -111,13 +111,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ProgressBar
+        <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/progress_bar"
             android:layout_width="@dimen/progress_bar_height"
             android:layout_height="@dimen/progress_bar_height"
             android:elevation="@dimen/elevation_2"
             android:visibility="invisible"
-            style="?android:progressBarStyleSmall"
+            app:indicatorColor="@color/black"
+            app:indicatorName="LineSpinFadeLoaderIndicator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable;
 
 /**
  * Created by Filip on 3/30/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class WallStep {

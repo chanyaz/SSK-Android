@@ -26,6 +26,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 1/30/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.ViewHolder> {

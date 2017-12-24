@@ -23,6 +23,8 @@ import butterknife.Optional;
 
 /**
  * Created by Aleksandar Marinkovic on 30/05/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 
@@ -33,6 +35,7 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment implement
         // Required empty public constructor
     }
 
+    @Nullable
     @BindView(R.id.description)
     TextView description;
     private LoginStateReceiver loginStateReceiver;

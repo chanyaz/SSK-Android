@@ -41,7 +41,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/play_button_icon" />
 
-        <ProgressBar
+        <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/progress_bar"
             android:layout_width="@dimen/progress_bar_width"
             android:layout_height="@dimen/progress_bar_height"
@@ -49,7 +49,7 @@
             android:layout_centerInParent="true"
             android:elevation="@dimen/elevation_2"
             android:visibility="gone"
-            style="?android:progressBarStyleSmall" />
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
     </RelativeLayout>
 
    <!-- Sender info -->

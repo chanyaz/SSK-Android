@@ -41,8 +41,8 @@ import base.app.fragment.instance.ClubRadioFragment;
 import base.app.fragment.instance.ClubRadioStationFragment;
 import base.app.fragment.instance.ClubTVFragment;
 import base.app.fragment.instance.ClubTvPlaylistFragment;
-import base.app.fragment.instance.NewsDetailFragment;
 import base.app.fragment.instance.NewsFragment;
+import base.app.fragment.instance.NewsItemFragment;
 import base.app.fragment.instance.RumoursFragment;
 import base.app.fragment.instance.StatisticsFragment;
 import base.app.fragment.instance.StoreFragment;
@@ -163,7 +163,7 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        this.setLoginStateReceiver(new LoginStateReceiver(this));
+        this.loginStateReceiver = new LoginStateReceiver(this);
         splash.setVisibility(View.VISIBLE);
         setupFragments();
         setToolbar();
@@ -223,7 +223,7 @@ public class MainActivity extends BaseActivity
     }
 
     private void setupFragments() {
-        setFragmentOrganizer(new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class));
+        fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);
 
         ArrayList<Class> mainContainerFragments = new ArrayList<>();
         mainContainerFragments.add(WallFragment.class);
@@ -233,7 +233,7 @@ public class MainActivity extends BaseActivity
         mainContainerFragments.add(RumoursFragment.class);
         mainContainerFragments.add(StoreFragment.class);
         mainContainerFragments.add(VideoChatFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.fragment_holder, mainContainerFragments);
+        fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
 
         popupContainerFragments = new ArrayList<>();
         popupContainerFragments.add(YourProfileFragment.class);
@@ -254,38 +254,38 @@ public class MainActivity extends BaseActivity
         popupContainerFragments.add(InviteFriendFragment.class);
         popupContainerFragments.add(SignUpLoginFragment.class);
         popupContainerFragments.add(CreateChatFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.fragment_popup_holder, popupContainerFragments, true);
+        fragmentOrganizer.setUpContainer(R.id.fragment_popup_holder, popupContainerFragments, true);
 
         popupDialogFragments = new ArrayList<>();
         popupDialogFragments.add(AlertDialogFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.fragment_dialog, popupDialogFragments, true);
+        fragmentOrganizer.setUpContainer(R.id.fragment_dialog, popupDialogFragments, true);
 
         popupLeftFragments = new ArrayList<>();
         popupLeftFragments.add(EditChatFragment.class);
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
-        popupLeftFragments.add(NewsDetailFragment.class);
+        popupLeftFragments.add(NewsItemFragment.class);
         popupLeftFragments.add(CreatePostFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
+        fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
 
 
         youtubeList = new ArrayList<>();
         youtubeList.add(ClubTVFragment.class);
         youtubeList.add(ClubTvPlaylistFragment.class);
         youtubeList.add(ClubRadioFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.play_list_holder, youtubeList, false);
+        fragmentOrganizer.setUpContainer(R.id.play_list_holder, youtubeList, false);
 
         radioList = new ArrayList<>();
         radioList.add(ClubRadioFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.radio_list_holder, radioList, false);
+        fragmentOrganizer.setUpContainer(R.id.radio_list_holder, radioList, false);
 
         youtubePlayer = new ArrayList<>();
         youtubePlayer.add(YoutubePlayerFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.youtube_holder, youtubePlayer, true);
+        fragmentOrganizer.setUpContainer(R.id.youtube_holder, youtubePlayer, true);
 
         radioPlayerList = new ArrayList<>();
         radioPlayerList.add(ClubRadioStationFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.radio_holder, radioPlayerList, true);
+        fragmentOrganizer.setUpContainer(R.id.radio_holder, radioPlayerList, true);
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
     }
@@ -300,8 +300,8 @@ public class MainActivity extends BaseActivity
         }
 
         // stop playing radio when fragment is changed ( TODO Wrong place to do this? )
-        if (getFragmentOrganizer().getCurrentFragment().getClass() == ClubRadioStationFragment.class) {
-            ((ClubRadioStationFragment) getFragmentOrganizer().getCurrentFragment()).stopPlaying();
+        if (fragmentOrganizer.getCurrentFragment().getClass() == ClubRadioStationFragment.class) {
+            ((ClubRadioStationFragment) fragmentOrganizer.getCurrentFragment()).stopPlaying();
         }
 
         // make tv container visible or hidden
@@ -372,13 +372,13 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        Class<? extends Fragment> previousFragment = getFragmentOrganizer().getPreviousFragment().getClass();
-        Class<? extends Fragment> penultimateFragment = getFragmentOrganizer().getPenultimateFragment().getClass();
-        Fragment currentFragment = getFragmentOrganizer().getCurrentFragment();
+        Class<? extends Fragment> previousFragment = fragmentOrganizer.getPreviousFragment().getClass();
+        Class<? extends Fragment> penultimateFragment = fragmentOrganizer.getPenultimateFragment().getClass();
+        Fragment currentFragment = fragmentOrganizer.getCurrentFragment();
 
-        if (currentFragment.getClass() == NewsDetailFragment.class) {
+        if (currentFragment.getClass() == NewsItemFragment.class) {
             if (previousFragment == ClubRadioFragment.class) {
-                Fragment fragment = getFragmentOrganizer().getCurrentFragment();
+                Fragment fragment = fragmentOrganizer.getCurrentFragment();
                 View overlay = fragment.getView().findViewById(R.id.commentInputOverlay);
                 if (overlay.getVisibility() == View.VISIBLE) {
                     overlay.setVisibility(View.GONE);
@@ -404,7 +404,7 @@ public class MainActivity extends BaseActivity
         }
 
         if (previousFragment == YoutubePlayerFragment.class) {
-            getFragmentOrganizer().getCurrentFragment().getFragmentManager().popBackStack();
+            fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
         }
 
         // Hiding terms on Sign up fragment - TODO Should be handled on fragment itself
@@ -432,7 +432,7 @@ public class MainActivity extends BaseActivity
 
         if (previousFragment == ClubRadioStationFragment.class && penultimateFragment == ClubRadioFragment.class) {
             NavigationDrawerItems.getInstance().setByPosition(5);
-            getFragmentOrganizer().getCurrentFragment().getFragmentManager().popBackStack();
+            fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
             menuAdapter.notifyDataSetChanged();
             sideMenuAdapter.notifyDataSetChanged();
             if (drawerLayout.isDrawerOpen(GravityCompat.END))
@@ -464,8 +464,8 @@ public class MainActivity extends BaseActivity
             }
 
             if (previousFragment == ClubTVFragment.class) {
-                getFragmentOrganizer().getCurrentFragment().getFragmentManager().popBackStack();
-                getFragmentOrganizer().getCurrentFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 if (penultimateFragment == ClubRadioStationFragment.class) {
                     radioContainer.setVisibility(View.VISIBLE);
                     NavigationDrawerItems.getInstance().setByPosition(5);
@@ -489,8 +489,8 @@ public class MainActivity extends BaseActivity
 
         if (currentFragment.getClass() == ClubRadioStationFragment.class) {
             if (previousFragment == ClubRadioFragment.class) {
-                getFragmentOrganizer().getCurrentFragment().getFragmentManager().popBackStack();
-                getFragmentOrganizer().getCurrentFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
+                fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 if (penultimateFragment == YoutubePlayerFragment.class) {
                     tvContainer.setVisibility(View.VISIBLE);
                     NavigationDrawerItems.getInstance().setByPosition(7);
@@ -521,7 +521,7 @@ public class MainActivity extends BaseActivity
         if (barContainer.getVisibility() != View.VISIBLE) {
             barContainer.setVisibility(View.VISIBLE);
         }
-        if (getFragmentOrganizer().handleNavigationFragment()) {
+        if (fragmentOrganizer.handleNavigationFragment()) {
             menuAdapter.notifyDataSetChanged();
             sideMenuAdapter.notifyDataSetChanged();
             if (drawerLayout.isDrawerOpen(GravityCompat.END)) {

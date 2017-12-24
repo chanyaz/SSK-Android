@@ -15,6 +15,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Nemanja Jovanovic on 28/03/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class AlertDialogFragment extends BaseFragment {

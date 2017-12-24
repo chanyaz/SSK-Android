@@ -18,21 +18,23 @@ import base.app.model.wall.WallBase;
 
 /**
  * Created by Filip on 4/19/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
-public class InternalNotificationReciever extends GSMessageHandlerAbstract {
+public class InternalNotificationManager extends GSMessageHandlerAbstract {
 
-    private static InternalNotificationReciever instance;
+    private static InternalNotificationManager instance;
     private final ObjectMapper mapper; // jackson's object mapper
 
-    public static InternalNotificationReciever init(){
+    public static InternalNotificationManager getInstance(){
         if(instance==null){
-            instance = new InternalNotificationReciever();
+            instance = new InternalNotificationManager();
         }
         return instance;
     }
 
-    private InternalNotificationReciever(){
+    private InternalNotificationManager(){
         mapper  = new ObjectMapper();
         Model.getInstance().setMessageHandlerDelegate(this);
     }

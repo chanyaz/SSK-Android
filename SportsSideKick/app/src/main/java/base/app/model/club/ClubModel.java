@@ -36,6 +36,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Filip on 1/25/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class ClubModel {

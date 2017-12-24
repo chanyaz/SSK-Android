@@ -20,6 +20,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Aleksandar Marinkovic on 05-Jun-17.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 

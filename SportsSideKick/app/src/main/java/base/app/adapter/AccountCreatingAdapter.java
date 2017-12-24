@@ -15,6 +15,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Aleksandar Marinkovic on 13-Jul-17.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class AccountCreatingAdapter extends RecyclerView.Adapter<AccountCreatingAdapter.ViewHolder> {

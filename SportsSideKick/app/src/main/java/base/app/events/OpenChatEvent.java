@@ -4,6 +4,8 @@ import base.app.model.im.ChatInfo;
 
 /**
  * Created by Nemanja Jovanovic on 14/06/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class OpenChatEvent extends BusEvent {

@@ -406,7 +406,7 @@
             android:tint="@color/colorPrimary"
             android:visibility="gone" />
 
-        <ProgressBar
+        <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/post_comment_progress_bar"
             android:layout_width="@dimen/width_25"
             android:layout_height="@dimen/width_25"
@@ -417,7 +417,7 @@
             android:layout_marginTop="@dimen/margin_5"
             android:adjustViewBounds="true"
             app:indicatorColor="@color/colorPrimary"
-            style="?android:progressBarStyleSmall"
+            app:indicatorName="LineSpinFadeLoaderIndicator"
             android:visibility="gone" />
     </RelativeLayout>
 

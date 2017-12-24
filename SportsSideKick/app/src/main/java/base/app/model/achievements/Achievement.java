@@ -12,6 +12,8 @@ import java.util.Map;
 
 /**
  * Created by Filip on 3/26/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 /*

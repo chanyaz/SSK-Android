@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Nemanja Jovanovic on 24/04/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.ViewHolder> {

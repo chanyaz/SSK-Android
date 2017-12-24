@@ -45,6 +45,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Djordje Krutil on 06/01/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {

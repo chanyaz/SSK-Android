@@ -5,6 +5,8 @@ import base.app.model.wall.PostComment;
 
 /**
  * Created by Filip on 10/25/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class CommentSelectedEvent extends BusEvent {

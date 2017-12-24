@@ -2,6 +2,8 @@ package base.app.util.ui;
 
 /**
  * Created by Filip on 12/26/2016.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 import android.content.Context;

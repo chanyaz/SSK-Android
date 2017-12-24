@@ -2,6 +2,8 @@ package base.app.model;
 
 /**
  * Created by Filip on 3/22/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 

@@ -2,6 +2,8 @@ package base.app.model.wall;
 
 /**
  * Created by Filip on 1/10/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

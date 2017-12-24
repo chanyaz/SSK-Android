@@ -48,6 +48,8 @@ import static base.app.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Djordje on 1/21/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class StartingNewCallFragment extends BaseFragment {
@@ -55,18 +57,24 @@ public class StartingNewCallFragment extends BaseFragment {
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.2;
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
+    @Nullable
     @BindView(R.id.chat_name_edit_text)
     EditText friendName;
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
+    @Nullable
     @BindView(R.id.confirm_button)
     ImageButton confirmButton;
+    @Nullable
     @BindView(R.id.confirm_button_phone)
     Button confirmButtonPhone;
+    @Nullable
     @BindView(R.id.chat_friends_in_chat_recycler_view)
     RecyclerView addFriendsRecyclerView;
+    @Nullable
     @BindView(R.id.chat_friends_in_chat_headline)
     TextView headlineFriendsInChat;
+    @Nullable
     @BindView(R.id.no_result)
     TextView noResult;
     boolean isTablet;

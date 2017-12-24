@@ -30,6 +30,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 1/17/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder> {

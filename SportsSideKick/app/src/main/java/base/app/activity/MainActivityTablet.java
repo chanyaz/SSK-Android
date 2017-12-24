@@ -32,8 +32,8 @@ import base.app.fragment.instance.ClubRadioStationFragment;
 import base.app.fragment.instance.ClubTVFragment;
 import base.app.fragment.instance.ClubTvPlaylistFragment;
 import base.app.fragment.instance.FantasyFragment;
-import base.app.fragment.instance.NewsDetailFragment;
 import base.app.fragment.instance.NewsFragment;
+import base.app.fragment.instance.NewsItemFragment;
 import base.app.fragment.instance.QuizFragment;
 import base.app.fragment.instance.RumoursFragment;
 import base.app.fragment.instance.StatisticsFragment;
@@ -152,7 +152,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tablet);
         ButterKnife.bind(this);
-        this.setLoginStateReceiver(new LoginStateReceiver(this));
+        this.loginStateReceiver = new LoginStateReceiver(this);
         popupHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +186,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     }
 
     private void setupFragments() {
-        setFragmentOrganizer(new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class));
+        fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);
 
         ArrayList<Class> leftContainerFragments = new ArrayList<>();
         leftContainerFragments.add(WallFragment.class);
@@ -194,10 +194,10 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         leftContainerFragments.add(NewsFragment.class);
         leftContainerFragments.add(RumoursFragment.class);
         leftContainerFragments.add(StoreFragment.class);
-        leftContainerFragments.add(NewsDetailFragment.class);
+        leftContainerFragments.add(NewsItemFragment.class);
         leftContainerFragments.add(WallItemFragment.class);
         leftContainerFragments.add(SignUpLoginVideoFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.tabs_container_1, leftContainerFragments); //WITH BACK STACK
+        fragmentOrganizer.setUpContainer(R.id.tabs_container_1, leftContainerFragments); //WITH BACK STACK
 
         ArrayList<Class> topRightContainerFragments = new ArrayList<>();
         topRightContainerFragments.add(ChatFragment.class);
@@ -205,7 +205,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         topRightContainerFragments.add(FantasyFragment.class);
         topRightContainerFragments.add(QuizFragment.class);
         topRightContainerFragments.add(SignUpLoginPopupRightFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.tabs_container_top_right, topRightContainerFragments);  //WITH BACK STACK
+        fragmentOrganizer.setUpContainer(R.id.tabs_container_top_right, topRightContainerFragments);  //WITH BACK STACK
 
         ArrayList<Class> bottomRightContainerFragments = new ArrayList<>();
         bottomRightContainerFragments.add(ClubTVFragment.class);
@@ -213,7 +213,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         bottomRightContainerFragments.add(ClubRadioFragment.class);
         bottomRightContainerFragments.add(YoutubePlayerFragment.class);
         bottomRightContainerFragments.add(ClubRadioStationFragment.class);
-        getFragmentOrganizer().setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments); //WITH BACK STACK
+        fragmentOrganizer.setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments); //WITH BACK STACK
 
         popupContainerFragments = new ArrayList<>();
         popupContainerFragments.add(YourProfileFragment.class);
@@ -236,14 +236,14 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         popupContainerFragments.add(JoinChatFragment.class);
         popupContainerFragments.add(EditChatFragment.class);
 
-        getFragmentOrganizer().setUpContainer(R.id.popup_holder, popupContainerFragments, true);  //NO BACK STACK
+        fragmentOrganizer.setUpContainer(R.id.popup_holder, popupContainerFragments, true);  //NO BACK STACK
 
         loginContainerFragments = new ArrayList<>();
         loginContainerFragments.add(SignUpLoginFragment.class);
         loginContainerFragments.add(SignUpFragment.class);
         loginContainerFragments.add(LoginFragment.class);
 
-        getFragmentOrganizer().setUpContainer(R.id.popup_login_holder, loginContainerFragments);  //NO BACK STACK
+        fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments);  //NO BACK STACK
 
         radioButtonsFragmentMap = HashBiMap.create();
         radioButtonsFragmentMap.put(R.id.wall_radio_button, WallFragment.class);
@@ -313,7 +313,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     public void onBackPressed() {
         toggleBlur(false); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-        if (!getFragmentOrganizer().handleBackNavigation()) {
+        if (!fragmentOrganizer.handleBackNavigation()) {
             finish();
         }else {
             popupLoginHolder.setVisibility(View.GONE);
@@ -442,7 +442,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         switch (event.getType()) {
             case onInvitationRevoked:
             case onChatClosed:
-                if(getFragmentOrganizer().getCurrentFragment() instanceof AlertDialogFragment){
+                if(fragmentOrganizer.getCurrentFragment() instanceof AlertDialogFragment){
                     onBackPressed();
                 }
                 break;

@@ -7,14 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
+    <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress"
         android:layout_width="@dimen/progress_bar_width"
         android:layout_height="@dimen/progress_bar_height"
         android:layout_centerInParent="true"
         android:adjustViewBounds="true"
         app:indicatorColor="@color/white"
-        style="?android:progressBarStyleSmall"
+        app:indicatorName="LineSpinFadeLoaderIndicator"
         android:visibility="gone" />
 
     <RelativeLayout

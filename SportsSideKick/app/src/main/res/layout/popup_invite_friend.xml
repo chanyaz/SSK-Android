@@ -112,14 +112,14 @@
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/font_size_18" />
 
-        <ProgressBar
+        <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/invvite_progress_bar"
-            android:layout_width="@dimen/progress_bar"
-            android:layout_height="@dimen/progress_bar"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
             android:elevation="@dimen/elevation_2"
             android:visibility="gone"
-            style="?android:progressBarStyleSmall" />
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     </RelativeLayout>
 

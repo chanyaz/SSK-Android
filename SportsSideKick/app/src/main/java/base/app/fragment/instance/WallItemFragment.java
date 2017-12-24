@@ -37,6 +37,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -77,6 +78,8 @@ import butterknife.Optional;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 public class WallItemFragment extends BaseFragment {
 
@@ -102,49 +105,67 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.post_comment_progress_bar)
     View postCommentProgressBar;
 
+    @Nullable
     @BindView(R.id.comments_count)
     TextView commentsCount;
+    @Nullable
     @BindView(R.id.likes_icon)
     ImageView likesIcon;
+    @Nullable
     @BindView(R.id.likes_icon_liked)
     ImageView likesIconLiked;
+    @Nullable
     @BindView(R.id.likes_count)
     TextView likesCount;
+    @Nullable
     @BindView(R.id.share_count)
     TextView shareCount;
 
+    @Nullable
     @BindView(R.id.pin_container)
     LinearLayout pinContainer;
 
+    @Nullable
     @BindView(R.id.social_buttons_container)
     LinearLayout buttonsContainer;
+    @Nullable
     @BindView(R.id.header_container)
     RelativeLayout headerContainer;
+    @Nullable
     @BindView(R.id.bottom_horizontal_split_line)
     View bottomSplitLine;
+    @Nullable
     @BindView(R.id.tutorial_container)
     LinearLayout tutorialContainer;
+    @Nullable
     @BindView(R.id.tutorial_title)
     TextView tutorialTitle;
+    @Nullable
     @BindView(R.id.tutorial_description)
     TextView tutorialDescription;
 
+    @Nullable
     @BindView(R.id.share_icon)
     ImageView shareButton;
 
+    @Nullable
     @BindView(R.id.delete)
     TextView delete;
 
+    @Nullable
     @BindView(R.id.share_buttons_container)
     View shareButtonsContainer;
 
+    @Nullable
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
 
 
+    @Nullable
     @BindView(R.id.source)
     TextView source;
 
+    @Nullable
     @BindView(R.id.time)
     TextView time;
 
@@ -187,12 +208,12 @@ public class WallItemFragment extends BaseFragment {
             String postId;
             String wallId = null;
             if(id.contains("$$$")){
-                String[] parts = id.split("$$$");
+                String[] parts = StringUtils.split(id,"$$$");
                 if(parts.length==2){
                     postId = parts[0];
                     wallId = parts[1];
                 } else {
-                    postId = id.replace(id,"$$$");
+                    postId = StringUtils.remove(id,"$$$");
                 }
                 WallModel.getInstance().getPostById(postId,wallId);
             }

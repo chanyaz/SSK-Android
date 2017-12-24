@@ -22,6 +22,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Filip on 1/19/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class StatementAdapter extends RecyclerView.Adapter<StatementAdapter.ViewHolder> {

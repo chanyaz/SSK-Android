@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import base.app.Connection;
 import base.app.R;
 import base.app.adapter.AccountCreatingAdapter;
 import base.app.fragment.BaseFragment;
@@ -50,6 +51,8 @@ import butterknife.Optional;
 
 /**
  * Created by Filip on 1/16/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class LoginFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener, PasswordResetReceiver.PasswordResetListener {
@@ -74,22 +77,28 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
 
     @BindView(R.id.forgot_password_back)
     ImageView forgotPasswordBack;
+    @Nullable
     @BindView(R.id.image_logo)
     ImageView imageLogo;
+    @Nullable
     @BindView(R.id.logo_fq_image)
     ImageView logoFqImage;
+    @Nullable
     @BindView(R.id.image_player)
     ImageView imagePlayer;
 
 
+    @Nullable
     @BindView(R.id.forgot_button)
     TextView forgotButton;
+    @Nullable
     @BindView(R.id.title_text)
     TextView titleText;
 
 
     @BindView(R.id.bottom_buttons_container_reset)
     RelativeLayout resetButtonContainer;
+    @Nullable
     @BindView(R.id.bottom_buttons_container_login)
     RelativeLayout loginButtonContainer;
 
@@ -100,6 +109,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         // Required empty public constructor
     }
 
+    @Nullable
     @BindView(R.id.sign_up_facebook)
     LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -259,6 +269,20 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.enter_valid_password_and_display_name), Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (!Connection.getInstance() .alertIfNotReachable
+                (getActivity(),
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getActivity().onBackPressed();
+                            }
+                        }
+                )
+            ) {
+            return;
+        }
+
         Model.getInstance().login(email, password);
         loginText.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);

@@ -16,7 +16,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.NewsDetailFragment;
+import base.app.fragment.instance.NewsItemFragment;
 import base.app.model.wall.WallNews;
 import base.app.util.Utility;
 import butterknife.BindView;
@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Djordje on 10/01/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
 
 public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsListAdapter.ViewHolder> {
@@ -109,7 +111,7 @@ public class RumoursNewsListAdapter extends RecyclerView.Adapter<RumoursNewsList
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fe = new FragmentEvent(NewsDetailFragment.class);
+                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
                 fe.setId("UNOFFICIAL$$$" + info.getPostId());
                 EventBus.getDefault().post(fe);
             }
