@@ -30,6 +30,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.fragment.FragmentEvent;
+import base.app.fragment.instance.NewsItemFragment;
 import base.app.fragment.instance.WallItemFragment;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;
@@ -361,8 +362,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
-                    fe.setId(values.get(holder.getAdapterPosition()).getPostId());
+                    FragmentEvent fe;
+                    WallBase item = values.get(holder.getAdapterPosition());
+                    if (item.getReferencedItemId().isEmpty()) {
+                        fe = new FragmentEvent(WallItemFragment.class);
+                        fe.setId(item.getPostId());
+                    } else {
+                        fe = new FragmentEvent(NewsItemFragment.class);
+                        fe.setId(item.getReferencedItemId());
+                    }
                     EventBus.getDefault().post(fe);
                 }
             });

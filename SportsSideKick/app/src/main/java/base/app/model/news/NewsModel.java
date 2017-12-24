@@ -1,14 +1,20 @@
 package base.app.model.news;
 
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +22,8 @@ import java.util.List;
 import base.app.GSAndroidPlatform;
 import base.app.model.wall.WallNews;
 import base.app.util.Utility;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -146,7 +154,7 @@ public class NewsModel {
                     else {
                         NewsPageEvent newsItemsEvent;
                         if(type.equals(NewsType.OFFICIAL)){
-                            newsItems.addAll(receivedItems);
+                            saveNewsToCache(receivedItems);
                             newsItemsEvent = new NewsPageEvent(receivedItems);
                             pageNews++;
                         } else {
@@ -161,9 +169,30 @@ public class NewsModel {
         });
     }
 
+    private void saveNewsToCache(List<WallNews> receivedItems) {
+        // Memory cache
+        newsItems.addAll(receivedItems);
+
+        // Database cache
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Type listOfBecons = new TypeToken<List<WallNews>>() {}.getType();
+
+        String strBecons = new Gson().toJson(newsItems, listOfBecons);
+        preferences.edit().putString("NEWS_ITEMS", strBecons).apply();
+    }
+
+    private List<WallNews> loadNewsFromCache() {
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        Type listOfBecons = new TypeToken<List<WallNews>>() {}.getType();
+
+        return new Gson().fromJson(
+                preferences.getString("NEWS_ITEMS", ""), listOfBecons);
+    }
+
     public WallNews getCachedItemById(String id, NewsType type) {
         if(type == NewsType.OFFICIAL){
-            for(WallNews item : newsItems){
+            for(WallNews item : loadNewsFromCache()){
                 if(item.getPostId().equals(id)){
                     return item;
                 }
@@ -179,6 +208,6 @@ public class NewsModel {
     }
 
     public List<WallNews> getAllCachedItems(NewsType type) {
-        return type == NewsType.OFFICIAL ? newsItems : rumorsItems;
+        return type == NewsType.OFFICIAL ? loadNewsFromCache() : rumorsItems;
     }
 }

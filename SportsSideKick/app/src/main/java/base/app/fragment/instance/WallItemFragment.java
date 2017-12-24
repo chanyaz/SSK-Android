@@ -217,6 +217,7 @@ public class WallItemFragment extends BaseFragment {
                 }
                 WallModel.getInstance().getPostById(postId,wallId);
             }
+            return view;
         } else {
             initializeWithData(true, item);
         }
