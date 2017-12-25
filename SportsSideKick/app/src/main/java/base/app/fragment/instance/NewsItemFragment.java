@@ -154,6 +154,8 @@ public class NewsItemFragment extends BaseFragment {
     ImageButton sharedNewsCloseButton;
     @BindView(R.id.sharedMessageField)
     EditText sharedMessageField;
+    @BindView(R.id.pin_container)
+    View pinContainer;
 
     CommentsAdapter commentsAdapter;
     WallNews item;
@@ -220,9 +222,11 @@ public class NewsItemFragment extends BaseFragment {
         if (setVisible) {
             sharedMessageBar.setVisibility(View.VISIBLE);
             closeButton.setVisibility(View.GONE);
+            pinContainer.setVisibility(View.GONE);
         } else {
             sharedMessageBar.setVisibility(View.GONE);
             closeButton.setVisibility(View.GONE);
+            pinContainer.setVisibility(View.VISIBLE);
         }
     }
 
