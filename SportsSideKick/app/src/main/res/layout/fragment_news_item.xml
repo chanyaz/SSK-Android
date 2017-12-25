@@ -455,51 +455,63 @@
         android:background="@drawable/btn_back_gradient"
         android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
-    <LinearLayout
-        android:id="@+id/sharedMessageBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="#f7ffffff"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <ImageButton
-            android:id="@+id/sharedNewsCloseButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="56dp"
+        <LinearLayout
+            android:id="@+id/sharedMessageBar"
+            android:layout_width="match_parent"
+            android:background="#f7ffffff"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:tint="#8501a352" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/sharedMessageField"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:enabled="false"
-            android:text="Shared message will appear here"
-            android:textColor="#cd008643" />
+            <!--Status bar background-->
+            <View
+                android:layout_width="match_parent"
+                tools:visibility="gone"
+                android:layout_height="24dp"/>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:background="#01A352" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <ImageButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_more_horiz_black_24dp"
-            android:tint="#01A352" />
+                <ImageButton
+                    android:id="@+id/sharedNewsCloseButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:tint="#8501a352" />
 
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/sharedMessageField"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:text="Shared message will appear here"
+                    android:textColor="#cd008643" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#01A352" />
+
+                <ImageButton
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_more_horiz_black_24dp"
+                    android:tint="#01A352" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     <base.app.util.ui.TranslationView
         android:id="@+id/translation_view"
