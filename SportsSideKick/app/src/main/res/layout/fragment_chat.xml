@@ -10,10 +10,11 @@
 
     <!-- Background image -->
     <ImageView
+        android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="?phoneChatBackground" />
+        tools:src="?phoneChatBackground" />
 
     <!-- Empty chat info text -->
     <TextView

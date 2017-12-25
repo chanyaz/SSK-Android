@@ -44,6 +44,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -183,6 +184,8 @@ public class ChatFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.logo)
     ImageView Logo;
+    @BindView(R.id.backgroundImage)
+    ImageView backgroundImage;
     @Nullable
     @BindView(R.id.login_container)
     LinearLayout loginContainer;
@@ -346,6 +349,10 @@ public class ChatFragment extends BaseFragment {
             fullScreenContainer.setOnClickListener(disabledClick);
         }
         videoViewContainer.setOnClickListener(disabledClick);
+
+        Glide.with(getContext())
+                .load(R.drawable.phone_chat_background)
+                .into(backgroundImage);
 
         return view;
     }

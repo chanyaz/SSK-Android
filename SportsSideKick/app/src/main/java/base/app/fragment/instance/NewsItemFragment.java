@@ -148,10 +148,12 @@ public class NewsItemFragment extends BaseFragment {
     TextView textContent;
     @BindView(R.id.sharedMessageBar)
     View sharedMessageBar;
-    @BindView(R.id.closeButton)
+    @BindView(R.id.close_button)
     ImageButton closeButton;
     @BindView(R.id.sharedNewsCloseButton)
     ImageButton sharedNewsCloseButton;
+    @BindView(R.id.sharedMessageField)
+    EditText sharedMessageField;
 
     CommentsAdapter commentsAdapter;
     WallNews item;
@@ -170,6 +172,7 @@ public class NewsItemFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         String id = getPrimaryArgument();
+        String sharedChildId = getSecondaryArgument();
         item = loadFromCacheBy(id);
         if (item == null) {
             // TODO This item is not in cache, fetch it individually!
@@ -178,7 +181,7 @@ public class NewsItemFragment extends BaseFragment {
         showHeaderImage();
         showTextContent(item);
 
-        showSharingBar();
+        setSharedMessageBarVisible(true);
         showSharingPreviewImage();
         showSharingAvatar();
 
@@ -200,11 +203,21 @@ public class NewsItemFragment extends BaseFragment {
 
         EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         sharedMessageField.setHint(R.string.hint_sharing_message);
+
+        if (sharedChildId != null) {
+            setSharedMessageBarVisible(true);
+            WallNews sharedChildPost = loadFromCacheBy(sharedChildId);
+            if (sharedChildPost != null) {
+                sharedMessageField.setText(sharedChildPost.getSharedComment());
+            }
+        } else {
+            setSharedMessageBarVisible(false);
+        }
         return view;
     }
 
-    private void showSharingBar() {
-        if (item.hasSharedComment()) {
+    private void setSharedMessageBarVisible(boolean setVisible) {
+        if (setVisible) {
             sharedMessageBar.setVisibility(View.VISIBLE);
             closeButton.setVisibility(View.GONE);
         } else {

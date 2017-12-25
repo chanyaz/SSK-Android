@@ -23,6 +23,7 @@ import base.app.util.Utility;
 public abstract class BaseFragment extends Fragment {
 
     public static final String PRIMARY_ARG_TAG = "PRIMARY_ARG_TAG";
+    public static final String SECONDARY_ARG_TAG = "SECONDARY_ARG_TAG";
     public static final String STRING_ARRAY_ARG_TAG = "STRING_ARRAY_ARG_TAG";
     public static final String INITIATOR = "INITIATOR_ARG_TAG";
     private static final String TAG = "Base Fragment";
@@ -51,6 +52,10 @@ public abstract class BaseFragment extends Fragment {
 
     protected String getPrimaryArgument() {
         return getArguments().getString(PRIMARY_ARG_TAG);
+    }
+
+    protected String getSecondaryArgument() {
+        return getArguments().getString(SECONDARY_ARG_TAG);
     }
 
     protected List<String> getStringArrayArguement() {

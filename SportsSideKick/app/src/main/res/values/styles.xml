@@ -11,7 +11,6 @@
         <item name="colorControlActivated">@color/colorAccentSemiDark</item>
         <item name="colorControlHighlight">@color/colorAccentSemiDark</item>
         <item name="colorPrimarySemiLight">@color/colorPrimarySemiLight</item>
-        <item name="colorControlHighlight">#3e000000</item>
         <item name="android:windowBackground">@color/colorPrimarySemiDark</item>
 
         <item name="black">@color/black</item>

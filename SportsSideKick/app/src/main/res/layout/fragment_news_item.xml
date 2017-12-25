@@ -93,7 +93,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="250dp"
                             android:adjustViewBounds="true"
-                            android:scaleType="fitXY"/>
+                            android:scaleType="centerCrop"/>
 
                         <VideoView
                             android:id="@+id/content_video"
@@ -441,7 +441,7 @@
     <include layout="@layout/include_input_field"/>
 
     <ImageButton
-        android:id="@+id/closeButton"
+        android:id="@+id/close_button"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginTop="-32dp"
@@ -455,7 +455,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:background="#e3ffffff"
+        android:layout_marginTop="24dp"
+        android:background="#f7ffffff"
         tools:visibility="visible"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -465,14 +466,15 @@
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:tint="#01A352"
+            android:tint="#8501a352"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
 
-        <TextView
+        <EditText
+            android:enabled="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/titleShareMessage"
+            android:id="@+id/sharedMessageField"
             android:layout_weight="1"
             tools:text="This is the user's share message"/>
 
