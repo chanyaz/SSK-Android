@@ -472,11 +472,13 @@
 
         <EditText
             android:enabled="false"
+            android:background="@null"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/sharedMessageField"
+            android:textColor="#cd008643"
             android:layout_weight="1"
-            tools:text="This is the user's share message"/>
+            android:text="Shared message will appear here"/>
 
         <View
             android:layout_width="1dp"
