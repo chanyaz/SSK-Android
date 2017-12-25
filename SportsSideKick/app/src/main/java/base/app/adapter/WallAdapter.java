@@ -201,7 +201,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
                 RequestOptions options = new RequestOptions()
                         .transform(new PositionedCropTransformation(
-                                holder.view.getContext(), 0.5f, 0f));
+                                holder.view.getContext(), 0.5f, 0.2f));
                 Glide.with(holder.imageView.getContext())
                         .load(post.getCoverImageUrl())
                         .apply(options)

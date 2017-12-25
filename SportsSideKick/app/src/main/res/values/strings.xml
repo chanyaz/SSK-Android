@@ -311,8 +311,8 @@
         <item>@string/news_caption</item>
         <item>@string/statistics_caption</item>
         <item>@string/rumours_caption</item>
-        <item>@string/club_radio_caption</item>
-        <item>@string/shop_caption</item>
+        <!--<item>@string/club_radio_caption</item>-->
+        <!--<item>@string/shop_caption</item>-->
         <item>@string/club_tv_caption</item>
         <item>@string/video_chat_caption</item>
     </string-array>
