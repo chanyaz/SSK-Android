@@ -255,7 +255,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     private void displayParentCaptionAndPosterPhoto(WallNewsShare newsItem, final ViewHolder holder) {
-        displayCaption(newsItem.getTitle(), holder);
         /* TODO Show poster's photo
         WallModel.getInstance().getPostById(
                 null,
@@ -325,13 +324,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     if (news.hasSharedComment()) {
                         holder.textComment.setText(news.getSharedComment());
                         holder.commentContainer.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.commentContainer.setVisibility(View.GONE);
-                    }
-                    if (!news.getReferencedItemId().isEmpty()) {
+
                         displayParentCaptionAndPosterPhoto(news, holder);
                         holder.userImage.setVisibility(View.GONE);
                     } else {
+                        holder.commentContainer.setVisibility(View.GONE);
+
                         holder.userImage.setVisibility(View.VISIBLE);
                     }
                     if (holder.playButton != null) {

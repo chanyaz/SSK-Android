@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -145,6 +146,12 @@ public class NewsItemFragment extends BaseFragment {
     View postButtonSharedComment;
     @BindView(R.id.text_content)
     TextView textContent;
+    @BindView(R.id.sharedMessageBar)
+    View sharedMessageBar;
+    @BindView(R.id.closeButton)
+    ImageButton closeButton;
+    @BindView(R.id.sharedNewsCloseButton)
+    ImageButton sharedNewsCloseButton;
 
     CommentsAdapter commentsAdapter;
     WallNews item;
@@ -171,6 +178,7 @@ public class NewsItemFragment extends BaseFragment {
         showHeaderImage();
         showTextContent(item);
 
+        showSharingBar();
         showSharingPreviewImage();
         showSharingAvatar();
 
@@ -195,11 +203,33 @@ public class NewsItemFragment extends BaseFragment {
         return view;
     }
 
+    private void showSharingBar() {
+        if (item.hasSharedComment()) {
+            sharedMessageBar.setVisibility(View.VISIBLE);
+            closeButton.setVisibility(View.GONE);
+        } else {
+            sharedMessageBar.setVisibility(View.GONE);
+            closeButton.setVisibility(View.GONE);
+        }
+    }
+
     private void setClickListeners() {
         closeButtonSharedComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideSharedCommentOverlay();
+            }
+        });
+        sharedNewsCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
             }
         });
         postButtonSharedComment.setOnClickListener(new View.OnClickListener() {
@@ -575,11 +605,6 @@ public class NewsItemFragment extends BaseFragment {
             content.setMaxLines(3);
             ((TextView) view).setText(R.string.read_more_closed);
         }
-    }
-
-    @OnClick(R.id.close_button)
-    public void closeOnClick() {
-        getActivity().onBackPressed();
     }
 
     @BindView(R.id.translation_view)

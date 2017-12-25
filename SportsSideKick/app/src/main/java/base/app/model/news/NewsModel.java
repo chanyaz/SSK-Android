@@ -186,8 +186,13 @@ public class NewsModel {
                 .getDefaultSharedPreferences(getApplicationContext());
         Type listOfBecons = new TypeToken<List<WallNews>>() {}.getType();
 
-        return new Gson().fromJson(
-                preferences.getString("NEWS_ITEMS", ""), listOfBecons);
+        String savedString = preferences.getString("NEWS_ITEMS", "");
+        if (!savedString.isEmpty()) {
+            return new Gson().fromJson(
+                    savedString, listOfBecons);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public WallNews getCachedItemById(String id, NewsType type) {

@@ -233,6 +233,7 @@
                     android:id="@+id/source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     android:layout_below="@id/social_buttons_container"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_10"
@@ -243,6 +244,7 @@
 
                 <TextView
                     android:id="@+id/time_separator"
+                    android:visibility="invisible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/social_buttons_container"
@@ -257,6 +259,7 @@
 
                 <TextView
                     android:id="@+id/time"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/social_buttons_container"
@@ -280,7 +283,7 @@
                     android:ellipsize="end"
                     android:text="@string/demo_content_lorem_medium"
                     android:textColor="@color/colorPrimaryVeryLight"
-                    android:textSize="28sp"/>
+                    android:textSize="24sp"/>
 
                 <TextView
                     android:id="@+id/content_text"
@@ -290,7 +293,7 @@
                     android:layout_marginBottom="@dimen/margin_5"
                     android:layout_marginEnd="@dimen/margin_15"
                     android:layout_marginStart="@dimen/margin_15"
-                    android:textSize="19sp"
+                    android:textSize="16sp"
                     android:lineSpacingMultiplier="0.9"
                     android:layout_marginTop="@dimen/margin_5"
                     android:animateLayoutChanges="true"
@@ -438,7 +441,7 @@
     <include layout="@layout/include_input_field"/>
 
     <ImageButton
-        android:id="@+id/close_button"
+        android:id="@+id/closeButton"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginTop="-32dp"
@@ -446,6 +449,48 @@
         android:background="@drawable/btn_back_gradient"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+
+    <LinearLayout
+        android:id="@+id/sharedMessageBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="#e3ffffff"
+        tools:visibility="visible"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/sharedNewsCloseButton"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:tint="#01A352"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleShareMessage"
+            android:layout_weight="1"
+            tools:text="This is the user's share message"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_height="match_parent"
+            android:background="#01A352"/>
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:tint="#01A352"
+            android:src="@drawable/ic_more_horiz_black_24dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+    </LinearLayout>
 
     <base.app.util.ui.TranslationView
         android:id="@+id/translation_view"
@@ -456,7 +501,7 @@
         android:visibility="gone"
         tools:layout_height="0dp"/>
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/commentInputOverlay"
         android:layout_width="match_parent"
         android:background="#94000000"
@@ -469,7 +514,6 @@
             android:layout_width="48dp"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:layout_above="@id/post_container"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
@@ -477,9 +521,8 @@
             android:id="@+id/postButtonSharedComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/post_container"
             android:layout_marginTop="16dp"
-            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:text="Post"
@@ -489,7 +532,7 @@
             android:id="@+id/post_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             android:orientation="vertical">
 
             <include
@@ -509,6 +552,6 @@
             android:layout_height="match_parent"
             android:background="#83000000"/>
 
-    </RelativeLayout>
+    </FrameLayout>
 
 </RelativeLayout>

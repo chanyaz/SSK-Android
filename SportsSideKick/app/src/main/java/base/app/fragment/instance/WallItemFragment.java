@@ -198,7 +198,8 @@ public class WallItemFragment extends BaseFragment {
         }
 
         if(Utility.isPhone(getContext())){
-            ButterKnife.findById(view,R.id.close_button).setVisibility(View.GONE);
+
+            ButterKnife.findById(view,R.id.closeButton).setVisibility(View.GONE);
         }
 
         String id = getPrimaryArgument();
