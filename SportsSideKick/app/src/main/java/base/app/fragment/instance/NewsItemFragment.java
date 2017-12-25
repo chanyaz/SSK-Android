@@ -222,11 +222,9 @@ public class NewsItemFragment extends BaseFragment {
         if (setVisible) {
             sharedMessageBar.setVisibility(View.VISIBLE);
             closeButton.setVisibility(View.GONE);
-            pinContainer.setVisibility(View.GONE);
         } else {
             sharedMessageBar.setVisibility(View.GONE);
             closeButton.setVisibility(View.GONE);
-            pinContainer.setVisibility(View.VISIBLE);
         }
     }
 
