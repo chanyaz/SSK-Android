@@ -18,7 +18,6 @@ import java.util.HashMap;
 
 import base.app.model.sharing.Shareable;
 import base.app.model.sharing.SharingManager;
-import base.app.model.tutorial.WallTip;
 import base.app.model.user.UserInfo;
 
 /**
@@ -52,9 +51,8 @@ public abstract class WallBase implements Shareable {
         newsUnOfficial,
         wallComment,
         rumourShare,
-        official,
-        webhose,
-        tip
+        postShare,
+        tip,
     }
 
     @JsonProperty("timestamp")
@@ -142,14 +140,6 @@ public abstract class WallBase implements Shareable {
                     case wallStoreItem:
                         typeReference = new TypeReference<WallStoreItem>(){};
                         break;
-                    case tip:
-                        typeReference = new TypeReference<WallTip>(){};
-                        break;
-                    case official:
-                        typeReference = new TypeReference<WallNews>() {};
-                        break;
-                    case webhose:
-                        typeReference = new TypeReference<WallRumor>() {};
                 }
             }
 
@@ -157,11 +147,7 @@ public abstract class WallBase implements Shareable {
             item.setType(type);
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
-            if(
-                putInCache &&
-                type != PostType.official &&
-                type != PostType.webhose &&
-                type != PostType.tip ){
+            if(putInCache){
 
                 WallBase cachedItem = cache.get(item.getPostId());
                 if(cachedItem!=null){

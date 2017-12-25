@@ -19,6 +19,9 @@ import com.facebook.ads.AdSettings;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdsManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -31,9 +34,11 @@ import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.NewsItemFragment;
 import base.app.fragment.instance.WallItemFragment;
+import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
+import base.app.model.wall.WallModel;
 import base.app.model.wall.WallNewsShare;
 import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStats;
@@ -243,10 +248,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     private void displayParentCaptionAndPosterPhoto(WallNewsShare newsItem, final ViewHolder holder) {
-        /* TODO Show poster's photo
         WallModel.getInstance().getPostById(
                 null,
-                newsItem.getPostId(),
+                newsItem.getReferencedItemId(),
                 new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -257,7 +261,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         }
                     }
                 });
-                */
     }
 
     @Override
