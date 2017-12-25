@@ -113,7 +113,7 @@
 
     <!-- tutorial values -->
     <string name="share_using">Share with:</string>
-    <string name="enter_comment_hint">Enter a comment ...</string>
+    <string name="enter_comment_hint">Enter your comment here...</string>
 
     <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
     <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat</string>

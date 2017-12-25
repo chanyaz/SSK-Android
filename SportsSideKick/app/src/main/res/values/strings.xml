@@ -100,7 +100,7 @@
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
 
     <string name="share_using">Share with:</string>
-    <string name="enter_comment_hint">Enter a comment …</string>
+    <string name="enter_comment_hint">Enter your comment here...</string>
 
     <string name="this_chat_is_public">This chat is public</string>
     <string name="this_chat_is_private">This chat is private</string>

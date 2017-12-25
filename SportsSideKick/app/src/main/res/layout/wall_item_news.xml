@@ -42,7 +42,7 @@
                 android:paddingBottom="8dp"
                 android:text="@string/demo_content_lorem_long"
                 android:textColor="#1b1c1a"
-                android:textSize="16sp"/>
+                android:textSize="18sp"/>
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
