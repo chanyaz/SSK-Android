@@ -157,6 +157,15 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.pin_container)
     View pinContainer;
 
+    @BindView(R.id.sharedMessageMoreButton)
+    ImageButton sharedMessageMoreButton;
+    @BindView(R.id.sharedMessageDeleteEditContainer)
+    View sharedMessageDeleteEditContainer;
+    @BindView(R.id.sharedMessageEditButton)
+    Button sharedMessageEditButton;
+    @BindView(R.id.sharedMessageDeleteButton)
+    Button sharedMessageDeleteButton;
+
     CommentsAdapter commentsAdapter;
     WallNews item;
     List<PostComment> comments;
@@ -245,6 +254,13 @@ public class NewsItemFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();
+            }
+        });
+        sharedMessageMoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sharedMessageMoreButton.setVisibility(View.GONE);
+                sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
             }
         });
         postButtonSharedComment.setOnClickListener(new View.OnClickListener() {
