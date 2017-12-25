@@ -137,13 +137,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentBottom="true"
-            android:background="@color/white">
-        </base.app.util.ui.NoScrollRecycler>
+            android:background="@color/white"/>
 
         <RelativeLayout
             android:id="@+id/fragment_popup_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:layout_height="0dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@color/transparent"/>
@@ -160,6 +160,7 @@
         <RelativeLayout
             android:id="@+id/blurred_background"
             android:layout_width="match_parent"
+            tools:layout_height="0dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -168,6 +169,7 @@
         <RelativeLayout
             android:id="@+id/fragment_dialog"
             android:layout_width="match_parent"
+            tools:layout_height="0dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -176,9 +178,8 @@
         <base.app.util.ui.NextMatchView
             android:id="@+id/splash"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible">
-        </base.app.util.ui.NextMatchView>
+            tools:layout_height="0dp"
+            android:layout_height="match_parent"/>
 
         <LinearLayout
             android:id="@+id/fragment_radio_container"
