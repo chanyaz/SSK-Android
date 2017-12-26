@@ -29,10 +29,10 @@ import static base.app.adapter.WallAdapter.displayUserInfo;
 
 
 public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
-    private static final int VIEW_TYPE_CELL = 2;
-    private static final String TAG = "News Adapter";
 
-    private List<WallNews> values;
+    private static final int VIEW_TYPE_ROW = 1;
+
+    protected List<WallNews> values;
 
     public List<WallNews> getValues() {
         return values;
@@ -44,15 +44,19 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return VIEW_TYPE_CELL;
+        return VIEW_TYPE_ROW;
     }
 
     @Override
     public WallAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         WallAdapter.ViewHolder viewHolder;
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wall_item_news, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(getItemLayoutId(), parent, false);
         viewHolder = new WallAdapter.ViewHolder(view);
         return viewHolder;
+    }
+
+    protected int getItemLayoutId() {
+        return R.layout.wall_item_news;
     }
 
     // Replace the contents of a view (invoked by the layout manager)

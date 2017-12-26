@@ -24,7 +24,6 @@ import base.app.fragment.BaseFragment;
 import base.app.model.news.NewsModel;
 import base.app.model.news.NewsPageEvent;
 import base.app.model.wall.WallNews;
-import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -47,10 +46,8 @@ public class NewsFragment extends BaseFragment {
     RecyclerView recyclerView;
     @BindView(R.id.progress_bar)
     AVLoadingIndicatorView progressBar;
-
     @BindView(R.id.top_image)
     ImageView topImage;
-
     @BindView(R.id.top_caption)
     TextView topCaption;
 
@@ -63,19 +60,12 @@ public class NewsFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
 
-        if(Utility.isTablet(getContext())){
-            topImage.setVisibility(View.GONE);
-            topCaption.setVisibility(View.GONE);
-        } else {
             Glide.with(getActivity()).load(R.drawable.image_wall_background).load(topImage);
-        }
 
         adapter = new NewsAdapter();
 
         recyclerView.setAdapter(adapter);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setNestedScrollingEnabled(false);
 
         List<WallNews> existingItems = NewsModel.getInstance().getAllCachedItems(type);

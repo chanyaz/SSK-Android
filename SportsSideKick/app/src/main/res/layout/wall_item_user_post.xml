@@ -16,7 +16,6 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimaryVeryLight" />
 
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/author_user_image"
         android:layout_width="@dimen/width_26"
