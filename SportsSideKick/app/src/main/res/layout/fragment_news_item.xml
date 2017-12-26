@@ -455,94 +455,94 @@
         android:background="@drawable/btn_back_gradient"
         android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
-        <LinearLayout
-            android:id="@+id/sharedMessageBar"
-            android:layout_width="match_parent"
-            android:background="#f7ffffff"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/sharedMessageBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f7ffffff"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
 
-            <!--Status bar background-->
+        <!--Status bar background-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            tools:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/sharedNewsCloseButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="56dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:tint="#8501a352" />
+
+            <EditText
+                android:id="@+id/sharedMessageField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="Shared message will appear here"
+                android:textColor="#cd008643"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <View
-                android:layout_width="match_parent"
-                tools:visibility="gone"
-                android:layout_height="24dp"/>
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:background="#01A352" />
+
+            <ImageButton
+                android:id="@+id/sharedMessageMoreButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_more_horiz_black_24dp"
+                android:tint="#01A352" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/sharedMessageDeleteEditContainer"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
 
-                <ImageButton
-                    android:id="@+id/sharedNewsCloseButton"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="56dp"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                    android:tint="#8501a352" />
+                <Button
+                    android:id="@+id/sharedMessageEditButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:text="Edit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
-                <EditText
-                    android:id="@+id/sharedMessageField"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="15dp"
-                    android:background="@null"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:text="Shared message will appear here"
-                    android:textColor="#cd008643" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="#01A352" />
-
-                <ImageButton
-                    android:id="@+id/sharedMessageMoreButton"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_more_horiz_black_24dp"
-                    android:tint="#01A352" />
-
-                <LinearLayout
-                    android:id="@+id/sharedMessageDeleteEditContainer"
-                    android:layout_width="60dp"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/sharedMessageEditButton"
-                        android:background="@color/colorPrimaryVeryLight"
-                        android:textColor="@color/white"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:text="Edit"
-                        android:textAllCaps="false"/>
-
-                    <Button
-                        android:id="@+id/sharedMessageDeleteButton"
-                        android:background="@color/colorPrimaryVeryLight"
-                        android:textColor="@color/white"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:text="Delete"
-                        android:textAllCaps="false"/>
-
-                </LinearLayout>
+                <Button
+                    android:id="@+id/sharedMessageDeleteButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:text="Delete"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
         </LinearLayout>
+
+    </LinearLayout>
 
     <base.app.util.ui.TranslationView
         android:id="@+id/translation_view"
@@ -553,57 +553,64 @@
         android:visibility="gone"
         tools:layout_height="0dp" />
 
-    <FrameLayout
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/commentInputOverlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#94000000"
+        android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:visibility="gone">
+        tools:visibility="visible"
+        android:fillViewport="true">
 
-        <ImageButton
-            android:id="@+id/closeButtonSharedComment"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="48dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
-
-        <Button
-            android:id="@+id/postButtonSharedComment"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="16dp"
-            android:text="Post"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:id="@+id/post_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
-
-            <include
-                layout="@layout/wall_item_news"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp" />
-
-            <include layout="@layout/include_input_field" />
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/blurredContainer"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#83000000"
-            android:visibility="gone" />
+            android:background="#94000000">
 
-    </FrameLayout>
+            <ImageButton
+                android:id="@+id/closeButtonSharedComment"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+
+            <Button
+                android:id="@+id/postButtonSharedComment"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="16dp"
+                android:text="Post"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:id="@+id/post_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/wall_item_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp" />
+
+                <include layout="@layout/include_input_field" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/blurredContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#83000000"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

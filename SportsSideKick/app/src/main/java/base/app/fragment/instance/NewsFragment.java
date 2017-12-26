@@ -60,7 +60,7 @@ public class NewsFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
 
-            Glide.with(getActivity()).load(R.drawable.image_wall_background).load(topImage);
+        Glide.with(getContext()).load(R.drawable.image_wall_background).load(topImage);
 
         adapter = new NewsAdapter();
 
