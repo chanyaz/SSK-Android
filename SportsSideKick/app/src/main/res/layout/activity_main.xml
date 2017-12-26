@@ -268,7 +268,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    app:layout_widthPercent="100%">
+                    app:layout_widthPercent="50%">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -307,8 +307,7 @@
                                 android:indeterminate="false"
                                 android:max="@integer/progress_bar_max"
                                 android:progress="@integer/progress_bar_60"
-                                android:progressDrawable="?circularProgressBarDrawable"
-                                android:visibility="invisible"/>
+                                android:progressDrawable="?circularProgressBarDrawable" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -325,8 +324,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerInParent="true"
                                 android:contentDescription="@string/image"
-                                android:src="?nextLevelMarkerIcon"
-                                android:visibility="invisible"/>
+                                android:src="?nextLevelMarkerIcon" />
 
                             <TextView
                                 android:id="@+id/user_level"
@@ -336,8 +334,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/font_size_10"
-                                android:textStyle="bold"
-                                android:visibility="invisible"/>
+                                android:textStyle="bold"/>
                         </RelativeLayout>
                     </RelativeLayout>
                 </RelativeLayout>
@@ -351,7 +348,6 @@
                     <android.support.percent.PercentRelativeLayout
                         android:id="@+id/your_coins"
                         android:layout_width="wrap_content"
-                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:gravity="center_horizontal"

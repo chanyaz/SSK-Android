@@ -561,65 +561,57 @@
         android:visibility="gone"
         tools:layout_height="0dp" />
 
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
         android:id="@+id/commentInputOverlay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:visibility="gone"
-        android:overScrollMode="always"
-        tools:visibility="gone"
-        android:fillViewport="true">
+        tools:visibility="visible"
+        android:layout_height="match_parent"
+        android:background="#94000000">
 
-        <FrameLayout
+        <ImageButton
+            android:id="@+id/closeButtonSharedComment"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="48dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+
+        <Button
+            android:id="@+id/postButtonSharedComment"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="16dp"
+            android:text="Post"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/post_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/wall_item_news"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp" />
+
+            <include layout="@layout/include_input_field" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/blurredContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#94000000">
+            android:background="#83000000"
+            android:visibility="gone" />
 
-            <ImageButton
-                android:id="@+id/closeButtonSharedComment"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="48dp"
-                android:layout_height="56dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
-
-            <Button
-                android:id="@+id/postButtonSharedComment"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="16dp"
-                android:text="Post"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <LinearLayout
-                android:id="@+id/post_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="vertical">
-
-                <include
-                    layout="@layout/wall_item_news"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp" />
-
-                <include layout="@layout/include_input_field" />
-
-            </LinearLayout>
-
-            <View
-                android:id="@+id/blurredContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#83000000"
-                android:visibility="gone" />
-
-        </FrameLayout>
-
-    </android.support.v4.widget.NestedScrollView>
+    </FrameLayout>
 
 </RelativeLayout>

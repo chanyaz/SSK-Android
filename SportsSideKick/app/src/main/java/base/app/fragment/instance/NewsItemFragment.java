@@ -269,14 +269,25 @@ public class NewsItemFragment extends BaseFragment {
         sharedMessageEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedMessageField.requestFocus();
-                sharedMessageField.selectAll();
+                Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+                // TODO: sharedMessageField.requestFocus();
+                // TODO: sharedMessageField.selectAll();
             }
         });
         sharedMessageDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+                /*String sharedChildId = getSecondaryArgument();
+                WallNews sharedChildPost = loadFromCacheBy(sharedChildId);
 
+                TODO: Delete through the news (NO! POST NEWS SHARE ITEM) item endpoint instead (it's not a post)
+                WallModel.getInstance().deletePost(sharedChildPost).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        getActivity().onBackPressed();
+                    }
+                });*/
             }
         });
         sharedMessageField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
