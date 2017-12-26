@@ -473,7 +473,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -489,11 +488,12 @@
                     android:id="@+id/sharedMessageField"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
                     android:layout_weight="1"
+                    android:layout_marginTop="15dp"
                     android:background="@null"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:enabled="false"
                     android:text="Shared message will appear here"
                     android:textColor="#cd008643" />
 

@@ -263,6 +263,28 @@ public class NewsItemFragment extends BaseFragment {
                 sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
             }
         });
+        sharedMessageEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sharedMessageField.requestFocus();
+                sharedMessageField.selectAll();
+            }
+        });
+        sharedMessageDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        sharedMessageField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    sharedMessageMoreButton.setVisibility(View.GONE);
+                    sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         postButtonSharedComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
