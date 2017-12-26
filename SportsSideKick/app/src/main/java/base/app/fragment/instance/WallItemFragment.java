@@ -549,7 +549,7 @@ public class WallItemFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.likes_icon_liked, R.id.likes_icon})
+    @OnClick({R.id.likes_container})
     public void togglePostLike() {
         if (Model.getInstance().isRealUser()) {
             if (item != null) {

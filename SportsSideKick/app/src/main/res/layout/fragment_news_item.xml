@@ -59,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
+        android:overScrollMode="always"
         android:layout_below="@+id/top_buttons_container"
         app:srl_direction="bottom">
 
@@ -113,14 +114,15 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_8"
-                        android:layout_marginTop="@dimen/margin_8"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/likes_container"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="42dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackgroundBorderless"
                             android:layout_marginEnd="@dimen/padding_8"
                             android:layout_weight="1"
                             android:gravity="center">
@@ -154,7 +156,10 @@
                         <LinearLayout
                             android:id="@+id/share_container"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackgroundBorderless"
+                            android:layout_height="42dp"
                             android:layout_marginEnd="@dimen/padding_8"
                             android:layout_weight="1"
                             android:gravity="center">
@@ -178,7 +183,7 @@
                         <LinearLayout
                             android:id="@+id/comments_container"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="42dp"
                             android:layout_marginEnd="@dimen/padding_8"
                             android:layout_weight="1"
                             android:gravity="center">
@@ -202,7 +207,10 @@
                         <LinearLayout
                             android:id="@+id/pin_container"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackgroundBorderless"
+                            android:layout_height="42dp"
                             android:layout_marginEnd="@dimen/padding_8"
                             android:layout_weight="1"
                             android:gravity="center">
@@ -558,7 +566,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:visibility="visible"
+        android:overScrollMode="always"
+        tools:visibility="gone"
         android:fillViewport="true">
 
         <FrameLayout

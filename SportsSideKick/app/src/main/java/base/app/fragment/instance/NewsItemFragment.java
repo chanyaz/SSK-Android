@@ -124,6 +124,9 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.share_icon)
     ImageView shareButton;
     @Nullable
+    @BindView(R.id.share_container)
+    View shareContainer;
+    @Nullable
     @BindView(R.id.share_buttons_container)
     View shareButtons;
     @Nullable
@@ -381,8 +384,8 @@ public class NewsItemFragment extends BaseFragment {
 
     private void autoHideShowShareButton() {
         if (Model.getInstance().isRealUser()) {
-            if (shareButton != null) {
-                shareButton.setOnTouchListener(new View.OnTouchListener() {
+            if (shareContainer != null) {
+                shareContainer.setOnTouchListener(new View.OnTouchListener() {
 
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -497,7 +500,7 @@ public class NewsItemFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.likes_icon_liked, R.id.likes_icon})
+    @OnClick({R.id.likes_container})
     public void togglePostLike() {
         if (Model.getInstance().isRealUser()) {
             if (item != null) {
