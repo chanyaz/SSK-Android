@@ -1,5 +1,6 @@
 package base.app.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,14 +68,19 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         displayCaption(news.getTitle(), holder);
         displayPostImage(news, holder);
         displayCommentsAndLikes(news, holder);
-        holder.view.setOnClickListener(new View.OnClickListener() {
+        holder.view.setOnClickListener(getClickListener(news));
+    }
+
+    @NonNull
+    protected View.OnClickListener getClickListener(final WallNews item) {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                fe.setId(news.getPostId());
+                fe.setId(item.getPostId());
                 EventBus.getDefault().post(fe);
             }
-        });
+        };
     }
 
     @Override

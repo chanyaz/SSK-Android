@@ -1,8 +1,13 @@
 package base.app.adapter;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 
+import org.greenrobot.eventbus.EventBus;
+
 import base.app.R;
+import base.app.fragment.FragmentEvent;
+import base.app.fragment.instance.NewsItemFragment;
 import base.app.model.wall.WallNews;
 
 /**
@@ -29,5 +34,17 @@ public class RumoursAdapter extends NewsAdapter {
         } else {
             holder.view.findViewById(R.id.spacer).setVisibility(View.VISIBLE);
         }
+    }
+
+    @NonNull
+    protected View.OnClickListener getClickListener(final WallNews item) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
+                fe.setId("UNOFFICIAL$$$" + item.getPostId());
+                EventBus.getDefault().post(fe);
+            }
+        };
     }
 }

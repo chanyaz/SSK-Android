@@ -2,6 +2,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
+    android:background="@color/login_background"
                 android:layout_height="match_parent"
                 tools:context="base.app.fragment.instance.WallFragment">
 
@@ -26,52 +27,49 @@
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <FrameLayout
+                <ImageView
+                    android:id="@+id/top_image"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="250dp"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/image_wall_background"/>
 
-                    <ImageView
-                        android:id="@+id/top_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/image_wall_background"/>
-
-                    <TextView
-                        android:id="@+id/top_caption"
-                        style="@style/semiBoldText"
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:shadowColor="@color/black_transparent_154"
-                        android:shadowDx="1"
-                        android:shadowDy="1"
-                        android:shadowRadius="2"
-                        android:text="@string/news"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_36"
-                        />
-
-                </FrameLayout>
+                <TextView
+                    android:id="@+id/top_caption"
+                    style="@style/semiBoldText"
+                    android:layout_alignTop="@id/top_image"
+                    android:layout_alignBottom="@id/top_image"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center"
+                    android:shadowColor="@color/black_transparent_154"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:text="@string/news"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_36"
+                    />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/news_recycler_view"
+                    android:paddingTop="4dp"
+                    android:clipToPadding="false"
                     android:layout_width="match_parent"
-                    android:background="@color/login_background"
                     android:layout_height="match_parent"
                     android:layout_below="@id/top_image"
                     android:layout_marginTop="?newsRecyclerListPhoneTopMargin"
                     />
 
-            </LinearLayout>
+            </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
     </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 </RelativeLayout>
