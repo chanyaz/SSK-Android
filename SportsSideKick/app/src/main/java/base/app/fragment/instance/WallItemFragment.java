@@ -605,7 +605,7 @@ public class WallItemFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.delete)
     public void deletePostOnClick(View view){
-        WallModel.getInstance().deletePostRemote(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+        WallModel.getInstance().deletePost(item).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 getActivity().onBackPressed();

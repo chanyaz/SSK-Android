@@ -46,8 +46,6 @@ import static base.app.model.Model.createRequest;
 
 /**
  * Created by Filip on 1/6/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
  */
 
 public class WallModel extends GSMessageHandlerAbstract {
@@ -154,7 +152,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .send(consumer);
     }
 
-    public Task<Void> deletePostRemote(final WallBase post){
+    public Task<Void> deletePost(final WallBase post){
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override

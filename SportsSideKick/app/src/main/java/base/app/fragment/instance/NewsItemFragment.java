@@ -220,7 +220,7 @@ public class NewsItemFragment extends BaseFragment {
 
         if (sharedChildId != null) {
             setSharedMessageBarVisible(true);
-            WallBase sharedChildPost = WallBase.loadFromCacheById(sharedChildId);
+            WallNews sharedChildPost = loadFromCacheBy(sharedChildId);
             if (sharedChildPost != null) {
                 sharedMessageField.setText(sharedChildPost.getSharedComment());
             }
@@ -233,7 +233,7 @@ public class NewsItemFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.delete)
     public void deletePostOnClick(View view){
-        WallModel.getInstance().deletePostRemote(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+        WallModel.getInstance().deletePost(item).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 getActivity().onBackPressed();
@@ -289,16 +289,16 @@ public class NewsItemFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
-                String sharedChildId = getSecondaryArgument();
-                WallBase sharedChildPost = WallBase.loadFromCacheById(sharedChildId);
+                /*String sharedChildId = getSecondaryArgument();
+                WallNews sharedChildPost = loadFromCacheBy(sharedChildId);
 
-                WallBase.deletePostLocal(sharedChildPost);
-                WallModel.getInstance().deletePostRemote(sharedChildPost).addOnCompleteListener(new OnCompleteListener<Void>() {
+                TODO: Delete through the news (NO! POST NEWS SHARE ITEM) item endpoint instead (it's not a post)
+                WallModel.getInstance().deletePost(sharedChildPost).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         getActivity().onBackPressed();
                     }
-                });
+                });*/
             }
         });
         sharedMessageField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -342,7 +342,7 @@ public class NewsItemFragment extends BaseFragment {
                 likesIconLiked.setVisibility(View.VISIBLE);
             }
         }
-        if (!item.getReferencedItemId().isEmpty()) {
+        if (item.getReferencedItemId() != null && !item.getReferencedItemId().isEmpty()) {
             pinIcon.setColorFilter(
                     ContextCompat.getColor(getContext(), R.color.colorAccentSemiDark),
                     PorterDuff.Mode.MULTIPLY);
