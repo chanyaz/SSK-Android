@@ -80,11 +80,11 @@ public abstract class WallBase implements Shareable {
     @JsonProperty("coverAspectRatio")
     private Float coverAspectRatio = 0.5625f;
     @JsonProperty("referencedItemClub")
-    private String referencedItemClub = "";
+    private String referencedItemClub;
     @JsonProperty("referencedItemId")
-    private String referencedItemId = "";
+    private String referencedItemId;
     @JsonProperty("sharedComment")
-    private String sharedComment = "";
+    private String sharedComment;
 
     private UserInfo poster;
 
@@ -286,7 +286,8 @@ public abstract class WallBase implements Shareable {
     }
 
     public boolean hasSharedComment() {
-        return !sharedComment.replaceAll(" ", "").isEmpty();
+        return sharedComment != null &&
+                !sharedComment.replaceAll(" ", "").isEmpty();
     }
 
     public void setSharedComment(String sharedComment) {
