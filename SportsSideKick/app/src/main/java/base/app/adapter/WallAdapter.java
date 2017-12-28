@@ -299,7 +299,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                             holder.contentTextView.setMaxLines(6);
                         }
                     }
-                    displayCaption(post.getBodyText(), holder);
+                    displayCaption(post.getTitle(), holder);
                     displayCommentsAndLikes(post, holder);
 
                     if (holder.playButton != null) {

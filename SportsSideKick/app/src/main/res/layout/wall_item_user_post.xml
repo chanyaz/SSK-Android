@@ -70,9 +70,11 @@
         android:scrollHorizontally="true"
         android:text="@string/demo_content_lorem_long"
         android:textColor="?black"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="bottom|end"
         android:id="@+id/likes_and_comments"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_25"
@@ -88,8 +90,6 @@
             android:id="@+id/likes_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/padding_8"
             android:gravity="center">
 
@@ -147,7 +147,7 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
