@@ -274,6 +274,7 @@ public abstract class WallBase implements Shareable {
     }
 
     public String getReferencedItemId() {
+        if (referencedItemId==null) return "";
         return referencedItemId;
     }
 
