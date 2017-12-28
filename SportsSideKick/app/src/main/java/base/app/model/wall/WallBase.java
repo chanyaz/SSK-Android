@@ -1,5 +1,7 @@
 package base.app.model.wall;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -13,12 +15,19 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import base.app.model.sharing.Shareable;
 import base.app.model.sharing.SharingManager;
 import base.app.model.user.UserInfo;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -104,41 +113,48 @@ public abstract class WallBase implements Shareable {
     public static WallBase postFactory(Object wallItem, ObjectMapper mapper, boolean putInCache) {
         JsonNode node = mapper.valueToTree(wallItem);
         if (node.has("type")) {
-            TypeReference typeReference = new TypeReference<WallBase>(){};
+            TypeReference typeReference = new TypeReference<WallBase>() {
+            };
             PostType type = null;
 
             if (node.get("type").canConvertToInt()) {
                 int typeValue = node.get("type").intValue();
                 type = PostType.values()[typeValue - 1];
-            }
-            else {
-                try{
+            } else {
+                try {
                     String objectType = node.get("type").textValue();
                     type = PostType.valueOf(objectType);
-                } catch (IllegalArgumentException ex){
-                    Log.e(TAG,"Non existing post type:" + node.get("type").textValue());
+                } catch (IllegalArgumentException ex) {
+                    Log.e(TAG, "Non existing post type:" + node.get("type").textValue());
                 }
             }
 
             if (type != null) {
                 switch (type) {
-                    case post: case wallComment:
-                        typeReference = new TypeReference<WallPost>(){};
+                    case post:
+                    case wallComment:
+                        typeReference = new TypeReference<WallPost>() {
+                        };
                         break;
                     case newsShare:
-                        typeReference = new TypeReference<WallNewsShare>(){};
+                        typeReference = new TypeReference<WallNewsShare>() {
+                        };
                         break;
                     case betting:
-                        typeReference = new TypeReference<WallBetting>(){};
+                        typeReference = new TypeReference<WallBetting>() {
+                        };
                         break;
                     case stats:
-                        typeReference = new TypeReference<WallStats>(){};
+                        typeReference = new TypeReference<WallStats>() {
+                        };
                         break;
                     case rumor:
-                        typeReference = new TypeReference<WallRumor>(){};
+                        typeReference = new TypeReference<WallRumor>() {
+                        };
                         break;
                     case wallStoreItem:
-                        typeReference = new TypeReference<WallStoreItem>(){};
+                        typeReference = new TypeReference<WallStoreItem>() {
+                        };
                         break;
                 }
             }
@@ -147,14 +163,25 @@ public abstract class WallBase implements Shareable {
             item.setType(type);
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
-            if(putInCache){
+            if (putInCache) {
 
-                WallBase cachedItem = cache.get(item.getPostId());
-                if(cachedItem!=null){
+                WallBase cachedItem = loadFromCacheById(item.getPostId());
+                if (cachedItem != null) {
                     cachedItem.setEqualTo(item);
                     item = cachedItem;
                 } else {
-                    cache.put(item.getPostId(),item);
+                    // Memory cache
+                    cache.put(item.getPostId(), item);
+
+                    // Database cache
+                    List<WallBase> itemList = loadFromCache();
+                    for (WallBase savedItem : itemList) {
+                        if (savedItem.getPostId().equals(item.getPostId())) {
+                            itemList.remove(savedItem);
+                        }
+                    }
+                    itemList.add(item);
+                    saveToCache(itemList);
                 }
             }
 
@@ -163,9 +190,71 @@ public abstract class WallBase implements Shareable {
         return null;
     }
 
+    protected static void saveToCache(List<WallBase> itemList) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Type typeGson = new TypeToken<List<WallBase>>() {
+        }.getType();
+        String strBecons = new Gson().toJson(itemList, typeGson);
+        preferences.edit().putString("WALL_BASE", strBecons).apply();
+    }
+
+    public static List<WallBase> loadFromCache() {
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        Type listOfBecons = new TypeToken<List<WallBase>>() {
+        }.getType();
+
+        String savedString = preferences.getString("WALL_BASE", "");
+        if (!savedString.isEmpty()) {
+            return new Gson().fromJson(
+                    savedString, listOfBecons);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public static WallBase loadFromCacheById(String id) {
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        Type typeGson = new TypeToken<List<WallBase>>() {
+        }.getType();
+
+        String savedString = preferences.getString("WALL_BASE", "");
+        if (!savedString.isEmpty()) {
+            List<WallBase> list = new Gson().fromJson(
+                    savedString, typeGson);
+            for (WallBase item : list) {
+                if (item.getPostId().equals(id)) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static void deletePostLocal(WallBase postToRemove) {
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        Type typeGson = new TypeToken<List<WallBase>>() {
+        }.getType();
+
+        String savedString = preferences.getString("WALL_BASE", "");
+        List<WallBase> list = new ArrayList<>();
+        if (!savedString.isEmpty()) {
+            list = new Gson().fromJson(
+                    savedString, typeGson);
+            for (WallBase savedItem : list) {
+                if (savedItem.getPostId().equals(postToRemove.getPostId())) {
+                    list.remove(savedItem);
+                }
+            }
+        }
+        saveToCache(list);
+    }
+
     @JsonProperty("timestamp")
     public String getTimestampAsString() {
-        return String.valueOf(timestamp.longValue()/1000) + "." +  String.valueOf((int)(timestamp.longValue()%1000) + "00");
+        return String.valueOf(timestamp.longValue() / 1000) + "." + String.valueOf((int) (timestamp.longValue() % 1000) + "00");
     }
 
     public Double getTimestamp() {
@@ -274,7 +363,7 @@ public abstract class WallBase implements Shareable {
     }
 
     public String getReferencedItemId() {
-        if (referencedItemId==null) return "";
+        if (referencedItemId == null) return "";
         return referencedItemId;
     }
 
@@ -297,7 +386,7 @@ public abstract class WallBase implements Shareable {
 
     @JsonProperty("type")
     public int getTypeAsInt() {
-        return itemType.ordinal()+1;
+        return itemType.ordinal() + 1;
     }
 
     @JsonIgnore

@@ -2,8 +2,6 @@ package base.app;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -30,7 +28,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class Application extends MultiDexApplication {
+public class Application extends android.app.Application{
 
 
     private static Application instance;
@@ -101,12 +99,4 @@ public class Application extends MultiDexApplication {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(Keys.TWITTER_KEY, Keys.TWITTER_SECRET);
         Fabric.with(context, new Twitter(authConfig));
     }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(Application.this);
-    }
-
-
 }

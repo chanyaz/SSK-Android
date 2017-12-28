@@ -220,7 +220,7 @@ public class NewsItemFragment extends BaseFragment {
 
         if (sharedChildId != null) {
             setSharedMessageBarVisible(true);
-            WallNews sharedChildPost = loadFromCacheBy(sharedChildId);
+            WallBase sharedChildPost = WallBase.loadFromCacheById(sharedChildId);
             if (sharedChildPost != null) {
                 sharedMessageField.setText(sharedChildPost.getSharedComment());
             }
@@ -228,6 +228,17 @@ public class NewsItemFragment extends BaseFragment {
             setSharedMessageBarVisible(false);
         }
         return view;
+    }
+
+    @Optional
+    @OnClick(R.id.delete)
+    public void deletePostOnClick(View view){
+        WallModel.getInstance().deletePostRemote(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                getActivity().onBackPressed();
+            }
+        });
     }
 
     private void setSharedMessageBarVisible(boolean setVisible) {
@@ -278,16 +289,16 @@ public class NewsItemFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
-                /*String sharedChildId = getSecondaryArgument();
-                WallNews sharedChildPost = loadFromCacheBy(sharedChildId);
+                String sharedChildId = getSecondaryArgument();
+                WallBase sharedChildPost = WallBase.loadFromCacheById(sharedChildId);
 
-                TODO: Delete through the news (NO! POST NEWS SHARE ITEM) item endpoint instead (it's not a post)
-                WallModel.getInstance().deletePost(sharedChildPost).addOnCompleteListener(new OnCompleteListener<Void>() {
+                WallBase.deletePostLocal(sharedChildPost);
+                WallModel.getInstance().deletePostRemote(sharedChildPost).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         getActivity().onBackPressed();
                     }
-                });*/
+                });
             }
         });
         sharedMessageField.setOnFocusChangeListener(new View.OnFocusChangeListener() {

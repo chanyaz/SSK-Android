@@ -126,12 +126,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         final View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
         this.loginStateReceiver = new LoginStateReceiver(this);
-        wallItems = new ArrayList<>();
 
+        wallItems = new ArrayList<>();
         wallItems.addAll(WallBase.getCache().values());
         WallModel.getInstance();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), StaggeredGridLayoutManager.VERTICAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                StaggeredGridLayoutManager.VERTICAL,false);
         adapter = new WallAdapter(getActivity());
         if (recyclerView != null) {
             recyclerView.setAdapter(adapter);

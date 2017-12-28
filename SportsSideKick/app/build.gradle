@@ -14,17 +14,17 @@ repositories {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
 
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 27
 
         testInstrumentationRunner "android.support.left.runner.AndroidJUnitRunner"
-        multiDexEnabled true
 
         renderscriptTargetApi 17
         renderscriptSupportModeEnabled true
@@ -101,7 +101,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:percent:26.1.0'
-    compile 'com.android.support:multidex:1.0.2'
 //  Required by Glide - image library
     compile 'com.android.support:support-v4:26.1.0'
 
@@ -212,5 +211,8 @@ dependencies {
 
 //  Number picker used for translation popup to select language - https://github.com/ShawnLin013/NumberPicker
     compile 'com.shawnlin:number-picker:2.4.4'
+    // Room
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 }
 apply plugin: 'com.google.gms.google-services'
