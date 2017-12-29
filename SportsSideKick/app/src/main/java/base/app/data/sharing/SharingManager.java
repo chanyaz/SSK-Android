@@ -2,7 +2,6 @@ package base.app.data.sharing;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.view.View;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.share.Sharer;
-import com.facebook.share.model.ShareLinkContent;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
@@ -19,12 +17,9 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Map;
 
 import base.app.data.wall.WallNews;
@@ -80,62 +75,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
 
     Shareable itemToShare;
 
-    // NOTE: currently, iPhone presents the 'native' share dialog, whereas the iPad
-    //       presents different views depending on the share target, so if a different
-    //       type of presentation is needed, currently this is handled with a method override
-    //       In future, it would be good to implement a presentable protocol that let's us have
-    //       a better implementation than this.
-    private void presentTwitter(Context context, Map<String, Object> response) {
-        final TweetComposer.Builder builder = new TweetComposer.Builder(context);
-        if (response.containsKey("url")) {
-            String urlString = (String) response.get("url");
-            Uri shareUrl = Uri.parse(urlString);
-            URL url = null;
-            try {
-                url = new URL(shareUrl.toString());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            if (url != null) {
-                builder.url(url);
-            }
-        }
-        if (response.containsKey("title")) {
-            String title = (String) response.get("title");
-            builder.text(title);
-        }
-
-        if (response.containsKey("image")) {
-            // TODO: Test image sharing
-            String image = (String) response.get("image");
-            Uri imageUrl =  Uri.parse(image);
-            builder.image(imageUrl);
-        } else {
-            EventBus.getDefault().post(builder);
-        }
-    }
-
-    private void presentFacebook(Map<String, Object> response) {
-        ShareLinkContent.Builder contentBuilder = new ShareLinkContent.Builder();
-        if (response.containsKey("url")) {
-            String urlString = (String) response.get("url");
-            Uri shareUrl = Uri.parse(urlString);
-            contentBuilder.setContentUrl(shareUrl);
-        }
-        if (response.containsKey("image")) {
-            String image = (String) response.get("image");
-            Uri imageUrl = Uri.parse(image);
-            contentBuilder.setContentUrl(imageUrl);
-        }
-        if (response.containsKey("title")) {
-            String title = (String) response.get("title");
-            contentBuilder.setQuote(title);
-        }
-        EventBus.getDefault().post(contentBuilder.build());
-    }
-
-    // This is for iPhone, iPad uses the above methods.
-    private void presentNative(Map<String, Object> response, View sender) {
+    private void presentNative(Map<String, Object> response) {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         if (response.containsKey("url")) {
@@ -178,8 +118,6 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
     }
 
     public void share(final Context context, final Shareable item, final boolean isNative, final ShareTarget shareTarget, final View sender) {
-
-
         Map<String, Object> itemAsMap = mapper.convertValue(item, new TypeReference<Map<String, Object>>() {
         });
        //TODO Temporarily fix
@@ -204,7 +142,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                     itemToShare = item;
                     // probably going to be a user on an iPhone
                     if (isNative && sender != null) {
-                        presentNative(response, sender);
+                        presentNative(response);
                         return;
                     }
                     if (shareTarget == null) {
@@ -219,24 +157,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
     }
 
     private void socialNetworkSelector(Context context, Map<String, Object> response, ShareTarget shareTarget) {
-        switch (shareTarget) {
-            case facebook:
-                presentFacebook(response);
-                break;
-            case twitter:
-                presentTwitter(context, response);
-                break;
-            case mail:
-                break;
-            case messenger:
-                break;
-            case airdrop:
-                break;
-            case weibo:
-                break;
-            case other:
-                break;
-        }
+        presentNative(response);
     }
 
     // After a successful share from the app, we increment the share count for the object shared on it's sharetarget

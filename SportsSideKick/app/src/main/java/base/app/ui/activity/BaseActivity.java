@@ -23,7 +23,6 @@ import com.facebook.share.widget.ShareDialog;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pixplicity.easyprefs.library.Prefs;
-import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -71,7 +70,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 import static base.app.util.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.Utility.checkIfBundlesAreEqual;
-
 
 abstract class BaseActivity extends AppCompatActivity {
 
@@ -397,11 +395,6 @@ abstract class BaseActivity extends AppCompatActivity {
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             facebookShareDialog.show(linkContent);
         }
-    }
-
-    @Subscribe
-    public void onShareOnTwitterEvent(TweetComposer.Builder event) {
-        event.show();
     }
 
     @Subscribe

@@ -14,8 +14,6 @@ import base.app.util.ui.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
 import com.pixplicity.easyprefs.library.Prefs;
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import base.app.data.FileUploader;
 import base.app.data.TranslateManager;
@@ -49,14 +47,11 @@ public class Application extends MultiDexApplication {
         instance = this;
         Connection.getInstance().initialize(this);
 
-        initTwitter(getApplicationContext());
-
         // TODO @Djordje - update according to recommended approach (this one is deprecated)
         // TODO @Djordje - It should be called automatically, test and remove it is like that
         FacebookSdk.sdkInitialize(getApplicationContext());
         FacebookSdk.isInitialized();
         AppEventsLogger.activateApp(this);
-
 
         // Shared prefs initialization
         new Prefs.Builder()
@@ -80,16 +75,9 @@ public class Application extends MultiDexApplication {
         TranslateManager.getInstance().initialize(this);
     }
 
-    public static void initTwitter(Context context) {
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(Keys.TWITTER_KEY, Keys.TWITTER_SECRET);
-        Fabric.with(context, new Twitter(authConfig));
-    }
-
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(Application.this);
     }
-
-
 }

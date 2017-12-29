@@ -1,14 +1,11 @@
 package base.app;
 
-import android.content.Context;
 import android.content.ContextWrapper;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.keiferstone.nonet.NoNet;
 import com.pixplicity.easyprefs.library.Prefs;
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import base.app.data.FileUploader;
 import base.app.data.TranslateManager;
@@ -16,7 +13,6 @@ import base.app.data.purchases.PurchaseModel;
 import base.app.data.ticker.NextMatchModel;
 import base.app.util.Connection;
 import base.app.util.SoundEffects;
-import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -25,7 +21,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * www.hypercubesoft.com
  */
 public class Application extends android.app.Application{
-
 
     private static Application instance;
 
@@ -41,8 +36,6 @@ public class Application extends android.app.Application{
                 .disconnectedPollFrequency(1);
         instance = this;
         Connection.getInstance().initialize(this);
-
-        initTwitter(getApplicationContext());
 
         // TODO @Djordje - update according to recommended approach (this one is deprecated)
         // TODO @Djordje - It should be called automatically, test and remove it is like that
@@ -70,10 +63,5 @@ public class Application extends android.app.Application{
         SoundEffects.getDefault().initialize(this);
         PurchaseModel.getInstance().initialize(this);
         TranslateManager.getInstance().initialize(this);
-    }
-
-    public static void initTwitter(Context context) {
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(Keys.TWITTER_KEY, Keys.TWITTER_SECRET);
-        Fabric.with(context, new Twitter(authConfig));
     }
 }

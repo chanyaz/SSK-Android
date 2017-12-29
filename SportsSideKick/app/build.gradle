@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27
@@ -85,10 +84,6 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:4.24.0'
     compile('com.facebook.android:audience-network-sdk:4.24.0') {
         exclude group: 'com.google.android.gms'
-    }
-    // Twitter KIT used for share functionality
-    compile('com.twitter.sdk.android:twitter:2.3.2@aar') {
-        transitive = true
     }
     // Amazon web services are used for uploading of user generated media content
     implementation 'com.amazonaws:aws-android-sdk-core:2.4.2'
