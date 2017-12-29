@@ -136,7 +136,7 @@ android:background="@color/colorGrayMediumLight"
 android:visibility="gone">
 
 <de.hdodenhof.circleimageview.CircleImageView
-    android:id="@+id/comment_author_user_image"
+    android:id="@+id/captionAvatar"
     android:layout_width="24dp"
     android:layout_height="24dp"
     android:layout_alignParentStart="true"
@@ -152,7 +152,7 @@ android:visibility="gone">
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:layout_marginStart="@dimen/margin_10"
-    android:layout_toEndOf="@+id/comment_author_user_image"
+    android:layout_toEndOf="@+id/captionAvatar"
     android:ellipsize="end"
     android:lineSpacingMultiplier="0.826"
     android:maxLines="4"

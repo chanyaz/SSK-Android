@@ -14,14 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdsManager;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gamesparks.sdk.GSEventConsumer;
-import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -34,11 +32,10 @@ import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.NewsItemFragment;
 import base.app.fragment.instance.WallItemFragment;
-import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.WallBase;
-import base.app.model.wall.WallModel;
+import base.app.model.wall.WallBase.PostType;
 import base.app.model.wall.WallNewsShare;
 import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStats;
@@ -108,6 +105,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.wall_native_ad_social_context)
         TextView nativeAdSocialContext;
+        @Nullable
+        @BindView(R.id.captionAvatar)
+        ImageView captionAvatar;
 
         ViewHolder(View v) {
             super(v);
@@ -116,13 +116,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    private WallBase.PostType[] postTypeValues;
+    private PostType[] postTypeValues;
 
     private int currentAdInterval;
 
     public WallAdapter(Context context) {
         this.context = context;
-        postTypeValues = WallBase.PostType.values();
+        postTypeValues = PostType.values();
         initializeNativeAdManagerAndRequestAds(ADS_COUNT);
         currentAdInterval = 0;
     }
@@ -208,7 +208,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return false;
     }
 
-    static void displayUserInfo(WallBase post, final ViewHolder holder) {
+    static void displayUserInfo(final WallBase post, final ViewHolder holder) {
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
@@ -216,15 +216,17 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 if (task.isSuccessful()) {
                     UserInfo user = task.getResult();
                     if (user != null) {
-                        if (holder.userImage != null) {
-                            if (user.getCircularAvatarUrl() != null) {
-                                Glide.with(holder.view)
-                                        .load(user.getCircularAvatarUrl())
-                                        .into(holder.userImage);
-                            } else {
-                                Log.v(TAG, "There is no avatar for this user, resolving to default image");
-                                holder.userImage.setImageResource(R.drawable.blank_profile_rounded);
-                            }
+                        ImageView targetImageView = null;
+                        if (post.getType() == PostType.newsShare) {
+                            targetImageView = holder.captionAvatar;
+                        } else if (holder.userImage != null) {
+                            targetImageView = holder.userImage;
+                        }
+                        if (targetImageView != null) {
+                            Glide.with(holder.view)
+                                    .load(user.getCircularAvatarUrl())
+                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
+                                    .into(targetImageView);
                         }
                         if (user.getNicName() != null && holder.author != null) {
                             holder.author.setText(user.getFirstName() + " " + user.getLastName());
@@ -245,22 +247,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             holder.likedIcon.setVisibility(View.GONE);
             holder.likesIcon.setVisibility(View.VISIBLE);
         }
-    }
-
-    private void displayParentCaptionAndPosterPhoto(WallNewsShare newsItem, final ViewHolder holder) {
-        WallModel.getInstance().getPostById(
-                null,
-                newsItem.getReferencedItemId(),
-                new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-                    @Override
-                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                        if (!response.hasErrors()) {
-                            // Load parent post
-                            Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                            WallBase post = WallBase.postFactory(object, new ObjectMapper(), true);
-                        }
-                    }
-                });
     }
 
     @Override
@@ -316,7 +302,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         holder.textComment.setText(news.getSharedComment());
                         holder.commentContainer.setVisibility(View.VISIBLE);
 
-                        displayParentCaptionAndPosterPhoto(news, holder);
                         holder.userImage.setVisibility(View.GONE);
                     } else {
                         holder.commentContainer.setVisibility(View.GONE);
