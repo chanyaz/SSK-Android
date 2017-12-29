@@ -31,7 +31,7 @@ import java.io.IOException;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.events.PostCompleteEvent;
+import base.app.events.post.PostCompleteEvent;
 import base.app.fragment.BaseFragment;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;

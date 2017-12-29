@@ -1,4 +1,6 @@
-package base.app.events;
+package base.app.events.stream;
+
+import base.app.events.BusEvent;
 
 public class ClubTVEvent extends BusEvent {
 

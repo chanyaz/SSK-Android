@@ -1,7 +1,8 @@
-package base.app.events;
+package base.app.events.call;
 
 import java.util.List;
 
+import base.app.events.BusEvent;
 import base.app.model.user.UserInfo;
 
 /**
@@ -10,7 +11,7 @@ import base.app.model.user.UserInfo;
  * www.hypercubesoft.com
  */
 
-public class AddUsersToCallEvent extends BusEvent{
+public class AddUsersToCallEvent extends BusEvent {
 
     public List<UserInfo> getUsers() {
         return users;

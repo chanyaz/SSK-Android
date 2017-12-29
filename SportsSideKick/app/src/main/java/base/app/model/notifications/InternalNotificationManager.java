@@ -8,7 +8,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-import base.app.events.NotificationReceivedEvent;
+import base.app.events.notify.NotificationEvent;
 import base.app.model.GSConstants;
 import base.app.model.Model;
 import base.app.model.friendship.FriendsListChangedEvent;
@@ -43,14 +43,14 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
     public void onMessage(Map<String,Object> data){
         if(data.containsKey("extCode")){
             String extCode = (String) data.get("extCode");
-            NotificationReceivedEvent event;
+            NotificationEvent event;
             switch (extCode){
                 case "FriendRequestAcceptedMessage":
-                    event = new NotificationReceivedEvent(2, "Accepted Friend Request", "", NotificationReceivedEvent.Type.FRIEND_REQUESTS);
+                    event = new NotificationEvent(2, "Accepted Friend Request", "", NotificationEvent.Type.FRIEND_REQUESTS);
                     EventBus.getDefault().post(event);
                     break;
                 case "FriendRequestMessage":
-                    event = new NotificationReceivedEvent(4, "New Friend Request", "", NotificationReceivedEvent.Type.FRIEND_REQUESTS);
+                    event = new NotificationEvent(4, "New Friend Request", "", NotificationEvent.Type.FRIEND_REQUESTS);
                     EventBus.getDefault().post(event);
                     break;
             }
@@ -61,7 +61,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
     public void onGSScriptMessage(String type, Map<String,Object> data){
         Log.d("Internal Notifications", "Received script message: " + type);
         String message;
-        NotificationReceivedEvent event;
+        NotificationEvent event;
         switch (type){
             case "ImsMessage":
                 String chatId = (String) data.get(GSConstants.CHAT_ID);
@@ -75,10 +75,10 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                     if(message.contains("stoped following")){
                         FriendsListChangedEvent eventToUpdateFriendsList = new FriendsListChangedEvent();
                         EventBus.getDefault().post(eventToUpdateFriendsList);
-                        event = new NotificationReceivedEvent(4, "Un-Followed", userInfo.getNicName(), NotificationReceivedEvent.Type.FOLLOWERS);
+                        event = new NotificationEvent(4, "Un-Followed", userInfo.getNicName(), NotificationEvent.Type.FOLLOWERS);
                         EventBus.getDefault().post(event);
                     } else if(message.contains("following")){
-                        event = new NotificationReceivedEvent(4, "New Follower", userInfo.getNicName(), NotificationReceivedEvent.Type.FOLLOWERS);
+                        event = new NotificationEvent(4, "New Follower", userInfo.getNicName(), NotificationEvent.Type.FOLLOWERS);
                         EventBus.getDefault().post(event);
                     }
                 }
@@ -96,7 +96,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                                 WallBase post = WallBase.postFactory(data.get(GSConstants.POST), mapper, true);
                                 if(post!=null){
                                     String postId = post.getPostId();
-                                    event = new NotificationReceivedEvent(4, "New Like", "", NotificationReceivedEvent.Type.LIKES,postId);
+                                    event = new NotificationEvent(4, "New Like", "", NotificationEvent.Type.LIKES,postId);
                                     EventBus.getDefault().post(event);
                                 }
                             }

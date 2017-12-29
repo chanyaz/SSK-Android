@@ -1,4 +1,6 @@
-package base.app.events;
+package base.app.events.chat;
+
+import base.app.events.BusEvent;
 
 /**
  * Created by Filip on 12/20/2016.

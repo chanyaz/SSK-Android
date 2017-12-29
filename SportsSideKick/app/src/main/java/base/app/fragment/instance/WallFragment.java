@@ -33,10 +33,10 @@ import javax.annotation.Nullable;
 
 import base.app.R;
 import base.app.adapter.content.WallAdapter;
-import base.app.events.CommentUpdateEvent;
-import base.app.events.PostDeletedEvent;
-import base.app.events.PostUpdateEvent;
-import base.app.events.WallLikeUpdateEvent;
+import base.app.events.comment.CommentUpdateEvent;
+import base.app.events.post.PostDeletedEvent;
+import base.app.events.post.PostUpdateEvent;
+import base.app.events.post.WallLikeUpdateEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.IgnoreBackHandling;

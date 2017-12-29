@@ -39,7 +39,7 @@ import java.util.TimerTask;
 import base.app.Constant;
 import base.app.GSAndroidPlatform;
 import base.app.R;
-import base.app.events.NotificationReceivedEvent;
+import base.app.events.notify.NotificationEvent;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.FragmentOrganizer;
 import base.app.fragment.instance.ChatFragment;
@@ -346,7 +346,7 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onNewNotification(final NotificationReceivedEvent event) {
+    public void onNewNotification(final NotificationEvent event) {
         LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = vi.inflate(R.layout.notification_row, null);
 

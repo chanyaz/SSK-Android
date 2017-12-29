@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.BuildConfig;
-import base.app.events.ClubTVEvent;
+import base.app.events.stream.ClubTVEvent;
 import base.app.model.GSConstants;
 import base.app.util.Utility;
 

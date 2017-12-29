@@ -1,5 +1,6 @@
-package base.app.events;
+package base.app.events.comment;
 
+import base.app.events.BusEvent;
 import base.app.model.wall.PostComment;
 import base.app.model.wall.WallBase;
 

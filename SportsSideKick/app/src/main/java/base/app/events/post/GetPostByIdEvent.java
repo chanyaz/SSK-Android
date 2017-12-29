@@ -1,5 +1,6 @@
-package base.app.events;
+package base.app.events.post;
 
+import base.app.events.BusEvent;
 import base.app.model.wall.WallBase;
 
 /**
@@ -7,16 +8,16 @@ import base.app.model.wall.WallBase;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class PostUpdateEvent extends BusEvent {
 
+public class GetPostByIdEvent extends BusEvent {
 
     public WallBase getPost() {
         return post;
     }
 
-    private final WallBase post;
+    WallBase post;
 
-    public PostUpdateEvent(WallBase post) {
+    public GetPostByIdEvent(WallBase post) {
         super("");
         this.post = post;
     }

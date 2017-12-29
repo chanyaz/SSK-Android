@@ -1,4 +1,6 @@
-package base.app.events;
+package base.app.events.post;
+
+import base.app.events.BusEvent;
 
 /**
  * Created by Filip on 1/7/2017.

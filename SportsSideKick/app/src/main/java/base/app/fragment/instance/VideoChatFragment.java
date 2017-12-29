@@ -39,8 +39,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.events.AddUsersToCallEvent;
-import base.app.events.StartCallEvent;
+import base.app.events.call.AddUsersToCallEvent;
+import base.app.events.call.StartCallEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.popup.LoginFragment;

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.events.CommentSelectedEvent;
+import base.app.events.comment.CommentSelectedEvent;
 import base.app.model.Model;
 import base.app.model.user.UserInfo;
 import base.app.model.wall.PostComment;

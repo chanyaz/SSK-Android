@@ -28,8 +28,8 @@ import java.util.List;
 
 import base.app.R;
 import base.app.adapter.friends.FriendsAdapter;
-import base.app.events.OpenChatEvent;
-import base.app.events.StartCallEvent;
+import base.app.events.chat.OpenChatEvent;
+import base.app.events.call.StartCallEvent;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.ChatFragment;
