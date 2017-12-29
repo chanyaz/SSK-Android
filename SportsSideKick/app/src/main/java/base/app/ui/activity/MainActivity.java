@@ -27,6 +27,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import base.app.BuildConfig;
 import base.app.util.Constant;
 import base.app.R;
 import base.app.ui.adapter.menu.MenuAdapter;
@@ -166,7 +167,9 @@ public class MainActivity extends BaseActivity
 
         loginStateReceiver = new LoginStateReceiver(this);
 
-        splash.setVisibility(View.VISIBLE);
+        if (!BuildConfig.DEBUG) {
+            splash.setVisibility(View.VISIBLE);
+        }
         setupFragments();
         setToolbar();
         updateTopBar();
