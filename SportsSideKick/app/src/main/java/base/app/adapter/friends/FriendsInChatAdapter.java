@@ -1,4 +1,4 @@
-package base.app.adapter;
+package base.app.adapter.friends;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -9,15 +9,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
-import base.app.util.ui.ImageLoader;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
 import base.app.model.im.ChatInfo;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;

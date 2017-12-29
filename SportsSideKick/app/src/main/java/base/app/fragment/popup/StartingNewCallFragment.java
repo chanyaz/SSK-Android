@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.adapter.AddFriendsAdapter;
-import base.app.adapter.SelectableFriendsAdapter;
+import base.app.adapter.friends.AddFriendsAdapter;
+import base.app.adapter.friends.SelectableFriendsAdapter;
 import base.app.events.AddUsersToCallEvent;
 import base.app.events.StartCallEvent;
 import base.app.fragment.BaseFragment;

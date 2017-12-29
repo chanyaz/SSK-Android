@@ -18,7 +18,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.greenrobot.eventbus.Subscribe;
 
 import base.app.R;
-import base.app.adapter.RumoursAdapter;
+import base.app.adapter.content.RumoursAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.model.news.NewsModel;
 import base.app.model.news.NewsPageEvent;

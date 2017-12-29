@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import base.app.R;
 import base.app.activity.MainActivityTablet;
 import base.app.activity.MainActivity;
-import base.app.adapter.LanguageAdapter;
+import base.app.adapter.menu.LanguageAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.Model;

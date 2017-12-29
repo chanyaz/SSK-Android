@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.adapter.UserStatsAdapter;
+import base.app.adapter.profile.UserStatsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.AlertDialogManager;

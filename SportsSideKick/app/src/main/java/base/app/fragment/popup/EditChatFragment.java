@@ -42,8 +42,8 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.adapter.AddFriendsAdapter;
-import base.app.adapter.SelectableFriendsAdapter;
+import base.app.adapter.friends.AddFriendsAdapter;
+import base.app.adapter.friends.SelectableFriendsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.Model;

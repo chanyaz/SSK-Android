@@ -34,7 +34,7 @@ import java.util.Arrays;
 
 import base.app.Connection;
 import base.app.R;
-import base.app.adapter.AccountCreatingAdapter;
+import base.app.adapter.profile.AccountCreatingAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.AlertDialogManager;

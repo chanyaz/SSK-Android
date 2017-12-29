@@ -1,4 +1,4 @@
-package base.app.adapter;
+package base.app.adapter.friends;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

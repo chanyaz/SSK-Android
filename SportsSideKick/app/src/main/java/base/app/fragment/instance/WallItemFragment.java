@@ -44,8 +44,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
-import base.app.adapter.CommentsAdapter;
-import base.app.adapter.TutorialStepAdapter;
+import base.app.adapter.content.CommentsAdapter;
+import base.app.adapter.menu.TutorialStepAdapter;
 import base.app.events.CommentDeleteEvent;
 import base.app.events.CommentSelectedEvent;
 import base.app.events.CommentUpdateEvent;

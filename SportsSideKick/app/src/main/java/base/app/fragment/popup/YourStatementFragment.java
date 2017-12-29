@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.adapter.StatementAdapter;
+import base.app.adapter.profile.StatementAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import butterknife.BindView;

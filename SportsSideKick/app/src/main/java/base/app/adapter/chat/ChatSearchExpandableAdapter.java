@@ -1,4 +1,4 @@
-package base.app.adapter;
+package base.app.adapter.chat;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

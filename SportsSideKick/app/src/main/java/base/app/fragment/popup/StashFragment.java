@@ -15,7 +15,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 import base.app.R;
-import base.app.adapter.StashAdapter;
+import base.app.adapter.profile.StashAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.achievements.Achievement;

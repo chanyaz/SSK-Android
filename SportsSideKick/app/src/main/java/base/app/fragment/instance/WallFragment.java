@@ -32,7 +32,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import base.app.R;
-import base.app.adapter.WallAdapter;
+import base.app.adapter.content.WallAdapter;
 import base.app.events.CommentUpdateEvent;
 import base.app.events.PostDeletedEvent;
 import base.app.events.PostUpdateEvent;

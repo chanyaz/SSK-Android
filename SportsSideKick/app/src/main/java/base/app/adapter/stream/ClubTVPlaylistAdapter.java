@@ -1,4 +1,4 @@
-package base.app.adapter;
+package base.app.adapter.stream;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -7,34 +7,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.api.services.youtube.model.Video;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import base.app.R;
 import base.app.fragment.FragmentEvent;
-import base.app.fragment.instance.ClubRadioStationFragment;
-import base.app.model.club.Station;
+import base.app.fragment.instance.YoutubePlayerFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Filip on 1/30/2017.
+ * Created by Filip on 1/17/2017.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
 
-public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.ViewHolder> {
+public class ClubTVPlaylistAdapter extends RecyclerView.Adapter<ClubTVPlaylistAdapter.ViewHolder> {
 
-    private static final String TAG = "Club Adapter";
+    private static final String TAG = "Channel TV Adapter";
 
-    private List<Station> values;
+    private List<Video> values;
     private Context context;
+    SimpleDateFormat sdf;
 
-    public List<Station> getValues() {
+    public List<Video> getValues() {
         return values;
     }
 
@@ -43,6 +49,10 @@ public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.View
         @Nullable
         @BindView(R.id.image)
         ImageView image;
+        @BindView(R.id.caption)
+        TextView caption;
+        @BindView(R.id.date)
+        TextView date;
 
         ViewHolder(View v) {
             super(v);
@@ -51,9 +61,10 @@ public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.View
         }
     }
 
-    public ClubRadioAdapter(Context context) {
+    public ClubTVPlaylistAdapter(Context context) {
         values= new ArrayList<>();
         this.context = context;
+        sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
     }
 
     @Override
@@ -62,17 +73,17 @@ public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.View
     }
 
     @Override
-    public ClubRadioAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final ClubRadioAdapter.ViewHolder viewHolder;
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.club_radio_item, parent, false);
-        viewHolder = new ClubRadioAdapter.ViewHolder(view);
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        final ViewHolder viewHolder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tv_channel_item, parent, false);
+        viewHolder = new ViewHolder(view);
         //setup click listener
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(ClubRadioStationFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(YoutubePlayerFragment.class);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setId(values.get(position).getName());
+                fragmentEvent.setId(values.get(position).getId());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });
@@ -82,9 +93,12 @@ public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.View
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ClubRadioAdapter.ViewHolder holder, final int position) {
-        final Station info = values.get(position);
-        String imageUrl = info.getCoverImageUrl();
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final Video info = values.get(position);
+        // setup caption
+        holder.caption.setText(info.getSnippet().getTitle());
+        holder.date.setText(sdf.format(new Date(info.getSnippet().getPublishedAt().getValue())));
+        String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
         ImageLoader.displayImage(imageUrl, holder.image);
     }
 

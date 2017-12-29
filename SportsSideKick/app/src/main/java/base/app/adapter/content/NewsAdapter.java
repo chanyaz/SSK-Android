@@ -1,4 +1,4 @@
-package base.app.adapter;
+package base.app.adapter.content;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +15,6 @@ import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.NewsItemFragment;
 import base.app.model.wall.WallNews;
-
-import static base.app.adapter.WallAdapter.ViewHolder;
-import static base.app.adapter.WallAdapter.displayCaption;
-import static base.app.adapter.WallAdapter.displayCommentsAndLikes;
-import static base.app.adapter.WallAdapter.displayPostImage;
-import static base.app.adapter.WallAdapter.displayUserInfo;
 
 /**
  * Created by Djordje on 12/29/2016.
@@ -62,12 +56,12 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(WallAdapter.ViewHolder holder, final int position) {
         final WallNews news = values.get(position);
-        displayUserInfo(news, holder);
-        displayCaption(news.getTitle(), holder);
-        displayPostImage(news, holder);
-        displayCommentsAndLikes(news, holder);
+        WallAdapter.displayUserInfo(news, holder);
+        WallAdapter.displayCaption(news.getTitle(), holder);
+        WallAdapter.displayPostImage(news, holder);
+        WallAdapter.displayCommentsAndLikes(news, holder);
         holder.view.setOnClickListener(getClickListener(news));
     }
 

@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 import base.app.R;
-import base.app.adapter.NewsAdapter;
+import base.app.adapter.content.NewsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.model.news.NewsModel;
 import base.app.model.news.NewsPageEvent;

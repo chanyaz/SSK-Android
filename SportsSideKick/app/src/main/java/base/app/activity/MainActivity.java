@@ -29,8 +29,8 @@ import java.util.ArrayList;
 
 import base.app.Constant;
 import base.app.R;
-import base.app.adapter.MenuAdapter;
-import base.app.adapter.SideMenuAdapter;
+import base.app.adapter.menu.MenuAdapter;
+import base.app.adapter.menu.SideMenuAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.FragmentOrganizer;

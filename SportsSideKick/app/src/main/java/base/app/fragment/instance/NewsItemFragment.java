@@ -40,7 +40,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.activity.MainActivity;
-import base.app.adapter.CommentsAdapter;
+import base.app.adapter.content.CommentsAdapter;
 import base.app.events.CommentDeleteEvent;
 import base.app.events.GetCommentsCompleteEvent;
 import base.app.events.PostCommentCompleteEvent;

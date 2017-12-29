@@ -1,4 +1,4 @@
-package base.app.adapter;
+package base.app.adapter.chat;
 
 import android.support.annotation.Nullable;
 import android.support.v7.util.SortedList;

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.adapter.FriendsAdapter;
+import base.app.adapter.friends.FriendsAdapter;
 import base.app.events.OpenChatEvent;
 import base.app.events.StartCallEvent;
 import base.app.fragment.BaseFragment;

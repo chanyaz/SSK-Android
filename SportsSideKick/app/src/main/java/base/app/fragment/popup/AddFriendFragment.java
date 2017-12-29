@@ -18,17 +18,15 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 
 import base.app.R;
-import base.app.adapter.FindOfficialAdapter;
-import base.app.adapter.FriendsAdapter;
+import base.app.adapter.stream.FindOfficialAdapter;
+import base.app.adapter.friends.FriendsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.Model;

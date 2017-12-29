@@ -1,6 +1,5 @@
-package base.app.adapter;
+package base.app.adapter.profile;
 
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -8,22 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import base.app.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Filip on 1/17/2017.
+ * Created by Filip on 1/19/2017.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
 
-public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.ViewHolder> {
+public class StatementAdapter extends RecyclerView.Adapter<StatementAdapter.ViewHolder> {
 
-    private static final String TAG = "UserStats Adapter";
+    private static final String TAG = "Statement Adapter";
 
     private List<Pair<String,String>> values;
 
@@ -33,13 +35,12 @@ public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
-        @Nullable
-        @BindView(R.id.caption)
-        TextView caption;
-        @Nullable
+        @BindView(R.id.date)
+        TextView date;
+        @BindView(R.id.line)
+        TextView line;
         @BindView(R.id.value)
         TextView value;
-
         ViewHolder(View v) {
             super(v);
             view = v;
@@ -47,7 +48,10 @@ public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.View
         }
     }
 
-    public UserStatsAdapter() {
+    SimpleDateFormat sdf;
+
+    public StatementAdapter() {
+        sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         values= new ArrayList<>();
     }
 
@@ -59,7 +63,7 @@ public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         ViewHolder viewHolder;
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_stats_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.statement_item, parent, false);
         viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -67,8 +71,10 @@ public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.View
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
         final Pair<String,String> info = values.get(position);
-        holder.caption.setText(info.first);
+        holder.date.setText(sdf.format(new Date()));
+        holder.line.setText(info.first);
         holder.value.setText(info.second);
     }
 

@@ -1,4 +1,4 @@
-package base.app.adapter;
+package base.app.adapter.friends;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
-import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,6 +21,7 @@ import base.app.model.user.AddFriendsEvent;
 import base.app.model.user.UserInfo;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

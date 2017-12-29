@@ -65,8 +65,8 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.adapter.ChatHeadsAdapter;
-import base.app.adapter.MessageAdapter;
+import base.app.adapter.chat.ChatHeadsAdapter;
+import base.app.adapter.chat.MessageAdapter;
 import base.app.events.FullScreenImageEvent;
 import base.app.events.MessageSelectedEvent;
 import base.app.events.OpenChatEvent;

@@ -27,9 +27,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.app.R;
-import base.app.adapter.ChatSearchExpandableAdapter;
-import base.app.adapter.FriendsInChatAdapter;
-import base.app.adapter.OfficialChatsAdapter;
+import base.app.adapter.chat.ChatSearchExpandableAdapter;
+import base.app.adapter.friends.FriendsInChatAdapter;
+import base.app.adapter.chat.OfficialChatsAdapter;
 import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.friendship.FriendsManager;
