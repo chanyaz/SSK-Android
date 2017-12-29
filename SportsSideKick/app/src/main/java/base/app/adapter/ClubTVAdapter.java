@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.api.services.youtube.model.Playlist;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,6 +23,7 @@ import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.ClubTvPlaylistFragment;
 import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -115,11 +114,9 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         }
 
 
-        // display image
-        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
         if (holder.image != null) {
-            ImageLoader.getInstance().displayImage(imageUrl, holder.image, imageOptions);
+            ImageLoader.getInstance().displayImage(imageUrl, holder.image);
         }
     }
 

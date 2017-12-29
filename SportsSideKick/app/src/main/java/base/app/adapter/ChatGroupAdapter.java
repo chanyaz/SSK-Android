@@ -9,15 +9,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
 import base.app.model.im.ChatInfo;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -99,9 +96,8 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.View
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
         ChatInfo info = values.get(position);
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         if (holder.imageView != null) {
-            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.imageView, imageOptions);
+            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.imageView);
         }
         assert holder.chatName != null;
         holder.chatName.setText(info.getName());

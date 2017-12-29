@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import base.app.util.ui.ImageLoader;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,7 +34,7 @@ import base.app.model.Model;
 import base.app.model.im.ChatInfo;
 import base.app.model.im.ImsMessage;
 import base.app.model.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,7 +131,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_IMAGE:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.getDefaultImageOptions());
+                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage);
                     holder.playButton.setVisibility(View.GONE);
                     holder.contentImage.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -144,7 +143,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_VIDEO:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage,Utility.getDefaultImageOptions());
+                    ImageLoader.getInstance().displayImage(imageUrl,holder.contentImage);
                     holder.playButton.setVisibility(View.VISIBLE);
                     holder.contentImage.setOnClickListener(
                             new View.OnClickListener() {
@@ -247,7 +246,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     nicName = userInfo.getNicName();
                 }
                 if (holder.senderImageView != null) {
-                    ImageLoader.getInstance().displayImage(senderImageUrl,holder.senderImageView,Utility.getImageOptionsForUsers());
+                    ImageLoader.getInstance().displayImage(senderImageUrl,holder.senderImageView);
                 }
                 holder.senderTextView.setText(nicName);
             }

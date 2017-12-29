@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +26,7 @@ import base.app.model.im.ChatInfo;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
+import base.app.util.ui.ImageLoader;
 import base.app.util.ui.LinearItemSpacing;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -182,7 +181,6 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             convertView.setTag(holder);
         }
 
-        DisplayImageOptions displayImageOptions = Utility.getImageOptionsForUsers();
         holder.rowName.setText(info.getChatTitle());
         if (Utility.isTablet(context)) {
             holder.rowMemberCount.setText(info.getUsersIds().size() + " " + context.getResources().getString(R.string.chat_members));
@@ -195,7 +193,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             holder.rowLastChatLabel.setText("2 " + context.getResources().getString(R.string.mins_ago));
 
         }
-        ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.rowImage, displayImageOptions);
+        ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.rowImage);
         holder.rowImage.getLayoutParams().height = (int) (screenHeight * IMAGE_SIZE);
         holder.rowImage.getLayoutParams().width = (int) (screenHeight * IMAGE_SIZE);
 

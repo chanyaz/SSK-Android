@@ -304,8 +304,7 @@ public class CreatePostFragment extends BaseFragment {
                     videoThumbnailDownloadUrl = task.getResult();
                     ImageLoader.getInstance().displayImage(
                             videoThumbnailDownloadUrl,
-                            uploadedImage,
-                            Utility.getDefaultImageOptions());
+                            uploadedImage);
                     // then, upload video itself, and hide progressbar when its done
                     final TaskCompletionSource<String> videoUploadSource = new TaskCompletionSource<>();
                     videoUploadSource.getTask().addOnCompleteListener(new OnCompleteListener<String>() {

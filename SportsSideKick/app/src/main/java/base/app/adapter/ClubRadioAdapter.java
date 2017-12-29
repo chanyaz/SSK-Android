@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -20,7 +17,7 @@ import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.ClubRadioStationFragment;
 import base.app.model.club.Station;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -87,10 +84,8 @@ public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.View
     @Override
     public void onBindViewHolder(ClubRadioAdapter.ViewHolder holder, final int position) {
         final Station info = values.get(position);
-        // display image
-        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         String imageUrl = info.getCoverImageUrl();
-        ImageLoader.getInstance().displayImage(imageUrl, holder.image, imageOptions);
+        ImageLoader.getInstance().displayImage(imageUrl, holder.image);
     }
 
     @Override

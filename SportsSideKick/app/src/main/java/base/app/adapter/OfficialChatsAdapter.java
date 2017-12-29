@@ -8,16 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
-
 import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
 import base.app.fragment.popup.JoinChatFragment;
 import base.app.model.im.ChatInfo;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -71,7 +68,7 @@ public class OfficialChatsAdapter extends RecyclerView.Adapter<OfficialChatsAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ChatInfo info = values.get(position);
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
+
         if(holder.image!=null){
             ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.image);
         }

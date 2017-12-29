@@ -10,9 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ import base.app.fragment.popup.CreateChatFragment;
 import base.app.model.Model;
 import base.app.model.im.ChatInfo;
 import base.app.model.im.event.ChatNotificationsEvent;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -146,9 +143,8 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
         if (position < values.size()) { // don't take the last element!
             final ChatInfo info = values.get(position);
 
-            DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
             if (holder.imageView != null) {
-                ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.imageView, imageOptions);
+                ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.imageView);
             }
             holder.view.setTag(position);
             int unreadMessageCount = info.unreadMessageCount();

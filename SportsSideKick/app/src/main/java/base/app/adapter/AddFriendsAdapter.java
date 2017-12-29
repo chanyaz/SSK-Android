@@ -9,15 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -90,9 +88,8 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
     @Override
     public void onBindViewHolder(AddFriendsAdapter.ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         if (holder.image != null) {
-            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(), holder.image, imageOptions);
+            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(), holder.image);
         }
         holder.view.setTag(position);
     }

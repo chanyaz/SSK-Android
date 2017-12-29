@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +14,6 @@ import java.util.List;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -74,7 +71,7 @@ public class StatementAdapter extends RecyclerView.Adapter<StatementAdapter.View
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
+
         final Pair<String,String> info = values.get(position);
         holder.date.setText(sdf.format(new Date()));
         holder.line.setText(info.first);

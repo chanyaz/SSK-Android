@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,7 +23,6 @@ import base.app.fragment.BaseFragment;
 import base.app.fragment.FragmentEvent;
 import base.app.model.club.ClubModel;
 import base.app.model.club.Station;
-import base.app.util.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,10 +68,8 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
 
         station = ClubModel.getInstance().getStationByName(getPrimaryArgument());
         captionTextView.setText(station.getName());
-        // display image
-        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         String imageUrl = station.getCoverImageUrl();
-        ImageLoader.getInstance().displayImage(imageUrl, backgroundImage, imageOptions);
+        ImageLoader.getInstance().displayImage(imageUrl, backgroundImage);
 
         initializeMediaPlayer();
         float volume = Prefs.getFloat(Constant.RADIO_VOLUME, 0.5f);

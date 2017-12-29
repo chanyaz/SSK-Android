@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.api.services.youtube.model.Video;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,7 +22,7 @@ import java.util.Locale;
 import base.app.R;
 import base.app.fragment.FragmentEvent;
 import base.app.fragment.instance.YoutubePlayerFragment;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -100,10 +98,8 @@ public class ClubTVPlaylistAdapter extends RecyclerView.Adapter<ClubTVPlaylistAd
         // setup caption
         holder.caption.setText(info.getSnippet().getTitle());
         holder.date.setText(sdf.format(new Date(info.getSnippet().getPublishedAt().getValue())));
-        // display image
-        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
         String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
-        ImageLoader.getInstance().displayImage(imageUrl, holder.image, imageOptions);
+        ImageLoader.getInstance().displayImage(imageUrl, holder.image);
     }
 
     @Override

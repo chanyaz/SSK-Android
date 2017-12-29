@@ -7,9 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
@@ -19,6 +16,7 @@ import base.app.fragment.FragmentEvent;
 import base.app.fragment.popup.MemberInfoFragment;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -84,10 +82,9 @@ public class FindOfficialAdapter extends RecyclerView.Adapter<FindOfficialAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         UserInfo userInfo = userInfoList.get(position);
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         String avatarUrl = userInfo.getAvatarUrl();
         if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(avatarUrl, holder.profileImage, imageOptions);
+            ImageLoader.getInstance().displayImage(avatarUrl, holder.profileImage);
         }
 
 

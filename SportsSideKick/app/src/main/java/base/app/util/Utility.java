@@ -3,7 +3,6 @@ package base.app.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,10 +16,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
@@ -39,111 +34,16 @@ import base.app.model.user.UserInfo;
 public class Utility {
 
     public static final String CHOSEN_LANGUAGE = "CHOSEN_LANGUAGE";
-
     public static long getCurrentTime(){
         return System.currentTimeMillis();
-    } // Previously used NPT time but now its not needed - TODO remove?
-
-    private static volatile DisplayImageOptions userImageOptions;
-    private static volatile DisplayImageOptions defaultOptions;
-    private static volatile DisplayImageOptions wallItemOptions;
-    private static volatile DisplayImageOptions cameraContentOptions;
-
-    public static DisplayImageOptions getImageOptionsForUsers() {
-        if (userImageOptions != null) {
-            return userImageOptions;
-        }
-        userImageOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.blank_profile_rounded)
-                .showImageForEmptyUri(R.drawable.blank_profile_rounded)
-                .showImageOnFail(R.drawable.blank_profile_rounded)
-                .delayBeforeLoading(0) //delay
-                .resetViewBeforeLoading(true)  // default
-                .considerExifParams(false)
-                .cacheInMemory(true) // default
-                .cacheOnDisk(true) // default
-                .bitmapConfig(Bitmap.Config.RGB_565) // default
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
-                .build();
-        return userImageOptions;
     }
-
-    private static volatile DisplayImageOptions roundedImageOptions;
 
     public static void toast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
-    public static DisplayImageOptions getRoundedImageOptions() {
-        if (roundedImageOptions != null) {
-            return roundedImageOptions;
-        }
-        roundedImageOptions = new DisplayImageOptions.Builder()
-                .delayBeforeLoading(0) //delay
-                .resetViewBeforeLoading(true)  // default
-                .considerExifParams(false)
-                .cacheInMemory(true) // default
-                .cacheOnDisk(true) // default
-                .bitmapConfig(Bitmap.Config.RGB_565) // default
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .displayer(new RoundedBitmapDisplayer(20))
-                .build();
-        return roundedImageOptions;
-    }
-    public static DisplayImageOptions getImageOptionsForTicker() {
-        if (defaultOptions != null) {
-            return defaultOptions;
-        }
-        defaultOptions = new DisplayImageOptions.Builder()
-                .delayBeforeLoading(0) //delay
-                .resetViewBeforeLoading(false)  // default
-                .considerExifParams(false)
-                .cacheInMemory(false) // default
-                .cacheOnDisk(false) // default
-                .bitmapConfig(Bitmap.Config.RGB_565) // default
-                .imageScaleType(ImageScaleType.NONE_SAFE)
-                .build();
-        return defaultOptions;
-    }
-
-
-    public static DisplayImageOptions getDefaultImageOptions() {
-        if (defaultOptions != null) {
-            return defaultOptions;
-        }
-        defaultOptions = new DisplayImageOptions.Builder()
-                .delayBeforeLoading(0) //delay
-                .resetViewBeforeLoading(true)  // default
-                .considerExifParams(false)
-                .cacheInMemory(true) // default
-                .cacheOnDisk(true) // default
-                .bitmapConfig(Bitmap.Config.RGB_565) // default
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
-                .build();
-        return defaultOptions;
-    }
-
-    public static DisplayImageOptions getImageOptionsForWallItem() {
-        if (wallItemOptions != null) {
-            return wallItemOptions;
-        }
-        wallItemOptions = new DisplayImageOptions.Builder()
-                .delayBeforeLoading(0) //delay
-                .resetViewBeforeLoading(true)  // default
-                .considerExifParams(false)
-                .cacheInMemory(true) // default
-                .cacheOnDisk(true) // default
-                .bitmapConfig(Bitmap.Config.RGB_565) // default
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .displayer(new FadeInBitmapDisplayer(250, true, true, true))  //int durationMillis, boolean animateFromNetwork, boolean animateFromDisk, boolean animateFromMemory))
-                .build();
-        return wallItemOptions;
-    }
 
     public static void showAlertDialog(String title, String message, Context context) {
-        AlertDialog alertDialog;
-        alertDialog = new AlertDialog.Builder(context, R.style.AlertDialog).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.AlertDialog).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, context.getString(R.string.dialog_ok),
@@ -187,7 +87,6 @@ public class Utility {
             inputMethodManager.hideSoftInputFromWindow(
                     activity.getCurrentFocus().getWindowToken(), 0);
         } catch (Exception e) {
-
             e.printStackTrace();
         }
     }

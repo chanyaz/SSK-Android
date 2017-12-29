@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+
 import base.app.util.ui.ImageLoader;
 
 import java.util.ArrayList;
@@ -96,10 +96,10 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
+
         ChatInfo chat = values.get(position);
         if (holder.rowImage != null) {
-            ImageLoader.getInstance().displayImage(chat.getChatAvatarUrl(), holder.rowImage, imageOptions);
+            ImageLoader.getInstance().displayImage(chat.getChatAvatarUrl(), holder.rowImage);
             holder.rowImage.getLayoutParams().height = (int) (cellSize * 0.5);
             holder.rowImage.getLayoutParams().width = (int) (cellSize * 0.5);
         }

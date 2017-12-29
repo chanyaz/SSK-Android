@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,7 +26,7 @@ import base.app.fragment.popup.MemberInfoFragment;
 import base.app.model.friendship.FriendRequest;
 import base.app.model.friendship.FriendsManager;
 import base.app.model.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -111,12 +109,11 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             holder.date.setVisibility(View.GONE);
         }
 
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         String avatarUrl = info.getSender().getCircularAvatarUrl();
         if (avatarUrl == null) {
             avatarUrl = info.getSender().getAvatarUrl();
         }
-        ImageLoader.getInstance().displayImage(avatarUrl, holder.profileImage, imageOptions);
+        ImageLoader.getInstance().displayImage(avatarUrl, holder.profileImage);
     }
 
     @Override

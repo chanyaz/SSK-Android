@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -179,12 +179,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     }
 
     private void setupWithUserInfo(PostComment comment, ViewHolder holder, UserInfo user){
-        final DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
+        final
         String userImage = user.getCircularAvatarUrl();
         if (userImage != null) {
-            ImageLoader.getInstance().displayImage(userImage, holder.profileImage, imageOptions);
+            ImageLoader.getInstance().displayImage(userImage, holder.profileImage);
         } else if(defaultImageForUserUrl!=null){
-            ImageLoader.getInstance().displayImage(defaultImageForUserUrl, holder.profileImage, imageOptions);
+            ImageLoader.getInstance().displayImage(defaultImageForUserUrl, holder.profileImage);
         }
         String time = "" + DateUtils.getRelativeTimeSpanString(
                 comment.getTimestamp().longValue()*1000,

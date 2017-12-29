@@ -32,8 +32,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
@@ -70,6 +68,7 @@ import base.app.model.wall.WallPost;
 import base.app.model.wall.WallStoreItem;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -256,7 +255,7 @@ public class WallItemFragment extends BaseFragment {
     }
 
     private void initializeWithData(boolean fetchComments, WallBase item){
-        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
+
         if(fetchComments){
             WallModel.getInstance().getCommentsForPost(item);
         }
@@ -297,7 +296,7 @@ public class WallItemFragment extends BaseFragment {
             case rumor:
             case newsShare:
                 WallNewsShare news = (WallNewsShare) item;
-                ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader, imageOptions);
+                ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());
                 time.setText(DateUtils.getTimeAgo(news.getTimestamp()));
@@ -326,7 +325,7 @@ public class WallItemFragment extends BaseFragment {
                 break;
             case wallStoreItem:
                 WallStoreItem storeItem = (WallStoreItem) item;
-                ImageLoader.getInstance().displayImage(storeItem.getCoverImageUrl(), imageHeader, imageOptions);
+                ImageLoader.getInstance().displayImage(storeItem.getCoverImageUrl(), imageHeader);
                 title.setText(storeItem.getTitle());
                 time.setText(DateUtils.getTimeAgo(storeItem.getTimestamp()));
                 break;

@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -26,7 +24,7 @@ import base.app.fragment.FragmentEvent;
 import base.app.fragment.popup.MemberInfoFragment;
 import base.app.model.friendship.FriendsManager;
 import base.app.model.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -157,11 +155,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
+
         String avatarUrl = info.getCircularAvatarUrl();
 
         if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(avatarUrl, holder.avatar, imageOptions);
+            ImageLoader.getInstance().displayImage(avatarUrl, holder.avatar);
         }
         if (info.getIsOnline()) {
             if (holder.online != null) {

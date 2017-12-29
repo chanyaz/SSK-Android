@@ -8,14 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
 import base.app.model.achievements.Achievement;
-import base.app.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -74,7 +71,7 @@ public class StashAdapter extends RecyclerView.Adapter<StashAdapter.ViewHolder> 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        DisplayImageOptions imageOptions = Utility.getDefaultImageOptions();
+
         final Achievement info = values.get(position);
         holder.awardName.setText(info.getName());
         holder.profileFrame.setText(info.getDescription());

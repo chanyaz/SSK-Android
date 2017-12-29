@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+
 import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -129,9 +129,9 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
+
         if (holder.image != null) {
-            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(), holder.image, imageOptions);
+            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(), holder.image);
             holder.name.setText(info.getFirstName() + " " + info.getLastName());
             if (selectedValues.contains(info)) {
                 if (holder.selectedRingView != null) {

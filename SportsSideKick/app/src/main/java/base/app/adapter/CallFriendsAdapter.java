@@ -8,15 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
 import base.app.model.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -74,8 +71,7 @@ public class CallFriendsAdapter extends RecyclerView.Adapter<CallFriendsAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
-        ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.avatar,imageOptions);
+        ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),holder.avatar);
         if (info.getIsOnline())
         {
             holder.online.setVisibility(View.VISIBLE);

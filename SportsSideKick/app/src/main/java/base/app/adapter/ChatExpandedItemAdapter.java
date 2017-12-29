@@ -8,15 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import base.app.util.ui.ImageLoader;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
 import base.app.model.user.UserInfo;
 import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -91,12 +89,11 @@ public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedIt
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ChatExpandedItemAdapter.ViewHolder holder, final int position) {
-        DisplayImageOptions imageOptions = Utility.getImageOptionsForUsers();
         UserInfo info =values.get(position);
         if (holder.rowImage != null) {
             holder.rowImage.getLayoutParams().height = image_size;
             holder.rowImage.getLayoutParams().width = image_size;
-            ImageLoader.getInstance().displayImage(info.getAvatarUrl(), holder.rowImage, imageOptions);
+            ImageLoader.getInstance().displayImage(info.getAvatarUrl(), holder.rowImage);
         }
         if (holder.rowName != null) {
             holder.rowName.setText(info.getNicName());
