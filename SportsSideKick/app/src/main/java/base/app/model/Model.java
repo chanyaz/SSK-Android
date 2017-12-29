@@ -197,7 +197,7 @@ public class Model {
 
     public void initialize(final Context context) {
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        GSAndroidPlatform.initialise(context, Keys.GS_API_KEY, Keys.GS_API_SECRET, null, false, true);
+        GSAndroidPlatform.initialise(context, Keys.GS_API_KEY, Keys.GS_API_SECRET);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
             public void onEvent(Boolean available) {

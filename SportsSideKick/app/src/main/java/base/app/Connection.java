@@ -28,7 +28,7 @@ public class Connection {
 
     public class OnChangeEvent{
         Status status;
-        public OnChangeEvent(Status status){
+        OnChangeEvent(Status status){
             this.status = status;
         }
 
@@ -38,9 +38,9 @@ public class Connection {
     }
 
     private static Connection instance;
-    Monitor.Builder manager;
+    private Monitor.Builder manager;
 
-    Status lastStatus = Status.notReachable;
+    private Status lastStatus = Status.notReachable;
 
     public static Connection getInstance() {
         if(instance == null){
@@ -68,20 +68,12 @@ public class Connection {
 
     private Connection(){ }
 
-    public boolean reachable(){
+    private boolean reachable(){
         return lastStatus == Status.reachable;
     }
 
     public void start(){
         manager.start();
-    }
-
-    public void stop(){
-        // TODO @Filip - this method can not be trigered on Android like it is on iOS
-    }
-
-    public Status status(){
-        return lastStatus;
     }
 
     /**
