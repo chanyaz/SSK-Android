@@ -131,7 +131,7 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
         final UserInfo info = values.get(position);
 
         if (holder.image != null) {
-            ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(), holder.image);
+            ImageLoader.displayImage(info.getCircularAvatarUrl(), holder.image);
             holder.name.setText(info.getFirstName() + " " + info.getLastName());
             if (selectedValues.contains(info)) {
                 if (holder.selectedRingView != null) {

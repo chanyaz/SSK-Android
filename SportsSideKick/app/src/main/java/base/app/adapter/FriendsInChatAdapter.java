@@ -99,7 +99,7 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
 
         ChatInfo chat = values.get(position);
         if (holder.rowImage != null) {
-            ImageLoader.getInstance().displayImage(chat.getChatAvatarUrl(), holder.rowImage);
+            ImageLoader.displayImage(chat.getChatAvatarUrl(), holder.rowImage);
             holder.rowImage.getLayoutParams().height = (int) (cellSize * 0.5);
             holder.rowImage.getLayoutParams().width = (int) (cellSize * 0.5);
         }

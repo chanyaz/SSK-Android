@@ -296,7 +296,7 @@ public class WallItemFragment extends BaseFragment {
             case rumor:
             case newsShare:
                 WallNewsShare news = (WallNewsShare) item;
-                ImageLoader.getInstance().displayImage(news.getCoverImageUrl(), imageHeader);
+                ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());
                 time.setText(DateUtils.getTimeAgo(news.getTimestamp()));
@@ -325,7 +325,7 @@ public class WallItemFragment extends BaseFragment {
                 break;
             case wallStoreItem:
                 WallStoreItem storeItem = (WallStoreItem) item;
-                ImageLoader.getInstance().displayImage(storeItem.getCoverImageUrl(), imageHeader);
+                ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader);
                 title.setText(storeItem.getTitle());
                 time.setText(DateUtils.getTimeAgo(storeItem.getTimestamp()));
                 break;

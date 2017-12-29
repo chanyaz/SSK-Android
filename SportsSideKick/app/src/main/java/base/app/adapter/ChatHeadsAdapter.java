@@ -144,7 +144,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             final ChatInfo info = values.get(position);
 
             if (holder.imageView != null) {
-                ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.imageView);
+                ImageLoader.displayImage(info.getChatAvatarUrl(), holder.imageView);
             }
             holder.view.setTag(position);
             int unreadMessageCount = info.unreadMessageCount();

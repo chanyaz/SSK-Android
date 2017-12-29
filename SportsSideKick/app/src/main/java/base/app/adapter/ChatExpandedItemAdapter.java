@@ -93,7 +93,7 @@ public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedIt
         if (holder.rowImage != null) {
             holder.rowImage.getLayoutParams().height = image_size;
             holder.rowImage.getLayoutParams().width = image_size;
-            ImageLoader.getInstance().displayImage(info.getAvatarUrl(), holder.rowImage);
+            ImageLoader.displayImage(info.getAvatarUrl(), holder.rowImage);
         }
         if (holder.rowName != null) {
             holder.rowName.setText(info.getNicName());

@@ -97,7 +97,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.View
 
         ChatInfo info = values.get(position);
         if (holder.imageView != null) {
-            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.imageView);
+            ImageLoader.displayImage(info.getChatAvatarUrl(), holder.imageView);
         }
         assert holder.chatName != null;
         holder.chatName.setText(info.getName());

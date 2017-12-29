@@ -31,7 +31,7 @@ public class FantasyFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_fantasy, container, false);
         ButterKnife.bind(this,view);
         String url = getResources().getString(R.string.fantasy_url);
-        ImageLoader.getInstance().displayImage(url,image);
+        ImageLoader.displayImage(url,image);
         return view;
     }
 

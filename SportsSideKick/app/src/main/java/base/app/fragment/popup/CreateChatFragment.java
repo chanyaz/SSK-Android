@@ -384,7 +384,7 @@ public class CreateChatFragment extends BaseFragment {
                     uploadImage(currentPath);
                     chatImageView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(currentPath, chatImageView);
+                    ImageLoader.displayImage(currentPath, chatImageView);
                     break;
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
@@ -392,7 +392,7 @@ public class CreateChatFragment extends BaseFragment {
                     uploadImage(realPath);
                     chatImageView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(realPath, chatImageView);
+                    ImageLoader.displayImage(realPath, chatImageView);
                     break;
             }
         }
@@ -406,7 +406,7 @@ public class CreateChatFragment extends BaseFragment {
             public void onComplete(final @NonNull Task<String> task) {
                 if (task.isSuccessful()) {
                     uploadedImageUrl = task.getResult();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView);
+                    ImageLoader.displayImage(uploadedImageUrl, chatImageView);
                     progressBar.setVisibility(View.GONE);
                 } else {
                     Toast.makeText(getContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();

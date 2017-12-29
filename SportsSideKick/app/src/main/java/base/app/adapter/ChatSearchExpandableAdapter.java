@@ -193,7 +193,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             holder.rowLastChatLabel.setText("2 " + context.getResources().getString(R.string.mins_ago));
 
         }
-        ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(), holder.rowImage);
+        ImageLoader.displayImage(info.getChatAvatarUrl(), holder.rowImage);
         holder.rowImage.getLayoutParams().height = (int) (screenHeight * IMAGE_SIZE);
         holder.rowImage.getLayoutParams().width = (int) (screenHeight * IMAGE_SIZE);
 

@@ -209,7 +209,7 @@ public class MemberInfoFragment extends BaseFragment {
         profileName.setText(user.getFirstName() + " " + user.getLastName());
         //TODO @Filip refactoring Put this in a  string file
         onlineStatus.setText(user.isOnline() ? "online" : "offline");
-        ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
+        ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage);
         progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
         profileImageLevel.setText(String.valueOf((int)user.getProgress()));
 

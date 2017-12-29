@@ -376,7 +376,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     public void onLogin(UserInfo user) {
         if (Model.getInstance().isRealUser()) {
             if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
+                ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage);
             }
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
@@ -404,7 +404,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         userLevelProgress.setVisibility(View.INVISIBLE);
         profileName.setText(R.string.login_or_sign_up);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-        ImageLoader.getInstance().displayImage(imgUri, profileImage);
+        ImageLoader.displayImage(imgUri, profileImage);
 
     }
 
@@ -423,7 +423,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
             }
             if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
+                ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage);
             }
         }
     }

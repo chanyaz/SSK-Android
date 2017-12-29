@@ -159,7 +159,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         String avatarUrl = info.getCircularAvatarUrl();
 
         if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(avatarUrl, holder.avatar);
+            ImageLoader.displayImage(avatarUrl, holder.avatar);
         }
         if (info.getIsOnline()) {
             if (holder.online != null) {

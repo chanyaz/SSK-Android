@@ -107,7 +107,7 @@ public class CreatePostFragment extends BaseFragment {
         if(info!=null){
             authorName.setText(String.format("%s %s", info.getFirstName(), info.getFirstName()));
             if(info.getCircularAvatarUrl() != null ){
-                ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),
+                ImageLoader.displayImage(info.getCircularAvatarUrl(),
                         authorImage);
             } else {
                 Log.v(TAG,"There is no avatar for this user, resolving to default image");
@@ -139,7 +139,7 @@ public class CreatePostFragment extends BaseFragment {
         galleryButton.setVisibility(View.VISIBLE);
 
         uploadedImage.setAlpha(0.5f);
-        ImageLoader.getInstance().displayImage(defaultImageUri, uploadedImage);
+        ImageLoader.displayImage(defaultImageUri, uploadedImage);
     }
 
     @OnClick(R.id.close_dialog_button)
@@ -282,7 +282,7 @@ public class CreatePostFragment extends BaseFragment {
             public void onComplete(@NonNull Task<String> task) {
                 if (task.isSuccessful()) {
                     uploadedImageUrl = task.getResult();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage);
+                    ImageLoader.displayImage(uploadedImageUrl, uploadedImage);
                     uploadProgressBar.setVisibility(View.INVISIBLE);
                     uploadedImage.setAlpha(1.0f);
                 } else {
@@ -302,7 +302,7 @@ public class CreatePostFragment extends BaseFragment {
                 if (task.isSuccessful()) {
                     // store url of it, and then display it
                     videoThumbnailDownloadUrl = task.getResult();
-                    ImageLoader.getInstance().displayImage(
+                    ImageLoader.displayImage(
                             videoThumbnailDownloadUrl,
                             uploadedImage);
                     // then, upload video itself, and hide progressbar when its done

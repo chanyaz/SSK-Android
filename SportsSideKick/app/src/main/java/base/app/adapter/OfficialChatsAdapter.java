@@ -70,7 +70,7 @@ public class OfficialChatsAdapter extends RecyclerView.Adapter<OfficialChatsAdap
         final ChatInfo info = values.get(position);
 
         if(holder.image!=null){
-            ImageLoader.getInstance().displayImage(info.getChatAvatarUrl(),holder.image);
+            ImageLoader.displayImage(info.getChatAvatarUrl(),holder.image);
         }
         holder.view.setTag(position);
         holder.view.setOnClickListener(new View.OnClickListener() {

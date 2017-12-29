@@ -182,9 +182,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         final
         String userImage = user.getCircularAvatarUrl();
         if (userImage != null) {
-            ImageLoader.getInstance().displayImage(userImage, holder.profileImage);
+            ImageLoader.displayImage(userImage, holder.profileImage);
         } else if(defaultImageForUserUrl!=null){
-            ImageLoader.getInstance().displayImage(defaultImageForUserUrl, holder.profileImage);
+            ImageLoader.displayImage(defaultImageForUserUrl, holder.profileImage);
         }
         String time = "" + DateUtils.getRelativeTimeSpanString(
                 comment.getTimestamp().longValue()*1000,

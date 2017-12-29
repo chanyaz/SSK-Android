@@ -161,13 +161,15 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ButterKnife.bind(this);
-        this.loginStateReceiver = new LoginStateReceiver(this);
+
+        loginStateReceiver = new LoginStateReceiver(this);
+
         splash.setVisibility(View.VISIBLE);
         setupFragments();
         setToolbar();
         updateTopBar();
-        Utility.setSystemBarColor(this);
 
         Glide.with(this).load(R.drawable.sportingportugal).into(logoImageView);
     }
@@ -601,7 +603,7 @@ public class MainActivity extends BaseActivity
         if (Model.getInstance().isRealUser()) {
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
             if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
+                ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage);
             }
             setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
@@ -623,6 +625,6 @@ public class MainActivity extends BaseActivity
         userLevelBackground.setVisibility(View.INVISIBLE);
         userLevelProgress.setVisibility(View.INVISIBLE);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-        ImageLoader.getInstance().displayImage(imgUri, profileImage);
+        ImageLoader.displayImage(imgUri, profileImage);
     }
 }

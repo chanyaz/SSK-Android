@@ -239,7 +239,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
             values.add(new Pair<>(getContext().getResources().getString(R.string.comments_made), String.valueOf(user.getComments())));
             adapter.getValues().addAll(values);
 
-            ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
+            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage);
             profileName.setText(user.getFirstName() + " " + user.getLastName());
             profileEmail.setText(user.getEmail());
             profilePhone.setText(user.getPhone());
