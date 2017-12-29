@@ -107,8 +107,7 @@ dependencies {
     implementation 'com.wang.avi:library:2.1.3'
     // Custom layout that can rotate it's view, used in Rumours
     implementation 'rongi.rotate-layout:rotate-layout:2.0.0'
-    // TODO @All - Android O now supports downloadable fonts, explore this option instead of custom lib
-    // Custom fonts in Android
+    // Custom fonts
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     // A small library containing a wrapper/helper for the Shared Preferences of android
     implementation 'com.pixplicity.easyprefs:library:1.8.1@aar'
@@ -124,10 +123,8 @@ dependencies {
     implementation 'org.solovyev.android:checkout:1.0.0'
     // SnappySmoothScroller - used for message scrolling
     implementation 'com.nshmura:snappysmoothscroller:1.0.0'
-    // Java library for working with real-world HTML used for share of content from web view
+    // Java library for working with real-world HTML used for share of content from webview
     implementation 'org.jsoup:jsoup:1.10.2'
-    // Real time remote log tracking
-    implementation 'com.bugfender.sdk:android:0.+'
     // library for monitoring network connectivity, relies on rxJava
     implementation 'com.keiferstone:nonet:2.0.0'
     implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.0'
@@ -140,7 +137,7 @@ dependencies {
     // VideoView with controls
     implementation 'com.linsea:universalvideoview:1.1.0@aar'
     // Image loader library
-    implementation 'com.github.bumptech.glide:glide:4.2.0'
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
     // Image loader library
     implementation 'com.squareup.picasso:picasso:2.5.2'
     // Number picker used for translation popup to select language
