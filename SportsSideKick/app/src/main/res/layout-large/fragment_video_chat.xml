@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryMediumLight"
-    tools:context="base.app.fragment.instance.VideoChatFragment">
+    tools:context=".ui.fragment.instance.VideoChatFragment">
 
     <RelativeLayout
         android:id="@+id/bottom"

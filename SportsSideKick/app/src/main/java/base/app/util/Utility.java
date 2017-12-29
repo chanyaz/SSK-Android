@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import base.app.R;
-import base.app.model.user.UserInfo;
+import base.app.data.user.UserInfo;
 
 /**
  * Created by Djordje Krutil on 6.12.2016..

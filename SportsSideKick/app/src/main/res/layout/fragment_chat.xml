@@ -6,7 +6,7 @@
     android:background="?white_semitransparent"
     android:paddingTop="72dp"
     tools:paddingTop="0dp"
-    tools:context="base.app.fragment.instance.ChatFragment">
+    tools:context=".ui.fragment.instance.ChatFragment">
 
     <!-- Background image -->
     <ImageView

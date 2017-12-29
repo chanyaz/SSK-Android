@@ -22,11 +22,11 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import base.app.R;
-import base.app.model.TranslateManager;
-import base.app.model.im.ImsMessage;
-import base.app.model.wall.PostComment;
-import base.app.model.wall.WallBase;
-import base.app.model.wall.WallNews;
+import base.app.data.TranslateManager;
+import base.app.data.im.ImsMessage;
+import base.app.data.wall.PostComment;
+import base.app.data.wall.WallBase;
+import base.app.data.wall.WallNews;
 
 /**
  * Created by Filip on 9/27/2017.

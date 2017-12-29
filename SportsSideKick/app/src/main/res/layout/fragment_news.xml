@@ -4,7 +4,7 @@
                 android:layout_width="match_parent"
     android:background="@color/login_background"
                 android:layout_height="match_parent"
-                tools:context="base.app.fragment.instance.WallFragment">
+                tools:context=".ui.fragment.instance.WallFragment">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"

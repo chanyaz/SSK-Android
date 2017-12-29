@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:paddingTop="80dp"
-    tools:context="base.app.fragment.instance.FantasyFragment"
+    tools:context=".ui.fragment.instance.FantasyFragment"
     tools:paddingTop="0dp">
 
     <WebView

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryMediumLight"
-    tools:context="base.app.fragment.instance.ClubRadioFragment">
+    tools:context=".ui.fragment.instance.ClubRadioFragment">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_bar"

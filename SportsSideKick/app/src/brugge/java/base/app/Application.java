@@ -17,10 +17,10 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
-import base.app.model.FileUploader;
-import base.app.model.TranslateManager;
-import base.app.model.purchases.PurchaseModel;
-import base.app.model.ticker.NextMatchModel;
+import base.app.data.FileUploader;
+import base.app.data.TranslateManager;
+import base.app.data.purchases.PurchaseModel;
+import base.app.data.ticker.NextMatchModel;
 import base.app.util.SoundEffects;
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;

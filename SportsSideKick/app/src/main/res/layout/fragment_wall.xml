@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/login_background"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry"
-    tools:context="base.app.fragment.instance.WallFragment">
+    tools:context=".ui.fragment.instance.WallFragment">
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipe_refresh_layout"

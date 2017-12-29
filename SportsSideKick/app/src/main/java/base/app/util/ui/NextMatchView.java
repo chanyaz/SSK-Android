@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import base.app.R;
-import base.app.model.ticker.NewsTickerInfo;
-import base.app.model.ticker.NextMatchModel;
+import base.app.data.ticker.NewsTickerInfo;
+import base.app.data.ticker.NextMatchModel;
 import base.app.util.NextMatchCountdown;
 import butterknife.BindView;
 import butterknife.ButterKnife;
