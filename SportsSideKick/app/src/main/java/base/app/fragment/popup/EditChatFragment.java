@@ -28,7 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -204,7 +204,7 @@ public class EditChatFragment extends BaseFragment {
         chatNameEditText.setText(chatInfo.getChatTitle());
         String captionText = String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + chatInfo.getChatTitle() +"'");
         if(chatInfo.getChatAvatarUrl()!=null){
-            ImageLoader.getInstance().displayImage(chatInfo.getChatAvatarUrl(), chatImageView, Utility.getDefaultImageOptions());
+            ImageLoader.getInstance().displayImage(chatInfo.getChatAvatarUrl(), chatImageView);
             chatImageView.setVisibility(View.VISIBLE);
         }
         addFriendsInChatLabel.setText(captionText);
@@ -442,7 +442,7 @@ public class EditChatFragment extends BaseFragment {
                     uploadedImageUrl = task.getResult();
                     if(uploadedImageUrl!=null){
                         chatImageView.setVisibility(View.VISIBLE);
-                        ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.getDefaultImageOptions());
+                        ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView);
                     }
                 } else {
                     // TODO @Filip Handle error!

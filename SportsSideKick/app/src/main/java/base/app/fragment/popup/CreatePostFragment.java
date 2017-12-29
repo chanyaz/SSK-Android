@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,8 +23,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -42,6 +39,7 @@ import base.app.model.wall.WallBase;
 import base.app.model.wall.WallModel;
 import base.app.model.wall.WallPost;
 import base.app.util.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -110,7 +108,7 @@ public class CreatePostFragment extends BaseFragment {
             authorName.setText(String.format("%s %s", info.getFirstName(), info.getFirstName()));
             if(info.getCircularAvatarUrl() != null ){
                 ImageLoader.getInstance().displayImage(info.getCircularAvatarUrl(),
-                        authorImage, Utility.getDefaultImageOptions());
+                        authorImage);
             } else {
                 Log.v(TAG,"There is no avatar for this user, resolving to default image");
                 authorImage.setImageResource(R.drawable.blank_profile_rounded);
@@ -141,7 +139,7 @@ public class CreatePostFragment extends BaseFragment {
         galleryButton.setVisibility(View.VISIBLE);
 
         uploadedImage.setAlpha(0.5f);
-        ImageLoader.getInstance().displayImage(defaultImageUri, uploadedImage, Utility.getDefaultImageOptions());
+        ImageLoader.getInstance().displayImage(defaultImageUri, uploadedImage);
     }
 
     @OnClick(R.id.close_dialog_button)
@@ -284,15 +282,9 @@ public class CreatePostFragment extends BaseFragment {
             public void onComplete(@NonNull Task<String> task) {
                 if (task.isSuccessful()) {
                     uploadedImageUrl = task.getResult();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage,
-                            Utility.getDefaultImageOptions(),
-                            new SimpleImageLoadingListener() {
-                                @Override
-                                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                    uploadProgressBar.setVisibility(View.INVISIBLE);
-                                    uploadedImage.setAlpha(1.0f);
-                                }
-                            });
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, uploadedImage);
+                    uploadProgressBar.setVisibility(View.INVISIBLE);
+                    uploadedImage.setAlpha(1.0f);
                 } else {
                     // TODO @Filip Handle error!
                 }

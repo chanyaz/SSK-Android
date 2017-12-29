@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,6 +77,7 @@ import base.app.util.NextMatchCountdown;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import base.app.util.ui.BlurBuilder;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -376,7 +376,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     public void onLogin(UserInfo user) {
         if (Model.getInstance().isRealUser()) {
             if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
+                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
             }
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
@@ -404,7 +404,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         userLevelProgress.setVisibility(View.INVISIBLE);
         profileName.setText(R.string.login_or_sign_up);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-        ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.getDefaultImageOptions());
+        ImageLoader.getInstance().displayImage(imgUri, profileImage);
 
     }
 
@@ -423,7 +423,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
             }
             if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
+                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
             }
         }
     }

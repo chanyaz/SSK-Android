@@ -21,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -79,6 +78,7 @@ import base.app.model.user.UserInfo;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
 import base.app.util.ui.BlurBuilder;
+import base.app.util.ui.ImageLoader;
 import base.app.util.ui.LinearItemDecoration;
 import base.app.util.ui.NavigationDrawerItems;
 import base.app.util.ui.NoScrollRecycler;
@@ -601,7 +601,7 @@ public class MainActivity extends BaseActivity
         if (Model.getInstance().isRealUser()) {
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
             if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
+                ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
             }
             setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
@@ -623,6 +623,6 @@ public class MainActivity extends BaseActivity
         userLevelBackground.setVisibility(View.INVISIBLE);
         userLevelProgress.setVisibility(View.INVISIBLE);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-        ImageLoader.getInstance().displayImage(imgUri, profileImage, Utility.getDefaultImageOptions());
+        ImageLoader.getInstance().displayImage(imgUri, profileImage);
     }
 }

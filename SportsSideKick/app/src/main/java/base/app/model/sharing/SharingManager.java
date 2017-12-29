@@ -2,7 +2,6 @@ package base.app.model.sharing;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -20,21 +19,15 @@ import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
 import base.app.model.wall.WallNews;
-import base.app.util.Utility;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.model.GSConstants.CLUB_ID_TAG;
@@ -113,39 +106,13 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
         }
 
         if (response.containsKey("image")) {
+            // TODO: Test image sharing
             String image = (String) response.get("image");
-            // NOT:  If u want to share image u must have image in cache, if not u must load picture (because twitter only accept images directly from phone storage)
-
-            ImageLoader.getInstance().loadImage(image, Utility.getImageOptionsForWallItem(), new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String imageUri, View view) {
-                }
-
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    EventBus.getDefault().post(builder);
-                }
-
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    File file = DiskCacheUtils.findInCache(imageUri, ImageLoader.getInstance().getDiscCache());
-                    File path = file.getAbsoluteFile();
-                    Uri imageUrl = Uri.parse(path.getAbsolutePath());
-                    builder.image(imageUrl);
-                    EventBus.getDefault().post(builder);
-                }
-
-                @Override
-                public void onLoadingCancelled(String imageUri, View view) {
-                    EventBus.getDefault().post(builder);
-                }
-            });
-//            Uri imageUrl =  Uri.parse(image);
-//            builder.image(imageUrl);
+            Uri imageUrl =  Uri.parse(image);
+            builder.image(imageUrl);
         } else {
             EventBus.getDefault().post(builder);
         }
-
     }
 
     private void presentFacebook(Map<String, Object> response) {

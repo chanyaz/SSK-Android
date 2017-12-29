@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import base.app.util.ui.ImageLoader;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -209,7 +209,7 @@ public class MemberInfoFragment extends BaseFragment {
         profileName.setText(user.getFirstName() + " " + user.getLastName());
         //TODO @Filip refactoring Put this in a  string file
         onlineStatus.setText(user.isOnline() ? "online" : "offline");
-        ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
+        ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
         progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
         profileImageLevel.setText(String.valueOf((int)user.getProgress()));
 

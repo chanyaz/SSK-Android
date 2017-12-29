@@ -27,7 +27,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -116,7 +116,7 @@ public class EditProfileFragment extends BaseFragment {
 
         user = Model.getInstance().getUserInfo();
         if (user != null) {
-            ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage, Utility.getImageOptionsForUsers());
+            ImageLoader.getInstance().displayImage(user.getCircularAvatarUrl(), profileImage);
             firstNameEditText.setText(user.getFirstName());
             lastNameEditText.setText(user.getLastName());
             nicNameEditText.setText(user.getNicName());
@@ -320,7 +320,7 @@ public class EditProfileFragment extends BaseFragment {
                 if (task.isSuccessful()) {
                     String uploadedImageUrl = task.getResult();
                     Model.getInstance().setProfileImageUrl(uploadedImageUrl, true);
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, profileImage, Utility.getImageOptionsForUsers());
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, profileImage);
                 } else {
                     // TODO @Filip Handle error!
                 }

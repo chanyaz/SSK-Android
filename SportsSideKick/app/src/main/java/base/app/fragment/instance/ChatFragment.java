@@ -48,7 +48,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import base.app.util.ui.ImageLoader;
 import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;

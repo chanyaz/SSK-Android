@@ -32,7 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import base.app.util.ui.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -406,15 +406,10 @@ public class CreateChatFragment extends BaseFragment {
             public void onComplete(final @NonNull Task<String> task) {
                 if (task.isSuccessful()) {
                     uploadedImageUrl = task.getResult();
-                    uploadedImageUrl = task.getResult();
-                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView, Utility.getDefaultImageOptions(), new SimpleImageLoadingListener(){
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
+                    ImageLoader.getInstance().displayImage(uploadedImageUrl, chatImageView);
+                    progressBar.setVisibility(View.GONE);
                 } else {
-                    // TODO @Filip Handle error!
+                    Toast.makeText(getContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();
                 }
             }
         });

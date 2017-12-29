@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.google.api.services.youtube.model.Playlist;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
