@@ -37,16 +37,6 @@ android {
                     'proguard-rules.pro'
         }
     }
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_7
-        sourceCompatibility JavaVersion.VERSION_1_7
-    }
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-    }
-    configurations.all {
-        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
-    }
 }
 
 dependencies {
