@@ -37,6 +37,4 @@ public class QuizFragment extends BaseFragment {
         ImageLoader.displayImage(url,image);
         return view;
     }
-
-
 }

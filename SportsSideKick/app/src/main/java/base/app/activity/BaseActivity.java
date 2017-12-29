@@ -3,7 +3,6 @@ package base.app.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
@@ -70,6 +68,7 @@ import base.app.util.Utility;
 import butterknife.BindView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 import static base.app.util.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.Utility.checkIfBundlesAreEqual;
 
@@ -113,9 +112,7 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void makeStatusBarTransparent() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+        getWindow().addFlags(FLAG_TRANSLUCENT_STATUS);
     }
 
     protected Bundle savedIntentData = null;
