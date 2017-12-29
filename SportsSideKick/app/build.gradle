@@ -54,8 +54,6 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.0.2'
     implementation 'com.android.support:customtabs:27.0.2'
     implementation 'com.android.support:animated-vector-drawable:27.0.2'
-    // Required by Glide - image library
-    implementation 'com.android.support:support-v4:27.0.2'
     // We only need Firebase for Push notifications!
     implementation 'com.google.firebase:firebase-core:11.4.2'
     implementation 'com.google.firebase:firebase-messaging:11.4.2'
@@ -77,9 +75,8 @@ dependencies {
             {
                 exclude group: 'org.apache.httpcomponents'
             }
-    // Gamesparks SDK - whole backend is relying on it (it resides on maven) - TODO Check for version that is table - 3.3 and 3.4 are not working!
-    implementation 'com.gamesparks.sdk:gamesparks-java-sdk:0.3.2-SNAPSHOT'
-
+    // Gamesparks backend
+    implementation 'com.gamesparks.sdk:gamesparks-java-sdk:0.4.4-SNAPSHOT'
     // General data-binding package for Jackson used for parsing of GS response in model - https://github.com/FasterXML/jackson-databind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr1'
     // Event Bus - we are using Greenrobot version! https://github.com/greenrobot/EventBus
