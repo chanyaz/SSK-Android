@@ -38,7 +38,7 @@ import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallPost;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,9 +46,9 @@ import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
-import static base.app.util.Constant.REQUEST_CODE_POST_IMAGE_CAPTURE;
-import static base.app.util.Constant.REQUEST_CODE_POST_IMAGE_PICK;
-import static base.app.util.Constant.REQUEST_CODE_POST_VIDEO_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_POST_IMAGE_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_POST_IMAGE_PICK;
+import static base.app.util.commons.Constant.REQUEST_CODE_POST_VIDEO_CAPTURE;
 
 /**
  * Created by Filip on 11/21/2017.

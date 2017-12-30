@@ -15,7 +15,7 @@ import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.popup.MemberInfoFragment;
 import base.app.data.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;

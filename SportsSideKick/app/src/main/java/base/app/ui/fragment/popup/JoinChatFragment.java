@@ -36,7 +36,7 @@ import base.app.data.friendship.FriendsManager;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsManager;
 import base.app.data.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
 import butterknife.BindView;
 import butterknife.ButterKnife;

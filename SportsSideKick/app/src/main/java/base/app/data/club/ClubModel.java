@@ -26,7 +26,7 @@ import java.util.Map;
 import base.app.BuildConfig;
 import base.app.util.events.stream.ClubTVEvent;
 import base.app.data.GSConstants;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;

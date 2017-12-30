@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import base.app.util.Constant;
+import base.app.util.commons.Constant;
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.NavigationDrawerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -52,7 +52,7 @@ import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsManager;
 import base.app.data.user.AddFriendsEvent;
 import base.app.data.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
 import base.app.util.ui.LinearItemSpacing;
@@ -66,8 +66,8 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
-import static base.app.util.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
-import static base.app.util.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**

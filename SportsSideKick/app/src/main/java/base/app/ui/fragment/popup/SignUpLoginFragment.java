@@ -14,7 +14,7 @@ import base.app.R;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.Model;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

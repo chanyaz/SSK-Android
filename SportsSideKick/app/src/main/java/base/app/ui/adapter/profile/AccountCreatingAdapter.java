@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import base.app.R;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

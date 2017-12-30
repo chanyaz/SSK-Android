@@ -90,7 +90,7 @@ import base.app.data.im.event.ChatsInfoUpdatesEvent;
 import base.app.data.im.event.CreateNewChatSuccessEvent;
 import base.app.data.im.event.UserIsTypingEvent;
 import base.app.data.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -104,9 +104,9 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
-import static base.app.util.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
-import static base.app.util.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
-import static base.app.util.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
 
 /**
 

@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
 
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.ExifUtil;
 
 /**

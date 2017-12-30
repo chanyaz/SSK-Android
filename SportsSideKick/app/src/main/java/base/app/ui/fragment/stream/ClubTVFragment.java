@@ -16,13 +16,12 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import base.app.R;
 import base.app.ui.adapter.stream.ClubTVAdapter;
-import base.app.ui.fragment.stream.YoutubePlayerFragment;
 import base.app.util.events.stream.ClubTVEvent;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
 import base.app.data.club.ClubModel;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -22,7 +22,7 @@ import java.util.List;
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.stream.ClubTvPlaylistFragment;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;

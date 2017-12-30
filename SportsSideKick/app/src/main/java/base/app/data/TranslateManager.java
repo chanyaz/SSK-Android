@@ -18,7 +18,7 @@ import base.app.data.im.ImsMessage;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallNews;
-import base.app.util.XmlLanguageMapParser;
+import base.app.util.commons.XmlLanguageMapParser;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;

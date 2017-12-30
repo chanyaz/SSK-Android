@@ -15,7 +15,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import base.app.Application;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 
 /**
  * Created by Filip on 12/5/2016.

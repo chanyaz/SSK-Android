@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
-import base.app.util.Constant;
+import base.app.util.commons.Constant;
 import base.app.R;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;

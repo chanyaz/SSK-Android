@@ -24,7 +24,7 @@ import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
 import base.app.data.club.ClubModel;
 import base.app.data.club.Station;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.GridItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;

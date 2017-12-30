@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import base.app.BuildConfig;
-import base.app.util.Connection;
+import base.app.util.commons.Connection;
 import base.app.R;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -45,7 +45,7 @@ import base.app.data.GSConstants;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallModel;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,8 +58,8 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.util.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE;
-import static base.app.util.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
+import static base.app.util.commons.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
 
 /**
  * Created by Filip on 1/19/2017.

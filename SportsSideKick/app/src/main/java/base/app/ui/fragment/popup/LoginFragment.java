@@ -32,7 +32,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import base.app.util.Connection;
+import base.app.util.commons.Connection;
 import base.app.R;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -42,8 +42,8 @@ import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.PasswordResetReceiver;
 import base.app.data.user.UserInfo;
-import base.app.util.KeyboardChangeListener;
-import base.app.util.Utility;
+import base.app.util.commons.KeyboardChangeListener;
+import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

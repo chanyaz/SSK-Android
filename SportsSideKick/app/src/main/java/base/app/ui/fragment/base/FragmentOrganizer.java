@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.app.util.Constant;
+import base.app.util.commons.Constant;
 import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.ui.fragment.content.WallItemFragment;
 import base.app.ui.fragment.popup.EditChatFragment;

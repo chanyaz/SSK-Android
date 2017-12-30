@@ -15,7 +15,7 @@ import base.app.ui.fragment.other.ChatFragment;
 import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

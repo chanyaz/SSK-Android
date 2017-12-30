@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 
 import base.app.data.GSAndroidPlatform;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;

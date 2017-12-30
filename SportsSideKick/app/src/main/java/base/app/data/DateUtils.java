@@ -3,7 +3,7 @@ package base.app.data;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 
 /**
  * Created by Filip on 1/10/2017.

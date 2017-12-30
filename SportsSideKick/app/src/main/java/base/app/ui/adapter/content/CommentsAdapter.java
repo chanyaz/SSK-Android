@@ -26,7 +26,7 @@ import base.app.data.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallModel;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;

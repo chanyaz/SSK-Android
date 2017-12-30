@@ -33,7 +33,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.HashMap;
 import java.util.Locale;
 
-import base.app.util.Connection;
+import base.app.util.commons.Connection;
 import base.app.R;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -41,7 +41,7 @@ import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.GSConstants;
 import base.app.data.Model;
 import base.app.data.user.RegistrationStateReceiver;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

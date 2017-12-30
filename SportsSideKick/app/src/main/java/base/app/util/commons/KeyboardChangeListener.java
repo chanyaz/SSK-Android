@@ -1,4 +1,4 @@
-package base.app.util;
+package base.app.util.commons;
 
 import android.app.Activity;
 import android.util.Log;

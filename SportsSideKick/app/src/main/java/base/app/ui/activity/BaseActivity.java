@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import base.app.util.Constant;
+import base.app.util.commons.Constant;
 import base.app.data.GSAndroidPlatform;
 import base.app.R;
 import base.app.util.events.notify.NotificationEvent;
@@ -62,14 +62,14 @@ import base.app.data.ticker.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.videoChat.VideoChatEvent;
 import base.app.data.videoChat.VideoChatModel;
-import base.app.util.ContextWrapper;
-import base.app.util.Utility;
+import base.app.util.commons.ContextWrapper;
+import base.app.util.commons.Utility;
 import butterknife.BindView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-import static base.app.util.Utility.CHOSEN_LANGUAGE;
-import static base.app.util.Utility.checkIfBundlesAreEqual;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
+import static base.app.util.commons.Utility.checkIfBundlesAreEqual;
 
 abstract class BaseActivity extends AppCompatActivity {
 

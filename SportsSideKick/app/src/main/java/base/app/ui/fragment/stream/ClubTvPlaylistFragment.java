@@ -23,7 +23,7 @@ import base.app.util.events.stream.ClubTVEvent;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.club.ClubModel;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.GridItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;

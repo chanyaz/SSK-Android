@@ -36,7 +36,7 @@ import base.app.data.AlertDialogManager;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.user.AddFriendsEvent;
 import base.app.data.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
 import butterknife.BindView;

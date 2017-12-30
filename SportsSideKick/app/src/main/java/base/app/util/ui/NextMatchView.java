@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import base.app.R;
 import base.app.data.ticker.NewsTickerInfo;
 import base.app.data.ticker.NextMatchModel;
-import base.app.util.NextMatchCountdown;
+import base.app.util.commons.NextMatchCountdown;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

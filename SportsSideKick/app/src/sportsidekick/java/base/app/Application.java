@@ -11,8 +11,8 @@ import base.app.data.FileUploader;
 import base.app.data.TranslateManager;
 import base.app.data.purchases.PurchaseModel;
 import base.app.data.ticker.NextMatchModel;
-import base.app.util.Connection;
-import base.app.util.SoundEffects;
+import base.app.util.commons.Connection;
+import base.app.util.commons.SoundEffects;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**

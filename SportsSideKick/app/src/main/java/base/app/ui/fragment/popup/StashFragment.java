@@ -20,7 +20,7 @@ import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.achievements.Achievement;
 import base.app.data.achievements.AchievementManager;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
 import butterknife.BindView;

@@ -21,7 +21,7 @@ import java.util.List;
 
 import base.app.data.GSAndroidPlatform;
 import base.app.data.wall.WallNews;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 

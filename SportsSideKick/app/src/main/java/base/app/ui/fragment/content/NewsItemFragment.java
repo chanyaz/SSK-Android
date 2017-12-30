@@ -54,17 +54,17 @@ import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallNews;
-import base.app.util.SoundEffects;
-import base.app.util.Utility;
+import base.app.util.commons.SoundEffects;
+import base.app.util.commons.Utility;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static base.app.util.Utility.getCurrentTime;
-import static base.app.util.Utility.hideKeyboard;
-import static base.app.util.Utility.showKeyboard;
+import static base.app.util.commons.Utility.getCurrentTime;
+import static base.app.util.commons.Utility.hideKeyboard;
+import static base.app.util.commons.Utility.showKeyboard;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..

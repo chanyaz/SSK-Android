@@ -23,13 +23,13 @@ import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.Model;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static base.app.util.Utility.CHOSEN_LANGUAGE;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Filip on 1/20/2017.

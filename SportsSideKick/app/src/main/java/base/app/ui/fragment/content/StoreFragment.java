@@ -29,7 +29,7 @@ import base.app.data.Model;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallStoreItem;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 
 /**
  * Created by Filip on 12/5/2016.

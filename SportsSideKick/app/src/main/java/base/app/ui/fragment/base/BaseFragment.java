@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 import base.app.util.events.BusEvent;
-import base.app.util.Utility;
+import base.app.util.commons.Utility;
 
 
 /**
