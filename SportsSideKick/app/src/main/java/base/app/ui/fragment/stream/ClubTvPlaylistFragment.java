@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.stream;
 
 
 import android.os.Bundle;
@@ -31,7 +31,7 @@ import butterknife.OnClick;
 import butterknife.Optional;
 
 /**
- * A simple {@link BaseFragment} subclass.
+
  */
 public class ClubTvPlaylistFragment extends BaseFragment {
 

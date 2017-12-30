@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.fragment.instance.ClubTVFragment">
+    tools:context=".ui.fragment.stream.ClubTVFragment">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"

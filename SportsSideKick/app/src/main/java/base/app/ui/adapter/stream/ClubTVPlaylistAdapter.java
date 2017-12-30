@@ -21,7 +21,7 @@ import java.util.Locale;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.instance.YoutubePlayerFragment;
+import base.app.ui.fragment.stream.YoutubePlayerFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;

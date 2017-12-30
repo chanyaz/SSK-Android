@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import base.app.ui.fragment.instance.ChatFragment;
-import base.app.ui.fragment.instance.ClubRadioFragment;
-import base.app.ui.fragment.instance.ClubTVFragment;
-import base.app.ui.fragment.instance.NewsFragment;
-import base.app.ui.fragment.instance.RumoursFragment;
-import base.app.ui.fragment.instance.StatisticsFragment;
-import base.app.ui.fragment.instance.StoreFragment;
-import base.app.ui.fragment.instance.VideoChatFragment;
-import base.app.ui.fragment.instance.WallFragment;
+import base.app.ui.fragment.other.ChatFragment;
+import base.app.ui.fragment.stream.ClubRadioFragment;
+import base.app.ui.fragment.stream.ClubTVFragment;
+import base.app.ui.fragment.content.NewsFragment;
+import base.app.ui.fragment.content.RumoursFragment;
+import base.app.ui.fragment.other.StatisticsFragment;
+import base.app.ui.fragment.content.StoreFragment;
+import base.app.ui.fragment.stream.VideoChatFragment;
+import base.app.ui.fragment.content.WallFragment;
 
 /**
  * Created by Djordje Krutil on 6.12.2016..

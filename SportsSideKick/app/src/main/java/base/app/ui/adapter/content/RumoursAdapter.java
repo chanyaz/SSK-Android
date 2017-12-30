@@ -7,7 +7,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.instance.NewsItemFragment;
+import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.data.wall.WallNews;
 
 /**

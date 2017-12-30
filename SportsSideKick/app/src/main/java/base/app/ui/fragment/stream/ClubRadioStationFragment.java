@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.stream;
 
 
 import android.media.MediaPlayer;

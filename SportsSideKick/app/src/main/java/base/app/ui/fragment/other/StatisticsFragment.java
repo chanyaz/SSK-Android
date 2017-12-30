@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.other;
 
 
 import android.Manifest;
@@ -45,7 +45,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 /**
- * A simple {@link BaseFragment} subclass.
+
  */
 @RuntimePermissions
 public class StatisticsFragment extends BaseFragment {

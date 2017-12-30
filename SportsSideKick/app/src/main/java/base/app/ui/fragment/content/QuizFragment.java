@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.content;
 
 
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  *
- * A simple {@link BaseFragment} subclass.
+
  */
 
 public class QuizFragment extends BaseFragment {

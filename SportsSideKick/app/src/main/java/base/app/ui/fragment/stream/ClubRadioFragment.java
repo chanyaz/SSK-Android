@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.stream;
 
 
 import android.os.Bundle;
@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * A simple {@link BaseFragment} subclass.
+
  */
 @IgnoreBackHandling
 public class ClubRadioFragment extends BaseFragment {

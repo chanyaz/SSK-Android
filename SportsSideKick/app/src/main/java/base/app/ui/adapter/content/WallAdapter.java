@@ -30,8 +30,8 @@ import java.util.List;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.instance.NewsItemFragment;
-import base.app.ui.fragment.instance.WallItemFragment;
+import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.WallItemFragment;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;

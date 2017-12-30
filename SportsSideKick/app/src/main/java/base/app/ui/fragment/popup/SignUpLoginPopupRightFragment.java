@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.instance.ChatFragment;
+import base.app.ui.fragment.other.ChatFragment;
 import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;

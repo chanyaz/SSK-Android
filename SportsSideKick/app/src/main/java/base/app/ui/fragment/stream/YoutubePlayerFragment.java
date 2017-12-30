@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.stream;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;

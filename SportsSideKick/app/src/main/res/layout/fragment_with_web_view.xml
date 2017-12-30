@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.instance.StoreFragment">
+    tools:context=".ui.fragment.content.StoreFragment">
 
     <LinearLayout
         android:id="@+id/navigation_web_container"

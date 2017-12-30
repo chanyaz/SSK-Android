@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.other;
 
 
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * A simple {@link BaseFragment} subclass.
+
  */
 public class FantasyFragment extends BaseFragment {
 

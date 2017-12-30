@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.content;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;

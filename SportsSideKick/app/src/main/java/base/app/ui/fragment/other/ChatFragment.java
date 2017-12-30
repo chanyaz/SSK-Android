@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.other;
 
 
 import android.Manifest;
@@ -109,7 +109,7 @@ import static base.app.util.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
 import static base.app.util.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
 
 /**
- * A simple {@link BaseFragment} subclass.
+
  */
 
 @RuntimePermissions

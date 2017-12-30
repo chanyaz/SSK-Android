@@ -1,5 +1,4 @@
-package base.app.ui.fragment.instance;
-
+package base.app.ui.fragment.stream;
 
 import android.Manifest;
 import android.graphics.PorterDuff;
@@ -39,14 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.util.events.call.AddUsersToCallEvent;
-import base.app.util.events.call.StartCallEvent;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.popup.LoginFragment;
-import base.app.ui.fragment.popup.SignUpFragment;
-import base.app.ui.fragment.popup.SignUpLoginVideoFragment;
-import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.user.UserEvent;
@@ -55,8 +46,16 @@ import base.app.data.videoChat.Slot;
 import base.app.data.videoChat.VideoChatEvent;
 import base.app.data.videoChat.VideoChatItem;
 import base.app.data.videoChat.VideoChatModel;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.popup.LoginFragment;
+import base.app.ui.fragment.popup.SignUpFragment;
+import base.app.ui.fragment.popup.SignUpLoginVideoFragment;
+import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.util.SoundEffects;
 import base.app.util.Utility;
+import base.app.util.events.call.AddUsersToCallEvent;
+import base.app.util.events.call.StartCallEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -72,9 +71,8 @@ import permissions.dispatcher.RuntimePermissions;
  * Created by Djordje on 01/31/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
- * <p>
- * A simple {@link BaseFragment} subclass.
  */
+
 @RuntimePermissions
 public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
@@ -353,7 +351,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
-    void showRationaleForMicrophoneAndCamera(final PermissionRequest request) {
+    public void showRationaleForMicrophoneAndCamera(final PermissionRequest request) {
         AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.permissions), getActivity().getResources().getString(R.string.video_chat_permission_microphone_and_camera_rationale),
                 new View.OnClickListener() {// Cancel
                     @Override
@@ -371,12 +369,12 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     }
 
     @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
-    void showNeverAskForMicrophoneAndCamera() {
+    public void showNeverAskForMicrophoneAndCamera() {
         Toast.makeText(getContext(), R.string.video_chat_permission_microphone_and_camera_denied, Toast.LENGTH_SHORT).show();
     }
 
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
-    void showDeniedForMicrophoneAnCamera() {
+    public void showDeniedForMicrophoneAnCamera() {
         Toast.makeText(getContext(), R.string.video_chat_permission_microphone_and_camera_denied, Toast.LENGTH_SHORT).show();
     }
 

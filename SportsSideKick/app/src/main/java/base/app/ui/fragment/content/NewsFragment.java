@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.content;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,8 +31,6 @@ import butterknife.ButterKnife;
  * Created by Djordje on 12/29/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
- * <p>
- * A simple {@link BaseFragment} subclass.
  */
 
 public class NewsFragment extends BaseFragment {

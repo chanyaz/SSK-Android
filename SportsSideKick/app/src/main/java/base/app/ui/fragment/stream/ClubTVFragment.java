@@ -1,4 +1,4 @@
-package base.app.ui.fragment.instance;
+package base.app.ui.fragment.stream;
 
 
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import base.app.R;
 import base.app.ui.adapter.stream.ClubTVAdapter;
+import base.app.ui.fragment.stream.YoutubePlayerFragment;
 import base.app.util.events.stream.ClubTVEvent;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -26,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * A simple {@link BaseFragment} subclass.
+
  */
 @IgnoreBackHandling
 public class ClubTVFragment extends BaseFragment {
