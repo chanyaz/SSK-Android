@@ -188,7 +188,8 @@ public class NewsItemFragment extends BaseFragment {
         String id = getPrimaryArgument();
         String sharedChildId = getSecondaryArgument();
         item = loadFromCacheBy(id);
-        if (item == null) {
+        if (item == null && sharedChildId != null) {
+            item = loadFromCacheBy(sharedChildId);
             // TODO This item is not in cache, fetch it individually!
             return view;
         }

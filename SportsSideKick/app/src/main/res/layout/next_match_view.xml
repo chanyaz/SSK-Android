@@ -244,6 +244,7 @@
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="1sp"
                 app:autoSizeTextType="uniform"/>
+
         </RelativeLayout>
 
         <ImageView
