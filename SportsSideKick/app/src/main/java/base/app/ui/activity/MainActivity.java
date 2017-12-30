@@ -28,27 +28,27 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.BuildConfig;
-import base.app.util.commons.Constant;
 import base.app.R;
+import base.app.data.Model;
+import base.app.data.news.NewsModel;
+import base.app.data.news.NewsModel.NewsType;
+import base.app.data.tutorial.TutorialModel;
+import base.app.data.user.LoginStateReceiver;
+import base.app.data.user.UserEvent;
+import base.app.data.user.UserInfo;
 import base.app.ui.adapter.menu.MenuAdapter;
 import base.app.ui.adapter.menu.SideMenuAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
-import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.stream.ClubRadioFragment;
-import base.app.ui.fragment.stream.ClubRadioStationFragment;
-import base.app.ui.fragment.stream.ClubTVFragment;
-import base.app.ui.fragment.stream.ClubTvPlaylistFragment;
 import base.app.ui.fragment.content.NewsFragment;
 import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.ui.fragment.content.RumoursFragment;
-import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.content.StoreFragment;
-import base.app.ui.fragment.stream.VideoChatFragment;
 import base.app.ui.fragment.content.WallFragment;
 import base.app.ui.fragment.content.WallItemFragment;
-import base.app.ui.fragment.stream.YoutubePlayerFragment;
+import base.app.ui.fragment.other.ChatFragment;
+import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.popup.AddFriendFragment;
 import base.app.ui.fragment.popup.AlertDialogFragment;
 import base.app.ui.fragment.popup.CreateChatFragment;
@@ -71,11 +71,13 @@ import base.app.ui.fragment.popup.StashFragment;
 import base.app.ui.fragment.popup.WalletFragment;
 import base.app.ui.fragment.popup.YourProfileFragment;
 import base.app.ui.fragment.popup.YourStatementFragment;
-import base.app.data.Model;
-import base.app.data.tutorial.TutorialModel;
-import base.app.data.user.LoginStateReceiver;
-import base.app.data.user.UserEvent;
-import base.app.data.user.UserInfo;
+import base.app.ui.fragment.stream.ClubRadioFragment;
+import base.app.ui.fragment.stream.ClubRadioStationFragment;
+import base.app.ui.fragment.stream.ClubTVFragment;
+import base.app.ui.fragment.stream.ClubTvPlaylistFragment;
+import base.app.ui.fragment.stream.VideoChatFragment;
+import base.app.ui.fragment.stream.YoutubePlayerFragment;
+import base.app.util.commons.Constant;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.ui.BlurBuilder;
@@ -615,6 +617,9 @@ public class MainActivity extends BaseActivity
             userLevelProgress.setVisibility(View.VISIBLE);
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
             TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
+
+            // Cache news for pinning
+            NewsModel.getInstance().loadPage(NewsType.OFFICIAL);
         } else {
             resetUserDetails();
         }
