@@ -38,7 +38,7 @@ public class VideoChatEvent extends BusEvent{
         this.item = item;
     }
 
-    public VideoChatItem getItem() {
+    public VideoChatItem getViewChatItem() {
         return item;
     }
 

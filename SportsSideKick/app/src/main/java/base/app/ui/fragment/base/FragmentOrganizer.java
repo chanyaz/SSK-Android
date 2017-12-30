@@ -47,6 +47,7 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         Bundle arguments = new Bundle();
         arguments.putString(BaseFragment.PRIMARY_ARG_TAG, event.getId());
         arguments.putString(BaseFragment.SECONDARY_ARG_TAG, event.getSecondaryId());
+        arguments.putSerializable(BaseFragment.ITEM_ARG_TAG, event.getItem());
 
         if (event.getInitiatorFragment() != null) {
             arguments.putString(BaseFragment.INITIATOR, event.getInitiatorFragment().getName());

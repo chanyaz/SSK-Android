@@ -3,6 +3,7 @@ package base.app.ui.fragment.base;
 
 import java.util.ArrayList;
 
+import base.app.data.wall.WallBase;
 import base.app.util.events.BusEvent;
 
 /**
@@ -14,6 +15,7 @@ import base.app.util.events.BusEvent;
 public class FragmentEvent extends BusEvent {
 
     private ArrayList<String> stringArrayList;
+    private WallBase item;
 
     public Class getType() {
         return classType;
@@ -62,5 +64,9 @@ public class FragmentEvent extends BusEvent {
 
     public void setStringArrayList(ArrayList<String> stringArrayList) {
         this.stringArrayList = stringArrayList;
+    }
+
+    public void setItem(WallBase item) {
+        this.item = item;
     }
 }

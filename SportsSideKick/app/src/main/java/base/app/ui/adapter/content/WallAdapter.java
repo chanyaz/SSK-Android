@@ -346,6 +346,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         fe.setId(item.getReferencedItemId());
                         fe.setSecondaryId(item.getPostId());
                     }
+                    fe.setItem(item);
                     EventBus.getDefault().post(fe);
                 }
             });

@@ -186,10 +186,8 @@ public class NewsItemFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         String id = getPrimaryArgument();
-        String sharedChildId = getSecondaryArgument();
         item = loadFromCacheBy(id);
-        if (item == null && sharedChildId != null) {
-            item = loadFromCacheBy(sharedChildId);
+        if (item == null) {
             // TODO This item is not in cache, fetch it individually!
             return view;
         }
@@ -219,9 +217,9 @@ public class NewsItemFragment extends BaseFragment {
         EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         sharedMessageField.setHint(R.string.hint_sharing_message);
 
-        if (sharedChildId != null) {
+        if (getItemArgument() != null) {
             setSharedMessageBarVisible(true);
-            WallNews sharedChildPost = loadFromCacheBy(sharedChildId);
+            WallBase sharedChildPost = getItemArgument();
             if (sharedChildPost != null) {
                 sharedMessageField.setText(sharedChildPost.getSharedComment());
             }

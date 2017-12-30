@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import base.app.data.sharing.Shareable;
@@ -28,7 +29,7 @@ import base.app.data.user.UserInfo;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class WallBase implements Shareable {
+public abstract class WallBase implements Shareable, Serializable {
 
     private static final String TAG = "WALL BASE";
 

@@ -1,5 +1,6 @@
 package base.app.ui.fragment.base;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
+import base.app.data.wall.WallBase;
 import base.app.util.events.BusEvent;
 import base.app.util.commons.Utility;
 
@@ -24,6 +26,7 @@ public abstract class BaseFragment extends Fragment {
 
     public static final String PRIMARY_ARG_TAG = "PRIMARY_ARG_TAG";
     public static final String SECONDARY_ARG_TAG = "SECONDARY_ARG_TAG";
+    public static final String ITEM_ARG_TAG = "ITEM_ARG_TAG";
     public static final String STRING_ARRAY_ARG_TAG = "STRING_ARRAY_ARG_TAG";
     public static final String INITIATOR = "INITIATOR_ARG_TAG";
     private static final String TAG = "Base Fragment";
@@ -56,6 +59,11 @@ public abstract class BaseFragment extends Fragment {
 
     protected String getSecondaryArgument() {
         return getArguments().getString(SECONDARY_ARG_TAG);
+    }
+
+    @Nullable
+    protected WallBase getItemArgument() {
+        return (WallBase) getArguments().getSerializable(ITEM_ARG_TAG);
     }
 
     protected List<String> getStringArrayArguement() {

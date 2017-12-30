@@ -307,7 +307,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                 removeAndCheckStateBy(event.getId());
                 break;
             case onSelfInvited:
-                VideoChatItem videoChatItem = event.getItem();
+                VideoChatItem videoChatItem = event.getViewChatItem();
                 final String roomId = videoChatItem.getId().getOid();
                 Task<UserInfo> userInfoTask = Model.getInstance().getUserInfoById(videoChatItem.getOwnerId());
                 userInfoTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
