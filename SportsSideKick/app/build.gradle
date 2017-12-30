@@ -131,12 +131,10 @@ dependencies {
     implementation 'com.linsea:universalvideoview:1.1.0@aar'
     // Image loader library
     implementation 'com.github.bumptech.glide:glide:4.4.0'
-    // Image loader library
-    implementation 'com.squareup.picasso:picasso:2.5.2'
     // Number picker used for translation popup to select language
     implementation 'com.shawnlin:number-picker:2.4.4'
     // Kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 apply plugin: 'com.google.gms.google-services'

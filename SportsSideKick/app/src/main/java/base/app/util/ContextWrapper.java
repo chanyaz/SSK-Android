@@ -7,6 +7,9 @@ import android.os.LocaleList;
 
 import java.util.Locale;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.N;
+
 /**
  * Created by Filip on 8/14/2017.
  * Copyright by Hypercube d.o.o.
@@ -24,7 +27,7 @@ public class ContextWrapper extends android.content.ContextWrapper {
         Resources res = context.getResources();
         Configuration configuration = res.getConfiguration();
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+        if (SDK_INT >= N) {
             configuration.setLocale(newLocale);
 
             LocaleList localeList = new LocaleList(newLocale);
@@ -38,4 +41,5 @@ public class ContextWrapper extends android.content.ContextWrapper {
 
         }
         return new ContextWrapper(context);
-    }}
+    }
+}

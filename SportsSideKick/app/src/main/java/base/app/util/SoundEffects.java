@@ -17,7 +17,7 @@ import base.app.R;
 
 public class SoundEffects {
 
-    public static final int ERROR = 1; // for "errors"
+    private static final int ERROR = 1; // for "errors"
     public static final int ROLL_OVER = 2; // "close" states (closing a popup / coming back from a wall post etc
     public static final int SOFT = 3; // in any instances where selecting a users profile
     public static final int SUBTLE = 4; //  "open" states (opening a popup / opening a wall post / pressing a button)
@@ -57,7 +57,7 @@ public class SoundEffects {
         soundPoolMap.put(SUBTLE, soundPool.load(context, R.raw.subtle_button_sound, 1));
         soundPoolMap.put(AUDIO_CALL, soundPool.load(context, R.raw.audio_call, 2));
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
+        volume = audioManager != null ? audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM) : 0;
     }
     public void playSound(int soundId) {
         Log.d(TAG, "Playing sound with id:" + soundPoolMap.get(soundId));

@@ -10,7 +10,9 @@ import android.view.ViewTreeObserver;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
+
 public class KeyboardChangeListener implements ViewTreeObserver.OnGlobalLayoutListener {
+
     private static final String TAG = "ListenerHandler";
     private View mContentView;
     private int mOriginHeight;
@@ -79,12 +81,6 @@ public class KeyboardChangeListener implements ViewTreeObserver.OnGlobalLayoutLi
             if (mKeyBoardListen != null) {
                 mKeyBoardListen.onKeyboardChange(isShow, keyboardHeight);
             }
-        }
-    }
-
-    public void destroy() {
-        if (mContentView != null) {
-            mContentView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
         }
     }
 }

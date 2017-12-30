@@ -16,8 +16,6 @@ import java.util.HashMap;
 
 public class XmlLanguageMapParser {
 
-
-
     private final static String KEY = "key", STRING = "string", DICT = "dict";
     private final static String LANGUAGE_TAG = "language", NAME_TAG = "name";
 
@@ -25,13 +23,11 @@ public class XmlLanguageMapParser {
      * This class parses an iOS plist with a dict element of language details into a hash map.
      * Map contains a list of pairs where languageShortCode is key, and full language name is a value
      */
-    public static HashMap<String, String> parseLanguage(Context context, int xmlid) {
+    public static HashMap<String, String> parseLanguage(Context context, int xmlId) {
 
-
-        XmlPullParser parser = context.getResources().getXml(xmlid);
+        XmlPullParser parser = context.getResources().getXml(xmlId);
 
         HashMap<String,String> map = new HashMap<>();
-
 
         try {
             parser.next();
