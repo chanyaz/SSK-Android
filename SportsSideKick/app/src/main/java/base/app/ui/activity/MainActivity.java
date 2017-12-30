@@ -27,7 +27,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
-import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.news.NewsModel;
@@ -138,6 +137,8 @@ public class MainActivity extends BaseActivity
     RelativeLayout blurredBackground;
     @BindView(R.id.splash)
     View splash;
+    @BindView(R.id.splashBackgroundImage)
+    ImageView splashBackgroundImage;
 
     SideMenuAdapter sideMenuAdapter;
     MenuAdapter menuAdapter;
@@ -169,14 +170,12 @@ public class MainActivity extends BaseActivity
 
         loginStateReceiver = new LoginStateReceiver(this);
 
-        if (!BuildConfig.DEBUG) {
-            splash.setVisibility(View.VISIBLE);
-        }
         setupFragments();
         setToolbar();
         updateTopBar();
 
         Glide.with(this).load(R.drawable.sportingportugal).into(logoImageView);
+        Glide.with(this).load(R.drawable.video_chat_background).into(splashBackgroundImage);
     }
 
     public void updateTopBar() {

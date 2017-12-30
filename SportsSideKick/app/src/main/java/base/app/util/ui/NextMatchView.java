@@ -83,10 +83,6 @@ public class NextMatchView extends RelativeLayout {
                 }
             }, delay);
             nextMatchContainer.setVisibility(View.VISIBLE);
-
-            Glide.with(getContext())
-                    .load(R.drawable.video_chat_background)
-                    .into(background);
         } else {
             nextMatchContainer.setVisibility(View.GONE);
         }
