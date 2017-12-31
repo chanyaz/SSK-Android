@@ -382,9 +382,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     public void clear() {
-        if (values != null) {
-            clear();
-        }
+        values.clear();
     }
 
     private static final Comparator<WallBase> WALL_BASE_TIMESTAMP_COMPARATOR = new Comparator<WallBase>() {
@@ -461,15 +459,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     public void replaceAll(List<WallBase> models) {
-        for (int i = values.size() - 1; i >= 0; i--) {
-            final WallBase model = values.get(i);
-            if (!models.contains(model)) {
-                values.remove(model);
-            }
-        }
-        for (WallBase model : models) {
-            Log.d("TAGX", model.getSharedComment() + "");
-        }
+        clear();
         values.addAll(models);
     }
 }
