@@ -282,6 +282,16 @@ public class NewsItemFragment extends BaseFragment {
                 sharedMessageField.selectAll();
             }
         });
+        sharedMessageField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    sharedMessageField.setSingleLine(false);
+                    sharedMessageMoreButton.setVisibility(View.GONE);
+                    sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         sharedMessageDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,18 +299,11 @@ public class NewsItemFragment extends BaseFragment {
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        getActivity().onBackPressed();
+                        if (getActivity() != null) {
+                            getActivity().onBackPressed();
+                        }
                     }
                 });
-            }
-        });
-        sharedMessageField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    sharedMessageMoreButton.setVisibility(View.GONE);
-                    sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
-                }
             }
         });
         postButtonSharedComment.setOnClickListener(new View.OnClickListener() {

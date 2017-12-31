@@ -336,6 +336,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (holder.getAdapterPosition() == -1) return;
                     FragmentEvent fe;
                     WallBase item = values.get(holder.getAdapterPosition());
                     if (item.getReferencedItemId() == null || item.getReferencedItemId().isEmpty()) {
