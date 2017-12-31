@@ -366,6 +366,8 @@
                     android:id="@+id/bottom_horizontal_split_line"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
+                    android:visibility="invisible"
+                    android:layout_marginBottom="-16dp"
                     android:layout_below="@+id/read_more_holder"
                     android:layout_marginEnd="@dimen/padding_10"
                     android:layout_marginStart="@dimen/padding_10"
