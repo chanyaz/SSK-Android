@@ -159,6 +159,8 @@ public class NewsItemFragment extends BaseFragment {
     EditText sharedMessageField;
     @BindView(R.id.pin_container)
     View pinContainer;
+    @BindView(R.id.sharedMessageDivider)
+    View sharedMessageDivider;
 
     @BindView(R.id.sharedMessageMoreButton)
     ImageButton sharedMessageMoreButton;
@@ -280,6 +282,7 @@ public class NewsItemFragment extends BaseFragment {
                 sharedMessageField.setSingleLine(false);
                 sharedMessageField.requestFocus();
                 sharedMessageField.selectAll();
+                sharedMessageDivider.setVisibility(View.GONE);
             }
         });
         sharedMessageField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -289,6 +292,7 @@ public class NewsItemFragment extends BaseFragment {
                     sharedMessageField.setSingleLine(false);
                     sharedMessageMoreButton.setVisibility(View.GONE);
                     sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
+                    sharedMessageDivider.setVisibility(View.GONE);
                 }
             }
         });

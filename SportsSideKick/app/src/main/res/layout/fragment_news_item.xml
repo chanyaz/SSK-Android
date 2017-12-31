@@ -512,6 +512,7 @@
                 tools:textStyle="bold" />
 
             <View
+                android:id="@+id/sharedMessageDivider"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="4dp"
@@ -529,10 +530,12 @@
             <LinearLayout
                 android:id="@+id/sharedMessageDeleteEditContainer"
                 android:layout_width="60dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <Button
                     android:id="@+id/sharedMessageEditButton"
@@ -542,6 +545,11 @@
                     android:text="Edit"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#4300a352"/>
 
                 <Button
                     android:id="@+id/sharedMessageDeleteButton"
