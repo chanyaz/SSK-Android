@@ -543,6 +543,7 @@
                     android:layout_height="36dp"
                     android:background="@color/colorPrimaryVeryLight"
                     android:text="Edit"
+                    android:foreground="?selectableItemBackground"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
 
@@ -558,6 +559,7 @@
                     android:background="@color/colorPrimaryVeryLight"
                     android:text="Delete"
                     android:textAllCaps="false"
+                    android:foreground="?selectableItemBackground"
                     android:textColor="@color/white" />
 
             </LinearLayout>

@@ -39,13 +39,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.activity.MainActivity;
-import base.app.ui.adapter.content.CommentsAdapter;
-import base.app.util.events.comment.CommentDeleteEvent;
-import base.app.util.events.comment.GetCommentsCompleteEvent;
-import base.app.util.events.post.PostCommentCompleteEvent;
-import base.app.util.events.post.PostUpdateEvent;
-import base.app.ui.fragment.base.BaseFragment;
 import base.app.data.Model;
 import base.app.data.news.NewsModel;
 import base.app.data.sharing.SharingManager;
@@ -54,8 +47,15 @@ import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallNews;
+import base.app.ui.activity.MainActivity;
+import base.app.ui.adapter.content.CommentsAdapter;
+import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
+import base.app.util.events.comment.CommentDeleteEvent;
+import base.app.util.events.comment.GetCommentsCompleteEvent;
+import base.app.util.events.post.PostCommentCompleteEvent;
+import base.app.util.events.post.PostUpdateEvent;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -167,7 +167,7 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.sharedMessageDeleteEditContainer)
     View sharedMessageDeleteEditContainer;
     @BindView(R.id.sharedMessageEditButton)
-    Button sharedMessageOpenInputButton;
+    Button sharedMessageEditButton;
     @BindView(R.id.sharedMessageDeleteButton)
     Button sharedMessageDeleteButton;
 
@@ -231,7 +231,7 @@ public class NewsItemFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.delete)
-    public void deletePostOnClick(View view){
+    public void deletePostOnClick(View view) {
         WallModel.getInstance().deletePost(item).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -274,25 +274,24 @@ public class NewsItemFragment extends BaseFragment {
             public void onClick(View view) {
                 sharedMessageMoreButton.setVisibility(View.GONE);
                 sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
+                sharedMessageField.setSingleLine(false);
+                sharedMessageDivider.setVisibility(View.GONE);
             }
         });
-        sharedMessageOpenInputButton.setOnClickListener(new View.OnClickListener() {
+        sharedMessageEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedMessageField.setSingleLine(false);
-                sharedMessageField.requestFocus();
-                sharedMessageField.selectAll();
-                sharedMessageDivider.setVisibility(View.GONE);
+                showSharedCommentEdit();
+                sharedMessageEditButton.setText("Save");
             }
         });
         sharedMessageField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (hasFocus) {
-                    sharedMessageField.setSingleLine(false);
-                    sharedMessageMoreButton.setVisibility(View.GONE);
-                    sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
-                    sharedMessageDivider.setVisibility(View.GONE);
+                    showSharedCommentEdit();
+                    inputFieldComment.selectAll();
+                    sharedMessageEditButton.setText("Save");
                 }
             }
         });
@@ -301,13 +300,13 @@ public class NewsItemFragment extends BaseFragment {
             public void onClick(View view) {
                 WallModel.getInstance().deletePost(sharedChildPost)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (getActivity() != null) {
-                            getActivity().onBackPressed();
-                        }
-                    }
-                });
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (getActivity() != null) {
+                                    getActivity().onBackPressed();
+                                }
+                            }
+                        });
             }
         });
         postButtonSharedComment.setOnClickListener(new View.OnClickListener() {
@@ -482,7 +481,7 @@ public class NewsItemFragment extends BaseFragment {
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getPostId());
             comment.setTimestamp((double) (getCurrentTime() / 1000));
-            WallModel.getInstance().postComment(item, comment);
+            WallModel.getInstance().postComment(comment);
             inputFieldComment.getText().clear();
             postCommentProgressBar.setVisibility(View.VISIBLE);
         } else {
@@ -662,6 +661,35 @@ public class NewsItemFragment extends BaseFragment {
         // Disable background blur
         MainActivity activity = (MainActivity) getActivity();
         activity.toggleBlur(false, null);
+    }
+
+    public void showSharedCommentEdit() {
+        sharedMessageField.setSingleLine(false);
+        sharedMessageField.requestFocus();
+
+        sharedMessageMoreButton.setVisibility(View.GONE);
+        sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
+        sharedMessageDivider.setVisibility(View.GONE);
+
+        showKeyboard(getContext());
+
+        sharedMessageEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newSharedComment = sharedMessageField.getText().toString();
+                sharedChildPost.setSharedComment(newSharedComment);
+                sharedChildPost.setTimestamp((double) (getCurrentTime() / 1000));
+                WallModel.getInstance().updatePost(sharedChildPost)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (getActivity() != null) {
+                                    getActivity().onBackPressed();
+                                }
+                            }
+                        });
+            }
+        });
     }
 
     @Optional

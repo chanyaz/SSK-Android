@@ -318,7 +318,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }
         });
-        WallModel.getInstance().loadWallPosts(offset,pageSize,null,getWallPostCompletion);
+        WallModel.getInstance().loadWallPosts(offset,pageSize, getWallPostCompletion);
     }
 
     @Override

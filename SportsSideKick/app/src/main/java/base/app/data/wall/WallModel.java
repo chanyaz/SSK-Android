@@ -18,7 +18,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -46,8 +45,9 @@ import static base.app.data.Model.createRequest;
 
 /**
  * Created by Filip on 1/6/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
  */
-
 public class WallModel extends GSMessageHandlerAbstract {
 
     private static final String TAG = " WallModel";
@@ -86,8 +86,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * you need to listen to mbPostUpdate events which will return all old posts + new posts
      * + updated posts
      */
-
-    public void loadWallPosts(int offset, int entryCount, Date since, final TaskCompletionSource<List<WallBase>> completion){
+    public void loadWallPosts(int offset, int entryCount, final TaskCompletionSource<List<WallBase>> completion){
         final UserInfo userInfo = Model.getInstance().getUserInfo();
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -115,8 +114,8 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .setEventAttribute(GSConstants.LANGUAGE,"")
                 .setEventAttribute(GSConstants.OFFSET,offset)
                 .setEventAttribute(GSConstants.ENTRY_COUNT,entryCount);
-        if(since!=null){
-            request.setEventAttribute(GSConstants.SINCE,DateUtils.dateToFirebaseDate(since));
+        if(null !=null){
+            request.setEventAttribute(GSConstants.SINCE,DateUtils.dateToFirebaseDate(null));
         }
         request.send(consumer);
     }
@@ -172,7 +171,31 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
-    public Task<Void> setlikeVal(final WallBase post, final boolean val){
+    public Task<Void> updatePost(final WallBase post){
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
+                    WallBase post = WallBase.postFactory(object, mapper, true);
+                    EventBus.getDefault().post(new PostUpdateEvent(post));
+                }
+                source.setResult(null);
+            }
+        };
+        Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>(){});
+        map.put("type", post.getTypeAsInt());
+        GSData data = new GSData(map);
+
+        createRequest("wallUpdatePost")
+                .setEventAttribute(GSConstants.POST,data)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .send(consumer);
+        return source.getTask();
+    }
+
+    Task<Void> setlikeVal(final WallBase post, final boolean val){
         int increase = val ? 1 : -1;
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -217,7 +240,6 @@ public class WallModel extends GSMessageHandlerAbstract {
             offset = 0;
             pageSize = post.getCommentsCount()-fetchedCount;
         }
-
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -243,7 +265,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * the post comments count will be increeased by 1
      *
      */
-    public Task<PostComment> postComment(final WallBase post, final PostComment comment){
+    public Task<PostComment> postComment(final PostComment comment){
         final TaskCompletionSource<PostComment> source = new TaskCompletionSource<>();
         comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -268,7 +290,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
-    public Task<Void> deletePostComment(PostComment comment){
+    public void deletePostComment(PostComment comment){
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -282,7 +304,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .setEventAttribute(GSConstants.COMMENT,data)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
-        return source.getTask();
+        source.getTask();
     }
 
     public Task<Void> updatePostComment(PostComment comment) {
@@ -309,7 +331,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * @param  shareTarget where post should be shared
      */
 
-    public void itemShared(final WallBase item, SharingManager.ShareTarget shareTarget) {
+    void itemShared(final WallBase item, SharingManager.ShareTarget shareTarget) {
         SharingManager.getInstance().increment(item,shareTarget).addOnCompleteListener(new OnCompleteListener<Map<String, Object>>() {
             @Override
             public void onComplete(@NonNull Task<Map<String, Object>> task) {
@@ -323,11 +345,11 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     /**
      * get post by its id (used for loading from notification)
-     * @param  wallId the wall id
-     * @param  postId the post id
+     * @param wallId the wall id
+     * @param postId the post id
      */
-    public void getPostById(String wallId, String postId,
-                            @Nullable GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer){
+    private void getPostById(String wallId, String postId,
+                             @Nullable GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer){
         if (consumer == null) {
             consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                 @Override
@@ -401,7 +423,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         }
     }
 
-    public void parseWallMessage(Map<String,Object> data){
+    private void parseWallMessage(Map<String, Object> data){
         String operation = (String) data.get(GSConstants.OPERATION);
         if(operation!=null){
             Object object = data.get(GSConstants.POST);
