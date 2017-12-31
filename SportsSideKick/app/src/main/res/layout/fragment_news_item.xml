@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <RelativeLayout
         android:id="@+id/top_buttons_container"
@@ -497,13 +498,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
+                android:gravity="top"
+                android:singleLine="true"
+                android:paddingBottom="-8dp"
                 android:layout_marginTop="15dp"
+                android:paddingRight="8dp"
+                android:ellipsize="end"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                 android:layout_weight="1"
                 android:background="@null"
-                android:text="Shared message will appear here"
+                tools:text="Check out this awesome article! I guarantee you are going to like it"
                 android:textColor="#cd008643"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                tools:textStyle="bold" />
 
             <View
                 android:layout_width="1dp"
@@ -526,7 +533,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <Button
                     android:id="@+id/sharedMessageEditButton"
@@ -565,7 +572,7 @@
         android:id="@+id/commentInputOverlay"
         android:layout_width="match_parent"
         android:visibility="gone"
-        tools:visibility="visible"
+        tools:visibility="gone"
         android:layout_height="match_parent"
         android:background="#94000000">
 

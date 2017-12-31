@@ -165,7 +165,7 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.sharedMessageDeleteEditContainer)
     View sharedMessageDeleteEditContainer;
     @BindView(R.id.sharedMessageEditButton)
-    Button sharedMessageEditButton;
+    Button sharedMessageOpenInputButton;
     @BindView(R.id.sharedMessageDeleteButton)
     Button sharedMessageDeleteButton;
 
@@ -213,7 +213,6 @@ public class NewsItemFragment extends BaseFragment {
         }
         setClickListeners();
 
-        EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         sharedMessageField.setHint(R.string.hint_sharing_message);
 
         if (getSecondaryArgument() != null) {
@@ -275,12 +274,12 @@ public class NewsItemFragment extends BaseFragment {
                 sharedMessageDeleteEditContainer.setVisibility(View.VISIBLE);
             }
         });
-        sharedMessageEditButton.setOnClickListener(new View.OnClickListener() {
+        sharedMessageOpenInputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
-                // TODO: sharedMessageField.requestFocus();
-                // TODO: sharedMessageField.selectAll();
+                sharedMessageField.setSingleLine(false);
+                sharedMessageField.requestFocus();
+                sharedMessageField.selectAll();
             }
         });
         sharedMessageDeleteButton.setOnClickListener(new View.OnClickListener() {
