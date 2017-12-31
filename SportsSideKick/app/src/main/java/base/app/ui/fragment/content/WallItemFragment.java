@@ -44,18 +44,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.adapter.content.CommentsAdapter;
-import base.app.ui.adapter.menu.TutorialStepAdapter;
-import base.app.util.events.comment.CommentDeleteEvent;
-import base.app.util.events.comment.CommentSelectedEvent;
-import base.app.util.events.comment.CommentUpdateEvent;
-import base.app.util.events.comment.CommentUpdatedEvent;
-import base.app.util.events.comment.GetCommentsCompleteEvent;
-import base.app.util.events.post.GetPostByIdEvent;
-import base.app.util.events.post.PostCommentCompleteEvent;
-import base.app.util.events.post.PostUpdateEvent;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.data.DateUtils;
 import base.app.data.Model;
 import base.app.data.sharing.SharingManager;
 import base.app.data.tutorial.WallTip;
@@ -66,8 +54,19 @@ import base.app.data.wall.WallModel;
 import base.app.data.wall.WallNewsShare;
 import base.app.data.wall.WallPost;
 import base.app.data.wall.WallStoreItem;
+import base.app.ui.adapter.content.CommentsAdapter;
+import base.app.ui.adapter.menu.TutorialStepAdapter;
+import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
+import base.app.util.events.comment.CommentDeleteEvent;
+import base.app.util.events.comment.CommentSelectedEvent;
+import base.app.util.events.comment.CommentUpdateEvent;
+import base.app.util.events.comment.CommentUpdatedEvent;
+import base.app.util.events.comment.GetCommentsCompleteEvent;
+import base.app.util.events.post.GetPostByIdEvent;
+import base.app.util.events.post.PostCommentCompleteEvent;
+import base.app.util.events.post.PostUpdateEvent;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
@@ -158,15 +157,6 @@ public class WallItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.swipe_refresh_layout)
     SwipyRefreshLayout swipeRefreshLayout;
-
-
-    @Nullable
-    @BindView(R.id.source)
-    TextView source;
-
-    @Nullable
-    @BindView(R.id.time)
-    TextView time;
 
     CommentsAdapter commentsAdapter;
     WallBase item;
@@ -262,7 +252,6 @@ public class WallItemFragment extends BaseFragment {
                 Glide.with(this).load(post.getCoverImageUrl()).into(imageHeader);
                 title.setText(post.getTitle());
                 content.setText(post.getBodyText());
-                time.setText(DateUtils.getTimeAgo(post.getTimestamp()));
                 if (post.getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
                     imageHeader.setVisibility(View.GONE);
@@ -296,7 +285,6 @@ public class WallItemFragment extends BaseFragment {
                 ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());
-                time.setText(DateUtils.getTimeAgo(news.getTimestamp()));
                 if (commentsCount != null) {
                     commentsCount.setText(String.valueOf(news.getCommentsCount()));
                 }
@@ -324,7 +312,6 @@ public class WallItemFragment extends BaseFragment {
                 WallStoreItem storeItem = (WallStoreItem) item;
                 ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader);
                 title.setText(storeItem.getTitle());
-                time.setText(DateUtils.getTimeAgo(storeItem.getTimestamp()));
                 break;
             case tip:
                 final WallTip tip = (WallTip) item;

@@ -244,53 +244,12 @@
                     android:background="@color/white" />
 
                 <TextView
-                    android:id="@+id/source"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/social_buttons_container"
-                    android:layout_marginStart="@dimen/margin_15"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:ellipsize="end"
-                    android:text="The world game"
-                    android:textColor="#4d4e4c"
-                    android:textSize="12sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/time_separator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/social_buttons_container"
-                    android:layout_marginEnd="@dimen/margin_5"
-                    android:layout_marginStart="@dimen/margin_5"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:layout_toEndOf="@+id/source"
-                    android:ellipsize="end"
-                    android:text="-"
-                    android:textColor="#4d4e4c"
-                    android:textSize="12sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/social_buttons_container"
-                    android:layout_marginEnd="@dimen/margin_5"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:layout_toEndOf="@+id/time_separator"
-                    android:ellipsize="end"
-                    android:text="Just now"
-                    android:textColor="#4d4e4c"
-                    android:textSize="12sp"
-                    android:visibility="invisible" />
-
-                <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/source"
+                    android:layout_below="@id/social_buttons_container"
                     android:layout_marginBottom="4dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="@dimen/margin_5"
                     android:layout_marginStart="@dimen/margin_15"
                     android:ellipsize="end"
