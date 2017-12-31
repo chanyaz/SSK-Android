@@ -171,6 +171,7 @@ public class NewsItemFragment extends BaseFragment {
 
     CommentsAdapter commentsAdapter;
     WallNews item;
+    private WallBase sharedChildPost;
     List<PostComment> comments;
 
     public NewsItemFragment() {
@@ -178,7 +179,8 @@ public class NewsItemFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(
                 R.layout.fragment_news_item,
                 container,
@@ -187,10 +189,7 @@ public class NewsItemFragment extends BaseFragment {
 
         String id = getPrimaryArgument();
         item = loadFromCacheBy(id);
-        if (item == null) {
-            // TODO This item is not in cache, fetch it individually!
-            return view;
-        }
+
         showHeaderImage();
         showTextContent(item);
 
@@ -217,9 +216,9 @@ public class NewsItemFragment extends BaseFragment {
         EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         sharedMessageField.setHint(R.string.hint_sharing_message);
 
-        if (getItemArgument() != null) {
+        if (getSecondaryArgument() != null) {
             setSharedMessageBarVisible(true);
-            WallBase sharedChildPost = getItemArgument();
+            sharedChildPost = WallBase.getCache().get(getSecondaryArgument());
             if (sharedChildPost != null) {
                 sharedMessageField.setText(sharedChildPost.getSharedComment());
             }
@@ -287,17 +286,13 @@ public class NewsItemFragment extends BaseFragment {
         sharedMessageDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
-                /*String sharedChildId = getSecondaryArgument();
-                WallNews sharedChildPost = loadFromCacheBy(sharedChildId);
-
-                TODO: Delete through the news (NO! POST NEWS SHARE ITEM) item endpoint instead (it's not a post)
-                WallModel.getInstance().deletePost(sharedChildPost).addOnCompleteListener(new OnCompleteListener<Void>() {
+                WallModel.getInstance().deletePost(sharedChildPost)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         getActivity().onBackPressed();
                     }
-                });*/
+                });
             }
         });
         sharedMessageField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
