@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -441,7 +442,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     };
 
-    final SortedList<WallBase> values = new SortedList<>(WallBase.class, mCallback);
+    private final List<WallBase> values = new ArrayList<>();
 
     public void add(WallBase model) {
         values.add(model);
@@ -456,22 +457,19 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     public void remove(List<WallBase> models) {
-        values.beginBatchedUpdates();
-        for (WallBase model : models) {
-            values.remove(model);
-        }
-        values.endBatchedUpdates();
+        values.removeAll(models);
     }
 
     public void replaceAll(List<WallBase> models) {
-        values.beginBatchedUpdates();
         for (int i = values.size() - 1; i >= 0; i--) {
             final WallBase model = values.get(i);
             if (!models.contains(model)) {
                 values.remove(model);
             }
         }
+        for (WallBase model : models) {
+            Log.d("TAGX", model.getSharedComment() + "");
+        }
         values.addAll(models);
-        values.endBatchedUpdates();
     }
 }

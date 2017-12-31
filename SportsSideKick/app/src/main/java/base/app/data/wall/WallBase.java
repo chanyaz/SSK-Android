@@ -149,7 +149,6 @@ public abstract class WallBase implements Shareable, Serializable {
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
             if(putInCache){
-
                 WallBase cachedItem = cache.get(item.getPostId());
                 if(cachedItem!=null){
                     cachedItem.setEqualTo(item);
