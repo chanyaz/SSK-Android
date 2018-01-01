@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -161,6 +162,8 @@ public class NewsItemFragment extends BaseFragment {
     View pinContainer;
     @BindView(R.id.sharedMessageDivider)
     View sharedMessageDivider;
+    @BindView(R.id.sharedMessageAvatar)
+    ImageView sharedMessageAvatar;
 
     @BindView(R.id.sharedMessageMoreButton)
     ImageButton sharedMessageMoreButton;
@@ -221,12 +224,31 @@ public class NewsItemFragment extends BaseFragment {
             setSharedMessageBarVisible(true);
             sharedChildPost = WallBase.getCache().get(getSecondaryArgument());
             if (sharedChildPost != null) {
+                showSharedMessageAvatar();
                 sharedMessageField.setText(sharedChildPost.getSharedComment());
             }
         } else {
             setSharedMessageBarVisible(false);
         }
         return view;
+    }
+
+    private void showSharedMessageAvatar() {
+        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(sharedChildPost.getWallId());
+        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<UserInfo> task) {
+                if (task.isSuccessful()) {
+                    UserInfo user = task.getResult();
+                    if (user != null) {
+                        Glide.with(getContext())
+                                .load(user.getCircularAvatarUrl())
+                                .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
+                                .into(sharedMessageAvatar);
+                    }
+                }
+            }
+        });
     }
 
     @Optional
