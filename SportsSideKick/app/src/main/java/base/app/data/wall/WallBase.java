@@ -316,7 +316,7 @@ public abstract class WallBase implements Shareable, Serializable {
         } else {
             likeCount -= 1;
         }
-        WallModel.getInstance().setlikeVal(this, likedByUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+        WallModel.getInstance().setLikeCount(this, likedByUser).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -328,7 +328,7 @@ public abstract class WallBase implements Shareable, Serializable {
 
     @Override
     public void incrementShareCount(SharingManager.ShareTarget shareTarget) {
-        WallModel.getInstance().itemShared(this, shareTarget);
+        WallModel.getInstance().incrementShareCount(this, shareTarget);
     }
 
     public void setEqualTo(WallBase item) {
