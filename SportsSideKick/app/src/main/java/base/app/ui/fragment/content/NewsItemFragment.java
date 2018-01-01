@@ -48,7 +48,6 @@ import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallNews;
-import base.app.data.wall.WallRumor;
 import base.app.ui.activity.MainActivity;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -77,7 +76,6 @@ import static base.app.util.commons.Utility.showKeyboard;
  */
 public class NewsItemFragment extends BaseFragment {
 
-    private static final String TAG = "NewsItemFragment";
     @BindView(R.id.content_image)
     ImageView imageHeader;
     @BindView(R.id.image)
@@ -244,10 +242,12 @@ public class NewsItemFragment extends BaseFragment {
                 if (task.isSuccessful()) {
                     UserInfo user = task.getResult();
                     if (user != null) {
-                        Glide.with(getContext())
-                                .load(user.getCircularAvatarUrl())
-                                .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
-                                .into(sharedMessageAvatar);
+                        if (getContext() != null) {
+                            Glide.with(getContext())
+                                    .load(user.getCircularAvatarUrl())
+                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
+                                    .into(sharedMessageAvatar);
+                        }
                     }
                 }
             }
@@ -337,11 +337,11 @@ public class NewsItemFragment extends BaseFragment {
         postButtonSharedComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if (!getPrimaryArgument().contains("UNOFFICIAL")) {
-                        pin(newsShare);
-                    } else if (item instanceof WallRumor) {
-                        pin(rumourShare);
-                    }
+                if (!getPrimaryArgument().contains("UNOFFICIAL")) {
+                    pin(newsShare);
+                } else {
+                    pin(rumourShare);
+                }
             }
         });
     }
@@ -643,22 +643,21 @@ public class NewsItemFragment extends BaseFragment {
             itemToPost.setTitle(item.getTitle());
             itemToPost.setBodyText(item.getBodyText());
             itemToPost.setCoverAspectRatio(0.6f);
-            if (item.getSource() != null) {
-                itemToPost.setSubTitle(item.getSource());
-            } else {
-                itemToPost.setSubTitle("");
-            }
+            itemToPost.setSubTitle(item.getSource() != null ? item.getSource() : "");
             if (item.getCoverImageUrl() != null) {
                 itemToPost.setCoverImageUrl(item.getCoverImageUrl());
             }
         } else {
-            itemToPost.setType(newsShare);
+            itemToPost.setType(type);
             itemToPost.setReferencedItemClub(Utility.getClubConfig().get("ID"));
             itemToPost.setReferencedItemId(item.getPostId());
             itemToPost.setSharedComment(sharingMessage);
         }
         WallModel.getInstance().createPost(itemToPost);
-        getActivity().onBackPressed();
+
+        if (getActivity() != null) {
+            getActivity().onBackPressed();
+        }
     }
 
     @OnClick(R.id.pin_container)
@@ -672,7 +671,7 @@ public class NewsItemFragment extends BaseFragment {
             sharedMessageField.requestFocus();
 
             // Blur background
-            MainActivity activity = (MainActivity) getActivity();
+            // MainActivity activity = (MainActivity) getActivity();
             // TODO: activity.toggleBlur(true, blurredContainer);
         } else {
             Toast.makeText(getContext(),
@@ -689,7 +688,9 @@ public class NewsItemFragment extends BaseFragment {
 
         // Disable background blur
         MainActivity activity = (MainActivity) getActivity();
-        activity.toggleBlur(false, null);
+        if (activity != null) {
+            activity.toggleBlur(false, null);
+        }
     }
 
     public void showSharedCommentEdit() {
