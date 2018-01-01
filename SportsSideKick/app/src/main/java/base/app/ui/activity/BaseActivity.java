@@ -206,7 +206,7 @@ abstract class BaseActivity extends AppCompatActivity {
                         fe.setId(id);
                     }
                     // TODO - Load news item before displaying it
-                    //EventBus.getDefault().post(fe);
+                    //EventBus.getDefault().createPost(fe);
                 }
 
             } else if (notificationData.containsKey("statsItem")) {

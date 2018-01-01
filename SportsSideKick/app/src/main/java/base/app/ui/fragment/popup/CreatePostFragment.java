@@ -153,11 +153,11 @@ public class CreatePostFragment extends BaseFragment {
         String captionContent = captionText.getText().toString();
         String postContent = contentText.getText().toString();
         if (TextUtils.isEmpty(captionContent)) {
-            Toast.makeText(getContext(),"Please fill in the caption in order to post this to your wall.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Please fill in the caption in order to createPost this to your wall.",Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(postContent)) {
-            Toast.makeText(getContext(),"Please fill in the content in order to post this to your wall.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Please fill in the content in order to createPost this to your wall.",Toast.LENGTH_SHORT).show();
             return;
         }
         if (uploadProgressBar.getVisibility() == View.VISIBLE) {
@@ -178,7 +178,7 @@ public class CreatePostFragment extends BaseFragment {
             newPost.setCoverImageUrl(videoThumbnailDownloadUrl);
             newPost.setVidUrl(videoDownloadUrl);
         }
-        WallModel.getInstance().mbPost(newPost);
+        WallModel.getInstance().createPost(newPost);
         Utility.hideKeyboard(getActivity());
         getActivity().onBackPressed();
     }

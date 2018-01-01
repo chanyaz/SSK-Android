@@ -512,7 +512,7 @@ public class MainActivity extends BaseActivity
         }
 
         if (previousFragment == SignUpLoginFragment.class) {
-            //EventBus.getDefault().post(new FragmentEvent(WallFragment.class, true));
+            //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class, true));
             return;
         }
         if (popupHolder.getVisibility() == View.VISIBLE) {
@@ -619,6 +619,7 @@ public class MainActivity extends BaseActivity
 
             // Cache news for pinning
             NewsModel.getInstance().loadPage(NewsType.OFFICIAL);
+            NewsModel.getInstance().loadPage(NewsType.UNOFFICIAL);
         } else {
             resetUserDetails();
         }

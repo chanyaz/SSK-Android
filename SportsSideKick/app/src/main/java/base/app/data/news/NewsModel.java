@@ -154,14 +154,13 @@ public class NewsModel {
                     else {
                         NewsPageEvent newsItemsEvent;
                         if(type.equals(NewsType.OFFICIAL)){
-                            saveNewsToCache(receivedItems);
-                            newsItemsEvent = new NewsPageEvent(receivedItems);
+                            saveNewsToCache(receivedItems, false);
                             pageNews++;
                         } else {
-                            rumorsItems.addAll(receivedItems);
-                            newsItemsEvent = new NewsPageEvent(receivedItems);
+                            saveNewsToCache(receivedItems, true);
                             pageRumors++;
                         }
+                        newsItemsEvent = new NewsPageEvent(receivedItems);
                         EventBus.getDefault().post(newsItemsEvent);
                     }
                 }
@@ -169,7 +168,7 @@ public class NewsModel {
         });
     }
 
-    private void saveNewsToCache(List<WallNews> receivedItems) {
+    private void saveNewsToCache(List<WallNews> receivedItems, boolean isRumours) {
         // Memory cache
         newsItems.addAll(receivedItems);
 
@@ -178,15 +177,28 @@ public class NewsModel {
         Type listOfBecons = new TypeToken<List<WallNews>>() {}.getType();
 
         String strBecons = new Gson().toJson(newsItems, listOfBecons);
-        preferences.edit().putString("NEWS_ITEMS", strBecons).apply();
+        String key;
+        if (isRumours) {
+            key = "RUMOUR_ITEMS";
+        } else {
+            key = "NEWS_ITEMS";
+        }
+        preferences.edit().putString(key, strBecons).apply();
     }
 
-    private List<WallNews> loadNewsFromCache() {
+    private List<WallNews> loadNewsFromCache(boolean isRumours) {
         SharedPreferences preferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         Type listOfBecons = new TypeToken<List<WallNews>>() {}.getType();
 
-        String savedString = preferences.getString("NEWS_ITEMS", "");
+        String key;
+        if (isRumours) {
+            key = "RUMOUR_ITEMS";
+        } else {
+            key = "NEWS_ITEMS";
+        }
+
+        String savedString = preferences.getString(key, "");
         if (!savedString.isEmpty()) {
             return new Gson().fromJson(
                     savedString, listOfBecons);
@@ -195,15 +207,15 @@ public class NewsModel {
         }
     }
 
-    public WallNews getCachedItemById(String id, NewsType type) {
+    public WallNews loadItemFromCache(String id, NewsType type) {
         if(type == NewsType.OFFICIAL){
-            for(WallNews item : loadNewsFromCache()){
+            for(WallNews item : loadNewsFromCache(false)){
                 if(item.getPostId().equals(id)){
                     return item;
                 }
             }
         } else {
-            for(WallNews item : rumorsItems){
+            for(WallNews item : loadNewsFromCache(true)){
                 if(item.getPostId().equals(id)){
                     return item;
                 }
@@ -213,6 +225,6 @@ public class NewsModel {
     }
 
     public List<WallNews> getAllCachedItems(NewsType type) {
-        return type == NewsType.OFFICIAL ? loadNewsFromCache() : rumorsItems;
+        return type == NewsType.OFFICIAL ? loadNewsFromCache(false) : loadNewsFromCache(true);
     }
 }

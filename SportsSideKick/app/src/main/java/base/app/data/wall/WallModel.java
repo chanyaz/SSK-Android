@@ -55,15 +55,12 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     private final ObjectMapper mapper; // jackson's object mapper
 
-
     public static WallModel getInstance(){
         if(instance==null){
             instance = new WallModel();
         }
         return instance;
     }
-
-
 
     private WallModel(){
         mapper  = new ObjectMapper();
@@ -122,12 +119,9 @@ public class WallModel extends GSMessageHandlerAbstract {
 
 
     /**
-     * posting a new blog on this user wall
-     * you need to listen on the post to get completion signal with success info
-     *
-     * @param  post to post
+     * Posting a new blog on this user wall
      */
-    public void mbPost(WallBase post){
+    public void createPost(WallBase post){
         post.setWallId(getCurrentUser().getUserId());
         post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
 
@@ -261,8 +255,8 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     /**
-     * post the comment on the given post, once the comment is successfully stored in DB
-     * the post comments count will be increeased by 1
+     * createPost the comment on the given createPost, once the comment is successfully stored in DB
+     * the createPost comments count will be increeased by 1
      *
      */
     public Task<PostComment> postComment(final PostComment comment){
@@ -326,9 +320,9 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     /**
-     * post was shared to a share target
-     * @param  item post, the target
-     * @param  shareTarget where post should be shared
+     * createPost was shared to a share target
+     * @param  item createPost, the target
+     * @param  shareTarget where createPost should be shared
      */
 
     void itemShared(final WallBase item, SharingManager.ShareTarget shareTarget) {
@@ -344,9 +338,9 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     /**
-     * get post by its id (used for loading from notification)
+     * get createPost by its id (used for loading from notification)
      * @param wallId the wall id
-     * @param postId the post id
+     * @param postId the createPost id
      */
     private void getPostById(String wallId, String postId,
                              @Nullable GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer){

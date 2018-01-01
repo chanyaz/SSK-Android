@@ -143,13 +143,13 @@ boolean firstLoad=true;
                     if (task.isSuccessful()) {
                         float imageAspectRatio = bitmap.getHeight() / bitmap.getWidth();
                         WallStats wallPost = new WallStats();
-                        wallPost.setTitle("A Stats post");
+                        wallPost.setTitle("A Stats createPost");
                         wallPost.setSubTitle("Some subtitle");
                         wallPost.setTimestamp((double) Utility.getCurrentTime());
                         wallPost.setBodyText("...");
                         wallPost.setCoverAspectRatio(imageAspectRatio);
                         wallPost.setCoverImageUrl(task.getResult());
-                        WallModel.getInstance().mbPost(wallPost);
+                        WallModel.getInstance().createPost(wallPost);
                     } else {
                         //TODO @Filip Handle error
                     }

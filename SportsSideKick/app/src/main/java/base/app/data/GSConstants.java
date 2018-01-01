@@ -38,7 +38,7 @@ public class GSConstants {
     public static final String SEARCH_PATTERN = "searchPattern";
     public static final String PLAYER = "player";
     public static final String POSTS = "posts";
-    public static final String POST = "post";
+    public static final String POST = "createPost";
     public static final String SINCE = "since";
     public static final String TO_DATE = "toDate";
     public static final String WALL_ID = "wallId";

@@ -110,7 +110,7 @@ public class TranslateManager {
     }
 
     /**
-     * translate - translate post
+     * translate - translate createPost
      *itemId, itemType, language
      * @param  itemId - the item to translate
      * @param  language - ISO-639-1 two letter designation for each language
@@ -189,7 +189,7 @@ public class TranslateManager {
     }
 
     /**
-     * translate - translate post comment
+     * translate - translate createPost comment
      * itemId, itemType, language
      * @param  itemId - the item to translate
      * @param  language - ISO-639-1 two letter designation for each language

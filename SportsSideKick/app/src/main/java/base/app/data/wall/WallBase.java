@@ -69,7 +69,7 @@ public abstract class WallBase implements Shareable, Serializable {
     @JsonProperty("commentsCount")
     protected int commentsCount = 0;    // The total count of all comments
     @JsonProperty("shareCount")
-    private int shareCount = 0;   // Total number of shares of a post
+    private int shareCount = 0;   // Total number of shares of a createPost
     @JsonProperty("subTitle")
     String subTitle;
     @JsonProperty("title")
@@ -117,7 +117,7 @@ public abstract class WallBase implements Shareable, Serializable {
                     String objectType = node.get("type").textValue();
                     type = PostType.valueOf(objectType);
                 } catch (IllegalArgumentException ex){
-                    Log.e(TAG,"Non existing post type:" + node.get("type").textValue());
+                    Log.e(TAG,"Non existing createPost type:" + node.get("type").textValue());
                 }
             }
 

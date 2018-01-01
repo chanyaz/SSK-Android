@@ -332,7 +332,7 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
         }
         else {
             getActivity().onBackPressed();
-            //EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+            //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class));
         }
     }
 

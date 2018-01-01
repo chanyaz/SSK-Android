@@ -18,9 +18,9 @@ import base.app.R;
 public class SoundEffects {
 
     private static final int ERROR = 1; // for "errors"
-    public static final int ROLL_OVER = 2; // "close" states (closing a popup / coming back from a wall post etc
+    public static final int ROLL_OVER = 2; // "close" states (closing a popup / coming back from a wall createPost etc
     public static final int SOFT = 3; // in any instances where selecting a users profile
-    public static final int SUBTLE = 4; //  "open" states (opening a popup / opening a wall post / pressing a button)
+    public static final int SUBTLE = 4; //  "open" states (opening a popup / opening a wall createPost / pressing a button)
     public static final int AUDIO_CALL = 5; //  play a sound for a video call
 
     private static final int PRIORITY = 1;

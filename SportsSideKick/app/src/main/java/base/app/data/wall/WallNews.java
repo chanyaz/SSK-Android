@@ -24,7 +24,6 @@ public class WallNews extends WallBase {
     @JsonProperty("source")
     private String source;
 
-
     @Override
     public void setEqualTo(WallBase item) {
         super.setEqualTo(item);

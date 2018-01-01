@@ -228,7 +228,7 @@ public class StoreFragment extends BaseFragment {
                         }, new View.OnClickListener() { // Confirm
                             @Override
                             public void onClick(View v) {
-                                WallModel.getInstance().mbPost(item);
+                                WallModel.getInstance().createPost(item);
                                 getActivity().onBackPressed();
                             }
                         });

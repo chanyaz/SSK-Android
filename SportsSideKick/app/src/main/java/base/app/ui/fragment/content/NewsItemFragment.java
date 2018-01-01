@@ -48,6 +48,7 @@ import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallNews;
+import base.app.data.wall.WallRumor;
 import base.app.ui.activity.MainActivity;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -63,6 +64,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
+import static base.app.data.wall.WallBase.PostType.newsShare;
+import static base.app.data.wall.WallBase.PostType.rumourShare;
 import static base.app.util.commons.Utility.getCurrentTime;
 import static base.app.util.commons.Utility.hideKeyboard;
 import static base.app.util.commons.Utility.showKeyboard;
@@ -334,7 +337,11 @@ public class NewsItemFragment extends BaseFragment {
         postButtonSharedComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pinToWall();
+                    if (!getPrimaryArgument().contains("UNOFFICIAL")) {
+                        pin(newsShare);
+                    } else if (item instanceof WallRumor) {
+                        pin(rumourShare);
+                    }
             }
         });
     }
@@ -376,7 +383,7 @@ public class NewsItemFragment extends BaseFragment {
             id = id.replace("UNOFFICIAL$$$", "");
             type = NewsModel.NewsType.UNOFFICIAL;
         }
-        return NewsModel.getInstance().getCachedItemById(id, type);
+        return NewsModel.getInstance().loadItemFromCache(id, type);
     }
 
     private void showHeaderImage() {
@@ -626,7 +633,7 @@ public class NewsItemFragment extends BaseFragment {
         }
     }
 
-    public void pinToWall() {
+    protected void pin(WallBase.PostType type) {
         EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         String sharingMessage = sharedMessageField.getText().toString();
 
@@ -635,7 +642,7 @@ public class NewsItemFragment extends BaseFragment {
         if (sharingMessage.isEmpty()) {
             itemToPost.setTitle(item.getTitle());
             itemToPost.setBodyText(item.getBodyText());
-            itemToPost.setCoverAspectRatio(0.666666f);
+            itemToPost.setCoverAspectRatio(0.6f);
             if (item.getSource() != null) {
                 itemToPost.setSubTitle(item.getSource());
             } else {
@@ -645,12 +652,12 @@ public class NewsItemFragment extends BaseFragment {
                 itemToPost.setCoverImageUrl(item.getCoverImageUrl());
             }
         } else {
-            itemToPost.setType(WallBase.PostType.newsShare);
+            itemToPost.setType(newsShare);
             itemToPost.setReferencedItemClub(Utility.getClubConfig().get("ID"));
             itemToPost.setReferencedItemId(item.getPostId());
             itemToPost.setSharedComment(sharingMessage);
         }
-        WallModel.getInstance().mbPost(itemToPost);
+        WallModel.getInstance().createPost(itemToPost);
         getActivity().onBackPressed();
     }
 

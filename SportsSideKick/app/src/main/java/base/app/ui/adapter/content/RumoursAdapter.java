@@ -10,6 +10,8 @@ import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.data.wall.WallNews;
 
+import static android.view.View.*;
+
 /**
  * Created by Djordje on 10/01/2017.
  * Copyright by Hypercube d.o.o.
@@ -27,18 +29,14 @@ public class RumoursAdapter extends NewsAdapter {
     public void onBindViewHolder(WallAdapter.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
 
-        final WallNews rumour = values.get(position);
+        WallNews rumour = values.get(position);
         boolean hasImage = rumour.getCoverImageUrl() != null && !rumour.getCoverImageUrl().isEmpty();
-        if (hasImage) {
-            holder.view.findViewById(R.id.spacer).setVisibility(View.GONE);
-        } else {
-            holder.view.findViewById(R.id.spacer).setVisibility(View.VISIBLE);
-        }
+        holder.view.findViewById(R.id.spacer).setVisibility(hasImage ? GONE : VISIBLE);
     }
 
     @NonNull
-    protected View.OnClickListener getClickListener(final WallNews item) {
-        return new View.OnClickListener() {
+    protected OnClickListener getClickListener(final WallNews item) {
+        return new OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
