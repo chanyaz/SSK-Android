@@ -22,9 +22,9 @@ import base.app.util.commons.XmlLanguageMapParser;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.GSConstants.ITEM_ID;
-import static base.app.data.GSConstants.ITEM_TYPE;
-import static base.app.data.GSConstants.LANGUAGE;
+import static base.app.data.GSConstants.ID_SHORT;
+import static base.app.data.GSConstants.POST_ID;
+import static base.app.data.GSConstants.TO_LANGUAGE;
 
 /**
  * Created by Filip on 9/12/2017.
@@ -79,10 +79,9 @@ public class TranslateManager {
     public void translateNews(String itemId, String language, final TaskCompletionSource<WallNews> completion){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateNewsItem")
-                .setEventAttribute(ITEM_ID, itemId)
-                .setEventAttribute(ITEM_TYPE, NEWS)
+                .setEventAttribute(POST_ID, itemId)
+                .setEventAttribute(TO_LANGUAGE, language)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
-                .setEventAttribute(LANGUAGE, language)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -120,10 +119,8 @@ public class TranslateManager {
     public void translatePost(String itemId, String language, final TaskCompletionSource<WallBase> completion, final WallBase.PostType postType){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateWallPost")
-                .setEventAttribute(ITEM_ID, itemId)
-                .setEventAttribute(ITEM_TYPE, WALL_POST)
-                .setEventAttribute(LANGUAGE, language)
-                .setEventAttribute(CLUB_ID_TAG, "")
+                .setEventAttribute(POST_ID, itemId)
+                .setEventAttribute(TO_LANGUAGE, language)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -161,11 +158,8 @@ public class TranslateManager {
     public void translateMessage(String itemId, String language , final TaskCompletionSource<ImsMessage> completion){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateComment")
-                .setEventAttribute(ITEM_ID, itemId)
-                .setEventAttribute(ITEM_TYPE, IMS)
-                .setEventAttribute(ITEM_TYPE, IMS)
-                .setEventAttribute(CLUB_ID_TAG, "")
-                .setEventAttribute(LANGUAGE, language)
+                .setEventAttribute(ID_SHORT, itemId)
+                .setEventAttribute(TO_LANGUAGE, language)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -204,10 +198,8 @@ public class TranslateManager {
     public void translatePostComment(String itemId, String language , final TaskCompletionSource<PostComment> completion){
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateComment")
-                .setEventAttribute(ITEM_ID, itemId)
-                .setEventAttribute(ITEM_TYPE, WALL_COMMENT)
-                .setEventAttribute(LANGUAGE, language)
-                .setEventAttribute(CLUB_ID_TAG, "")
+                .setEventAttribute(ID_SHORT, itemId)
+                .setEventAttribute(TO_LANGUAGE, language)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {

@@ -72,7 +72,7 @@ public class GSConstants {
     public static final String DESCRIPTION = "description";
     public static final String DISPLAY_NAME = "displayName";
 
-    public static final String CLUB_ID_TAG = "club_id";
+    public static final String CLUB_ID_TAG = "clubId";
 
     public static final String UPLOAD_TYPE_IMAGE = "image";
     public static final String UPLOAD_TYPE_VIDEO = "video";
@@ -84,6 +84,8 @@ public class GSConstants {
     public static final String FAILED = "failed";
 
     public static final String ITEM_ID = "itemId";
+    public static final String ID_SHORT = "id";
     public static final String LANGUAGE = "language";
+    public static final String TO_LANGUAGE = "toLanguage";
     public static final String VALUE = "value";
 }
