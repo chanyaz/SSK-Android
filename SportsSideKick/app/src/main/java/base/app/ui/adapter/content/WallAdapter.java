@@ -217,17 +217,17 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 if (task.isSuccessful()) {
                     UserInfo user = task.getResult();
                     if (user != null) {
-                        ImageView targetImageView = null;
-                        if (post.getType() == PostType.newsShare) {
-                            targetImageView = holder.captionAvatar;
-                        } else if (holder.userImage != null) {
-                            targetImageView = holder.userImage;
-                        }
-                        if (targetImageView != null) {
+                        if (holder.captionAvatar != null) {
                             Glide.with(holder.view)
                                     .load(user.getCircularAvatarUrl())
                                     .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
-                                    .into(targetImageView);
+                                    .into(holder.captionAvatar);
+                        }
+                        if (holder.userImage != null) {
+                            Glide.with(holder.view)
+                                    .load(user.getCircularAvatarUrl())
+                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
+                                    .into(holder.userImage);
                         }
                         if (user.getNicName() != null && holder.author != null) {
                             holder.author.setText(user.getFirstName() + " " + user.getLastName());

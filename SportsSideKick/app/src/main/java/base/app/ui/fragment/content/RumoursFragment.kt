@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
-import base.app.R.id.topСaption
 import base.app.data.news.NewsModel.NewsType.UNOFFICIAL
 import base.app.data.news.NewsModel.getInstance
 import base.app.data.news.NewsPageEvent
