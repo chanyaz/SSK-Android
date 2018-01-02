@@ -38,7 +38,7 @@ public class GSConstants {
     public static final String SEARCH_PATTERN = "searchPattern";
     public static final String PLAYER = "player";
     public static final String POSTS = "posts";
-    public static final String POST = "createPost";
+    public static final String POST = "post";
     public static final String SINCE = "since";
     public static final String TO_DATE = "toDate";
     public static final String WALL_ID = "wallId";
@@ -72,7 +72,7 @@ public class GSConstants {
     public static final String DESCRIPTION = "description";
     public static final String DISPLAY_NAME = "displayName";
 
-    public static final String CLUB_ID_TAG = "clubId";
+    public static final String CLUB_ID_TAG = "club_id";
 
     public static final String UPLOAD_TYPE_IMAGE = "image";
     public static final String UPLOAD_TYPE_VIDEO = "video";
