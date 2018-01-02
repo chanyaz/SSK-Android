@@ -63,15 +63,15 @@ public abstract class WallBase implements Shareable, Serializable {
     @JsonProperty("postId")
     String postId = "";
     @JsonProperty("likeCount")
-    private int likeCount = 0;    // The total count of all likes
+    private int likeCount = 0;
     @JsonProperty("likedByUser")
-    private boolean likedByUser = false;   // true if the user likes it, false if not
+    private boolean likedByUser;
     @JsonProperty("commentsCount")
-    protected int commentsCount = 0;    // The total count of all comments
+    protected int commentsCount = 0;
     @JsonProperty("shareCount")
-    private int shareCount = 0;   // Total number of shares of a createPost
+    private int shareCount = 0;
     @JsonProperty("subTitle")
-    String subTitle;
+    String subTitle = "";
     @JsonProperty("title")
     protected String title;
     @JsonProperty("bodyText")
@@ -79,7 +79,7 @@ public abstract class WallBase implements Shareable, Serializable {
     @JsonProperty("coverImageUrl")
     String coverImageUrl;
     @JsonProperty("coverAspectRatio")
-    private Float coverAspectRatio = 0.5625f;
+    private Float coverAspectRatio;
     @JsonProperty("referencedItemClub")
     private String referencedItemClub;
     @JsonProperty("referencedItemId")

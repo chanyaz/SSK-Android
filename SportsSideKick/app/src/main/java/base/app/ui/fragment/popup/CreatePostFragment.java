@@ -169,7 +169,6 @@ public class CreatePostFragment extends BaseFragment {
         newPost.setTitle(captionContent);
         newPost.setBodyText(postContent);
         newPost.setType(WallBase.PostType.post);
-        newPost.setSubTitle(getContext().getResources().getString(R.string.wall_new_post_subtitle));
         newPost.setTimestamp((double) Utility.getCurrentTime());
 
         if (uploadedImageUrl != null) {
