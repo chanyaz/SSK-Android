@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
-                    tools:src="@drawable/image_wall_background" />
+                    android:src="@drawable/image_wall_background" />
 
                 <TextView
                     android:id="@+id/topСaption"

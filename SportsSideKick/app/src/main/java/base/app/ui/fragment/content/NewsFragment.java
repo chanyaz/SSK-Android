@@ -13,23 +13,22 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
 import base.app.R;
-import base.app.data.news.NewsModel.NewsType;
-import base.app.ui.adapter.content.NewsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
 import base.app.data.news.NewsModel;
+import base.app.data.news.NewsModel.NewsType;
 import base.app.data.news.NewsPageEvent;
 import base.app.data.wall.WallNews;
+import base.app.ui.adapter.content.NewsAdapter;
+import base.app.ui.fragment.base.BaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static base.app.data.news.NewsModel.NewsType.*;
+import static base.app.data.news.NewsModel.NewsType.OFFICIAL;
 
 /**
  * Created by Djordje on 12/29/2016.
@@ -44,8 +43,6 @@ public class NewsFragment extends BaseFragment {
     SwipyRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
     @BindView(R.id.topImage)
     ImageView topImage;
     @BindView(R.id.topСaption)
@@ -64,11 +61,13 @@ public class NewsFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setNestedScrollingEnabled(false);
 
+        swipeRefreshLayout.setRefreshing(true);
+
         List<WallNews> existingItems = NewsModel.getInstance().getAllCachedItems(type);
         if (existingItems!=null && existingItems.size() > 0)
         {
             adapter.getValues().addAll(existingItems);
-            progressBar.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
         }
         else {
             NewsModel.getInstance().loadPage(type);
@@ -85,7 +84,6 @@ public class NewsFragment extends BaseFragment {
 
     @Subscribe
     public void onNewsReceived(NewsPageEvent event) {
-        progressBar.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
         adapter.getValues().addAll(event.getValues());
         adapter.notifyDataSetChanged();
