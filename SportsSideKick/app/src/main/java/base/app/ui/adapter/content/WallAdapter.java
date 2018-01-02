@@ -3,7 +3,6 @@ package base.app.ui.adapter.content;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -50,9 +50,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
 public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
-    private static final String TAG = "WallAdapter";
+
     private static final int ADS_INTERVAL = 5;
     private static final int ADS_COUNT = 10;
     private static final int WALL_ADVERT_VIEW_TYPE = 10005;
@@ -385,61 +384,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         values.clear();
     }
 
-    private static final Comparator<WallBase> WALL_BASE_TIMESTAMP_COMPARATOR = new Comparator<WallBase>() {
-        @Override
-        public int compare(WallBase a, WallBase b) {
-            Double timestampB = a.getTimestamp();
-            Double timestampA = b.getTimestamp();
-            if (timestampA != null & timestampB != null) {
-                return timestampA.compareTo(timestampB);
-            } else {
-                return 0;
-            }
-        }
-    };
-
-    private final SortedList.Callback<WallBase> mCallback = new SortedList.Callback<WallBase>() {
-
-        @Override
-        public void onInserted(int position, int count) {
-            notifyItemRangeInserted(position, count);
-        }
-
-        @Override
-        public void onRemoved(int position, int count) {
-            notifyItemRangeRemoved(position, count);
-        }
-
-        @Override
-        public void onMoved(int fromPosition, int toPosition) {
-            notifyItemMoved(fromPosition, toPosition);
-        }
-
-        @Override
-        public void onChanged(int position, int count) {
-            notifyItemRangeChanged(position, count);
-        }
-
-        @Override
-        public int compare(WallBase a, WallBase b) {
-            if (a != null && b != null) {
-                return WALL_BASE_TIMESTAMP_COMPARATOR.compare(a, b);
-            } else {
-                return 0;
-            }
-        }
-
-        @Override
-        public boolean areContentsTheSame(WallBase oldItem, WallBase newItem) {
-            return oldItem.equals(newItem);
-        }
-
-        @Override
-        public boolean areItemsTheSame(WallBase item1, WallBase item2) {
-            return item1.getPostId().equals(item2.getPostId());
-        }
-    };
-
     private final List<WallBase> values = new ArrayList<>();
 
     public void add(WallBase model) {
@@ -460,6 +404,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     public void replaceAll(List<WallBase> models) {
         clear();
+        Collections.sort(models, new Comparator<WallBase>() {
+            @Override
+            public int compare(WallBase t1, WallBase t2) {
+                return t2.getTimestamp().compareTo(t1.getTimestamp());
+            }
+        });
         values.addAll(models);
     }
 }

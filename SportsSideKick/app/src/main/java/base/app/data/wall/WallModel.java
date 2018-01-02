@@ -114,7 +114,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    WallBase post = WallBase.postFactory(object, mapper, true);
+                    WallPost post = (WallPost) WallBase.postFactory(object, mapper, true);
                     EventBus.getDefault().post(new PostUpdateEvent(post));
                     EventBus.getDefault().post(new PostCompleteEvent(post));
                 }

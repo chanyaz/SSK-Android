@@ -32,18 +32,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import base.app.R;
-import base.app.ui.adapter.content.WallAdapter;
-import base.app.util.events.comment.CommentUpdateEvent;
-import base.app.util.events.post.PostDeletedEvent;
-import base.app.util.events.post.PostUpdateEvent;
-import base.app.util.events.post.WallLikeUpdateEvent;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.ui.fragment.popup.CreatePostFragment;
-import base.app.ui.fragment.popup.LoginFragment;
-import base.app.ui.fragment.popup.SignUpFragment;
-import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.data.Model;
 import base.app.data.friendship.FriendsListChangedEvent;
 import base.app.data.ticker.NewsTickerInfo;
@@ -54,8 +42,20 @@ import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallPost;
+import base.app.ui.adapter.content.WallAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.base.IgnoreBackHandling;
+import base.app.ui.fragment.popup.CreatePostFragment;
+import base.app.ui.fragment.popup.LoginFragment;
+import base.app.ui.fragment.popup.SignUpFragment;
+import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.Utility;
+import base.app.util.events.comment.CommentUpdateEvent;
+import base.app.util.events.post.PostDeletedEvent;
+import base.app.util.events.post.PostUpdateEvent;
+import base.app.util.events.post.WallLikeUpdateEvent;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -206,7 +206,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Subscribe
     public void onPostUpdate(PostUpdateEvent event) {
-        final WallBase post = event.getPost();
+        final WallPost post = event.getPost();
         if (post != null) {
             Log.d(TAG, "GOT POST with id: " + post.getPostId());
             for (WallBase item : wallItems) {

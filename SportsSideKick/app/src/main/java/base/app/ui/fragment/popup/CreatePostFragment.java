@@ -94,7 +94,7 @@ public class CreatePostFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_post, container, false);
         ButterKnife.bind(this, view);
         defaultImageUri = "drawable://" + getResources().getIdentifier("image_rumours_background", "drawable", getActivity().getPackageName());
@@ -105,7 +105,7 @@ public class CreatePostFragment extends BaseFragment {
     private void setupUserInfo(){
         UserInfo info = Model.getInstance().getUserInfo();
         if(info!=null){
-            authorName.setText(String.format("%s %s", info.getFirstName(), info.getFirstName()));
+            authorName.setText(String.format("%s %s", info.getFirstName(), info.getLastName()));
             if(info.getCircularAvatarUrl() != null ){
                 ImageLoader.displayImage(info.getCircularAvatarUrl(),
                         authorImage);
@@ -179,7 +179,6 @@ public class CreatePostFragment extends BaseFragment {
         }
         WallModel.getInstance().createPost(newPost);
         Utility.hideKeyboard(getActivity());
-        getActivity().onBackPressed();
     }
     
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -231,8 +230,8 @@ public class CreatePostFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onPostCompleted(PostCompleteEvent event) {
-       //TODO - Close fragment?
+    public void onPostCreated(PostCompleteEvent event) {
+        getActivity().onBackPressed();
     }
 
     @Override
