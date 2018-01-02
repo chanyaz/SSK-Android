@@ -14,292 +14,299 @@
         android:layout_above="@+id/container"
         app:srl_direction="bottom">
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/scroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="72dp">
-
-                <RelativeLayout
-                    android:id="@+id/wall_top_image_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-80dp"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <ImageView
-                        android:id="@+id/wall_top_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="240dp"
-                        android:scaleType="centerCrop"
-                        tools:src="@drawable/image_wall_background" />
-
-                    <RelativeLayout
-                        android:id="@+id/wall_top_info_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/wall_top_image"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginBottom="32dp">
-
-                        <RelativeLayout
-                            android:id="@+id/wall_top_info"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center">
-
-                            <TextView
-                                android:id="@+id/wall_team_left_name"
-                                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="-4dp"
-                                android:maxLength="6"
-                                android:maxLines="1"
-                                android:paddingEnd="@dimen/padding_2"
-                                android:textColor="@color/white"
-                                android:textSize="32sp"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:id="@+id/wall_team_left_image"
-                                android:layout_width="@dimen/width_70"
-                                android:layout_height="@dimen/height_70"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/wall_team_left_name" />
-
-                            <TextView
-                                android:id="@+id/wall_team_vs"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/wall_team_left_image"
-                                android:padding="@dimen/padding_8"
-                                android:text="@string/vs"
-                                android:textColor="@color/white"
-                                android:textSize="20sp" />
-
-                            <ImageView
-                                android:id="@+id/wall_team_right_image"
-                                android:layout_width="@dimen/width_70"
-                                android:layout_height="@dimen/height_70"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/wall_team_vs" />
-
-                            <TextView
-                                android:id="@+id/wall_team_right_name"
-                                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="-4dp"
-                                android:layout_toEndOf="@id/wall_team_right_image"
-                                android:maxLength="6"
-                                android:maxLines="1"
-                                android:padding="@dimen/padding_8"
-                                android:paddingStart="@dimen/padding_2"
-                                android:textColor="@color/white"
-                                android:textSize="32sp"
-                                android:textStyle="bold" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:id="@+id/wall_team_next_match"
-                            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/wall_top_info"
-                            android:layout_centerHorizontal="true"
-                            android:text="@string/next_match"
-                            android:textColor="?nextMatchTextPhoneColor" />
-
-                        <TextView
-                            android:id="@+id/wall_team_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/wall_team_next_match"
-                            android:layout_centerHorizontal="true"
-                            android:textColor="@color/white" />
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/login_holder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/wall_top_image_container"
-                    android:paddingBottom="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:animateLayoutChanges="true"
-                    android:background="@color/colorPrimary"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/margin_16"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        style="@style/fontTitilliumWebLight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_8"
-                        android:text="@string/to_access_full_features"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginBottom="@dimen/margin_20"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/join_now_button"
-                            style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="150dp"
-                            android:layout_height="@dimen/standard_button_height"
-                            android:background="@drawable/gym_bag_button_background"
-                            android:text="@string/join_now"
-                            android:textAlignment="center"
-                            android:textAllCaps="false"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_19" />
-
-                        <TextView
-                            style="@style/fontTitilliumWebLight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:paddingLeft="16dp"
-                            android:paddingRight="16dp"
-                            android:text="@string/or"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/font_size_19" />
-
-                        <Button
-                            android:id="@+id/login_button"
-                            style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="150dp"
-                            android:layout_height="@dimen/standard_button_height"
-                            android:layout_gravity="center"
-                            android:background="@drawable/light_button_edit_profile_image"
-                            android:gravity="center"
-                            android:text="@string/sign_in"
-                            android:textAlignment="center"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/font_size_19" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <com.wang.avi.AVLoadingIndicatorView
-                    android:id="@+id/progressBar"
-                    android:layout_width="@dimen/prodgres_bar"
-                    android:layout_height="@dimen/prodgres_bar"
-                    android:layout_below="@id/login_holder"
-                    android:layout_centerInParent="true"
-                    android:elevation="@dimen/elevation_2"
-                    app:indicatorName="LineSpinFadeLoaderIndicator" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fragment_wall_recycler_view"
-                    android:layout_width="match_parent"
-                    android:paddingTop="8dp"
-                    android:clipToPadding="false"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/login_holder"
-                    android:layout_marginTop="?wallRecyclerListPhoneTopMargin" />
-
-            </RelativeLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
-
-    <View
-        android:id="@+id/shadow"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/height_2"
-        android:layout_above="@+id/fragment_wall_bottom_bar"
-        android:background="@drawable/top_gradient_drawable" />
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <RelativeLayout
-        android:id="@+id/fragment_wall_bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
-        android:layout_above="@+id/shadow_1"
-        android:layout_alignParentStart="true"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/topSpacer"
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
+
+        <RelativeLayout
+            android:id="@+id/wall_top_image_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/topSpacer"
+            android:layout_marginTop="-80dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/wall_top_image"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/image_wall_background" />
+
+            <RelativeLayout
+                android:id="@+id/wall_top_info_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/wall_top_image"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="32dp">
+
+                <RelativeLayout
+                    android:id="@+id/wall_top_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/wall_team_left_name"
+                        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="-4dp"
+                        android:maxLength="6"
+                        android:maxLines="1"
+                        android:paddingEnd="@dimen/padding_2"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/wall_team_left_image"
+                        android:layout_width="@dimen/width_70"
+                        android:layout_height="@dimen/height_70"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/wall_team_left_name" />
+
+                    <TextView
+                        android:id="@+id/wall_team_vs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/wall_team_left_image"
+                        android:padding="@dimen/padding_8"
+                        android:text="@string/vs"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/wall_team_right_image"
+                        android:layout_width="@dimen/width_70"
+                        android:layout_height="@dimen/height_70"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/wall_team_vs" />
+
+                    <TextView
+                        android:id="@+id/wall_team_right_name"
+                        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="-4dp"
+                        android:layout_toEndOf="@id/wall_team_right_image"
+                        android:maxLength="6"
+                        android:maxLines="1"
+                        android:padding="@dimen/padding_8"
+                        android:paddingStart="@dimen/padding_2"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/wall_team_next_match"
+                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/wall_top_info"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/next_match"
+                    android:textColor="?nextMatchTextPhoneColor" />
+
+                <TextView
+                    android:id="@+id/wall_team_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/wall_team_next_match"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/login_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wall_top_image_container"
+        android:layout_marginBottom="8dp"
         android:animateLayoutChanges="true"
-        android:background="?phoneWallMenuBackground"
-        android:clickable="true"
-        android:gravity="center"
-        android:visibility="gone">
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingTop="@dimen/margin_16"
+        android:visibility="gone"
+        tools:visibility="visible">
 
-        <Button
-            android:id="@+id/fragment_wall_new_post"
-            android:layout_width="@dimen/wall_button_size"
-            android:layout_height="@dimen/wall_button_size"
-            android:layout_marginBottom="@dimen/margin_10"
-            android:layout_marginEnd="@dimen/padding_8"
-            android:layout_marginStart="@dimen/padding_16"
-            android:layout_marginTop="@dimen/margin_10"
-            android:layout_toStartOf="@+id/fragment_wall_filter"
-            android:background="@drawable/wall_new_post_selector" />
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/fontTitilliumWebLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_8"
+            android:text="@string/to_access_full_features"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/fragment_wall_filter"
-            android:layout_width="@dimen/wall_button_size"
-            android:layout_height="@dimen/wall_button_size"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/margin_10"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_10"
-            android:background="@drawable/wall_filter_selector" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/fragment_wall_search"
-            android:layout_width="@dimen/wall_button_size"
-            android:layout_height="@dimen/wall_button_size"
-            android:layout_marginBottom="@dimen/margin_10"
-            android:layout_marginEnd="@dimen/padding_16"
-            android:layout_marginStart="@dimen/padding_8"
-            android:layout_marginTop="@dimen/margin_10"
-            android:layout_toEndOf="@id/fragment_wall_filter"
-            android:background="@drawable/wall_search_selector" />
+            <Button
+                android:id="@+id/join_now_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="150dp"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="@drawable/gym_bag_button_background"
+                android:text="@string/join_now"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_19" />
+
+            <TextView
+                style="@style/fontTitilliumWebLight"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="@string/or"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_19" />
+
+            <Button
+                android:id="@+id/login_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="150dp"
+                android:layout_height="@dimen/standard_button_height"
+                android:layout_gravity="center"
+                android:background="@drawable/light_button_edit_profile_image"
+                android:gravity="center"
+                android:text="@string/sign_in"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_19" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/prodgres_bar"
+        android:layout_height="@dimen/prodgres_bar"
+        android:layout_below="@id/login_holder"
+        android:layout_centerInParent="true"
+        android:elevation="@dimen/elevation_2"
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_wall_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/login_holder"
+        android:layout_marginTop="?wallRecyclerListPhoneTopMargin"
+        android:clipToPadding="false"
+        android:paddingTop="8dp" />
+
     </RelativeLayout>
 
-    <View
-        android:id="@+id/shadow_1"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/height_1dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/top_gradient_drawable"
-        android:visibility="gone" />
+    </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="bottom"
-        android:layout_margin="@dimen/margin_16"
-        android:src="@drawable/fab_plus"
-        android:tint="@color/white"
-        app:backgroundTint="@color/black" />
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
+<View
+android:id="@+id/shadow"
+android:layout_width="fill_parent"
+android:layout_height="@dimen/height_2"
+android:layout_above="@+id/fragment_wall_bottom_bar"
+android:background="@drawable/top_gradient_drawable" />
+
+<RelativeLayout
+android:id="@+id/fragment_wall_bottom_bar"
+android:layout_width="match_parent"
+android:layout_height="@dimen/standard_button_height"
+android:layout_above="@+id/shadow_1"
+android:layout_alignParentStart="true"
+android:animateLayoutChanges="true"
+android:background="?phoneWallMenuBackground"
+android:clickable="true"
+android:gravity="center"
+android:visibility="gone">
+
+<Button
+    android:id="@+id/fragment_wall_new_post"
+    android:layout_width="@dimen/wall_button_size"
+    android:layout_height="@dimen/wall_button_size"
+    android:layout_marginBottom="@dimen/margin_10"
+    android:layout_marginEnd="@dimen/padding_8"
+    android:layout_marginStart="@dimen/padding_16"
+    android:layout_marginTop="@dimen/margin_10"
+    android:layout_toStartOf="@+id/fragment_wall_filter"
+    android:background="@drawable/wall_new_post_selector" />
+
+<Button
+    android:id="@+id/fragment_wall_filter"
+    android:layout_width="@dimen/wall_button_size"
+    android:layout_height="@dimen/wall_button_size"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="@dimen/margin_10"
+    android:layout_marginEnd="@dimen/margin_20"
+    android:layout_marginStart="@dimen/margin_20"
+    android:layout_marginTop="@dimen/margin_10"
+    android:background="@drawable/wall_filter_selector" />
+
+<Button
+    android:id="@+id/fragment_wall_search"
+    android:layout_width="@dimen/wall_button_size"
+    android:layout_height="@dimen/wall_button_size"
+    android:layout_marginBottom="@dimen/margin_10"
+    android:layout_marginEnd="@dimen/padding_16"
+    android:layout_marginStart="@dimen/padding_8"
+    android:layout_marginTop="@dimen/margin_10"
+    android:layout_toEndOf="@id/fragment_wall_filter"
+    android:background="@drawable/wall_search_selector" />
 </RelativeLayout>
+
+<View
+android:id="@+id/shadow_1"
+android:layout_width="fill_parent"
+android:layout_height="@dimen/height_1dp"
+android:layout_alignParentBottom="true"
+android:background="@drawable/top_gradient_drawable"
+android:visibility="gone" />
+
+<android.support.design.widget.FloatingActionButton
+android:id="@+id/fab"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignParentBottom="true"
+android:layout_alignParentEnd="true"
+android:layout_gravity="bottom"
+android:layout_margin="@dimen/margin_16"
+android:src="@drawable/fab_plus"
+android:tint="@color/white"
+app:backgroundTint="@color/black" />
+
+    </RelativeLayout>
