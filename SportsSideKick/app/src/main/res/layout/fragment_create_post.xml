@@ -97,7 +97,7 @@
             android:src="@drawable/camera_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/progress_bar" />
+            app:layout_constraintEnd_toStartOf="@+id/progressBar" />
 
         <ImageView
             android:id="@+id/gallery"
@@ -107,12 +107,12 @@
             android:src="@drawable/chat_button_image"
             android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/progress_bar"
+            app:layout_constraintStart_toEndOf="@+id/progressBar"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/progress_bar"
+            android:id="@+id/progressBar"
             android:layout_width="@dimen/progress_bar_height"
             android:layout_height="@dimen/progress_bar_height"
             android:elevation="@dimen/elevation_2"

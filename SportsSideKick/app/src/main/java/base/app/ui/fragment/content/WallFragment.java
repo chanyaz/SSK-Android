@@ -99,13 +99,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @BindView(R.id.wall_team_time)
     TextView wallTeamTime;
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
 
     @Nullable
     @BindView(R.id.login_holder)
     LinearLayout loginHolder;
-    @BindView(R.id.swipe_refresh_layout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipyRefreshLayout swipeRefreshLayout;
 
     List<WallBase> wallItems;

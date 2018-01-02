@@ -121,7 +121,7 @@ public class ChatFragment extends BaseFragment {
     RecyclerView messageListView;
     @BindView(R.id.chat_heads_view)
     RecyclerView chatHeadsView;
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
 
     @BindView(R.id.info_message)
@@ -152,7 +152,7 @@ public class ChatFragment extends BaseFragment {
     RelativeLayout fullScreenContainer;
     @BindView(R.id.input_edit_text)
     EditText inputEditText;
-    @BindView(R.id.swipe_refresh_layout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
     @BindView(R.id.chat_buttons_container)

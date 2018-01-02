@@ -1,21 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/login_background"
-                android:layout_height="match_parent"
-                tools:context=".ui.fragment.content.WallFragment">
-
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
-        android:layout_width="@dimen/prodgres_bar"
-        android:layout_height="@dimen/prodgres_bar"
-        android:layout_centerInParent="true"
-        android:elevation="@dimen/elevation_2"
-        app:indicatorName="LineSpinFadeLoaderIndicator"/>
+    tools:context=".ui.fragment.content.WallFragment">
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srl_direction="bottom">
@@ -32,20 +24,20 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/top_image"
+                    android:id="@+id/topImage"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
-                    tools:src="@drawable/image_wall_background"/>
+                    tools:src="@drawable/image_wall_background" />
 
                 <TextView
-                    android:id="@+id/top_caption"
+                    android:id="@+id/topСaption"
                     style="@style/semiBoldText"
-                    android:layout_alignTop="@id/top_image"
-                    android:layout_alignBottom="@id/top_image"
-                    android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/topImage"
+                    android:layout_alignTop="@id/topImage"
+                    android:layout_gravity="center"
                     android:layout_marginTop="25dp"
                     android:gravity="center"
                     android:shadowColor="@color/black_transparent_154"
@@ -56,18 +48,16 @@
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_36"
-                    />
+                    android:textSize="@dimen/font_size_36" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/news_recycler_view"
-                    android:paddingTop="4dp"
-                    android:clipToPadding="false"
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/top_image"
+                    android:layout_below="@id/topImage"
                     android:layout_marginTop="?newsRecyclerListPhoneTopMargin"
-                    />
+                    android:clipToPadding="false"
+                    android:paddingTop="4dp" />
 
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>

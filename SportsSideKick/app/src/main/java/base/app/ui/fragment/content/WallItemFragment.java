@@ -155,7 +155,7 @@ public class WallItemFragment extends BaseFragment {
     View shareButtonsContainer;
 
     @Nullable
-    @BindView(R.id.swipe_refresh_layout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipyRefreshLayout swipeRefreshLayout;
 
     CommentsAdapter commentsAdapter;

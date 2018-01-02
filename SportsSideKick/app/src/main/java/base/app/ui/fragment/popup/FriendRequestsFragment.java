@@ -40,7 +40,7 @@ public class FriendRequestsFragment extends BaseFragment {
     @BindView(R.id.requests_recycler_view)
     RecyclerView requestsRecyclerView;
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
 
     @BindView(R.id.no_result)

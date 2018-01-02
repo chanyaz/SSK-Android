@@ -45,7 +45,7 @@ public class FollowingFragment extends BaseFragment {
     @BindView(R.id.following_recycler_view)
     RecyclerView followingRecyclerView;
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
 
     @BindView(R.id.no_result)

@@ -76,7 +76,7 @@
     </RelativeLayout>
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         android:layout_width="@dimen/width_50"
         android:layout_height="@dimen/height_50"
         android:layout_centerInParent="true"

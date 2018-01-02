@@ -54,7 +54,7 @@ public class AddFriendFragment extends BaseFragment {
     @BindView(R.id.add_friend_name)
     EditText friendName;
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
 
     @BindView(R.id.people_recycler_view)

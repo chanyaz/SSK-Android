@@ -78,7 +78,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     private static final String TAG = "VIDEO CHAT FRAGMENT";
     // The 3 main view state containers
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     public View loadingView;
     @BindView(R.id.active_container)
     public View activeChatView;

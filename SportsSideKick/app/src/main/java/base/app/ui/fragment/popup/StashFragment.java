@@ -41,7 +41,7 @@ public class StashFragment extends BaseFragment {
     @BindView(R.id.stash_recycler_view)
     AutofitRecyclerView stashRecyclerView;
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.26;
 

@@ -60,7 +60,7 @@ public class StartingNewCallFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.chat_name_edit_text)
     EditText friendName;
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
     @Nullable
     @BindView(R.id.confirm_button)

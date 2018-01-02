@@ -76,7 +76,7 @@ public class StoreFragment extends BaseFragment {
 
         webContainer = view.findViewById(R.id.navigation_web_container);
         webView = view.findViewById(R.id.web_view);
-        progressBar = view.findViewById(R.id.progress_bar);
+        progressBar = view.findViewById(R.id.progressBar);
         backButton = view.findViewById(R.id.back_button);
         forwardButton = view.findViewById(R.id.forward_button);
         shareToWallButton = view.findViewById(R.id.share_to_wall_button);

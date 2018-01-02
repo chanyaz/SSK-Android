@@ -84,7 +84,7 @@ import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH
 @RuntimePermissions
 public class CreateChatFragment extends BaseFragment {
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     View progressBar;
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;

@@ -59,7 +59,7 @@ public class StatisticsFragment extends BaseFragment {
     WebView webView;
     String javascriptString = "javascript:( function () { var style = document.createElement('style'); style.innerHTML = '{border-bottom: 0 none;} footer {display: none;}'; document.head.appendChild(style) } ) ()";
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
 
 

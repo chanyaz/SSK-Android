@@ -74,7 +74,7 @@ public class CreatePostFragment extends BaseFragment {
     ImageView uploadedImage;
     @BindView(R.id.remove)
     View removeUploadedContent;
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     View uploadProgressBar;
     
     @BindView(R.id.caption)

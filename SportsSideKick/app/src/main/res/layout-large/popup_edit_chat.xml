@@ -162,7 +162,7 @@
             android:id="@+id/search_friends_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/swipe_refresh_layout"
+            android:layout_alignStart="@+id/swipeRefreshLayout"
             android:layout_below="@id/edit_caption_label"
             android:layout_marginBottom="@dimen/margin_20">
 
@@ -248,7 +248,7 @@
         </RelativeLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout"
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/friends_in_chat_container"

@@ -32,7 +32,7 @@ public class Slot implements Participant.Listener{
 
     @BindView(R.id.video_view)
     VideoView video;
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     public View spinner;
     @BindView(R.id.user_name_text_view)
     public TextView label;

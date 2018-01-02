@@ -43,7 +43,7 @@ public class FollowersFragment extends BaseFragment {
     @BindView(R.id.followers_recycler_view)
     RecyclerView followersRecyclerView;
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
 
     @BindView(R.id.no_result)

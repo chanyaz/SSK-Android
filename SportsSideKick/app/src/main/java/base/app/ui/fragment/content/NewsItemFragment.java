@@ -138,7 +138,7 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.share_twitter)
     ImageView shareTwitterButton;
     @Nullable
-    @BindView(R.id.swipe_refresh_layout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipyRefreshLayout swipeRefreshLayout;
     @BindView(R.id.commentInputOverlay)
     View commentInputOverlay;

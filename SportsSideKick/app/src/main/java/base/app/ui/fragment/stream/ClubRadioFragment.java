@@ -38,7 +38,7 @@ public class ClubRadioFragment extends BaseFragment {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
 
     ClubRadioAdapter adapter;

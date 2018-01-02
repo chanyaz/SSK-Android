@@ -57,7 +57,7 @@ public class FriendsFragment extends BaseFragment {
     @BindView(R.id.friends_recycler_view)
     AutofitRecyclerView friendsRecyclerView;
 
-    @BindView(R.id.progress_bar)
+    @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
     @Nullable
     @BindView(R.id.friend_requests_count)
