@@ -102,7 +102,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final PostComment comment = comments.get(position);
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(comment.getPosterId());
         holder.view.setTag(comment.getPosterId());
@@ -146,7 +146,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                  public void onComplete(@NonNull Task<PostComment> task) {
                      if(task.isSuccessful()){
                          PostComment translatedComment = task.getResult();
-                         updateWithTranslatedComment(translatedComment,position);
+                         updateWithTranslatedComment(translatedComment,holder.getAdapterPosition());
                      }
                  }
              });
