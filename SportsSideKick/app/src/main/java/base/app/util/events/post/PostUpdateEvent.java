@@ -1,7 +1,6 @@
 package base.app.util.events.post;
 
 import base.app.data.wall.WallBase;
-import base.app.data.wall.WallPost;
 import base.app.util.events.BusEvent;
 
 /**
@@ -11,14 +10,14 @@ import base.app.util.events.BusEvent;
  */
 public class PostUpdateEvent extends BusEvent {
 
-    public WallPost getPost() {
+    public WallBase getPost() {
         return post;
     }
 
-    private final WallPost post;
+    private final WallBase post;
 
     public PostUpdateEvent(WallBase post) {
         super("");
-        this.post = (WallPost) post;
+        this.post = post;
     }
 }

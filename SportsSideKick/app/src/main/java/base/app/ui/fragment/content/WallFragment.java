@@ -206,7 +206,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Subscribe
     public void onPostUpdate(PostUpdateEvent event) {
-        final WallPost post = event.getPost();
+        final WallBase post = event.getPost();
         if (post != null) {
             Log.d(TAG, "GOT POST with id: " + post.getPostId());
             for (WallBase item : wallItems) {

@@ -179,6 +179,10 @@ public class CreatePostFragment extends BaseFragment {
         }
         WallModel.getInstance().createPost(newPost);
         Utility.hideKeyboard(getActivity());
+
+        if (getActivity() != null) {
+            getActivity().onBackPressed();
+        }
     }
     
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})

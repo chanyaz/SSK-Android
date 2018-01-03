@@ -33,7 +33,6 @@ import base.app.util.events.comment.CommentUpdatedEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
-import base.app.util.events.post.PostCompleteEvent;
 import base.app.util.events.post.PostDeletedEvent;
 import base.app.util.events.post.PostUpdateEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
@@ -114,9 +113,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    WallPost post = (WallPost) WallBase.postFactory(object, mapper, true);
-                    EventBus.getDefault().post(new PostUpdateEvent(post));
-                    EventBus.getDefault().post(new PostCompleteEvent(post));
+                    WallBase.postFactory(object, mapper, true);
                 }
             }
         };
