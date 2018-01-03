@@ -6,7 +6,8 @@ import com.bumptech.glide.request.RequestOptions
 
 object ImageLoader {
 
-    @JvmStatic @JvmOverloads
+    @JvmStatic
+    @JvmOverloads
     fun displayImage(uri: String?, view: ImageView,
                      placeholder: Int? = null, error: Int? = null) {
         if (uri != null) {

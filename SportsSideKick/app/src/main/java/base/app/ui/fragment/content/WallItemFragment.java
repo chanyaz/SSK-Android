@@ -448,7 +448,6 @@ public class WallItemFragment extends BaseFragment {
     @Subscribe
     public void onCommentPosted(PostCommentCompleteEvent event) {
         postCommentProgressBar.setVisibility(View.GONE);
-        commentsAdapter.getComments().add(0, event.getComment());
         commentsAdapter.notifyDataSetChanged();
         item.setCommentsCount(commentsAdapter.getComments().size());
         if (commentsCount != null) {
@@ -477,7 +476,6 @@ public class WallItemFragment extends BaseFragment {
                     commentToUpdate = comment;
                 }
             }
-
             if (commentToUpdate != null) {
                 int position = commentsInAdapter.indexOf(commentToUpdate);
                 commentsInAdapter.remove(commentToUpdate);
