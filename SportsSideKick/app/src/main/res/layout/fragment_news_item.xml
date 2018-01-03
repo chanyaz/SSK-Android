@@ -432,6 +432,7 @@
         android:layout_height="wrap_content"
         android:background="#f7ffffff"
         android:orientation="vertical"
+        android:elevation="6dp"
         android:visibility="gone"
         tools:visibility="visible">
 

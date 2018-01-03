@@ -177,7 +177,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     break;
             }
         }
-        View view = null;
+        View view = new View(context);
         if (viewResourceId != -1) {
             view = LayoutInflater.from(parent.getContext()).inflate(viewResourceId, parent, false);
         }

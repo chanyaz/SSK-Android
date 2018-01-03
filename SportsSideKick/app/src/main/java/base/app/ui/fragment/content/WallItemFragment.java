@@ -103,7 +103,7 @@ public class WallItemFragment extends BaseFragment {
     View postCommentProgressBar;
 
     @Nullable
-    @BindView(R.id.comments_count)
+    @BindView(R.id.comments_count_header)
     TextView commentsCount;
     @Nullable
     @BindView(R.id.likes_icon)
@@ -112,7 +112,7 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.likes_icon_liked)
     ImageView likesIconLiked;
     @Nullable
-    @BindView(R.id.likes_count)
+    @BindView(R.id.likes_count_header)
     TextView likesCount;
     @Nullable
     @BindView(R.id.share_count)
