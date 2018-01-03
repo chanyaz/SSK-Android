@@ -48,7 +48,7 @@ public abstract class WallBase implements Shareable, Serializable {
         stats,
         rumor,
         wallStoreItem,
-        newsOfficial,
+        official,
         newsUnOfficial,
         wallComment,
         rumourShare,
@@ -117,7 +117,9 @@ public abstract class WallBase implements Shareable, Serializable {
                     String objectType = node.get("type").textValue();
                     type = PostType.valueOf(objectType);
                 } catch (IllegalArgumentException ex){
-                    Log.e(TAG,"Non existing createPost type:" + node.get("type").textValue());
+                    Log.e(TAG,"--------------------------------------------------------------------------");
+                    Log.e(TAG,"ERROR ----- Non existing createPost type:" + node.get("type").textValue() + "\n\n" + node);
+                    Log.e(TAG,"--------------------------------------------------------------------------");
                 }
             }
 
@@ -141,6 +143,14 @@ public abstract class WallBase implements Shareable, Serializable {
                     case wallStoreItem:
                         typeReference = new TypeReference<WallStoreItem>(){};
                         break;
+                    case official:
+                        typeReference = new TypeReference<WallNews>(){};
+                        break;
+                    default:
+                        Log.e(TAG,"--------------------------------------------------------------------------");
+                        Log.e(TAG,"ERROR ----- unhandeled post type " + node.get("type").textValue() + "\n\n" + node);
+                        Log.e(TAG,"--------------------------------------------------------------------------");
+
                 }
             }
 
