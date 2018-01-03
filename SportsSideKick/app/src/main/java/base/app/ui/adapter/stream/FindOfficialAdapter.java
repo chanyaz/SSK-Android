@@ -84,7 +84,7 @@ public class FindOfficialAdapter extends RecyclerView.Adapter<FindOfficialAdapte
         UserInfo userInfo = userInfoList.get(position);
         String avatarUrl = userInfo.getAvatarUrl();
         if (avatarUrl != null) {
-            ImageLoader.displayImage(avatarUrl, holder.profileImage);
+            ImageLoader.displayImage(avatarUrl, holder.profileImage, R.drawable.blank_profile_rounded);
         }
 
 

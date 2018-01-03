@@ -204,7 +204,7 @@ public class EditChatFragment extends BaseFragment {
         chatNameEditText.setText(chatInfo.getChatTitle());
         String captionText = String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + chatInfo.getChatTitle() +"'");
         if(chatInfo.getChatAvatarUrl()!=null){
-            ImageLoader.displayImage(chatInfo.getChatAvatarUrl(), chatImageView);
+            ImageLoader.displayImage(chatInfo.getChatAvatarUrl(), chatImageView, R.drawable.blank_profile_rounded);
             chatImageView.setVisibility(View.VISIBLE);
         }
         addFriendsInChatLabel.setText(captionText);
@@ -420,13 +420,13 @@ public class EditChatFragment extends BaseFragment {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE:
                     uploadImage(currentPath);
-                    ImageLoader.displayImage(currentPath,chatImageView);
+                    ImageLoader.displayImage(currentPath,chatImageView, R.drawable.blank_profile_rounded);
                     break;
                 case REQUEST_CODE_CHAT_EDIT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImage(realPath);
-                    ImageLoader.displayImage(realPath,chatImageView);
+                    ImageLoader.displayImage(realPath,chatImageView, R.drawable.blank_profile_rounded);
                     break;
             }
         }
@@ -442,7 +442,7 @@ public class EditChatFragment extends BaseFragment {
                     uploadedImageUrl = task.getResult();
                     if(uploadedImageUrl!=null){
                         chatImageView.setVisibility(View.VISIBLE);
-                        ImageLoader.displayImage(uploadedImageUrl, chatImageView);
+                        ImageLoader.displayImage(uploadedImageUrl, chatImageView, R.drawable.blank_profile_rounded);
                     }
                 } else {
                     // TODO @Filip Handle error!

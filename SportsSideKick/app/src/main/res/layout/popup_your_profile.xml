@@ -9,18 +9,10 @@
     android:background="@color/colorPrimaryMediumLight"
     android:clickable="true">
 
-    <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
-    <View
-        android:id="@+id/center_split"
-        android:layout_width="@dimen/width_1"
-        android:layout_height="@dimen/height_1"
-        android:layout_centerHorizontal="true" />
-
     <RelativeLayout
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
-        android:layout_alignParentTop="true"
+        android:layout_height="72dp"
         android:background="@drawable/phone_background"
         android:orientation="horizontal"
         android:tileMode="repeat">
@@ -28,7 +20,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
             android:text="@string/your_profile"
             android:textColor="?popupsCaptionColor"
             android:textStyle="bold" />
@@ -187,6 +181,7 @@
                             android:contentDescription="@string/image"
                             android:scaleType="fitXY"
                             android:src="?profileImageIcon" />
+
                     </RelativeLayout>
 
                     <ImageView

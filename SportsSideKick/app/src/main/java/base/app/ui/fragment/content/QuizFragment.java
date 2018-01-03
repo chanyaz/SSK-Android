@@ -34,7 +34,7 @@ public class QuizFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_fantasy, container, false);
         String url = getResources().getString(R.string.quiz_url);
         ButterKnife.bind(this,view);
-        ImageLoader.displayImage(url,image);
+        ImageLoader.displayImage(url,image, R.drawable.blank_profile_rounded);
         return view;
     }
 }

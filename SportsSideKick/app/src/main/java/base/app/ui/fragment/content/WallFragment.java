@@ -187,8 +187,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             if(NextMatchModel.getInstance().isNextMatchUpcoming()){
                 nextMatchContainer.setVisibility(View.VISIBLE);
                 NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
-                ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage);
-                ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage);
+                ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, R.drawable.blank_profile_rounded);
+                ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, R.drawable.blank_profile_rounded);
                 wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
                 wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
                 long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
@@ -280,7 +280,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     public void filterPosts() {
-        reset();
         adapter.replaceAll(wallItems);
         adapter.notifyDataSetChanged();
         scrollUp();

@@ -113,7 +113,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         if (avatarUrl == null) {
             avatarUrl = info.getSender().getAvatarUrl();
         }
-        ImageLoader.displayImage(avatarUrl, holder.profileImage);
+        ImageLoader.displayImage(avatarUrl, holder.profileImage, R.drawable.blank_profile_rounded);
     }
 
     @Override

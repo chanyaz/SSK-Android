@@ -131,7 +131,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_IMAGE:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.displayImage(imageUrl,holder.contentImage);
+                    ImageLoader.displayImage(imageUrl,holder.contentImage, R.drawable.blank_profile_rounded);
                     holder.playButton.setVisibility(View.GONE);
                     holder.contentImage.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -143,7 +143,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_VIDEO:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.displayImage(imageUrl,holder.contentImage);
+                    ImageLoader.displayImage(imageUrl,holder.contentImage, R.drawable.blank_profile_rounded);
                     holder.playButton.setVisibility(View.VISIBLE);
                     holder.contentImage.setOnClickListener(
                             new View.OnClickListener() {
@@ -246,7 +246,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     nicName = userInfo.getNicName();
                 }
                 if (holder.senderImageView != null) {
-                    ImageLoader.displayImage(senderImageUrl,holder.senderImageView);
+                    ImageLoader.displayImage(senderImageUrl,holder.senderImageView, R.drawable.blank_profile_rounded);
                 }
                 holder.senderTextView.setText(nicName);
             }

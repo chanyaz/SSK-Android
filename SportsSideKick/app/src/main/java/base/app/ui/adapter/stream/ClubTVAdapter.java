@@ -116,7 +116,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
 
         String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
         if (holder.image != null) {
-            ImageLoader.displayImage(imageUrl, holder.image);
+            ImageLoader.displayImage(imageUrl, holder.image, R.drawable.blank_profile_rounded);
         }
     }
 

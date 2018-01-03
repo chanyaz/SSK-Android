@@ -282,7 +282,7 @@ public class WallItemFragment extends BaseFragment {
             case rumor:
             case newsShare:
                 WallNewsShare news = (WallNewsShare) item;
-                ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader);
+                ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader, R.drawable.blank_profile_rounded);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());
                 if (commentsCount != null) {
@@ -310,7 +310,7 @@ public class WallItemFragment extends BaseFragment {
                 break;
             case wallStoreItem:
                 WallStoreItem storeItem = (WallStoreItem) item;
-                ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader);
+                ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, R.drawable.blank_profile_rounded);
                 title.setText(storeItem.getTitle());
                 break;
             case tip:

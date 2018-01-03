@@ -607,7 +607,7 @@ public class MainActivity extends BaseActivity
         if (Model.getInstance().isRealUser()) {
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
             if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage);
+                ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, R.drawable.blank_profile_rounded);
             }
             setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
@@ -633,6 +633,6 @@ public class MainActivity extends BaseActivity
         userLevelBackground.setVisibility(View.INVISIBLE);
         userLevelProgress.setVisibility(View.INVISIBLE);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-        ImageLoader.displayImage(imgUri, profileImage);
+        ImageLoader.displayImage(imgUri, profileImage, R.drawable.blank_profile_rounded);
     }
 }

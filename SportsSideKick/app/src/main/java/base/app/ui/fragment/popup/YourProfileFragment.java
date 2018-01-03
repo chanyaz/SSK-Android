@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import base.app.util.ui.ImageLoader;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,14 +21,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.ui.adapter.profile.UserStatsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
+import base.app.ui.adapter.profile.UserStatsAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -239,7 +239,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
             values.add(new Pair<>(getContext().getResources().getString(R.string.comments_made), String.valueOf(user.getComments())));
             adapter.getValues().addAll(values);
 
-            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage);
+            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, R.drawable.blank_profile_rounded);
             profileName.setText(user.getFirstName() + " " + user.getLastName());
             profileEmail.setText(user.getEmail());
             profilePhone.setText(user.getPhone());

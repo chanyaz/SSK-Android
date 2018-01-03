@@ -108,7 +108,7 @@ public class CreatePostFragment extends BaseFragment {
             authorName.setText(String.format("%s %s", info.getFirstName(), info.getLastName()));
             if(info.getCircularAvatarUrl() != null ){
                 ImageLoader.displayImage(info.getCircularAvatarUrl(),
-                        authorImage);
+                        authorImage, R.drawable.blank_profile_rounded);
             } else {
                 Log.v(TAG,"There is no avatar for this user, resolving to default image");
                 authorImage.setImageResource(R.drawable.blank_profile_rounded);
@@ -139,7 +139,7 @@ public class CreatePostFragment extends BaseFragment {
         galleryButton.setVisibility(View.VISIBLE);
 
         uploadedImage.setAlpha(0.5f);
-        ImageLoader.displayImage(defaultImageUri, uploadedImage);
+        ImageLoader.displayImage(defaultImageUri, uploadedImage, R.drawable.blank_profile_rounded);
     }
 
     @OnClick(R.id.close_dialog_button)
@@ -284,7 +284,7 @@ public class CreatePostFragment extends BaseFragment {
             public void onComplete(@NonNull Task<String> task) {
                 if (task.isSuccessful()) {
                     uploadedImageUrl = task.getResult();
-                    ImageLoader.displayImage(uploadedImageUrl, uploadedImage);
+                    ImageLoader.displayImage(uploadedImageUrl, uploadedImage, R.drawable.blank_profile_rounded);
                     uploadProgressBar.setVisibility(View.INVISIBLE);
                     uploadedImage.setAlpha(1.0f);
                 } else {
@@ -306,7 +306,7 @@ public class CreatePostFragment extends BaseFragment {
                     videoThumbnailDownloadUrl = task.getResult();
                     ImageLoader.displayImage(
                             videoThumbnailDownloadUrl,
-                            uploadedImage);
+                            uploadedImage, R.drawable.blank_profile_rounded);
                     // then, upload video itself, and hide progressbar when its done
                     final TaskCompletionSource<String> videoUploadSource = new TaskCompletionSource<>();
                     videoUploadSource.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
