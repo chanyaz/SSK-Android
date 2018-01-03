@@ -427,11 +427,11 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Object commentObject = data.get(GSConstants.COMMENT);
                         PostComment comment = mapper.convertValue(commentObject, new TypeReference<PostComment>() {
                         });
-                        if (Model.getInstance().isRealUser()) {
-                            if (comment.getPosterId().equals(Model.getInstance().getUserInfo().getUserId())) {
-                                return; // Its our own comment, ignore it
-                            }
-                        }
+//                        if (Model.getInstance().isRealUser()) {
+//                            if (comment.getPosterId().equals(Model.getInstance().getUserInfo().getUserId())) {
+//                                return; // Its our own comment, ignore it
+//                            }
+//                        }
                         CommentUpdateEvent event = new CommentUpdateEvent(post);
                         event.setComment(comment);
                         EventBus.getDefault().post(event);
