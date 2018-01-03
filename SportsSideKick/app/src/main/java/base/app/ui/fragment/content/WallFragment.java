@@ -3,6 +3,7 @@ package base.app.ui.fragment.content;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -98,6 +100,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Nullable
     @BindView(R.id.wall_team_time)
     TextView wallTeamTime;
+    @BindView(R.id.scroll)
+    NestedScrollView scroll;
 
     @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
@@ -158,7 +162,19 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             progressBar.setVisibility(View.GONE);
         }
         Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
+        scrollUp();
         return view;
+    }
+
+    protected void scrollUp() {
+        scroll.post(new Runnable() {
+            @Override
+            public void run() {
+                scroll.scrollTo(0, 0);
+                scroll.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
+        recyclerView.smoothScrollToPosition(0);
     }
 
     /**
@@ -264,8 +280,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     public void filterPosts() {
+        reset();
         adapter.replaceAll(wallItems);
         adapter.notifyDataSetChanged();
+        scrollUp();
     }
 
     @Subscribe
