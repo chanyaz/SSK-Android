@@ -88,9 +88,6 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 switch (operation){
                     case GSConstants.OPERATION_LIKE:
                         String action = (String) data.get(GSConstants.ACTION);
-
-
-
                         if(action.equals(GSConstants.OPERATION_LIKE)){
                             if(data.containsKey(GSConstants.POST)){
                                 WallBase post = WallBase.postFactory(data.get(GSConstants.POST), mapper, true);
@@ -100,9 +97,6 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                                     EventBus.getDefault().post(event);
                                 }
                             }
-
-
-
                         }
                         break;
                 }
@@ -110,7 +104,5 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
             default:
                 break;
         }
-
     }
-
 }
