@@ -28,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -176,7 +175,7 @@ public class WallItemFragment extends BaseFragment {
 
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", getActivity().getPackageName());
-        commentsAdapter = new CommentsAdapter(comments,imgUri);
+        commentsAdapter = new CommentsAdapter(comments, imgUri);
         commentsAdapter.setTranslationView(translationView);
         translationView.setParentView(view);
         commentsList.setLayoutManager(commentLayoutManager);
@@ -185,24 +184,24 @@ public class WallItemFragment extends BaseFragment {
         if (pinContainer != null) {
             pinContainer.setVisibility(View.GONE);
         }
-        if(Utility.isPhone(getContext())){
-            ButterKnife.findById(view,R.id.close_button).setVisibility(View.GONE);
+        if (Utility.isPhone(getContext())) {
+            ButterKnife.findById(view, R.id.close_button).setVisibility(View.GONE);
         }
         String id = getPrimaryArgument();
         item = WallBase.getCache().get(id);
         // Probably came here from Deeplink/Notification - if item is not in cache, fetch it
-        if(item == null){
+        if (item == null) {
             String postId;
             String wallId = null;
-            if(id.contains("$$$")){
-                String[] parts = StringUtils.split(id,"$$$");
-                if(parts.length==2){
+            if (id.contains("$$$")) {
+                String[] parts = StringUtils.split(id, "$$$");
+                if (parts.length == 2) {
                     postId = parts[0];
                     wallId = parts[1];
                 } else {
-                    postId = StringUtils.remove(id,"$$$");
+                    postId = StringUtils.remove(id, "$$$");
                 }
-                WallModel.getInstance().getPostById(postId,wallId);
+                WallModel.getInstance().getPostById(postId, wallId);
             }
             return view;
         } else {
@@ -210,17 +209,21 @@ public class WallItemFragment extends BaseFragment {
         }
 
         String userId = Model.getInstance().getUserInfo().getUserId();
-        if(item.getWallId()!=null){
-            if(item.getWallId().equals(userId)){
+        if (item.getWallId() != null) {
+            if (item.getWallId().equals(userId)) {
                 delete.setVisibility(View.VISIBLE);
             }
         }
 
         post.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
+
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 postButton.setVisibility(s.length() != 0 ? View.VISIBLE : View.GONE);
@@ -233,7 +236,7 @@ public class WallItemFragment extends BaseFragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                    WallModel.getInstance().getCommentsForPost(item,comments.size());
+                    WallModel.getInstance().getCommentsForPost(item, comments.size());
                 }
             });
         }
@@ -241,15 +244,16 @@ public class WallItemFragment extends BaseFragment {
         return view;
     }
 
-    private void initializeWithData(boolean fetchComments, WallBase item){
+    private void initializeWithData(boolean fetchComments, WallBase item) {
 
-        if(fetchComments){
+        if (fetchComments) {
             WallModel.getInstance().getCommentsForPost(item);
         }
         switch (item.getType()) {
             case post:
                 WallPost post = (WallPost) item;
-                Glide.with(this).load(post.getCoverImageUrl()).into(imageHeader);
+                ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
+                        null, R.drawable.wall_detail_header_placeholder);
                 title.setText(post.getTitle());
                 content.setText(post.getBodyText());
                 if (post.getVidUrl() != null) {
@@ -345,9 +349,9 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
-        if(event.getCommentList()!=null){
-            for(PostComment comment : event.getCommentList()){
-                if(!comments.contains(comment)){
+        if (event.getCommentList() != null) {
+            for (PostComment comment : event.getCommentList()) {
+                if (!comments.contains(comment)) {
                     comments.add(comment);
                 }
             }
@@ -404,7 +408,7 @@ public class WallItemFragment extends BaseFragment {
     @OnClick(R.id.post_comment_button)
     public void postComment() {
         if (Model.getInstance().isRealUser()) {
-            if(commentForEdit==null){
+            if (commentForEdit == null) {
                 sendComment();
             } else {
                 updateComment();
@@ -414,7 +418,7 @@ public class WallItemFragment extends BaseFragment {
         }
     }
 
-    private void sendComment(){
+    private void sendComment() {
         PostComment comment = new PostComment();
         comment.setComment(post.getText().toString());
         comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
@@ -426,7 +430,7 @@ public class WallItemFragment extends BaseFragment {
         postCommentProgressBar.setVisibility(View.VISIBLE);
     }
 
-    private void updateComment(){
+    private void updateComment() {
         commentForEdit.setComment(post.getText().toString());
         WallModel.getInstance().postComment(commentForEdit);
         post.getText().clear();
@@ -436,7 +440,7 @@ public class WallItemFragment extends BaseFragment {
     PostComment commentForEdit;
 
     @Subscribe
-    public void setCommentForEdit(CommentSelectedEvent event){
+    public void setCommentForEdit(CommentSelectedEvent event) {
         this.commentForEdit = event.getSelectedComment();
         post.setText(commentForEdit.getComment());
     }
@@ -454,9 +458,9 @@ public class WallItemFragment extends BaseFragment {
 
 
     @Subscribe
-    public void onPostById(GetPostByIdEvent event){
+    public void onPostById(GetPostByIdEvent event) {
         item = event.getPost();
-        if(item!=null){
+        if (item != null) {
             initializeWithData(true, item);
         }
     }
@@ -464,20 +468,20 @@ public class WallItemFragment extends BaseFragment {
     @Subscribe
     public void onCommentUpdated(final CommentUpdatedEvent event) {
         WallBase wallItem = event.getWallItem();
-        if(wallItem != null && wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
+        if (wallItem != null && wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
             PostComment receivedComment = event.getComment();
             PostComment commentToUpdate = null;
             List<PostComment> commentsInAdapter = commentsAdapter.getComments();
-            for(PostComment comment : commentsInAdapter){
-                if(comment.getId().equals(receivedComment.getId())){
+            for (PostComment comment : commentsInAdapter) {
+                if (comment.getId().equals(receivedComment.getId())) {
                     commentToUpdate = comment;
                 }
             }
 
-            if(commentToUpdate!=null){
+            if (commentToUpdate != null) {
                 int position = commentsInAdapter.indexOf(commentToUpdate);
                 commentsInAdapter.remove(commentToUpdate);
-                commentsInAdapter.add(position,receivedComment);
+                commentsInAdapter.add(position, receivedComment);
                 commentsAdapter.notifyDataSetChanged();
             }
         }
@@ -493,20 +497,20 @@ public class WallItemFragment extends BaseFragment {
                 item.setCommentsCount(event.getWallItem().getCommentsCount());
                 final PostComment comment = event.getComment();
 
-                if(event.getComment()!=null) {
+                if (event.getComment() != null) {
                     Model.getInstance().getUserInfoById(comment.getPosterId())
                             .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UserInfo> task) {
-                            if(task.isSuccessful()){
-                                commentsAdapter.getComments().add(0, comment);
-                                commentsAdapter.notifyDataSetChanged();
-                                if (commentsCount != null) {
-                                    commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+                                @Override
+                                public void onComplete(@NonNull Task<UserInfo> task) {
+                                    if (task.isSuccessful()) {
+                                        commentsAdapter.getComments().add(0, comment);
+                                        commentsAdapter.notifyDataSetChanged();
+                                        if (commentsCount != null) {
+                                            commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                    });
+                            });
                 }
             }
         }
@@ -519,12 +523,12 @@ public class WallItemFragment extends BaseFragment {
             if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
                 PostComment commentToDelete = null;
                 PostComment deletedComment = event.getComment();
-                for(PostComment comment : comments){
-                    if(comment.getId().equals(deletedComment.getId())){
+                for (PostComment comment : comments) {
+                    if (comment.getId().equals(deletedComment.getId())) {
                         commentToDelete = comment;
                     }
                 }
-                if(commentToDelete!=null){
+                if (commentToDelete != null) {
                     comments.remove(commentToDelete);
                     commentsAdapter.notifyDataSetChanged();
                 }
@@ -587,7 +591,7 @@ public class WallItemFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.delete)
-    public void deletePostOnClick(View view){
+    public void deletePostOnClick(View view) {
         WallModel.getInstance().deletePost(item).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -637,10 +641,10 @@ public class WallItemFragment extends BaseFragment {
     public void readMoreClick(View view) {
         if (content.getMaxLines() == 3) {
             content.setMaxLines(Integer.MAX_VALUE);
-            ((TextView)view).setText(R.string.read_more_open);
+            ((TextView) view).setText(R.string.read_more_open);
         } else {
             content.setMaxLines(3);
-            ((TextView)view).setText(R.string.read_more_closed);
+            ((TextView) view).setText(R.string.read_more_closed);
         }
     }
 
@@ -648,22 +652,22 @@ public class WallItemFragment extends BaseFragment {
     TranslationView translationView;
 
     @OnClick(R.id.translate)
-    public void onTranslateClick(View view){
+    public void onTranslateClick(View view) {
         String postId = item.getPostId();
         TaskCompletionSource<WallBase> source = new TaskCompletionSource<>();
         source.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
             @Override
             public void onComplete(@NonNull Task<WallBase> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     WallBase translatedPost = task.getResult();
                     updateWithTranslatedPost(translatedPost);
                 }
             }
         });
-        translationView.showTranslationPopup(view,postId, source,TranslationView.TranslationType.TRANSLATE_WALL, item.getType());
+        translationView.showTranslationPopup(view, postId, source, TranslationView.TranslationType.TRANSLATE_WALL, item.getType());
     }
 
-    private void updateWithTranslatedPost(WallBase translatedPost){
+    private void updateWithTranslatedPost(WallBase translatedPost) {
         initializeWithData(false, translatedPost);
     }
 
