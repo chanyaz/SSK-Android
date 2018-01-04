@@ -65,7 +65,7 @@
     <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
 
     <!-- Fragment captions -->
-    <string name="wall_fragment_caption">Wall</string>
+    <string name="wall_fragment_caption">The Wall</string>
     <string name="video_chat_fragment_caption">Video Chat</string>
     <string name="news_fragment_caption">News</string>
     <string name="rumors_fragment_caption">Rumors</string>
@@ -78,7 +78,7 @@
     <string name="shop_caption">Shop</string>
     <string name="rumours_caption">Rumours</string>
     <string name="video_chat_caption">Video Chat</string>
-    <string name="wall_caption">Wall</string>
+    <string name="wall_caption">The Wall</string>
     <string name="news_caption">News</string>
     <string name="quiz_caption">Quiz</string>
 

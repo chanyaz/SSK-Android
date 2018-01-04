@@ -102,6 +102,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     TextView wallTeamTime;
     @BindView(R.id.scroll)
     NestedScrollView scroll;
+    @BindView(R.id.topCaption)
+    View topCaption;
+    @BindView(R.id.wall_top_info_container)
+    View wallTopInfoContainer;
 
     @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
@@ -194,7 +198,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
                 wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(),timestamp,false));
             } else {
-                nextMatchContainer.setVisibility(View.GONE);
+                wallTopInfoContainer.setVisibility(View.GONE);
+                topCaption.setVisibility(View.VISIBLE);
             }
         }
     }

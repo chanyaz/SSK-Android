@@ -35,9 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/topSpacer"
-                    android:layout_marginTop="-80dp"
-                    android:visibility="gone"
-                    tools:visibility="visible">
+                    android:layout_marginTop="-80dp">
 
                     <ImageView
                         android:id="@+id/wall_top_image"
@@ -45,6 +43,27 @@
                         android:layout_height="240dp"
                         android:scaleType="centerCrop"
                         tools:src="@drawable/image_wall_background" />
+
+                    <TextView
+                        android:id="@+id/topCaption"
+                        style="@style/semiBoldText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:paddingTop="25dp"
+                        android:gravity="center"
+                        android:shadowColor="@color/black_transparent_154"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        tools:visibility="visible"
+                        android:shadowRadius="2"
+                        android:text="@string/wall_caption"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_36"
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:id="@+id/wall_top_info_container"
@@ -114,6 +133,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="32sp"
                                 android:textStyle="bold" />
+
                         </RelativeLayout>
 
                         <TextView

@@ -122,7 +122,6 @@
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/margin_30"
             android:background="@drawable/background_next_match_countdown"
-            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/fc_logo"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -257,6 +256,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
+
     </android.support.constraint.ConstraintLayout>
 
     <TextView
