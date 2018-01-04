@@ -109,7 +109,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     private LoginStateReceiver loginStateReceiver;
 
     int offset = 0;
-    int pageSize = 20;
+    int pageSize = 30;
     boolean fetchingPageOfPosts = false;
 
     @Override
@@ -346,6 +346,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public void onLogout() {
         reset();
+        reloadWallFromModel();
     }
 
     @Override
