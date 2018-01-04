@@ -63,7 +63,7 @@
             app:autoSizeMinTextSize="20sp"
             app:autoSizeStepGranularity="2sp"
             app:autoSizeTextType="uniform"
-            app:layout_constraintBottom_toTopOf="@+id/next_match_container"
+            app:layout_constraintBottom_toTopOf="@+id/nextMatchContainer"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/label"/>
@@ -85,7 +85,7 @@
             app:autoSizeMinTextSize="20sp"
             app:autoSizeStepGranularity="2sp"
             app:autoSizeTextType="uniform"
-            app:layout_constraintBottom_toTopOf="@+id/next_match_container"
+            app:layout_constraintBottom_toTopOf="@+id/nextMatchContainer"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:layout_editor_absoluteX="0dp"/>
@@ -108,13 +108,13 @@
             app:autoSizeStepGranularity="2sp"
             app:autoSizeTextType="uniform"
             app:fontPath="fonts/TitilliumWeb-SemiLight.ttf"
-            app:layout_constraintBottom_toTopOf="@+id/next_match_container"
+            app:layout_constraintBottom_toTopOf="@+id/nextMatchContainer"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toRightOf="@+id/label"
             app:layout_constraintRight_toRightOf="parent"/>
 
         <RelativeLayout
-            android:id="@+id/next_match_container"
+            android:id="@+id/nextMatchContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/label"
@@ -150,7 +150,7 @@
 
                 <!-- FIRST TEAM" -->
                 <TextView
-                    android:id="@+id/left_name"
+                    android:id="@+id/nameOfFirstTeam"
                     fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,11 +169,11 @@
                     app:autoSizeTextType="uniform"/>
 
                 <ImageView
-                    android:id="@+id/left_image"
+                    android:id="@+id/logoOfFirstTeam"
                     android:layout_width="@dimen/width_60"
                     android:layout_height="@dimen/height_60"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/left_name"/>
+                    android:layout_toEndOf="@+id/nameOfFirstTeam"/>
 
                 <TextView
                     android:id="@+id/vs"
@@ -182,13 +182,13 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_margin="@dimen/padding_8"
-                    android:layout_toEndOf="@+id/left_image"
+                    android:layout_toEndOf="@+id/logoOfFirstTeam"
                     android:text="@string/vs"
                     android:textColor="@color/colorAccentLight"
                     android:textSize="@dimen/font_size_20"/>
 
                 <ImageView
-                    android:id="@+id/right_image"
+                    android:id="@+id/logoOfSecondTeam"
                     android:layout_width="@dimen/width_60"
                     android:layout_height="@dimen/height_60"
                     android:layout_centerVertical="true"
@@ -196,12 +196,12 @@
 
                 <!-- SECOND TEAM   -->
                 <TextView
-                    android:id="@+id/right_name"
+                    android:id="@+id/nameOfSecondTeam"
                     fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/right_image"
+                    android:layout_toEndOf="@+id/logoOfSecondTeam"
                     android:maxLines="1"
                     android:minHeight="@dimen/height_30"
                     android:minWidth="@dimen/width_60"
@@ -250,7 +250,7 @@
             android:id="@+id/fc_logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_below="@+id/next_match_container"
+            android:layout_below="@+id/nextMatchContainer"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/logo_fq"

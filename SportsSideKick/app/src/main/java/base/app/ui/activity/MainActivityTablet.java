@@ -137,7 +137,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     @BindView(R.id.splash)
     View splash;
 
-    @BindView(R.id.next_match_container)
+    @BindView(R.id.nextMatchContainer)
     RelativeLayout nextMatchContainer;
 
 
