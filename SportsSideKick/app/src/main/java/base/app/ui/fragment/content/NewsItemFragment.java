@@ -527,6 +527,7 @@ public class NewsItemFragment extends BaseFragment {
         item.setCommentsCount(commentsAdapter.getComments().size());
         if (commentsCount != null) {
             commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+            commentsCountHeader.setText(String.valueOf(commentsAdapter.getComments().size()));
         }
     }
 
@@ -593,9 +594,11 @@ public class NewsItemFragment extends BaseFragment {
         if ((post != null)) {
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
+                commentsCountHeader.setText(String.valueOf(post.getCommentsCount()));
             }
             if (likesCount != null) {
                 likesCount.setText(String.valueOf(post.getLikeCount()));
+                likesCountHeader.setText(String.valueOf(post.getLikeCount()));
             }
             if (shareCount != null) {
                 shareCount.setText(String.valueOf(post.getShareCount()));

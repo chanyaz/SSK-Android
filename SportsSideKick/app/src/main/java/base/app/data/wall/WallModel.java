@@ -218,11 +218,8 @@ public class WallModel extends GSMessageHandlerAbstract {
             EventBus.getDefault().post(new GetCommentsCompleteEvent(null));
             return;
         }
-        int offset = post.getCommentsCount() - ((fetchedCount / DEFAULT_COMMENTS_PAGE) + 1) * DEFAULT_COMMENTS_PAGE;
-        if (offset < 0) {
-            offset = 0;
-            pageSize = post.getCommentsCount() - fetchedCount;
-        }
+        int offset = 0;
+        pageSize = post.getCommentsCount();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
