@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,26 +77,18 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @BindView(R.id.fragment_wall_recycler_view)
     RecyclerView recyclerView;
-
-    @Nullable
     @BindView(R.id.wall_top_image_container)
     RelativeLayout nextMatchContainer;
-    @Nullable
     @BindView(R.id.wall_top_image)
     ImageView wallTopImage;
-    @Nullable
     @BindView(R.id.wall_team_left_name)
     TextView wallLeftTeamName;
-    @Nullable
     @BindView(R.id.wall_team_left_image)
     ImageView wallLeftTeamImage;
-    @Nullable
     @BindView(R.id.wall_team_right_image)
     ImageView wallRightTeamImage;
-    @Nullable
     @BindView(R.id.wall_team_right_name)
     TextView wallRightTeamName;
-    @Nullable
     @BindView(R.id.wall_team_time)
     TextView wallTeamTime;
     @BindView(R.id.scroll)
@@ -106,10 +97,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     View topCaption;
     @BindView(R.id.wall_top_info_container)
     View wallTopInfoContainer;
-
     @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
-
     @Nullable
     @BindView(R.id.login_holder)
     LinearLayout loginHolder;
@@ -123,26 +112,20 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     int pageSize = 20;
     boolean fetchingPageOfPosts = false;
 
-    public WallFragment() {
-        // Required empty public constructor
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_wall, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
-        this.loginStateReceiver = new LoginStateReceiver(this);
+
+        loginStateReceiver = new LoginStateReceiver(this);
 
         wallItems = new ArrayList<>();
         wallItems.addAll(WallBase.getCache().values());
-        WallModel.getInstance();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                StaggeredGridLayoutManager.VERTICAL,false);
         adapter = new WallAdapter(getActivity());
         if (recyclerView != null) {
             recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setNestedScrollingEnabled(false);
             filterPosts();
         }
@@ -182,9 +165,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     /**
-     *     Update Match info - this method is for Phone only
+     * Update Match info - this method is for Phone only
      */
-    @SuppressWarnings("ConstantConditions")
     @Subscribe
     public void updatePhoneNextMatchDisplay(NextMatchUpdateEvent event){
         if (Utility.isPhone(getActivity())) {
@@ -367,6 +349,15 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Override
+    public void onLogin(UserInfo user) {
+        if (Model.getInstance().isRealUser() && loginHolder!=null) {
+            loginHolder.setVisibility(View.GONE);
+        }
+        reset();
+        reloadWallFromModel();
+    }
+
+    @Override
     public void onLoginAnonymously() {
         if (!Model.getInstance().isRealUser() && loginHolder!=null) {
             loginHolder.setVisibility(View.VISIBLE);
@@ -376,22 +367,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Override
-    public void onLogin(UserInfo user) {
-        if (Model.getInstance().isRealUser() && loginHolder!=null) {
-            loginHolder.setVisibility(View.GONE);
-        }
+    public void onLoginError(Error error) {
         reset();
-        reloadWallFromModel();
     }
 
     @Subscribe
     public void handleFriendListChanged(FriendsListChangedEvent event){
         reset();
         reloadWallFromModel();
-    }
-
-    @Override
-    public void onLoginError(Error error) {
-        reset();
     }
 }
