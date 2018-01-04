@@ -70,6 +70,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         TextView edit;
         @BindView(R.id.delete)
         TextView delete;
+
         ViewHolder(View v) {
             super(v);
             view = v;
@@ -136,30 +137,30 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             }
         }
 
-     holder.translate.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             String commentId = comment.getId();
-             TaskCompletionSource<PostComment> source = new TaskCompletionSource<>();
-             source.getTask().addOnCompleteListener(new OnCompleteListener<PostComment>() {
-                 @Override
-                 public void onComplete(@NonNull Task<PostComment> task) {
-                     if(task.isSuccessful()){
-                         PostComment translatedComment = task.getResult();
-                         updateWithTranslatedComment(translatedComment,holder.getAdapterPosition());
-                     }
-                 }
-             });
-             translationView.showTranslationPopup(holder.translate,commentId, source, TranslationView.TranslationType.TRANSLATE_COMMENT);
-         }
-     });
+        holder.translate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String commentId = comment.getId();
+                TaskCompletionSource<PostComment> source = new TaskCompletionSource<>();
+                source.getTask().addOnCompleteListener(new OnCompleteListener<PostComment>() {
+                    @Override
+                    public void onComplete(@NonNull Task<PostComment> task) {
+                        if (task.isSuccessful()) {
+                            PostComment translatedComment = task.getResult();
+                            updateWithTranslatedComment(translatedComment, holder.getAdapterPosition());
+                        }
+                    }
+                });
+                translationView.showTranslationPopup(holder.translate, commentId, source, TranslationView.TranslationType.TRANSLATE_COMMENT);
+            }
+        });
 
         holder.edit.setVisibility(View.GONE);
         holder.delete.setVisibility(View.GONE);
 
         // check if this comment belongs to this user
-        if(Model.getInstance().getUserInfo()!=null){
-            if(Model.getInstance().getUserInfo().getUserId().equals(comment.getPosterId())){
+        if (Model.getInstance().getUserInfo() != null) {
+            if (Model.getInstance().getUserInfo().getUserId().equals(comment.getPosterId())) {
                 holder.edit.setVisibility(View.VISIBLE);
                 holder.delete.setVisibility(View.VISIBLE);
                 holder.edit.setOnClickListener(new View.OnClickListener() {
@@ -178,27 +179,26 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         }
     }
 
-    private void setupWithUserInfo(PostComment comment, ViewHolder holder, UserInfo user){
-        final
-        String userImage = user.getCircularAvatarUrl();
+    private void setupWithUserInfo(PostComment comment, ViewHolder holder, UserInfo user) {
+        final String userImage = user.getCircularAvatarUrl();
         if (userImage != null) {
             ImageLoader.displayImage(userImage, holder.profileImage, R.drawable.blank_profile_rounded);
-        } else if(defaultImageForUserUrl!=null){
+        } else if (defaultImageForUserUrl != null) {
             ImageLoader.displayImage(defaultImageForUserUrl, holder.profileImage, R.drawable.blank_profile_rounded);
         }
         String time = "" + DateUtils.getRelativeTimeSpanString(
-                comment.getTimestamp().longValue()*1000,
+                comment.getTimestamp().longValue() * 1000,
                 Utility.getCurrentTime(),
                 DateUtils.MINUTE_IN_MILLIS
         );
         holder.messageInfo.setText(
-            user.getFirstName() + " " +
-            user.getLastName() + " | "
-            + time
+                user.getFirstName() + " " +
+                        user.getLastName() + " | "
+                        + time
         );
     }
 
-    public void updateWithTranslatedComment(PostComment translated, int position){
+    public void updateWithTranslatedComment(PostComment translated, int position) {
         translatedComments.add(translated);
         notifyItemChanged(position);
     }

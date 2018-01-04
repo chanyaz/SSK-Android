@@ -52,7 +52,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
-    private static final int ADS_INTERVAL = 5;
+    private static final int ADS_INTERVAL = 30;
     private static final int ADS_COUNT = 10;
     private static final int WALL_ADVERT_VIEW_TYPE = 10005;
 
