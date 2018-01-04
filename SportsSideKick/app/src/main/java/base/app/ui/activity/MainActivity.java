@@ -304,14 +304,14 @@ public class MainActivity extends BaseActivity
             ((ClubRadioStationFragment) fragmentOrganizer.getCurrentFragment()).stopPlaying();
         }
 
-        // make tv container visible or hidden
+        // make tv container show or hidden
         if (youtubeList.contains(event.getType()) || youtubePlayer.contains(event.getType())) {
             tvContainer.setVisibility(View.VISIBLE);
         } else {
             tvContainer.setVisibility(View.GONE);
         }
 
-        // make radio container visible or hidden
+        // make radio container show or hidden
         if (radioList.contains(event.getType()) || radioPlayerList.contains(event.getType())) {
             radioContainer.setVisibility(View.VISIBLE);
         } else {
@@ -334,7 +334,7 @@ public class MainActivity extends BaseActivity
             if (fragmentLeftPopupHolder.getVisibility() == View.VISIBLE) {
                 toggleBlur(true, fragmentLeftPopupHolder);
             } else if (popupHolder.getVisibility() == View.VISIBLE) {
-                //fragmentLeftPopupHolder is visible so we need to take photo from that layout
+                //fragmentLeftPopupHolder is show so we need to take photo from that layout
                 toggleBlur(true, popupHolder);
             } else {
                 //main fragment view
@@ -416,14 +416,14 @@ public class MainActivity extends BaseActivity
             }
         }
 
-        // make tv container visible or hidden
+        // make tv container show or hidden
         if (youtubeList.contains(previousFragment) || youtubePlayer.contains(previousFragment)) {
             tvContainer.setVisibility(View.VISIBLE);
         } else {
             tvContainer.setVisibility(View.GONE);
         }
 
-        // make radio container visible or hidden
+        // make radio container show or hidden
         if (radioList.contains(previousFragment) || radioPlayerList.contains(previousFragment)) {
             radioContainer.setVisibility(View.VISIBLE);
         } else {

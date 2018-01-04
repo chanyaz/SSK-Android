@@ -3,7 +3,6 @@ package base.app.util.ui
 import android.content.Context
 import android.os.Handler
 import android.util.AttributeSet
-import android.view.View
 import android.widget.RelativeLayout
 import base.app.R
 import base.app.data.ticker.NextMatchModel
@@ -19,8 +18,6 @@ import java.lang.Long.parseLong
 class NextMatchView(context: Context, attrs: AttributeSet)
     : RelativeLayout(context, attrs) {
 
-    internal var timestamp: Long = 0
-
     init {
         showMatchInfo()
     }
@@ -30,35 +27,29 @@ class NextMatchView(context: Context, attrs: AttributeSet)
 
         val info = NextMatchModel.getInstance().loadTickerInfoFromCache()
         if (info != null && NextMatchModel.getInstance().isNextMatchUpcoming) {
-            updateCountdownTimer()
-            if (logoOfFirstTeam.drawable == null) {
-                logoOfFirstTeam.showImage(info.firstClubUrl)
-                logoOfSecondTeam.showImage(info.secondClubUrl)
-            }
-            timestamp = parseLong(info.matchDate)
+            logoOfFirstTeam.showImage(info.firstClubUrl)
+            logoOfSecondTeam.showImage(info.secondClubUrl)
+
             nameOfFirstTeam.text = info.firstClubName
             nameOfSecondTeam.text = info.secondClubName
+
+            val timestamp = parseLong(info.matchDate)
             date.text = NextMatchCountdown.getTextValue(context, timestamp, true)
 
-            val handler = Handler()
-            val delay = 100 // milliseconds
-
-            handler.postDelayed(object : Runnable {
+            Handler().postDelayed(object : Runnable {
                 override fun run() {
-                    updateCountdownTimer()
-                    handler.postDelayed(this, delay.toLong())
+                    updateCountdownTimer(timestamp)
+                    postDelayed(this, 1000L)
                 }
-            }, delay.toLong())
-            nextMatchContainer.visibility = View.VISIBLE
+            }, 1000L)
+
+            nextMatchContainer.visible()
         } else {
-            nextMatchContainer.visibility = View.GONE
+            nextMatchContainer.hide()
         }
     }
 
-    private fun View.inflate(layoutRes: Int) =
-            View.inflate(context, layoutRes, this@NextMatchView)
-
-    private fun updateCountdownTimer() {
+    private fun updateCountdownTimer(timestamp: Long) {
         countdown.text = NextMatchCountdown.getCountdownValue(timestamp)
     }
 }

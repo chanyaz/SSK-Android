@@ -951,7 +951,7 @@ public class ChatFragment extends BaseFragment {
         if (currentlyActiveChat != null) {
             if (currentlyActiveChat.getChatId().equals(chatInfo.getChatId())) { // Its the same chat - hide or show edit buttons
                 chatMenuDotsContainerOnClick();
-            } else { // its not the same chat, so hide edit buttons if those are visible
+            } else { // its not the same chat, so hide edit buttons if those are show
                 if (chatMenuDotsContainer.getVisibility() == View.VISIBLE) {
                     chatMenuDotsContainerOnClick();
                 }
