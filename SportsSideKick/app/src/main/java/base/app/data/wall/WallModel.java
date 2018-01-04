@@ -48,7 +48,6 @@ import static base.app.data.Model.createRequest;
  */
 public class WallModel extends GSMessageHandlerAbstract {
 
-    private static final String TAG = "WallModel";
     private static WallModel instance;
     private final ObjectMapper mapper;
 
