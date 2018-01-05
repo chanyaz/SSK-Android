@@ -2,6 +2,7 @@ package base.app.ui.fragment.stream;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,13 +16,13 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import base.app.R;
+import base.app.data.club.ClubModel;
 import base.app.ui.adapter.stream.ClubTVAdapter;
-import base.app.util.events.stream.ClubTVEvent;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.data.club.ClubModel;
 import base.app.util.commons.Utility;
+import base.app.util.events.stream.ClubTVEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

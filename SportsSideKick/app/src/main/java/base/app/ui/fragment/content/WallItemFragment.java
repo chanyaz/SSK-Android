@@ -37,7 +37,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -151,20 +150,17 @@ public class WallItemFragment extends BaseFragment {
 
     CommentsAdapter commentsAdapter;
     WallBase item;
-    List<PostComment> comments;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
         ButterKnife.bind(this, view);
 
-        comments = new ArrayList<>();
-
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(
                 getContext(), LinearLayoutManager.VERTICAL, false);
         String imgUri = "drawable://" + getResources().getIdentifier(
                 "blank_profile_rounded", "drawable", getActivity().getPackageName());
-        commentsAdapter = new CommentsAdapter(comments, imgUri);
+        commentsAdapter = new CommentsAdapter(imgUri);
         commentsAdapter.setTranslationView(translationView);
         translationView.setParentView(view);
         commentsList.setLayoutManager(commentLayoutManager);
@@ -222,7 +218,7 @@ public class WallItemFragment extends BaseFragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                    WallModel.getInstance().getCommentsForPost(item, comments.size());
+                    WallModel.getInstance().getCommentsForPost(item, commentsAdapter.getItemCount());
                 }
             });
         }
@@ -333,22 +329,17 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
-        if (event.getCommentList() != null) {
-            for (PostComment comment : event.getCommentList()) {
-                if (!comments.contains(comment)) {
-                    comments.add(comment);
-                }
+        List<PostComment> commentList = event.getCommentList();
+        // Sort by timestamp
+        Collections.sort(commentList, new Comparator<PostComment>() {
+            @Override
+            public int compare(PostComment lhs, PostComment rhs) {
+                return rhs.getTimestamp().compareTo(lhs.getTimestamp());
             }
-
-            // Sort by timestamp
-            Collections.sort(comments, new Comparator<PostComment>() {
-                @Override
-                public int compare(PostComment lhs, PostComment rhs) {
-                    return rhs.getTimestamp().compareTo(lhs.getTimestamp());
-                }
-            });
-            commentsAdapter.notifyDataSetChanged();
-        }
+        });
+        commentsAdapter.clear();
+        commentsAdapter.addAll(commentList);
+        commentsAdapter.notifyDataSetChanged();
 
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
@@ -499,13 +490,13 @@ public class WallItemFragment extends BaseFragment {
             if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
                 PostComment commentToDelete = null;
                 PostComment deletedComment = event.getComment();
-                for (PostComment comment : comments) {
+                for (PostComment comment : commentsAdapter.getComments()) {
                     if (comment.getId().equals(deletedComment.getId())) {
                         commentToDelete = comment;
                     }
                 }
                 if (commentToDelete != null) {
-                    comments.remove(commentToDelete);
+                    commentsAdapter.getComments().remove(commentToDelete);
                     commentsAdapter.notifyDataSetChanged();
                 }
             }

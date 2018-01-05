@@ -1,6 +1,7 @@
 package base.app.ui.fragment.popup;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import base.app.R;
-import base.app.ui.fragment.base.BaseFragment;
 import base.app.data.AlertDialogManager;
+import base.app.ui.fragment.base.BaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

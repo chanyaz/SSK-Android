@@ -68,7 +68,6 @@ import butterknife.Optional;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
 @IgnoreBackHandling
 public class WallFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
 
@@ -149,6 +148,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             progressBar.setVisibility(View.GONE);
         }
         Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
+
         scrollUp();
         return view;
     }
@@ -164,11 +164,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         recyclerView.smoothScrollToPosition(0);
     }
 
-    /**
-     * Update Match info - this method is for Phone only
-     */
     @Subscribe
-    public void updatePhoneNextMatchDisplay(NextMatchUpdateEvent event){
+    public void updateNextMatchInfo(NextMatchUpdateEvent event){
         if (Utility.isPhone(getActivity())) {
             if(NextMatchModel.getInstance().isNextMatchUpcoming()){
                 nextMatchContainer.setVisibility(View.VISIBLE);

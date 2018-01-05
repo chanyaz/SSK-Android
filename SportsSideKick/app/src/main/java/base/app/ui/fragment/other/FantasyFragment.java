@@ -2,15 +2,15 @@ package base.app.ui.fragment.other;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import base.app.util.ui.ImageLoader;
-
 import base.app.R;
 import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -37,10 +37,7 @@ import butterknife.ButterKnife;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
-
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
-    private static final String TAG = "Comments Adapter";
 
     private List<PostComment> comments;
 
@@ -79,19 +76,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     }
 
 
-    public CommentsAdapter(List<PostComment> comments, String defaultImageForUserUrl) {
-        this.comments = comments;
+    public CommentsAdapter(String defaultImageForUserUrl) {
+        comments = new ArrayList<>();
         this.defaultImageForUserUrl = defaultImageForUserUrl;
         translatedComments = new ArrayList<>();
-    }
-
-    public void setTranslationView(TranslationView translationView) {
-        this.translationView = translationView;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return 0;
     }
 
     @Override
@@ -179,6 +167,14 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         }
     }
 
+    public void addAll(List<PostComment> items) {
+        comments.addAll(items);
+    }
+
+    public void clear() {
+        comments.clear();
+    }
+
     private void setupWithUserInfo(PostComment comment, ViewHolder holder, UserInfo user) {
         final String userImage = user.getCircularAvatarUrl();
         if (userImage != null) {
@@ -198,15 +194,17 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         );
     }
 
-    public void updateWithTranslatedComment(PostComment translated, int position) {
-        translatedComments.add(translated);
-        notifyItemChanged(position);
-    }
-
     @Override
     public int getItemCount() {
-        if (comments == null)
-            return 0;
         return comments.size();
+    }
+
+    public void setTranslationView(TranslationView translationView) {
+        this.translationView = translationView;
+    }
+
+    private void updateWithTranslatedComment(PostComment translated, int position) {
+        translatedComments.add(translated);
+        notifyItemChanged(position);
     }
 }

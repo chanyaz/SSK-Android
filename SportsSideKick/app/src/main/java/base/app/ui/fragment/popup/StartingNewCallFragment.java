@@ -1,6 +1,7 @@
 package base.app.ui.fragment.popup;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,17 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.adapter.friends.AddFriendsAdapter;
-import base.app.ui.adapter.friends.SelectableFriendsAdapter;
-import base.app.util.events.call.AddUsersToCallEvent;
-import base.app.util.events.call.StartCallEvent;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.AlertDialogManager;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.user.AddFriendsEvent;
 import base.app.data.user.UserInfo;
+import base.app.ui.adapter.friends.AddFriendsAdapter;
+import base.app.ui.adapter.friends.SelectableFriendsAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
+import base.app.util.events.call.AddUsersToCallEvent;
+import base.app.util.events.call.StartCallEvent;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
 import butterknife.BindView;

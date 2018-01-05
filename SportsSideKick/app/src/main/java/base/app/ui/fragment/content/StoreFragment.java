@@ -4,6 +4,7 @@ package base.app.ui.fragment.content;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +24,12 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.ui.fragment.base.BaseFragment;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallStoreItem;
+import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.Utility;
 
 /**

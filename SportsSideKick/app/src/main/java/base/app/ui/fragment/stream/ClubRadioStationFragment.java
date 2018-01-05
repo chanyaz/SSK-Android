@@ -3,6 +3,7 @@ package base.app.ui.fragment.stream;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +18,12 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
-import base.app.util.commons.Constant;
 import base.app.R;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.club.ClubModel;
 import base.app.data.club.Station;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.util.commons.Constant;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;

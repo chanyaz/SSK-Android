@@ -2,6 +2,7 @@ package base.app.data.wall;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -241,23 +242,26 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     /**
-     * createPost the comment on the given createPost, once the comment is successfully stored in DB
-     * the createPost comments count will be increeased by 1
+     * post the comment on the given post, once the comment is successfully stored in DB
+     * the post comments count will be increased by 1
+     *
      */
-    public Task<PostComment> postComment(final PostComment comment) {
-        final TaskCompletionSource<PostComment> source = new TaskCompletionSource<>();
+    public void postComment(final PostComment comment) {
         comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
-                    Object object = response.getScriptData().getBaseData().get(GSConstants.COMMENT);
-                    PostComment comment = mapper.convertValue(object, new TypeReference<PostComment>() {
+                    Object commentObj = response.getScriptData().getBaseData().get(GSConstants.COMMENT);
+                    PostComment comment = mapper.convertValue(commentObj, new TypeReference<PostComment>() {
                     });
+                    Object postObj = response.getScriptData().getBaseData().get(GSConstants.POST);
+                    WallBase post = WallBase.postFactory(postObj, mapper, true);
+
                     EventBus.getDefault().post(new PostCommentCompleteEvent(comment));
-                    source.setResult(comment);
+                    EventBus.getDefault().post(new PostUpdateEvent(post));
                 } else {
-                    source.setException(new Exception("Posting of comment failed!"));
+                    Log.e("WallModel", "Posting of comment failed!");
                 }
             }
         };
@@ -268,7 +272,6 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .setEventAttribute(GSConstants.COMMENT, data)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
-        return source.getTask();
     }
 
     public void deletePostComment(PostComment comment) {
