@@ -533,7 +533,7 @@ public class NewsItemFragment extends BaseFragment {
 
     @Subscribe
     public void onDeleteComment(CommentDeleteEvent event) {
-        WallBase wallItem = event.getWallItem();
+        WallBase wallItem = event.getPost();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
                 PostComment commentToDelete = null;

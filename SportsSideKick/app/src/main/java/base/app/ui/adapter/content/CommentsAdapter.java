@@ -50,6 +50,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         return comments;
     }
 
+    public void remove(PostComment comment) {
+        comments.remove(comment);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
         @Nullable

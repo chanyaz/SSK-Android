@@ -443,8 +443,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Object deletedCommentObject = data.get(GSConstants.COMMENT);
                         PostComment deletedComment = mapper.convertValue(deletedCommentObject, new TypeReference<PostComment>() {
                         });
-                        CommentDeleteEvent deleteCommentEvent = new CommentDeleteEvent(post);
-                        deleteCommentEvent.setComment(deletedComment);
+                        CommentDeleteEvent deleteCommentEvent = new CommentDeleteEvent(post, deletedComment);
                         EventBus.getDefault().post(deleteCommentEvent);
                         break;
                     case GSConstants.OPERATION_UPDATE_COMMENT:

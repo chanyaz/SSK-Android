@@ -99,7 +99,6 @@ public class WallItemFragment extends BaseFragment {
     ImageView postButton;
     @BindView(R.id.post_comment_progress_bar)
     View postCommentProgressBar;
-    @Nullable
     @BindView(R.id.comments_count_header)
     TextView commentsCount;
     @Nullable
@@ -485,19 +484,15 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onDeleteComment(CommentDeleteEvent event) {
-        WallBase wallItem = event.getWallItem();
-        if (wallItem != null) {
-            if (wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getPostId().equals(mPost.getPostId())) {
-                PostComment commentToDelete = null;
-                PostComment deletedComment = event.getComment();
-                for (PostComment comment : commentsAdapter.getComments()) {
-                    if (comment.getId().equals(deletedComment.getId())) {
-                        commentToDelete = comment;
-                    }
-                }
-                if (commentToDelete != null) {
-                    commentsAdapter.getComments().remove(commentToDelete);
+        if (event.getPost().getWallId().equals(mPost.getWallId())) {
+            PostComment commentToDelete = event.getComment();
+
+            for (PostComment comment : commentsAdapter.getComments()) {
+                if (comment.getId().equals(commentToDelete.getId())) {
+                    commentsAdapter.remove(comment);
                     commentsAdapter.notifyDataSetChanged();
+
+                    commentsCount.setText(String.valueOf(mPost.getCommentsCount()));
                 }
             }
         }
