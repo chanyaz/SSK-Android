@@ -27,7 +27,7 @@ public class FantasyFragment extends BaseFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fantasy, container, false);
         ButterKnife.bind(this,view);
         String url = getResources().getString(R.string.fantasy_url);

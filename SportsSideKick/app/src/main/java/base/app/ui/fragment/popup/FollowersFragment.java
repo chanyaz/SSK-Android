@@ -54,7 +54,7 @@ public class FollowersFragment extends BaseFragment {
     List<UserInfo> folowers;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.popup_your_followers, container, false);
         ButterKnife.bind(this, view);
 

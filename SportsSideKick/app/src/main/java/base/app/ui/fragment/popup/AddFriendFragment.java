@@ -76,7 +76,7 @@ public class AddFriendFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.popup_add_friend, container, false);
         ButterKnife.bind(this, view);
         adapter = new FriendsAdapter(this.getClass());

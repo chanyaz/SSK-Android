@@ -71,7 +71,7 @@ public class StoreFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_with_web_view, container, false);
 
         webContainer = view.findViewById(R.id.navigation_web_container);

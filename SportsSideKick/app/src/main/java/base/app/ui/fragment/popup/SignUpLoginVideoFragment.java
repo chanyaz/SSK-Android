@@ -31,7 +31,7 @@ public class SignUpLoginVideoFragment extends SignUpLoginFragment {
     TextView description;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.popup_video_login_sing_up, container, false);
         ButterKnife.bind(this, view);

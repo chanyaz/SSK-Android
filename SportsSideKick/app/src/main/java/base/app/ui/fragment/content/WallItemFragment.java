@@ -92,7 +92,6 @@ public class WallItemFragment extends BaseFragment {
     VideoView videoView;
     @BindView(R.id.comments_wall)
     RecyclerView commentsList;
-
     @BindView(R.id.post_container)
     RelativeLayout postContainer;
     @BindView(R.id.post_text)
@@ -101,7 +100,6 @@ public class WallItemFragment extends BaseFragment {
     ImageView postButton;
     @BindView(R.id.post_comment_progress_bar)
     View postCommentProgressBar;
-
     @Nullable
     @BindView(R.id.comments_count_header)
     TextView commentsCount;
@@ -117,11 +115,9 @@ public class WallItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.share_count)
     TextView shareCount;
-
     @Nullable
     @BindView(R.id.pin_container)
     LinearLayout pinContainer;
-
     @Nullable
     @BindView(R.id.social_buttons_container)
     LinearLayout buttonsContainer;
@@ -140,19 +136,15 @@ public class WallItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.tutorial_description)
     TextView tutorialDescription;
-
     @Nullable
     @BindView(R.id.share_icon)
     ImageView shareButton;
-
     @Nullable
     @BindView(R.id.delete)
     TextView delete;
-
     @Nullable
     @BindView(R.id.share_buttons_container)
     View shareButtonsContainer;
-
     @Nullable
     @BindView(R.id.swipeRefreshLayout)
     SwipyRefreshLayout swipeRefreshLayout;
@@ -161,13 +153,8 @@ public class WallItemFragment extends BaseFragment {
     WallBase item;
     List<PostComment> comments;
 
-    public WallItemFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
         ButterKnife.bind(this, view);
 

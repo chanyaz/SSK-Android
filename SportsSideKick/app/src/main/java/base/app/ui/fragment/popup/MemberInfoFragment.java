@@ -165,7 +165,7 @@ public class MemberInfoFragment extends BaseFragment {
     UserInfo user;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.popup_member_info, container, false);
         initiatorFragment = getInitiator();
         if (initiatorFragment == null) {
