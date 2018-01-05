@@ -160,8 +160,10 @@ public class WallItemFragment extends BaseFragment {
 
         comments = new ArrayList<>();
 
-        LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", getActivity().getPackageName());
+        LinearLayoutManager commentLayoutManager = new LinearLayoutManager(
+                getContext(), LinearLayoutManager.VERTICAL, false);
+        String imgUri = "drawable://" + getResources().getIdentifier(
+                "blank_profile_rounded", "drawable", getActivity().getPackageName());
         commentsAdapter = new CommentsAdapter(comments, imgUri);
         commentsAdapter.setTranslationView(translationView);
         translationView.setParentView(view);
@@ -201,7 +203,7 @@ public class WallItemFragment extends BaseFragment {
                 delete.setVisibility(View.VISIBLE);
             }
         }
-
+        post.setEnabled(Model.getInstance().isRealUser());
         post.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -216,9 +218,6 @@ public class WallItemFragment extends BaseFragment {
                 postButton.setVisibility(s.length() != 0 ? View.VISIBLE : View.GONE);
             }
         });
-
-        post.setEnabled(Model.getInstance().isRealUser());
-
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
                 @Override
@@ -227,12 +226,10 @@ public class WallItemFragment extends BaseFragment {
                 }
             });
         }
-
         return view;
     }
 
     private void initializeWithData(boolean fetchComments, WallBase item) {
-
         if (fetchComments) {
             WallModel.getInstance().getCommentsForPost(item);
         }
@@ -368,7 +365,6 @@ public class WallItemFragment extends BaseFragment {
         if (shareButtonsContainer != null) {
             shareButtonsContainer.setVisibility(View.VISIBLE);
         }
-
         Animation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
         fadeIn.setDuration(250);
@@ -394,14 +390,10 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.post_comment_button)
     public void postComment() {
-        if (Model.getInstance().isRealUser()) {
-            if (commentForEdit == null) {
-                sendComment();
-            } else {
-                updateComment();
-            }
+        if (commentForEdit == null) {
+            sendComment();
         } else {
-            //TODO notify user
+            updateComment();
         }
     }
 
@@ -441,7 +433,6 @@ public class WallItemFragment extends BaseFragment {
             commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
         }
     }
-
 
     @Subscribe
     public void onPostById(GetPostByIdEvent event) {
@@ -588,36 +579,25 @@ public class WallItemFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook(View view) {
-        if (Model.getInstance().isRealUser()) {
-            SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
-        } else {
-            //TODO Notify user that need to login in order to SHARE
-        }
-
+        SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
     }
 
     @Optional
     @OnClick(R.id.share_twitter)
     public void sharePostTwitter(View view) {
-        if (Model.getInstance().isRealUser()) {
-            PackageManager pkManager = getActivity().getPackageManager();
-            try {
-                PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
-                String getPkgInfo = pkgInfo.toString();
+        PackageManager pkManager = getActivity().getPackageManager();
+        try {
+            PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
+            String getPkgInfo = pkgInfo.toString();
 
-                if (getPkgInfo.contains("com.twitter.android")) {
-                    SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
-                }
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
+            if (getPkgInfo.contains("com.twitter.android")) {
+                SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
             }
-        } else {
-            //TODO Notify user that need to login in order to SHARE
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
         }
-
     }
-
 
     // TODO - Same code in this and News Item fragment - decide how to solve
 
