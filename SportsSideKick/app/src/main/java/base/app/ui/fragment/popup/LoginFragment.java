@@ -2,6 +2,7 @@ package base.app.ui.fragment.popup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,6 +33,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import base.app.BuildConfig;
 import base.app.util.commons.Connection;
 import base.app.R;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
@@ -201,6 +203,14 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
             });
         }
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (BuildConfig.DEBUG) {
+            emailEditText.setText("alexsheikodev@gmail.com");
+        }
     }
 
     @Override
