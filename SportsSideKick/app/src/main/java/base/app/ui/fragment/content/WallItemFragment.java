@@ -149,7 +149,7 @@ public class WallItemFragment extends BaseFragment {
     SwipyRefreshLayout swipeRefreshLayout;
 
     CommentsAdapter commentsAdapter;
-    WallBase item;
+    WallBase mPost;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -173,9 +173,9 @@ public class WallItemFragment extends BaseFragment {
             ButterKnife.findById(view, R.id.close_button).setVisibility(View.GONE);
         }
         String id = getPrimaryArgument();
-        item = WallBase.getCache().get(id);
+        mPost = WallBase.getCache().get(id);
         // Probably came here from Deeplink/Notification - if item is not in cache, fetch it
-        if (item == null) {
+        if (mPost == null) {
             String postId;
             String wallId = null;
             if (id.contains("$$$")) {
@@ -190,12 +190,12 @@ public class WallItemFragment extends BaseFragment {
             }
             return view;
         } else {
-            initializeWithData(true, item);
+            initializeWithData(true, mPost);
         }
 
         String userId = Model.getInstance().getUserInfo().getUserId();
-        if (item.getWallId() != null) {
-            if (item.getWallId().equals(userId)) {
+        if (mPost.getWallId() != null) {
+            if (mPost.getWallId().equals(userId)) {
                 delete.setVisibility(View.VISIBLE);
             }
         }
@@ -218,7 +218,7 @@ public class WallItemFragment extends BaseFragment {
             swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                    WallModel.getInstance().getCommentsForPost(item, commentsAdapter.getItemCount());
+                    WallModel.getInstance().getCommentsForPost(mPost, commentsAdapter.getItemCount());
                 }
             });
         }
@@ -329,16 +329,16 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
-        List<PostComment> commentList = event.getCommentList();
-        // Sort by timestamp
-        Collections.sort(commentList, new Comparator<PostComment>() {
+        List<PostComment> comments = event.getCommentList();
+
+        Collections.sort(comments, new Comparator<PostComment>() {
             @Override
             public int compare(PostComment lhs, PostComment rhs) {
                 return rhs.getTimestamp().compareTo(lhs.getTimestamp());
             }
         });
         commentsAdapter.clear();
-        commentsAdapter.addAll(commentList);
+        commentsAdapter.addAll(comments);
         commentsAdapter.notifyDataSetChanged();
 
         if (swipeRefreshLayout != null) {
@@ -392,8 +392,8 @@ public class WallItemFragment extends BaseFragment {
         PostComment comment = new PostComment();
         comment.setComment(post.getText().toString());
         comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
-        comment.setWallId(item.getWallId());
-        comment.setPostId(item.getPostId());
+        comment.setWallId(mPost.getWallId());
+        comment.setPostId(mPost.getPostId());
         comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
         WallModel.getInstance().postComment(comment);
         post.getText().clear();
@@ -417,26 +417,26 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentPosted(PostCommentCompleteEvent event) {
+        mPost = event.getPost();
+
         postCommentProgressBar.setVisibility(View.GONE);
-        commentsAdapter.notifyDataSetChanged();
-        item.setCommentsCount(commentsAdapter.getComments().size());
         if (commentsCount != null) {
-            commentsCount.setText(String.valueOf(commentsAdapter.getComments().size()));
+            commentsCount.setText(String.valueOf(mPost.getCommentsCount()));
         }
     }
 
     @Subscribe
     public void onPostById(GetPostByIdEvent event) {
-        item = event.getPost();
-        if (item != null) {
-            initializeWithData(true, item);
+        mPost = event.getPost();
+        if (mPost != null) {
+            initializeWithData(true, mPost);
         }
     }
 
     @Subscribe
     public void onCommentUpdated(final CommentUpdatedEvent event) {
         WallBase wallItem = event.getWallItem();
-        if (wallItem != null && wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
+        if (wallItem != null && wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getPostId().equals(mPost.getPostId())) {
             PostComment receivedComment = event.getComment();
             PostComment commentToUpdate = null;
             List<PostComment> commentsInAdapter = commentsAdapter.getComments();
@@ -458,10 +458,10 @@ public class WallItemFragment extends BaseFragment {
     public void onCommentReceived(final CommentUpdateEvent event) {
         WallBase wallItem = event.getWallItem();
         if (wallItem != null) {
-            if (wallItem.getWallId().equals(item.getWallId())
-                    && wallItem.getPostId().equals(item.getPostId())) {
+            if (wallItem.getWallId().equals(mPost.getWallId())
+                    && wallItem.getPostId().equals(mPost.getPostId())) {
 
-                item.setCommentsCount(event.getWallItem().getCommentsCount());
+                mPost.setCommentsCount(event.getWallItem().getCommentsCount());
                 final PostComment comment = event.getComment();
 
                 if (event.getComment() != null) {
@@ -487,7 +487,7 @@ public class WallItemFragment extends BaseFragment {
     public void onDeleteComment(CommentDeleteEvent event) {
         WallBase wallItem = event.getWallItem();
         if (wallItem != null) {
-            if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
+            if (wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getPostId().equals(mPost.getPostId())) {
                 PostComment commentToDelete = null;
                 PostComment deletedComment = event.getComment();
                 for (PostComment comment : commentsAdapter.getComments()) {
@@ -506,7 +506,7 @@ public class WallItemFragment extends BaseFragment {
     @OnClick({R.id.likes_container})
     public void togglePostLike() {
         if (Model.getInstance().isRealUser()) {
-            if (item != null) {
+            if (mPost != null) {
                 if (likesIconLiked != null) {
                     likesIconLiked.setEnabled(false);
                 }
@@ -525,17 +525,17 @@ public class WallItemFragment extends BaseFragment {
                     }
                 }, 2000);
 
-                item.toggleLike();
+                mPost.toggleLike();
                 if (likesIconLiked != null) {
                     likesIconLiked.setEnabled(false);
                 }
                 if (likesIcon != null) {
-                    likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
+                    likesIcon.setVisibility(mPost.isLikedByUser() ? View.GONE : View.VISIBLE);
                 }
                 if (likesIconLiked != null) {
-                    likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+                    likesIconLiked.setVisibility(mPost.isLikedByUser() ? View.VISIBLE : View.GONE);
                 }
-                SoundEffects.getDefault().playSound(item.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
+                SoundEffects.getDefault().playSound(mPost.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }
         }
     }
@@ -559,7 +559,7 @@ public class WallItemFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.delete)
     public void deletePostOnClick(View view) {
-        WallModel.getInstance().deletePost(item).addOnCompleteListener(new OnCompleteListener<Void>() {
+        WallModel.getInstance().deletePost(mPost).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 getActivity().onBackPressed();
@@ -570,7 +570,7 @@ public class WallItemFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook(View view) {
-        SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
+        SharingManager.getInstance().share(getContext(), mPost, false, SharingManager.ShareTarget.facebook, view);
     }
 
     @Optional
@@ -582,7 +582,7 @@ public class WallItemFragment extends BaseFragment {
             String getPkgInfo = pkgInfo.toString();
 
             if (getPkgInfo.contains("com.twitter.android")) {
-                SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
+                SharingManager.getInstance().share(getContext(), mPost, false, SharingManager.ShareTarget.twitter, view);
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -609,7 +609,7 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.translate)
     public void onTranslateClick(View view) {
-        String postId = item.getPostId();
+        String postId = mPost.getPostId();
         TaskCompletionSource<WallBase> source = new TaskCompletionSource<>();
         source.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
             @Override
@@ -620,7 +620,7 @@ public class WallItemFragment extends BaseFragment {
                 }
             }
         });
-        translationView.showTranslationPopup(view, postId, source, TranslationView.TranslationType.TRANSLATE_WALL, item.getType());
+        translationView.showTranslationPopup(view, postId, source, TranslationView.TranslationType.TRANSLATE_WALL, mPost.getType());
     }
 
     private void updateWithTranslatedPost(WallBase translatedPost) {

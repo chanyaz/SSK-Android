@@ -258,7 +258,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     Object postObj = response.getScriptData().getBaseData().get(GSConstants.POST);
                     WallBase post = WallBase.postFactory(postObj, mapper, true);
 
-                    EventBus.getDefault().post(new PostCommentCompleteEvent(comment));
+                    EventBus.getDefault().post(new PostCommentCompleteEvent(comment, post));
                     EventBus.getDefault().post(new PostUpdateEvent(post));
                 } else {
                     Log.e("WallModel", "Posting of comment failed!");
