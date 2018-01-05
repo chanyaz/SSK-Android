@@ -550,7 +550,6 @@
                     android:src="@drawable/logout_button" />
 
                 <View
-
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
                     android:background="@android:color/black" />
