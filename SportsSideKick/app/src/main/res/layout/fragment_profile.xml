@@ -20,8 +20,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="16dp"
             android:text="@string/your_profile"
             android:textColor="?popupsCaptionColor"
@@ -46,47 +46,53 @@
         </RelativeLayout>
     </RelativeLayout>
     <!-- TOP BUTTONS CONTAINER -->
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/top_toolbar"
-        android:background="@color/colorPrimaryAbsoluteDark"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/your_profile_button"
-            android:layout_width="@dimen/space_0"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/margin_1"
-            android:layout_weight="1"
-            android:background="?popupSelectedCaptionBackgroundColorRef"
-            android:gravity="center"
-            android:text="@string/profile"
-            android:textColor="?popupSelectedCaptionTextColorRef" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_button_height"
+            android:background="@color/colorPrimaryAbsoluteDark"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/your_wallet_button"
-            android:layout_width="@dimen/space_0"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/margin_1"
-            android:layout_weight="1"
-            android:background="?popupNonSelectedCaptionBackgroundColorRef"
-            android:gravity="center"
-            android:text="@string/wallet"
-            android:textColor="?popupNonSelectedCaptionTextColorRef" />
+            <TextView
+                android:id="@+id/your_profile_button"
+                android:layout_width="@dimen/space_0"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin_1"
+                android:layout_weight="1"
+                android:background="?popupSelectedCaptionBackgroundColorRef"
+                android:gravity="center"
+                android:text="@string/profile"
+                android:textColor="?popupSelectedCaptionTextColorRef" />
 
-        <TextView
-            android:id="@+id/your_stash_button"
-            android:layout_width="@dimen/space_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?popupNonSelectedCaptionBackgroundColorRef"
-            android:gravity="center"
-            android:text="@string/stash"
-            android:textColor="?popupNonSelectedCaptionTextColorRef" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/your_wallet_button"
+                android:layout_width="@dimen/space_0"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin_1"
+                android:layout_weight="1"
+                android:background="?popupNonSelectedCaptionBackgroundColorRef"
+                android:gravity="center"
+                android:text="@string/wallet"
+                android:textColor="?popupNonSelectedCaptionTextColorRef" />
+
+            <TextView
+                android:id="@+id/your_stash_button"
+                android:layout_width="@dimen/space_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?popupNonSelectedCaptionBackgroundColorRef"
+                android:gravity="center"
+                android:text="@string/stash"
+                android:textColor="?popupNonSelectedCaptionTextColorRef" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -248,7 +254,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
                     android:layout_alignParentTop="true"
-                    android:background="#2f000000"/>
+                    android:background="#2f000000" />
 
                 <RelativeLayout
                     android:id="@+id/profile_data_container"
@@ -354,8 +360,8 @@
                         android:id="@+id/password_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/chosen_language_value"
                         android:layout_alignStart="@+id/password_caption"
+                        android:layout_alignTop="@+id/chosen_language_value"
                         android:layout_below="@+id/password_caption"
                         android:text="@string/password_placeholder"
                         android:textColor="?popupsCaptionColor"
@@ -407,22 +413,23 @@
                         android:src="@drawable/edit_button" />
 
                     <TextView
-                        android:layout_below="@id/chosen_language_value"
                         android:id="@+id/autoTranslateLabel"
-                        android:layout_marginLeft="18dp"
-                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Auto-translate"/>
+                        android:layout_below="@id/chosen_language_value"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Auto-translate"
+                        android:textColor="@color/white" />
 
                     <ToggleButton
                         android:id="@+id/autoTranslateToggle"
                         android:layout_width="56dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_alignBaseline="@+id/autoTranslateLabel"
                         android:layout_alignBottom="@+id/autoTranslateLabel"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_toEndOf="@+id/autoTranslateLabel"
                         android:text="Auto translate" />
 
@@ -550,36 +557,21 @@
                 android:layout_marginBottom="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_10" />
 
-            <RelativeLayout
+            <ImageButton
+                android:id="@+id/logout_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_stats_recycler_view"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="@dimen/margin_8"
+                android:src="@drawable/logout_button" />
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_48"
-                android:layout_below="@+id/profile_stats_recycler_view"
-                android:layout_marginBottom="@dimen/margin_8"
-                android:layout_centerInParent="true">
-
-                <ImageButton
-                    android:id="@+id/logout_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:layout_marginTop="@dimen/margin_8"
-                    android:background="@null"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/logout_button" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_1"
-                    android:background="#2f000000" />
-
-                <View
-
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_1"
-                    android:layout_alignParentBottom="true"
-                    android:background="#2f000000" />
-            </RelativeLayout>
+                android:layout_height="@dimen/height_1"
+                android:background="#2f000000" />
 
             <RelativeLayout
                 android:id="@+id/layout_button_holder"
