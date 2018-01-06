@@ -136,7 +136,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     public static boolean isAutoTranslateEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return prefs.getBoolean(AUTO_TRANSLATE, false) || BuildConfig.DEBUG;
+        return prefs.getBoolean(AUTO_TRANSLATE, false);
     }
 
     @OnClick(R.id.logout_button)

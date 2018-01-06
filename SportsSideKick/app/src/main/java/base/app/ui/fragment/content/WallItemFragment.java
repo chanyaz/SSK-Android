@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,6 +44,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.Model;
+import base.app.data.Translator;
 import base.app.data.sharing.SharingManager;
 import base.app.data.tutorial.WallTip;
 import base.app.data.user.UserInfo;
@@ -63,8 +65,8 @@ import base.app.util.events.comment.CommentUpdateEvent;
 import base.app.util.events.comment.CommentUpdatedEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
-import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.events.post.ItemUpdateEvent;
+import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
@@ -72,7 +74,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static base.app.util.ui.TranslationView.*;
+import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
+import static base.app.util.ui.TranslationView.TranslationType;
 
 /**
  * Created by Djordje Krutil on 30.12.2016..
@@ -222,6 +226,24 @@ public class WallItemFragment extends BaseFragment {
                     WallModel.getInstance().getCommentsForPost(mPost, commentsAdapter.getItemCount());
                 }
             });
+        }
+        if (isAutoTranslateEnabled()) {
+            TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
+            task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
+                @Override
+                public void onComplete(@NonNull Task<WallBase> task) {
+                    if (task.isSuccessful()) {
+                        WallBase translatedItem = task.getResult();
+                        updateWithTranslatedItem(translatedItem);
+                    }
+                }
+            });
+            Translator.getInstance().translatePost(
+                    mPost.getPostId(),
+                    Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                    task,
+                    mPost.getType()
+            );
         }
         return view;
     }
@@ -612,7 +634,7 @@ public class WallItemFragment extends BaseFragment {
             public void onComplete(@NonNull Task<WallBase> task) {
                 if (task.isSuccessful()) {
                     WallBase translatedPost = task.getResult();
-                    updateWithTranslatedPost(translatedPost);
+                    updateWithTranslatedItem(translatedPost);
                 }
             }
         });
@@ -620,7 +642,7 @@ public class WallItemFragment extends BaseFragment {
                 TranslationType.TRANSLATE_WALL, mPost.getType());
     }
 
-    private void updateWithTranslatedPost(WallBase translatedPost) {
+    private void updateWithTranslatedItem(WallBase translatedPost) {
         initializeWithData(false, translatedPost);
     }
 

@@ -277,9 +277,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             } else {
                 index = position;
             }
-            switch (values.get(index).getType()) {
+            WallBase item = values.get(index);
+            switch (item.getType()) {
                 case post:
-                    WallPost post = (WallPost) values.get(index);
+                    WallPost post = (WallPost) item;
                     displayUserInfo(post, holder);
                     boolean hasImage = displayPostImage(post, holder);
                     if (holder.contentTextView != null) {
@@ -297,7 +298,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     }
                     break;
                 case newsShare:
-                    WallNewsShare news = (WallNewsShare) values.get(index);
+                    WallNewsShare news = (WallNewsShare) item;
                     displayUserInfo(news, holder);
                     displayCaption(news.getTitle(), holder);
                     displayPostImage(news, holder);
@@ -305,11 +306,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     if (news.hasSharedComment()) {
                         holder.textComment.setText(news.getSharedComment());
                         holder.commentContainer.setVisibility(View.VISIBLE);
-
                         holder.userImage.setVisibility(View.GONE);
                     } else {
                         holder.commentContainer.setVisibility(View.GONE);
-
                         holder.userImage.setVisibility(View.VISIBLE);
                     }
                     if (holder.playButton != null) {
@@ -317,18 +316,18 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     }
                     break;
                 case rumor:
-                    displayCaption(values.get(index).getTitle(), holder);
-                    displayCommentsAndLikes(values.get(index), holder);
+                    displayCaption(item.getTitle(), holder);
+                    displayCommentsAndLikes(item, holder);
                     break;
                 case wallStoreItem:
-                    WallStoreItem storeItem = (WallStoreItem) values.get(index);
+                    WallStoreItem storeItem = (WallStoreItem) item;
                     displayUserInfo(storeItem, holder);
                     displayCaption(storeItem.getTitle(), holder);
                     displayPostImage(storeItem, holder);
                     displayCommentsAndLikes(storeItem, holder);
                     break;
                 case stats:
-                    WallStats statsItem = (WallStats) values.get(index);
+                    WallStats statsItem = (WallStats) item;
                     displayUserInfo(statsItem, holder);
                     displayCaption(statsItem.getTitle(), holder);
                     displayPostImage(statsItem, holder);
@@ -355,7 +354,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     EventBus.getDefault().post(fe);
                 }
             });
-            if (isAutoTranslateEnabled() && values.get(index).isNotTranslated()) {
+            if (isAutoTranslateEnabled() && item.isNotTranslated()) {
                 TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
                 task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
                     @Override
@@ -370,10 +369,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     }
                 });
                 Translator.getInstance().translatePost(
-                        values.get(index).getPostId(),
+                        item.getPostId(),
                         Prefs.getString(CHOSEN_LANGUAGE, "en"),
                         task,
-                        values.get(index).getType()
+                        item.getType()
                 );
             }
         }
