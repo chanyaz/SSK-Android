@@ -1,6 +1,8 @@
 package base.app.ui.fragment.popup;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +11,11 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -88,9 +92,8 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     @BindView(R.id.next_caps_value)
     TextView nextCapsValue;
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+    @BindView(R.id.autoTranslateToggle)
+    ToggleButton autoTranslateToggle;
 
     UserStatsAdapter adapter;
 
@@ -99,7 +102,10 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
         ButterKnife.bind(this, view);
+        setClickListeners();
+        autoTranslateToggle.setChecked(isGlobalAutoTranslateEnabled());
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         statsRecyclerView.setLayoutManager(layoutManager);
@@ -113,6 +119,24 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         return view;
     }
 
+    private void setClickListeners() {
+        autoTranslateToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton toggle, boolean isEnabled) {
+                setGlobalAutoTranslate(isEnabled);
+            }
+        });
+    }
+
+    private void setGlobalAutoTranslate(boolean isEnabled) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs.edit().putBoolean("autoTranslate", isEnabled).apply();
+    }
+
+    private boolean isGlobalAutoTranslateEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        return prefs.getBoolean("autoTranslate", false);
+    }
 
     @OnClick(R.id.logout_button)
     public void logoutOnClick() {
