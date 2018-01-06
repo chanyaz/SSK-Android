@@ -250,7 +250,6 @@
                     android:layout_alignParentTop="true"
                     android:background="@android:color/black"/>
 
-
                 <RelativeLayout
                     android:id="@+id/profile_data_container"
                     android:layout_width="match_parent"
@@ -303,7 +302,6 @@
                         android:id="@+id/subscribed_since_caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="@dimen/margin_20"
                         android:layout_marginTop="@dimen/margin_10"
@@ -407,6 +405,28 @@
                         android:background="@null"
                         android:scaleType="centerInside"
                         android:src="@drawable/edit_button" />
+
+                    <TextView
+                        android:layout_below="@id/chosen_language_value"
+                        android:id="@+id/autoTranslateLabel"
+                        android:layout_marginLeft="18dp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Auto-translate"/>
+
+                    <ToggleButton
+                        android:id="@+id/autoTranslateToggle"
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint=""
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_alignBaseline="@+id/autoTranslateLabel"
+                        android:layout_alignBottom="@+id/autoTranslateLabel"
+                        android:layout_toEndOf="@+id/autoTranslateLabel"
+                        android:text="Auto translate" />
+
                 </RelativeLayout>
 
             </RelativeLayout>

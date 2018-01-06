@@ -36,6 +36,8 @@ import javax.annotation.Nullable;
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.friendship.FriendsListChangedEvent;
+import base.app.data.news.NewsModel;
+import base.app.data.news.NewsModel.NewsType;
 import base.app.data.ticker.NewsTickerInfo;
 import base.app.data.ticker.NextMatchModel;
 import base.app.data.ticker.NextMatchUpdateEvent;
@@ -208,7 +210,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onItemUpdate(ItemUpdateEvent event) {
         final WallBase post = event.getPost();
         for (WallBase item : wallItems) {
-            if (item.getWallId().equals(post.getWallId()) && item.getPostId().equals(post.getPostId())) {
+            if (item.getWallId().equals(post.getWallId()) &&
+                    item.getPostId().equals(post.getPostId())) {
                 item.setEqualTo(post);
                 refreshAdapter();
                 return;
@@ -306,7 +309,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         loadWallItemsPage(true,source);
     }
 
-    private void loadWallItemsPage(boolean withSpinner,  final TaskCompletionSource<List<WallBase>> completion){
+    private void loadWallItemsPage(final boolean withSpinner, final TaskCompletionSource<List<WallBase>> completion){
         if(withSpinner){
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -322,6 +325,11 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     swipeRefreshLayout.setRefreshing(false);
                     progressBar.setVisibility(View.GONE);
                     offset +=pageSize;
+                }
+                if (withSpinner) {
+                    // Cache news for pinning
+                    NewsModel.getInstance().loadPage(NewsType.OFFICIAL);
+                    NewsModel.getInstance().loadPage(NewsType.UNOFFICIAL);
                 }
             }
         });

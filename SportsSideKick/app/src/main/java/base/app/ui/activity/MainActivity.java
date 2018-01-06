@@ -63,12 +63,12 @@ import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LanguageFragment;
 import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.MemberInfoFragment;
+import base.app.ui.fragment.popup.ProfileFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.ui.fragment.popup.StashFragment;
 import base.app.ui.fragment.popup.WalletFragment;
-import base.app.ui.fragment.popup.YourProfileFragment;
 import base.app.ui.fragment.popup.YourStatementFragment;
 import base.app.ui.fragment.stream.ClubRadioFragment;
 import base.app.ui.fragment.stream.ClubRadioStationFragment;
@@ -236,7 +236,7 @@ public class MainActivity extends BaseActivity
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
 
         popupContainerFragments = new ArrayList<>();
-        popupContainerFragments.add(YourProfileFragment.class);
+        popupContainerFragments.add(ProfileFragment.class);
         popupContainerFragments.add(StashFragment.class);
         popupContainerFragments.add(YourStatementFragment.class);
         popupContainerFragments.add(WalletFragment.class);
@@ -539,7 +539,7 @@ public class MainActivity extends BaseActivity
     public void onProfileClicked(View view) {
         drawerLayout.closeDrawer(GravityCompat.END);
         if (Model.getInstance().isRealUser()) {
-            EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+            EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }
@@ -616,10 +616,6 @@ public class MainActivity extends BaseActivity
             userLevelProgress.setVisibility(View.VISIBLE);
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
             TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
-
-            // Cache news for pinning
-            NewsModel.getInstance().loadPage(NewsType.OFFICIAL);
-            NewsModel.getInstance().loadPage(NewsType.UNOFFICIAL);
         } else {
             resetUserDetails();
         }

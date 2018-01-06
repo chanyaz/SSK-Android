@@ -100,7 +100,7 @@ public class WalletFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.your_profile_button)
     public void profileOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
     }
 
 }

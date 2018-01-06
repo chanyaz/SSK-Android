@@ -26,6 +26,7 @@ import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.other.ChatFragment;
+import base.app.ui.fragment.popup.ProfileFragment;
 import base.app.ui.fragment.stream.ClubRadioFragment;
 import base.app.ui.fragment.stream.ClubRadioStationFragment;
 import base.app.ui.fragment.stream.ClubTVFragment;
@@ -62,7 +63,6 @@ import base.app.ui.fragment.popup.SignUpLoginVideoFragment;
 import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.ui.fragment.popup.StashFragment;
 import base.app.ui.fragment.popup.WalletFragment;
-import base.app.ui.fragment.popup.YourProfileFragment;
 import base.app.ui.fragment.popup.YourStatementFragment;
 import base.app.data.Model;
 import base.app.data.ticker.NewsTickerInfo;
@@ -215,7 +215,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments); //WITH BACK STACK
 
         popupContainerFragments = new ArrayList<>();
-        popupContainerFragments.add(YourProfileFragment.class);
+        popupContainerFragments.add(ProfileFragment.class);
         popupContainerFragments.add(StashFragment.class);
         popupContainerFragments.add(YourStatementFragment.class);
         popupContainerFragments.add(WalletFragment.class);
@@ -430,7 +430,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     @OnClick({R.id.user_image_container, R.id.profile_name,R.id.user_info_container})
     public void onLoginClick() {
         if (Model.getInstance().isRealUser()) {
-            EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+            EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }

@@ -64,7 +64,7 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
     @Optional
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
+        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
         Model.getInstance().getUserInfo().setLanguage(selectedLanguage);
         Prefs.putString(CHOSEN_LANGUAGE, selectedLanguage);
         Intent intent;

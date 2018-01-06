@@ -219,7 +219,7 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.close)
     public void closeOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
+        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -283,7 +283,7 @@ public class EditProfileFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         if(Utility.isPhone(getContext())){
-                            EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
+                            EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
                         } else {
                             getActivity().onBackPressed();
                         }
@@ -303,7 +303,7 @@ public class EditProfileFragment extends BaseFragment {
         //Todo @refactoring  put password and language
         Model.getInstance().setDetails(map);
         if(Utility.isPhone(getContext())){
-            EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class, true));
+            EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
         } else {
             getActivity().onBackPressed();
         }

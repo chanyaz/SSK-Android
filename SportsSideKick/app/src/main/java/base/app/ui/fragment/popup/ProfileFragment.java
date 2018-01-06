@@ -43,8 +43,7 @@ import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
-public class YourProfileFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
+public class ProfileFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
 
     @BindView(R.id.profile_stats_recycler_view)
     RecyclerView statsRecyclerView;
@@ -89,7 +88,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     @BindView(R.id.next_caps_value)
     TextView nextCapsValue;
 
-    public YourProfileFragment() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -99,8 +98,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.popup_your_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, view);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
@@ -110,7 +108,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
         statsRecyclerView.setAdapter(adapter);
 
         setupFragment();
-        this.loginStateReceiver = new LoginStateReceiver(this);
+        loginStateReceiver = new LoginStateReceiver(this);
 
         return view;
     }
@@ -123,7 +121,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                     @Override
                     public void onClick(View v) {
                         getActivity().onBackPressed();
-                        //EventBus.getDefault().createPost(new FragmentEvent(YourProfileFragment.class));
+                        //EventBus.getDefault().createPost(new FragmentEvent(ProfileFragment.class));
                     }
                 }, new View.OnClickListener() { // Confirm
                     @Override
@@ -166,7 +164,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
     @Optional
     @OnClick(R.id.your_profile_button)
     public void profileOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
     }
 
     @Optional
@@ -183,7 +181,7 @@ public class YourProfileFragment extends BaseFragment implements LoginStateRecei
                     @Override
                     public void onClick(View v) {
                         getActivity().onBackPressed();
-                        EventBus.getDefault().post(new FragmentEvent(YourProfileFragment.class));
+                        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
                     }
                 }, new View.OnClickListener() { // Confirm
                     @Override
