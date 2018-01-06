@@ -333,7 +333,7 @@ public class WallItemFragment extends BaseFragment {
         Collections.sort(comments, new Comparator<PostComment>() {
             @Override
             public int compare(PostComment lhs, PostComment rhs) {
-                return rhs.getTimestamp().compareTo(lhs.getTimestamp());
+                return Double.compare(rhs.getTimestamp(), lhs.getTimestamp());
             }
         });
         commentsAdapter.clear();

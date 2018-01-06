@@ -187,7 +187,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             ImageLoader.displayImage(defaultImageForUserUrl, holder.profileImage, R.drawable.blank_profile_rounded);
         }
         String time = "" + DateUtils.getRelativeTimeSpanString(
-                comment.getTimestamp().longValue() * 1000,
+                (long) (comment.getTimestamp() * 1000),
                 Utility.getCurrentTime(),
                 DateUtils.MINUTE_IN_MILLIS
         );

@@ -74,8 +74,10 @@ dependencies {
             }
     // Gamesparks backend
     implementation 'com.gamesparks.sdk:gamesparks-java-sdk:0.4.4-SNAPSHOT'
-    // General data-binding package for Jackson used for parsing of GS response in model
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr1'
+    // JSON parsing
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.0'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
     // Event Bus
     implementation 'org.greenrobot:eventbus:3.0.0'
     // Video chat

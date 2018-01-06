@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.kotlin.KotlinModule;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
@@ -60,7 +61,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     private WallModel() {
-        mapper = new ObjectMapper();
+        mapper = new ObjectMapper().registerModule(new KotlinModule());
         Model.getInstance().setMessageHandlerDelegate(this);
     }
 
