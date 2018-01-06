@@ -17,8 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.pixplicity.easyprefs.library.Prefs;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.DateFormat;
@@ -40,7 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
+import static base.app.util.commons.Utility.AUTO_TRANSLATE;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -105,7 +103,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
         ButterKnife.bind(this, view);
         setClickListeners();
-        autoTranslateToggle.setChecked(isGlobalAutoTranslateEnabled());
+        autoTranslateToggle.setChecked(isAutoTranslateEnabled());
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         statsRecyclerView.setLayoutManager(layoutManager);
@@ -130,32 +128,27 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     private void setGlobalAutoTranslate(boolean isEnabled) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        prefs.edit().putBoolean("autoTranslate", isEnabled).apply();
+        prefs.edit().putBoolean(AUTO_TRANSLATE, isEnabled).apply();
     }
 
-    private boolean isGlobalAutoTranslateEnabled() {
+    private boolean isAutoTranslateEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        return prefs.getBoolean("autoTranslate", false);
+        return prefs.getBoolean(AUTO_TRANSLATE, false);
     }
 
     @OnClick(R.id.logout_button)
     public void logoutOnClick() {
         AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.logout_from_app),
-                new View.OnClickListener() {// Cancel
+                new View.OnClickListener() { // Cancel
                     @Override
                     public void onClick(View v) {
                         getActivity().onBackPressed();
-                        //EventBus.getDefault().createPost(new FragmentEvent(ProfileFragment.class));
                     }
                 }, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
                         Model.getInstance().logout();
-                        if(Utility.isTablet(getActivity())){
-                            getActivity().onBackPressed();
-                        }else {
-                            getActivity().onBackPressed();
-                        }
+                        getActivity().onBackPressed();
                     }
                 });
     }
@@ -221,32 +214,13 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         getActivity().onBackPressed();
     }
 
-    private void setupLanguageSelection(){
-        String selectedLanguage = Prefs.getString(CHOSEN_LANGUAGE,"en");
-        switch (selectedLanguage) {
-            case "en":
-                languageValueTextView.setText(R.string.english);
-                languageIcon.setImageResource(R.drawable.english);
-                break;
-            case "pt":
-                languageValueTextView.setText(R.string.portuguese);
-                languageIcon.setImageResource(R.drawable.portuguese);
-                break;
-            case "zh":
-                languageValueTextView.setText(R.string.chinese);
-                languageIcon.setImageResource(R.drawable.chinese);
-                break;
-        }
-    }
-
     private void setupFragment() {
-        setupLanguageSelection();
         UserInfo user = Model.getInstance().getUserInfo();
         if (user != null && Model.getInstance().isRealUser()) {
             double subscribedAsDouble = user.getSubscribedDate();
-            String daysUsingSSK = String.valueOf((int)((Utility.getCurrentTime()-subscribedAsDouble)/(1000*60*60*24)));
+            String daysUsingSSK = String.valueOf((int) ((Utility.getCurrentTime() - subscribedAsDouble) / (1000 * 60 * 60 * 24)));
             ArrayList<Pair<String, String>> values = new ArrayList<>();
-            values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf((int)user.getProgress())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.caps_level), String.valueOf((int) user.getProgress())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.days_using), daysUsingSSK));
             values.add(new Pair<>(getContext().getResources().getString(R.string.friends), String.valueOf(user.getFriendsCount())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.following), String.valueOf(user.getFollowingCount())));
@@ -267,12 +241,12 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
             profileEmail.setText(user.getEmail());
             profilePhone.setText(user.getPhone());
             StringBuilder locationToDisplay = new StringBuilder("");
-            if(user.getLocation()!=null){
-                if(!TextUtils.isEmpty(user.getLocation().getCity())){
+            if (user.getLocation() != null) {
+                if (!TextUtils.isEmpty(user.getLocation().getCity())) {
                     locationToDisplay.append(user.getLocation().getCity());
                     locationToDisplay.append(", ");
                 }
-                if(!TextUtils.isEmpty(user.getLocation().getCountry())){
+                if (!TextUtils.isEmpty(user.getLocation().getCountry())) {
                     locationToDisplay.append(user.getLocation().getCountry());
                 }
             }
@@ -282,9 +256,9 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
             progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
             progressBarCaps.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
-            profileImageLevel.setText(String.valueOf((int)user.getProgress()));
-            capsValue.setText(String.valueOf((int)user.getProgress()));
-            nextCapsValue.setText(String.valueOf((int)user.getProgress() + 1));
+            profileImageLevel.setText(String.valueOf((int) user.getProgress()));
+            capsValue.setText(String.valueOf((int) user.getProgress()));
+            nextCapsValue.setText(String.valueOf((int) user.getProgress() + 1));
         }
     }
 

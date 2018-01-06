@@ -53,12 +53,6 @@
     <string name="dialog_warning">Warning</string>
     <string name="uploading">Uploading…</string>
 
-
-    <!-- Languages -->
-    <string name="english" translatable="false">English</string>
-    <string name="chinese" translatable="false">Chinese</string>
-    <string name="portuguese" translatable="false">Portuguese</string>
-
     <!-- Dialogs -->
     <string name="dialog_message_not_valid_email">Please enter a valid email address!</string>
     <string name="dialog_internet_connection_failed">You need to be connected to the internet to do this</string>

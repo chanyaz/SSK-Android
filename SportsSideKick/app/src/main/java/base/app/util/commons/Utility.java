@@ -34,6 +34,8 @@ import base.app.data.user.UserInfo;
 public class Utility {
 
     public static final String CHOSEN_LANGUAGE = "CHOSEN_LANGUAGE";
+    public static final String AUTO_TRANSLATE = "AUTO_TRANSLATE";
+
     public static long getCurrentTime(){
         return System.currentTimeMillis();
     }

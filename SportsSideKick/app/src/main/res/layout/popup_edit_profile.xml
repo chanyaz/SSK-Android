@@ -524,7 +524,7 @@
                         android:maxLines="1"
                         android:nextFocusDown="@+id/last_name_edit_text"
                         android:nextFocusForward="@+id/confirm_button"
-                        android:text="@string/english"
+                        android:text="@string/this_language"
                         android:textColor="?editProfileTextColorRef"
                         android:textSize="@dimen/font_size_12"
                         android:padding="@dimen/padding_8" />
