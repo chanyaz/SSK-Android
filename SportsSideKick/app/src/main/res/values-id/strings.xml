@@ -8,8 +8,8 @@
     <string name="login_sign_up">Sign up</string>
     <string name="login_login">Log In</string>
     <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> fans </font> together</string>
-    <string name="login_login_email">Email</string>
-    <string name="login_login_password">Password</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
     <string name="login_login_forgot_text">Forgot?</string>
     <string name="login_login_message_login_failed">Login failed. Try again later!</string>
     <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
@@ -19,13 +19,13 @@
     <string name="forgot_password_error_message">Please enter a valid email address!</string>
     <string name="forgot_password_error">Error</string>
     <string name="sign_up_facebook">Sign up with Facebook</string>
-    <string name="sign_up_or">or</string>
+    <string name="or">or</string>
     <string name="sign_up_first_name">First name</string>
     <string name="sign_up_last_name">Last name</string>
     <string name="sign_up_username">Display name</string>
-    <string name="sign_up_email">Email</string>
+    <string name="email">Email</string>
     <string name="sign_up_phone">Phone</string>
-    <string name="sign_up_password">Password</string>
+    <string name="password">Password</string>
     <string name="sign_up_sign_up">Sign up</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 

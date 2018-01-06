@@ -14,8 +14,8 @@
     <string name="bringing">Bringing </string>
     <string name="fans"> fans </string>
     <string name="together"> together</string>
-    <string name="login_login_email">Email</string>
-    <string name="login_login_password">Password</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
     <string name="login_login_forgot_text">Forgot?</string>
     <string name="login_login_message_login_failed">Login failed. Try again later!</string>
     <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
@@ -27,13 +27,11 @@
     <string name="forgot_password_error">Error</string>
 
     <string name="sign_up_facebook">Sign up with Facebook</string>
-    <string name="sign_up_or">or</string>
+    <string name="or">or</string>
     <string name="sign_up_first_name">First name</string>
     <string name="sign_up_last_name">Last name</string>
     <string name="sign_up_username">Display name</string>
-    <string name="sign_up_email">Email</string>
     <string name="sign_up_phone">Phone</string>
-    <string name="sign_up_password">Password</string>
     <string name="sign_up_sign_up">Sign up</string>
     <string name="sign_up_text">By singing up, you are agree to Fanschart\'\"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
@@ -324,8 +322,6 @@
     <string name="user_name">User Name:</string>
     <string name="last_name_profile">Last Name:</string>
     <string name="first_name_profile">First Name:</string>
-    <string name="email">Email:</string>
-    <string name="password">Password:</string>
     <string name="profile">Profile</string>
     <string name="stash">Stash</string>
     <string name="join_official_account"><![CDATA[Join official Account >]]></string>
@@ -334,7 +330,6 @@
     <string name="join_now_sign_in">Join Now / Sign In</string>
     <string name="join_now">Join Now</string>
     <string name="sign_in">Sign In</string>
-
 
     <string name="join_with_facebook">Join now with<b> Facebook </b></string>
     <string name="forgot_your_password">Forgot your password?</string>
@@ -400,7 +395,6 @@
     <string name="login_slider_chat"><![CDATA[ You can chat with  <font color="#c3ff01"> friends, create groups </font>and even\n connect with your <font color="#c3ff01"> favourite players! </font>]]></string>
     <string name="chat_with_friends"><![CDATA[ Chat with  <font color="#c3ff01"> friends. </font>]]></string>
     <string name="to_access_full_features">To access full features …</string>
-    <string name="or">or</string>
 
     <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
     <string name="chat_with_friends_login"> Chat with friends.</string>

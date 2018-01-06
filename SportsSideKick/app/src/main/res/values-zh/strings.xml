@@ -3,21 +3,21 @@
     <!-- Login scree -->
     <string name="login_sign_up">注册</string>
     <string name="login_login">登录</string>
-    <string name="login_login_email">电子邮件</string>
-    <string name="login_login_password">密码</string>
+    <string name="email">电子邮件</string>
+    <string name="password">密码</string>
     <string name="login_login_forgot_text">忘记密码？</string>
     <string name="login_login_message_login_failed">登录失败！</string>
     <string name="login_login_message_authentication_failed">请重新输入您的密码，然后再试。</string>
     <string name="forgot_password_text">重置您的密码</string>
     <string name="forgot_password_button_text">重置密码</string>
     <string name="sign_up_facebook">用 Facebook 注册</string>
-    <string name="sign_up_or">或者</string>
+    <string name="or">或者</string>
     <string name="sign_up_first_name">名字</string>
     <string name="sign_up_last_name">姓氏</string>
     <string name="sign_up_username">用户名</string>
-    <string name="sign_up_email">电子邮件</string>
+    <string name="email">电子邮件</string>
     <string name="sign_up_phone">电话</string>
-    <string name="sign_up_password">密码</string>
+    <string name="password">密码</string>
     <string name="sign_up_sign_up">注册</string>
 
     <string name="dialog_ok">确定</string>

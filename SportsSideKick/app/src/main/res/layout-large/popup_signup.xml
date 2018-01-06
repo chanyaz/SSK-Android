@@ -149,7 +149,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/sign_up_display_name"
                             android:layout_toStartOf="@+id/horizontal_divider"
-                            android:hint="@string/sign_up_email"
+                            android:hint="@string/email"
                             android:inputType="textEmailAddress"
                             android:textSize="@dimen/font_size_15" />
 
@@ -161,7 +161,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/sign_up_display_name"
                             android:layout_toEndOf="@+id/horizontal_divider"
-                            android:hint="@string/login_login_password"
+                            android:hint="@string/password"
                             android:inputType="textPassword"
                             android:textSize="@dimen/font_size_15" />
 

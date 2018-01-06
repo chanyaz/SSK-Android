@@ -144,7 +144,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:gravity="center"
-                            android:text="@string/sign_up_or"
+                            android:text="@string/or"
                             android:textAllCaps="true"
                             android:textColor="?popupsCaptionColor"/>
 
@@ -193,7 +193,7 @@
                         style="@style/edit_text_login_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/sign_up_email"
+                        android:hint="@string/email"
                         android:inputType="text"
                         android:textSize="@dimen/font_size_12"/>
 
@@ -211,7 +211,7 @@
                         style="@style/edit_text_login_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/login_login_password"
+                        android:hint="@string/password"
                         android:inputType="textPassword"
                         android:textSize="@dimen/font_size_12"/>
                 </LinearLayout>

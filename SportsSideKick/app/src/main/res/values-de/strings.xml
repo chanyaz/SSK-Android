@@ -8,21 +8,21 @@
     <!-- Login scree -->
     <string name="login_sign_up">REGISTRIEREN</string>
     <string name="login_login">ANMELDEN</string>
-    <string name="login_login_email">E-Mail</string>
-    <string name="login_login_password">Kennwort</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Kennwort</string>
     <string name="login_login_forgot_text">Kennwort vergessen?</string>
     <string name="login_login_message_login_failed">Anmeldung gescheitert!</string>
     <string name="login_login_message_authentication_failed">Bitte gib dein Kennwort erneut ein!</string>
     <string name="forgot_password_text">Kennwort zurücksetzen</string>
     <string name="forgot_password_button_text">KENNWORT ZURÜCKSETZEN</string>
     <string name="sign_up_facebook">Mit Facebook registrieren</string>
-    <string name="sign_up_or">ODER</string>
+    <string name="or">ODER</string>
     <string name="sign_up_first_name">Vorname</string>
     <string name="sign_up_last_name">Nachname</string>
     <string name="sign_up_username">Benutzername</string>
-    <string name="sign_up_email">E-mail</string>
+    <string name="email">E-mail</string>
     <string name="sign_up_phone">Telefon</string>
-    <string name="sign_up_password">Kennwort</string>
+    <string name="password">Kennwort</string>
     <string name="sign_up_sign_up">Registrieren</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
