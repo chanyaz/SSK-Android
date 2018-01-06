@@ -27,6 +27,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -53,8 +55,8 @@ import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentUpdateEvent;
-import base.app.util.events.post.PostDeletedEvent;
 import base.app.util.events.post.ItemUpdateEvent;
+import base.app.util.events.post.PostDeletedEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -124,7 +126,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setNestedScrollingEnabled(false);
-            filterPosts();
+            refreshAdapter();
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
@@ -203,29 +205,30 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Subscribe
-    public void onPostUpdate(ItemUpdateEvent event) {
+    public void onItemUpdate(ItemUpdateEvent event) {
         final WallBase post = event.getPost();
         for (WallBase item : wallItems) {
             if (item.getWallId().equals(post.getWallId()) && item.getPostId().equals(post.getPostId())) {
                 item.setEqualTo(post);
-                filterPosts();
+                refreshAdapter();
                 return;
             }
         }
         if (post.getPoster() == null && post instanceof WallPost) {
-            Model.getInstance().getUserInfoById(post.getWallId()).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+            Model.getInstance().getUserInfoById(post.getWallId())
+                    .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                 @Override
                 public void onComplete(@NonNull Task<UserInfo> task) {
                     if (task.isSuccessful()) {
                         post.setPoster(task.getResult());
                         wallItems.add(post);
                     }
-                    filterPosts();
+                    refreshAdapter();
                 }
             });
         } else {
             wallItems.add(post);
-            filterPosts();
+            refreshAdapter();
         }
         progressBar.setVisibility(View.GONE);
     }
@@ -237,7 +240,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 if (event.getWallId().equals(item.getWallId())
                         && event.getPostId().equals(item.getPostId())) {
                     item.setLikeCount(event.getCount());
-                    filterPosts();
+                    refreshAdapter();
                     return;
                 }
             }
@@ -251,17 +254,25 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 if (event.getWallItem().getWallId().equals(item.getWallId())
                         && event.getWallItem().getPostId().equals(item.getPostId())) {
                     item.setCommentsCount(event.getWallItem().getCommentsCount());
-                    filterPosts();
+                    refreshAdapter();
                     return;
                 }
             }
         }
     }
 
-    public void filterPosts() {
-        adapter.replaceAll(wallItems);
+    public void refreshAdapter() {
+        adapter.clear();
+        Collections.sort(wallItems, new Comparator<WallBase>() {
+            @Override
+            public int compare(WallBase t1, WallBase t2) {
+                return t2.getTimestamp().compareTo(t1.getTimestamp());
+            }
+        });
+        adapter.addAll(wallItems);
         adapter.notifyDataSetChanged();
-        scrollUp();
+
+        scrollUp(); // TODO: Do this only on startup, logout or login
     }
 
     @Subscribe
@@ -275,7 +286,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
         if(itemToDelete!=null){
             wallItems.remove(itemToDelete);
-            filterPosts();
+            refreshAdapter();
         }
     }
 
@@ -307,7 +318,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     List<WallBase> items = task.getResult();
                     wallItems.addAll(items);
                     completion.setResult(items);
-                    filterPosts();
+                    refreshAdapter();
                     swipeRefreshLayout.setRefreshing(false);
                     progressBar.setVisibility(View.GONE);
                     offset +=pageSize;

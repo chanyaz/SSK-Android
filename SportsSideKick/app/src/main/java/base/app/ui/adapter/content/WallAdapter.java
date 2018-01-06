@@ -25,8 +25,6 @@ import com.google.android.gms.tasks.Task;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
@@ -390,26 +388,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         values.add(model);
     }
 
+    public void addAll(List<WallBase> items) {
+        values.addAll(items);
+    }
+
     public void remove(WallBase model) {
         values.remove(model);
     }
 
-    public void add(List<WallBase> models) {
-        values.addAll(models);
-    }
-
-    public void remove(List<WallBase> models) {
+    public void removeAll(List<WallBase> models) {
         values.removeAll(models);
-    }
-
-    public void replaceAll(List<WallBase> models) {
-        clear();
-        Collections.sort(models, new Comparator<WallBase>() {
-            @Override
-            public int compare(WallBase t1, WallBase t2) {
-                return t2.getTimestamp().compareTo(t1.getTimestamp());
-            }
-        });
-        values.addAll(models);
     }
 }
