@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +54,7 @@ import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentUpdateEvent;
 import base.app.util.events.post.PostDeletedEvent;
-import base.app.util.events.post.PostUpdateEvent;
+import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -71,7 +70,6 @@ import butterknife.Optional;
 @IgnoreBackHandling
 public class WallFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
 
-    private static final String TAG = "WALL FRAGMENT";
     WallAdapter adapter;
 
     @BindView(R.id.fragment_wall_recycler_view)
@@ -205,34 +203,31 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Subscribe
-    public void onPostUpdate(PostUpdateEvent event) {
+    public void onPostUpdate(ItemUpdateEvent event) {
         final WallBase post = event.getPost();
-        if (post != null) {
-            Log.d(TAG, "GOT POST with id: " + post.getPostId());
-            for (WallBase item : wallItems) {
-                if (item.getWallId().equals(post.getWallId()) && item.getPostId().equals(post.getPostId())) {
-                    item.setEqualTo(post);
-                    filterPosts();
-                    return;
-                }
-            }
-            if (post.getPoster() == null && post instanceof WallPost) {
-                Model.getInstance().getUserInfoById(post.getWallId()).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UserInfo> task) {
-                        if (task.isSuccessful()) {
-                            post.setPoster(task.getResult());
-                            wallItems.add(post);
-                        }
-                        filterPosts();
-                    }
-                });
-            } else {
-                wallItems.add(post);
+        for (WallBase item : wallItems) {
+            if (item.getWallId().equals(post.getWallId()) && item.getPostId().equals(post.getPostId())) {
+                item.setEqualTo(post);
                 filterPosts();
+                return;
             }
-            progressBar.setVisibility(View.GONE);
         }
+        if (post.getPoster() == null && post instanceof WallPost) {
+            Model.getInstance().getUserInfoById(post.getWallId()).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                @Override
+                public void onComplete(@NonNull Task<UserInfo> task) {
+                    if (task.isSuccessful()) {
+                        post.setPoster(task.getResult());
+                        wallItems.add(post);
+                    }
+                    filterPosts();
+                }
+            });
+        } else {
+            wallItems.add(post);
+            filterPosts();
+        }
+        progressBar.setVisibility(View.GONE);
     }
 
     @Subscribe

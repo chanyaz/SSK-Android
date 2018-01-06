@@ -36,7 +36,7 @@ import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.events.post.PostDeletedEvent;
-import base.app.util.events.post.PostUpdateEvent;
+import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
 
 import static base.app.ClubConfig.CLUB_ID;
@@ -157,7 +157,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                     WallBase post = WallBase.postFactory(object, mapper, true);
-                    EventBus.getDefault().post(new PostUpdateEvent(post));
+                    EventBus.getDefault().post(new ItemUpdateEvent(post));
                 }
                 source.setResult(null);
             }
@@ -188,9 +188,9 @@ public class WallModel extends GSMessageHandlerAbstract {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                     WallBase post = WallBase.postFactory(object, mapper, true);
-                    EventBus.getDefault().post(new PostUpdateEvent(post));
+                    EventBus.getDefault().post(new ItemUpdateEvent(post));
                 } else {
-                    EventBus.getDefault().post(new PostUpdateEvent(null));
+                    EventBus.getDefault().post(new ItemUpdateEvent(null));
                 }
                 source.setResult(null);
             }
@@ -260,7 +260,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     WallBase post = WallBase.postFactory(postObj, mapper, true);
 
                     EventBus.getDefault().post(new PostCommentCompleteEvent(comment, post));
-                    EventBus.getDefault().post(new PostUpdateEvent(post));
+                    EventBus.getDefault().post(new ItemUpdateEvent(post));
                 } else {
                     Log.e("WallModel", "Posting of comment failed!");
                 }
@@ -403,7 +403,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 case GSConstants.RUMOUR:
                     WallBase post = WallBase.postFactory(data.get(GSConstants.ITEM), mapper, true);
                     if (post != null) {
-                        EventBus.getDefault().post(new PostUpdateEvent(post));
+                        EventBus.getDefault().post(new ItemUpdateEvent(post));
                     }
                     break;
             }
@@ -438,7 +438,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                         break;
                     case GSConstants.OPERATION_NEW_POST:
                     case GSConstants.OPERATION_UPDATE_POST:
-                        EventBus.getDefault().post(new PostUpdateEvent(post));
+                        EventBus.getDefault().post(new ItemUpdateEvent(post));
                         break;
                     case GSConstants.OPERATION_DELETE_COMMENT:
                         Object deletedCommentObject = data.get(GSConstants.COMMENT);

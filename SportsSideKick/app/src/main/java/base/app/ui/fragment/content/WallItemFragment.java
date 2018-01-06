@@ -64,7 +64,7 @@ import base.app.util.events.comment.CommentUpdatedEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
-import base.app.util.events.post.PostUpdateEvent;
+import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
@@ -536,7 +536,7 @@ public class WallItemFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onPostUpdate(PostUpdateEvent event) {
+    public void onPostUpdate(ItemUpdateEvent event) {
         WallBase post = event.getPost();
         if ((post != null)) {
             if (commentsCount != null) {
