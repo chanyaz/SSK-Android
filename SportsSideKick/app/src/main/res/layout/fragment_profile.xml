@@ -2,6 +2,7 @@
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/margin_base_size_60"
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
@@ -38,7 +39,7 @@
                 android:layout_height="@dimen/standard_button_height"
                 android:layout_alignParentStart="true"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
+                android:background="#2f000000"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
                 android:tint="@color/colorPrimaryVeryLight"
@@ -118,14 +119,6 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryVeryLight" />
     </LinearLayout>
-
-    <!--  TOP SPLITTER-->
-    <View
-        android:id="@+id/top_split_line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/top_buttons_container"
-        android:background="#2f000000" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -288,7 +281,10 @@
                         android:id="@+id/contact_info_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="16dp"
+                        android:ellipsize="end"
                         android:layout_alignParentStart="true"
+                        tools:text="user@test.com"
                         android:layout_below="@+id/contact_info_caption"
                         android:layout_marginStart="@dimen/margin_20"
                         android:textColor="?popupsCaptionColor"
@@ -298,6 +294,7 @@
                         android:id="@+id/contact_info_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        tools:text="+1234567890"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/contact_info_email"
                         android:layout_marginStart="@dimen/margin_20"
@@ -318,6 +315,7 @@
                     <TextView
                         android:id="@+id/subscribed_since_value"
                         android:layout_width="wrap_content"
+                        tools:text="1 Dec, 2020"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/subscribed_since_caption"
                         android:layout_below="@+id/subscribed_since_caption"
@@ -336,6 +334,7 @@
 
                     <TextView
                         android:id="@+id/location_value"
+                        tools:text="SportsSideKick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/location_caption"
