@@ -32,13 +32,10 @@ import static base.app.data.GSConstants.TO_LANGUAGE;
  * www.hypercubesoft.com
  */
 
-public class TranslateManager {
+public class Translator {
 
-
-
-    private static TranslateManager instance;
+    private static Translator instance;
     private static final String DEFAULT_LANGUAGE = "es";
-    private static final String IMS = "IMs", WALL_POST = "WallPost",  NEWS = "News", WALL_COMMENT = "WallComment";
 
     private HashMap<String, String> languagesList;
 
@@ -47,36 +44,29 @@ public class TranslateManager {
 
     private final ObjectMapper mapper; // jackson's object mapper
 
-    private TranslateManager(){
-            mapper = new ObjectMapper();
+    private Translator() {
+        mapper = new ObjectMapper();
     }
 
-    public static TranslateManager getInstance(){
-        if(instance==null){
-            instance = new TranslateManager();
+    public static Translator getInstance() {
+        if (instance == null) {
+            instance = new Translator();
         }
         return instance;
     }
 
-    public void initialize(Context context){
+    public void initialize(Context context) {
         languagesList = XmlLanguageMapParser.parseLanguage(context, R.xml.languages);
         //Set default language
-        if(selectedLanguage==null){
-            if(languagesList.containsKey(DEFAULT_LANGUAGE)){
+        if (selectedLanguage == null) {
+            if (languagesList.containsKey(DEFAULT_LANGUAGE)) {
                 selectedLanguage = languagesList.get(DEFAULT_LANGUAGE);
                 selectedLanguageCode = DEFAULT_LANGUAGE;
             }
         }
     }
 
-    /**
-     * translate - translate news
-     *itemId, itemType, language
-     * @param  itemId - the item to translate
-     * @param  language - ISO-639-1 two letter designation for each language
-     * @param  completion - return translated item or fail
-     */
-    public void translateNews(String itemId, String language, final TaskCompletionSource<WallNews> completion){
+    public void translateNews(String itemId, String language, final TaskCompletionSource<WallNews> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateNewsItem")
                 .setEventAttribute(POST_ID, itemId)
@@ -85,22 +75,23 @@ public class TranslateManager {
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                        if(!response.hasErrors()){
+                        if (!response.hasErrors()) {
                             GSData data = response.getScriptData().getObject("item");
                             WallNews item = null;
-                            if(data!=null){
-                                item = mapper.convertValue(data.getBaseData(), new TypeReference<WallNews>(){});
+                            if (data != null) {
+                                item = mapper.convertValue(data.getBaseData(), new TypeReference<WallNews>() {
+                                });
                             }
-                            if(completion!=null){
-                                if(item!=null) {
+                            if (completion != null) {
+                                if (item != null) {
                                     completion.setResult(item);
                                 } else {
                                     completion.setException(new Exception("Something went wrong with translation of News."));
                                 }
                             }
                         } else {
-                            Log.e("TAG","Failed to translate Wall Post!");
-                            if(completion!=null){
+                            Log.e("TAG", "Failed to translate Wall Post!");
+                            if (completion != null) {
                                 completion.setException(new Exception("Something went wrong with translation of News."));
                             }
                         }
@@ -109,14 +100,7 @@ public class TranslateManager {
                 });
     }
 
-    /**
-     * translate - translate createPost
-     *itemId, itemType, language
-     * @param  itemId - the item to translate
-     * @param  language - ISO-639-1 two letter designation for each language
-     * @param  completion - return translated item or fail
-     */
-    public void translatePost(String itemId, String language, final TaskCompletionSource<WallBase> completion, final WallBase.PostType postType){
+    public void translatePost(String itemId, String language, final TaskCompletionSource<WallBase> completion, final WallBase.PostType postType) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateWallPost")
                 .setEventAttribute(POST_ID, itemId)
@@ -124,38 +108,17 @@ public class TranslateManager {
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                        if(!response.hasErrors()){
-                            Map<String,Object> data = response.getScriptData().getObject("item").getBaseData();
-                            data.put(CLUB_ID_TAG,postType);
-                            WallBase item = null;
-                            if(data!=null){
-                                item = WallBase.postFactory(data,mapper, false);
-                            }
-                            if(completion!=null){
-                                if(item!=null) {
-                                    completion.setResult(item);
-                                } else {
-                                    completion.setException(new Exception("Something went wrong with translation of Wall Post."));
-                                }
-                            }
-                        } else {
-                            Log.e("TAG","Failed to translate Wall Post!");
-                            if(completion!=null){
-                                completion.setException(new Exception("Something went wrong with translation of Wall Post."));
-                            }
+                        if (!response.hasErrors()) {
+                            Map<String, Object> data = response.getScriptData().getObject("item").getBaseData();
+                            data.put(CLUB_ID_TAG, postType);
+                            WallBase item = WallBase.postFactory(data, mapper, false);
+                            completion.setResult(item);
                         }
-
                     }
                 });
     }
 
-    /**
-     * translate - translate IM message
-     * @param  itemId - the item to translate
-     * @param  language - ISO-639-1 two letter designation for each language
-     * @param  completion - return translated item or fail
-     */
-    public void translateMessage(String itemId, String language , final TaskCompletionSource<ImsMessage> completion){
+    public void translateMessage(String itemId, String language, final TaskCompletionSource<ImsMessage> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateComment")
                 .setEventAttribute(ID_SHORT, itemId)
@@ -163,23 +126,23 @@ public class TranslateManager {
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                        if(!response.hasErrors()){
+                        if (!response.hasErrors()) {
                             GSData messageInfo = response.getScriptData().getObject("item");
                             ImsMessage message = null;
-                            if(messageInfo!=null){
+                            if (messageInfo != null) {
                                 message = ImsMessage.getDefaultMessage();
                                 message.updateFrom(messageInfo.getBaseData());
                             }
-                            if(completion!=null){
-                                if(message!=null){
+                            if (completion != null) {
+                                if (message != null) {
                                     completion.setResult(message);
                                 } else {
                                     completion.setException(new Exception("Something went wrong with translation of the message."));
                                 }
                             }
                         } else {
-                            Log.e("TAG","Failed to translate message!");
-                            if(completion!=null){
+                            Log.e("TAG", "Failed to translate message!");
+                            if (completion != null) {
                                 completion.setException(new Exception("Something went wrong with translation of the message."));
                             }
                         }
@@ -191,11 +154,12 @@ public class TranslateManager {
     /**
      * translate - translate createPost comment
      * itemId, itemType, language
-     * @param  itemId - the item to translate
-     * @param  language - ISO-639-1 two letter designation for each language
-     * @param  completion - return translated item or fail
+     *
+     * @param itemId     - the item to translate
+     * @param language   - ISO-639-1 two letter designation for each language
+     * @param completion - return translated item or fail
      */
-    public void translatePostComment(String itemId, String language , final TaskCompletionSource<PostComment> completion){
+    public void translatePostComment(String itemId, String language, final TaskCompletionSource<PostComment> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateComment")
                 .setEventAttribute(ID_SHORT, itemId)
@@ -207,7 +171,8 @@ public class TranslateManager {
                             GSData postCommentData = response.getScriptData().getObject("item");
                             PostComment postComment = null;
                             if (postCommentData != null) {
-                                postComment = mapper.convertValue(postCommentData.getBaseData(), new TypeReference<PostComment>(){});
+                                postComment = mapper.convertValue(postCommentData.getBaseData(), new TypeReference<PostComment>() {
+                                });
                             }
                             if (completion != null) {
                                 if (postComment != null) {

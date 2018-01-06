@@ -22,7 +22,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
+import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
@@ -39,6 +41,7 @@ import butterknife.OnClick;
 import butterknife.Optional;
 
 import static base.app.util.commons.Utility.AUTO_TRANSLATE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -131,9 +134,9 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         prefs.edit().putBoolean(AUTO_TRANSLATE, isEnabled).apply();
     }
 
-    private boolean isAutoTranslateEnabled() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        return prefs.getBoolean(AUTO_TRANSLATE, false);
+    public static boolean isAutoTranslateEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return prefs.getBoolean(AUTO_TRANSLATE, false) || BuildConfig.DEBUG;
     }
 
     @OnClick(R.id.logout_button)
@@ -251,7 +254,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                 }
             }
             location.setText(locationToDisplay.toString());
-            DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+            DateFormat df = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
             subscribedSince.setText(df.format(subscribedAsDouble));
 
             progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
@@ -281,7 +284,6 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     @Override
     public void onLogin(UserInfo user) {
-
     }
 
     @Override

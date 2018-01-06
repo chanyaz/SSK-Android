@@ -8,7 +8,7 @@ import com.keiferstone.nonet.NoNet;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import base.app.data.FileUploader;
-import base.app.data.TranslateManager;
+import base.app.data.Translator;
 import base.app.data.purchases.PurchaseModel;
 import base.app.data.ticker.NextMatchModel;
 import base.app.util.commons.Connection;
@@ -62,6 +62,6 @@ public class Application extends android.app.Application{
         FileUploader.getInstance().initialize(getApplicationContext());
         SoundEffects.getDefault().initialize(this);
         PurchaseModel.getInstance().initialize(this);
-        TranslateManager.getInstance().initialize(this);
+        Translator.getInstance().initialize(this);
     }
 }

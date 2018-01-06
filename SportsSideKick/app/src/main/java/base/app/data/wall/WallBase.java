@@ -86,6 +86,8 @@ public abstract class WallBase implements Shareable, Serializable {
     private String referencedItemId;
     @JsonProperty("sharedComment")
     private String sharedComment;
+    @JsonProperty("translatedTo")
+    private String translatedTo;
 
     private UserInfo poster;
 
@@ -317,6 +319,10 @@ public abstract class WallBase implements Shareable, Serializable {
     @JsonIgnore
     public void setType(PostType type) {
         this.itemType = type;
+    }
+
+    public boolean isNotTranslated() {
+        return translatedTo == null;
     }
 
     public void toggleLike() {

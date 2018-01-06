@@ -21,6 +21,8 @@ import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdsManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,6 +31,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.Model;
+import base.app.data.Translator;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallBase.PostType;
@@ -42,6 +45,9 @@ import base.app.ui.fragment.content.WallItemFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Djordje Krutil on 06/01/2017.
@@ -349,6 +355,27 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     EventBus.getDefault().post(fe);
                 }
             });
+            if (isAutoTranslateEnabled() && values.get(index).isNotTranslated()) {
+                TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
+                task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
+                    @Override
+                    public void onComplete(@NonNull Task<WallBase> task) {
+                        int position = holder.getAdapterPosition();
+                        if (task.isSuccessful()) {
+                            WallBase translatedItem = task.getResult();
+                            remove(position);
+                            add(position, translatedItem);
+                            notifyItemChanged(position);
+                        }
+                    }
+                });
+                Translator.getInstance().translatePost(
+                        values.get(index).getPostId(),
+                        Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                        task,
+                        values.get(index).getType()
+                );
+            }
         }
     }
 
@@ -388,12 +415,20 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         values.add(model);
     }
 
+    public void add(int position, WallBase model) {
+        values.add(position, model);
+    }
+
     public void addAll(List<WallBase> items) {
         values.addAll(items);
     }
 
     public void remove(WallBase model) {
         values.remove(model);
+    }
+
+    public void remove(int position) {
+        values.remove(position);
     }
 
     public void removeAll(List<WallBase> models) {

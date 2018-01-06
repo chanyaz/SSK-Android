@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import base.app.R;
-import base.app.data.TranslateManager;
+import base.app.data.Translator;
 import base.app.data.im.ImsMessage;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
@@ -33,7 +33,6 @@ import base.app.data.wall.WallNews;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
 public class TranslationView extends RelativeLayout {
 
     private static final String TAG = "Translation View";
@@ -94,23 +93,23 @@ public class TranslationView extends RelativeLayout {
         progressBar = findViewById(R.id.progress);
         container.setOnClickListener(onCloseClickListener);
 
-        HashMap<String,String> mapOfLanguages = TranslateManager.getInstance().getLanguageList();
+        HashMap<String, String> mapOfLanguages = Translator.getInstance().getLanguageList();
         languagePicker.setMinValue(0);
-        if(mapOfLanguages!=null && mapOfLanguages.size() > 0){
+        if (mapOfLanguages != null && mapOfLanguages.size() > 0) {
             languagesBiMap = HashBiMap.create(mapOfLanguages);
             Collection<String> languages = languagesBiMap.values();
             languagesList = new ArrayList<>(languages);
             Collections.sort(languagesList);
-            if(languagesList.size()>1){
+            if (languagesList.size() > 1) {
                 languagePicker.setMaxValue(languagesList.size() - 1);
                 languagePicker.setDisplayedValues(languagesList.toArray(new String[languagesList.size()]));
             }
         }
-        languagePicker.setValue(Prefs.getInt(SELECTED_LANGUAGE,0));
+        languagePicker.setValue(Prefs.getInt(SELECTED_LANGUAGE, 0));
     }
 
     public void showTranslationPopup(View clickedView, String id, TaskCompletionSource completion, TranslationType type) {
-        showTranslationPopup(clickedView,id,completion,type,null);
+        showTranslationPopup(clickedView, id, completion, type, null);
     }
 
     public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, WallBase.PostType postType) {
@@ -130,37 +129,37 @@ public class TranslationView extends RelativeLayout {
         this.setVisibility(VISIBLE);
     }
 
-    private void positionPopup(int[] referenceLocation, int referenceHeight, int referenceWidth){
+    private void positionPopup(int[] referenceLocation, int referenceHeight, int referenceWidth) {
         popupLayout.measure(
                 MeasureSpec.makeMeasureSpec(popupLayout.getWidth(), MeasureSpec.EXACTLY),
                 MeasureSpec.makeMeasureSpec(popupLayout.getHeight(), MeasureSpec.EXACTLY));
 
-        popupLayout.measure(popupLayout.getWidth(),popupLayout.getHeight());
+        popupLayout.measure(popupLayout.getWidth(), popupLayout.getHeight());
 
         int parentHeight = parentView.getHeight();
         int parentWidth = parentView.getWidth();
         int popupHeight = popupLayout.getMeasuredHeight();
         int popupWidth = popupLayout.getMeasuredWidth();
 
-        Log.d(TAG,"Parent h:" + parentHeight + " w: " + parentWidth);
-        Log.d(TAG,"Popup h:" + popupHeight + " w: " + popupWidth);
+        Log.d(TAG, "Parent h:" + parentHeight + " w: " + parentWidth);
+        Log.d(TAG, "Popup h:" + popupHeight + " w: " + popupWidth);
 
         int[] parentLocation = new int[2];
         container.getLocationOnScreen(parentLocation);
 
-        if(referenceLocation!=null){
+        if (referenceLocation != null) {
             int startMargin = referenceLocation[0] + referenceWidth - parentLocation[0];
-            int topMargin = referenceLocation[1] + (referenceHeight / 2 ) - parentLocation[1];
+            int topMargin = referenceLocation[1] + (referenceHeight / 2) - parentLocation[1];
             // offset to align the popup to view
-            topMargin = topMargin - (popupHeight/2);
+            topMargin = topMargin - (popupHeight / 2);
 
             int maxStartMargin = parentWidth - popupWidth;
             int maxTopMargin = parentHeight - popupHeight;
 
-            if(parentWidth > 0 &&  startMargin > maxStartMargin ){
+            if (parentWidth > 0 && startMargin > maxStartMargin) {
                 startMargin = maxStartMargin;
             }
-            if(parentHeight > 0 && topMargin > maxTopMargin){
+            if (parentHeight > 0 && topMargin > maxTopMargin) {
                 topMargin = maxTopMargin;
             }
 
@@ -186,7 +185,7 @@ public class TranslationView extends RelativeLayout {
 
             }
         });
-        TranslateManager.getInstance().translateMessage(itemId, getSelectedLanguageCode(), source);
+        Translator.getInstance().translateMessage(itemId, getSelectedLanguageCode(), source);
     }
 
     private void translateWallItem() {
@@ -204,7 +203,7 @@ public class TranslationView extends RelativeLayout {
                 progressBar.setVisibility(GONE);
             }
         });
-        TranslateManager.getInstance().translatePost(itemId, getSelectedLanguageCode(), source, postType);
+        Translator.getInstance().translatePost(itemId, getSelectedLanguageCode(), source, postType);
     }
 
     private void translatePostComment() {
@@ -222,7 +221,7 @@ public class TranslationView extends RelativeLayout {
                 progressBar.setVisibility(GONE);
             }
         });
-        TranslateManager.getInstance().translatePostComment(itemId, getSelectedLanguageCode(), source);
+        Translator.getInstance().translatePostComment(itemId, getSelectedLanguageCode(), source);
     }
 
     private void translateWallNews() {
@@ -240,13 +239,13 @@ public class TranslationView extends RelativeLayout {
                 progressBar.setVisibility(GONE);
             }
         });
-        TranslateManager.getInstance().translateNews(itemId, getSelectedLanguageCode(), source);
+        Translator.getInstance().translateNews(itemId, getSelectedLanguageCode(), source);
     }
 
     OnClickListener onTranslateClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            Prefs.putInt(SELECTED_LANGUAGE,languagePicker.getValue());
+            Prefs.putInt(SELECTED_LANGUAGE, languagePicker.getValue());
             popupLayout.setVisibility(GONE);
             progressBar.setVisibility(VISIBLE);
             switch (type) {
@@ -267,8 +266,8 @@ public class TranslationView extends RelativeLayout {
     };
 
     private String getSelectedLanguageCode() {
-        if(languagesBiMap!=null && languagesList!=null){
-            if(languagesBiMap.size()>0 && languagesList.size() >0){
+        if (languagesBiMap != null && languagesList != null) {
+            if (languagesBiMap.size() > 0 && languagesList.size() > 0) {
                 int index = languagePicker.getValue();
                 String selectedLanguageName = languagesList.get(index);
                 return languagesBiMap.inverse().get(selectedLanguageName);
@@ -287,11 +286,11 @@ public class TranslationView extends RelativeLayout {
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-        if(popupLayout!=null){
+        if (popupLayout != null) {
             removeView(popupLayout);
         }
-        if(visibility==VISIBLE){
-            positionPopup(referenceLocation,referenceHeight,referenceWidth);
+        if (visibility == VISIBLE) {
+            positionPopup(referenceLocation, referenceHeight, referenceWidth);
         }
     }
 }

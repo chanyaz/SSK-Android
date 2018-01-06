@@ -72,6 +72,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
+import static base.app.util.ui.TranslationView.*;
+
 /**
  * Created by Djordje Krutil on 30.12.2016..
  * Copyright by Hypercube d.o.o.
@@ -604,7 +606,6 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.translate)
     public void onTranslateClick(View view) {
-        String postId = mPost.getPostId();
         TaskCompletionSource<WallBase> source = new TaskCompletionSource<>();
         source.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
             @Override
@@ -615,7 +616,8 @@ public class WallItemFragment extends BaseFragment {
                 }
             }
         });
-        translationView.showTranslationPopup(view, postId, source, TranslationView.TranslationType.TRANSLATE_WALL, mPost.getType());
+        translationView.showTranslationPopup(view, mPost.getPostId(), source,
+                TranslationType.TRANSLATE_WALL, mPost.getType());
     }
 
     private void updateWithTranslatedPost(WallBase translatedPost) {
