@@ -5,9 +5,23 @@
     <string name="terms_and_privacy">Terms &amp; Privacy</string>
 
     <!--Placeholders, not translatable-->
-    <string name="demo_content_lorem_long" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="demo_content_number_1" translatable="false">204</string>
-    <string name="demo_content_number_2" translatable="false">6901</string>
+    <string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="demo_number_1" translatable="false">204</string>
+    <string name="demo_number_2" translatable="false">6901</string>
+    <string-array name="languages" translatable="false">
+        <item>বাংলা</item>
+        <item>汉语</item>
+        <item>English</item>
+        <item>Français</item>
+        <item>Deutsch</item>
+        <item>Bahasa Indonesia</item>
+        <item>Italiano</item>
+        <item>Polski</item>
+        <item>Português</item>
+        <item>Русский</item>
+        <item>Español</item>
+        <item>العَرَبِيَّة</item>
+    </string-array>
 
     <!-- Sign in/ Sign up screen -->
     <string name="login_sign_up">Sign up</string>
@@ -92,7 +106,7 @@
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
 
     <string name="share_using">Share with:</string>
-    <string name="enter_comment_hint">Enter your comment here...</string>
+    <string name="enter_comment_hint">Enter your comment here…</string>
 
     <string name="this_chat_is_public">This chat is public</string>
     <string name="this_chat_is_private">This chat is private</string>
@@ -160,9 +174,6 @@
         <item quantity="one">%d Day</item>
         <item quantity="other">%d Days</item>
     </plurals>
-
-    <!-- tutorial values -->
-
 
     <string name="chat_join_group">Join Group</string>
     <string name="chat_already_in_group">You are already in thi chat.</string>
@@ -285,7 +296,6 @@
     <integer name="progress_bar_60">65</integer>
     <integer name="progress_bar_mid">50</integer>
 
-    <!--Phone-->
     <string-array name="menu_navigation">
         <item>@string/wall_caption</item>
         <item>@string/chat_caption</item>
@@ -345,21 +355,6 @@
     <string name="friend_in_video_chat">1 Friend in Video Chat</string>
     <string name="search_your_friends">Search your friends</string>
     <string name="friends_list">Friends List</string>
-
-    <string-array name="language_names">
-        <item>Bengali</item>
-        <item>Chinese</item>
-        <item>English</item>
-        <item>French</item>
-        <item>German</item>
-        <item>Indonesian</item>
-        <item>Italian</item>
-        <item>Polish</item>
-        <item>Portuguese</item>
-        <item>Russian</item>
-        <item>Spanish</item>
-        <item>Arabic</item>
-    </string-array>
 
     <string name="mins_ago">mins ago</string>
     <string name="friend_request_pending">Friend Request Pending</string>

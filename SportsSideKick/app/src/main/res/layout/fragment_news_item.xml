@@ -270,7 +270,7 @@
                     android:animateLayoutChanges="true"
                     android:lineSpacingMultiplier="0.9"
                     android:maxLines="3"
-                    android:text="@string/demo_content_lorem_long"
+                    android:text="@string/demo_lorem_ipsum"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 

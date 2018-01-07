@@ -52,7 +52,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     public LanguageAdapter(Context context, LanguageOnClick languageOnClick) {
         mContext = context;
         if (context != null) {
-            values = context.getResources().getStringArray(R.array.language_names);
+            values = context.getResources().getStringArray(R.array.languages);
             currentLanguage = context.getString(R.string.this_language);
         }
         this.languageOnClick = languageOnClick;

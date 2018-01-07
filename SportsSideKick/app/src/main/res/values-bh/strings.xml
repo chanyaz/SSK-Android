@@ -277,9 +277,9 @@
     <string name="demo_content" translatable="false">Demo content.</string>
     <string name="demo_content_lorem_short" translatable="false">Ut enim ad minima veniam.</string>
     <string name="demo_content_lorem_medium" translatable="false">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</string>
-    <string name="demo_content_lorem_long" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="demo_content_number_1" translatable="false">204</string>
-    <string name="demo_content_number_2" translatable="false">6901</string>
+    <string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="demo_number_1" translatable="false">204</string>
+    <string name="demo_number_2" translatable="false">6901</string>
     <string name="caps">CAPS</string>
     <string name="join_official_chat"><![CDATA[Join Official Chat >]]></string>
     <string name="join_group">Join Group</string>

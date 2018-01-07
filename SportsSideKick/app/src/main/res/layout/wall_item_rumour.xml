@@ -36,7 +36,7 @@
         android:maxLines="3"
         android:padding="@dimen/padding_12"
         android:scrollHorizontally="true"
-        android:text="@string/demo_content_lorem_long"
+        android:text="@string/demo_lorem_ipsum"
         android:textColor="?black"
         android:textSize="@dimen/font_size_16" />
 
@@ -81,7 +81,7 @@
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/demo_content_number_1"
+                android:text="@string/demo_number_1"
                 android:textSize="@dimen/font_size_10" />
 
         </LinearLayout>
@@ -121,7 +121,7 @@
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/demo_content_number_2"
+                android:text="@string/demo_number_2"
                 android:textSize="@dimen/font_size_10" />
         </LinearLayout>
     </RelativeLayout>
@@ -171,7 +171,7 @@
             android:minLines="1"
             android:padding="@dimen/padding_8"
             android:scrollHorizontally="true"
-            android:text="@string/demo_content_lorem_long"
+            android:text="@string/demo_lorem_ipsum"
             android:textColor="?black"
             android:textSize="@dimen/font_size_14" />
     </RelativeLayout>
