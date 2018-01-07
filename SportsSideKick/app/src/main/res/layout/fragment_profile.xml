@@ -364,9 +364,10 @@
                         android:layout_alignStart="@+id/password_caption"
                         android:layout_alignTop="@+id/chosen_language_value"
                         android:layout_below="@+id/password_caption"
-                        android:text="@string/password_placeholder"
+                        android:text="***********"
                         android:textColor="?popupsCaptionColor"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/chosen_language_caption"

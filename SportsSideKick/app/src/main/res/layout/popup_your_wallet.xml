@@ -316,7 +316,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:maxLines="1"
-                    android:text="@string/watch_promo"
+                    android:text="Watch promo"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_11" />
 

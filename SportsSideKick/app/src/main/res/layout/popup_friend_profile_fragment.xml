@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/margin_base_size_60"
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
@@ -111,7 +112,7 @@
                 android:layout_below="@id/profile_image_container"
                 android:layout_marginTop="@dimen/margin_negative_19"
                 android:gravity="center"
-                android:text="@string/max_level_value"
+                tools:text="99"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -324,7 +325,7 @@
                     android:layout_height="@dimen/popup_your_friends_next_level_cointainer_text_size"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    android:text="@string/max_level_value"
+                    tools:text="99"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
             </RelativeLayout>

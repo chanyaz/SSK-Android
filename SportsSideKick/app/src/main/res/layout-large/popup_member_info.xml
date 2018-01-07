@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/popup_friend_request_width"
     android:layout_height="@dimen/height_350"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?popupBottomBackgroundDarkShape"
     android:clickable="true"
     android:orientation="vertical">
@@ -106,7 +107,7 @@
             android:layout_below="@id/profile_image_container"
             android:layout_marginTop="@dimen/margin_negative_17"
             android:gravity="center"
-            android:text="@string/max_level_value"
+            tools:text="99"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_10"
             android:textStyle="normal" />

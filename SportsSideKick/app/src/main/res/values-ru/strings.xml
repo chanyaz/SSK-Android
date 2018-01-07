@@ -32,8 +32,8 @@
     <string name="dialog_internet_connection_failed">No interner connection. Try again later.</string>
     <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
 
-    <string name="wall_fragment_caption">The Wall</string>
-    <string name="video_chat_fragment_caption">Video Chat</string>
+    <string name="wall_fragment_caption">Стена</string>
+    <string name="video_chat_fragment_caption">Видеочат</string>
     <string name="news_fragment_caption">News</string>
     <string name="rumors_fragment_caption">Rumors</string>
     <string name="shop_fragment_caption">Shop</string>

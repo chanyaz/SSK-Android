@@ -23,7 +23,7 @@
         android:lines="1"
         android:layout_below="@+id/background"
         android:layout_height="wrap_content"
-        android:text="@string/soccer_boot"
+        android:text="SOCCER BOOT"
         android:textColor="?colorAccent"/>
     <TextView
         android:id="@+id/profile_frame"

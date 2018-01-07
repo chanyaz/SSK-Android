@@ -20,9 +20,7 @@
     <string name="sign_up_first_name">Vorname</string>
     <string name="sign_up_last_name">Nachname</string>
     <string name="sign_up_username">Benutzername</string>
-    <string name="email">E-mail</string>
     <string name="sign_up_phone">Telefon</string>
-    <string name="password">Kennwort</string>
     <string name="sign_up_sign_up">Registrieren</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 

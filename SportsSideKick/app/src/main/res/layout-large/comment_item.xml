@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -26,7 +27,7 @@
             android:layout_marginTop="@dimen/margin_5"
             android:background="?chatBubbleIcon"
             android:minLines="1"
-            android:text="@string/comment_text"
+            tools:text="Demo comment text"
             android:textColor="@color/white"/>
 
         <TextView

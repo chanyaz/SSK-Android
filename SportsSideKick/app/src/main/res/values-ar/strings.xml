@@ -123,7 +123,6 @@
     <string name="log_in_with_facebook">تسجيل الدخول باستخدام فيسبوك</string>
     <string name="login_login">تسجيل الدخول</string>
     <string name="login_login_forgot_text">نسيت كلمة السر؟</string>
-    <string name="email">البريد الالكتروني</string>
     <string name="login_login_message_authentication_failed">الرجاء إعادة إدخال كلمة السر والمحاولة مجدداً</string>
     <string name="login_login_message_login_failed">فشل تسجيل الدخول!</string>
     <string name="login_or_sign_up">انضم الآن / تسجيل الدخول</string>
@@ -218,12 +217,9 @@
     <string name="shop_fragment_caption">تسوق</string>
     <string name="sign_in">تسجيل الدخول</string>
     <string name="sign_in_with_facebook">التسجيل باستخدام فيسبوك</string>
-    <string name="email">البريد الالكتروني</string>
     <string name="sign_up_facebook">التسجيل باستخدام فيسبوك</string>
     <string name="sign_up_first_name">الاسم الأول</string>
     <string name="sign_up_last_name">الاسم الأخير</string>
-    <string name="or">أو</string>
-    <string name="password">كلمة السر</string>
     <string name="sign_up_phone">هاتف</string>
     <string name="sign_up_sign_up">التسجيل</string>
     <string name="sign_up_text">بقيامك بالتسجيل، توافق على ما تطرحه  Fanscart\'\"s <font color="@android:color/white">من شروط للاستخدام</font> و <font color="@android:color/white">سياسة الخصوصية.</font></string>

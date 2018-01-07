@@ -229,7 +229,6 @@
                                 android:id="@+id/pin_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/pin_count_placeholder"
                                 android:textColor="@color/white"
                                 android:visibility="gone"
                                 tools:text="0" />
@@ -255,7 +254,7 @@
                     android:layout_marginStart="@dimen/margin_15"
                     android:ellipsize="end"
                     android:lineSpacingMultiplier="0.7"
-                    android:text="@string/demo_content_lorem_medium"
+                    tools:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
                     android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="24sp" />
 
