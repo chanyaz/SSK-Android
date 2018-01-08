@@ -109,7 +109,9 @@ public class Translator {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
                         if (!response.hasErrors()) {
-                            Map<String, Object> data = response.getScriptData().getObject("item").getBaseData();
+                            GSData itemObj = response.getScriptData().getObject("item");
+                            if (itemObj == null) return;
+                            Map<String, Object> data = itemObj.getBaseData();
                             data.put(CLUB_ID_TAG, postType);
                             WallBase item = WallBase.postFactory(data, mapper, false);
                             completion.setResult(item);
