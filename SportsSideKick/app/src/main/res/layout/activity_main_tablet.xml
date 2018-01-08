@@ -431,8 +431,8 @@
                    android:layout_alignTop="@id/profile_image"
                    android:background="?userLevelProgress"
                    android:indeterminate="false"
-                   android:max="@integer/progress_bar_max"
-                   android:progress="@integer/progress_bar_60"
+                   android:max="100"
+                   android:progress="60"
                    android:progressDrawable="?circularProgressBarDrawable"
                    android:visibility="invisible"
                    android:layout_centerHorizontal="true"/>

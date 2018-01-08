@@ -111,7 +111,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/mute_button"
             android:thumbOffset="@dimen/thumb_offset_0"
-            android:progress="@integer/progress_bar_mid"
+            android:progress="50"
             android:progressDrawable="?seekBarAudioShape" />
     </RelativeLayout>
 
@@ -127,7 +127,7 @@
         android:layout_marginEnd="@dimen/margin_negative_18"
         android:layout_marginStart="@dimen/margin_negative_16"
         android:thumbOffset="@dimen/thumb_offset_0"
-        android:progress="@integer/progress_bar_max"
+        android:progress="100"
         android:progressDrawable="?seekBarShape" />
 
 </RelativeLayout>

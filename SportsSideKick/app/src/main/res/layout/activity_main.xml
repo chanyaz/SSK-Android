@@ -315,9 +315,10 @@
                                 android:layout_height="match_parent"
                                 android:background="?userLevelProgress"
                                 android:indeterminate="false"
-                                android:max="@integer/progress_bar_max"
-                                android:progress="@integer/progress_bar_60"
+                                android:max="100"
+                                android:progress="60"
                                 android:progressDrawable="?circularProgressBarDrawable" />
+
                         </RelativeLayout>
 
                         <RelativeLayout

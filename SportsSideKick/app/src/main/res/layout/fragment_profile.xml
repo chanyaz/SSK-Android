@@ -165,8 +165,8 @@
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/circle_shape"
                             android:indeterminate="false"
-                            android:max="@integer/progress_bar_max"
-                            android:progress="@integer/progress_bar_60"
+                            android:max="100"
+                            android:progress="60"
                             android:progressDrawable="@drawable/circular_progress_bar" />
 
                         <ImageView
@@ -527,8 +527,8 @@
                         android:layout_toStartOf="@+id/next_level_cointainer"
                         android:background="@drawable/circle_shape"
                         android:indeterminate="false"
-                        android:max="@integer/progress_bar_max"
-                        android:progress="@integer/progress_bar_60"
+                        android:max="100"
+                        android:progress="60"
                         android:progressDrawable="@drawable/linear_progress_bar" />
 
                     <RelativeLayout
