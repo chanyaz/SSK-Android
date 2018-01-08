@@ -24,7 +24,7 @@
     <string name="sign_up_username">Display name</string>
     <string name="sign_up_phone">Phone</string>
     <string name="sign_up_sign_up">Sign up</string>
-    <string name="sign_up_text">By singing up, you are agree to Fanschart\'s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
+    <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
     <string name="terms_and_privacy">Terms &amp; Privacy</string>
     <string name="fist_name_warning">Please fill in your first name.</string>
     <string name="email_validation_warning">Please fill in your email.</string>
@@ -45,7 +45,7 @@
     <string name="dialog_internet_connection_failed">You need to be connected to the internet to do this</string>
     <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
 
-    <!-- Screen titles -->
+    <!--Screen titles-->
     <string name="wall_fragment_caption">The Wall</string>
     <string name="video_chat_fragment_caption">Video Chat</string>
     <string name="news_fragment_caption">News</string>
@@ -63,58 +63,9 @@
     <string name="news_caption">News</string>
     <string name="quiz_caption">Quiz</string>
 
-    <!--Chat-->
-    <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
-    <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-    <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-    <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-    <string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>
-    <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-    <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-    <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-
     <string name="share_using">Share with:</string>
     <string name="enter_comment_hint">Enter your comment here…</string>
-
-    <string name="this_chat_is_public">This chat is public</string>
-    <string name="this_chat_is_private">This chat is private</string>
-    <string name="manage_public_chat_caption">Add friends to %1s</string>
-    <string name="create_chat">Create Chat</string>
-    <string name="join_chat">Join Chat</string>
-    <string name="your_stash">Your Stash</string>
-    <string name="your_wallet">Your Wallet -</string>
-    <string name="your_profile">Your Profile</string>
-    <string name="contact_info">Contact info</string>
-    <string name="subscribed_since">Subscribed since</string>
-    <string name="location_caption">Location</string>
-    <string name="password_caption">Password</string>
-    <string name="chosen_language">Chosen language</string>
-    <string name="your_statement">Your Statement</string>
-    <string name="choose_your_language">Choose your language</string>
-
-    <!--Friends-->
-    <string name="friend_profile">Friend Profile</string>
-    <string name="friend_requests">Friend Requests</string>
-    <string name="member_since">Member since</string>
-    <string name="follows_you">Follows you</string>
-    <string name="following_member">Following member</string>
-    <string name="your_friends_title">Your Friends</string>
-    <string name="your_friends_search_hint">Search your friends</string>
-    <string name="your_friends_request">Friend requests</string>
-    <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
-
-    <!--Video chat-->
-    <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
-    <string name="video_chat_text_1_phone">Watch the match with your <font color="#c3ff01">friends.</font></string>
-    <string name="video_chat_text_2">
-        Video chat allows you to call up to 3 friends for a\n
-        group video chat, so you can experience the action\n
-        with the people you love wherever you are!</string>
-    <string name="video_chat_button_text">Begin your call</string>
-    <string name="starting_new_call_search_hint">Search public chats</string>
-    <string name="starting_new_call_search_title">Starting New Call</string>
+    <string name="member_info">Member info</string>
 
     <!--Profile-->
     <string name="edit_information">Edit Information</string>
@@ -141,7 +92,54 @@
         <item>العَرَبِيَّة</item>
     </string-array>
 
-    <string name="member_info">Member info</string>
+    <!--Friends-->
+    <string name="friend_profile">Friend Profile</string>
+    <string name="friend_requests">Friend Requests</string>
+    <string name="member_since">Member since</string>
+    <string name="follows_you">Follows you</string>
+    <string name="following_member">Following member</string>
+    <string name="your_friends_title">Your Friends</string>
+    <string name="your_friends_search_hint">Search your friends</string>
+    <string name="your_friends_request">Friend requests</string>
+    <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
+
+    <!--Chat-->
+    <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+    <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
+    <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
+    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
+    <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
+    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
+    <string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>
+    <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
+    <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
+    <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
+    <string name="this_chat_is_public">This chat is public</string>
+    <string name="this_chat_is_private">This chat is private</string>
+    <string name="manage_public_chat_caption">Add friends to %1s</string>
+    <string name="create_chat">Create Chat</string>
+    <string name="join_chat">Join Chat</string>
+    <string name="your_stash">Your Stash</string>
+    <string name="your_wallet">Your Wallet -</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="contact_info">Contact info</string>
+    <string name="subscribed_since">Subscribed since</string>
+    <string name="location_caption">Location</string>
+    <string name="password_caption">Password</string>
+    <string name="chosen_language">Chosen language</string>
+    <string name="your_statement">Your Statement</string>
+    <string name="choose_your_language">Choose your language</string>
+
+    <!--Video chat-->
+    <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+    <string name="video_chat_text_1_phone">Watch the match with your <font color="#c3ff01">friends.</font></string>
+    <string name="video_chat_text_2">
+        Video chat allows you to call up to 3 friends for a\n
+        group video chat, so you can experience the action\n
+        with the people you love wherever you are!</string>
+    <string name="video_chat_button_text">Begin your call</string>
+    <string name="starting_new_call_search_hint">Search public chats</string>
+    <string name="starting_new_call_search_title">Starting New Call</string>
 
     <!--Next match view-->
     <string name="match_day">%1$d Day</string>

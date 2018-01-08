@@ -34,6 +34,8 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 import base.app.BuildConfig;
+import base.app.data.user.LoginStateReceiver.LoginStateListener;
+import base.app.data.user.PasswordResetReceiver.PasswordResetListener;
 import base.app.util.commons.Connection;
 import base.app.R;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
@@ -56,10 +58,13 @@ import butterknife.Optional;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
-public class LoginFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener, PasswordResetReceiver.PasswordResetListener {
+public class LoginFragment extends BaseFragment
+        implements LoginStateListener, PasswordResetListener {
 
     private static final String TAG = "LOGIN FRAGMENT";
+    private CallbackManager callbackManager;
+    private LoginStateReceiver loginStateReceiver;
+    private PasswordResetReceiver passwordResetReceiver;
     @BindView(R.id.login_email)
     EditText emailEditText;
     @BindView(R.id.login_password)
@@ -70,13 +75,10 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     TextView loginText;
     @BindView(R.id.reset_text)
     TextView resetText;
-
     @BindView(R.id.forgot_password_container)
     RelativeLayout forgotPasswordContainer;
-
     @BindView(R.id.content_container)
     RelativeLayout loginContainer;
-
     @BindView(R.id.forgot_password_back)
     ImageView forgotPasswordBack;
     @Nullable
@@ -88,36 +90,22 @@ public class LoginFragment extends BaseFragment implements LoginStateReceiver.Lo
     @Nullable
     @BindView(R.id.image_player)
     ImageView imagePlayer;
-
-
     @Nullable
     @BindView(R.id.forgot_button)
     TextView forgotButton;
     @Nullable
     @BindView(R.id.title_text)
     TextView titleText;
-
-
     @BindView(R.id.bottom_buttons_container_reset)
     RelativeLayout resetButtonContainer;
     @Nullable
     @BindView(R.id.bottom_buttons_container_login)
     RelativeLayout loginButtonContainer;
-
     @BindView(R.id.login_forgot_pass_email)
     EditText emailForgotPassword;
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
     @Nullable
     @BindView(R.id.sign_up_facebook)
     LoginButton loginButton;
-    private CallbackManager callbackManager;
-
-    private LoginStateReceiver loginStateReceiver;
-    private PasswordResetReceiver passwordResetReceiver;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
