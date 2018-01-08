@@ -175,7 +175,6 @@
                             android:layout_height="@dimen/popup_friend_profil_profile_image_size"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:contentDescription="@string/image"
                             android:scaleType="fitXY"
                             android:src="?profileImageIcon" />
 
@@ -188,7 +187,6 @@
                         android:layout_alignStart="@id/profile_image_container"
                         android:layout_below="@id/profile_image_container"
                         android:layout_marginTop="@dimen/margin_negative_15"
-                        android:contentDescription="@string/image"
                         android:src="?nextLevelMarkerIcon" />
 
                     <TextView

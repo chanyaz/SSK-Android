@@ -417,7 +417,6 @@
                    android:layout_marginStart="@dimen/padding_8"
                    android:layout_marginEnd="@dimen/padding_8"
                    android:adjustViewBounds="true"
-                   android:contentDescription="@string/image"
                    android:padding="@dimen/padding_2"
                    android:src="?profileImageLoungeIcon" />
 
@@ -444,7 +443,6 @@
                    android:layout_height="@dimen/profile_level_marker_size"
                    android:layout_alignEnd="@id/profile_image"
                    android:layout_alignStart="@id/profile_image"
-                   android:contentDescription="@string/image"
                    android:src="?nextLevelMarkerIcon"
                    android:visibility="invisible"
                    android:layout_below="@+id/profile_image"

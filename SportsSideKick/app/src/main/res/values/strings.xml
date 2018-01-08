@@ -1,6 +1,6 @@
 <resources>
 
-    <!-- Sign in/ Sign up screen -->
+    <!-- Login & Register -->
     <string name="login_sign_up">Sign up</string>
     <string name="login_login">Login</string>
     <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> fans </font> together</string>
@@ -26,14 +26,14 @@
     <string name="sign_up_sign_up">Sign up</string>
     <string name="sign_up_text">By singing up, you are agree to Fanschart\'s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
     <string name="terms_and_privacy">Terms &amp; Privacy</string>
-
-    <!-- General -->
     <string name="fist_name_warning">Please fill in your first name.</string>
     <string name="email_validation_warning">Please fill in your email.</string>
     <string name="display_name_validation_warning">Please fill in your display name.</string>
     <string name="password_validation_warning">Please fill in your password.</string>
     <string name="phone_number_validation_warning">Please fill in your phone number.</string>
     <string name="last_name_validation_warning">Please fill in your last name.</string>
+    <string name="enter_valid_password_and_display_name">Please enter valid password and user name</string>
+    <string name="login_try_again">Please re-enter your password and try again</string>
 
     <!-- Dialogs -->
     <string name="dialog_ok">OK</string>
@@ -63,11 +63,8 @@
     <string name="news_caption">News</string>
     <string name="quiz_caption">Quiz</string>
 
-    <string name="coins_caption">YOU HAVE</string>
-
-    <string name="days">" Days "</string>
+    <!--Chat-->
     <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
-
     <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
     <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
     <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -93,7 +90,6 @@
     <string name="subscribed_since">Subscribed since</string>
     <string name="location_caption">Location</string>
     <string name="password_caption">Password</string>
-    <string name="image">image</string>
     <string name="chosen_language">Chosen language</string>
     <string name="your_statement">Your Statement</string>
     <string name="choose_your_language">Choose your language</string>
@@ -109,18 +105,18 @@
     <string name="your_friends_request">Friend requests</string>
     <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
 
-    <!-- video chat -->
-    <string name="video_chat_text_1"><![CDATA[ Watch the match with your <font color="#c3ff01">friends.</font>]]></string>
+    <!--Video chat-->
+    <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
     <string name="video_chat_text_1_phone">Watch the match with your <font color="#c3ff01">friends.</font></string>
-
     <string name="video_chat_text_2">
         Video chat allows you to call up to 3 friends for a\n
         group video chat, so you can experience the action\n
         with the people you love wherever you are!</string>
-
     <string name="video_chat_button_text">Begin your call</string>
     <string name="starting_new_call_search_hint">Search public chats</string>
     <string name="starting_new_call_search_title">Starting New Call</string>
+
+    <!--Profile-->
     <string name="edit_information">Edit Information</string>
     <string name="edit_photo">Edit Photo</string>
     <string name="first_name">First Name</string>
@@ -128,8 +124,26 @@
     <string name="nickname">Nickname</string>
     <string name="email_address">Email Address</string>
     <string name="telephone_no">Telephone No</string>
+    <string name="coins_caption">YOU HAVE</string>
+    <string name="language_current" translatable="false">English</string>
+    <string-array name="languages" translatable="false">
+        <item>বাংলা</item>
+        <item>汉语</item>
+        <item>English</item>
+        <item>Français</item>
+        <item>Deutsch</item>
+        <item>Bahasa Indonesia</item>
+        <item>Italiano</item>
+        <item>Polski</item>
+        <item>Português</item>
+        <item>Русский</item>
+        <item>Español</item>
+        <item>العَرَبِيَّة</item>
+    </string-array>
+
     <string name="member_info">Member info</string>
 
+    <!--Next match view-->
     <string name="match_day">%1$d Day</string>
     <string name="match_days">%1$d Days</string>
     <string name="match_hour">%1$d Hour</string>
@@ -138,12 +152,6 @@
     <string name="match_mins">%1$d Mins</string>
     <string name="match_sec">%1$d Sec</string>
     <string name="match_secs">%1$d Secs</string>
-
-    <plurals name="days_until_match">
-        <item quantity="zero">TODAY</item>
-        <item quantity="one">%d Day</item>
-        <item quantity="other">%d Days</item>
-    </plurals>
 
     <string name="chat_join_group">Join Group</string>
     <string name="chat_already_in_group">You are already in thi chat.</string>
@@ -162,6 +170,7 @@
     <string name="chat_image">Image</string>
     <string name="chat_hold">Hold down to record</string>
     <string name="chat_recording_stop">Recording stopped</string>
+
     <string name="news_install_twitter">Please install Twitter application.</string>
     <string name="news_post_to_wall_title">Post this to your wall?</string>
     <string name="news_post_to_wall_message">Would you like to post this on your wall?</string>
@@ -180,8 +189,6 @@
     <string name="chat_no_changes">There are no changes in this chat.</string>
     <string name="try_again_latter">Error. Try again later.</string>
     <string name="enter_friend_name_invite">Enter friend name to invite.</string>
-    <string name="enter_valid_password_and_display_name">Please enter valid password and user name</string>
-    <string name="login_try_again">Please re-enter your password and try again</string>
     <string name="remove_friend">Un-Friend</string>
     <string name="friend_request">Send Friend Request</string>
     <string name="friend_un_follow">Un-Follow Friend</string>
@@ -366,24 +373,9 @@
     <string name="translate">Translate</string>
     <string name="hint_sharing_message">Enter a message with your shared post…</string>
 
-    <!--Placeholders, not translatable-->
+    <!--Placeholders-->
     <string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="demo_number_1" translatable="false">204</string>
     <string name="demo_number_2" translatable="false">6901</string>
-    <string name="language_current" translatable="false">English</string>
-    <string-array name="languages" translatable="false">
-        <item>বাংলা</item>
-        <item>汉语</item>
-        <item>English</item>
-        <item>Français</item>
-        <item>Deutsch</item>
-        <item>Bahasa Indonesia</item>
-        <item>Italiano</item>
-        <item>Polski</item>
-        <item>Português</item>
-        <item>Русский</item>
-        <item>Español</item>
-        <item>العَرَبِيَّة</item>
-    </string-array>
 
 </resources>
