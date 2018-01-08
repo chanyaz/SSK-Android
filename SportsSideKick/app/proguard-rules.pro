@@ -523,3 +523,5 @@ public void xxxxxx(**);
 -keep class com.alibaba.fastjson.** { *; }
 
 -keepattributes EnclosingMethod
+
+-dontwarn kotlin.**
