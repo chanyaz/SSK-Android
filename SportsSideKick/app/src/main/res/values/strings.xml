@@ -15,13 +15,13 @@
     <string name="rumours_caption">Rumours</string>
     <string name="video_chat_caption">Video Chat</string>
     <string name="wall_caption">The Wall</string>
-    <string name="news_caption">News</string>
+    <string name="news">News</string>
     <string name="quiz_caption">Quiz</string>
 
     <string-array name="menu_navigation">
         <item>@string/wall_caption</item>
         <item>@string/chat_caption</item>
-        <item>@string/news_caption</item>
+        <item>@string/news</item>
         <item>@string/statistics_caption</item>
         <item>@string/rumours_caption</item>
         <item>@string/club_radio_caption</item>
@@ -31,12 +31,10 @@
     </string-array>
 
     <!-- Login & Register -->
-    <string name="login_sign_up">Sign up</string>
+    <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01">fans</font> together</string>
+    <string name="to_access_full_features">To access full features …</string>
     <string name="login_login">Login</string>
-    <string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> fans </font> together</string>
-    <string name="bringing">Bringing </string>
-    <string name="fans"> fans </string>
-    <string name="together"> together</string>
+    <string name="login_sign_up">Sign up</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login_login_forgot_text">Forgot?</string>
@@ -64,6 +62,8 @@
     <string name="last_name_validation_warning">Please fill in your last name.</string>
     <string name="enter_valid_password_and_display_name">Please enter valid password and user name</string>
     <string name="login_try_again">Please re-enter your password and try again</string>
+    <string name="login_slider_chat">You can chat with  <font color="#c3ff01"> friends, create groups </font>and even\n connect with your <font color="#c3ff01"> favourite players! </font></string>
+    <string name="chat_with_friends">Chat with  <font color="#c3ff01">friends.</font></string>
 
     <!-- Dialogs -->
     <string name="dialog_ok">OK</string>
@@ -88,6 +88,16 @@
     <string name="email_address">Email Address</string>
     <string name="telephone_no">Telephone No</string>
     <string name="coins_caption">YOU HAVE</string>
+    <string name="your_stash">Your Stash</string>
+    <string name="your_wallet">Your Wallet -</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="contact_info">Contact info</string>
+    <string name="subscribed_since">Subscribed since</string>
+    <string name="location_caption">Location</string>
+    <string name="password_caption">Password</string>
+    <string name="chosen_language">Chosen language</string>
+    <string name="your_statement">Your Statement</string>
+    <string name="choose_your_language">Choose your language</string>
     <string name="language_current" translatable="false">English</string>
     <string-array name="languages" translatable="false">
         <item>বাংলা</item>
@@ -145,19 +155,13 @@
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
     <string name="this_chat_is_public">This chat is public</string>
     <string name="this_chat_is_private">This chat is private</string>
+    <string name="record_video">Record Video</string>
     <string name="manage_public_chat_caption">Add friends to %1s</string>
     <string name="create_chat">Create Chat</string>
     <string name="join_chat">Join Chat</string>
-    <string name="your_stash">Your Stash</string>
-    <string name="your_wallet">Your Wallet -</string>
-    <string name="your_profile">Your Profile</string>
-    <string name="contact_info">Contact info</string>
-    <string name="subscribed_since">Subscribed since</string>
-    <string name="location_caption">Location</string>
-    <string name="password_caption">Password</string>
-    <string name="chosen_language">Chosen language</string>
-    <string name="your_statement">Your Statement</string>
-    <string name="choose_your_language">Choose your language</string>
+    <string name="single_user_is_typing">%1$s! is typing…</string>
+    <string name="multiple_users_are_typing">Multiple users are typing…</string>
+    <string name="unnamed_chat">Unnamed Chat</string>
 
     <!--Video chat-->
     <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -175,7 +179,8 @@
     <string name="video_chat_accept_call">Accept the call?</string>
     <string name="video_chats">Video chats</string>
 
-    <!--Next match view-->
+    <!--Next match-->
+    <string name="next_match">Next match</string>
     <string name="match_day">%1$d Day</string>
     <string name="match_days">%1$d Days</string>
     <string name="match_hour">%1$d Hour</string>
@@ -333,17 +338,16 @@
     <string name="un_friend_message"> Removing a friend will stop you following each other.</string>
     <string name="un_friend_title">Are you sure you want to remove this friend?</string>
 
+    <!--Posts & News-->
     <string name="read_more_closed">Read more  &gt;</string>
     <string name="read_more_open">Read less  &lt;</string>
-    <string name="unnamed_chat">Unnamed Chat</string>
+    <string name="hint_sharing_message">Enter a message with your shared post…</string>
 
+    <!--Stats-->
     <string name="permission_storage_rationale">You need to enable Write permission.</string>
     <string name="permission_storage_denied">You need to enable Write permission in settings </string>
     <string name="permission_storage_neverask">Never ask again.</string>
 
-    <string name="login_slider_chat"><![CDATA[ You can chat with  <font color="#c3ff01"> friends, create groups </font>and even\n connect with your <font color="#c3ff01"> favourite players! </font>]]></string>
-    <string name="chat_with_friends"><![CDATA[ Chat with  <font color="#c3ff01"> friends. </font>]]></string>
-    <string name="to_access_full_features">To access full features …</string>
 
     <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
     <string name="chat_with_friends_login"> Chat with friends.</string>
@@ -356,15 +360,9 @@
     <string name="enable_wall_notifications">Enable wall notifications</string>
     <string name="disable_wall_notifications">Disable wall notifications</string>
     <string name="search">Search</string>
-    <string name="news">NEWS</string>
-    <string name="next_match">Next match</string>
     <string name="reset">Reset</string>
-    <string name="offline">offline</string>
-    <string name="single_user_is_typing">%1$s! is typing…</string>
-    <string name="multiple_users_are_typing">Multiple users are typing…</string>
-    <string name="record_video">Record Video</string>
+    <string name="offline">Offline</string>
     <string name="translate">Translate</string>
-    <string name="hint_sharing_message">Enter a message with your shared post…</string>
 
     <!--Placeholders-->
     <string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>

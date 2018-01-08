@@ -149,9 +149,8 @@
     <string name="more">المزيد</string>
     <string name="mutual_friends">الاصدقاء المشتركه</string>
     <string name="new_name_of_chat_hint">أدخل اسماً لمحادثتك</string>
-    <string name="news_caption">الأخبار</string>
-    <string name="news_fragment_caption">الأخبار</string>
     <string name="news">الأخبار</string>
+    <string name="news_fragment_caption">الأخبار</string>
     <string name="news_install_twitter">الرجاء تثبيت تطبيق تويتر.</string>
     <string name="news_post_to_wall_message">هل ترغب بنشر هذا على حائطك؟?</string>
     <string name="news_post_to_wall_title">هل ترغب بنشر هذا على حائطك؟?</string>

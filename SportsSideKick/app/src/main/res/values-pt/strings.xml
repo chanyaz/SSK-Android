@@ -15,7 +15,7 @@
     <string name="rumours_caption">Rumours</string>
     <string name="video_chat_caption">Video Chat</string>
     <string name="wall_caption">The Wall</string>
-    <string name="news_caption">News</string>
+    <string name="news">News</string>
     <string name="quiz_caption">Quiz</string>
 
     <string name="member_info">Member info</string>

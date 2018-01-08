@@ -364,7 +364,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:onClick="onRadioButtonClicked"
-                android:text="@string/news_caption"
+                android:text="@string/news"
                 android:textColor="?tabRadioButtonTextColor" />
 
             <RadioButton
