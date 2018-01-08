@@ -178,7 +178,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding_8"
-                        android:text="@string/to_access_full_features"
+                        android:text="@string/access_full"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="24sp" />
@@ -197,7 +197,7 @@
                             android:layout_width="150dp"
                             android:layout_height="@dimen/standard_button_height"
                             android:background="@drawable/gym_bag_button_background"
-                            android:text="@string/join_now"
+                            android:text="@string/join"
                             android:textAlignment="center"
                             android:textAllCaps="false"
                             android:textColor="@color/black"

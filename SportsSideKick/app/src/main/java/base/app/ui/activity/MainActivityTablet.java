@@ -401,7 +401,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         yourLevel.setVisibility(View.INVISIBLE);
         userLevelBackground.setVisibility(View.INVISIBLE);
         userLevelProgress.setVisibility(View.INVISIBLE);
-        profileName.setText(R.string.login_or_signup);
+        profileName.setText(R.string.join_now_sign_in);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
         ImageLoader.displayImage(imgUri, profileImage, R.drawable.blank_profile_rounded);
 

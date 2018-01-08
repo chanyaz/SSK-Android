@@ -109,7 +109,7 @@ boolean firstLoad=true;
     @OnClick(R.id.pin_button)
     public void pinOnClick() {
         if (Model.getInstance().isRealUser()) {
-            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.news_post_to_wall_title), getContext().getResources().getString(R.string.news_post_to_wall_message),
+            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.post_to_wall_title), getContext().getResources().getString(R.string.post_to_wall_message),
                     new View.OnClickListener() {// Cancel
                         @Override
                         public void onClick(View v) {

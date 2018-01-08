@@ -126,7 +126,7 @@ public class LoginFragment extends BaseFragment
 
 
         if (titleText != null) {
-            titleText.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
+            titleText.setText(Utility.fromHtml(getString(R.string.slogan)));
         }
 
         forgotPasswordBack.setOnClickListener(new View.OnClickListener() {

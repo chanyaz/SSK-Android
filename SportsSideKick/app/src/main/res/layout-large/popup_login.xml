@@ -59,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/margin_30"
-                        android:text="@string/login_slider_text_1_phone"
+                        android:text="@string/slogan"
                         android:textAlignment="center"
                         android:textColor="?white" />
 

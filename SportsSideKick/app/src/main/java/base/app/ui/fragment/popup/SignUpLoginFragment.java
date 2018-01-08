@@ -42,7 +42,7 @@ public class SignUpLoginFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_login_sing_up, container, false);
         ButterKnife.bind(this, view);
         if (text != null) {
-            text.setText(Utility.fromHtml(getString(R.string.login_slider_text_1_phone)));
+            text.setText(Utility.fromHtml(getString(R.string.slogan)));
         }
         return view;
     }
