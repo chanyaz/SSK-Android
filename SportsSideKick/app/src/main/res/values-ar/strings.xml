@@ -16,7 +16,7 @@
     <string name="chat">محادثة</string>
     <string name="chat_Leave">خروج</string>
     <string name="chat_already_in_group">"أنت بالفعل في دردشة ثي. "</string>
-    <string name="chat_caption">محادثة</string>
+    <string name="chat">محادثة</string>
     <string name="chat_choose_from_library">اختر من المعرض</string>
     <string name="chat_choose_option">اختر الخيار</string>
     <string name="chat_delete_chat">سيتم حذف المحادثة بشكل دائم، هل أنت متأكد؟</string>
@@ -45,8 +45,8 @@
     <string name="choose_your_language">اختر لغتك</string>
     <string name="choose">اختر</string>
     <string name="chosen_language">اللغة المختارة</string>
-    <string name="club_radio_caption">قنوات البودكاست</string>
-    <string name="club_tv_caption">تلفاز النادي</string>
+    <string name="radio">قنوات البودكاست</string>
+    <string name="tv">تلفاز النادي</string>
     <string name="coins_caption">لديك</string>
     <string name="comments">التعليقات</string>
     <string name="comments_made">التعليقات المكتوبة</string>
@@ -73,7 +73,7 @@
     <string name="enter_comment_hint">أدخل تعليقاً …</string>
     <string name="enter_friend_name_invite">أدخل بريد الصديق الالكتروني لدعوته.</string>
     <string name="enter_valid_password_and_display_name">لم يتم إدخال كلمة سر</string>
-    <string name="fantasy_caption">مضاربة</string>
+    <string name="fantasy">مضاربة</string>
     <string name="find">إيجاد</string>
     <string name="first_name">الاسم الأول</string>
     <string name="first_name_profile">الاسم الأول</string>
@@ -150,7 +150,7 @@
     <string name="mutual_friends">الاصدقاء المشتركه</string>
     <string name="new_name_of_chat_hint">أدخل اسماً لمحادثتك</string>
     <string name="news">الأخبار</string>
-    <string name="news_fragment_caption">الأخبار</string>
+    <string name="news">الأخبار</string>
     <string name="news_install_twitter">الرجاء تثبيت تطبيق تويتر.</string>
     <string name="news_post_to_wall_message">هل ترغب بنشر هذا على حائطك؟?</string>
     <string name="news_post_to_wall_title">هل ترغب بنشر هذا على حائطك؟?</string>
@@ -187,7 +187,7 @@
     <string name="public_chats">المحادثات العلنية</string>
     <string name="public_chats_profile">المحادثات العلنية</string>
     <string name="public_chats_your_friends_are_in">المحادثات العلنية</string>
-    <string name="quiz_caption">أحجية</string>
+    <string name="quiz">أحجية</string>
     <string name="read_more">اقرأ أكثر</string>
     <string name="registration_error">فشل التسجيل</string>
     <string name="registration_error_username_taken">فشل التسجيل</string>
@@ -200,9 +200,9 @@
     <string name="reset">إعادة ضبط كلمة السر</string>
     <string name="reset_app">ستقوم بإعادة تشغيل التطبيق بهذا الفعل..</string>
     <string name="rewards_and_items_received">الجوائز والعناصر المتلقاة من حقائب الجيم</string>
-    <string name="rumors_fragment_caption">إشاعات الويب</string>
+    <string name="rumours">إشاعات الويب</string>
     <string name="rumour">إشاعات</string>
-    <string name="rumours_caption">إشاعات</string>
+    <string name="rumours">إشاعات</string>
     <string name="save">وفر</string>
     <string name="search">بحث في</string>
     <string name="search_for_member">لبحث في أصدقائك</string>
@@ -212,8 +212,8 @@
     <string name="select_friends_to_call">البحث في أصدقائك</string>
     <string name="share_using">مشاركة</string>
     <string name="shop">تسوق</string>
-    <string name="shop_caption">تسوق</string>
-    <string name="shop_fragment_caption">تسوق</string>
+    <string name="shop">تسوق</string>
+    <string name="shop">تسوق</string>
     <string name="sign_in">تسجيل الدخول</string>
     <string name="sign_in_with_facebook">التسجيل باستخدام فيسبوك</string>
     <string name="sign_up_facebook">التسجيل باستخدام فيسبوك</string>
@@ -227,7 +227,7 @@
     <string name="starting_new_call_search_hint">البحث في المحادثات العلنية</string>
     <string name="starting_new_call_search_title">بدء اتصال جديد</string>
     <string name="stash">خزنتك</string>
-    <string name="statistics_caption">إحصائيات</string>
+    <string name="stats">إحصائيات</string>
     <string name="stats">إحصائيات</string>
     <string name="store">المتجر</string>
     <string name="store_big">المتجر</string>
@@ -254,8 +254,8 @@
     <string name="video_chat">محادثة فيديو</string>
     <string name="video_chat_accept_call">الإجابة على الاتصال؟</string>
     <string name="video_chat_button_text">بدء اتصالك</string>
-    <string name="video_chat_caption">محادثة فيديو</string>
-    <string name="video_chat_fragment_caption">محادثة فيديو</string>
+    <string name="video_chat">محادثة فيديو</string>
+    <string name="video_chat">محادثة فيديو</string>
     <string name="video_chat_maximum">عذراً، يمكنك الاتصال بالفيديو بـ 3 أشخاص كحد أقصى، وهذه المحادثة ممتلئة مسبقاً!</string>
     <string name="video_chat_permission_microphone_and_camera_denied">يجب تمكين الميكروفون والكاميرا في الإعدادات لاستخدام الدردشة المرئية</string>
     <string name="video_chat_permission_microphone_and_camera_rationale">يرجى تمكين الميكروفون والكاميرا من أجل استخدام الدردشة المرئية.</string>
@@ -269,8 +269,8 @@
     <string name="videos_watched">الفيديوهات المشاهدة</string>
     <string name="vs">ضد</string>
     <string name="waiting_for_active_internet_connection">في انتظار اتصال إنترنت نشط</string>
-    <string name="wall_caption">جدار</string>
-    <string name="wall_fragment_caption">جدار</string>
+    <string name="wall">جدار</string>
+    <string name="wall">جدار</string>
     <string name="wall_posts">منشورات الحائط</string>
     <string name="wall_text_for_post">اكتب منشورك هنا.</string>
     <string name="wallet">المحفظة</string>

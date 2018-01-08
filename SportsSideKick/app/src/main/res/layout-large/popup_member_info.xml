@@ -157,7 +157,7 @@
         android:layout_alignTop="@+id/chat_button_image"
         android:layout_alignBottom="@+id/chat_button_image"
         android:gravity="center_vertical"
-        android:text="@string/chat_caption"
+        android:text="@string/chat"
         android:textColor="?memberInfoElementsTint"
         android:layout_toEndOf="@+id/chat_button_image" />
 

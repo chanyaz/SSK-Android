@@ -1,33 +1,28 @@
 <resources>
 
     <!--Screen titles-->
-    <string name="wall_fragment_caption">The Wall</string>
-    <string name="video_chat_fragment_caption">Video Chat</string>
-    <string name="news_fragment_caption">News</string>
-    <string name="rumors_fragment_caption">Rumors</string>
-    <string name="shop_fragment_caption">Shop</string>
-    <string name="club_radio_caption">Club Radio</string>
-    <string name="club_tv_caption">Club TV</string>
-    <string name="fantasy_caption">Fantasy</string>
-    <string name="statistics_caption">Statistics</string>
-    <string name="chat_caption">Chat</string>
-    <string name="shop_caption">Shop</string>
-    <string name="rumours_caption">Rumours</string>
-    <string name="video_chat_caption">Video Chat</string>
-    <string name="wall_caption">The Wall</string>
+    <string name="wall">Wall</string>
     <string name="news">News</string>
-    <string name="quiz_caption">Quiz</string>
+    <string name="rumours">Rumours</string>
+    <string name="stats">Stats</string>
+    <string name="shop">Shop</string>
+    <string name="chat">Chat</string>
+    <string name="video_chat">Video Chat</string>
+    <string name="radio">Club Radio</string>
+    <string name="tv">Club TV</string>
+    <string name="quiz">Quiz</string>
+    <string name="fantasy">Fantasy</string>
 
     <string-array name="menu_navigation">
-        <item>@string/wall_caption</item>
-        <item>@string/chat_caption</item>
+        <item>@string/wall</item>
+        <item>@string/chat</item>
         <item>@string/news</item>
-        <item>@string/statistics_caption</item>
-        <item>@string/rumours_caption</item>
-        <item>@string/club_radio_caption</item>
-        <item>@string/shop_caption</item>
-        <item>@string/club_tv_caption</item>
-        <item>@string/video_chat_caption</item>
+        <item>@string/stats</item>
+        <item>@string/rumours</item>
+        <item>@string/radio</item>
+        <item>@string/shop</item>
+        <item>@string/tv</item>
+        <item>@string/video_chat</item>
     </string-array>
 
     <!-- Login & Register -->
@@ -162,6 +157,8 @@
     <string name="single_user_is_typing">%1$s! is typing…</string>
     <string name="multiple_users_are_typing">Multiple users are typing…</string>
     <string name="unnamed_chat">Unnamed Chat</string>
+    <string name="alerts_on">Alerts-ON</string>
+    <string name="alerts_off">Alerts-OFF</string>
 
     <!--Video chat-->
     <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -178,6 +175,7 @@
     <string name="video_chat_receive_call">Receiving a call from</string>
     <string name="video_chat_accept_call">Accept the call?</string>
     <string name="video_chats">Video chats</string>
+    <string name="cant_start_video">Can\'t start video.</string>
 
     <!--Next match-->
     <string name="next_match">Next match</string>
@@ -235,7 +233,6 @@
     <string name="default_time">00:00 / 00:00</string>
     <string name="write_post_hint">Write your post here.</string>
     <string name="user">User</string>
-    <string name="stats">Stats</string>
     <string name="store">Store</string>
     <string name="search_wall_posts_hint">Search Wall Posts</string>
     <string name="requested_on">Requested on</string>
@@ -278,7 +275,6 @@
     <string name="join_official_chat">Join Official Chat ></string>
     <string name="join_group">Join Group</string>
     <string name="rumour">RUMOUR</string>
-    <string name="shop">Shop</string>
     <string name="waiting_for_active_internet_connection">Waiting for active internet connection…</string>
     <string name="no_connection_title">No Connection</string>
     <string name="no_connection_message">You need to be connected to the internet to do this</string>
@@ -311,8 +307,6 @@
     <string name="this_chat_is_public_phone">This chat is PUBLIC</string>
     <string name="this_chat_is_private_phone">This chat is PRIVATE</string>
     <string name="user_profile">User Profile</string>
-    <string name="video_chat">Video Chat</string>
-    <string name="chat">Chat</string>
     <string name="more">More</string>
     <string name="posts">Posts</string>
     <string name="post">Post</string>
@@ -352,11 +346,8 @@
     <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
     <string name="chat_with_friends_login"> Chat with friends.</string>
 
-    <string name="cant_start_video">Can\'t start video.</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="alerts_on">Alerts-ON</string>
-    <string name="alerts_off">Alerts-OFF</string>
     <string name="enable_wall_notifications">Enable wall notifications</string>
     <string name="disable_wall_notifications">Disable wall notifications</string>
     <string name="search">Search</string>

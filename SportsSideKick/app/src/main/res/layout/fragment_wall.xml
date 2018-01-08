@@ -58,7 +58,7 @@
                         android:shadowDy="1"
                         tools:visibility="visible"
                         android:shadowRadius="2"
-                        android:text="@string/wall_caption"
+                        android:text="@string/wall"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/white"

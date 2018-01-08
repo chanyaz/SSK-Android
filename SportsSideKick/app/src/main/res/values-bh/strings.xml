@@ -57,22 +57,22 @@
     <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
 
     <!-- Fragment captions -->
-    <string name="wall_fragment_caption">The Wall</string>
-    <string name="video_chat_fragment_caption">Video Chat</string>
-    <string name="news_fragment_caption">News</string>
-    <string name="rumors_fragment_caption">Rumors</string>
-    <string name="shop_fragment_caption">Shop</string>
-    <string name="club_radio_caption">Club Radio</string>
-    <string name="club_tv_caption">Club TV</string>
-    <string name="fantasy_caption">Fantasy</string>
-    <string name="statistics_caption">Statistics</string>
-    <string name="chat_caption">Chat</string>
-    <string name="shop_caption">Shop</string>
-    <string name="rumours_caption">Rumours</string>
-    <string name="video_chat_caption">Video Chat</string>
-    <string name="wall_caption">The Wall</string>
+    <string name="wall">The Wall</string>
+    <string name="video_chat">Video Chat</string>
     <string name="news">News</string>
-    <string name="quiz_caption">Quiz</string>
+    <string name="rumours">Rumors</string>
+    <string name="shop">Shop</string>
+    <string name="radio">Club Radio</string>
+    <string name="tv">Club TV</string>
+    <string name="fantasy">Fantasy</string>
+    <string name="stats">Statistics</string>
+    <string name="chat">Chat</string>
+    <string name="shop">Shop</string>
+    <string name="rumours">Rumours</string>
+    <string name="video_chat">Video Chat</string>
+    <string name="wall">The Wall</string>
+    <string name="news">News</string>
+    <string name="quiz">Quiz</string>
 
     <string name="coins_caption">YOU HAVE</string>
 
@@ -298,15 +298,15 @@
 
     <!--Phone-->
     <string-array name="menu_navigation">
-        <item>@string/wall_caption</item>
-        <item>@string/chat_caption</item>
+        <item>@string/wall</item>
+        <item>@string/chat</item>
         <item>@string/news</item>
-        <item>@string/statistics_caption</item>
-        <item>@string/rumours_caption</item>
-        <item>@string/club_radio_caption</item>
-        <item>@string/shop_caption</item>
-        <item>@string/club_tv_caption</item>
-        <item>@string/video_chat_caption</item>
+        <item>@string/stats</item>
+        <item>@string/rumours</item>
+        <item>@string/radio</item>
+        <item>@string/shop</item>
+        <item>@string/tv</item>
+        <item>@string/video_chat</item>
     </string-array>
 
     <string name="go_to_profile">Go to Profile ></string>

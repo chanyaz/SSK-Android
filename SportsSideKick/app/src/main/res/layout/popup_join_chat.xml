@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:padding="@dimen/padding_8"
-            android:text="@string/chat_caption"
+            android:text="@string/chat"
             android:textColor="?popupsCaptionColor" />
 
     </RelativeLayout>

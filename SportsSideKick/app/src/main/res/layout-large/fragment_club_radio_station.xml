@@ -48,7 +48,7 @@
             android:gravity="start|center_vertical"
             android:paddingEnd="@dimen/space_0"
             android:paddingStart="@dimen/margin_60"
-            android:text="@string/club_radio_caption"
+            android:text="@string/radio"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_16" />
     </LinearLayout>

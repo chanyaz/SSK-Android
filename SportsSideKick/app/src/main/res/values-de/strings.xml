@@ -30,23 +30,23 @@
     <string name="dialog_internet_connection_failed">Du musst mit dem Internet verbunden sein, um Sports Sidekick nutzen zu können</string>
     <string name="dialog_message_facebook_error">Dein öffentliches Profil kann nicht abgerufen werden. Bitte erneut versuchen!</string>
 
-    <string name="wall_fragment_caption">Pinnwand</string>
-    <string name="video_chat_fragment_caption">Video-Chat</string>
-    <string name="news_fragment_caption">News</string>
-    <string name="rumors_fragment_caption">Gerüchte</string>
-    <string name="shop_fragment_caption">Shop</string>
-
-    <string name="club_radio_caption">Club Radio</string>
-    <string name="club_tv_caption">Club TV</string>
-    <string name="fantasy_caption">Fantasy</string>
-    <string name="statistics_caption">Statistik</string>
-    <string name="chat_caption">Chat</string>
-    <string name="shop_caption">Shop</string>
-    <string name="rumours_caption">Gerüchte</string>
-    <string name="video_chat_caption">Video-Chat</string>
-    <string name="wall_caption">Pinnwand</string>
+    <string name="wall">Pinnwand</string>
+    <string name="video_chat">Video-Chat</string>
     <string name="news">News</string>
-    <string name="quiz_caption">Quiz</string>
+    <string name="rumours">Gerüchte</string>
+    <string name="shop">Shop</string>
+
+    <string name="radio">Club Radio</string>
+    <string name="tv">Club TV</string>
+    <string name="fantasy">Fantasy</string>
+    <string name="stats">Statistik</string>
+    <string name="chat">Chat</string>
+    <string name="shop">Shop</string>
+    <string name="rumours">Gerüchte</string>
+    <string name="video_chat">Video-Chat</string>
+    <string name="wall">Pinnwand</string>
+    <string name="news">News</string>
+    <string name="quiz">Quiz</string>
     <string name="coins_caption">DU HAST</string>
 
     <string name="days">" Tage "</string>

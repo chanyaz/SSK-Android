@@ -23,22 +23,22 @@
     <string name="dialog_internet_connection_failed">您需要连接到互联网，才能使用 使用 Sports Sidekick</string>
     <string name="dialog_message_facebook_error">无法收到您的公开个人资料。请再试一次！</string>
 
-    <string name="wall_fragment_caption">墙</string>
-    <string name="video_chat_fragment_caption">视频聊天</string>
-    <string name="news_fragment_caption">新闻</string>
-    <string name="rumors_fragment_caption">传言</string>
-    <string name="shop_fragment_caption">商店</string>
+    <string name="wall">墙</string>
+    <string name="video_chat">视频聊天</string>
+    <string name="news">新闻</string>
+    <string name="rumours">传言</string>
+    <string name="shop">商店</string>
 
-    <string name="club_radio_caption">俱乐部电台</string>
-    <string name="club_tv_caption">俱乐部电视</string>
-    <string name="fantasy_caption">幻想</string>
-    <string name="statistics_caption">统计数据</string>
-    <string name="chat_caption">聊天</string>
-    <string name="shop_caption">商店</string>
-    <string name="rumours_caption">传言</string>
-    <string name="video_chat_caption">视频聊天</string>
-    <string name="wall_caption">墙</string>
-    <string name="quiz_caption">迷题</string>
+    <string name="radio">俱乐部电台</string>
+    <string name="tv">俱乐部电视</string>
+    <string name="fantasy">幻想</string>
+    <string name="stats">统计数据</string>
+    <string name="chat">聊天</string>
+    <string name="shop">商店</string>
+    <string name="rumours">传言</string>
+    <string name="video_chat">视频聊天</string>
+    <string name="wall">墙</string>
+    <string name="quiz">迷题</string>
     <string name="coins_caption">你拥有</string>
 
     <string name="days">" 天 "</string>
