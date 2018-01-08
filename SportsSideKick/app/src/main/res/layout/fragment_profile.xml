@@ -398,7 +398,7 @@
                         android:layout_below="@+id/chosen_language_caption"
                         android:layout_marginBottom="@dimen/margin_10"
                         android:layout_marginStart="@dimen/margin_20"
-                        android:text="@string/this_language"
+                        android:text="@string/language_current"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_12" />
 

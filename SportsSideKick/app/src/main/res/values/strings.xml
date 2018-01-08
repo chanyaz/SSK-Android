@@ -1,28 +1,5 @@
 <resources>
 
-    <string name="this_language">English</string>
-    <string name="friend_requests">Friend Requests</string>
-    <string name="terms_and_privacy">Terms &amp; Privacy</string>
-
-    <!--Placeholders, not translatable-->
-    <string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="demo_number_1" translatable="false">204</string>
-    <string name="demo_number_2" translatable="false">6901</string>
-    <string-array name="languages" translatable="false">
-        <item>বাংলা</item>
-        <item>汉语</item>
-        <item>English</item>
-        <item>Français</item>
-        <item>Deutsch</item>
-        <item>Bahasa Indonesia</item>
-        <item>Italiano</item>
-        <item>Polski</item>
-        <item>Português</item>
-        <item>Русский</item>
-        <item>Español</item>
-        <item>العَرَبِيَّة</item>
-    </string-array>
-
     <!-- Sign in/ Sign up screen -->
     <string name="login_sign_up">Sign up</string>
     <string name="login_login">Login</string>
@@ -35,13 +12,11 @@
     <string name="login_login_forgot_text">Forgot?</string>
     <string name="login_login_message_login_failed">Login failed. Try again later!</string>
     <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
-
     <string name="forgot_password_text">Reset your password</string>
     <string name="forgot_password_button_text">Reset Password</string>
     <string name="forgot_password_message">Please check your email for password reset options.</string>
     <string name="forgot_password_error_message">Please enter a valid email address!</string>
     <string name="forgot_password_error">Error</string>
-
     <string name="sign_up_facebook">Sign up with Facebook</string>
     <string name="or">or</string>
     <string name="sign_up_first_name">First name</string>
@@ -49,7 +24,8 @@
     <string name="sign_up_username">Display name</string>
     <string name="sign_up_phone">Phone</string>
     <string name="sign_up_sign_up">Sign up</string>
-    <string name="sign_up_text">By singing up, you are agree to Fanschart\'\"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
+    <string name="sign_up_text">By singing up, you are agree to Fanschart\'s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
+    <string name="terms_and_privacy">Terms &amp; Privacy</string>
 
     <!-- General -->
     <string name="fist_name_warning">Please fill in your first name.</string>
@@ -59,18 +35,17 @@
     <string name="phone_number_validation_warning">Please fill in your phone number.</string>
     <string name="last_name_validation_warning">Please fill in your last name.</string>
 
+    <!-- Dialogs -->
     <string name="dialog_ok">OK</string>
     <string name="button_allow">Allow</string>
     <string name="button_deny">Deny</string>
     <string name="dialog_warning">Warning</string>
     <string name="uploading">Uploading…</string>
-
-    <!-- Dialogs -->
     <string name="dialog_message_not_valid_email">Please enter a valid email address!</string>
     <string name="dialog_internet_connection_failed">You need to be connected to the internet to do this</string>
     <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
 
-    <!-- Fragment captions -->
+    <!-- Screen titles -->
     <string name="wall_fragment_caption">The Wall</string>
     <string name="video_chat_fragment_caption">Video Chat</string>
     <string name="news_fragment_caption">News</string>
@@ -96,11 +71,9 @@
     <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
     <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
     <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-
     <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
     <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
     <string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>
-
     <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
     <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
@@ -125,12 +98,12 @@
     <string name="your_statement">Your Statement</string>
     <string name="choose_your_language">Choose your language</string>
 
+    <!--Friends-->
     <string name="friend_profile">Friend Profile</string>
+    <string name="friend_requests">Friend Requests</string>
     <string name="member_since">Member since</string>
     <string name="follows_you">Follows you</string>
     <string name="following_member">Following member</string>
-
-    <!-- your friends-->
     <string name="your_friends_title">Your Friends</string>
     <string name="your_friends_search_hint">Search your friends</string>
     <string name="your_friends_request">Friend requests</string>
@@ -159,13 +132,10 @@
 
     <string name="match_day">%1$d Day</string>
     <string name="match_days">%1$d Days</string>
-
     <string name="match_hour">%1$d Hour</string>
     <string name="match_hours">%1$d Hours</string>
-
     <string name="match_min">%1$d Min</string>
     <string name="match_mins">%1$d Mins</string>
-
     <string name="match_sec">%1$d Sec</string>
     <string name="match_secs">%1$d Secs</string>
 
@@ -302,8 +272,8 @@
         <item>@string/news_caption</item>
         <item>@string/statistics_caption</item>
         <item>@string/rumours_caption</item>
-        <!--<item>@string/club_radio_caption</item>-->
-        <!--<item>@string/shop_caption</item>-->
+        <item>@string/club_radio_caption</item>
+        <item>@string/shop_caption</item>
         <item>@string/club_tv_caption</item>
         <item>@string/video_chat_caption</item>
     </string-array>
@@ -395,5 +365,25 @@
     <string name="record_video">Record Video</string>
     <string name="translate">Translate</string>
     <string name="hint_sharing_message">Enter a message with your shared post…</string>
+
+    <!--Placeholders, not translatable-->
+    <string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="demo_number_1" translatable="false">204</string>
+    <string name="demo_number_2" translatable="false">6901</string>
+    <string name="language_current" translatable="false">English</string>
+    <string-array name="languages" translatable="false">
+        <item>বাংলা</item>
+        <item>汉语</item>
+        <item>English</item>
+        <item>Français</item>
+        <item>Deutsch</item>
+        <item>Bahasa Indonesia</item>
+        <item>Italiano</item>
+        <item>Polski</item>
+        <item>Português</item>
+        <item>Русский</item>
+        <item>Español</item>
+        <item>العَرَبِيَّة</item>
+    </string-array>
 
 </resources>

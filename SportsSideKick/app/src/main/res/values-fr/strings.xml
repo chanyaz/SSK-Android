@@ -1,5 +1,5 @@
 <resources>
-    <string name="this_language">French</string>
+    <string name="language_current">French</string>
     <!--<string name="friend_requests">Demandes d'ami</string>-->
     <!--<string name="app_name">SportsSideKick</string>-->
 

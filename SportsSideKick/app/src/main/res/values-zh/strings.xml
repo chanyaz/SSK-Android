@@ -1,5 +1,5 @@
 <resources>
-    <string name="this_language">Chinese</string>
+    <string name="language_current">Chinese</string>
     <!-- Login scree -->
     <string name="login_sign_up">注册</string>
     <string name="login_login">登录</string>
@@ -15,9 +15,7 @@
     <string name="sign_up_first_name">名字</string>
     <string name="sign_up_last_name">姓氏</string>
     <string name="sign_up_username">用户名</string>
-    <string name="email">电子邮件</string>
     <string name="sign_up_phone">电话</string>
-    <string name="password">密码</string>
     <string name="sign_up_sign_up">注册</string>
 
     <string name="dialog_ok">确定</string>
@@ -260,8 +258,6 @@
     <string name="user_name">用户名</string>
     <string name="last_name_profile">姓氏</string>
     <string name="first_name_profile">名字</string>
-    <string name="email">电子邮件</string>
-    <string name="password">密码</string>
     <string name="profile">个人资料</string>
     <string name="stash">Stash(nt)</string>
     <string name="join_official_account">Join Official Chat(nt)</string>
@@ -311,7 +307,6 @@
     <string name="login_slider_chat">You can chat with friends, create groups and even\\n connect with your favourite players!(nt)</string>
     <string name="chat_with_friends">Chat with friends.(nt)</string>
     <string name="to_access_full_features">To access full features…(nt)</string>
-    <string name="or">或者</string>
     <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!(nt)</string>
     <string name="chat_with_friends_login">Chat with friends(nt)</string>
     <string name="cant_start_video">Can\'t start video.(nt)</string>

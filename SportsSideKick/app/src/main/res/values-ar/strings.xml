@@ -239,7 +239,7 @@
     <string name="this_chat_is_private_phone">هذه المحادثة خاصة</string>
     <string name="this_chat_is_public">هذه المحادثة علنية</string>
     <string name="this_chat_is_public_phone">هذه المحادثة علنية</string>
-    <string name="this_language">عربى</string>
+    <string name="language_current">عربى</string>
 
     <string name="to_access_full_features">للحصول على كافة الميزات...</string>
     <string name="try_again_latter">الرجاء المحاولة مجدداً!</string>

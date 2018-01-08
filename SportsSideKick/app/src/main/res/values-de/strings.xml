@@ -3,7 +3,7 @@
 
     <string name="friend_requests">Freundschaftsanfragen</string>
 
-    <string name="this_language">German</string>
+    <string name="language_current">German</string>
 
     <!-- Login scree -->
     <string name="login_sign_up">REGISTRIEREN</string>

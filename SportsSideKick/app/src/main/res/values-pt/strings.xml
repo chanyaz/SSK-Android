@@ -1,5 +1,5 @@
 <resources>
-    <string name="this_language">Polish</string>
+    <string name="language_current">Polish</string>
     <string name="wall_fragment_caption">The Wall</string>
     <string name="video_chat_fragment_caption">Video Chat</string>
     <string name="news_fragment_caption">News</string>

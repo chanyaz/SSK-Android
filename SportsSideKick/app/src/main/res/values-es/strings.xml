@@ -1,7 +1,7 @@
 <resources>
 
     <string name="friend_requests">Friend Requests</string>
-    <string name="this_language">Spanish</string>
+    <string name="language_current">Spanish</string>
 
     <!-- Login screen -->
     <string name="login_sign_up">Sign up</string>

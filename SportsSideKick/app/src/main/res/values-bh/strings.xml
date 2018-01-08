@@ -2,7 +2,7 @@
 
     <!-- links and API keys -->
     <string name="friend_requests">Friend Requests</string>
-    <string name="this_language">Bengali</string>
+    <string name="language_current">Bengali</string>
 
     <!-- Terms and privacy -->
     <string name="terms_and_privacy">Terms &amp; Privacy</string>

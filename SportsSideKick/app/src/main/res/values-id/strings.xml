@@ -1,7 +1,7 @@
 <resources>
 
     <string name="friend_requests">Friend Requests</string>
-    <string name="this_language">Indonesian</string>
+    <string name="language_current">Indonesian</string>
 
 
     <!-- Login screen -->
@@ -23,9 +23,7 @@
     <string name="sign_up_first_name">First name</string>
     <string name="sign_up_last_name">Last name</string>
     <string name="sign_up_username">Display name</string>
-    <string name="email">Email</string>
     <string name="sign_up_phone">Phone</string>
-    <string name="password">Password</string>
     <string name="sign_up_sign_up">Sign up</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
@@ -256,8 +254,6 @@
     <string name="user_name">User Name:</string>
     <string name="last_name_profile">Last Name:</string>
     <string name="first_name_profile">First Name:</string>
-    <string name="email">Email:</string>
-    <string name="password">Password:</string>
     <string name="profile">Profile</string>
     <string name="stash">Stash</string>
     <string name="join_official_account"><![CDATA[Join official Account >]]></string>
