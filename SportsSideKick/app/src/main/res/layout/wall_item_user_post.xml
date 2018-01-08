@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?selectableItemBackground"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/margin_5"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:foreground="?selectableItemBackground">
 
     <View
         android:id="@+id/strip"
@@ -41,31 +41,30 @@
 
     <TextView
         android:id="@+id/author_name"
+        tools:text="Karen Smith"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/author_user_image"
-        android:layout_marginTop="@dimen/margin_5"
         android:layout_alignBottom="@+id/author_user_image"
-        android:gravity="center_vertical|start"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_toEndOf="@+id/author_user_image"
         android:layout_toStartOf="@+id/image"
-        android:text="Karen Smith"
-        android:textColor="@color/colorPrimaryVeryLight"
         android:background="?white"
-        />
+        android:gravity="center_vertical|start"
+        android:textColor="@color/colorPrimaryVeryLight" />
 
     <TextView
         android:id="@+id/text_content"
-        android:lineSpacingMultiplier="0.8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/author_user_image"
+        android:layout_marginTop="-12dp"
         android:layout_toEndOf="@+id/strip"
         android:layout_toStartOf="@+id/image"
         android:ellipsize="end"
+        android:lineSpacingMultiplier="0.8"
         android:maxLines="3"
         android:minLines="1"
-        android:layout_marginTop="-12dp"
         android:padding="@dimen/padding_8"
         android:scrollHorizontally="true"
         android:text="@string/demo_lorem_ipsum"
@@ -73,8 +72,6 @@
         android:textSize="18sp" />
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="bottom|end"
         android:id="@+id/likes_and_comments"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_25"
@@ -84,6 +81,8 @@
         android:layout_toEndOf="@+id/strip"
         android:layout_toStartOf="@+id/image"
         android:background="@color/white"
+        android:gravity="bottom|end"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/margin_5">
 
         <LinearLayout
@@ -114,6 +113,7 @@
                     android:background="@drawable/ic_like" />
 
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
@@ -126,10 +126,10 @@
             android:id="@+id/comments_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/likes_container"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="@dimen/padding_8"
             android:layout_marginStart="@dimen/padding_10"
+            android:layout_toEndOf="@id/likes_container"
             android:gravity="center">
 
             <android.support.v7.widget.AppCompatImageView
@@ -138,6 +138,7 @@
                 android:layout_height="@dimen/width_15"
                 android:layout_marginEnd="@dimen/margin_2"
                 android:background="@drawable/ic_comments_count" />
+
             <TextView
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"

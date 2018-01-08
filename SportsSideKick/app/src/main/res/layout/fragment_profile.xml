@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/margin_base_size_60"
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
     android:layout_marginTop="@dimen/margin_base_size_90"
     android:background="@color/colorPrimaryMediumLight"
-    android:clickable="true">
+    tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <RelativeLayout
         android:id="@+id/top_toolbar"
@@ -50,9 +50,9 @@
     <android.support.v7.widget.CardView
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_toolbar"
-        android:layout_height="wrap_content">
+        android:layout_below="@+id/top_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,18 +127,16 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <!-- CONTENT CONTAINER -->
             <RelativeLayout
                 android:id="@+id/content_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-
                 android:layout_marginBottom="@dimen/margin_20"
                 android:layout_marginTop="@dimen/margin_20"
-                android:background="@color/colorPrimaryMediumLight"
-                android:clickable="true">
+                android:background="@color/colorPrimaryMediumLight">
 
                 <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
                 <View
@@ -197,20 +195,19 @@
                         android:id="@+id/profile_image_level"
                         android:layout_width="@dimen/profile_level_marker_size"
                         android:layout_height="@dimen/profile_level_marker_size"
-                        tools:text="0"
                         android:layout_alignEnd="@id/profile_image_container"
                         android:layout_alignStart="@id/profile_image_container"
                         android:layout_below="@id/profile_image_container"
                         android:layout_marginTop="@dimen/margin_negative_15"
                         android:gravity="center"
                         android:textColor="?popupsCaptionColor"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="0" />
 
                     <TextView
                         android:id="@+id/your_profile_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="Test User"
                         android:layout_alignEnd="@id/profile_image_container"
                         android:layout_alignStart="@id/profile_image_container"
                         android:layout_below="@id/profile_image_container"
@@ -218,7 +215,8 @@
                         android:gravity="center"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_14"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="Test User" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -283,25 +281,25 @@
                         android:id="@+id/contact_info_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="16dp"
-                        android:ellipsize="end"
                         android:layout_alignParentStart="true"
-                        tools:text="user@test.com"
                         android:layout_below="@+id/contact_info_caption"
                         android:layout_marginStart="@dimen/margin_20"
+                        android:ellipsize="end"
+                        android:paddingRight="16dp"
                         android:textColor="?popupsCaptionColor"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        tools:text="user@test.com" />
 
                     <TextView
                         android:id="@+id/contact_info_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="+1234567890"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/contact_info_email"
                         android:layout_marginStart="@dimen/margin_20"
                         android:textColor="?popupsCaptionColor"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        tools:text="+1234567890" />
 
                     <TextView
                         android:id="@+id/subscribed_since_caption"
@@ -317,12 +315,12 @@
                     <TextView
                         android:id="@+id/subscribed_since_value"
                         android:layout_width="wrap_content"
-                        tools:text="1 Dec, 2020"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/subscribed_since_caption"
                         android:layout_below="@+id/subscribed_since_caption"
                         android:textColor="?popupsCaptionColor"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        tools:text="1 Dec, 2020" />
 
                     <TextView
                         android:id="@+id/location_caption"
@@ -336,14 +334,14 @@
 
                     <TextView
                         android:id="@+id/location_value"
-                        tools:text="SportsSideKick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/location_caption"
                         android:layout_below="@+id/location_caption"
                         android:layout_centerHorizontal="true"
                         android:textColor="?popupsCaptionColor"
-                        android:textSize="@dimen/font_size_12" />
+                        android:textSize="@dimen/font_size_12"
+                        tools:text="SportsSideKick" />
 
                     <TextView
                         android:id="@+id/password_caption"
@@ -414,26 +412,44 @@
                         android:scaleType="centerInside"
                         android:src="@drawable/edit_button" />
 
-                    <TextView
-                        android:id="@+id/autoTranslateLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/chosen_language_value"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Auto-translate"
-                        android:textColor="@color/white" />
-
                     <ToggleButton
                         android:id="@+id/autoTranslateToggle"
                         android:layout_width="56dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/autoTranslateLabel"
-                        android:layout_alignBottom="@+id/autoTranslateLabel"
+                        android:layout_marginLeft="18dp"
                         android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/chosen_language_value" />
+
+                    <TextView
+                        android:id="@+id/autoTranslateLabel"
+                        android:layout_width="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:layout_toEndOf="@+id/autoTranslateLabel"
-                        android:text="Auto translate" />
+                        android:layout_alignBaseline="@+id/autoTranslateToggle"
+                        android:layout_alignBottom="@+id/autoTranslateToggle"
+                        android:layout_toEndOf="@+id/autoTranslateToggle"
+                        android:layout_height="wrap_content"
+                        android:text="Automatic translation"
+                        android:textColor="@color/white" />
+
+                    <ToggleButton
+                        android:id="@+id/wallNotificationsToggle"
+                        android:layout_width="56dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/autoTranslateToggle" />
+
+                    <TextView
+                        android:id="@+id/wallNotificationsLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_alignBaseline="@+id/wallNotificationsToggle"
+                        android:layout_alignBottom="@+id/wallNotificationsToggle"
+                        android:layout_toEndOf="@+id/wallNotificationsToggle"
+                        android:layout_height="wrap_content"
+                        android:text="Wall notifications"
+                        android:textColor="@color/white" />
 
                 </RelativeLayout>
 
@@ -479,14 +495,14 @@
                             android:orientation="vertical">
 
                             <TextView
-                                tools:text="0"
                                 android:id="@+id/caps_value"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:textColor="?popupsCaptionColor"
                                 android:textSize="@dimen/font_size_25"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:text="0" />
 
                             <TextView
                                 android:id="@+id/caps_caption"
@@ -537,8 +553,8 @@
                             android:layout_centerInParent="true"
                             android:gravity="center"
                             android:textColor="@color/white"
-                            tools:text="1"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="1" />
 
                     </RelativeLayout>
 
