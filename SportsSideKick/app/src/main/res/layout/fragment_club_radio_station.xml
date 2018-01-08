@@ -84,6 +84,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_10"
             android:layout_toEndOf="@+id/live_dot"
+            android:textAllCaps="true"
             android:text="@string/live"
             android:textColor="@color/white" />
 

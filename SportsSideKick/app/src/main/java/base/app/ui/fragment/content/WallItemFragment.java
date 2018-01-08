@@ -605,7 +605,6 @@ public class WallItemFragment extends BaseFragment {
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
         }
     }
 

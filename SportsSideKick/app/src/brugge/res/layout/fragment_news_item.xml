@@ -387,7 +387,7 @@
             android:textSize="@dimen/font_size_12"
             android:layout_marginStart="@dimen/margin_15"
             android:layout_marginTop="@dimen/margin_5"
-            android:hint="@string/enter_comment_hint"
+            android:hint="@string/comment_hint"
             android:textColor="@color/colorGrayDark"
             android:textColorHint="@color/colorGray"
             app:backgroundTint="?white" />

@@ -67,7 +67,7 @@
         android:layout_below="@+id/top_buttons_container"
         android:gravity="center"
         android:background="?colorPrimarySemiLight"
-        android:text="@string/friends_you_are_following"
+        android:text="@string/friends_you_follow"
         android:textColor="@color/white" />
 
     <com.wang.avi.AVLoadingIndicatorView

@@ -60,9 +60,15 @@
     <string name="login_slider_chat">You can chat with  <font color="#c3ff01">friends, create groups</font>and even connect with your <font color="#c3ff01">favourite players!</font></string>
     <string name="chat_with_friends">Chat with  <font color="#c3ff01">friends.</font></string>
     <string name="reset">Reset</string>
-    <string name="login_sign_up_text">Login / Sign up</string>
+    <string name="login_or_signup">Login / Sign up</string>
     <string name="logout_from_app">This will log you out of the app!</string>
     <string name="reset_app">This action will reload the application.</string>
+    <string name="registration_error">Registration error. Try again later.</string>
+    <string name="registration_error_username_taken">Registration error - username already taken, please select a different username.</string>
+    <string name="join_with_facebook">Join now with<b> Facebook </b></string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="log_in_with_facebook">Login with<b> Facebook </b></string>
+    <string name="sign_in_with_facebook">Sign in with<b> Facebook </b></string>
 
     <!--Dialogs-->
     <string name="ok">OK</string>
@@ -156,6 +162,10 @@
     <string name="add_friend_hint">Enter your friend\'s name, email or phone number in the search field.</string>
     <string name="save">Save</string>
     <string name="invite">Invite</string>
+    <string name="friends_you_follow">Friends you are following:</string>
+    <string name="no_friends">No friends</string>
+    <string name="follow_more">Follow More</string>
+    <string name="friends_following_you">Friends following you:</string>
 
     <!--Chat-->
     <string name="join_group">Join Group</string>
@@ -220,6 +230,11 @@
     <string name="edit_chat">Edit Chat</string>
     <string name="group_chat_name">Enter a name for your Group Chat</string>
     <string name="join_official_chat">Join Official Chat ></string>
+    <string name="search_public_chats">Search Public Chats</string>
+    <string name="public_chats_your_friends_are_in">Public Chats your friends are in</string>
+    <string name="rename_your_chat">Rename your chat</string>
+    <string name="new_name_of_chat_hint">Enter new name of chat here</string>
+    <string name="people_in_this_chat">People in this chat</string>
 
     <!--Video chat-->
     <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -253,37 +268,17 @@
     <string name="match_mins">%1$d Mins</string>
     <string name="match_sec">%1$d Sec</string>
     <string name="match_secs">%1$d Secs</string>
+    <string name="up_next">Up next</string>
+    <string name="live">Live</string>
 
-    <string name="news_install_twitter">Please install Twitter application.</string>
-    <string name="news_post_to_wall_title">Post this to your wall?</string>
-    <string name="news_post_to_wall_message">Would you like to post this on your wall?</string>
-    <string name="permissions">Permissions</string>
-    <string name="registration_error">Registration error. Try again later.</string>
-    <string name="registration_error_username_taken">Registration error - username already taken, please select a different username.</string>
     <string name="no_users_selected">No users selected!</string>
     <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-    <string name="up_next">UP NEXT</string>
-    <string name="live">LIVE</string>
     <string name="tutorial_earn">Tap here to earn 5 for viewing this How to!</string>
-    <string name="playlist">PLAYLIST</string>
-    <string name="default_time">00:00 / 00:00</string>
-    <string name="write_post_hint">Write your post here.</string>
     <string name="user">User</string>
     <string name="store">Store</string>
     <string name="search_wall_posts_hint">Search Wall Posts</string>
-    <string name="search_public_chats">Search Public Chats</string>
-    <string name="public_chats_your_friends_are_in">Public Chats your friends are in</string>
-    <string name="rename_your_chat">Rename your chat</string>
-    <string name="new_name_of_chat_hint">Enter new name of chat here</string>
-    <string name="people_in_this_chat">People in this chat</string>
     <string name="select_friends_to_call">Select friends to call</string>
-    <string name="friends_you_are_following">Friends you are following:</string>
-    <string name="no_friends">No friends</string>
-    <string name="follow_more">Follow More</string>
-    <string name="friends_following_you">Friends following you:</string>
     <string name="no_results">No results</string>
-    <string name="no_result">No result</string>
-    <string name="login_or_sign_up">Login / Signup</string>
     <string name="rewards_and_items_received">Rewards and items received from Gym Bags</string>
     <string name="you_have">YOU HAVE</string>
     <string name="bonus_gym_bag">+ BONUS GYM BAG</string>
@@ -309,10 +304,6 @@
     <string name="join_now">Join Now</string>
     <string name="sign_in">Sign In</string>
 
-    <string name="join_with_facebook">Join now with<b> Facebook </b></string>
-    <string name="forgot_your_password">Forgot your password?</string>
-    <string name="log_in_with_facebook">Login with<b> Facebook </b></string>
-    <string name="sign_in_with_facebook">Sign in with<b> Facebook </b></string>
     <string name="this_chat_is_public_phone">This chat is PUBLIC</string>
     <string name="this_chat_is_private_phone">This chat is PRIVATE</string>
     <string name="user_profile">User Profile</string>
@@ -329,12 +320,15 @@
     <string name="unfriend_confirm">Are you sure you want to remove this friend?</string>
 
     <!--Posts & News-->
+    <string name="write_post_hint">Write your post here.</string>
+    <string name="news_post_to_wall_title">Post this to your wall?</string>
+    <string name="news_post_to_wall_message">Would you like to post this on your wall?</string>
+    <string name="sharing_message_hint">Enter a message with your shared post…</string>
+    <string name="comment_hint">Enter your comment here…</string>
     <string name="read_more_closed">Read more  &gt;</string>
     <string name="read_more_open">Read less  &lt;</string>
-    <string name="hint_sharing_message">Enter a message with your shared post…</string>
     <string name="translate">Translate</string>
     <string name="share_using">Share with:</string>
-    <string name="enter_comment_hint">Enter your comment here…</string>
     <string name="posts">Posts</string>
     <string name="post">Post</string>
     <string name="comments">Comments</string>
@@ -342,7 +336,11 @@
     <!--Stats-->
     <string name="permission_storage_rationale">You need to enable Write permission.</string>
     <string name="permission_storage_denied">You need to enable Write permission in settings </string>
-    <string name="permission_storage_neverask">Never ask again.</string>
+    <string name="permission_storage_never_ask">Never ask again.</string>
+
+    <!--Club TV-->
+    <string name="playlist">PLAYLIST</string>
+    <string name="default_time">00:00 / 00:00</string>
 
     <!--Placeholders-->
     <string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>

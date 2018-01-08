@@ -187,7 +187,7 @@ boolean firstLoad=true;
 
     @OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showNeverAskStorage() {
-        Toast.makeText(getContext(), R.string.permission_storage_neverask, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.permission_storage_never_ask, Toast.LENGTH_SHORT).show();
     }
 
     @Override

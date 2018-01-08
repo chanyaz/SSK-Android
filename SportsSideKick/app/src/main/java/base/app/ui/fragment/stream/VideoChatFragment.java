@@ -352,7 +352,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
     public void showRationaleForMicrophoneAndCamera(final PermissionRequest request) {
-        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.permissions), getActivity().getResources().getString(R.string.video_chat_permission_microphone_and_camera_rationale),
+        AlertDialogManager.getInstance().showAlertDialog("", getActivity().getResources().getString(R.string.video_chat_permission_microphone_and_camera_rationale),
                 new View.OnClickListener() {// Cancel
                     @Override
                     public void onClick(View v) {

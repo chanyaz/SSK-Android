@@ -1,107 +1,107 @@
 
 <resources>
 
-    <string name="friend_requests">Freundschaftsanfragen</string>
+    <!--<string name="friend_requests">Freundschaftsanfragen</string>-->
 
-    <string name="language_current">German</string>
+    <!--<string name="language_current">German</string>-->
 
-    <!-- Login scree -->
-    <string name="login_sign_up">REGISTRIEREN</string>
-    <string name="login_login">ANMELDEN</string>
-    <string name="email">E-Mail</string>
-    <string name="password">Kennwort</string>
-    <string name="login_login_forgot_text">Kennwort vergessen?</string>
-    <string name="login_login_message_login_failed">Anmeldung gescheitert!</string>
-    <string name="login_login_message_authentication_failed">Bitte gib dein Kennwort erneut ein!</string>
-    <string name="forgot_password_text">Kennwort zurücksetzen</string>
-    <string name="forgot_password_button_text">KENNWORT ZURÜCKSETZEN</string>
-    <string name="sign_up_facebook">Mit Facebook registrieren</string>
-    <string name="or">ODER</string>
-    <string name="sign_up_first_name">Vorname</string>
-    <string name="sign_up_last_name">Nachname</string>
-    <string name="sign_up_username">Benutzername</string>
-    <string name="sign_up_phone">Telefon</string>
-    <string name="sign_up_sign_up">Registrieren</string>
-    <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
+    <!--&lt;!&ndash; Login scree &ndash;&gt;-->
+    <!--<string name="login_sign_up">REGISTRIEREN</string>-->
+    <!--<string name="login_login">ANMELDEN</string>-->
+    <!--<string name="email">E-Mail</string>-->
+    <!--<string name="password">Kennwort</string>-->
+    <!--<string name="login_login_forgot_text">Kennwort vergessen?</string>-->
+    <!--<string name="login_login_message_login_failed">Anmeldung gescheitert!</string>-->
+    <!--<string name="login_login_message_authentication_failed">Bitte gib dein Kennwort erneut ein!</string>-->
+    <!--<string name="forgot_password_text">Kennwort zurücksetzen</string>-->
+    <!--<string name="forgot_password_button_text">KENNWORT ZURÜCKSETZEN</string>-->
+    <!--<string name="sign_up_facebook">Mit Facebook registrieren</string>-->
+    <!--<string name="or">ODER</string>-->
+    <!--<string name="sign_up_first_name">Vorname</string>-->
+    <!--<string name="sign_up_last_name">Nachname</string>-->
+    <!--<string name="sign_up_username">Benutzername</string>-->
+    <!--<string name="sign_up_phone">Telefon</string>-->
+    <!--<string name="sign_up_sign_up">Registrieren</string>-->
+    <!--<string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>-->
 
-    <string name="ok">OK</string>
-    <string name="warning">Warning</string>
-    <string name="email_not_valid">Bitte eine gültige E-Mail-Adresse eingeben.</string>
-    <string name="internet_needed">Du musst mit dem Internet verbunden sein, um Sports Sidekick nutzen zu können</string>
-    <string name="facebook_error">Dein öffentliches Profil kann nicht abgerufen werden. Bitte erneut versuchen!</string>
+    <!--<string name="ok">OK</string>-->
+    <!--<string name="warning">Warning</string>-->
+    <!--<string name="email_not_valid">Bitte eine gültige E-Mail-Adresse eingeben.</string>-->
+    <!--<string name="internet_needed">Du musst mit dem Internet verbunden sein, um Sports Sidekick nutzen zu können</string>-->
+    <!--<string name="facebook_error">Dein öffentliches Profil kann nicht abgerufen werden. Bitte erneut versuchen!</string>-->
 
-    <string name="wall">Pinnwand</string>
-    <string name="video_chat">Video-Chat</string>
-    <string name="news">News</string>
-    <string name="rumours">Gerüchte</string>
-    <string name="shop">Shop</string>
+    <!--<string name="wall">Pinnwand</string>-->
+    <!--<string name="video_chat">Video-Chat</string>-->
+    <!--<string name="news">News</string>-->
+    <!--<string name="rumours">Gerüchte</string>-->
+    <!--<string name="shop">Shop</string>-->
 
-    <string name="radio">Club Radio</string>
-    <string name="tv">Club TV</string>
-    <string name="fantasy">Fantasy</string>
-    <string name="stats">Statistik</string>
-    <string name="chat">Chat</string>
-    <string name="shop">Shop</string>
-    <string name="rumours">Gerüchte</string>
-    <string name="video_chat">Video-Chat</string>
-    <string name="wall">Pinnwand</string>
-    <string name="news">News</string>
-    <string name="quiz">Quiz</string>
-    <string name="coins_caption">DU HAST</string>
+    <!--<string name="radio">Club Radio</string>-->
+    <!--<string name="tv">Club TV</string>-->
+    <!--<string name="fantasy">Fantasy</string>-->
+    <!--<string name="stats">Statistik</string>-->
+    <!--<string name="chat">Chat</string>-->
+    <!--<string name="shop">Shop</string>-->
+    <!--<string name="rumours">Gerüchte</string>-->
+    <!--<string name="video_chat">Video-Chat</string>-->
+    <!--<string name="wall">Pinnwand</string>-->
+    <!--<string name="news">News</string>-->
+    <!--<string name="quiz">Quiz</string>-->
+    <!--<string name="coins_caption">DU HAST</string>-->
 
-    <string name="days">" Tage "</string>
-    <string name="no_message_text">Bisher chattet noch niemand! Fang du doch an?</string>
-    <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-    <string name="allow">Allow</string>
-    <string name="deny">Deny</string>
-    <string name="permission_microphone_denied">You need to enable micrphone in settings to send audio messages.</string>
-    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
+    <!--<string name="days">" Tage "</string>-->
+    <!--<string name="no_message_text">Bisher chattet noch niemand! Fang du doch an?</string>-->
+    <!--<string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>-->
+    <!--<string name="allow">Allow</string>-->
+    <!--<string name="deny">Deny</string>-->
+    <!--<string name="permission_microphone_denied">You need to enable micrphone in settings to send audio messages.</string>-->
+    <!--<string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>-->
 
-    <string name="chat_public">This chat is private</string>
-    <string name="this_chat_is_private">This chat is public</string>
-    <string name="manage_public_chat_caption">Manage chat %1s</string>
-    <string name="create_chat">Neuen Chat erstellen</string>
-    <string name="join_chat">Chat beitreten</string>
-    <string name="your_stash">Errungenschaften</string>
-    <string name="your_wallet">Your Wallet -</string>
-    <string name="your_profile">Dein Profil</string>
-    <string name="contact_info">Kontaktinfo</string>
-    <string name="subscribed_since">Registriert seit</string>
-    <string name="location">Standort</string>
-    <string name="password">Kennwort</string>
-    <string name="image">image</string>
-    <string name="chosen_language">Gewählte Sprache</string>
-    <string name="your_statement">Your Statement</string>
-    <string name="choose_your_language">Sprache wählen</string>
+    <!--<string name="chat_public">This chat is private</string>-->
+    <!--<string name="this_chat_is_private">This chat is public</string>-->
+    <!--<string name="manage_public_chat_caption">Manage chat %1s</string>-->
+    <!--<string name="create_chat">Neuen Chat erstellen</string>-->
+    <!--<string name="join_chat">Chat beitreten</string>-->
+    <!--<string name="your_stash">Errungenschaften</string>-->
+    <!--<string name="your_wallet">Your Wallet -</string>-->
+    <!--<string name="your_profile">Dein Profil</string>-->
+    <!--<string name="contact_info">Kontaktinfo</string>-->
+    <!--<string name="subscribed_since">Registriert seit</string>-->
+    <!--<string name="location">Standort</string>-->
+    <!--<string name="password">Kennwort</string>-->
+    <!--<string name="image">image</string>-->
+    <!--<string name="chosen_language">Gewählte Sprache</string>-->
+    <!--<string name="your_statement">Your Statement</string>-->
+    <!--<string name="choose_your_language">Sprache wählen</string>-->
 
-    <string name="friend_profile">Freund-Informationen</string>
-    <string name="member_since">Member since</string>
-    <string name="follows_you">Folgt dir</string>
-    <string name="following_member">Following member</string>
+    <!--<string name="friend_profile">Freund-Informationen</string>-->
+    <!--<string name="member_since">Member since</string>-->
+    <!--<string name="follows_you">Folgt dir</string>-->
+    <!--<string name="following_member">Following member</string>-->
 
-    <!-- your friends-->
-    <string name="your_friends_title">Deine Freunde</string>
-    <string name="your_friends_search_hint">Deine Freunde durchsuchen</string>
-    <string name="your_friends_request">Freundschaftsanfragen</string>
+    <!--&lt;!&ndash; your friends&ndash;&gt;-->
+    <!--<string name="your_friends_title">Deine Freunde</string>-->
+    <!--<string name="your_friends_search_hint">Deine Freunde durchsuchen</string>-->
+    <!--<string name="your_friends_request">Freundschaftsanfragen</string>-->
 
-    <!-- video chat -->
-    <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
-    <string name="video_chat_text_2">Video-Anrufe funktionieren leider nur mit maximal 3 Freunden, und dieser Anruf ist bereits belegt!</string>
-    <string name="video_chat_button_text">Deinen Anruf Starten</string>
-    <string name="starting_new_call_search_hint">Nach öffentlichen Chats suchen</string>
-    <string name="starting_new_call_search_title">Neuen Anruf starten</string>
-    <string name="member_info">Member info</string>
-
-
-    <plurals name="days_until_match">
-        <item quantity="zero">HEUTE</item>
-        <item quantity="one">%d Tag</item>
-        <item quantity="other">%d Tage</item>
-    </plurals>
+    <!--&lt;!&ndash; video chat &ndash;&gt;-->
+    <!--<string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>-->
+    <!--<string name="video_chat_text_2">Video-Anrufe funktionieren leider nur mit maximal 3 Freunden, und dieser Anruf ist bereits belegt!</string>-->
+    <!--<string name="video_chat_button_text">Deinen Anruf Starten</string>-->
+    <!--<string name="starting_new_call_search_hint">Nach öffentlichen Chats suchen</string>-->
+    <!--<string name="starting_new_call_search_title">Neuen Anruf starten</string>-->
+    <!--<string name="member_info">Member info</string>-->
 
 
-    <!-- tutorial values -->
-    <string name="share_using">Share with:</string>
+    <!--<plurals name="days_until_match">-->
+        <!--<item quantity="zero">HEUTE</item>-->
+        <!--<item quantity="one">%d Tag</item>-->
+        <!--<item quantity="other">%d Tage</item>-->
+    <!--</plurals>-->
+
+
+    <!--&lt;!&ndash; tutorial values &ndash;&gt;-->
+    <!--<string name="share_using">Share with:</string>-->
 
 
 </resources>

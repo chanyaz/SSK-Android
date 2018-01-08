@@ -1,26 +1,26 @@
 <resources>
-    <string name="language_current">Polish</string>
-    <string name="wall">The Wall</string>
-    <string name="video_chat">Video Chat</string>
-    <string name="news">News</string>
-    <string name="rumours">Rumors</string>
-    <string name="shop">Shop</string>
+    <!--<string name="language_current">Polish</string>-->
+    <!--<string name="wall">The Wall</string>-->
+    <!--<string name="video_chat">Video Chat</string>-->
+    <!--<string name="news">News</string>-->
+    <!--<string name="rumours">Rumors</string>-->
+    <!--<string name="shop">Shop</string>-->
 
-    <string name="radio">Club Radio</string>
-    <string name="tv">Club TV</string>
-    <string name="fantasy">Fantasy</string>
-    <string name="stats">Statistics</string>
-    <string name="chat">Chat</string>
-    <string name="shop">Shop</string>
-    <string name="rumours">Rumours</string>
-    <string name="video_chat">Video Chat</string>
-    <string name="wall">The Wall</string>
-    <string name="news">News</string>
-    <string name="quiz">Quiz</string>
+    <!--<string name="radio">Club Radio</string>-->
+    <!--<string name="tv">Club TV</string>-->
+    <!--<string name="fantasy">Fantasy</string>-->
+    <!--<string name="stats">Statistics</string>-->
+    <!--<string name="chat">Chat</string>-->
+    <!--<string name="shop">Shop</string>-->
+    <!--<string name="rumours">Rumours</string>-->
+    <!--<string name="video_chat">Video Chat</string>-->
+    <!--<string name="wall">The Wall</string>-->
+    <!--<string name="news">News</string>-->
+    <!--<string name="quiz">Quiz</string>-->
 
-    <string name="member_info">Member info</string>
+    <!--<string name="member_info">Member info</string>-->
 
-    <!-- tutorial values -->
-    <string name="share_using">Share with:</string>
+    <!--&lt;!&ndash; tutorial values &ndash;&gt;-->
+    <!--<string name="share_using">Share with:</string>-->
 
 </resources>

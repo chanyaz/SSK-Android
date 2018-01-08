@@ -131,6 +131,7 @@
                 android:paddingEnd="@dimen/half_margin"
                 android:paddingStart="@dimen/space_0"
                 android:text="@string/up_next"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_10" />
 
@@ -478,7 +479,7 @@
                android:minLines="1"
                android:maxLines="2"
                android:paddingBottom="@dimen/padding_8"
-               android:text="@string/login_sign_up_text"
+               android:text="@string/login_or_signup"
                android:textColor="@color/white"
                android:textSize="@dimen/font_size_16"
                android:textStyle="bold"

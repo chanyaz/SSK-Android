@@ -219,7 +219,7 @@ public class NewsItemFragment extends BaseFragment {
         }
         setClickListeners();
 
-        sharedMessageField.setHint(R.string.hint_sharing_message);
+        sharedMessageField.setHint(R.string.sharing_message_hint);
 
         if (getSecondaryArgument() != null) {
             setSharedMessageBarVisible(true);
@@ -629,7 +629,6 @@ public class NewsItemFragment extends BaseFragment {
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
-                Toast.makeText(getContext(), getContext().getResources().getString(R.string.news_install_twitter), Toast.LENGTH_LONG).show();
             }
         } else {
             //TODO Notify user that need to login in order to SHARE
