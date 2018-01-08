@@ -120,7 +120,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
         }
         if (!info.getUsersIds().contains(Model.getInstance().getUserInfo().getUserId())) {
             holder.joinButton.setAlpha(1.f);
-            holder.joinButton.setText(context.getResources().getText(R.string.chat_join_group));
+            holder.joinButton.setText(context.getResources().getText(R.string.join_group));
             holder.joinButton.setClickable(true);
             holder.joinButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,7 +131,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             });
         } else {
             holder.joinButton.setClickable(false);
-            holder.joinButton.setText(context.getResources().getText(R.string.chat_already_in_group));
+            holder.joinButton.setText(context.getResources().getText(R.string.already_in_group));
             holder.joinButton.setAlpha(0.5f);
         }
         holder.memberList.setAdapter(getHorizontalAdapter(info));

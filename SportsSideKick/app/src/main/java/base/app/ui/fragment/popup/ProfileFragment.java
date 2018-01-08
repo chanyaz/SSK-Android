@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
@@ -233,8 +232,8 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
             values.add(new Pair<>(getContext().getResources().getString(R.string.chats), String.valueOf(user.getChats())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.video_chats), String.valueOf(user.getVideoChats())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.public_chats), String.valueOf(user.getPublicChats())));
-            values.add(new Pair<>(getContext().getResources().getString(R.string.matches_attended_home), String.valueOf(user.getMatchesHome())));
-            values.add(new Pair<>(getContext().getResources().getString(R.string.matches_attended_away), String.valueOf(user.getMatchesAway())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.matches_home), String.valueOf(user.getMatchesHome())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.matches_away), String.valueOf(user.getMatchesAway())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.likes_received), String.valueOf(user.getLikes())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.comments_made), String.valueOf(user.getComments())));
             adapter.getValues().addAll(values);

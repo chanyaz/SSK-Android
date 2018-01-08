@@ -143,7 +143,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/wall_top_info"
                             android:layout_centerHorizontal="true"
-                            android:text="@string/next_match"
+                            android:text="@string/match_next"
                             android:textColor="?nextMatchTextPhoneColor" />
 
                         <TextView

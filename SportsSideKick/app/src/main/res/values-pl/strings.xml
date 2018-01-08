@@ -27,11 +27,11 @@
     <string name="sign_up_sign_up">Sign up</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_warning">Warning</string>
-    <string name="dialog_message_not_valid_email">Not valid email address.</string>
-    <string name="dialog_internet_connection_failed">No interner connection. Try again later.</string>
-    <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
+    <string name="ok">OK</string>
+    <string name="warning">Warning</string>
+    <string name="email_not_valid">Not valid email address.</string>
+    <string name="internet_needed">No interner connection. Try again later.</string>
+    <string name="facebook_error">Your public profile could not be received. Please try again!</string>
 
     <string name="wall">The Wall</string>
     <string name="video_chat">Video Chat</string>
@@ -55,12 +55,12 @@
     <string name="days">" Days "</string>
     <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
     <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-    <string name="button_allow">Allow</string>
-    <string name="button_deny">Deny</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
     <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
     <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
 
-    <string name="this_chat_is_public">This chat is public</string>
+    <string name="chat_public">This chat is public</string>
     <string name="this_chat_is_private">This chat is private</string>
     <string name="manage_public_chat_caption">Add friends to %1s</string>
     <string name="create_chat">Create Chat</string>
@@ -70,8 +70,8 @@
     <string name="your_profile">Your Profile</string>
     <string name="contact_info">Contact info</string>
     <string name="subscribed_since">Subscribed since</string>
-    <string name="location_caption">Location</string>
-    <string name="password_caption">Password</string>
+    <string name="location">Location</string>
+    <string name="password">Password</string>
     <string name="image">image</string>
     <string name="chosen_language">Chosen language</string>
     <string name="your_statement">Your Statement</string>
@@ -121,8 +121,8 @@
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
     <string name="permission_camera_rationale">Please enable camera in order to take image.</string>
 
-    <string name="chat_join_group">Join Group</string>
-    <string name="chat_already_in_group">You are already in group</string>
+    <string name="join_group">Join Group</string>
+    <string name="already_in_group">You are already in group</string>
     <string name="chat_members">Membersp</string>
     <string name="chat_edit">Edit</string>
     <string name="chat_Leave">Leave</string>
@@ -158,8 +158,8 @@
     <string name="enter_valid_password_and_display_name">Please enter valid password and displayName!</string>
     <string name="login_try_again">Please re-enter your password and try again</string>
     <string name="remove_friend">REMOVE FRIEND</string>
-    <string name="friend_request">SEND FRIEND REQUEST</string>
-    <string name="friend_un_follow">UN-FOLLOW</string>
+    <string name="friend_request_send">SEND FRIEND REQUEST</string>
+    <string name="friend_unfollow">UN-FOLLOW</string>
     <string name="friend_follow">FOLLOW</string>
     <string name="registration_error">Registration error. Try again later.</string>
     <string name="no_users_selected">No users selected!</string>
@@ -176,14 +176,14 @@
     <string name="chats">Chats</string>
     <string name="video_chats">Video chats</string>
     <string name="public_chats">Public chats</string>
-    <string name="matches_attended_home">Matches attended (home)</string>
-    <string name="matches_attended_away">Matches attended (away)</string>
+    <string name="matches_home">Matches attended (home)</string>
+    <string name="matches_away">Matches attended (away)</string>
     <string name="likes_received">Likes received</string>
     <string name="comments_made">Comments made</string>
     <string name="up_next">UP NEXT</string>
     <string name="live">LIVE</string>
     <string name="tutorial_earn">Tap here to earn 5 for viewing this How to!</string>
-    <string name="add_users">ADD USERS</string>
+    <string name="chat_friends_add">ADD USERS</string>
     <string name="playlist">PLAYLIST</string>
     <string name="write_post_hint">Write your post here.</string>
     <string name="user">User</string>
@@ -224,7 +224,7 @@
     <string name="login_sign_up_text">Login / Signup</string>
     <string name="add_new_chat">ADD NEW CHAT</string>
     <string name="comment_text">Comment text</string>
-    <string name="chat_hint">Enter your message here...</string>
+    <string name="message_hint">Enter your message here...</string>
     <string name="create">Create</string>
     <string name="caps">CAPS</string>
     <string name="join_official_chat"><![CDATA[Join Official Chat >]]></string>
@@ -233,9 +233,9 @@
     <string name="soccer_boot">SOCCER BOOT</string>
     <string name="shop">Shop</string>
     <string name="store_big">STORE</string>
-    <string name="waiting_for_active_internet_connection">Waiting for active internet connection...</string>
-    <string name="no_connection_title">No Connection</string>
-    <string name="no_connection_message">You need to be connected to the internet to do this</string>
+    <string name="waiting_for_internet">Waiting for active internet connection...</string>
+    <string name="no_connection">No Connection</string>
+    <string name="internet_needed">You need to be connected to the internet to do this</string>
 
     <integer name="progress_bar_max">100</integer>
     <integer name="progress_bar_30">30</integer>
@@ -253,8 +253,8 @@
     <string name="language">Language:</string>
     <string name="phone">Phone:</string>
     <string name="user_name">User Name:</string>
-    <string name="last_name_profile">Last Name:</string>
-    <string name="first_name_profile">First Name:</string>
+    <string name="last_name">Last Name:</string>
+    <string name="first_name">First Name:</string>
     <string name="profile">Profile</string>
     <string name="stash">Stash</string>
     <string name="join_official_account"><![CDATA[Join official Account >]]></string>

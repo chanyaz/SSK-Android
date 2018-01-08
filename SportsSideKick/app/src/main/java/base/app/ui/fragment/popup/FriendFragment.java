@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import base.app.util.ui.ImageLoader;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,20 +26,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.util.events.chat.OpenChatEvent;
-import base.app.util.events.call.StartCallEvent;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.stream.VideoChatFragment;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsManager;
 import base.app.data.user.UserInfo;
+import base.app.ui.adapter.friends.FriendsAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.other.ChatFragment;
+import base.app.ui.fragment.stream.VideoChatFragment;
 import base.app.util.commons.Utility;
+import base.app.util.events.call.StartCallEvent;
+import base.app.util.events.chat.OpenChatEvent;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,7 +52,7 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 
-public class MemberInfoFragment extends BaseFragment {
+public class FriendFragment extends BaseFragment {
 
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.18;
 
@@ -158,7 +158,7 @@ public class MemberInfoFragment extends BaseFragment {
     FriendsAdapter friendsInCommonAdapter;
     FriendsAdapter allFriendsAdapter;
 
-    public MemberInfoFragment() {
+    public FriendFragment() {
         // Required empty public constructor
     }
 
@@ -166,7 +166,7 @@ public class MemberInfoFragment extends BaseFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.popup_member_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_friend, container, false);
         initiatorFragment = getInitiator();
         if (initiatorFragment == null) {
             initiatorFragment = FriendsFragment.class; // Resolve to default parent!
@@ -226,7 +226,7 @@ public class MemberInfoFragment extends BaseFragment {
                     chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request_pending));
                     changeViewClickable(false,chatButtonPhoneImage);
                 } else {
-                    chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request));
+                    chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request_send));
                     changeViewClickable(true,chatButtonPhoneImage);
                 }
             }
@@ -254,7 +254,7 @@ public class MemberInfoFragment extends BaseFragment {
 
                 if (user.isiFollowHim()) { // I am following this user
                     followButtonImage.setImageResource(R.drawable.friend_unfollow_button);
-                    followButtonText.setText(getContext().getResources().getString(R.string.friend_un_follow));
+                    followButtonText.setText(getContext().getResources().getString(R.string.friend_unfollow));
                 } else {
                     followButtonImage.setImageResource(R.drawable.friend_follow_button);
                     followButtonText.setText(getContext().getResources().getString(R.string.friend_follow));
@@ -288,7 +288,7 @@ public class MemberInfoFragment extends BaseFragment {
                     changeViewClickable(false, friendButtonText);
                 } else {
                     friendButtonImage.setImageResource(R.drawable.friend_follow_button);
-                    friendButtonText.setText(getContext().getResources().getString(R.string.friend_request));
+                    friendButtonText.setText(getContext().getResources().getString(R.string.friend_request_send));
                     //enable send request button
                     changeViewClickable(true, friendButtonImage);
                     changeViewClickable(true, friendButtonText);
@@ -424,8 +424,8 @@ public class MemberInfoFragment extends BaseFragment {
         if (user.isaFriend()) { // this user is my friend, remove it from friends
             AlertDialogManager.getInstance()
                     .showAlertDialog(
-                            getContext().getResources().getString(R.string.un_friend_title),
-                            getContext().getResources().getString(R.string.un_friend_message),
+                            getContext().getResources().getString(R.string.unfriend_confirm),
+                            getContext().getResources().getString(R.string.unfriend_tip),
                             new View.OnClickListener() {// Cancel listener
                                 @Override
                                 public void onClick(View v) {
@@ -511,10 +511,10 @@ public class MemberInfoFragment extends BaseFragment {
             if (user.isaFriend()) {
                 friend = getString(R.string.remove_friend);
             } else {
-                friend = getString(R.string.friend_request);
+                friend = getString(R.string.friend_request_send);
             }
             if (user.isiFollowHim()) { // I am following this user
-                follow = getString(R.string.friend_un_follow);
+                follow = getString(R.string.friend_unfollow);
             } else {
                 follow = getString(R.string.friend_follow);
             }

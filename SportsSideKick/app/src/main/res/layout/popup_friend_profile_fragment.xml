@@ -195,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
                 android:layout_toEndOf="@+id/text_center"
-                android:text="@string/location_caption"
+                android:text="@string/location"
                 android:textColor="?colorAccent" />
 
             <TextView
@@ -281,6 +281,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_negative_5"
                         android:gravity="center"
+                        android:textAllCaps="true"
                         android:text="@string/caps"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_10" />

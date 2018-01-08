@@ -57,24 +57,27 @@
     <string name="last_name_validation_warning">Please fill in your last name.</string>
     <string name="enter_valid_password_and_display_name">Please enter valid password and user name</string>
     <string name="login_try_again">Please re-enter your password and try again</string>
-    <string name="login_slider_chat">You can chat with  <font color="#c3ff01"> friends, create groups </font>and even\n connect with your <font color="#c3ff01"> favourite players! </font></string>
+    <string name="login_slider_chat">You can chat with  <font color="#c3ff01">friends, create groups</font>and even connect with your <font color="#c3ff01">favourite players!</font></string>
     <string name="chat_with_friends">Chat with  <font color="#c3ff01">friends.</font></string>
+    <string name="reset">Reset</string>
+    <string name="login_sign_up_text">Login / Sign up</string>
+    <string name="logout_from_app">This will log you out of the app!</string>
+    <string name="reset_app">This action will reload the application.</string>
 
-    <!-- Dialogs -->
-    <string name="dialog_ok">OK</string>
-    <string name="button_allow">Allow</string>
-    <string name="button_deny">Deny</string>
-    <string name="dialog_warning">Warning</string>
+    <!--Dialogs-->
+    <string name="ok">OK</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="warning">Warning</string>
     <string name="uploading">Uploading…</string>
-    <string name="dialog_message_not_valid_email">Please enter a valid email address!</string>
-    <string name="dialog_internet_connection_failed">You need to be connected to the internet to do this</string>
-    <string name="dialog_message_facebook_error">Your public profile could not be received. Please try again!</string>
-
-    <string name="share_using">Share with:</string>
-    <string name="enter_comment_hint">Enter your comment here…</string>
-    <string name="member_info">Member info</string>
+    <string name="email_not_valid">Please enter a valid email address!</string>
+    <string name="facebook_error">Your public profile could not be received. Please try again!</string>
+    <string name="no_connection">No Connection</string>
+    <string name="internet_needed">You need to be connected to the internet to do this</string>
+    <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
     <!--Profile-->
+    <string name="profile">Profile</string>
     <string name="edit_information">Edit Information</string>
     <string name="edit_photo">Edit Photo</string>
     <string name="first_name">First Name</string>
@@ -88,10 +91,20 @@
     <string name="your_profile">Your Profile</string>
     <string name="contact_info">Contact info</string>
     <string name="subscribed_since">Subscribed since</string>
-    <string name="location_caption">Location</string>
-    <string name="password_caption">Password</string>
+    <string name="location">Location</string>
     <string name="chosen_language">Chosen language</string>
     <string name="your_statement">Your Statement</string>
+    <string name="caps_level">Caps level</string>
+    <string name="days_using">Days using SSK</string>
+    <string name="wall_posts">Wall posts</string>
+    <string name="videos_watched">Videos watched</string>
+    <string name="matches_home">Matches attended (home)</string>
+    <string name="matches_away">Matches attended (away)</string>
+    <string name="likes_received">Likes received</string>
+    <string name="comments_made">Comments made</string>
+    <string name="go_to_profile">Go to Profile ></string>
+    <string name="enable_wall_notifications">Enable wall notifications</string>
+    <string name="disable_wall_notifications">Disable wall notifications</string>
     <string name="choose_your_language">Choose your language</string>
     <string name="language_current" translatable="false">English</string>
     <string-array name="languages" translatable="false">
@@ -119,10 +132,34 @@
     <string name="your_friends_search_hint">Search your friends</string>
     <string name="your_friends_request">Friend requests</string>
     <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
+    <string name="offline">Offline</string>
+    <string name="friend_request_pending">Friend Request Pending</string>
+    <string name="request_pending">Request Pending</string>
+    <string name="search_your_friends">Search your friends</string>
+    <string name="friends_list">Friends List</string>
+    <string name="try_again_latter">Error. Try again later.</string>
+    <string name="enter_friend_name_invite">Enter friend name to invite.</string>
+    <string name="remove_friend">Unfriend</string>
+    <string name="friend_request_send">Send Friend Request</string>
+    <string name="friend_unfollow">Unfollow Friend</string>
+    <string name="friend_follow">Follow Friend</string>
+    <string name="friends">Friends</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="report_abuse">Report Abuse</string>
+    <string name="cancel">Cancel</string>
+    <string name="member_info">Member info</string>
+    <string name="requested_on">Requested on</string>
+    <string name="you">You</string>
+    <string name="add_friend">Add a friend</string>
+    <string name="invite_friend">Invite a friend</string>
+    <string name="add_friend_hint">Enter your friend\'s name, email or phone number in the search field.</string>
+    <string name="save">Save</string>
+    <string name="invite">Invite</string>
 
     <!--Chat-->
-    <string name="chat_join_group">Join Group</string>
-    <string name="chat_already_in_group">You are already in the chat.</string>
+    <string name="join_group">Join Group</string>
+    <string name="already_in_group">You are already in the chat.</string>
     <string name="chat_members">Members</string>
     <string name="chat_edit">Edit</string>
     <string name="chat_Leave">Leave</string>
@@ -148,7 +185,7 @@
     <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
     <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-    <string name="this_chat_is_public">This chat is public</string>
+    <string name="chat_public">This chat is public</string>
     <string name="this_chat_is_private">This chat is private</string>
     <string name="record_video">Record Video</string>
     <string name="manage_public_chat_caption">Add friends to %1s</string>
@@ -157,8 +194,32 @@
     <string name="single_user_is_typing">%1$s! is typing…</string>
     <string name="multiple_users_are_typing">Multiple users are typing…</string>
     <string name="unnamed_chat">Unnamed Chat</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <string name="alerts_on">Alerts-ON</string>
     <string name="alerts_off">Alerts-OFF</string>
+    <string name="search">Search</string>
+    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
+    <string name="chat_with_friends_login"> Chat with friends.</string>
+    <string name="chat_friends_in_chat">Friends in Chat</string>
+    <string name="chat_friend_in_chat">1 Friend in Chat</string>
+    <string name="chat_choose_option">Choose option</string>
+    <string name="chat_choose_from_library">Choose from library</string>
+    <string name="chat_use_camera">Use Camera</string>
+    <string name="chat_no_changes">There are no changes in this chat.</string>
+    <string name="chats">Chats</string>
+    <string name="public_chats">Public chats</string>
+    <string name="add_new_chat">ADD NEW CHAT</string>
+    <string name="message_hint">Enter your message here…</string>
+    <string name="chat_friends_add">Add friends to this chat</string>
+    <string name="chat_name">Chat name</string>
+    <string name="your_chat_name">Name Your Chat</string>
+    <string name="add_friends_to_chat">Add friends to chat</string>
+    <string name="search_for_member">Search for a member</string>
+    <string name="friends_in_chat">Friends in Chat</string>
+    <string name="edit_chat">Edit Chat</string>
+    <string name="group_chat_name">Enter a name for your Group Chat</string>
+    <string name="join_official_chat">Join Official Chat ></string>
 
     <!--Video chat-->
     <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -166,7 +227,8 @@
     <string name="video_chat_text_2">
         Video chat allows you to call up to 3 friends for a\n
         group video chat, so you can experience the action\n
-        with the people you love wherever you are!</string>
+        with the people you love wherever you are!
+    </string>
     <string name="video_chat_button_text">Begin your call</string>
     <string name="starting_new_call_search_hint">Search public chats</string>
     <string name="starting_new_call_search_title">Starting New Call</string>
@@ -176,9 +238,13 @@
     <string name="video_chat_accept_call">Accept the call?</string>
     <string name="video_chats">Video chats</string>
     <string name="cant_start_video">Can\'t start video.</string>
+    <string name="start_call">Start Call</string>
+    <string name="create_call">Starting New Call</string>
+    <string name="friends_in_video_chat">Friends in Video Chat</string>
+    <string name="friend_in_video_chat">1 Friend in Video Chat</string>
 
     <!--Next match-->
-    <string name="next_match">Next match</string>
+    <string name="match_next">Next match</string>
     <string name="match_day">%1$d Day</string>
     <string name="match_days">%1$d Days</string>
     <string name="match_hour">%1$d Hour</string>
@@ -192,63 +258,19 @@
     <string name="news_post_to_wall_title">Post this to your wall?</string>
     <string name="news_post_to_wall_message">Would you like to post this on your wall?</string>
     <string name="permissions">Permissions</string>
-    <string name="wall_new_post_subtitle">A subtitle…</string>
-    <string name="wall_text_for_post">Write your post here.</string>
-    <string name="chat_friends_in_chat">Friends in Chat</string>
-    <string name="chat_friend_in_chat">1 Friend in Chat</string>
-    <string name="chat_choose_option">Choose option</string>
-    <string name="chat_choose_from_library">Choose from library</string>
-    <string name="chat_use_camera">Use Camera</string>
-    <string name="chat_no_changes">There are no changes in this chat.</string>
-    <string name="try_again_latter">Error. Try again later.</string>
-    <string name="enter_friend_name_invite">Enter friend name to invite.</string>
-    <string name="remove_friend">Un-Friend</string>
-    <string name="friend_request">Send Friend Request</string>
-    <string name="friend_un_follow">Un-Follow Friend</string>
-    <string name="friend_follow">Follow Friend</string>
     <string name="registration_error">Registration error. Try again later.</string>
     <string name="registration_error_username_taken">Registration error - username already taken, please select a different username.</string>
     <string name="no_users_selected">No users selected!</string>
     <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-    <string name="logout_from_app">This will log you out of the app!</string>
-    <string name="reset_app">This action will reload the application.</string>
-    <string name="caps_level">Caps level</string>
-    <string name="days_using">Days using SSK</string>
-    <string name="friends">Friends</string>
-    <string name="following">Following</string>
-    <string name="followers">Followers</string>
-    <string name="wall_posts">Wall posts</string>
-    <string name="videos_watched">Videos watched</string>
-    <string name="chats">Chats</string>
-    <string name="public_chats">Public chats</string>
-    <string name="matches_attended_home">Matches attended (home)</string>
-    <string name="matches_attended_away">Matches attended (away)</string>
-    <string name="likes_received">Likes received</string>
-    <string name="comments_made">Comments made</string>
     <string name="up_next">UP NEXT</string>
     <string name="live">LIVE</string>
     <string name="tutorial_earn">Tap here to earn 5 for viewing this How to!</string>
-    <string name="add_users">Add friends to this chat</string>
     <string name="playlist">PLAYLIST</string>
     <string name="default_time">00:00 / 00:00</string>
     <string name="write_post_hint">Write your post here.</string>
     <string name="user">User</string>
     <string name="store">Store</string>
     <string name="search_wall_posts_hint">Search Wall Posts</string>
-    <string name="requested_on">Requested on</string>
-    <string name="you">You</string>
-    <string name="add_friend">Add a friend</string>
-    <string name="invite_friend">Invite a friend</string>
-    <string name="add_friend_hint">Enter your friend\'s name, email or phone number in the search field.</string>
-    <string name="chat_name">Chat name</string>
-    <string name="your_chat_name">Name Your Chat</string>
-    <string name="add_friends_to_chat">Add friends to chat</string>
-    <string name="search_for_member">Search for a member</string>
-    <string name="friends_in_chat">Friends in Chat</string>
-    <string name="edit_chat">Edit Chat</string>
-    <string name="group_chat_name">Enter a name for your Group Chat</string>
-    <string name="save">Save</string>
-    <string name="invite">Invite</string>
     <string name="search_public_chats">Search Public Chats</string>
     <string name="public_chats_your_friends_are_in">Public Chats your friends are in</string>
     <string name="rename_your_chat">Rename your chat</string>
@@ -267,19 +289,9 @@
     <string name="bonus_gym_bag">+ BONUS GYM BAG</string>
     <string name="bundles">BUNDLES</string>
     <string name="vs">vs</string>
-    <string name="login_sign_up_text">Login / Signup</string>
-    <string name="add_new_chat">ADD NEW CHAT</string>
-    <string name="chat_hint">Enter your message here…</string>
     <string name="create">Create</string>
-    <string name="caps">CAPS</string>
-    <string name="join_official_chat">Join Official Chat ></string>
-    <string name="join_group">Join Group</string>
-    <string name="rumour">RUMOUR</string>
-    <string name="waiting_for_active_internet_connection">Waiting for active internet connection…</string>
-    <string name="no_connection_title">No Connection</string>
-    <string name="no_connection_message">You need to be connected to the internet to do this</string>
+    <string name="caps">Caps</string>
 
-    <string name="go_to_profile">Go to Profile ></string>
     <string name="find">Find</string>
     <string name="request">Request</string>
     <string name="official_accounts">Official Accounts</string>
@@ -290,11 +302,8 @@
     <string name="language">Language:</string>
     <string name="phone">Phone:</string>
     <string name="user_name">User Name:</string>
-    <string name="last_name_profile">Last Name:</string>
-    <string name="first_name_profile">First Name:</string>
-    <string name="profile">Profile</string>
     <string name="stash">Stash</string>
-    <string name="join_official_account"><![CDATA[Join official Account >]]></string>
+    <string name="join_official_account">Join official Account ></string>
     <string name="friends_you_have_in_common">Friends you have in common</string>
     <string name="join_now_sign_in">Join Now / Sign In</string>
     <string name="join_now">Join Now</string>
@@ -308,52 +317,32 @@
     <string name="this_chat_is_private_phone">This chat is PRIVATE</string>
     <string name="user_profile">User Profile</string>
     <string name="more">More</string>
-    <string name="posts">Posts</string>
-    <string name="post">Post</string>
-    <string name="comments">Comments</string>
     <string name="friend_you_and">Friend you and</string>
     <string name="have_in_common">have in common</string>
     <string name="public_chats_profile">Public Chats</string>
     <string name="is_in">is in</string>
     <string name="what_would_you_like_to_do">What would you like to do?</string>
-    <string name="report_abuse">Report Abuse</string>
-    <string name="cancel">Cancel</string>
-    <string name="start_call">Start Call</string>
-    <string name="create_call">Starting New Call</string>
-    <string name="friends_in_video_chat">Friends in Video Chat</string>
-    <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-    <string name="search_your_friends">Search your friends</string>
-    <string name="friends_list">Friends List</string>
 
     <string name="mins_ago">mins ago</string>
-    <string name="friend_request_pending">Friend Request Pending</string>
-    <string name="request_pending">Request Pending</string>
 
-    <string name="un_friend_message"> Removing a friend will stop you following each other.</string>
-    <string name="un_friend_title">Are you sure you want to remove this friend?</string>
+    <string name="unfriend_tip">Removing a friend will stop you following each other.</string>
+    <string name="unfriend_confirm">Are you sure you want to remove this friend?</string>
 
     <!--Posts & News-->
     <string name="read_more_closed">Read more  &gt;</string>
     <string name="read_more_open">Read less  &lt;</string>
     <string name="hint_sharing_message">Enter a message with your shared post…</string>
+    <string name="translate">Translate</string>
+    <string name="share_using">Share with:</string>
+    <string name="enter_comment_hint">Enter your comment here…</string>
+    <string name="posts">Posts</string>
+    <string name="post">Post</string>
+    <string name="comments">Comments</string>
 
     <!--Stats-->
     <string name="permission_storage_rationale">You need to enable Write permission.</string>
     <string name="permission_storage_denied">You need to enable Write permission in settings </string>
     <string name="permission_storage_neverask">Never ask again.</string>
-
-
-    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-    <string name="chat_with_friends_login"> Chat with friends.</string>
-
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="enable_wall_notifications">Enable wall notifications</string>
-    <string name="disable_wall_notifications">Disable wall notifications</string>
-    <string name="search">Search</string>
-    <string name="reset">Reset</string>
-    <string name="offline">Offline</string>
-    <string name="translate">Translate</string>
 
     <!--Placeholders-->
     <string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>

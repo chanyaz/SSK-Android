@@ -89,7 +89,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_20"
-                android:text="@string/next_match"
+                android:text="@string/match_next"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_16" />
 
@@ -218,7 +218,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/waiting_for_active_internet_connection"
+        android:text="@string/waiting_for_internet"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:visibility="gone"/>

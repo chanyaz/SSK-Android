@@ -196,7 +196,7 @@
                 android:layout_height="@dimen/create_chat_name_label_height"
                 android:layout_toEndOf="@+id/private_chat_switch"
                 android:gravity="center_vertical"
-                android:text="@string/this_chat_is_public"
+                android:text="@string/chat_public"
                 android:textColor="?chatPrivateTextColorRef" />
 
             <EditText

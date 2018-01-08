@@ -228,7 +228,7 @@
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
                         android:paddingTop="@dimen/padding_16"
-                        android:text="@string/first_name_profile"
+                        android:text="@string/first_name"
                         android:textColor="?editProfileTextColorRef" />
 
                     <AutoCompleteTextView
@@ -272,7 +272,7 @@
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
                         android:paddingTop="@dimen/padding_16"
-                        android:text="@string/last_name_profile"
+                        android:text="@string/last_name"
                         android:textColor="?editProfileTextColorRef"/>
                     <AutoCompleteTextView
 

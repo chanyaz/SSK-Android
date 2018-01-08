@@ -83,8 +83,8 @@ public class Connection {
     public boolean alertIfNotReachable(final Activity activity, View.OnClickListener clickListener){
         if(!reachable()){
             AlertDialogManager.getInstance().showAlertDialog(
-                    activity.getResources().getString(R.string.no_connection_title),
-                    activity.getResources().getString(R.string.no_connection_message),
+                    activity.getResources().getString(R.string.no_connection),
+                    activity.getResources().getString(R.string.internet_needed),
                     null,
                     clickListener
             );

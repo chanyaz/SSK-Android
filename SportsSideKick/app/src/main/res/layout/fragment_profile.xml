@@ -326,7 +326,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/margin_10"
-                        android:text="@string/location_caption"
+                        android:text="@string/location"
                         android:textColor="?colorAccent"
                         android:textSize="@dimen/font_size_12" />
 
@@ -347,7 +347,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/chosen_language_caption"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/password_caption"
+                        android:text="@string/password"
                         android:textColor="?colorAccent"
                         android:textSize="@dimen/font_size_12"
 
@@ -508,6 +508,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_negative_5"
                                 android:gravity="center"
+                                android:textAllCaps="true"
                                 android:text="@string/caps"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/font_size_10" />

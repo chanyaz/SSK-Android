@@ -172,7 +172,7 @@ public class CreateChatFragment extends BaseFragment {
                     if (isChecked) {
                         switchText = res.getString(R.string.this_chat_is_private);
                     } else {
-                        switchText = res.getString(R.string.this_chat_is_public);
+                        switchText = res.getString(R.string.chat_public);
                     }
                 } else {
                     if (isChecked) {
@@ -427,13 +427,13 @@ public class CreateChatFragment extends BaseFragment {
     void showRationaleForCamera(final PermissionRequest request) {
         new AlertDialog.Builder(getContext(), R.style.AlertDialog)
                 .setMessage(R.string.permission_camera_rationale)
-                .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         request.proceed();
                     }
                 })
-                .setNegativeButton(R.string.button_deny, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.deny, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         request.cancel();

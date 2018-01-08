@@ -29,8 +29,6 @@ import java.util.ArrayList;
 
 import base.app.R;
 import base.app.data.Model;
-import base.app.data.news.NewsModel;
-import base.app.data.news.NewsModel.NewsType;
 import base.app.data.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserEvent;
@@ -62,7 +60,7 @@ import base.app.ui.fragment.popup.InviteFriendFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LanguageFragment;
 import base.app.ui.fragment.popup.LoginFragment;
-import base.app.ui.fragment.popup.MemberInfoFragment;
+import base.app.ui.fragment.popup.FriendFragment;
 import base.app.ui.fragment.popup.ProfileFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
@@ -247,7 +245,7 @@ public class MainActivity extends BaseActivity
         popupContainerFragments.add(EditProfileFragment.class);
         popupContainerFragments.add(LoginFragment.class);
         popupContainerFragments.add(SignUpFragment.class);
-        popupContainerFragments.add(MemberInfoFragment.class);
+        popupContainerFragments.add(FriendFragment.class);
         popupContainerFragments.add(FollowersFragment.class);
         popupContainerFragments.add(FollowingFragment.class);
         popupContainerFragments.add(AddFriendFragment.class);
@@ -390,7 +388,7 @@ public class MainActivity extends BaseActivity
         toggleBlur(false, null); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
 
-        if (currentFragment instanceof MemberInfoFragment) {
+        if (currentFragment instanceof FriendFragment) {
             Class initiator = ((BaseFragment) currentFragment).getInitiator();
             EventBus.getDefault().post(new FragmentEvent(initiator, true));
             return;

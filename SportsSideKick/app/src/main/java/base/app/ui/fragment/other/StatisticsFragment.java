@@ -165,13 +165,13 @@ boolean firstLoad=true;
     void showRationaleForStorage(final PermissionRequest request) {
         new AlertDialog.Builder(getContext(), R.style.AlertDialog)
                 .setMessage(R.string.permission_storage_rationale)
-                .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         request.proceed();
                     }
                 })
-                .setNegativeButton(R.string.button_deny, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.deny, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         request.cancel();

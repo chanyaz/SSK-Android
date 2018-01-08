@@ -28,7 +28,7 @@
                 android:background="@null"
                 android:scaleType="centerInside"
                 android:src="@drawable/video_add_users"
-                android:text="@string/add_users" />
+                android:text="@string/chat_friends_add" />
 
             <ImageButton
                 android:id="@+id/toggle_mic_button"

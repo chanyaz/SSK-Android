@@ -161,7 +161,7 @@
                 android:animateLayoutChanges="true"
                 android:background="?chatEditTextBackgroundColorRef"
                 android:gravity="start|center_vertical"
-                android:hint="@string/chat_hint"
+                android:hint="@string/message_hint"
                 android:imeActionId="@+id/action_send_message_id"
                 android:imeActionLabel="Send"
                 android:imeOptions="actionSend"

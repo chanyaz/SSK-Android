@@ -21,7 +21,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.popup.MemberInfoFragment;
+import base.app.ui.fragment.popup.FriendFragment;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.user.UserInfo;
 import base.app.util.ui.ImageLoader;
@@ -191,7 +191,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(MemberInfoFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(FriendFragment.class);
                 fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setId(values.get(position).getUserId());

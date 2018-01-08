@@ -18,10 +18,10 @@
     <string name="sign_up_phone">电话</string>
     <string name="sign_up_sign_up">注册</string>
 
-    <string name="dialog_ok">确定</string>
-    <string name="dialog_message_not_valid_email">请输入有效的电子邮件地址！</string>
-    <string name="dialog_internet_connection_failed">您需要连接到互联网，才能使用 使用 Sports Sidekick</string>
-    <string name="dialog_message_facebook_error">无法收到您的公开个人资料。请再试一次！</string>
+    <string name="ok">确定</string>
+    <string name="email_not_valid">请输入有效的电子邮件地址！</string>
+    <string name="internet_needed">您需要连接到互联网，才能使用 使用 Sports Sidekick</string>
+    <string name="facebook_error">无法收到您的公开个人资料。请再试一次！</string>
 
     <string name="wall">墙</string>
     <string name="video_chat">视频聊天</string>
@@ -50,8 +50,8 @@
     <string name="your_profile">您的个人资料</string>
     <string name="contact_info">联系方式</string>
     <string name="subscribed_since">初次订阅时间：</string>
-    <string name="location_caption">地址</string>
-    <string name="password_caption">密码</string>
+    <string name="location">地址</string>
+    <string name="password">密码</string>
     <string name="chosen_language">已选语言</string>
     <string name="choose_your_language">选择您的语言</string>
     <string name="friend_profile">好友信息</string>
@@ -86,9 +86,9 @@
     <string name="password_validation_warning">Please fill in your password.(nt)</string>
     <string name="phone_number_validation_warning">Please fill in your phone number.(nt)</string>
     <string name="last_name_validation_warning">Please fill in your last name.(nt)</string>
-    <string name="button_allow">Allow(nt)</string>
-    <string name="button_deny">Deny(nt)</string>
-    <string name="dialog_warning">Warrning(nt)</string>
+    <string name="allow">Allow(nt)</string>
+    <string name="deny">Deny(nt)</string>
+    <string name="warning">Warrning(nt)</string>
     <string name="uploading">Uploading…(nt)</string>
     <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.(nt)</string>
     <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.(nt)</string>
@@ -101,7 +101,7 @@
     <string name="permission_camera_never_ask">Never ask for camera permission again.(nt)</string>
     <string name="share_using">分享</string>
     <string name="enter_comment_hint">输入评论…</string>
-    <string name="this_chat_is_public">聊天室已公开</string>
+    <string name="chat_public">聊天室已公开</string>
     <string name="this_chat_is_private">聊天室未公开</string>
     <string name="manage_public_chat_caption">Add friends to (nt)</string>
     <string name="your_wallet">Your Wallet(nt)</string>
@@ -131,8 +131,8 @@
     <string name="match_mins">%1$d 分钟</string>
     <string name="match_sec">%1$d 秒</string>
     <string name="match_secs">%1$d 秒</string>
-    <string name="chat_join_group">Join Group(nt)</string>
-    <string name="chat_already_in_group">You are already in group(nt)</string>
+    <string name="join_group">Join Group(nt)</string>
+    <string name="already_in_group">You are already in group(nt)</string>
     <string name="chat_members">Members(nt)</string>
     <string name="chat_edit">编辑</string>
     <string name="chat_Leave">Leave(nt)</string>
@@ -168,8 +168,8 @@
     <string name="enter_valid_password_and_display_name">请输入有效的电子邮件地址！</string>
     <string name="login_try_again">请输入有效的电子邮件地址！</string>
     <string name="remove_friend">Un-Friend(nt)</string>
-    <string name="friend_request">发送好友请求</string>
-    <string name="friend_un_follow">取消关注好友</string>
+    <string name="friend_request_send">发送好友请求</string>
+    <string name="friend_unfollow">取消关注好友</string>
     <string name="friend_follow">关注好友</string>
     <string name="registration_error">注册失败</string>
     <string name="registration_error_username_taken">注册失败</string>
@@ -187,14 +187,14 @@
     <string name="chats">聊天</string>
     <string name="video_chats">视频聊天</string>
     <string name="public_chats">公共聊天室</string>
-    <string name="matches_attended_home">参赛场次（主场）</string>
-    <string name="matches_attended_away">参赛场次（客场）</string>
+    <string name="matches_home">参赛场次（主场）</string>
+    <string name="matches_away">参赛场次（客场）</string>
     <string name="likes_received">收到的赞数</string>
     <string name="comments_made">做出的评论数</string>
     <string name="up_next">今后活动</string>
     <string name="live">实时</string>
     <string name="tutorial_earn">点击这里即可赚取</string>
-    <string name="add_users">将朋友添加到此聊天室</string>
+    <string name="chat_friends_add">将朋友添加到此聊天室</string>
     <string name="playlist">Playlists(nt)</string>
     <string name="write_post_hint">在这里编写您的帖子。</string>
     <string name="user">用户</string>
@@ -233,7 +233,7 @@
     <string name="vs">对决</string>
     <string name="login_sign_up_text">Login/Signup(nt)</string>
     <string name="add_new_chat">添加新聊天室</string>
-    <string name="chat_hint">在此输入您的消息…</string>
+    <string name="message_hint">在此输入您的消息…</string>
     <string name="create">Create(nt)</string>
     <string name="caps">出场次数</string>
     <string name="join_official_chat">Join Official Chat(nt)</string>
@@ -241,9 +241,9 @@
     <string name="rumour">传言</string>
     <string name="shop">商店</string>
     <string name="store_big">商店</string>
-    <string name="waiting_for_active_internet_connection">正在等待有效的互联网连接</string>
-    <string name="no_connection_title">无连接</string>
-    <string name="no_connection_message">您需要接入互联网，才能执行此功能</string>
+    <string name="waiting_for_internet">正在等待有效的互联网连接</string>
+    <string name="no_connection">无连接</string>
+    <string name="internet_needed">您需要接入互联网，才能执行此功能</string>
     <string name="go_to_profile">Go to profile >(nt)</string>
     <string name="find">查找</string>
     <string name="request">请求</string>
@@ -255,8 +255,8 @@
     <string name="language">语言</string>
     <string name="phone">电话</string>
     <string name="user_name">用户名</string>
-    <string name="last_name_profile">姓氏</string>
-    <string name="first_name_profile">名字</string>
+    <string name="last_name">姓氏</string>
+    <string name="first_name">名字</string>
     <string name="profile">个人资料</string>
     <string name="stash">Stash(nt)</string>
     <string name="join_official_account">Join Official Chat(nt)</string>
@@ -293,8 +293,8 @@
     <string name="mins_ago">mins ago(nt)</string>
     <string name="friend_request_pending">待定好友请求</string>
     <string name="request_pending">待定请求</string>
-    <string name="un_friend_message">Removing a friend will stop you following each other. Are you sure you want to remove this friend?(nt)</string>
-    <string name="un_friend_title">Are you sure you want to remove this friend?(nt)</string>
+    <string name="unfriend_tip">Removing a friend will stop you following each other. Are you sure you want to remove this friend?(nt)</string>
+    <string name="unfriend_confirm">Are you sure you want to remove this friend?(nt)</string>
     <string name="read_more_closed">Read more(nt)</string>
     <string name="read_more_open">Read less(nt)</string>
     <string name="unnamed_chat">Unnamed Chat(nt)</string>
@@ -317,7 +317,7 @@
     <string name="disable_wall_notifications">Disable wall notifications(nt)</string>
     <string name="search">搜索</string>
     <string name="news">新闻</string>
-    <string name="next_match">下一场比赛</string>
+    <string name="match_next">下一场比赛</string>
     <string name="reset">Reset(nt)</string>
     <string name="offline">离线</string>
     <string name="single_user_is_typing">is typing…(nt)</string>

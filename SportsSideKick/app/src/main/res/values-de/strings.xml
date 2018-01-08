@@ -24,11 +24,11 @@
     <string name="sign_up_sign_up">Registrieren</string>
     <string name="sign_up_text">By singing up, you are agree to SportsSidekick\'"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>
 
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_warning">Warning</string>
-    <string name="dialog_message_not_valid_email">Bitte eine gültige E-Mail-Adresse eingeben.</string>
-    <string name="dialog_internet_connection_failed">Du musst mit dem Internet verbunden sein, um Sports Sidekick nutzen zu können</string>
-    <string name="dialog_message_facebook_error">Dein öffentliches Profil kann nicht abgerufen werden. Bitte erneut versuchen!</string>
+    <string name="ok">OK</string>
+    <string name="warning">Warning</string>
+    <string name="email_not_valid">Bitte eine gültige E-Mail-Adresse eingeben.</string>
+    <string name="internet_needed">Du musst mit dem Internet verbunden sein, um Sports Sidekick nutzen zu können</string>
+    <string name="facebook_error">Dein öffentliches Profil kann nicht abgerufen werden. Bitte erneut versuchen!</string>
 
     <string name="wall">Pinnwand</string>
     <string name="video_chat">Video-Chat</string>
@@ -52,12 +52,12 @@
     <string name="days">" Tage "</string>
     <string name="no_message_text">Bisher chattet noch niemand! Fang du doch an?</string>
     <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-    <string name="button_allow">Allow</string>
-    <string name="button_deny">Deny</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
     <string name="permission_microphone_denied">You need to enable micrphone in settings to send audio messages.</string>
     <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
 
-    <string name="this_chat_is_public">This chat is private</string>
+    <string name="chat_public">This chat is private</string>
     <string name="this_chat_is_private">This chat is public</string>
     <string name="manage_public_chat_caption">Manage chat %1s</string>
     <string name="create_chat">Neuen Chat erstellen</string>
@@ -67,8 +67,8 @@
     <string name="your_profile">Dein Profil</string>
     <string name="contact_info">Kontaktinfo</string>
     <string name="subscribed_since">Registriert seit</string>
-    <string name="location_caption">Standort</string>
-    <string name="password_caption">Kennwort</string>
+    <string name="location">Standort</string>
+    <string name="password">Kennwort</string>
     <string name="image">image</string>
     <string name="chosen_language">Gewählte Sprache</string>
     <string name="your_statement">Your Statement</string>

@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.popup.MemberInfoFragment;
+import base.app.ui.fragment.popup.FriendFragment;
 import base.app.data.friendship.FriendRequest;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.user.UserInfo;
@@ -129,7 +129,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             @Override
             public void onClick(View view) {
                 values.get(viewHolder.getLayoutPosition());
-                FragmentEvent fragmentEvent = new FragmentEvent(MemberInfoFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(FriendFragment.class);
                 fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setId(values.get(position).getSender().getUserId());
