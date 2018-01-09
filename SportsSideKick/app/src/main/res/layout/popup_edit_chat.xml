@@ -58,7 +58,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_toStartOf="@+id/edit_top_vertical_spliter"
         android:gravity="center"
-        android:text="@string/edit_chat"
+        android:text="@string/edit"
         android:background="?popupSelectedCaptionBackgroundColorRef"
         android:textColor="?popupSelectedCaptionTextColorRef"
         />

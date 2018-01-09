@@ -169,7 +169,7 @@
             android:layout_toStartOf="@+id/chat_popup_image_button"
             android:background="@color/colorPrimaryMediumDark"
             android:gravity="start|center_vertical"
-            android:hint="@string/your_chat_name"
+            android:hint="@string/chat_give_name"
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
             android:padding="@dimen/margin_15"
@@ -228,7 +228,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_toEndOf="@+id/private_chat_switch"
             android:gravity="center_vertical"
-            android:text="@string/this_chat_is_public_phone"
+            android:text="@string/chat_public"
             android:textColor="?chatPrivateTextColorPhoneRef" />
 
         <EditText

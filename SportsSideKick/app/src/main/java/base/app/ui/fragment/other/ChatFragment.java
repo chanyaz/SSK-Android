@@ -274,7 +274,7 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
-        inputEditText.setImeActionLabel(getContext().getResources().getString(R.string.chat_send), EditorInfo.IME_ACTION_SEND);
+        inputEditText.setImeActionLabel(getContext().getResources().getString(R.string.send), EditorInfo.IME_ACTION_SEND);
         inputEditText.setImeOptions(EditorInfo.IME_ACTION_SEND);
 
         /* input Listeners */
@@ -469,7 +469,7 @@ public class ChatFragment extends BaseFragment {
                     chatMenuSearchButton.setVisibility(View.GONE);
                     chatMenuCreateButton.setVisibility(View.GONE);
                     chatMenuAlertsButton.setVisibility(View.GONE);
-                    chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
+                    chatMenuEditButton.setText(getContext().getResources().getText(R.string.edit));
                 } else {
                     chatMenuDeleteButton.setVisibility(View.GONE);
                     chatMenuAlertsButton.setVisibility(View.VISIBLE);
@@ -481,13 +481,13 @@ public class ChatFragment extends BaseFragment {
                     chatMenuSearchButton.setVisibility(View.VISIBLE);
                     chatMenuCreateButton.setVisibility(View.VISIBLE);
                     if (user.getUserId().equals(currentlyActiveChat.getOwner())) {
-                        chatMenuEditButton.setText(getContext().getResources().getText(R.string.chat_edit));
+                        chatMenuEditButton.setText(getContext().getResources().getText(R.string.edit));
                     } else {
-                        chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
+                        chatMenuEditButton.setText(getContext().getResources().getString(R.string.leave));
                     }
                 }
             } else {
-                chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
+                chatMenuEditButton.setText(getContext().getResources().getString(R.string.leave));
             }
         }
     }
@@ -617,7 +617,7 @@ public class ChatFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.vide_download_image_button)
     public void videoDownloadButtonOnClick() {
-        Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_video_downloaded), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getContext().getResources().getString(R.string.downloaded_video), Toast.LENGTH_SHORT).show();
     }
 
     public void sendButtonOnClick() {
@@ -700,7 +700,7 @@ public class ChatFragment extends BaseFragment {
                     fe.setId(currentlyActiveChat.getChatId());
                     EventBus.getDefault().post(fe);
                 } else {
-                    AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.chat_leave_chat),
+                    AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.chat_confirm_leave),
                             new View.OnClickListener() {// Cancel listener
                                 @Override
                                 public void onClick(View v) {
@@ -717,7 +717,7 @@ public class ChatFragment extends BaseFragment {
                                 }
                             });
 
-                    chatMenuEditButton.setText(getContext().getResources().getString(R.string.chat_Leave));
+                    chatMenuEditButton.setText(getContext().getResources().getString(R.string.leave));
                 }
             }
         }
@@ -1056,7 +1056,7 @@ public class ChatFragment extends BaseFragment {
     public void invokeCameraCapture() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
         chooseDialog.setTitle(getContext().getResources().getString(R.string.choose));
-        chooseDialog.setMessage(getContext().getResources().getString(R.string.chat_image_or_video));
+        chooseDialog.setMessage(getContext().getResources().getString(R.string.photo_or_video));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.record_video), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

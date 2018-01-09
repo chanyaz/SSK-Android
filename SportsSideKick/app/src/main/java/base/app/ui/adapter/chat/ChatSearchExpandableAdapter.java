@@ -183,9 +183,9 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
 
         holder.rowName.setText(info.getChatTitle());
         if (Utility.isTablet(context)) {
-            holder.rowMemberCount.setText(info.getUsersIds().size() + " " + context.getResources().getString(R.string.chat_members));
+            holder.rowMemberCount.setText(info.getUsersIds().size() + " " + context.getResources().getString(R.string.members));
         } else {
-            holder.rowMemberCount.setText(" - " + info.getUsersIds().size() + " " + context.getResources().getString(R.string.chat_members));
+            holder.rowMemberCount.setText(" - " + info.getUsersIds().size() + " " + context.getResources().getString(R.string.members));
 
             //TODO  @Filip dont have friends count and  last time chat in model.
             //TODO TEST

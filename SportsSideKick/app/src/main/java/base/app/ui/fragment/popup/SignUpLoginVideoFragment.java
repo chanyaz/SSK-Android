@@ -37,10 +37,10 @@ public class SignUpLoginVideoFragment extends SignUpLoginFragment {
         View view = inflater.inflate(R.layout.popup_video_login_sing_up, container, false);
         ButterKnife.bind(this, view);
         if (text != null) {
-            text.setText(Html.fromHtml(getString(R.string.video_chat_text_1)));
+            text.setText(Html.fromHtml(getString(R.string.video_chat_promo_1)));
         }
         if (description != null) {
-            description.setText(Html.fromHtml(getString(R.string.video_chat_text_2)));
+            description.setText(Html.fromHtml(getString(R.string.video_chat_promo_2)));
         }
 
         return view;

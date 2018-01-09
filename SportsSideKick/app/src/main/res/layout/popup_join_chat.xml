@@ -140,7 +140,7 @@
             android:layout_toStartOf="@+id/chat_join_search_button"
             android:background="@color/colorPrimaryMediumDark"
             android:gravity="start|center_vertical"
-            android:hint="@string/search_public_chats"
+            android:hint="@string/public_chats_search"
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
             android:padding="@dimen/margin_14"
@@ -195,7 +195,7 @@
             android:textSize="@dimen/font_size_12"
             android:gravity="center"
             android:padding="@dimen/padding_8"
-            android:text="@string/public_chats_your_friends_are_in"
+            android:text="@string/friend_chats"
             android:textColor="?chatJoinChatsHeadlineColorRef" />
 
         <RelativeLayout

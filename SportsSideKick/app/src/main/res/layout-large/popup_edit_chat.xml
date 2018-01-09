@@ -68,7 +68,7 @@
                 android:layout_toStartOf="@+id/edit_top_vertical_spliter"
                 android:background="?chatSlideButtonBackgroundColorRef"
                 android:gravity="center"
-                android:text="@string/edit_chat"
+                android:text="@string/edit"
                 android:textColor="?chatSlideButtonTextColorRef" />
 
             <TextView

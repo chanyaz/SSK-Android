@@ -240,7 +240,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             slots.add(new Slot(ButterKnife.findById(view, R.id.slot_2)));
             slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
             slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
-            text.setText(Html.fromHtml(getString(R.string.video_chat_text_1)));
+            text.setText(Html.fromHtml(getString(R.string.video_chat_promo_1)));
 
             VideoChatEvent event = VideoChatModel.getInstance().getVideoChatEvent();
             if (event != null) {

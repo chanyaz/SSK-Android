@@ -176,18 +176,16 @@
     <!--Chat-->
     <string name="join_group">Join Group</string>
     <string name="already_in_group">You are already in the chat.</string>
-    <string name="chat_members">Members</string>
-    <string name="chat_edit">Edit</string>
-    <string name="chat_Leave">Leave</string>
-    <string name="chat_send">SEND</string>
-    <string name="chat_image_downloaded">Image is downloaded.</string>
-    <string name="chat_video_downloaded">Video is downloaded.</string>
+    <string name="members">Members</string>
+    <string name="leave">Leave</string>
+    <string name="send">Send</string>
+    <string name="downloaded_image">Image is downloaded.</string>
+    <string name="downloaded_video">Video is downloaded.</string>
     <string name="are_you_sure">Are you sure?</string>
-    <string name="chat_leave_chat">Leave this chat?</string>
-    <string name="chat_delete_chat">This will permanently delete this chat; are you sure?</string>
+    <string name="chat_confirm_leave">Leave this chat?</string>
+    <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
     <string name="choose">Choose</string>
-    <string name="chat_image_or_video">Take photo or record video?</string>
-    <string name="chat_video">Video Chat</string>
+    <string name="photo_or_video">Take photo or record video?</string>
     <string name="chat_image">Image</string>
     <string name="chat_hold">Hold down to record</string>
     <string name="chat_recording_stop">Recording stopped</string>
@@ -202,7 +200,7 @@
     <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
     <string name="chat_public">This chat is public</string>
-    <string name="this_chat_is_private">This chat is private</string>
+    <string name="chat_private">This chat is private</string>
     <string name="record_video">Record Video</string>
     <string name="manage_public_chat_caption">Add friends to %1s</string>
     <string name="create_chat">Create Chat</string>
@@ -223,32 +221,27 @@
     <string name="chat_no_changes">There are no changes in this chat.</string>
     <string name="chats">Chats</string>
     <string name="public_chats">Public chats</string>
+    <string name="public_chats_search">Search Public Chats</string>
     <string name="add_new_chat">ADD NEW CHAT</string>
     <string name="message_hint">Enter your message here…</string>
     <string name="chat_friends_add">Add friends to this chat</string>
     <string name="chat_name">Chat name</string>
-    <string name="your_chat_name">Name Your Chat</string>
+    <string name="chat_give_name">Name Your Chat</string>
+    <string name="chat_rename">Rename your chat</string>
     <string name="add_friends_to_chat">Add friends to chat</string>
     <string name="search_for_member">Search for a member</string>
     <string name="friends_in_chat">Friends in Chat</string>
-    <string name="edit_chat">Edit Chat</string>
     <string name="group_chat_name">Enter a name for your Group Chat</string>
     <string name="join_official_chat">Join Official Chat ></string>
-    <string name="search_public_chats">Search Public Chats</string>
-    <string name="public_chats_your_friends_are_in">Public Chats your friends are in</string>
-    <string name="chat_rename">Rename your chat</string>
+    <string name="friend_chats">Public Chats your friends are in</string>
     <string name="new_name_of_chat_hint">Enter new name of chat here</string>
-    <string name="people_in_this_chat">People in this chat</string>
     <string name="mins_ago">mins ago</string>
-    <string name="this_chat_is_public_phone">This chat is PUBLIC</string>
-    <string name="this_chat_is_private_phone">This chat is PRIVATE</string>
-    <string name="public_chats_profile">Public Chats</string>
     <string name="is_in">is in</string>
     <string name="create">Create</string>
 
     <!--Video chat-->
-    <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
-    <string name="video_chat_text_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
+    <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+    <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
     <string name="call_start">Start Call</string>
     <string name="call_starting">Starting New Call</string>
     <string name="call_add_member">Add To Call</string>
@@ -258,7 +251,6 @@
     <string name="accept_call">Accept the call?</string>
     <string name="video_chats">Video chats</string>
     <string name="cant_start_video">Can\'t start video.</string>
-    <string name="create_call">Starting New Call</string>
     <string name="friends_in_video_chat">Friends in Video Chat</string>
     <string name="friend_in_video_chat">1 Friend in Video Chat</string>
     <string name="no_users_selected">No users selected!</string>

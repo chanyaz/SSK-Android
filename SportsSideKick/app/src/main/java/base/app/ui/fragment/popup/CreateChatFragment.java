@@ -170,15 +170,15 @@ public class CreateChatFragment extends BaseFragment {
                 SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
                 if (Utility.isTablet(getActivity())) {
                     if (isChecked) {
-                        switchText = res.getString(R.string.this_chat_is_private);
+                        switchText = res.getString(R.string.chat_private);
                     } else {
                         switchText = res.getString(R.string.chat_public);
                     }
                 } else {
                     if (isChecked) {
-                        switchText = res.getString(R.string.this_chat_is_private_phone);
+                        switchText = res.getString(R.string.chat_private);
                     } else {
-                        switchText = res.getString(R.string.this_chat_is_public_phone);
+                        switchText = res.getString(R.string.chat_public);
                     }
                 }
                 privateChatTextView.setText(switchText);
