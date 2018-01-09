@@ -292,7 +292,7 @@
                         android:layout_centerVertical="true"
                         android:padding="@dimen/padding_5"
                         android:paddingStart="@dimen/padding_16"
-                        android:text="Translate post >"
+                        android:text="@string/translate"
                         android:textColor="@color/colorPrimaryVeryLight"
                         android:textSize="12sp" />
 
@@ -514,7 +514,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:background="@color/colorPrimaryVeryLight"
-                    android:text="Edit"
+                    android:text="@string/edit"
                     android:foreground="?selectableItemBackground"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
@@ -529,7 +529,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:background="@color/colorPrimaryVeryLight"
-                    android:text="Delete"
+                    android:text="@string/delete"
                     android:textAllCaps="false"
                     android:foreground="?selectableItemBackground"
                     android:textColor="@color/white" />
@@ -572,7 +572,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginTop="16dp"
-            android:text="Post"
+            android:text="@string/post"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

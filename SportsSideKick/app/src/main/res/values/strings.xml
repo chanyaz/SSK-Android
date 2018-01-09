@@ -32,7 +32,7 @@
     <string name="join_sign_in">Join Now / Sign In</string>
     <string name="sign_in">Sign In</string>
     <string name="join">Join Now</string>
-    <string name="login_with_facebook">Login with <b>Facebook</b></string>
+    <string name="login_facebook">Login with <b>Facebook</b></string>
     <string name="or">or</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -279,7 +279,8 @@
     <string name="live">Live</string>
 
     <!--Posts & News-->
-    <string name="write_post_hint">Write your post here.</string>
+    <string name="post_title_hint">Enter your post\'s title</string>
+    <string name="post_body_hint">Start writing your post…</string>
     <string name="post_to_wall_title">Post this to your wall?</string>
     <string name="post_to_wall_message">Would you like to post this on your wall?</string>
     <string name="sharing_message_hint">Enter a message with your shared post…</string>

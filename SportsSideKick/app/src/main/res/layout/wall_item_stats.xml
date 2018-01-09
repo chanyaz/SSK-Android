@@ -40,7 +40,7 @@
         android:layout_toStartOf="@+id/image"
         android:background="?white"
         android:gravity="center_vertical|start"
-        android:text="Karen Smith"
+        tools:text="Karen Smith"
         android:textColor="@color/colorPrimaryVeryLight" />
 
     <ImageView

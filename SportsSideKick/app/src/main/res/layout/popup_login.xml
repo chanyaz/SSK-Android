@@ -109,7 +109,7 @@
                     style="@style/facebook_login_button_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/login_with_facebook"
+                    android:text="@string/login_facebook"
                     android:textAllCaps="false"
                     android:textColor="?white"
                     android:textSize="@dimen/font_size_16" />
@@ -119,7 +119,7 @@
                     style="@style/facebook_login_button_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/login_with_facebook"
+                    android:text="@string/login_facebook"
                     android:visibility="gone" />
 
 
