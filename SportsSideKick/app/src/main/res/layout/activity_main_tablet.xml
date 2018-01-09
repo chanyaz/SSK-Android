@@ -130,7 +130,7 @@
                 android:layout_below="@+id/logo_second_team"
                 android:paddingEnd="@dimen/half_margin"
                 android:paddingStart="@dimen/space_0"
-                android:text="@string/up_next"
+                android:text="@string/match_next"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_10" />
@@ -507,7 +507,8 @@
                android:layout_centerHorizontal="true"
                android:ellipsize="end"
                android:maxLines="1"
-               android:text="@string/coins_caption"
+               android:textAllCaps="true"
+               android:text="@string/you_have"
                android:textColor="@color/white"
                android:textSize="@dimen/font_size_8" />
 

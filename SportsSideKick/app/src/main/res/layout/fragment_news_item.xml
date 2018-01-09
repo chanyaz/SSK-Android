@@ -304,7 +304,7 @@
                         android:layout_toEndOf="@+id/translate"
                         android:padding="@dimen/padding_5"
                         android:paddingStart="@dimen/padding_10"
-                        android:text="@string/read_more_closed"
+                        android:text="@string/read_more"
                         android:textColor="@color/colorPrimaryVeryLight"
                         android:textSize="12sp" />
 

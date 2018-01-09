@@ -76,22 +76,21 @@
     <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
     <!--Profile-->
-    <string name="your_profile">Your Profile</string>
-    <string name="your_wallet">Your Wallet</string>
-    <string name="your_stash">Your Stash</string>
+    <string name="go_to_profile">Go to Profile ></string>
     <string name="profile">Profile</string>
     <string name="contact_info">Contact info</string>
+    <string name="choose_your_language">Choose your language</string>
     <string name="chosen_language">Chosen language</string>
     <string name="location">Location</string>
     <string name="subscribed_since">Subscribed since</string>
-    <string name="edit_info">Edit Information</string>
+    <string name="auto_translation">Automatic translation</string>
+    <string name="notify_wall">Wall notifications</string>
+    <string name="notify_news">News notifications</string>
+    <string name="notify_rumours">Rumours notifications</string>
+    <string name="notify_social">Social feed notifications</string>
     <string name="edit_profile">Edit Your Profile</string>
     <string name="edit_photo">Edit Photo</string>
     <string name="done">Done</string>
-    <string name="email_address">Email Address</string>
-    <string name="telephone_no">Telephone No</string>
-    <string name="coins_caption">YOU HAVE</string>
-    <string name="your_statement">Your Statement</string>
     <string name="caps_level">Caps level</string>
     <string name="days_using">Days using SSK</string>
     <string name="wall_posts">Wall posts</string>
@@ -100,13 +99,9 @@
     <string name="matches_away">Matches attended (away)</string>
     <string name="likes_received">Likes received</string>
     <string name="comments_made">Comments made</string>
-    <string name="go_to_profile">Go to Profile ></string>
-    <string name="enable_wall_notifications">Enable wall notifications</string>
-    <string name="disable_wall_notifications">Disable wall notifications</string>
     <string name="language">Language:</string>
-    <string name="user_name">User Name:</string>
+    <string name="you_have">You have</string>
     <string name="caps">Caps</string>
-    <string name="choose_your_language">Choose your language</string>
     <string name="language_current" translatable="false">English</string>
     <string-array name="languages" translatable="false">
         <item>বাংলা</item>
@@ -145,6 +140,8 @@
     <string name="friend_request_send">Send Friend Request</string>
     <string name="friend_unfollow">Unfollow Friend</string>
     <string name="friend_follow">Follow Friend</string>
+    <string name="pinned">Pinned</string>
+    <string name="comments">Comments</string>
     <string name="friends">Friends</string>
     <string name="following">Following</string>
     <string name="followers">Followers</string>
@@ -173,7 +170,7 @@
     <string name="friend_you_and">Friend you and</string>
     <string name="have_in_common">have in common</string>
     <string name="what_would_you_like_to_do">What would you like to do?</string>
-    <string name="friends_you_have_in_common">Friends you have in common</string>
+    <string name="friends_common">Friends you have in common</string>
     <string name="join_official_account">Join official Account ></string>
 
     <!--Chat-->
@@ -213,8 +210,6 @@
     <string name="single_user_is_typing">%1$s! is typing…</string>
     <string name="multiple_users_are_typing">Multiple users are typing…</string>
     <string name="unnamed_chat">Unnamed Chat</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
     <string name="alerts_on">Alerts-ON</string>
     <string name="alerts_off">Alerts-OFF</string>
     <string name="search">Search</string>
@@ -273,17 +268,16 @@
 
     <!--Next match-->
     <string name="match_next">Next match</string>
-    <string name="match_day">%1$d Day</string>
-    <string name="match_days">%1$d Days</string>
-    <string name="match_hour">%1$d Hour</string>
-    <string name="match_hours">%1$d Hours</string>
-    <string name="match_min">%1$d Min</string>
-    <string name="match_mins">%1$d Mins</string>
-    <string name="match_sec">%1$d Sec</string>
-    <string name="match_secs">%1$d Secs</string>
-    <string name="up_next">Up next</string>
-    <string name="live">Live</string>
     <string name="vs">vs</string>
+    <string name="day">%1$d Day</string>
+    <string name="days">%1$d Days</string>
+    <string name="hour">%1$d Hour</string>
+    <string name="hours">%1$d Hours</string>
+    <string name="min">%1$d Min</string>
+    <string name="mins">%1$d Mins</string>
+    <string name="sec">%1$d Sec</string>
+    <string name="secs">%1$d Secs</string>
+    <string name="live">Live</string>
 
     <!--Posts & News-->
     <string name="write_post_hint">Write your post here.</string>
@@ -291,13 +285,13 @@
     <string name="post_to_wall_message">Would you like to post this on your wall?</string>
     <string name="sharing_message_hint">Enter a message with your shared post…</string>
     <string name="comment_hint">Enter your comment here…</string>
-    <string name="read_more_closed">Read more  &gt;</string>
-    <string name="read_more_open">Read less  &lt;</string>
+    <string name="read_more">Read more &gt;</string>
+    <string name="read_less">Read less &lt;</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <string name="translate">Translate</string>
-    <string name="share_using">Share with:</string>
-    <string name="posts">Posts</string>
+    <string name="share">Share</string>
     <string name="post">Post</string>
-    <string name="comments">Comments</string>
     <string name="back">Back</string>
 
     <!--Stats-->
@@ -305,21 +299,15 @@
     <string name="permission_storage_denied">You need to enable Write permission in settings </string>
     <string name="permission_storage_never_ask">Never ask again.</string>
 
-    <!--Club TV-->
-    <string name="playlist">Playlist</string>
-    <string name="default_time">00:00 / 00:00</string>
-
     <!--Purchases-->
-    <string name="you_have">You have</string>
     <string name="rewards_and_items_received">Rewards and items received from Gym Bags</string>
     <string name="bonus_gym_bag">+ Bonus gym bag</string>
     <string name="bundles">Bundles</string>
     <string name="wallet">Wallet</string>
     <string name="stash">Stash</string>
+    <string name="your_statement">Your Statement</string>
 
-    <!--Placeholders-->
+    <!--Placeholder-->
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="demo_number_1" translatable="false">204</string>
-    <string name="demo_number_2" translatable="false">6901</string>
 
 </resources>

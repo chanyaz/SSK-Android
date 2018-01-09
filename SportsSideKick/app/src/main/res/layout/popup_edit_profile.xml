@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/your_profile"
+            android:text="@string/profile"
             android:textColor="?popupsCaptionColor"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -316,7 +316,7 @@
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
                         android:paddingTop="@dimen/padding_16"
-                        android:text="@string/user_name"
+                        android:text="@string/nickname"
                         android:textColor="?editProfileTextColorRef" />
 
                     <AutoCompleteTextView
@@ -545,7 +545,7 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:background="@android:color/transparent"
-                    android:text="@string/enable_wall_notifications"
+                    android:text="@string/notify_wall"
                     android:textColor="?editProfileTextColorRef"
                     android:textSize="@dimen/font_size_12"
                     android:padding="@dimen/padding_8" />

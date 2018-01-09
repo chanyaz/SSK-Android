@@ -399,6 +399,6 @@ abstract class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onShareNativeEvent(NativeShareEvent event) {
-        startActivity(Intent.createChooser(event.getIntent(), getResources().getString(R.string.share_using)));
+        startActivity(Intent.createChooser(event.getIntent(), getResources().getString(R.string.share)));
     }
 }

@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:background="?colorPrimarySemiLight"
             android:gravity="center"
-            android:text="@string/your_profile"
+            android:text="@string/profile"
             android:textColor="?colorAccent" />
 
         <TextView
@@ -46,7 +46,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
-            android:text="@string/your_wallet"
+            android:text="@string/wallet"
             android:textColor="?white_semitransparent" />
 
         <TextView
@@ -56,7 +56,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
-            android:text="@string/your_stash"
+            android:text="@string/stash"
             android:textColor="?white_semitransparent" />
     </LinearLayout>
 

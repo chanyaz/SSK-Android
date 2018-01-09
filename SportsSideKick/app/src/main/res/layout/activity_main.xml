@@ -382,7 +382,8 @@
                             android:layout_marginTop="@dimen/margin_4"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="@string/coins_caption"
+                            android:textAllCaps="true"
+                            android:text="@string/you_have"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryVeryDark"
                             android:textSize="@dimen/font_size_8" />

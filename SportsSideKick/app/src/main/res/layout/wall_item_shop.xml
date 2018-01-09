@@ -86,7 +86,7 @@
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/demo_number_1"
+                tools:text="204"
                 android:textSize="@dimen/font_size_10" />
 
         </LinearLayout>
@@ -124,7 +124,7 @@
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/demo_number_2"
+                tools:text="6901"
                 android:textSize="@dimen/font_size_10" />
         </LinearLayout>
     </RelativeLayout>

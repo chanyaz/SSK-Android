@@ -308,7 +308,6 @@ public class YoutubePlayerFragment extends BaseFragment implements
         seekBar.setProgress((int) (percentage * SEEK_BAR_MAX));
     }
 
-    @OnClick(R.id.playlist_button)
     public void goBackToPlaylist() {
         FragmentEvent fragmentEvent = new FragmentEvent(ClubTvPlaylistFragment.class, true);
         fragmentEvent.setId(ClubModel.getInstance().getPlaylistId(video));

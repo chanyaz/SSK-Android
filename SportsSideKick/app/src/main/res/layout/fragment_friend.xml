@@ -592,7 +592,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_2"
-                    android:text="@string/posts"
+                    android:text="@string/pinned"
                     android:textAlignment="center"
                     android:textColor="?popupsCaptionColor" />
 

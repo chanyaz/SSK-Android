@@ -27,7 +27,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -37,15 +36,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import base.app.BuildConfig;
-import base.app.util.commons.Connection;
 import base.app.R;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.GSConstants;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallModel;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -125,7 +125,7 @@ public class EditProfileFragment extends BaseFragment {
             if (languageEditText != null) {
                 languageEditText.setText(user.getLanguage());
             }
-            if(user.getLanguage()!=null) {
+            if (user.getLanguage() != null) {
                 Drawable drawable = getDrawable(user.getLanguage().toLowerCase());
                 if (drawable != null && languageImage != null) {
                     languageImage.setImageDrawable(drawable);
@@ -150,12 +150,8 @@ public class EditProfileFragment extends BaseFragment {
         });
     }
 
-    private void updateMuteUI(){
-        if(isMuted){
-            wallNotifications.setText(R.string.enable_wall_notifications);
-        } else {
-            wallNotifications.setText(R.string.disable_wall_notifications);
-        }
+    private void updateMuteUI() {
+        wallNotifications.setText(R.string.notify_wall);
     }
 
     @Optional
@@ -193,10 +189,10 @@ public class EditProfileFragment extends BaseFragment {
                 // Error occurred while creating the File
             }
             if (photoFile != null) {
-                if(Utility.isKitKat()){
+                if (Utility.isKitKat()) {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                 }
-                if(Utility.isLollipopAndUp()){
+                if (Utility.isLollipopAndUp()) {
                     Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 }
@@ -282,7 +278,7 @@ public class EditProfileFragment extends BaseFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(Utility.isPhone(getContext())){
+                        if (Utility.isPhone(getContext())) {
                             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
                         } else {
                             getActivity().onBackPressed();
@@ -302,7 +298,7 @@ public class EditProfileFragment extends BaseFragment {
         map.put(GSConstants.CLUB_ID_TAG, String.valueOf(CLUB_ID));
         //Todo @refactoring  put password and language
         Model.getInstance().setDetails(map);
-        if(Utility.isPhone(getContext())){
+        if (Utility.isPhone(getContext())) {
             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
         } else {
             getActivity().onBackPressed();
@@ -310,8 +306,7 @@ public class EditProfileFragment extends BaseFragment {
     }
 
 
-
-    private void uploadImage(String path){
+    private void uploadImage(String path) {
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
         Model.getInstance().uploadImageForProfile(path, getContext().getFilesDir(), source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {

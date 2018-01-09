@@ -24,7 +24,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="16dp"
-            android:text="@string/your_profile"
+            android:text="@string/profile"
             android:textColor="?popupsCaptionColor"
             android:textStyle="bold" />
 
@@ -427,7 +427,7 @@
                         android:layout_alignBottom="@+id/autoTranslateToggle"
                         android:layout_toEndOf="@+id/autoTranslateToggle"
                         android:layout_height="wrap_content"
-                        android:text="Automatic translation"
+                        android:text="@string/auto_translation"
                         android:textColor="@color/white" />
 
                     <ToggleButton
