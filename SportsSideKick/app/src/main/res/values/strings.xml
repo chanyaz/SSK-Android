@@ -249,15 +249,15 @@
     <!--Video chat-->
     <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
     <string name="video_chat_text_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-    <string name="video_chat_button_text">Begin your call</string>
-    <string name="starting_new_call_search_hint">Search public chats</string>
-    <string name="starting_new_call_search_title">Starting New Call</string>
-    <string name="video_chat_maximum">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-    <string name="receive_call">Receiving a call from</string>
+    <string name="call_start">Start Call</string>
+    <string name="call_starting">Starting New Call</string>
+    <string name="call_add_member">Add To Call</string>
+    <string name="call_receive">Receiving a call from</string>
+    <string name="chats_search">Search public chats</string>
+    <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
     <string name="accept_call">Accept the call?</string>
     <string name="video_chats">Video chats</string>
     <string name="cant_start_video">Can\'t start video.</string>
-    <string name="start_call">Start Call</string>
     <string name="create_call">Starting New Call</string>
     <string name="friends_in_video_chat">Friends in Video Chat</string>
     <string name="friend_in_video_chat">1 Friend in Video Chat</string>
@@ -281,9 +281,9 @@
     <!--Posts & News-->
     <string name="post_title_hint">Enter your post\'s title</string>
     <string name="post_body_hint">Start writing your post…</string>
-    <string name="post_to_wall_title">Post this to your wall?</string>
-    <string name="post_to_wall_message">Would you like to post this on your wall?</string>
-    <string name="sharing_message_hint">Enter a message with your shared post…</string>
+    <string name="pin_title">Post this to your wall?</string>
+    <string name="pin_confirm">Would you like to post this on your wall?</string>
+    <string name="pin_message_hint">Enter a message with your shared post…</string>
     <string name="comment_hint">Enter your comment here…</string>
     <string name="read_more">Read more &gt;</string>
     <string name="read_less">Read less &lt;</string>
@@ -295,7 +295,7 @@
     <string name="back">Back</string>
 
     <!--Purchases-->
-    <string name="rewards_and_items_received">Rewards and items received from Gym Bags</string>
+    <string name="rewards_received">Rewards and items received from Gym Bags</string>
     <string name="bonus_gym_bag">+ Bonus gym bag</string>
     <string name="bundles">Bundles</string>
     <string name="wallet">Wallet</string>

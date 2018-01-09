@@ -89,7 +89,7 @@ public class StatisticsFragment extends BaseFragment {
     @OnClick(R.id.pin_button)
     public void pinOnClick() {
         if (Model.getInstance().isRealUser()) {
-            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.post_to_wall_title), getContext().getResources().getString(R.string.post_to_wall_message),
+            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.pin_title), getContext().getResources().getString(R.string.pin_confirm),
                     new View.OnClickListener() {// Cancel
                         @Override
                         public void onClick(View v) {

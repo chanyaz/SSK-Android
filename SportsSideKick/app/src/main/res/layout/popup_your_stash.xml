@@ -163,7 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/your_stash_caption"
-        android:text="@string/rewards_and_items_received"
+        android:text="@string/rewards_received"
         android:textColor="?popupsCaptionColor"
         android:textSize="@dimen/font_size_12" />
 

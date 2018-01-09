@@ -220,7 +220,7 @@ public class StoreFragment extends BaseFragment {
                 return;
             }
             if (item != null) {
-                AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.post_to_wall_title), getContext().getResources().getString(R.string.post_to_wall_message),
+                AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.pin_title), getContext().getResources().getString(R.string.pin_confirm),
                         new View.OnClickListener() {// Cancel
                             @Override
                             public void onClick(View v) {

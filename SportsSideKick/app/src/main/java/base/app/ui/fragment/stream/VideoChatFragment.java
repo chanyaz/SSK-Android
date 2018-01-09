@@ -210,7 +210,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     public void onAddUsers(View view) {
         Slot slot = getNextFreeSlot();
         if (slot == null) {
-            Toast.makeText(getContext(), getContext().getResources().getString(R.string.video_chat_maximum), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.video_chat_max), Toast.LENGTH_LONG).show();
             addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorGray), PorterDuff.Mode.MULTIPLY);
             return;
         }
@@ -322,7 +322,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                             } else if (userInfo.getNicName() != null) {
                                 usersName = userInfo.getNicName();
                             }
-                            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.receive_call) + " \'" + usersName + " \'?", getContext().getResources().getString(R.string.accept_call),
+                            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.call_receive) + " \'" + usersName + " \'?", getContext().getResources().getString(R.string.accept_call),
                                     new View.OnClickListener() {// Cancel
                                         @Override
                                         public void onClick(View v) {

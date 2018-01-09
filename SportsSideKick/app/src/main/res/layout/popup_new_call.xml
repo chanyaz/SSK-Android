@@ -194,7 +194,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:background="@color/colorAccentLight"
         android:scaleType="centerInside"
-        android:text="@string/start_call"
+        android:text="@string/call_start"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:layout_alignParentBottom="true"

@@ -219,7 +219,7 @@ public class NewsItemFragment extends BaseFragment {
         }
         setClickListeners();
 
-        sharedMessageField.setHint(R.string.sharing_message_hint);
+        sharedMessageField.setHint(R.string.pin_message_hint);
 
         if (getSecondaryArgument() != null) {
             setSharedMessageBarVisible(true);
