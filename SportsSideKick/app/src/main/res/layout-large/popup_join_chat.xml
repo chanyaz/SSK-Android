@@ -113,7 +113,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/top_vertical_spliter"
                 android:gravity="center"
-                android:text="@string/public_chats"
+                android:text="@string/chats_public"
                 android:textColor="@color/white" />
 
             <EditText
@@ -124,7 +124,7 @@
                 android:layout_toStartOf="@+id/chat_join_search_button"
                 android:background="@color/colorPrimaryMediumDark"
                 android:gravity="start|center_vertical"
-                android:hint="@string/public_chats_search"
+                android:hint="@string/chats_public_search"
                 android:imeOptions="flagNoExtractUi"
                 android:maxLines="1"
                 android:padding="@dimen/margin_20"

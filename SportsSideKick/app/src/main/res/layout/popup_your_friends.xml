@@ -138,7 +138,7 @@
             android:layout_marginStart="@dimen/margin_20"
             android:background="@color/colorPrimaryMediumDark"
             android:textColor="?white"
-            android:hint="@string/your_friends_search_hint"
+            android:hint="@string/friends_search"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"

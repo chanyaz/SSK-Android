@@ -241,15 +241,15 @@ public class EditChatFragment extends BaseFragment {
     @OnClick(R.id.popup_image_button)
     public void pickImage() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
-        chooseDialog.setTitle(getContext().getResources().getString(R.string.chat_choose_option));
-        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.chat_choose_from_library), new DialogInterface.OnClickListener() {
+        chooseDialog.setTitle(getContext().getResources().getString(R.string.choose_option));
+        chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                EditChatFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(EditChatFragment.this);
 
             }
         });
-        chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.chat_use_camera), new DialogInterface.OnClickListener() {
+        chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.use_camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 EditChatFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(EditChatFragment.this);

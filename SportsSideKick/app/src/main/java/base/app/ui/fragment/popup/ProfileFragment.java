@@ -231,7 +231,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
             values.add(new Pair<>(getContext().getResources().getString(R.string.videos_watched), String.valueOf(user.getVideosWatched())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.chats), String.valueOf(user.getChats())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.video_chats), String.valueOf(user.getVideoChats())));
-            values.add(new Pair<>(getContext().getResources().getString(R.string.public_chats), String.valueOf(user.getPublicChats())));
+            values.add(new Pair<>(getContext().getResources().getString(R.string.chats_public), String.valueOf(user.getPublicChats())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.matches_home), String.valueOf(user.getMatchesHome())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.matches_away), String.valueOf(user.getMatchesAway())));
             values.add(new Pair<>(getContext().getResources().getString(R.string.likes_received), String.valueOf(user.getLikes())));

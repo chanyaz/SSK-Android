@@ -162,7 +162,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_toEndOf="@id/search_icon"
                 android:background="?searchFieldBackgroundRef"
-                android:hint="@string/your_friends_search_hint"
+                android:hint="@string/friends_search"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="text"
                 android:maxLines="1"

@@ -317,7 +317,7 @@ public class FriendFragment extends BaseFragment {
                         if (publicChatsContainer != null) {
                             publicChatsContainer.setVisibility(View.VISIBLE);
                         }
-                        publicChatText.setText(user.getFirstName() + " " + getString(R.string.friends_list));
+                        publicChatText.setText(user.getFirstName() + " " + getString(R.string.friends));
                         allFriendsAdapter.getValues().clear();
                         allFriendsAdapter.getValues().addAll(task.getResult());
                         allFriendsAdapter.notifyDataSetChanged();

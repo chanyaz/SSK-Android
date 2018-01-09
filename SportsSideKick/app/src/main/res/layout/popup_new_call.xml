@@ -130,7 +130,7 @@
             android:layout_toStartOf="@+id/chat_popup_image_button"
             android:background="@color/colorPrimaryMediumDark"
             android:gravity="start|center_vertical"
-            android:hint="@string/search_your_friends"
+            android:hint="@string/friends_search"
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
             android:padding="@dimen/margin_15"
