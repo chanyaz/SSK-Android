@@ -338,7 +338,7 @@ public class LoginFragment extends BaseFragment
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
         AlertDialogManager.getInstance().showAlertDialog(
-                getContext().getResources().getString(R.string.login_try_later),
+                getContext().getResources().getString(R.string.login_failed),
                 getContext().getResources().getString(R.string.password_try_again),
                 null,
                 new View.OnClickListener() {

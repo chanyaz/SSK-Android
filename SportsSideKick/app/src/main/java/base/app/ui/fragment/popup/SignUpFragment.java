@@ -383,7 +383,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegisterError(Error error) {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
-        String errorMessage = getContext().getResources().getString(R.string.register_try_later);
+        String errorMessage = getContext().getResources().getString(R.string.registration_failed);
         if(error!=null && error.getMessage()!=null){
             if(error.getMessage().contains("TAKEN")){
                 errorMessage = getContext().getResources().getString(R.string.error_username_taken);

@@ -41,9 +41,8 @@
     <string name="nickname">Nickname</string>
     <string name="phone">Phone</string>
     <string name="error">Error</string>
-    <string name="login_try_later">Login failed. Try again later!</string>
-    <string name="register_try_later">Registration error. Try again later.</string>
-    <string name="check_credentials">Login failed. Check user name and password!</string>
+    <string name="login_failed">Login failed</string>
+    <string name="registration_failed">Registration error</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="password_reset">Reset Password</string>
     <string name="reset_check_email">Please check your email for password reset options.</string>
@@ -58,7 +57,6 @@
     <string name="required_credentials">Please enter valid credentials</string>
     <string name="password_try_again">Please re-enter your password and try again</string>
     <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-    <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
     <string name="logout_from_app">This will log you out of the app!</string>
     <string name="reset_app">This action will reload the application.</string>
     <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
@@ -69,7 +67,6 @@
     <string name="deny">Deny</string>
     <string name="warning">Warning</string>
     <string name="uploading">Uploading…</string>
-    <string name="email_not_valid">Please enter a valid email address!</string>
     <string name="facebook_error">Your public profile could not be received. Please try again!</string>
     <string name="no_connection">No Connection</string>
     <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -208,7 +205,7 @@
     <string name="alerts_off">Alerts-OFF</string>
     <string name="search">Search</string>
     <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-    <string name="chat_with_friends_login"> Chat with friends.</string>
+    <string name="chat_with_friends_login">Chat with friends.</string>
     <string name="chat_friends_in_chat">Friends in Chat</string>
     <string name="chat_friend_in_chat">1 Friend in Chat</string>
     <string name="choose_option">Choose option</string>

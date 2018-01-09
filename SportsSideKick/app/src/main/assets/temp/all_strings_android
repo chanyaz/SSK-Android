@@ -3,12 +3,12 @@ ar---
     <!--Screen titles-->
     <string name="wall">جدار</string>
     <string name="news">الأخبار</string>
-    <string name="rumours">Rumours</string>//TODO
+    <string name="rumours">إشاعات الويب</string>
     <string name="stats">إحصائيات</string>
     <string name="shop">تسوق</string>
     <string name="chat">محادثة</string>
     <string name="video_chat">محادثة فيديو</string>
-    <string name="radio">Club Radio</string>//TODO
+    <string name="radio">قنوات البودكاست</string>
     <string name="tv">تلفاز النادي</string>
     <string name="store">المتجر</string>
     <string name="quiz">أحجية</string>
@@ -27,41 +27,39 @@ ar---
     </string-array>
 
     <!-- Login & Register -->
-    <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-    <string name="access_full">To access full features …</string>
-    <string name="join_sign_in">Join Now / Sign In</string>
-    <string name="sign_in">Sign In</string>
-    <string name="join">Join Now</string>
-    <string name="login_facebook">Login with <b>Facebook</b></string>
-    <string name="or">or</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
-    <string name="nickname">Nickname</string>
-    <string name="phone">Phone</string>
-    <string name="error">Error</string>
-    <string name="login_try_later">Login failed. Try again later!</string>
-    <string name="register_try_later">Registration error. Try again later.</string>
-    <string name="check_credentials">Login failed. Check user name and password!</string>
-    <string name="forgot_your_password">Forgot your password?</string>
-    <string name="password_reset">Reset Password</string>
-    <string name="reset_check_email">Please check your email for password reset options.</string>
-    <string name="email_enter_valid">Please enter a valid email address!</string>
-    <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-    <string name="required_email">Please fill in your email.</string>
-    <string name="required_password">Please fill in your password.</string>
-    <string name="required_first_name">Please fill in your first name.</string>
-    <string name="required_last_name">Please fill in your last name.</string>
-    <string name="required_nickname">Please fill in your nickname.</string>
-    <string name="required_phone">Please fill in your phone number.</string>
-    <string name="required_credentials">Please enter valid credentials</string>
-    <string name="password_try_again">Please re-enter your password and try again</string>
-    <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-    <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-    <string name="logout_from_app">This will log you out of the app!</string>
-    <string name="reset_app">This action will reload the application.</string>
-    <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+    <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>//todo
+    <string name="access_full">للحصول على كافة الميزات...</string> // TODO: Not translated in other languages yet
+    <string name="join_sign_in">الانضمام الآن / تسجيل الدخول</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="join">الانضمام الآن</string>
+    <string name="login_facebook">تسجيل الدخول باستخدام فيسبوك</string>
+    <string name="or">أو</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="password">كلمة السر</string>
+    <string name="first_name">الاسم الأول</string>
+    <string name="last_name">الاسم الأخير</string>
+    <string name="nickname">الاسم المستعار</string>
+    <string name="phone">هاتف</string>
+    <string name="error">خطأ</string>
+    <string name="login_failed">فشل تسجيل الدخول!</string>
+    <string name="registration_failed">فشل التسجيل</string>
+    <string name="forgot_your_password">نسيت كلمة السر؟</string>
+    <string name="password_reset">إعادة ضبط كلمة السر</string>
+    <string name="reset_check_email">الرجاء تفقد بريدك الالكتروني لخيارات إعادة ضبط كلمة السر.</string>
+    <string name="email_enter_valid">الرجاء إدخال بريد الكتروني صالح.</string>
+    <string name="sign_up_text">بقيامك بالتسجيل، توافق على ما تطرحه SportsSidekick<br><font color=\"#FFFFFF\">من شروط للاستخدام</font> و <font color=\"#FFFFFF\">سياسة الخصوصية.</font></string>
+    <string name="required_email">عليك إدخال البريد الالكتروني!</string>
+    <string name="required_password">عليك إدخال كلمة سر</string>
+    <string name="required_first_name">عليك إدخال اسمك الأول!</string>
+    <string name="required_last_name">عليك إدخال اسمك الأخير!</string>
+    <string name="required_nickname">عليك اختيار اسم مستعار!</string>
+    <string name="required_phone">عليك إدخال رقم هاتفك!</string>
+    <string name="required_credentials">معلومات ناقصة</string>
+    <string name="password_try_again">الرجاء إعادة إدخال كلمة السر والمحاولة مجدداً.</string>
+    <string name="login_slider_chat">يمكنك التحدث مع أصدقائك، وإنشاء المجموعات، وحتى التواصل مع لاعبيك المفضلين!!</string> // TODO: Not translated in other languages yet
+    <string name="logout_from_app">ستسجل خروجك من التطبيق؟</string>
+    <string name="reset_app">ستقوم بإعادة تشغيل التطبيق بهذا الفعل.</string>
+    <string name="error_username_taken">Registration error - username already taken, please select a different username.</string> // TODO: Potentially not needed
 
     <!--Dialogs-->
     <string name="ok">OK</string>
@@ -69,7 +67,6 @@ ar---
     <string name="deny">Deny</string>
     <string name="warning">Warning</string>
     <string name="uploading">Uploading…</string>
-    <string name="email_not_valid">Please enter a valid email address!</string>
     <string name="facebook_error">Your public profile could not be received. Please try again!</string>
     <string name="no_connection">No Connection</string>
     <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -298,12 +295,12 @@ bh---
     <!--Screen titles-->
     <string name="wall">ওয়াল</string>
     <string name="news">খবর</string>
-    <string name="rumours">Rumours</string>
+    <string name="rumours">গুজবগুলি</string>
     <string name="stats">পরিসংখ্যানগুলি</string>
     <string name="shop">জিনিস কিনুন</string>
     <string name="chat">চ্যাট করুন</string>
     <string name="video_chat">ভিডিও চ্যাট</string>
-    <string name="radio">Club Radio</string>
+    <string name="radio">ক্লাব রেডিও</string>
     <string name="tv">ক্লাব টিভি</string>
     <string name="store">সংরক্ষণ করুন</string>
     <string name="quiz">কুইজ</string>
@@ -323,39 +320,37 @@ bh---
 
     <!-- Login & Register -->
     <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-    <string name="access_full">To access full features …</string>
-    <string name="join_sign_in">Join Now / Sign In</string>
-    <string name="sign_in">Sign In</string>
-    <string name="join">Join Now</string>
-    <string name="login_facebook">Login with <b>Facebook</b></string>
-    <string name="or">or</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
-    <string name="nickname">Nickname</string>
-    <string name="phone">Phone</string>
-    <string name="error">Error</string>
-    <string name="login_try_later">Login failed. Try again later!</string>
-    <string name="register_try_later">Registration error. Try again later.</string>
-    <string name="check_credentials">Login failed. Check user name and password!</string>
-    <string name="forgot_your_password">Forgot your password?</string>
-    <string name="password_reset">Reset Password</string>
-    <string name="reset_check_email">Please check your email for password reset options.</string>
-    <string name="email_enter_valid">Please enter a valid email address!</string>
-    <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-    <string name="required_email">Please fill in your email.</string>
-    <string name="required_password">Please fill in your password.</string>
-    <string name="required_first_name">Please fill in your first name.</string>
-    <string name="required_last_name">Please fill in your last name.</string>
-    <string name="required_nickname">Please fill in your nickname.</string>
-    <string name="required_phone">Please fill in your phone number.</string>
-    <string name="required_credentials">Please enter valid credentials</string>
-    <string name="password_try_again">Please re-enter your password and try again</string>
-    <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-    <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-    <string name="logout_from_app">This will log you out of the app!</string>
-    <string name="reset_app">This action will reload the application.</string>
+    <string name="access_full">To access full features...</string>
+    <string name="join_sign_in">এখনই যোগ দিন / সাইন ইন করুন</string>
+    <string name="sign_in">সাইন ইন করুন</string>
+    <string name="join">এখনই যোগ দিন</string>
+    <string name="login_facebook">Facebook দিয়ে লগইন করুন</string>
+    <string name="or">অথবা</string>
+    <string name="email">ইমেল</string>
+    <string name="password">পাসওয়ার্ড</string>
+    <string name="first_name">নাম</string>
+    <string name="last_name">পদবী</string>
+    <string name="nickname">ডাকনাম</string>
+    <string name="phone">ফোন</string>
+    <string name="error">ত্রুটি</string>
+    <string name="login_failed">লগ-ইন ব্যর্থ!</string>
+    <string name="registration_failed">নথিভুক্তি ব্যর্থ</string>
+    <string name="forgot_your_password">আপনার পাসওয়ার্ড ভুলে গেছেন?</string>
+    <string name="password_reset">পাসওয়ার্ড রিসেট করুন</string>
+    <string name="reset_check_email">পাসওয়ার্ড রিসেট বিকল্পগুলির জন্য আপনার ইমেলটি পরীক্ষা করুন।</string>
+    <string name="email_enter_valid">অনুগ্রহ করে একটি বৈধ ইমেল ঠিকানা লিখুন!</string>
+    <string name="sign_up_text">সাইন-আপ করে, আপনি সম্মত হচ্ছেন SportsSidekick-এর<br><font color=\"#FFFFFF\">ব্যবহারের শর্তাবলী</font> এবং <font color=\"#FFFFFF\">গোপনীয়তা নীতি -তে।</font></string>
+    <string name="required_email">আপনাকে ইমেল ঠিকানা লিখতে হবে!</string>
+    <string name="required_password">আপনাকে একটি পাসওয়ার্ড প্রবেশ করাতে হবে</string>
+    <string name="required_first_name">আপনাকে নাম লিখতে হবে!</string>
+    <string name="required_last_name">আপনাকে আপনার পদবী লিখতে হবে!</string>
+    <string name="required_nickname">আপনাকে একটি ডাকনাম লিখতে হবে!</string>
+    <string name="required_phone">আপনাকে একটি টেলিফোন নম্বর লিখতে হবে!</string>
+    <string name="required_credentials">অনুপস্থিত তথ্য</string>
+    <string name="password_try_again">অনুগ্রহ করে আপনার পাসওয়ার্ড লিখে আবার চেষ্টা করুন।</string>
+    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="logout_from_app">এটি করলে আপনাকে অ্যাপ থেকে লগ-আউট করবে?</string>
+    <string name="reset_app">এই কার্য অ্যাপ্লিকেশনকে আবার লোড করবে।</string>
     <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
     <!--Dialogs-->
@@ -364,7 +359,6 @@ bh---
     <string name="deny">Deny</string>
     <string name="warning">Warning</string>
     <string name="uploading">Uploading…</string>
-    <string name="email_not_valid">Please enter a valid email address!</string>
     <string name="facebook_error">Your public profile could not be received. Please try again!</string>
     <string name="no_connection">No Connection</string>
     <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -593,7 +587,7 @@ de---
       <!--Screen titles-->
       <string name="wall">Pinnwand</string>
       <string name="news">News</string>
-      <string name="rumours">Rumours</string>
+      <string name="rumours">Gerüchte</string>
       <string name="stats">Statistik</string>
       <string name="shop">Shop</string>
       <string name="chat">Chat</string>
@@ -618,39 +612,37 @@ de---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features …</string>
-      <string name="join_sign_in">Join Now / Sign In</string>
-      <string name="sign_in">Sign In</string>
-      <string name="join">Join Now</string>
-      <string name="login_facebook">Login with <b>Facebook</b></string>
-      <string name="or">or</string>
-      <string name="email">Email</string>
-      <string name="password">Password</string>
-      <string name="first_name">First name</string>
-      <string name="last_name">Last name</string>
+      <string name="access_full">To access full features...</string>
+      <string name="join_sign_in">Jetzt beitreten / Anmelden</string>
+      <string name="sign_in">Anmelden</string>
+      <string name="join">Jetzt beitreten</string>
+      <string name="login_facebook">Mit Facebook anmelden</string>
+      <string name="or">oder</string>
+      <string name="email">E-Mail</string>
+      <string name="password">Kennwort</string>
+      <string name="first_name">Vorname</string>
+      <string name="last_name">Nachname</string>
       <string name="nickname">Nickname</string>
-      <string name="phone">Phone</string>
-      <string name="error">Error</string>
-      <string name="login_try_later">Login failed. Try again later!</string>
-      <string name="register_try_later">Registration error. Try again later.</string>
-      <string name="check_credentials">Login failed. Check user name and password!</string>
-      <string name="forgot_your_password">Forgot your password?</string>
-      <string name="password_reset">Reset Password</string>
-      <string name="reset_check_email">Please check your email for password reset options.</string>
-      <string name="email_enter_valid">Please enter a valid email address!</string>
-      <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-      <string name="required_email">Please fill in your email.</string>
-      <string name="required_password">Please fill in your password.</string>
-      <string name="required_first_name">Please fill in your first name.</string>
-      <string name="required_last_name">Please fill in your last name.</string>
-      <string name="required_nickname">Please fill in your nickname.</string>
-      <string name="required_phone">Please fill in your phone number.</string>
-      <string name="required_credentials">Please enter valid credentials</string>
-      <string name="password_try_again">Please re-enter your password and try again</string>
-      <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-      <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-      <string name="logout_from_app">This will log you out of the app!</string>
-      <string name="reset_app">This action will reload the application.</string>
+      <string name="phone">Telefon</string>
+      <string name="error">Fehler</string>
+      <string name="login_failed">Anmeldung gescheitert!</string>
+      <string name="registration_failed">Registrierung gescheitert</string>
+      <string name="forgot_your_password">Kennwort vergessen?</string>
+      <string name="password_reset">Kennwort zurücksetzen</string>
+      <string name="reset_check_email">Bitte überprüfe deine E-Mails, um dein Kennwort zurückzusetzen.</string>
+      <string name="email_enter_valid">Bitte eine gültige E-Mail-Adresse eingeben.</string>
+      <string name="sign_up_text">Mit deiner Anmeldung bei SportsSidekick akzeptiertst du die<br><font color=\"#FFFFFF\">Nutzungsbedingungen</font> und  <font color=\"#FFFFFF\">Datenschutzrichtlinien.</font></string>
+      <string name="required_email">Du musst deine E-Mail-Adresse eingeben!</string>
+      <string name="required_password">Du musst ein Kennwort eingeben</string>
+      <string name="required_first_name">Du musst deinen Vornamen eingeben!</string>
+      <string name="required_last_name">Du musst deinen Nachnamen eingeben!</string>
+      <string name="required_nickname">Du musst einen Nickname eingeben!</string>
+      <string name="required_phone">Du musst deine Telefonnummer eingeben!</string>
+      <string name="required_credentials">Fehlende Informationen</string>
+      <string name="password_try_again">Bitte gib dein Kennwort erneut ein!</string>
+      <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="logout_from_app">Damit wirst du von der App abgemeldet?</string>
+      <string name="reset_app">Damit wird die Applikation neu geladen.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
       <!--Dialogs-->
@@ -659,7 +651,6 @@ de---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="email_not_valid">Please enter a valid email address!</string>
       <string name="facebook_error">Your public profile could not be received. Please try again!</string>
       <string name="no_connection">No Connection</string>
       <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -888,12 +879,12 @@ es---
       <!--Screen titles-->
       <string name="wall">Muro</string>
       <string name="news">Noticias</string>
-      <string name="rumours">Rumours</string>
+      <string name="rumours">Rumores</string>
       <string name="stats">Estadísticas</string>
       <string name="shop">Tienda</string>
       <string name="chat">Chat</string>
       <string name="video_chat">Chat de vídeo</string>
-      <string name="radio">Club Radio</string>
+      <string name="radio">Radio del club</string>
       <string name="tv">TV del club</string>
       <string name="store">Tienda</string>
       <string name="quiz">Trivia</string>
@@ -913,39 +904,37 @@ es---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features …</string>
-      <string name="join_sign_in">Join Now / Sign In</string>
-      <string name="sign_in">Sign In</string>
-      <string name="join">Join Now</string>
-      <string name="login_facebook">Login with <b>Facebook</b></string>
-      <string name="or">or</string>
-      <string name="email">Email</string>
-      <string name="password">Password</string>
-      <string name="first_name">First name</string>
-      <string name="last_name">Last name</string>
-      <string name="nickname">Nickname</string>
-      <string name="phone">Phone</string>
+      <string name="access_full">To access full features...</string>
+      <string name="join_sign_in">Unirse / Iniciar sesión</string>
+      <string name="sign_in">Iniciar sesión</string>
+      <string name="join">Unirse</string>
+      <string name="login_facebook">Iniciar sesión con Facebook</string>
+      <string name="or">o</string>
+      <string name="email">Correo electrónico</string>
+      <string name="password">Contraseña</string>
+      <string name="first_name">Nombre</string>
+      <string name="last_name">Apellido</string>
+      <string name="nickname">Nick</string>
+      <string name="phone">Teléfono</string>
       <string name="error">Error</string>
-      <string name="login_try_later">Login failed. Try again later!</string>
-      <string name="register_try_later">Registration error. Try again later.</string>
-      <string name="check_credentials">Login failed. Check user name and password!</string>
-      <string name="forgot_your_password">Forgot your password?</string>
-      <string name="password_reset">Reset Password</string>
-      <string name="reset_check_email">Please check your email for password reset options.</string>
-      <string name="email_enter_valid">Please enter a valid email address!</string>
-      <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-      <string name="required_email">Please fill in your email.</string>
-      <string name="required_password">Please fill in your password.</string>
-      <string name="required_first_name">Please fill in your first name.</string>
-      <string name="required_last_name">Please fill in your last name.</string>
-      <string name="required_nickname">Please fill in your nickname.</string>
-      <string name="required_phone">Please fill in your phone number.</string>
-      <string name="required_credentials">Please enter valid credentials</string>
-      <string name="password_try_again">Please re-enter your password and try again</string>
-      <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-      <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-      <string name="logout_from_app">This will log you out of the app!</string>
-      <string name="reset_app">This action will reload the application.</string>
+      <string name="login_failed">¡No se ha podido iniciar sesión!</string>
+      <string name="registration_failed">Registro fallido</string>
+      <string name="forgot_your_password">¿Has olvidado tu contraseña?</string>
+      <string name="password_reset">Restablecer contraseña</string>
+      <string name="reset_check_email">Encontrarás las opciones para restablecer tu contraseña en el correo electrónico.</string>
+      <string name="email_enter_valid">Introduce una dirección de correo electrónico válida.</string>
+      <string name="sign_up_text">Al registrarte, aceptas los<br><font color=\"#FFFFFF\">Términos y condiciones de uso</font> y la <font color=\"#FFFFFF\">Política de privacidad de SportsSidekick.</font></string>
+      <string name="required_email">¡Tienes que escribir tu correo electrónico!</string>
+      <string name="required_password">Debes introducir una contraseña</string>
+      <string name="required_first_name">¡Tienes que escribir tu nombre!</string>
+      <string name="required_last_name">¡Tienes que escribir tu apellido!</string>
+      <string name="required_nickname">¡Tienes que escribir un nick!</string>
+      <string name="required_phone">¡Tienes que introducir tu número de teléfono!</string>
+      <string name="required_credentials">Falta información</string>
+      <string name="password_try_again">Vuelve a introducir tu contraseña y vuelve a intentarlo.</string>
+      <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="logout_from_app">Al hacerlo, cerrarás sesión en la aplicación.</string>
+      <string name="reset_app">Esta acción hará que la aplicación se reinicie.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
       <!--Dialogs-->
@@ -954,7 +943,6 @@ es---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="email_not_valid">Please enter a valid email address!</string>
       <string name="facebook_error">Your public profile could not be received. Please try again!</string>
       <string name="no_connection">No Connection</string>
       <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -1183,12 +1171,12 @@ fr---
       <!--Screen titles-->
       <string name="wall">Mur</string>
       <string name="news">Actualités</string>
-      <string name="rumours">Rumours</string>
+      <string name="rumours">Rumeurs</string>
       <string name="stats">Stats</string>
       <string name="shop">Boutique</string>
       <string name="chat">Messagerie</string>
       <string name="video_chat">Discussion vidéo</string>
-      <string name="radio">Club Radio</string>
+      <string name="radio">Radio du club</string>
       <string name="tv">Chaîne du club</string>
       <string name="store">Store</string>
       <string name="quiz">Quiz</string>
@@ -1208,39 +1196,37 @@ fr---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features …</string>
-      <string name="join_sign_in">Join Now / Sign In</string>
-      <string name="sign_in">Sign In</string>
-      <string name="join">Join Now</string>
-      <string name="login_facebook">Login with <b>Facebook</b></string>
-      <string name="or">or</string>
-      <string name="email">Email</string>
-      <string name="password">Password</string>
-      <string name="first_name">First name</string>
-      <string name="last_name">Last name</string>
-      <string name="nickname">Nickname</string>
-      <string name="phone">Phone</string>
-      <string name="error">Error</string>
-      <string name="login_try_later">Login failed. Try again later!</string>
-      <string name="register_try_later">Registration error. Try again later.</string>
-      <string name="check_credentials">Login failed. Check user name and password!</string>
-      <string name="forgot_your_password">Forgot your password?</string>
-      <string name="password_reset">Reset Password</string>
-      <string name="reset_check_email">Please check your email for password reset options.</string>
-      <string name="email_enter_valid">Please enter a valid email address!</string>
-      <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-      <string name="required_email">Please fill in your email.</string>
-      <string name="required_password">Please fill in your password.</string>
-      <string name="required_first_name">Please fill in your first name.</string>
-      <string name="required_last_name">Please fill in your last name.</string>
-      <string name="required_nickname">Please fill in your nickname.</string>
-      <string name="required_phone">Please fill in your phone number.</string>
-      <string name="required_credentials">Please enter valid credentials</string>
-      <string name="password_try_again">Please re-enter your password and try again</string>
-      <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-      <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-      <string name="logout_from_app">This will log you out of the app!</string>
-      <string name="reset_app">This action will reload the application.</string>
+      <string name="access_full">To access full features...</string>
+      <string name="join_sign_in">Rejoindre maintenant / Connexion</string>
+      <string name="sign_in">Connexion</string>
+      <string name="join">Rejoindre maintenant</string>
+      <string name="login_facebook">Connexion avec Facebook</string>
+      <string name="or">ou</string>
+      <string name="email">E-mail</string>
+      <string name="password">Mot de passe</string>
+      <string name="first_name">Prénom</string>
+      <string name="last_name">Nom</string>
+      <string name="nickname">Pseudo</string>
+      <string name="phone">Téléphone</string>
+      <string name="error">Erreur</string>
+      <string name="login_failed">Échec de la connexion !</string>
+      <string name="registration_failed">Échec de l'inscription</string>
+      <string name="forgot_your_password">Mot de passe oublié ?</string>
+      <string name="password_reset">Réinitialiser le mot de passe</string>
+      <string name="reset_check_email">Veuillez consulter votre boîte mail pour lire les options de réinitialisation du mot de passe.</string>
+      <string name="email_enter_valid">Veuillez saisir une adresse e-mail valide.</string>
+      <string name="sign_up_text">En vous inscrivant, vous acceptez les<br><font color=\"#FFFFFF\">conditions générales d’utilisation</font> et la <font color=\"#FFFFFF\">politique de confidentialité</font></center> de Sports</string>
+      <string name="required_email">Vous devez saisir votre e-mail !</string>
+      <string name="required_password">Vous devez saisir un mot de passe</string>
+      <string name="required_first_name">Vous devez saisir votre prénom !</string>
+      <string name="required_last_name">Vous devez saisir votre nom !</string>
+      <string name="required_nickname">Vous devez saisir un pseudo !</string>
+      <string name="required_phone">Vous devez saisir votre numéro de téléphone !</string>
+      <string name="required_credentials">Informations manquantes</string>
+      <string name="password_try_again">Veuillez saisir votre mot de passe à nouveau et réessayer.</string>
+      <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="logout_from_app">Vous allez être déconnecté de l'application.</string>
+      <string name="reset_app">Cette action relancera l'application.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
       <!--Dialogs-->
@@ -1249,7 +1235,6 @@ fr---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="email_not_valid">Please enter a valid email address!</string>
       <string name="facebook_error">Your public profile could not be received. Please try again!</string>
       <string name="no_connection">No Connection</string>
       <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -1478,12 +1463,12 @@ id---
       <!--Screen titles-->
       <string name="wall">Dinding</string>
       <string name="news">Berita</string>
-      <string name="rumours">Rumours</string>
+      <string name="rumours">Rumor</string>
       <string name="stats">Stat</string>
       <string name="shop">Belanja</string>
       <string name="chat">Obrolan</string>
       <string name="video_chat">Obrolan Video</string>
-      <string name="radio">Club Radio</string>
+      <string name="radio">Radio Klub</string>
       <string name="tv">TV Klub</string>
       <string name="store">Toko</string>
       <string name="quiz">Kuis</string>
@@ -1503,39 +1488,37 @@ id---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features …</string>
-      <string name="join_sign_in">Join Now / Sign In</string>
-      <string name="sign_in">Sign In</string>
-      <string name="join">Join Now</string>
-      <string name="login_facebook">Login with <b>Facebook</b></string>
-      <string name="or">or</string>
-      <string name="email">Email</string>
-      <string name="password">Password</string>
-      <string name="first_name">First name</string>
-      <string name="last_name">Last name</string>
-      <string name="nickname">Nickname</string>
-      <string name="phone">Phone</string>
-      <string name="error">Error</string>
-      <string name="login_try_later">Login failed. Try again later!</string>
-      <string name="register_try_later">Registration error. Try again later.</string>
-      <string name="check_credentials">Login failed. Check user name and password!</string>
-      <string name="forgot_your_password">Forgot your password?</string>
-      <string name="password_reset">Reset Password</string>
-      <string name="reset_check_email">Please check your email for password reset options.</string>
-      <string name="email_enter_valid">Please enter a valid email address!</string>
-      <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-      <string name="required_email">Please fill in your email.</string>
-      <string name="required_password">Please fill in your password.</string>
-      <string name="required_first_name">Please fill in your first name.</string>
-      <string name="required_last_name">Please fill in your last name.</string>
-      <string name="required_nickname">Please fill in your nickname.</string>
-      <string name="required_phone">Please fill in your phone number.</string>
-      <string name="required_credentials">Please enter valid credentials</string>
-      <string name="password_try_again">Please re-enter your password and try again</string>
-      <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-      <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-      <string name="logout_from_app">This will log you out of the app!</string>
-      <string name="reset_app">This action will reload the application.</string>
+      <string name="access_full">To access full features...</string>
+      <string name="join_sign_in">Bergabung Sekarang / Masuk</string>
+      <string name="sign_in">Masuk</string>
+      <string name="join">Bergabung Sekarang</string>
+      <string name="login_facebook">Masuk dengan Facebook</string>
+      <string name="or">atau</string>
+      <string name="email">Surel</string>
+      <string name="password">Kata Sandi</string>
+      <string name="first_name">Nama depan</string>
+      <string name="last_name">Nama belakang</string>
+      <string name="nickname">Nama Panggilan</string>
+      <string name="phone">Telepon</string>
+      <string name="error">Galat</string>
+      <string name="login_failed">Gagal Masuk!</string>
+      <string name="registration_failed">Pendaftaran Gagal</string>
+      <string name="forgot_your_password">Lupa kata sandi Anda?</string>
+      <string name="password_reset">Setel Ulang Kata Sandi</string>
+      <string name="reset_check_email">Silakan periksa surel Anda untuk opsi setel ulang kata sandi.</string>
+      <string name="email_enter_valid">Silakan masukkan alamat surel yang valid</string>
+      <string name="sign_up_text">Dengan mendaftar Anda menyetujui<br><font color=\"#FFFFFF\">Syarat dan Ketentuan Penggunaan SportsSidekick</font> dan <font color=\"#FFFFFF\">Kebijakan Privasi.</font></string>
+      <string name="required_email">Anda harus memasukkan surel!</string>
+      <string name="required_password">Anda harus memasukkan kata sandi</string>
+      <string name="required_first_name">Anda harus memasukkan nama depan!</string>
+      <string name="required_last_name">Anda harus memasukkan nama belakang Anda!</string>
+      <string name="required_nickname">Anda harus memasukkan nama panggilan!</string>
+      <string name="required_phone">Anda harus memasukkan nomor telepon!</string>
+      <string name="required_credentials">Informasi Tidak Ada</string>
+      <string name="password_try_again">Silakan masukkkan kembali kata sandi dan coba lagi.</string>
+      <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="logout_from_app">Ini akan mengeluarkan Anda dari aplikasi?</string>
+      <string name="reset_app">Tindakan ini akan memuat ulang aplikasinya.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
       <!--Dialogs-->
@@ -1544,7 +1527,6 @@ id---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="email_not_valid">Please enter a valid email address!</string>
       <string name="facebook_error">Your public profile could not be received. Please try again!</string>
       <string name="no_connection">No Connection</string>
       <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -1773,7 +1755,7 @@ it---
       <!--Screen titles-->
       <string name="wall">Bacheca</string>
       <string name="news">News</string>
-      <string name="rumours">Rumours</string>
+      <string name="rumours">Voci di mercato</string>
       <string name="stats">Statistiche</string>
       <string name="shop">Negozio</string>
       <string name="chat">Chat</string>
@@ -1798,39 +1780,37 @@ it---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features …</string>
-      <string name="join_sign_in">Join Now / Sign In</string>
-      <string name="sign_in">Sign In</string>
-      <string name="join">Join Now</string>
-      <string name="login_facebook">Login with <b>Facebook</b></string>
-      <string name="or">or</string>
+      <string name="access_full">To access full features...</string>
+      <string name="join_sign_in">Unisciti / Iscriviti</string>
+      <string name="sign_in">Iscriviti</string>
+      <string name="join">Unisciti</string>
+      <string name="login_facebook">Accedi tramite Facebook</string>
+      <string name="or">o</string>
       <string name="email">Email</string>
       <string name="password">Password</string>
-      <string name="first_name">First name</string>
-      <string name="last_name">Last name</string>
+      <string name="first_name">Nome</string>
+      <string name="last_name">Cognome</string>
       <string name="nickname">Nickname</string>
-      <string name="phone">Phone</string>
-      <string name="error">Error</string>
-      <string name="login_try_later">Login failed. Try again later!</string>
-      <string name="register_try_later">Registration error. Try again later.</string>
-      <string name="check_credentials">Login failed. Check user name and password!</string>
-      <string name="forgot_your_password">Forgot your password?</string>
-      <string name="password_reset">Reset Password</string>
-      <string name="reset_check_email">Please check your email for password reset options.</string>
-      <string name="email_enter_valid">Please enter a valid email address!</string>
-      <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-      <string name="required_email">Please fill in your email.</string>
-      <string name="required_password">Please fill in your password.</string>
-      <string name="required_first_name">Please fill in your first name.</string>
-      <string name="required_last_name">Please fill in your last name.</string>
-      <string name="required_nickname">Please fill in your nickname.</string>
-      <string name="required_phone">Please fill in your phone number.</string>
-      <string name="required_credentials">Please enter valid credentials</string>
-      <string name="password_try_again">Please re-enter your password and try again</string>
-      <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-      <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-      <string name="logout_from_app">This will log you out of the app!</string>
-      <string name="reset_app">This action will reload the application.</string>
+      <string name="phone">Telefono</string>
+      <string name="error">Errore</string>
+      <string name="login_failed">Accesso non riuscito!</string>
+      <string name="registration_failed">Registrazione non riuscita</string>
+      <string name="forgot_your_password">Hai dimenticato la password?</string>
+      <string name="password_reset">Ripristina password</string>
+      <string name="reset_check_email">Controlla l'email per le opzioni di ripristino della password.</string>
+      <string name="email_enter_valid">Inserisci un indirizzo email valido.</string>
+      <string name="sign_up_text">Registrandoti, dichiari di aver letto e accettato i<br><font color=\"#FFFFFF\">Termini e Condizioni</font> e la <font color=\"#FFFFFF\">Politica in materia di trattamento dei dati personali</font> di Sports Sidekick.</string>
+      <string name="required_email">Devi inserire l'email!</string>
+      <string name="required_password">Devi inserire una password</string>
+      <string name="required_first_name">Devi inserire il nome!</string>
+      <string name="required_last_name">Devi inserire il cognome!</string>
+      <string name="required_nickname">Devi inserire un nickname!</string>
+      <string name="required_phone">Devi inserire un numero di telefono!</string>
+      <string name="required_credentials">Mancano delle informazioni</string>
+      <string name="password_try_again">Reinserisci la password e prova di nuovo.</string>
+      <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="logout_from_app">Uscirai dall'App. Continuare?</string>
+      <string name="reset_app">Quest'azione ricaricherà l'App.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
       <!--Dialogs-->
@@ -1839,7 +1819,6 @@ it---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="email_not_valid">Please enter a valid email address!</string>
       <string name="facebook_error">Your public profile could not be received. Please try again!</string>
       <string name="no_connection">No Connection</string>
       <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -2068,12 +2047,12 @@ pl---
       <!--Screen titles-->
       <string name="wall">Tablica</string>
       <string name="news">Wiadomości</string>
-      <string name="rumours">Rumours</string>
+      <string name="rumours">Pogłoski</string>
       <string name="stats">Statystyki</string>
       <string name="shop">Sklep</string>
       <string name="chat">Czat</string>
       <string name="video_chat">Wideoczat</string>
-      <string name="radio">Club Radio</string>
+      <string name="radio">Radio klubowe</string>
       <string name="tv">Telewizja klubowa</string>
       <string name="store">Sklep</string>
       <string name="quiz">Quiz</string>
@@ -2093,39 +2072,37 @@ pl---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features …</string>
-      <string name="join_sign_in">Join Now / Sign In</string>
-      <string name="sign_in">Sign In</string>
-      <string name="join">Join Now</string>
-      <string name="login_facebook">Login with <b>Facebook</b></string>
-      <string name="or">or</string>
-      <string name="email">Email</string>
-      <string name="password">Password</string>
-      <string name="first_name">First name</string>
-      <string name="last_name">Last name</string>
-      <string name="nickname">Nickname</string>
-      <string name="phone">Phone</string>
-      <string name="error">Error</string>
-      <string name="login_try_later">Login failed. Try again later!</string>
-      <string name="register_try_later">Registration error. Try again later.</string>
-      <string name="check_credentials">Login failed. Check user name and password!</string>
-      <string name="forgot_your_password">Forgot your password?</string>
-      <string name="password_reset">Reset Password</string>
-      <string name="reset_check_email">Please check your email for password reset options.</string>
-      <string name="email_enter_valid">Please enter a valid email address!</string>
-      <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-      <string name="required_email">Please fill in your email.</string>
-      <string name="required_password">Please fill in your password.</string>
-      <string name="required_first_name">Please fill in your first name.</string>
-      <string name="required_last_name">Please fill in your last name.</string>
-      <string name="required_nickname">Please fill in your nickname.</string>
-      <string name="required_phone">Please fill in your phone number.</string>
-      <string name="required_credentials">Please enter valid credentials</string>
-      <string name="password_try_again">Please re-enter your password and try again</string>
-      <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-      <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-      <string name="logout_from_app">This will log you out of the app!</string>
-      <string name="reset_app">This action will reload the application.</string>
+      <string name="access_full">To access full features...</string>
+      <string name="join_sign_in">Dołącz teraz / Zaloguj się</string>
+      <string name="sign_in">Zaloguj się</string>
+      <string name="join">Dołącz teraz</string>
+      <string name="login_facebook">Logowanie przez Facebook</string>
+      <string name="or">lub</string>
+      <string name="email">Adres e-mail</string>
+      <string name="password">Hasło</string>
+      <string name="first_name">Imię</string>
+      <string name="last_name">Nazwisko</string>
+      <string name="nickname">Nick</string>
+      <string name="phone">Telefon</string>
+      <string name="error">Błąd</string>
+      <string name="login_failed">Nie zalogowano!</string>
+      <string name="registration_failed">Nie zarejestrowano</string>
+      <string name="forgot_your_password">Nie pamiętasz hasła?</string>
+      <string name="password_reset">Reset hasła</string>
+      <string name="reset_check_email">Sprawdź swoją skrzynkę e-mail: otrzymasz wiadomość z opcjami resetowania hasła.</string>
+      <string name="email_enter_valid">Wpisz prawidłowy adres e-mail.</string>
+      <string name="sign_up_text">Zakładając konto, zgadzasz się<br><font color=\"#FFFFFF\">z Warunkami użytkowania</font> i <font color=\"#FFFFFF\">Polityką prywatności SportsSidekick.</font></string>
+      <string name="required_email">Wpisz swój adres e-mail!</string>
+      <string name="required_password">Musisz wpisać hasło.</string>
+      <string name="required_first_name">Wpisz swoje imię!</string>
+      <string name="required_last_name">Wpisz swoje nazwisko!</string>
+      <string name="required_nickname">Wpisz nick!</string>
+      <string name="required_phone">Wpisz swój numer telefonu!</string>
+      <string name="required_credentials">Brakujące dane</string>
+      <string name="password_try_again">Wpisz hasło od nowa i spróbuj ponownie.</string>
+      <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="logout_from_app">Nastąpi wylogowanie z aplikacji</string>
+      <string name="reset_app">Jeśli to zrobisz, aplikacja zostanie ponownie uruchomiona.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
       <!--Dialogs-->
@@ -2134,7 +2111,6 @@ pl---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="email_not_valid">Please enter a valid email address!</string>
       <string name="facebook_error">Your public profile could not be received. Please try again!</string>
       <string name="no_connection">No Connection</string>
       <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -2363,12 +2339,12 @@ pt---
       <!--Screen titles-->
       <string name="wall">Mural</string>
       <string name="news">Notícias</string>
-      <string name="rumours">Rumours</string>
+      <string name="rumours">Rumores</string>
       <string name="stats">Estats</string>
       <string name="shop">Loja</string>
       <string name="chat">Chat</string>
       <string name="video_chat">Chat de Video</string>
-      <string name="radio">Club Radio</string>
+      <string name="radio">Rádio do clube</string>
       <string name="tv">Sporting TV</string>
       <string name="store">Loja</string>
       <string name="quiz">Questionário</string>
@@ -2388,39 +2364,37 @@ pt---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features …</string>
-      <string name="join_sign_in">Join Now / Sign In</string>
-      <string name="sign_in">Sign In</string>
-      <string name="join">Join Now</string>
-      <string name="login_facebook">Login with <b>Facebook</b></string>
-      <string name="or">or</string>
-      <string name="email">Email</string>
+      <string name="access_full">To access full features...</string>
+      <string name="join_sign_in">Inscreve-te já /  Regista-te</string>
+      <string name="sign_in">Regista-te</string>
+      <string name="join">Inscreve-te já</string>
+      <string name="login_facebook">Login através do Facebook</string>
+      <string name="or">ou</string>
+      <string name="email">E-mail</string>
       <string name="password">Password</string>
-      <string name="first_name">First name</string>
-      <string name="last_name">Last name</string>
+      <string name="first_name">Primeiro Nome</string>
+      <string name="last_name">Último Nome</string>
       <string name="nickname">Nickname</string>
-      <string name="phone">Phone</string>
-      <string name="error">Error</string>
-      <string name="login_try_later">Login failed. Try again later!</string>
-      <string name="register_try_later">Registration error. Try again later.</string>
-      <string name="check_credentials">Login failed. Check user name and password!</string>
-      <string name="forgot_your_password">Forgot your password?</string>
-      <string name="password_reset">Reset Password</string>
-      <string name="reset_check_email">Please check your email for password reset options.</string>
-      <string name="email_enter_valid">Please enter a valid email address!</string>
-      <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-      <string name="required_email">Please fill in your email.</string>
-      <string name="required_password">Please fill in your password.</string>
-      <string name="required_first_name">Please fill in your first name.</string>
-      <string name="required_last_name">Please fill in your last name.</string>
-      <string name="required_nickname">Please fill in your nickname.</string>
-      <string name="required_phone">Please fill in your phone number.</string>
-      <string name="required_credentials">Please enter valid credentials</string>
-      <string name="password_try_again">Please re-enter your password and try again</string>
-      <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-      <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-      <string name="logout_from_app">This will log you out of the app!</string>
-      <string name="reset_app">This action will reload the application.</string>
+      <string name="phone">Telefone</string>
+      <string name="error">Erro</string>
+      <string name="login_failed">Falhou Login!</string>
+      <string name="registration_failed">Falha no registo</string>
+      <string name="forgot_your_password">Esqueceu a sua password?</string>
+      <string name="password_reset">Apagar password</string>
+      <string name="reset_check_email">Por favor verifique o seu e-mail para consultar as opções de apagar.</string>
+      <string name="email_enter_valid">Por favor introduza um endereço de e-mail válido.</string>
+      <string name="sign_up_text">Ao registares-te concordas com os termos de utilização da SportsSidekick´s<br><font color=\"#FFFFFF\">Termos e condições de uso</font> and <font color=\"#FFFFFF\">Política de privacidade.</font></string>
+      <string name="required_email">Têm que escrever o seu e-mail</string>
+      <string name="required_password">Tens de inserir a password</string>
+      <string name="required_first_name">Têm que escrever o primeiro nome</string>
+      <string name="required_last_name">Têm que introduzir o seu último nome</string>
+      <string name="required_nickname">Têm que introduzir o seu nickname</string>
+      <string name="required_phone">Têm que introduzir o seu número de telefone</string>
+      <string name="required_credentials">Informação em falta</string>
+      <string name="password_try_again">Por favor reintroduza a sua password e tente novamente.</string>
+      <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="logout_from_app">Isto irá fazê-lo sair da aplicação</string>
+      <string name="reset_app">Esta acção irá actualizar a aplicação.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
       <!--Dialogs-->
@@ -2429,7 +2403,6 @@ pt---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="email_not_valid">Please enter a valid email address!</string>
       <string name="facebook_error">Your public profile could not be received. Please try again!</string>
       <string name="no_connection">No Connection</string>
       <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -2658,12 +2631,12 @@ ru---
       <!--Screen titles-->
       <string name="wall">Стена</string>
       <string name="news">Новости</string>
-      <string name="rumours">Rumours</string>
+      <string name="rumours">Слухи</string>
       <string name="stats">Статистика</string>
       <string name="shop">Магазин</string>
       <string name="chat">Чат</string>
       <string name="video_chat">Видеочат</string>
-      <string name="radio">Club Radio</string>
+      <string name="radio">Клубное радио</string>
       <string name="tv">Клубное ТВ</string>
       <string name="store">Магазин</string>
       <string name="quiz">Тест</string>
@@ -2683,39 +2656,37 @@ ru---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features …</string>
-      <string name="join_sign_in">Join Now / Sign In</string>
-      <string name="sign_in">Sign In</string>
-      <string name="join">Join Now</string>
-      <string name="login_facebook">Login with <b>Facebook</b></string>
-      <string name="or">or</string>
-      <string name="email">Email</string>
-      <string name="password">Password</string>
-      <string name="first_name">First name</string>
-      <string name="last_name">Last name</string>
-      <string name="nickname">Nickname</string>
-      <string name="phone">Phone</string>
-      <string name="error">Error</string>
-      <string name="login_try_later">Login failed. Try again later!</string>
-      <string name="register_try_later">Registration error. Try again later.</string>
-      <string name="check_credentials">Login failed. Check user name and password!</string>
-      <string name="forgot_your_password">Forgot your password?</string>
-      <string name="password_reset">Reset Password</string>
-      <string name="reset_check_email">Please check your email for password reset options.</string>
-      <string name="email_enter_valid">Please enter a valid email address!</string>
-      <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-      <string name="required_email">Please fill in your email.</string>
-      <string name="required_password">Please fill in your password.</string>
-      <string name="required_first_name">Please fill in your first name.</string>
-      <string name="required_last_name">Please fill in your last name.</string>
-      <string name="required_nickname">Please fill in your nickname.</string>
-      <string name="required_phone">Please fill in your phone number.</string>
-      <string name="required_credentials">Please enter valid credentials</string>
-      <string name="password_try_again">Please re-enter your password and try again</string>
-      <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-      <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-      <string name="logout_from_app">This will log you out of the app!</string>
-      <string name="reset_app">This action will reload the application.</string>
+      <string name="access_full">To access full features...</string>
+      <string name="join_sign_in">Вступить / Войти</string>
+      <string name="sign_in">Войти</string>
+      <string name="join">Вступить</string>
+      <string name="login_facebook">Войти через Facebook</string>
+      <string name="or">или</string>
+      <string name="email">Эл. почта</string>
+      <string name="password">Пароль</string>
+      <string name="first_name">Имя</string>
+      <string name="last_name">Фамилия</string>
+      <string name="nickname">Псевдоним</string>
+      <string name="phone">Телефон</string>
+      <string name="error">Ошибка</string>
+      <string name="login_failed">Не удалось войти!</string>
+      <string name="registration_failed">Ошибка регистрации</string>
+      <string name="forgot_your_password">Забыли пароль?</string>
+      <string name="password_reset">Сбросить пароль</string>
+      <string name="reset_check_email">Проверьте почту, там должно быть письмо с вариантами сброса пароля.</string>
+      <string name="email_enter_valid">Введите верный адрес эл. почты.</string>
+      <string name="sign_up_text">Регистрируясь, вы принимаете<br><font color=\"#FFFFFF\">Условия использования</font> и <font color=\"#FFFFFF\">Политику конфиденциальности SportsSidekick.</font></string>
+      <string name="required_email">Укажите адрес эл. почты!</string>
+      <string name="required_password">Нужно ввести пароль</string>
+      <string name="required_first_name">Укажите свое имя!</string>
+      <string name="required_last_name">Укажите свою фамилию!</string>
+      <string name="required_nickname">Укажите свой псевдоним!</string>
+      <string name="required_phone">Введите свой номер телефона!</string>
+      <string name="required_credentials">Не хватает информации</string>
+      <string name="password_try_again">Введите пароль заново и попробуйте еще раз.</string>
+      <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="logout_from_app">Так вы выйдете из приложения?</string>
+      <string name="reset_app">Это действие перезагрузит приложение.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
       <!--Dialogs-->
@@ -2724,7 +2695,6 @@ ru---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="email_not_valid">Please enter a valid email address!</string>
       <string name="facebook_error">Your public profile could not be received. Please try again!</string>
       <string name="no_connection">No Connection</string>
       <string name="internet_needed">You need to be connected to the internet to do this</string>
@@ -2953,12 +2923,12 @@ zh---
       <!--Screen titles-->
       <string name="wall">墙</string>
       <string name="news">新闻</string>
-      <string name="rumours">Rumours</string>
+      <string name="rumours">传言</string>
       <string name="stats">统计</string>
       <string name="shop">商店</string>
       <string name="chat">聊天</string>
       <string name="video_chat">视频聊天</string>
-      <string name="radio">Club Radio</string>
+      <string name="radio">俱乐部电台</string>
       <string name="tv">俱乐部电视</string>
       <string name="store">商店</string>
       <string name="quiz">迷题</string>
@@ -2978,39 +2948,37 @@ zh---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features …</string>
-      <string name="join_sign_in">Join Now / Sign In</string>
-      <string name="sign_in">Sign In</string>
-      <string name="join">Join Now</string>
-      <string name="login_facebook">Login with <b>Facebook</b></string>
-      <string name="or">or</string>
-      <string name="email">Email</string>
-      <string name="password">Password</string>
-      <string name="first_name">First name</string>
-      <string name="last_name">Last name</string>
-      <string name="nickname">Nickname</string>
-      <string name="phone">Phone</string>
-      <string name="error">Error</string>
-      <string name="login_try_later">Login failed. Try again later!</string>
-      <string name="register_try_later">Registration error. Try again later.</string>
-      <string name="check_credentials">Login failed. Check user name and password!</string>
-      <string name="forgot_your_password">Forgot your password?</string>
-      <string name="password_reset">Reset Password</string>
-      <string name="reset_check_email">Please check your email for password reset options.</string>
-      <string name="email_enter_valid">Please enter a valid email address!</string>
-      <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-      <string name="required_email">Please fill in your email.</string>
-      <string name="required_password">Please fill in your password.</string>
-      <string name="required_first_name">Please fill in your first name.</string>
-      <string name="required_last_name">Please fill in your last name.</string>
-      <string name="required_nickname">Please fill in your nickname.</string>
-      <string name="required_phone">Please fill in your phone number.</string>
-      <string name="required_credentials">Please enter valid credentials</string>
-      <string name="password_try_again">Please re-enter your password and try again</string>
-      <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
-      <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
-      <string name="logout_from_app">This will log you out of the app!</string>
-      <string name="reset_app">This action will reload the application.</string>
+      <string name="access_full">To access full features...</string>
+      <string name="join_sign_in">立即加入 / 登录</string>
+      <string name="sign_in">登录</string>
+      <string name="join">立即加入</string>
+      <string name="login_facebook">用 Facebook 帐户登录</string>
+      <string name="or">或者</string>
+      <string name="email">电子邮件</string>
+      <string name="password">密码</string>
+      <string name="first_name">名字</string>
+      <string name="last_name">姓氏</string>
+      <string name="nickname">昵称</string>
+      <string name="phone">电话</string>
+      <string name="error">错误</string>
+      <string name="login_failed">登录失败！</string>
+      <string name="registration_failed">注册失败</string>
+      <string name="forgot_your_password">忘记密码？</string>
+      <string name="password_reset">重置密码</string>
+      <string name="reset_check_email">请查看您的电子邮件，以了解密码重置选项。</string>
+      <string name="email_enter_valid">请输入有效的电子邮件地址。</string>
+      <string name="sign_up_text">通过注册，您即同意 SportsSidekick 的<br><font color=\"#FFFFFF\">使用条款</font> 和 <font color=\"#FFFFFF\">隐私政策。</font></string>
+      <string name="required_email">您必须输入电子邮件！</string>
+      <string name="required_password">您必须输入密码</string>
+      <string name="required_first_name">您必须输入自己的名字！</string>
+      <string name="required_last_name">您必须输入自己的姓氏！</string>
+      <string name="required_nickname">您必须输入昵称！</string>
+      <string name="required_phone">您必须输入电话号码！</string>
+      <string name="required_credentials">缺少的信息</string>
+      <string name="password_try_again">请重新输入您的密码，然后再试。</string>
+      <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="logout_from_app">这将让您退出本应用？</string>
+      <string name="reset_app">此操作将重新加载应用程序。</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
       <!--Dialogs-->
@@ -3019,7 +2987,6 @@ zh---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="email_not_valid">Please enter a valid email address!</string>
       <string name="facebook_error">Your public profile could not be received. Please try again!</string>
       <string name="no_connection">No Connection</string>
       <string name="internet_needed">You need to be connected to the internet to do this</string>

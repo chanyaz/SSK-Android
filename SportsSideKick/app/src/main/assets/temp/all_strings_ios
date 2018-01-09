@@ -21,7 +21,7 @@ ar---
 "Login with Facebook" = "تسجيل الدخول باستخدام فيسبوك";
 "Sign up with Facebook" = "التسجيل باستخدام فيسبوك";
 "USER NAME" = "اسم المستخدم";
-"PASSWORD" = "كلمة السر";
+"PASSWORD-CAPS" = "كلمة السر";
 "OR" = "أو";
 "First Name" = "الاسم الأول";
 "First name" = "الاسم الأول";
@@ -33,7 +33,7 @@ ar---
 "Password" = "كلمة السر";
 "Forgot your password?" = "نسيت كلمة السر؟";
 "Reset your password" = "إعادة ضبط كلمة السر";
-"RESET PASSWORD" = "إعادة ضبط كلمة السر";
+"reset password" = "إعادة ضبط كلمة السر";
 
 "Are you sure?" = "هل أنت متأكد؟";
 "This will permanently delete this chat; are you sure?" = "سيتم حذف المحادثة بشكل دائم، هل أنت متأكد؟";
@@ -745,7 +745,7 @@ bh---
 "Login with Facebook" = "Facebook দিয়ে লগইন করুন";
 "Sign up with Facebook" = "Facebook দিয়ে নথিভুক্ত হন";
 "USER NAME" = "ব্যবহারকারীর নাম";
-"PASSWORD" = "পাসওয়ার্ড";
+"PASSWORD-CAPS" = "পাসওয়ার্ড";
 "OR" = "অথবা";
 "First Name" = "নাম";
 "First name" = "নাম";
@@ -1468,8 +1468,8 @@ de---
 "Login with Facebook" = "Mit Facebook anmelden";
 "Sign up with Facebook" = "Mit Facebook registrieren";
 "USER NAME" = "BENUTZERNAME";
-"PASSWORD" = "KENNWORT";
-"OR" = "ODER";
+"PASSWORD-CAPS" = "KENNWORT";
+"OR" = "oder";
 "First Name" = "Vorname";
 "First name" = "Vorname";
 "Last Name" = "Nachname";
@@ -1480,7 +1480,7 @@ de---
 "Password" = "Kennwort";
 "Forgot your password?" = "Kennwort vergessen?";
 "Reset your password" = "Kennwort zurücksetzen?";
-"RESET PASSWORD" = "KENNWORT ZURÜCKSETZEN";
+"RESET PASSWORD" = "Kennwort zurücksetzen";
 
 "Are you sure?" = "Ganz sicher?";
 "This will permanently delete this chat; are you sure?" = "Ganz sicher? Damit wird dieser Chat dauerhaft gelöscht.";
@@ -2185,8 +2185,8 @@ es---
 "Login with Facebook" = "Iniciar sesión con Facebook";
 "Sign up with Facebook" = "Registrarse con Facebook";
 "USER NAME" = "NOMBRE DE USUARIO";
-"PASSWORD" = "CONTRASEÑA";
-"OR" = "O";
+"PASSWORD-CAPS" = "CONTRASEÑA";
+"OR" = "o";
 "First Name" = "Nombre";
 "First name" = "Nombre";
 "Last Name" = "Apellido";
@@ -2197,7 +2197,7 @@ es---
 "Password" = "Contraseña";
 "Forgot your password?" = "¿Has olvidado tu contraseña?";
 "Reset your password" = "Restablecer contraseña";
-"RESET PASSWORD" = "RESTABLECER CONTRASEÑA";
+"RESET PASSWORD" = "Restablecer contraseña";
 
 "Are you sure?" = "¿Seguro?";
 "This will permanently delete this chat; are you sure?" = "Al hacerlo, se borrará permanentemente este chat. ¿Seguro que quieres hacerlo?";
@@ -2904,8 +2904,8 @@ fr---
 "Login with Facebook" = "Connexion avec Facebook";
 "Sign up with Facebook" = "Inscription avec Facebook";
 "USER NAME" = "NOM D'UTILISATEUR";
-"PASSWORD" = "MOT DE PASSE";
-"OR" = "OU";
+"PASSWORD-CAPS" = "MOT DE PASSE";
+"OR" = "ou";
 "First Name" = "Prénom";
 "First name" = "Prénom";
 "Last Name" = "Nom";
@@ -2916,7 +2916,7 @@ fr---
 "Password" = "Mot de passe";
 "Forgot your password?" = "Mot de passe oublié ?";
 "Reset your password" = "Réinitialiser votre mot de passe";
-"RESET PASSWORD" = "RÉINITIALISER MOT DE PASSE";
+"RESET PASSWORD" = "Réinitialiser mot de passe";
 
 "Are you sure?" = "Êtes-vous sûr ?";
 "This will permanently delete this chat; are you sure?" = "Cette discussion sera définitivement supprimée. Êtes-vous sûr ?";
@@ -3619,8 +3619,8 @@ id---
 "Login with Facebook" = "Masuk dengan Facebook";
 "Sign up with Facebook" = "Daftar dengan Facebook";
 "USER NAME" = "NAMA PENGGUNA";
-"PASSWORD" = "KATA SANDI";
-"OR" = "ATAU";
+"PASSWORD-CAPS" = "KATA SANDI";
+"OR" = "atau";
 "First Name" = "Nama Depan";
 "First name" = "Nama depan";
 "Last Name" = "Nama Belakang";
@@ -3631,7 +3631,7 @@ id---
 "Password" = "Kata Sandi";
 "Forgot your password?" = "Lupa kata sandi Anda?";
 "Reset your password" = "Setel ulang kata sandi Anda";
-"RESET PASSWORD" = "SETEL ULANG KATA SANDI";
+"RESET PASSWORD" = "Setel ulang kata sandi";
 
 "Are you sure?" = "Anda yakin?";
 "This will permanently delete this chat; are you sure?" = "Ini akan menghapus obrolan secara permanen; Anda yakin?";
@@ -4337,8 +4337,8 @@ it---
 "Login with Facebook" = "Accedi tramite Facebook";
 "Sign up with Facebook" = "Iscriviti tramite Facebook";
 "USER NAME" = "USERNAME";
-"PASSWORD" = "PASSWORD";
-"OR" = "O";
+"PASSWORD-CAPS" = "PASSWORD-CAPS";
+"OR" = "o";
 "First Name" = "Nome";
 "First name" = "Nome";
 "Last Name" = "Cognome";
@@ -4349,7 +4349,7 @@ it---
 "Password" = "Password";
 "Forgot your password?" = "Hai dimenticato la password?";
 "Reset your password" = "Ripristina la password";
-"RESET PASSWORD" = "RIPRISTINARE PASSWORD";
+"RESET PASSWORD" = "Ripristinare password";
 
 "Are you sure?" = "Continuare?";
 "This will permanently delete this chat; are you sure?" = "Cancellerai permanentemente questa chat, continuare?";
@@ -5053,8 +5053,8 @@ pl---
 "Login with Facebook" = "Logowanie przez Facebook";
 "Sign up with Facebook" = "Rejestracja przez Facebook";
 "USER NAME" = "NAZWA UŻYTKOWNIKA";
-"PASSWORD" = "HASŁO";
-"OR" = "LUB";
+"PASSWORD-CAPS" = "HASŁO";
+"OR" = "lub";
 "First Name" = "Imię";
 "First name" = "Imię";
 "Last Name" = "Nazwisko";
@@ -5065,7 +5065,7 @@ pl---
 "Password" = "Hasło";
 "Forgot your password?" = "Nie pamiętasz hasła?";
 "Reset your password" = "Zresetuj hasło";
-"RESET PASSWORD" = "ZRESETUJ HASŁO";
+"RESET PASSWORD" = "Zresetuj hasło";
 
 "Are you sure?" = "Na pewno?";
 "This will permanently delete this chat; are you sure?" = "Gdy to zrobisz, na zawsze usuniesz ten czat; kontynuować?";
@@ -5770,8 +5770,8 @@ pt---
 "Login with Facebook" = "Login através do Facebook";
 "Sign up with Facebook" = "Regista-te através do Facebook";
 "USER NAME" = "Username";
-"PASSWORD" = "Password";
-"OR" = "Ou";
+"PASSWORD-CAPS" = "Password";
+"OR" = "ou";
 "First Name" = "Primeiro Nome";
 "First name" = "Primeiro Nome";
 "Last Name" = "Último Nome";
@@ -5838,8 +5838,7 @@ pt---
 "Statistics" = "Estatísticas";
 "Fantasy" = "Fantasia";
 "Club TV" = "Sporting TV";
-//"Club Radio" = "Rádio do clube";
-"Club Radio" = "Podcasts";
+"Club Radio" = "Rádio do clube";
 "Edit" = "Editar";
 "Create or join a chat" = "Criar ou juntar-te a conversa";
 "Create New Chat" = "Criar nova conversa";
@@ -5858,8 +5857,7 @@ pt---
 "videos" = "videos";
 "Starting New Call" = "Começar nova-chamada";
 "Select friends to call" = "Selecciona amigos para se juntarem a esta chamada";
-//"Rumours" = "Rumores";
-"Rumours" = "Rumores na Web";
+"Rumours" = "Rumores";
 "Your Locker" = "O teu cofre";
 "Notifications" = "Notificações";
 "Wall Notifications" = "Notificações no Mural";
@@ -6440,8 +6438,8 @@ ru---
 "Login with Facebook" = "Войти через Facebook";
 "Sign up with Facebook" = "Регистрация через Facebook";
 "USER NAME" = "ИМЯ ПОЛЬЗОВАТЕЛЯ";
-"PASSWORD" = "ПАРОЛЬ";
-"OR" = "ИЛИ";
+"PASSWORD-CAPS" = "ПАРОЛЬ";
+"OR" = "или";
 "First Name" = "Имя";
 "First name" = "Имя";
 "Last Name" = "Фамилия";
@@ -6452,7 +6450,7 @@ ru---
 "Password" = "Пароль";
 "Forgot your password?" = "Забыли пароль?";
 "Reset your password" = "Сброс пароля";
-"RESET PASSWORD" = "СБРОСИТЬ ПАРОЛЬ";
+"RESET PASSWORD" = "Сбросить пароль";
 
 "Are you sure?" = "Вы уверены?";
 "This will permanently delete this chat; are you sure?" = "Это навсегда удалит чат; вы уверены?";
@@ -7165,7 +7163,7 @@ zh---
 "Login with Facebook" = "用 Facebook 帐户登录";
 "Sign up with Facebook" = "用 Facebook 注册";
 "USER NAME" = "用户名";
-"PASSWORD" = "密码";
+"PASSWORD-CAPS" = "密码";
 "OR" = "或者";
 "First Name" = "名字";
 "First name" = "名字";

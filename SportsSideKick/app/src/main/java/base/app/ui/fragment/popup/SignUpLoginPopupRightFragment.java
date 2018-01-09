@@ -47,7 +47,7 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment implement
         View view = inflater.inflate(R.layout.popup_right_login_sing_up, container, false);
         ButterKnife.bind(this, view);
         if (text != null) {
-            text.setText(Html.fromHtml(getString(R.string.chat_with_friends)));
+            text.setText(Html.fromHtml(getString(R.string.login_slider_chat)));
         }
         if (description != null) {
             description.setText(Html.fromHtml(getString(R.string.login_slider_chat)));
