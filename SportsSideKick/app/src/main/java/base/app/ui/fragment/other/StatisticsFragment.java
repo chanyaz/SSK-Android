@@ -1,6 +1,5 @@
 package base.app.ui.fragment.other;
 
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -8,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,19 +25,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.ui.fragment.base.BaseFragment;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallStats;
+import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
@@ -50,61 +46,47 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class StatisticsFragment extends BaseFragment {
 
-
-    public StatisticsFragment() {
-        // Required empty public constructor
-    }
-
     Bitmap bitmap = null;
     WebView webView;
     String javascriptString = "javascript:( function () { var style = document.createElement('style'); style.innerHTML = '{border-bottom: 0 none;} footer {display: none;}'; document.head.appendChild(style) } ) ()";
 
     @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
-
-
     @BindView(R.id.pin_button)
     ImageView pinButton;
 
-boolean firstLoad=true;
+    boolean firstLoad = true;
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         ButterKnife.bind(this, view);
+
         webView = view.findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setSupportZoom(false);
         webView.getSettings().setBuiltInZoomControls(false);
         webView.setVisibility(View.GONE);
         pinButton.setVisibility(View.GONE);
         String url = getResources().getString(R.string.stats_url);
-        firstLoad=true;
+        firstLoad = true;
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public void onPageFinished(WebView view, String url){
-                if(firstLoad) {
+            public void onPageFinished(WebView view, String url) {
+                if (firstLoad) {
                     webView.loadUrl(javascriptString);
                     webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
                     webView.loadUrl("javascript:(function() { document.getElementById('shs_siteNav').remove(); })()");
                     webView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
                     pinButton.setVisibility(View.VISIBLE);
-                    firstLoad=false;
+                    firstLoad = false;
                 }
             }
         });
         webView.loadUrl(url);
         return view;
     }
-
-    public int pxToDp(int px) {
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return dp;
-    }
-
 
     @OnClick(R.id.pin_button)
     public void pinOnClick() {
@@ -123,11 +105,9 @@ boolean firstLoad=true;
                         }
                     });
         } else {
-            Toast.makeText(getContext(),"You have to be logged in in order to pin to wall",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "You have to be logged in in order to pin to wall", Toast.LENGTH_SHORT).show();
         }
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-
-
     }
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -136,7 +116,7 @@ boolean firstLoad=true;
             webView.setDrawingCacheEnabled(true);
             bitmap = webView.getDrawingCache();
             final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-            Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap),getActivity().getFilesDir(),source);
+            Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap), getActivity().getFilesDir(), source);
             source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                 @Override
                 public void onComplete(@NonNull Task<String> task) {
@@ -155,9 +135,8 @@ boolean firstLoad=true;
                     }
                 }
             });
-
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -180,16 +159,6 @@ boolean firstLoad=true;
                 .show();
     }
 
-    @OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void showDeniedForStorage() {
-        Toast.makeText(getContext(), R.string.permission_storage_denied, Toast.LENGTH_SHORT).show();
-    }
-
-    @OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void showNeverAskStorage() {
-        Toast.makeText(getContext(), R.string.permission_storage_never_ask, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -200,7 +169,8 @@ boolean firstLoad=true;
         File photoFile = null;
         try {
             photoFile = Model.createImageFile(getContext());
-        } catch (IOException ex) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         FileOutputStream fos = null;
         try {
@@ -218,6 +188,4 @@ boolean firstLoad=true;
         }
         return photoFile.getAbsolutePath();
     }
-
-
 }
