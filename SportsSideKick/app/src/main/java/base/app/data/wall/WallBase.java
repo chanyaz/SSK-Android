@@ -120,7 +120,7 @@ public abstract class WallBase implements Shareable, Serializable {
                     type = PostType.valueOf(objectType);
                 } catch (IllegalArgumentException ex){
                     Log.e(TAG,"--------------------------------------------------------------------------");
-                    Log.e(TAG,"ERROR ----- Non existing createPost type:" + node.get("type").textValue() + "\n\n" + node);
+                    Log.e(TAG,"ERROR ----- Non existing post type:" + node.get("type").textValue() + "\n\n" + node);
                     Log.e(TAG,"--------------------------------------------------------------------------");
                 }
             }

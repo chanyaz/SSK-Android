@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:foreground="?selectableItemBackground"
-    android:layout_width="match_parent"  android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_5">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_5"
+    android:foreground="?selectableItemBackground">
 
     <View
         android:id="@+id/strip"
         android:layout_width="@dimen/width_6"
         android:layout_height="@dimen/width_5"
-        android:background="@color/colorAccentDark"
+        android:layout_alignBottom="@+id/likes_and_comments"
         android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/likes_and_comments"   />
+        android:background="@color/colorAccentDark" />
 
     <ImageView
         android:id="@+id/image"
@@ -26,13 +28,13 @@
 
     <TextView
         android:id="@+id/text_content"
-        android:lineSpacingMultiplier="0.8"
-        android:layout_toEndOf="@+id/strip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/strip"
         android:layout_toStartOf="@+id/image"
         android:background="?white"
         android:ellipsize="end"
+        android:lineSpacingMultiplier="0.8"
         android:maxLines="3"
         android:padding="@dimen/padding_12"
         android:scrollHorizontally="true"
@@ -43,10 +45,10 @@
     <RelativeLayout
         android:id="@+id/likes_and_comments"
         android:layout_width="match_parent"
-        android:layout_toStartOf="@+id/image"
         android:layout_height="@dimen/height_35"
         android:layout_below="@+id/text_content"
         android:layout_toEndOf="@+id/strip"
+        android:layout_toStartOf="@+id/image"
         android:background="@color/white"
         android:paddingBottom="@dimen/margin_5">
 
@@ -55,8 +57,8 @@
             android:id="@+id/author_user_image"
             android:layout_width="@dimen/width_20"
             android:layout_height="@dimen/height_20"
-            android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_10"
             android:src="?profileImageIcon"
             android:visibility="visible" />
@@ -64,9 +66,9 @@
         <LinearLayout
             android:id="@+id/comments_container"
             android:layout_width="wrap_content"
-            android:layout_marginStart="@dimen/padding_10"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/padding_10"
             android:layout_toEndOf="@+id/author_user_image"
             android:gravity="center">
 
@@ -81,8 +83,8 @@
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="204"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_10"
+                tools:text="204" />
 
         </LinearLayout>
 
@@ -121,8 +123,8 @@
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="6901"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_10"
+                tools:text="6901" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -131,18 +133,18 @@
         android:id="@+id/comment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/likes_and_comments"
         android:layout_alignParentStart="true"
-        android:visibility="visible"
-        android:background="@color/colorGrayMediumLight">
+        android:layout_below="@id/likes_and_comments"
+        android:background="@color/colorGrayMediumLight"
+        android:visibility="visible">
 
 
         <View
             android:id="@+id/strip_bottom"
             android:layout_width="@dimen/width_5"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignBottom="@+id/text_comment"
+            android:layout_alignParentStart="true"
             android:background="@color/colorAccentDark"
 
             />
@@ -151,11 +153,11 @@
             android:id="@+id/captionAvatar"
             android:layout_width="@dimen/width_26"
             android:layout_height="@dimen/height_26"
-            android:layout_toRightOf="@+id/strip_bottom"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="@dimen/margin_10"
             android:layout_marginStart="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_8"
+            android:layout_toRightOf="@+id/strip_bottom"
             android:src="?profileImageIcon" />
 
         <TextView

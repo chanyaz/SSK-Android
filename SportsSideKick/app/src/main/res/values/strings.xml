@@ -294,11 +294,6 @@
     <string name="post">Post</string>
     <string name="back">Back</string>
 
-    <!--Stats-->
-    <string name="permission_storage_rationale">You need to enable Write permission.</string>
-    <string name="permission_storage_denied">You need to enable Write permission in settings </string>
-    <string name="permission_storage_never_ask">Never ask again.</string>
-
     <!--Purchases-->
     <string name="rewards_and_items_received">Rewards and items received from Gym Bags</string>
     <string name="bonus_gym_bag">+ Bonus gym bag</string>

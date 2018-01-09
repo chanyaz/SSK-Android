@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?selectableItemBackground"
     android:layout_marginBottom="@dimen/margin_5"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:foreground="?selectableItemBackground">
 
     <View
         android:id="@+id/strip"
@@ -33,16 +33,15 @@
         android:id="@+id/author_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/author_user_image"
-        android:layout_marginTop="@dimen/margin_5"
         android:layout_alignBottom="@+id/author_user_image"
-        android:gravity="center_vertical|start"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_toEndOf="@+id/author_user_image"
         android:layout_toStartOf="@+id/image"
-        android:text="Karen Smith"
-        android:textColor="@color/colorPrimaryVeryLight"
         android:background="?white"
-        />
+        android:gravity="center_vertical|start"
+        android:text="Karen Smith"
+        android:textColor="@color/colorPrimaryVeryLight" />
 
     <ImageView
         android:id="@+id/image"
@@ -56,7 +55,6 @@
 
     <TextView
         android:id="@+id/text_content"
-        android:lineSpacingMultiplier="0.8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/author_user_image"
@@ -64,6 +62,7 @@
         android:layout_toStartOf="@+id/image"
         android:background="?white"
         android:ellipsize="end"
+        android:lineSpacingMultiplier="0.8"
         android:maxLines="3"
         android:minLines="1"
         android:padding="@dimen/padding_12"
@@ -100,12 +99,13 @@
                 android:layout_height="@dimen/width_15"
                 android:layout_marginEnd="@dimen/margin_2"
                 android:background="@drawable/ic_comments_count" />
+
             <TextView
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="204"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_10"
+                tools:text="204" />
 
         </LinearLayout>
 
@@ -122,6 +122,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/likes_icon"
                     android:layout_width="@dimen/width_15"
@@ -138,19 +139,20 @@
                     android:visibility="gone"
                     app:backgroundTint="@color/colorPrimaryVeryLight" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="6901"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_10"
+                tools:text="6901" />
         </LinearLayout>
     </RelativeLayout>
 
     <View
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
+        android:layout_alignParentBottom="true"
         android:layout_below="@id/likes_and_comments"
         android:background="@drawable/wall_item_shadow" />
 </RelativeLayout>

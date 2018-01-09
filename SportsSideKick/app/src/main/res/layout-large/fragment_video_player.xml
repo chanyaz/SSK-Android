@@ -44,24 +44,6 @@
         android:layout_above="@+id/time_info"
         android:layout_alignParentEnd="true">
 
-        <Button
-            android:id="@+id/playlist_button"
-            android:layout_width="@dimen/width_85"
-            android:layout_height="@dimen/height_25"
-            android:padding="@dimen/padding_4"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/margin_10"
-            android:minHeight="@dimen/height_25"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:layout_marginTop="@dimen/margin_20"
-            android:text="@string/playlist"
-            android:textSize="@dimen/font_size_10"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            style="?videoChatButtonStyle"/>
-
         <ImageView
             android:id="@+id/play_button"
             android:layout_width="@dimen/width_40"

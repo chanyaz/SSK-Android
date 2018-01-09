@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_5"
-    android:foreground="?selectableItemBackground"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:foreground="?selectableItemBackground">
 
     <View
         android:id="@+id/strip"
@@ -19,25 +19,25 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="@dimen/height_145"
-        android:layout_toEndOf="@+id/strip"
         android:layout_height="@dimen/height_145"
+        android:layout_alignParentTop="true"
         android:layout_marginEnd="@dimen/margin_25"
         android:layout_marginStart="@dimen/margin_25"
-        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/strip"
         android:scaleType="centerCrop"
         android:src="@color/white"
         android:visibility="visible" />
 
     <TextView
         android:id="@+id/text_content"
-        android:lineSpacingMultiplier="0.8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/image"
         android:background="?white"
         android:ellipsize="end"
+        android:lineSpacingMultiplier="0.8"
         android:maxLines="3"
         android:minLines="1"
         android:padding="@dimen/padding_12"
@@ -51,10 +51,10 @@
         android:id="@+id/user_image"
         android:layout_width="@dimen/width_26"
         android:layout_height="@dimen/height_26"
-        android:layout_toEndOf="@+id/image"
         android:layout_alignBottom="@+id/image"
-        android:paddingBottom="@dimen/margin_5"
         android:layout_marginStart="@dimen/margin_10"
+        android:layout_toEndOf="@+id/image"
+        android:paddingBottom="@dimen/margin_5"
         android:src="?profileImageIcon" />
 
     <RelativeLayout
@@ -82,12 +82,13 @@
                 android:layout_height="@dimen/width_15"
                 android:layout_marginEnd="@dimen/margin_2"
                 android:background="@drawable/ic_comments_count" />
+
             <TextView
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="204"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_10"
+                tools:text="204" />
 
         </LinearLayout>
 
@@ -104,6 +105,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/likes_icon"
                     android:layout_width="@dimen/width_15"
@@ -120,12 +122,13 @@
                     android:visibility="gone"
                     app:backgroundTint="@color/colorPrimaryVeryLight" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="6901"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_10"
+                tools:text="6901" />
         </LinearLayout>
     </RelativeLayout>
 

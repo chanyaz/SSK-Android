@@ -2,11 +2,9 @@ package base.app.ui.fragment.other;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +121,7 @@ public class StatisticsFragment extends BaseFragment {
                     if (task.isSuccessful()) {
                         float imageAspectRatio = bitmap.getHeight() / bitmap.getWidth();
                         WallStats wallPost = new WallStats();
-                        wallPost.setTitle("A Stats createPost");
+                        wallPost.setTitle("A stats post");
                         wallPost.setSubTitle("Some subtitle");
                         wallPost.setTimestamp((double) Utility.getCurrentTime());
                         wallPost.setBodyText("...");
@@ -142,21 +140,7 @@ public class StatisticsFragment extends BaseFragment {
 
     @OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForStorage(final PermissionRequest request) {
-        new AlertDialog.Builder(getContext(), R.style.AlertDialog)
-                .setMessage(R.string.permission_storage_rationale)
-                .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        request.proceed();
-                    }
-                })
-                .setNegativeButton(R.string.deny, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        request.cancel();
-                    }
-                })
-                .show();
+        request.proceed();
     }
 
     @Override
