@@ -264,10 +264,9 @@ public class LoginFragment extends BaseFragment
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(getContext(), getContext().getResources().getString(R.string.enter_valid_password_and_display_name), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.required_credentials), Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (!Connection.getInstance() .alertIfNotReachable
                 (getActivity(),
                         new View.OnClickListener() {
@@ -280,7 +279,6 @@ public class LoginFragment extends BaseFragment
             ) {
             return;
         }
-
         Model.getInstance().login(email, password);
         loginText.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
@@ -339,8 +337,8 @@ public class LoginFragment extends BaseFragment
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
         AlertDialogManager.getInstance().showAlertDialog(
-                getContext().getResources().getString(R.string.login_login_message_login_failed),
-                getContext().getResources().getString(R.string.login_try_again),
+                getContext().getResources().getString(R.string.login_try_later),
+                getContext().getResources().getString(R.string.password_try_again),
                 null,
                 new View.OnClickListener() {
                     @Override
@@ -355,8 +353,8 @@ public class LoginFragment extends BaseFragment
     @Override
     public void onPasswordResetRequest() {
         AlertDialogManager.getInstance().showAlertDialog(
-                getContext().getResources().getString(R.string.forgot_password_text),
-                getContext().getResources().getString(R.string.forgot_password_message),
+                getContext().getResources().getString(R.string.password_reset),
+                getContext().getResources().getString(R.string.reset_check_email),
                 null, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
@@ -368,8 +366,8 @@ public class LoginFragment extends BaseFragment
     @Override
     public void onPasswordResetRequestError(Error error) {
         AlertDialogManager.getInstance().showAlertDialog(
-                getContext().getResources().getString(R.string.forgot_password_error),
-                getContext().getResources().getString(R.string.forgot_password_error_message),
+                getContext().getResources().getString(R.string.error),
+                getContext().getResources().getString(R.string.email_enter_valid),
                 null, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {

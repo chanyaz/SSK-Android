@@ -29,47 +29,39 @@
     <!-- Login & Register -->
     <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
     <string name="access_full">To access full features …</string>
+    <string name="join_sign_in">Join Now / Sign In</string>
     <string name="sign_in">Sign In</string>
-    <string name="sign_up">Sign up</string>
     <string name="join">Join Now</string>
+    <string name="login_with_facebook">Login with <b>Facebook</b></string>
+    <string name="or">or</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="forgot">Forgot?</string>
-    <string name="login_login_message_login_failed">Login failed. Try again later!</string>
-    <string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>
-    <string name="forgot_password_text">Reset your password</string>
-    <string name="forgot_password_button_text">Reset Password</string>
-    <string name="forgot_password_message">Please check your email for password reset options.</string>
-    <string name="forgot_password_error_message">Please enter a valid email address!</string>
-    <string name="forgot_password_error">Error</string>
-    <string name="sign_up_facebook">Sign up with Facebook</string>
-    <string name="or">or</string>
-    <string name="sign_up_first_name">First name</string>
-    <string name="sign_up_last_name">Last name</string>
-    <string name="sign_up_username">Display name</string>
-    <string name="sign_up_phone">Phone</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="nickname">Nickname</string>
+    <string name="phone">Phone</string>
+    <string name="error">Error</string>
+    <string name="login_try_later">Login failed. Try again later!</string>
+    <string name="register_try_later">Registration error. Try again later.</string>
+    <string name="check_credentials">Login failed. Check user name and password!</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="password_reset">Reset Password</string>
+    <string name="reset_check_email">Please check your email for password reset options.</string>
+    <string name="email_enter_valid">Please enter a valid email address!</string>
     <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
-    <string name="terms">Terms &amp; Privacy</string>
-    <string name="first_name_warning">Please fill in your first name.</string>
-    <string name="email_validation_warning">Please fill in your email.</string>
-    <string name="display_name_validation_warning">Please fill in your display name.</string>
-    <string name="password_validation_warning">Please fill in your password.</string>
-    <string name="phone_number_validation_warning">Please fill in your phone number.</string>
-    <string name="last_name_validation_warning">Please fill in your last name.</string>
-    <string name="enter_valid_password_and_display_name">Please enter valid password and user name</string>
-    <string name="login_try_again">Please re-enter your password and try again</string>
-    <string name="login_slider_chat">You can chat with  <font color="#c3ff01">friends, create groups</font>and even connect with your <font color="#c3ff01">favourite players!</font></string>
-    <string name="chat_with_friends">Chat with  <font color="#c3ff01">friends.</font></string>
-    <string name="reset">Reset</string>
-    <string name="join_now_sign_in">Join Now / Sign In</string>
+    <string name="required_email">Please fill in your email.</string>
+    <string name="required_password">Please fill in your password.</string>
+    <string name="required_first_name">Please fill in your first name.</string>
+    <string name="required_last_name">Please fill in your last name.</string>
+    <string name="required_nickname">Please fill in your nickname.</string>
+    <string name="required_phone">Please fill in your phone number.</string>
+    <string name="required_credentials">Please enter valid credentials</string>
+    <string name="password_try_again">Please re-enter your password and try again</string>
+    <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
+    <string name="chat_with_friends">Chat with <font color="#c3ff01">friends.</font></string>
     <string name="logout_from_app">This will log you out of the app!</string>
     <string name="reset_app">This action will reload the application.</string>
-    <string name="registration_error">Registration error. Try again later.</string>
-    <string name="registration_error_username_taken">Registration error - username already taken, please select a different username.</string>
-    <string name="join_with_facebook">Join now with<b> Facebook </b></string>
-    <string name="forgot_your_password">Forgot your password?</string>
-    <string name="log_in_with_facebook">Login with<b> Facebook </b></string>
-    <string name="sign_in_with_facebook">Sign in with<b> Facebook </b></string>
+    <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
 
     <!--Dialogs-->
     <string name="ok">OK</string>
@@ -84,24 +76,21 @@
     <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
     <!--Profile-->
+    <string name="your_profile">Your Profile</string>
+    <string name="your_wallet">Your Wallet</string>
+    <string name="your_stash">Your Stash</string>
     <string name="profile">Profile</string>
-    <string name="edit_information">Edit Information</string>
-    <string name="edit_your_profile">Edit Your Profile</string>
+    <string name="contact_info">Contact info</string>
+    <string name="chosen_language">Chosen language</string>
+    <string name="location">Location</string>
+    <string name="subscribed_since">Subscribed since</string>
+    <string name="edit_info">Edit Information</string>
+    <string name="edit_profile">Edit Your Profile</string>
     <string name="edit_photo">Edit Photo</string>
     <string name="done">Done</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="nickname">Nickname</string>
     <string name="email_address">Email Address</string>
     <string name="telephone_no">Telephone No</string>
     <string name="coins_caption">YOU HAVE</string>
-    <string name="your_stash">Your Stash</string>
-    <string name="your_wallet">Your Wallet -</string>
-    <string name="your_profile">Your Profile</string>
-    <string name="contact_info">Contact info</string>
-    <string name="subscribed_since">Subscribed since</string>
-    <string name="location">Location</string>
-    <string name="chosen_language">Chosen language</string>
     <string name="your_statement">Your Statement</string>
     <string name="caps_level">Caps level</string>
     <string name="days_using">Days using SSK</string>
@@ -115,7 +104,6 @@
     <string name="enable_wall_notifications">Enable wall notifications</string>
     <string name="disable_wall_notifications">Disable wall notifications</string>
     <string name="language">Language:</string>
-    <string name="phone">Phone:</string>
     <string name="user_name">User Name:</string>
     <string name="caps">Caps</string>
     <string name="choose_your_language">Choose your language</string>
@@ -197,7 +185,7 @@
     <string name="chat_send">SEND</string>
     <string name="chat_image_downloaded">Image is downloaded.</string>
     <string name="chat_video_downloaded">Video is downloaded.</string>
-    <string name="are_you_sure">ARE YOU SURE?</string>
+    <string name="are_you_sure">Are you sure?</string>
     <string name="chat_leave_chat">Leave this chat?</string>
     <string name="chat_delete_chat">This will permanently delete this chat; are you sure?</string>
     <string name="choose">Choose</string>
@@ -253,7 +241,7 @@
     <string name="join_official_chat">Join Official Chat ></string>
     <string name="search_public_chats">Search Public Chats</string>
     <string name="public_chats_your_friends_are_in">Public Chats your friends are in</string>
-    <string name="rename_your_chat">Rename your chat</string>
+    <string name="chat_rename">Rename your chat</string>
     <string name="new_name_of_chat_hint">Enter new name of chat here</string>
     <string name="people_in_this_chat">People in this chat</string>
     <string name="mins_ago">mins ago</string>
@@ -265,12 +253,7 @@
 
     <!--Video chat-->
     <string name="video_chat_text_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
-    <string name="video_chat_text_1_phone">Watch the match with your <font color="#c3ff01">friends.</font></string>
-    <string name="video_chat_text_2">
-        Video chat allows you to call up to 3 friends for a\n
-        group video chat, so you can experience the action\n
-        with the people you love wherever you are!
-    </string>
+    <string name="video_chat_text_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
     <string name="video_chat_button_text">Begin your call</string>
     <string name="starting_new_call_search_hint">Search public chats</string>
     <string name="starting_new_call_search_title">Starting New Call</string>
@@ -323,13 +306,8 @@
     <string name="permission_storage_never_ask">Never ask again.</string>
 
     <!--Club TV-->
-    <string name="playlist">PLAYLIST</string>
+    <string name="playlist">Playlist</string>
     <string name="default_time">00:00 / 00:00</string>
-
-    <!--Placeholders-->
-    <string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="demo_number_1" translatable="false">204</string>
-    <string name="demo_number_2" translatable="false">6901</string>
 
     <!--Purchases-->
     <string name="you_have">You have</string>
@@ -338,5 +316,10 @@
     <string name="bundles">Bundles</string>
     <string name="wallet">Wallet</string>
     <string name="stash">Stash</string>
+
+    <!--Placeholders-->
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="demo_number_1" translatable="false">204</string>
+    <string name="demo_number_2" translatable="false">6901</string>
 
 </resources>

@@ -181,7 +181,7 @@
                 android:layout_below="@id/profile_image_container"
                 android:layout_marginTop="@dimen/margin_15"
                 android:gravity="center"
-                android:text="@string/join_now_sign_in"
+                android:text="@string/join_sign_in"
                 android:textColor="?yourProfileUserNameColorRef"
                 android:textSize="@dimen/font_size_16"
                 android:textStyle="bold" />

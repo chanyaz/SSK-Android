@@ -479,7 +479,7 @@
                android:minLines="1"
                android:maxLines="2"
                android:paddingBottom="@dimen/padding_8"
-               android:text="@string/join_now_sign_in"
+               android:text="@string/join_sign_in"
                android:textColor="@color/white"
                android:textSize="@dimen/font_size_16"
                android:textStyle="bold"

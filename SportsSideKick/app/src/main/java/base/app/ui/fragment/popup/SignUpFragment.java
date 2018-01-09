@@ -295,17 +295,17 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     private boolean validateInputs(){
         int idOfMessageResourceToDisplay = -1;
         if (TextUtils.isEmpty(firstName.getText())) {
-            idOfMessageResourceToDisplay = R.string.first_name_warning;
+            idOfMessageResourceToDisplay = R.string.required_first_name;
         } else if (TextUtils.isEmpty(email.getText())) {
-            idOfMessageResourceToDisplay = R.string.email_validation_warning;
+            idOfMessageResourceToDisplay = R.string.required_email;
         } else if (TextUtils.isEmpty(displayName != null ? displayName.getText() : "string")) {
-            idOfMessageResourceToDisplay = R.string.display_name_validation_warning;
+            idOfMessageResourceToDisplay = R.string.required_nickname;
         } else if (TextUtils.isEmpty(password.getText())) {
-            idOfMessageResourceToDisplay = R.string.password_validation_warning;
+            idOfMessageResourceToDisplay = R.string.required_password;
         } else if (TextUtils.isEmpty(phone != null ? phone.getText() : "string")) {
-            idOfMessageResourceToDisplay = R.string.phone_number_validation_warning;
+            idOfMessageResourceToDisplay = R.string.required_phone;
         } else if (TextUtils.isEmpty(lastName.getText())) {
-            idOfMessageResourceToDisplay = R.string.last_name_validation_warning;
+            idOfMessageResourceToDisplay = R.string.required_last_name;
         }
         if (idOfMessageResourceToDisplay >= 0) {
             String message = getContext().getResources().getString(idOfMessageResourceToDisplay);
@@ -383,10 +383,10 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onRegisterError(Error error) {
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
-        String errorMessage = getContext().getResources().getString(R.string.registration_error);
+        String errorMessage = getContext().getResources().getString(R.string.register_try_later);
         if(error!=null && error.getMessage()!=null){
             if(error.getMessage().contains("TAKEN")){
-                errorMessage = getContext().getResources().getString(R.string.registration_error_username_taken);
+                errorMessage = getContext().getResources().getString(R.string.error_username_taken);
             }
         }
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();

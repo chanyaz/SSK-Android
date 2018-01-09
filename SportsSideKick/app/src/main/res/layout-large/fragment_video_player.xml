@@ -57,6 +57,7 @@
             android:layout_marginTop="@dimen/margin_20"
             android:text="@string/playlist"
             android:textSize="@dimen/font_size_10"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             style="?videoChatButtonStyle"/>
 

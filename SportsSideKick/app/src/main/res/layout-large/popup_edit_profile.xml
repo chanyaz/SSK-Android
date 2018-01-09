@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:gravity="center"
-            android:text="@string/edit_information"
+            android:text="@string/edit_info"
             android:textColor="?colorAccent" />
 
         <View

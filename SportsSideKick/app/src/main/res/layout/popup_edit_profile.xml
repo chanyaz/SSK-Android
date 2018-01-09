@@ -141,7 +141,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/margin_20"
                     android:layout_marginTop="@dimen/height_25"
-                    android:text="@string/edit_your_profile"
+                    android:text="@string/edit_profile"
                     android:textAllCaps="true"
                     android:textColor="?colorAccent" />
 
