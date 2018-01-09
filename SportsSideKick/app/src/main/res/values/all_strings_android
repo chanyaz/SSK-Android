@@ -2,17 +2,17 @@ ar---
 
     <!--Screen titles-->
     <string name="wall">جدار</string>
-    <string name="news">News</string>
-    <string name="rumours">Rumours</string>
-    <string name="stats">Stats</string>
-    <string name="shop">Shop</string>
-    <string name="chat">Chat</string>
+    <string name="news">الأخبار</string>
+    <string name="rumours">Rumours</string>//TODO
+    <string name="stats">إحصائيات</string>
+    <string name="shop">تسوق</string>
+    <string name="chat">محادثة</string>
     <string name="video_chat">محادثة فيديو</string>
-    <string name="radio">Club Radio</string>
-    <string name="tv">Club TV</string>
-    <string name="store">Store</string>
-    <string name="quiz">Quiz</string>
-    <string name="fantasy">Fantasy</string>
+    <string name="radio">Club Radio</string>//TODO
+    <string name="tv">تلفاز النادي</string>
+    <string name="store">المتجر</string>
+    <string name="quiz">أحجية</string>
+    <string name="fantasy">مضاربة</string>
 
     <string-array name="menu_navigation">
         <item>@string/wall</item>
@@ -297,17 +297,17 @@ bh---
 
     <!--Screen titles-->
     <string name="wall">ওয়াল</string>
-    <string name="news">News</string>
+    <string name="news">খবর</string>
     <string name="rumours">Rumours</string>
-    <string name="stats">Stats</string>
-    <string name="shop">Shop</string>
-    <string name="chat">Chat</string>
+    <string name="stats">পরিসংখ্যানগুলি</string>
+    <string name="shop">জিনিস কিনুন</string>
+    <string name="chat">চ্যাট করুন</string>
     <string name="video_chat">ভিডিও চ্যাট</string>
     <string name="radio">Club Radio</string>
-    <string name="tv">Club TV</string>
-    <string name="store">Store</string>
-    <string name="quiz">Quiz</string>
-    <string name="fantasy">Fantasy</string>
+    <string name="tv">ক্লাব টিভি</string>
+    <string name="store">সংরক্ষণ করুন</string>
+    <string name="quiz">কুইজ</string>
+    <string name="fantasy">কল্পনা</string>
 
     <string-array name="menu_navigation">
         <item>@string/wall</item>
@@ -594,7 +594,7 @@ de---
       <string name="wall">Pinnwand</string>
       <string name="news">News</string>
       <string name="rumours">Rumours</string>
-      <string name="stats">Stats</string>
+      <string name="stats">Statistik</string>
       <string name="shop">Shop</string>
       <string name="chat">Chat</string>
       <string name="video_chat">Video-Chat</string>
@@ -887,17 +887,17 @@ es---
 
       <!--Screen titles-->
       <string name="wall">Muro</string>
-      <string name="news">News</string>
+      <string name="news">Noticias</string>
       <string name="rumours">Rumours</string>
-      <string name="stats">Stats</string>
-      <string name="shop">Shop</string>
+      <string name="stats">Estadísticas</string>
+      <string name="shop">Tienda</string>
       <string name="chat">Chat</string>
       <string name="video_chat">Chat de vídeo</string>
       <string name="radio">Club Radio</string>
-      <string name="tv">Club TV</string>
-      <string name="store">Store</string>
-      <string name="quiz">Quiz</string>
-      <string name="fantasy">Fantasy</string>
+      <string name="tv">TV del club</string>
+      <string name="store">Tienda</string>
+      <string name="quiz">Trivia</string>
+      <string name="fantasy">Fantasía</string>
 
       <string-array name="menu_navigation">
           <item>@string/wall</item>
@@ -1182,14 +1182,14 @@ fr---
 
       <!--Screen titles-->
       <string name="wall">Mur</string>
-      <string name="news">News</string>
+      <string name="news">Actualités</string>
       <string name="rumours">Rumours</string>
       <string name="stats">Stats</string>
-      <string name="shop">Shop</string>
-      <string name="chat">Chat</string>
+      <string name="shop">Boutique</string>
+      <string name="chat">Messagerie</string>
       <string name="video_chat">Discussion vidéo</string>
       <string name="radio">Club Radio</string>
-      <string name="tv">Club TV</string>
+      <string name="tv">Chaîne du club</string>
       <string name="store">Store</string>
       <string name="quiz">Quiz</string>
       <string name="fantasy">Fantasy</string>
@@ -1477,17 +1477,17 @@ id---
 
       <!--Screen titles-->
       <string name="wall">Dinding</string>
-      <string name="news">News</string>
+      <string name="news">Berita</string>
       <string name="rumours">Rumours</string>
-      <string name="stats">Stats</string>
-      <string name="shop">Shop</string>
-      <string name="chat">Chat</string>
+      <string name="stats">Stat</string>
+      <string name="shop">Belanja</string>
+      <string name="chat">Obrolan</string>
       <string name="video_chat">Obrolan Video</string>
       <string name="radio">Club Radio</string>
-      <string name="tv">Club TV</string>
-      <string name="store">Store</string>
-      <string name="quiz">Quiz</string>
-      <string name="fantasy">Fantasy</string>
+      <string name="tv">TV Klub</string>
+      <string name="store">Toko</string>
+      <string name="quiz">Kuis</string>
+      <string name="fantasy">Fantasi</string>
 
       <string-array name="menu_navigation">
           <item>@string/wall</item>
@@ -1774,15 +1774,15 @@ it---
       <string name="wall">Bacheca</string>
       <string name="news">News</string>
       <string name="rumours">Rumours</string>
-      <string name="stats">Stats</string>
-      <string name="shop">Shop</string>
+      <string name="stats">Statistiche</string>
+      <string name="shop">Negozio</string>
       <string name="chat">Chat</string>
       <string name="video_chat">Videochat</string>
       <string name="radio">Club Radio</string>
       <string name="tv">Club TV</string>
-      <string name="store">Store</string>
+      <string name="store">Negozio</string>
       <string name="quiz">Quiz</string>
-      <string name="fantasy">Fantasy</string>
+      <string name="fantasy">Fantasport</string>
 
       <string-array name="menu_navigation">
           <item>@string/wall</item>
@@ -2067,15 +2067,15 @@ pl---
 
       <!--Screen titles-->
       <string name="wall">Tablica</string>
-      <string name="news">News</string>
+      <string name="news">Wiadomości</string>
       <string name="rumours">Rumours</string>
-      <string name="stats">Stats</string>
-      <string name="shop">Shop</string>
-      <string name="chat">Chat</string>
+      <string name="stats">Statystyki</string>
+      <string name="shop">Sklep</string>
+      <string name="chat">Czat</string>
       <string name="video_chat">Wideoczat</string>
       <string name="radio">Club Radio</string>
-      <string name="tv">Club TV</string>
-      <string name="store">Store</string>
+      <string name="tv">Telewizja klubowa</string>
+      <string name="store">Sklep</string>
       <string name="quiz">Quiz</string>
       <string name="fantasy">Fantasy</string>
 
@@ -2362,17 +2362,17 @@ pt---
 
       <!--Screen titles-->
       <string name="wall">Mural</string>
-      <string name="news">News</string>
+      <string name="news">Notícias</string>
       <string name="rumours">Rumours</string>
-      <string name="stats">Stats</string>
-      <string name="shop">Shop</string>
+      <string name="stats">Estats</string>
+      <string name="shop">Loja</string>
       <string name="chat">Chat</string>
       <string name="video_chat">Chat de Video</string>
       <string name="radio">Club Radio</string>
-      <string name="tv">Club TV</string>
-      <string name="store">Store</string>
-      <string name="quiz">Quiz</string>
-      <string name="fantasy">Fantasy</string>
+      <string name="tv">Sporting TV</string>
+      <string name="store">Loja</string>
+      <string name="quiz">Questionário</string>
+      <string name="fantasy">Fantasia</string>
 
       <string-array name="menu_navigation">
           <item>@string/wall</item>
@@ -2657,16 +2657,16 @@ ru---
 
       <!--Screen titles-->
       <string name="wall">Стена</string>
-      <string name="news">News</string>
+      <string name="news">Новости</string>
       <string name="rumours">Rumours</string>
-      <string name="stats">Stats</string>
-      <string name="shop">Shop</string>
-      <string name="chat">Chat</string>
+      <string name="stats">Статистика</string>
+      <string name="shop">Магазин</string>
+      <string name="chat">Чат</string>
       <string name="video_chat">Видеочат</string>
       <string name="radio">Club Radio</string>
-      <string name="tv">Club TV</string>
-      <string name="store">Store</string>
-      <string name="quiz">Quiz</string>
+      <string name="tv">Клубное ТВ</string>
+      <string name="store">Магазин</string>
+      <string name="quiz">Тест</string>
       <string name="fantasy">Fantasy</string>
 
       <string-array name="menu_navigation">
@@ -2952,17 +2952,17 @@ zh---
 
       <!--Screen titles-->
       <string name="wall">墙</string>
-      <string name="news">News</string>
+      <string name="news">新闻</string>
       <string name="rumours">Rumours</string>
-      <string name="stats">Stats</string>
-      <string name="shop">Shop</string>
-      <string name="chat">Chat</string>
+      <string name="stats">统计</string>
+      <string name="shop">商店</string>
+      <string name="chat">聊天</string>
       <string name="video_chat">视频聊天</string>
       <string name="radio">Club Radio</string>
-      <string name="tv">Club TV</string>
-      <string name="store">Store</string>
-      <string name="quiz">Quiz</string>
-      <string name="fantasy">Fantasy</string>
+      <string name="tv">俱乐部电视</string>
+      <string name="store">商店</string>
+      <string name="quiz">迷题</string>
+      <string name="fantasy">幻想</string>
 
       <string-array name="menu_navigation">
           <item>@string/wall</item>
