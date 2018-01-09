@@ -3,6 +3,7 @@ package base.app.ui.fragment.popup;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.other.ChatFragment;
-import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -47,10 +47,10 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment implement
         View view = inflater.inflate(R.layout.popup_right_login_sing_up, container, false);
         ButterKnife.bind(this, view);
         if (text != null) {
-            text.setText(Utility.fromHtml(getString(R.string.chat_with_friends)));
+            text.setText(Html.fromHtml(getString(R.string.chat_with_friends)));
         }
         if (description != null) {
-            description.setText(Utility.fromHtml(getString(R.string.login_slider_chat)));
+            description.setText(Html.fromHtml(getString(R.string.login_slider_chat)));
         }
         this.loginStateReceiver = new LoginStateReceiver(this);
         return view;

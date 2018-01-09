@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,18 +35,18 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 import base.app.BuildConfig;
-import base.app.data.user.LoginStateReceiver.LoginStateListener;
-import base.app.data.user.PasswordResetReceiver.PasswordResetListener;
-import base.app.util.commons.Connection;
 import base.app.R;
-import base.app.ui.adapter.profile.AccountCreatingAdapter;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
+import base.app.data.user.LoginStateReceiver.LoginStateListener;
 import base.app.data.user.PasswordResetReceiver;
+import base.app.data.user.PasswordResetReceiver.PasswordResetListener;
 import base.app.data.user.UserInfo;
+import base.app.ui.adapter.profile.AccountCreatingAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.util.commons.Connection;
 import base.app.util.commons.KeyboardChangeListener;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
@@ -126,7 +127,7 @@ public class LoginFragment extends BaseFragment
 
 
         if (titleText != null) {
-            titleText.setText(Utility.fromHtml(getString(R.string.slogan)));
+            titleText.setText(Html.fromHtml(getString(R.string.slogan)));
         }
 
         forgotPasswordBack.setOnClickListener(new View.OnClickListener() {

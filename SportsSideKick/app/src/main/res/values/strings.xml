@@ -253,9 +253,8 @@
     <string name="starting_new_call_search_hint">Search public chats</string>
     <string name="starting_new_call_search_title">Starting New Call</string>
     <string name="video_chat_maximum">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-    <string name="video_chat_you">You</string>
-    <string name="video_chat_receive_call">Receiving a call from</string>
-    <string name="video_chat_accept_call">Accept the call?</string>
+    <string name="receive_call">Receiving a call from</string>
+    <string name="accept_call">Accept the call?</string>
     <string name="video_chats">Video chats</string>
     <string name="cant_start_video">Can\'t start video.</string>
     <string name="start_call">Start Call</string>

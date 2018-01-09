@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -234,12 +235,12 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         if(Model.getInstance().isRealUser()){
             model = VideoChatModel.getInstance();
 //        localMedia = LocalMedia.create(getContext());
-            name.setText(getContext().getResources().getString(R.string.video_chat_you));
+            name.setText(getContext().getResources().getString(R.string.you));
             slots = new ArrayList<>();
             slots.add(new Slot(ButterKnife.findById(view, R.id.slot_2)));
             slots.add(new Slot(ButterKnife.findById(view, R.id.slot_3)));
             slots.add(new Slot(ButterKnife.findById(view, R.id.slot_4)));
-            text.setText(Utility.fromHtml(getString(R.string.video_chat_text_1)));
+            text.setText(Html.fromHtml(getString(R.string.video_chat_text_1)));
 
             VideoChatEvent event = VideoChatModel.getInstance().getVideoChatEvent();
             if (event != null) {
@@ -321,7 +322,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                             } else if (userInfo.getNicName() != null) {
                                 usersName = userInfo.getNicName();
                             }
-                            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.video_chat_receive_call) + " \'" + usersName + " \'?", getContext().getResources().getString(R.string.video_chat_accept_call),
+                            AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.receive_call) + " \'" + usersName + " \'?", getContext().getResources().getString(R.string.accept_call),
                                     new View.OnClickListener() {// Cancel
                                         @Override
                                         public void onClick(View v) {
