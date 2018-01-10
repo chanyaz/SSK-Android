@@ -20,7 +20,7 @@
             android:layout_centerInParent="true"
             android:layout_marginEnd="1dp"
             android:gravity="center_vertical"
-            android:text="@string/join_now_sign_in"
+            android:text="@string/join_sign_in"
             android:textAllCaps="true"
             android:textColor="?popupsCaptionColor"
             android:textSize="@dimen/font_size_16" />
@@ -81,7 +81,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/margin_30"
                 android:layout_marginTop="@dimen/margin_30"
-                android:text="@string/login_slider_text_1_phone"
+                android:text="@string/slogan"
                 android:textColor="?popupsCaptionColor"
                 android:textSize="@dimen/font_size_28" />
 
@@ -104,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/transparent"
-                    android:text="@string/join_now"
+                    android:text="@string/join"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

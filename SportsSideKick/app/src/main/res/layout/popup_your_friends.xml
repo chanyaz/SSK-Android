@@ -138,7 +138,7 @@
             android:layout_marginStart="@dimen/margin_20"
             android:background="@color/colorPrimaryMediumDark"
             android:textColor="?white"
-            android:hint="@string/your_friends_search_hint"
+            android:hint="@string/friends_search"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
@@ -224,7 +224,7 @@
     </RelativeLayout>
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"

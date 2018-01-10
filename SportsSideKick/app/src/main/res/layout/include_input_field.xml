@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="#f7f7f7"
+    tools:showIn="@layout/fragment_news_item">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#3c000000"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/author_user_image"
+            android:layout_width="@dimen/width_26"
+            android:layout_height="@dimen/height_26"
+            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@color/black"
+            android:src="?profileImageIcon"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/post_text"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/margin_5"
+            android:inputType="textCapSentences"
+            android:layout_marginEnd="@dimen/margin_15"
+            android:layout_marginStart="@dimen/margin_15"
+            android:background="@null"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_weight="1"
+            android:hint="@string/comment_hint"
+            android:textColor="@color/black"
+            android:textColorHint="@color/colorGrayDark"
+            android:textSize="@dimen/font_size_12"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/post_comment_button"
+        android:layout_width="@dimen/width_25"
+        android:layout_height="@dimen/width_25"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginEnd="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_5"
+        android:adjustViewBounds="true"
+        android:src="@drawable/btn_send"
+        android:tint="@color/black"
+        android:visibility="gone"/>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/post_comment_progress_bar"
+        android:layout_width="@dimen/width_25"
+        android:layout_height="@dimen/width_25"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginEnd="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_5"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorName="LineSpinFadeLoaderIndicator"/>
+
+</RelativeLayout>

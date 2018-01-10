@@ -1,10 +1,13 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="base.app.fragment.instance.FantasyFragment">
+    android:paddingTop="80dp"
+    tools:context=".ui.fragment.other.FantasyFragment"
+    tools:paddingTop="0dp">
 
     <WebView
         android:id="@+id/web_view"
@@ -13,8 +16,6 @@
         android:scrollbars="none"
         android:visibility="visible">
     </WebView>
-
-
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/pin_button"
@@ -27,7 +28,7 @@
         android:layout_alignParentTop="true"/>
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         android:layout_width="@dimen/prodgres_bar"
         app:indicatorColor="@color/black"
         android:layout_height="@dimen/prodgres_bar"

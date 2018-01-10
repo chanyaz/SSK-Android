@@ -39,6 +39,7 @@
     <attr name="colorPrimarySemiLight" format="reference" />
 
     <attr name="colorGray" format="reference" />
+    <attr name="colorGrayMediumLight" format="reference" />
     <attr name="white" format="reference" />
     <attr name="white_semitransparent" format="reference" />
 
@@ -58,7 +59,7 @@
     <!--Images-->
     <attr name="userCoinIcon" format="reference" />
 
-    <!--activity_lounge-->
+    activity_main_tabletunge-->
     <attr name="tabRadioButtonSelectorRight" format="reference" />
     <attr name="tabRadioButtonSelectorLeft" format="reference" />
 

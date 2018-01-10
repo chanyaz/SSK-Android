@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:padding="@dimen/padding_8"
-            android:text="@string/chat_caption"
+            android:text="@string/chat"
             android:textColor="?popupsCaptionColor" />
 
     </RelativeLayout>
@@ -129,7 +129,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/top_vertical_spliter"
             android:gravity="center"
-            android:text="@string/public_chats"
+            android:text="@string/chats_public"
             android:textColor="@color/white" />
 
         <EditText
@@ -140,7 +140,7 @@
             android:layout_toStartOf="@+id/chat_join_search_button"
             android:background="@color/colorPrimaryMediumDark"
             android:gravity="start|center_vertical"
-            android:hint="@string/search_public_chats"
+            android:hint="@string/chats_public_search"
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
             android:padding="@dimen/margin_14"
@@ -195,7 +195,7 @@
             android:textSize="@dimen/font_size_12"
             android:gravity="center"
             android:padding="@dimen/padding_8"
-            android:text="@string/public_chats_your_friends_are_in"
+            android:text="@string/friend_chats"
             android:textColor="?chatJoinChatsHeadlineColorRef" />
 
         <RelativeLayout

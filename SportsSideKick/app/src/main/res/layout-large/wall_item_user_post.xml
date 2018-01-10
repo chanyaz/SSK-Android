@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_230"
-    android:background="?wallItemUserPostBackground">
+    android:background="?wallItemUserPostBackground"
+    android:foreground="?selectableItemBackground">
 
     <RelativeLayout
         android:id="@+id/images_container"
@@ -24,7 +26,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitStart"
             android:src="@drawable/news_holder_image"
-            android:visibility="visible" />
+            android:visibility="visible"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_image"
@@ -36,14 +38,14 @@
             android:layout_marginTop="@dimen/margin_10"
             android:src="?profileImageIcon"
             app:civ_border_color="@color/colorPrimaryVeryLight"
-            app:civ_border_width="@dimen/width_2" />
+            app:civ_border_width="@dimen/width_2"/>
 
         <ImageView
             android:id="@+id/play_button"
             android:layout_width="@dimen/width_62"
             android:layout_height="@dimen/height_62"
             android:layout_centerInParent="true"
-            android:background="@drawable/ic_post_play" />
+            android:background="@drawable/ic_post_play"/>
 
     </RelativeLayout>
 
@@ -60,7 +62,7 @@
         android:maxLines="2"
         android:minLines="2"
         android:textColor="?wallUserContentTextColor"
-        android:textSize="@dimen/font_size_16" />
+        android:textSize="@dimen/font_size_16"/>
 
     <RelativeLayout
         android:id="@+id/user_details"
@@ -85,15 +87,15 @@
                 android:layout_width="@dimen/width_20"
                 android:layout_height="@dimen/height_20"
                 android:layout_marginEnd="@dimen/margin_2"
-                android:background="@drawable/ic_comment"
-                app:backgroundTint="?colorGray" />
+                android:background="@drawable/ic_comments_count"
+                app:backgroundTint="?colorGray"/>
 
             <TextView
                 android:id="@+id/comments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?colorGray"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_10"/>
 
         </LinearLayout>
 
@@ -116,7 +118,7 @@
                     android:layout_height="@dimen/height_20"
                     android:layout_marginEnd="@dimen/margin_2"
                     android:background="@drawable/ic_like"
-                    app:backgroundTint="?colorGray" />
+                    app:backgroundTint="?colorGray"/>
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/liked_icon"
@@ -124,8 +126,8 @@
                     android:layout_height="@dimen/height_20"
                     android:layout_marginEnd="@dimen/margin_2"
                     android:background="@drawable/ic_like"
-                    app:backgroundTint="?colorAccent"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:backgroundTint="?colorAccent"/>
             </RelativeLayout>
 
             <TextView
@@ -133,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?colorGray"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_10"/>
         </LinearLayout>
 
         <TextView
@@ -143,8 +145,7 @@
             android:layout_toStartOf="@id/likes_container"
             android:maxLines="1"
             android:textColor="?colorGray"
-            android:textSize="@dimen/font_size_10" />
+            android:textSize="@dimen/font_size_10"/>
     </RelativeLayout>
-
 
 </RelativeLayout>

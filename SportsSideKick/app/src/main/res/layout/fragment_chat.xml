@@ -4,14 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?white_semitransparent"
-    tools:context="base.app.fragment.instance.ChatFragment">
+    android:paddingTop="72dp"
+    tools:paddingTop="0dp"
+    tools:context=".ui.fragment.other.ChatFragment">
 
     <!-- Background image -->
     <ImageView
+        android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="?phoneChatBackground" />
+        tools:src="?phoneChatBackground" />
 
     <!-- Empty chat info text -->
     <TextView
@@ -59,7 +62,7 @@
 
     <!-- Messages container -->
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input_container"
@@ -73,7 +76,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
@@ -172,7 +175,7 @@
                 android:animateLayoutChanges="true"
                 android:background="@color/colorGrayLight"
                 android:gravity="start|center_vertical"
-                android:hint="@string/chat_hint"
+                android:hint="@string/message_hint"
                 android:imeActionId="@+id/action_send_message_id"
                 android:imeActionLabel="Send"
                 android:imeOptions="actionSend"
@@ -476,7 +479,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/transparent"
-                        android:text="@string/join_now"
+                        android:text="@string/join"
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
@@ -496,7 +499,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/transparent"
-                        android:text="@string/login_login"
+                        android:text="@string/sign_in"
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textColor="@color/white"

@@ -30,7 +30,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chat_caption"
+            android:text="@string/chat"
             android:textColor="?popupsCaptionColor"
             android:gravity="center"
             android:layout_centerHorizontal="true"
@@ -58,7 +58,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_toStartOf="@+id/edit_top_vertical_spliter"
         android:gravity="center"
-        android:text="@string/edit_chat"
+        android:text="@string/edit"
         android:background="?popupSelectedCaptionBackgroundColorRef"
         android:textColor="?popupSelectedCaptionTextColorRef"
         />
@@ -156,7 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_caption_label"
         android:layout_marginBottom="@dimen/margin_20"
-        android:layout_alignStart="@+id/swipe_refresh_layout">
+        android:layout_alignStart="@+id/swipeRefreshLayout">
 
         <View
             android:id="@+id/search_friends_container_mid_line"
@@ -243,7 +243,7 @@
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/search_friends_container"

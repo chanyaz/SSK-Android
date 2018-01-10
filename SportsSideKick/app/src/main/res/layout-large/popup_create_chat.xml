@@ -41,7 +41,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:padding="@dimen/padding_8"
-                android:text="@string/chat_caption"
+                android:text="@string/chat"
                 android:textColor="?popupsCaptionColor" />
 
         </RelativeLayout>
@@ -119,7 +119,7 @@
                 android:scaleType="fitXY"
                 android:visibility="gone" />
             <ProgressBar
-                android:id="@+id/progress_bar"
+                android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/chat_image_view"
@@ -138,7 +138,7 @@
                 android:layout_toStartOf="@+id/chat_popup_image_button"
                 android:background="@color/colorPrimaryMediumDark"
                 android:gravity="start|center_vertical"
-                android:hint="@string/your_chat_name"
+                android:hint="@string/chat_give_name"
                 android:imeOptions="flagNoExtractUi"
                 android:maxLines="1"
                 android:padding="@dimen/margin_20"
@@ -196,7 +196,7 @@
                 android:layout_height="@dimen/create_chat_name_label_height"
                 android:layout_toEndOf="@+id/private_chat_switch"
                 android:gravity="center_vertical"
-                android:text="@string/this_chat_is_public"
+                android:text="@string/chat_public"
                 android:textColor="?chatPrivateTextColorRef" />
 
             <EditText

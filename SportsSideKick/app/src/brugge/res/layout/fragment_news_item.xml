@@ -181,30 +181,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/pin_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/padding_8"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/pin_icon"
-                            android:layout_width="@dimen/width_26"
-                            android:layout_height="@dimen/height_26"
-                            android:layout_marginEnd="@dimen/margin_5"
-                            android:background="@drawable/ic_pin"
-                            app:backgroundTint="@color/white" />
-
-                        <TextView
-                            android:id="@+id/pin_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pin_count_placeholder"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:id="@+id/share_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -301,7 +277,7 @@
                     android:layout_centerVertical="true"
                     android:paddingStart="@dimen/padding_16"
                     android:layout_toEndOf="@+id/translate"
-                    android:text="@string/read_more_closed"
+                    android:text="@string/read_more"
                     android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="@dimen/font_size_10"
                     />
@@ -411,7 +387,7 @@
             android:textSize="@dimen/font_size_12"
             android:layout_marginStart="@dimen/margin_15"
             android:layout_marginTop="@dimen/margin_5"
-            android:hint="@string/enter_comment_hint"
+            android:hint="@string/comment_hint"
             android:textColor="@color/colorGrayDark"
             android:textColorHint="@color/colorGray"
             app:backgroundTint="?white" />

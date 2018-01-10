@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimaryMediumLight"
-    tools:context="base.app.fragment.instance.ClubTVFragment">
+    tools:context=".ui.fragment.stream.ClubTVFragment">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"

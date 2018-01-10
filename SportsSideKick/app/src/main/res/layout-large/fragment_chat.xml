@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?white_semitransparent"
-    tools:context="base.app.fragment.instance.ChatFragment">
+    tools:context=".ui.fragment.other.ChatFragment">
 
     <!-- Background image -->
     <ImageView
@@ -60,7 +60,7 @@
 
     <!-- Messages container -->
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input_container"
@@ -74,7 +74,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
@@ -161,7 +161,7 @@
                 android:animateLayoutChanges="true"
                 android:background="?chatEditTextBackgroundColorRef"
                 android:gravity="start|center_vertical"
-                android:hint="@string/chat_hint"
+                android:hint="@string/message_hint"
                 android:imeActionId="@+id/action_send_message_id"
                 android:imeActionLabel="Send"
                 android:imeOptions="actionSend"

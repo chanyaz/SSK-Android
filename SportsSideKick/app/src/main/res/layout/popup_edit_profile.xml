@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryMediumLight"
@@ -37,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/your_profile"
+            android:text="@string/profile"
             android:textColor="?popupsCaptionColor"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -140,7 +141,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/margin_20"
                     android:layout_marginTop="@dimen/height_25"
-                    android:text="@string/edit_your_profile"
+                    android:text="@string/edit_profile"
                     android:textAllCaps="true"
                     android:textColor="?colorAccent" />
 
@@ -227,7 +228,7 @@
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
                         android:paddingTop="@dimen/padding_16"
-                        android:text="@string/first_name_profile"
+                        android:text="@string/first_name"
                         android:textColor="?editProfileTextColorRef" />
 
                     <AutoCompleteTextView
@@ -271,7 +272,7 @@
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
                         android:paddingTop="@dimen/padding_16"
-                        android:text="@string/last_name_profile"
+                        android:text="@string/last_name"
                         android:textColor="?editProfileTextColorRef"/>
                     <AutoCompleteTextView
 
@@ -315,7 +316,7 @@
                         android:paddingEnd="0dp"
                         android:paddingStart="@dimen/padding_16"
                         android:paddingTop="@dimen/padding_16"
-                        android:text="@string/user_name"
+                        android:text="@string/nickname"
                         android:textColor="?editProfileTextColorRef" />
 
                     <AutoCompleteTextView
@@ -467,10 +468,11 @@
                         android:maxLines="1"
                         android:nextFocusDown="@+id/last_name_edit_text"
                         android:nextFocusForward="@+id/last_name_edit_text"
-                        android:text="@string/password_placeholder"
+                        android:text="***********"
                         android:textColor="?editProfileTextColorRef"
                         android:textSize="@dimen/font_size_12"
-                        android:padding="@dimen/padding_8"/>
+                        android:padding="@dimen/padding_8"
+                        tools:ignore="HardcodedText" />
 
                 </LinearLayout>
 
@@ -524,7 +526,7 @@
                         android:maxLines="1"
                         android:nextFocusDown="@+id/last_name_edit_text"
                         android:nextFocusForward="@+id/confirm_button"
-                        android:text="@string/english"
+                        android:text="@string/language_current"
                         android:textColor="?editProfileTextColorRef"
                         android:textSize="@dimen/font_size_12"
                         android:padding="@dimen/padding_8" />
@@ -543,7 +545,7 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:background="@android:color/transparent"
-                    android:text="@string/enable_wall_notifications"
+                    android:text="@string/notify_wall"
                     android:textColor="?editProfileTextColorRef"
                     android:textSize="@dimen/font_size_12"
                     android:padding="@dimen/padding_8" />

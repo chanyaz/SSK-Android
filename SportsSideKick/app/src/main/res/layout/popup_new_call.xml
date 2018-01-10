@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:background="@color/colorPrimaryMediumLight"
     android:clickable="true"
@@ -44,14 +44,15 @@
         android:id="@+id/chat_top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/chat_headline_container"
-        android:layout_alignParentStart="true">
+        android:clickable="true">
 
         <RelativeLayout
             android:id="@+id/top_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/center_split"
                 android:layout_width="match_parent"
@@ -77,9 +78,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_2"
-                    android:visibility="gone"
                     android:layout_weight="1"
-                    android:background="@color/colorPrimaryVeryLight" />
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:visibility="gone" />
             </LinearLayout>
             <!-- TOP BUTTONS CONTAINER -->
             <LinearLayout
@@ -99,28 +100,25 @@
                     android:layout_weight="1"
                     android:background="@color/colorPrimaryMediumLight"
                     android:gravity="center"
-                    android:text="@string/create_call"
+                    android:text="@string/call_starting"
                     android:textColor="?popupsCaptionColor" />
-
-
 
             </LinearLayout>
 
-
-
         </RelativeLayout>
+
         <View
             android:id="@+id/top_split_line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_1"
             android:layout_below="@+id/top_container"
             android:background="@color/colorPrimaryDark" />
+
         <View
             android:id="@+id/top_vertical_spliter_helper"
             android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/standard_button_height"
             android:layout_centerHorizontal="true" />
-
 
 
         <EditText
@@ -132,7 +130,7 @@
             android:layout_toStartOf="@+id/chat_popup_image_button"
             android:background="@color/colorPrimaryMediumDark"
             android:gravity="start|center_vertical"
-            android:hint="@string/search_your_friends"
+            android:hint="@string/friends_search"
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
             android:padding="@dimen/margin_15"
@@ -153,9 +151,6 @@
     </RelativeLayout>
 
 
-
-
-
     <RelativeLayout
         android:id="@+id/chat_friends_in_chat_container"
         android:layout_width="match_parent"
@@ -167,19 +162,19 @@
             android:id="@+id/chat_friends_in_chat_headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:padding="@dimen/padding_8"
             android:text="@string/friends_in_video_chat"
-            android:textSize="@dimen/font_size_12"
             android:textColor="@color/white"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:textSize="@dimen/font_size_12" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/chat_friends_in_chat_recycler_view"
             android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:layout_below="@id/chat_friends_in_chat_headline"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/padding_16"
             android:minHeight="@dimen/row_chat_bubble_user_size">
 
@@ -192,47 +187,47 @@
         android:id="@+id/confirm_button_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:background="@color/colorAccentLight"
         android:scaleType="centerInside"
-        android:text="@string/start_call"
+        android:text="@string/call_start"
         android:textAllCaps="false"
-        android:textColor="@color/colorPrimary"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:textColor="@color/colorPrimary" />
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@+id/chat_friends_in_chat_container"
-    android:layout_below="@+id/chat_top_buttons_container">
-    <base.app.util.ui.AutofitRecyclerView
-        android:id="@+id/friends_recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_marginEnd="@dimen/margin_16"
-        android:layout_marginStart="@dimen/margin_16"
-        android:clipToPadding="false"
-        android:numColumns="auto_fit" />
-    <TextView
-        android:id="@+id/no_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/no_result"
-        android:textColor="?white_semitransparent"
-        android:visibility="gone" />
+        android:layout_above="@+id/chat_friends_in_chat_container"
+        android:layout_below="@+id/chat_top_buttons_container">
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
-        android:layout_width="@dimen/prodgres_bar"
-        android:layout_height="@dimen/prodgres_bar"
-        android:layout_centerInParent="true"
-        android:elevation="@dimen/elevation_2"
-        app:indicatorName="LineSpinFadeLoaderIndicator" />
-</RelativeLayout>
+        <base.app.util.ui.AutofitRecyclerView
+            android:id="@+id/friends_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:clipToPadding="false"
+            android:numColumns="auto_fit" />
 
+        <TextView
+            android:id="@+id/no_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_results"
+            android:textColor="?white_semitransparent"
+            android:visibility="gone" />
 
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/prodgres_bar"
+            android:layout_height="@dimen/prodgres_bar"
+            android:layout_centerInParent="true"
+            android:elevation="@dimen/elevation_2"
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="base.app.fragment.instance.ClubTVFragment">
+    tools:context=".ui.fragment.stream.ClubTVFragment">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"
@@ -48,7 +48,7 @@
             android:gravity="start|center_vertical"
             android:paddingEnd="@dimen/space_0"
             android:paddingStart="@dimen/margin_60"
-            android:text="@string/club_radio_caption"
+            android:text="@string/radio"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_16" />
     </LinearLayout>
@@ -84,6 +84,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_10"
             android:layout_toEndOf="@+id/live_dot"
+            android:textAllCaps="true"
             android:text="@string/live"
             android:textColor="@color/white" />
 
@@ -112,7 +113,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_20"
             android:layout_toEndOf="@+id/mute_button"
-            android:progress="@integer/progress_bar_mid"
+            android:progress="50"
             android:progressDrawable="?seekBarAudioShape"
             android:thumb="@null"
             android:thumbOffset="@dimen/thumb_offset_0" />
@@ -128,7 +129,7 @@
         android:layout_alignStart="@+id/controls_container"
         android:layout_marginEnd="@dimen/margin_negative_18"
         android:layout_marginStart="@dimen/margin_negative_16"
-        android:progress="@integer/progress_bar_max"
+        android:progress="100"
         android:progressDrawable="?seekBarShape"
         android:thumb="@null"
         android:thumbOffset="@dimen/thumb_offset_0" />

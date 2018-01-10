@@ -3,21 +3,22 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-
         <!--System Colors-->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimarySemiDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorAccentSemiDark</item>
         <item name="colorControlActivated">@color/colorAccentSemiDark</item>
         <item name="colorControlHighlight">@color/colorAccentSemiDark</item>
         <item name="colorPrimarySemiLight">@color/colorPrimarySemiLight</item>
+        <item name="android:windowBackground">@drawable/background_splash</item>
 
         <item name="black">@color/black</item>
         <item name="white">@color/white</item>
         <item name="white_semitransparent">@color/white_semitransparent</item>
         <item name="black_transparent_154">@color/black_transparent_154</item>
         <item name="colorGray">@color/colorGray</item>
+        <item name="colorGrayMediumLight">@color/colorGrayMediumLight</item>
 
         <!-- App items colors -->
         <item name="wallItemsColor">@color/white</item>
@@ -179,7 +180,7 @@
         <item name="friendItemTextColor">@color/white</item>
 
         <item name="phoneLoungeTeamCaptionColor">@color/white</item>
-        <item name="phoneLoungeTickerColor">@color/white</item>
+        <item name="phoneLoungeTickerColor">@color/phoneLoungeTickerColor</item>
 
         <item name="phoneLoungeIconsColor">@color/white</item>
         <item name="phoneLoungeIconsColorSelected">@color/black</item>
@@ -214,7 +215,6 @@
 
     </style>
 
-
     <style name="fontTitilliumWebLight">
         <item name="fontPath">fonts/TitilliumWeb-Light.ttf</item>
     </style>
@@ -230,12 +230,6 @@
     <!-- Alert dialog style -->
     <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColor">@color/colorPrimaryVeryDark</item>
-    </style>
-
-    <!-- This will set the fade in animation on all your activities by default -->
-    <style name="WindowAnimationTransition">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <style name="button_login_main">
@@ -352,8 +346,5 @@
         <item name="fontPath">fonts/TitilliumWeb-Light.ttf</item>
         <item name="android:textSize">@dimen/font_size_28</item>
     </style>
-
-
-
 
 </resources>

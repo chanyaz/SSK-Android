@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:foreground="?selectableItemBackgroundBorderless"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -23,6 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryVeryLight" />
+            android:textColor="#6a000000" />
     </LinearLayout>
 </RelativeLayout>

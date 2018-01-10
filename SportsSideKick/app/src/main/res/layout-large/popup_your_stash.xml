@@ -19,7 +19,7 @@
         android:background="?colorPrimarySemiLight">
 
         <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/progress_bar"
+            android:id="@+id/progressBar"
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
@@ -44,7 +44,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
-            android:text="@string/your_profile"
+            android:text="@string/profile"
             android:textColor="?white_semitransparent" />
 
         <TextView
@@ -55,7 +55,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
-            android:text="@string/your_wallet"
+            android:text="@string/wallet"
             android:textColor="?white_semitransparent" />
 
         <TextView
@@ -65,7 +65,7 @@
             android:layout_weight="1"
             android:background="?colorPrimarySemiLight"
             android:gravity="center"
-            android:text="@string/your_stash"
+            android:text="@string/stash"
             android:textColor="?colorAccent" />
     </LinearLayout>
 
@@ -114,7 +114,7 @@
         android:layout_centerHorizontal="true"
         style="@style/boldText"
         android:textAllCaps="true"
-        android:text="@string/your_stash"
+        android:text="@string/stash"
         android:textColor="?colorAccent"
         android:textSize="@dimen/font_size_18" />
 
@@ -122,7 +122,7 @@
         android:id="@+id/your_stash_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/rewards_and_items_received"
+        android:text="@string/rewards_received"
         android:textColor="?stashDescriptionColorRef"
         android:textSize="@dimen/font_size_12"
         android:layout_below="@+id/your_stash_caption"

@@ -1,40 +1,23 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-        maven { url 'https://maven.google.com' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.22.1'
-    }
-}
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-    maven { url 'https://maven.google.com' }
-}
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
-
         minSdkVersion 17
         targetSdkVersion 27
-
-        testInstrumentationRunner "android.support.left.runner.AndroidJUnitRunner"
-        multiDexEnabled true
-
         renderscriptTargetApi 17
         renderscriptSupportModeEnabled true
+        multiDexEnabled true
     }
     flavorDimensions "main"
     productFlavors {
         sportsidekick {
             applicationId "tv.sportssidekick.sportssidekick"
             versionCode 6
-            versionName "5.0.0.6"
+            versionName "6.0.0.0"
         }
         brugge {
             applicationId "tv.sportssidekick.brugge"
@@ -42,175 +25,119 @@ android {
             versionName "5.0.0.6"
         }
     }
-
     lintOptions {
         checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
         abortOnError false
     }
-
     buildTypes {
         release {
-            minifyEnabled false // TODO @Nemanja fix proguard file
-            shrinkResources false // TODO this only works when minifyEnabled is true!
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    defaultConfig {
-        vectorDrawables.useSupportLibrary = true
-    }
-
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_7
-        sourceCompatibility JavaVersion.VERSION_1_7
-    }
-
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-    }
-
-    configurations.all {
-        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
-    }
-
-    allprojects {
-        repositories {
-            jcenter()
-            flatDir {
-                dirs 'libs'
-            }
-            maven {
-                url "https://jitpack.io"
-            }
+            minifyEnabled false // TODO: Use *keep attribute on required resources and re-enable
+            shrinkResources false
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android.txt'),
+                    'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
-// Local libraries - Youtube
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-
-// Annotation processors
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
-// Google support libraries
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:percent:26.1.0'
-    compile 'com.android.support:multidex:1.0.2'
-//  Required by Glide - image library
-    compile 'com.android.support:support-v4:26.1.0'
-
-//  We only need Firebase for Push notifications!
-    compile 'com.google.firebase:firebase-core:11.4.2'
-    compile 'com.google.firebase:firebase-messaging:11.4.2'
-
-//  Other Google libraries for Youtube
-    compile ('com.google.http-client:google-http-client-android:1.20.0')
+    // Android support libraries
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:design:27.0.2'
+    implementation 'com.android.support:percent:27.0.2'
+    implementation 'com.android.support:cardview-v7:27.0.2'
+    implementation 'com.android.support:customtabs:27.0.2'
+    implementation 'com.android.support:animated-vector-drawable:27.0.2'
+    // Push notifications
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    // Youtube
+    implementation fileTree(include: ['YouTubeAndroidPlayerApi.jar'], dir: 'libs')
+    implementation('com.google.http-client:google-http-client-android:1.20.0')
             {
                 exclude group: 'org.apache.httpcomponents'
             }
-    compile ('com.google.api-client:google-api-client-android:1.20.0')
+    implementation('com.google.api-client:google-api-client-android:1.20.0')
             {
                 exclude group: 'org.apache.httpcomponents'
             }
-    compile ('com.google.api-client:google-api-client-gson:1.20.0')
+    implementation('com.google.api-client:google-api-client-gson:1.20.0')
             {
                 exclude group: 'org.apache.httpcomponents'
             }
-    compile files('libs/YoutubeAndroidPlayerApi.jar')
-    compile ('com.google.apis:google-api-services-youtube:v3-rev181-1.22.0')
+    implementation files('libs/YoutubeAndroidPlayerApi.jar')
+    implementation('com.google.apis:google-api-services-youtube:v3-rev181-1.22.0')
             {
                 exclude group: 'org.apache.httpcomponents'
             }
-
-//  Gamesparks SDK - whole backend is relying on it (it resides on maven) - TODO Check for version that is table - 3.3 and 3.4 are not working!
-    compile 'com.gamesparks.sdk:gamesparks-java-sdk:0.3.2-SNAPSHOT'
-
-//  General data-binding package for Jackson used for parsing of GS response in model - https://github.com/FasterXML/jackson-databind
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0.pr1'
-//  Event Bus - we are using Greenrobot version! https://github.com/greenrobot/EventBus
-    compile 'org.greenrobot:eventbus:3.0.0'
-//  Video chat is implemented with Twillio (it  resides on jcenter) - https://www.twilio.com/docs/api/video/download-video-sdks
-    compile 'com.twilio:video-android:1.3.0'
-//  Facebook SDK is used for Analytics, Share and to populate Sign up data - https://developers.facebook.com/docs/android/
-    compile 'com.facebook.android:facebook-android-sdk:4.24.0'
+    // Gamesparks backend
+    implementation 'com.gamesparks.sdk:gamesparks-java-sdk:0.4.4-SNAPSHOT'
+    // JSON parsing
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.0'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
+    // Event Bus
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    // Video chat
+    implementation 'com.twilio:video-android:1.3.0'
+    // Facebook SDK is used for Analytics, Share and to populate Sign up data
+    implementation 'com.facebook.android:facebook-android-sdk:4.24.0'
     compile('com.facebook.android:audience-network-sdk:4.24.0') {
         exclude group: 'com.google.android.gms'
     }
-//  Twitter KIT used for share functionality - https://github.com/twitter/twitter-kit-android
-    compile('com.twitter.sdk.android:twitter:2.3.2@aar') {
-        transitive = true;
-    }
-
-//  Amazon web services are used for uploading of user generated media content - https://aws.amazon.com/mobile/sdk/
-    compile 'com.amazonaws:aws-android-sdk-core:2.4.2'
-    compile 'com.amazonaws:aws-android-sdk-s3:2.4.2'
-
-//  TODO @All - it should be replaced with more stable up to date library
-//  Circle Progress UI element used for Profile icon - https://github.com/lzyzsd/CircleProgress
-    compile 'com.github.lzyzsd:circleprogress:+'
-
-//  Swipe refresh layout used in Wall, News, Rumours and Chat fragments - https://github.com/omadahealth/SwipyRefreshLayout
-    compile 'com.github.orangegangsters:swipy:1.2.3@aar'
-//  Expandable layout used in Join Chat fragment - https://github.com/AAkira/ExpandableLayout
-    compile 'com.github.aakira:expandable-layout:1.6.0@aar'
-//  Permission handling library used around the project for easier handling of permissions - https://github.com/hotchemi/PermissionsDispatcher
-    compile 'com.github.hotchemi:permissionsdispatcher:3.0.1'
-//  Nice loading animations for Android - https://github.com/81813780/AVLoadingIndicatorView
-    compile 'com.wang.avi:library:2.1.3'
-//  Custom layout that can rotate it's view, used in Rumours-  https://github.com/rongi/rotate-layout
-    compile 'rongi.rotate-layout:rotate-layout:2.0.0'
-//  TODO @All - Android O now supports downloadable fonts, explore this option instead of custom lib
-//  Custom fonts in Android -https://github.com/chrisjenx/Calligraphy
-    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
-//  A small library containing a wrapper/helper for the Shared Preferences of android - https://github.com/Pixplicity/EasyPreferences
-    compile 'com.pixplicity.easyprefs:library:1.8.1@aar'
-//  Bind Android views and callbacks to fields and methods - https://github.com/JakeWharton/butterknife
-    compile 'com.jakewharton:butterknife:8.8.1'
-//  TODO @All - possibly outdated, check for alternative?
-//  Library for loading, caching and displaying images on Android - https://github.com/nostra13/Android-Universal-Image-Loader
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-//  TODO @All - there should be an implementation of this in android, check if this library can be removed
-//  Circular ImageView for profile images - https://github.com/hdodenhof/CircleImageView
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-
-//  Checkout (Android In-App Billing Library) used for billing - https://github.com/serso/android-checkout
-    compile 'org.solovyev.android:checkout:1.0.0'
-//  SnappySmoothScroller - used for message scrolling - https://github.com/nshmura/SnappySmoothScroller
-    compile 'com.nshmura:snappysmoothscroller:1.0.0'
-
-//  Java library for working with real-world HTML used for share of content from web view - https://jsoup.org/download
-    compile 'org.jsoup:jsoup:1.10.2'
-
-
-//  Real time remote log tracking - https://bugfender.com/ TODO @Filip remove/disable for production
-    compile 'com.bugfender.sdk:android:0.+'
-//  library for monitoring network connectivity, relies on rxJava - https://github.com/keiferstone/nonet
-    compile 'com.keiferstone:nonet:2.0.0'
-    compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.0'
-
-//  Random human readable name generator for testing - https://github.com/Atrox/haikunatorjava TODO @Filip remove for production
-    compile 'me.atrox.haikunator:Haikunator:1.3'
-//  Android Library to provide swipe, click and other functionality to RecyclerView
-    compile 'com.nikhilpanju.recyclerviewenhanced:recyclerviewenhanced:1.1.0'
-//  Apache commons library to extract file name from url for image downloading - https://mvnrepository.com/artifact/commons-io/commons-io
-    compile group: 'commons-io', name: 'commons-io', version: '2.5'
-//  VideoView with controls
-    compile 'com.linsea:universalvideoview:1.1.0@aar'
-//  TrueTime for Android - NTP client for Android : https://github.com/instacart/truetime-android TODO - @Filip There is no need for this anymore
-    compile 'com.github.instacart.truetime-android:library-extension-rx:3.3'
-//  Image loader library - https://github.com/bumptech/glide/tree/3.0
-    compile 'com.github.bumptech.glide:glide:4.2.0'
-//  Image loader library - https://github.com/square/picasso
-    compile 'com.squareup.picasso:picasso:2.5.2'
-
-
-//  Number picker used for translation popup to select language - https://github.com/ShawnLin013/NumberPicker
-    compile 'com.shawnlin:number-picker:2.4.4'
+    // Amazon web services are used for uploading of user generated media content
+    implementation 'com.amazonaws:aws-android-sdk-core:2.4.2'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.4.2'
+    // TODO @All - it should be replaced with more stable up to date library
+    // Circle Progress UI element used for Profile icon
+    implementation 'com.github.lzyzsd:circleprogress:1.1.0'
+    // Swipe refresh layout used in Wall, News, Rumours and Chat fragments
+    implementation 'com.github.orangegangsters:swipy:1.2.3@aar'
+    // Expandable layout used in Join Chat fragment
+    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
+    // Permission handling library used around the project for easier handling of permissions
+    implementation 'com.github.hotchemi:permissionsdispatcher:3.0.1'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
+    // Nice loading animations for Android
+    implementation 'com.wang.avi:library:2.1.3'
+    // Custom layout that can rotate it's view, used in Rumours
+    implementation 'rongi.rotate-layout:rotate-layout:2.0.0'
+    // Custom fonts
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    // A small library containing a wrapper/helper for the Shared Preferences of android
+    implementation 'com.pixplicity.easyprefs:library:1.8.1@aar'
+    // Bind Android views and callbacks to fields and methods
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    // TODO @All - there should be an implementation of this in android, check if this library can be removed
+    // Circular ImageView for profile images
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    // Checkout (Android In-App Billing Library) used for billing
+    implementation 'org.solovyev.android:checkout:1.0.0'
+    // SnappySmoothScroller - used for message scrolling
+    implementation 'com.nshmura:snappysmoothscroller:1.0.0'
+    // Java library for working with real-world HTML used for share of content from webview
+    implementation 'org.jsoup:jsoup:1.10.2'
+    // library for monitoring network connectivity, relies on rxJava
+    implementation 'com.keiferstone:nonet:2.0.0'
+    implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.0'
+    // Random human readable name generator for testing
+    implementation 'me.atrox.haikunator:Haikunator:1.3'
+    // Android Library to provide swipe, click and other functionality to RecyclerView
+    implementation 'com.nikhilpanju.recyclerviewenhanced:recyclerviewenhanced:1.1.0'
+    // Apache commons library to extract file name from url for image downloading
+    implementation group: 'commons-io', name: 'commons-io', version: '2.5'
+    // VideoView with controls
+    implementation 'com.linsea:universalvideoview:1.1.0@aar'
+    // Image loader library
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    // Number picker used for translation popup to select language
+    implementation 'com.shawnlin:number-picker:2.4.4'
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
+
 apply plugin: 'com.google.gms.google-services'

@@ -73,7 +73,7 @@
         android:textColor="@color/white" />
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
@@ -163,7 +163,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_toEndOf="@id/search_icon"
                 android:background="?searchFieldBackgroundRef"
-                android:hint="@string/your_friends_search_hint"
+                android:hint="@string/friends_search"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="text"
                 android:maxLines="1"

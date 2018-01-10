@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
-            android:text="@string/your_profile"
+            android:text="@string/profile"
             android:textColor="?white_semitransparent" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_weight="1"
             android:background="?colorPrimarySemiLight"
             android:gravity="center"
-            android:text="@string/your_wallet"
+            android:text="@string/wallet"
             android:textColor="?colorAccent" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimaryMediumLight"
             android:gravity="center"
-            android:text="@string/your_stash"
+            android:text="@string/stash"
             android:textColor="?white_semitransparent" />
     </LinearLayout>
 
@@ -123,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="@string/you_have"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_10" />
 
@@ -165,9 +166,9 @@
                 android:paddingEnd="@dimen/margin_10"
                 android:paddingStart="@dimen/margin_10"
                 android:text="@string/bonus_gym_bag"
+                android:textAllCaps="true"
                 android:textSize="@dimen/font_size_10" />
         </RelativeLayout>
-
 
         <TextView
             android:id="@+id/ssk_bundles_caption"
@@ -178,6 +179,7 @@
             android:layout_marginBottom="@dimen/margin_20"
             android:layout_marginTop="@dimen/margin_10"
             android:text="@string/bundles"
+            android:textAllCaps="true"
             android:textColor="?bundlesCaptionColorRef"
             android:textSize="@dimen/font_size_15"
             android:textStyle="bold" />
@@ -453,6 +455,7 @@
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:paddingEnd="@dimen/margin_10"
+                android:textAllCaps="true"
                 android:paddingStart="@dimen/margin_10"
                 android:text="@string/bonus_gym_bag"
                 android:textSize="@dimen/font_size_10" />

@@ -15,7 +15,5 @@ public class Keys {
     public static final String GS_API_SECRET = "WlLzz12Eem8G9Rx6N8yktSsXpLCWVXDw";
 
     public static final String YOUTUBE_API_KEY = "AIzaSyAVYoyvyouNeFJBvlLG9yQMfIuQ3EaNadY";
-    public static final String TWITTER_KEY = "dTTwpATNlNQm57u4hnBbwrqr8";
-    public static final String TWITTER_SECRET = "w07PsNvp94YRx3XTnyRTetki7LyXFRNTFVBE8UfSNycBmWTNGE";
     public static final String VIDEO_CHAT_TOKEN_URL = "https://ssk-vc-tokengen-production.herokuapp.com";
 }

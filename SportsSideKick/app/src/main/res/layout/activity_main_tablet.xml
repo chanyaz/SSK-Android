@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/appBackground"
+    tools:context=".ui.activity.MainActivityTablet">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/lounge_background"/>
+
+    <!-- TOP CONTAINER -->
+    <LinearLayout
+        android:id="@+id/top_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <!-- TICKER -->
+        <RelativeLayout
+            android:id="@+id/left_top_bar_container"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/top_bar_height"
+            android:layout_marginEnd="@dimen/half_margin"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="@dimen/top_bar_logo_width"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_8"
+                android:layout_marginTop="4dp"
+                android:scaleType="fitCenter"
+                android:src="?logoIcon" />
+
+            <TextView
+                android:id="@+id/caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/scrolling_news_title"
+                android:layout_toEndOf="@+id/logo"
+                android:paddingBottom="@dimen/half_margin"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_28"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/opescrolling_news_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_toEndOf="@+id/logo"
+                android:layout_toStartOf="@+id/nextMatchContainer"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/half_margin"
+                android:textColor="@color/colorAccentSemiDark" />
+
+        <RelativeLayout
+            android:id="@+id/nextMatchContainer"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/logo_first_team"
+                android:layout_width="@dimen/top_bar_logo_tema_size"
+                android:layout_height="@dimen/top_bar_logo_tema_size"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/vs_label"
+                android:padding="@dimen/half_margin"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/logo_second_team"
+                android:layout_width="@dimen/top_bar_logo_tema_size"
+                android:layout_height="@dimen/top_bar_logo_tema_size"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/half_margin"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/vs_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/logo_second_team"
+                android:text="@string/vs"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10" />
+
+            <TextView
+                android:id="@+id/days_until_match_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/time_of_match_label"
+                android:paddingBottom="@dimen/half_margin"
+                android:paddingEnd="@dimen/half_margin"
+                android:paddingStart="@dimen/space_0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_12" />
+
+            <TextView
+                android:id="@+id/time_of_match_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:paddingBottom="@dimen/half_margin"
+                android:paddingEnd="@dimen/half_margin"
+                android:paddingStart="@dimen/space_0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_12" />
+
+            <TextView
+                android:id="@+id/up_next_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_below="@+id/logo_second_team"
+                android:paddingEnd="@dimen/half_margin"
+                android:paddingStart="@dimen/space_0"
+                android:text="@string/match_next"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10" />
+
+            <RelativeLayout
+                android:id="@+id/left_notification_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+        </RelativeLayout>
+        </RelativeLayout>
+
+        <!-- ADS CONTAINER -->
+        <RelativeLayout
+            android:id="@+id/right_top_bar_container"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/top_bar_height"
+            android:layout_marginStart="@dimen/half_margin"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_8"
+                android:layout_toEndOf="@+id/notification_container"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="?ligaBanner" />
+
+            <RelativeLayout
+                android:id="@+id/notification_container"
+                android:layout_width="@dimen/top_bar_notification_container_width"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/top_bar_notification_image_size"
+                    android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
+                    android:paddingStart="@dimen/padding_8"
+                    android:paddingEnd="@dimen/space_0"
+                    android:src="?notificationIcon" />
+
+                <TextView
+                    android:id="@+id/notification_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_12"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_container">
+
+        <!-- MIDDLE SPLITTER -->
+        <View
+            android:id="@+id/middle_split"
+            android:layout_width="@dimen/space_0"
+            android:layout_height="@dimen/space_0"
+            android:layout_centerHorizontal="true" />
+
+        <!-- LEFT CONTAINER -->
+        <RelativeLayout
+            android:id="@+id/tabs_container_1"
+            android:layout_width="@dimen/width_80"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="@dimen/half_margin"
+            android:layout_toEndOf="@+id/left_tab_selector"
+            android:layout_toStartOf="@+id/middle_split"
+            android:background="@color/colorPrimaryMediumLight" />
+
+
+        <RelativeLayout
+            android:id="@+id/tabs_container_top_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_right_container"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginStart="@dimen/half_margin"
+            android:layout_toEndOf="@+id/middle_split"
+            android:layout_toStartOf="@+id/right_tab_selector"
+            android:background="@color/colorPrimaryMediumLight" />
+
+        <!-- CLUB CONTAINER -->
+        <RelativeLayout
+            android:id="@+id/bottom_right_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/half_margin"
+            android:layout_toEndOf="@+id/middle_split"
+            android:layout_toStartOf="@+id/right_tab_selector"
+            android:background="@color/colorPrimaryMediumLight" />
+
+
+        <!-- TOP RIGHT RADIO GROUP -->
+        <RadioGroup
+            android:id="@+id/right_tab_selector"
+            android:layout_width="@dimen/width_80"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="top">
+
+            <RadioButton
+                android:id="@+id/chat_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?attr/tabRadioButtonSelectorRight"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/chat"
+                android:textColor="?tabRadioButtonTextColor" />
+
+            <RadioButton
+                android:id="@+id/stats_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?tabRadioButtonSelectorRight"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/stats"
+                android:textColor="?tabRadioButtonTextColor" />
+
+            <RadioButton
+                android:id="@+id/fantasy_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?tabRadioButtonSelectorRight"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/fantasy"
+                android:textColor="?tabRadioButtonTextColor" />
+
+
+            <RadioButton
+                android:id="@+id/quiz_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?tabRadioButtonSelectorRight"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/quiz"
+                android:textColor="?tabRadioButtonTextColor" />
+        </RadioGroup>
+
+        <!-- BOTTOM RIGHT RADIO GROUP -->
+        <RadioGroup
+            android:id="@+id/video_tab_radio_group"
+            android:layout_width="@dimen/width_80"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/bottom_right_container"
+            android:gravity="top"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/club_tv_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?tabRadioButtonSelectorRight"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/tv"
+                android:textColor="?tabRadioButtonTextColor" />
+
+            <RadioButton
+                android:id="@+id/club_radio_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?tabRadioButtonSelectorRight"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/radio"
+                android:textColor="?tabRadioButtonTextColor" />
+        </RadioGroup>
+
+        <!-- TOP LEFT RADIO GROUP -->
+        <RadioGroup
+            android:id="@+id/left_tab_selector"
+            android:layout_width="@dimen/width_80"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:gravity="top"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/wall_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?tabRadioButtonSelectorLeft"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/wall"
+                android:textColor="?tabRadioButtonTextColor" />
+
+            <RadioButton
+                android:id="@+id/video_chat_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?tabRadioButtonSelectorLeft"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/video_chat"
+                android:textColor="?tabRadioButtonTextColor" />
+
+            <RadioButton
+                android:id="@+id/news_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?tabRadioButtonSelectorLeft"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/news"
+                android:textColor="?tabRadioButtonTextColor" />
+
+            <RadioButton
+                android:id="@+id/roumors_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:background="?tabRadioButtonSelectorLeft"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/rumours"
+                android:textColor="?tabRadioButtonTextColor" />
+
+            <RadioButton
+                android:id="@+id/shop_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_buttons_bar_height"
+                android:background="?tabRadioButtonSelectorLeft"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/shop"
+                android:textColor="?tabRadioButtonTextColor" />
+        </RadioGroup>
+
+
+       <RelativeLayout
+           android:id="@+id/user_info_container"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentStart="true"
+           android:layout_toStartOf="@+id/tabs_container_1"
+           android:layout_alignParentBottom="true"
+           android:gravity="bottom"
+           android:layout_below="@+id/left_tab_selector"
+           android:layout_marginTop="@dimen/margin_4">
+
+           <RelativeLayout
+               android:id="@+id/user_image_container"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerHorizontal="true">
+
+               <ImageView
+                   android:id="@+id/profile_image"
+                   android:layout_width="@dimen/activity_lounge_user_profile_size"
+                   android:layout_height="@dimen/activity_lounge_user_profile_size"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginBottom="@dimen/padding_8"
+                   android:layout_marginStart="@dimen/padding_8"
+                   android:layout_marginEnd="@dimen/padding_8"
+                   android:adjustViewBounds="true"
+                   android:padding="@dimen/padding_2"
+                   android:src="?profileImageLoungeIcon" />
+
+               <ProgressBar
+                   android:id="@+id/user_level_progress"
+                   style="?android:attr/progressBarStyleHorizontal"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_alignBottom="@id/profile_image"
+                   android:layout_alignEnd="@id/profile_image"
+                   android:layout_alignStart="@id/profile_image"
+                   android:layout_alignTop="@id/profile_image"
+                   android:background="?userLevelProgress"
+                   android:indeterminate="false"
+                   android:max="100"
+                   android:progress="60"
+                   android:progressDrawable="?circularProgressBarDrawable"
+                   android:visibility="invisible"
+                   android:layout_centerHorizontal="true"/>
+
+               <ImageView
+                   android:id="@+id/user_level_background"
+                   android:layout_width="@dimen/profile_level_marker_size"
+                   android:layout_height="@dimen/profile_level_marker_size"
+                   android:layout_alignEnd="@id/profile_image"
+                   android:layout_alignStart="@id/profile_image"
+                   android:src="?nextLevelMarkerIcon"
+                   android:visibility="invisible"
+                   android:layout_below="@+id/profile_image"
+                   android:layout_marginTop="@dimen/margin_negative_20"/>
+
+               <TextView
+                   android:id="@+id/user_level"
+                   android:layout_width="@dimen/profile_level_marker_size"
+                   android:layout_height="@dimen/profile_level_marker_size"
+                   android:layout_alignEnd="@id/profile_image"
+                   android:layout_alignStart="@id/profile_image"
+                   android:layout_below="@+id/profile_image"
+                   android:layout_marginTop="@dimen/margin_negative_20"
+                   android:gravity="center"
+                   android:textColor="@color/white"
+                   android:textSize="@dimen/font_size_10"
+                   android:textStyle="bold"
+                   android:visibility="invisible" />
+
+           </RelativeLayout>
+
+           <TextView
+               android:id="@+id/profile_name"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="@dimen/margin_5"
+               android:layout_marginEnd="@dimen/margin_5"
+               android:layout_marginTop="@dimen/margin_5"
+               android:ellipsize="end"
+               android:gravity="center"
+               android:layout_centerHorizontal="true"
+               android:lineSpacingExtra="@dimen/line_space_negative_5"
+               android:minLines="1"
+               android:maxLines="2"
+               android:paddingBottom="@dimen/padding_8"
+               android:text="@string/join_sign_in"
+               android:textColor="@color/white"
+               android:textSize="@dimen/font_size_16"
+               android:textStyle="bold"
+               android:layout_below="@id/user_image_container"
+               android:layout_marginBottom="@dimen/padding_16"/>
+
+
+           <ImageView
+               android:id="@+id/user_coin_icon"
+               android:layout_width="@dimen/profile_coin_width"
+               android:layout_height="@dimen/profile_coin_height"
+               android:layout_centerHorizontal="true"
+               android:layout_marginBottom="@dimen/coin_bottom_margin"
+               android:layout_marginStart="@dimen/coin_lateral_margin"
+               android:layout_marginEnd="@dimen/coin_lateral_margin"
+               android:adjustViewBounds="true"
+               android:src="?userCoinIcon"
+               android:layout_below="@+id/profile_name" />
+
+           <TextView
+               android:id="@+id/user_coin_text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/user_coin_icon"
+               android:layout_centerHorizontal="true"
+               android:ellipsize="end"
+               android:maxLines="1"
+               android:textAllCaps="true"
+               android:text="@string/you_have"
+               android:textColor="@color/white"
+               android:textSize="@dimen/font_size_8" />
+
+           <TextView
+               android:id="@+id/your_coins_value"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/user_coin_text"
+               android:layout_centerHorizontal="true"
+               android:layout_marginBottom="@dimen/margin_10"
+               android:layout_marginTop="@dimen/margin_5"
+               android:ellipsize="end"
+               android:maxLines="1"
+               android:textColor="?colorAccent"
+               android:textSize="@dimen/font_size_12" />
+
+       </RelativeLayout>
+
+        <!-- FOLLOWERS AND FRIENDS BUTTONS -->
+        <LinearLayout
+            android:layout_width="@dimen/width_80"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/video_tab_radio_group"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/your_friends_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_weight="0.5"
+                android:adjustViewBounds="true"
+                android:onClick="onFriendsButtonClick"
+                android:src="?friendsIcon" />
+
+            <ImageView
+                android:id="@+id/your_followers_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:layout_weight="0.5"
+                android:adjustViewBounds="true"
+                android:onClick="onFollowersButtonClick"
+                android:src="?followersIcon" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <!-- MIDDLE SPLITTER -->
+    <View
+        android:id="@+id/middle_split_outside"
+        android:layout_width="@dimen/space_0"
+        android:layout_height="@dimen/space_0"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/popup_holder_right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_toEndOf="@+id/middle_split_outside"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone" />
+    <!-- POPUP LOGIN HOLDER -->
+    <RelativeLayout
+        android:id="@+id/popup_login_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone" />
+    <!-- POPUP HOLDER -->
+    <RelativeLayout
+        android:id="@+id/popup_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <base.app.util.ui.NextMatchView
+        android:id="@+id/splash"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </base.app.util.ui.NextMatchView>
+</RelativeLayout>

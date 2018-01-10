@@ -20,7 +20,7 @@
             android:layout_centerInParent="true"
             android:layout_marginEnd="@dimen/margin_1"
             android:gravity="center_vertical"
-            android:text="@string/starting_new_call_search_title"
+            android:text="@string/call_starting"
             android:textColor="?colorAccent"
             android:textSize="@dimen/font_size_18" />
     </RelativeLayout>
@@ -33,7 +33,7 @@
         android:background="?colorAccent" />
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/no_result"
+            android:text="@string/no_results"
             android:textColor="?white_semitransparent"
             android:visibility="gone" />
 
@@ -135,7 +135,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_toEndOf="@id/search_icon"
                 android:background="?searchFieldBackgroundRef"
-                android:hint="@string/starting_new_call_search_hint"
+                android:hint="@string/chats_search"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="text"
                 android:maxLines="1"

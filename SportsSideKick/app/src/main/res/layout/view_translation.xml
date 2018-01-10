@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
-    android:clickable="true"
-    android:background="@color/black_transparent_154"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black_transparent_154"
+    android:clickable="true">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress"
@@ -13,9 +13,9 @@
         android:layout_height="@dimen/progress_bar_height"
         android:layout_centerInParent="true"
         android:adjustViewBounds="true"
+        android:visibility="gone"
         app:indicatorColor="@color/white"
-        app:indicatorName="LineSpinFadeLoaderIndicator"
-        android:visibility="gone" />
+        app:indicatorName="LineSpinFadeLoaderIndicator" />
 
     <RelativeLayout
         android:id="@+id/popup"
@@ -27,44 +27,44 @@
             android:id="@+id/language_picker"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/translation_popup_picker_height"
-            android:minHeight="@dimen/translation_popup_picker_height"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/button_translate_close"
-            android:layout_marginBottom="@dimen/margin_5"
-            android:layout_alignStart="@+id/translate"
             android:layout_alignEnd="@+id/close"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/translate"
+            android:layout_marginBottom="@dimen/margin_5"
+            android:background="@drawable/button_translate_close"
+            android:minHeight="@dimen/translation_popup_picker_height" />
 
         <Button
             android:id="@+id/translate"
-            android:layout_below="@+id/language_picker"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/chat_button_size"
-            android:minHeight="@dimen/chat_button_size"
-            android:background="@drawable/button_translate"
-            android:paddingStart="@dimen/padding_16"
-            android:paddingEnd="@dimen/padding_16"
+            android:layout_below="@+id/language_picker"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/white"
             android:layout_marginEnd="@dimen/margin_10"
-            android:text="Translate"
-            android:textAllCaps="false" />
+            android:background="@drawable/button_translate"
+            android:minHeight="@dimen/chat_button_size"
+            android:paddingEnd="@dimen/padding_16"
+            android:paddingStart="@dimen/padding_16"
+            android:text="@string/translate"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/close"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/language_picker"
             android:layout_height="@dimen/chat_button_size"
-            android:minHeight="@dimen/chat_button_size"
+            android:layout_below="@+id/language_picker"
             android:layout_gravity="center_horizontal"
-            android:paddingStart="@dimen/padding_16"
-            android:paddingEnd="@dimen/padding_16"
-            android:layout_toEndOf="@+id/translate"
             android:layout_marginStart="@dimen/margin_10"
-            android:text="No thanks"
+            android:layout_toEndOf="@+id/translate"
             android:background="@drawable/button_translate_close"
-            android:textColor="@color/colorGrayDark"
-            android:textAllCaps="false"/>
+            android:minHeight="@dimen/chat_button_size"
+            android:paddingEnd="@dimen/padding_16"
+            android:paddingStart="@dimen/padding_16"
+            android:text="@android:string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorGrayDark" />
 
     </RelativeLayout>
+
 </RelativeLayout>

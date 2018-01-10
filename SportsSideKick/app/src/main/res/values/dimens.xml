@@ -11,10 +11,11 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="padding_16">16dp</dimen>
     <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_25">25dp</dimen>
-    <dimen name="margin_5">5dp</dimen>
-    <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_5">6dp</dimen>
+    <dimen name="margin_15">16dp</dimen>
     <dimen name="margin_60">60dp</dimen>
     <dimen name="margin_70">70dp</dimen>
     <dimen name="margin_90">90dp</dimen>
@@ -41,7 +42,7 @@
     <dimen name="prodgres_bar">20dp</dimen>
 
     <dimen name="top_bar_height">80dp</dimen>
-    <dimen name="top_bar_logo_width">80dp</dimen>
+    <dimen name="top_bar_logo_width">76dp</dimen>
     <dimen name="top_bar_logo_tema_size">45dp</dimen>
     <dimen name="top_bar_notification_container_width">100dp</dimen>
     <dimen name="top_bar_notification_image_size">30dp</dimen>
@@ -113,7 +114,7 @@
     <dimen name="padding_2">2dp</dimen>
     <dimen name="margin_negative_20">-20dp</dimen>
     <dimen name="line_space_negative_5">-5dp</dimen>
-    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="font_size_16">17sp</dimen>
     <dimen name="margin_negative_19">-19dp</dimen>
 
     <dimen name="margin_negative_15">-15dp</dimen>
@@ -134,7 +135,7 @@
     <dimen name="height_20">20dp</dimen>
     <dimen name="font_size_9">9sp</dimen>
     <dimen name="padding_4">4dp</dimen>
-    <dimen name="height_2">2dp</dimen>
+    <dimen name="height_2">1dp</dimen>
     <dimen name="margin_negative_48">-48dp</dimen>
     <dimen name="width_3">3dp</dimen>
     <dimen name="margin_105">105dp</dimen>
@@ -196,10 +197,12 @@
     <dimen name="margin_negative_100">-100dp</dimen>
     <dimen name="height_55">55dp</dimen>
     <dimen name="width_5">5dp</dimen>
+    <dimen name="width_6">6dp</dimen>
 
     <dimen name="padding_13">13dp</dimen>
     <dimen name="padding_12">12dp</dimen>
     <dimen name="height_70">70dp</dimen>
+    <dimen name="height_72">72dp</dimen>
     <dimen name="width_70">70dp</dimen>
     <dimen name="width_4">4dp</dimen>
     <dimen name="font_size_48">48sp</dimen>
@@ -222,4 +225,6 @@
     <dimen name="profile_coin_height">38dp</dimen>
     <dimen name="profile_coin_width">38dp</dimen>
     <dimen name="translation_popup_picker_height">90dp</dimen>
+    <dimen name="height_145">135dp</dimen>
+    <dimen name="width_30">30dp</dimen>
 </resources>

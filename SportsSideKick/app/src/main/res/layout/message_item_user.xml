@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingTop="@dimen/margin_5"
     android:layout_marginStart="@dimen/margin_15">
 
@@ -19,7 +20,7 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/demo_content"
+            tools:text="Demo content."
             android:textColor="?messageUserTextColor"
             android:textSize="@dimen/font_size_11" />
 
@@ -42,7 +43,7 @@
             android:src="@drawable/play_button_icon" />
 
         <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/progress_bar"
+            android:id="@+id/progressBar"
             android:layout_width="@dimen/progress_bar_width"
             android:layout_height="@dimen/progress_bar_height"
             android:layout_margin="@dimen/margin_10"
@@ -58,22 +59,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/content_container"
-        android:layout_toStartOf="@+id/spliter"
+        android:layout_toStartOf="@+id/splitter"
         android:alpha="0.5"
         android:text="@string/you"
         android:textColor="?chatDetailsColorRef"
         android:textSize="@dimen/font_size_10" />
 
     <TextView
-        android:id="@+id/spliter"
+        android:id="@+id/splitter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/content_container"
         android:layout_toStartOf="@+id/timestamp"
         android:alpha="0.5"
-        android:text="@string/message_time_splitter"
+        android:text="|"
         android:textColor="?chatDetailsColorRef"
-        android:textSize="@dimen/font_size_10" />
+        android:textSize="@dimen/font_size_10"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/timestamp"

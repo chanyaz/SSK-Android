@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_button_height"
             android:gravity="center"
-            android:text="@string/edit_information"
+            android:text="@string/edit_profile"
             android:textColor="?colorAccent" />
 
         <View
@@ -145,7 +145,7 @@
             android:layout_marginBottom="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_20"
             android:layout_toStartOf="@+id/center"
-            android:text="@string/email_address"
+            android:text="@string/email"
             android:textColor="?white_semitransparent" />
 
         <TextView
@@ -156,7 +156,7 @@
             android:layout_marginBottom="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_20"
             android:layout_toStartOf="@+id/center"
-            android:text="@string/telephone_no"
+            android:text="@string/phone"
             android:textColor="?white_semitransparent" />
 
         <AutoCompleteTextView
@@ -283,7 +283,7 @@
             android:background="?textViewRoundBorderShape"
             android:gravity="center"
             android:padding="@dimen/half_margin"
-            android:text="@string/enable_wall_notifications"
+            android:text="@string/notify_wall"
             android:textColor="@color/white" />
 
         <ImageButton
