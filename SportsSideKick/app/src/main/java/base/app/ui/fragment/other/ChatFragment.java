@@ -48,7 +48,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import base.app.util.ui.ImageLoader;
 import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
@@ -65,20 +64,6 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.ui.adapter.chat.ChatHeadsAdapter;
-import base.app.ui.adapter.chat.MessageAdapter;
-import base.app.util.events.chat.FullScreenImageEvent;
-import base.app.util.events.chat.MessageSelectedEvent;
-import base.app.util.events.chat.OpenChatEvent;
-import base.app.util.events.stream.PlayVideoEvent;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.ui.fragment.popup.CreateChatFragment;
-import base.app.ui.fragment.popup.EditChatFragment;
-import base.app.ui.fragment.popup.JoinChatFragment;
-import base.app.ui.fragment.popup.LoginFragment;
-import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.data.AlertDialogManager;
 import base.app.data.GSConstants;
 import base.app.data.Model;
@@ -90,7 +75,22 @@ import base.app.data.im.event.ChatsInfoUpdatesEvent;
 import base.app.data.im.event.CreateNewChatSuccessEvent;
 import base.app.data.im.event.UserIsTypingEvent;
 import base.app.data.user.UserInfo;
+import base.app.ui.adapter.chat.ChatHeadsAdapter;
+import base.app.ui.adapter.chat.MessageAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.base.IgnoreBackHandling;
+import base.app.ui.fragment.popup.CreateChatFragment;
+import base.app.ui.fragment.popup.EditChatFragment;
+import base.app.ui.fragment.popup.JoinChatFragment;
+import base.app.ui.fragment.popup.LoginFragment;
+import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.util.commons.Utility;
+import base.app.util.events.chat.FullScreenImageEvent;
+import base.app.util.events.chat.MessageSelectedEvent;
+import base.app.util.events.chat.OpenChatEvent;
+import base.app.util.events.stream.PlayVideoEvent;
+import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -617,7 +617,7 @@ public class ChatFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.vide_download_image_button)
     public void videoDownloadButtonOnClick() {
-        Toast.makeText(getContext(), getContext().getResources().getString(R.string.downloaded_video), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Downloaded video", Toast.LENGTH_SHORT).show();
     }
 
     public void sendButtonOnClick() {

@@ -401,7 +401,7 @@
             android:layout_marginStart="@dimen/margin_10"
             android:layout_toStartOf="@+id/unfriend_button"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/following_member"
+            android:text="@string/following"
             android:textColor="@color/white" />
 
         <ImageButton
