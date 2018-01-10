@@ -60,16 +60,16 @@ ar---
     <string name="logout_from_app">ستسجل خروجك من التطبيق؟</string>
     <string name="reset_app">ستقوم بإعادة تشغيل التطبيق بهذا الفعل.</string>
     <string name="error_username_taken">Registration error - username already taken, please select a different username.</string> // TODO: Potentially not needed
+    <string name="facebook_error">لم يتم تلقي ملفك العام. الرجاء المحاولة مجدداً!</string>
 
     <!--Dialogs-->
-    <string name="ok">OK</string>
+    <string name="ok">حسناً</string>
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
     <string name="warning">Warning</string>
     <string name="uploading">Uploading…</string>
-    <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-    <string name="no_connection">No Connection</string>
-    <string name="internet_needed">You need to be connected to the internet to do this</string>
+    <string name="no_connection">لا اتصال</string>
+    <string name="internet_needed">عليك أن تكون متصلاً بالانترنت لتقوم بهذا</string>
     <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
     <!--Profile-->
@@ -352,16 +352,16 @@ bh---
     <string name="logout_from_app">এটি করলে আপনাকে অ্যাপ থেকে লগ-আউট করবে?</string>
     <string name="reset_app">এই কার্য অ্যাপ্লিকেশনকে আবার লোড করবে।</string>
     <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+    <string name="facebook_error">আপনার সর্বজনীন প্রোফাইল প্রাপ্ত করা গেল না। অনুগ্রহ করে আবার চেষ্টা করুন!</string>
 
     <!--Dialogs-->
-    <string name="ok">OK</string>
+    <string name="ok">ঠিক আছে</string>
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
     <string name="warning">Warning</string>
     <string name="uploading">Uploading…</string>
-    <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-    <string name="no_connection">No Connection</string>
-    <string name="internet_needed">You need to be connected to the internet to do this</string>
+    <string name="no_connection">কোনো সংযোগ নেই</string>
+    <string name="internet_needed">এটি করতে আপনাকে ইন্টারনেটে সংযোগ করতে হবে</string>
     <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
     <!--Profile-->
@@ -644,16 +644,16 @@ de---
       <string name="logout_from_app">Damit wirst du von der App abgemeldet?</string>
       <string name="reset_app">Damit wird die Applikation neu geladen.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="facebook_error">Dein öffentliches Profil kann nicht abgerufen werden. Bitte erneut versuchen!</string>
 
       <!--Dialogs-->
-      <string name="ok">OK</string>
+      <string name="ok">Ok</string>
       <string name="allow">Allow</string>
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-      <string name="no_connection">No Connection</string>
-      <string name="internet_needed">You need to be connected to the internet to do this</string>
+      <string name="no_connection">Keine Verbindung</string>
+      <string name="internet_needed">Dafür musst du mit dem Internet verbunden sein</string>
       <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
       <!--Profile-->
@@ -936,16 +936,16 @@ es---
       <string name="logout_from_app">Al hacerlo, cerrarás sesión en la aplicación.</string>
       <string name="reset_app">Esta acción hará que la aplicación se reinicie.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="facebook_error">No se ha podido recibir tu perfil público. ¡Vuelve a intentarlo!</string>
 
       <!--Dialogs-->
-      <string name="ok">OK</string>
+      <string name="ok">Vale</string>
       <string name="allow">Allow</string>
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-      <string name="no_connection">No Connection</string>
-      <string name="internet_needed">You need to be connected to the internet to do this</string>
+      <string name="no_connection">Sin conexión</string>
+      <string name="internet_needed">Para realizar esta acción, es necesario que te conectes a Internet</string>
       <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
       <!--Profile-->
@@ -1228,6 +1228,7 @@ fr---
       <string name="logout_from_app">Vous allez être déconnecté de l'application.</string>
       <string name="reset_app">Cette action relancera l'application.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="facebook_error">Nous n'avons pas reçu votre profil public. Veuillez réessayer !</string>
 
       <!--Dialogs-->
       <string name="ok">OK</string>
@@ -1235,9 +1236,8 @@ fr---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-      <string name="no_connection">No Connection</string>
-      <string name="internet_needed">You need to be connected to the internet to do this</string>
+      <string name="no_connection">Aucune connexion</string>
+      <string name="internet_needed">Cette action nécessite une connexion à Internet</string>
       <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
       <!--Profile-->
@@ -1520,6 +1520,7 @@ id---
       <string name="logout_from_app">Ini akan mengeluarkan Anda dari aplikasi?</string>
       <string name="reset_app">Tindakan ini akan memuat ulang aplikasinya.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="facebook_error">Profil publik Anda tidak bisa diterima. Silakan coba lagi!</string>
 
       <!--Dialogs-->
       <string name="ok">OK</string>
@@ -1527,9 +1528,8 @@ id---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-      <string name="no_connection">No Connection</string>
-      <string name="internet_needed">You need to be connected to the internet to do this</string>
+      <string name="no_connection">Tidak ada koneksi.</string>
+      <string name="internet_needed">Anda harus terhubung ke Internet untuk melakukan ini</string>
       <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
       <!--Profile-->
@@ -1812,16 +1812,16 @@ it---
       <string name="logout_from_app">Uscirai dall'App. Continuare?</string>
       <string name="reset_app">Quest'azione ricaricherà l'App.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="facebook_error">Non è stato possibile caricare il tuo profilo pubblico. Prova di nuovo!</string>
 
       <!--Dialogs-->
-      <string name="ok">OK</string>
+      <string name="ok">Ok</string>
       <string name="allow">Allow</string>
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-      <string name="no_connection">No Connection</string>
-      <string name="internet_needed">You need to be connected to the internet to do this</string>
+      <string name="no_connection">Nessuna connessione</string>
+      <string name="internet_needed">Per farlo, devi essere connesso a internet</string>
       <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
       <!--Profile-->
@@ -2104,6 +2104,7 @@ pl---
       <string name="logout_from_app">Nastąpi wylogowanie z aplikacji</string>
       <string name="reset_app">Jeśli to zrobisz, aplikacja zostanie ponownie uruchomiona.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="facebook_error">Nie przyjęto Twojego publicznego profilu. Spróbuj ponownie!</string>
 
       <!--Dialogs-->
       <string name="ok">OK</string>
@@ -2111,9 +2112,8 @@ pl---
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-      <string name="no_connection">No Connection</string>
-      <string name="internet_needed">You need to be connected to the internet to do this</string>
+      <string name="no_connection">Brak połączenia</string>
+      <string name="internet_needed">Aby to zrobić, musisz mieć połączenie z Internetem.</string>
       <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
       <!--Profile-->
@@ -2396,16 +2396,16 @@ pt---
       <string name="logout_from_app">Isto irá fazê-lo sair da aplicação</string>
       <string name="reset_app">Esta acção irá actualizar a aplicação.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="facebook_error">O seu perfil público não foi recebido, por favor tente novamente!</string>
 
       <!--Dialogs-->
-      <string name="ok">OK</string>
+      <string name="ok">Ok</string>
       <string name="allow">Allow</string>
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-      <string name="no_connection">No Connection</string>
-      <string name="internet_needed">You need to be connected to the internet to do this</string>
+      <string name="no_connection">Sem ligação</string>
+      <string name="internet_needed">Necessita estar ligado à internet para se poder ligar.</string>
       <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
       <!--Profile-->
@@ -2688,16 +2688,16 @@ ru---
       <string name="logout_from_app">Так вы выйдете из приложения?</string>
       <string name="reset_app">Это действие перезагрузит приложение.</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="facebook_error">Не удалось получить ваш общий профиль. Попробуйте еще раз!</string>
 
       <!--Dialogs-->
-      <string name="ok">OK</string>
+      <string name="ok">Ок</string>
       <string name="allow">Allow</string>
       <string name="deny">Deny</string>
       <string name="warning">Warning</string>
       <string name="uploading">Uploading…</string>
-      <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-      <string name="no_connection">No Connection</string>
-      <string name="internet_needed">You need to be connected to the internet to do this</string>
+      <string name="no_connection">Нет подключения</string>
+      <string name="internet_needed">Для этого нужно подключения к Интернету</string>
       <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
       <!--Profile-->
@@ -2980,17 +2980,17 @@ zh---
       <string name="logout_from_app">这将让您退出本应用？</string>
       <string name="reset_app">此操作将重新加载应用程序。</string>
       <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="facebook_error">无法收到您的公开个人资料。请再试一次！</string>
 
       <!--Dialogs-->
-      <string name="ok">OK</string>
-      <string name="allow">Allow</string>
-      <string name="deny">Deny</string>
-      <string name="warning">Warning</string>
-      <string name="uploading">Uploading…</string>
-      <string name="facebook_error">Your public profile could not be received. Please try again!</string>
-      <string name="no_connection">No Connection</string>
-      <string name="internet_needed">You need to be connected to the internet to do this</string>
-      <string name="waiting_for_internet">Waiting for active internet connection…</string>
+      <string name="ok">确定</string>
+      <string name="allow">Allow</string>//todo
+      <string name="deny">Deny</string>//todo
+      <string name="warning">Warning</string>//todo
+      <string name="uploading">Uploading…</string>//todo
+      <string name="no_connection">无连接</string>
+      <string name="internet_needed">您需要接入互联网，才能执行此功能</string>
+      <string name="waiting_for_internet">Waiting for active internet connection…</string>//todo
 
       <!--Profile-->
       <string name="go_to_profile">Go to Profile ></string>

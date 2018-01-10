@@ -261,8 +261,8 @@
     <!--<string name="video_chat_permission_microphone_and_camera_rationale">يرجى تمكين الميكروفون والكاميرا من أجل استخدام الدردشة المرئية.</string>-->
     <!--<string name="video_chat_permission_microphone_never_ask">لا تطلب إذن تسجيل الصوت والفيديو مرة أخرى.</string>-->
     <!--<string name="video_chat_receive_call">تتلقى اتصالاً من</string>-->
-    <!--<string name="video_chat_text_1"><![CDATA[ المباراة مع الخاص بك <font color="#c3ff01">اصحاب.</font>]]></string>-->
-    <!--<string name="video_chat_text_1_phone">المباراة مع الخاص بك <font color="#c3ff01">اصحاب.</font></string>-->
+    <!--<string name="video_chat_promo_1"><![CDATA[ المباراة مع الخاص بك <font color="#c3ff01">اصحاب.</font>]]></string>-->
+    <!--<string name="video_chat_promo_1_phone">المباراة مع الخاص بك <font color="#c3ff01">اصحاب.</font></string>-->
     <!--<string name="video_chat_text_2">تسمح لك محادثة الفيديو بالاتصال بحتى 3 أصدقاء لمحادثة فيديو جماعية مع الأصدقاء، لتستطيع مشاركة الأحداث مع الأشخاص الذين تحبهم؛ أينما كنت!</string>-->
     <!--<string name="video_chat_you">أنت</string>-->
     <!--<string name="video_chats">محادثات الفيديو</string>-->

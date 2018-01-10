@@ -60,6 +60,7 @@
     <string name="logout_from_app">This will log you out of the app!</string>
     <string name="reset_app">This action will reload the application.</string>
     <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+    <string name="facebook_error">Your public profile could not be received. Please try again!</string>
 
     <!--Dialogs-->
     <string name="ok">OK</string>
@@ -67,7 +68,6 @@
     <string name="deny">Deny</string>
     <string name="warning">Warning</string>
     <string name="uploading">Uploading…</string>
-    <string name="facebook_error">Your public profile could not be received. Please try again!</string>
     <string name="no_connection">No Connection</string>
     <string name="internet_needed">You need to be connected to the internet to do this</string>
     <string name="waiting_for_internet">Waiting for active internet connection…</string>
