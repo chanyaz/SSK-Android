@@ -119,15 +119,13 @@
     <string name="friend_profile">Friend Profile</string>
     <string name="friend_requests">Friend Requests</string>
     <string name="follows_you">Follows you</string>
-    <string name="following_member">Following member</string>
     <string name="user_profile">User Profile</string>
-    <string name="member_since">Member since</string>
     <string name="friends_title">Your Friends</string>
     <string name="friends_search">Search your friends</string>
     <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
     <string name="offline">Offline</string>
     <string name="friend_request_pending">Friend Request Pending</string>
-    <string name="try_again_latter">Error. Try again later.</string>
+    <string name="try_again_later">Error. Try again later.</string>
     <string name="enter_friend_name_invite">Enter friend name to invite.</string>
     <string name="remove_friend">Unfriend</string>
     <string name="friend_request_send">Send Friend Request</string>
@@ -172,8 +170,6 @@
     <string name="members">Members</string>
     <string name="leave">Leave</string>
     <string name="send">Send</string>
-    <string name="downloaded_image">Image is downloaded.</string>
-    <string name="downloaded_video">Video is downloaded.</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="chat_confirm_leave">Leave this chat?</string>
     <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
@@ -188,7 +184,6 @@
     <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
     <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
     <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-    <string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>
     <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
     <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
@@ -227,7 +222,6 @@
     <string name="group_chat_name">Enter a name for your Group Chat</string>
     <string name="join_official_chat">Join Official Chat ></string>
     <string name="friend_chats">Public Chats your friends are in</string>
-    <string name="new_name_of_chat_hint">Enter new name of chat here</string>
     <string name="mins_ago">mins ago</string>
     <string name="is_in">is in</string>
     <string name="create">Create</string>

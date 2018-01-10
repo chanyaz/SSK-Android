@@ -162,7 +162,7 @@
     <!--<string name="chat_choose_from_library">Choose from Library(nt)</string>-->
     <!--<string name="chat_use_camera">Use Camera(nt)</string>-->
     <!--<string name="chat_no_changes">There are no changes in this chat.(nt)</string>-->
-    <!--<string name="try_again_latter">Error. Try again later.(nt)</string>-->
+    <!--<string name="try_again_later">Error. Try again later.(nt)</string>-->
     <!--<string name="enter_friend_name_invite">输入好友的电子邮件地址，以进行邀请。</string>-->
     <!--<string name="enter_valid_password_and_display_name">请输入有效的电子邮件地址！</string>-->
     <!--<string name="login_try_again">请输入有效的电子邮件地址！</string>-->
