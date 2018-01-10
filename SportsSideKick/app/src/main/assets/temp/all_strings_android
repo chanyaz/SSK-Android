@@ -74,46 +74,32 @@ ar---
 
     <!--Profile-->
     <string name="go_to_profile">Go to Profile ></string>
-    <string name="profile">Profile</string>
-    <string name="contact_info">Contact info</string>
-    <string name="choose_your_language">Choose your language</string>
-    <string name="chosen_language">Chosen language</string>
-    <string name="location">Location</string>
-    <string name="subscribed_since">Subscribed since</string>
-    <string name="auto_translation">Automatic translation</string>
-    <string name="notify_wall">Wall notifications</string>
+    <string name="profile">ملفك الشخصي</string>
+    <string name="contact_info">بيانات التواصل</string>
+    <string name="choose_your_language">اختر لغتك</string>
+    <string name="chosen_language">اختر اللغة</string>
+    <string name="location">الموقع</string>
+    <string name="subscribed_since">مسجل منذ</string>
+    <string name="auto_translation">Automatic translation</string>//todo
+    <string name="notify_wall">إشعارات الحائط</string>
     <string name="notify_news">News notifications</string>
     <string name="notify_rumours">Rumours notifications</string>
     <string name="notify_social">Social feed notifications</string>
-    <string name="edit_profile">Edit Your Profile</string>
-    <string name="edit_photo">Edit Photo</string>
-    <string name="done">Done</string>
-    <string name="caps_level">Caps level</string>
-    <string name="days_using">Days using SSK</string>
-    <string name="wall_posts">Wall posts</string>
-    <string name="videos_watched">Videos watched</string>
-    <string name="matches_home">Matches attended (home)</string>
-    <string name="matches_away">Matches attended (away)</string>
-    <string name="likes_received">Likes received</string>
-    <string name="comments_made">Comments made</string>
-    <string name="language">Language:</string>
-    <string name="you_have">You have</string>
+    <string name="edit_profile">تعديل ملفك</string>
+    <string name="edit_photo">تعديل الصورة</string>
+    <string name="done">تم</string>
+    <string name="caps_level">مستوى الـCaps</string>
+    <string name="days_using">الأيام منذ بدء استخدام اللعبة</string>
+    <string name="wall_posts">منشورات الحائط</string>
+    <string name="videos_watched">الفيديوهات المشاهدة</string>
+    <string name="matches_home">المباريات الملعوبة (أرض اللاعب)</string>
+    <string name="matches_away">المباريات الملعوبة (أرض الخصم)</string>
+    <string name="likes_received">الإعجابات المتلقاة</string>
+    <string name="comments_made">التعليقات المكتوبة</string>
+    <string name="language">اللغة</string>
+    <string name="you_have">لديك</string>
     <string name="caps">Caps</string>
-    <string name="language_current" translatable="false">English</string>
-    <string-array name="languages" translatable="false">
-        <item>বাংলা</item>
-        <item>汉语</item>
-        <item>English</item>
-        <item>Français</item>
-        <item>Deutsch</item>
-        <item>Bahasa Indonesia</item>
-        <item>Italiano</item>
-        <item>Polski</item>
-        <item>Português</item>
-        <item>Русский</item>
-        <item>Español</item>
-        <item>العَرَبِيَّة</item>
-    </string-array>
+    <string name="language_current">العَرَبِيَّة</string>
 
     <!--Friends-->
     <string name="friend_profile">Friend Profile</string>
@@ -366,46 +352,32 @@ bh---
 
     <!--Profile-->
     <string name="go_to_profile">Go to Profile ></string>
-    <string name="profile">Profile</string>
-    <string name="contact_info">Contact info</string>
-    <string name="choose_your_language">Choose your language</string>
-    <string name="chosen_language">Chosen language</string>
-    <string name="location">Location</string>
-    <string name="subscribed_since">Subscribed since</string>
+    <string name="profile">আপনার প্রোফাইল</string>
+    <string name="contact_info">যোগাযোগের তথ্য</string>
+    <string name="choose_your_language">আপনার ভাষা বেছে নিন</string>
+    <string name="chosen_language">নির্বাচিত ভাষা</string>
+    <string name="location">স্থান</string>
+    <string name="subscribed_since">এই সময় থেকে সদস্য আছেন</string>
     <string name="auto_translation">Automatic translation</string>
-    <string name="notify_wall">Wall notifications</string>
+    <string name="notify_wall">ওয়াল বিজ্ঞপ্তিগুলি</string>
     <string name="notify_news">News notifications</string>
     <string name="notify_rumours">Rumours notifications</string>
     <string name="notify_social">Social feed notifications</string>
-    <string name="edit_profile">Edit Your Profile</string>
-    <string name="edit_photo">Edit Photo</string>
-    <string name="done">Done</string>
-    <string name="caps_level">Caps level</string>
-    <string name="days_using">Days using SSK</string>
-    <string name="wall_posts">Wall posts</string>
-    <string name="videos_watched">Videos watched</string>
-    <string name="matches_home">Matches attended (home)</string>
-    <string name="matches_away">Matches attended (away)</string>
-    <string name="likes_received">Likes received</string>
-    <string name="comments_made">Comments made</string>
-    <string name="language">Language:</string>
-    <string name="you_have">You have</string>
-    <string name="caps">Caps</string>
-    <string name="language_current" translatable="false">English</string>
-    <string-array name="languages" translatable="false">
-        <item>বাংলা</item>
-        <item>汉语</item>
-        <item>English</item>
-        <item>Français</item>
-        <item>Deutsch</item>
-        <item>Bahasa Indonesia</item>
-        <item>Italiano</item>
-        <item>Polski</item>
-        <item>Português</item>
-        <item>Русский</item>
-        <item>Español</item>
-        <item>العَرَبِيَّة</item>
-    </string-array>
+    <string name="edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
+    <string name="edit_photo">ছবি সম্পাদনা করুন</string>
+    <string name="done">সম্পন্ন</string>
+    <string name="caps_level">খেলা ম্যাগুলির সংখ্যা</string>
+    <string name="days_using">SSK ব্যবহার করা দিনগুলি</string>
+    <string name="wall_posts">ওয়াল পোস্টগুলি</string>
+    <string name="videos_watched">দেখা ভিডিওগুলি</string>
+    <string name="matches_home">যে ম্যাচগুলি খেলেছে (হোম)</string>
+    <string name="matches_away">যে ম্যাচগুলি খেলেছে (বাইরে)</string>
+    <string name="likes_received">যত লাইক পেয়েছে</string>
+    <string name="comments_made">মন্তব্য লিখেছেন</string>
+    <string name="language">ভাষা</string>
+    <string name="you_have">আপনার কাছে আছে</string>
+    <string name="caps">খেলা ম্যাচগুলি</string>
+    <string name="language_current">বাংলা</string>
 
     <!--Friends-->
     <string name="friend_profile">Friend Profile</string>
@@ -658,46 +630,32 @@ de---
 
       <!--Profile-->
       <string name="go_to_profile">Go to Profile ></string>
-      <string name="profile">Profile</string>
-      <string name="contact_info">Contact info</string>
-      <string name="choose_your_language">Choose your language</string>
-      <string name="chosen_language">Chosen language</string>
-      <string name="location">Location</string>
-      <string name="subscribed_since">Subscribed since</string>
+      <string name="profile">Dein Profil</string>
+      <string name="contact_info">Kontaktinfo</string>
+      <string name="choose_your_language">Sprache wählen</string>
+      <string name="chosen_language">Gewählte Sprache</string>
+      <string name="location">Standort</string>
+      <string name="subscribed_since">Registriert seit</string>
       <string name="auto_translation">Automatic translation</string>
-      <string name="notify_wall">Wall notifications</string>
+      <string name="notify_wall">Pinnwand-Benachrichtigungen</string>
       <string name="notify_news">News notifications</string>
       <string name="notify_rumours">Rumours notifications</string>
       <string name="notify_social">Social feed notifications</string>
-      <string name="edit_profile">Edit Your Profile</string>
-      <string name="edit_photo">Edit Photo</string>
-      <string name="done">Done</string>
-      <string name="caps_level">Caps level</string>
-      <string name="days_using">Days using SSK</string>
-      <string name="wall_posts">Wall posts</string>
-      <string name="videos_watched">Videos watched</string>
-      <string name="matches_home">Matches attended (home)</string>
-      <string name="matches_away">Matches attended (away)</string>
-      <string name="likes_received">Likes received</string>
-      <string name="comments_made">Comments made</string>
-      <string name="language">Language:</string>
-      <string name="you_have">You have</string>
+      <string name="edit_profile">Dein profil bearbeiten</string>
+      <string name="edit_photo">Foto bearbeiten</string>
+      <string name="done">Fertig</string>
+      <string name="caps_level">Caps-Stufe</string>
+      <string name="days_using">Nutzungsdauer (Tage) von SSK</string>
+      <string name="wall_posts">Pinnwand-Posts</string>
+      <string name="videos_watched">Angesehene Videos</string>
+      <string name="matches_home">Besuchte Heimspiele</string>
+      <string name="matches_away">Besuchte Auswärtsspiele</string>
+      <string name="likes_received">Erhaltene Likes</string>
+      <string name="comments_made">Abgegebene Kommentare</string>
+      <string name="language">Sprache</string>
+      <string name="you_have">Du hast</string>
       <string name="caps">Caps</string>
-      <string name="language_current" translatable="false">English</string>
-      <string-array name="languages" translatable="false">
-          <item>বাংলা</item>
-          <item>汉语</item>
-          <item>English</item>
-          <item>Français</item>
-          <item>Deutsch</item>
-          <item>Bahasa Indonesia</item>
-          <item>Italiano</item>
-          <item>Polski</item>
-          <item>Português</item>
-          <item>Русский</item>
-          <item>Español</item>
-          <item>العَرَبِيَّة</item>
-      </string-array>
+      <string name="language_current">Deutsch</string>
 
       <!--Friends-->
       <string name="friend_profile">Friend Profile</string>
@@ -950,46 +908,32 @@ es---
 
       <!--Profile-->
       <string name="go_to_profile">Go to Profile ></string>
-      <string name="profile">Profile</string>
-      <string name="contact_info">Contact info</string>
-      <string name="choose_your_language">Choose your language</string>
-      <string name="chosen_language">Chosen language</string>
-      <string name="location">Location</string>
-      <string name="subscribed_since">Subscribed since</string>
+      <string name="profile">Tu perfil</string>
+      <string name="contact_info">Información de contacto</string>
+      <string name="choose_your_language">Elige tu idioma</string>
+      <string name="chosen_language">Idioma elegido</string>
+      <string name="location">Lugar</string>
+      <string name="subscribed_since">Suscrito desde</string>
       <string name="auto_translation">Automatic translation</string>
-      <string name="notify_wall">Wall notifications</string>
+      <string name="notify_wall">Notificaciones</string>
       <string name="notify_news">News notifications</string>
       <string name="notify_rumours">Rumours notifications</string>
       <string name="notify_social">Social feed notifications</string>
-      <string name="edit_profile">Edit Your Profile</string>
-      <string name="edit_photo">Edit Photo</string>
-      <string name="done">Done</string>
-      <string name="caps_level">Caps level</string>
-      <string name="days_using">Days using SSK</string>
-      <string name="wall_posts">Wall posts</string>
-      <string name="videos_watched">Videos watched</string>
-      <string name="matches_home">Matches attended (home)</string>
-      <string name="matches_away">Matches attended (away)</string>
-      <string name="likes_received">Likes received</string>
-      <string name="comments_made">Comments made</string>
-      <string name="language">Language:</string>
-      <string name="you_have">You have</string>
+      <string name="edit_profile">Edita tu perfil</string>
+      <string name="edit_photo">Editar foto</string>
+      <string name="done">Listo</string>
+      <string name="caps_level">Nivel CAPS</string>
+      <string name="days_using">Días usando SSK</string>
+      <string name="wall_posts">Publicaciones en el muro</string>
+      <string name="videos_watched">Vídeos vistos</string>
+      <string name="matches_home">Partidos vistos (en casa)</string>
+      <string name="matches_away">Partidos vistos (fuera)</string>
+      <string name="likes_received">Me gusta recibidos</string>
+      <string name="comments_made">Comentarios hechos</string>
+      <string name="language">Idioma</string>
+      <string name="you_have">Tienes</string>
       <string name="caps">Caps</string>
-      <string name="language_current" translatable="false">English</string>
-      <string-array name="languages" translatable="false">
-          <item>বাংলা</item>
-          <item>汉语</item>
-          <item>English</item>
-          <item>Français</item>
-          <item>Deutsch</item>
-          <item>Bahasa Indonesia</item>
-          <item>Italiano</item>
-          <item>Polski</item>
-          <item>Português</item>
-          <item>Русский</item>
-          <item>Español</item>
-          <item>العَرَبِيَّة</item>
-      </string-array>
+      <string name="language_current">Español</string>
 
       <!--Friends-->
       <string name="friend_profile">Friend Profile</string>
@@ -1242,46 +1186,32 @@ fr---
 
       <!--Profile-->
       <string name="go_to_profile">Go to Profile ></string>
-      <string name="profile">Profile</string>
-      <string name="contact_info">Contact info</string>
-      <string name="choose_your_language">Choose your language</string>
-      <string name="chosen_language">Chosen language</string>
-      <string name="location">Location</string>
-      <string name="subscribed_since">Subscribed since</string>
+      <string name="profile">Votre profil</string>
+      <string name="contact_info">Coordonnées</string>
+      <string name="choose_your_language">Choisissez votre langue</string>
+      <string name="chosen_language">Langue choisie</string>
+      <string name="location">Lieu</string>
+      <string name="subscribed_since">Inscrit depuis</string>
       <string name="auto_translation">Automatic translation</string>
-      <string name="notify_wall">Wall notifications</string>
+      <string name="notify_wall">Notifications du mur</string>
       <string name="notify_news">News notifications</string>
       <string name="notify_rumours">Rumours notifications</string>
       <string name="notify_social">Social feed notifications</string>
-      <string name="edit_profile">Edit Your Profile</string>
-      <string name="edit_photo">Edit Photo</string>
-      <string name="done">Done</string>
-      <string name="caps_level">Caps level</string>
-      <string name="days_using">Days using SSK</string>
-      <string name="wall_posts">Wall posts</string>
-      <string name="videos_watched">Videos watched</string>
-      <string name="matches_home">Matches attended (home)</string>
-      <string name="matches_away">Matches attended (away)</string>
-      <string name="likes_received">Likes received</string>
-      <string name="comments_made">Comments made</string>
-      <string name="language">Language:</string>
-      <string name="you_have">You have</string>
+      <string name="edit_profile">Modifier votre profil</string>
+      <string name="edit_photo">Modifier l'image</string>
+      <string name="done">Terminé</string>
+      <string name="caps_level">Niveau caps</string>
+      <string name="days_using">Jours d'utilisation de SSK</string>
+      <string name="wall_posts">Publications sur le mur</string>
+      <string name="videos_watched">Vidéos regardées</string>
+      <string name="matches_home">Matches regardés (domicile)</string>
+      <string name="matches_away">Matches regardés (extérieur)</string>
+      <string name="likes_received">Likes reçus</string>
+      <string name="comments_made">Commentaires effectués</string>
+      <string name="language">Langue</string>
+      <string name="you_have">Vous avez</string>
       <string name="caps">Caps</string>
-      <string name="language_current" translatable="false">English</string>
-      <string-array name="languages" translatable="false">
-          <item>বাংলা</item>
-          <item>汉语</item>
-          <item>English</item>
-          <item>Français</item>
-          <item>Deutsch</item>
-          <item>Bahasa Indonesia</item>
-          <item>Italiano</item>
-          <item>Polski</item>
-          <item>Português</item>
-          <item>Русский</item>
-          <item>Español</item>
-          <item>العَرَبِيَّة</item>
-      </string-array>
+      <string name="language_current">Français</string>
 
       <!--Friends-->
       <string name="friend_profile">Friend Profile</string>
@@ -1534,46 +1464,32 @@ id---
 
       <!--Profile-->
       <string name="go_to_profile">Go to Profile ></string>
-      <string name="profile">Profile</string>
-      <string name="contact_info">Contact info</string>
-      <string name="choose_your_language">Choose your language</string>
-      <string name="chosen_language">Chosen language</string>
-      <string name="location">Location</string>
-      <string name="subscribed_since">Subscribed since</string>
+      <string name="profile">Profil Anda</string>
+      <string name="contact_info">Informasi kontak</string>
+      <string name="choose_your_language">Pilih bahasa Anda</string>
+      <string name="chosen_language">Pilih Bahasa</string>
+      <string name="location">Lokasi</string>
+      <string name="subscribed_since">Berlangganan sejak</string>
       <string name="auto_translation">Automatic translation</string>
-      <string name="notify_wall">Wall notifications</string>
+      <string name="notify_wall">Pemberitahuan Dinding</string>
       <string name="notify_news">News notifications</string>
       <string name="notify_rumours">Rumours notifications</string>
       <string name="notify_social">Social feed notifications</string>
-      <string name="edit_profile">Edit Your Profile</string>
-      <string name="edit_photo">Edit Photo</string>
-      <string name="done">Done</string>
-      <string name="caps_level">Caps level</string>
-      <string name="days_using">Days using SSK</string>
-      <string name="wall_posts">Wall posts</string>
-      <string name="videos_watched">Videos watched</string>
-      <string name="matches_home">Matches attended (home)</string>
-      <string name="matches_away">Matches attended (away)</string>
-      <string name="likes_received">Likes received</string>
-      <string name="comments_made">Comments made</string>
-      <string name="language">Language:</string>
-      <string name="you_have">You have</string>
+      <string name="edit_profile">Sunting profil anda</string>
+      <string name="edit_photo">Sunting Foto</string>
+      <string name="done">Selesai</string>
+      <string name="caps_level">Tingkat Caps</string>
+      <string name="days_using">Hari menggunakan SSK</string>
+      <string name="wall_posts">Kiriman Dinding</string>
+      <string name="videos_watched">Video Ditonton</string>
+      <string name="matches_home">Pertandingan dihadiri (kandang)</string>
+      <string name="matches_away">Pertandingan dihadiri (tandang)</string>
+      <string name="likes_received">Suka diterima</string>
+      <string name="comments_made">Komentar dibuat</string>
+      <string name="language">Bahasa</string>
+      <string name="you_have">Anda punya</string>
       <string name="caps">Caps</string>
-      <string name="language_current" translatable="false">English</string>
-      <string-array name="languages" translatable="false">
-          <item>বাংলা</item>
-          <item>汉语</item>
-          <item>English</item>
-          <item>Français</item>
-          <item>Deutsch</item>
-          <item>Bahasa Indonesia</item>
-          <item>Italiano</item>
-          <item>Polski</item>
-          <item>Português</item>
-          <item>Русский</item>
-          <item>Español</item>
-          <item>العَرَبِيَّة</item>
-      </string-array>
+      <string name="language_current">Bahasa Indonesia</string>
 
       <!--Friends-->
       <string name="friend_profile">Friend Profile</string>
@@ -1826,46 +1742,32 @@ it---
 
       <!--Profile-->
       <string name="go_to_profile">Go to Profile ></string>
-      <string name="profile">Profile</string>
-      <string name="contact_info">Contact info</string>
-      <string name="choose_your_language">Choose your language</string>
-      <string name="chosen_language">Chosen language</string>
-      <string name="location">Location</string>
-      <string name="subscribed_since">Subscribed since</string>
+      <string name="profile">Il tuo profilo</string>
+      <string name="contact_info">Info contatto</string>
+      <string name="choose_your_language">Scegli la lingua</string>
+      <string name="chosen_language">Lingua scelta</string>
+      <string name="location">Luogo</string>
+      <string name="subscribed_since">Abbonato da</string>
       <string name="auto_translation">Automatic translation</string>
-      <string name="notify_wall">Wall notifications</string>
+      <string name="notify_wall">Notifiche bacheca</string>
       <string name="notify_news">News notifications</string>
       <string name="notify_rumours">Rumours notifications</string>
       <string name="notify_social">Social feed notifications</string>
-      <string name="edit_profile">Edit Your Profile</string>
-      <string name="edit_photo">Edit Photo</string>
-      <string name="done">Done</string>
-      <string name="caps_level">Caps level</string>
-      <string name="days_using">Days using SSK</string>
-      <string name="wall_posts">Wall posts</string>
-      <string name="videos_watched">Videos watched</string>
-      <string name="matches_home">Matches attended (home)</string>
-      <string name="matches_away">Matches attended (away)</string>
-      <string name="likes_received">Likes received</string>
-      <string name="comments_made">Comments made</string>
-      <string name="language">Language:</string>
-      <string name="you_have">You have</string>
+      <string name="edit_profile">Modifica il tuo profilo</string>
+      <string name="edit_photo">Modifica foto</string>
+      <string name="done">Fatto</string>
+      <string name="caps_level">Livello di caps</string>
+      <string name="days_using">Giorni di utilizzo di SSK</string>
+      <string name="wall_posts">Post in bacheca</string>
+      <string name="videos_watched">Video guardati</string>
+      <string name="matches_home">Partite a cui si è assistito (in casa)</string>
+      <string name="matches_away">Partite a cui si è assistito (fuori casa)</string>
+      <string name="likes_received">Like ricevuti</string>
+      <string name="comments_made">Commenti fatti</string>
+      <string name="language">Lingua</string>
+      <string name="you_have">Hai</string>
       <string name="caps">Caps</string>
-      <string name="language_current" translatable="false">English</string>
-      <string-array name="languages" translatable="false">
-          <item>বাংলা</item>
-          <item>汉语</item>
-          <item>English</item>
-          <item>Français</item>
-          <item>Deutsch</item>
-          <item>Bahasa Indonesia</item>
-          <item>Italiano</item>
-          <item>Polski</item>
-          <item>Português</item>
-          <item>Русский</item>
-          <item>Español</item>
-          <item>العَرَبِيَّة</item>
-      </string-array>
+      <string name="language_current">Italiano</string>
 
       <!--Friends-->
       <string name="friend_profile">Friend Profile</string>
@@ -2118,46 +2020,32 @@ pl---
 
       <!--Profile-->
       <string name="go_to_profile">Go to Profile ></string>
-      <string name="profile">Profile</string>
-      <string name="contact_info">Contact info</string>
-      <string name="choose_your_language">Choose your language</string>
-      <string name="chosen_language">Chosen language</string>
-      <string name="location">Location</string>
-      <string name="subscribed_since">Subscribed since</string>
+      <string name="profile">Twój profil</string>
+      <string name="contact_info">Dane kontaktowe</string>
+      <string name="choose_your_language">Wybierz język</string>
+      <string name="chosen_language">Wybierz język</string>
+      <string name="location">Miejsce</string>
+      <string name="subscribed_since">Subskrypcja od</string>
       <string name="auto_translation">Automatic translation</string>
-      <string name="notify_wall">Wall notifications</string>
+      <string name="notify_wall">Powiadomienia z tablicy</string>
       <string name="notify_news">News notifications</string>
       <string name="notify_rumours">Rumours notifications</string>
       <string name="notify_social">Social feed notifications</string>
-      <string name="edit_profile">Edit Your Profile</string>
-      <string name="edit_photo">Edit Photo</string>
-      <string name="done">Done</string>
-      <string name="caps_level">Caps level</string>
-      <string name="days_using">Days using SSK</string>
-      <string name="wall_posts">Wall posts</string>
-      <string name="videos_watched">Videos watched</string>
-      <string name="matches_home">Matches attended (home)</string>
-      <string name="matches_away">Matches attended (away)</string>
-      <string name="likes_received">Likes received</string>
-      <string name="comments_made">Comments made</string>
-      <string name="language">Language:</string>
-      <string name="you_have">You have</string>
+      <string name="edit_profile">Edytowanie profilu</string>
+      <string name="edit_photo">Edytuj zdjęcie</string>
+      <string name="done">Gotowe</string>
+      <string name="caps_level">Poziom Caps</string>
+      <string name="days_using">Dni korzystania z SSK</string>
+      <string name="wall_posts">Posty na tablicy</string>
+      <string name="videos_watched">Obejrzane wideo</string>
+      <string name="matches_home">Obejrzane mecze (u siebie)</string>
+      <string name="matches_away">Obejrzane mecze (na wyjeździe)</string>
+      <string name="likes_received">Otrzymane lajki</string>
+      <string name="comments_made">Napisane komentarze</string>
+      <string name="language">Język</string>
+      <string name="you_have">Twoje rzeczy</string>
       <string name="caps">Caps</string>
-      <string name="language_current" translatable="false">English</string>
-      <string-array name="languages" translatable="false">
-          <item>বাংলা</item>
-          <item>汉语</item>
-          <item>English</item>
-          <item>Français</item>
-          <item>Deutsch</item>
-          <item>Bahasa Indonesia</item>
-          <item>Italiano</item>
-          <item>Polski</item>
-          <item>Português</item>
-          <item>Русский</item>
-          <item>Español</item>
-          <item>العَرَبِيَّة</item>
-      </string-array>
+      <string name="language_current">Polski</string>
 
       <!--Friends-->
       <string name="friend_profile">Friend Profile</string>
@@ -2410,46 +2298,32 @@ pt---
 
       <!--Profile-->
       <string name="go_to_profile">Go to Profile ></string>
-      <string name="profile">Profile</string>
-      <string name="contact_info">Contact info</string>
-      <string name="choose_your_language">Choose your language</string>
-      <string name="chosen_language">Chosen language</string>
-      <string name="location">Location</string>
-      <string name="subscribed_since">Subscribed since</string>
+      <string name="profile">O Seu perfil</string>
+      <string name="contact_info">Informação de contacto</string>
+      <string name="choose_your_language">Escolher o seu idioma</string>
+      <string name="chosen_language">Idioma escolhido</string>
+      <string name="location">Localização</string>
+      <string name="subscribed_since">Registado desde</string>
       <string name="auto_translation">Automatic translation</string>
-      <string name="notify_wall">Wall notifications</string>
+      <string name="notify_wall">Notificações no Mural</string>
       <string name="notify_news">News notifications</string>
       <string name="notify_rumours">Rumours notifications</string>
       <string name="notify_social">Social feed notifications</string>
-      <string name="edit_profile">Edit Your Profile</string>
-      <string name="edit_photo">Edit Photo</string>
-      <string name="done">Done</string>
-      <string name="caps_level">Caps level</string>
-      <string name="days_using">Days using SSK</string>
-      <string name="wall_posts">Wall posts</string>
-      <string name="videos_watched">Videos watched</string>
-      <string name="matches_home">Matches attended (home)</string>
-      <string name="matches_away">Matches attended (away)</string>
-      <string name="likes_received">Likes received</string>
-      <string name="comments_made">Comments made</string>
-      <string name="language">Language:</string>
-      <string name="you_have">You have</string>
+      <string name="edit_profile">Editar o seu perfil</string>
+      <string name="edit_photo">Editar Fotografia</string>
+      <string name="done">Feito</string>
+      <string name="caps_level">Nível de Internacionalizações</string>
+      <string name="days_using">Número de dias a usar SSk</string>
+      <string name="wall_posts">Posts no seu Mural</string>
+      <string name="videos_watched">Vídeos que ja víu</string>
+      <string name="matches_home">Jogos a que foi em casa</string>
+      <string name="matches_away">Jogos a que foi fora </string>
+      <string name="likes_received">Gostos recebidos</string>
+      <string name="comments_made">Comentários feitos</string>
+      <string name="language">Idioma</string>
+      <string name="you_have">Tu tens</string>
       <string name="caps">Caps</string>
-      <string name="language_current" translatable="false">English</string>
-      <string-array name="languages" translatable="false">
-          <item>বাংলা</item>
-          <item>汉语</item>
-          <item>English</item>
-          <item>Français</item>
-          <item>Deutsch</item>
-          <item>Bahasa Indonesia</item>
-          <item>Italiano</item>
-          <item>Polski</item>
-          <item>Português</item>
-          <item>Русский</item>
-          <item>Español</item>
-          <item>العَرَبِيَّة</item>
-      </string-array>
+      <string name="language_current">Português</string>
 
       <!--Friends-->
       <string name="friend_profile">Friend Profile</string>
@@ -2702,46 +2576,32 @@ ru---
 
       <!--Profile-->
       <string name="go_to_profile">Go to Profile ></string>
-      <string name="profile">Profile</string>
-      <string name="contact_info">Contact info</string>
-      <string name="choose_your_language">Choose your language</string>
-      <string name="chosen_language">Chosen language</string>
-      <string name="location">Location</string>
-      <string name="subscribed_since">Subscribed since</string>
+      <string name="profile">Ваш профиль</string>
+      <string name="contact_info">Контакты</string>
+      <string name="choose_your_language">Выберите язык</string>
+      <string name="chosen_language">Выбранный язык</string>
+      <string name="location">Место</string>
+      <string name="subscribed_since">Подписка с</string>
       <string name="auto_translation">Automatic translation</string>
-      <string name="notify_wall">Wall notifications</string>
+      <string name="notify_wall">Уведомления (стена)</string>
       <string name="notify_news">News notifications</string>
       <string name="notify_rumours">Rumours notifications</string>
       <string name="notify_social">Social feed notifications</string>
-      <string name="edit_profile">Edit Your Profile</string>
-      <string name="edit_photo">Edit Photo</string>
-      <string name="done">Done</string>
-      <string name="caps_level">Caps level</string>
-      <string name="days_using">Days using SSK</string>
-      <string name="wall_posts">Wall posts</string>
-      <string name="videos_watched">Videos watched</string>
-      <string name="matches_home">Matches attended (home)</string>
-      <string name="matches_away">Matches attended (away)</string>
-      <string name="likes_received">Likes received</string>
-      <string name="comments_made">Comments made</string>
-      <string name="language">Language:</string>
-      <string name="you_have">You have</string>
+      <string name="edit_profile">Редактируйте профиль</string>
+      <string name="edit_photo">Изменить фото</string>
+      <string name="done">Готово</string>
+      <string name="caps_level">Уровень Caps</string>
+      <string name="days_using">Дней с SSK</string>
+      <string name="wall_posts">Посты на стене</string>
+      <string name="videos_watched">Видео просмотрено</string>
+      <string name="matches_home">Посещено игр дома</string>
+      <string name="matches_away">Посещено игр на выезде</string>
+      <string name="likes_received">Получено лайков</string>
+      <string name="comments_made">Комментариев</string>
+      <string name="language">Язык</string>
+      <string name="you_have">У вас есть:</string>
       <string name="caps">Caps</string>
-      <string name="language_current" translatable="false">English</string>
-      <string-array name="languages" translatable="false">
-          <item>বাংলা</item>
-          <item>汉语</item>
-          <item>English</item>
-          <item>Français</item>
-          <item>Deutsch</item>
-          <item>Bahasa Indonesia</item>
-          <item>Italiano</item>
-          <item>Polski</item>
-          <item>Português</item>
-          <item>Русский</item>
-          <item>Español</item>
-          <item>العَرَبِيَّة</item>
-      </string-array>
+      <string name="language_current">Русский</string>
 
       <!--Friends-->
       <string name="friend_profile">Friend Profile</string>
@@ -2993,47 +2853,33 @@ zh---
       <string name="waiting_for_internet">Waiting for active internet connection…</string>//todo
 
       <!--Profile-->
-      <string name="go_to_profile">Go to Profile ></string>
-      <string name="profile">Profile</string>
-      <string name="contact_info">Contact info</string>
-      <string name="choose_your_language">Choose your language</string>
-      <string name="chosen_language">Chosen language</string>
-      <string name="location">Location</string>
-      <string name="subscribed_since">Subscribed since</string>
+      <string name="go_to_profile">Go to Profile ></string> // todo
+      <string name="profile">您的个人资料</string>
+      <string name="contact_info">联系方式</string>
+      <string name="choose_your_language">选择您的语言</string>
+      <string name="chosen_language">已选语言</string>
+      <string name="location">地址</string>
+      <string name="subscribed_since">初次订阅时间：</string>
       <string name="auto_translation">Automatic translation</string>
-      <string name="notify_wall">Wall notifications</string>
-      <string name="notify_news">News notifications</string>
-      <string name="notify_rumours">Rumours notifications</string>
-      <string name="notify_social">Social feed notifications</string>
-      <string name="edit_profile">Edit Your Profile</string>
-      <string name="edit_photo">Edit Photo</string>
-      <string name="done">Done</string>
-      <string name="caps_level">Caps level</string>
-      <string name="days_using">Days using SSK</string>
-      <string name="wall_posts">Wall posts</string>
-      <string name="videos_watched">Videos watched</string>
-      <string name="matches_home">Matches attended (home)</string>
-      <string name="matches_away">Matches attended (away)</string>
-      <string name="likes_received">Likes received</string>
-      <string name="comments_made">Comments made</string>
-      <string name="language">Language:</string>
-      <string name="you_have">You have</string>
-      <string name="caps">Caps</string>
-      <string name="language_current" translatable="false">English</string>
-      <string-array name="languages" translatable="false">
-          <item>বাংলা</item>
-          <item>汉语</item>
-          <item>English</item>
-          <item>Français</item>
-          <item>Deutsch</item>
-          <item>Bahasa Indonesia</item>
-          <item>Italiano</item>
-          <item>Polski</item>
-          <item>Português</item>
-          <item>Русский</item>
-          <item>Español</item>
-          <item>العَرَبِيَّة</item>
-      </string-array>
+      <string name="notify_wall">公告墙通知</string>
+      <string name="notify_news">News notifications</string>// todo
+      <string name="notify_rumours">Rumours notifications</string>// todo
+      <string name="notify_social">Social feed notifications</string>// todo
+      <string name="edit_profile">编辑您的个人资料</string>
+      <string name="edit_photo">编辑照片</string>
+      <string name="done">完成</string>
+      <string name="caps_level">出场级别</string>
+      <string name="days_using">使用 SSK 的天数</string>
+      <string name="wall_posts">墙贴</string>
+      <string name="videos_watched">已观看视频</string>
+      <string name="matches_home">参赛场次（主场）</string>
+      <string name="matches_away">参赛场次（客场）</string>
+      <string name="likes_received">收到的赞数</string>
+      <string name="comments_made">做出的评论数</string>
+      <string name="language">语言</string>
+      <string name="you_have">你拥有</string>
+      <string name="caps">出场次数</string>
+      <string name="language_current">汉语</string>
 
       <!--Friends-->
       <string name="friend_profile">Friend Profile</string>

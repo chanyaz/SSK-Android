@@ -331,7 +331,7 @@ ar---
 "Manage chat" = "إدارة المحادثة";
 "Rename your chat" = "إعادة تسمية المحادثة";
 "Add friends to this call" = "إضافة أصدقاء على هذا الاتصال";
-"CAPS" = "CAPS";
+"CAPS" = "Caps";
 "Contact info" = "بيانات التواصل";
 "Location" = "الموقع";
 "Subscribed since" = "مسجل منذ";
@@ -1773,7 +1773,7 @@ de---
 "Manage chat" = "Chat verwalten";
 "Rename your chat" = "Deinen Chat umbenennen";
 "Add friends to this call" = "Freunde diesem Anruf hinzufügen";
-"CAPS" = "CAPS";
+"CAPS" = "Caps";
 "Contact info" = "Kontaktinfo";
 "Location" = "Standort";
 "Subscribed since" = "Registriert seit";
@@ -1805,7 +1805,7 @@ de---
 "Are you sure you want to switch language?" = "Möchtest du wirklich die Sprache wechseln?";
 "This action will reload the application." = "Damit wird die Applikation neu geladen.";
 "Chosen Language" = "Gewählte Sprache";
-"YOU HAVE" = "DU HAST";
+"YOU HAVE" = "Du hast";
 "BUNDLES" = "BUNDLES";
 "Kit Bags" = "Sportbeutel";
 "BEST VALUE" = "BESTES ANGEBOT";
@@ -1981,7 +1981,7 @@ de---
 "tip_13_step_1" = "Öffne das Shop-Modul, indem du oben links auf die Registrierkarte \"Shop\" tippst.";
 "tip_13_step_2" = "Mit dem Menü unten im Shop-Modul kannst du dich vor- und zurückbewegen.";
 
-"EDIT YOUR PROFILE" = "DEIN PROFIL BEARBEITEN";
+"EDIT YOUR PROFILE" = "Dein profil bearbeiten";
 "Language" = "Sprache";
 "Done" = "Fertig";
 "Current Password" = "Aktuelles Passwort";
@@ -2490,7 +2490,7 @@ es---
 "Manage chat" = "Gestionar chat";
 "Rename your chat" = "Cambiar nombre al chat";
 "Add friends to this call" = "Añadir amigos a esta llamada";
-"CAPS" = "CAPS";
+"CAPS" = "Caps";
 "Contact info" = "Información de contacto";
 "Location" = "Lugar";
 "Subscribed since" = "Suscrito desde";
@@ -2522,7 +2522,7 @@ es---
 "Are you sure you want to switch language?" = "¿Seguro que quieres cambiar de idioma?";
 "This action will reload the application." = "Esta acción hará que la aplicación se reinicie.";
 "Chosen Language" = "Idioma elegido";
-"YOU HAVE" = "TIENES";
+"YOU HAVE" = "Tienes";
 "BUNDLES" = "PAQUETES";
 "Kit Bags" = "Kits";
 "BEST VALUE" = "MEJOR OFERTA";
@@ -2697,7 +2697,7 @@ es---
 "tip_13_step_1" = "Toca la pestaña Tienda, en la parte superior izquierda de la pantalla, para abrir el módulo correspondiente.";
 "tip_13_step_2" = "Podrás y retroceder usando el menú en la parte inferior del módulo Tienda.";
 
-"EDIT YOUR PROFILE" = "EDITA TU PERFIL";
+"EDIT YOUR PROFILE" = "Edita tu perfil";
 "Language" = "Idioma";
 "Done" = "Listo";
 "Current Password" = "Contraseña actual";
@@ -3209,7 +3209,7 @@ fr---
 "Manage chat" = "Gérer la discussion";
 "Rename your chat" = "Renommer votre discussion";
 "Add friends to this call" = "Ajouter des amis à cet appel";
-"CAPS" = "CAPS";
+"CAPS" = "Caps";
 "Contact info" = "Coordonnées";
 "Location" = "Lieu";
 "Subscribed since" = "Inscrit depuis";
@@ -3241,7 +3241,7 @@ fr---
 "Are you sure you want to switch language?" = "Êtes-vous sûr de vouloir changer de langue ?";
 "This action will reload the application." = "Cette action relancera l'application.";
 "Chosen Language" = "Langue choisie";
-"YOU HAVE" = "VOUS AVEZ";
+"YOU HAVE" = "Vous avez";
 "BUNDLES" = "BUNDLES";
 "Kit Bags" = "kits";
 "BEST VALUE" = "MEILLEURE OFFRE";
@@ -3415,7 +3415,7 @@ fr---
 "tip_13_step_1" = "Ouvrez le module Boutique en touchant l'onglet Boutique en haut à gauche de l'écran.";
 "tip_13_step_2" = "Vous pouvez naviguer en avant et en arrière par le biais du menu en bas du module Boutique.";
 
-"EDIT YOUR PROFILE" = "MODIFIER VOTRE PROFIL";
+"EDIT YOUR PROFILE" = "Modifier votre profil";
 "Language" = "Langue";
 "Done" = "Terminé";
 "Current Password" = "Mot de passe actuel";
@@ -3925,7 +3925,7 @@ id---
 "Manage chat" = "Kelola obrolan";
 "Rename your chat" = "Ubah nama obrolan Anda";
 "Add friends to this call" = "Tambahkan teman ke panggilan ini";
-"CAPS" = "CAPS";
+"CAPS" = "Caps";
 "Contact info" = "Informasi kontak";
 "Location" = "Lokasi";
 "Subscribed since" = "Berlangganan sejak";
@@ -3957,7 +3957,7 @@ id---
 "Are you sure you want to switch language?" = "Anda yakin akan berganti bahasa?";
 "This action will reload the application." = "Tindakan ini akan memuat ulang aplikasinya.";
 "Chosen Language" = "Pilih Bahasa";
-"YOU HAVE" = "ANDA PUNYA";
+"YOU HAVE" = "Anda punya";
 "BUNDLES" = "BUNDEL";
 "Kit Bags" = "Tas Alat";
 "BEST VALUE" = "NILAI TERBAIK";
@@ -4132,7 +4132,7 @@ id---
 "tip_13_step_1" = "Buka modul Belanja dengan menyentuh bilah Belanja di bagian kiri atas layar.";
 "tip_13_step_2" = "Anda bisa melakukan Navigasi mundur dan maju dengan menggunakan menu di bagian dasar modul Obrolan.";
 
-"EDIT YOUR PROFILE" = "SUNTING PROFIL ANDA";
+"EDIT YOUR PROFILE" = "Sunting profil anda";
 "Language" = "Bahasa";
 "Done" = "Selesai";
 "Current Password" = "Kata Sandi Saat Ini";
@@ -4641,7 +4641,7 @@ it---
 "Manage chat" = "Gestisci chat";
 "Rename your chat" = "Rinomina la chat";
 "Add friends to this call" = "Aggiungi amici a questa chiamata";
-"CAPS" = "CAPS";
+"CAPS" = "Caps";
 "Contact info" = "Info contatto";
 "Location" = "Luogo";
 "Subscribed since" = "Abbonato da";
@@ -4673,7 +4673,7 @@ it---
 "Are you sure you want to switch language?" = "Sicuro di voler cambiare lingua?";
 "This action will reload the application." = "Quest'azione ricaricherà l'App.";
 "Chosen Language" = "Lingua scelta";
-"YOU HAVE" = "HAI";
+"YOU HAVE" = "Hai";
 "BUNDLES" = "BUNDLE";
 "Kit Bags" = "Borsoni";
 "BEST VALUE" = "OFFERTA IMPERDIBILE";
@@ -4848,7 +4848,7 @@ it---
 "tip_13_step_1" = "Apri il modulo Negozio toccando la scheda Negozio in alto a sinistra nello schermo.";
 "tip_13_step_2" = "Puoi Navigare in ogni direzione utilizzando il menu in fondo al modulo Negozio.";
 
-"EDIT YOUR PROFILE" = "MODIFICA IL TUO PROFILO";
+"EDIT YOUR PROFILE" = "Modifica il tuo profilo";
 "Language" = "Lingua";
 "Done" = "Fatto";
 "Current Password" = "Password attuale";
@@ -5358,7 +5358,7 @@ pl---
 "Manage chat" = "Zarządzaj czatem";
 "Rename your chat" = "Zmień nazwę czatu";
 "Add friends to this call" = "Dodaj znajomych do tej rozmowy";
-"CAPS" = "CAPS";
+"CAPS" = "Caps";
 "Contact info" = "Dane kontaktowe";
 "Location" = "Miejsce";
 "Subscribed since" = "Subskrypcja od";
@@ -5390,7 +5390,7 @@ pl---
 "Are you sure you want to switch language?" = "Czy na pewno chcesz zmienić język?";
 "This action will reload the application." = "Jeśli to zrobisz, aplikacja zostanie ponownie uruchomiona.";
 "Chosen Language" = "Wybierz język";
-"YOU HAVE" = "TWOJE RZECZY";
+"YOU HAVE" = "Twoje rzeczy";
 "BUNDLES" = "PAK.";
 "Kit Bags" = "Zest.";
 "BEST VALUE" = "NAJLEPSZA OFERTA";
@@ -5565,7 +5565,7 @@ pl---
 "tip_13_step_1" = "Otwórz moduł sklepu, dotykając karty sklepu w lewym górnym rogu ekranu.";
 "tip_13_step_2" = "Za pomocą menu dostępnego w dolnej części modułu sklepu można przechodzić do przodu i wstecz.";
 
-"EDIT YOUR PROFILE" = "EDYTOWANIE PROFILU";
+"EDIT YOUR PROFILE" = "Edytowanie profilu";
 "Language" = "Język";
 "Done" = "Gotowe";
 "Current Password" = "Aktualne hasło";
@@ -6029,7 +6029,7 @@ pt---
 "Manage chat" = "Gerir Chat";
 "Rename your chat" = "Mudar de nome ao Chat";
 "Add friends to this call" = "Adicionar amigos a esta chamada";
-"CAPS" = "CAPS";
+"CAPS" = "Caps";
 "Contact info" = "Informação de contacto";
 "Location" = "Localização";
 "Subscribed since" = "Registado desde";
@@ -6055,7 +6055,7 @@ pt---
 "Are you sure you want to switch language?" = "Têm a certeza que pretende mudar de idioma?";
 "This action will reload the application." = "Esta acção irá actualizar a aplicação.";
 "Chosen Language" = "Idioma escolhido";
-"YOU HAVE" = "Tu Tens";
+"YOU HAVE" = "Tu tens";
 "BUNDLES" = "Pacotes";
 "Kit Bags" = "Sacos de\nviagems";
 "BEST VALUE" = "Melhor valor";
@@ -6227,7 +6227,7 @@ pt---
 "tip_13_step_2" = " Pode navegar para a frente e trás usando a opção de menú que está em baixo de cada módulo de chat.";
 
 
-"EDIT YOUR PROFILE" = " Editar o seu perfil";
+"EDIT YOUR PROFILE" = "Editar o seu perfil";
 "Language" = "Idioma";
 "Done" = "Feito";
 "Current Password" = "Password actual";
@@ -6754,7 +6754,7 @@ ru---
 "Manage chat" = "Управление чатом";
 "Rename your chat" = "Переименуйте свой чат";
 "Add friends to this call" = "Добавить друзей в звонок";
-"CAPS" = "CAPS";
+"CAPS" = "Caps";
 "Contact info" = "Контакты";
 "Location" = "Место";
 "Subscribed since" = "Подписка с";
@@ -6786,7 +6786,7 @@ ru---
 "Are you sure you want to switch language?" = "Вы точно хотите сменить язык?";
 "This action will reload the application." = "Это действие перезагрузит приложение.";
 "Chosen Language" = "Выбранный язык";
-"YOU HAVE" = "У ВАС ЕСТЬ:";
+"YOU HAVE" = "У вас есть:";
 "BUNDLES" = "НАБОРЫ";
 "Kit Bags" = "Вещмешки";
 "BEST VALUE" = "ВЫГОДНО";
@@ -6961,7 +6961,7 @@ ru---
 "tip_13_step_1" = "Откройте модуль магазина, нажав на вкладку «Магазин» в левом верхнем углу экрана.";
 "tip_13_step_2" = "Перемещаться вперед и назад можно с помощью меню в нижней части модуля «Магазин».";
 
-"EDIT YOUR PROFILE" = "РЕДАКТИРУЙТЕ ПРОФИЛЬ";
+"EDIT YOUR PROFILE" = "Редактируйте профиль";
 "Language" = "Язык";
 "Done" = "Готово";
 "Current Password" = "Текущий пароль";

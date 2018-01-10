@@ -96,7 +96,7 @@
     <string name="matches_away">Matches attended (away)</string>
     <string name="likes_received">Likes received</string>
     <string name="comments_made">Comments made</string>
-    <string name="language">Language:</string>
+    <string name="language">Language</string>
     <string name="you_have">You have</string>
     <string name="caps">Caps</string>
     <string name="language_current" translatable="false">English</string>
