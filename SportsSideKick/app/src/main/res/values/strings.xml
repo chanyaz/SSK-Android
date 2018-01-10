@@ -126,7 +126,7 @@
     <string name="offline">Offline</string>
     <string name="friend_request_pending">Friend Request Pending</string>
     <string name="try_again_later">Error. Try again later.</string>
-    <string name="enter_friend_name_invite">Enter friend name to invite.</string>
+    <string name="enter_friend_name_invite">Enter friend\'s email address to invite.</string>
     <string name="remove_friend">Unfriend</string>
     <string name="friend_request_send">Send Friend Request</string>
     <string name="friend_unfollow">Unfollow Friend</string>
