@@ -1793,7 +1793,7 @@ de---
 "Comments made" = "Abgegebene Kommentare";
 
 
-"YOUR STASH" = "ERRUNGENSCHAFTEN";
+"YOUR STASH" = "Errungenschaften";
 "Rewards and items received from Gym Bags" = "Erhaltene Belohnungen und Gegenstände aus Sportbeuteln";
 "Received" = "Erhalten";
 "Choose your language" = "Sprache wählen";
@@ -1803,7 +1803,7 @@ de---
 "This action will reload the application." = "Damit wird die Applikation neu geladen.";
 "Chosen Language" = "Gewählte Sprache";
 "YOU HAVE" = "Du hast";
-"BUNDLES" = "BUNDLES";
+"BUNDLES" = "Bundles";
 "Kit Bags" = "Sportbeutel";
 "BEST VALUE" = "BESTES ANGEBOT";
 
@@ -2509,7 +2509,7 @@ es---
 "Comments made" = "Comentarios hechos";
 
 
-"YOUR STASH" = "TROFEOS";
+"YOUR STASH" = "Trofeos";
 "Rewards and items received from Gym Bags" = "Recompensas y objetos conseguidos en bolsas de gimnasio";
 "Received" = "Recibido";
 "Choose your language" = "Elige tu idioma";
@@ -2519,7 +2519,7 @@ es---
 "This action will reload the application." = "Esta acción hará que la aplicación se reinicie.";
 "Chosen Language" = "Idioma elegido";
 "YOU HAVE" = "Tienes";
-"BUNDLES" = "PAQUETES";
+"BUNDLES" = "Paquetes";
 "Kit Bags" = "Kits";
 "BEST VALUE" = "MEJOR OFERTA";
 
@@ -3227,7 +3227,7 @@ fr---
 "Comments made" = "Commentaires effectués";
 
 
-"YOUR STASH" = "VOTRE BUTIN";
+"YOUR STASH" = "Votre Butin";
 "Rewards and items received from Gym Bags" = "Récompenses et objets reçus depuis les sacs de sport";
 "Received" = "Reçu";
 "Choose your language" = "Choisissez votre langue";
@@ -3237,7 +3237,7 @@ fr---
 "This action will reload the application." = "Cette action relancera l'application.";
 "Chosen Language" = "Langue choisie";
 "YOU HAVE" = "Vous avez";
-"BUNDLES" = "BUNDLES";
+"BUNDLES" = "Bundles";
 "Kit Bags" = "kits";
 "BEST VALUE" = "MEILLEURE OFFRE";
 
@@ -3942,7 +3942,7 @@ id---
 "Comments made" = "Komentar dibuat";
 
 
-"YOUR STASH" = "KOTAK RAHASIA ANDA";
+"YOUR STASH" = "Kotak rahasia anda";
 "Rewards and items received from Gym Bags" = "Hadiah dan barang yang diterima dari Tas Gym";
 "Received" = "Diterima";
 "Choose your language" = "Pilih bahasa Anda";
@@ -3952,7 +3952,7 @@ id---
 "This action will reload the application." = "Tindakan ini akan memuat ulang aplikasinya.";
 "Chosen Language" = "Pilih Bahasa";
 "YOU HAVE" = "Anda punya";
-"BUNDLES" = "BUNDEL";
+"BUNDLES" = "Bundel";
 "Kit Bags" = "Tas Alat";
 "BEST VALUE" = "NILAI TERBAIK";
 
@@ -4657,7 +4657,7 @@ it---
 "Comments made" = "Commenti fatti";
 
 
-"YOUR STASH" = "LA TUA RISERVA";
+"YOUR STASH" = "La tua riserva";
 "Rewards and items received from Gym Bags" = "Ricompense e oggetti ricevuti dal Borsone da Palestra";
 "Received" = "Ricevuto";
 "Choose your language" = "Scegli la lingua";
@@ -4667,7 +4667,7 @@ it---
 "This action will reload the application." = "Quest'azione ricaricherà l'App.";
 "Chosen Language" = "Lingua scelta";
 "YOU HAVE" = "Hai";
-"BUNDLES" = "BUNDLE";
+"BUNDLES" = "Bundle";
 "Kit Bags" = "Borsoni";
 "BEST VALUE" = "OFFERTA IMPERDIBILE";
 
@@ -5373,7 +5373,7 @@ pl---
 "Comments made" = "Napisane komentarze";
 
 
-"YOUR STASH" = "TWOJE ZDOBYCZE";
+"YOUR STASH" = "Twoje zdobycze";
 "Rewards and items received from Gym Bags" = "Nagrody i przedmioty dostarczone w torbie sportowej.";
 "Received" = "Otrzymane";
 "Choose your language" = "Wybierz język";
@@ -5383,7 +5383,7 @@ pl---
 "This action will reload the application." = "Jeśli to zrobisz, aplikacja zostanie ponownie uruchomiona.";
 "Chosen Language" = "Wybierz język";
 "YOU HAVE" = "Twoje rzeczy";
-"BUNDLES" = "PAK.";
+"BUNDLES" = "Pak.";
 "Kit Bags" = "Zest.";
 "BEST VALUE" = "NAJLEPSZA OFERTA";
 
@@ -6767,7 +6767,7 @@ ru---
 "Comments made" = "Комментариев";
 
 
-"YOUR STASH" = "КЛАДОВКА";
+"YOUR STASH" = "Кладовка";
 "Rewards and items received from Gym Bags" = "Награды и предметы из спортивных сумок";
 "Received" = "Получено";
 "Choose your language" = "Выберите язык";
@@ -6777,7 +6777,7 @@ ru---
 "This action will reload the application." = "Это действие перезагрузит приложение.";
 "Chosen Language" = "Выбранный язык";
 "YOU HAVE" = "У вас есть:";
-"BUNDLES" = "НАБОРЫ";
+"BUNDLES" = "Наборы";
 "Kit Bags" = "Вещмешки";
 "BEST VALUE" = "ВЫГОДНО";
 

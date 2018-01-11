@@ -241,12 +241,12 @@ ar---
     <string name="back">Back</string>//todo not translated
 
     <!--Purchases-->
-    <string name="rewards_received">Rewards and items received from Gym Bags</string>
-    <string name="bonus_gym_bag">+ Bonus gym bag</string>
-    <string name="bundles">Bundles</string>
-    <string name="wallet">Wallet</string>
-    <string name="stash">Stash</string>
-    <string name="your_statement">Your Statement</string>
+    <string name="rewards_received">الجوائز والعناصر المتلقاة من حقائب الجيم</string>
+    <string name="bonus_gym_bag">+ Bonus gym bag</string>//todo
+    <string name="bundles">حزم</string>
+    <string name="wallet">Wallet</string>//todo
+    <string name="stash">خزنتك</string>
+    <string name="your_statement">تصريحك</string>
 
     <!--Placeholder-->
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -492,12 +492,12 @@ bh---
     <string name="back">Back</string>
 
     <!--Purchases-->
-    <string name="rewards_received">Rewards and items received from Gym Bags</string>
+    <string name="rewards_received">জিম ব্যাগ থেকে যে পুরষ্কার এবং বস্তুগুলি পাওয়া গেছে</string>
     <string name="bonus_gym_bag">+ Bonus gym bag</string>
-    <string name="bundles">Bundles</string>
+    <string name="bundles">বান্ডিলগুলি</string>
     <string name="wallet">Wallet</string>
-    <string name="stash">Stash</string>
-    <string name="your_statement">Your Statement</string>
+    <string name="stash">আপনার স্ট্যাশ</string>
+    <string name="your_statement">আপনার বিবৃতি</string>
 
     <!--Placeholder-->
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -745,12 +745,12 @@ de---
       <string name="back">Back</string>
 
       <!--Purchases-->
-      <string name="rewards_received">Rewards and items received from Gym Bags</string>
+      <string name="rewards_received">Erhaltene Belohnungen und Gegenstände aus Sportbeuteln</string>
       <string name="bonus_gym_bag">+ Bonus gym bag</string>
       <string name="bundles">Bundles</string>
       <string name="wallet">Wallet</string>
-      <string name="stash">Stash</string>
-      <string name="your_statement">Your Statement</string>
+      <string name="stash">Errungenschaften</string>
+      <string name="your_statement">Deine Aufstellung</string>
 
       <!--Placeholder-->
       <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -998,12 +998,12 @@ es---
       <string name="back">Back</string>
 
       <!--Purchases-->
-      <string name="rewards_received">Rewards and items received from Gym Bags</string>
+      <string name="rewards_received">Recompensas y objetos conseguidos en bolsas de gimnasio</string>
       <string name="bonus_gym_bag">+ Bonus gym bag</string>
-      <string name="bundles">Bundles</string>
+      <string name="bundles">Paquetes</string>
       <string name="wallet">Wallet</string>
-      <string name="stash">Stash</string>
-      <string name="your_statement">Your Statement</string>
+      <string name="stash">Trofeos</string>
+      <string name="your_statement">Tu extracto</string>
 
       <!--Placeholder-->
       <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -1251,12 +1251,12 @@ fr---
       <string name="back">Back</string>
 
       <!--Purchases-->
-      <string name="rewards_received">Rewards and items received from Gym Bags</string>
+      <string name="rewards_received">Récompenses et objets reçus depuis les sacs de sport</string>
       <string name="bonus_gym_bag">+ Bonus gym bag</string>
       <string name="bundles">Bundles</string>
       <string name="wallet">Wallet</string>
-      <string name="stash">Stash</string>
-      <string name="your_statement">Your Statement</string>
+      <string name="stash">Votre Butin</string>
+      <string name="your_statement">Votre relevé</string>
 
       <!--Placeholder-->
       <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -1504,12 +1504,12 @@ id---
       <string name="back">Back</string>
 
       <!--Purchases-->
-      <string name="rewards_received">Rewards and items received from Gym Bags</string>
+      <string name="rewards_received">Hadiah dan barang yang diterima dari Tas Gym</string>
       <string name="bonus_gym_bag">+ Bonus gym bag</string>
-      <string name="bundles">Bundles</string>
+      <string name="bundles">Bundel</string>
       <string name="wallet">Wallet</string>
-      <string name="stash">Stash</string>
-      <string name="your_statement">Your Statement</string>
+      <string name="stash">Kotak rahasia anda</string>
+      <string name="your_statement">Pernyataan Anda</string>
 
       <!--Placeholder-->
       <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -1757,12 +1757,12 @@ it---
       <string name="back">Back</string>
 
       <!--Purchases-->
-      <string name="rewards_received">Rewards and items received from Gym Bags</string>
+      <string name="rewards_received">Ricompense e oggetti ricevuti dal Borsone da Palestra</string>
       <string name="bonus_gym_bag">+ Bonus gym bag</string>
-      <string name="bundles">Bundles</string>
+      <string name="bundles">Bundle</string>
       <string name="wallet">Wallet</string>
-      <string name="stash">Stash</string>
-      <string name="your_statement">Your Statement</string>
+      <string name="stash">La tua riserva</string>
+      <string name="your_statement">Il tuo rendiconto</string>
 
       <!--Placeholder-->
       <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -2010,12 +2010,12 @@ pl---
       <string name="back">Back</string>
 
       <!--Purchases-->
-      <string name="rewards_received">Rewards and items received from Gym Bags</string>
+      <string name="rewards_received">Nagrody i przedmioty dostarczone w torbie sportowej.</string>
       <string name="bonus_gym_bag">+ Bonus gym bag</string>
-      <string name="bundles">Bundles</string>
+      <string name="bundles">Pak.</string>
       <string name="wallet">Wallet</string>
-      <string name="stash">Stash</string>
-      <string name="your_statement">Your Statement</string>
+      <string name="stash">Twoje zdobycze</string>
+      <string name="your_statement">Twój wyciąg</string>
 
       <!--Placeholder-->
       <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -2263,12 +2263,12 @@ pt---
       <string name="back">Back</string>
 
       <!--Purchases-->
-      <string name="rewards_received">Rewards and items received from Gym Bags</string>
+      <string name="rewards_received">Prémios e Items recebidos por parte do Gym Bags</string>
       <string name="bonus_gym_bag">+ Bonus gym bag</string>
-      <string name="bundles">Bundles</string>
+      <string name="bundles">Pacotes</string>
       <string name="wallet">Wallet</string>
-      <string name="stash">Stash</string>
-      <string name="your_statement">Your Statement</string>
+      <string name="stash">O seu esconderijo</string>
+      <string name="your_statement">A sua declaração</string>
 
       <!--Placeholder-->
       <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -2516,12 +2516,12 @@ ru---
       <string name="back">Back</string>
 
       <!--Purchases-->
-      <string name="rewards_received">Rewards and items received from Gym Bags</string>
+      <string name="rewards_received">Награды и предметы из спортивных сумок</string>
       <string name="bonus_gym_bag">+ Bonus gym bag</string>
-      <string name="bundles">Bundles</string>
+      <string name="bundles">Наборы</string>
       <string name="wallet">Wallet</string>
-      <string name="stash">Stash</string>
-      <string name="your_statement">Your Statement</string>
+      <string name="stash">Кладовка</string>
+      <string name="your_statement">Ваша выписка</string>
 
       <!--Placeholder-->
       <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -2769,12 +2769,12 @@ zh---
       <string name="back">Back</string>
 
       <!--Purchases-->
-      <string name="rewards_received">Rewards and items received from Gym Bags</string>
+      <string name="rewards_received">从 Gym Bags 处获得的奖励与物品</string>
       <string name="bonus_gym_bag">+ Bonus gym bag</string>
-      <string name="bundles">Bundles</string>
+      <string name="bundles">个捆绑包</string>
       <string name="wallet">Wallet</string>
-      <string name="stash">Stash</string>
-      <string name="your_statement">Your Statement</string>
+      <string name="stash">您的宝藏</string>
+      <string name="your_statement">您的对账单</string>
 
       <!--Placeholder-->
       <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
