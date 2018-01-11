@@ -222,21 +222,23 @@ ar---
     <string name="live">مباشر</string>
 
     <!--Posts & News-->
-    <string name="post_create">Create New Post</string>
-    <string name="post_title_hint">Enter your post\'s title</string>
-    <string name="post_body_hint">Start writing your post…</string>
-    <string name="pin_title">Post this to your wall?</string>
-    <string name="pin_confirm">Would you like to post this on your wall?</string>
-    <string name="pin_message_hint">Enter a message with your shared post…</string>
-    <string name="comment_hint">Enter your comment here…</string>
-    <string name="read_more">Read more &gt;</string>
-    <string name="read_less">Read less &lt;</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="translate">Translate</string>
-    <string name="share">Share</string>
-    <string name="post">Post</string>
-    <string name="back">Back</string>
+    <string name="post_create">Create New Post</string>//todo not translated
+    <string name="post_title_hint">Click here to enter your post\'s title</string>//todo not translated
+    <string name="post_body_hint">Click here to start writing your post…</string>//todo not translated
+    <string name="post_create_tip_header">To create a new post:</string>//todo not translated
+    <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>//todo not translated
+    <string name="pin_title">النشر على حائطك؟</string>
+    <string name="pin_confirm">هل ترغب بنشر هذا على حائطك؟?</string>
+    <string name="pin_message_hint">Enter a message with your shared post…</string>//todo not translated
+    <string name="comment_hint">Enter your comment here…</string>//todo not translated
+    <string name="read_more">Read more &gt;</string>//todo not translated
+    <string name="read_less">Read less &lt;</string>//todo not translated
+    <string name="edit">تعديل</string>
+    <string name="delete">Delete</string>//todo not translated
+    <string name="translate">Translate</string>//todo not translated
+    <string name="share">مشاركة</string>
+    <string name="post">Post</string>//todo not translated
+    <string name="back">Back</string>//todo not translated
 
     <!--Purchases-->
     <string name="rewards_received">Rewards and items received from Gym Bags</string>
@@ -474,18 +476,18 @@ bh---
 
     <!--Posts & News-->
     <string name="post_create">Create New Post</string>
-    <string name="post_title_hint">Enter your post\'s title</string>
-    <string name="post_body_hint">Start writing your post…</string>
-    <string name="pin_title">Post this to your wall?</string>
-    <string name="pin_confirm">Would you like to post this on your wall?</string>
+    <string name="post_title_hint">Click here to enter your post\'s title</string>
+    <string name="post_body_hint">Click here to start writing your post…</string>
+    <string name="pin_title">আপনার ওয়ালে পোস্ট করবেন?</string>
+    <string name="pin_confirm">আপনি কি এটিকে আপনার ওয়ালে পোস্ট করতে চাইবেন?</string>
     <string name="pin_message_hint">Enter a message with your shared post…</string>
     <string name="comment_hint">Enter your comment here…</string>
     <string name="read_more">Read more &gt;</string>
     <string name="read_less">Read less &lt;</string>
-    <string name="edit">Edit</string>
+    <string name="edit">সম্পাদনা</string>
     <string name="delete">Delete</string>
     <string name="translate">Translate</string>
-    <string name="share">Share</string>
+    <string name="share">শেয়ার</string>
     <string name="post">Post</string>
     <string name="back">Back</string>
 
@@ -725,18 +727,20 @@ de---
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
-      <string name="post_title_hint">Enter your post\'s title</string>
-      <string name="post_body_hint">Start writing your post…</string>
-      <string name="pin_title">Post this to your wall?</string>
-      <string name="pin_confirm">Would you like to post this on your wall?</string>
+      <string name="post_title_hint">Click here to enter your post\'s title</string>
+      <string name="post_body_hint">Click here to start writing your post…</string>
+      <string name="post_create_tip_header">To create a new post:</string>
+      <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+      <string name="pin_title">Dies auf deiner Pinnwand posten?</string>
+      <string name="pin_confirm">Möchtest du dies auf deiner Pinnwand posten?</string>
       <string name="pin_message_hint">Enter a message with your shared post…</string>
       <string name="comment_hint">Enter your comment here…</string>
       <string name="read_more">Read more &gt;</string>
       <string name="read_less">Read less &lt;</string>
-      <string name="edit">Edit</string>
+      <string name="edit">Bearbeiten</string>
       <string name="delete">Delete</string>
       <string name="translate">Translate</string>
-      <string name="share">Share</string>
+      <string name="share">Teilen</string>
       <string name="post">Post</string>
       <string name="back">Back</string>
 
@@ -976,18 +980,20 @@ es---
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
-      <string name="post_title_hint">Enter your post\'s title</string>
-      <string name="post_body_hint">Start writing your post…</string>
-      <string name="pin_title">Post this to your wall?</string>
-      <string name="pin_confirm">Would you like to post this on your wall?</string>
+      <string name="post_title_hint">Click here to enter your post\'s title</string>
+      <string name="post_body_hint">Click here to start writing your post…</string>
+      <string name="post_create_tip_header">To create a new post:</string>
+      <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+      <string name="pin_title">¿Quieres publicarlo en tu muro?</string>
+      <string name="pin_confirm">¿Quieres publicar esta publicación en tu muro?</string>
       <string name="pin_message_hint">Enter a message with your shared post…</string>
       <string name="comment_hint">Enter your comment here…</string>
       <string name="read_more">Read more &gt;</string>
       <string name="read_less">Read less &lt;</string>
-      <string name="edit">Edit</string>
+      <string name="edit">Editar</string>
       <string name="delete">Delete</string>
       <string name="translate">Translate</string>
-      <string name="share">Share</string>
+      <string name="share">Compartir</string>
       <string name="post">Post</string>
       <string name="back">Back</string>
 
@@ -1227,18 +1233,20 @@ fr---
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
-      <string name="post_title_hint">Enter your post\'s title</string>
-      <string name="post_body_hint">Start writing your post…</string>
-      <string name="pin_title">Post this to your wall?</string>
-      <string name="pin_confirm">Would you like to post this on your wall?</string>
+      <string name="post_title_hint">Click here to enter your post\'s title</string>
+      <string name="post_body_hint">Click here to start writing your post…</string>
+      <string name="post_create_tip_header">To create a new post:</string>
+      <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+      <string name="pin_title">Publier ceci sur votre mur ?</string>
+      <string name="pin_confirm">Souhaitez-vous publier ceci sur votre mur ?</string>
       <string name="pin_message_hint">Enter a message with your shared post…</string>
       <string name="comment_hint">Enter your comment here…</string>
       <string name="read_more">Read more &gt;</string>
       <string name="read_less">Read less &lt;</string>
-      <string name="edit">Edit</string>
+      <string name="edit">Modifier</string>
       <string name="delete">Delete</string>
       <string name="translate">Translate</string>
-      <string name="share">Share</string>
+      <string name="share">Partager</string>
       <string name="post">Post</string>
       <string name="back">Back</string>
 
@@ -1478,18 +1486,20 @@ id---
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
-      <string name="post_title_hint">Enter your post\'s title</string>
-      <string name="post_body_hint">Start writing your post…</string>
-      <string name="pin_title">Post this to your wall?</string>
-      <string name="pin_confirm">Would you like to post this on your wall?</string>
+      <string name="post_title_hint">Click here to enter your post\'s title</string>
+      <string name="post_body_hint">Click here to start writing your post…</string>
+      <string name="post_create_tip_header">To create a new post:</string>
+      <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+      <string name="pin_title">Kirimkan ini ke dinding Anda?</string>
+      <string name="pin_confirm">Apakah Anda ingin mengirimkan ini ke dinding Anda?</string>
       <string name="pin_message_hint">Enter a message with your shared post…</string>
       <string name="comment_hint">Enter your comment here…</string>
       <string name="read_more">Read more &gt;</string>
       <string name="read_less">Read less &lt;</string>
-      <string name="edit">Edit</string>
+      <string name="edit">Sunting</string>
       <string name="delete">Delete</string>
       <string name="translate">Translate</string>
-      <string name="share">Share</string>
+      <string name="share">Berbagi</string>
       <string name="post">Post</string>
       <string name="back">Back</string>
 
@@ -1729,18 +1739,20 @@ it---
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
-      <string name="post_title_hint">Enter your post\'s title</string>
-      <string name="post_body_hint">Start writing your post…</string>
-      <string name="pin_title">Post this to your wall?</string>
-      <string name="pin_confirm">Would you like to post this on your wall?</string>
+      <string name="post_title_hint">Click here to enter your post\'s title</string>
+      <string name="post_body_hint">Click here to start writing your post…</string>
+      <string name="post_create_tip_header">To create a new post:</string>
+      <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+      <string name="pin_title">Vuoi postarlo sulla bacheca?</string>
+      <string name="pin_confirm">Vuoi postarlo sulla tua bacheca?</string>
       <string name="pin_message_hint">Enter a message with your shared post…</string>
       <string name="comment_hint">Enter your comment here…</string>
       <string name="read_more">Read more &gt;</string>
       <string name="read_less">Read less &lt;</string>
-      <string name="edit">Edit</string>
+      <string name="edit">Modifica</string>
       <string name="delete">Delete</string>
       <string name="translate">Translate</string>
-      <string name="share">Share</string>
+      <string name="share">Condividi</string>
       <string name="post">Post</string>
       <string name="back">Back</string>
 
@@ -1980,18 +1992,20 @@ pl---
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
-      <string name="post_title_hint">Enter your post\'s title</string>
-      <string name="post_body_hint">Start writing your post…</string>
-      <string name="pin_title">Post this to your wall?</string>
-      <string name="pin_confirm">Would you like to post this on your wall?</string>
+      <string name="post_title_hint">Click here to enter your post\'s title</string>
+      <string name="post_body_hint">Click here to start writing your post…</string>
+      <string name="post_create_tip_header">To create a new post:</string>
+      <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+      <string name="pin_title">Opublikować ten post na twojej tablicy?</string>
+      <string name="pin_confirm">Chcesz opublikować ten post na swojej tablicy?</string>
       <string name="pin_message_hint">Enter a message with your shared post…</string>
       <string name="comment_hint">Enter your comment here…</string>
       <string name="read_more">Read more &gt;</string>
       <string name="read_less">Read less &lt;</string>
-      <string name="edit">Edit</string>
+      <string name="edit">Edycja</string>
       <string name="delete">Delete</string>
       <string name="translate">Translate</string>
-      <string name="share">Share</string>
+      <string name="share">Udostępnij</string>
       <string name="post">Post</string>
       <string name="back">Back</string>
 
@@ -2231,18 +2245,20 @@ pt---
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
-      <string name="post_title_hint">Enter your post\'s title</string>
-      <string name="post_body_hint">Start writing your post…</string>
-      <string name="pin_title">Post this to your wall?</string>
-      <string name="pin_confirm">Would you like to post this on your wall?</string>
+      <string name="post_title_hint">Click here to enter your post\'s title</string>
+      <string name="post_body_hint">Click here to start writing your post…</string>
+      <string name="post_create_tip_header">To create a new post:</string>
+      <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+      <string name="pin_title">Publica isto no teu mural?</string>
+      <string name="pin_confirm">Gostarias de publicar isto no teu mural?</string>
       <string name="pin_message_hint">Enter a message with your shared post…</string>
       <string name="comment_hint">Enter your comment here…</string>
       <string name="read_more">Read more &gt;</string>
       <string name="read_less">Read less &lt;</string>
-      <string name="edit">Edit</string>
+      <string name="edit">Editar</string>
       <string name="delete">Delete</string>
       <string name="translate">Translate</string>
-      <string name="share">Share</string>
+      <string name="share">Partilha</string>
       <string name="post">Post</string>
       <string name="back">Back</string>
 
@@ -2482,18 +2498,20 @@ ru---
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
-      <string name="post_title_hint">Enter your post\'s title</string>
-      <string name="post_body_hint">Start writing your post…</string>
-      <string name="pin_title">Post this to your wall?</string>
-      <string name="pin_confirm">Would you like to post this on your wall?</string>
+      <string name="post_title_hint">Click here to enter your post\'s title</string>
+      <string name="post_body_hint">Click here to start writing your post…</string>
+      <string name="post_create_tip_header">To create a new post:</string>
+      <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+      <string name="pin_title">Опубликовать на вашей стене?</string>
+      <string name="pin_confirm">Хотите опубликовать это на своей стене?</string>
       <string name="pin_message_hint">Enter a message with your shared post…</string>
       <string name="comment_hint">Enter your comment here…</string>
       <string name="read_more">Read more &gt;</string>
       <string name="read_less">Read less &lt;</string>
-      <string name="edit">Edit</string>
+      <string name="edit">Редакт.</string>
       <string name="delete">Delete</string>
       <string name="translate">Translate</string>
-      <string name="share">Share</string>
+      <string name="share">Опубликовать</string>
       <string name="post">Post</string>
       <string name="back">Back</string>
 
@@ -2733,18 +2751,20 @@ zh---
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
-      <string name="post_title_hint">Enter your post\'s title</string>
-      <string name="post_body_hint">Start writing your post…</string>
-      <string name="pin_title">Post this to your wall?</string>
-      <string name="pin_confirm">Would you like to post this on your wall?</string>
+      <string name="post_title_hint">Click here to enter your post\'s title</string>
+      <string name="post_body_hint">Click here to start writing your post…</string>
+      <string name="post_create_tip_header">To create a new post:</string>
+      <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+      <string name="pin_title">要发布到您的墙上吗？</string>
+      <string name="pin_confirm">要将此消息发布到您的墙上吗？</string>
       <string name="pin_message_hint">Enter a message with your shared post…</string>
       <string name="comment_hint">Enter your comment here…</string>
       <string name="read_more">Read more &gt;</string>
       <string name="read_less">Read less &lt;</string>
-      <string name="edit">Edit</string>
+      <string name="edit">编辑</string>
       <string name="delete">Delete</string>
       <string name="translate">Translate</string>
-      <string name="share">Share</string>
+      <string name="share">分享</string>
       <string name="post">Post</string>
       <string name="back">Back</string>
 
