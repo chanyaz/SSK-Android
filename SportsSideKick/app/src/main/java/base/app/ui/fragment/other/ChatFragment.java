@@ -1141,7 +1141,7 @@ public class ChatFragment extends BaseFragment {
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForCamera(final PermissionRequest request) {
         new AlertDialog.Builder(getContext(), R.style.AlertDialog)
-                .setMessage(R.string.permission_camera_rationale)
+                .setMessage("Please enable camera permissions in settings.")
                 .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -1160,7 +1160,7 @@ public class ChatFragment extends BaseFragment {
     @OnShowRationale({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForMicrophone(final PermissionRequest request) {
         new AlertDialog.Builder(getContext(), R.style.AlertDialog)
-                .setMessage(R.string.permission_microphone_rationale)
+                .setMessage("Please enable microphone in order to send voice message.")
                 .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -1178,12 +1178,10 @@ public class ChatFragment extends BaseFragment {
 
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showDeniedForMicrophone() {
-        Toast.makeText(getContext(), R.string.permission_microphone_denied, Toast.LENGTH_SHORT).show();
     }
 
     @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showNeverAskForMicrophone() {
-        Toast.makeText(getContext(), R.string.permission_microphone_never_ask, Toast.LENGTH_SHORT).show();
     }
 
     @Override

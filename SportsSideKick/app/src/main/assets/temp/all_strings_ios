@@ -1,10 +1,10 @@
 ar---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">تجمع </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">الجمهور </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">معاً</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = "تجمع الجمهور معاً"
 
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">قريباً</font>";
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">قريباً</font>";
+"login prompt 2" = "قريباً</font>";
+"login prompt 3" = "قريباً</font>";
 
 "registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">بقيامك بالتسجيل، توافق على ما تطرحه SportsSidekick </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">من شروط للاستخدام</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> و </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">سياسة الخصوصية.</font></center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
 
@@ -551,7 +551,7 @@ ar---
 
 
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">تجمع </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">الجمهور </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">معاً</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "تجمع الجمهور معاً"
 
 "Play Games" = "لعب الألعاب";
 "More" = "المزيد";
@@ -724,11 +724,11 @@ ar---
 
 bh---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\"> </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">ফ্যানদের </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">একসাথে আনে</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = " ফ্যানদের একসাথে আনে"
 
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">শীঘ্রই আসছে</font>";
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">শীঘ্রই আসছে</font>";
+"login prompt 2" = "শীঘ্রই আসছে</font>";
+"login prompt 3" = "শীঘ্রই আসছে</font>";
 
 "registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">সাইন-আপ করে, আপনি সম্মত হচ্ছেন SportsSidekick-এর </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">ব্যবহারের শর্তাবলী</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> এবং </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">গোপনীয়তা নীতি -তে।</font></center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
 
@@ -1272,7 +1272,7 @@ bh---
 "Start Call" = "কল শুরু করুন";
 "Add To Call" = "কলে যোগ করুন";
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">Bringing </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">ফ্যান </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">একসাথে আনে</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "ফ্যান একসাথে আনে"
 
 
 
@@ -1445,13 +1445,13 @@ bh---
 
 de---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">Fans </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">zusammen</font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">bringen</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = "Fans zusammenbringen"
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">BALD ERHÄLTLICH</font>";
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">BALD ERHÄLTLICH</font>";
+"login prompt 2" = "BALD ERHÄLTLICH</font>";
+"login prompt 3" = "BALD ERHÄLTLICH</font>";
 
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">Fans </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">zusammen</font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">bringen</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "Fans zusammenbringen"
 
 "registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">Mit deiner Anmeldung bei SportsSidekick akzeptiertst du die </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Nutzungsbedingungen</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> und  </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Datenschutzrichtlinien.</font></center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
 
@@ -2161,12 +2161,12 @@ de---
 
 es---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">Uniendo </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">a los </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">fans</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = "Uniendo a los fans"
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">PRÓXIMAMENTE</font>";
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">PRÓXIMAMENTE</font>";
+"login prompt 2" = "PRÓXIMAMENTE</font>";
+"login prompt 3" = "PRÓXIMAMENTE</font>";
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">Uniendo </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">a los </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">fans</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "Uniendo a los fans"
 
 
 "registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">Al registrarte, aceptas los </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Términos y condiciones de uso</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> y la </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Política de privacidad de SportsSidekick.</font></center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
@@ -2877,13 +2877,13 @@ es---
 
 fr---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">Réunir </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">les </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">supporters</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = "Réunir les supporters"
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">BIENTÔT</font>";
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">BIENTÔT</font>";
+"login prompt 2" = "BIENTÔT</font>";
+"login prompt 3" = "BIENTÔT</font>";
 
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\"> Réunir </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">les </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">supporters</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "Réunir les supporters"
 
 "registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">En vous inscrivant, vous acceptez les </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">conditions générales d’utilisation</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> et la </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">politique de confidentialité</font></center> de SportsSidekick."; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
 
@@ -3593,12 +3593,12 @@ fr---
 
 id---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">Membawa </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">fans </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">bersama-sama</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = "Membawa fans bersama-sama"
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">SEGERA DATANG</font>";
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">SEGERA DATANG</font>";
+"login prompt 2" = "SEGERA DATANG</font>";
+"login prompt 3" = "SEGERA DATANG</font>";
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">Membawa </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">fans </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">bersama-sama</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "Membawa fans bersama-sama"
 
 
 "registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">Dengan mendaftar Anda menyetujui </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Syarat dan Ketentuan Penggunaan SportsSidekick</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> dan </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Kebijakan Privasi.</font></center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
@@ -4309,16 +4309,16 @@ id---
 
 it---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">I tifosi, </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">tutti </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">insieme!</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = "I tifosi, tutti insieme!"
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">PROSSIMAMENTE</font>";
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">PROSSIMAMENTE</font>";
-
-
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">I tifosi, </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">tutti </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">insieme!</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 2" = "PROSSIMAMENTE</font>";
+"login prompt 3" = "PROSSIMAMENTE</font>";
 
 
-"registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">Registrandoti, dichiari di aver letto e accettato i </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Termini e Condizioni</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> e la </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Politica in materia di trattamento dei dati personali</font> di Sports Sidekick.</center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
+"login prompt 1 iPhone" = "I tifosi, tutti insieme!"
+
+
+"registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">Registrandoti, dichiari di aver letto e accettato i </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Termini e Condizioni</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> e la </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Politica in materia di trattamento dei dati personalidi Sports Sidekick.</center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
 
 "Post this to your wall?" = "Vuoi postarlo sulla bacheca?";
 "Would you like to post this to your wall?" = "Vuoi postarlo sulla tua bacheca?";
@@ -5025,12 +5025,12 @@ it---
 
 pl---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">Miejsce </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">spotkań </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">kibiców</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = "Miejsce spotkań kibiców"
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">JUŻ WKRÓTCE</font>";
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">JUŻ WKRÓTCE</font>";
+"login prompt 2" = "JUŻ WKRÓTCE</font>";
+"login prompt 3" = "JUŻ WKRÓTCE</font>";
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">Miejsce </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">spotkań </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">kibiców</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "Miejsce spotkań kibiców"
 
 
 "registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">Zakładając konto, zgadzasz się </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">z Warunkami użytkowania</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> i </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Polityką prywatności SportsSidekick.</font></center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
@@ -5739,14 +5739,14 @@ pl---
 
 pt---
 
-"login prompt 1" = "<Estilo de Letra=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">A </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">juntar </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\"> fãs</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */ /* Most correct translation for this term will be = A juntar fãs*/
+"login prompt 1" = "<Estilo de Letra=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">A juntar  fãs" /* Most correct translation for this term will be = A juntar fãs*/
 
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">COMING SOON</font>";
+"login prompt 2" = "COMING SOON</font>";
 
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">COMING SOON</font>";
+"login prompt 3" = "COMING SOON</font>";
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\"> A </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">juntar </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">fãs </font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "A juntar fãs"
 
 "registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">Ao registares-te concordas com os termos de utilização da SportsSidekick´s </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Termos e condições de uso</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> and </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Política de privacidade.</font></center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
 
@@ -6232,7 +6232,6 @@ pt---
 
 
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">A Juntar </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">fans</font> "; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
 /*A Juntar fans*/
 
 "Play Games" = " Jogar jogos";
@@ -6406,13 +6405,13 @@ pt---
 
 ru---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">Здесь </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">встречаются </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">болельщики</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = "Здесь встречаются болельщики"
 
-"login prompt 2" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">СКОРО</font>";
-"login prompt 3" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">СКОРО</font>";
+"login prompt 2" = "СКОРО</font>";
+"login prompt 3" = "СКОРО</font>";
 
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">Здесь </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">встречаются </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">болельщики</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "Здесь встречаются болельщики"
 
 "registration terms" = "<center><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\">Регистрируясь, вы принимаете </font><br><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Условия использования</font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#AFAFAF\"> и </font><font style=\"font-family: Helvetica Neue;font-size:8;\" color=\"#FFFFFF\">Политику конфиденциальности SportsSidekick.</font></center>"; /* Just translate the bits between the tags, so "By signing up, you agree to SportsSidekick's Terms and Conditions of Use and Privacy Policy" */
 
@@ -7135,7 +7134,7 @@ ru---
 
 zh---
 
-"login prompt 1" = "<font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">将 </font><font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#B9FF0A\">球迷 </font> <font style=\"font-family: Helvetica Neue;font-size:47;\" color=\"#FFFFFF\">聚起来</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1" = "将 球迷 聚起来"
 
 "login prompt 2" = "即将推出";
 "login prompt 3" = "即将推出";
@@ -7673,7 +7672,7 @@ zh---
 "Start Call" = "开始呼叫";
 "Add To Call" = "添加到呼叫";
 
-"login prompt 1 iPhone" = "<font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">将 </font><font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#B9FF0A\">球迷 </font> <font style=\"font-family: Helvetica Neue;font-size:30;\" color=\"#FFFFFF\">聚起来</font>"; /* Just translate the bits in between the tags!!! So "Bringing", "fans", "together" */
+"login prompt 1 iPhone" = "将 球迷 聚起来"
 
 
 "Play Games" = "玩游戏";

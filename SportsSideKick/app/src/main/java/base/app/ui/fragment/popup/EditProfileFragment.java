@@ -240,7 +240,7 @@ public class EditProfileFragment extends BaseFragment {
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForCameraAndStorage(final PermissionRequest request) {
         new AlertDialog.Builder(getContext(), R.style.AlertDialog)
-                .setMessage(R.string.permission_camera_rationale)
+                .setMessage("Please enable camera permissions in settings.")
                 .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -258,12 +258,12 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showDeniedForCameraAndStorage() {
-        Toast.makeText(getContext(), R.string.permission_camera_denied, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "You need to enable camera in settings to take image.", Toast.LENGTH_SHORT).show();
     }
 
     @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showNeverAskForCameraAndStorage() {
-        Toast.makeText(getContext(), R.string.permission_camera_never_ask, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Never ask for camera permission again.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

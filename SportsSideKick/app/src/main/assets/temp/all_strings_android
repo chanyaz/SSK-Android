@@ -27,7 +27,7 @@ ar---
     </string-array>
 
     <!-- Login & Register -->
-    <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>//todo
+    <string name="slogan">تجمع الجمهور معاً</string>
     <string name="access_full">للحصول على كافة الميزات…</string> // TODO: Not translated in other languages yet
     <string name="join_sign_in">الانضمام الآن / تسجيل الدخول</string>
     <string name="sign_in">تسجيل الدخول</string>
@@ -108,7 +108,7 @@ ar---
     <string name="user_profile">ملف المستخدم</string>
     <string name="friends_title">أصدقاؤك</string>
     <string name="friends_search">البحث في أصدقائك</string>
-    <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>//todo
+    <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
     <string name="offline">غير متصل</string>
     <string name="friend_request_pending">طلب الصداقة بالانتظار</string>
     <string name="try_again_later">Error. Try again later.</string>
@@ -159,14 +159,6 @@ ar---
     <string name="chat_hold">Hold down to record</string>//todo
     <string name="chat_recording_stop">Recording stopped</string>//todo
     <string name="no_message_text">لم يبدأ الحديث أحد بعد! لم لا تكون أولهم؟</string>
-    <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>//todo
-    <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>//todo
-    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>//todo
-    <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>//todo
-    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>//todo
-    <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>//todo
-    <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>//todo
-    <string name="permission_camera_never_ask">Never ask for camera permission again.</string>//todo
     <string name="chat_public">هذه المحادثة علنية</string>
     <string name="chat_private">هذه المحادثة خاصة</string>
     <string name="create_chat">إنشاء محادثة جديدة</string>
@@ -188,7 +180,6 @@ ar---
     <string name="chat_give_name">قم بتسمية محادثتك</string>
     <string name="chat_rename">إعادة تسمية المحادثة</string>
     <string name="add_friends_to_chat">إضافة أصدقاء إلى المحادثة</string>
-    <string name="friends_in_chat">Friends in Chat</string>//todo
     <string name="friend_chats">Public Chats your friends are in</string>//todo
     <string name="is_in"> في: </string>
 
@@ -280,7 +271,7 @@ bh---
     </string-array>
 
     <!-- Login & Register -->
-    <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+    <string name="slogan">ফ্যান একসাথে আনে</string>
     <string name="access_full">To access full features…</string>
     <string name="join_sign_in">এখনই যোগ দিন / সাইন ইন করুন</string>
     <string name="sign_in">সাইন ইন করুন</string>
@@ -409,14 +400,6 @@ bh---
     <string name="chat_hold">Hold down to record</string>
     <string name="chat_recording_stop">Recording stopped</string>
     <string name="no_message_text">এখনও কেউ চ্যাট করতে শুরু করেনি! প্রথম হিসাবে আপনিই শুরু করুন না কেন?</string>
-    <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-    <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-    <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-    <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-    <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-    <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
     <string name="chat_public">এই চ্যাটটি পাবলিক</string>
     <string name="chat_private">এই চ্যাটটি প্রাউভেট</string>
     <string name="record_video">Record Video</string>
@@ -441,7 +424,6 @@ bh---
     <string name="chat_give_name">আপনার চ্যাটে নাম দিন</string>
     <string name="chat_rename">আপনার চ্যাটে পুনর্নামকরণ করুন</string>
     <string name="add_friends_to_chat">চ্যাটে বন্ধুদের যোগ করুন</string>
-    <string name="friends_in_chat">Friends in Chat</string>
     <string name="friend_chats">Public Chats your friends are in</string>
     <string name="is_in"> এখানে আছে: </string>
 
@@ -531,7 +513,7 @@ de---
       </string-array>
 
       <!-- Login & Register -->
-      <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+      <string name="slogan">Fans zusammenbringen</string>
       <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Jetzt beitreten / Anmelden</string>
       <string name="sign_in">Anmelden</string>
@@ -663,14 +645,6 @@ de---
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
       <string name="no_message_text">Bisher chattet noch niemand! Fang du doch an!</string>
-      <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-      <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-      <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-      <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-      <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-      <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-      <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-      <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
       <string name="chat_public">Dieser Chat ist ÖFFENTLICH</string>
       <string name="chat_private">Dieser Chat ist PRIVAT</string>
       <string name="create_chat">Neuen Chat erstellen</string>
@@ -692,7 +666,6 @@ de---
       <string name="chat_give_name">Gib deinem Chat einen Namen</string>
       <string name="chat_rename">Deinen Chat umbenennen</string>
       <string name="add_friends_to_chat">Chat Freunde hinzufügen</string>
-      <string name="friends_in_chat">Friends in Chat</string>
       <string name="friend_chats">Public Chats your friends are in</string>
       <string name="is_in"> in denen X sich befindet: </string>
 
@@ -752,9 +725,6 @@ de---
       <string name="stash">Errungenschaften</string>
       <string name="your_statement">Deine Aufstellung</string>
 
-      <!--Placeholder-->
-      <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-
 es---
 
       <!--Screen titles-->
@@ -784,7 +754,7 @@ es---
       </string-array>
 
       <!-- Login & Register -->
-      <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+      <string name="slogan">Uniendo a los fans</string>
       <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Unirse / Iniciar sesión</string>
       <string name="sign_in">Iniciar sesión</string>
@@ -916,14 +886,6 @@ es---
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
       <string name="no_message_text">¡Nadie ha chateado todavía! ¿Por qué no escribes el primer mensaje?</string>
-      <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-      <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-      <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-      <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-      <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-      <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-      <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-      <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
       <string name="chat_public">Este chat es PÚBLICO</string>
       <string name="chat_private">Este chat es PRIVADO</string>
       <string name="create_chat">Crear un nuevo chat</string>
@@ -945,7 +907,6 @@ es---
       <string name="chat_give_name">Poner nombre al chat</string>
       <string name="chat_rename">Cambiar nombre al chat</string>
       <string name="add_friends_to_chat">Añadir amigos al chat</string>
-      <string name="friends_in_chat">Friends in Chat</string>
       <string name="friend_chats">Public Chats your friends are in</string>
       <string name="is_in">está en: </string>
 
@@ -1005,9 +966,6 @@ es---
       <string name="stash">Trofeos</string>
       <string name="your_statement">Tu extracto</string>
 
-      <!--Placeholder-->
-      <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-
 fr---
 
       <!--Screen titles-->
@@ -1037,7 +995,7 @@ fr---
       </string-array>
 
       <!-- Login & Register -->
-      <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+      <string name="slogan">Réunir les supporters</string>
       <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Rejoindre maintenant / Connexion</string>
       <string name="sign_in">Connexion</string>
@@ -1169,14 +1127,6 @@ fr---
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
       <string name="no_message_text">Personne n'a encore commencé à discuter ! Souhaitez-vous être le premier ?</string>
-      <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-      <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-      <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-      <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-      <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-      <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-      <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-      <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
       <string name="chat_public">Cette discussion est PUBLIQUE</string>
       <string name="chat_private">Cette discussion est PRIVÉE</string>
       <string name="create_chat">Créer une nouvelle discussion</string>
@@ -1198,7 +1148,6 @@ fr---
       <string name="chat_give_name">Nommez votre discussion</string>
       <string name="chat_rename">Renommer votre discussion</string>
       <string name="add_friends_to_chat">Ajouter des amis à la discussion</string>
-      <string name="friends_in_chat">Friends in Chat</string>
       <string name="friend_chats">Public Chats your friends are in</string>
       <string name="is_in"> est dans : </string>
 
@@ -1258,9 +1207,6 @@ fr---
       <string name="stash">Votre Butin</string>
       <string name="your_statement">Votre relevé</string>
 
-      <!--Placeholder-->
-      <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-
 id---
 
       <!--Screen titles-->
@@ -1290,7 +1236,7 @@ id---
       </string-array>
 
       <!-- Login & Register -->
-      <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+      <string name="slogan">Membawa fans bersama-sama</string>
       <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Bergabung Sekarang / Masuk</string>
       <string name="sign_in">Masuk</string>
@@ -1422,14 +1368,6 @@ id---
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
       <string name="no_message_text">Belum ada seorangpun memulai obrolan! Mengapa tidak jadi yang pertama?</string>
-      <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-      <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-      <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-      <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-      <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-      <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-      <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-      <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
       <string name="chat_public">Obrolan ini UMUM</string>
       <string name="chat_private">Obrolan ini PRIBADI</string>
       <string name="create_chat">Buat Obrolan Baru</string>
@@ -1451,7 +1389,6 @@ id---
       <string name="chat_give_name">Beri Nama Obrolan Anda</string>
       <string name="chat_rename">Ubah nama obrolan Anda</string>
       <string name="add_friends_to_chat">Tambahkan teman ke obrolan</string>
-      <string name="friends_in_chat">Friends in Chat</string>
       <string name="friend_chats">Public Chats your friends are in</string>
       <string name="is_in"> ada di: </string>
 
@@ -1511,9 +1448,6 @@ id---
       <string name="stash">Kotak rahasia anda</string>
       <string name="your_statement">Pernyataan Anda</string>
 
-      <!--Placeholder-->
-      <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-
 it---
 
       <!--Screen titles-->
@@ -1543,7 +1477,7 @@ it---
       </string-array>
 
       <!-- Login & Register -->
-      <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+      <string name="slogan">I tifosi, tutti insieme!</string>
       <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Unisciti / Iscriviti</string>
       <string name="sign_in">Iscriviti</string>
@@ -1675,14 +1609,6 @@ it---
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
       <string name="no_message_text">Nessuno ha ancora avviato una chat! Perché non essere il primo?</string>
-      <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-      <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-      <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-      <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-      <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-      <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-      <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-      <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
       <string name="chat_public">La chat è PUBBLICA</string>
       <string name="chat_private">La chat è PRIVATA</string>
       <string name="create_chat">Crea una nuova chat</string>
@@ -1704,7 +1630,6 @@ it---
       <string name="chat_give_name">Dai un nome alla chat</string>
       <string name="chat_rename">Rinomina la chat</string>
       <string name="add_friends_to_chat">Aggiungi amici alla chat</string>
-      <string name="friends_in_chat">Friends in Chat</string>
       <string name="friend_chats">Public Chats your friends are in</string>
       <string name="is_in">è iscritto alle seguenti chat pubbliche: </string>
 
@@ -1764,9 +1689,6 @@ it---
       <string name="stash">La tua riserva</string>
       <string name="your_statement">Il tuo rendiconto</string>
 
-      <!--Placeholder-->
-      <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-
 pl---
 
       <!--Screen titles-->
@@ -1796,7 +1718,7 @@ pl---
       </string-array>
 
       <!-- Login & Register -->
-      <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+      <string name="slogan">Miejsce spotkań kibiców</string>
       <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Dołącz teraz / Zaloguj się</string>
       <string name="sign_in">Zaloguj się</string>
@@ -1928,14 +1850,6 @@ pl---
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
       <string name="no_message_text">Jeszcze nikt nie zaczął rozmowy! Może ty spróbujesz?</string>
-      <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-      <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-      <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-      <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-      <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-      <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-      <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-      <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
       <string name="chat_public">Ten czat jest PUBLICZNY</string>
       <string name="chat_private">Ten czat jest PRYWATNY</string>
       <string name="create_chat">Stwórz nowy czat</string>
@@ -1957,7 +1871,6 @@ pl---
       <string name="chat_give_name">Nazwij czat</string>
       <string name="chat_rename">Zmień nazwę czatu</string>
       <string name="add_friends_to_chat">Dodaj znajomych do czatu</string>
-      <string name="friends_in_chat">Friends in Chat</string>
       <string name="friend_chats">Public Chats your friends are in</string>
       <string name="is_in">jest: </string>
 
@@ -2017,9 +1930,6 @@ pl---
       <string name="stash">Twoje zdobycze</string>
       <string name="your_statement">Twój wyciąg</string>
 
-      <!--Placeholder-->
-      <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-
 pt---
 
       <!--Screen titles-->
@@ -2049,7 +1959,7 @@ pt---
       </string-array>
 
       <!-- Login & Register -->
-      <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+      <string name="slogan">A juntar fãs</string>
       <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Inscreve-te já /  Regista-te</string>
       <string name="sign_in">Regista-te</string>
@@ -2181,14 +2091,6 @@ pt---
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
       <string name="no_message_text">Ainda niguem começou a conversar! Porque não seres o primeiro?</string>
-      <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-      <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-      <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-      <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-      <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-      <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-      <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-      <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
       <string name="chat_public">Esta conversa é PÚBLICA</string>
       <string name="chat_private">Esta conversa é PRIVADA</string>
       <string name="create_chat">Criar nova conversa</string>
@@ -2210,7 +2112,6 @@ pt---
       <string name="chat_give_name">Dá nome à conversa</string>
       <string name="chat_rename">Mudar de nome ao Chat</string>
       <string name="add_friends_to_chat">Adicionar amigos a este Chat</string>
-      <string name="friends_in_chat">Friends in Chat</string>
       <string name="friend_chats">Public Chats your friends are in</string>
       <string name="is_in"> está dentro: </string>
 
@@ -2270,9 +2171,6 @@ pt---
       <string name="stash">O seu esconderijo</string>
       <string name="your_statement">A sua declaração</string>
 
-      <!--Placeholder-->
-      <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-
 ru---
 
       <!--Screen titles-->
@@ -2302,7 +2200,7 @@ ru---
       </string-array>
 
       <!-- Login & Register -->
-      <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+      <string name="slogan">Здесь встречаются болельщики</string>
       <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Вступить / Войти</string>
       <string name="sign_in">Войти</string>
@@ -2434,14 +2332,6 @@ ru---
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
       <string name="no_message_text">Пока еще никто не начал чат! Почему бы не начать вам?</string>
-      <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-      <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-      <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-      <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-      <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-      <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-      <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-      <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
       <string name="chat_public">Это ОТКРЫТЫЙ чат</string>
       <string name="chat_private">Это ЗАКРЫТЫЙ чат</string>
       <string name="create_chat">Создать новый чат</string>
@@ -2463,7 +2353,6 @@ ru---
       <string name="chat_give_name">Назовите чат</string>
       <string name="chat_rename">Переименуйте свой чат</string>
       <string name="add_friends_to_chat">Добавить друзей в чат</string>
-      <string name="friends_in_chat">Friends in Chat</string>
       <string name="friend_chats">Public Chats your friends are in</string>
       <string name="is_in">: </string>
 
@@ -2523,9 +2412,6 @@ ru---
       <string name="stash">Кладовка</string>
       <string name="your_statement">Ваша выписка</string>
 
-      <!--Placeholder-->
-      <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-
 zh---
 
       <!--Screen titles-->
@@ -2555,7 +2441,7 @@ zh---
       </string-array>
 
       <!-- Login & Register -->
-      <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
+      <string name="slogan">将 球迷 聚起来</string>
       <string name="access_full">To access full features…</string>
       <string name="join_sign_in">立即加入 / 登录</string>
       <string name="sign_in">登录</string>
@@ -2687,14 +2573,6 @@ zh---
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
       <string name="no_message_text">还没人开始聊天！为何不率先创建？</string>
-      <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-      <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-      <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-      <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-      <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-      <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-      <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-      <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
       <string name="chat_public">聊天室已公开</string>
       <string name="chat_private">聊天室未公开</string>
       <string name="create_chat">创建新聊天</string>
@@ -2716,7 +2594,6 @@ zh---
       <string name="chat_give_name">给您的聊天室命名</string>
       <string name="chat_rename">重命名聊天室</string>
       <string name="add_friends_to_chat">将好友添加聊天室</string>
-      <string name="friends_in_chat">Friends in Chat</string>
       <string name="friend_chats">Public Chats your friends are in</string>
       <string name="is_in"> 位于： </string>
 

@@ -173,14 +173,6 @@
     <string name="chat_hold">Hold down to record</string>
     <string name="chat_recording_stop">Recording stopped</string>
     <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
-    <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-    <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-    <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-    <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-    <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-    <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
     <string name="chat_public">This chat is public</string>
     <string name="chat_private">This chat is private</string>
     <string name="chat_create">Create Chat</string>
@@ -191,7 +183,7 @@
     <string name="alerts_off">Alerts-OFF</string>
     <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
     <string name="chat_with_friends_login">Chat with friends.</string>
-    <string name="chat_friends_in_chat">Friends in Chat</string>
+    <string name="friends_in_chat">Friends in Chat</string>
     <string name="chat_friend_in_chat">1 Friend in Chat</string>
     <string name="chats">Chats</string>
     <string name="chats_public">Public chats</string>
@@ -202,7 +194,6 @@
     <string name="chat_give_name">Name Your Chat</string>
     <string name="chat_rename">Rename your chat</string>
     <string name="add_friends_to_chat">Add friends to chat</string>
-    <string name="friends_in_chat">Friends in Chat</string>
     <string name="friend_chats">Public Chats your friends are in</string>
     <string name="is_in"> is in: </string>
 

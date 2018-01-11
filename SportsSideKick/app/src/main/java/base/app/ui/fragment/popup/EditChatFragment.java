@@ -203,7 +203,7 @@ public class EditChatFragment extends BaseFragment {
 
     private void updateFirendsCountLabel(){
         int friendCount = addFriendsAdapter.getItemCount();
-        String friendsInChat = getContext().getResources().getString(R.string.chat_friends_in_chat);
+        String friendsInChat = getContext().getResources().getString(R.string.friends_in_chat);
         if (friendCount == 0) {
             headlineFriendsInChat.setText(friendsInChat);
         } else if (friendCount == 1) {
@@ -432,18 +432,18 @@ public class EditChatFragment extends BaseFragment {
 
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showDeniedForCamera() {
-        Toast.makeText(getContext(), R.string.permission_camera_denied, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "You need to enable camera in settings to take image.", Toast.LENGTH_SHORT).show();
     }
 
     @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showNeverAskForCamera() {
-        Toast.makeText(getContext(), R.string.permission_camera_never_ask, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Never ask for camera permission again.", Toast.LENGTH_SHORT).show();
     }
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForCamera(final PermissionRequest request) {
         new AlertDialog.Builder(getContext(), R.style.AlertDialog)
-                .setMessage(R.string.permission_camera_rationale)
+                .setMessage("Please enable camera permissions in settings.")
                 .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
