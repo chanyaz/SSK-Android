@@ -59,21 +59,21 @@ ar---
     <string name="login_slider_chat">يمكنك التحدث مع أصدقائك، وإنشاء المجموعات، وحتى التواصل مع لاعبيك المفضلين!!</string> // TODO: Not translated in other languages yet
     <string name="logout_from_app">ستسجل خروجك من التطبيق؟</string>
     <string name="reset_app">ستقوم بإعادة تشغيل التطبيق بهذا الفعل.</string>
-    <string name="error_username_taken">Registration error - username already taken, please select a different username.</string> // TODO: Potentially not needed
+    <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string> // TODO: Not translated
     <string name="facebook_error">لم يتم تلقي ملفك العام. الرجاء المحاولة مجدداً!</string>
 
     <!--Dialogs-->
     <string name="ok">حسناً</string>
-    <string name="allow">Allow</string>
-    <string name="deny">Deny</string>
-    <string name="warning">Warning</string>
-    <string name="uploading">Uploading…</string>
+    <string name="allow">Allow</string>//todo
+    <string name="deny">Deny</string>//todo
+    <string name="warning">Warning</string>//todo
+    <string name="uploading">Uploading…</string>//todo
     <string name="no_connection">لا اتصال</string>
     <string name="internet_needed">عليك أن تكون متصلاً بالانترنت لتقوم بهذا</string>
-    <string name="waiting_for_internet">Waiting for active internet connection…</string>
+    <string name="waiting_for_internet">Waiting for active internet connection…</string>//todo
 
     <!--Profile-->
-    <string name="go_to_profile">Go to Profile ></string>
+    <string name="go_to_profile">Go to Profile ></string>//todo
     <string name="profile">ملفك الشخصي</string>
     <string name="contact_info">بيانات التواصل</string>
     <string name="choose_your_language">اختر لغتك</string>
@@ -82,9 +82,9 @@ ar---
     <string name="subscribed_since">مسجل منذ</string>
     <string name="auto_translation">Automatic translation</string>//todo
     <string name="notify_wall">إشعارات الحائط</string>
-    <string name="notify_news">News notifications</string>
-    <string name="notify_rumours">Rumours notifications</string>
-    <string name="notify_social">Social feed notifications</string>
+    <string name="notify_news">News notifications</string>//todo not translated
+    <string name="notify_rumours">Rumours notifications</string>//todo not translated
+    <string name="notify_social">Social feed notifications</string>//todo not translated
     <string name="edit_profile">تعديل ملفك</string>
     <string name="edit_photo">تعديل الصورة</string>
     <string name="done">تم</string>
@@ -146,7 +146,7 @@ ar---
     <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
     <!--Chat-->
-    <string name="members">Members</string>
+    <string name="members">Members</string>//todo
     <string name="leave">الخروج من المحادثة</string>
     <string name="are_you_sure">هل أنت متأكد؟</string>
     <string name="chat_confirm_leave">الخروج من المحادثة؟</string>
@@ -184,7 +184,7 @@ ar---
     <string name="is_in"> في: </string>
 
     <!--Video chat-->
-    <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>//todo not translated
+    <string name="video_chat_promo_1">Win the match with your friends</string>//todo not translated
     <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>//todo not translated
     <string name="call_start">بدء الاتصال</string>
     <string name="call_starting">بدء اتصال جديد</string>
@@ -303,7 +303,7 @@ bh---
     <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
     <string name="logout_from_app">এটি করলে আপনাকে অ্যাপ থেকে লগ-আউট করবে?</string>
     <string name="reset_app">এই কার্য অ্যাপ্লিকেশনকে আবার লোড করবে।</string>
-    <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+    <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
     <string name="facebook_error">আপনার সর্বজনীন প্রোফাইল প্রাপ্ত করা গেল না। অনুগ্রহ করে আবার চেষ্টা করুন!</string>
 
     <!--Dialogs-->
@@ -545,7 +545,7 @@ de---
       <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
       <string name="logout_from_app">Damit wirst du von der App abgemeldet?</string>
       <string name="reset_app">Damit wird die Applikation neu geladen.</string>
-      <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
       <string name="facebook_error">Dein öffentliches Profil kann nicht abgerufen werden. Bitte erneut versuchen!</string>
 
       <!--Dialogs-->
@@ -632,7 +632,7 @@ de---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="members">Members</string>//todo
+      <string name="members">Members</string>
       <string name="leave">Chat verlassen</string>
       <string name="are_you_sure">Ganz sicher?</string>
       <string name="chat_confirm_leave">Diesen Chat verlassen?</string>
@@ -786,7 +786,7 @@ es---
       <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
       <string name="logout_from_app">Al hacerlo, cerrarás sesión en la aplicación.</string>
       <string name="reset_app">Esta acción hará que la aplicación se reinicie.</string>
-      <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
       <string name="facebook_error">No se ha podido recibir tu perfil público. ¡Vuelve a intentarlo!</string>
 
       <!--Dialogs-->
@@ -1027,7 +1027,7 @@ fr---
       <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
       <string name="logout_from_app">Vous allez être déconnecté de l'application.</string>
       <string name="reset_app">Cette action relancera l'application.</string>
-      <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
       <string name="facebook_error">Nous n'avons pas reçu votre profil public. Veuillez réessayer !</string>
 
       <!--Dialogs-->
@@ -1268,7 +1268,7 @@ id---
       <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
       <string name="logout_from_app">Ini akan mengeluarkan Anda dari aplikasi?</string>
       <string name="reset_app">Tindakan ini akan memuat ulang aplikasinya.</string>
-      <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
       <string name="facebook_error">Profil publik Anda tidak bisa diterima. Silakan coba lagi!</string>
 
       <!--Dialogs-->
@@ -1509,7 +1509,7 @@ it---
       <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
       <string name="logout_from_app">Uscirai dall'App. Continuare?</string>
       <string name="reset_app">Quest'azione ricaricherà l'App.</string>
-      <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
       <string name="facebook_error">Non è stato possibile caricare il tuo profilo pubblico. Prova di nuovo!</string>
 
       <!--Dialogs-->
@@ -1750,7 +1750,7 @@ pl---
       <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
       <string name="logout_from_app">Nastąpi wylogowanie z aplikacji</string>
       <string name="reset_app">Jeśli to zrobisz, aplikacja zostanie ponownie uruchomiona.</string>
-      <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
       <string name="facebook_error">Nie przyjęto Twojego publicznego profilu. Spróbuj ponownie!</string>
 
       <!--Dialogs-->
@@ -1991,7 +1991,7 @@ pt---
       <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
       <string name="logout_from_app">Isto irá fazê-lo sair da aplicação</string>
       <string name="reset_app">Esta acção irá actualizar a aplicação.</string>
-      <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
       <string name="facebook_error">O seu perfil público não foi recebido, por favor tente novamente!</string>
 
       <!--Dialogs-->
@@ -2232,7 +2232,7 @@ ru---
       <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
       <string name="logout_from_app">Так вы выйдете из приложения?</string>
       <string name="reset_app">Это действие перезагрузит приложение.</string>
-      <string name="error_username_taken">Registration error - username already taken, please select a different username.</string>
+      <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
       <string name="facebook_error">Не удалось получить ваш общий профиль. Попробуйте еще раз!</string>
 
       <!--Dialogs-->
@@ -2478,16 +2478,16 @@ zh---
 
       <!--Dialogs-->
       <string name="ok">确定</string>
-      <string name="allow">Allow</string>//todo
-      <string name="deny">Deny</string>//todo
-      <string name="warning">Warning</string>//todo
-      <string name="uploading">Uploading…</string>//todo
+      <string name="allow">Allow</string>
+      <string name="deny">Deny</string>
+      <string name="warning">Warning</string>
+      <string name="uploading">Uploading…</string>
       <string name="no_connection">无连接</string>
       <string name="internet_needed">您需要接入互联网，才能执行此功能</string>
-      <string name="waiting_for_internet">Waiting for active internet connection…</string>//todo
+      <string name="waiting_for_internet">Waiting for active internet connection…</string>
 
       <!--Profile-->
-      <string name="go_to_profile">Go to Profile ></string> // todo
+      <string name="go_to_profile">Go to Profile ></string>
       <string name="profile">您的个人资料</string>
       <string name="contact_info">联系方式</string>
       <string name="choose_your_language">选择您的语言</string>
@@ -2496,9 +2496,9 @@ zh---
       <string name="subscribed_since">初次订阅时间：</string>
       <string name="auto_translation">Automatic translation</string>
       <string name="notify_wall">公告墙通知</string>
-      <string name="notify_news">News notifications</string>// todo
-      <string name="notify_rumours">Rumours notifications</string>// todo
-      <string name="notify_social">Social feed notifications</string>// todo
+      <string name="notify_news">News notifications</string>
+      <string name="notify_rumours">Rumours notifications</string>
+      <string name="notify_social">Social feed notifications</string>
       <string name="edit_profile">编辑您的个人资料</string>
       <string name="edit_photo">编辑照片</string>
       <string name="done">完成</string>

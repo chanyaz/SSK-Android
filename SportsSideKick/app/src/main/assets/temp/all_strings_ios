@@ -2296,7 +2296,7 @@ es---
 "m" = "m"; /* Short form for "Mins" */
 "s" = "s"; /* Short form for "Seconds" */
 "ago" = "Hace"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
-"Everyone in" = "Todo el mundo en"; /* Format "Everyone in 'X' chat" */
+"Everyone in" = "Tod0 el mundo en"; /* Format "Everyone in 'X' chat" */
 "chat" = "chat"; /* Format "Everyone in 'X' chat" */
 "Chat alerts are ON" = "Alertas del chat activadas";
 "Chat alerts are OFF" = "Alertas del chat desactivadas";
@@ -2481,7 +2481,7 @@ es---
 "Stats" = "Estadísticas";
 "Write your post here." = "Escribe aquí tu publicación.";
 "RUMOURS" = "RUMORES";
-"That’s everything for now!" = "¡Eso es todo por ahora!";
+"That’s everything for now!" = "¡Eso es Tod0 por ahora!";
 "Chat name" = "Nombre del chat";
 "Manage chat" = "Gestionar chat";
 "Rename your chat" = "Cambiar nombre al chat";
@@ -2580,7 +2580,7 @@ es---
 "tip_1_description" = "¡Te damos la bienvenida a Sport Sidekick! Empecemos por seguir a la cuenta oficial del Sporting. Las cuentas oficiales son creadas por los jugadores, los entrenadores u otros representantes oficiales del club; si las sigues, verás sus actualizaciones en tu muro.";
 "tip_1_end" = "¡Enhorabuena! Ya estás siguiendo la cuenta oficial del Sporting CP. Todas sus publicaciones aparecerán en tu muro.";
 "tip_1_step_1" = "Para ver tus contactos, toca el icono Amigos, que verás en la esquina inferior derecha de la pantalla.";
-"tip_1_step_2" = "Toca el avatar del Sporting CP para abrir una ventana con todos los detalles.";
+"tip_1_step_2" = "Toca el avatar del Sporting CP para abrir una ventana con Tod0s los detalles.";
 "tip_1_step_3" = "Toca para activar la opción de Seguir.";
 
 
@@ -2590,7 +2590,7 @@ es---
 "tip_2_end" = "¡Ahora podrás unirte al chat oficial del club siempre que quieras!";
 "tip_2_step_1" = "Para abrir la ventana, toca la pestaña Chat que verás en la parte superior derecha de la pantalla.";
 "tip_2_step_2" = "El chat del Sporting ya aparecerá en la ventana de grupos, junto a la parte superior del módulo del chat.";
-"tip_2_step_3" = "¡Toca para abrir el chat y saluda a todo el mundo!";
+"tip_2_step_3" = "¡Toca para abrir el chat y saluda a Tod0 el mundo!";
 
 
 "tip_3_text" = "Prueba a ver un vídeo en TV del club.";
@@ -2613,7 +2613,7 @@ es---
 
 "tip_5_text" = "Prueba a ver un rumor.";
 "tip_5_title" = "TUTORIAL: VER RUMORES";
-"tip_5_description" = "Pst... ¿Has oído hablar del módulo de rumores? Te permite estar al tanto de todos los cotilleos sobre fichajes. A continuación te explicamos cómo ver rumores.";
+"tip_5_description" = "Pst... ¿Has oído hablar del módulo de rumores? Te permite estar al tanto de Tod0s los cotilleos sobre fichajes. A continuación te explicamos cómo ver rumores.";
 "tip_5_end" = "Podrás compartir rumores en el muro o en el chat.";
 "tip_5_step_1" = "Toca la pestaña Rumores, en la esquina superior izquierda de la pantalla, para abrir el módulo de rumores.";
 "tip_5_step_2" = "Los rumores más recientes aparecerán encima. Toca un rumor para leer más.";
@@ -2650,7 +2650,7 @@ es---
 
 "tip_9_text" = "Crea un chat con tus amigos.";
 "tip_9_title" = "TUTORIAL: CREAR UN CHAT CON AMIGOS";
-"tip_9_description" = "Puedes compartir los chats con una persona sola o con todo un grupo. Te explicamos lo que tienes que hacer para montar un chat y saludar a un amigo.";
+"tip_9_description" = "Puedes compartir los chats con una persona sola o con Tod0 un grupo. Te explicamos lo que tienes que hacer para montar un chat y saludar a un amigo.";
 "tip_9_end" = "Como creador del chat podrás renombrar, invitar y bloquear a miembros de dicho chat.";
 "tip_9_step_1" = "Para abrir la ventana, toca la pestaña Chat que verás en la parte superior derecha de la pantalla.";
 "tip_9_step_2" = "En la ventana Grupos, toca el botón de \"Crear\" o de \"Unirse\" a un chat.";
@@ -2762,7 +2762,7 @@ es---
 
 "View your contacts by tapping the Friends icon on the top right of the screen." = "Para ver tus contactos, toca el icono Amigos, que verás en la esquina superior derecha de la pantalla.";
 
-"Tap the Sporting CP avatar in the ‘Official Accounts’ section at the bottom of the screen to open their details panel." = "En la sección ‘Cuentas oficiales’, toca el avatar del Sporting CP (en la parte inferior de la pantalla) para abrir una ventana con todos los detalles.";
+"Tap the Sporting CP avatar in the ‘Official Accounts’ section at the bottom of the screen to open their details panel." = "En la sección ‘Cuentas oficiales’, toca el avatar del Sporting CP (en la parte inferior de la pantalla) para abrir una ventana con Tod0s los detalles.";
 
 "Tap the Follow toggle ON." = "Toca para activar la opción de Seguir.";
 
@@ -5872,7 +5872,7 @@ pt---
 "m" = "m";
 "s" = "s";
 "ago" = "Atrás";
-"Everyone in" = "Todos no";
+"Everyone in" = "Tod0s no";
 "chat" = "chat";
 "Chat alerts are ON" = "Alertas do Chat ligados";
 "Chat alerts are OFF" = "Alertas do Chat desligados";
@@ -6102,7 +6102,7 @@ pt---
 "tip_1_text" = "Tente seguir a conta official do Sporting.";
 "tip_1_title" = "Como seguir a conta official do Sporting";
 "tip_1_description" = " Benvindo ao Sport Sidekick! Vamos já começar por seguir a conta official do Sporting. As contas oficiais sao propriedade dos jogadores, treinadores e dos representantes oficiais do clube, ao segui-los irá ter informação atualizada dos mesmos no seu mural.";
-"tip_1_end" = "Parabéns!  Estás agora a seguir a conta official do Sporting Clube de Portugal, todos os posts do clube irão aparecer no teu mural.";
+"tip_1_end" = "Parabéns!  Estás agora a seguir a conta official do Sporting Clube de Portugal, Tod0s os posts do clube irão aparecer no teu mural.";
 "tip_1_step_1" = " Veja quais os seus contactos através do clique no icon de amizades que se encontra no botão do lado direito do seu ecrã.";
 "tip_1_step_2" = " Clique no avatar do Sporting CP para aceder a mais detalhes.";
 "tip_1_step_3" = "Clique para estar ligado.";
@@ -6114,7 +6114,7 @@ pt---
 "tip_2_end" = " Pode entrar no chat oficial do clube quando quiser!";
 "tip_2_step_1" = " Abre a opção de chat ao clicar na botão de chat que se encontra no lado direito do ecrã.";
 "tip_2_step_2" = " O chat Sporting irá estar no teu painel de grupos no lado superior do teu ecrã.";
-"tip_2_step_3" = " Clique para entrar no Chat e diga Olá a todos!";
+"tip_2_step_3" = " Clique para entrar no Chat e diga Olá a Tod0s!";
 
 
 "tip_3_text" = " Tente ver um video na televisão do clube";
