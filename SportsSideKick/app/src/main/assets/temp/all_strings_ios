@@ -148,7 +148,7 @@ ar---
 "Add friends to chat" = "إضافة أصدقاء إلى المحادثة";
 "REMOVE SELECTED" = "إزالة الاختيارات"; /* Confirms removal of a friend */
 "Add a caption..." = "إضافة توصيف..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "مباشر"; /* When a match is happening it's "Live" */
+"LIVE" = "مباشر";
 "You" = "أنت";
 "Your Friends" = "أصدقاؤك";
 "Search your friends" = "البحث في أصدقائك";
@@ -869,7 +869,7 @@ bh---
 "Add friends to chat" = "চ্যাটে বন্ধুদের যোগ করুন";
 "REMOVE SELECTED" = "নির্বাচিতটিকে সরান"; /* Confirms removal of a friend */
 "Add a caption..." = "একটি ক্যাপশন যোগ করুন..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "সরাসরি"; /* When a match is happening it's "Live" */
+"LIVE" = "সরাসরি";
 "You" = "আপনি";
 "Your Friends" = "আপনার বন্ধুরা";
 "Search your friends" = "আপনার বন্ধুদের সন্ধান করুন";
@@ -1563,7 +1563,7 @@ de---
 "Chat Invites" = "Chat-Einladungen";
 "Friend Requests" = "Freundschaftsanfragen";
 "UP NEXT" = "NÄCHSTES SPIEL";
-"VS" = "GEGEN";
+"VS" = "gegen";
 "Level" = "Stufe"; /* Format "Level X" */
 "Credits" = "Mitwirkende";
 "Just Now" = "Gerade eben";
@@ -1591,7 +1591,7 @@ de---
 "Add friends to chat" = "Chat Freunde hinzufügen";
 "REMOVE SELECTED" = "AUSGEWÄHLTEN ENTFERNEN"; /* Confirms removal of a friend */
 "Add a caption..." = "Beschriftung hinzufügen ..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "LIVE"; /* When a match is happening it's "Live" */
+"LIVE" = "Live";
 "You" = "Du";
 "Your Friends" = "Deine Freunde";
 "Search your friends" = "Deine Freunde durchsuchen";
@@ -2279,7 +2279,7 @@ es---
 "Chat Invites" = "Invitaciones de chat";
 "Friend Requests" = "Peticiones de amistad";
 "UP NEXT" = "PRÓXIMO";
-"VS" = "VS";
+"VS" = "vs";
 "Level" = "Nivel"; /* Format "Level X" */
 "Credits" = "Créditos";
 "Just Now" = "Justo ahora";
@@ -2307,7 +2307,7 @@ es---
 "Add friends to chat" = "Añadir amigos al chat";
 "REMOVE SELECTED" = "QUITAR SELECCIONADOS"; /* Confirms removal of a friend */
 "Add a caption..." = "Añadir una captura..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "DIRECTO"; /* When a match is happening it's "Live" */
+"LIVE" = "Directo";
 "You" = "Tú";
 "Your Friends" = "Tus amigos";
 "Search your friends" = "Busca a tus amigos";
@@ -2997,7 +2997,7 @@ fr---
 "Chat Invites" = "Invitations à discuter";
 "Friend Requests" = "Demandes d'ami";
 "UP NEXT" = "SUIVANT";
-"VS" = "VS";
+"VS" = "vs";
 "Level" = "Niveau"; /* Format "Level X" */
 "Credits" = "Crédits";
 "Just Now" = "À l'instant";
@@ -3025,7 +3025,7 @@ fr---
 "Add friends to chat" = "Ajouter des amis à la discussion";
 "REMOVE SELECTED" = "SUPPRIMER LA SÉLECTION"; /* Confirms removal of a friend */
 "Add a caption..." = "Ajouter un sous-titre..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "EN DIRECT"; /* When a match is happening it's "Live" */
+"LIVE" = "En direct";
 "You" = "Vous";
 "Your Friends" = "Vos amis";
 "Search your friends" = "Chercher vos amis";
@@ -3711,7 +3711,7 @@ id---
 "Chat Invites" = "Undangan Obrolan";
 "Friend Requests" = "Permintaan teman";
 "UP NEXT" = "BERIKUTNYA";
-"VS" = "Melawan";
+"VS" = "mELAWAN";
 "Level" = "Tingkat"; /* Format "Level X" */
 "Credits" = "Kredit";
 "Just Now" = "Baru Saja";
@@ -3739,7 +3739,7 @@ id---
 "Add friends to chat" = "Tambahkan teman ke obrolan";
 "REMOVE SELECTED" = "KELUARKAN PILIHAN"; /* Confirms removal of a friend */
 "Add a caption..." = "Tambahkan keterangan..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "LANGSUNG"; /* When a match is happening it's "Live" */
+"LIVE" = "Langsung";
 "You" = "Anda";
 "Your Friends" = "Teman Anda";
 "Search your friends" = "Cari teman Anda";
@@ -4428,7 +4428,7 @@ it---
 "Chat Invites" = "Inviti a chat";
 "Friend Requests" = "Richieste di amicizia";
 "UP NEXT" = "PROSSIMO";
-"VS" = "VS";
+"VS" = "vs";
 "Level" = "Livello"; /* Format "Level X" */
 "Credits" = "Crediti";
 "Just Now" = "Proprio ora";
@@ -4456,7 +4456,7 @@ it---
 "Add friends to chat" = "Aggiungi amici alla chat";
 "REMOVE SELECTED" = "RIMUOVI SELEZIONATO"; /* Confirms removal of a friend */
 "Add a caption..." = "Aggiungi una descrizione..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "IN DIRETTA"; /* When a match is happening it's "Live" */
+"LIVE" = "In diretta";
 "You" = "Tu";
 "Your Friends" = "I tuoi amici";
 "Search your friends" = "Cerca i tuoi amici";
@@ -5143,7 +5143,7 @@ pl---
 "Chat Invites" = "Zaproszenia do czatu";
 "Friend Requests" = "Prośby o dodanie do znajomych";
 "UP NEXT" = "POTEM";
-"VS" = "VERSUS";
+"VS" = "versus";
 "Level" = "Poziom"; /* Format "Level X" */
 "Credits" = "Kredyty";
 "Just Now" = "Dopiero co";
@@ -5171,7 +5171,7 @@ pl---
 "Add friends to chat" = "Dodaj znajomych do czatu";
 "REMOVE SELECTED" = "USUŃ WYBRANYCH"; /* Confirms removal of a friend */
 "Add a caption..." = "Dodaj podpis..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "NA ŻYWO"; /* When a match is happening it's "Live" */
+"LIVE" = "Na żywo";
 "You" = "Ty";
 "Your Friends" = "Twoi znajomi";
 "Search your friends" = "Wyszukaj znajomych";
@@ -5855,7 +5855,7 @@ pt---
 "Chat Invites" = "Convites para Chat";
 "Friend Requests" = "Pedidos de amizade";
 "UP NEXT" = "A seguir";
-"VS" = "VS";
+"VS" = "vs";
 "Level" = "Nível";
 "Credits" = "Créditos";
 "Just Now" = "Agora mesmo";
@@ -6528,7 +6528,7 @@ ru---
 "Chat Invites" = "Приглашения в чаты";
 "Friend Requests" = "Запросы о дружбе";
 "UP NEXT" = "ДАЛЕЕ";
-"VS" = "VS";
+"VS" = "vs";
 "Level" = "Уровень"; /* Format "Level X" */
 "Credits" = "Кредиты";
 "Just Now" = "Только что";
@@ -6556,7 +6556,7 @@ ru---
 "Add friends to chat" = "Добавить друзей в чат";
 "REMOVE SELECTED" = "УДАЛИТЬ ВЫБРАННЫХ"; /* Confirms removal of a friend */
 "Add a caption..." = "Добавить подпись..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "ПРЯМ. ЭФИР"; /* When a match is happening it's "Live" */
+"LIVE" = "Прям. эфир";
 "You" = "Вы";
 "Your Friends" = "Ваши друзья";
 "Search your friends" = "Искать друзей";
@@ -7280,7 +7280,7 @@ zh---
 "Add friends to chat" = "将好友添加聊天室";
 "REMOVE SELECTED" = "删除选定项"; /* Confirms removal of a friend */
 "Add a caption..." = "添加标题..."; /* Appears when a user has added a photo to a new wall post, without having previously written any text to go along with it. */
-"LIVE" = "实时"; /* When a match is happening it's "Live" */
+"LIVE" = "实时";
 "You" = "您";
 "Your Friends" = "您的朋友";
 "Search your friends" = "搜索您的朋友";

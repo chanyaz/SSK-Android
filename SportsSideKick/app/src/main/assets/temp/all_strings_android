@@ -209,17 +209,17 @@ ar---
     <string name="select_friends_to_call">اختر الأصدقاء للاتصال</string>
 
     <!--Next match-->
-    <string name="match_next">Next match</string>
-    <string name="vs">vs</string>
-    <string name="day">%1$d Day</string>
-    <string name="days">%1$d Days</string>
-    <string name="hour">%1$d Hour</string>
-    <string name="hours">%1$d Hours</string>
-    <string name="min">%1$d Min</string>
-    <string name="mins">%1$d Mins</string>
-    <string name="sec">%1$d Sec</string>
-    <string name="secs">%1$d Secs</string>
-    <string name="live">Live</string>
+    <string name="match_next">المباراة القادمة</string>
+    <string name="vs">ضد</string>
+    <string name="day">%1$d يوم</string>
+    <string name="days">%1$d أيام</string>
+    <string name="hour">%1$d ساعة</string>
+    <string name="hours">%1$d ساعات</string>
+    <string name="min">%1$d دقيقة</string>
+    <string name="mins">%1$d دقائق</string>
+    <string name="sec">%1$d ثانية</string>
+    <string name="secs">%1$d ثواني</string>
+    <string name="live">مباشر</string>
 
     <!--Posts & News-->
     <string name="post_create">Create New Post</string>
@@ -460,17 +460,17 @@ bh---
     <string name="select_friends_to_call">কল করার জন্য বন্দুদের বাছুন</string>
 
     <!--Next match-->
-    <string name="match_next">Next match</string>
-    <string name="vs">vs</string>
-    <string name="day">%1$d Day</string>
-    <string name="days">%1$d Days</string>
-    <string name="hour">%1$d Hour</string>
-    <string name="hours">%1$d Hours</string>
-    <string name="min">%1$d Min</string>
-    <string name="mins">%1$d Mins</string>
-    <string name="sec">%1$d Sec</string>
-    <string name="secs">%1$d Secs</string>
-    <string name="live">Live</string>
+    <string name="match_next">পরবর্তী খেলা</string>
+    <string name="vs">বনাম</string>
+    <string name="day">%1$d দিন</string>
+    <string name="days">%1$d দিনগুলি</string>
+    <string name="hour">%1$d ঘন্টা</string>
+    <string name="hours">%1$d ঘন্টা</string>
+    <string name="min">%1$d মিনিট</string>
+    <string name="mins">%1$d মিনিট</string>
+    <string name="sec">%1$d সেকেন্ড</string>
+    <string name="secs">%1$d সেকেন্ড</string>
+    <string name="live">সরাসরি</string>
 
     <!--Posts & News-->
     <string name="post_create">Create New Post</string>
@@ -711,16 +711,16 @@ de---
       <string name="select_friends_to_call">Freunde für Anruf wählen</string>
 
       <!--Next match-->
-      <string name="match_next">Next match</string>
-      <string name="vs">vs</string>
-      <string name="day">%1$d Day</string>
-      <string name="days">%1$d Days</string>
-      <string name="hour">%1$d Hour</string>
-      <string name="hours">%1$d Hours</string>
+      <string name="match_next">Nächstes Spiel</string>
+      <string name="vs">gegen</string>
+      <string name="day">%1$d Tag</string>
+      <string name="days">%1$d Tage</string>
+      <string name="hour">%1$d Stunde</string>
+      <string name="hours">%1$d Stunden</string>
       <string name="min">%1$d Min</string>
-      <string name="mins">%1$d Mins</string>
-      <string name="sec">%1$d Sec</string>
-      <string name="secs">%1$d Secs</string>
+      <string name="mins">%1$d Min</string>
+      <string name="sec">%1$d Sek</string>
+      <string name="secs">%1$d Sek</string>
       <string name="live">Live</string>
 
       <!--Posts & News-->
@@ -962,17 +962,17 @@ es---
       <string name="select_friends_to_call">Seleccionar amigos a los que llamar</string>
 
       <!--Next match-->
-      <string name="match_next">Next match</string>
+      <string name="match_next">Próximo partido</string>
       <string name="vs">vs</string>
-      <string name="day">%1$d Day</string>
-      <string name="days">%1$d Days</string>
-      <string name="hour">%1$d Hour</string>
-      <string name="hours">%1$d Hours</string>
-      <string name="min">%1$d Min</string>
-      <string name="mins">%1$d Mins</string>
-      <string name="sec">%1$d Sec</string>
-      <string name="secs">%1$d Secs</string>
-      <string name="live">Live</string>
+      <string name="day">%1$d día</string>
+      <string name="days">%1$d días</string>
+      <string name="hour">%1$d hora</string>
+      <string name="hours">%1$d horas</string>
+      <string name="min">%1$d minuto</string>
+      <string name="mins">%1$d minutos</string>
+      <string name="sec">%1$d segundo</string>
+      <string name="secs">%1$d segundos</string>
+      <string name="live">Directo</string>
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
@@ -1213,17 +1213,17 @@ fr---
       <string name="select_friends_to_call">Sélectionner des amis à appeler</string>
 
       <!--Next match-->
-      <string name="match_next">Next match</string>
+      <string name="match_next">Match suivant</string>
       <string name="vs">vs</string>
-      <string name="day">%1$d Day</string>
-      <string name="days">%1$d Days</string>
-      <string name="hour">%1$d Hour</string>
-      <string name="hours">%1$d Hours</string>
+      <string name="day">%1$d Jour</string>
+      <string name="days">%1$d Jours</string>
+      <string name="hour">%1$d Heure</string>
+      <string name="hours">%1$d Heures</string>
       <string name="min">%1$d Min</string>
-      <string name="mins">%1$d Mins</string>
-      <string name="sec">%1$d Sec</string>
-      <string name="secs">%1$d Secs</string>
-      <string name="live">Live</string>
+      <string name="mins">%1$d Min</string>
+      <string name="sec">%1$d S</string>
+      <string name="secs">%1$d S</string>
+      <string name="live">En direct</string>
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
@@ -1464,17 +1464,17 @@ id---
       <string name="select_friends_to_call">Pilih teman untuk dipanggil</string>
 
       <!--Next match-->
-      <string name="match_next">Next match</string>
-      <string name="vs">vs</string>
-      <string name="day">%1$d Day</string>
-      <string name="days">%1$d Days</string>
-      <string name="hour">%1$d Hour</string>
-      <string name="hours">%1$d Hours</string>
-      <string name="min">%1$d Min</string>
-      <string name="mins">%1$d Mins</string>
-      <string name="sec">%1$d Sec</string>
-      <string name="secs">%1$d Secs</string>
-      <string name="live">Live</string>
+      <string name="match_next">Pertandingan Berikutnya</string>
+      <string name="vs">Melawan</string>
+      <string name="day">%1$d Hari</string>
+      <string name="days">%1$d Hari</string>
+      <string name="hour">%1$d Jam</string>
+      <string name="hours">%1$d Jam</string>
+      <string name="min">%1$d Menit</string>
+      <string name="mins">%1$d Menit</string>
+      <string name="sec">%1$d Detik</string>
+      <string name="secs">%1$d Detik</string>
+      <string name="live">Langsung</string>
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
@@ -1715,17 +1715,17 @@ it---
       <string name="select_friends_to_call">Seleziona amici da chiamare</string>
 
       <!--Next match-->
-      <string name="match_next">Next match</string>
+      <string name="match_next">Prossima partita</string>
       <string name="vs">vs</string>
-      <string name="day">%1$d Day</string>
-      <string name="days">%1$d Days</string>
-      <string name="hour">%1$d Hour</string>
-      <string name="hours">%1$d Hours</string>
-      <string name="min">%1$d Min</string>
-      <string name="mins">%1$d Mins</string>
-      <string name="sec">%1$d Sec</string>
-      <string name="secs">%1$d Secs</string>
-      <string name="live">Live</string>
+      <string name="day">%1$d Giorno</string>
+      <string name="days">%1$d Giorni</string>
+      <string name="hour">%1$d Ora</string>
+      <string name="hours">%1$d Ore</string>
+      <string name="min">%1$d Minuto</string>
+      <string name="mins">%1$d Minuti</string>
+      <string name="sec">%1$d Secondo</string>
+      <string name="secs">%1$d Secondi</string>
+      <string name="live">In diretta</string>
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
@@ -1966,17 +1966,17 @@ pl---
       <string name="select_friends_to_call">Wybierz znajomych, do których zadzwonisz</string>
 
       <!--Next match-->
-      <string name="match_next">Next match</string>
-      <string name="vs">vs</string>
-      <string name="day">%1$d Day</string>
-      <string name="days">%1$d Days</string>
-      <string name="hour">%1$d Hour</string>
-      <string name="hours">%1$d Hours</string>
-      <string name="min">%1$d Min</string>
-      <string name="mins">%1$d Mins</string>
-      <string name="sec">%1$d Sec</string>
-      <string name="secs">%1$d Secs</string>
-      <string name="live">Live</string>
+      <string name="match_next">Kolejny mecz</string>
+      <string name="vs">versus</string>
+      <string name="day">%1$d Dzień</string>
+      <string name="days">%1$d Dni</string>
+      <string name="hour">%1$d Godzina</string>
+      <string name="hours">%1$d Godz.</string>
+      <string name="min">%1$d Minuta</string>
+      <string name="mins">%1$d Min</string>
+      <string name="sec">%1$d Sekunda</string>
+      <string name="secs">%1$d Sek.</string>
+      <string name="live">Na żywo</string>
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
@@ -2217,17 +2217,17 @@ pt---
       <string name="select_friends_to_call">Selecciona amigos para se juntarem a esta chamada</string>
 
       <!--Next match-->
-      <string name="match_next">Next match</string>
+      <string name="match_next">Próximo jogo</string>
       <string name="vs">vs</string>
-      <string name="day">%1$d Day</string>
-      <string name="days">%1$d Days</string>
-      <string name="hour">%1$d Hour</string>
-      <string name="hours">%1$d Hours</string>
-      <string name="min">%1$d Min</string>
-      <string name="mins">%1$d Mins</string>
-      <string name="sec">%1$d Sec</string>
-      <string name="secs">%1$d Secs</string>
-      <string name="live">Live</string>
+      <string name="day">%1$d Dia</string>
+      <string name="days">%1$d Dias</string>
+      <string name="hour">%1$d Hora</string>
+      <string name="hours">%1$d Horas</string>
+      <string name="min">%1$d Minuto</string>
+      <string name="mins">%1$d Minutos</string>
+      <string name="sec">%1$d Segundo</string>
+      <string name="secs">%1$d Segundos</string>
+      <string name="live">Direto</string>
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
@@ -2468,17 +2468,17 @@ ru---
       <string name="select_friends_to_call">Выбрать друзей для звонка</string>
 
       <!--Next match-->
-      <string name="match_next">Next match</string>
+      <string name="match_next">След. матч</string>
       <string name="vs">vs</string>
-      <string name="day">%1$d Day</string>
-      <string name="days">%1$d Days</string>
-      <string name="hour">%1$d Hour</string>
-      <string name="hours">%1$d Hours</string>
-      <string name="min">%1$d Min</string>
-      <string name="mins">%1$d Mins</string>
-      <string name="sec">%1$d Sec</string>
-      <string name="secs">%1$d Secs</string>
-      <string name="live">Live</string>
+      <string name="day">%1$d День</string>
+      <string name="days">%1$d Дн.</string>
+      <string name="hour">%1$d Час</string>
+      <string name="hours">%1$d Ч.</string>
+      <string name="min">%1$d Мин.</string>
+      <string name="mins">%1$d Мин.</string>
+      <string name="sec">%1$d Сек.</string>
+      <string name="secs">%1$d Сек.</string>
+      <string name="live">Прям. эфир</string>
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
@@ -2719,17 +2719,17 @@ zh---
       <string name="select_friends_to_call">选择要呼叫的朋友</string>
 
       <!--Next match-->
-      <string name="match_next">Next match</string>
-      <string name="vs">vs</string>
-      <string name="day">%1$d Day</string>
-      <string name="days">%1$d Days</string>
-      <string name="hour">%1$d Hour</string>
-      <string name="hours">%1$d Hours</string>
-      <string name="min">%1$d Min</string>
-      <string name="mins">%1$d Mins</string>
-      <string name="sec">%1$d Sec</string>
-      <string name="secs">%1$d Secs</string>
-      <string name="live">Live</string>
+      <string name="match_next">下一场比赛</string>
+      <string name="vs">对决</string>
+      <string name="day">%1$d 天</string>
+      <string name="days">%1$d 天</string>
+      <string name="hour">%1$d 小时</string>
+      <string name="hours">%1$d 小时</string>
+      <string name="min">%1$d 分钟</string>
+      <string name="mins">%1$d 分钟</string>
+      <string name="sec">%1$d 秒</string>
+      <string name="secs">%1$d 秒</string>
+      <string name="live">实时</string>
 
       <!--Posts & News-->
       <string name="post_create">Create New Post</string>
