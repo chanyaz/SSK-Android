@@ -28,7 +28,7 @@ ar---
 
     <!-- Login & Register -->
     <string name="slogan">تجمع الجمهور معاً</string>
-    <string name="access_full">للدخول إلى الميزات الكاملة ...</string> // TODO: Not translated in other languages yet
+    <string name="access_full">للحصول على كافة الميزات…</string>//todo
     <string name="join_sign_in">الانضمام الآن / تسجيل الدخول</string>
     <string name="sign_in">تسجيل الدخول</string>
     <string name="join">الانضمام الآن</string>
@@ -56,10 +56,10 @@ ar---
     <string name="required_phone">عليك إدخال رقم هاتفك!</string>
     <string name="required_credentials">معلومات ناقصة</string>
     <string name="password_try_again">الرجاء إعادة إدخال كلمة السر والمحاولة مجدداً.</string>
-    <string name="login_slider_chat">يمكنك التحدث مع أصدقائك، وإنشاء المجموعات، وحتى التواصل مع لاعبيك المفضلين!!</string> // TODO: Not translated in other languages yet
+    <string name="login_slider_chat">يمكنك التحدث مع أصدقائك، وإنشاء المجموعات، وحتى التواصل مع لاعبيك المفضلين!!</string> //todo
     <string name="logout_from_app">ستسجل خروجك من التطبيق؟</string>
     <string name="reset_app">ستقوم بإعادة تشغيل التطبيق بهذا الفعل.</string>
-    <string name="error_username_taken">خطأ في التسجيل - تم أخذ اسم المستخدم من قبل، يرجى تحديد اسم مستخدم مختلف.</string> // TODO: Not translated
+    <string name="error_username_taken">خطأ في التسجيل - تم أخذ اسم المستخدم من قبل، يرجى تحديد اسم مستخدم مختلف.</string> //todo
     <string name="facebook_error">لم يتم تلقي ملفك العام. الرجاء المحاولة مجدداً!</string>
 
     <!--Dialogs-->
@@ -82,9 +82,9 @@ ar---
     <string name="subscribed_since">مسجل منذ</string>
     <string name="auto_translation">الترجمة الآلية</string>//todo
     <string name="notify_wall">إشعارات الحائط</string>
-    <string name="notify_news">أخبار الإخطارات</string>//todo not translated
-    <string name="notify_rumours">الإشاعات الإخطارات</string>//todo not translated
-    <string name="notify_social">إشعارات الخلاصة الاجتماعية</string>//todo not translated
+    <string name="notify_news">أخبار الإخطارات</string>//todo
+    <string name="notify_rumours">الإشاعات الإخطارات</string>//todo
+    <string name="notify_social">إشعارات الخلاصة الاجتماعية</string>//todo
     <string name="edit_profile">تعديل ملفك</string>
     <string name="edit_photo">تعديل الصورة</string>
     <string name="done">تم</string>
@@ -137,7 +137,7 @@ ar---
     <string name="find">إيجاد</string>
     <string name="requests">طلبات</string>
     <string name="official_accounts">حسابات رسمية</string>
-    <string name="unfriend_confirm">إزالة صديق سيوقف متابعتكما لبعضكما البعض. هل أنت متأكد من إزالة هذا الصديق؟</string>//todo: not translated everywhere
+    <string name="unfriend_confirm">إزالة صديق سيوقف متابعتكما لبعضكما البعض. هل أنت متأكد من إزالة هذا الصديق؟</string>//todo
     <string name="no_results">لا نتائج</string>
     <string name="user">المستخدم</string>
     <string name="more">المزيد</string>
@@ -168,7 +168,7 @@ ar---
     <string name="alerts_on">إشعارات المحادثة فعالة</string>
     <string name="alerts_off">إشعارات المحادثة مطفأة</string>
     <string name="chat_with_friends_login_description">يمكنك التحدث مع أصدقائك، وإنشاء المجموعات، وحتى التواصل مع لاعبيك المفضلين!!</string>
-    <string name="chat_with_friends_login">الدردشة مع الأصدقاء.</string>//todo not translated
+    <string name="chat_with_friends_login">الدردشة مع الأصدقاء.</string>//todo
     <string name="chat_friends_in_chat">الأصدقاء في الدردشة</string>//todo
     <string name="chat_friend_in_chat">1 صديق في الدردشة</string>//todo
     <string name="chats">المحادثات</string>
@@ -184,8 +184,8 @@ ar---
     <string name="is_in"> في: </string>
 
     <!--Video chat-->
-    <string name="video_chat_promo_1">فوز المباراة مع أصدقائك</string>//todo not translated
-    <string name="video_chat_promo_2">دردشة الفيديو يسمح لك لاستدعاء ما يصل إلى 3 أصدقاء لدردشة الفيديو الجماعية، حتى تتمكن من تجربة العمل مع الناس تحب أينما كنت!</string>//todo not translated
+    <string name="video_chat_promo_1">فوز المباراة مع أصدقائك</string>//todo
+    <string name="video_chat_promo_2">دردشة الفيديو يسمح لك لاستدعاء ما يصل إلى 3 أصدقاء لدردشة الفيديو الجماعية، حتى تتمكن من تجربة العمل مع الناس تحب أينما كنت!</string>//todo
     <string name="call_start">بدء الاتصال</string>
     <string name="call_starting">بدء اتصال جديد</string>
     <string name="call_add_member">إضافة للاتصال</string>
@@ -213,23 +213,23 @@ ar---
     <string name="live">مباشر</string>
 
     <!--Posts & News-->
-    <string name="post_create">إنشاء مشاركة جديدة</string>//todo not translated
-    <string name="post_title_hint">انقر هنا لإدخال عنوان المشاركة</string>//todo not translated
-    <string name="post_body_hint">انقر هنا لبدء كتابة مشاركتك ...</string>//todo not translated
-    <string name="post_create_tip_header">لإنشاء مشاركة جديدة:</string>//todo not translated
-    <string name="post_create_tip_body"><b> 1. </ b> اختر صورة من مكتبة الوسائط أو التقط صورة جديدة عن طريق تحديد أحد الرمزين في منطقة الصورة في الجزء العلوي (اختياري) \ n <b> 2. </ b> إنشاء عنوانا عن طريق تحديد العنوان والكتابة. \ n <b> 3. </ b> إنشاء محتوى عن طريق تحديد نص المحتوى والكتابة.</string>//todo not translated
+    <string name="post_create">إنشاء مشاركة جديدة</string>//todo
+    <string name="post_title_hint">انقر هنا لإدخال عنوان المشاركة</string>//todo
+    <string name="post_body_hint">انقر هنا لبدء كتابة مشاركتك ...</string>//todo
+    <string name="post_create_tip_header">لإنشاء مشاركة جديدة:</string>//todo
+    <string name="post_create_tip_body"><b> 1. </ b> اختر صورة من مكتبة الوسائط أو التقط صورة جديدة عن طريق تحديد أحد الرمزين في منطقة الصورة في الجزء العلوي (اختياري) \ n <b> 2. </ b> إنشاء عنوانا عن طريق تحديد العنوان والكتابة. \ n <b> 3. </ b> إنشاء محتوى عن طريق تحديد نص المحتوى والكتابة.</string>//todo
     <string name="pin_title">النشر على حائطك؟</string>
     <string name="pin_confirm">هل ترغب بنشر هذا على حائطك؟?</string>
-    <string name="pin_message_hint">أدخل رسالة مع مشاركتك المشتركة ...</string>//todo not translated
-    <string name="comment_hint">أدخل تعليقك هنا…</string>//todo not translated
-    <string name="read_more">اقرأ المزيد & غ؛</string>//todo not translated
-    <string name="read_less">قراءة أقل & لوت؛</string>//todo not translated
+    <string name="pin_message_hint">أدخل رسالة مع مشاركتك المشتركة ...</string>//todo
+    <string name="comment_hint">أدخل تعليقك هنا…</string>//todo
+    <string name="read_more">اقرأ المزيد & غ؛</string>//todo
+    <string name="read_less">قراءة أقل & لوت؛</string>//todo
     <string name="edit">تعديل</string>
-    <string name="delete">حذف</string>//todo not translated
-    <string name="translate">ترجمه</string>//todo not translated
+    <string name="delete">حذف</string>//todo
+    <string name="translate">ترجمه</string>//todo
     <string name="share">مشاركة</string>
-    <string name="post">بريد</string>//todo not translated
-    <string name="back">الى الخلف</string>//todo not translated
+    <string name="post">بريد</string>//todo
+    <string name="back">الى الخلف</string>//todo
 
     <!--Purchases-->
     <string name="rewards_received">الجوائز والعناصر المتلقاة من حقائب الجيم</string>
@@ -238,9 +238,6 @@ ar---
     <string name="wallet">محفظة نقود</string>//todo
     <string name="stash">خزنتك</string>
     <string name="your_statement">تصريحك</string>
-
-    <!--Placeholder-->
-    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 
 bh---
 
@@ -272,7 +269,7 @@ bh---
 
     <!-- Login & Register -->
     <string name="slogan">ফ্যান একসাথে আনে</string>
-    <string name="access_full">To access full features…</string>
+    <string name="access_full">To access full features…</string>//todo
     <string name="join_sign_in">এখনই যোগ দিন / সাইন ইন করুন</string>
     <string name="sign_in">সাইন ইন করুন</string>
     <string name="join">এখনই যোগ দিন</string>
@@ -300,35 +297,35 @@ bh---
     <string name="required_phone">আপনাকে একটি টেলিফোন নম্বর লিখতে হবে!</string>
     <string name="required_credentials">অনুপস্থিত তথ্য</string>
     <string name="password_try_again">অনুগ্রহ করে আপনার পাসওয়ার্ড লিখে আবার চেষ্টা করুন।</string>
-    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>//todo
     <string name="logout_from_app">এটি করলে আপনাকে অ্যাপ থেকে লগ-আউট করবে?</string>
     <string name="reset_app">এই কার্য অ্যাপ্লিকেশনকে আবার লোড করবে।</string>
-    <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
+    <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>//todo
     <string name="facebook_error">আপনার সর্বজনীন প্রোফাইল প্রাপ্ত করা গেল না। অনুগ্রহ করে আবার চেষ্টা করুন!</string>
 
     <!--Dialogs-->
     <string name="ok">ঠিক আছে</string>
-    <string name="allow">Allow</string>
-    <string name="deny">Deny</string>
-    <string name="warning">Warning</string>
-    <string name="uploading">Uploading…</string>
+    <string name="allow">Allow</string>//todo
+    <string name="deny">Deny</string>//todo
+    <string name="warning">Warning</string>//todo
+    <string name="uploading">Uploading…</string>//todo
     <string name="no_connection">কোনো সংযোগ নেই</string>
     <string name="internet_needed">এটি করতে আপনাকে ইন্টারনেটে সংযোগ করতে হবে</string>
-    <string name="waiting_for_internet">Waiting for active internet connection…</string>
+    <string name="waiting_for_internet">Waiting for active internet connection…</string>//todo
 
     <!--Profile-->
-    <string name="go_to_profile">Go to Profile ></string>
+    <string name="go_to_profile">Go to Profile ></string>//todo
     <string name="profile">আপনার প্রোফাইল</string>
     <string name="contact_info">যোগাযোগের তথ্য</string>
     <string name="choose_your_language">আপনার ভাষা বেছে নিন</string>
     <string name="chosen_language">নির্বাচিত ভাষা</string>
     <string name="location">স্থান</string>
     <string name="subscribed_since">এই সময় থেকে সদস্য আছেন</string>
-    <string name="auto_translation">Automatic translation</string>
+    <string name="auto_translation">Automatic translation</string>//todo
     <string name="notify_wall">ওয়াল বিজ্ঞপ্তিগুলি</string>
-    <string name="notify_news">News notifications</string>
-    <string name="notify_rumours">Rumours notifications</string>
-    <string name="notify_social">Social feed notifications</string>
+    <string name="notify_news">News notifications</string>//todo
+    <string name="notify_rumours">Rumours notifications</string>//todo
+    <string name="notify_social">Social feed notifications</string>//todo
     <string name="edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="edit_photo">ছবি সম্পাদনা করুন</string>
     <string name="done">সম্পন্ন</string>
@@ -357,31 +354,31 @@ bh---
     <string name="friend_request_pending">বন্ধুত্বের অনুরোধ অমীমাংসিত আছে</string>
     <string name="try_again_later">Error. Try again later.</string>
     <string name="enter_friend_name_invite">আমন্ত্রণ জানাতে আপনার বন্ধুন ফোন নম্বর লিখুন।</string>
-    <string name="remove_friend">Unfriend</string>
+    <string name="remove_friend">Unfriend</string>//todo
     <string name="friend_request_send">বন্ধুত্বের অনুরোধ পাঠাবেন?</string>
     <string name="friend_unfollow">বন্ধুকে অননুসরণ করুন</string>
     <string name="friend_follow">বন্ধুকে অনুসরণ করুন</string>
-    <string name="pinned">Pinned</string>
-    <string name="comments">Comments</string>
+    <string name="pinned">Pinned</string>//todo
+    <string name="comments">Comments</string>//todo
     <string name="friends">বন্ধুরা</string>
     <string name="following">অনুসরণ করা হচ্ছে</string>
     <string name="followers">অনুসরণকারী</string>
     <string name="report_abuse">অপব্যবহার জানান</string>
     <string name="cancel">বাতিল</string>
     <string name="member_info">সদস্য তথ্য</string>
-    <string name="requested_on">Requested on</string>
+    <string name="requested_on">Requested on</string>//todo
     <string name="you">আপনি</string>
     <string name="add_friend">একজন বন্ধু যোগ করুন</string>
     <string name="invite_friend">একজন বন্ধুকে আমন্ত্রণ জানান</string>
     <string name="add_friend_hint">আপনার বন্ধুর নাম, ইমেল বা ফোন নম্বর লিখুন সন্ধান ফিল্ডে।</string>
-    <string name="save">Save</string>
+    <string name="save">Save</string>//todo
     <string name="invite">আমন্ত্রণ জানান</string>
     <string name="follow_more">আরও ব্যক্তিদের অনুসরণ করুন</string>
     <string name="friends_following_you">আপনাকে যে বন্ধুরা অনুসরণ করছে:</string>
     <string name="find">সন্ধান করুন</string>
     <string name="requests">অনুরোধগুলি</string>
     <string name="official_accounts">সরকারী অ্যাকাউন্টগুলি</string>
-    <string name="unfriend_confirm">Removing a friend will stop you following each other. Are you sure you want to remove this friend?</string>
+    <string name="unfriend_confirm">Removing a friend will stop you following each other. Are you sure you want to remove this friend?</string>//todo
     <string name="no_results">কোনো ফলাফল নেই</string>
     <string name="user">ব্যবহারকারী</string>
     <string name="more">আরও</string>
@@ -390,31 +387,31 @@ bh---
     <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
     <!--Chat-->
-    <string name="members">Members</string>
+    <string name="members">Members</string>//todo
     <string name="leave">চ্যাট পরিত্যাগ করুন</string>
     <string name="are_you_sure">আপনি কি নিশ্চিত?</string>
     <string name="chat_confirm_leave">এই চ্যাট ছেড়ে যাবেন?</string>
     <string name="chat_confirm_delete">এটি স্থায়ীভাবে এই চ্যাটটি মুছে দেবে; আপনি কি নিশ্চিত?</string>
-    <string name="photo_or_video">Take photo or record video?</string>
-    <string name="chat_image">Image</string>
-    <string name="chat_hold">Hold down to record</string>
-    <string name="chat_recording_stop">Recording stopped</string>
+    <string name="photo_or_video">Take photo or record video?</string>//todo
+    <string name="chat_image">Image</string>//todo
+    <string name="chat_hold">Hold down to record</string>//todo
+    <string name="chat_recording_stop">Recording stopped</string>//todo
     <string name="no_message_text">এখনও কেউ চ্যাট করতে শুরু করেনি! প্রথম হিসাবে আপনিই শুরু করুন না কেন?</string>
     <string name="chat_public">এই চ্যাটটি পাবলিক</string>
     <string name="chat_private">এই চ্যাটটি প্রাউভেট</string>
     <string name="record_video">Record Video</string>
     <string name="create_chat">একটি নতুন চ্যাট তৈরি করুন</string>
     <string name="join_chat">অনুসরণ বন্ধ করুন</string>
-    <string name="single_user_is_typing">%1$s! is typing…</string>
-    <string name="multiple_users_are_typing">Multiple users are typing…</string>
+    <string name="single_user_is_typing">%1$s! is typing…</string>//todo
+    <string name="multiple_users_are_typing">Multiple users are typing…</string>//todo
     <string name="alerts_on">চ্যাট বিজ্ঞপ্তি চালু</string>
     <string name="alerts_off">চ্যাট বিজ্ঞপ্তি বন্ধ</string>
-    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
-    <string name="chat_with_friends_login">Chat with friends.</string>
-    <string name="chat_friends_in_chat">Friends in Chat</string>
-    <string name="chat_friend_in_chat">1 Friend in Chat</string>
-    <string name="from_library">Choose from library</string>
-    <string name="use_camera">Use Camera</string>
+    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>//todo
+    <string name="chat_with_friends_login">Chat with friends.</string>//todo
+    <string name="chat_friends_in_chat">Friends in Chat</string>//todo
+    <string name="chat_friend_in_chat">1 Friend in Chat</string>//todo
+    <string name="from_library">Choose from library</string>//todo
+    <string name="use_camera">Use Camera</string>//todo
     <string name="chats">চ্যাটগুলি</string>
     <string name="chats_public">পাবলিক চ্যাটগুলি</string>
     <string name="chats_public_search">পাবলিক চ্যাট সন্ধান করুন</string>
@@ -480,9 +477,6 @@ bh---
     <string name="wallet">Wallet</string>
     <string name="stash">আপনার স্ট্যাশ</string>
     <string name="your_statement">আপনার বিবৃতি</string>
-
-    <!--Placeholder-->
-    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 
 de---
 
@@ -2651,7 +2645,4 @@ zh---
       <string name="bundles">个捆绑包</string>
       <string name="wallet">Wallet</string>
       <string name="stash">您的宝藏</string>
-      <string name="your_statement">您的对账单</string>
-
       <!--Placeholder-->
-      <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
