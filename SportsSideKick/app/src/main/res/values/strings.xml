@@ -146,23 +146,18 @@
     <string name="add_friend_hint">Enter your friend\'s name, email or phone number in the search field.</string>
     <string name="save">Save</string>
     <string name="invite">Invite</string>
-    <string name="friends_you_follow">Friends you are following:</string>
-    <string name="no_friends">No friends</string>
     <string name="follow_more">Follow More</string>
     <string name="friends_following_you">Friends following you:</string>
     <string name="find">Find</string>
-    <string name="request">Request</string>
+    <string name="requests">Requests</string>
     <string name="official_accounts">Official Accounts</string>
-    <string name="unfriend_tip">Removing a friend will stop you following each other.</string>
-    <string name="unfriend_confirm">Are you sure you want to remove this friend?</string>
+    <string name="unfriend_confirm">Removing a friend will stop you following each other. Are you sure you want to remove this friend?</string>
     <string name="no_results">No results</string>
     <string name="user">User</string>
     <string name="more">More</string>
-    <string name="friend_you_and">Friend you and</string>
-    <string name="have_in_common">have in common</string>
+    <string name="friend_you_and">Friend you and </string>
+    <string name="have_in_common"> have in common</string>
     <string name="what_would_you_like_to_do">What would you like to do?</string>
-    <string name="friends_common">Friends you have in common</string>
-    <string name="join_official_account">Join official Account ></string>
 
     <!--Chat-->
     <string name="join_group">Join Group</string>

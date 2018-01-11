@@ -92,7 +92,7 @@
             android:id="@+id/no_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_friends"
+            android:text="@string/no_results"
             android:visibility="gone"
             android:layout_centerInParent="true"
             android:textColor="?white_semitransparent"/>

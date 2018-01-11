@@ -351,7 +351,7 @@ public class FriendFragment extends BaseFragment {
                             commonFriendsContainer.setVisibility(View.VISIBLE);
                         }
                         if (friendsCommunityText != null) {
-                            friendsCommunityText.setText(getString(R.string.friend_you_and) + " " + user.getFirstName() + " " + getString(R.string.have_in_common));
+                            friendsCommunityText.setText(getString(R.string.friend_you_and) + user.getFirstName() + getString(R.string.have_in_common));
                             friendsInCommonAdapter.getValues().clear();
                             friendsInCommonAdapter.getValues().addAll(task.getResult());
                             friendsInCommonAdapter.notifyDataSetChanged();
@@ -424,8 +424,8 @@ public class FriendFragment extends BaseFragment {
         if (user.isaFriend()) { // this user is my friend, remove it from friends
             AlertDialogManager.getInstance()
                     .showAlertDialog(
+                            "",
                             getContext().getResources().getString(R.string.unfriend_confirm),
-                            getContext().getResources().getString(R.string.unfriend_tip),
                             new View.OnClickListener() {// Cancel listener
                                 @Override
                                 public void onClick(View v) {

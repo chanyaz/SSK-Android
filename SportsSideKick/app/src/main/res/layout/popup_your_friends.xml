@@ -111,7 +111,7 @@
             android:layout_weight="1"
             android:background="?popupNonSelectedCaptionBackgroundColorRef"
             android:gravity="center"
-            android:text="@string/request"
+            android:text="@string/requests"
             android:textColor="?popupNonSelectedCaptionTextColorRef" />
     </LinearLayout>
 
