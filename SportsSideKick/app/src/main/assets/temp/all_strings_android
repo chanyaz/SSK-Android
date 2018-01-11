@@ -28,7 +28,7 @@ ar---
 
     <!-- Login & Register -->
     <string name="slogan">تجمع الجمهور معاً</string>
-    <string name="access_full">للحصول على كافة الميزات…</string> // TODO: Not translated in other languages yet
+    <string name="access_full">للدخول إلى الميزات الكاملة ...</string> // TODO: Not translated in other languages yet
     <string name="join_sign_in">الانضمام الآن / تسجيل الدخول</string>
     <string name="sign_in">تسجيل الدخول</string>
     <string name="join">الانضمام الآن</string>
@@ -59,32 +59,32 @@ ar---
     <string name="login_slider_chat">يمكنك التحدث مع أصدقائك، وإنشاء المجموعات، وحتى التواصل مع لاعبيك المفضلين!!</string> // TODO: Not translated in other languages yet
     <string name="logout_from_app">ستسجل خروجك من التطبيق؟</string>
     <string name="reset_app">ستقوم بإعادة تشغيل التطبيق بهذا الفعل.</string>
-    <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string> // TODO: Not translated
+    <string name="error_username_taken">خطأ في التسجيل - تم أخذ اسم المستخدم من قبل، يرجى تحديد اسم مستخدم مختلف.</string> // TODO: Not translated
     <string name="facebook_error">لم يتم تلقي ملفك العام. الرجاء المحاولة مجدداً!</string>
 
     <!--Dialogs-->
     <string name="ok">حسناً</string>
-    <string name="allow">Allow</string>//todo
-    <string name="deny">Deny</string>//todo
-    <string name="warning">Warning</string>//todo
-    <string name="uploading">Uploading…</string>//todo
+    <string name="allow">السماح</string>//todo
+    <string name="deny">أنكر</string>//todo
+    <string name="warning">تحذير</string>//todo
+    <string name="uploading">تحميل ...</string>//todo
     <string name="no_connection">لا اتصال</string>
     <string name="internet_needed">عليك أن تكون متصلاً بالانترنت لتقوم بهذا</string>
-    <string name="waiting_for_internet">Waiting for active internet connection…</string>//todo
+    <string name="waiting_for_internet">في انتظار اتصال إنترنت نشط ...</string>//todo
 
     <!--Profile-->
-    <string name="go_to_profile">Go to Profile ></string>//todo
+    <string name="go_to_profile">انتقل إلى الملف الشخصي></string>//todo
     <string name="profile">ملفك الشخصي</string>
     <string name="contact_info">بيانات التواصل</string>
     <string name="choose_your_language">اختر لغتك</string>
     <string name="chosen_language">اختر اللغة</string>
     <string name="location">الموقع</string>
     <string name="subscribed_since">مسجل منذ</string>
-    <string name="auto_translation">Automatic translation</string>//todo
+    <string name="auto_translation">الترجمة الآلية</string>//todo
     <string name="notify_wall">إشعارات الحائط</string>
-    <string name="notify_news">News notifications</string>//todo not translated
-    <string name="notify_rumours">Rumours notifications</string>//todo not translated
-    <string name="notify_social">Social feed notifications</string>//todo not translated
+    <string name="notify_news">أخبار الإخطارات</string>//todo not translated
+    <string name="notify_rumours">الإشاعات الإخطارات</string>//todo not translated
+    <string name="notify_social">إشعارات الخلاصة الاجتماعية</string>//todo not translated
     <string name="edit_profile">تعديل ملفك</string>
     <string name="edit_photo">تعديل الصورة</string>
     <string name="done">تم</string>
@@ -113,24 +113,24 @@ ar---
     <string name="friend_request_pending">طلب الصداقة بالانتظار</string>
     <string name="try_again_later">Error. Try again later.</string>
     <string name="enter_friend_name_invite">أدخل بريد الصديق الالكتروني لدعوته.</string>
-    <string name="remove_friend">Unfriend</string>//todo
+    <string name="remove_friend">الغاء الصداقه</string>//todo
     <string name="friend_request_send">إرسال طلب صداقة؟</string>
     <string name="friend_unfollow">إيقاف متابعة صديق</string>
     <string name="friend_follow">متابعة صديق</string>
-    <string name="pinned">Pinned</string>//todo
-    <string name="comments">Comments</string>//todo
+    <string name="pinned">دبس</string>//todo
+    <string name="comments">تعليقات</string>//todo
     <string name="friends">الأصدقاء</string>
     <string name="following">متابع</string>
     <string name="followers">المتابعون</string>
     <string name="report_abuse">التبليغ عن انتهاك</string>
     <string name="cancel">إلغاء</string>
     <string name="member_info">معلومات العضو</string>
-    <string name="requested_on">Requested on</string>//todo
+    <string name="requested_on">طلب على</string>//todo
     <string name="you">أنت</string>
     <string name="add_friend">إضافة صديق</string>
     <string name="invite_friend">دعوة صديق</string>
     <string name="add_friend_hint">أدخل اسم صديقك، أو بريده أو رقم هاتفه في خانة البحث.</string>
-    <string name="save">Save</string>//todo
+    <string name="save">حفظ</string>//todo
     <string name="invite">دعوة</string>
     <string name="follow_more">متابعة المزيد</string>
     <string name="friends_following_you">الأصدقاء المتابعون لك:</string>
@@ -146,31 +146,31 @@ ar---
     <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
     <!--Chat-->
-    <string name="members">Members</string>//todo
+    <string name="members">أفراد</string>//todo
     <string name="leave">الخروج من المحادثة</string>
     <string name="are_you_sure">هل أنت متأكد؟</string>
     <string name="chat_confirm_leave">الخروج من المحادثة؟</string>
     <string name="chat_confirm_delete">سيتم حذف المحادثة بشكل دائم، هل أنت متأكد؟</string>
-    <string name="photo_or_video">Take photo or record video?</string>//todo
-    <string name="chat_image">Image</string>//todo
-    <string name="from_library">Choose from library</string>//todo
-    <string name="use_camera">Use Camera</string>//todo
-    <string name="record_video">Record Video</string>//todo
-    <string name="chat_hold">Hold down to record</string>//todo
-    <string name="chat_recording_stop">Recording stopped</string>//todo
+    <string name="photo_or_video">هل تريد التقاط صورة أو تسجيل فيديو؟</string>//todo
+    <string name="chat_image">صورة</string>//todo
+    <string name="from_library">اختر من المكتبة</string>//todo
+    <string name="use_camera">استخدام الكاميرا</string>//todo
+    <string name="record_video">تسجيل الفيديو</string>//todo
+    <string name="chat_hold">اضغط باستمرار للتسجيل</string>//todo
+    <string name="chat_recording_stop">توقف التسجيل</string>//todo
     <string name="no_message_text">لم يبدأ الحديث أحد بعد! لم لا تكون أولهم؟</string>
     <string name="chat_public">هذه المحادثة علنية</string>
     <string name="chat_private">هذه المحادثة خاصة</string>
     <string name="create_chat">إنشاء محادثة جديدة</string>
     <string name="join_chat">الانضمام للمحادثة</string>
-    <string name="single_user_is_typing">%1$s! is typing…</string>//todo
-    <string name="multiple_users_are_typing">Multiple users are typing…</string>//todo
+    <string name="single_user_is_typing">٪ 1 $ الصورة! يكتب…</string>//todo
+    <string name="multiple_users_are_typing">يجري العديد من المستخدمين الكتابة ...</string>//todo
     <string name="alerts_on">إشعارات المحادثة فعالة</string>
     <string name="alerts_off">إشعارات المحادثة مطفأة</string>
     <string name="chat_with_friends_login_description">يمكنك التحدث مع أصدقائك، وإنشاء المجموعات، وحتى التواصل مع لاعبيك المفضلين!!</string>
-    <string name="chat_with_friends_login">Chat with friends.</string>//todo not translated
-    <string name="chat_friends_in_chat">Friends in Chat</string>//todo
-    <string name="chat_friend_in_chat">1 Friend in Chat</string>//todo
+    <string name="chat_with_friends_login">الدردشة مع الأصدقاء.</string>//todo not translated
+    <string name="chat_friends_in_chat">الأصدقاء في الدردشة</string>//todo
+    <string name="chat_friend_in_chat">1 صديق في الدردشة</string>//todo
     <string name="chats">المحادثات</string>
     <string name="chats_public">المحادثات العلنية</string>
     <string name="chats_public_search">البحث في المحادثات العلنية</string>
@@ -180,12 +180,12 @@ ar---
     <string name="chat_give_name">قم بتسمية محادثتك</string>
     <string name="chat_rename">إعادة تسمية المحادثة</string>
     <string name="add_friends_to_chat">إضافة أصدقاء إلى المحادثة</string>
-    <string name="friend_chats">Public Chats your friends are in</string>//todo
+    <string name="friend_chats">الدردشات العامة أصدقائك في</string>//todo
     <string name="is_in"> في: </string>
 
     <!--Video chat-->
-    <string name="video_chat_promo_1">Win the match with your friends</string>//todo not translated
-    <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>//todo not translated
+    <string name="video_chat_promo_1">فوز المباراة مع أصدقائك</string>//todo not translated
+    <string name="video_chat_promo_2">دردشة الفيديو يسمح لك لاستدعاء ما يصل إلى 3 أصدقاء لدردشة الفيديو الجماعية، حتى تتمكن من تجربة العمل مع الناس تحب أينما كنت!</string>//todo not translated
     <string name="call_start">بدء الاتصال</string>
     <string name="call_starting">بدء اتصال جديد</string>
     <string name="call_add_member">إضافة للاتصال</string>
@@ -193,8 +193,8 @@ ar---
     <string name="call_receive">تتلقى اتصالاً من</string>
     <string name="video_chat_max">عذراً، يمكنك الاتصال بالفيديو بـ 3 أشخاص كحد أقصى، وهذه المحادثة ممتلئة مسبقاً!</string>
     <string name="video_chats">محادثات الفيديو</string>
-    <string name="friends_in_video_chat">Friends in Video Chat</string>//todo
-    <string name="friend_in_video_chat">1 Friend in Video Chat</string>//todo
+    <string name="friends_in_video_chat">الأصدقاء في دردشة الفيديو</string>//todo
+    <string name="friend_in_video_chat">1 صديق في دردشة الفيديو</string>//todo
     <string name="no_users_selected">لم يتم تحديد مستخدمين!</string>
     <string name="no_users_selected_message">لم تختر أي شخص للاتصال به!</string>
     <string name="select_friends_to_call">اختر الأصدقاء للاتصال</string>
@@ -213,29 +213,29 @@ ar---
     <string name="live">مباشر</string>
 
     <!--Posts & News-->
-    <string name="post_create">Create New Post</string>//todo not translated
-    <string name="post_title_hint">Click here to enter your post\'s title</string>//todo not translated
-    <string name="post_body_hint">Click here to start writing your post…</string>//todo not translated
-    <string name="post_create_tip_header">To create a new post:</string>//todo not translated
-    <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>//todo not translated
+    <string name="post_create">إنشاء مشاركة جديدة</string>//todo not translated
+    <string name="post_title_hint">انقر هنا لإدخال عنوان المشاركة</string>//todo not translated
+    <string name="post_body_hint">انقر هنا لبدء كتابة مشاركتك ...</string>//todo not translated
+    <string name="post_create_tip_header">لإنشاء مشاركة جديدة:</string>//todo not translated
+    <string name="post_create_tip_body"><b> 1. </ b> اختر صورة من مكتبة الوسائط أو التقط صورة جديدة عن طريق تحديد أحد الرمزين في منطقة الصورة في الجزء العلوي (اختياري) \ n <b> 2. </ b> إنشاء عنوانا عن طريق تحديد العنوان والكتابة. \ n <b> 3. </ b> إنشاء محتوى عن طريق تحديد نص المحتوى والكتابة.</string>//todo not translated
     <string name="pin_title">النشر على حائطك؟</string>
     <string name="pin_confirm">هل ترغب بنشر هذا على حائطك؟?</string>
-    <string name="pin_message_hint">Enter a message with your shared post…</string>//todo not translated
-    <string name="comment_hint">Enter your comment here…</string>//todo not translated
-    <string name="read_more">Read more &gt;</string>//todo not translated
-    <string name="read_less">Read less &lt;</string>//todo not translated
+    <string name="pin_message_hint">أدخل رسالة مع مشاركتك المشتركة ...</string>//todo not translated
+    <string name="comment_hint">أدخل تعليقك هنا…</string>//todo not translated
+    <string name="read_more">اقرأ المزيد & غ؛</string>//todo not translated
+    <string name="read_less">قراءة أقل & لوت؛</string>//todo not translated
     <string name="edit">تعديل</string>
-    <string name="delete">Delete</string>//todo not translated
-    <string name="translate">Translate</string>//todo not translated
+    <string name="delete">حذف</string>//todo not translated
+    <string name="translate">ترجمه</string>//todo not translated
     <string name="share">مشاركة</string>
-    <string name="post">Post</string>//todo not translated
-    <string name="back">Back</string>//todo not translated
+    <string name="post">بريد</string>//todo not translated
+    <string name="back">الى الخلف</string>//todo not translated
 
     <!--Purchases-->
     <string name="rewards_received">الجوائز والعناصر المتلقاة من حقائب الجيم</string>
-    <string name="bonus_gym_bag">+ Bonus gym bag</string>//todo
+    <string name="bonus_gym_bag">+ مكافأة حقيبة الصالة الرياضية</string>//todo
     <string name="bundles">حزم</string>
-    <string name="wallet">Wallet</string>//todo
+    <string name="wallet">محفظة نقود</string>//todo
     <string name="stash">خزنتك</string>
     <string name="your_statement">تصريحك</string>
 
