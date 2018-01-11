@@ -1,425 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--&lt;!&ndash; links and API keys &ndash;&gt;-->
-    <!--<string name="friend_requests">Friend Requests</string>-->
-    <!--<string name="language_current">Bengali</string>-->
+    <!--Screen titles-->
+    <string name="wall">ওয়াল</string>
+    <string name="news">খবর</string>
+    <string name="rumours">গুজবগুলি</string>
+    <string name="stats">পরিসংখ্যানগুলি</string>
+    <string name="shop">জিনিস কিনুন</string>
+    <string name="chat">চ্যাট করুন</string>
+    <string name="video_chat">ভিডিও চ্যাট</string>
+    <string name="radio">ক্লাব রেডিও</string>
+    <string name="tv">ক্লাব টিভি</string>
+    <string name="store">সংরক্ষণ করুন</string>
+    <string name="quiz">কুইজ</string>
+    <string name="fantasy">কল্পনা</string>
 
-    <!--&lt;!&ndash; Terms and privacy &ndash;&gt;-->
-    <!--<string name="terms_and_privacy">Terms &amp; Privacy</string>-->
+    <string-array name="menu_navigation">
+        <item>@string/wall</item>
+        <item>@string/chat</item>
+        <item>@string/news</item>
+        <item>@string/stats</item>
+        <item>@string/rumours</item>
+        <item>@string/radio</item>
+        <item>@string/shop</item>
+        <item>@string/tv</item>
+        <item>@string/video_chat</item>
+    </string-array>
 
-    <!--&lt;!&ndash; Sign in/ Sign up screen &ndash;&gt;-->
-    <!--<string name="login_sign_up">Sign up</string>-->
-    <!--<string name="login_login">Login</string>-->
-    <!--<string name="login_slider_text_1_phone">Bringing <font color="#c3ff01"> fans </font> together</string>-->
-    <!--<string name="bringing">Bringing </string>-->
-    <!--<string name="fans"> fans </string>-->
-    <!--<string name="together"> together</string>-->
-    <!--<string name="email">Email</string>-->
-    <!--<string name="password">Password</string>-->
-    <!--<string name="login_login_forgot_text">Forgot?</string>-->
-    <!--<string name="login_login_message_login_failed">Login failed. Try again later!</string>-->
-    <!--<string name="login_login_message_authentication_failed">Login failed. Check user name and password!</string>-->
+    <!-- Login & Register -->
+    <string name="slogan">ফ্যান একসাথে আনে</string>
+    <string name="access_full">সম্পূর্ণ বৈশিষ্ট্য অ্যাক্সেস করতে…</string>
+    <string name="join_sign_in">এখনই যোগ দিন / সাইন ইন করুন</string>
+    <string name="sign_in">সাইন ইন করুন</string>
+    <string name="join">এখনই যোগ দিন</string>
+    <string name="login_facebook">Facebook দিয়ে লগইন করুন</string>
+    <string name="or">অথবা</string>
+    <string name="email">ইমেল</string>
+    <string name="password">পাসওয়ার্ড</string>
+    <string name="first_name">নাম</string>
+    <string name="last_name">পদবী</string>
+    <string name="nickname">ডাকনাম</string>
+    <string name="phone">ফোন</string>
+    <string name="error">ত্রুটি</string>
+    <string name="login_failed">লগ-ইন ব্যর্থ!</string>
+    <string name="registration_failed">নথিভুক্তি ব্যর্থ</string>
+    <string name="forgot_your_password">আপনার পাসওয়ার্ড ভুলে গেছেন?</string>
+    <string name="password_reset">পাসওয়ার্ড রিসেট করুন</string>
+    <string name="reset_check_email">পাসওয়ার্ড রিসেট বিকল্পগুলির জন্য আপনার ইমেলটি পরীক্ষা করুন।</string>
+    <string name="email_enter_valid">অনুগ্রহ করে একটি বৈধ ইমেল ঠিকানা লিখুন!</string>
+    <string name="sign_up_text">সাইন-আপ করে, আপনি সম্মত হচ্ছেন SportsSidekick-এর\n<font color="#FFFFFF">ব্যবহারের শর্তাবলী</font> এবং <font color="#FFFFFF">গোপনীয়তা নীতি -তে।</font></string>
+    <string name="required_email">আপনাকে ইমেল ঠিকানা লিখতে হবে!</string>
+    <string name="required_password">আপনাকে একটি পাসওয়ার্ড প্রবেশ করাতে হবে</string>
+    <string name="required_first_name">আপনাকে নাম লিখতে হবে!</string>
+    <string name="required_last_name">আপনাকে আপনার পদবী লিখতে হবে!</string>
+    <string name="required_nickname">আপনাকে একটি ডাকনাম লিখতে হবে!</string>
+    <string name="required_phone">আপনাকে একটি টেলিফোন নম্বর লিখতে হবে!</string>
+    <string name="required_credentials">অনুপস্থিত তথ্য</string>
+    <string name="password_try_again">অনুগ্রহ করে আপনার পাসওয়ার্ড লিখে আবার চেষ্টা করুন।</string>
+    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="logout_from_app">এটি করলে আপনাকে অ্যাপ থেকে লগ-আউট করবে?</string>
+    <string name="reset_app">এই কার্য অ্যাপ্লিকেশনকে আবার লোড করবে।</string>
+    <string name="error_username_taken">নিবন্ধন ত্রুটি - ব্যবহারকারী নাম ইতিমধ্যে গ্রহণ করা হয়েছে, দয়া করে একটি ভিন্ন ব্যবহারকারীর নাম নির্বাচন করুন।</string>
+    <string name="facebook_error">আপনার সর্বজনীন প্রোফাইল প্রাপ্ত করা গেল না। অনুগ্রহ করে আবার চেষ্টা করুন!</string>
 
-    <!--<string name="forgot_password_text">Reset your password</string>-->
-    <!--<string name="forgot_password_button_text">Reset Password</string>-->
-    <!--<string name="forgot_password_message">Please check your email for password reset options.</string>-->
-    <!--<string name="forgot_password_error_message">Please enter a valid email address!</string>-->
-    <!--<string name="forgot_password_error">Error</string>-->
+    <!--Dialogs-->
+    <string name="ok">ঠিক আছে</string>
+    <string name="allow">অনুমতি দিন</string>
+    <string name="deny">অস্বীকার করা</string>
+    <string name="warning">সতর্কতা</string>
+    <string name="uploading">আপলোড হচ্ছে…</string>
+    <string name="no_connection">কোনো সংযোগ নেই</string>
+    <string name="internet_needed">এটি করতে আপনাকে ইন্টারনেটে সংযোগ করতে হবে</string>
+    <string name="waiting_for_internet">সক্রিয় ইন্টারনেট সংযোগের জন্য অপেক্ষা করা হচ্ছে…</string>
 
-    <!--<string name="sign_up_facebook">Sign up with Facebook</string>-->
-    <!--<string name="or">or</string>-->
-    <!--<string name="sign_up_first_name">First name</string>-->
-    <!--<string name="sign_up_last_name">Last name</string>-->
-    <!--<string name="sign_up_username">Display name</string>-->
-    <!--<string name="sign_up_phone">Phone</string>-->
-    <!--<string name="sign_up_sign_up">Sign up</string>-->
-    <!--<string name="sign_up_text">By singing up, you are agree to Fanschart\'\"s <font color="@android:color/white"> Terms and Conditions of Use </font> and <font color="@android:color/white">Privacy Policy.</font></string>-->
+    <!--Profile-->
+    <string name="go_to_profile">প্রোফাইলে যান></string>
+    <string name="profile">আপনার প্রোফাইল</string>
+    <string name="contact_info">যোগাযোগের তথ্য</string>
+    <string name="choose_your_language">আপনার ভাষা বেছে নিন</string>
+    <string name="chosen_language">নির্বাচিত ভাষা</string>
+    <string name="location">স্থান</string>
+    <string name="subscribed_since">এই সময় থেকে সদস্য আছেন</string>
+    <string name="auto_translation">স্বয়ংক্রিয় অনুবাদ</string>
+    <string name="notify_wall">ওয়াল বিজ্ঞপ্তিগুলি</string>
+    <string name="notify_news">সংবাদ বিজ্ঞপ্তিগুলি</string>
+    <string name="notify_rumours">গুজব তথ্য</string>
+    <string name="notify_social">সামাজিক ফিড বিজ্ঞপ্তিগুলি</string>
+    <string name="edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
+    <string name="edit_photo">ছবি সম্পাদনা করুন</string>
+    <string name="done">সম্পন্ন</string>
+    <string name="caps_level">খেলা ম্যাগুলির সংখ্যা</string>
+    <string name="days_using">SSK ব্যবহার করা দিনগুলি</string>
+    <string name="wall_posts">ওয়াল পোস্টগুলি</string>
+    <string name="videos_watched">দেখা ভিডিওগুলি</string>
+    <string name="matches_home">যে ম্যাচগুলি খেলেছে (হোম)</string>
+    <string name="matches_away">যে ম্যাচগুলি খেলেছে (বাইরে)</string>
+    <string name="likes_received">যত লাইক পেয়েছে</string>
+    <string name="comments_made">মন্তব্য লিখেছেন</string>
+    <string name="language">ভাষা</string>
+    <string name="you_have">আপনার কাছে আছে</string>
+    <string name="caps">খেলা ম্যাচগুলি</string>
+    <string name="language_current">বাংলা</string>
 
-    <!--&lt;!&ndash; General &ndash;&gt;-->
-    <!--<string name="demo" translatable="false">demo</string>-->
-    <!--<string name="scrolling_news_demo_value" translatable="false">Sporting CP pens deal with FHK</string>-->
-    <!--<string name="fist_name_warning">Please fill in your first name.</string>-->
-    <!--<string name="email_validation_warning">Please fill in your email.</string>-->
-    <!--<string name="display_name_validation_warning">Please fill in your display name.</string>-->
-    <!--<string name="password_validation_warning">Please fill in your password.</string>-->
-    <!--<string name="phone_number_validation_warning">Please fill in your phone number.</string>-->
-    <!--<string name="last_name_validation_warning">Please fill in your last name.</string>-->
+    <!--Friends-->
+    <string name="friend_profile">বন্ধুর তথ্য</string>
+    <string name="friend_requests">বন্ধুত্বর অনুরোধগুলি</string>
+    <string name="follows_you">আপনাকে অনুসরণ করছে</string>
+    <string name="user_profile">ব্যবহারকারীর প্রোফাইল</string>
+    <string name="friends_title">আপনার বন্ধুরা</string>
+    <string name="friends_search">আপনার বন্ধুদের সন্ধান করুন</string>
+    <string name="offline">অফলাইন</string>
+    <string name="friend_request_pending">বন্ধুত্বের অনুরোধ অমীমাংসিত আছে</string>
+    <string name="enter_friend_name_invite">আমন্ত্রণ জানাতে আপনার বন্ধুন ফোন নম্বর লিখুন।</string>
+    <string name="remove_friend">বন্ধুদের থেকে অপসারণ</string>
+    <string name="friend_request_send">বন্ধুত্বের অনুরোধ পাঠাবেন?</string>
+    <string name="friend_unfollow">বন্ধুকে অননুসরণ করুন</string>
+    <string name="friend_follow">বন্ধুকে অনুসরণ করুন</string>
+    <string name="pinned">পিন করা</string>
+    <string name="comments">মন্তব্য</string>
+    <string name="friends">বন্ধুরা</string>
+    <string name="following">অনুসরণ করা হচ্ছে</string>
+    <string name="followers">অনুসরণকারী</string>
+    <string name="report_abuse">অপব্যবহার জানান</string>
+    <string name="cancel">বাতিল</string>
+    <string name="member_info">সদস্য তথ্য</string>
+    <string name="requested_on">অনুরোধ করা</string>
+    <string name="you">আপনি</string>
+    <string name="add_friend">একজন বন্ধু যোগ করুন</string>
+    <string name="invite_friend">একজন বন্ধুকে আমন্ত্রণ জানান</string>
+    <string name="add_friend_hint">আপনার বন্ধুর নাম, ইমেল বা ফোন নম্বর লিখুন সন্ধান ফিল্ডে।</string>
+    <string name="save">সংরক্ষণ করুন</string>
+    <string name="invite">আমন্ত্রণ জানান</string>
+    <string name="follow_more">আরও ব্যক্তিদের অনুসরণ করুন</string>
+    <string name="friends_following_you">আপনাকে যে বন্ধুরা অনুসরণ করছে:</string>
+    <string name="find">সন্ধান করুন</string>
+    <string name="requests">অনুরোধগুলি</string>
+    <string name="official_accounts">সরকারী অ্যাকাউন্টগুলি</string>
+    <string name="unfriend_confirm">Removing a friend will stop you following each other. Are you sure you want to remove this friend?</string>
+    <string name="no_results">কোনো ফলাফল নেই</string>
+    <string name="user">ব্যবহারকারী</string>
+    <string name="more">আরও</string>
+    <string name="friend_you_and">আপনার এবং  </string>
+    <string name="have_in_common"> -এর যে বন্ধুরা একই:</string>
+    <string name="what_would_you_like_to_do">আপনি কি করতে চান?</string>
 
-    <!--<string name="ok">OK</string>-->
-    <!--<string name="allow">Allow</string>-->
-    <!--<string name="deny">Deny</string>-->
-    <!--<string name="warning">Warning</string>-->
-    <!--<string name="uploading">Uploading…</string>-->
+    <!--Chat-->
+    <string name="members">সদস্য</string>
+    <string name="leave">চ্যাট পরিত্যাগ করুন</string>
+    <string name="are_you_sure">আপনি কি নিশ্চিত?</string>
+    <string name="chat_confirm_leave">এই চ্যাট ছেড়ে যাবেন?</string>
+    <string name="chat_confirm_delete">এটি স্থায়ীভাবে এই চ্যাটটি মুছে দেবে; আপনি কি নিশ্চিত?</string>
+    <string name="photo_or_video">ছবি বা রেকর্ড ভিডিও নিন?</string>
+    <string name="chat_image">ভাবমূর্তি</string>
+    <string name="from_library">লাইব্রেরি থেকে বাছাই কর</string>
+    <string name="use_camera">ক্যামেরা ব্যবহার করুন</string>
+    <string name="record_video">রেকর্ড ভিডিও</string>
+    <string name="chat_hold">রেকর্ড ধরে রাখুন</string>
+    <string name="chat_recording_stop">রেকর্ডিং বন্ধ</string>
+    <string name="no_message_text">এখনও কেউ চ্যাট করতে শুরু করেনি! প্রথম হিসাবে আপনিই শুরু করুন না কেন?</string>
+    <string name="chat_public">এই চ্যাটটি পাবলিক</string>
+    <string name="chat_private">এই চ্যাটটি প্রাউভেট</string>
+    <string name="create_chat">একটি নতুন চ্যাট তৈরি করুন</string>
+    <string name="join_chat">অনুসরণ বন্ধ করুন</string>
+    <string name="single_user_is_typing">%1$s! এর! টাইপ করছে…</string>
+    <string name="multiple_users_are_typing">একাধিক ব্যবহারকারী টাইপ করছেন…</string>
+    <string name="alerts_on">চ্যাট বিজ্ঞপ্তি চালু</string>
+    <string name="alerts_off">চ্যাট বিজ্ঞপ্তি বন্ধ</string>
+    <string name="chat_with_friends_login">বন্ধুদের সাথে কথা বলি.</string>
+    <string name="chat_friends_in_chat">চ্যাট মধ্যে বন্ধু</string>
+    <string name="chat_friend_in_chat">1 বন্ধু চ্যাট</string>
+    <string name="chats">চ্যাটগুলি</string>
+    <string name="chats_public">পাবলিক চ্যাটগুলি</string>
+    <string name="chats_public_search">পাবলিক চ্যাট সন্ধান করুন</string>
+    <string name="message_hint">আপনার বার্তা এখানে লিখুন…</string>
+    <string name="chat_friends_add">এই চ্যাটে বন্ধুদের যোগ করুন</string>
+    <string name="chat_name">চ্যাটের নাম</string>
+    <string name="chat_give_name">আপনার চ্যাটে নাম দিন</string>
+    <string name="chat_rename">আপনার চ্যাটে পুনর্নামকরণ করুন</string>
+    <string name="add_friends_to_chat">চ্যাটে বন্ধুদের যোগ করুন</string>
+    <string name="friend_chats">আপনার বন্ধুদের মধ্যে পাবলিক চ্যাট আছে</string>
+    <string name="is_in"> এখানে আছে: </string>
 
-    <!--&lt;!&ndash; Dialogs &ndash;&gt;-->
-    <!--<string name="email_not_valid">Please enter a valid email address!</string>-->
-    <!--<string name="internet_needed">You need to be connected to the internet to do this</string>-->
-    <!--<string name="facebook_error">Your public profile could not be received. Please try again!</string>-->
+    <!--Video chat-->
+    <string name="video_chat_promo_1">আপনার বন্ধুদের সাথে ম্যাচটি জয় করুন</string>
+    <string name="video_chat_promo_2">ভিডিও চ্যাট আপনাকে একটি গ্রুপ ভিডিও চ্যাটের জন্য 3 জন বন্ধুকে ফোন করতে দেয়, তাই আপনি যেখানেই থাকুন না কেন আপনি যে লোকেদের পছন্দ করেন তাদের সাথে আপনি কাজ করতে পারেন!</string>
+    <string name="call_start">কল শুরু করুন</string>
+    <string name="call_starting">নতুন কল শুরু করুন</string>
+    <string name="call_add_member">কলে যোগ করুন</string>
+    <string name="accept_call">লটি গ্রহণ করবেন?</string>
+    <string name="call_receive">একটি কল আসছে</string>
+    <string name="video_chat_max">দুঃখিত, আপনি কেবলমাত্র সর্বোচ্চ 3 জন বন্ধুকে ভিডিও কল করতে পারবেন, এবং এই কলটি আগেই পূর্ণ হয়েছে!</string>
+    <string name="video_chats">ভিডিও চ্যাটগুলি</string>
+    <string name="friends_in_video_chat">ভিডিও চ্যাটের বন্ধু</string>
+    <string name="friend_in_video_chat">1 ভিডিও চ্যাট ভিডিও</string>
+    <string name="no_users_selected">কোনো ব্যবহারকারী নির্বাচিত নেই!</string>
+    <string name="no_users_selected_message">আপনি কাউকে ফোন করার জন্য বেছে নেন নি!</string>
+    <string name="select_friends_to_call">কল করার জন্য বন্দুদের বাছুন</string>
 
-    <!--&lt;!&ndash; Fragment captions &ndash;&gt;-->
-    <!--<string name="wall">The Wall</string>-->
-    <!--<string name="video_chat">Video Chat</string>-->
-    <!--<string name="news">News</string>-->
-    <!--<string name="rumours">Rumors</string>-->
-    <!--<string name="shop">Shop</string>-->
-    <!--<string name="radio">Club Radio</string>-->
-    <!--<string name="tv">Club TV</string>-->
-    <!--<string name="fantasy">Fantasy</string>-->
-    <!--<string name="stats">Statistics</string>-->
-    <!--<string name="chat">Chat</string>-->
-    <!--<string name="shop">Shop</string>-->
-    <!--<string name="rumours">Rumours</string>-->
-    <!--<string name="video_chat">Video Chat</string>-->
-    <!--<string name="wall">The Wall</string>-->
-    <!--<string name="news">News</string>-->
-    <!--<string name="quiz">Quiz</string>-->
+    <!--Next match-->
+    <string name="match_next">পরবর্তী খেলা</string>
+    <string name="vs">বনাম</string>
+    <string name="day">%1$d দিন</string>
+    <string name="days">%1$d দিনগুলি</string>
+    <string name="hour">%1$d ঘন্টা</string>
+    <string name="hours">%1$d ঘন্টা</string>
+    <string name="min">%1$d মিনিট</string>
+    <string name="mins">%1$d মিনিট</string>
+    <string name="sec">%1$d সেকেন্ড</string>
+    <string name="secs">%1$d সেকেন্ড</string>
+    <string name="live">সরাসরি</string>
 
-    <!--<string name="coins_caption">YOU HAVE</string>-->
+    <!--Posts & News-->
+    <string name="post_create">নতুন পোস্ট তৈরি করুন</string>
+    <string name="post_title_hint">আপনার পোস্টের শিরোনাম লিখতে এখানে ক্লিক করুন</string>
+    <string name="post_body_hint">আপনার পোস্ট লিখতে শুরু করতে এখানে ক্লিক করুন…</string>
+    <string name="post_create_tip_header">একটি নতুন পোস্ট তৈরি করতে:</string>
+    <string name="post_create_tip_body"><b> 1। </ b> আপনার মিডিয়া লাইব্রেরি থেকে কোনও চিত্র নির্বাচন করুন বা উপরের একটি চিত্র চিত্রের মধ্যে দুটি আইকনগুলির একটি নির্বাচন করে (ঐচ্ছিক) \ n <b> 2। </ b> তৈরি করুন শিরোনাম এবং টাইপ নির্বাচন করে একটি শিরোনাম। \ n <b> 3। </ b> সামগ্রী পাঠ্য এবং টাইপ নির্বাচন করে বিষয়বস্তু তৈরি করুন।</string>
+    <string name="pin_title">আপনার ওয়ালে পোস্ট করবেন?</string>
+    <string name="pin_confirm">আপনি কি এটিকে আপনার ওয়ালে পোস্ট করতে চাইবেন?</string>
+    <string name="pin_message_hint">আপনার ভাগ করা পোস্টের মাধ্যমে একটি বার্তা লিখুন…</string>
+    <string name="comment_hint">এখানে আপনার মন্তব্য লিখুন…</string>
+    <string name="read_more">আরও পড়ুন &gt;</string>
+    <string name="read_less">কম পড়ুন &lt;</string>
+    <string name="edit">সম্পাদনা</string>
+    <string name="delete">মুছে ফেলা</string>
+    <string name="translate">অনুবাদ</string>
+    <string name="share">শেয়ার</string>
+    <string name="post">পোস্ট</string>
+    <string name="back">পিছনে</string>
 
-    <!--<string name="days">" Days "</string>-->
-    <!--<string name="no_message_text">No one has started chatting yet! Why not be the first?</string>-->
-
-    <!--<string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>-->
-    <!--<string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>-->
-    <!--<string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>-->
-
-    <!--<string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>-->
-    <!--<string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>-->
-    <!--<string name="video_chat_permission_microphone_never_ask">Never ask for audio and video recording permission again.</string>-->
-
-    <!--<string name="permission_camera_rationale">Please enable camera permissions in settings.</string>-->
-    <!--<string name="permission_camera_denied">You need to enable camera in settings to take image.</string>-->
-    <!--<string name="permission_camera_never_ask">Never ask for camera permission again.</string>-->
-
-    <!--<string name="share_using">Share with:</string>-->
-    <!--<string name="enter_comment_hint">Enter your comment here...</string>-->
-
-    <!--<string name="chat_public">This chat is public</string>-->
-    <!--<string name="this_chat_is_private">This chat is private</string>-->
-    <!--<string name="manage_public_chat_caption">Add friends to %1s</string>-->
-    <!--<string name="create_chat">Create Chat</string>-->
-    <!--<string name="join_chat">Join Chat</string>-->
-    <!--<string name="your_stash">Your Stash</string>-->
-    <!--<string name="your_wallet">Your Wallet -</string>-->
-    <!--<string name="your_profile">Your Profile</string>-->
-    <!--<string name="contact_info">Contact info</string>-->
-    <!--<string name="subscribed_since">Subscribed since</string>-->
-    <!--<string name="location">Location</string>-->
-    <!--<string name="password">Password</string>-->
-    <!--<string name="image">image</string>-->
-    <!--<string name="chosen_language">Chosen language</string>-->
-    <!--<string name="your_statement">Your Statement</string>-->
-    <!--<string name="choose_your_language">Choose your language</string>-->
-
-    <!--<string name="friend_profile">Friend Profile</string>-->
-    <!--<string name="member_since">Member since</string>-->
-    <!--<string name="follows_you">Follows you</string>-->
-    <!--<string name="following_member">Following member</string>-->
-
-    <!--&lt;!&ndash; your friends&ndash;&gt;-->
-    <!--<string name="your_friends_title">Your Friends</string>-->
-    <!--<string name="your_friends_search_hint">Search your friends</string>-->
-    <!--<string name="your_friends_request">Friend requests</string>-->
-    <!--<string name="time_info_player" translatable="false">%1$tM:%1$tS / %2$tM:%2$tS</string>-->
-
-    <!--&lt;!&ndash; video chat &ndash;&gt;-->
-    <!--<string name="video_chat_promo_1"><![CDATA[ Watch the match with your <font color="#c3ff01">friends.</font>]]></string>-->
-    <!--<string name="video_chat_promo_1_phone">Watch the match with your <font color="#c3ff01">friends.</font></string>-->
-
-    <!--<string name="video_chat_text_2">-->
-        <!--Video chat allows you to call up to 3 friends for a\n-->
-        <!--group video chat, so you can experience the action\n-->
-        <!--with the people you love wherever you are!</string>-->
-
-    <!--<string name="video_chat_button_text">Begin your call</string>-->
-    <!--<string name="starting_new_call_search_hint">Search public chats</string>-->
-    <!--<string name="starting_new_call_search_title">Starting New Call</string>-->
-    <!--<string name="edit_information">Edit Information</string>-->
-    <!--<string name="edit_photo">Edit Photo</string>-->
-    <!--<string name="first_name">First Name</string>-->
-    <!--<string name="last_name">Last Name</string>-->
-    <!--<string name="nickname">Nickname</string>-->
-    <!--<string name="email_address">Email Address</string>-->
-    <!--<string name="telephone_no">Telephone No</string>-->
-    <!--<string name="member_info">Member info</string>-->
-
-    <!--<string name="match_day">%1$d Day</string>-->
-    <!--<string name="match_days">%1$d Days</string>-->
-
-    <!--<string name="match_hour">%1$d Hour</string>-->
-    <!--<string name="match_hours">%1$d Hours</string>-->
-
-    <!--<string name="match_min">%1$d Min</string>-->
-    <!--<string name="match_mins">%1$d Mins</string>-->
-
-    <!--<string name="match_sec">%1$d Sec</string>-->
-    <!--<string name="match_secs">%1$d Secs</string>-->
-
-    <!--<plurals name="days_until_match">-->
-        <!--<item quantity="zero">TODAY</item>-->
-        <!--<item quantity="one">%d Day</item>-->
-        <!--<item quantity="other">%d Days</item>-->
-    <!--</plurals>-->
-
-    <!--&lt;!&ndash; tutorial values &ndash;&gt;-->
-
-
-    <!--<string name="join_group">Join Group</string>-->
-    <!--<string name="already_in_group">You are already in thi chat.</string>-->
-    <!--<string name="chat_members">Members</string>-->
-    <!--<string name="chat_edit">Edit</string>-->
-    <!--<string name="chat_Leave">Leave</string>-->
-    <!--<string name="chat_send">SEND</string>-->
-    <!--<string name="chat_image_downloaded">Image is downloaded.</string>-->
-    <!--<string name="chat_video_downloaded">Video is downloaded.</string>-->
-    <!--<string name="are_you_sure">ARE YOU SURE?</string>-->
-    <!--<string name="chat_leave_chat">Leave this chat?</string>-->
-    <!--<string name="chat_delete_chat">This will permanently delete this chat; are you sure?</string>-->
-    <!--<string name="choose">Choose</string>-->
-    <!--<string name="chat_image_or_video">Take photo or record video?</string>-->
-    <!--<string name="chat_video">Video Chat</string>-->
-    <!--<string name="chat_image">Image</string>-->
-    <!--<string name="chat_hold">Hold down to record</string>-->
-    <!--<string name="chat_recording_stop">Recording stopped</string>-->
-    <!--<string name="news_install_twitter">Please install Twitter application.</string>-->
-    <!--<string name="news_post_to_wall_title">Post this to your wall?</string>-->
-    <!--<string name="news_post_to_wall_message">Would you like to post this on your wall?</string>-->
-    <!--<string name="video_chat_maximum">Sorry you can only video call with a maximum of 3 friends, and this call is already full!</string>-->
-    <!--<string name="video_chat_you">You</string>-->
-    <!--<string name="video_chat_receive_call">Receiving a call from</string>-->
-    <!--<string name="video_chat_accept_call">Accept the call?</string>-->
-    <!--<string name="permissions">Permissions</string>-->
-    <!--<string name="wall_new_post_subtitle" translatable="false">A subtitle…</string>-->
-    <!--<string name="wall_text_for_post">Write your post here.</string>-->
-    <!--<string name="chat_friends_in_chat">Friends in Chat</string>-->
-    <!--<string name="chat_friend_in_chat">1 Friend in Chat</string>-->
-    <!--<string name="chat_choose_option">Choose option</string>-->
-    <!--<string name="chat_choose_from_library">Choose from library</string>-->
-    <!--<string name="chat_use_camera">Use Camera</string>-->
-    <!--<string name="chat_no_changes">There are no changes in this chat.</string>-->
-    <!--<string name="try_again_later">Error. Try again later.</string>-->
-    <!--<string name="enter_friend_name_invite">Enter friend name to invite.</string>-->
-    <!--<string name="enter_valid_password_and_display_name">Please enter valid password and user name</string>-->
-    <!--<string name="login_try_again">Please re-enter your password and try again</string>-->
-    <!--<string name="remove_friend">Un-Friend</string>-->
-    <!--<string name="friend_request_send">Send Friend Request</string>-->
-    <!--<string name="friend_unfollow">Un-Follow Friend</string>-->
-    <!--<string name="friend_follow">Follow Friend</string>-->
-    <!--<string name="registration_error">Registration error. Try again later.</string>-->
-    <!--<string name="registration_error_username_taken">Registration error - username already taken, please select a different username.</string>-->
-    <!--<string name="no_users_selected">No users selected!</string>-->
-    <!--<string name="no_users_selected_message">You haven\'t selected anyone to call!</string>-->
-    <!--<string name="logout_from_app">This will log you out of the app!</string>-->
-    <!--<string name="reset_app">This action will reload the application.</string>-->
-    <!--<string name="caps_level">Caps level</string>-->
-    <!--<string name="days_using">Days using SSK</string>-->
-    <!--<string name="friends">Friends</string>-->
-    <!--<string name="following">Following</string>-->
-    <!--<string name="followers">Followers</string>-->
-    <!--<string name="wall_posts">Wall posts</string>-->
-    <!--<string name="videos_watched">Videos watched</string>-->
-    <!--<string name="chats">Chats</string>-->
-    <!--<string name="video_chats">Video chats</string>-->
-    <!--<string name="public_chats">Public chats</string>-->
-    <!--<string name="matches_home">Matches attended (home)</string>-->
-    <!--<string name="matches_away">Matches attended (away)</string>-->
-    <!--<string name="likes_received">Likes received</string>-->
-    <!--<string name="comments_made">Comments made</string>-->
-    <!--<string name="up_next">UP NEXT</string>-->
-    <!--<string name="live">LIVE</string>-->
-    <!--<string name="tutorial_earn">Tap here to earn 5 for viewing this How to!</string>-->
-    <!--<string name="chat_friends_add">Add friends to this chat</string>-->
-    <!--<string name="playlist">PLAYLIST</string>-->
-    <!--<string name="default_time" translatable="false">00:00 / 00:00</string>-->
-    <!--<string name="write_post_hint">Write your post here.</string>-->
-    <!--<string name="user">User</string>-->
-    <!--<string name="stats">Stats</string>-->
-    <!--<string name="store">Store</string>-->
-    <!--<string name="search_wall_posts_hint">Search Wall Posts</string>-->
-    <!--<string name="requested_on">Requested on</string>-->
-    <!--<string name="you">You</string>-->
-    <!--<string name="add_friend">Add a friend</string>-->
-    <!--<string name="invite_friend">Invite a friend</string>-->
-    <!--<string name="add_friend_hint">Enter your friend\'s name, email or phone number in the search field.</string>-->
-    <!--<string name="chat_name">Chat name</string>-->
-    <!--<string name="your_chat_name">Name Your Chat</string>-->
-    <!--<string name="add_friends_to_chat">Add friends to chat</string>-->
-    <!--<string name="search_for_member">Search for a member</string>-->
-    <!--<string name="friends_in_chat">Friends in Chat</string>-->
-    <!--<string name="edit_chat">Edit Chat</string>-->
-    <!--<string name="group_chat_name">Enter a name for your Group Chat</string>-->
-    <!--<string name="save">Save</string>-->
-    <!--<string name="invite">Invite</string>-->
-    <!--<string name="search_public_chats">Search Public Chats</string>-->
-    <!--<string name="public_chats_your_friends_are_in">Public Chats your friends are in</string>-->
-    <!--<string name="rename_your_chat">Rename your chat</string>-->
-    <!--<string name="new_name_of_chat_hint">Enter new name of chat here</string>-->
-    <!--<string name="people_in_this_chat">People in this chat</string>-->
-    <!--<string name="select_friends_to_call">Select friends to call</string>-->
-    <!--<string name="friends_you_are_following">Friends you are following:</string>-->
-    <!--<string name="no_friends">No friends</string>-->
-    <!--<string name="follow_more">Follow More</string>-->
-    <!--<string name="friends_following_you">Friends following you:</string>-->
-    <!--<string name="no_results">No results</string>-->
-    <!--<string name="no_result">No result</string>-->
-    <!--<string name="login_or_sign_up">Login / Signup</string>-->
-    <!--<string name="rewards_and_items_received">Rewards and items received from Gym Bags</string>-->
-    <!--<string name="you_have">YOU HAVE</string>-->
-    <!--<string name="bonus_gym_bag" translatable="false">+ BONUS GYM BAG</string>-->
-    <!--<string name="bundles" translatable="false">BUNDLES</string>-->
-    <!--<string name="vs">vs</string>-->
-    <!--<string name="login_sign_up_text">Login / Signup</string>-->
-    <!--<string name="add_new_chat">ADD NEW CHAT</string>-->
-    <!--<string name="demo_caption" translatable="false">Demo caption Demo caption Demo caption Demo caption</string>-->
-    <!--<string name="comment_text" translatable="false">Demo Comment text</string>-->
-    <!--<string name="message_hint">Enter your message here…</string>-->
-    <!--<string name="create">Create</string>-->
-    <!--<string name="demo_content" translatable="false">Demo content.</string>-->
-    <!--<string name="demo_content_lorem_short" translatable="false">Ut enim ad minima veniam.</string>-->
-    <!--<string name="demo_content_lorem_medium" translatable="false">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</string>-->
-    <!--<string name="demo_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>-->
-    <!--<string name="demo_number_1" translatable="false">204</string>-->
-    <!--<string name="demo_number_2" translatable="false">6901</string>-->
-    <!--<string name="caps">CAPS</string>-->
-    <!--<string name="join_official_chat"><![CDATA[Join Official Chat >]]></string>-->
-    <!--<string name="join_group">Join Group</string>-->
-    <!--<string name="rumour">RUMOUR</string>-->
-    <!--<string name="soccer_boot" translatable="false">SOCCER BOOT</string>-->
-    <!--<string name="shop">Shop</string>-->
-    <!--<string name="store_big">STORE</string>-->
-    <!--<string name="waiting_for_internet">Waiting for active internet connection…</string>-->
-    <!--<string name="no_connection">No Connection</string>-->
-    <!--<string name="internet_needed">You need to be connected to the internet to do this</string>-->
-
-    <!--<integer name="progress_bar_max">100</integer>-->
-    <!--<integer name="progress_bar_30">30</integer>-->
-    <!--<integer name="progress_bar_60">65</integer>-->
-    <!--<integer name="progress_bar_mid">50</integer>-->
-
-    <!--&lt;!&ndash;Phone&ndash;&gt;-->
-    <!--<string-array name="menu_navigation">-->
-        <!--<item>@string/wall</item>-->
-        <!--<item>@string/chat</item>-->
-        <!--<item>@string/news</item>-->
-        <!--<item>@string/stats</item>-->
-        <!--<item>@string/rumours</item>-->
-        <!--<item>@string/radio</item>-->
-        <!--<item>@string/shop</item>-->
-        <!--<item>@string/tv</item>-->
-        <!--<item>@string/video_chat</item>-->
-    <!--</string-array>-->
-
-    <!--<string name="go_to_profile">Go to Profile ></string>-->
-    <!--<string name="find">Find</string>-->
-    <!--<string name="request">Request</string>-->
-    <!--<string name="official_accounts">Official Accounts</string>-->
-    <!--<string name="back">Back</string>-->
-    <!--<string name="wallet">Wallet</string>-->
-    <!--<string name="edit_your_profile">Edit Your Profile</string>-->
-    <!--<string name="done">Done</string>-->
-    <!--<string name="language">Language</string>-->
-    <!--<string name="phone">Phone:</string>-->
-    <!--<string name="user_name">User Name:</string>-->
-    <!--<string name="last_name">Last Name:</string>-->
-    <!--<string name="first_name">First Name:</string>-->
-    <!--<string name="profile">Profile</string>-->
-    <!--<string name="stash">Stash</string>-->
-    <!--<string name="join_official_account"><![CDATA[Join official Account >]]></string>-->
-    <!--<string name="mutual_friends">Mutual Friends</string>-->
-    <!--<string name="friends_you_have_in_common">Friends you have in common</string>-->
-    <!--<string name="join_now_sign_in">Join Now / Sign In</string>-->
-    <!--<string name="join_now">Join Now</string>-->
-    <!--<string name="sign_in">Sign In</string>-->
-
-    <!--<string name="join_with_facebook">Join now with<b> Facebook </b></string>-->
-    <!--<string name="forgot_your_password">Forgot your password?</string>-->
-    <!--<string name="log_in_with_facebook">Login with<b> Facebook </b></string>-->
-    <!--<string name="sign_in_with_facebook">Sign in with<b> Facebook </b></string>-->
-    <!--<string name="this_chat_is_public_phone">This chat is PUBLIC</string>-->
-    <!--<string name="this_chat_is_private_phone">This chat is PRIVATE</string>-->
-    <!--<string name="user_profile">User Profile</string>-->
-    <!--<string name="video_chat">Video Chat</string>-->
-    <!--<string name="chat">Chat</string>-->
-    <!--<string name="more">More</string>-->
-    <!--<string name="posts">Posts</string>-->
-    <!--<string name="post">Post</string>-->
-    <!--<string name="comments">Comments</string>-->
-    <!--<string name="friend_you_and">Friend you and</string>-->
-    <!--<string name="have_in_common">have in common</string>-->
-    <!--<string name="public_chats_profile">Public Chats</string>-->
-    <!--<string name="is_in">is in</string>-->
-    <!--<string name="what_would_you_like_to_do">What would you like to do?</string>-->
-    <!--<string name="report_abuse">Report Abuse</string>-->
-    <!--<string name="cancel">Cancel</string>-->
-    <!--<string name="start_call">Start Call</string>-->
-    <!--<string name="create_call">Starting New Call</string>-->
-    <!--<string name="friends_in_video_chat">Friends in Video Chat</string>-->
-    <!--<string name="friend_in_video_chat">1 Friend in Video Chat</string>-->
-    <!--<string name="search_your_friends">Search your friends</string>-->
-    <!--<string name="friends_list">Friends List</string>-->
-
-    <!--<string-array name="language_names">-->
-        <!--<item>Bengali</item>-->
-        <!--<item>Chinese</item>-->
-        <!--<item>English</item>-->
-        <!--<item>French</item>-->
-        <!--<item>German</item>-->
-        <!--<item>Indonesian</item>-->
-        <!--<item>Italian</item>-->
-        <!--<item>Polish</item>-->
-        <!--<item>Portuguese</item>-->
-        <!--<item>Russian</item>-->
-        <!--<item>Spanish</item>-->
-        <!--<item>Arabic</item>-->
-    <!--</string-array>-->
-
-
-    <!--<string name="mins_ago">mins ago</string>-->
-    <!--<string name="friend_request_pending">Friend Request Pending</string>-->
-    <!--<string name="request_pending">Request Pending</string>-->
-
-    <!--<string name="unfriend_tip"> Removing a friend will stop you following each other.</string>-->
-    <!--<string name="unfriend_confirm">Are you sure you want to remove this friend?</string>-->
-
-    <!--<string name="read_more_closed">Read more  &gt;</string>-->
-    <!--<string name="read_more_open">Read less  &lt;</string>-->
-    <!--<string name="unnamed_chat">Unnamed Chat</string>-->
-
-    <!--<string name="permission_storage_rationale">You need to enable Write permission.</string>-->
-    <!--<string name="permission_storage_denied">You need to enable Write permission in settings </string>-->
-    <!--<string name="permission_storage_neverask">Never ask again.</string>-->
-
-    <!--<string name="welcome_your_account_is_being_setup"><![CDATA[ Welcome, your account is being setup! While you\n wait, check out some of our <font color="#c3ff01"> awesome features! </font> ]]></string>-->
-
-    <!--<string name="your_ready_to_play"><![CDATA[ You are ready to play.\n  <font color="#c3ff01"> Welcome to the team. </font> ]]></string>-->
-    <!--<string name="login_slider_chat"><![CDATA[ You can chat with  <font color="#c3ff01"> friends, create groups </font>and even\n connect with your <font color="#c3ff01"> favourite players! </font>]]></string>-->
-    <!--<string name="chat_with_friends"><![CDATA[ Chat with  <font color="#c3ff01"> friends. </font>]]></string>-->
-    <!--<string name="to_access_full_features">To access full features …</string>-->
-
-    <!--<string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>-->
-    <!--<string name="chat_with_friends_login"> Chat with friends.</string>-->
-
-    <!--<string name="cant_start_video">Can\'t start video.</string>-->
-    <!--<string name="edit">Edit</string>-->
-    <!--<string name="delete">Delete</string>-->
-    <!--<string name="alerts_on">Alerts-ON</string>-->
-    <!--<string name="alerts_off">Alerts-OFF</string>-->
-    <!--<string name="enable_wall_notifications">Enable wall notifications</string>-->
-    <!--<string name="disable_wall_notifications">Disable wall notifications</string>-->
-    <!--<string name="search">Search</string>-->
-    <!--<string name="pin_count_placeholder" translatable="false">&#45;&#45;</string>-->
-    <!--<string name="match_next">Next match</string>-->
-    <!--<string name="ellipsis" translatable="false">…</string>-->
-    <!--<string name="message_time_splitter" translatable="false">|</string>-->
-    <!--<string name="password_placeholder" translatable="false">***********</string>-->
-    <!--<string name="max_level_value" translatable="false">99</string>-->
-    <!--<string name="reset">Reset</string>-->
-    <!--<string name="offline">offline</string>-->
-    <!--<string name="watch_promo" translatable="false">Watch promo</string>-->
-    <!--<string name="single_user_is_typing">%1$s! is typing…</string>-->
-    <!--<string name="multiple_users_are_typing">Multiple users are typing…</string>-->
-    <!--<string name="record_video">Record Video</string>-->
-    <!--<string name="translate">Translate</string>-->
-    <!--<string name="hint_sharing_message">Enter a message with your shared post…</string>-->
+    <!--Purchases-->
+    <string name="rewards_received">জিম ব্যাগ থেকে যে পুরষ্কার এবং বস্তুগুলি পাওয়া গেছে</string>
+    <string name="bonus_gym_bag">+ বোনাস জিম ব্যাগ</string>
+    <string name="bundles">বান্ডিলগুলি</string>
+    <string name="wallet">মানিব্যাগ</string>
+    <string name="stash">আপনার স্ট্যাশ</string>
+    <string name="your_statement">আপনার বিবৃতি</string>
 
 </resources>
