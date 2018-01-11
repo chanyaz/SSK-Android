@@ -135,7 +135,7 @@
                 android:layout_marginStart="@dimen/margin_10"
                 android:layout_toEndOf="@id/search_icon"
                 android:background="?searchFieldBackgroundRef"
-                android:hint="@string/chats_search"
+                android:hint="@string/chats_public_search"
                 android:imeOptions="flagNoExtractUi"
                 android:inputType="text"
                 android:maxLines="1"

@@ -41,7 +41,7 @@ ar---
 "Leave this chat?" = "الخروج من المحادثة؟";
 "Are you sure you want to leave the chat" = "هل أنت متأكد من الخروج من المحادثة"; /* Format = "Are you sure you want to leave the chat 'Some Chat Name'? */
 
-"Receiving a call from" = "تتلقى اتصالاً من";/* Format = "Receiving a call from 'Some Users Name'" */
+"Receiving a call from" = "تتلقى اتصالاً من";
 "Accept the call?" = "الإجابة على الاتصال؟";
 
 "Filters ON" = "الفلاتر فعالة";
@@ -762,8 +762,8 @@ bh---
 "This will permanently delete this chat; are you sure?" = "এটি স্থায়ীভাবে এই চ্যাটটি মুছে দেবে; আপনি কি নিশ্চিত?";
 
 "Leave this chat?" = "এই চ্যাট ছেড়ে যাবেন?";
-"Receiving a call from" = "একটি কল আসছে";/* Format = "Receiving a call from 'Some Users Name'" */
-"কলটি গ্রহণ করবেন?" ="কলটি গ্রহণ করবেন?";
+"Receiving a call from" = "একটি কল আসছে";
+"Accept the call?" ="কলটি গ্রহণ করবেন?";
 
 "Filters ON" = "ফিল্টার চালু";
 "Filters OFF" = "ফিল্টার বন্ধ";
@@ -1484,7 +1484,7 @@ de---
 "This will permanently delete this chat; are you sure?" = "Ganz sicher? Damit wird dieser Chat dauerhaft gelöscht.";
 
 "Leave this chat?" = "Diesen Chat verlassen?";
-"Receiving a call from" = "Eingehender Anruf von";/* Format = "Receiving a call from 'Some Users Name'" */
+"Receiving a call from" = "Eingehender Anruf von";
 "Accept the call?" = "Anruf annehmen?";
 
 "Filters ON" = "Filter EIN";
@@ -2200,7 +2200,7 @@ es---
 "This will permanently delete this chat; are you sure?" = "Al hacerlo, se borrará permanentemente este chat. ¿Seguro que quieres hacerlo?";
 
 "Leave this chat?" = "¿Deseas salir de este chat?";
-"Receiving a call from" = "Recibiendo llamada de";/* Format = "Receiving a call from 'Some Users Name'" */
+"Receiving a call from" = "Recibiendo llamada de";
 "Accept the call?" = "¿Deseas aceptar la llamada?";
 
 "Filters ON" = "Con filtros";
@@ -2918,7 +2918,7 @@ fr---
 "This will permanently delete this chat; are you sure?" = "Cette discussion sera définitivement supprimée. Êtes-vous sûr ?";
 
 "Leave this chat?" = "Quitter cette discussion ?";
-"Receiving a call from" = "Appel reçu de";/* Format = "Receiving a call from 'Some Users Name'" */
+"Receiving a call from" = "Appel reçu de";
 "Accept the call?" = "Répondre à l'appel ?";
 
 "Filters ON" = "Filtres ACTIVÉS";
@@ -3632,7 +3632,7 @@ id---
 "This will permanently delete this chat; are you sure?" = "Ini akan menghapus obrolan secara permanen; Anda yakin?";
 
 "Leave this chat?" = "Tinggalkan obrolan ini?";
-"Receiving a call from" = "Menerima panggilan dari";/* Format = "Receiving a call from 'Some Users Name'" */
+"Receiving a call from" = "Menerima panggilan dari";
 "Accept the call?" = "Terima panggilan?";
 
 "Filters ON" = "Saringan AKTIF";
@@ -4349,7 +4349,7 @@ it---
 "This will permanently delete this chat; are you sure?" = "Cancellerai permanentemente questa chat, continuare?";
 
 "Leave this chat?" = "Abbandonare la chat?";
-"Receiving a call from" = "Chiamata in arrivo da";/* Format = "Receiving a call from 'Some Users Name'" */
+"Receiving a call from" = "Chiamata in arrivo da";
 "Accept the call?" = "Accettare la chiamata?";
 
 "Filters ON" = "Filtri ATTIVI";
@@ -5064,7 +5064,7 @@ pl---
 "This will permanently delete this chat; are you sure?" = "Gdy to zrobisz, na zawsze usuniesz ten czat; kontynuować?";
 
 "Leave this chat?" = "Opuścić ten czat?";
-"Receiving a call from" = "Dzwoni";/* Format = "Receiving a call from 'Some Users Name'" */
+"Receiving a call from" = "Dzwoni";
 "Accept the call?" = "Odebrać?";
 
 "Filters ON" = "Filtry WŁ.";
@@ -6449,7 +6449,7 @@ ru---
 "Leave this chat?" = "Выйти из чата?";
 "Are you sure you want to leave the chat" = "Are you sure you want to leave the chat"; /* Format = "Are you sure you want to leave the chat 'Some Chat Name'? */
 
-"Receiving a call from" = "Входящий звонок от";/* Format = "Receiving a call from 'Some Users Name'" */
+"Receiving a call from" = "Входящий звонок от";
 "Accept the call?" = "Принять звонок?";
 
 "Filters ON" = "Фильтры ВКЛ";
@@ -7173,7 +7173,7 @@ zh---
 "Leave this chat?" = "离开此聊天？";
 "Are you sure you want to leave the chat" = "确定要离开此聊天吗"; /* Format = "Are you sure you want to leave the chat 'Some Chat Name'? */
 
-"Receiving a call from" = "接听以下呼叫："; /* Format = Receiving a call from 'Some Users Name' */
+"Receiving a call from" = "接听以下呼叫：";
 "Accept the call?" = "要应答此呼叫吗？";
 
 "Filters ON" = "滤选打开";

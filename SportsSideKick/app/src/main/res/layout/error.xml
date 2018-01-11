@@ -14,7 +14,7 @@
         android:id="@+id/errorText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/cant_start_video"
+        android:text="@string/error"
         android:layout_below="@id/errorImage"
         android:gravity="center"
         android:textColor="@color/colorGray"/>

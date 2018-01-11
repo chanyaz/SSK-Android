@@ -207,17 +207,15 @@
     <string name="is_in"> is in: </string>
 
     <!--Video chat-->
-    <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+    <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
     <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
     <string name="call_start">Start Call</string>
     <string name="call_starting">Starting New Call</string>
     <string name="call_add_member">Add To Call</string>
     <string name="accept_call">Accept the call?</string>
     <string name="call_receive">Receiving a call from</string>
-    <string name="chats_search">Search public chats</string>
     <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
     <string name="video_chats">Video chats</string>
-    <string name="cant_start_video">Can\'t start video.</string>
     <string name="friends_in_video_chat">Friends in Video Chat</string>
     <string name="friend_in_video_chat">1 Friend in Video Chat</string>
     <string name="no_users_selected">No users selected!</string>

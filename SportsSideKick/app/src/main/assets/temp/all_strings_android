@@ -193,22 +193,20 @@ ar---
     <string name="is_in"> في: </string>
 
     <!--Video chat-->
-    <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
-    <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-    <string name="call_start">Start Call</string>
-    <string name="call_starting">Starting New Call</string>
-    <string name="call_add_member">Add To Call</string>
-    <string name="accept_call">Accept the call?</string>
-    <string name="call_receive">Receiving a call from</string>
-    <string name="chats_search">Search public chats</string>
-    <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-    <string name="video_chats">Video chats</string>
-    <string name="cant_start_video">Can\'t start video.</string>
-    <string name="friends_in_video_chat">Friends in Video Chat</string>
-    <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-    <string name="no_users_selected">No users selected!</string>
-    <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-    <string name="select_friends_to_call">Select friends to call</string>
+    <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>//todo not translated
+    <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>//todo not translated
+    <string name="call_start">بدء الاتصال</string>
+    <string name="call_starting">بدء اتصال جديد</string>
+    <string name="call_add_member">إضافة للاتصال</string>
+    <string name="accept_call">الإجابة على الاتصال؟</string>
+    <string name="call_receive">تتلقى اتصالاً من</string>
+    <string name="video_chat_max">عذراً، يمكنك الاتصال بالفيديو بـ 3 أشخاص كحد أقصى، وهذه المحادثة ممتلئة مسبقاً!</string>
+    <string name="video_chats">محادثات الفيديو</string>
+    <string name="friends_in_video_chat">Friends in Video Chat</string>//todo
+    <string name="friend_in_video_chat">1 Friend in Video Chat</string>//todo
+    <string name="no_users_selected">لم يتم تحديد مستخدمين!</string>
+    <string name="no_users_selected_message">لم تختر أي شخص للاتصال به!</string>
+    <string name="select_friends_to_call">اختر الأصدقاء للاتصال</string>
 
     <!--Next match-->
     <string name="match_next">Next match</string>
@@ -446,22 +444,20 @@ bh---
     <string name="is_in"> এখানে আছে: </string>
 
     <!--Video chat-->
-    <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+    <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
     <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-    <string name="call_start">Start Call</string>
-    <string name="call_starting">Starting New Call</string>
-    <string name="call_add_member">Add To Call</string>
-    <string name="accept_call">Accept the call?</string>
-    <string name="call_receive">Receiving a call from</string>
-    <string name="chats_search">Search public chats</string>
-    <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-    <string name="video_chats">Video chats</string>
-    <string name="cant_start_video">Can\'t start video.</string>
+    <string name="call_start">কল শুরু করুন</string>
+    <string name="call_starting">নতুন কল শুরু করুন</string>
+    <string name="call_add_member">কলে যোগ করুন</string>
+    <string name="accept_call">লটি গ্রহণ করবেন?</string>
+    <string name="call_receive">একটি কল আসছে</string>
+    <string name="video_chat_max">দুঃখিত, আপনি কেবলমাত্র সর্বোচ্চ 3 জন বন্ধুকে ভিডিও কল করতে পারবেন, এবং এই কলটি আগেই পূর্ণ হয়েছে!</string>
+    <string name="video_chats">ভিডিও চ্যাটগুলি</string>
     <string name="friends_in_video_chat">Friends in Video Chat</string>
     <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-    <string name="no_users_selected">No users selected!</string>
-    <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-    <string name="select_friends_to_call">Select friends to call</string>
+    <string name="no_users_selected">কোনো ব্যবহারকারী নির্বাচিত নেই!</string>
+    <string name="no_users_selected_message">আপনি কাউকে ফোন করার জন্য বেছে নেন নি!</string>
+    <string name="select_friends_to_call">কল করার জন্য বন্দুদের বাছুন</string>
 
     <!--Next match-->
     <string name="match_next">Next match</string>
@@ -699,22 +695,20 @@ de---
       <string name="is_in"> in denen X sich befindet: </string>
 
       <!--Video chat-->
-      <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+      <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
       <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-      <string name="call_start">Start Call</string>
-      <string name="call_starting">Starting New Call</string>
-      <string name="call_add_member">Add To Call</string>
-      <string name="accept_call">Accept the call?</string>
-      <string name="call_receive">Receiving a call from</string>
-      <string name="chats_search">Search public chats</string>
-      <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-      <string name="video_chats">Video chats</string>
-      <string name="cant_start_video">Can\'t start video.</string>
+      <string name="call_start">Anruf beginnen</string>
+      <string name="call_starting">Neuen Anruf starten</string>
+      <string name="call_add_member">Zu Anruf hinzufügen</string>
+      <string name="accept_call">Anruf annehmen?</string>
+      <string name="call_receive">Eingehender Anruf von</string>
+      <string name="video_chat_max">Video-Anrufe funktionieren leider nur mit maximal 3 Freunden, und dieser Anruf ist bereits belegt!</string>
+      <string name="video_chats">Video-Chats</string>
       <string name="friends_in_video_chat">Friends in Video Chat</string>
       <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-      <string name="no_users_selected">No users selected!</string>
-      <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-      <string name="select_friends_to_call">Select friends to call</string>
+      <string name="no_users_selected">Keine Benutzer ausgewählt!</string>
+      <string name="no_users_selected_message">Du hast niemanden zum Anrufen ausgewählt!</string>
+      <string name="select_friends_to_call">Freunde für Anruf wählen</string>
 
       <!--Next match-->
       <string name="match_next">Next match</string>
@@ -952,22 +946,20 @@ es---
       <string name="is_in">está en: </string>
 
       <!--Video chat-->
-      <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+      <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
       <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-      <string name="call_start">Start Call</string>
-      <string name="call_starting">Starting New Call</string>
-      <string name="call_add_member">Add To Call</string>
-      <string name="accept_call">Accept the call?</string>
-      <string name="call_receive">Receiving a call from</string>
-      <string name="chats_search">Search public chats</string>
-      <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-      <string name="video_chats">Video chats</string>
-      <string name="cant_start_video">Can\'t start video.</string>
+      <string name="call_start">Iniciar llamada</string>
+      <string name="call_starting">Iniciando nueva llamada</string>
+      <string name="call_add_member">Añadir a llamada</string>
+      <string name="accept_call">¿Deseas aceptar la llamada?</string>
+      <string name="call_receive">Recibiendo llamada de</string>
+      <string name="video_chat_max">Lo sentimos, la cantidad máxima de amigos a los que puedes llamar es de 3. ¡Esta videollamada ya está llena!</string>
+      <string name="video_chats">Chats de vídeo</string>
       <string name="friends_in_video_chat">Friends in Video Chat</string>
       <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-      <string name="no_users_selected">No users selected!</string>
-      <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-      <string name="select_friends_to_call">Select friends to call</string>
+      <string name="no_users_selected">¡No hay usuarios seleccionados!</string>
+      <string name="no_users_selected_message">¡No has seleccionado a nadie para llamarlo!</string>
+      <string name="select_friends_to_call">Seleccionar amigos a los que llamar</string>
 
       <!--Next match-->
       <string name="match_next">Next match</string>
@@ -1205,22 +1197,20 @@ fr---
       <string name="is_in"> est dans : </string>
 
       <!--Video chat-->
-      <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+      <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
       <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-      <string name="call_start">Start Call</string>
-      <string name="call_starting">Starting New Call</string>
-      <string name="call_add_member">Add To Call</string>
-      <string name="accept_call">Accept the call?</string>
-      <string name="call_receive">Receiving a call from</string>
-      <string name="chats_search">Search public chats</string>
-      <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-      <string name="video_chats">Video chats</string>
-      <string name="cant_start_video">Can\'t start video.</string>
+      <string name="call_start">Démarrer un appel</string>
+      <string name="call_starting">Démarrage d'un nouvel appel</string>
+      <string name="call_add_member">Ajouter à l'appel</string>
+      <string name="accept_call">Répondre à l'appel ?</string>
+      <string name="call_receive">Appel reçu de</string>
+      <string name="video_chat_max">Malheureusement, vous ne pouvez discuter qu'avec un maximum de 3 amis, et cet appel est déjà plein !</string>
+      <string name="video_chats">Discussions vidéo</string>
       <string name="friends_in_video_chat">Friends in Video Chat</string>
       <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-      <string name="no_users_selected">No users selected!</string>
-      <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-      <string name="select_friends_to_call">Select friends to call</string>
+      <string name="no_users_selected">Aucun utilisateur n'est sélectionné !</string>
+      <string name="no_users_selected_message">Vous n'avez pas sélectionné de personne à appeler !</string>
+      <string name="select_friends_to_call">Sélectionner des amis à appeler</string>
 
       <!--Next match-->
       <string name="match_next">Next match</string>
@@ -1458,22 +1448,20 @@ id---
       <string name="is_in"> ada di: </string>
 
       <!--Video chat-->
-      <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+      <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
       <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-      <string name="call_start">Start Call</string>
-      <string name="call_starting">Starting New Call</string>
-      <string name="call_add_member">Add To Call</string>
-      <string name="accept_call">Accept the call?</string>
-      <string name="call_receive">Receiving a call from</string>
-      <string name="chats_search">Search public chats</string>
-      <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-      <string name="video_chats">Video chats</string>
-      <string name="cant_start_video">Can\'t start video.</string>
+      <string name="call_start">Mulai Memanggil</string>
+      <string name="call_starting">Memulai Panggilan Baru</string>
+      <string name="call_add_member">Tambahkan Panggilan</string>
+      <string name="accept_call">Terima panggilan?</string>
+      <string name="call_receive">Menerima panggilan dari</string>
+      <string name="video_chat_max">Maaf Anda hanya bisa melakukan obrolan video maksimal dengan 3 teman, dan panggilan ini sudah penuh!</string>
+      <string name="video_chats">Obrolan Video</string>
       <string name="friends_in_video_chat">Friends in Video Chat</string>
       <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-      <string name="no_users_selected">No users selected!</string>
-      <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-      <string name="select_friends_to_call">Select friends to call</string>
+      <string name="no_users_selected">Belum ada pengguna yang dipilih!</string>
+      <string name="no_users_selected_message">Anda belum memilih siapapun untuk dipanggil!</string>
+      <string name="select_friends_to_call">Pilih teman untuk dipanggil</string>
 
       <!--Next match-->
       <string name="match_next">Next match</string>
@@ -1711,22 +1699,20 @@ it---
       <string name="is_in">è iscritto alle seguenti chat pubbliche: </string>
 
       <!--Video chat-->
-      <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+      <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
       <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-      <string name="call_start">Start Call</string>
-      <string name="call_starting">Starting New Call</string>
-      <string name="call_add_member">Add To Call</string>
-      <string name="accept_call">Accept the call?</string>
-      <string name="call_receive">Receiving a call from</string>
-      <string name="chats_search">Search public chats</string>
-      <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-      <string name="video_chats">Video chats</string>
-      <string name="cant_start_video">Can\'t start video.</string>
+      <string name="call_start">Inizia chiamata</string>
+      <string name="call_starting">Avvia una nuova chiamata</string>
+      <string name="call_add_member">Aggiungi alla chiamata</string>
+      <string name="accept_call">Accettare la chiamata?</string>
+      <string name="call_receive">Chiamata in arrivo da</string>
+      <string name="video_chat_max">Spiacenti, si può videochiamare un massimo di 3 amici, e questa chiamata è già al completo!</string>
+      <string name="video_chats">Videochat</string>
       <string name="friends_in_video_chat">Friends in Video Chat</string>
       <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-      <string name="no_users_selected">No users selected!</string>
-      <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-      <string name="select_friends_to_call">Select friends to call</string>
+      <string name="no_users_selected">Nessun utente selezionato!</string>
+      <string name="no_users_selected_message">Non hai selezionato nessuno da chiamare!</string>
+      <string name="select_friends_to_call">Seleziona amici da chiamare</string>
 
       <!--Next match-->
       <string name="match_next">Next match</string>
@@ -1964,22 +1950,20 @@ pl---
       <string name="is_in">jest: </string>
 
       <!--Video chat-->
-      <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+      <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
       <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-      <string name="call_start">Start Call</string>
-      <string name="call_starting">Starting New Call</string>
-      <string name="call_add_member">Add To Call</string>
-      <string name="accept_call">Accept the call?</string>
-      <string name="call_receive">Receiving a call from</string>
-      <string name="chats_search">Search public chats</string>
-      <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-      <string name="video_chats">Video chats</string>
-      <string name="cant_start_video">Can\'t start video.</string>
+      <string name="call_start">Zacznij rozmowę</string>
+      <string name="call_starting">Rozpoczynanie nowej rozmowy</string>
+      <string name="call_add_member">Dodaj do rozmowy</string>
+      <string name="accept_call">Odebrać?</string>
+      <string name="call_receive">Dzwoni</string>
+      <string name="video_chat_max">Niestety, wideoczat można prowadzić z co najwyżej trzema znajomymi – ta rozmowa ma już maksymalną liczbę uczestników!</string>
+      <string name="video_chats">Wideoczaty</string>
       <string name="friends_in_video_chat">Friends in Video Chat</string>
       <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-      <string name="no_users_selected">No users selected!</string>
-      <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-      <string name="select_friends_to_call">Select friends to call</string>
+      <string name="no_users_selected">Nie wybrano użytkowników!</string>
+      <string name="no_users_selected_message">Nie wybrano żadnego rozmówcy!</string>
+      <string name="select_friends_to_call">Wybierz znajomych, do których zadzwonisz</string>
 
       <!--Next match-->
       <string name="match_next">Next match</string>
@@ -2217,22 +2201,20 @@ pt---
       <string name="is_in"> está dentro: </string>
 
       <!--Video chat-->
-      <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+      <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
       <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-      <string name="call_start">Start Call</string>
-      <string name="call_starting">Starting New Call</string>
-      <string name="call_add_member">Add To Call</string>
-      <string name="accept_call">Accept the call?</string>
-      <string name="call_receive">Receiving a call from</string>
-      <string name="chats_search">Search public chats</string>
-      <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-      <string name="video_chats">Video chats</string>
-      <string name="cant_start_video">Can\'t start video.</string>
+      <string name="call_start"> Começa uma chamadal</string>
+      <string name="call_starting">Começar nova-chamada</string>
+      <string name="call_add_member">Adiciona uma chamada</string>
+      <string name="accept_call">Aceitar chamada?</string>
+      <string name="call_receive">A receber chamada de</string>
+      <string name="video_chat_max">Desculpe apenas pode aceder a video chamada com o máximo de 3 amigos, e este video chat ja está lotado.</string>
+      <string name="video_chats">Video Chat</string>
       <string name="friends_in_video_chat">Friends in Video Chat</string>
       <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-      <string name="no_users_selected">No users selected!</string>
-      <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-      <string name="select_friends_to_call">Select friends to call</string>
+      <string name="no_users_selected">Não selecionou nenhum user</string>
+      <string name="no_users_selected_message">Não selecionou ninguem para chamar</string>
+      <string name="select_friends_to_call">Selecciona amigos para se juntarem a esta chamada</string>
 
       <!--Next match-->
       <string name="match_next">Next match</string>
@@ -2470,22 +2452,20 @@ ru---
       <string name="is_in">: </string>
 
       <!--Video chat-->
-      <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+      <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
       <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-      <string name="call_start">Start Call</string>
-      <string name="call_starting">Starting New Call</string>
-      <string name="call_add_member">Add To Call</string>
-      <string name="accept_call">Accept the call?</string>
-      <string name="call_receive">Receiving a call from</string>
-      <string name="chats_search">Search public chats</string>
-      <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-      <string name="video_chats">Video chats</string>
-      <string name="cant_start_video">Can\'t start video.</string>
+      <string name="call_start">Начать звонок</string>
+      <string name="call_starting">Начинаем новый звонок</string>
+      <string name="call_add_member">Добавить в звонок</string>
+      <string name="accept_call">Принять звонок?</string>
+      <string name="call_receive">Входящий звонок от</string>
+      <string name="video_chat_max">Увы, в видеозвонке может быть до 4 собеседников, и этот уже заполнен!</string>
+      <string name="video_chats">Видеочаты</string>
       <string name="friends_in_video_chat">Friends in Video Chat</string>
       <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-      <string name="no_users_selected">No users selected!</string>
-      <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-      <string name="select_friends_to_call">Select friends to call</string>
+      <string name="no_users_selected">Пользователи не выбраны!</string>
+      <string name="no_users_selected_message">Вы не выбрали, кому позвонить!</string>
+      <string name="select_friends_to_call">Выбрать друзей для звонка</string>
 
       <!--Next match-->
       <string name="match_next">Next match</string>
@@ -2723,22 +2703,20 @@ zh---
       <string name="is_in"> 位于： </string>
 
       <!--Video chat-->
-      <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
+      <string name="video_chat_promo_1">Win the match with your <font color="#c3ff01">friends</font></string>
       <string name="video_chat_promo_2">Video chat allows you to call up to 3 friends for a group video chat, so you can experience the action with the people you love wherever you are!</string>
-      <string name="call_start">Start Call</string>
-      <string name="call_starting">Starting New Call</string>
-      <string name="call_add_member">Add To Call</string>
-      <string name="accept_call">Accept the call?</string>
-      <string name="call_receive">Receiving a call from</string>
-      <string name="chats_search">Search public chats</string>
-      <string name="video_chat_max">Sorry, you can only video call with a maximum of 3 friends, and this call is already full!</string>
-      <string name="video_chats">Video chats</string>
-      <string name="cant_start_video">Can\'t start video.</string>
+      <string name="call_start">开始呼叫</string>
+      <string name="call_starting">正在开始新呼叫</string>
+      <string name="call_add_member">添加到呼叫</string>
+      <string name="accept_call">要应答此呼叫吗？</string>
+      <string name="call_receive">接听以下呼叫：</string>
+      <string name="video_chat_max">对不起，您最多只能与 3 位朋友进行视频通话，因此呼叫已满员！</string>
+      <string name="video_chats">视频聊天</string>
       <string name="friends_in_video_chat">Friends in Video Chat</string>
       <string name="friend_in_video_chat">1 Friend in Video Chat</string>
-      <string name="no_users_selected">No users selected!</string>
-      <string name="no_users_selected_message">You haven\'t selected anyone to call!</string>
-      <string name="select_friends_to_call">Select friends to call</string>
+      <string name="no_users_selected">未选择用户！</string>
+      <string name="no_users_selected_message">您还没有选择要呼叫的人！</string>
+      <string name="select_friends_to_call">选择要呼叫的朋友</string>
 
       <!--Next match-->
       <string name="match_next">Next match</string>

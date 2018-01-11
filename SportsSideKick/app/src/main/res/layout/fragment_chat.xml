@@ -267,7 +267,7 @@
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
-                android:text="@string/chats_search"
+                android:text="@string/chats_public_search"
                 android:textColor="@color/white" />
             <TextView
                 android:id="@+id/chat_menu_alerts"
