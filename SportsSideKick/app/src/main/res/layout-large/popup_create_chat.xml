@@ -65,7 +65,7 @@
                 android:layout_toStartOf="@+id/top_vertical_spliter"
                 android:background="?chatSlideButtonBackgroundColorRef"
                 android:gravity="center"
-                android:text="@string/create_chat"
+                android:text="@string/chat_create"
                 android:textColor="?chatSlideButtonTextColorRef" />
 
             <TextView
@@ -211,7 +211,7 @@
                 android:drawablePadding="@dimen/padding_8"
                 android:drawableStart="@drawable/popup_search_icon"
                 android:gravity="center_vertical"
-                android:hint="@string/search_for_member"
+                android:hint="@string/friends_search"
                 android:imeOptions="flagNoExtractUi|actionSearch"
                 android:inputType="text"
                 android:lines="1"
@@ -262,7 +262,7 @@
             android:layout_centerVertical="true"
             android:background="?colorAccent"
             android:scaleType="centerInside"
-            android:text="@string/create_chat"
+            android:text="@string/chat_create"
             android:textAllCaps="false"
             android:textColor="?chatCreateButtonTextColorRef" />
 

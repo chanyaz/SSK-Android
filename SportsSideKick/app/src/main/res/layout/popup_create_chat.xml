@@ -98,7 +98,7 @@
                     android:layout_weight="1"
                     android:background="?chatSlideButtonBackgroundPhoneColorRef"
                     android:gravity="center"
-                    android:text="@string/create_chat"
+                    android:text="@string/chat_create"
                     android:textColor="?chatSlideButtonTextPhoneColorRef" />
 
                 <TextView
@@ -195,7 +195,7 @@
         android:layout_height="@dimen/height_35"
         android:layout_below="@+id/chat_top_buttons_container"
         android:gravity="center"
-        android:text="@string/manage_public_chat_caption"
+        android:text="@string/chat_friends_add"
         android:textColor="?chatDescriptionTextPhoneColorRef" />
 
     <RelativeLayout
@@ -244,7 +244,7 @@
             android:drawablePadding="@dimen/padding_8"
             android:drawableStart="@drawable/popup_search_icon"
             android:gravity="center_vertical"
-            android:hint="@string/search_for_member"
+            android:hint="@string/friends_search"
             android:imeOptions="flagNoExtractUi|actionSearch"
             android:inputType="text"
             android:lines="1"
@@ -295,7 +295,7 @@
         android:layout_centerVertical="true"
         android:background="@color/colorAccentLight"
         android:scaleType="centerInside"
-        android:text="@string/create_chat"
+        android:text="@string/chat_create"
         android:textAllCaps="false"
         android:textColor="?chatCreateButtonTextPhoneColorRef" />
 

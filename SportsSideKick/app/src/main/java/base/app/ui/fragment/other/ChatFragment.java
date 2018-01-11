@@ -274,7 +274,6 @@ public class ChatFragment extends BaseFragment {
             }
         });
 
-        inputEditText.setImeActionLabel(getContext().getResources().getString(R.string.send), EditorInfo.IME_ACTION_SEND);
         inputEditText.setImeOptions(EditorInfo.IME_ACTION_SEND);
 
         /* input Listeners */
@@ -1055,7 +1054,6 @@ public class ChatFragment extends BaseFragment {
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeCameraCapture() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
-        chooseDialog.setTitle(getContext().getResources().getString(R.string.choose));
         chooseDialog.setMessage(getContext().getResources().getString(R.string.photo_or_video));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.record_video), new DialogInterface.OnClickListener() {
             @Override

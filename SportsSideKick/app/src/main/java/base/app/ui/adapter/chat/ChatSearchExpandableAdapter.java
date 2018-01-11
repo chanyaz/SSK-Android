@@ -119,9 +119,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             convertView.setTag(holder);
         }
         if (!info.getUsersIds().contains(Model.getInstance().getUserInfo().getUserId())) {
-            holder.joinButton.setAlpha(1.f);
-            holder.joinButton.setText(context.getResources().getText(R.string.join_group));
-            holder.joinButton.setClickable(true);
+            holder.joinButton.setVisibility(View.VISIBLE);
             holder.joinButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -130,9 +128,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
                 }
             });
         } else {
-            holder.joinButton.setClickable(false);
-            holder.joinButton.setText(context.getResources().getText(R.string.already_in_group));
-            holder.joinButton.setAlpha(0.5f);
+            holder.joinButton.setVisibility(View.GONE);
         }
         holder.memberList.setAdapter(getHorizontalAdapter(info));
         return convertView;
@@ -186,12 +182,6 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             holder.rowMemberCount.setText(info.getUsersIds().size() + " " + context.getResources().getString(R.string.members));
         } else {
             holder.rowMemberCount.setText(" - " + info.getUsersIds().size() + " " + context.getResources().getString(R.string.members));
-
-            //TODO  @Filip dont have friends count and  last time chat in model.
-            //TODO TEST
-            holder.rowFriendsCount.setText("5 " + context.getResources().getString(R.string.friends));
-            holder.rowLastChatLabel.setText("2 " + context.getResources().getString(R.string.mins_ago));
-
         }
         ImageLoader.displayImage(info.getChatAvatarUrl(), holder.rowImage, R.drawable.blank_profile_rounded);
         holder.rowImage.getLayoutParams().height = (int) (screenHeight * IMAGE_SIZE);

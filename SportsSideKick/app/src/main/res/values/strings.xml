@@ -160,17 +160,16 @@
     <string name="what_would_you_like_to_do">What would you like to do?</string>
 
     <!--Chat-->
-    <string name="join_group">Join Group</string>
-    <string name="already_in_group">You are already in the chat.</string>
     <string name="members">Members</string>
     <string name="leave">Leave</string>
-    <string name="send">Send</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="chat_confirm_leave">Leave this chat?</string>
     <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-    <string name="choose">Choose</string>
     <string name="photo_or_video">Take photo or record video?</string>
     <string name="chat_image">Image</string>
+    <string name="from_library">Choose from library</string>
+    <string name="use_camera">Use Camera</string>
+    <string name="record_video">Record Video</string>
     <string name="chat_hold">Hold down to record</string>
     <string name="chat_recording_stop">Recording stopped</string>
     <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
@@ -184,42 +183,28 @@
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
     <string name="chat_public">This chat is public</string>
     <string name="chat_private">This chat is private</string>
-    <string name="record_video">Record Video</string>
-    <string name="manage_public_chat_caption">Add friends to %1s</string>
-    <string name="create_chat">Create Chat</string>
+    <string name="chat_create">Create Chat</string>
     <string name="join_chat">Join Chat</string>
     <string name="single_user_is_typing">%1$s! is typing…</string>
     <string name="multiple_users_are_typing">Multiple users are typing…</string>
-    <string name="unnamed_chat">Unnamed Chat</string>
     <string name="alerts_on">Alerts-ON</string>
     <string name="alerts_off">Alerts-OFF</string>
-    <string name="search">Search</string>
-    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
+    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
     <string name="chat_with_friends_login">Chat with friends.</string>
     <string name="chat_friends_in_chat">Friends in Chat</string>
     <string name="chat_friend_in_chat">1 Friend in Chat</string>
-    <string name="choose_option">Choose option</string>
-    <string name="from_library">Choose from library</string>
-    <string name="use_camera">Use Camera</string>
-    <string name="chat_no_changes">There are no changes in this chat.</string>
     <string name="chats">Chats</string>
     <string name="chats_public">Public chats</string>
     <string name="chats_public_search">Search Public Chats</string>
-    <string name="add_new_chat">ADD NEW CHAT</string>
     <string name="message_hint">Enter your message here…</string>
     <string name="chat_friends_add">Add friends to this chat</string>
     <string name="chat_name">Chat name</string>
     <string name="chat_give_name">Name Your Chat</string>
     <string name="chat_rename">Rename your chat</string>
     <string name="add_friends_to_chat">Add friends to chat</string>
-    <string name="search_for_member">Search for a member</string>
     <string name="friends_in_chat">Friends in Chat</string>
-    <string name="group_chat_name">Enter a name for your Group Chat</string>
-    <string name="join_official_chat">Join Official Chat ></string>
     <string name="friend_chats">Public Chats your friends are in</string>
-    <string name="mins_ago">mins ago</string>
-    <string name="is_in">is in</string>
-    <string name="create">Create</string>
+    <string name="is_in"> is in: </string>
 
     <!--Video chat-->
     <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -253,6 +238,7 @@
     <string name="live">Live</string>
 
     <!--Posts & News-->
+    <string name="post_create">Create New Post</string>
     <string name="post_title_hint">Enter your post\'s title</string>
     <string name="post_body_hint">Start writing your post…</string>
     <string name="pin_title">Post this to your wall?</string>

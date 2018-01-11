@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/image"
         android:gravity="center"
-        android:text="@string/add_new_chat"
+        android:text="@string/chat_create"
         android:textColor="@color/white"
         android:visibility="gone"/>
 </RelativeLayout>

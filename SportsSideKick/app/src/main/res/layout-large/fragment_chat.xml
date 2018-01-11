@@ -206,7 +206,7 @@
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
-                android:text="@string/create"
+                android:text="@string/chat_create"
                 android:textColor="@color/white" />
 
             <TextView
@@ -248,7 +248,7 @@
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
-                android:text="@string/search"
+                android:text="@string/chats_search"
                 android:textColor="?chatDetailsColorRef" />
             <TextView
                 android:id="@+id/chat_menu_alerts"

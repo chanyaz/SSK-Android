@@ -71,7 +71,7 @@
                 android:layout_toStartOf="@+id/top_vertical_spliter"
                 android:background="?chatSlideSecondButtonBackgroundColorRef"
                 android:gravity="center"
-                android:text="@string/create_chat"
+                android:text="@string/chat_create"
                 android:textColor="?chatSlideSecondButtonTextColorRef" />
 
             <TextView

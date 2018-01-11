@@ -28,7 +28,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import base.app.util.ui.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,19 +41,20 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.ui.adapter.friends.AddFriendsAdapter;
-import base.app.ui.adapter.friends.SelectableFriendsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.Model;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsManager;
 import base.app.data.user.AddFriendsEvent;
 import base.app.data.user.UserInfo;
+import base.app.ui.adapter.friends.AddFriendsAdapter;
+import base.app.ui.adapter.friends.SelectableFriendsAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
+import base.app.util.ui.ImageLoader;
 import base.app.util.ui.LinearItemSpacing;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,9 +66,9 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
+import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
-import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -177,23 +177,6 @@ public class EditChatFragment extends BaseFragment {
         membersRecyclerView.addItemDecoration(new LinearItemSpacing(space, true, true));
         membersRecyclerView.setAdapter(addFriendsAdapter);
 
-        chatNameEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String value = getString(R.string.unnamed_chat);
-                if(!TextUtils.isEmpty(s)){
-                    value = s.toString();
-                }
-                addFriendsInChatLabel.setText(String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + value +"'"));
-            }
-        });
-
         return view;
     }
 
@@ -202,12 +185,10 @@ public class EditChatFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         chatNameEditText.setText(chatInfo.getChatTitle());
-        String captionText = String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + chatInfo.getChatTitle() +"'");
         if(chatInfo.getChatAvatarUrl()!=null){
             ImageLoader.displayImage(chatInfo.getChatAvatarUrl(), chatImageView, R.drawable.blank_profile_rounded);
             chatImageView.setVisibility(View.VISIBLE);
         }
-        addFriendsInChatLabel.setText(captionText);
     }
 
     @Subscribe
@@ -241,7 +222,6 @@ public class EditChatFragment extends BaseFragment {
     @OnClick(R.id.popup_image_button)
     public void pickImage() {
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
-        chooseDialog.setTitle(getContext().getResources().getString(R.string.choose_option));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -365,8 +345,6 @@ public class EditChatFragment extends BaseFragment {
 
         if(shouldUpdate){
             chatInfo.updateChatInfo();
-        } else {
-            Toast.makeText(getContext(),getContext().getResources().getString(R.string.chat_no_changes), Toast.LENGTH_SHORT).show();
         }
         closeFragment();
     }

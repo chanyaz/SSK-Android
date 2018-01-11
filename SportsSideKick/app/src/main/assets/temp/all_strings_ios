@@ -102,7 +102,6 @@ ar---
 "Join A Chat" = "الانضمام لمحادثة";
 "Name Your Chat" = "قم بتسمية محادثتك";
 "Enter Chat Title" = "أدخل اسماً لمحادثتك";
-"Name Your Chat" = "قم بتسمية محادثتك";
 "Add friends to this chat" = "إضافة الأصدقاء إلى المحادثة";
 "This chat is PUBLIC" = "هذه المحادثة علنية";
 "This chat is PRIVATE" = "هذه المحادثة خاصة";
@@ -140,7 +139,7 @@ ar---
 "ago" = "منذ"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "الجميع في"; /* Format "Everyone in 'X' chat" */
 "chat" = "(المحادثة)"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON" = "إشعارات المحادثة فعالة"; /* Switches on/off chat notifications */
+"Chat alerts are ON" = "إشعارات المحادثة فعالة";
 "Chat alerts are OFF" = "إشعارات المحادثة مطفأة";
 "Edit name of chat" = "تعديل اسم المحادثة";
 "Remove people from chat" = "إزالة الأشخاص من المحادثة";
@@ -824,7 +823,6 @@ bh---
 "Join A Chat" = "একটি চ্যাটে যোগ দিন";
 "Name Your Chat" = "আপনার চ্যাটে নাম দিন";
 "Enter Chat Title" = "আপনার চ্যাটের একটি নাম লিখুন";
-"Name Your Chat" = "আপনার চ্যাটে নাম দিন";
 "Add friends to this chat" = "এই চ্যাটে বন্ধুদের যোগ করুন";
 "This chat is PUBLIC" = "এই চ্যাটটি পাবলিক";
 "This chat is PRIVATE" = "এই চ্যাটটি প্রাউভেট";
@@ -862,7 +860,7 @@ bh---
 "ago" = "আগে"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "সবাই "; /* Format "Everyone in 'X' chat" */
 "chat" = "চ্যাটে"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON" = "চ্যাট বিজ্ঞপ্তি চালু"; /* Switches on/off chat notifications */
+"Chat alerts are ON" = "চ্যাট বিজ্ঞপ্তি চালু";
 "Chat alerts are OFF" = "চ্যাট বিজ্ঞপ্তি বন্ধ";
 "Edit name of chat" = "চ্যাটের নাম সম্পাদনা";
 "Remove people from chat" = "চ্যাট থেকে মানুষ সরান";
@@ -1547,7 +1545,6 @@ de---
 "Join A Chat" = "Chat beitreten";
 "Name Your Chat" = "Gib deinem Chat einen Namen";
 "Enter Chat Title" = "Gib einen Namen für deinen Chat ein";
-"Name Your Chat" = "Gib deinem Chat einen Namen";
 "Add friends to this chat" = "Diesem Chat Freunde hinzufügen";
 "This chat is PUBLIC" = "Dieser Chat ist ÖFFENTLICH";
 "This chat is PRIVATE" = "Dieser Chat ist PRIVAT";
@@ -1585,7 +1582,7 @@ de---
 "ago" = "vor"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "Jeder im"; /* Format "Everyone in 'X' chat" */
 "chat" = "Chat"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON" = "Chat-Alarm EIN"; /* Switches on/off chat notifications */
+"Chat alerts are ON" = "Chat-Alarm EIN";
 "Chat alerts are OFF" = "Chat-Alarm AUS";
 "Edit name of chat" = "Chatnamen bearbeiten";
 "Remove people from chat" = "Jemanden aus dem Chat entfernen";
@@ -2264,7 +2261,6 @@ es---
 "Join A Chat" = "Unirse a un chat";
 "Name Your Chat" = "Poner nombre al chat";
 "Enter Chat Title" = "Escribe un nombre para tu chat";
-"Name Your Chat" = "Poner nombre al chat";
 "Add friends to this chat" = "Añadir amigos a este chat";
 "This chat is PUBLIC" = "Este chat es PÚBLICO";
 "This chat is PRIVATE" = "Este chat es PRIVADO";
@@ -2302,7 +2298,7 @@ es---
 "ago" = "Hace"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "Todo el mundo en"; /* Format "Everyone in 'X' chat" */
 "chat" = "chat"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON" = "Alertas del chat activadas"; /* Switches on/off chat notifications */
+"Chat alerts are ON" = "Alertas del chat activadas";
 "Chat alerts are OFF" = "Alertas del chat desactivadas";
 "Edit name of chat" = "Editar nombre del chat";
 "Remove people from chat" = "Quitar a gente del chat";
@@ -2983,7 +2979,6 @@ fr---
 "Join A Chat" = "Rejoindre une discussion";
 "Name Your Chat" = "Nommez votre discussion";
 "Enter Chat Title" = "Saisissez un nom pour votre discussion";
-"Name Your Chat" = "Nommez votre discussion";
 "Add friends to this chat" = "Ajouter des amis à cette discussion";
 "This chat is PUBLIC" = "Cette discussion est PUBLIQUE";
 "This chat is PRIVATE" = "Cette discussion est PRIVÉE";
@@ -3021,7 +3016,7 @@ fr---
 "ago" = "avant"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "Tout le monde dans"; /* Format "Everyone in 'X' chat" */
 "chat" = "discussion"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON"= "Les alertes de messagerie sont ACTIVÉES"; /* Switches on/off chat notifications */
+"Chat alerts are ON"= "Les alertes de messagerie sont ACTIVÉES";
 "Chat alerts are OFF" = "Les alertes de messagerie sont DÉSACTIVÉES";
 "Edit name of chat" = "Modifier le nom de la discussion";
 "Remove people from chat" = "Supprimer des personnes de la discussion";
@@ -3698,7 +3693,6 @@ id---
 "Join A Chat" = "Gabung dengan Sebuah Obrolan";
 "Name Your Chat" = "Beri Nama Obrolan Anda";
 "Enter Chat Title" = "Masukkan nama untuk obrolan Anda";
-"Name Your Chat" = "Beri Nama Obrolan Anda";
 "Add friends to this chat" = "Tambahkan teman ke obrolan ini";
 "This chat is PUBLIC" = "Obrolan ini UMUM";
 "This chat is PRIVATE" = "Obrolan ini PRIBADI";
@@ -3736,7 +3730,7 @@ id---
 "ago" = "yang lalu"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "Semua orang di"; /* Format "Everyone in 'X' chat" */
 "chat" = "obrolan"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON" = "Pemberitahuan obrolan AKTIF"; /* Switches on/off chat notifications */
+"Chat alerts are ON" = "Pemberitahuan obrolan AKTIF";
 "Chat alerts are OFF" = "Pemberitahuan obrolan TIDAK AKTIF";
 "Edit name of chat" = "Sunting nama atau obrolan";
 "Remove people from chat" = "Keluarkan orang dari obrolan";
@@ -4416,7 +4410,6 @@ it---
 "Join A Chat" = "Partecipa a una chat";
 "Name Your Chat" = "Dai un nome alla chat";
 "Enter Chat Title" = "Inserisci il nome della chat";
-"Name Your Chat" = "Dai un nome alla chat";
 "Add friends to this chat" = "Aggiungi amici alla chat";
 "This chat is PUBLIC" = "La chat è PUBBLICA";
 "This chat is PRIVATE" = "La chat è PRIVATA";
@@ -4454,7 +4447,7 @@ it---
 "ago" = "fa"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "Tutti nella"; /* Format "Everyone in 'X' chat" */
 "chat" = "chat"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON" = "Notifiche chat ATTIVE"; /* Switches on/off chat notifications */
+"Chat alerts are ON" = "Notifiche chat ATTIVE";
 "Chat alerts are OFF" = "Notifiche chat DISATTIVE";
 "Edit name of chat" = "Modifica il nome della chat";
 "Remove people from chat" = "Rimuovi persone dalla chat";
@@ -5132,7 +5125,6 @@ pl---
 "Join A Chat" = "Dołącz do czatu";
 "Name Your Chat" = "Nazwij czat";
 "Enter Chat Title" = "Wpisz nazwę czatu";
-"Name Your Chat" = "Nazwij czat";
 "Add friends to this chat" = "Dodaj znajomych do tego czatu";
 "This chat is PUBLIC" = "Ten czat jest PUBLICZNY";
 "This chat is PRIVATE" = "Ten czat jest PRYWATNY";
@@ -5170,7 +5162,7 @@ pl---
 "ago" = "temu"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "Wszyscy w"; /* Format "Everyone in 'X' chat" */
 "chat" = "czacie"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON" = "Powiadomienia z czatu WŁ."; /* Switches on/off chat notifications */
+"Chat alerts are ON" = "Powiadomienia z czatu WŁ.";
 "Chat alerts are OFF" = "Powiadomienia z czatu WYŁ.";
 "Edit name of chat" = "Edytuj nazwę czatu";
 "Remove people from chat" = "Usuń rozmówcę z czatu";
@@ -5845,7 +5837,6 @@ pt---
 "Join A Chat" = "Junta-te à conversa";
 "Name Your Chat" = "Dá nome à conversa";
 "Enter Chat Title" = "Introduz nome de assunto na conversa";
-"Name Your Chat" = "Dá nome ao teu chat";
 "Add friends to this chat" = "Adiciona amigos a este chat";
 "This chat is PUBLIC" = "Esta conversa é PÚBLICA";
 "This chat is PRIVATE" = "Esta conversa é PRIVADA";
@@ -6455,7 +6446,7 @@ ru---
 "Are you sure?" = "Вы уверены?";
 "This will permanently delete this chat; are you sure?" = "Это навсегда удалит чат; вы уверены?";
 
-"Leave this chat?" = "Leave this chat?";"Leave this chat?" = "Выйти из чата?";
+"Leave this chat?" = "Выйти из чата?";
 "Are you sure you want to leave the chat" = "Are you sure you want to leave the chat"; /* Format = "Are you sure you want to leave the chat 'Some Chat Name'? */
 
 "Receiving a call from" = "Входящий звонок от";/* Format = "Receiving a call from 'Some Users Name'" */
@@ -6519,7 +6510,6 @@ ru---
 "Join A Chat" = "Присоединиться к чату";
 "Name Your Chat" = "Назовите чат";
 "Enter Chat Title" = "Введите имя своего чата";
-"Name Your Chat" = "Назовите чат";
 "Add friends to this chat" = "Добавить друзей в чат";
 "This chat is PUBLIC" = "Это ОТКРЫТЫЙ чат";
 "This chat is PRIVATE" = "Это ЗАКРЫТЫЙ чат";
@@ -6557,7 +6547,7 @@ ru---
 "ago" = "назад"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "Все в"; /* Format "Everyone in 'X' chat" */
 "chat" = "чате"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON" = "Уведомления чата: ВКЛ"; /* Switches on/off chat notifications */
+"Chat alerts are ON" = "Уведомления чата: ВКЛ";
 "Chat alerts are OFF" = "Уведомления чата: ВЫКЛ";
 "Edit name of chat" = "Изменить имя чата";
 "Remove people from chat" = "Удалить людей из чата";
@@ -7244,7 +7234,6 @@ zh---
 "Join A Chat" = "加入聊天";
 "Name Your Chat" = "给您的聊天室命名";
 "Enter Chat Title" = "为您的聊天室输入名称。";
-"Name Your Chat" = "给您的聊天室命名";
 "Add friends to this chat" = "将朋友添加到此聊天室";
 "This chat is PUBLIC" = "聊天室已公开";
 "This chat is PRIVATE" = "聊天室未公开";
@@ -7282,7 +7271,7 @@ zh---
 "ago" = "前"; /* What to append onto a "time ago" string e.g. 1d 5h 30s <ago> */
 "Everyone in" = "全体成员："; /* Format "Everyone in 'X' chat" */
 "chat" = "聊天"; /* Format "Everyone in 'X' chat" */
-"Chat alerts are ON" = "聊天提示打开"; /* Switches on/off chat notifications */
+"Chat alerts are ON" = "聊天提示打开";
 "Chat alerts are OFF" = "聊天提示打开";
 "Edit name of chat" = "编辑聊天室名称";
 "Remove people from chat" = "将玩家从聊天室中移除";

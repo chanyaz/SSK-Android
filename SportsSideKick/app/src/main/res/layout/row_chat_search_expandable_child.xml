@@ -25,7 +25,7 @@
             android:layout_height="@dimen/height_35"
             android:layout_below="@+id/row_join_chat_search_list"
             android:background="@color/colorAccentLight"
-            android:text="@string/join_group"
+            android:text="@string/join_chat"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary" />
 

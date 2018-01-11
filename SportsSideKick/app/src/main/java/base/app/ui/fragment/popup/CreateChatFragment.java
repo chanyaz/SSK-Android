@@ -15,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +30,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import base.app.util.ui.ImageLoader;
-
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,20 +43,21 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.ui.adapter.friends.AddFriendsAdapter;
-import base.app.ui.adapter.friends.SelectableFriendsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.Model;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsManager;
 import base.app.data.user.AddFriendsEvent;
 import base.app.data.user.UserInfo;
+import base.app.ui.adapter.friends.AddFriendsAdapter;
+import base.app.ui.adapter.friends.SelectableFriendsAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
+import base.app.util.ui.ImageLoader;
 import base.app.util.ui.LinearItemSpacing;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,10 +69,10 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE;
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_PICK;
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH_PHONE;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_PICK;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -192,25 +190,6 @@ public class CreateChatFragment extends BaseFragment {
         addFriendsRecyclerView.addItemDecoration(new LinearItemSpacing(space, true, true));
         addFriendsRecyclerView.setAdapter(addFriendsAdapter);
 
-        final String captionText = String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + getString(R.string.unnamed_chat) +"'");
-        captionTextView.setText(captionText);
-
-        chatNameEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String value = getString(R.string.unnamed_chat);
-                if(!TextUtils.isEmpty(s)){
-                    value = s.toString();
-                }
-                captionTextView.setText(String.format(getResources().getString(R.string.manage_public_chat_caption), "'" + value +"'"));
-            }
-        });
         return view;
     }
 
@@ -237,7 +216,6 @@ public class CreateChatFragment extends BaseFragment {
     public void pickImage() {
         SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
         AlertDialog.Builder chooseDialog = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
-        chooseDialog.setTitle(getContext().getResources().getString(R.string.choose_option));
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -96,7 +96,7 @@
                     android:layout_weight="1"
                     android:background="?chatSlideSecondButtonBackgroundColorRef"
                     android:gravity="center"
-                    android:text="@string/create_chat"
+                    android:text="@string/chat_create"
                     android:textColor="?chatSlideSecondButtonTextColorRef" />
 
                 <TextView

@@ -28,7 +28,7 @@ ar---
 
     <!-- Login & Register -->
     <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>//todo
-    <string name="access_full">للحصول على كافة الميزات...</string> // TODO: Not translated in other languages yet
+    <string name="access_full">للحصول على كافة الميزات…</string> // TODO: Not translated in other languages yet
     <string name="join_sign_in">الانضمام الآن / تسجيل الدخول</string>
     <string name="sign_in">تسجيل الدخول</string>
     <string name="join">الانضمام الآن</string>
@@ -146,66 +146,51 @@ ar---
     <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
     <!--Chat-->
-    <string name="join_group">Join Group</string>
-    <string name="already_in_group">You are already in the chat.</string>
     <string name="members">Members</string>
-    <string name="leave">Leave</string>
-    <string name="send">Send</string>
-    <string name="are_you_sure">Are you sure?</string>
-    <string name="chat_confirm_leave">Leave this chat?</string>
-    <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-    <string name="choose">Choose</string>
-    <string name="photo_or_video">Take photo or record video?</string>
-    <string name="chat_image">Image</string>
-    <string name="chat_hold">Hold down to record</string>
-    <string name="chat_recording_stop">Recording stopped</string>
-    <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
-    <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
-    <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
-    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
-    <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>
-    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>
-    <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
-    <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
-    <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-    <string name="chat_public">This chat is public</string>
-    <string name="chat_private">This chat is private</string>
-    <string name="record_video">Record Video</string>
-    <string name="manage_public_chat_caption">Add friends to %1s</string>
-    <string name="create_chat">Create Chat</string>
-    <string name="join_chat">Join Chat</string>
-    <string name="single_user_is_typing">%1$s! is typing…</string>
-    <string name="multiple_users_are_typing">Multiple users are typing…</string>
-    <string name="unnamed_chat">Unnamed Chat</string>
-    <string name="alerts_on">Alerts-ON</string>
-    <string name="alerts_off">Alerts-OFF</string>
-    <string name="search">Search</string>
-    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-    <string name="chat_with_friends_login"> Chat with friends.</string>
-    <string name="chat_friends_in_chat">Friends in Chat</string>
-    <string name="chat_friend_in_chat">1 Friend in Chat</string>
-    <string name="choose_option">Choose option</string>
-    <string name="from_library">Choose from library</string>
-    <string name="use_camera">Use Camera</string>
-    <string name="chat_no_changes">There are no changes in this chat.</string>
-    <string name="chats">Chats</string>
-    <string name="chats_public">Public chats</string>
-    <string name="chats_public_search">Search Public Chats</string>
-    <string name="add_new_chat">ADD NEW CHAT</string>
-    <string name="message_hint">Enter your message here…</string>
-    <string name="chat_friends_add">Add friends to this chat</string>
-    <string name="chat_name">Chat name</string>
-    <string name="chat_give_name">Name Your Chat</string>
-    <string name="chat_rename">Rename your chat</string>
-    <string name="add_friends_to_chat">Add friends to chat</string>
-    <string name="search_for_member">Search for a member</string>
-    <string name="friends_in_chat">Friends in Chat</string>
-    <string name="group_chat_name">Enter a name for your Group Chat</string>
-    <string name="join_official_chat">Join Official Chat ></string>
-    <string name="friend_chats">Public Chats your friends are in</string>
-    <string name="mins_ago">mins ago</string>
-    <string name="is_in">is in</string>
-    <string name="create">Create</string>
+    <string name="leave">الخروج من المحادثة</string>
+    <string name="are_you_sure">هل أنت متأكد؟</string>
+    <string name="chat_confirm_leave">الخروج من المحادثة؟</string>
+    <string name="chat_confirm_delete">سيتم حذف المحادثة بشكل دائم، هل أنت متأكد؟</string>
+    <string name="photo_or_video">Take photo or record video?</string>//todo
+    <string name="chat_image">Image</string>//todo
+    <string name="from_library">Choose from library</string>//todo
+    <string name="use_camera">Use Camera</string>//todo
+    <string name="record_video">Record Video</string>//todo
+    <string name="chat_hold">Hold down to record</string>//todo
+    <string name="chat_recording_stop">Recording stopped</string>//todo
+    <string name="no_message_text">لم يبدأ الحديث أحد بعد! لم لا تكون أولهم؟</string>
+    <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>//todo
+    <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>//todo
+    <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>//todo
+    <string name="video_chat_permission_microphone_and_camera_rationale">Please enable microphone and camera in order to use video chat.</string>//todo
+    <string name="video_chat_permission_microphone_and_camera_denied">You need to enable microphone and camera in settings to use video chat.</string>//todo
+    <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>//todo
+    <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>//todo
+    <string name="permission_camera_never_ask">Never ask for camera permission again.</string>//todo
+    <string name="chat_public">هذه المحادثة علنية</string>
+    <string name="chat_private">هذه المحادثة خاصة</string>
+    <string name="create_chat">إنشاء محادثة جديدة</string>
+    <string name="join_chat">الانضمام للمحادثة</string>
+    <string name="single_user_is_typing">%1$s! is typing…</string>//todo
+    <string name="multiple_users_are_typing">Multiple users are typing…</string>//todo
+    <string name="alerts_on">إشعارات المحادثة فعالة</string>
+    <string name="alerts_off">إشعارات المحادثة مطفأة</string>
+    <string name="chat_with_friends_login_description">يمكنك التحدث مع أصدقائك، وإنشاء المجموعات، وحتى التواصل مع لاعبيك المفضلين!!</string>
+    <string name="chat_with_friends_login">Chat with friends.</string>//todo not translated
+    <string name="chat_friends_in_chat">Friends in Chat</string>//todo
+    <string name="chat_friend_in_chat">1 Friend in Chat</string>//todo
+    <string name="chats">المحادثات</string>
+    <string name="chats_public">المحادثات العلنية</string>
+    <string name="chats_public_search">البحث في المحادثات العلنية</string>
+    <string name="message_hint">أدخل رسالتك هنا…</string>
+    <string name="chat_friends_add">إضافة الأصدقاء إلى المحادثة</string>
+    <string name="chat_name">اسم المحادثة</string>
+    <string name="chat_give_name">قم بتسمية محادثتك</string>
+    <string name="chat_rename">إعادة تسمية المحادثة</string>
+    <string name="add_friends_to_chat">إضافة أصدقاء إلى المحادثة</string>
+    <string name="friends_in_chat">Friends in Chat</string>//todo
+    <string name="friend_chats">Public Chats your friends are in</string>//todo
+    <string name="is_in"> في: </string>
 
     <!--Video chat-->
     <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -239,6 +224,7 @@ ar---
     <string name="live">Live</string>
 
     <!--Posts & News-->
+    <string name="post_create">Create New Post</string>
     <string name="post_title_hint">Enter your post\'s title</string>
     <string name="post_body_hint">Start writing your post…</string>
     <string name="pin_title">Post this to your wall?</string>
@@ -295,7 +281,7 @@ bh---
 
     <!-- Login & Register -->
     <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-    <string name="access_full">To access full features...</string>
+    <string name="access_full">To access full features…</string>
     <string name="join_sign_in">এখনই যোগ দিন / সাইন ইন করুন</string>
     <string name="sign_in">সাইন ইন করুন</string>
     <string name="join">এখনই যোগ দিন</string>
@@ -413,20 +399,16 @@ bh---
     <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
     <!--Chat-->
-    <string name="join_group">Join Group</string>
-    <string name="already_in_group">You are already in the chat.</string>
     <string name="members">Members</string>
-    <string name="leave">Leave</string>
-    <string name="send">Send</string>
-    <string name="are_you_sure">Are you sure?</string>
-    <string name="chat_confirm_leave">Leave this chat?</string>
-    <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-    <string name="choose">Choose</string>
+    <string name="leave">চ্যাট পরিত্যাগ করুন</string>
+    <string name="are_you_sure">আপনি কি নিশ্চিত?</string>
+    <string name="chat_confirm_leave">এই চ্যাট ছেড়ে যাবেন?</string>
+    <string name="chat_confirm_delete">এটি স্থায়ীভাবে এই চ্যাটটি মুছে দেবে; আপনি কি নিশ্চিত?</string>
     <string name="photo_or_video">Take photo or record video?</string>
     <string name="chat_image">Image</string>
     <string name="chat_hold">Hold down to record</string>
     <string name="chat_recording_stop">Recording stopped</string>
-    <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+    <string name="no_message_text">এখনও কেউ চ্যাট করতে শুরু করেনি! প্রথম হিসাবে আপনিই শুরু করুন না কেন?</string>
     <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
     <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
     <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -435,44 +417,33 @@ bh---
     <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
     <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
     <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-    <string name="chat_public">This chat is public</string>
-    <string name="chat_private">This chat is private</string>
+    <string name="chat_public">এই চ্যাটটি পাবলিক</string>
+    <string name="chat_private">এই চ্যাটটি প্রাউভেট</string>
     <string name="record_video">Record Video</string>
-    <string name="manage_public_chat_caption">Add friends to %1s</string>
-    <string name="create_chat">Create Chat</string>
-    <string name="join_chat">Join Chat</string>
+    <string name="create_chat">একটি নতুন চ্যাট তৈরি করুন</string>
+    <string name="join_chat">অনুসরণ বন্ধ করুন</string>
     <string name="single_user_is_typing">%1$s! is typing…</string>
     <string name="multiple_users_are_typing">Multiple users are typing…</string>
-    <string name="unnamed_chat">Unnamed Chat</string>
-    <string name="alerts_on">Alerts-ON</string>
-    <string name="alerts_off">Alerts-OFF</string>
-    <string name="search">Search</string>
-    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-    <string name="chat_with_friends_login"> Chat with friends.</string>
+    <string name="alerts_on">চ্যাট বিজ্ঞপ্তি চালু</string>
+    <string name="alerts_off">চ্যাট বিজ্ঞপ্তি বন্ধ</string>
+    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="chat_with_friends_login">Chat with friends.</string>
     <string name="chat_friends_in_chat">Friends in Chat</string>
     <string name="chat_friend_in_chat">1 Friend in Chat</string>
-    <string name="choose_option">Choose option</string>
     <string name="from_library">Choose from library</string>
     <string name="use_camera">Use Camera</string>
-    <string name="chat_no_changes">There are no changes in this chat.</string>
-    <string name="chats">Chats</string>
-    <string name="chats_public">Public chats</string>
-    <string name="chats_public_search">Search Public Chats</string>
-    <string name="add_new_chat">ADD NEW CHAT</string>
-    <string name="message_hint">Enter your message here…</string>
-    <string name="chat_friends_add">Add friends to this chat</string>
-    <string name="chat_name">Chat name</string>
-    <string name="chat_give_name">Name Your Chat</string>
-    <string name="chat_rename">Rename your chat</string>
-    <string name="add_friends_to_chat">Add friends to chat</string>
-    <string name="search_for_member">Search for a member</string>
+    <string name="chats">চ্যাটগুলি</string>
+    <string name="chats_public">পাবলিক চ্যাটগুলি</string>
+    <string name="chats_public_search">পাবলিক চ্যাট সন্ধান করুন</string>
+    <string name="message_hint">আপনার বার্তা এখানে লিখুন…</string>
+    <string name="chat_friends_add">এই চ্যাটে বন্ধুদের যোগ করুন</string>
+    <string name="chat_name">চ্যাটের নাম</string>
+    <string name="chat_give_name">আপনার চ্যাটে নাম দিন</string>
+    <string name="chat_rename">আপনার চ্যাটে পুনর্নামকরণ করুন</string>
+    <string name="add_friends_to_chat">চ্যাটে বন্ধুদের যোগ করুন</string>
     <string name="friends_in_chat">Friends in Chat</string>
-    <string name="group_chat_name">Enter a name for your Group Chat</string>
-    <string name="join_official_chat">Join Official Chat ></string>
     <string name="friend_chats">Public Chats your friends are in</string>
-    <string name="mins_ago">mins ago</string>
-    <string name="is_in">is in</string>
-    <string name="create">Create</string>
+    <string name="is_in"> এখানে আছে: </string>
 
     <!--Video chat-->
     <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -506,6 +477,7 @@ bh---
     <string name="live">Live</string>
 
     <!--Posts & News-->
+    <string name="post_create">Create New Post</string>
     <string name="post_title_hint">Enter your post\'s title</string>
     <string name="post_body_hint">Start writing your post…</string>
     <string name="pin_title">Post this to your wall?</string>
@@ -562,7 +534,7 @@ de---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features...</string>
+      <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Jetzt beitreten / Anmelden</string>
       <string name="sign_in">Anmelden</string>
       <string name="join">Jetzt beitreten</string>
@@ -680,20 +652,19 @@ de---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="join_group">Join Group</string>
-      <string name="already_in_group">You are already in the chat.</string>
-      <string name="members">Members</string>
-      <string name="leave">Leave</string>
-      <string name="send">Send</string>
-      <string name="are_you_sure">Are you sure?</string>
-      <string name="chat_confirm_leave">Leave this chat?</string>
-      <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-      <string name="choose">Choose</string>
+      <string name="members">Members</string>//todo
+      <string name="leave">Chat verlassen</string>
+      <string name="are_you_sure">Ganz sicher?</string>
+      <string name="chat_confirm_leave">Diesen Chat verlassen?</string>
+      <string name="chat_confirm_delete">Ganz sicher? Damit wird dieser Chat dauerhaft gelöscht.</string>
       <string name="photo_or_video">Take photo or record video?</string>
       <string name="chat_image">Image</string>
+      <string name="from_library">Choose from library</string>
+      <string name="use_camera">Use Camera</string>
+      <string name="record_video">Record Video</string>
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
-      <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+      <string name="no_message_text">Bisher chattet noch niemand! Fang du doch an!</string>
       <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
       <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
       <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -702,44 +673,30 @@ de---
       <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
       <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
       <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-      <string name="chat_public">This chat is public</string>
-      <string name="chat_private">This chat is private</string>
-      <string name="record_video">Record Video</string>
-      <string name="manage_public_chat_caption">Add friends to %1s</string>
-      <string name="create_chat">Create Chat</string>
-      <string name="join_chat">Join Chat</string>
+      <string name="chat_public">Dieser Chat ist ÖFFENTLICH</string>
+      <string name="chat_private">Dieser Chat ist PRIVAT</string>
+      <string name="create_chat">Neuen Chat erstellen</string>
+      <string name="join_chat">Chat beitreten</string>
       <string name="single_user_is_typing">%1$s! is typing…</string>
       <string name="multiple_users_are_typing">Multiple users are typing…</string>
-      <string name="unnamed_chat">Unnamed Chat</string>
-      <string name="alerts_on">Alerts-ON</string>
-      <string name="alerts_off">Alerts-OFF</string>
-      <string name="search">Search</string>
-      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-      <string name="chat_with_friends_login"> Chat with friends.</string>
+      <string name="alerts_on">Chat-Alarm EIN</string>
+      <string name="alerts_off">Chat-Alarm AUS</string>
+      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="chat_with_friends_login">Chat with friends.</string>
       <string name="chat_friends_in_chat">Friends in Chat</string>
       <string name="chat_friend_in_chat">1 Friend in Chat</string>
-      <string name="choose_option">Choose option</string>
-      <string name="from_library">Choose from library</string>
-      <string name="use_camera">Use Camera</string>
-      <string name="chat_no_changes">There are no changes in this chat.</string>
       <string name="chats">Chats</string>
-      <string name="chats_public">Public chats</string>
-      <string name="chats_public_search">Search Public Chats</string>
-      <string name="add_new_chat">ADD NEW CHAT</string>
-      <string name="message_hint">Enter your message here…</string>
-      <string name="chat_friends_add">Add friends to this chat</string>
-      <string name="chat_name">Chat name</string>
-      <string name="chat_give_name">Name Your Chat</string>
-      <string name="chat_rename">Rename your chat</string>
-      <string name="add_friends_to_chat">Add friends to chat</string>
-      <string name="search_for_member">Search for a member</string>
+      <string name="chats_public">Öffentliche Chats</string>
+      <string name="chats_public_search">Nach öffentlichen Chats suchen</string>
+      <string name="message_hint">Hier Nachricht eingeben …</string>
+      <string name="chat_friends_add">Diesem Chat Freunde hinzufügen</string>
+      <string name="chat_name">Chatname</string>
+      <string name="chat_give_name">Gib deinem Chat einen Namen</string>
+      <string name="chat_rename">Deinen Chat umbenennen</string>
+      <string name="add_friends_to_chat">Chat Freunde hinzufügen</string>
       <string name="friends_in_chat">Friends in Chat</string>
-      <string name="group_chat_name">Enter a name for your Group Chat</string>
-      <string name="join_official_chat">Join Official Chat ></string>
       <string name="friend_chats">Public Chats your friends are in</string>
-      <string name="mins_ago">mins ago</string>
-      <string name="is_in">is in</string>
-      <string name="create">Create</string>
+      <string name="is_in"> in denen X sich befindet: </string>
 
       <!--Video chat-->
       <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -773,6 +730,7 @@ de---
       <string name="live">Live</string>
 
       <!--Posts & News-->
+      <string name="post_create">Create New Post</string>
       <string name="post_title_hint">Enter your post\'s title</string>
       <string name="post_body_hint">Start writing your post…</string>
       <string name="pin_title">Post this to your wall?</string>
@@ -829,7 +787,7 @@ es---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features...</string>
+      <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Unirse / Iniciar sesión</string>
       <string name="sign_in">Iniciar sesión</string>
       <string name="join">Unirse</string>
@@ -947,20 +905,19 @@ es---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="join_group">Join Group</string>
-      <string name="already_in_group">You are already in the chat.</string>
       <string name="members">Members</string>
-      <string name="leave">Leave</string>
-      <string name="send">Send</string>
-      <string name="are_you_sure">Are you sure?</string>
-      <string name="chat_confirm_leave">Leave this chat?</string>
-      <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-      <string name="choose">Choose</string>
+      <string name="leave">Abandonar el chat</string>
+      <string name="are_you_sure">¿Seguro?</string>
+      <string name="chat_confirm_leave">¿Deseas salir de este chat?</string>
+      <string name="chat_confirm_delete">Al hacerlo, se borrará permanentemente este chat. ¿Seguro que quieres hacerlo?</string>
       <string name="photo_or_video">Take photo or record video?</string>
       <string name="chat_image">Image</string>
+      <string name="from_library">Choose from library</string>
+      <string name="use_camera">Use Camera</string>
+      <string name="record_video">Record Video</string>
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
-      <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+      <string name="no_message_text">¡Nadie ha chateado todavía! ¿Por qué no escribes el primer mensaje?</string>
       <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
       <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
       <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -969,44 +926,30 @@ es---
       <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
       <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
       <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-      <string name="chat_public">This chat is public</string>
-      <string name="chat_private">This chat is private</string>
-      <string name="record_video">Record Video</string>
-      <string name="manage_public_chat_caption">Add friends to %1s</string>
-      <string name="create_chat">Create Chat</string>
-      <string name="join_chat">Join Chat</string>
+      <string name="chat_public">Este chat es PÚBLICO</string>
+      <string name="chat_private">Este chat es PRIVADO</string>
+      <string name="create_chat">Crear un nuevo chat</string>
+      <string name="join_chat">Unirse al chat</string>
       <string name="single_user_is_typing">%1$s! is typing…</string>
       <string name="multiple_users_are_typing">Multiple users are typing…</string>
-      <string name="unnamed_chat">Unnamed Chat</string>
-      <string name="alerts_on">Alerts-ON</string>
-      <string name="alerts_off">Alerts-OFF</string>
-      <string name="search">Search</string>
-      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-      <string name="chat_with_friends_login"> Chat with friends.</string>
+      <string name="alerts_on">Alertas del chat activadas</string>
+      <string name="alerts_off">Alertas del chat desactivadas</string>
+      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="chat_with_friends_login">Chat with friends.</string>
       <string name="chat_friends_in_chat">Friends in Chat</string>
       <string name="chat_friend_in_chat">1 Friend in Chat</string>
-      <string name="choose_option">Choose option</string>
-      <string name="from_library">Choose from library</string>
-      <string name="use_camera">Use Camera</string>
-      <string name="chat_no_changes">There are no changes in this chat.</string>
       <string name="chats">Chats</string>
-      <string name="chats_public">Public chats</string>
-      <string name="chats_public_search">Search Public Chats</string>
-      <string name="add_new_chat">ADD NEW CHAT</string>
-      <string name="message_hint">Enter your message here…</string>
-      <string name="chat_friends_add">Add friends to this chat</string>
-      <string name="chat_name">Chat name</string>
-      <string name="chat_give_name">Name Your Chat</string>
-      <string name="chat_rename">Rename your chat</string>
-      <string name="add_friends_to_chat">Add friends to chat</string>
-      <string name="search_for_member">Search for a member</string>
+      <string name="chats_public">Chats públicos</string>
+      <string name="chats_public_search">Buscar chats públicos</string>
+      <string name="message_hint">Escribe aquí tu mensaje…</string>
+      <string name="chat_friends_add">Añadir amigos a este chat</string>
+      <string name="chat_name">Nombre del chat</string>
+      <string name="chat_give_name">Poner nombre al chat</string>
+      <string name="chat_rename">Cambiar nombre al chat</string>
+      <string name="add_friends_to_chat">Añadir amigos al chat</string>
       <string name="friends_in_chat">Friends in Chat</string>
-      <string name="group_chat_name">Enter a name for your Group Chat</string>
-      <string name="join_official_chat">Join Official Chat ></string>
       <string name="friend_chats">Public Chats your friends are in</string>
-      <string name="mins_ago">mins ago</string>
-      <string name="is_in">is in</string>
-      <string name="create">Create</string>
+      <string name="is_in">está en: </string>
 
       <!--Video chat-->
       <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -1040,6 +983,7 @@ es---
       <string name="live">Live</string>
 
       <!--Posts & News-->
+      <string name="post_create">Create New Post</string>
       <string name="post_title_hint">Enter your post\'s title</string>
       <string name="post_body_hint">Start writing your post…</string>
       <string name="pin_title">Post this to your wall?</string>
@@ -1096,7 +1040,7 @@ fr---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features...</string>
+      <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Rejoindre maintenant / Connexion</string>
       <string name="sign_in">Connexion</string>
       <string name="join">Rejoindre maintenant</string>
@@ -1214,20 +1158,19 @@ fr---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="join_group">Join Group</string>
-      <string name="already_in_group">You are already in the chat.</string>
       <string name="members">Members</string>
-      <string name="leave">Leave</string>
-      <string name="send">Send</string>
-      <string name="are_you_sure">Are you sure?</string>
-      <string name="chat_confirm_leave">Leave this chat?</string>
-      <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-      <string name="choose">Choose</string>
+      <string name="leave">Quitter la discussion</string>
+      <string name="are_you_sure">Êtes-vous sûr ?</string>
+      <string name="chat_confirm_leave">Quitter cette discussion ?</string>
+      <string name="chat_confirm_delete">Cette discussion sera définitivement supprimée. Êtes-vous sûr ?</string>
       <string name="photo_or_video">Take photo or record video?</string>
       <string name="chat_image">Image</string>
+      <string name="from_library">Choose from library</string>
+      <string name="use_camera">Use Camera</string>
+      <string name="record_video">Record Video</string>
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
-      <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+      <string name="no_message_text">Personne n'a encore commencé à discuter ! Souhaitez-vous être le premier ?</string>
       <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
       <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
       <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -1236,44 +1179,30 @@ fr---
       <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
       <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
       <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-      <string name="chat_public">This chat is public</string>
-      <string name="chat_private">This chat is private</string>
-      <string name="record_video">Record Video</string>
-      <string name="manage_public_chat_caption">Add friends to %1s</string>
-      <string name="create_chat">Create Chat</string>
-      <string name="join_chat">Join Chat</string>
+      <string name="chat_public">Cette discussion est PUBLIQUE</string>
+      <string name="chat_private">Cette discussion est PRIVÉE</string>
+      <string name="create_chat">Créer une nouvelle discussion</string>
+      <string name="join_chat">Rejoindre la discussion</string>
       <string name="single_user_is_typing">%1$s! is typing…</string>
       <string name="multiple_users_are_typing">Multiple users are typing…</string>
-      <string name="unnamed_chat">Unnamed Chat</string>
-      <string name="alerts_on">Alerts-ON</string>
-      <string name="alerts_off">Alerts-OFF</string>
-      <string name="search">Search</string>
-      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-      <string name="chat_with_friends_login"> Chat with friends.</string>
+      <string name="alerts_on">es alertes de messagerie sont ACTIVÉES</string>
+      <string name="alerts_off">Les alertes de messagerie sont DÉSACTIVÉES</string>
+      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="chat_with_friends_login">Chat with friends.</string>
       <string name="chat_friends_in_chat">Friends in Chat</string>
       <string name="chat_friend_in_chat">1 Friend in Chat</string>
-      <string name="choose_option">Choose option</string>
-      <string name="from_library">Choose from library</string>
-      <string name="use_camera">Use Camera</string>
-      <string name="chat_no_changes">There are no changes in this chat.</string>
-      <string name="chats">Chats</string>
-      <string name="chats_public">Public chats</string>
-      <string name="chats_public_search">Search Public Chats</string>
-      <string name="add_new_chat">ADD NEW CHAT</string>
-      <string name="message_hint">Enter your message here…</string>
-      <string name="chat_friends_add">Add friends to this chat</string>
-      <string name="chat_name">Chat name</string>
-      <string name="chat_give_name">Name Your Chat</string>
-      <string name="chat_rename">Rename your chat</string>
-      <string name="add_friends_to_chat">Add friends to chat</string>
-      <string name="search_for_member">Search for a member</string>
+      <string name="chats">Discussions</string>
+      <string name="chats_public">Discussions publiques</string>
+      <string name="chats_public_search">Chercher dans les discussions publiques</string>
+      <string name="message_hint">Saisissez votre message ici…</string>
+      <string name="chat_friends_add">Ajouter des amis à cette discussion</string>
+      <string name="chat_name">Nom de la discussion</string>
+      <string name="chat_give_name">Nommez votre discussion</string>
+      <string name="chat_rename">Renommer votre discussion</string>
+      <string name="add_friends_to_chat">Ajouter des amis à la discussion</string>
       <string name="friends_in_chat">Friends in Chat</string>
-      <string name="group_chat_name">Enter a name for your Group Chat</string>
-      <string name="join_official_chat">Join Official Chat ></string>
       <string name="friend_chats">Public Chats your friends are in</string>
-      <string name="mins_ago">mins ago</string>
-      <string name="is_in">is in</string>
-      <string name="create">Create</string>
+      <string name="is_in"> est dans : </string>
 
       <!--Video chat-->
       <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -1307,6 +1236,7 @@ fr---
       <string name="live">Live</string>
 
       <!--Posts & News-->
+      <string name="post_create">Create New Post</string>
       <string name="post_title_hint">Enter your post\'s title</string>
       <string name="post_body_hint">Start writing your post…</string>
       <string name="pin_title">Post this to your wall?</string>
@@ -1363,7 +1293,7 @@ id---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features...</string>
+      <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Bergabung Sekarang / Masuk</string>
       <string name="sign_in">Masuk</string>
       <string name="join">Bergabung Sekarang</string>
@@ -1481,20 +1411,19 @@ id---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="join_group">Join Group</string>
-      <string name="already_in_group">You are already in the chat.</string>
       <string name="members">Members</string>
-      <string name="leave">Leave</string>
-      <string name="send">Send</string>
-      <string name="are_you_sure">Are you sure?</string>
-      <string name="chat_confirm_leave">Leave this chat?</string>
-      <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-      <string name="choose">Choose</string>
+      <string name="leave">Tinggalkan Obrolan</string>
+      <string name="are_you_sure">Anda yakin?</string>
+      <string name="chat_confirm_leave">Tinggalkan obrolan ini?</string>
+      <string name="chat_confirm_delete">Ini akan menghapus obrolan secara permanen; Anda yakin?</string>
       <string name="photo_or_video">Take photo or record video?</string>
       <string name="chat_image">Image</string>
+      <string name="from_library">Choose from library</string>
+      <string name="use_camera">Use Camera</string>
+      <string name="record_video">Record Video</string>
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
-      <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+      <string name="no_message_text">Belum ada seorangpun memulai obrolan! Mengapa tidak jadi yang pertama?</string>
       <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
       <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
       <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -1503,44 +1432,30 @@ id---
       <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
       <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
       <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-      <string name="chat_public">This chat is public</string>
-      <string name="chat_private">This chat is private</string>
-      <string name="record_video">Record Video</string>
-      <string name="manage_public_chat_caption">Add friends to %1s</string>
-      <string name="create_chat">Create Chat</string>
-      <string name="join_chat">Join Chat</string>
+      <string name="chat_public">Obrolan ini UMUM</string>
+      <string name="chat_private">Obrolan ini PRIBADI</string>
+      <string name="create_chat">Buat Obrolan Baru</string>
+      <string name="join_chat">Gabung Obrolan</string>
       <string name="single_user_is_typing">%1$s! is typing…</string>
       <string name="multiple_users_are_typing">Multiple users are typing…</string>
-      <string name="unnamed_chat">Unnamed Chat</string>
-      <string name="alerts_on">Alerts-ON</string>
-      <string name="alerts_off">Alerts-OFF</string>
-      <string name="search">Search</string>
-      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-      <string name="chat_with_friends_login"> Chat with friends.</string>
+      <string name="alerts_on">Pemberitahuan obrolan AKTIF</string>
+      <string name="alerts_off">Pemberitahuan obrolan TIDAK AKTIF</string>
+      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="chat_with_friends_login">Chat with friends.</string>
       <string name="chat_friends_in_chat">Friends in Chat</string>
       <string name="chat_friend_in_chat">1 Friend in Chat</string>
-      <string name="choose_option">Choose option</string>
-      <string name="from_library">Choose from library</string>
-      <string name="use_camera">Use Camera</string>
-      <string name="chat_no_changes">There are no changes in this chat.</string>
-      <string name="chats">Chats</string>
-      <string name="chats_public">Public chats</string>
-      <string name="chats_public_search">Search Public Chats</string>
-      <string name="add_new_chat">ADD NEW CHAT</string>
-      <string name="message_hint">Enter your message here…</string>
-      <string name="chat_friends_add">Add friends to this chat</string>
-      <string name="chat_name">Chat name</string>
-      <string name="chat_give_name">Name Your Chat</string>
-      <string name="chat_rename">Rename your chat</string>
-      <string name="add_friends_to_chat">Add friends to chat</string>
-      <string name="search_for_member">Search for a member</string>
+      <string name="chats">Obrolan</string>
+      <string name="chats_public">Obrolan Umum</string>
+      <string name="chats_public_search">Cari obrolan umum</string>
+      <string name="message_hint">Masukkan pesan Anda di sini…</string>
+      <string name="chat_friends_add">Tambahkan teman ke obrolan ini</string>
+      <string name="chat_name">Nama obrolan</string>
+      <string name="chat_give_name">Beri Nama Obrolan Anda</string>
+      <string name="chat_rename">Ubah nama obrolan Anda</string>
+      <string name="add_friends_to_chat">Tambahkan teman ke obrolan</string>
       <string name="friends_in_chat">Friends in Chat</string>
-      <string name="group_chat_name">Enter a name for your Group Chat</string>
-      <string name="join_official_chat">Join Official Chat ></string>
       <string name="friend_chats">Public Chats your friends are in</string>
-      <string name="mins_ago">mins ago</string>
-      <string name="is_in">is in</string>
-      <string name="create">Create</string>
+      <string name="is_in"> ada di: </string>
 
       <!--Video chat-->
       <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -1574,6 +1489,7 @@ id---
       <string name="live">Live</string>
 
       <!--Posts & News-->
+      <string name="post_create">Create New Post</string>
       <string name="post_title_hint">Enter your post\'s title</string>
       <string name="post_body_hint">Start writing your post…</string>
       <string name="pin_title">Post this to your wall?</string>
@@ -1630,7 +1546,7 @@ it---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features...</string>
+      <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Unisciti / Iscriviti</string>
       <string name="sign_in">Iscriviti</string>
       <string name="join">Unisciti</string>
@@ -1748,20 +1664,19 @@ it---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="join_group">Join Group</string>
-      <string name="already_in_group">You are already in the chat.</string>
       <string name="members">Members</string>
-      <string name="leave">Leave</string>
-      <string name="send">Send</string>
-      <string name="are_you_sure">Are you sure?</string>
-      <string name="chat_confirm_leave">Leave this chat?</string>
-      <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-      <string name="choose">Choose</string>
+      <string name="leave">Abbandona la chat</string>
+      <string name="are_you_sure">Continuare?</string>
+      <string name="chat_confirm_leave">Abbandonare la chat?</string>
+      <string name="chat_confirm_delete">Cancellerai permanentemente questa chat, continuare?</string>
       <string name="photo_or_video">Take photo or record video?</string>
       <string name="chat_image">Image</string>
+      <string name="from_library">Choose from library</string>
+      <string name="use_camera">Use Camera</string>
+      <string name="record_video">Record Video</string>
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
-      <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+      <string name="no_message_text">Nessuno ha ancora avviato una chat! Perché non essere il primo?</string>
       <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
       <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
       <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -1770,44 +1685,30 @@ it---
       <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
       <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
       <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-      <string name="chat_public">This chat is public</string>
-      <string name="chat_private">This chat is private</string>
-      <string name="record_video">Record Video</string>
-      <string name="manage_public_chat_caption">Add friends to %1s</string>
-      <string name="create_chat">Create Chat</string>
-      <string name="join_chat">Join Chat</string>
+      <string name="chat_public">La chat è PUBBLICA</string>
+      <string name="chat_private">La chat è PRIVATA</string>
+      <string name="create_chat">Crea una nuova chat</string>
+      <string name="join_chat">Unisciti alla chat</string>
       <string name="single_user_is_typing">%1$s! is typing…</string>
       <string name="multiple_users_are_typing">Multiple users are typing…</string>
-      <string name="unnamed_chat">Unnamed Chat</string>
-      <string name="alerts_on">Alerts-ON</string>
-      <string name="alerts_off">Alerts-OFF</string>
-      <string name="search">Search</string>
-      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-      <string name="chat_with_friends_login"> Chat with friends.</string>
+      <string name="alerts_on">Notifiche chat ATTIVE</string>
+      <string name="alerts_off">Notifiche chat DISATTIVE</string>
+      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="chat_with_friends_login">Chat with friends.</string>
       <string name="chat_friends_in_chat">Friends in Chat</string>
       <string name="chat_friend_in_chat">1 Friend in Chat</string>
-      <string name="choose_option">Choose option</string>
-      <string name="from_library">Choose from library</string>
-      <string name="use_camera">Use Camera</string>
-      <string name="chat_no_changes">There are no changes in this chat.</string>
-      <string name="chats">Chats</string>
-      <string name="chats_public">Public chats</string>
-      <string name="chats_public_search">Search Public Chats</string>
-      <string name="add_new_chat">ADD NEW CHAT</string>
-      <string name="message_hint">Enter your message here…</string>
-      <string name="chat_friends_add">Add friends to this chat</string>
-      <string name="chat_name">Chat name</string>
-      <string name="chat_give_name">Name Your Chat</string>
-      <string name="chat_rename">Rename your chat</string>
-      <string name="add_friends_to_chat">Add friends to chat</string>
-      <string name="search_for_member">Search for a member</string>
+      <string name="chats">Chat</string>
+      <string name="chats_public">Chat pubbliche</string>
+      <string name="chats_public_search">Cerca chat pubbliche</string>
+      <string name="message_hint">Inserisci qui il tuo messaggio…</string>
+      <string name="chat_friends_add">Aggiungi amici alla chat</string>
+      <string name="chat_name">Nome chat</string>
+      <string name="chat_give_name">Dai un nome alla chat</string>
+      <string name="chat_rename">Rinomina la chat</string>
+      <string name="add_friends_to_chat">Aggiungi amici alla chat</string>
       <string name="friends_in_chat">Friends in Chat</string>
-      <string name="group_chat_name">Enter a name for your Group Chat</string>
-      <string name="join_official_chat">Join Official Chat ></string>
       <string name="friend_chats">Public Chats your friends are in</string>
-      <string name="mins_ago">mins ago</string>
-      <string name="is_in">is in</string>
-      <string name="create">Create</string>
+      <string name="is_in">è iscritto alle seguenti chat pubbliche: </string>
 
       <!--Video chat-->
       <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -1841,6 +1742,7 @@ it---
       <string name="live">Live</string>
 
       <!--Posts & News-->
+      <string name="post_create">Create New Post</string>
       <string name="post_title_hint">Enter your post\'s title</string>
       <string name="post_body_hint">Start writing your post…</string>
       <string name="pin_title">Post this to your wall?</string>
@@ -1897,7 +1799,7 @@ pl---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features...</string>
+      <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Dołącz teraz / Zaloguj się</string>
       <string name="sign_in">Zaloguj się</string>
       <string name="join">Dołącz teraz</string>
@@ -2015,20 +1917,19 @@ pl---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="join_group">Join Group</string>
-      <string name="already_in_group">You are already in the chat.</string>
       <string name="members">Members</string>
-      <string name="leave">Leave</string>
-      <string name="send">Send</string>
-      <string name="are_you_sure">Are you sure?</string>
-      <string name="chat_confirm_leave">Leave this chat?</string>
-      <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-      <string name="choose">Choose</string>
+      <string name="leave">Opuść czat</string>
+      <string name="are_you_sure">Na pewno?</string>
+      <string name="chat_confirm_leave">Opuścić ten czat?</string>
+      <string name="chat_confirm_delete">Gdy to zrobisz, na zawsze usuniesz ten czat; kontynuować?</string>
       <string name="photo_or_video">Take photo or record video?</string>
       <string name="chat_image">Image</string>
+      <string name="from_library">Choose from library</string>
+      <string name="use_camera">Use Camera</string>
+      <string name="record_video">Record Video</string>
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
-      <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+      <string name="no_message_text">Jeszcze nikt nie zaczął rozmowy! Może ty spróbujesz?</string>
       <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
       <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
       <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -2037,44 +1938,30 @@ pl---
       <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
       <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
       <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-      <string name="chat_public">This chat is public</string>
-      <string name="chat_private">This chat is private</string>
-      <string name="record_video">Record Video</string>
-      <string name="manage_public_chat_caption">Add friends to %1s</string>
-      <string name="create_chat">Create Chat</string>
-      <string name="join_chat">Join Chat</string>
+      <string name="chat_public">Ten czat jest PUBLICZNY</string>
+      <string name="chat_private">Ten czat jest PRYWATNY</string>
+      <string name="create_chat">Stwórz nowy czat</string>
+      <string name="join_chat">Dołącz do czatu</string>
       <string name="single_user_is_typing">%1$s! is typing…</string>
       <string name="multiple_users_are_typing">Multiple users are typing…</string>
-      <string name="unnamed_chat">Unnamed Chat</string>
-      <string name="alerts_on">Alerts-ON</string>
-      <string name="alerts_off">Alerts-OFF</string>
-      <string name="search">Search</string>
-      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-      <string name="chat_with_friends_login"> Chat with friends.</string>
+      <string name="alerts_on">Powiadomienia z czatu WŁ.</string>
+      <string name="alerts_off">Powiadomienia z czatu WYŁ.</string>
+      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="chat_with_friends_login">Chat with friends.</string>
       <string name="chat_friends_in_chat">Friends in Chat</string>
       <string name="chat_friend_in_chat">1 Friend in Chat</string>
-      <string name="choose_option">Choose option</string>
-      <string name="from_library">Choose from library</string>
-      <string name="use_camera">Use Camera</string>
-      <string name="chat_no_changes">There are no changes in this chat.</string>
-      <string name="chats">Chats</string>
-      <string name="chats_public">Public chats</string>
-      <string name="chats_public_search">Search Public Chats</string>
-      <string name="add_new_chat">ADD NEW CHAT</string>
-      <string name="message_hint">Enter your message here…</string>
-      <string name="chat_friends_add">Add friends to this chat</string>
-      <string name="chat_name">Chat name</string>
-      <string name="chat_give_name">Name Your Chat</string>
-      <string name="chat_rename">Rename your chat</string>
-      <string name="add_friends_to_chat">Add friends to chat</string>
-      <string name="search_for_member">Search for a member</string>
+      <string name="chats">Czaty</string>
+      <string name="chats_public">Czaty publiczne</string>
+      <string name="chats_public_search">Przeszukaj czaty publiczne</string>
+      <string name="message_hint">Tu napisz swoją wiadomość…</string>
+      <string name="chat_friends_add">Dodaj znajomych do tego czatu</string>
+      <string name="chat_name">Nazwa czatu</string>
+      <string name="chat_give_name">Nazwij czat</string>
+      <string name="chat_rename">Zmień nazwę czatu</string>
+      <string name="add_friends_to_chat">Dodaj znajomych do czatu</string>
       <string name="friends_in_chat">Friends in Chat</string>
-      <string name="group_chat_name">Enter a name for your Group Chat</string>
-      <string name="join_official_chat">Join Official Chat ></string>
       <string name="friend_chats">Public Chats your friends are in</string>
-      <string name="mins_ago">mins ago</string>
-      <string name="is_in">is in</string>
-      <string name="create">Create</string>
+      <string name="is_in">jest: </string>
 
       <!--Video chat-->
       <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -2108,6 +1995,7 @@ pl---
       <string name="live">Live</string>
 
       <!--Posts & News-->
+      <string name="post_create">Create New Post</string>
       <string name="post_title_hint">Enter your post\'s title</string>
       <string name="post_body_hint">Start writing your post…</string>
       <string name="pin_title">Post this to your wall?</string>
@@ -2164,7 +2052,7 @@ pt---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features...</string>
+      <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Inscreve-te já /  Regista-te</string>
       <string name="sign_in">Regista-te</string>
       <string name="join">Inscreve-te já</string>
@@ -2282,20 +2170,19 @@ pt---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="join_group">Join Group</string>
-      <string name="already_in_group">You are already in the chat.</string>
       <string name="members">Members</string>
-      <string name="leave">Leave</string>
-      <string name="send">Send</string>
-      <string name="are_you_sure">Are you sure?</string>
-      <string name="chat_confirm_leave">Leave this chat?</string>
-      <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-      <string name="choose">Choose</string>
+      <string name="leave">Sair do Chat</string>
+      <string name="are_you_sure">Têm a certeza?</string>
+      <string name="chat_confirm_leave">Sair do chat?</string>
+      <string name="chat_confirm_delete">O seu chat irá ser apagado, têm a certeza?</string>
       <string name="photo_or_video">Take photo or record video?</string>
       <string name="chat_image">Image</string>
+      <string name="from_library">Choose from library</string>
+      <string name="use_camera">Use Camera</string>
+      <string name="record_video">Record Video</string>
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
-      <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+      <string name="no_message_text">Ainda niguem começou a conversar! Porque não seres o primeiro?</string>
       <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
       <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
       <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -2304,44 +2191,30 @@ pt---
       <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
       <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
       <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-      <string name="chat_public">This chat is public</string>
-      <string name="chat_private">This chat is private</string>
-      <string name="record_video">Record Video</string>
-      <string name="manage_public_chat_caption">Add friends to %1s</string>
-      <string name="create_chat">Create Chat</string>
-      <string name="join_chat">Join Chat</string>
+      <string name="chat_public">Esta conversa é PÚBLICA</string>
+      <string name="chat_private">Esta conversa é PRIVADA</string>
+      <string name="create_chat">Criar nova conversa</string>
+      <string name="join_chat">Entrar no Chat</string>
       <string name="single_user_is_typing">%1$s! is typing…</string>
       <string name="multiple_users_are_typing">Multiple users are typing…</string>
-      <string name="unnamed_chat">Unnamed Chat</string>
-      <string name="alerts_on">Alerts-ON</string>
-      <string name="alerts_off">Alerts-OFF</string>
-      <string name="search">Search</string>
-      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-      <string name="chat_with_friends_login"> Chat with friends.</string>
+      <string name="alerts_on">Alertas do Chat ligados</string>
+      <string name="alerts_off">Alertas do Chat desligados</string>
+      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="chat_with_friends_login">Chat with friends.</string>
       <string name="chat_friends_in_chat">Friends in Chat</string>
       <string name="chat_friend_in_chat">1 Friend in Chat</string>
-      <string name="choose_option">Choose option</string>
-      <string name="from_library">Choose from library</string>
-      <string name="use_camera">Use Camera</string>
-      <string name="chat_no_changes">There are no changes in this chat.</string>
       <string name="chats">Chats</string>
-      <string name="chats_public">Public chats</string>
-      <string name="chats_public_search">Search Public Chats</string>
-      <string name="add_new_chat">ADD NEW CHAT</string>
-      <string name="message_hint">Enter your message here…</string>
-      <string name="chat_friends_add">Add friends to this chat</string>
-      <string name="chat_name">Chat name</string>
-      <string name="chat_give_name">Name Your Chat</string>
-      <string name="chat_rename">Rename your chat</string>
-      <string name="add_friends_to_chat">Add friends to chat</string>
-      <string name="search_for_member">Search for a member</string>
+      <string name="chats_public">Chats Públicos</string>
+      <string name="chats_public_search">Procurar Chats Públicos</string>
+      <string name="message_hint">Introduza a sua mensagem aqui…</string>
+      <string name="chat_friends_add">Adiciona amigos a este chat</string>
+      <string name="chat_name">Nome do Chat</string>
+      <string name="chat_give_name">Dá nome à conversa</string>
+      <string name="chat_rename">Mudar de nome ao Chat</string>
+      <string name="add_friends_to_chat">Adicionar amigos a este Chat</string>
       <string name="friends_in_chat">Friends in Chat</string>
-      <string name="group_chat_name">Enter a name for your Group Chat</string>
-      <string name="join_official_chat">Join Official Chat ></string>
       <string name="friend_chats">Public Chats your friends are in</string>
-      <string name="mins_ago">mins ago</string>
-      <string name="is_in">is in</string>
-      <string name="create">Create</string>
+      <string name="is_in"> está dentro: </string>
 
       <!--Video chat-->
       <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -2375,6 +2248,7 @@ pt---
       <string name="live">Live</string>
 
       <!--Posts & News-->
+      <string name="post_create">Create New Post</string>
       <string name="post_title_hint">Enter your post\'s title</string>
       <string name="post_body_hint">Start writing your post…</string>
       <string name="pin_title">Post this to your wall?</string>
@@ -2431,7 +2305,7 @@ ru---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features...</string>
+      <string name="access_full">To access full features…</string>
       <string name="join_sign_in">Вступить / Войти</string>
       <string name="sign_in">Войти</string>
       <string name="join">Вступить</string>
@@ -2549,20 +2423,19 @@ ru---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="join_group">Join Group</string>
-      <string name="already_in_group">You are already in the chat.</string>
       <string name="members">Members</string>
-      <string name="leave">Leave</string>
-      <string name="send">Send</string>
-      <string name="are_you_sure">Are you sure?</string>
-      <string name="chat_confirm_leave">Leave this chat?</string>
-      <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-      <string name="choose">Choose</string>
+      <string name="leave">Выйти из чата</string>
+      <string name="are_you_sure">Вы уверены?</string>
+      <string name="chat_confirm_leave">Выйти из чата?</string>
+      <string name="chat_confirm_delete">Это навсегда удалит чат; вы уверены?</string>
       <string name="photo_or_video">Take photo or record video?</string>
       <string name="chat_image">Image</string>
+      <string name="from_library">Choose from library</string>
+      <string name="use_camera">Use Camera</string>
+      <string name="record_video">Record Video</string>
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
-      <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+      <string name="no_message_text">Пока еще никто не начал чат! Почему бы не начать вам?</string>
       <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
       <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
       <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -2571,44 +2444,30 @@ ru---
       <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
       <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
       <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-      <string name="chat_public">This chat is public</string>
-      <string name="chat_private">This chat is private</string>
-      <string name="record_video">Record Video</string>
-      <string name="manage_public_chat_caption">Add friends to %1s</string>
-      <string name="create_chat">Create Chat</string>
-      <string name="join_chat">Join Chat</string>
+      <string name="chat_public">Это ОТКРЫТЫЙ чат</string>
+      <string name="chat_private">Это ЗАКРЫТЫЙ чат</string>
+      <string name="create_chat">Создать новый чат</string>
+      <string name="join_chat">Вступить в чат</string>
       <string name="single_user_is_typing">%1$s! is typing…</string>
       <string name="multiple_users_are_typing">Multiple users are typing…</string>
-      <string name="unnamed_chat">Unnamed Chat</string>
-      <string name="alerts_on">Alerts-ON</string>
-      <string name="alerts_off">Alerts-OFF</string>
-      <string name="search">Search</string>
-      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-      <string name="chat_with_friends_login"> Chat with friends.</string>
+      <string name="alerts_on">Уведомления чата: ВКЛ</string>
+      <string name="alerts_off">Уведомления чата: ВЫКЛ</string>
+      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="chat_with_friends_login">Chat with friends.</string>
       <string name="chat_friends_in_chat">Friends in Chat</string>
       <string name="chat_friend_in_chat">1 Friend in Chat</string>
-      <string name="choose_option">Choose option</string>
-      <string name="from_library">Choose from library</string>
-      <string name="use_camera">Use Camera</string>
-      <string name="chat_no_changes">There are no changes in this chat.</string>
-      <string name="chats">Chats</string>
-      <string name="chats_public">Public chats</string>
-      <string name="chats_public_search">Search Public Chats</string>
-      <string name="add_new_chat">ADD NEW CHAT</string>
-      <string name="message_hint">Enter your message here…</string>
-      <string name="chat_friends_add">Add friends to this chat</string>
-      <string name="chat_name">Chat name</string>
-      <string name="chat_give_name">Name Your Chat</string>
-      <string name="chat_rename">Rename your chat</string>
-      <string name="add_friends_to_chat">Add friends to chat</string>
-      <string name="search_for_member">Search for a member</string>
+      <string name="chats">Чаты</string>
+      <string name="chats_public">Открытые чаты</string>
+      <string name="chats_public_search">Искать открытые чаты</string>
+      <string name="message_hint">Введите сообщение здесь…</string>
+      <string name="chat_friends_add">Добавить друзей в чат</string>
+      <string name="chat_name">Имя чата</string>
+      <string name="chat_give_name">Назовите чат</string>
+      <string name="chat_rename">Переименуйте свой чат</string>
+      <string name="add_friends_to_chat">Добавить друзей в чат</string>
       <string name="friends_in_chat">Friends in Chat</string>
-      <string name="group_chat_name">Enter a name for your Group Chat</string>
-      <string name="join_official_chat">Join Official Chat ></string>
       <string name="friend_chats">Public Chats your friends are in</string>
-      <string name="mins_ago">mins ago</string>
-      <string name="is_in">is in</string>
-      <string name="create">Create</string>
+      <string name="is_in">: </string>
 
       <!--Video chat-->
       <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -2642,6 +2501,7 @@ ru---
       <string name="live">Live</string>
 
       <!--Posts & News-->
+      <string name="post_create">Create New Post</string>
       <string name="post_title_hint">Enter your post\'s title</string>
       <string name="post_body_hint">Start writing your post…</string>
       <string name="pin_title">Post this to your wall?</string>
@@ -2698,7 +2558,7 @@ zh---
 
       <!-- Login & Register -->
       <string name="slogan">Bringing <font color="#c3ff01">fans</font> together</string>
-      <string name="access_full">To access full features...</string>
+      <string name="access_full">To access full features…</string>
       <string name="join_sign_in">立即加入 / 登录</string>
       <string name="sign_in">登录</string>
       <string name="join">立即加入</string>
@@ -2816,20 +2676,19 @@ zh---
       <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
 
       <!--Chat-->
-      <string name="join_group">Join Group</string>
-      <string name="already_in_group">You are already in the chat.</string>
       <string name="members">Members</string>
-      <string name="leave">Leave</string>
-      <string name="send">Send</string>
-      <string name="are_you_sure">Are you sure?</string>
-      <string name="chat_confirm_leave">Leave this chat?</string>
-      <string name="chat_confirm_delete">This will permanently delete this chat; are you sure?</string>
-      <string name="choose">Choose</string>
+      <string name="leave">离开聊天</string>
+      <string name="are_you_sure">确定吗？</string>
+      <string name="chat_confirm_leave">离开此聊天？</string>
+      <string name="chat_confirm_delete">这将永久删除此聊天；您确定吗？</string>
       <string name="photo_or_video">Take photo or record video?</string>
       <string name="chat_image">Image</string>
+      <string name="from_library">Choose from library</string>
+      <string name="use_camera">Use Camera</string>
+      <string name="record_video">Record Video</string>
       <string name="chat_hold">Hold down to record</string>
       <string name="chat_recording_stop">Recording stopped</string>
-      <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
+      <string name="no_message_text">还没人开始聊天！为何不率先创建？</string>
       <string name="permission_microphone_rationale">Please enable microphone in order to send voice message.</string>
       <string name="permission_microphone_denied">You need to enable microphone in settings to send audio messages.</string>
       <string name="permission_microphone_never_ask">Never ask for audio recording permission again.</string>
@@ -2838,44 +2697,30 @@ zh---
       <string name="permission_camera_rationale">Please enable camera permissions in settings.</string>
       <string name="permission_camera_denied">You need to enable camera in settings to take image.</string>
       <string name="permission_camera_never_ask">Never ask for camera permission again.</string>
-      <string name="chat_public">This chat is public</string>
-      <string name="chat_private">This chat is private</string>
-      <string name="record_video">Record Video</string>
-      <string name="manage_public_chat_caption">Add friends to %1s</string>
-      <string name="create_chat">Create Chat</string>
-      <string name="join_chat">Join Chat</string>
+      <string name="chat_public">聊天室已公开</string>
+      <string name="chat_private">聊天室未公开</string>
+      <string name="create_chat">创建新聊天</string>
+      <string name="join_chat">加入聊天</string>
       <string name="single_user_is_typing">%1$s! is typing…</string>
       <string name="multiple_users_are_typing">Multiple users are typing…</string>
-      <string name="unnamed_chat">Unnamed Chat</string>
-      <string name="alerts_on">Alerts-ON</string>
-      <string name="alerts_off">Alerts-OFF</string>
-      <string name="search">Search</string>
-      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even\n connect with your favourite players!</string>
-      <string name="chat_with_friends_login"> Chat with friends.</string>
+      <string name="alerts_on">聊天提示打开</string>
+      <string name="alerts_off">聊天提示打开</string>
+      <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
+      <string name="chat_with_friends_login">Chat with friends.</string>
       <string name="chat_friends_in_chat">Friends in Chat</string>
       <string name="chat_friend_in_chat">1 Friend in Chat</string>
-      <string name="choose_option">Choose option</string>
-      <string name="from_library">Choose from library</string>
-      <string name="use_camera">Use Camera</string>
-      <string name="chat_no_changes">There are no changes in this chat.</string>
-      <string name="chats">Chats</string>
-      <string name="chats_public">Public chats</string>
-      <string name="chats_public_search">Search Public Chats</string>
-      <string name="add_new_chat">ADD NEW CHAT</string>
-      <string name="message_hint">Enter your message here…</string>
-      <string name="chat_friends_add">Add friends to this chat</string>
-      <string name="chat_name">Chat name</string>
-      <string name="chat_give_name">Name Your Chat</string>
-      <string name="chat_rename">Rename your chat</string>
-      <string name="add_friends_to_chat">Add friends to chat</string>
-      <string name="search_for_member">Search for a member</string>
+      <string name="chats">聊天</string>
+      <string name="chats_public">公共聊天室</string>
+      <string name="chats_public_search">搜索公共聊天室</string>
+      <string name="message_hint">在此输入您的消息…</string>
+      <string name="chat_friends_add">将朋友添加到此聊天室</string>
+      <string name="chat_name">聊天室名称</string>
+      <string name="chat_give_name">给您的聊天室命名</string>
+      <string name="chat_rename">重命名聊天室</string>
+      <string name="add_friends_to_chat">将好友添加聊天室</string>
       <string name="friends_in_chat">Friends in Chat</string>
-      <string name="group_chat_name">Enter a name for your Group Chat</string>
-      <string name="join_official_chat">Join Official Chat ></string>
       <string name="friend_chats">Public Chats your friends are in</string>
-      <string name="mins_ago">mins ago</string>
-      <string name="is_in">is in</string>
-      <string name="create">Create</string>
+      <string name="is_in"> 位于： </string>
 
       <!--Video chat-->
       <string name="video_chat_promo_1">Watch the match with your <font color="#c3ff01">friends.</font></string>
@@ -2909,6 +2754,7 @@ zh---
       <string name="live">Live</string>
 
       <!--Posts & News-->
+      <string name="post_create">Create New Post</string>
       <string name="post_title_hint">Enter your post\'s title</string>
       <string name="post_body_hint">Start writing your post…</string>
       <string name="pin_title">Post this to your wall?</string>

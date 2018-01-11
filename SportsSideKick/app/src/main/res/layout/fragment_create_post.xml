@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorGrayMediumLight"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/create"
+            android:text="@string/post_create"
             android:textColor="@color/colorPrimaryVeryLight"
             android:textSize="@dimen/font_size_18" />
 
