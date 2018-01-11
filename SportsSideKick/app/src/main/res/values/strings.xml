@@ -122,10 +122,8 @@
     <string name="user_profile">User Profile</string>
     <string name="friends_title">Your Friends</string>
     <string name="friends_search">Search your friends</string>
-    <string name="time_info_player">%1$tM:%1$tS / %2$tM:%2$tS</string>
     <string name="offline">Offline</string>
     <string name="friend_request_pending">Friend Request Pending</string>
-    <string name="try_again_later">Error. Try again later.</string>
     <string name="enter_friend_name_invite">Enter friend\'s email address to invite.</string>
     <string name="remove_friend">Unfriend</string>
     <string name="friend_request_send">Send Friend Request</string>
@@ -181,7 +179,6 @@
     <string name="multiple_users_are_typing">Multiple users are typing…</string>
     <string name="alerts_on">Alerts-ON</string>
     <string name="alerts_off">Alerts-OFF</string>
-    <string name="chat_with_friends_login_description">You can chat with friends, create groups and even connect with your favourite players!</string>
     <string name="chat_with_friends_login">Chat with friends.</string>
     <string name="friends_in_chat">Friends in Chat</string>
     <string name="chat_friend_in_chat">1 Friend in Chat</string>

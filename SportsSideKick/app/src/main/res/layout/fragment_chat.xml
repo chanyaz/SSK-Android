@@ -439,7 +439,7 @@
                 android:layout_above="@+id/center_below"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_20"
-                android:text="@string/chat_with_friends_login_description"
+                android:text="@string/login_slider_chat"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_12" />

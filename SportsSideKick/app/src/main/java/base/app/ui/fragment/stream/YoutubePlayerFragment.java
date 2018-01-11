@@ -296,7 +296,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
             total = player.getDurationMillis();
         }
         if (getActivity() != null) {
-            String text = String.format(getActivity().getResources().getString(R.string.time_info_player), current, total);
+            String text = String.format("%1$tM:%1$tS / %2$tM:%2$tS", current, total);
             timeInfo.setText(text);
         }
     }
