@@ -18,8 +18,6 @@ object ImageLoader {
                     .load(uri)
                     .apply(optionsWith(error))
                     .into(view)
-        } else {
-            displayImage(error, view)
         }
     }
 

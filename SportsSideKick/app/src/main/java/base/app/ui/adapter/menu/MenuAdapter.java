@@ -110,7 +110,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
         if (holder.itemView.isSelected())
             oldPosition = position;
@@ -134,11 +134,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             R.drawable.menu_news_selector,
             R.drawable.menu_stats_selector,
             R.drawable.menu_rummours_selector,
-//            R.drawable.menu_club_radio_selector,
-//            R.drawable.menu_shop_selector,
+            R.drawable.menu_club_radio_selector,
+            R.drawable.menu_shop_selector,
             R.drawable.menu_club_tv_selector,
             R.drawable.menu_video_chat_selector
     };
-
-
 }
