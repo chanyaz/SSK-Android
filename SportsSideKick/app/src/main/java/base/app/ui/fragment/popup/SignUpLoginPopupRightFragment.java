@@ -22,19 +22,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
+import static base.app.data.user.LoginStateReceiver.*;
+
 /**
  * Created by Aleksandar Marinkovic on 30/05/2017.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
-
-public class SignUpLoginPopupRightFragment extends SignUpLoginFragment implements LoginStateReceiver.LoginStateListener {
-
-
-    public SignUpLoginPopupRightFragment() {
-        // Required empty public constructor
-    }
+public class SignUpLoginPopupRightFragment extends SignUpLoginFragment
+        implements LoginStateListener {
 
     @Nullable
     @BindView(R.id.description)

@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin_8">
 
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
