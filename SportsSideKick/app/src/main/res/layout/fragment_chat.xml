@@ -386,6 +386,8 @@
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
         android:visibility="visible"
+        android:clickable="true"
+        android:focusable="false"
         android:layout_height="match_parent">
 
         <ImageView
