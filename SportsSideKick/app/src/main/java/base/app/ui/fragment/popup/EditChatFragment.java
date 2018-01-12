@@ -186,7 +186,7 @@ public class EditChatFragment extends BaseFragment {
         super.onResume();
         chatNameEditText.setText(chatInfo.getChatTitle());
         if(chatInfo.getChatAvatarUrl()!=null){
-            ImageLoader.displayImage(chatInfo.getChatAvatarUrl(), chatImageView, R.drawable.blank_profile_rounded);
+            ImageLoader.displayImage(chatInfo.getChatAvatarUrl(), chatImageView, null);
             chatImageView.setVisibility(View.VISIBLE);
         }
     }
@@ -398,13 +398,13 @@ public class EditChatFragment extends BaseFragment {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE:
                     uploadImage(currentPath);
-                    ImageLoader.displayImage(currentPath,chatImageView, R.drawable.blank_profile_rounded);
+                    ImageLoader.displayImage(currentPath,chatImageView, null);
                     break;
                 case REQUEST_CODE_CHAT_EDIT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImage(realPath);
-                    ImageLoader.displayImage(realPath,chatImageView, R.drawable.blank_profile_rounded);
+                    ImageLoader.displayImage(realPath,chatImageView, null);
                     break;
             }
         }
@@ -420,7 +420,7 @@ public class EditChatFragment extends BaseFragment {
                     uploadedImageUrl = task.getResult();
                     if(uploadedImageUrl!=null){
                         chatImageView.setVisibility(View.VISIBLE);
-                        ImageLoader.displayImage(uploadedImageUrl, chatImageView, R.drawable.blank_profile_rounded);
+                        ImageLoader.displayImage(uploadedImageUrl, chatImageView, null);
                     }
                 } else {
                     // TODO @Filip Handle error!

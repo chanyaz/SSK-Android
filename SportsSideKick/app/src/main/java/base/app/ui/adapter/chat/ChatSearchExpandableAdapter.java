@@ -183,7 +183,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
         } else {
             holder.rowMemberCount.setText(" - " + info.getUsersIds().size() + " " + context.getResources().getString(R.string.members));
         }
-        ImageLoader.displayImage(info.getChatAvatarUrl(), holder.rowImage, R.drawable.blank_profile_rounded);
+        ImageLoader.displayImage(info.getChatAvatarUrl(), holder.rowImage, null);
         holder.rowImage.getLayoutParams().height = (int) (screenHeight * IMAGE_SIZE);
         holder.rowImage.getLayoutParams().width = (int) (screenHeight * IMAGE_SIZE);
 

@@ -240,7 +240,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
             adapter.getValues().addAll(values);
 
             // TODO: Refresh profile image if updated on server (currently requires app restart)
-            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, R.drawable.blank_profile_rounded);
+            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, null);
             profileName.setText(user.getFirstName() + " " + user.getLastName());
             profileEmail.setText(user.getEmail());
             profilePhone.setText(user.getPhone());

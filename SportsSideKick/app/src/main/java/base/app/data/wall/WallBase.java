@@ -1,7 +1,6 @@
 package base.app.data.wall;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -104,12 +103,10 @@ public abstract class WallBase implements Shareable, Serializable {
         return cache;
     }
 
-    @Nullable
     public static WallBase postFactory(Object wallItem, ObjectMapper mapper, boolean putInCache) {
         JsonNode node = mapper.valueToTree(wallItem);
         if (node.has("type")) {
-            TypeReference typeReference = new TypeReference<WallBase>() {
-            };
+            TypeReference typeReference = null;
             PostType type;
 
             if (node.get("type").canConvertToInt()) {
@@ -151,9 +148,7 @@ public abstract class WallBase implements Shareable, Serializable {
                     };
                     break;
                 default:
-                    Log.e(TAG, "--------------------------------------------------------------------------");
-                    Log.e(TAG, "ERROR ----- unhandeled post type " + node.get("type").textValue() + "\n\n" + node);
-                    Log.e(TAG, "--------------------------------------------------------------------------");
+                    Log.e(TAG, "ERROR ----- unsupported post type " + node.get("type").textValue() + "\n\n" + node);
             }
 
             WallBase item = mapper.convertValue(wallItem, typeReference);

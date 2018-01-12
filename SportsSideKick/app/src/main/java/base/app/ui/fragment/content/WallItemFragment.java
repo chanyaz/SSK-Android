@@ -253,7 +253,7 @@ public class WallItemFragment extends BaseFragment {
             case post:
                 WallPost post = (WallPost) item;
                 ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
-                        null, R.drawable.wall_detail_header_placeholder);
+                        R.drawable.wall_detail_header_placeholder);
                 title.setText(post.getTitle());
                 content.setText(post.getBodyText());
                 if (post.getVidUrl() != null) {
@@ -286,7 +286,7 @@ public class WallItemFragment extends BaseFragment {
             case rumor:
             case newsShare:
                 WallNewsShare news = (WallNewsShare) item;
-                ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader, R.drawable.blank_profile_rounded);
+                ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader, null);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());
                 if (commentsCount != null) {
@@ -314,7 +314,7 @@ public class WallItemFragment extends BaseFragment {
                 break;
             case wallStoreItem:
                 WallStoreItem storeItem = (WallStoreItem) item;
-                ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, R.drawable.blank_profile_rounded);
+                ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, null);
                 title.setText(storeItem.getTitle());
                 break;
         }

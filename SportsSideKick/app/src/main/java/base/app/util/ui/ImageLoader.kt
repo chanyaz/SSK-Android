@@ -12,8 +12,7 @@ object ImageLoader {
 
     @JvmStatic
     @JvmOverloads
-    fun displayImage(uri: Any?, view: ImageView,
-                     error: Int? = null) {
+    fun displayImage(uri: Any?, view: ImageView, error: Int? = null) {
         if (uri != null) {
             Glide.with(view.context)
                     .load(uri)

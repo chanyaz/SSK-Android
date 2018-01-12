@@ -99,7 +99,7 @@ public class ClubTVPlaylistAdapter extends RecyclerView.Adapter<ClubTVPlaylistAd
         holder.caption.setText(info.getSnippet().getTitle());
         holder.date.setText(sdf.format(new Date(info.getSnippet().getPublishedAt().getValue())));
         String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
-        ImageLoader.displayImage(imageUrl, holder.image, R.drawable.blank_profile_rounded);
+        ImageLoader.displayImage(imageUrl, holder.image, null);
     }
 
     @Override

@@ -116,7 +116,7 @@ public class EditProfileFragment extends BaseFragment {
 
         user = Model.getInstance().getUserInfo();
         if (user != null) {
-            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, R.drawable.blank_profile_rounded);
+            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, null);
             firstNameEditText.setText(user.getFirstName());
             lastNameEditText.setText(user.getLastName());
             nicNameEditText.setText(user.getNicName());
@@ -315,7 +315,7 @@ public class EditProfileFragment extends BaseFragment {
                 if (task.isSuccessful()) {
                     String uploadedImageUrl = task.getResult();
                     Model.getInstance().setProfileImageUrl(uploadedImageUrl, true);
-                    ImageLoader.displayImage(uploadedImageUrl, profileImage, R.drawable.blank_profile_rounded);
+                    ImageLoader.displayImage(uploadedImageUrl, profileImage, null);
                 } else {
                     // TODO @Filip Handle error!
                 }

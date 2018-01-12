@@ -129,7 +129,7 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
         final UserInfo info = values.get(position);
 
         if (holder.image != null) {
-            ImageLoader.displayImage(info.getCircularAvatarUrl(), holder.image, R.drawable.blank_profile_rounded);
+            ImageLoader.displayImage(info.getCircularAvatarUrl(), holder.image, null);
             holder.name.setText(info.getFirstName() + " " + info.getLastName());
             if (selectedValues.contains(info)) {
                 if (holder.selectedRingView != null) {
