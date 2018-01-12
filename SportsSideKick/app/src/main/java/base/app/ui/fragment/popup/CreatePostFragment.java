@@ -255,6 +255,7 @@ public class CreatePostFragment extends BaseFragment {
                     uploadImagePost(currentPath);
                     break;
                 case REQUEST_CODE_POST_IMAGE_PICK:
+                    // TODO: Fix crash on some devices (LG G4s on Android 6 for example)
                     Uri selectedImageURI = intent.getData();
                     String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImagePost(realPath);

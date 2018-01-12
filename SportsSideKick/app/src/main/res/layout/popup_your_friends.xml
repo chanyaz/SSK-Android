@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/margin_base_size_60"
@@ -10,15 +11,21 @@
     android:background="@color/colorPrimaryMediumLight"
     android:clickable="true">
 
+    <View
+        android:id="@+id/topSpacer"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        tools:visibility="gone" />
+
     <!-- TOP BUTTONS CONTAINER -->
     <RelativeLayout
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/topSpacer"
         android:background="@drawable/phone_background"
-        android:tileMode="repeat"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:tileMode="repeat">
 
         <TextView
             style="@style/boldText"
@@ -35,12 +42,12 @@
             android:id="@+id/close_dialog_button"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="@dimen/standard_button_height"
-            android:visibility="gone"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
             android:tint="@color/colorPrimaryVeryLight"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:visibility="gone" />
     </RelativeLayout>
 
 
@@ -135,17 +142,17 @@
             android:id="@+id/search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_20"
+            android:layout_toStartOf="@+id/search_icon"
             android:background="@color/colorPrimaryMediumDark"
-            android:textColor="?white"
             android:hint="@string/friends_search"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
+            android:textColor="?white"
             android:textColorHint="?white"
-            android:textSize="@dimen/font_size_12"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/search_icon" />
+            android:textSize="@dimen/font_size_12" />
 
         <ImageView
             android:id="@+id/search_icon"
@@ -169,8 +176,8 @@
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/margin_10"
             android:layout_marginEnd="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_10"
             android:clipToPadding="false"
             android:numColumns="auto_fit" />
@@ -192,8 +199,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@color/colorPrimary"
         android:layout_marginBottom="@dimen/margin_negative_10"
+        android:background="@color/colorPrimary"
         android:clickable="true"
         app:layout_heightPercent="19%">
 

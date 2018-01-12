@@ -2,19 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:background="@color/colorPrimaryMediumLight"
     android:clickable="true"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/topSpacer"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        tools:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/chat_headline_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
+        android:layout_below="@id/topSpacer"
         android:background="@drawable/phone_background"
         android:clickable="true"
         android:tileMode="repeat">
-
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/chat_headline_close_fragment"

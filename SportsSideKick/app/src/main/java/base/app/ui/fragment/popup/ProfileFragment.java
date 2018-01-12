@@ -164,6 +164,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     @Optional
     @OnClick(R.id.edit_button)
     public void editOnClick() {
+        // TODO: Refresh displayed profile info on activity result
         getActivity().onBackPressed(); // Prevent Your profile fragment not to trigger in invisible state...
         EventBus.getDefault().post(new FragmentEvent(EditProfileFragment.class));
     }
@@ -238,6 +239,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
             values.add(new Pair<>(getContext().getResources().getString(R.string.comments_made), String.valueOf(user.getComments())));
             adapter.getValues().addAll(values);
 
+            // TODO: Refresh profile image if updated on server (currently requires app restart)
             ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, R.drawable.blank_profile_rounded);
             profileName.setText(user.getFirstName() + " " + user.getLastName());
             profileEmail.setText(user.getEmail());
