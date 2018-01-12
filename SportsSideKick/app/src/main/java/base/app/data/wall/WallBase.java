@@ -108,65 +108,65 @@ public abstract class WallBase implements Shareable, Serializable {
     public static WallBase postFactory(Object wallItem, ObjectMapper mapper, boolean putInCache) {
         JsonNode node = mapper.valueToTree(wallItem);
         if (node.has("type")) {
-            TypeReference typeReference = new TypeReference<WallBase>(){};
-            PostType type = null;
+            TypeReference typeReference = new TypeReference<WallBase>() {
+            };
+            PostType type;
 
             if (node.get("type").canConvertToInt()) {
                 int typeValue = node.get("type").intValue();
                 type = PostType.values()[typeValue - 1];
+            } else {
+                String objectType = node.get("type").textValue();
+                type = PostType.valueOf(objectType);
             }
-            else {
-                try{
-                    String objectType = node.get("type").textValue();
-                    type = PostType.valueOf(objectType);
-                } catch (IllegalArgumentException ex){
-                    Log.e(TAG,"--------------------------------------------------------------------------");
-                    Log.e(TAG,"ERROR ----- Non existing post type:" + node.get("type").textValue() + "\n\n" + node);
-                    Log.e(TAG,"--------------------------------------------------------------------------");
-                }
-            }
-
-            if (type != null) {
-                switch (type) {
-                    case post: case wallComment: case social:
-                        typeReference = new TypeReference<WallPost>(){};
-                        break;
-                    case newsShare:
-                        typeReference = new TypeReference<WallNewsShare>(){};
-                        break;
-                    case betting:
-                        typeReference = new TypeReference<WallBetting>(){};
-                        break;
-                    case stats:
-                        typeReference = new TypeReference<WallStats>(){};
-                        break;
-                    case rumor:
-                        typeReference = new TypeReference<WallRumor>(){};
-                        break;
-                    case wallStoreItem:
-                        typeReference = new TypeReference<WallStoreItem>(){};
-                        break;
-                    case newsOfficial:
-                        typeReference = new TypeReference<WallNews>(){};
-                        break;
-                    default:
-                        Log.e(TAG,"--------------------------------------------------------------------------");
-                        Log.e(TAG,"ERROR ----- unhandeled post type " + node.get("type").textValue() + "\n\n" + node);
-                        Log.e(TAG,"--------------------------------------------------------------------------");
-                }
+            switch (type) {
+                case post:
+                case wallComment:
+                case social:
+                    typeReference = new TypeReference<WallPost>() {
+                    };
+                    break;
+                case newsShare:
+                    typeReference = new TypeReference<WallNewsShare>() {
+                    };
+                    break;
+                case betting:
+                    typeReference = new TypeReference<WallBetting>() {
+                    };
+                    break;
+                case stats:
+                    typeReference = new TypeReference<WallStats>() {
+                    };
+                    break;
+                case rumor:
+                    typeReference = new TypeReference<WallRumor>() {
+                    };
+                    break;
+                case wallStoreItem:
+                    typeReference = new TypeReference<WallStoreItem>() {
+                    };
+                    break;
+                case newsOfficial:
+                    typeReference = new TypeReference<WallNews>() {
+                    };
+                    break;
+                default:
+                    Log.e(TAG, "--------------------------------------------------------------------------");
+                    Log.e(TAG, "ERROR ----- unhandeled post type " + node.get("type").textValue() + "\n\n" + node);
+                    Log.e(TAG, "--------------------------------------------------------------------------");
             }
 
             WallBase item = mapper.convertValue(wallItem, typeReference);
             item.setType(type);
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
-            if(putInCache){
+            if (putInCache) {
                 WallBase cachedItem = cache.get(item.getPostId());
-                if(cachedItem!=null){
+                if (cachedItem != null) {
                     cachedItem.setEqualTo(item);
                     item = cachedItem;
                 } else {
-                    cache.put(item.getPostId(),item);
+                    cache.put(item.getPostId(), item);
                 }
             }
 
@@ -177,7 +177,7 @@ public abstract class WallBase implements Shareable, Serializable {
 
     @JsonProperty("timestamp")
     public String getTimestampAsString() {
-        return String.valueOf(timestamp.longValue()/1000) + "." +  String.valueOf((int)(timestamp.longValue()%1000) + "00");
+        return String.valueOf(timestamp.longValue() / 1000) + "." + String.valueOf((int) (timestamp.longValue() % 1000) + "00");
     }
 
     public Double getTimestamp() {
@@ -308,7 +308,7 @@ public abstract class WallBase implements Shareable, Serializable {
 
     @JsonProperty("type")
     public int getTypeAsInt() {
-        return itemType.ordinal()+1;
+        return itemType.ordinal() + 1;
     }
 
     @JsonIgnore

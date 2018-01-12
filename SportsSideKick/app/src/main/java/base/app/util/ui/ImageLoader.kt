@@ -13,22 +13,19 @@ object ImageLoader {
     @JvmStatic
     @JvmOverloads
     fun displayImage(uri: Any?, view: ImageView,
-                     placeholder: Int? = null, error: Int? = placeholder) {
+                     error: Int? = null) {
         if (uri != null) {
             Glide.with(view.context)
                     .load(uri)
-                    .apply(optionsWith(placeholder, error))
+                    .apply(optionsWith(error))
                     .into(view)
         } else {
             displayImage(error, view)
         }
     }
 
-    private fun optionsWith(placeholderRes: Int?, errorRes: Int?): RequestOptions {
+    private fun optionsWith(errorRes: Int?): RequestOptions {
         var options = RequestOptions()
-        if (placeholderRes != null) {
-            options = options.placeholder(placeholderRes)
-        }
         if (errorRes != null) {
             options = options.error(errorRes)
         }
