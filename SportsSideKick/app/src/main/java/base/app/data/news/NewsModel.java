@@ -105,8 +105,9 @@ public class NewsModel {
 
     public void loadPage(final NewsType type) {
 
-        final int page = type == NewsType.OFFICIAL ? pageNews : pageRumors;
-        if (this.isLoadingNews && type.equals(NewsType.OFFICIAL) || this.isLoadingRumors && type.equals(NewsType.UNOFFICIAL)){
+        final int page = 0;
+        if (isLoadingNews && type.equals(NewsType.OFFICIAL)
+                || isLoadingRumors && type.equals(NewsType.UNOFFICIAL)){
             return;
         }
         if(type.equals(NewsType.OFFICIAL)){

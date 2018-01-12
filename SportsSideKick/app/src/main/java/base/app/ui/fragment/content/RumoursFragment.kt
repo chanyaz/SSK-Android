@@ -11,7 +11,7 @@ import base.app.data.news.NewsModel.getInstance
 import base.app.data.news.NewsPageEvent
 import base.app.ui.adapter.content.RumoursAdapter
 import base.app.ui.fragment.base.BaseFragment
-import com.bumptech.glide.Glide
+import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.greenrobot.eventbus.Subscribe
 
@@ -53,8 +53,8 @@ class RumoursFragment : BaseFragment() {
     }
 
     private fun showTitle() {
-        // TODO: topCaption.text = R.string.rumours_caption
-        Glide.with(context).load(R.drawable.image_wall_background).into(topImage)
+        topCaption.text = getString(R.string.rumours)
+        topImage.show(R.drawable.image_wall_background)
     }
 
     @Subscribe

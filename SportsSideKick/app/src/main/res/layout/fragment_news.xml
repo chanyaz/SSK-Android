@@ -32,7 +32,7 @@
                     android:src="@drawable/image_wall_background" />
 
                 <TextView
-                    android:id="@+id/topСaption"
+                    android:id="@+id/topCaption"
                     style="@style/semiBoldText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

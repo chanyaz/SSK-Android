@@ -12,7 +12,7 @@ import base.app.data.news.NewsPageEvent
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.ui.inflate
-import base.app.util.ui.showImage
+import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.greenrobot.eventbus.Subscribe
 
@@ -31,7 +31,7 @@ class NewsFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        topImage.showImage(R.drawable.image_wall_background)
+        topImage.show(R.drawable.image_wall_background)
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
