@@ -3,6 +3,8 @@ package base.app.util.ui
 import android.content.Context
 import android.os.Handler
 import android.util.AttributeSet
+import android.view.View
+import android.view.ViewGroup
 import android.widget.RelativeLayout
 import base.app.R
 import base.app.data.ticker.NextMatchModel
@@ -52,4 +54,7 @@ class NextMatchView(context: Context, attrs: AttributeSet)
     private fun updateCountdownTimer(timestamp: Long) {
         countdown.text = NextMatchCountdown.getCountdownValue(timestamp)
     }
+
+    fun ViewGroup.inflate(layoutId: Int) =
+            View.inflate(context, layoutId, this)
 }
