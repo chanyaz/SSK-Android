@@ -45,7 +45,6 @@ import base.app.R;
 import base.app.data.Model;
 import base.app.data.Translator;
 import base.app.data.sharing.SharingManager;
-import base.app.data.tutorial.WallTip;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
@@ -54,7 +53,6 @@ import base.app.data.wall.WallNewsShare;
 import base.app.data.wall.WallPost;
 import base.app.data.wall.WallStoreItem;
 import base.app.ui.adapter.content.CommentsAdapter;
-import base.app.ui.adapter.menu.TutorialStepAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
@@ -318,33 +316,6 @@ public class WallItemFragment extends BaseFragment {
                 WallStoreItem storeItem = (WallStoreItem) item;
                 ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, R.drawable.blank_profile_rounded);
                 title.setText(storeItem.getTitle());
-                break;
-            case tip:
-                final WallTip tip = (WallTip) item;
-                TutorialStepAdapter adapter = new TutorialStepAdapter();
-                adapter.getWallSteps().addAll(tip.getTipSteps());
-
-                commentsList.setAdapter(adapter);
-
-                if (buttonsContainer != null) {
-                    buttonsContainer.setVisibility(View.GONE);
-                }
-                if (headerContainer != null) {
-                    headerContainer.setVisibility(View.GONE);
-                }
-                if (bottomSplitLine != null) {
-                    bottomSplitLine.setVisibility(View.GONE);
-                }
-                content.setVisibility(View.GONE);
-                if (tutorialContainer != null) {
-                    tutorialContainer.setVisibility(View.VISIBLE);
-                }
-                if (tutorialTitle != null) {
-                    tutorialTitle.setText(tip.getTipTittle());
-                }
-                if (tutorialDescription != null) {
-                    tutorialDescription.setText(tip.getTipDescription());
-                }
                 break;
         }
     }

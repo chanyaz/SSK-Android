@@ -215,7 +215,7 @@
     <string name="post_title_hint">Cliquez ici pour entrer le titre de votre message</string>
     <string name="post_body_hint">Cliquez ici pour commencer à écrire votre message…</string>
     <string name="post_create_tip_header">Pour créer un nouveau message:</string>
-    <string name="post_create_tip_body"><b>1.</b> Choisissez une image de votre bibliothèque multimédia ou prenez une nouvelle image en sélectionnant l’une des deux icônes dans la zone d’image en haut (facultatif) \ n <b>2.</b> Créer un titre en sélectionnant le titre et en tapant. \ n <b>3.</b> Créez du contenu en sélectionnant le texte du contenu et en tapant.</string>
+    <string name="post_create_tip_body"><b>1.</b> Choisissez une image de votre bibliothèque multimédia ou prenez une nouvelle image en sélectionnant l’une des deux icônes dans la zone d’image en haut (facultatif) \n <b>2.</b> Créer un titre en sélectionnant le titre et en tapant. \n <b>3.</b> Créez du contenu en sélectionnant le texte du contenu et en tapant.</string>
     <string name="pin_title">Publier ceci sur votre mur ?</string>
     <string name="pin_confirm">Souhaitez-vous publier ceci sur votre mur ?</string>
     <string name="pin_message_hint">Entrez un message avec votre message partagé…</string>

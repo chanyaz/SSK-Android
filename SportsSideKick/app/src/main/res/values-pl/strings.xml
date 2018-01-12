@@ -215,7 +215,7 @@
     <string name="post_title_hint">Kliknij tutaj, aby wpisać tytuł swojego postu</string>
     <string name="post_body_hint">Kliknij tutaj, aby rozpocząć pisanie posta…</string>
     <string name="post_create_tip_header">Aby utworzyć nowy wpis:</string>
-    <string name="post_create_tip_body"><b>1.</b> Wybierz obraz z biblioteki multimediów lub zrób nowe zdjęcie, wybierając jedną z dwóch ikon w obszarze obrazu u góry (opcjonalnie) \ n <b>2.</b> Utwórz tytuł, wybierając tytuł i wpisując. \ n <b>3.</b> Twórz treść, zaznaczając tekst zawartości i wpisując.</string>
+    <string name="post_create_tip_body"><b>1.</b> Wybierz obraz z biblioteki multimediów lub zrób nowe zdjęcie, wybierając jedną z dwóch ikon w obszarze obrazu u góry (opcjonalnie) \n <b>2.</b> Utwórz tytuł, wybierając tytuł i wpisując. \n <b>3.</b> Twórz treść, zaznaczając tekst zawartości i wpisując.</string>
     <string name="pin_title">Opublikować ten post na twojej tablicy?</string>
     <string name="pin_confirm">Chcesz opublikować ten post na swojej tablicy?</string>
     <string name="pin_message_hint">Wpisz wiadomość ze swoim udostępnionym wpisem…</string>

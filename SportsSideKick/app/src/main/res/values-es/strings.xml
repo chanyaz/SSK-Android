@@ -215,7 +215,7 @@
     <string name="post_title_hint">Haga clic aquí para ingresar el título de su publicación</string>
     <string name="post_body_hint">Haga clic aquí para comenzar a escribir su publicación…</string>
     <string name="post_create_tip_header">Para crear una nueva publicación:</string>
-    <string name="post_create_tip_body"><b>1.</b> Elija una imagen de su biblioteca multimedia o tome una nueva imagen seleccionando uno de los dos iconos en el área de la imagen en la parte superior (opcional) \ n <b>2.</b> Crear un título seleccionando el título y escribiendo. \ n <b>3.</b> Cree contenido seleccionando el texto del contenido y escribiendo.</string>
+    <string name="post_create_tip_body"><b>1.</b> Elija una imagen de su biblioteca multimedia o tome una nueva imagen seleccionando uno de los dos iconos en el área de la imagen en la parte superior (opcional) \n <b>2.</b> Crear un título seleccionando el título y escribiendo. \n <b>3.</b> Cree contenido seleccionando el texto del contenido y escribiendo.</string>
     <string name="pin_title">¿Quieres publicarlo en tu muro?</string>
     <string name="pin_confirm">¿Quieres publicar esta publicación en tu muro?</string>
     <string name="pin_message_hint">Ingrese un mensaje con su publicación compartida…</string>

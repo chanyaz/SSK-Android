@@ -192,7 +192,7 @@ abstract class BaseActivity extends AppCompatActivity {
                 // TODO - Load wall item before displaying it ( or this is handled in fragment? )
                 EventBus.getDefault().post(wallItemFragmentEvent);
             } else if (notificationData.containsKey("newsItem") && notificationData.containsKey("newsType")) {
-                if ("official".equals(notificationData.get("newsType"))) {
+                if ("newsOfficial".equals(notificationData.get("newsType"))) {
                     EventBus.getDefault().post(NewsFragment.class);
                 } else {
                     EventBus.getDefault().post(RumoursFragment.class);
@@ -200,7 +200,7 @@ abstract class BaseActivity extends AppCompatActivity {
                 if (!"-1".equals(notificationData.get("newsItem"))) {
                     FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
                     String id = notificationData.get("newsItem");
-                    if ("official".equals(notificationData.get("newsType"))) {
+                    if ("newsOfficial".equals(notificationData.get("newsType"))) {
                         fe.setId("UNOFFICIAL$$$" + id);
                     } else {
                         fe.setId(id);

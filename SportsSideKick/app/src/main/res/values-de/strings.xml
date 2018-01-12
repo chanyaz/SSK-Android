@@ -215,7 +215,7 @@
     <string name="post_title_hint">Klik hier om de titel van uw bericht in te voeren</string>
     <string name="post_body_hint">Klik hier om te beginnen met het schrijven van je bericht…</string>
     <string name="post_create_tip_header">Om een ​​nieuw bericht te maken:</string>
-    <string name="post_create_tip_body"><b>1.</b> Kies een afbeelding uit uw mediabibliotheek of maak een nieuwe afbeelding door een van de twee pictogrammen in het afbeeldingsgebied bovenaan te selecteren (optioneel) \ n <b>2.</b> Aanmaken een titel door de titel te selecteren en te typen. \ n <b>3.</b> Maak inhoud door de inhoudstekst te selecteren en te typen.</string>
+    <string name="post_create_tip_body"><b>1.</b> Kies een afbeelding uit uw mediabibliotheek of maak een nieuwe afbeelding door een van de twee pictogrammen in het afbeeldingsgebied bovenaan te selecteren (optioneel) \n <b>2.</b> Aanmaken een titel door de titel te selecteren en te typen. \n <b>3.</b> Maak inhoud door de inhoudstekst te selecteren en te typen.</string>
     <string name="pin_title">Dies auf deiner Pinnwand posten?</string>
     <string name="pin_confirm">Möchtest du dies auf deiner Pinnwand posten?</string>
     <string name="pin_message_hint">Voer een bericht in met je gedeelde bericht…</string>

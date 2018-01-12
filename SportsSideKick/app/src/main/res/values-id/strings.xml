@@ -215,7 +215,7 @@
     <string name="post_title_hint">Klik di sini untuk memasukkan judul post \ 's Anda</string>
     <string name="post_body_hint">Klik di sini untuk mulai menulis posting Anda…</string>
     <string name="post_create_tip_header">Untuk membuat posting baru:</string>
-    <string name="post_create_tip_body"><b>1.</b> Pilih gambar dari pustaka media Anda atau ambil gambar baru dengan memilih salah satu dari dua ikon di area gambar di bagian atas (opsional) \ n <b>2.</b> Buat judul dengan memilih judul dan ketikan. \ n <b>3.</b> Buat konten dengan memilih teks konten dan mengetik.</string>
+    <string name="post_create_tip_body"><b>1.</b> Pilih gambar dari pustaka media Anda atau ambil gambar baru dengan memilih salah satu dari dua ikon di area gambar di bagian atas (opsional) \n <b>2.</b> Buat judul dengan memilih judul dan ketikan. \n <b>3.</b> Buat konten dengan memilih teks konten dan mengetik.</string>
     <string name="pin_title">Kirimkan ini ke dinding Anda?</string>
     <string name="pin_confirm">Apakah Anda ingin mengirimkan ini ke dinding Anda?</string>
     <string name="pin_message_hint">Masukkan pesan dengan pos bersama Anda…</string>

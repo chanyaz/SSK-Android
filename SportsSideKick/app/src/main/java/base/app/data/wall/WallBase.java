@@ -48,12 +48,13 @@ public abstract class WallBase implements Shareable, Serializable {
         stats,
         rumor,
         wallStoreItem,
-        official,
+        newsOfficial,
         newsUnOfficial,
         wallComment,
         rumourShare,
         postShare,
-        tip,
+        social,
+        socialShare
     }
 
     @JsonProperty("timestamp")
@@ -127,7 +128,7 @@ public abstract class WallBase implements Shareable, Serializable {
 
             if (type != null) {
                 switch (type) {
-                    case post: case wallComment:
+                    case post: case wallComment: case social:
                         typeReference = new TypeReference<WallPost>(){};
                         break;
                     case newsShare:
@@ -145,14 +146,13 @@ public abstract class WallBase implements Shareable, Serializable {
                     case wallStoreItem:
                         typeReference = new TypeReference<WallStoreItem>(){};
                         break;
-                    case official:
+                    case newsOfficial:
                         typeReference = new TypeReference<WallNews>(){};
                         break;
                     default:
                         Log.e(TAG,"--------------------------------------------------------------------------");
                         Log.e(TAG,"ERROR ----- unhandeled post type " + node.get("type").textValue() + "\n\n" + node);
                         Log.e(TAG,"--------------------------------------------------------------------------");
-
                 }
             }
 
