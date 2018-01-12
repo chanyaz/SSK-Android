@@ -57,7 +57,7 @@
     <string name="required_phone">Введите свой номер телефона!</string>
     <string name="required_credentials">Не хватает информации</string>
     <string name="password_try_again">Введите пароль заново и попробуйте еще раз.</string>
-    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="login_slider_chat">Вы можете общаться с друзьями, создавать группы и даже общаться с любимыми игроками!</string>
     <string name="logout_from_app">Так вы выйдете из приложения?</string>
     <string name="reset_app">Это действие перезагрузит приложение.</string>
     <string name="error_username_taken">Ошибка регистрации - имя пользователя уже занято, выберите другое имя пользователя.</string>
@@ -166,7 +166,7 @@
     <string name="multiple_users_are_typing">Несколько пользователей печатают…</string>
     <string name="alerts_on">Уведомления чата: ВКЛ</string>
     <string name="alerts_off">Уведомления чата: ВЫКЛ</string>
-    <string name="chat_with_friends_login">Общаться с друзьями.</string>
+    <string name="chat_with_friends_login">Общайтесь с друзьями</string>
     <string name="chat_friends_in_chat">Друзья в чате</string>
     <string name="chat_friend_in_chat">1 Друг в чате</string>
     <string name="chats">Чаты</string>

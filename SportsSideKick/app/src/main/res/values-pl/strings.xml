@@ -57,7 +57,7 @@
     <string name="required_phone">Wpisz swój numer telefonu!</string>
     <string name="required_credentials">Brakujące dane</string>
     <string name="password_try_again">Wpisz hasło od nowa i spróbuj ponownie.</string>
-    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="login_slider_chat">Możesz rozmawiać ze znajomymi, tworzyć grupy, a nawet łączyć się z ulubionymi graczami!</string>
     <string name="logout_from_app">Nastąpi wylogowanie z aplikacji</string>
     <string name="reset_app">Jeśli to zrobisz, aplikacja zostanie ponownie uruchomiona.</string>
     <string name="error_username_taken">Błąd rejestracji - nazwa użytkownika jest już zajęta, wybierz inną nazwę użytkownika.</string>

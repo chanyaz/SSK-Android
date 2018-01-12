@@ -57,7 +57,7 @@
     <string name="required_phone">Du musst deine Telefonnummer eingeben!</string>
     <string name="required_credentials">Fehlende Informationen</string>
     <string name="password_try_again">Bitte gib dein Kennwort erneut ein!</string>
-    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="login_slider_chat">Je kunt met vrienden chatten, groepen maken en zelfs verbinding maken met je favoriete spelers!</string>
     <string name="logout_from_app">Damit wirst du von der App abgemeldet?</string>
     <string name="reset_app">Damit wird die Applikation neu geladen.</string>
     <string name="error_username_taken">Registratiefout - gebruikersnaam is al in gebruik, selecteer een andere gebruikersnaam.</string>

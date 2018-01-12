@@ -57,7 +57,7 @@
     <string name="required_phone">Anda harus memasukkan nomor telepon!</string>
     <string name="required_credentials">Informasi Tidak Ada</string>
     <string name="password_try_again">Silakan masukkkan kembali kata sandi dan coba lagi.</string>
-    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="login_slider_chat">Anda bisa mengobrol dengan teman, membuat grup dan bahkan terhubung dengan pemain favorit Anda!</string>
     <string name="logout_from_app">Ini akan mengeluarkan Anda dari aplikasi?</string>
     <string name="reset_app">Tindakan ini akan memuat ulang aplikasinya.</string>
     <string name="error_username_taken">Kesalahan registrasi - username sudah diambil, silahkan pilih username yang berbeda.</string>

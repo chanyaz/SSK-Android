@@ -46,10 +46,10 @@
     <string name="registration_failed">Registrazione non riuscita</string>
     <string name="forgot_your_password">Hai dimenticato la password?</string>
     <string name="password_reset">Ripristina password</string>
-    <string name="reset_check_email">Controlla l'email per le opzioni di ripristino della password.</string>
+    <string name="reset_check_email">Controlla l’email per le opzioni di ripristino della password.</string>
     <string name="email_enter_valid">Inserisci un indirizzo email valido.</string>
     <string name="sign_up_text">Registrandoti, dichiari di aver letto e accettato i\n<font color="#FFFFFF">Termini e Condizioni</font> e la <font color="#FFFFFF">Politica in materia di trattamento dei dati personali</font> di Sports Sidekick.</string>
-    <string name="required_email">Devi inserire l'email!</string>
+    <string name="required_email">Devi inserire l’email!</string>
     <string name="required_password">Devi inserire una password</string>
     <string name="required_first_name">Devi inserire il nome!</string>
     <string name="required_last_name">Devi inserire il cognome!</string>
@@ -57,9 +57,9 @@
     <string name="required_phone">Devi inserire un numero di telefono!</string>
     <string name="required_credentials">Mancano delle informazioni</string>
     <string name="password_try_again">Reinserisci la password e prova di nuovo.</string>
-    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
-    <string name="logout_from_app">Uscirai dall'App. Continuare?</string>
-    <string name="reset_app">Quest'azione ricaricherà l'App.</string>
+    <string name="login_slider_chat">Puoi chattare con gli amici, creare gruppi e persino connetterti con i tuoi giocatori preferiti!</string>
+    <string name="logout_from_app">Uscirai dall’App. Continuare?</string>
+    <string name="reset_app">Quest’azione ricaricherà l’App.</string>
     <string name="error_username_taken">Errore di registrazione - il nome utente è già in uso, si prega di selezionare un nome utente diverso.</string>
     <string name="facebook_error">Non è stato possibile caricare il tuo profilo pubblico. Prova di nuovo!</string>
 
@@ -103,7 +103,7 @@
     <string name="language_current">Italiano</string>
 
     <!--Friends-->
-    <string name="friend_profile">Informazioni sull'amico</string>
+    <string name="friend_profile">Informazioni sull’amico</string>
     <string name="friend_requests">Richieste di amicizia</string>
     <string name="follows_you">Ti segue</string>
     <string name="user_profile">Profilo utente</string>
@@ -111,7 +111,7 @@
     <string name="friends_search">Cerca i tuoi amici</string>
     <string name="offline">Offline</string>
     <string name="friend_request_pending">Richiesta di amicizia in attesa</string>
-    <string name="enter_friend_name_invite">Inserisci l'indirizzo email di un amico per invitarlo.</string>
+    <string name="enter_friend_name_invite">Inserisci l’indirizzo email di un amico per invitarlo.</string>
     <string name="remove_friend">Rimuovi dagli amici</string>
     <string name="friend_request_send">Inviare richiesta di amicizia?</string>
     <string name="friend_unfollow">Non seguire più un amico</string>
@@ -128,7 +128,7 @@
     <string name="you">Tu</string>
     <string name="add_friend">Aggiungi un amico</string>
     <string name="invite_friend">Invita un amico</string>
-    <string name="add_friend_hint">Inserisci il nome, l'email o il numero di telefono del tuo amico nel campo di ricerca.</string>
+    <string name="add_friend_hint">Inserisci il nome, l’email o il numero di telefono del tuo amico nel campo di ricerca.</string>
     <string name="save">Salvare</string>
     <string name="invite">Invita</string>
     <string name="follow_more">Segui più persone</string>
@@ -183,7 +183,7 @@
 
     <!--Video chat-->
     <string name="video_chat_promo_1">Vinci la partita con i tuoi amici</string>
-    <string name="video_chat_promo_2">La chat video ti consente di chiamare fino a 3 amici per una chat video di gruppo, in modo da poter vivere l'azione con le persone che ami ovunque tu sia!</string>
+    <string name="video_chat_promo_2">La chat video ti consente di chiamare fino a 3 amici per una chat video di gruppo, in modo da poter vivere l’azione con le persone che ami ovunque tu sia!</string>
     <string name="call_start">Inizia chiamata</string>
     <string name="call_starting">Avvia una nuova chiamata</string>
     <string name="call_add_member">Aggiungi alla chiamata</string>
@@ -215,7 +215,7 @@
     <string name="post_title_hint">Clicca qui per inserire il titolo del tuo post</string>
     <string name="post_body_hint">Clicca qui per iniziare a scrivere il tuo post…</string>
     <string name="post_create_tip_header">Per creare un nuovo post:</string>
-    <string name="post_create_tip_body"><b>1.</b> Scegli un'immagine dal tuo catalogo multimediale o scatta una nuova immagine selezionando una delle due icone nell'area dell'immagine in alto (opzionale) \n <b>2.</b> Crea un titolo selezionando il titolo e digitando. \n <b>3.</b> Crea il contenuto selezionando il testo del contenuto e digitando.</string>
+    <string name="post_create_tip_body"><b>1.</b> Scegli un’immagine dal tuo catalogo multimediale o scatta una nuova immagine selezionando una delle due icone nell’area dell’immagine in alto (opzionale) \n <b>2.</b> Crea un titolo selezionando il titolo e digitando. \n <b>3.</b> Crea il contenuto selezionando il testo del contenuto e digitando.</string>
     <string name="pin_title">Vuoi postarlo sulla bacheca?</string>
     <string name="pin_confirm">Vuoi postarlo sulla tua bacheca?</string>
     <string name="pin_message_hint">Inserisci un messaggio con il tuo post condiviso…</string>

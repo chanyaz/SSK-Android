@@ -57,7 +57,7 @@
     <string name="required_phone">您必须输入电话号码！</string>
     <string name="required_credentials">缺少的信息</string>
     <string name="password_try_again">请重新输入您的密码，然后再试。</string>
-    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="login_slider_chat">你可以和朋友聊天，创建团体，甚至连接你最喜欢的玩家！</string>
     <string name="logout_from_app">这将让您退出本应用？</string>
     <string name="reset_app">此操作将重新加载应用程序。</string>
     <string name="error_username_taken">注册错误 - 用户名已被占用，请选择其他用户名。</string>

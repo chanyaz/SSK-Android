@@ -57,7 +57,7 @@
     <string name="required_phone">Vous devez saisir votre numéro de téléphone !</string>
     <string name="required_credentials">Informations manquantes</string>
     <string name="password_try_again">Veuillez saisir votre mot de passe à nouveau et réessayer.</string>
-    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="login_slider_chat">Vous pouvez discuter avec des amis, créer des groupes et même se connecter avec vos joueurs préférés!</string>
     <string name="logout_from_app">Vous allez être déconnecté de l’application.</string>
     <string name="reset_app">Cette action relancera l’application.</string>
     <string name="error_username_taken">Erreur d’enregistrement - le nom d’utilisateur est déjà saisi, veuillez sélectionner un autre nom d’utilisateur.</string>

@@ -57,7 +57,7 @@
     <string name="required_phone">আপনাকে একটি টেলিফোন নম্বর লিখতে হবে!</string>
     <string name="required_credentials">অনুপস্থিত তথ্য</string>
     <string name="password_try_again">অনুগ্রহ করে আপনার পাসওয়ার্ড লিখে আবার চেষ্টা করুন।</string>
-    <string name="login_slider_chat">You can chat with friends, create groups and even connect with your favourite players!</string>
+    <string name="login_slider_chat">আপনি বন্ধুদের সাথে চ্যাট করতে, গ্রুপ তৈরি করতে এবং এমনকি আপনার প্রিয় খেলোয়াড়দের সাথে সংযোগ করতে পারেন!</string>
     <string name="logout_from_app">এটি করলে আপনাকে অ্যাপ থেকে লগ-আউট করবে?</string>
     <string name="reset_app">এই কার্য অ্যাপ্লিকেশনকে আবার লোড করবে।</string>
     <string name="error_username_taken">নিবন্ধন ত্রুটি - ব্যবহারকারী নাম ইতিমধ্যে গ্রহণ করা হয়েছে, দয়া করে একটি ভিন্ন ব্যবহারকারীর নাম নির্বাচন করুন।</string>
