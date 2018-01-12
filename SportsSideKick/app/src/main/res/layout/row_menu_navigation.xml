@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foreground="?selectableItemBackgroundBorderless"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:foreground="?selectableItemBackgroundBorderless"
+    android:orientation="vertical"
+    tools:layout_height="100dp"
+    tools:layout_width="100dp"
+    tools:ignore="ContentDescription">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,13 +21,18 @@
             android:id="@+id/menu_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            tools:src="@drawable/menu_wall_selector" />
 
         <TextView
             android:id="@+id/menu_text"
             android:layout_width="match_parent"
+            android:lineSpacingMultiplier="0.8"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textColor="#6a000000" />
+            android:textColor="#6a000000"
+            tools:text="@string/wall" />
+
     </LinearLayout>
+
 </RelativeLayout>

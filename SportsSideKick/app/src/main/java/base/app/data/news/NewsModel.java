@@ -95,16 +95,15 @@ public class NewsModel {
         config = Utility.getClubConfig();
         config = new HashMap<>();
         config = Utility.getClubConfig();
-        this.itemsPerPage = DEFAULT_PAGE_NEWS;
-        this.country = config.get("Country");
-        this.ID = config.get("ID");
-        this.language = config.get("Language");
-        this.pageNews = 0;
-        this.pageRumors = 0;
+        itemsPerPage = DEFAULT_PAGE_NEWS;
+        country = config.get("Country");
+        ID = config.get("ID");
+        language = config.get("Language");
+        pageNews = 0;
+        pageRumors = 0;
     }
 
     public void loadPage(final NewsType type) {
-
         final int page = 0;
         if (isLoadingNews && type.equals(NewsType.OFFICIAL)
                 || isLoadingRumors && type.equals(NewsType.UNOFFICIAL)){
@@ -115,7 +114,6 @@ public class NewsModel {
         } else {
             isLoadingRumors = true;
         }
-
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("newsGetPage")
                 .setEventAttribute("language", language)

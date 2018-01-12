@@ -427,7 +427,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     public void remove(int position) {
-        values.remove(position);
+        if (values.get(position) != null) {
+            values.remove(position);
+        }
     }
 
     public void removeAll(List<WallBase> models) {
