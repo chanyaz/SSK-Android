@@ -79,7 +79,7 @@ public class CallFriendsAdapter extends RecyclerView.Adapter<CallFriendsAdapter.
         else {
             holder.online.setVisibility(View.GONE);
         }
-        holder.name.setText(info.getLastName() + " " + info.getFirstName());
+        holder.name.setText(info.getFirstName() + " " + info.getLastName());
     }
 
     @Override

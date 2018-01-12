@@ -171,7 +171,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             }
         }
         if (holder.name != null) {
-            holder.name.setText(info.getLastName() + " " + info.getFirstName());
+            holder.name.setText(info.getFirstName() + " " + info.getLastName());
         }
         updateButtons(holder);
     }
