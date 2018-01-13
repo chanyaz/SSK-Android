@@ -43,7 +43,7 @@ import base.app.util.events.notify.NotificationEvent;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.content.news.NewsListFragment;
+import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
@@ -193,7 +193,7 @@ abstract class BaseActivity extends AppCompatActivity {
                 EventBus.getDefault().post(wallItemFragmentEvent);
             } else if (notificationData.containsKey("newsItem") && notificationData.containsKey("newsType")) {
                 if ("newsOfficial".equals(notificationData.get("newsType"))) {
-                    EventBus.getDefault().post(NewsListFragment.class);
+                    EventBus.getDefault().post(NewsFragment.class);
                 } else {
                     EventBus.getDefault().post(RumoursFragment.class);
                 }

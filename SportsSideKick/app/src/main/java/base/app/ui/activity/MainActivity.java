@@ -39,7 +39,7 @@ import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
-import base.app.ui.fragment.content.news.NewsListFragment;
+import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.content.WallFragment;
@@ -226,7 +226,7 @@ public class MainActivity extends BaseActivity
         ArrayList<Class> mainContainerFragments = new ArrayList<>();
         mainContainerFragments.add(WallFragment.class);
         mainContainerFragments.add(ChatFragment.class);
-        mainContainerFragments.add(NewsListFragment.class);
+        mainContainerFragments.add(NewsFragment.class);
         mainContainerFragments.add(StatisticsFragment.class);
         mainContainerFragments.add(RumoursFragment.class);
         mainContainerFragments.add(StoreFragment.class);

@@ -1,6 +1,5 @@
 package base.app.data.news;
 
-
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -24,7 +23,6 @@ import base.app.data.wall.WallNews;
 import base.app.util.commons.Utility;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
-
 
 /**
  * Created by Djordje Krutil on 27.12.2016..

@@ -32,7 +32,7 @@ import base.app.ui.fragment.stream.ClubRadioStationFragment;
 import base.app.ui.fragment.stream.ClubTVFragment;
 import base.app.ui.fragment.stream.ClubTvPlaylistFragment;
 import base.app.ui.fragment.other.FantasyFragment;
-import base.app.ui.fragment.content.news.NewsListFragment;
+import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.QuizFragment;
 import base.app.ui.fragment.content.RumoursFragment;
@@ -190,7 +190,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         ArrayList<Class> leftContainerFragments = new ArrayList<>();
         leftContainerFragments.add(WallFragment.class);
         leftContainerFragments.add(VideoChatFragment.class);
-        leftContainerFragments.add(NewsListFragment.class);
+        leftContainerFragments.add(NewsFragment.class);
         leftContainerFragments.add(RumoursFragment.class);
         leftContainerFragments.add(StoreFragment.class);
         leftContainerFragments.add(NewsDetailFragment.class);
@@ -247,7 +247,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         radioButtonsFragmentMap = HashBiMap.create();
         radioButtonsFragmentMap.put(R.id.wall_radio_button, WallFragment.class);
         radioButtonsFragmentMap.put(R.id.video_chat_radio_button, VideoChatFragment.class);
-        radioButtonsFragmentMap.put(R.id.news_radio_button, NewsListFragment.class);
+        radioButtonsFragmentMap.put(R.id.news_radio_button, NewsFragment.class);
         radioButtonsFragmentMap.put(R.id.roumors_radio_button, RumoursFragment.class);
         radioButtonsFragmentMap.put(R.id.chat_radio_button, ChatFragment.class);
         radioButtonsFragmentMap.put(R.id.stats_radio_button, StatisticsFragment.class);

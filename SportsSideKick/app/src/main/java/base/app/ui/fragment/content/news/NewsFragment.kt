@@ -1,43 +1,61 @@
 package base.app.ui.fragment.content.news
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
 import base.app.data.news.NewsModel
 import base.app.data.news.NewsModel.NewsType.OFFICIAL
-import base.app.data.news.NewsPageEvent
+import base.app.data.wall.WallNews
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.ui.inflate
 import base.app.util.ui.show
-import kotlinx.android.synthetic.main.fragment_news_list.*
-import org.greenrobot.eventbus.Subscribe
+import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers.io
+import kotlinx.android.synthetic.main.fragment_news.*
 
-/**
- * Created by Djordje on 12/29/2016.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
- */
-class NewsListFragment : BaseFragment() {
+class NewsFragment : BaseFragment() {
 
-    internal var type = OFFICIAL
-    internal var adapter: NewsAdapter = NewsAdapter()
+    private var type = OFFICIAL
+    private val viewModel = NewsViewModel()
+    private val disposables = CompositeDisposable()
+    private var adapter: NewsAdapter = NewsAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
-        return container?.inflate(R.layout.fragment_news_list)
+        return container.inflate(R.layout.fragment_news)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        topImage.show(R.drawable.image_wall_background)
+        showHeader()
 
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.isNestedScrollingEnabled = false
-
         loadNews()
+    }
+
+    private fun showHeader() {
+        headerImage.show(R.drawable.image_wall_background)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        disposables.add(viewModel.getNews()
+                .subscribeOn(io())
+                .observeOn(mainThread())
+                .subscribe(this::showNews))
+    }
+
+    override fun onPause() {
+        disposables.clear()
+        super.onPause()
+    }
+
+    private fun showNews(news : List<WallNews>) {
+        swipeRefreshLayout.isRefreshing = false
+        adapter.values.addAll(news)
+        adapter.notifyDataSetChanged()
     }
 
     private fun loadNews() {
@@ -53,12 +71,5 @@ class NewsListFragment : BaseFragment() {
             NewsModel.getInstance().setLoading(false, type)
             NewsModel.getInstance().loadPage(type)
         }
-    }
-
-    @Subscribe
-    fun onNewsReceived(event: NewsPageEvent) {
-        swipeRefreshLayout.isRefreshing = false
-        adapter.values.addAll(event.values)
-        adapter.notifyDataSetChanged()
     }
 }

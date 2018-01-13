@@ -11,8 +11,7 @@ import base.app.data.news.NewsModel.getInstance
 import base.app.data.news.NewsPageEvent
 import base.app.ui.adapter.content.RumoursAdapter
 import base.app.ui.fragment.base.BaseFragment
-import base.app.util.ui.show
-import kotlinx.android.synthetic.main.fragment_news_list.*
+import kotlinx.android.synthetic.main.fragment_news.*
 import org.greenrobot.eventbus.Subscribe
 
 /**
@@ -27,11 +26,11 @@ class RumoursFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_news_list, container, false)
+        return inflater.inflate(R.layout.fragment_news, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        showTitle()
+        showHeader()
         showRumours()
     }
 
@@ -52,9 +51,9 @@ class RumoursFragment : BaseFragment() {
         }
     }
 
-    private fun showTitle() {
+    private fun showHeader() {
         topCaption.text = getString(R.string.rumours)
-        topImage.show(R.drawable.image_wall_background)
+        headerImage.show(R.drawable.image_wall_background)
     }
 
     @Subscribe

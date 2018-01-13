@@ -25,7 +25,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/topImage"
+                    android:id="@+id/headerImage"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
@@ -36,8 +36,8 @@
                     style="@style/semiBoldText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/topImage"
-                    android:layout_alignTop="@id/topImage"
+                    android:layout_alignBottom="@id/headerImage"
+                    android:layout_alignTop="@id/headerImage"
                     android:layout_gravity="center"
                     android:layout_marginTop="25dp"
                     android:gravity="center"
@@ -55,10 +55,12 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/topImage"
+                    android:layout_below="@id/headerImage"
                     android:layout_marginTop="?newsRecyclerListPhoneTopMargin"
                     android:clipToPadding="false"
-                    android:paddingTop="4dp" />
+                    android:paddingTop="4dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
