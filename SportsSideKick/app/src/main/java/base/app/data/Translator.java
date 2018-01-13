@@ -17,7 +17,7 @@ import base.app.R;
 import base.app.data.im.ImsMessage;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
-import base.app.data.wall.WallNews;
+import base.app.data.wall.News;
 import base.app.util.commons.XmlLanguageMapParser;
 
 import static base.app.ClubConfig.CLUB_ID;
@@ -66,7 +66,7 @@ public class Translator {
         }
     }
 
-    public void translateNews(String itemId, String language, final TaskCompletionSource<WallNews> completion) {
+    public void translateNews(String itemId, String language, final TaskCompletionSource<News> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateNewsItem")
                 .setEventAttribute(POST_ID, itemId)
@@ -77,9 +77,9 @@ public class Translator {
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
                         if (!response.hasErrors()) {
                             GSData data = response.getScriptData().getObject("item");
-                            WallNews item = null;
+                            News item = null;
                             if (data != null) {
-                                item = mapper.convertValue(data.getBaseData(), new TypeReference<WallNews>() {
+                                item = mapper.convertValue(data.getBaseData(), new TypeReference<News>() {
                                 });
                             }
                             if (completion != null) {

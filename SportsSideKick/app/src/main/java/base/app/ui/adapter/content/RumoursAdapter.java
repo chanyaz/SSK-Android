@@ -8,7 +8,7 @@ import org.greenrobot.eventbus.EventBus;
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
-import base.app.data.wall.WallNews;
+import base.app.data.wall.News;
 
 import static android.view.View.*;
 
@@ -29,13 +29,13 @@ public class RumoursAdapter extends NewsAdapter {
     public void onBindViewHolder(WallAdapter.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
 
-        WallNews rumour = values.get(position);
+        News rumour = values.get(position);
         boolean hasImage = rumour.getCoverImageUrl() != null && !rumour.getCoverImageUrl().isEmpty();
         holder.view.findViewById(R.id.spacer).setVisibility(hasImage ? GONE : VISIBLE);
     }
 
     @NonNull
-    protected OnClickListener getClickListener(final WallNews item) {
+    protected OnClickListener getClickListener(final News item) {
         return new OnClickListener() {
             @Override
             public void onClick(View view) {

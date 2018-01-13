@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-import base.app.data.wall.WallNews;
+import base.app.data.wall.News;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
@@ -121,9 +121,9 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
         Map<String, Object> itemAsMap = mapper.convertValue(item, new TypeReference<Map<String, Object>>() {
         });
        //TODO Temporarily fix
-        if (item instanceof WallNews)
-            if (((WallNews) item).getUrl() != null)
-                if (!((WallNews) item).getUrl().equals("") && ((WallNews) item).getWallId().equals("")) {
+        if (item instanceof News)
+            if (((News) item).getUrl() != null)
+                if (!((News) item).getUrl().equals("") && ((News) item).getWallId().equals("")) {
                     socialNetworkSelector(context, itemAsMap, shareTarget);
                     return;
                 }

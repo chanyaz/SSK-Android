@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.wall.News;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
-import base.app.data.wall.WallNews;
 
 /**
  * Created by Djordje on 12/29/2016.
@@ -27,9 +27,9 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     private static final int VIEW_TYPE_ROW = 1;
 
-    protected List<WallNews> values;
+    protected List<News> values;
 
-    public List<WallNews> getValues() {
+    public List<News> getValues() {
         return values;
     }
 
@@ -57,7 +57,7 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(WallAdapter.ViewHolder holder, final int position) {
-        final WallNews news = values.get(position);
+        final News news = values.get(position);
         WallAdapter.displayUserInfo(news, holder);
         WallAdapter.displayCaption(news.getTitle(), holder);
         WallAdapter.displayPostImage(news, holder);
@@ -66,7 +66,7 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     @NonNull
-    protected View.OnClickListener getClickListener(final WallNews item) {
+    protected View.OnClickListener getClickListener(final News item) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,5 +83,10 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             return 0;
         }
         return values.size();
+    }
+
+    public void addAll(List<News> newsList) {
+        values.addAll(newsList);
+        notifyDataSetChanged();
     }
 }

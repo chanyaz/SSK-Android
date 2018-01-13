@@ -47,7 +47,7 @@ import base.app.data.user.UserInfo;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
-import base.app.data.wall.WallNews;
+import base.app.data.wall.News;
 import base.app.ui.activity.MainActivity;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -176,7 +176,7 @@ public class NewsDetailFragment extends BaseFragment {
     Button sharedMessageDeleteButton;
 
     CommentsAdapter commentsAdapter;
-    WallNews item;
+    News item;
     private WallBase sharedChildPost;
     List<PostComment> comments;
 
@@ -377,7 +377,7 @@ public class NewsDetailFragment extends BaseFragment {
         }
     }
 
-    private WallNews loadFromCacheBy(String id) {
+    private News loadFromCacheBy(String id) {
         NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
         if (id.contains("UNOFFICIAL$$$")) {
             id = id.replace("UNOFFICIAL$$$", "");
@@ -398,7 +398,7 @@ public class NewsDetailFragment extends BaseFragment {
                 .into(image);
     }
 
-    private void showTextContent(WallNews item) {
+    private void showTextContent(News item) {
         title.setText(item.getTitle());
         content.setText(item.getBodyText());
         textContent.setText(item.getTitle());
@@ -639,7 +639,7 @@ public class NewsDetailFragment extends BaseFragment {
         EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         String sharingMessage = sharedMessageField.getText().toString();
 
-        WallNews itemToPost = new WallNews();
+        News itemToPost = new News();
         itemToPost.setTimestamp((double) Utility.getCurrentTime());
         if (sharingMessage.isEmpty()) {
             itemToPost.setTitle(item.getTitle());
@@ -751,12 +751,12 @@ public class NewsDetailFragment extends BaseFragment {
     @OnClick(R.id.translate)
     public void onTranslateClick(View view) {
         String postId = item.getPostId();
-        TaskCompletionSource<WallNews> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+        TaskCompletionSource<News> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<News>() {
             @Override
-            public void onComplete(@NonNull Task<WallNews> task) {
+            public void onComplete(@NonNull Task<News> task) {
                 if (task.isSuccessful()) {
-                    WallNews translatedNews = task.getResult();
+                    News translatedNews = task.getResult();
                     updateWithTranslatedPost(translatedNews);
                 }
             }
@@ -764,7 +764,7 @@ public class NewsDetailFragment extends BaseFragment {
         translationView.showTranslationPopup(view, postId, source, TranslationView.TranslationType.TRANSLATE_NEWS);
     }
 
-    private void updateWithTranslatedPost(WallNews translatedNews) {
+    private void updateWithTranslatedPost(News translatedNews) {
         showTextContent(translatedNews);
     }
 

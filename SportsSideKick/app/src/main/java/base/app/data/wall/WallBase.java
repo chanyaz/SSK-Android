@@ -136,7 +136,7 @@ public abstract class WallBase implements Shareable, Serializable {
                     };
                     break;
                 case rumor:
-                    typeReference = new TypeReference<WallRumor>() {
+                    typeReference = new TypeReference<Rumor>() {
                     };
                     break;
                 case wallStoreItem:
@@ -144,7 +144,7 @@ public abstract class WallBase implements Shareable, Serializable {
                     };
                     break;
                 case newsOfficial:
-                    typeReference = new TypeReference<WallNews>() {
+                    typeReference = new TypeReference<News>() {
                     };
                     break;
                 default:

@@ -13,7 +13,7 @@ import base.app.data.sharing.SharingManager;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallRumor extends WallNews {
+public class Rumor extends News {
 
     // Same as News
 

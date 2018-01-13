@@ -26,7 +26,7 @@ import base.app.data.Translator;
 import base.app.data.im.ImsMessage;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
-import base.app.data.wall.WallNews;
+import base.app.data.wall.News;
 
 /**
  * Created by Filip on 9/27/2017.
@@ -225,13 +225,13 @@ public class TranslationView extends RelativeLayout {
     }
 
     private void translateWallNews() {
-        TaskCompletionSource<WallNews> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+        TaskCompletionSource<News> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<News>() {
             @Override
-            public void onComplete(@NonNull Task<WallNews> task) {
+            public void onComplete(@NonNull Task<News> task) {
                 if (task.isSuccessful()) {
-                    WallNews translatedWallNews = task.getResult();
-                    completion.setResult(translatedWallNews);
+                    News translatedNews = task.getResult();
+                    completion.setResult(translatedNews);
                 } else {
                     Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();
                 }

@@ -2,7 +2,7 @@ package base.app.data.news;
 
 import java.util.List;
 
-import base.app.data.wall.WallNews;
+import base.app.data.wall.News;
 
 /**
  * Created by Filip on 2/3/2017.
@@ -12,18 +12,18 @@ import base.app.data.wall.WallNews;
 
 public class RumoursPageEvent {
 
-    public RumoursPageEvent(List<WallNews> values) {
+    public RumoursPageEvent(List<News> values) {
         this.values = values;
     }
 
-    public List<WallNews> getValues() {
+    public List<News> getValues() {
         return values;
     }
 
-    public RumoursPageEvent setValues(List<WallNews> values) {
+    public RumoursPageEvent setValues(List<News> values) {
         this.values = values;
         return this;
     }
 
-    List<WallNews> values;
+    List<News> values;
 }

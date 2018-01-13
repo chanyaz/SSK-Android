@@ -15,7 +15,7 @@ import base.app.data.sharing.SharingManager;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WallNews extends WallBase {
+public class News extends WallBase {
 
     @JsonProperty("vidUrl")
     private String vidUrl;
@@ -27,9 +27,9 @@ public class WallNews extends WallBase {
     @Override
     public void setEqualTo(WallBase item) {
         super.setEqualTo(item);
-        this.vidUrl = ((WallNews)item).vidUrl;
-        this.url = ((WallNews)item).url;
-        this.source = ((WallNews)item).source;
+        this.vidUrl = ((News)item).vidUrl;
+        this.url = ((News)item).url;
+        this.source = ((News)item).source;
     }
 
     @JsonProperty("vidUrl")

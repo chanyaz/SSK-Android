@@ -75,7 +75,6 @@ import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
 @RuntimePermissions
 public class EditChatFragment extends BaseFragment {
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.24;

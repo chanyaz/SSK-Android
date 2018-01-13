@@ -1,7 +1,9 @@
 package base.app.data.news;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import base.app.data.GSAndroidPlatform;
-import base.app.data.wall.WallNews;
+import base.app.data.wall.News;
 import base.app.util.commons.Utility;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -57,8 +59,8 @@ public class NewsModel {
     private int pageRumors = 0;
     private int pageNews = 0;
 
-    private List<WallNews> newsItems;
-    private List<WallNews> rumorsItems;
+    private List<News> newsItems;
+    private List<News> rumorsItems;
 
     private String language;
     private String country;
@@ -102,6 +104,10 @@ public class NewsModel {
     }
 
     public void loadPage(final NewsType type) {
+        loadPage(type, null);
+    }
+
+    public void loadPage(final NewsType type, @Nullable final MutableLiveData<List<News>> liveData) {
         final int page = 0;
         if (isLoadingNews && type.equals(NewsType.OFFICIAL)
                 || isLoadingRumors && type.equals(NewsType.UNOFFICIAL)){
@@ -136,7 +142,10 @@ public class NewsModel {
                         return;
                     }
 
-                    List<WallNews> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<WallNews>>(){});
+                    List<News> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<News>>(){});
+                    if (liveData != null) {
+                        liveData.postValue(receivedItems);
+                    }
                     if (receivedItems.size() == 0 && !"en".equals(language) && page == 0)
                     {
                         if(type.equals(NewsType.OFFICIAL)){
@@ -165,13 +174,13 @@ public class NewsModel {
         });
     }
 
-    private void saveNewsToCache(List<WallNews> receivedItems, boolean isRumours) {
+    private void saveNewsToCache(List<News> receivedItems, boolean isRumours) {
         // Memory cache
         newsItems.addAll(receivedItems);
 
         // Database cache
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Type listOfBecons = new TypeToken<List<WallNews>>() {}.getType();
+        Type listOfBecons = new TypeToken<List<News>>() {}.getType();
 
         String strBecons = new Gson().toJson(newsItems, listOfBecons);
         String key;
@@ -183,10 +192,10 @@ public class NewsModel {
         preferences.edit().putString(key, strBecons).apply();
     }
 
-    private List<WallNews> loadNewsFromCache(boolean isRumours) {
+    private List<News> loadNewsFromCache(boolean isRumours) {
         SharedPreferences preferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
-        Type listOfBecons = new TypeToken<List<WallNews>>() {}.getType();
+        Type listOfBecons = new TypeToken<List<News>>() {}.getType();
 
         String key;
         if (isRumours) {
@@ -204,15 +213,15 @@ public class NewsModel {
         }
     }
 
-    public WallNews loadItemFromCache(String id, NewsType type) {
+    public News loadItemFromCache(String id, NewsType type) {
         if(type == NewsType.OFFICIAL){
-            for(WallNews item : loadNewsFromCache(false)){
+            for(News item : loadNewsFromCache(false)){
                 if(item.getPostId().equals(id)){
                     return item;
                 }
             }
         } else {
-            for(WallNews item : loadNewsFromCache(true)){
+            for(News item : loadNewsFromCache(true)){
                 if(item.getPostId().equals(id)){
                     return item;
                 }
@@ -221,7 +230,7 @@ public class NewsModel {
         return null;
     }
 
-    public List<WallNews> getAllCachedItems(NewsType type) {
+    public List<News> getAllCachedItems(NewsType type) {
         return type == NewsType.OFFICIAL ? loadNewsFromCache(false) : loadNewsFromCache(true);
     }
 }
