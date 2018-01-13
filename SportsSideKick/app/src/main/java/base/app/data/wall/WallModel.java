@@ -71,19 +71,19 @@ public class WallModel extends GSMessageHandlerAbstract {
      * you need to listen to mbPostUpdate events which will return all old posts + new posts
      * + updated posts
      */
-    public void loadWallPosts(int offset, int entryCount, final TaskCompletionSource<List<WallBase>> completion) {
+    public void loadWallPosts(int offset, int entryCount, final TaskCompletionSource<List<WallItem>> completion) {
         final UserInfo userInfo = Model.getInstance().getUserInfo();
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                List<WallBase> wallItems = new ArrayList<>();
+                List<WallItem> wallItems = new ArrayList<>();
                 // TODO: Display social post items in adapter (currently ignored)
                 if (!response.hasErrors()) {
                     JSONArray jsonArrayOfPosts = (JSONArray) response.getScriptData().getBaseData().get(GSConstants.ITEMS);
                     if (jsonArrayOfPosts.size() > 0) {
                         for (Object postAsJson : jsonArrayOfPosts) {
-                            WallBase post = WallBase.postFactory(postAsJson, mapper, true);
+                            WallItem post = WallItem.postFactory(postAsJson, mapper, true);
                             if (post != null) {
                                 post.setSubTitle(userInfo.getNicName());
                                 wallItems.add(post);
@@ -106,7 +106,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     /**
      * Posting a new blog on this user wall
      */
-    public void createPost(WallBase post) {
+    public void createPost(WallItem post) {
         post.setWallId(getCurrentUser().getUserId());
         post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
 
@@ -115,7 +115,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    WallBase.postFactory(object, mapper, true);
+                    WallItem.postFactory(object, mapper, true);
                 }
             }
         };
@@ -129,7 +129,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .send(consumer);
     }
 
-    public Task<Void> deletePost(final WallBase post) {
+    public Task<Void> deletePost(final WallItem post) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -150,14 +150,14 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
-    public Task<Void> updatePost(final WallBase post) {
+    public Task<Void> updatePost(final WallItem post) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    WallBase post = WallBase.postFactory(object, mapper, true);
+                    WallItem post = WallItem.postFactory(object, mapper, true);
                     EventBus.getDefault().post(new ItemUpdateEvent(post));
                 }
                 source.setResult(null);
@@ -177,10 +177,10 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     // user logged out so clearing all content.
     public void clear() {
-        WallBase.clear();
+        WallItem.clear();
     }
 
-    Task<Void> setLikeCount(final WallBase post, final boolean val) {
+    Task<Void> setLikeCount(final WallItem post, final boolean val) {
         int increase = val ? 1 : -1;
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -188,7 +188,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    WallBase post = WallBase.postFactory(object, mapper, true);
+                    WallItem post = WallItem.postFactory(object, mapper, true);
                     EventBus.getDefault().post(new ItemUpdateEvent(post));
                 } else {
                     EventBus.getDefault().post(new ItemUpdateEvent(null));
@@ -210,11 +210,11 @@ public class WallModel extends GSMessageHandlerAbstract {
      */
     private static final int DEFAULT_COMMENTS_PAGE = 10;
 
-    public void getCommentsForPost(WallBase post) {
+    public void getCommentsForPost(WallItem post) {
         getCommentsForPost(post, 0);
     }
 
-    public void getCommentsForPost(WallBase post, int fetchedCount) {
+    public void getCommentsForPost(WallItem post, int fetchedCount) {
         int pageSize = DEFAULT_COMMENTS_PAGE;
         if (fetchedCount >= post.getCommentsCount()) {
             EventBus.getDefault().post(new GetCommentsCompleteEvent(null));
@@ -258,7 +258,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     PostComment comment = mapper.convertValue(commentObj, new TypeReference<PostComment>() {
                     });
                     Object postObj = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    WallBase post = WallBase.postFactory(postObj, mapper, true);
+                    WallItem post = WallItem.postFactory(postObj, mapper, true);
 
                     EventBus.getDefault().post(new PostCommentCompleteEvent(comment, post));
                     EventBus.getDefault().post(new ItemUpdateEvent(post));
@@ -320,12 +320,12 @@ public class WallModel extends GSMessageHandlerAbstract {
      * @param shareTarget where createPost should be shared
      */
 
-    void incrementShareCount(final WallBase item, SharingManager.ShareTarget shareTarget) {
+    void incrementShareCount(final WallItem item, SharingManager.ShareTarget shareTarget) {
         SharingManager.getInstance().increment(item, shareTarget).addOnCompleteListener(new OnCompleteListener<Map<String, Object>>() {
             @Override
             public void onComplete(@NonNull Task<Map<String, Object>> task) {
                 if (task.isSuccessful()) {
-                    WallBase post = WallBase.postFactory(task.getResult(), mapper, true);
+                    WallItem post = WallItem.postFactory(task.getResult(), mapper, true);
                     item.setEqualTo(post);
                 }
             }
@@ -346,7 +346,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 public void onEvent(GSResponseBuilder.LogEventResponse response) {
                     if (!response.hasErrors()) {
                         Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                        WallBase post = WallBase.postFactory(object, mapper, true);
+                        WallItem post = WallItem.postFactory(object, mapper, true);
                         EventBus.getDefault().post(new GetPostByIdEvent(post));
                     } else {
                         EventBus.getDefault().post(new GetPostByIdEvent(null));
@@ -402,7 +402,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 case GSConstants.WALL_POST:
                 case GSConstants.NEWS:
                 case GSConstants.RUMOUR:
-                    WallBase post = WallBase.postFactory(data.get(GSConstants.ITEM), mapper, true);
+                    WallItem post = WallItem.postFactory(data.get(GSConstants.ITEM), mapper, true);
                     if (post != null) {
                         EventBus.getDefault().post(new ItemUpdateEvent(post));
                     }
@@ -415,7 +415,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         String operation = (String) data.get(GSConstants.OPERATION);
         if (operation != null) {
             Object object = data.get(GSConstants.POST);
-            WallBase post = WallBase.postFactory(object, mapper, true);
+            WallItem post = WallItem.postFactory(object, mapper, true);
             if (post != null) {
                 switch (operation) {
                     case GSConstants.OPERATION_LIKE:

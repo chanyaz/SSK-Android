@@ -13,7 +13,7 @@ import base.app.data.sharing.SharingManager;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallStats extends WallBase {
+public class WallStats extends WallItem {
 
     private String statName;
     private String subText;
@@ -25,7 +25,7 @@ public class WallStats extends WallBase {
         super();
     }
 
-    public void setEqualTo(WallBase item){
+    public void setEqualTo(WallItem item){
         if(item instanceof WallStats){
             WallStats stats = (WallStats) item;
             this.statName = stats.getStatName();

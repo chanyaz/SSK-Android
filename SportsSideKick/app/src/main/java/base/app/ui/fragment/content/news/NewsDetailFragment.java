@@ -45,7 +45,7 @@ import base.app.data.news.NewsModel;
 import base.app.data.sharing.SharingManager;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.PostComment;
-import base.app.data.wall.WallBase;
+import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.News;
 import base.app.ui.activity.MainActivity;
@@ -63,8 +63,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static base.app.data.wall.WallBase.PostType.newsShare;
-import static base.app.data.wall.WallBase.PostType.rumourShare;
+import static base.app.data.wall.WallItem.PostType.newsShare;
+import static base.app.data.wall.WallItem.PostType.rumourShare;
 import static base.app.util.commons.Utility.getCurrentTime;
 import static base.app.util.commons.Utility.hideKeyboard;
 import static base.app.util.commons.Utility.showKeyboard;
@@ -177,7 +177,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     CommentsAdapter commentsAdapter;
     News item;
-    private WallBase sharedChildPost;
+    private WallItem sharedChildPost;
     List<PostComment> comments;
 
     public NewsDetailFragment() {
@@ -223,7 +223,7 @@ public class NewsDetailFragment extends BaseFragment {
 
         if (getSecondaryArgument() != null) {
             setSharedMessageBarVisible(true);
-            sharedChildPost = WallBase.getCache().get(getSecondaryArgument());
+            sharedChildPost = WallItem.getCache().get(getSecondaryArgument());
             if (sharedChildPost != null) {
                 showSharedMessageAvatar();
                 sharedMessageField.setText(sharedChildPost.getSharedComment());
@@ -533,7 +533,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @Subscribe
     public void onDeleteComment(CommentDeleteEvent event) {
-        WallBase wallItem = event.getPost();
+        WallItem wallItem = event.getPost();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
                 PostComment commentToDelete = null;
@@ -590,7 +590,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @Subscribe
     public void onPostUpdate(ItemUpdateEvent event) {
-        WallBase post = event.getPost();
+        WallItem post = event.getPost();
         if ((post != null)) {
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
@@ -635,7 +635,7 @@ public class NewsDetailFragment extends BaseFragment {
         }
     }
 
-    protected void pin(WallBase.PostType type) {
+    protected void pin(WallItem.PostType type) {
         EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         String sharingMessage = sharedMessageField.getText().toString();
 

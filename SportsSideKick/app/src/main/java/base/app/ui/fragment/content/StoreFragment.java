@@ -26,7 +26,7 @@ import java.io.IOException;
 import base.app.R;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
-import base.app.data.wall.WallBase;
+import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.BaseFragment;
@@ -180,7 +180,7 @@ public class StoreFragment extends BaseFragment {
                 }
             }
             item = new WallStoreItem();
-            item.setType(WallBase.PostType.wallStoreItem);
+            item.setType(WallItem.PostType.wallStoreItem);
             item.setPoster(Model.getInstance().getUserInfo());
             item.setTitle(webView.getTitle());
             item.setSubTitle(price);

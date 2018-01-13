@@ -14,7 +14,7 @@ import base.app.data.sharing.SharingManager;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallBetting extends WallBase {
+public class WallBetting extends WallItem {
 
     @JsonProperty("betName")
     private String betName;

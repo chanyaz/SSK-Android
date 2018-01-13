@@ -14,7 +14,7 @@ import base.app.data.sharing.SharingManager;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallStoreItem extends WallBase {
+public class WallStoreItem extends WallItem {
 
     @JsonProperty("url")
     private String url;
@@ -31,7 +31,7 @@ public class WallStoreItem extends WallBase {
 
 
     @Override
-    public void setEqualTo(WallBase item) {
+    public void setEqualTo(WallItem item) {
         super.setEqualTo(item);
         this.url = ((WallStoreItem)item).url;
     }

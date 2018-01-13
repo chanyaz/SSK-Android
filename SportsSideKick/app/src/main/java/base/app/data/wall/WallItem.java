@@ -16,8 +16,6 @@ import com.google.android.gms.tasks.Task;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import base.app.data.sharing.Shareable;
-import base.app.data.sharing.SharingManager;
 import base.app.data.user.UserInfo;
 
 /**
@@ -28,11 +26,11 @@ import base.app.data.user.UserInfo;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class WallBase implements Shareable, Serializable {
+public abstract class WallItem implements Serializable {
 
     private static final String TAG = "WALL BASE";
 
-    static private HashMap<String, WallBase> cache = new HashMap<>();
+    static private HashMap<String, WallItem> cache = new HashMap<>();
     @JsonIgnore // NOTE: we set Post type in factory method, not trough automatic JSON parsing!
     private PostType itemType = PostType.post;
 
@@ -99,11 +97,11 @@ public abstract class WallBase implements Shareable, Serializable {
         this.poster = poster;
     }
 
-    public static HashMap<String, WallBase> getCache() {
+    public static HashMap<String, WallItem> getCache() {
         return cache;
     }
 
-    public static WallBase postFactory(Object wallItem, ObjectMapper mapper, boolean putInCache) {
+    public static WallItem postFactory(Object wallItem, ObjectMapper mapper, boolean putInCache) {
         JsonNode node = mapper.valueToTree(wallItem);
         if (node.has("type")) {
             TypeReference typeReference = null;
@@ -135,15 +133,12 @@ public abstract class WallBase implements Shareable, Serializable {
                     typeReference = new TypeReference<WallStats>() {
                     };
                     break;
-                case rumor:
-                    typeReference = new TypeReference<Rumor>() {
-                    };
-                    break;
                 case wallStoreItem:
                     typeReference = new TypeReference<WallStoreItem>() {
                     };
                     break;
                 case newsOfficial:
+                case rumor:
                     typeReference = new TypeReference<News>() {
                     };
                     break;
@@ -151,12 +146,12 @@ public abstract class WallBase implements Shareable, Serializable {
                     Log.e(TAG, "ERROR ----- unsupported post type " + node.get("type").textValue() + "\n\n" + node);
             }
 
-            WallBase item = mapper.convertValue(wallItem, typeReference);
+            WallItem item = mapper.convertValue(wallItem, typeReference);
             item.setType(type);
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
             if (putInCache) {
-                WallBase cachedItem = cache.get(item.getPostId());
+                WallItem cachedItem = cache.get(item.getPostId());
                 if (cachedItem != null) {
                     cachedItem.setEqualTo(item);
                     item = cachedItem;
@@ -337,26 +332,19 @@ public abstract class WallBase implements Shareable, Serializable {
         });
     }
 
-    @Override
-    public void incrementShareCount(SharingManager.ShareTarget shareTarget) {
-        WallModel.getInstance().incrementShareCount(this, shareTarget);
+    public void setEqualTo(WallItem item) {
+        timestamp = item.timestamp;
+        itemType = item.itemType;
+        wallId = item.wallId;
+        postId = item.postId;
+        likeCount = item.likeCount;
+        likedByUser = item.likedByUser;
+        commentsCount = item.commentsCount;
+        shareCount = item.shareCount;
+        title = item.title;
+        subTitle = item.subTitle;
+        bodyText = item.bodyText;
+        coverImageUrl = item.coverImageUrl;
+        coverAspectRatio = item.coverAspectRatio;
     }
-
-    public void setEqualTo(WallBase item) {
-        this.timestamp = item.timestamp;
-        this.itemType = item.itemType;
-        this.wallId = item.wallId;
-        this.postId = item.postId;
-        this.likeCount = item.likeCount;
-        this.likedByUser = item.likedByUser;
-        this.commentsCount = item.commentsCount;
-        this.shareCount = item.shareCount;
-        this.title = item.title;
-        this.subTitle = item.subTitle;
-        this.bodyText = item.bodyText;
-        this.coverImageUrl = item.coverImageUrl;
-        this.coverAspectRatio = item.coverAspectRatio;
-    }
-
-
 }

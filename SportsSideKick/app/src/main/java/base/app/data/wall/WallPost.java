@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import base.app.data.sharing.SharingManager;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class WallPost extends WallBase {
+public class WallPost extends WallItem {
 
     @JsonProperty("vidUrl")
     private String vidUrl;
@@ -29,7 +29,7 @@ public class WallPost extends WallBase {
 
 
     @Override
-    public void setEqualTo(WallBase item) {
+    public void setEqualTo(WallItem item) {
         super.setEqualTo(item);
         this.vidUrl = ((WallPost)item).vidUrl;
     }

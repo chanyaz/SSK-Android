@@ -10,13 +10,13 @@ import base.app.data.sharing.SharingManager;
  * www.hypercubesoft.com
  */
 
-public class WallNewsShare extends WallBase{
+public class WallNewsShare extends WallItem {
 
     @JsonProperty("vidUrl")
     private String vidUrl;
 
     @Override
-    public void setEqualTo(WallBase item) {
+    public void setEqualTo(WallItem item) {
         super.setEqualTo(item);
         this.vidUrl = ((WallNewsShare)item).vidUrl;
 

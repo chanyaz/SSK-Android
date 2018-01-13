@@ -35,7 +35,7 @@ import base.app.util.events.post.PostCompleteEvent;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.WallBase;
+import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallPost;
 import base.app.util.commons.Utility;
@@ -168,7 +168,7 @@ public class CreatePostFragment extends BaseFragment {
         WallPost newPost = new WallPost();
         newPost.setTitle(captionContent);
         newPost.setBodyText(postContent);
-        newPost.setType(WallBase.PostType.post);
+        newPost.setType(WallItem.PostType.post);
         newPost.setTimestamp((double) Utility.getCurrentTime());
 
         if (uploadedImageUrl != null) {

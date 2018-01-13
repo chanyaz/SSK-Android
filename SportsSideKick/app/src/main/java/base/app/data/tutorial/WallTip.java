@@ -7,7 +7,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.List;
 
 import base.app.data.sharing.SharingManager;
-import base.app.data.wall.WallBase;
+import base.app.data.wall.WallItem;
 
 /**
  * Created by Filip on 3/30/2017.
@@ -17,7 +17,7 @@ import base.app.data.wall.WallBase;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallTip extends WallBase {
+public class WallTip extends WallItem {
 
     private int tipNumber;
     private String tipText;
@@ -120,7 +120,7 @@ public class WallTip extends WallBase {
     }
 
     @Override
-    public void setEqualTo(WallBase item) {
+    public void setEqualTo(WallItem item) {
         super.setEqualTo(item);
         setTipNumber(((WallTip)item).tipNumber);
         setTipText(((WallTip)item).tipText);

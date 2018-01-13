@@ -43,7 +43,7 @@ import base.app.data.ticker.NextMatchModel;
 import base.app.data.ticker.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.WallBase;
+import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallPost;
 import base.app.ui.adapter.content.WallAdapter;
@@ -106,7 +106,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @BindView(R.id.swipeRefreshLayout)
     SwipyRefreshLayout swipeRefreshLayout;
 
-    List<WallBase> wallItems;
+    List<WallItem> wallItems;
     private LoginStateReceiver loginStateReceiver;
 
     int offset = 0;
@@ -121,7 +121,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         loginStateReceiver = new LoginStateReceiver(this);
 
         wallItems = new ArrayList<>();
-        wallItems.addAll(WallBase.getCache().values());
+        wallItems.addAll(WallItem.getCache().values());
 
         adapter = new WallAdapter(getActivity());
         if (recyclerView != null) {
@@ -135,10 +135,10 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
                 if(!fetchingPageOfPosts) {
                     fetchingPageOfPosts = true;
-                    TaskCompletionSource<List<WallBase>> competition = new TaskCompletionSource<>();
-                    competition.getTask().addOnCompleteListener(new OnCompleteListener<List<WallBase>>() {
+                    TaskCompletionSource<List<WallItem>> competition = new TaskCompletionSource<>();
+                    competition.getTask().addOnCompleteListener(new OnCompleteListener<List<WallItem>>() {
                         @Override
-                        public void onComplete(@NonNull Task<List<WallBase>> task) {
+                        public void onComplete(@NonNull Task<List<WallItem>> task) {
                             fetchingPageOfPosts = false;
                         }
                     });
@@ -208,8 +208,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Subscribe
     public void onItemUpdate(ItemUpdateEvent event) {
-        final WallBase post = event.getPost();
-        for (WallBase item : wallItems) {
+        final WallItem post = event.getPost();
+        for (WallItem item : wallItems) {
             if (item.getWallId().equals(post.getWallId()) &&
                     item.getPostId().equals(post.getPostId())) {
                 item.setEqualTo(post);
@@ -239,7 +239,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Subscribe
     public void onUpdateLikeCount(WallLikeUpdateEvent event) {
         if (event.getWallId() != null) {
-            for (WallBase item : wallItems) {
+            for (WallItem item : wallItems) {
                 if (event.getWallId().equals(item.getWallId())
                         && event.getPostId().equals(item.getPostId())) {
                     item.setLikeCount(event.getCount());
@@ -253,7 +253,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Subscribe
     public void onUpdateComment(CommentUpdateEvent event) {
         if (event.getWallItem() != null) {
-            for (WallBase item : wallItems) {
+            for (WallItem item : wallItems) {
                 if (event.getWallItem().getWallId().equals(item.getWallId())
                         && event.getWallItem().getPostId().equals(item.getPostId())) {
                     item.setCommentsCount(event.getWallItem().getCommentsCount());
@@ -266,9 +266,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     public void refreshAdapter() {
         adapter.clear();
-        Collections.sort(wallItems, new Comparator<WallBase>() {
+        Collections.sort(wallItems, new Comparator<WallItem>() {
             @Override
-            public int compare(WallBase t1, WallBase t2) {
+            public int compare(WallItem t1, WallItem t2) {
                 return t2.getTimestamp().compareTo(t1.getTimestamp());
             }
         });
@@ -280,9 +280,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Subscribe
     public void onPostDeleted(PostDeletedEvent event) {
-        WallBase deletedItem = event.getPost();
-        WallBase itemToDelete = null;
-        for(WallBase post : wallItems){
+        WallItem deletedItem = event.getPost();
+        WallItem itemToDelete = null;
+        for(WallItem post : wallItems){
             if(post.getPostId().equals(deletedItem.getPostId())){
                 itemToDelete = post;
             }
@@ -299,26 +299,26 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
         offset = 0;
         fetchingPageOfPosts = true;
-        final TaskCompletionSource<List<WallBase>> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<List<WallBase>>() {
+        final TaskCompletionSource<List<WallItem>> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<List<WallItem>>() {
             @Override
-            public void onComplete(@NonNull Task<List<WallBase>> task) {
+            public void onComplete(@NonNull Task<List<WallItem>> task) {
                 fetchingPageOfPosts = false;
             }
         });
         loadWallItemsPage(true,source);
     }
 
-    private void loadWallItemsPage(final boolean withSpinner, final TaskCompletionSource<List<WallBase>> completion){
+    private void loadWallItemsPage(final boolean withSpinner, final TaskCompletionSource<List<WallItem>> completion){
         if(withSpinner){
             progressBar.setVisibility(View.VISIBLE);
         }
-        TaskCompletionSource<List<WallBase>> getWallPostCompletion = new TaskCompletionSource<>();
-        getWallPostCompletion.getTask().addOnCompleteListener(new OnCompleteListener<List<WallBase>>() {
+        TaskCompletionSource<List<WallItem>> getWallPostCompletion = new TaskCompletionSource<>();
+        getWallPostCompletion.getTask().addOnCompleteListener(new OnCompleteListener<List<WallItem>>() {
             @Override
-            public void onComplete(@NonNull Task<List<WallBase>> task) {
+            public void onComplete(@NonNull Task<List<WallItem>> task) {
                 if(task.isSuccessful()){
-                    List<WallBase> items = task.getResult();
+                    List<WallItem> items = task.getResult();
                     wallItems.addAll(items);
                     completion.setResult(items);
                     refreshAdapter();

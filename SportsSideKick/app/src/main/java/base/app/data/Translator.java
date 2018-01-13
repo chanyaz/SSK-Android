@@ -16,7 +16,7 @@ import java.util.Map;
 import base.app.R;
 import base.app.data.im.ImsMessage;
 import base.app.data.wall.PostComment;
-import base.app.data.wall.WallBase;
+import base.app.data.wall.WallItem;
 import base.app.data.wall.News;
 import base.app.util.commons.XmlLanguageMapParser;
 
@@ -100,7 +100,7 @@ public class Translator {
                 });
     }
 
-    public void translatePost(String itemId, String language, final TaskCompletionSource<WallBase> completion, final WallBase.PostType postType) {
+    public void translatePost(String itemId, String language, final TaskCompletionSource<WallItem> completion, final WallItem.PostType postType) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateWallPost")
                 .setEventAttribute(POST_ID, itemId)
@@ -113,7 +113,7 @@ public class Translator {
                             if (itemObj == null) return;
                             Map<String, Object> data = itemObj.getBaseData();
                             data.put(CLUB_ID_TAG, postType);
-                            WallBase item = WallBase.postFactory(data, mapper, false);
+                            WallItem item = WallItem.postFactory(data, mapper, false);
                             completion.setResult(item);
                         }
                     }

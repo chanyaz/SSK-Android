@@ -69,8 +69,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
     // These are used to match types on Cloud Code so we can pull from the correct collection.
     public enum ItemType {
         WallPost,
-        News,
-        NewsShare
+        News
     }
 
     Shareable itemToShare;
@@ -117,7 +116,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
         share(null, item, isNative, shareTarget, sender);
     }
 
-    public void share(final Context context, final Shareable item, final boolean isNative, final ShareTarget shareTarget, final View sender) {
+    public void share(final Context context, final Object item, final boolean isNative, final ShareTarget shareTarget, final View sender) {
         Map<String, Object> itemAsMap = mapper.convertValue(item, new TypeReference<Map<String, Object>>() {
         });
        //TODO Temporarily fix

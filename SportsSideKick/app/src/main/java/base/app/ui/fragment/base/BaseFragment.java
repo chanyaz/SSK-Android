@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-import base.app.data.wall.WallBase;
+import base.app.data.wall.WallItem;
 import base.app.util.events.BusEvent;
 import base.app.util.commons.Utility;
 
@@ -62,8 +62,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Nullable
-    protected WallBase getItemArgument() {
-        return (WallBase) getArguments().getSerializable(ITEM_ARG_TAG);
+    protected WallItem getItemArgument() {
+        return (WallItem) getArguments().getSerializable(ITEM_ARG_TAG);
     }
 
     protected List<String> getStringArrayArguement() {
