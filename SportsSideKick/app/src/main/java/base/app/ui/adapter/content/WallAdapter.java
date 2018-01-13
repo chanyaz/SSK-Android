@@ -40,7 +40,7 @@ import base.app.data.wall.WallPost;
 import base.app.data.wall.WallStats;
 import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.WallItemFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -346,7 +346,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         fe = new FragmentEvent(WallItemFragment.class);
                         fe.setId(item.getPostId());
                     } else {
-                        fe = new FragmentEvent(NewsItemFragment.class);
+                        fe = new FragmentEvent(NewsDetailFragment.class);
                         fe.setId(item.getReferencedItemId());
                         fe.setSecondaryId(item.getPostId());
                     }

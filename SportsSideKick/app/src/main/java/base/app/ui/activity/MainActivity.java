@@ -38,8 +38,8 @@ import base.app.ui.adapter.menu.SideMenuAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
-import base.app.ui.fragment.content.NewsFragment;
-import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.news.NewsDetailFragment;
+import base.app.ui.fragment.content.news.NewsListFragment;
 import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.content.WallFragment;
@@ -226,7 +226,7 @@ public class MainActivity extends BaseActivity
         ArrayList<Class> mainContainerFragments = new ArrayList<>();
         mainContainerFragments.add(WallFragment.class);
         mainContainerFragments.add(ChatFragment.class);
-        mainContainerFragments.add(NewsFragment.class);
+        mainContainerFragments.add(NewsListFragment.class);
         mainContainerFragments.add(StatisticsFragment.class);
         mainContainerFragments.add(RumoursFragment.class);
         mainContainerFragments.add(StoreFragment.class);
@@ -262,7 +262,7 @@ public class MainActivity extends BaseActivity
         popupLeftFragments.add(EditChatFragment.class);
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
-        popupLeftFragments.add(NewsItemFragment.class);
+        popupLeftFragments.add(NewsDetailFragment.class);
         popupLeftFragments.add(CreatePostFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
 
@@ -374,7 +374,7 @@ public class MainActivity extends BaseActivity
         Class<? extends Fragment> penultimateFragment = fragmentOrganizer.getPenultimateFragment().getClass();
         Fragment currentFragment = fragmentOrganizer.getCurrentFragment();
 
-        if (currentFragment.getClass() == NewsItemFragment.class) {
+        if (currentFragment.getClass() == NewsDetailFragment.class) {
             if (previousFragment == ClubRadioFragment.class) {
                 Fragment fragment = fragmentOrganizer.getCurrentFragment();
                 View overlay = fragment.getView().findViewById(R.id.commentInputOverlay);

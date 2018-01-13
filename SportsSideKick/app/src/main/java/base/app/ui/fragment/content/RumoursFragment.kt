@@ -12,7 +12,7 @@ import base.app.data.news.NewsPageEvent
 import base.app.ui.adapter.content.RumoursAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.ui.show
-import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.android.synthetic.main.fragment_news_list.*
 import org.greenrobot.eventbus.Subscribe
 
 /**
@@ -27,7 +27,7 @@ class RumoursFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_news, container, false)
+        return inflater.inflate(R.layout.fragment_news_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

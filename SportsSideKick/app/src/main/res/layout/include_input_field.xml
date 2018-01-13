@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:background="#f7f7f7"
-    tools:showIn="@layout/fragment_news_item">
+    tools:showIn="@layout/fragment_news_detail">
 
     <View
         android:layout_width="match_parent"

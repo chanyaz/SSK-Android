@@ -13,7 +13,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.data.wall.WallNews;
 
 /**
@@ -70,7 +70,7 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
+                FragmentEvent fe = new FragmentEvent(NewsDetailFragment.class);
                 fe.setId(item.getPostId());
                 EventBus.getDefault().post(fe);
             }

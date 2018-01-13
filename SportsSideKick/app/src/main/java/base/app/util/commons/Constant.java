@@ -7,7 +7,7 @@ import java.util.List;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.stream.ClubRadioFragment;
 import base.app.ui.fragment.stream.ClubTVFragment;
-import base.app.ui.fragment.content.NewsFragment;
+import base.app.ui.fragment.content.news.NewsListFragment;
 import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.content.StoreFragment;
@@ -49,7 +49,7 @@ public class Constant {
         new ArrayList<Class>() {{
             add(WallFragment.class);
             add(ChatFragment.class);
-            add(NewsFragment.class);
+            add(NewsListFragment.class);
             add(StatisticsFragment.class);
             add(RumoursFragment.class);
             add(ClubRadioFragment.class);

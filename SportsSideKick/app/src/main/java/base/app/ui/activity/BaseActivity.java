@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.util.commons.Constant;
 import base.app.data.GSAndroidPlatform;
 import base.app.R;
@@ -42,8 +43,7 @@ import base.app.util.events.notify.NotificationEvent;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.content.NewsFragment;
-import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.news.NewsListFragment;
 import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
@@ -163,7 +163,7 @@ abstract class BaseActivity extends AppCompatActivity {
                     wallItemFragmentEvent.setId(postId + "$$$");
                     EventBus.getDefault().post(wallItemFragmentEvent);
                 } else if (SharingManager.ItemType.News.name().equals(postType)) {
-                    FragmentEvent newsItemFragmentEvent = new FragmentEvent(NewsItemFragment.class);
+                    FragmentEvent newsItemFragmentEvent = new FragmentEvent(NewsDetailFragment.class);
                     newsItemFragmentEvent.setId(postId);
                     EventBus.getDefault().post(newsItemFragmentEvent);
                 }
@@ -193,12 +193,12 @@ abstract class BaseActivity extends AppCompatActivity {
                 EventBus.getDefault().post(wallItemFragmentEvent);
             } else if (notificationData.containsKey("newsItem") && notificationData.containsKey("newsType")) {
                 if ("newsOfficial".equals(notificationData.get("newsType"))) {
-                    EventBus.getDefault().post(NewsFragment.class);
+                    EventBus.getDefault().post(NewsListFragment.class);
                 } else {
                     EventBus.getDefault().post(RumoursFragment.class);
                 }
                 if (!"-1".equals(notificationData.get("newsItem"))) {
-                    FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
+                    FragmentEvent fe = new FragmentEvent(NewsDetailFragment.class);
                     String id = notificationData.get("newsItem");
                     if ("newsOfficial".equals(notificationData.get("newsType"))) {
                         fe.setId("UNOFFICIAL$$$" + id);

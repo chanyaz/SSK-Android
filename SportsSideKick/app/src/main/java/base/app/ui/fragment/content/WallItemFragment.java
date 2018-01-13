@@ -155,7 +155,7 @@ public class WallItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_news_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_news_detail, container, false);
         ButterKnife.bind(this, view);
 
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(

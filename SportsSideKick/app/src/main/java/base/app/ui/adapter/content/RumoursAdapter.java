@@ -7,7 +7,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.data.wall.WallNews;
 
 import static android.view.View.*;
@@ -39,7 +39,7 @@ public class RumoursAdapter extends NewsAdapter {
         return new OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
+                FragmentEvent fe = new FragmentEvent(NewsDetailFragment.class);
                 fe.setId("UNOFFICIAL$$$" + item.getPostId());
                 EventBus.getDefault().post(fe);
             }

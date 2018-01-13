@@ -1,4 +1,4 @@
-package base.app.ui.fragment.content;
+package base.app.ui.fragment.content.news;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -74,7 +74,7 @@ import static base.app.util.commons.Utility.showKeyboard;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class NewsItemFragment extends BaseFragment {
+public class NewsDetailFragment extends BaseFragment {
 
     @BindView(R.id.content_image)
     ImageView imageHeader;
@@ -180,7 +180,7 @@ public class NewsItemFragment extends BaseFragment {
     private WallBase sharedChildPost;
     List<PostComment> comments;
 
-    public NewsItemFragment() {
+    public NewsDetailFragment() {
         // Required empty public constructor
     }
 
@@ -188,7 +188,7 @@ public class NewsItemFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.fragment_news_item,
+                R.layout.fragment_news_detail,
                 container,
                 false);
         ButterKnife.bind(this, view);
