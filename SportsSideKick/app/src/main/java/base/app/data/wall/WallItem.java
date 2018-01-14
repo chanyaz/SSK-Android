@@ -69,7 +69,7 @@ public abstract class WallItem implements Serializable {
     @JsonProperty("shareCount")
     private int shareCount = 0;
     @JsonProperty("subTitle")
-    String subTitle = "";
+    private String subTitle = "";
     @JsonProperty("title")
     protected String title;
     @JsonProperty("bodyText")
@@ -118,7 +118,7 @@ public abstract class WallItem implements Serializable {
                 case post:
                 case wallComment:
                 case social:
-                    typeReference = new TypeReference<WallPost>() {
+                    typeReference = new TypeReference<Post>() {
                     };
                     break;
                 case newsShare:

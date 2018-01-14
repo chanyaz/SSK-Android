@@ -46,11 +46,11 @@ import base.app.data.Model;
 import base.app.data.Translator;
 import base.app.data.sharing.SharingManager;
 import base.app.data.user.UserInfo;
+import base.app.data.wall.Post;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallNewsShare;
-import base.app.data.wall.WallPost;
 import base.app.data.wall.WallStoreItem;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -251,7 +251,7 @@ public class WallItemFragment extends BaseFragment {
         }
         switch (item.getType()) {
             case post:
-                WallPost post = (WallPost) item;
+                Post post = (Post) item;
                 ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
                         R.drawable.wall_detail_header_placeholder);
                 title.setText(post.getTitle());
@@ -284,7 +284,7 @@ public class WallItemFragment extends BaseFragment {
                 }
                 break;
             case rumor:
-            case news:
+            case newsOfficial:
                 WallNewsShare news = (WallNewsShare) item;
                 ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader, null);
                 title.setText(news.getTitle());

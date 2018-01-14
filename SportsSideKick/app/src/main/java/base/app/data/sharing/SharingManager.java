@@ -127,9 +127,6 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                     return;
                 }
         itemToShare = null;
-        if (item.getItemType() == null) {
-            Log.e(TAG, "This item is not inteded for sharing, yet!");
-        }
         getUrl(itemAsMap, item.getItemType()).addOnCompleteListener(new OnCompleteListener<Map<String, Object>>() {
             @Override
             public void onComplete(@NonNull Task<Map<String, Object>> task) {
@@ -210,13 +207,11 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
 
     @Override
     public void onCancel() {
-        // - NOOP
     }
 
     @Override
     public void onError(FacebookException error) {
         // TODO @Filip - title: "Error", message: "Failed to share to Facebook, please try again"
     }
-
 }
 

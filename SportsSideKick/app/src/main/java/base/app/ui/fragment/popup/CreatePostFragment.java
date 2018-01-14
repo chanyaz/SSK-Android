@@ -31,13 +31,13 @@ import java.io.IOException;
 
 import base.app.BuildConfig;
 import base.app.R;
+import base.app.data.wall.Post;
 import base.app.util.events.post.PostCompleteEvent;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
-import base.app.data.wall.WallPost;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -165,7 +165,7 @@ public class CreatePostFragment extends BaseFragment {
             return;
         }
 
-        WallPost newPost = new WallPost();
+        Post newPost = new Post();
         newPost.setTitle(captionContent);
         newPost.setBodyText(postContent);
         newPost.setType(WallItem.PostType.post);

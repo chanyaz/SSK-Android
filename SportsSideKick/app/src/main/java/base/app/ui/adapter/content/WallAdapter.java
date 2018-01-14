@@ -36,7 +36,7 @@ import base.app.data.user.UserInfo;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallItem.PostType;
 import base.app.data.wall.WallNewsShare;
-import base.app.data.wall.WallPost;
+import base.app.data.wall.Post;
 import base.app.data.wall.WallStats;
 import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -280,7 +280,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             WallItem item = values.get(index);
             switch (item.getType()) {
                 case post:
-                    WallPost post = (WallPost) item;
+                    Post post = (Post) item;
                     displayUserInfo(post, holder);
                     boolean hasImage = displayPostImage(post, holder);
                     if (holder.contentTextView != null) {

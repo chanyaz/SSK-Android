@@ -65,7 +65,7 @@ public class GSConstants {
     public static final String DATA = "data";
     public static final String TOKEN = "token";
     public static final String ITEM_TYPE = "itemType";
-    public static final String WALL_POST = "WallPost";
+    public static final String WALL_POST = "Post";
     public static final String NEWS = "News";
     public static final String RUMOUR = "Rumour";
     public static final String ITEM = "item";

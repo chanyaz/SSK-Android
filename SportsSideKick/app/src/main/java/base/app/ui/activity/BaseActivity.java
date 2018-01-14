@@ -156,7 +156,7 @@ abstract class BaseActivity extends AppCompatActivity {
             if (parts != null && parts.length == 3) {
                 String clubId = parts[2];
                 String postType = parts[1];
-                String postId = parts[0]; // WallPost ?
+                String postId = parts[0]; // Post ?
                 Log.d(TAG, "Post id is : " + postId);
                 if (SharingManager.ItemType.WallPost.name().equals(postType)) {
                     FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);

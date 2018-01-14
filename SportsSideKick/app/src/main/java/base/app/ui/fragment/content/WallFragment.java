@@ -45,7 +45,7 @@ import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
-import base.app.data.wall.WallPost;
+import base.app.data.wall.Post;
 import base.app.ui.adapter.content.WallAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -217,7 +217,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 return;
             }
         }
-        if (post.getPoster() == null && post instanceof WallPost) {
+        if (post.getPoster() == null && post instanceof Post) {
             Model.getInstance().getUserInfoById(post.getWallId())
                     .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                 @Override
