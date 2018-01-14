@@ -21,8 +21,6 @@ import base.app.ui.fragment.content.news.NewsDetailFragment;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
-
 public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     private static final int VIEW_TYPE_ROW = 1;
@@ -79,9 +77,6 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (values == null) {
-            return 0;
-        }
         return values.size();
     }
 

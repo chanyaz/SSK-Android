@@ -35,15 +35,14 @@ import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.menu.MenuAdapter;
 import base.app.ui.adapter.menu.SideMenuAdapter;
-import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
-import base.app.ui.fragment.content.news.NewsDetailFragment;
-import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.content.WallFragment;
 import base.app.ui.fragment.content.WallItemFragment;
+import base.app.ui.fragment.content.news.NewsDetailFragment;
+import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.popup.AddFriendFragment;
@@ -54,13 +53,13 @@ import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.EditProfileFragment;
 import base.app.ui.fragment.popup.FollowersFragment;
 import base.app.ui.fragment.popup.FollowingFragment;
+import base.app.ui.fragment.popup.FriendFragment;
 import base.app.ui.fragment.popup.FriendRequestsFragment;
 import base.app.ui.fragment.popup.FriendsFragment;
 import base.app.ui.fragment.popup.InviteFriendFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LanguageFragment;
 import base.app.ui.fragment.popup.LoginFragment;
-import base.app.ui.fragment.popup.FriendFragment;
 import base.app.ui.fragment.popup.ProfileFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
@@ -387,12 +386,6 @@ public class MainActivity extends BaseActivity
 
         toggleBlur(false, null); // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-
-        if (currentFragment instanceof FriendFragment) {
-            Class initiator = ((BaseFragment) currentFragment).getInitiator();
-            EventBus.getDefault().post(new FragmentEvent(initiator, true));
-            return;
-        }
 
         // Hiding fragments - TODO Instead of popping them from back stack?
         if (popupLeftFragments.contains(previousFragment)) {

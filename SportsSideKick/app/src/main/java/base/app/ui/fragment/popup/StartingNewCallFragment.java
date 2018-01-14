@@ -120,7 +120,7 @@ public class StartingNewCallFragment extends BaseFragment {
                     @Override
                     public void onSuccess(List<UserInfo> userInfos) {
                         chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
-                        List<String> presentUsers = getStringArrayArguement();
+                        List<String> presentUsers = getStringArrayArgument();
                         users = userInfos;
                         if (presentUsers != null) {
                             addUsersToCall = true;

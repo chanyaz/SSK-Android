@@ -167,10 +167,7 @@ public class FriendFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friend, container, false);
-        initiatorFragment = getInitiator();
-        if (initiatorFragment == null) {
-            initiatorFragment = FriendsFragment.class; // Resolve to default parent!
-        }
+        initiatorFragment = FriendsFragment.class;
         ButterKnife.bind(this, view);
         if (Utility.isPhone(getActivity())) {
             int width = Utility.getDisplayWidth(getActivity());

@@ -30,7 +30,7 @@ open class NewsFragment : BaseFragment() {
         swipeRefreshLayout.isRefreshing = true
 
         val viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
-        viewModel.getNews(newsType).observe(this, Observer {
+        viewModel.loadNews(newsType).observe(this, Observer {
             swipeRefreshLayout.isRefreshing = false
             adapter.addAll(it)
         })
