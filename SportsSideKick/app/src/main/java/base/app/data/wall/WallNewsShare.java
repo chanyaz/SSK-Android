@@ -2,7 +2,7 @@ package base.app.data.wall;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import base.app.data.sharing.SharingManager;
+import base.app.data.sharing.ShareHelper;
 
 /**
  * Created by Filip on 4/6/2017.
@@ -22,9 +22,8 @@ public class WallNewsShare extends WallItem {
 
     }
 
-    @Override
-    public SharingManager.ItemType getItemType() {
-        return SharingManager.ItemType.WallPost;
+    public ShareHelper.ItemType getItemType() {
+        return ShareHelper.ItemType.WallPost;
     }
 
     public String getVidUrl() {

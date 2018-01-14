@@ -44,7 +44,7 @@ import java.util.List;
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.Translator;
-import base.app.data.sharing.SharingManager;
+import base.app.data.sharing.ShareHelper;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.Post;
 import base.app.data.wall.PostComment;
@@ -558,20 +558,20 @@ public class WallItemFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.share_facebook)
-    public void sharePostFacebook(View view) {
-        SharingManager.getInstance().share(getContext(), mPost, false, SharingManager.ShareTarget.facebook, view);
+    public void sharePostFacebook() {
+        ShareHelper.share(mPost);
     }
 
     @Optional
     @OnClick(R.id.share_twitter)
-    public void sharePostTwitter(View view) {
+    public void sharePostTwitter() {
         PackageManager pkManager = getActivity().getPackageManager();
         try {
             PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
             String getPkgInfo = pkgInfo.toString();
 
             if (getPkgInfo.contains("com.twitter.android")) {
-                SharingManager.getInstance().share(getContext(), mPost, false, SharingManager.ShareTarget.twitter, view);
+                ShareHelper.share(mPost);
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

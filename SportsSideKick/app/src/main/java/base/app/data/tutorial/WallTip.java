@@ -6,7 +6,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.List;
 
-import base.app.data.sharing.SharingManager;
 import base.app.data.wall.WallItem;
 
 /**
@@ -112,11 +111,6 @@ public class WallTip extends WallItem {
 
     public void markAsNotSeen(){
         Prefs.putBoolean("tip_seen_" + tipNumber,false);
-    }
-
-    @Override
-    public SharingManager.ItemType getItemType() {
-        return null;
     }
 
     @Override

@@ -55,7 +55,7 @@ import base.app.data.notifications.ExternalNotificationEvent;
 import base.app.data.notifications.InternalNotificationManager;
 import base.app.data.purchases.PurchaseModel;
 import base.app.data.sharing.NativeShareEvent;
-import base.app.data.sharing.SharingManager;
+import base.app.data.sharing.ShareHelper;
 import base.app.data.ticker.NewsTickerInfo;
 import base.app.data.ticker.NextMatchModel;
 import base.app.data.ticker.NextMatchUpdateEvent;
@@ -102,7 +102,7 @@ abstract class BaseActivity extends AppCompatActivity {
         // internal notifications initialization
         InternalNotificationManager.getInstance();
         // this part is optional
-        facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
+        facebookShareDialog.registerCallback(callbackManager, ShareHelper.Companion.getInstance());
         notificationContainer = findViewById(R.id.left_notification_container);
         PurchaseModel.getInstance().onCreate(this);
 
@@ -158,11 +158,11 @@ abstract class BaseActivity extends AppCompatActivity {
                 String postType = parts[1];
                 String postId = parts[0]; // Post ?
                 Log.d(TAG, "Post id is : " + postId);
-                if (SharingManager.ItemType.WallPost.name().equals(postType)) {
+                if (ShareHelper.ItemType.WallPost.name().equals(postType)) {
                     FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
                     wallItemFragmentEvent.setId(postId + "$$$");
                     EventBus.getDefault().post(wallItemFragmentEvent);
-                } else if (SharingManager.ItemType.News.name().equals(postType)) {
+                } else if (ShareHelper.ItemType.News.name().equals(postType)) {
                     FragmentEvent newsItemFragmentEvent = new FragmentEvent(NewsDetailFragment.class);
                     newsItemFragmentEvent.setId(postId);
                     EventBus.getDefault().post(newsItemFragmentEvent);

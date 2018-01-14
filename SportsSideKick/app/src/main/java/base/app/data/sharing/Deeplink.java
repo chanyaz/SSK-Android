@@ -9,9 +9,9 @@ package base.app.data.sharing;
 public class Deeplink {
 
     String id;
-    SharingManager.ItemType type;
+    ShareHelper.ItemType type;
 
-    public Deeplink(String id, SharingManager.ItemType type) {
+    public Deeplink(String id, ShareHelper.ItemType type) {
         this.id = id;
         this.type = type;
     }
@@ -24,11 +24,11 @@ public class Deeplink {
         this.id = id;
     }
 
-    public SharingManager.ItemType getType() {
+    public ShareHelper.ItemType getType() {
         return type;
     }
 
-    public void setType(SharingManager.ItemType type) {
+    public void setType(ShareHelper.ItemType type) {
         this.type = type;
     }
 }

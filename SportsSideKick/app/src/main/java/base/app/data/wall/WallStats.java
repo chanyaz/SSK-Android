@@ -3,7 +3,7 @@ package base.app.data.wall;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import base.app.data.sharing.SharingManager;
+import base.app.data.sharing.ShareHelper;
 
 /**
  * Created by Filip on 1/10/2017.
@@ -79,11 +79,6 @@ public class WallStats extends WallItem {
     public WallStats setDisplayType(StatsDisplayType displayType) {
         this.displayType = displayType;
         return this;
-    }
-
-    @Override
-    public SharingManager.ItemType getItemType() {
-        return null;
     }
 
     public enum StatsDisplayType{

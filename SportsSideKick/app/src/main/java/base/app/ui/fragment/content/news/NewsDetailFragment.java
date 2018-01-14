@@ -42,7 +42,7 @@ import java.util.List;
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.news.NewsModel;
-import base.app.data.sharing.SharingManager;
+import base.app.data.sharing.ShareHelper;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallItem;
@@ -607,9 +607,9 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     @OnClick(R.id.share_facebook)
-    public void sharePostFacebook(View view) {
+    public void sharePostFacebook() {
         if (Model.getInstance().isRealUser()) {
-            SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
+            ShareHelper.share(item);
         } else {
             //TODO Notify user that need to login in order to SHARE
         }
@@ -617,7 +617,7 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     @OnClick(R.id.share_twitter)
-    public void sharePostTwitter(View view) {
+    public void sharePostTwitter() {
         if (Model.getInstance().isRealUser()) {
             PackageManager pkManager = getActivity().getPackageManager();
             try {
@@ -625,7 +625,7 @@ public class NewsDetailFragment extends BaseFragment {
                 String getPkgInfo = pkgInfo.toString();
 
                 if (getPkgInfo.contains("com.twitter.android")) {
-                    SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
+                    ShareHelper.share(item);
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import base.app.data.sharing.SharingManager;
+import base.app.data.sharing.ShareHelper;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
@@ -63,10 +63,5 @@ public class WallBetting extends WallItem {
     @JsonProperty("percentage")
     public void setPercentage(Float percentage) {
         this.percentage = percentage;
-    }
-
-    @Override
-    public SharingManager.ItemType getItemType() {
-        return null;
     }
 }

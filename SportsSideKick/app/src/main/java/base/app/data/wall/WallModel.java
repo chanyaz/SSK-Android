@@ -26,7 +26,7 @@ import base.app.data.DateUtils;
 import base.app.data.FileUploader;
 import base.app.data.GSConstants;
 import base.app.data.Model;
-import base.app.data.sharing.SharingManager;
+import base.app.data.sharing.ShareHelper;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
 import base.app.util.events.comment.CommentDeleteEvent;
@@ -320,8 +320,8 @@ public class WallModel extends GSMessageHandlerAbstract {
      * @param shareTarget where createPost should be shared
      */
 
-    void incrementShareCount(final WallItem item, SharingManager.ShareTarget shareTarget) {
-        SharingManager.getInstance().increment(item, shareTarget).addOnCompleteListener(new OnCompleteListener<Map<String, Object>>() {
+    void incrementShareCount(final WallItem item, ShareHelper.ShareTarget shareTarget) {
+        ShareHelper.Companion.getInstance().increment(item, shareTarget).addOnCompleteListener(new OnCompleteListener<Map<String, Object>>() {
             @Override
             public void onComplete(@NonNull Task<Map<String, Object>> task) {
                 if (task.isSuccessful()) {

@@ -2,8 +2,8 @@ package base.app.data.sharing;
 
 public interface Shareable {
 
-    void incrementShareCount(SharingManager.ShareTarget shareTarget);
+    void incrementShareCount(ShareHelper.ShareTarget shareTarget);
 
-    SharingManager.ItemType getItemType();
+    ShareHelper.ItemType getItemType();
 
 }
