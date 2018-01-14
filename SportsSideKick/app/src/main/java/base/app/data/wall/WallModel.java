@@ -1,6 +1,5 @@
 package base.app.data.wall;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -11,7 +10,6 @@ import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
@@ -26,7 +24,6 @@ import base.app.data.DateUtils;
 import base.app.data.FileUploader;
 import base.app.data.GSConstants;
 import base.app.data.Model;
-import base.app.data.sharing.ShareHelper;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
 import base.app.util.events.comment.CommentDeleteEvent;
@@ -34,9 +31,9 @@ import base.app.util.events.comment.CommentUpdateEvent;
 import base.app.util.events.comment.CommentUpdatedEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
+import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.events.post.PostDeletedEvent;
-import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
 
 import static base.app.ClubConfig.CLUB_ID;
@@ -311,25 +308,6 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         return source.getTask();
-    }
-
-    /**
-     * createPost was shared to a share target
-     *
-     * @param item        createPost, the target
-     * @param shareTarget where createPost should be shared
-     */
-
-    void incrementShareCount(final WallItem item, ShareHelper.ShareTarget shareTarget) {
-        ShareHelper.Companion.getInstance().increment(item, shareTarget).addOnCompleteListener(new OnCompleteListener<Map<String, Object>>() {
-            @Override
-            public void onComplete(@NonNull Task<Map<String, Object>> task) {
-                if (task.isSuccessful()) {
-                    WallItem post = WallItem.postFactory(task.getResult(), mapper, true);
-                    item.setEqualTo(post);
-                }
-            }
-        });
     }
 
     /**

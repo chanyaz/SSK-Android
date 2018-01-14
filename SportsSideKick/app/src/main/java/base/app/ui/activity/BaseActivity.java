@@ -35,35 +35,34 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import base.app.ui.fragment.content.news.NewsDetailFragment;
-import base.app.util.commons.Constant;
-import base.app.data.GSAndroidPlatform;
 import base.app.R;
-import base.app.util.events.notify.NotificationEvent;
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.base.FragmentOrganizer;
-import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.content.news.NewsFragment;
-import base.app.ui.fragment.content.RumoursFragment;
-import base.app.ui.fragment.other.StatisticsFragment;
-import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.ui.fragment.content.WallItemFragment;
-import base.app.ui.fragment.popup.FollowersFragment;
-import base.app.ui.fragment.popup.FriendsFragment;
+import base.app.data.GSAndroidPlatform;
 import base.app.data.Model;
 import base.app.data.notifications.ExternalNotificationEvent;
 import base.app.data.notifications.InternalNotificationManager;
 import base.app.data.purchases.PurchaseModel;
 import base.app.data.sharing.NativeShareEvent;
-import base.app.data.sharing.ShareHelper;
 import base.app.data.ticker.NewsTickerInfo;
 import base.app.data.ticker.NextMatchModel;
 import base.app.data.ticker.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.videoChat.VideoChatEvent;
 import base.app.data.videoChat.VideoChatModel;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.base.FragmentOrganizer;
+import base.app.ui.fragment.content.RumoursFragment;
+import base.app.ui.fragment.content.WallItemFragment;
+import base.app.ui.fragment.content.news.NewsDetailFragment;
+import base.app.ui.fragment.content.news.NewsFragment;
+import base.app.ui.fragment.other.ChatFragment;
+import base.app.ui.fragment.other.StatisticsFragment;
+import base.app.ui.fragment.popup.FollowersFragment;
+import base.app.ui.fragment.popup.FriendsFragment;
+import base.app.ui.fragment.stream.VideoChatFragment;
+import base.app.util.commons.Constant;
 import base.app.util.commons.ContextWrapper;
 import base.app.util.commons.Utility;
+import base.app.util.events.notify.NotificationEvent;
 import butterknife.BindView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -101,8 +100,6 @@ abstract class BaseActivity extends AppCompatActivity {
         facebookShareDialog = new ShareDialog(this);
         // internal notifications initialization
         InternalNotificationManager.getInstance();
-        // this part is optional
-        facebookShareDialog.registerCallback(callbackManager, ShareHelper.Companion.getInstance());
         notificationContainer = findViewById(R.id.left_notification_container);
         PurchaseModel.getInstance().onCreate(this);
 
@@ -154,19 +151,12 @@ abstract class BaseActivity extends AppCompatActivity {
             String lastPathSegment = uri.getLastPathSegment();
             String[] parts = StringUtils.split(lastPathSegment, ":");
             if (parts != null && parts.length == 3) {
-                String clubId = parts[2];
                 String postType = parts[1];
-                String postId = parts[0]; // Post ?
-                Log.d(TAG, "Post id is : " + postId);
-                if (ShareHelper.ItemType.WallPost.name().equals(postType)) {
-                    FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
-                    wallItemFragmentEvent.setId(postId + "$$$");
-                    EventBus.getDefault().post(wallItemFragmentEvent);
-                } else if (ShareHelper.ItemType.News.name().equals(postType)) {
-                    FragmentEvent newsItemFragmentEvent = new FragmentEvent(NewsDetailFragment.class);
-                    newsItemFragmentEvent.setId(postId);
-                    EventBus.getDefault().post(newsItemFragmentEvent);
-                }
+                String postId = parts[0];
+
+                FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
+                wallItemFragmentEvent.setId(postId + "$$$");
+                EventBus.getDefault().post(wallItemFragmentEvent);
             }
         }
     }

@@ -2,8 +2,6 @@ package base.app.data.wall;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import base.app.data.sharing.ShareHelper;
-
 /**
  * Created by Filip on 4/6/2017.
  * Copyright by Hypercube d.o.o.
@@ -20,10 +18,6 @@ public class WallNewsShare extends WallItem {
         super.setEqualTo(item);
         this.vidUrl = ((WallNewsShare)item).vidUrl;
 
-    }
-
-    public ShareHelper.ItemType getItemType() {
-        return ShareHelper.ItemType.WallPost;
     }
 
     public String getVidUrl() {

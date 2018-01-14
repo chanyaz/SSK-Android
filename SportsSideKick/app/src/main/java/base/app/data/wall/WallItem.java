@@ -86,11 +86,31 @@ public abstract class WallItem implements Serializable {
     private String sharedComment;
     @JsonProperty("translatedTo")
     private String translatedTo;
+    @JsonProperty("url")
+    private String url;
+    @JsonProperty("vidUrl")
+    private String vidUrl;
 
     private UserInfo poster;
 
     public UserInfo getPoster() {
         return poster;
+    }
+
+    public String getVidUrl() {
+        return vidUrl;
+    }
+
+    public void setVidUrl(String vidUrl) {
+        this.vidUrl = vidUrl;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public void setPoster(UserInfo poster) {
@@ -163,11 +183,6 @@ public abstract class WallItem implements Serializable {
             return item;
         }
         return null;
-    }
-
-    @JsonProperty("timestamp")
-    public String getTimestampAsString() {
-        return String.valueOf(timestamp.longValue() / 1000) + "." + String.valueOf((int) (timestamp.longValue() % 1000) + "00");
     }
 
     public Double getTimestamp() {
