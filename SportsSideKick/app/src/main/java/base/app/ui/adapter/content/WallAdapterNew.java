@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.facebook.ads.AdError;
-import com.facebook.ads.AdSettings;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdsManager;
@@ -33,10 +32,10 @@ import base.app.R;
 import base.app.data.Model;
 import base.app.data.Translator;
 import base.app.data.user.UserInfo;
+import base.app.data.wall.Post;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallItem.PostType;
 import base.app.data.wall.WallNewsShare;
-import base.app.data.wall.Post;
 import base.app.data.wall.WallStats;
 import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -48,13 +47,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
+import static com.facebook.ads.NativeAd.MediaCacheFlag.ALL;
 
 /**
  * Created by Djordje Krutil on 06/01/2017.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
+public class WallAdapterNew extends RecyclerView.Adapter<WallAdapterNew.ViewHolder> {
 
     private static final int ADS_INTERVAL = 30;
     private static final int ADS_COUNT = 10;
@@ -124,7 +124,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     private int currentAdInterval;
 
-    public WallAdapter(Context context) {
+    public WallAdapterNew(Context context) {
         this.context = context;
         postTypeValues = PostType.values();
         initializeNativeAdManagerAndRequestAds(ADS_COUNT);
@@ -134,14 +134,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     private NativeAdsManager manager;
 
     private void initializeNativeAdManagerAndRequestAds(int adsFrequency) {
-        // Initialize a NativeAdsManager and request a number of ads
-        AdSettings.addTestDevice("1669b3492b83373dc025ed1cc9943c63"); //Samsung tablet
-        AdSettings.addTestDevice("9d381cd4828b3659af83f6c494b452e8"); //kindle tablet
         manager = new NativeAdsManager(context, "102782376855276_240749436391902", ADS_COUNT);
         manager.setListener(new NativeAdsManager.Listener() {
             @Override
             public void onAdsLoaded() {
-                //Ads Loaded callback
                 if (manager.getUniqueNativeAdCount() > 0) {
                     currentAdInterval = ADS_INTERVAL;
                     notifyDataSetChanged();
@@ -149,12 +145,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             }
 
             @Override
-            public void onAdError(AdError adError) {
-                // Ad error callback
-                Log.d("onAdsLoaded", adError.getErrorMessage());
+            public void onAdError(AdError error) {
+                Log.e("onAdsLoaded", error.getErrorMessage());
             }
         });
-        manager.loadAds(NativeAd.MediaCacheFlag.ALL);
+        manager.loadAds(ALL);
     }
 
     @Override
@@ -420,6 +415,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     public void addAll(List<WallItem> items) {
         values.addAll(items);
+        notifyDataSetChanged();
     }
 
     public void remove(WallItem model) {

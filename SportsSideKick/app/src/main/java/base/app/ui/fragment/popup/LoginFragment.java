@@ -39,7 +39,7 @@ import base.app.R;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
-import base.app.data.user.LoginStateReceiver.LoginStateListener;
+import base.app.data.user.LoginStateReceiver.LoginListener;
 import base.app.data.user.PasswordResetReceiver;
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener;
 import base.app.data.user.UserInfo;
@@ -60,7 +60,7 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 public class LoginFragment extends BaseFragment
-        implements LoginStateListener, PasswordResetListener {
+        implements LoginListener, PasswordResetListener {
 
     private static final String TAG = "LOGIN FRAGMENT";
     private CallbackManager callbackManager;

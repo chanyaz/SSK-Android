@@ -22,15 +22,15 @@ open class NewsFragment : BaseFragment() {
         return container.inflate(R.layout.fragment_news)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        headerImage.show(R.drawable.image_wall_background)
+    override fun onViewCreated(view: View, state: Bundle?) {
+        headerImage.show(R.drawable.header_background)
 
         val adapter = NewsAdapter()
         recyclerView.adapter = adapter
         swipeRefreshLayout.isRefreshing = true
 
         val viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
-        viewModel.loadNews(newsType).observe(this, Observer {
+        viewModel.getNews(newsType).observe(this, Observer {
             swipeRefreshLayout.isRefreshing = false
             adapter.addAll(it)
         })

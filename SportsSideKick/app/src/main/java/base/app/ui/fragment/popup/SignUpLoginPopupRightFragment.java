@@ -30,7 +30,7 @@ import static base.app.data.user.LoginStateReceiver.*;
  * www.hypercubesoft.com
  */
 public class SignUpLoginPopupRightFragment extends SignUpLoginFragment
-        implements LoginStateListener {
+        implements LoginListener {
 
     @Nullable
     @BindView(R.id.description)

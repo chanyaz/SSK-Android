@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/login_background"
-    tools:context=".ui.fragment.content.WallFragment"
+    tools:context=".ui.fragment.content.wall.WallFragment"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/image_wall_background" />
+                    android:src="@drawable/header_background" />
 
                 <TextView
                     android:id="@+id/topCaption"

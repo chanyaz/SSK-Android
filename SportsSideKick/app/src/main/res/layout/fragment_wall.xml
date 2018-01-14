@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/login_background"
-    tools:context=".ui.fragment.content.WallFragment"
+    tools:context=".ui.fragment.content.wall.WallFragment"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
@@ -38,11 +38,11 @@
                     android:layout_marginTop="-80dp">
 
                     <ImageView
-                        android:id="@+id/wall_top_image"
+                        android:id="@+id/headerImage"
                         android:layout_width="match_parent"
                         android:layout_height="240dp"
                         android:scaleType="centerCrop"
-                        tools:src="@drawable/image_wall_background" />
+                        tools:src="@drawable/header_background" />
 
                     <TextView
                         android:id="@+id/topCaption"
@@ -69,7 +69,7 @@
                         android:id="@+id/wall_top_info_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/wall_top_image"
+                        android:layout_alignBottom="@+id/headerImage"
                         android:layout_alignParentStart="true"
                         android:layout_marginBottom="32dp">
 
@@ -244,10 +244,12 @@
                     app:indicatorName="LineSpinFadeLoaderIndicator" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fragment_wall_recycler_view"
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/login_holder"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     android:layout_marginTop="?wallRecyclerListPhoneTopMargin"
                     android:clipToPadding="false"
                     android:paddingTop="8dp" />

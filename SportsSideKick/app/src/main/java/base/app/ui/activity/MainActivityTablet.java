@@ -35,12 +35,12 @@ import base.app.ui.fragment.other.FantasyFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.QuizFragment;
-import base.app.ui.fragment.content.RumoursFragment;
+import base.app.ui.fragment.content.news.RumoursFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.ui.fragment.content.WallFragment;
-import base.app.ui.fragment.content.WallItemFragment;
+import base.app.ui.fragment.content.wall.WallFragment;
+import base.app.ui.fragment.content.wall.WallItemFragment;
 import base.app.ui.fragment.stream.YoutubePlayerFragment;
 import base.app.ui.fragment.popup.AddFriendFragment;
 import base.app.ui.fragment.popup.AlertDialogFragment;
@@ -82,7 +82,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivityTablet extends BaseActivity implements LoginStateReceiver.LoginStateListener {
+public class MainActivityTablet extends BaseActivity implements LoginStateReceiver.LoginListener {
 
     public static final String TAG = "Lounge Activity";
     @BindView(R.id.activity_main)

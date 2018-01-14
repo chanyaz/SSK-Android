@@ -12,16 +12,16 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class LoginStateReceiver {
 
-    public interface LoginStateListener{
-        void onLogout();
-        void onLoginAnonymously();
+    public interface LoginListener {
         void onLogin(UserInfo user);
+        void onLoginAnonymously();
         void onLoginError(Error error);
+        void onLogout();
     }
 
-    private LoginStateListener listener;
+    private LoginListener listener;
 
-    public LoginStateReceiver(LoginStateListener listener){
+    public LoginStateReceiver(LoginListener listener){
         this.listener = listener;
         EventBus.getDefault().register(this);
     }

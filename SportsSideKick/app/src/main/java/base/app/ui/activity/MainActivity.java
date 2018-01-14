@@ -37,10 +37,10 @@ import base.app.ui.adapter.menu.MenuAdapter;
 import base.app.ui.adapter.menu.SideMenuAdapter;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
-import base.app.ui.fragment.content.RumoursFragment;
+import base.app.ui.fragment.content.news.RumoursFragment;
 import base.app.ui.fragment.content.StoreFragment;
-import base.app.ui.fragment.content.WallFragment;
-import base.app.ui.fragment.content.WallItemFragment;
+import base.app.ui.fragment.content.wall.WallFragment;
+import base.app.ui.fragment.content.wall.WallItemFragment;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.other.ChatFragment;
@@ -86,7 +86,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity
-        implements LoginStateReceiver.LoginStateListener,
+        implements LoginStateReceiver.LoginListener,
         SideMenuAdapter.IDrawerCloseSideMenu,
         MenuAdapter.IDrawerClose {
 

@@ -1,10 +1,8 @@
-package base.app.ui.fragment.content;
-
+package base.app.ui.fragment.content.wall;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,9 +41,9 @@ import base.app.data.ticker.NextMatchModel;
 import base.app.data.ticker.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
+import base.app.data.wall.Post;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
-import base.app.data.wall.Post;
 import base.app.ui.adapter.content.WallAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -72,16 +70,16 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 @IgnoreBackHandling
-public class WallFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
+public class WallFragment extends BaseFragment implements LoginStateReceiver.LoginListener {
 
     WallAdapter adapter;
 
-    @BindView(R.id.fragment_wall_recycler_view)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.wall_top_image_container)
     RelativeLayout nextMatchContainer;
-    @BindView(R.id.wall_top_image)
-    ImageView wallTopImage;
+    @BindView(R.id.headerImage)
+    ImageView headerImage;
     @BindView(R.id.wall_team_left_name)
     TextView wallLeftTeamName;
     @BindView(R.id.wall_team_left_image)
@@ -124,16 +122,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         wallItems.addAll(WallItem.getCache().values());
 
         adapter = new WallAdapter(getActivity());
-        if (recyclerView != null) {
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setNestedScrollingEnabled(false);
-            refreshAdapter();
-        }
+        recyclerView.setAdapter(adapter);
+        refreshAdapter();
+
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                if(!fetchingPageOfPosts) {
+                if (!fetchingPageOfPosts) {
                     fetchingPageOfPosts = true;
                     TaskCompletionSource<List<WallItem>> competition = new TaskCompletionSource<>();
                     competition.getTask().addOnCompleteListener(new OnCompleteListener<List<WallItem>>() {
@@ -142,14 +137,14 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                             fetchingPageOfPosts = false;
                         }
                     });
-                    loadWallItemsPage(false,competition);
+                    loadWallItemsPage(false, competition);
                 }
             }
         });
         if (wallItems.size() > 0) {
             progressBar.setVisibility(View.GONE);
         }
-        Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
+        Glide.with(view).load(R.drawable.header_background).into(headerImage);
 
         scrollUp();
         return view;
@@ -167,9 +162,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Subscribe
-    public void updateNextMatchInfo(NextMatchUpdateEvent event){
+    public void updateNextMatchInfo(NextMatchUpdateEvent event) {
         if (Utility.isPhone(getActivity())) {
-            if(NextMatchModel.getInstance().isNextMatchUpcoming()){
+            if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
                 nextMatchContainer.setVisibility(View.VISIBLE);
                 NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
                 ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, null);
@@ -177,7 +172,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
                 wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
                 long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
-                wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(),timestamp,false));
+                wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(), timestamp, false));
             } else {
                 wallTopInfoContainer.setVisibility(View.GONE);
                 topCaption.setVisibility(View.VISIBLE);
@@ -187,7 +182,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.fab)
     public void fabOnClick() {
-        if (Model.getInstance().isRealUser()){
+        if (Model.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(CreatePostFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
@@ -220,15 +215,15 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (post.getPoster() == null && post instanceof Post) {
             Model.getInstance().getUserInfoById(post.getWallId())
                     .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
-                @Override
-                public void onComplete(@NonNull Task<UserInfo> task) {
-                    if (task.isSuccessful()) {
-                        post.setPoster(task.getResult());
-                        wallItems.add(post);
-                    }
-                    refreshAdapter();
-                }
-            });
+                        @Override
+                        public void onComplete(@NonNull Task<UserInfo> task) {
+                            if (task.isSuccessful()) {
+                                post.setPoster(task.getResult());
+                                wallItems.add(post);
+                            }
+                            refreshAdapter();
+                        }
+                    });
         } else {
             wallItems.add(post);
             refreshAdapter();
@@ -282,12 +277,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onPostDeleted(PostDeletedEvent event) {
         WallItem deletedItem = event.getPost();
         WallItem itemToDelete = null;
-        for(WallItem post : wallItems){
-            if(post.getPostId().equals(deletedItem.getPostId())){
+        for (WallItem post : wallItems) {
+            if (post.getPostId().equals(deletedItem.getPostId())) {
                 itemToDelete = post;
             }
         }
-        if(itemToDelete!=null){
+        if (itemToDelete != null) {
             wallItems.remove(itemToDelete);
             refreshAdapter();
         }
@@ -306,25 +301,25 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 fetchingPageOfPosts = false;
             }
         });
-        loadWallItemsPage(true,source);
+        loadWallItemsPage(true, source);
     }
 
-    private void loadWallItemsPage(final boolean withSpinner, final TaskCompletionSource<List<WallItem>> completion){
-        if(withSpinner){
+    private void loadWallItemsPage(final boolean withSpinner, final TaskCompletionSource<List<WallItem>> completion) {
+        if (withSpinner) {
             progressBar.setVisibility(View.VISIBLE);
         }
         TaskCompletionSource<List<WallItem>> getWallPostCompletion = new TaskCompletionSource<>();
         getWallPostCompletion.getTask().addOnCompleteListener(new OnCompleteListener<List<WallItem>>() {
             @Override
             public void onComplete(@NonNull Task<List<WallItem>> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     List<WallItem> items = task.getResult();
                     wallItems.addAll(items);
                     completion.setResult(items);
                     refreshAdapter();
                     swipeRefreshLayout.setRefreshing(false);
                     progressBar.setVisibility(View.GONE);
-                    offset +=pageSize;
+                    offset += pageSize;
                 }
                 if (withSpinner) {
                     // Cache news for pinning
@@ -333,7 +328,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }
         });
-        WallModel.getInstance().loadWallPosts(offset,pageSize, getWallPostCompletion);
+        WallModel.getInstance().loadWallPosts(offset, pageSize, getWallPostCompletion);
     }
 
     @Override
@@ -345,7 +340,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public void onResume() {
         super.onResume();
-        if (loginHolder!=null) {
+        if (loginHolder != null) {
             loginHolder.setVisibility(Model.getInstance().isRealUser() ? View.GONE : View.VISIBLE);
         }
     }
@@ -362,7 +357,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Override
     public void onLogin(UserInfo user) {
-        if (Model.getInstance().isRealUser() && loginHolder!=null) {
+        if (Model.getInstance().isRealUser() && loginHolder != null) {
             loginHolder.setVisibility(View.GONE);
         }
         reset();
@@ -371,7 +366,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Override
     public void onLoginAnonymously() {
-        if (!Model.getInstance().isRealUser() && loginHolder!=null) {
+        if (!Model.getInstance().isRealUser() && loginHolder != null) {
             loginHolder.setVisibility(View.VISIBLE);
         }
         reset();
@@ -384,7 +379,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Subscribe
-    public void handleFriendListChanged(FriendsListChangedEvent event){
+    public void handleFriendListChanged(FriendsListChangedEvent event) {
         reset();
         reloadWallFromModel();
     }

@@ -47,7 +47,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class ProfileFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
+public class ProfileFragment extends BaseFragment implements LoginStateReceiver.LoginListener {
 
     @BindView(R.id.profile_stats_recycler_view)
     RecyclerView statsRecyclerView;

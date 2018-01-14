@@ -8,11 +8,11 @@ import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.stream.ClubRadioFragment;
 import base.app.ui.fragment.stream.ClubTVFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
-import base.app.ui.fragment.content.RumoursFragment;
+import base.app.ui.fragment.content.news.RumoursFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.ui.fragment.content.WallFragment;
+import base.app.ui.fragment.content.wall.WallFragment;
 
 /**
  * Created by Djordje Krutil on 6.12.2016..

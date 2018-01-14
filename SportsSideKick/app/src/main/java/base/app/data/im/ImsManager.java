@@ -58,7 +58,7 @@ import static base.app.data.Model.createRequest;
  * www.hypercubesoft.com
  */
 
-public class ImsManager extends GSMessageHandlerAbstract implements LoginStateReceiver.LoginStateListener {
+public class ImsManager extends GSMessageHandlerAbstract implements LoginStateReceiver.LoginListener {
 
     public static final String TAG = "ImsManager";
 

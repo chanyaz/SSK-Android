@@ -1,4 +1,4 @@
-package base.app.ui.fragment.content;
+package base.app.ui.fragment.content.wall;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
