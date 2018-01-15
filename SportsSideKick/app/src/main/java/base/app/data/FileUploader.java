@@ -84,6 +84,7 @@ public class FileUploader {
                     filename,    /* The key for the uploaded object */
                     file /* The file where the data to upload exists */
             );
+
             observer.setTransferListener(new TransferListener() {
                 @Override
                 public void onStateChanged(int id, TransferState state) {
