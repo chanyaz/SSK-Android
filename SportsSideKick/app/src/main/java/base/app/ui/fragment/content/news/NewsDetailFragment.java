@@ -244,8 +244,8 @@ public class NewsDetailFragment extends BaseFragment {
                     if (user != null) {
                         if (getContext() != null) {
                             Glide.with(getContext())
-                                    .load(user.getCircularAvatarUrl())
-                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
+                                    .load(user.getAvatar())
+                                    .apply(new RequestOptions().placeholder(R.drawable.avatar_placeholder))
                                     .into(sharedMessageAvatar);
                         }
                     }
@@ -413,7 +413,7 @@ public class NewsDetailFragment extends BaseFragment {
                     UserInfo user = task.getResult();
                     if (user != null) {
                         Glide.with(getContext())
-                                .load(user.getCircularAvatarUrl())
+                                .load(user.getAvatar())
                                 .into(authorUserImage);
                     }
                 }

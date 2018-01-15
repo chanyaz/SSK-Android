@@ -108,7 +108,7 @@ public class UserInfo {
         setNicName(userInfo.getNicName());
         setPhone(userInfo.getPhone());
         setAvatarUrl(userInfo.getAvatarUrl());
-        setCircularAvatarUrl(userInfo.getCircularAvatarUrl());
+        setCircularAvatarUrl(userInfo.getAvatar());
         setLanguage(userInfo.getLanguage());
         setFantasyUUID(userInfo.getFantasyUUID());
         setFantasyToken(userInfo.getFantasyToken());
@@ -175,7 +175,7 @@ public class UserInfo {
         this.avatarUrl = avatarUrl;
     }
 
-    public String getCircularAvatarUrl() {
+    public String getAvatar() {
         return circularAvatarUrl;
     }
 

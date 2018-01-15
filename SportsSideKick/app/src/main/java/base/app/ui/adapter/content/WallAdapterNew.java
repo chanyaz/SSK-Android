@@ -217,14 +217,14 @@ public class WallAdapterNew extends RecyclerView.Adapter<WallAdapterNew.ViewHold
                     if (user != null) {
                         if (holder.captionAvatar != null) {
                             Glide.with(holder.view)
-                                    .load(user.getCircularAvatarUrl())
-                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
+                                    .load(user.getAvatar())
+                                    .apply(new RequestOptions().placeholder(R.drawable.avatar_placeholder))
                                     .into(holder.captionAvatar);
                         }
                         if (holder.userImage != null) {
                             Glide.with(holder.view)
-                                    .load(user.getCircularAvatarUrl())
-                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
+                                    .load(user.getAvatar())
+                                    .apply(new RequestOptions().placeholder(R.drawable.avatar_placeholder))
                                     .into(holder.userImage);
                         }
                         if (user.getNicName() != null && holder.author != null) {

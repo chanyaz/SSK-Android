@@ -1,33 +1,39 @@
 package base.app.ui.fragment.popup.post
 
 import android.arch.lifecycle.ViewModel
-import android.support.v4.app.FragmentActivity
-import com.miguelbcr.ui.rx_paparazzo2.entities.FileData
-import com.miguelbcr.ui.rx_paparazzo2.entities.Response
+import base.app.data.news.PostsRepository
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import java.io.File
 
 class PostCreateViewModel : ViewModel() {
 
-    private val disposables = CompositeDisposable()
-    private val view = IPostCreateView()
+    lateinit var postsRepo: PostsRepository
+    lateinit var view: IPostCreateView
 
-    fun init() {
+    private var selectedImage: File? = null
+    private val disposables = CompositeDisposable()
+
+    fun onViewCreated() {
         view.showUser()
     }
 
-    fun attachImage(observable: Observable<Response<FragmentActivity?, FileData>>) {
-        disposables.add(observable
-                .map { it.data().file }
+    fun attachImage(fileObservable: Observable<File>) {
+        disposables.add(fileObservable
                 .doOnNext { view.showPostImage(it) }
-                .doOnNext {
-                    /*
-                    uploadImage(it)
-                    */
-                }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { })
+                .subscribe { selectedImage = it })
+    }
+
+    fun publishPost(title: String, bodyText: String) {
+        disposables.add(postsRepo.uploadImage(selectedImage)
+                .flatMap { postsRepo.composePost(title, bodyText, imageUrl = it) }
+                .map { postsRepo.savePost(it) }
+                .subscribe { view.exit() })
+    }
+
+    fun onRemoveImageClicked() {
+        selectedImage = null
+        view.clearPostImage()
     }
 
     fun onDestroy() {

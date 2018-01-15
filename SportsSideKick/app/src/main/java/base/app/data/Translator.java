@@ -154,7 +154,7 @@ public class Translator {
     }
 
     /**
-     * translate - translate createPost comment
+     * translate - translate savePost comment
      * itemId, itemType, language
      *
      * @param itemId     - the item to translate

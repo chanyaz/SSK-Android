@@ -89,7 +89,7 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
     public void onBindViewHolder(AddFriendsAdapter.ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
         if (holder.image != null) {
-            ImageLoader.displayImage(info.getCircularAvatarUrl(), holder.image, null);
+            ImageLoader.displayImage(info.getAvatar(), holder.image, null);
         }
         holder.view.setTag(position);
     }

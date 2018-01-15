@@ -180,7 +180,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     }
 
     private void setupWithUserInfo(PostComment comment, ViewHolder holder, UserInfo user) {
-        final String userImage = user.getCircularAvatarUrl();
+        final String userImage = user.getAvatar();
         if (userImage != null) {
             ImageLoader.displayImage(userImage, holder.profileImage, null);
         } else if (defaultImageForUserUrl != null) {

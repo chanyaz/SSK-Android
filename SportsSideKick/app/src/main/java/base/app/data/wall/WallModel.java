@@ -311,10 +311,10 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     /**
-     * get createPost by its id (used for loading from notification)
+     * get publishPost by its id (used for loading from notification)
      *
      * @param wallId the wall id
-     * @param postId the createPost id
+     * @param postId the publishPost id
      */
     private void getPostById(String wallId, String postId,
                              @Nullable GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer) {

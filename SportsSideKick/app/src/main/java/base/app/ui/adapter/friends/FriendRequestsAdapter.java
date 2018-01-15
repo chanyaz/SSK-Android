@@ -109,7 +109,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             holder.date.setVisibility(View.GONE);
         }
 
-        String avatarUrl = info.getSender().getCircularAvatarUrl();
+        String avatarUrl = info.getSender().getAvatar();
         if (avatarUrl == null) {
             avatarUrl = info.getSender().getAvatarUrl();
         }

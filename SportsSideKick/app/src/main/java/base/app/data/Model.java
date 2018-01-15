@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -16,6 +17,7 @@ import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -37,6 +39,9 @@ import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.MessageHandler;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
@@ -776,6 +781,32 @@ public class Model {
                         System.currentTimeMillis() +
                         ".jpg";
         FileUploader.getInstance().uploadCompressedImage(filename, filepath, filesDir, completion);
+    }
+
+    public Observable<String> uploadImage(final File image) {
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(final ObservableEmitter<String> emitter) throws Exception {
+                String filename = "post_photo_" +
+                                getUserIdForImageName() +
+                                System.currentTimeMillis() +
+                                ".jpg";
+                TaskCompletionSource<String> source = new TaskCompletionSource<>();
+                source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (task.isSuccessful()) {
+                            String uploadedImageUrl = task.getResult();
+                            emitter.onNext(uploadedImageUrl);
+                            emitter.onComplete();
+                        } else {
+                            emitter.onError(task.getException());
+                        }
+                    }
+                });
+                FileUploader.getInstance().uploadImage(image, filename, source);
+            }
+        });
     }
 
     public void uploadImageForStats(String filepath, File filesDir, final TaskCompletionSource<String> completion) {

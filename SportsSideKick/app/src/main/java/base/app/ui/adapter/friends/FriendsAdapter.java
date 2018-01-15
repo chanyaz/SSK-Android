@@ -156,7 +156,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final UserInfo info = values.get(position);
 
-        String avatarUrl = info.getCircularAvatarUrl();
+        String avatarUrl = info.getAvatar();
 
         if (avatarUrl != null) {
             ImageLoader.displayImage(avatarUrl, holder.avatar, null);

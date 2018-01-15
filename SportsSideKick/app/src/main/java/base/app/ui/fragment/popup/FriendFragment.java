@@ -206,7 +206,7 @@ public class FriendFragment extends BaseFragment {
         profileName.setText(user.getFirstName() + " " + user.getLastName());
         //TODO @Filip refactoring Put this in a  string file
         onlineStatus.setText(user.isOnline() ? "online" : "offline");
-        ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, null);
+        ImageLoader.displayImage(user.getAvatar(), profileImage, null);
         progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
         profileImageLevel.setText(String.valueOf((int)user.getProgress()));
 

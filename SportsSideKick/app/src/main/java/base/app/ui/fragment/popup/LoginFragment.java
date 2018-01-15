@@ -329,7 +329,7 @@ public class LoginFragment extends BaseFragment
         }
         else {
             getActivity().onBackPressed();
-            //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class));
+            //EventBus.getDefault().savePost(new FragmentEvent(WallFragment.class));
         }
     }
 

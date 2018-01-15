@@ -242,7 +242,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 String senderImageUrl=null;
                 String nicName="New User";
                 if(userInfo!=null){
-                    senderImageUrl = userInfo.getCircularAvatarUrl();
+                    senderImageUrl = userInfo.getAvatar();
                     nicName = userInfo.getNicName();
                 }
                 if (holder.senderImageView != null) {

@@ -162,7 +162,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         super.onAttach(context);
         if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
             getActivity().onBackPressed();
-            //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class, true));
+            //EventBus.getDefault().composePost(new FragmentEvent(WallFragment.class, true));
         }
     }
 
@@ -375,7 +375,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         } else {
             getActivity().onBackPressed();
-            //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class));
+            //EventBus.getDefault().composePost(new FragmentEvent(WallFragment.class));
         }
     }
 

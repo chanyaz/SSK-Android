@@ -503,7 +503,7 @@ public class MainActivity extends BaseActivity
         }
 
         if (previousFragment == SignUpLoginFragment.class) {
-            //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class, true));
+            //EventBus.getDefault().savePost(new FragmentEvent(WallFragment.class, true));
             return;
         }
         if (popupHolder.getVisibility() == View.VISIBLE) {
@@ -597,8 +597,8 @@ public class MainActivity extends BaseActivity
     public void onLogin(UserInfo user) {
         if (Model.getInstance().isRealUser()) {
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
-            if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, null);
+            if (user.getAvatar() != null) {
+                ImageLoader.displayImage(user.getAvatar(), profileImage, null);
             }
             setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);

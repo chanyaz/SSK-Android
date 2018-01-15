@@ -38,7 +38,7 @@
             android:tint="@color/colorPrimaryVeryLight" />
 
         <TextView
-            android:id="@+id/post"
+            android:id="@+id/postButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
@@ -143,7 +143,7 @@
         tools:text="Chris Reeves" />
 
     <EditText
-        android:id="@+id/caption"
+        android:id="@+id/titleField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/authorImage"
@@ -159,7 +159,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/content"
+        android:id="@+id/bodyTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/caption"
