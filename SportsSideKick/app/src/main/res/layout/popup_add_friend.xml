@@ -28,7 +28,7 @@
             android:textSize="@dimen/font_size_18" />
 
         <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/close_dialog_button"
+            android:id="@+id/backButton"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentStart="true"

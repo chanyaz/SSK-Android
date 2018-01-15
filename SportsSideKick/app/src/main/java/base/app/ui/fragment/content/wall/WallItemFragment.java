@@ -82,7 +82,7 @@ import static base.app.util.ui.TranslationView.TranslationType;
  */
 public class WallItemFragment extends BaseFragment {
 
-    @BindView(R.id.content_image)
+    @BindView(R.id.contentImage)
     ImageView imageHeader;
     @BindView(R.id.title)
     TextView title;

@@ -57,7 +57,7 @@
 
                 <!--TODO: Show author image if this is a pinned item, not official news-->
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/author_user_image"
+                    android:id="@+id/authorImage"
                     android:layout_width="@dimen/width_20"
                     android:layout_height="@dimen/height_20"
                     android:layout_alignParentStart="true"

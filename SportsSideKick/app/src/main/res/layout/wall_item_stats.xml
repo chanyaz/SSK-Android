@@ -17,7 +17,7 @@
         android:background="@color/stats_pink" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/author_user_image"
+        android:id="@+id/authorImage"
         android:layout_width="@dimen/width_26"
         android:layout_height="@dimen/height_26"
         android:layout_alignParentStart="true"
@@ -30,13 +30,13 @@
         android:visibility="visible" />
 
     <TextView
-        android:id="@+id/author_name"
+        android:id="@+id/authorName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/author_user_image"
+        android:layout_alignBottom="@+id/authorImage"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/margin_5"
-        android:layout_toEndOf="@+id/author_user_image"
+        android:layout_toEndOf="@+id/authorImage"
         android:layout_toStartOf="@+id/image"
         android:background="?white"
         android:gravity="center_vertical|start"
@@ -57,7 +57,7 @@
         android:id="@+id/text_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/author_user_image"
+        android:layout_below="@+id/authorImage"
         android:layout_toEndOf="@+id/strip"
         android:layout_toStartOf="@+id/image"
         android:background="?white"

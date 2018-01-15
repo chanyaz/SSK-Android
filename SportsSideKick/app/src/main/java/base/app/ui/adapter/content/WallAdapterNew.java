@@ -75,10 +75,10 @@ public class WallAdapterNew extends RecyclerView.Adapter<WallAdapterNew.ViewHold
         @BindView(R.id.image)
         ImageView imageView;
         @Nullable
-        @BindView(R.id.author_user_image)
+        @BindView(R.id.authorImage)
         CircleImageView userImage;
         @Nullable
-        @BindView(R.id.author_name)
+        @BindView(R.id.authorName)
         TextView author;
         // Like & comments view bindings
         @Nullable

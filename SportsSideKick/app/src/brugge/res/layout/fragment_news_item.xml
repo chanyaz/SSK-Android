@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/margin_negative_8"
-                android:layout_toEndOf="@+id/close_dialog_button"
+                android:layout_toEndOf="@+id/backButton"
                 android:gravity="center_vertical"
                 android:text="@string/back"
                 android:textColor="?white"

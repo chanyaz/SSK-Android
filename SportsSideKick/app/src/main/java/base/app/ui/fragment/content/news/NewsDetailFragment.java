@@ -76,11 +76,11 @@ import static base.app.util.commons.Utility.showKeyboard;
  */
 public class NewsDetailFragment extends BaseFragment {
 
-    @BindView(R.id.content_image)
+    @BindView(R.id.contentImage)
     ImageView imageHeader;
     @BindView(R.id.image)
     ImageView image;
-    @BindView(R.id.author_user_image)
+    @BindView(R.id.authorImage)
     ImageView authorUserImage;
     @BindView(R.id.title)
     TextView title;

@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.keiferstone.nonet.NoNet;
+import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import base.app.data.FileUploader;
@@ -13,6 +14,7 @@ import base.app.data.purchases.PurchaseModel;
 import base.app.data.ticker.NextMatchModel;
 import base.app.util.commons.Connection;
 import base.app.util.commons.SoundEffects;
+import rx_activity_result2.RxActivityResult;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -63,5 +65,8 @@ public class Application extends android.app.Application{
         SoundEffects.getDefault().initialize(this);
         PurchaseModel.getInstance().initialize(this);
         Translator.getInstance().initialize(this);
+
+        RxActivityResult.register(this);
+        RxPaparazzo.register(this);
     }
 }

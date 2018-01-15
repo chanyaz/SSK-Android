@@ -212,7 +212,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     }
 
     @Optional
-    @OnClick(R.id.close_dialog_button)
+    @OnClick(R.id.backButton)
     public void back() {
         getActivity().onBackPressed();
     }
