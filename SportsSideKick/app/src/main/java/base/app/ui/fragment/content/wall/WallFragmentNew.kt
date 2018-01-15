@@ -12,6 +12,7 @@ import base.app.ui.adapter.content.WallAdapterNew
 import base.app.util.ui.inflate
 import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_wall.*
+import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class WallFragmentNew : Fragment() {
 
@@ -24,12 +25,17 @@ class WallFragmentNew : Fragment() {
 
     override fun onViewCreated(view: View, state: Bundle?) {
         headerImage.show(R.drawable.header_background)
-        recyclerView.adapter = adapter
+        setClickListeners()
 
+        recyclerView.adapter = adapter
         viewModel = ViewModelProviders.of(this).get(WallViewModel::class.java)
         viewModel.getItems().observe(this, Observer {
             adapter.clear()
             adapter.addAll(it)
         })
+    }
+
+    private fun setClickListeners() {
+        postButton.onClick { viewModel.onPostClicked() }
     }
 }

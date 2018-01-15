@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import base.app.R
 import base.app.data.news.NewsModel.NewsType.OFFICIAL
+import base.app.data.news.NewsRepository
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.ui.inflate
@@ -30,6 +31,7 @@ open class NewsFragment : BaseFragment() {
         swipeRefreshLayout.isRefreshing = true
 
         val viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
+        viewModel.init(NewsRepository())
         viewModel.getNews(newsType).observe(this, Observer {
             swipeRefreshLayout.isRefreshing = false
             adapter.addAll(it)

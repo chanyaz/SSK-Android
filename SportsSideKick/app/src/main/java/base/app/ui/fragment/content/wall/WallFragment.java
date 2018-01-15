@@ -38,7 +38,6 @@ import base.app.data.news.NewsModel;
 import base.app.data.news.NewsModel.NewsType;
 import base.app.data.ticker.NewsTickerInfo;
 import base.app.data.ticker.NextMatchModel;
-import base.app.data.ticker.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.Post;
@@ -53,7 +52,6 @@ import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.util.commons.NextMatchCountdown;
-import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentUpdateEvent;
 import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostDeletedEvent;
@@ -146,6 +144,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
         Glide.with(view).load(R.drawable.header_background).into(headerImage);
 
+        showNextMatchInfo();
+
         scrollUp();
         return view;
     }
@@ -161,26 +161,23 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         recyclerView.smoothScrollToPosition(0);
     }
 
-    @Subscribe
-    public void updateNextMatchInfo(NextMatchUpdateEvent event) {
-        if (Utility.isPhone(getActivity())) {
-            if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
-                nextMatchContainer.setVisibility(View.VISIBLE);
-                NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
-                ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, null);
-                ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, null);
-                wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
-                wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
-                long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
-                wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(), timestamp, false));
-            } else {
-                wallTopInfoContainer.setVisibility(View.GONE);
-                topCaption.setVisibility(View.VISIBLE);
-            }
+    private void showNextMatchInfo() {
+        if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
+            nextMatchContainer.setVisibility(View.VISIBLE);
+            NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
+            ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, null);
+            ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, null);
+            wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
+            wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
+            long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
+            wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(), timestamp, false));
+        } else {
+            wallTopInfoContainer.setVisibility(View.GONE);
+            topCaption.setVisibility(View.VISIBLE);
         }
     }
 
-    @OnClick(R.id.fab)
+    @OnClick(R.id.postButton)
     public void fabOnClick() {
         if (Model.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(CreatePostFragment.class));
