@@ -19,7 +19,6 @@ import base.app.util.events.post.PostCompleteEvent
 import base.app.util.ui.inflate
 import base.app.util.ui.show
 import butterknife.OnClick
-import com.google.android.gms.tasks.TaskCompletionSource
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo.single
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData
 import com.miguelbcr.ui.rx_paparazzo2.entities.Response
@@ -96,9 +95,6 @@ class PostCreateFragment : Fragment(), IPostCreateView {
         post.type = WallItem.PostType.post
         post.timestamp = Utility.getCurrentTime().toDouble()
         post.coverImageUrl = uploadedImageUrl
-
-
-        hideKeyboard(activity)
     }
 
     @Subscribe
@@ -106,19 +102,8 @@ class PostCreateFragment : Fragment(), IPostCreateView {
         activity?.onBackPressed()
     }
 
-    private fun uploadImage(file: File) {
-        val source = TaskCompletionSource<String>()
-        source.task.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                uploadedImageUrl = task.result
-            } else {
-                // TODO @Filip Handle error!
-            }
-        }
-        Model.getInstance().uploadImageForWallPost(file.absolutePath, activity!!.filesDir, source)
-    }
-
     override fun exit() {
+        hideKeyboard(activity)
         activity?.onBackPressed()
     }
 

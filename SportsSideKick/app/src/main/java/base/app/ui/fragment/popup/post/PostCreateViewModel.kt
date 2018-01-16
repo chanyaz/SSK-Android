@@ -29,7 +29,7 @@ class PostCreateViewModel : ViewModel() {
     fun publishPost(title: String, bodyText: String) {
         disposables.add(postsRepo.uploadImage(selectedImage)
                 .flatMap { postsRepo.composePost(title, bodyText, imageUrl = it) }
-                .map { postsRepo.savePost(it).blockingSingle() }
+                .flatMap { postsRepo.savePost(it) }
                 .subscribeOn(io())
                 .observeOn(mainThread())
                 .subscribe { view.exit() })
