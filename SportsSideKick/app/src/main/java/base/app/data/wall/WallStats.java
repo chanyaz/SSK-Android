@@ -3,8 +3,6 @@ package base.app.data.wall;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import base.app.data.sharing.ShareHelper;
-
 /**
  * Created by Filip on 1/10/2017.
  * Copyright by Hypercube d.o.o.
@@ -23,17 +21,6 @@ public class WallStats extends WallItem {
 
     public WallStats(){
         super();
-    }
-
-    public void setEqualTo(WallItem item){
-        if(item instanceof WallStats){
-            WallStats stats = (WallStats) item;
-            this.statName = stats.getStatName();
-            this.subText = stats.getSubText();
-            this.value1 = stats.getValue1();
-            this.value2 = stats.getValue2();
-            super.setEqualTo(item);
-        }
     }
 
     public String getStatName() {

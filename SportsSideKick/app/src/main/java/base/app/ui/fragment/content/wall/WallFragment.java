@@ -201,10 +201,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Subscribe
     public void onItemUpdate(ItemUpdateEvent event) {
         final WallItem post = event.getPost();
-        for (WallItem item : wallItems) {
+        for (int i = 0; i < wallItems.size(); i++) {
+            WallItem item = wallItems.get(i);
             if (item.getWallId().equals(post.getWallId()) &&
                     item.getPostId().equals(post.getPostId())) {
-                item.setEqualTo(post);
+                wallItems.remove(item);
+                wallItems.add(i, post);
                 refreshAdapter();
                 return;
             }

@@ -70,7 +70,6 @@ class PostCreateFragment : Fragment(), IPostCreateView {
 
         cameraButton.visibility = View.GONE
         galleryButton.visibility = View.GONE
-        progressBar.visibility = View.VISIBLE
         removeButton.visibility = View.VISIBLE
     }
 
@@ -79,7 +78,6 @@ class PostCreateFragment : Fragment(), IPostCreateView {
         cameraButton.visibility = View.VISIBLE
         galleryButton.visibility = View.VISIBLE
         removeButton.visibility = View.GONE
-        progressBar.visibility = View.GONE
 
         contentImage.show(R.drawable.image_rumours_background)
     }

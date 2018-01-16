@@ -113,16 +113,4 @@ public class WallTip extends WallItem {
         Prefs.putBoolean("tip_seen_" + tipNumber,false);
     }
 
-    @Override
-    public void setEqualTo(WallItem item) {
-        super.setEqualTo(item);
-        setTipNumber(((WallTip)item).tipNumber);
-        setTipText(((WallTip)item).tipText);
-        setTipRead(((WallTip)item).tipRead);
-        setTitle(((WallTip)item).tipTittle);
-        setTipSteps(((WallTip)item).tipSteps);
-        setTipDescription(((WallTip)item).tipDescription);
-        setTipEnding(((WallTip)item).tipEnding);
-        setTipEarnings(((WallTip)item).tipEarnings);
-    }
 }

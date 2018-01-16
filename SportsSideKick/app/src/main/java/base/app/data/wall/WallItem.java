@@ -173,7 +173,6 @@ public abstract class WallItem implements Serializable {
             if (putInCache) {
                 WallItem cachedItem = cache.get(item.getPostId());
                 if (cachedItem != null) {
-                    cachedItem.setEqualTo(item);
                     item = cachedItem;
                 } else {
                     cache.put(item.getPostId(), item);
@@ -345,21 +344,5 @@ public abstract class WallItem implements Serializable {
                 }
             }
         });
-    }
-
-    public void setEqualTo(WallItem item) {
-        timestamp = item.timestamp;
-        itemType = item.itemType;
-        wallId = item.wallId;
-        postId = item.postId;
-        likeCount = item.likeCount;
-        likedByUser = item.likedByUser;
-        commentsCount = item.commentsCount;
-        shareCount = item.shareCount;
-        title = item.title;
-        subTitle = item.subTitle;
-        bodyText = item.bodyText;
-        coverImageUrl = item.coverImageUrl;
-        coverAspectRatio = item.coverAspectRatio;
     }
 }

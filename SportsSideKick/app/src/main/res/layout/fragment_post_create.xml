@@ -162,7 +162,7 @@
         android:id="@+id/bodyTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/caption"
+        android:layout_below="@id/titleField"
         android:layout_marginBottom="@dimen/margin_5"
         android:layout_marginEnd="@dimen/margin_15"
         android:layout_marginStart="@dimen/margin_15"
