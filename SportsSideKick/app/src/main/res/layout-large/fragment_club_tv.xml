@@ -20,7 +20,7 @@
     </android.support.percent.PercentRelativeLayout>
 
    <Button
-       android:id="@+id/back_button"
+       android:id="@+id/backButton"
        android:layout_width="@dimen/width_40"
        android:layout_marginTop="@dimen/margin_8"
        android:layout_alignParentTop="true"
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/back_button"
+        android:layout_alignBottom="@+id/backButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_8"
         android:gravity="center"
@@ -42,7 +42,7 @@
 
     <!-- Items -->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/video_player_dummy_container"

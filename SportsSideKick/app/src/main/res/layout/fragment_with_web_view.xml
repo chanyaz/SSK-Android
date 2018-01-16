@@ -31,7 +31,7 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:id="@+id/back_button"
+                    android:id="@+id/backButton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"

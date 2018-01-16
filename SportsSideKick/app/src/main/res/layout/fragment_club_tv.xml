@@ -21,10 +21,12 @@
 
     <!-- Items -->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/video_player_dummy_container"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="2"
         android:layout_below="@+id/caption"
         />
 

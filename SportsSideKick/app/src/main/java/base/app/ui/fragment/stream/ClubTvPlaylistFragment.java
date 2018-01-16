@@ -36,7 +36,7 @@ import butterknife.Optional;
  */
 public class ClubTvPlaylistFragment extends BaseFragment {
 
-    @BindView(R.id.recycler_view)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @Nullable
     @BindView(R.id.caption)
@@ -73,8 +73,6 @@ public class ClubTvPlaylistFragment extends BaseFragment {
                 captionTextView.setText(playlist.getSnippet().getTitle());
             }
         }
-
-
         return view;
     }
 
@@ -96,7 +94,7 @@ public class ClubTvPlaylistFragment extends BaseFragment {
     }
 
     @Optional
-    @OnClick(R.id.back_button)
+    @OnClick(R.id.backButton)
     public void goBack() {
         EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class, true));
     }

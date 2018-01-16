@@ -126,7 +126,6 @@ public class NewsModel {
                                     || data.getBaseData().get("items") == null) {
                                 return;
                             }
-
                             List<News> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<News>>() {
                             });
                             if (liveData != null) {

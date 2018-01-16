@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
 @IgnoreBackHandling
 public class ClubRadioFragment extends BaseFragment {
 
-    @BindView(R.id.recycler_view)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     @BindView(R.id.progressBar)
