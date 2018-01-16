@@ -19,7 +19,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.data.club.MediaModel;
 import base.app.data.club.Station;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -67,7 +66,7 @@ public class RadioStationFragment extends BaseFragment implements MediaPlayer.On
         View view = inflater.inflate(R.layout.fragment_club_radio_station, container, false);
         ButterKnife.bind(this, view);
 
-        station = MediaModel.Companion.getInstance().getStationByName(getPrimaryArgument());
+        // TODO Alex Sheiko: station = MediaModel.getStationByName(getPrimaryArgument());
         captionTextView.setText(station.getName());
         String imageUrl = station.getCoverImageUrl();
         ImageLoader.displayImage(imageUrl, backgroundImage, null);

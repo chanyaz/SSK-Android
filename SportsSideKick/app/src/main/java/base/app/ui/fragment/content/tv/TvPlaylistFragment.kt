@@ -18,7 +18,7 @@ class TvPlaylistFragment : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_tv, container, false)
         ButterKnife.bind(this, view)
         val playlistId = primaryArgument
-        playlist = MediaModel.Companion.getInstance().getPlaylistById(playlistId)
+        playlist = MediaModel.getPlaylistById(playlistId)
         if (Utility.isTablet(activity)) {
             val layoutManager = GridLayoutManager(context, 3)
             recyclerView!!.layoutManager = layoutManager
@@ -42,7 +42,7 @@ class TvPlaylistFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         if (playlist != null) {
-            MediaModel.Companion.getInstance().requestPlaylist(playlist!!.id, false)
+            MediaModel.requestPlaylist(playlist!!.id, false)
         }
     }
 
@@ -50,7 +50,7 @@ class TvPlaylistFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun displayPlaylist(event: ClubTVEvent) {
         if (event.eventType == ClubTVEvent.Type.PLAYLIST_DOWNLOADED) {
-            adapter.values.addAll(MediaModel.Companion.getInstance().getPlaylistsVideos(event.id))
+            adapter.values.addAll(MediaModel.getPlaylistsVideos(event.id))
             adapter.notifyDataSetChanged()
         }
     }

@@ -10,13 +10,12 @@ import base.app.data.club.MediaModel.youtubeDataApi
 import base.app.data.club.MediaRepository
 import base.app.ui.adapter.stream.ClubTVAdapter
 import base.app.ui.fragment.base.BaseFragment
-import base.app.ui.fragment.base.FragmentEvent
 import base.app.ui.fragment.base.IgnoreBackHandling
-import base.app.ui.fragment.stream.YoutubePlayerFragment
+import base.app.ui.fragment.content.tv.viewmodel.ITvView
+import base.app.ui.fragment.content.tv.viewmodel.TvViewModel
 import base.app.util.ui.inflate
 import com.google.api.services.youtube.model.Playlist
 import kotlinx.android.synthetic.main.fragment_tv.*
-import org.greenrobot.eventbus.EventBus
 
 @IgnoreBackHandling
 class TvFragment : BaseFragment(), ITvView {
@@ -37,8 +36,10 @@ class TvFragment : BaseFragment(), ITvView {
         viewModel.tvRepo = MediaRepository(youtubeDataApi)
         viewModel.view = this
 
+        /* TODO
         EventBus.getDefault().post(
                 FragmentEvent(YoutubePlayerFragment::class.java))
+                */
 
         val channelId = getString(R.string.youtube_channel_id)
         viewModel.getPlaylists(channelId)

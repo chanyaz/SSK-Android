@@ -25,7 +25,7 @@ class RadioFragment : BaseFragment() {
         val adapter = ClubRadioAdapter(context)
         recyclerView.adapter = adapter
 
-        /* TODO
+        /* TODO Alex Sheiko
         val getStationsTask = MediaModel.getStations()
         getStationsTask.addOnCompleteListener(OnCompleteListener<List<Station>> { task ->
             if (task.isSuccessful) {

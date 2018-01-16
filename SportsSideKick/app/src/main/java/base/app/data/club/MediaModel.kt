@@ -1,14 +1,7 @@
 package base.app.data.club
 
 import base.app.BuildConfig.APPLICATION_ID
-import base.app.ClubConfig.CLUB_ID
-import base.app.data.GSConstants
-import base.app.data.GSConstants.CLUB_ID_TAG
-import base.app.data.Model.createRequest
-import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.gamesparks.sdk.GSEventConsumer
-import com.gamesparks.sdk.api.autogen.GSResponseBuilder
 import com.google.api.client.extensions.android.http.AndroidHttp.newCompatibleTransport
 import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.youtube.YouTube
@@ -20,6 +13,7 @@ object MediaModel {
     val mapper: ObjectMapper = ObjectMapper()
     var stations: List<Station>? = null
 
+    @JvmStatic
     val videos: MutableList<Video> = ArrayList()
 
     val videosHashMap: HashMap<String, List<Video>> = HashMap()
@@ -29,12 +23,7 @@ object MediaModel {
             null
     ).setApplicationName(APPLICATION_ID).build()
 
-//}
-
-    /*fun getPlaylistById(id: String?): Playlist? {
-        return playlists.firstOrNull { id == it.id }
-    }
-
+    @JvmStatic
     fun getVideoById(id: String?): Video? {
         if (id == null) {
             return null
@@ -42,6 +31,7 @@ object MediaModel {
         return videos.firstOrNull { id == it.id }
     }
 
+    @JvmStatic
     fun getPlaylistId(video: Video): String? {
         for ((key, value) in videosHashMap) {
             if (value.contains(video)) {
@@ -51,9 +41,11 @@ object MediaModel {
         return null
     }
 
+    /*
     fun getPlaylistsVideos(id: String): List<Video> {
         return videosHashMap[id]
     }
+
     fun getStations(): Task<List<Station>> {
         val source = TaskCompletionSource<List<Station>>()
         val consumer = GSEventConsumer<GSResponseBuilder.LogEventResponse> { response ->
@@ -86,5 +78,6 @@ object MediaModel {
             }
         }
         return null
-    }*/
+    }
+    */
 }

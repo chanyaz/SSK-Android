@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryMediumLight"
-    tools:context=".ui.fragment.content.tv.TvFragment">
+    tools:context=".ui.fragment.content.tv.TvFragment"
+    tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/youtube_layout"
@@ -17,6 +18,7 @@
             android:visibility="invisible"
             app:layout_aspectRatio="178%"
             app:layout_widthPercent="100%" />
+
     </android.support.percent.PercentRelativeLayout>
 
     <!-- Items -->
@@ -24,19 +26,25 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/video_player_dummy_container"
+        android:layout_below="@id/backButton"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        app:spanCount="2"
-        android:layout_below="@+id/caption"
-        />
+        app:spanCount="2" />
+
+    <TextView
+        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="48dp"
+        android:gravity="center"
+        android:layout_below="@id/video_player_dummy_container"
+        android:text="Club TV Playlists"
+        android:textColor="@color/phoneLoungeTickerColor" />
 
     <Button
         android:id="@+id/backButton"
-        android:layout_width="@dimen/width_40"
-        android:layout_marginTop="@dimen/margin_8"
-        android:layout_alignParentTop="true"
-        android:layout_height="@dimen/height_40"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/video_back_button"/>
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/video_player_dummy_container"
+        android:background="@drawable/video_back_button" />
 
 </RelativeLayout>

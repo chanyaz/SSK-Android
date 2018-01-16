@@ -95,10 +95,10 @@ public class YoutubePlayerFragment extends BaseFragment implements
         ButterKnife.bind(this, view);
         isTablet = Utility.isTablet(Application.getAppInstance());
         if (getPrimaryArgument() != null) {
-            video = MediaModel.Companion.getInstance().getVideoById(getPrimaryArgument());
+            video = MediaModel.getVideoById(getPrimaryArgument());
         } else {
-            if (MediaModel.Companion.getInstance().getVideos().size() != 0) {
-                video = MediaModel.Companion.getInstance().getVideos().get(0);
+            if (MediaModel.getVideos().size() != 0) {
+                video = MediaModel.getVideos().get(0);
             }
         }
 
@@ -311,7 +311,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
 
     public void goBackToPlaylist() {
         FragmentEvent fragmentEvent = new FragmentEvent(TvPlaylistFragment.class, true);
-        fragmentEvent.setId(MediaModel.Companion.getInstance().getPlaylistId(video));
+        fragmentEvent.setId(MediaModel.getPlaylistId(video));
         EventBus.getDefault().post(fragmentEvent);
     }
 
@@ -350,9 +350,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void displayPlaylist(ClubTVEvent event) {
         if (event.getEventType().equals(ClubTVEvent.Type.FIRST_VIDEO_DATA_DOWNLOADED)) {
-            video = MediaModel.Companion.getInstance().getVideoById(event.getId());
+            video = MediaModel.getVideoById(event.getId());
         }
     }
-
-
 }

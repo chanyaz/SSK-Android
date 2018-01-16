@@ -1,4 +1,4 @@
-package base.app.ui.fragment.content.tv
+package base.app.ui.fragment.content.tv.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import base.app.data.club.MediaRepository
