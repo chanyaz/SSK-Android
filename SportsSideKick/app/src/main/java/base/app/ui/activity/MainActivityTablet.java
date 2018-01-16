@@ -27,10 +27,10 @@ import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.popup.ProfileFragment;
-import base.app.ui.fragment.stream.ClubRadioFragment;
-import base.app.ui.fragment.stream.ClubRadioStationFragment;
-import base.app.ui.fragment.stream.ClubTVFragment;
-import base.app.ui.fragment.stream.ClubTvPlaylistFragment;
+import base.app.ui.fragment.stream.RadioFragment;
+import base.app.ui.fragment.stream.RadioStationFragment;
+import base.app.ui.fragment.content.tv.TvFragment;
+import base.app.ui.fragment.content.tv.TvPlaylistFragment;
 import base.app.ui.fragment.other.FantasyFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
@@ -207,11 +207,11 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         fragmentOrganizer.setUpContainer(R.id.tabs_container_top_right, topRightContainerFragments);  //WITH BACK STACK
 
         ArrayList<Class> bottomRightContainerFragments = new ArrayList<>();
-        bottomRightContainerFragments.add(ClubTVFragment.class);
-        bottomRightContainerFragments.add(ClubTvPlaylistFragment.class);
-        bottomRightContainerFragments.add(ClubRadioFragment.class);
+        bottomRightContainerFragments.add(TvFragment.class);
+        bottomRightContainerFragments.add(TvPlaylistFragment.class);
+        bottomRightContainerFragments.add(RadioFragment.class);
         bottomRightContainerFragments.add(YoutubePlayerFragment.class);
-        bottomRightContainerFragments.add(ClubRadioStationFragment.class);
+        bottomRightContainerFragments.add(RadioStationFragment.class);
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments); //WITH BACK STACK
 
         popupContainerFragments = new ArrayList<>();
@@ -253,13 +253,13 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         radioButtonsFragmentMap.put(R.id.stats_radio_button, StatisticsFragment.class);
         radioButtonsFragmentMap.put(R.id.fantasy_radio_button, FantasyFragment.class);
         radioButtonsFragmentMap.put(R.id.quiz_radio_button, QuizFragment.class);
-        radioButtonsFragmentMap.put(R.id.club_tv_radio_button, ClubTVFragment.class);
-        radioButtonsFragmentMap.put(R.id.club_radio_radio_button, ClubRadioFragment.class);
+        radioButtonsFragmentMap.put(R.id.club_tv_radio_button, TvFragment.class);
+        radioButtonsFragmentMap.put(R.id.club_radio_radio_button, RadioFragment.class);
         radioButtonsFragmentMap.put(R.id.shop_radio_button, StoreFragment.class);
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
-        EventBus.getDefault().post(new FragmentEvent(ClubTVFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(TvFragment.class));
         ((RadioButton) ButterKnife.findById(this, R.id.wall_radio_button)).setChecked(true);
         ((RadioButton) ButterKnife.findById(this, R.id.chat_radio_button)).setChecked(true);
         ((RadioButton) ButterKnife.findById(this, R.id.club_tv_radio_button)).setChecked(true);

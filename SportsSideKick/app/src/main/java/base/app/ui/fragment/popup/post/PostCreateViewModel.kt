@@ -1,11 +1,10 @@
 package base.app.ui.fragment.popup.post
 
 import android.arch.lifecycle.ViewModel
+import base.app.data.club.inBackground
 import base.app.data.news.PostsRepository
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers.io
 import java.io.File
 
 class PostCreateViewModel : ViewModel() {
@@ -32,8 +31,7 @@ class PostCreateViewModel : ViewModel() {
         disposables.add(postsRepo.uploadImage(selectedImage)
                 .flatMap { postsRepo.composePost(title, bodyText, imageUrl = it) }
                 .flatMap { postsRepo.savePost(it) }
-                .subscribeOn(io())
-                .observeOn(mainThread())
+                .inBackground()
                 .subscribe { view.exit() })
     }
 

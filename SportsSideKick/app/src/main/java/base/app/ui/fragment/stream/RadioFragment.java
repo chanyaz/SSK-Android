@@ -22,7 +22,7 @@ import base.app.ui.adapter.stream.ClubRadioAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.data.club.ClubModel;
+import base.app.data.club.MediaModel;
 import base.app.data.club.Station;
 import base.app.util.commons.Utility;
 import base.app.util.ui.GridItemDecoration;
@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 
  */
 @IgnoreBackHandling
-public class ClubRadioFragment extends BaseFragment {
+public class RadioFragment extends BaseFragment {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -43,7 +43,7 @@ public class ClubRadioFragment extends BaseFragment {
 
     ClubRadioAdapter adapter;
 
-    public ClubRadioFragment() {
+    public RadioFragment() {
         // Required empty public constructor
     }
 
@@ -65,7 +65,7 @@ public class ClubRadioFragment extends BaseFragment {
         adapter = new ClubRadioAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
-        Task<List<Station>> getStationsTask = ClubModel.getInstance().getStations();
+        Task<List<Station>> getStationsTask = MediaModel.Companion.getInstance().getStations();
         getStationsTask.addOnCompleteListener(new OnCompleteListener<List<Station>>() {
             @Override
             public void onComplete(@NonNull Task<List<Station>> task) {
@@ -74,7 +74,7 @@ public class ClubRadioFragment extends BaseFragment {
                     adapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
                     if(Utility.isPhone(getActivity()) && task.getResult().size()>0){
-                        FragmentEvent fragmentEvent = new FragmentEvent(ClubRadioStationFragment.class);
+                        FragmentEvent fragmentEvent = new FragmentEvent(RadioStationFragment.class);
                         fragmentEvent.setId(task.getResult().get(0).getName());
                         EventBus.getDefault().post(fragmentEvent);
                     }

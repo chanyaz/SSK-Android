@@ -25,7 +25,7 @@ import base.app.data.wall.WallItem;
 public class InternalNotificationManager extends GSMessageHandlerAbstract {
 
     private static InternalNotificationManager instance;
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
 
     public static InternalNotificationManager getInstance(){
         if(instance==null){

@@ -32,9 +32,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import base.app.Application;
 import base.app.Keys;
 import base.app.R;
-import base.app.data.club.ClubModel;
+import base.app.data.club.MediaModel;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.content.tv.TvPlaylistFragment;
 import base.app.util.commons.Utility;
 import base.app.util.events.stream.ClubTVEvent;
 import butterknife.BindView;
@@ -94,10 +95,10 @@ public class YoutubePlayerFragment extends BaseFragment implements
         ButterKnife.bind(this, view);
         isTablet = Utility.isTablet(Application.getAppInstance());
         if (getPrimaryArgument() != null) {
-            video = ClubModel.getInstance().getVideoById(getPrimaryArgument());
+            video = MediaModel.Companion.getInstance().getVideoById(getPrimaryArgument());
         } else {
-            if (ClubModel.getInstance().getVideos().size() != 0) {
-                video = ClubModel.getInstance().getVideos().get(0);
+            if (MediaModel.Companion.getInstance().getVideos().size() != 0) {
+                video = MediaModel.Companion.getInstance().getVideos().get(0);
             }
         }
 
@@ -309,8 +310,8 @@ public class YoutubePlayerFragment extends BaseFragment implements
     }
 
     public void goBackToPlaylist() {
-        FragmentEvent fragmentEvent = new FragmentEvent(ClubTvPlaylistFragment.class, true);
-        fragmentEvent.setId(ClubModel.getInstance().getPlaylistId(video));
+        FragmentEvent fragmentEvent = new FragmentEvent(TvPlaylistFragment.class, true);
+        fragmentEvent.setId(MediaModel.Companion.getInstance().getPlaylistId(video));
         EventBus.getDefault().post(fragmentEvent);
     }
 
@@ -349,7 +350,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void displayPlaylist(ClubTVEvent event) {
         if (event.getEventType().equals(ClubTVEvent.Type.FIRST_VIDEO_DATA_DOWNLOADED)) {
-            video = ClubModel.getInstance().getVideoById(event.getId());
+            video = MediaModel.Companion.getInstance().getVideoById(event.getId());
         }
     }
 

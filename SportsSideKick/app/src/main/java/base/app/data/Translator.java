@@ -42,7 +42,7 @@ public class Translator {
     private String selectedLanguage;
     private String selectedLanguageCode;
 
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
 
     private Translator() {
         mapper = new ObjectMapper();

@@ -29,7 +29,7 @@ public class NextMatchModel {
     private static NextMatchModel instance;
     private String language;
     private static final String DEFAULT_LANGUAGE = "en";
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
     private NewsTickerInfo newsTickerInfo;
 
     public NewsTickerInfo getTickerInfo() {

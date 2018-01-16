@@ -48,7 +48,7 @@ import static base.app.data.Model.createRequest;
 public class FriendsManager extends GSMessageHandlerAbstract {
 
     private static FriendsManager instance;
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
 
     public static FriendsManager getInstance() {
         if (instance == null) {

@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.data.club.ClubModel;
+import base.app.data.club.MediaModel;
 import base.app.data.club.Station;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -35,7 +35,7 @@ import butterknife.OnClick;
  * www.hypercubesoft.com
  */
 
-public class ClubRadioStationFragment extends BaseFragment implements MediaPlayer.OnPreparedListener {
+public class RadioStationFragment extends BaseFragment implements MediaPlayer.OnPreparedListener {
 
     private static final String TAG = "Radio Station Fragment";
     private static final int AUDIO_BAR_MAX = 1000;
@@ -67,7 +67,7 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
         View view = inflater.inflate(R.layout.fragment_club_radio_station, container, false);
         ButterKnife.bind(this, view);
 
-        station = ClubModel.getInstance().getStationByName(getPrimaryArgument());
+        station = MediaModel.Companion.getInstance().getStationByName(getPrimaryArgument());
         captionTextView.setText(station.getName());
         String imageUrl = station.getCoverImageUrl();
         ImageLoader.displayImage(imageUrl, backgroundImage, null);
@@ -110,7 +110,7 @@ public class ClubRadioStationFragment extends BaseFragment implements MediaPlaye
 
     @OnClick(R.id.close_button)
     public void closeButtonOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(ClubRadioFragment.class, true));
+        EventBus.getDefault().post(new FragmentEvent(RadioFragment.class, true));
     }
 
     MediaPlayer player;

@@ -69,7 +69,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
 
     private HashMap<String, ChatInfo> chatInfoCache;
 
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
 
     private ImsManager() {
         mapper = new ObjectMapper();

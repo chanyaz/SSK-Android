@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="club_tv_channel_id" translatable="false">UCnJj6L93JX3Jrhzv81ayywA</string>
+    <string name="youtube_channel_id" translatable="false">UCnJj6L93JX3Jrhzv81ayywA</string>
 
     <string name="stats_url" translatable="false">http://hosted.stats.com/port</string>
     <string name="fantasy_url" translatable="false">https://s3-eu-west-1.amazonaws.com/sskirbucket/graphics/fantasy.png</string>

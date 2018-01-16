@@ -32,7 +32,7 @@ public class AchievementManager {
      **/
 
     private static AchievementManager instance;
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
     private List<Achievement> systemAchievements;
 
     public static AchievementManager getInstance(){

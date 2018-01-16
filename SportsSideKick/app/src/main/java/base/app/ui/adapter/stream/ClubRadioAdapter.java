@@ -15,7 +15,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.stream.ClubRadioStationFragment;
+import base.app.ui.fragment.stream.RadioStationFragment;
 import base.app.data.club.Station;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -70,7 +70,7 @@ public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.View
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(ClubRadioStationFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(RadioStationFragment.class);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setId(values.get(position).getName());
                 EventBus.getDefault().post(fragmentEvent);

@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.stream.ClubRadioFragment;
-import base.app.ui.fragment.stream.ClubTVFragment;
+import base.app.ui.fragment.stream.RadioFragment;
+import base.app.ui.fragment.content.tv.TvFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.content.news.RumoursFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
@@ -52,9 +52,9 @@ public class Constant {
             add(NewsFragment.class);
             add(StatisticsFragment.class);
             add(RumoursFragment.class);
-            add(ClubRadioFragment.class);
+            add(RadioFragment.class);
             add(StoreFragment.class);
-            add(ClubTVFragment.class);
+            add(TvFragment.class);
             add(VideoChatFragment.class);
     }});
 

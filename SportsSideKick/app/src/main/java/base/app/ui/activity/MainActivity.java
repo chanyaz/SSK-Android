@@ -67,10 +67,10 @@ import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.ui.fragment.popup.StashFragment;
 import base.app.ui.fragment.popup.WalletFragment;
 import base.app.ui.fragment.popup.YourStatementFragment;
-import base.app.ui.fragment.stream.ClubRadioFragment;
-import base.app.ui.fragment.stream.ClubRadioStationFragment;
-import base.app.ui.fragment.stream.ClubTVFragment;
-import base.app.ui.fragment.stream.ClubTvPlaylistFragment;
+import base.app.ui.fragment.stream.RadioFragment;
+import base.app.ui.fragment.stream.RadioStationFragment;
+import base.app.ui.fragment.content.tv.TvFragment;
+import base.app.ui.fragment.content.tv.TvPlaylistFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
 import base.app.ui.fragment.stream.YoutubePlayerFragment;
 import base.app.util.commons.Constant;
@@ -267,13 +267,13 @@ public class MainActivity extends BaseActivity
 
 
         youtubeList = new ArrayList<>();
-        youtubeList.add(ClubTVFragment.class);
-        youtubeList.add(ClubTvPlaylistFragment.class);
-        youtubeList.add(ClubRadioFragment.class);
+        youtubeList.add(TvFragment.class);
+        youtubeList.add(TvPlaylistFragment.class);
+        youtubeList.add(RadioFragment.class);
         fragmentOrganizer.setUpContainer(R.id.play_list_holder, youtubeList, false);
 
         radioList = new ArrayList<>();
-        radioList.add(ClubRadioFragment.class);
+        radioList.add(RadioFragment.class);
         fragmentOrganizer.setUpContainer(R.id.radio_list_holder, radioList, false);
 
         youtubePlayer = new ArrayList<>();
@@ -281,7 +281,7 @@ public class MainActivity extends BaseActivity
         fragmentOrganizer.setUpContainer(R.id.youtube_holder, youtubePlayer, true);
 
         radioPlayerList = new ArrayList<>();
-        radioPlayerList.add(ClubRadioStationFragment.class);
+        radioPlayerList.add(RadioStationFragment.class);
         fragmentOrganizer.setUpContainer(R.id.radio_holder, radioPlayerList, true);
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
@@ -297,8 +297,8 @@ public class MainActivity extends BaseActivity
         }
 
         // stop playing radio when fragment is changed ( TODO Wrong place to do this? )
-        if (fragmentOrganizer.getCurrentFragment().getClass() == ClubRadioStationFragment.class) {
-            ((ClubRadioStationFragment) fragmentOrganizer.getCurrentFragment()).stopPlaying();
+        if (fragmentOrganizer.getCurrentFragment().getClass() == RadioStationFragment.class) {
+            ((RadioStationFragment) fragmentOrganizer.getCurrentFragment()).stopPlaying();
         }
 
         // make tv container show or hidden
@@ -374,7 +374,7 @@ public class MainActivity extends BaseActivity
         Fragment currentFragment = fragmentOrganizer.getCurrentFragment();
 
         if (currentFragment.getClass() == NewsDetailFragment.class) {
-            if (previousFragment == ClubRadioFragment.class) {
+            if (previousFragment == RadioFragment.class) {
                 Fragment fragment = fragmentOrganizer.getCurrentFragment();
                 View overlay = fragment.getView().findViewById(R.id.commentInputOverlay);
                 if (overlay.getVisibility() == View.VISIBLE) {
@@ -421,7 +421,7 @@ public class MainActivity extends BaseActivity
             radioContainer.setVisibility(View.GONE);
         }
 
-        if (previousFragment == ClubRadioStationFragment.class && penultimateFragment == ClubRadioFragment.class) {
+        if (previousFragment == RadioStationFragment.class && penultimateFragment == RadioFragment.class) {
             NavigationDrawerItems.getInstance().setByPosition(5);
             fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
             menuAdapter.notifyDataSetChanged();
@@ -433,7 +433,7 @@ public class MainActivity extends BaseActivity
         }
 
         if (previousFragment == YoutubePlayerFragment.class
-                && penultimateFragment == ClubTVFragment.class
+                && penultimateFragment == TvFragment.class
                 && currentFragment instanceof YoutubePlayerFragment
                 ) {
             NavigationDrawerItems.getInstance().setByPosition(7);
@@ -454,10 +454,10 @@ public class MainActivity extends BaseActivity
                 return;
             }
 
-            if (previousFragment == ClubTVFragment.class) {
+            if (previousFragment == TvFragment.class) {
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
-                if (penultimateFragment == ClubRadioStationFragment.class) {
+                if (penultimateFragment == RadioStationFragment.class) {
                     radioContainer.setVisibility(View.VISIBLE);
                     NavigationDrawerItems.getInstance().setByPosition(5);
                     menuAdapter.notifyDataSetChanged();
@@ -478,8 +478,8 @@ public class MainActivity extends BaseActivity
             }
         }
 
-        if (currentFragment.getClass() == ClubRadioStationFragment.class) {
-            if (previousFragment == ClubRadioFragment.class) {
+        if (currentFragment.getClass() == RadioStationFragment.class) {
+            if (previousFragment == RadioFragment.class) {
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 if (penultimateFragment == YoutubePlayerFragment.class) {

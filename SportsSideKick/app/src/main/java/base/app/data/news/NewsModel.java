@@ -68,7 +68,7 @@ public class NewsModel {
 
     private boolean isLoadingNews;
     private boolean isLoadingRumors;
-    private ObjectMapper mapper; // jackson's object mapper
+    private ObjectMapper mapper;
     private HashMap<String, String> config;
 
     public void setLoading(boolean loading, NewsType type) {

@@ -35,7 +35,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
     private VideoChatItem activeVideoChatItem;
     private HashMap<String,VideoChatItem> pendingInvitations;
     private String userId;
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
 
     private VideoChatEvent videoChatEvent;
 

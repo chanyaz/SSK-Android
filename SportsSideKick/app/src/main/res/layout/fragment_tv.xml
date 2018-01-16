@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryMediumLight"
-    tools:context=".ui.fragment.stream.ClubTVFragment">
+    tools:context=".ui.fragment.content.tv.TvFragment">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"
@@ -29,5 +29,14 @@
         app:spanCount="2"
         android:layout_below="@+id/caption"
         />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="@dimen/width_40"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_alignParentTop="true"
+        android:layout_height="@dimen/height_40"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/video_back_button"/>
 
 </RelativeLayout>

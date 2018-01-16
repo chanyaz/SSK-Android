@@ -28,7 +28,7 @@ import static base.app.data.Model.createRequest;
 public class PeopleSearchManager {
 
     private static PeopleSearchManager instance;
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
 
     public static PeopleSearchManager getInstance(){
         if(instance==null){

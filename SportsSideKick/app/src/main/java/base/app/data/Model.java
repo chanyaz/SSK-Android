@@ -51,7 +51,7 @@ import static base.app.data.Model.LoggedInUserType.REAL;
 public class Model {
 
     private static final String TAG = "MODEL";
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
     private String firebaseToken;
 
     public void setFirebaseToken(String firebaseToken) {

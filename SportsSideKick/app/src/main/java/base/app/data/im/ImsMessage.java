@@ -38,7 +38,7 @@ public class ImsMessage {
 
     private static final String TAG = "IMS MESSAGE";
 
-    private final ObjectMapper mapper; // jackson's object mapper
+    private final ObjectMapper mapper;
 
     private static final float ASPECT_RATIO_DEFAULT = 0.5625f;
 
