@@ -44,10 +44,6 @@ class NextMatchView(context: Context, attrs: AttributeSet)
                     postDelayed(this, 1000L)
                 }
             }, 1000L)
-
-            nextMatchContainer.visible()
-        } else {
-            nextMatchContainer.hide()
         }
     }
 

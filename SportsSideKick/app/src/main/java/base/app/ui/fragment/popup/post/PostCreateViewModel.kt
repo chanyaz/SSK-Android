@@ -27,6 +27,8 @@ class PostCreateViewModel : ViewModel() {
     }
 
     fun publishPost(title: String, bodyText: String) {
+        view.showLoading(true)
+
         disposables.add(postsRepo.uploadImage(selectedImage)
                 .flatMap { postsRepo.composePost(title, bodyText, imageUrl = it) }
                 .flatMap { postsRepo.savePost(it) }

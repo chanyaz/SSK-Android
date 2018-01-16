@@ -163,7 +163,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     private void showNextMatchInfo() {
         if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
-            nextMatchContainer.setVisibility(View.VISIBLE);
             NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
             ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage, null);
             ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage, null);

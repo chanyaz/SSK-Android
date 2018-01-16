@@ -6,7 +6,7 @@
     android:id="@+id/nextMatchOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingPrefix">
+    tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <ImageView
         android:layout_width="match_parent"

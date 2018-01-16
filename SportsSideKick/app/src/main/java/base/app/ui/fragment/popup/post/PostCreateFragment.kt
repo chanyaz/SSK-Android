@@ -12,7 +12,7 @@ import base.app.R
 import base.app.data.Model
 import base.app.data.news.PostsRepository
 import base.app.util.commons.Utility.hideKeyboard
-import base.app.util.ui.hide
+import base.app.util.ui.gone
 import base.app.util.ui.inflate
 import base.app.util.ui.show
 import base.app.util.ui.visible
@@ -62,17 +62,21 @@ class PostCreateFragment : Fragment(), IPostCreateView {
     override fun showPostImage(image: File) {
         contentImage.show(image)
 
-        cameraButton.hide()
-        galleryButton.hide()
+        cameraButton.gone()
+        galleryButton.gone()
         removeButton.visible()
     }
 
     override fun clearPostImage() {
         cameraButton.visible()
         galleryButton.visible()
-        removeButton.hide()
+        removeButton.gone()
 
         contentImage.show(R.drawable.image_rumours_background)
+    }
+
+    override fun showLoading(loading: Boolean) {
+        if (loading) progressBar.visible() else progressBar.gone()
     }
 
     override fun exit() {

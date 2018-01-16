@@ -72,7 +72,7 @@ public class NewsModel {
     private HashMap<String, String> config;
 
     public void setLoading(boolean loading, NewsType type) {
-        if(type.equals(NewsType.OFFICIAL)){
+        if (type.equals(NewsType.OFFICIAL)) {
             isLoadingNews = loading;
         } else {
             isLoadingRumors = loading;
@@ -80,8 +80,8 @@ public class NewsModel {
     }
 
 
-    public static NewsModel getInstance(){
-        if(instance==null){
+    public static NewsModel getInstance() {
+        if (instance == null) {
             instance = new NewsModel();
         }
         return instance;
@@ -108,70 +108,42 @@ public class NewsModel {
     }
 
     public void loadPage(final NewsType type, @Nullable final MutableLiveData<List<News>> liveData) {
-        final int page = 0;
-        if (isLoadingNews && type.equals(NewsType.OFFICIAL)
-                || isLoadingRumors && type.equals(NewsType.UNOFFICIAL)){
-            return;
-        }
-        if(type.equals(NewsType.OFFICIAL)){
-            isLoadingNews = true;
-        } else {
-            isLoadingRumors = true;
-        }
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("newsGetPage")
                 .setEventAttribute("language", language)
                 .setEventAttribute("country", country)
                 .setEventAttribute("id", ID)
                 .setEventAttribute("type", type.toString())
-                .setEventAttribute("page", page )
+                .setEventAttribute("page", 0)
                 .setEventAttribute("limit", itemsPerPage)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-            @Override
-            public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    GSData data = response.getScriptData();
+                    @Override
+                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                        if (!response.hasErrors()) {
+                            GSData data = response.getScriptData();
 
-                    if (data == null)
-                    {
-                        return;
-                    }
+                            if (data == null
+                                    || data.getBaseData().get("items") == null) {
+                                return;
+                            }
 
-                    if (data.getBaseData().get("items") == null)
-                    {
-                        return;
-                    }
-
-                    List<News> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<News>>(){});
-                    if (liveData != null) {
-                        liveData.postValue(receivedItems);
-                    }
-                    if (receivedItems.size() == 0 && !"en".equals(language) && page == 0)
-                    {
-                        if(type.equals(NewsType.OFFICIAL)){
-                            isLoadingNews = false;
-                        } else {
-                            isLoadingRumors = false;
+                            List<News> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<News>>() {
+                            });
+                            if (liveData != null) {
+                                liveData.postValue(receivedItems);
+                            }
+                            if (type.equals(NewsType.OFFICIAL)) {
+                                saveNewsToCache(receivedItems, false);
+                                pageNews++;
+                            } else {
+                                saveNewsToCache(receivedItems, true);
+                                pageRumors++;
+                            }
+                            NewsPageEvent newsItemsEvent = new NewsPageEvent(receivedItems);
+                            EventBus.getDefault().post(newsItemsEvent);
                         }
-                        language = "en";
-                        loadPage(type);
-                        return;
                     }
-                    else {
-                        NewsPageEvent newsItemsEvent;
-                        if(type.equals(NewsType.OFFICIAL)){
-                            saveNewsToCache(receivedItems, false);
-                            pageNews++;
-                        } else {
-                            saveNewsToCache(receivedItems, true);
-                            pageRumors++;
-                        }
-                        newsItemsEvent = new NewsPageEvent(receivedItems);
-                        EventBus.getDefault().post(newsItemsEvent);
-                    }
-                }
-            }
-        });
+                });
     }
 
     private void saveNewsToCache(List<News> receivedItems, boolean isRumours) {
@@ -180,7 +152,8 @@ public class NewsModel {
 
         // Database cache
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Type listOfBecons = new TypeToken<List<News>>() {}.getType();
+        Type listOfBecons = new TypeToken<List<News>>() {
+        }.getType();
 
         String strBecons = new Gson().toJson(newsItems, listOfBecons);
         String key;
@@ -195,7 +168,8 @@ public class NewsModel {
     private List<News> loadNewsFromCache(boolean isRumours) {
         SharedPreferences preferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
-        Type listOfBecons = new TypeToken<List<News>>() {}.getType();
+        Type listOfBecons = new TypeToken<List<News>>() {
+        }.getType();
 
         String key;
         if (isRumours) {
@@ -214,15 +188,15 @@ public class NewsModel {
     }
 
     public News loadItemFromCache(String id, NewsType type) {
-        if(type == NewsType.OFFICIAL){
-            for(News item : loadNewsFromCache(false)){
-                if(item.getPostId().equals(id)){
+        if (type == NewsType.OFFICIAL) {
+            for (News item : loadNewsFromCache(false)) {
+                if (item.getPostId().equals(id)) {
                     return item;
                 }
             }
         } else {
-            for(News item : loadNewsFromCache(true)){
-                if(item.getPostId().equals(id)){
+            for (News item : loadNewsFromCache(true)) {
+                if (item.getPostId().equals(id)) {
                     return item;
                 }
             }

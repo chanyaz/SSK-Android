@@ -6,5 +6,6 @@ interface IPostCreateView {
     fun showUser()
     fun showPostImage(image: File)
     fun clearPostImage()
+    fun showLoading(loading: Boolean)
     fun exit()
 }
