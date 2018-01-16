@@ -1,7 +1,14 @@
 package base.app.data.club
 
 import base.app.BuildConfig.APPLICATION_ID
+import base.app.ClubConfig.CLUB_ID
+import base.app.data.GSConstants
+import base.app.data.GSConstants.CLUB_ID_TAG
+import base.app.data.Model.createRequest
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.gamesparks.sdk.GSEventConsumer
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder
 import com.google.api.client.extensions.android.http.AndroidHttp.newCompatibleTransport
 import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.youtube.YouTube
@@ -47,7 +54,6 @@ object MediaModel {
     fun getPlaylistsVideos(id: String): List<Video> {
         return videosHashMap[id]
     }
-
     fun getStations(): Task<List<Station>> {
         val source = TaskCompletionSource<List<Station>>()
         val consumer = GSEventConsumer<GSResponseBuilder.LogEventResponse> { response ->
