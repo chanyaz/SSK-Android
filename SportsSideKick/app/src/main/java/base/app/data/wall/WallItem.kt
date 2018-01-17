@@ -2,10 +2,11 @@ package base.app.data.wall
 
 import android.util.Log
 import base.app.data.user.UserInfo
-import base.app.data.wall.WallItem.PostType.post
+import base.app.data.wall.WallItem.PostType.Post
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.JsonNode
@@ -13,12 +14,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import java.io.Serializable
 import java.util.*
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 open class WallItem : Serializable {
 
     @JsonIgnore // NOTE: we set Post type in factory method, not trough automatic JSON parsing!
-    var type = post
+    var type = Post
 
     var timestamp: Double = 0.0
     var wallId: String? = null
@@ -50,19 +51,19 @@ open class WallItem : Serializable {
         get() = translatedTo == null
 
     enum class PostType {
-        post,
-        newsShare,
-        betting,
-        stats,
-        rumor,
-        wallStoreItem,
-        newsOfficial,
-        newsUnOfficial,
-        wallComment,
-        rumourShare,
-        postShare,
-        social,
-        socialShare
+        Post,
+        NewsShare,
+        Betting,
+        Stats,
+        Rumour,
+        StoreOffer,
+        NewsOfficial,
+        NewsUnofficial,
+        Comment,
+        RumourShare,
+        PostShare,
+        Social,
+        SocialShare
     }
 
     fun hasSharedComment(): Boolean {
@@ -110,22 +111,22 @@ open class WallItem : Serializable {
                     type = PostType.valueOf(objectType)
                 }
                 when (type) {
-                    post, WallItem.PostType.wallComment, WallItem.PostType.social -> typeReference = object : TypeReference<Post>() {
+                    Post, WallItem.PostType.Comment, WallItem.PostType.Social -> typeReference = object : TypeReference<base.app.data.wall.Post>() {
 
                     }
-                    WallItem.PostType.newsShare -> typeReference = object : TypeReference<WallNewsShare>() {
+                    WallItem.PostType.NewsShare -> typeReference = object : TypeReference<NewsShare>() {
 
                     }
-                    WallItem.PostType.betting -> typeReference = object : TypeReference<WallBetting>() {
+                    WallItem.PostType.Betting -> typeReference = object : TypeReference<WallBetting>() {
 
                     }
-                    WallItem.PostType.stats -> typeReference = object : TypeReference<WallStats>() {
+                    WallItem.PostType.Stats -> typeReference = object : TypeReference<Stats>() {
 
                     }
-                    WallItem.PostType.wallStoreItem -> typeReference = object : TypeReference<WallStoreItem>() {
+                    WallItem.PostType.StoreOffer -> typeReference = object : TypeReference<StoreOffer>() {
 
                     }
-                    WallItem.PostType.newsOfficial, WallItem.PostType.rumor -> typeReference = object : TypeReference<News>() {
+                    WallItem.PostType.NewsOfficial, WallItem.PostType.Rumour -> typeReference = object : TypeReference<News>() {
 
                     }
                     else -> Log.e(TAG, "ERROR ----- unsupported post type " + node.get("type").textValue() + "\n\n" + node)

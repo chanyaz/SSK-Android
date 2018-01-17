@@ -1,7 +1,7 @@
 package base.app.util.events.comment;
 
 import base.app.util.events.BusEvent;
-import base.app.data.wall.PostComment;
+import base.app.data.wall.Comment;
 
 /**
  * Created by Filip on 10/25/2017.
@@ -10,14 +10,14 @@ import base.app.data.wall.PostComment;
  */
 
 public class CommentSelectedEvent extends BusEvent {
-    PostComment selectedComment;
+    Comment selectedComment;
 
-    public CommentSelectedEvent(PostComment selectedComment) {
+    public CommentSelectedEvent(Comment selectedComment) {
         super(selectedComment.getId());
         this.selectedComment = selectedComment;
     }
 
-    public PostComment getSelectedComment() {
+    public Comment getSelectedComment() {
         return selectedComment;
     }
 }

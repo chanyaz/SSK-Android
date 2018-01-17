@@ -237,7 +237,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.COMMENTS);
-                    List<PostComment> comments = mapper.convertValue(object, new TypeReference<List<PostComment>>() {
+                    List<Comment> comments = mapper.convertValue(object, new TypeReference<List<Comment>>() {
                     });
                     EventBus.getDefault().post(new GetCommentsCompleteEvent(comments));
                 } else {
@@ -258,14 +258,14 @@ public class WallModel extends GSMessageHandlerAbstract {
      * the post comments count will be increased by 1
      *
      */
-    public void postComment(final PostComment comment) {
+    public void postComment(final Comment comment) {
         comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object commentObj = response.getScriptData().getBaseData().get(GSConstants.COMMENT);
-                    PostComment comment = mapper.convertValue(commentObj, new TypeReference<PostComment>() {
+                    Comment comment = mapper.convertValue(commentObj, new TypeReference<Comment>() {
                     });
                     Object postObj = response.getScriptData().getBaseData().get(GSConstants.POST);
                     WallItem post = WallItem.postFactory(postObj, mapper, true);
@@ -286,7 +286,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .send(consumer);
     }
 
-    public void deletePostComment(PostComment comment) {
+    public void deletePostComment(Comment comment) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -304,7 +304,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         source.getTask();
     }
 
-    public Task<Void> updatePostComment(PostComment comment) {
+    public Task<Void> updatePostComment(Comment comment) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -417,7 +417,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                         break;
                     case GSConstants.OPERATION_COMMENT:
                         Object commentObject = data.get(GSConstants.COMMENT);
-                        PostComment comment = mapper.convertValue(commentObject, new TypeReference<PostComment>() {
+                        Comment comment = mapper.convertValue(commentObject, new TypeReference<Comment>() {
                         });
 //                        if (Model.getInstance().isRealUser()) {
 //                            if (comment.getPosterId().equals(Model.getInstance().getUserInfo().getUserId())) {
@@ -434,14 +434,14 @@ public class WallModel extends GSMessageHandlerAbstract {
                         break;
                     case GSConstants.OPERATION_DELETE_COMMENT:
                         Object deletedCommentObject = data.get(GSConstants.COMMENT);
-                        PostComment deletedComment = mapper.convertValue(deletedCommentObject, new TypeReference<PostComment>() {
+                        Comment deletedComment = mapper.convertValue(deletedCommentObject, new TypeReference<Comment>() {
                         });
                         CommentDeleteEvent deleteCommentEvent = new CommentDeleteEvent(post, deletedComment);
                         EventBus.getDefault().post(deleteCommentEvent);
                         break;
                     case GSConstants.OPERATION_UPDATE_COMMENT:
                         Object updatedCommentObject = data.get(GSConstants.COMMENT);
-                        PostComment updatedComment = mapper.convertValue(updatedCommentObject, new TypeReference<PostComment>() {
+                        Comment updatedComment = mapper.convertValue(updatedCommentObject, new TypeReference<Comment>() {
                         });
                         CommentUpdatedEvent updatedCommentEvent = new CommentUpdatedEvent(post);
                         updatedCommentEvent.setComment(updatedComment);

@@ -19,7 +19,7 @@ class PostsRepository {
         val post = Post()
         post.title = title
         post.bodyText = bodyText
-        post.type = WallItem.PostType.post
+        post.type = WallItem.PostType.Post
         post.timestamp = Utility.getCurrentTime().toDouble()
         post.coverImageUrl = imageUrl
         return just(post)

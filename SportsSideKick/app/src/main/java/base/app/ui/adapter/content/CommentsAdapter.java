@@ -24,7 +24,7 @@ import base.app.R;
 import base.app.util.events.comment.CommentSelectedEvent;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.PostComment;
+import base.app.data.wall.Comment;
 import base.app.data.wall.WallModel;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
@@ -39,18 +39,18 @@ import butterknife.ButterKnife;
  */
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
-    private List<PostComment> comments;
+    private List<Comment> comments;
 
     private TranslationView translationView;
-    private List<PostComment> translatedComments;
+    private List<Comment> translatedComments;
 
     private String defaultImageForUserUrl;
 
-    public List<PostComment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void remove(PostComment comment) {
+    public void remove(Comment comment) {
         comments.remove(comment);
     }
 
@@ -96,7 +96,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final PostComment comment = comments.get(position);
+        final Comment comment = comments.get(position);
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(comment.getPosterId());
         holder.view.setTag(comment.getPosterId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
@@ -116,7 +116,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         });
 
         String translatedValue = null;
-        for (PostComment translated : translatedComments) {
+        for (Comment translated : translatedComments) {
             if (comment.getId().equals(translated.getId())) {
                 translatedValue = translated.getComment();
             }
@@ -133,12 +133,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 String commentId = comment.getId();
-                TaskCompletionSource<PostComment> source = new TaskCompletionSource<>();
-                source.getTask().addOnCompleteListener(new OnCompleteListener<PostComment>() {
+                TaskCompletionSource<Comment> source = new TaskCompletionSource<>();
+                source.getTask().addOnCompleteListener(new OnCompleteListener<Comment>() {
                     @Override
-                    public void onComplete(@NonNull Task<PostComment> task) {
+                    public void onComplete(@NonNull Task<Comment> task) {
                         if (task.isSuccessful()) {
-                            PostComment translatedComment = task.getResult();
+                            Comment translatedComment = task.getResult();
                             updateWithTranslatedComment(translatedComment, holder.getAdapterPosition());
                         }
                     }
@@ -171,7 +171,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         }
     }
 
-    public void addAll(List<PostComment> items) {
+    public void addAll(List<Comment> items) {
         comments.addAll(items);
     }
 
@@ -179,7 +179,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         comments.clear();
     }
 
-    private void setupWithUserInfo(PostComment comment, ViewHolder holder, UserInfo user) {
+    private void setupWithUserInfo(Comment comment, ViewHolder holder, UserInfo user) {
         final String userImage = user.getAvatar();
         if (userImage != null) {
             ImageLoader.displayImage(userImage, holder.profileImage, null);
@@ -207,7 +207,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         this.translationView = translationView;
     }
 
-    private void updateWithTranslatedComment(PostComment translated, int position) {
+    private void updateWithTranslatedComment(Comment translated, int position) {
         translatedComments.add(translated);
         notifyItemChanged(position);
     }

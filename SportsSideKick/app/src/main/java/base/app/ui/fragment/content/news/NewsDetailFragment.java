@@ -44,7 +44,7 @@ import base.app.data.Model;
 import base.app.data.news.NewsModel;
 import base.app.data.sharing.ShareHelper;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.PostComment;
+import base.app.data.wall.Comment;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.News;
@@ -63,8 +63,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static base.app.data.wall.WallItem.PostType.newsShare;
-import static base.app.data.wall.WallItem.PostType.rumourShare;
+import static base.app.data.wall.WallItem.PostType.NewsShare;
+import static base.app.data.wall.WallItem.PostType.RumourShare;
 import static base.app.util.commons.Utility.getCurrentTime;
 import static base.app.util.commons.Utility.hideKeyboard;
 import static base.app.util.commons.Utility.showKeyboard;
@@ -178,7 +178,7 @@ public class NewsDetailFragment extends BaseFragment {
     CommentsAdapter commentsAdapter;
     News item;
     private WallItem sharedChildPost;
-    List<PostComment> comments;
+    List<Comment> comments;
 
     public NewsDetailFragment() {
         // Required empty public constructor
@@ -339,9 +339,9 @@ public class NewsDetailFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if (!getPrimaryArgument().contains("UNOFFICIAL")) {
-                    pin(newsShare);
+                    pin(NewsShare);
                 } else {
-                    pin(rumourShare);
+                    pin(RumourShare);
                 }
             }
         });
@@ -483,15 +483,15 @@ public class NewsDetailFragment extends BaseFragment {
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
         if (event.getCommentList() != null) {
-            for (PostComment comment : event.getCommentList()) {
+            for (Comment comment : event.getCommentList()) {
                 if (!comments.contains(comment)) {
                     comments.add(comment);
                 }
             }
             // Sort by timestamp
-            Collections.sort(comments, new Comparator<PostComment>() {
+            Collections.sort(comments, new Comparator<Comment>() {
                 @Override
-                public int compare(PostComment lhs, PostComment rhs) {
+                public int compare(Comment lhs, Comment rhs) {
                     return Double.compare(rhs.getTimestamp(), lhs.getTimestamp());
                 }
             });
@@ -505,7 +505,7 @@ public class NewsDetailFragment extends BaseFragment {
     @OnClick(R.id.post_comment_button)
     public void postComment() {
         if (Model.getInstance().isRealUser()) {
-            PostComment comment = new PostComment();
+            Comment comment = new Comment();
             comment.setComment(inputFieldComment.getText().toString());
             comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
             comment.setWallId(item.getWallId());
@@ -537,9 +537,9 @@ public class NewsDetailFragment extends BaseFragment {
         WallItem wallItem = event.getPost();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
-                PostComment commentToDelete = null;
-                PostComment deletedComment = event.getComment();
-                for (PostComment comment : comments) {
+                Comment commentToDelete = null;
+                Comment deletedComment = event.getComment();
+                for (Comment comment : comments) {
                     if (comment.getId().equals(deletedComment.getId())) {
                         commentToDelete = comment;
                     }

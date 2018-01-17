@@ -1,7 +1,7 @@
 package base.app.util.events.comment;
 
 import base.app.util.events.BusEvent;
-import base.app.data.wall.PostComment;
+import base.app.data.wall.Comment;
 import base.app.data.wall.WallItem;
 
 /**
@@ -12,7 +12,7 @@ import base.app.data.wall.WallItem;
 
 public class CommentUpdateEvent extends BusEvent {
 
-    private PostComment comment;
+    private Comment comment;
 
     public CommentUpdateEvent(WallItem wallItem) {
         super("");
@@ -29,11 +29,11 @@ public class CommentUpdateEvent extends BusEvent {
 
     WallItem wallItem;
 
-    public void setComment(PostComment comment) {
+    public void setComment(Comment comment) {
         this.comment = comment;
     }
 
-    public PostComment getComment() {
+    public Comment getComment() {
         return comment;
     }
 }

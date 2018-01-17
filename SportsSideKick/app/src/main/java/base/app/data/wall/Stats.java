@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallStats extends WallItem {
+public class Stats extends WallItem {
 
     private String statName;
     private String subText;
@@ -19,7 +19,7 @@ public class WallStats extends WallItem {
     private float value2;
     private StatsDisplayType displayType  = StatsDisplayType.number;
 
-    public WallStats(){
+    public Stats(){
         super();
     }
 
@@ -27,7 +27,7 @@ public class WallStats extends WallItem {
         return statName;
     }
 
-    public WallStats setStatName(String statName) {
+    public Stats setStatName(String statName) {
         this.statName = statName;
         return this;
     }
@@ -36,7 +36,7 @@ public class WallStats extends WallItem {
         return subText;
     }
 
-    public WallStats setSubText(String subText) {
+    public Stats setSubText(String subText) {
         this.subText = subText;
         return this;
     }
@@ -45,7 +45,7 @@ public class WallStats extends WallItem {
         return value1;
     }
 
-    public WallStats setValue1(float value1) {
+    public Stats setValue1(float value1) {
         this.value1 = value1;
         return this;
     }
@@ -54,7 +54,7 @@ public class WallStats extends WallItem {
         return value2;
     }
 
-    public WallStats setValue2(float value2) {
+    public Stats setValue2(float value2) {
         this.value2 = value2;
         return this;
     }
@@ -63,7 +63,7 @@ public class WallStats extends WallItem {
         return displayType;
     }
 
-    public WallStats setDisplayType(StatsDisplayType displayType) {
+    public Stats setDisplayType(StatsDisplayType displayType) {
         this.displayType = displayType;
         return this;
     }

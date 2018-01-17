@@ -26,7 +26,7 @@ import base.app.R;
 import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.wall.WallModel;
-import base.app.data.wall.WallStats;
+import base.app.data.wall.Stats;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
@@ -120,7 +120,7 @@ public class StatisticsFragment extends BaseFragment {
                 public void onComplete(@NonNull Task<String> task) {
                     if (task.isSuccessful()) {
                         float imageAspectRatio = bitmap.getHeight() / bitmap.getWidth();
-                        WallStats wallPost = new WallStats();
+                        Stats wallPost = new Stats();
                         wallPost.setTitle("A stats post");
                         wallPost.setSubTitle("Some subtitle");
                         wallPost.setTimestamp((double) Utility.getCurrentTime());

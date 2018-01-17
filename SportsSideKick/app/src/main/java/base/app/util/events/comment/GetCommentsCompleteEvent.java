@@ -3,7 +3,7 @@ package base.app.util.events.comment;
 import java.util.List;
 
 import base.app.util.events.BusEvent;
-import base.app.data.wall.PostComment;
+import base.app.data.wall.Comment;
 
 /**
  * Created by Filip on 1/7/2017.
@@ -12,13 +12,13 @@ import base.app.data.wall.PostComment;
  */
 public class GetCommentsCompleteEvent extends BusEvent {
 
-    public List<PostComment> getCommentList() {
+    public List<Comment> getCommentList() {
         return commentList;
     }
 
-    List<PostComment> commentList;
+    List<Comment> commentList;
 
-    public GetCommentsCompleteEvent(List<PostComment> commentList) {
+    public GetCommentsCompleteEvent(List<Comment> commentList) {
         super("");
         this.commentList = commentList;
     }

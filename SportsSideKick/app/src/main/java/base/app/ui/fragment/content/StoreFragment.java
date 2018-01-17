@@ -28,7 +28,7 @@ import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
-import base.app.data.wall.WallStoreItem;
+import base.app.data.wall.StoreOffer;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.Utility;
 
@@ -52,7 +52,7 @@ public class StoreFragment extends BaseFragment {
     AVLoadingIndicatorView progressBar;
     View webContainer;
     boolean withNavigation;
-    WallStoreItem item;
+    StoreOffer item;
     Document doc;
 
     public StoreFragment() {
@@ -179,8 +179,8 @@ public class StoreFragment extends BaseFragment {
                     price = priceElement.text();
                 }
             }
-            item = new WallStoreItem();
-            item.setType(WallItem.PostType.wallStoreItem);
+            item = new StoreOffer();
+            item.setType(WallItem.PostType.StoreOffer);
             item.setPoster(Model.getInstance().getUserInfo());
             item.setTitle(webView.getTitle());
             item.setSubTitle(price);

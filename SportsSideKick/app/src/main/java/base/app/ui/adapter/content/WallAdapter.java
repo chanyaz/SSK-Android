@@ -35,10 +35,10 @@ import base.app.data.Translator;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallItem.PostType;
-import base.app.data.wall.WallNewsShare;
+import base.app.data.wall.NewsShare;
 import base.app.data.wall.Post;
-import base.app.data.wall.WallStats;
-import base.app.data.wall.WallStoreItem;
+import base.app.data.wall.Stats;
+import base.app.data.wall.StoreOffer;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.wall.WallItemFragment;
@@ -164,19 +164,19 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             viewResourceId = R.layout.wall_native_ad;
         } else {
             switch (postTypeValues[viewType]) {
-                case post:
+                case Post:
                     viewResourceId = R.layout.wall_item_user_post;
                     break;
-                case newsShare:
+                case NewsShare:
                     viewResourceId = R.layout.wall_item_news;
                     break;
-                case rumor:
+                case Rumour:
                     viewResourceId = R.layout.wall_item_rumour;
                     break;
-                case wallStoreItem:
+                case StoreOffer:
                     viewResourceId = R.layout.wall_item_shop;
                     break;
-                case stats:
+                case Stats:
                     viewResourceId = R.layout.wall_item_stats;
                     break;
             }
@@ -279,7 +279,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             }
             WallItem item = values.get(index);
             switch (item.getType()) {
-                case post:
+                case Post:
                     Post post = (Post) item;
                     displayUserInfo(post, holder);
                     boolean hasImage = displayPostImage(post, holder);
@@ -297,8 +297,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         holder.playButton.setVisibility(TextUtils.isEmpty(post.getVidUrl()) ? View.GONE : View.VISIBLE);
                     }
                     break;
-                case newsShare:
-                    WallNewsShare news = (WallNewsShare) item;
+                case NewsShare:
+                    NewsShare news = (NewsShare) item;
                     displayUserInfo(news, holder);
                     displayCaption(news.getTitle(), holder);
                     displayPostImage(news, holder);
@@ -315,25 +315,25 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         holder.playButton.setVisibility(TextUtils.isEmpty(news.getVidUrl()) ? View.GONE : View.VISIBLE);
                     }
                     break;
-                case rumor:
+                case Rumour:
                     displayCaption(item.getTitle(), holder);
                     displayCommentsAndLikes(item, holder);
                     break;
-                case wallStoreItem:
-                    WallStoreItem storeItem = (WallStoreItem) item;
+                case StoreOffer:
+                    StoreOffer storeItem = (StoreOffer) item;
                     displayUserInfo(storeItem, holder);
                     displayCaption(storeItem.getTitle(), holder);
                     displayPostImage(storeItem, holder);
                     displayCommentsAndLikes(storeItem, holder);
                     break;
-                case stats:
-                    WallStats statsItem = (WallStats) item;
+                case Stats:
+                    Stats statsItem = (Stats) item;
                     displayUserInfo(statsItem, holder);
                     displayCaption(statsItem.getTitle(), holder);
                     displayPostImage(statsItem, holder);
                     displayCommentsAndLikes(statsItem, holder);
                     break;
-                case betting:
+                case Betting:
                     break;
             }
             holder.view.setOnClickListener(new View.OnClickListener() {

@@ -47,11 +47,11 @@ import base.app.data.Translator;
 import base.app.data.sharing.ShareHelper;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.Post;
-import base.app.data.wall.PostComment;
+import base.app.data.wall.Comment;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.WallModel;
-import base.app.data.wall.WallNewsShare;
-import base.app.data.wall.WallStoreItem;
+import base.app.data.wall.NewsShare;
+import base.app.data.wall.StoreOffer;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
@@ -250,7 +250,7 @@ public class WallItemFragment extends BaseFragment {
             WallModel.getInstance().getCommentsForPost(item);
         }
         switch (item.getType()) {
-            case post:
+            case Post:
                 Post post = (Post) item;
                 ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
                         R.drawable.wall_detail_header_placeholder);
@@ -283,9 +283,9 @@ public class WallItemFragment extends BaseFragment {
                     }
                 }
                 break;
-            case rumor:
-            case newsOfficial:
-                WallNewsShare news = (WallNewsShare) item;
+            case Rumour:
+            case NewsOfficial:
+                NewsShare news = (NewsShare) item;
                 ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader, null);
                 title.setText(news.getTitle());
                 content.setText(news.getBodyText());
@@ -308,12 +308,12 @@ public class WallItemFragment extends BaseFragment {
                 }
 
                 break;
-            case betting:
+            case Betting:
                 break;
-            case stats:
+            case Stats:
                 break;
-            case wallStoreItem:
-                WallStoreItem storeItem = (WallStoreItem) item;
+            case StoreOffer:
+                StoreOffer storeItem = (StoreOffer) item;
                 ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, null);
                 title.setText(storeItem.getTitle());
                 break;
@@ -322,11 +322,11 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentsReceivedEvent(GetCommentsCompleteEvent event) {
-        List<PostComment> comments = event.getCommentList();
+        List<Comment> comments = event.getCommentList();
 
-        Collections.sort(comments, new Comparator<PostComment>() {
+        Collections.sort(comments, new Comparator<Comment>() {
             @Override
-            public int compare(PostComment lhs, PostComment rhs) {
+            public int compare(Comment lhs, Comment rhs) {
                 return Double.compare(rhs.getTimestamp(), lhs.getTimestamp());
             }
         });
@@ -382,7 +382,7 @@ public class WallItemFragment extends BaseFragment {
     }
 
     private void sendComment() {
-        PostComment comment = new PostComment();
+        Comment comment = new Comment();
         comment.setComment(post.getText().toString());
         comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
         comment.setWallId(mPost.getWallId());
@@ -400,7 +400,7 @@ public class WallItemFragment extends BaseFragment {
         postCommentProgressBar.setVisibility(View.VISIBLE);
     }
 
-    PostComment commentForEdit;
+    Comment commentForEdit;
 
     @Subscribe
     public void setCommentForEdit(CommentSelectedEvent event) {
@@ -430,10 +430,10 @@ public class WallItemFragment extends BaseFragment {
     public void onCommentUpdated(final CommentUpdatedEvent event) {
         WallItem wallItem = event.getWallItem();
         if (wallItem != null && wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getPostId().equals(mPost.getPostId())) {
-            PostComment receivedComment = event.getComment();
-            PostComment commentToUpdate = null;
-            List<PostComment> commentsInAdapter = commentsAdapter.getComments();
-            for (PostComment comment : commentsInAdapter) {
+            Comment receivedComment = event.getComment();
+            Comment commentToUpdate = null;
+            List<Comment> commentsInAdapter = commentsAdapter.getComments();
+            for (Comment comment : commentsInAdapter) {
                 if (comment.getId().equals(receivedComment.getId())) {
                     commentToUpdate = comment;
                 }
@@ -455,7 +455,7 @@ public class WallItemFragment extends BaseFragment {
                     && wallItem.getPostId().equals(mPost.getPostId())) {
 
                 mPost.setCommentsCount(event.getWallItem().getCommentsCount());
-                final PostComment comment = event.getComment();
+                final Comment comment = event.getComment();
 
                 if (event.getComment() != null) {
                     Model.getInstance().getUserInfoById(comment.getPosterId())
@@ -479,9 +479,9 @@ public class WallItemFragment extends BaseFragment {
     @Subscribe
     public void onDeleteComment(CommentDeleteEvent event) {
         if (event.getPost().getWallId().equals(mPost.getWallId())) {
-            PostComment commentToDelete = event.getComment();
+            Comment commentToDelete = event.getComment();
 
-            for (PostComment comment : commentsAdapter.getComments()) {
+            for (Comment comment : commentsAdapter.getComments()) {
                 if (comment.getId().equals(commentToDelete.getId())) {
                     commentsAdapter.remove(comment);
                     commentsAdapter.notifyDataSetChanged();

@@ -15,7 +15,7 @@ import java.util.Map;
 
 import base.app.R;
 import base.app.data.im.ImsMessage;
-import base.app.data.wall.PostComment;
+import base.app.data.wall.Comment;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.News;
 import base.app.util.commons.XmlLanguageMapParser;
@@ -161,7 +161,7 @@ public class Translator {
      * @param language   - ISO-639-1 two letter designation for each language
      * @param completion - return translated item or fail
      */
-    public void translatePostComment(String itemId, String language, final TaskCompletionSource<PostComment> completion) {
+    public void translatePostComment(String itemId, String language, final TaskCompletionSource<Comment> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateComment")
                 .setEventAttribute(ID_SHORT, itemId)
@@ -171,14 +171,14 @@ public class Translator {
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
                         if (!response.hasErrors()) {
                             GSData postCommentData = response.getScriptData().getObject("item");
-                            PostComment postComment = null;
+                            Comment comment = null;
                             if (postCommentData != null) {
-                                postComment = mapper.convertValue(postCommentData.getBaseData(), new TypeReference<PostComment>() {
+                                comment = mapper.convertValue(postCommentData.getBaseData(), new TypeReference<Comment>() {
                                 });
                             }
                             if (completion != null) {
-                                if (postComment != null) {
-                                    completion.setResult(postComment);
+                                if (comment != null) {
+                                    completion.setResult(comment);
                                 } else {
                                     completion.setException(new Exception("Something went wrong with translation of Comment."));
                                 }

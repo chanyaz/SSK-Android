@@ -24,7 +24,7 @@ import java.util.HashMap;
 import base.app.R;
 import base.app.data.Translator;
 import base.app.data.im.ImsMessage;
-import base.app.data.wall.PostComment;
+import base.app.data.wall.Comment;
 import base.app.data.wall.WallItem;
 import base.app.data.wall.News;
 
@@ -207,13 +207,13 @@ public class TranslationView extends RelativeLayout {
     }
 
     private void translatePostComment() {
-        TaskCompletionSource<PostComment> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<PostComment>() {
+        TaskCompletionSource<Comment> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<Comment>() {
             @Override
-            public void onComplete(@NonNull Task<PostComment> task) {
+            public void onComplete(@NonNull Task<Comment> task) {
                 if (task.isSuccessful()) {
-                    PostComment translatedPostCommentItem = task.getResult();
-                    completion.setResult(translatedPostCommentItem);
+                    Comment translatedCommentItem = task.getResult();
+                    completion.setResult(translatedCommentItem);
                 } else {
                     Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();
                 }
