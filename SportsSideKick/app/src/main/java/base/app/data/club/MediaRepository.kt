@@ -1,6 +1,7 @@
 package base.app.data.club
 
-import android.util.Pair
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import base.app.Keys.YOUTUBE_API_KEY
 import com.google.api.services.youtube.YouTube
 import com.google.api.services.youtube.model.Playlist
@@ -15,18 +16,23 @@ class MediaRepository(private val youtubeClient: YouTube) {
 
     fun getPlaylists(
             channelId: String
-    ): Observable<List<Playlist>> {
+    ): LiveData<List<Playlist>> {
         val playlistsKey = "contentDetails,snippet"
         val fieldsKey = "pageInfo,nextPageToken,items(id,snippet(title,publishedAt,thumbnails/high),contentDetails)"
 
-        return fromCallable {
+        val data = MutableLiveData<List<Playlist>>()
+
+        fromCallable {
             youtubeClient.playlists()
                     .list(playlistsKey)
                     .setChannelId(channelId)
                     .setFields(fieldsKey)
                     .setKey(YOUTUBE_API_KEY)
                     .execute()
-        }.map { it.items }
+        }
+                .map { it.items }
+                .subscribe { data.postValue(it) }
+        return data
     }
 
     fun getVideos(playlistId: String): Single<List<Video>> {

@@ -1,4 +1,4 @@
-package base.app.ui.fragment.content.news.viewmodel
+package base.app.ui.fragment.content.news
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel

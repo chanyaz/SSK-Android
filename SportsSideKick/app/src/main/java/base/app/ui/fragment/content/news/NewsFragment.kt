@@ -11,7 +11,6 @@ import base.app.data.news.NewsModel.NewsType.OFFICIAL
 import base.app.data.news.NewsRepository
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
-import base.app.ui.fragment.content.news.viewmodel.NewsViewModel
 import base.app.util.ui.inflate
 import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_news.*

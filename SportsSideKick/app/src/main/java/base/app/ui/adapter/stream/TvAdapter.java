@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
  * www.hypercubesoft.com
  */
 
-public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder> {
+public class TvAdapter extends RecyclerView.Adapter<TvAdapter.ViewHolder> {
 
     private List<Playlist> values;
 
@@ -56,7 +56,7 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         }
     }
 
-    public ClubTVAdapter() {
+    public TvAdapter() {
         values = new ArrayList<>();
     }
 
