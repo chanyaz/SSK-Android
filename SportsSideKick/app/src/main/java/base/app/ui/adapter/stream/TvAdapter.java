@@ -88,7 +88,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.ViewHolder> {
         String countExtension = " (" + count + ")";
         int endIndex = startIndex + countExtension.length();
         String caption = originalCaption + countExtension;
-            holder.caption.setText(caption);
+        holder.caption.setText(caption);
         Spannable spannable = (Spannable) holder.caption.getText();
         int color = Color.parseColor("#9ba1a3");
         ForegroundColorSpan thinSpan = new ForegroundColorSpan(color);
@@ -96,7 +96,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.ViewHolder> {
 
         String imageUrl = info.getSnippet().getThumbnails().getHigh().getUrl();
         if (holder.image != null) {
-            ImageLoader.displayImage(imageUrl, holder.image, null);
+            ImageLoader.displayImage(imageUrl, holder.image);
         }
     }
 
