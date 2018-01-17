@@ -1,8 +1,12 @@
 package base.app.ui.fragment.popup.post
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import base.app.data.Model
 import base.app.data.club.inBackground
 import base.app.data.news.PostsRepository
+import base.app.data.user.UserInfo
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import java.io.File
@@ -15,8 +19,9 @@ class PostCreateViewModel : ViewModel() {
     private var selectedImage: File? = null
     private val disposables = CompositeDisposable()
 
-    fun onViewCreated() {
-        view.showUser()
+    fun loadUser() : LiveData<UserInfo> {
+        val user = Model.getInstance().userInfo
+        return MutableLiveData<UserInfo>().just(user)
     }
 
     fun attachImage(fileObservable: Observable<File>) {
@@ -43,4 +48,9 @@ class PostCreateViewModel : ViewModel() {
     fun onDestroy() {
         disposables.clear()
     }
+}
+
+fun <T> MutableLiveData<T>.just(obj: T): LiveData<T> {
+    value = obj
+    return this
 }

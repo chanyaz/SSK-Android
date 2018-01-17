@@ -43,7 +43,7 @@ class TvFragment : BaseFragment(), ITvView {
                 FragmentEvent(YoutubePlayerFragment::class.java))
 
         val channelId = getString(R.string.youtube_channel_id)
-        viewModel.getPlaylists(channelId)
+        viewModel.loadPlaylists(channelId)
     }
 
     override fun showPlaylists(items: List<Playlist>) {

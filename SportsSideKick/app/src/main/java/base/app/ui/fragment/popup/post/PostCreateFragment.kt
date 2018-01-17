@@ -1,6 +1,6 @@
 package base.app.ui.fragment.popup.post
 
-import android.annotation.SuppressLint
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,13 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
-import base.app.data.Model
 import base.app.data.news.PostsRepository
 import base.app.util.commons.Utility.hideKeyboard
-import base.app.util.ui.gone
-import base.app.util.ui.inflate
-import base.app.util.ui.show
-import base.app.util.ui.visible
+import base.app.util.ui.*
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo.single
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData
 import com.miguelbcr.ui.rx_paparazzo2.entities.Response
@@ -38,7 +34,12 @@ class PostCreateFragment : Fragment(), IPostCreateView {
     override fun onViewCreated(view: View, state: Bundle?) {
         viewModel.postsRepo = PostsRepository()
         viewModel.view = this
-        viewModel.onViewCreated()
+        viewModel.loadUser().observe(this, Observer {
+            if (it != null) {
+                authorName.text = "${it.firstName} ${it.lastName}"
+                authorImage.showAvatar(it.avatar)
+            }
+        })
         contentImage.show(R.drawable.image_rumours_background)
         setClickListeners()
     }
@@ -50,13 +51,6 @@ class PostCreateFragment : Fragment(), IPostCreateView {
                 titleField.text.toString(), bodyTextField.text.toString()) }
         removeButton.onClick { viewModel.onRemoveImageClicked() }
         backButton.onClick { exit() }
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun showUser() {
-        val info = Model.getInstance().userInfo
-        authorName.text = "${info.firstName} ${info.lastName}"
-        authorImage.show(info.avatar, R.drawable.avatar_placeholder)
     }
 
     override fun showPostImage(image: File) {

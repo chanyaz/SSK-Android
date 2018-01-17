@@ -12,14 +12,14 @@ class TvViewModel : ViewModel() {
 
     private val disposables = CompositeDisposable()
 
-    fun getPlaylists(channelId: String) {
+    fun loadPlaylists(channelId: String) {
         disposables.add(tvRepo
                 .getPlaylists(channelId)
                 .inBackground()
                 .subscribe { view.showPlaylists(it) })
     }
 
-    fun getVideos(playlistId: String) {
+    fun loadVideos(playlistId: String) {
         disposables.add(tvRepo
                 .getVideos(playlistId)
                 .inBackground()

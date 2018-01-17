@@ -1,11 +1,16 @@
 package base.app.util.ui
 
 import android.widget.ImageView
+import base.app.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 fun ImageView.show(uri: Any?, error: Int? = null) {
     ImageLoader.displayImage(uri, this, error)
+}
+
+fun ImageView.showAvatar(uri: Any?) {
+    ImageLoader.displayImage(uri, this, R.drawable.avatar_placeholder)
 }
 
 object ImageLoader {

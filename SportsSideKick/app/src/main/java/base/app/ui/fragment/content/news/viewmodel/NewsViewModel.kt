@@ -1,4 +1,4 @@
-package base.app.ui.fragment.content.news
+package base.app.ui.fragment.content.news.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
@@ -10,7 +10,7 @@ class NewsViewModel : ViewModel() {
 
     lateinit var newsRepo: NewsRepository
 
-    fun getNews(type: NewsType): LiveData<List<News>> {
+    fun loadNews(type: NewsType): LiveData<List<News>> {
         return newsRepo.getNews(type)
     }
 }

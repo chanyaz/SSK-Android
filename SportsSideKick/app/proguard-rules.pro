@@ -60,7 +60,7 @@
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 # Only required if you use AsyncExecutor
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <onViewCreated>(java.lang.Throwable);
+    <loadUser>(java.lang.Throwable);
 }
 
 # Add project specific ProGuard rules here.
@@ -106,13 +106,13 @@
 -keep public class * extends android.view.View{
     *** get*();
     void set*(***);
-    public <onViewCreated>(android.content.Context);
-    public <onViewCreated>(android.content.Context, android.util.AttributeSet);
-    public <onViewCreated>(android.content.Context, android.util.AttributeSet, int);
+    public <loadUser>(android.content.Context);
+    public <loadUser>(android.content.Context, android.util.AttributeSet);
+    public <loadUser>(android.content.Context, android.util.AttributeSet, int);
 }
 -keepclasseswithmembers class * {
-    public <onViewCreated>(android.content.Context, android.util.AttributeSet);
-    public <onViewCreated>(android.content.Context, android.util.AttributeSet, int);
+    public <loadUser>(android.content.Context, android.util.AttributeSet);
+    public <loadUser>(android.content.Context, android.util.AttributeSet, int);
 }
 -keepclassmembers class * extends android.app.Activity {
    public void *(android.view.View);
@@ -305,7 +305,7 @@
 -keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
 
 -keepclassmembers class * {
-   public <onViewCreated> (org.json.JSONObject);
+   public <loadUser> (org.json.JSONObject);
 }
 -keepclassmembers enum * {
     public static **[] values();
@@ -344,7 +344,7 @@
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <onViewCreated>(java.lang.Throwable);
+    <loadUser>(java.lang.Throwable);
 }
 
 
