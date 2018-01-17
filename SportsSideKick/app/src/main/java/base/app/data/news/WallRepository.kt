@@ -9,7 +9,7 @@ class WallRepository {
     fun getItems(): LiveData<List<WallItem>> {
         val data = MutableLiveData<List<WallItem>>()
 
-        data.value = WallItem.getCache().values.toList().sortedBy { it.timestamp }
+        data.value = WallItem.cache.values.toList().sortedBy { it.timestamp }
 
         return data
     }

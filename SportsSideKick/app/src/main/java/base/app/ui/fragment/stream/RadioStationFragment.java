@@ -38,10 +38,10 @@ public class RadioStationFragment extends BaseFragment implements MediaPlayer.On
 
     private static final String TAG = "Radio Station Fragment";
     private static final int AUDIO_BAR_MAX = 1000;
-    @BindView(R.id.play_button)
+    @BindView(R.id.playButton)
     ImageView playButton;
 
-    @BindView(R.id.seek_bar)
+    @BindView(R.id.seekBar)
     SeekBar seekBar;
 
     @BindView(R.id.seek_bar_audio)
@@ -96,7 +96,7 @@ public class RadioStationFragment extends BaseFragment implements MediaPlayer.On
         return view;
     }
 
-    @OnClick(R.id.play_button)
+    @OnClick(R.id.playButton)
     public void playButtonOnClick() {
         if (playButton.isSelected()) {
             playButton.setSelected(false);

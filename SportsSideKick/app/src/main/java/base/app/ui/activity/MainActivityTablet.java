@@ -41,7 +41,7 @@ import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
 import base.app.ui.fragment.content.wall.WallFragment;
 import base.app.ui.fragment.content.wall.WallItemFragment;
-import base.app.ui.fragment.stream.YoutubePlayerFragment;
+import base.app.ui.fragment.content.tv.VideoContainerFragment;
 import base.app.ui.fragment.popup.AddFriendFragment;
 import base.app.ui.fragment.popup.AlertDialogFragment;
 import base.app.ui.fragment.popup.CreateChatFragment;
@@ -210,7 +210,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         bottomRightContainerFragments.add(TvFragment.class);
         bottomRightContainerFragments.add(TvPlaylistFragment.class);
         bottomRightContainerFragments.add(RadioFragment.class);
-        bottomRightContainerFragments.add(YoutubePlayerFragment.class);
+        bottomRightContainerFragments.add(VideoContainerFragment.class);
         bottomRightContainerFragments.add(RadioStationFragment.class);
         fragmentOrganizer.setUpContainer(R.id.bottom_right_container, bottomRightContainerFragments); //WITH BACK STACK
 

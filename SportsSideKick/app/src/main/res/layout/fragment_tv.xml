@@ -7,6 +7,20 @@
     tools:context=".ui.fragment.content.tv.TvFragment"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/video_player_dummy_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <fragment
+            android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+            android:id="@+id/youtube_layout"
+            android:visibility="invisible"
+            app:layout_aspectRatio="178%"
+            app:layout_widthPercent="100%" />
+
+    </android.support.percent.PercentRelativeLayout>
+
     <TextView
         fontPath="fonts/TitilliumWeb-SemiBold.ttf"
         android:layout_width="match_parent"

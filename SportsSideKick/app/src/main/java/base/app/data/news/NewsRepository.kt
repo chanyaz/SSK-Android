@@ -2,6 +2,7 @@ package base.app.data.news
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import base.app.BuildConfig.DEBUG
 import base.app.data.wall.News
 
 class NewsRepository {
@@ -10,7 +11,7 @@ class NewsRepository {
         val data = MutableLiveData<List<News>>()
 
         val cached = NewsModel.getInstance().getAllCachedItems(type)
-        if (cached.isNotEmpty()) {
+        if (cached.isNotEmpty() && !DEBUG /* TODO Alex: Remove */) {
             data.value = cached
         } else {
             NewsModel.getInstance().loadPage(type, data)

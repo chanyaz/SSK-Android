@@ -21,7 +21,7 @@
             app:layout_widthPercent="100%" />
 
         <SeekBar
-            android:id="@+id/seek_bar"
+            android:id="@+id/seekBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_16"
@@ -41,11 +41,11 @@
         android:id="@+id/controls_container"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_above="@+id/time_info"
+        android:layout_above="@+id/timeInfo"
         android:layout_alignParentEnd="true">
 
         <ImageView
-            android:id="@+id/play_button"
+            android:id="@+id/playButton"
             android:layout_width="@dimen/width_40"
             android:layout_height="@dimen/height_40"
             android:layout_centerHorizontal="true"
@@ -60,10 +60,10 @@
             android:layout_centerHorizontal="true" />
 
         <ImageView
-            android:id="@+id/mute_button"
+            android:id="@+id/muteButton"
             android:layout_width="@dimen/width_40"
             android:layout_height="@dimen/height_40"
-            android:layout_below="@+id/play_button"
+            android:layout_below="@+id/playButton"
             android:layout_toStartOf="@+id/center"
             android:button="@null"
             android:gravity="center"
@@ -72,10 +72,10 @@
             android:thumb="@null" />
 
         <ImageView
-            android:id="@+id/fullscreen_button"
+            android:id="@+id/fullscreenButton"
             android:layout_width="@dimen/width_40"
             android:layout_height="@dimen/height_40"
-            android:layout_below="@+id/play_button"
+            android:layout_below="@+id/playButton"
             android:layout_toEndOf="@+id/center"
             android:padding="@dimen/padding_10"
             android:src="@drawable/full_screen_icon" />

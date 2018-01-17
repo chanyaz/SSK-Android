@@ -72,7 +72,7 @@ import base.app.ui.fragment.stream.RadioStationFragment;
 import base.app.ui.fragment.content.tv.TvFragment;
 import base.app.ui.fragment.content.tv.TvPlaylistFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.ui.fragment.stream.YoutubePlayerFragment;
+import base.app.ui.fragment.content.tv.VideoContainerFragment;
 import base.app.util.commons.Constant;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
@@ -277,7 +277,7 @@ public class MainActivity extends BaseActivity
         fragmentOrganizer.setUpContainer(R.id.radio_list_holder, radioList, false);
 
         youtubePlayer = new ArrayList<>();
-        youtubePlayer.add(YoutubePlayerFragment.class);
+        youtubePlayer.add(VideoContainerFragment.class);
         fragmentOrganizer.setUpContainer(R.id.youtube_holder, youtubePlayer, true);
 
         radioPlayerList = new ArrayList<>();
@@ -394,7 +394,7 @@ public class MainActivity extends BaseActivity
             fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
         }
 
-        if (previousFragment == YoutubePlayerFragment.class) {
+        if (previousFragment == VideoContainerFragment.class) {
             fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
         }
 
@@ -432,9 +432,9 @@ public class MainActivity extends BaseActivity
             return;
         }
 
-        if (previousFragment == YoutubePlayerFragment.class
+        if (previousFragment == VideoContainerFragment.class
                 && penultimateFragment == TvFragment.class
-                && currentFragment instanceof YoutubePlayerFragment
+                && currentFragment instanceof VideoContainerFragment
                 ) {
             NavigationDrawerItems.getInstance().setByPosition(7);
             menuAdapter.notifyDataSetChanged();
@@ -447,10 +447,10 @@ public class MainActivity extends BaseActivity
         }
 
 
-        if (currentFragment instanceof YoutubePlayerFragment) {
-            YoutubePlayerFragment youtubePlayerFragment = (YoutubePlayerFragment) currentFragment;
-            if (youtubePlayerFragment.isFullScreen()) {
-                youtubePlayerFragment.setFullScreen(false);
+        if (currentFragment instanceof VideoContainerFragment) {
+            VideoContainerFragment videoContainerFragment = (VideoContainerFragment) currentFragment;
+            if (videoContainerFragment.isFullscreen()) {
+                videoContainerFragment.setFullscreen(false);
                 return;
             }
 
@@ -482,7 +482,7 @@ public class MainActivity extends BaseActivity
             if (previousFragment == RadioFragment.class) {
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
-                if (penultimateFragment == YoutubePlayerFragment.class) {
+                if (penultimateFragment == VideoContainerFragment.class) {
                     tvContainer.setVisibility(View.VISIBLE);
                     NavigationDrawerItems.getInstance().setByPosition(7);
                     menuAdapter.notifyDataSetChanged();

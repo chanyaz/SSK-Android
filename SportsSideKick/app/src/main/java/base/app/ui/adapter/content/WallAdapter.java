@@ -69,7 +69,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @BindView(R.id.text_content)
         TextView contentTextView;
         @Nullable
-        @BindView(R.id.play_button)
+        @BindView(R.id.playButton)
         ImageView playButton;
         @Nullable
         @BindView(R.id.image)

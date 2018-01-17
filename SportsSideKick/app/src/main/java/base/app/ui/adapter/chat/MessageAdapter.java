@@ -79,7 +79,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         @BindView(R.id.sender) TextView senderTextView;
         @Nullable @BindView(R.id.profile_image) CircleImageView senderImageView;
         @BindView(R.id.contentImage) ImageView contentImage;
-        @BindView(R.id.play_button) ImageView playButton;
+        @BindView(R.id.playButton) ImageView playButton;
         @BindView(R.id.content_container) View contentContainer;
         @Nullable @BindView(R.id.progressBar) AVLoadingIndicatorView progressBar;
         ViewHolder(View view) {

@@ -52,9 +52,9 @@ public class NewsModel {
 
     private static NewsModel instance;
 
-    private int itemsPerPage;
+    private int itemsPerPage = DEFAULT_PAGE_NEWS;
     private static final int DEFAULT_PAGE_LENGTH = 20;
-    private static final int DEFAULT_PAGE_NEWS = 20;
+    private static final int DEFAULT_PAGE_NEWS = 30;
     private static final int DEFAULT_PAGE_RUMORS = 20;
     private int pageRumors = 0;
     private int pageNews = 0;
@@ -64,7 +64,6 @@ public class NewsModel {
 
     private String language;
     private String country;
-    private String ID;
 
     private boolean isLoadingNews;
     private boolean isLoadingRumors;
@@ -95,9 +94,7 @@ public class NewsModel {
         config = Utility.getClubConfig();
         config = new HashMap<>();
         config = Utility.getClubConfig();
-        itemsPerPage = DEFAULT_PAGE_NEWS;
         country = config.get("Country");
-        ID = config.get("ID");
         language = config.get("Language");
         pageNews = 0;
         pageRumors = 0;
@@ -112,7 +109,6 @@ public class NewsModel {
                 .setEventKey("newsGetPage")
                 .setEventAttribute("language", language)
                 .setEventAttribute("country", country)
-                .setEventAttribute("id", ID)
                 .setEventAttribute("type", type.toString())
                 .setEventAttribute("page", 0)
                 .setEventAttribute("limit", itemsPerPage)

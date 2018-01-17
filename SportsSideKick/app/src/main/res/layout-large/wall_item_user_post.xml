@@ -41,7 +41,7 @@
             app:civ_border_width="@dimen/width_2"/>
 
         <ImageView
-            android:id="@+id/play_button"
+            android:id="@+id/playButton"
             android:layout_width="@dimen/width_62"
             android:layout_height="@dimen/height_62"
             android:layout_centerInParent="true"

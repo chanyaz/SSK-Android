@@ -13,7 +13,6 @@ import base.app.ui.adapter.stream.TvAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.ui.fragment.base.FragmentEvent
 import base.app.ui.fragment.base.IgnoreBackHandling
-import base.app.ui.fragment.stream.YoutubePlayerFragment
 import base.app.util.ui.inflate
 import kotlinx.android.synthetic.main.fragment_tv.*
 import org.greenrobot.eventbus.EventBus
@@ -22,7 +21,7 @@ import org.greenrobot.eventbus.EventBus
 class TvFragment : BaseFragment() {
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this)
+            ViewModelProviders.of(activity!!)
                 .get(TvViewModel::class.java)
     }
 
@@ -32,7 +31,7 @@ class TvFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, state: Bundle?) {
         EventBus.getDefault().post(
-                FragmentEvent(YoutubePlayerFragment::class.java))
+                FragmentEvent(VideoContainerFragment::class.java))
 
         val adapter = TvAdapter()
         recyclerView.adapter = adapter

@@ -61,7 +61,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/play_button"
+            android:id="@+id/playButton"
             android:layout_width="@dimen/standard_button_width_half"
             android:layout_height="@dimen/standard_button_width_half"
             android:layout_margin="@dimen/margin_15"
@@ -72,7 +72,7 @@
             android:id="@+id/live_dot"
             android:layout_width="@dimen/margin_10"
             android:layout_height="@dimen/margin_10"
-            android:layout_toEndOf="@+id/play_button"
+            android:layout_toEndOf="@+id/playButton"
             android:layout_centerVertical="true"
             android:src="?radioLiveIcon" />
         <TextView
@@ -92,7 +92,7 @@
             android:layout_height="@dimen/space_0"
             android:layout_centerInParent="true"/>
         <ImageView
-            android:id="@+id/mute_button"
+            android:id="@+id/muteButton"
             android:layout_width="@dimen/standard_button_width_half"
             android:layout_height="@dimen/standard_button_width_half"
             android:layout_margin="@dimen/margin_15"
@@ -110,14 +110,14 @@
             android:layout_marginEnd="@dimen/margin_20"
             android:thumb="@null"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/mute_button"
+            android:layout_toEndOf="@+id/muteButton"
             android:thumbOffset="@dimen/thumb_offset_0"
             android:progress="50"
             android:progressDrawable="?seekBarAudioShape" />
     </RelativeLayout>
 
     <SeekBar
-        android:id="@+id/seek_bar"
+        android:id="@+id/seekBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_16"

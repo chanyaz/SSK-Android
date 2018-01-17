@@ -21,7 +21,7 @@ import java.util.Locale;
 
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.stream.YoutubePlayerFragment;
+import base.app.ui.fragment.content.tv.VideoContainerFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,7 +81,7 @@ public class ClubTVPlaylistAdapter extends RecyclerView.Adapter<ClubTVPlaylistAd
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(YoutubePlayerFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(VideoContainerFragment.class);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setId(values.get(position).getId());
                 EventBus.getDefault().post(fragmentEvent);

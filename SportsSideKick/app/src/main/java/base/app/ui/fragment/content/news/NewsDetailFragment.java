@@ -195,6 +195,7 @@ public class NewsDetailFragment extends BaseFragment {
 
         String id = getPrimaryArgument();
         item = loadFromCacheBy(id);
+        if (item== null) return view;
 
         showHeaderImage();
         showTextContent(item);
