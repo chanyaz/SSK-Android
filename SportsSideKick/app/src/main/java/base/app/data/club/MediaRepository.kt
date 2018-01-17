@@ -27,10 +27,12 @@ class MediaRepository(private val youtubeClient: YouTube) {
                     .list(playlistsKey)
                     .setChannelId(channelId)
                     .setFields(fieldsKey)
+                    .setMaxResults(50)
                     .setKey(YOUTUBE_API_KEY)
                     .execute()
         }
                 .map { it.items }
+                .inBackground()
                 .subscribe { data.postValue(it) }
         return data
     }
@@ -45,6 +47,7 @@ class MediaRepository(private val youtubeClient: YouTube) {
                     youtubeClient.videos()
                             .list(requestKey)
                             .setFields(fieldsKey)
+                            .setMaxResults(50)
                             .setKey(YOUTUBE_API_KEY)
                             .setId(it)
                             .execute()
@@ -52,7 +55,7 @@ class MediaRepository(private val youtubeClient: YouTube) {
                 .map { it.items }
     }
 
-    fun getVideoIds(playlistId: String): Single<List<String>> {
+    private fun getVideoIds(playlistId: String): Single<List<String>> {
         val requestKey = "snippet"
         val fieldsKey = "pageInfo,nextPageToken,items(playlistId,snippet(resourceId/videoId))"
 
