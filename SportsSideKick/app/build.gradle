@@ -12,6 +12,15 @@ android {
         renderscriptSupportModeEnabled true
         multiDexEnabled true
     }
+    buildTypes {
+        release {
+            minifyEnabled false // TODO: Use *keep attribute on required resources and re-enable
+            shrinkResources false
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android.txt'),
+                    'proguard-rules.pro'
+        }
+    }
     flavorDimensions "main"
     productFlavors {
         sportsidekick {
@@ -25,18 +34,14 @@ android {
             versionName "5.0.0.6"
         }
     }
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
+    sourceSets {
+        test.java.srcDirs += 'src/test/java'
+        androidTest.java.srcDirs += 'src/androidTest/java'
     }
-    buildTypes {
-        release {
-            minifyEnabled false // TODO: Use *keep attribute on required resources and re-enable
-            shrinkResources false
-            proguardFiles getDefaultProguardFile(
-                    'proguard-android.txt'),
-                    'proguard-rules.pro'
-        }
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
     }
 }
 
@@ -153,6 +158,17 @@ dependencies {
     implementation "org.jetbrains.anko:anko:0.10.4"
     // Architecture components
     implementation "android.arch.lifecycle:extensions:1.0.0"
+    // Testing
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.robolectric:robolectric:3.2.2"
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.1.0'
+    testImplementation "com.nhaarman:mockito-kotlin:1.1.0"
+    testImplementation 'org.amshove.kluent:kluent:1.14'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
+    androidTestImplementation 'com.android.support:support-annotations:27.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

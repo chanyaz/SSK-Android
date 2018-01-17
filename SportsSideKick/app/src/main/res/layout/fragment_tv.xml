@@ -7,29 +7,6 @@
     tools:context=".ui.fragment.content.tv.TvFragment"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
-    <android.support.percent.PercentRelativeLayout
-        android:id="@+id/video_player_dummy_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <View
-            android:id="@+id/youtube_layout"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:visibility="invisible"
-            app:layout_aspectRatio="178%"
-            app:layout_widthPercent="100%" />
-
-    </android.support.percent.PercentRelativeLayout>
-
-    <!-- Items -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/backButton"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        app:spanCount="2" />
-
     <TextView
         fontPath="fonts/TitilliumWeb-SemiBold.ttf"
         android:layout_width="match_parent"
@@ -46,5 +23,13 @@
         android:layout_height="48dp"
         android:layout_below="@id/video_player_dummy_container"
         android:background="@drawable/video_back_button" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/backButton"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="2" />
 
 </RelativeLayout>
