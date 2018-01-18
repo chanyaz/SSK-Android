@@ -298,13 +298,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 }
 
                 if (isAutoTranslateEnabled() && ((Post) item).getTranslatedTo() == null) {
-                    TaskCompletionSource<BaseItem> task = new TaskCompletionSource<>();
-                    task.getTask().addOnCompleteListener(new OnCompleteListener<BaseItem>() {
+                    TaskCompletionSource<Post> task = new TaskCompletionSource<>();
+                    task.getTask().addOnCompleteListener(new OnCompleteListener<Post>() {
                         @Override
-                        public void onComplete(@NonNull Task<BaseItem> task) {
+                        public void onComplete(@NonNull Task<Post> task) {
                             int position = holder.getAdapterPosition();
                             if (task.isSuccessful()) {
-                                BaseItem translatedItem = task.getResult();
+                                Post translatedItem = task.getResult();
                                 remove(position);
                                 add(position, translatedItem);
                                 notifyItemChanged(position);
@@ -312,7 +312,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         }
                     });
                     Translator.getInstance().translatePost(
-                            item.getPostId(),
+                            item.getId(),
                             Prefs.getString(CHOSEN_LANGUAGE, "en"),
                             task
                     );
@@ -361,10 +361,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 if (item instanceof Pin) {
                     fe = new FragmentEvent(NewsDetailFragment.class);
                     fe.setId(((Pin) item).getReferencedItemId());
-                    fe.setSecondaryId(item.getPostId());
+                    fe.setSecondaryId(item.getId());
                 } else {
                     fe = new FragmentEvent(DetailFragment.class);
-                    fe.setId(item.getPostId());
+                    fe.setId(item.getId());
                 }
                 fe.setItem(item);
                 EventBus.getDefault().post(fe);

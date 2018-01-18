@@ -48,7 +48,7 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return viewHolder;
     }
 
-    protected int getItemLayoutId() {
+    private int getItemLayoutId() {
         return R.layout.wall_item_news;
     }
 
@@ -64,7 +64,7 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     @NonNull
-    protected View.OnClickListener getClickListener(final News item) {
+    private View.OnClickListener getClickListener(final News item) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -25,9 +25,9 @@ import base.app.R;
 import base.app.data.Translator;
 import base.app.data.TypeMapper;
 import base.app.data.im.ImsMessage;
-import base.app.data.wall.BaseItem;
 import base.app.data.wall.Comment;
 import base.app.data.wall.News;
+import base.app.data.wall.Post;
 
 /**
  * Created by Filip on 9/27/2017.
@@ -62,7 +62,7 @@ public class TranslationView extends RelativeLayout {
     }
 
     public enum TranslationType {
-        TRANSLATE_WALL,
+        TRANSLATE_POST,
         TRANSLATE_NEWS,
         TRANSLATE_IMS,
         TRANSLATE_COMMENT
@@ -189,14 +189,14 @@ public class TranslationView extends RelativeLayout {
         Translator.getInstance().translateMessage(itemId, getSelectedLanguageCode(), source);
     }
 
-    private void translateWallItem() {
-        TaskCompletionSource<BaseItem> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<BaseItem>() {
+    private void translatePost() {
+        TaskCompletionSource<Post> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<Post>() {
             @Override
-            public void onComplete(@NonNull Task<BaseItem> task) {
+            public void onComplete(@NonNull Task<Post> task) {
                 if (task.isSuccessful()) {
-                    BaseItem translatedWallBaseItem = task.getResult();
-                    completion.setResult(translatedWallBaseItem);
+                    Post translatedWallPost = task.getResult();
+                    completion.setResult(translatedWallPost);
                 } else {
                     Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();
                 }
@@ -250,8 +250,8 @@ public class TranslationView extends RelativeLayout {
             popupLayout.setVisibility(GONE);
             progressBar.setVisibility(VISIBLE);
             switch (type) {
-                case TRANSLATE_WALL:
-                    translateWallItem();
+                case TRANSLATE_POST:
+                    translatePost();
                     break;
                 case TRANSLATE_IMS:
                     translateMessage();

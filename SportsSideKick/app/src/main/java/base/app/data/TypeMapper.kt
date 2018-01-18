@@ -66,11 +66,11 @@ object TypeMapper {
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
             if (putInCache) {
-                val cachedItem = cache[item.postId]
+                val cachedItem = cache[item.id]
                 if (cachedItem != null) {
                     item = cachedItem as T
                 } else {
-                    cache[item.postId] = item
+                    cache[item.id] = item
                 }
             }
 

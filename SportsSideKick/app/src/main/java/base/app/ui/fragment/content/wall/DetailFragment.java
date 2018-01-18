@@ -227,12 +227,12 @@ public class DetailFragment extends BaseFragment {
             });
         }
         if (isAutoTranslateEnabled()) {
-            TaskCompletionSource<BaseItem> task = new TaskCompletionSource<>();
-            task.getTask().addOnCompleteListener(new OnCompleteListener<BaseItem>() {
+            TaskCompletionSource<Post> task = new TaskCompletionSource<>();
+            task.getTask().addOnCompleteListener(new OnCompleteListener<Post>() {
                 @Override
-                public void onComplete(@NonNull Task<BaseItem> task) {
+                public void onComplete(@NonNull Task<Post> task) {
                     if (task.isSuccessful()) {
-                        BaseItem translatedItem = task.getResult();
+                        Post translatedItem = task.getResult();
                         updateWithTranslatedItem(translatedItem);
                     }
                 }
@@ -246,7 +246,7 @@ public class DetailFragment extends BaseFragment {
         return view;
     }
 
-    private void initializeWithData(BaseItem item, boolean fetchComments) {
+    private void initializeWithData(Post item, boolean fetchComments) {
         if (fetchComments) {
             WallModel.getInstance().getCommentsForPost(item);
         }
@@ -418,7 +418,7 @@ public class DetailFragment extends BaseFragment {
     @Subscribe
     public void onCommentUpdated(final CommentUpdatedEvent event) {
         BaseItem wallItem = event.getWallItem();
-        if (wallItem != null && wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getPostId().equals(mPost.getPostId())) {
+        if (wallItem != null && wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getId().equals(mPost.getPostId())) {
             Comment receivedComment = event.getComment();
             Comment commentToUpdate = null;
             List<Comment> commentsInAdapter = commentsAdapter.getComments();
@@ -441,7 +441,7 @@ public class DetailFragment extends BaseFragment {
         BaseItem wallItem = event.getWallItem();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(mPost.getWallId())
-                    && wallItem.getPostId().equals(mPost.getPostId())) {
+                    && wallItem.getId().equals(mPost.getPostId())) {
 
                 mPost.setCommentsCount(event.getWallItem().getCommentsCount());
                 final Comment comment = event.getComment();
@@ -596,21 +596,21 @@ public class DetailFragment extends BaseFragment {
 
     @OnClick(R.id.translate)
     public void onTranslateClick(View view) {
-        TaskCompletionSource<BaseItem> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<BaseItem>() {
+        TaskCompletionSource<Post> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<Post>() {
             @Override
-            public void onComplete(@NonNull Task<BaseItem> task) {
+            public void onComplete(@NonNull Task<Post> task) {
                 if (task.isSuccessful()) {
-                    BaseItem translatedPost = task.getResult();
+                    Post translatedPost = task.getResult();
                     updateWithTranslatedItem(translatedPost);
                 }
             }
         });
         translationView.showTranslationPopup(view, mPost.getPostId(), source,
-                TranslationType.TRANSLATE_WALL, ItemType.Post);
+                TranslationType.TRANSLATE_POST, ItemType.Post);
     }
 
-    private void updateWithTranslatedItem(BaseItem translatedPost) {
+    private void updateWithTranslatedItem(Post translatedPost) {
         initializeWithData(translatedPost, false);
     }
 

@@ -106,7 +106,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     /**
      * Posting a new blog on this user wall
      */
-    public Observable<Post> createPost(final BaseItem post) {
+    public Observable<Post> createPost(final Post post) {
         return Observable.create(new ObservableOnSubscribe<Post>() {
             @Override
             public void subscribe(final ObservableEmitter<Post> emitter) throws Exception {
@@ -192,7 +192,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         TypeMapper.getCache().clear();
     }
 
-    Task<Void> setLikeCount(final BaseItem post, final boolean val) {
+    Task<Void> setLikeCount(final Post post, final boolean val) {
         int increase = val ? 1 : -1;
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -222,11 +222,11 @@ public class WallModel extends GSMessageHandlerAbstract {
      */
     private static final int DEFAULT_COMMENTS_PAGE = 10;
 
-    public void getCommentsForPost(BaseItem post) {
+    public void getCommentsForPost(Post post) {
         getCommentsForPost(post, 0);
     }
 
-    public void getCommentsForPost(BaseItem post, int fetchedCount) {
+    public void getCommentsForPost(Post post, int fetchedCount) {
         int pageSize = DEFAULT_COMMENTS_PAGE;
         if (fetchedCount >= post.getCommentsCount()) {
             return;

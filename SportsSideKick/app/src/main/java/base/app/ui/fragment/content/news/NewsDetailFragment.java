@@ -197,6 +197,17 @@ public class NewsDetailFragment extends BaseFragment {
         item = loadFromCacheBy(id);
         if (item == null) return view;
 
+        if (getSecondaryArgument() != null) {
+            setSharedMessageBarVisible(true);
+            pointerPin = (Pin) getCache().get(getSecondaryArgument());
+            if (pointerPin != null) {
+                showSharedMessageAvatar();
+                sharedMessageField.setText(pointerPin.getSharedComment());
+            }
+        } else {
+            setSharedMessageBarVisible(false);
+        }
+
         showHeaderImage();
         showTextContent(item);
 
@@ -222,16 +233,6 @@ public class NewsDetailFragment extends BaseFragment {
 
         sharedMessageField.setHint(R.string.pin_message_hint);
 
-        if (getSecondaryArgument() != null) {
-            setSharedMessageBarVisible(true);
-            pointerPin = (Pin) getCache().get(getSecondaryArgument());
-            if (pointerPin != null) {
-                showSharedMessageAvatar();
-                sharedMessageField.setText(pointerPin.getSharedComment());
-            }
-        } else {
-            setSharedMessageBarVisible(false);
-        }
         return view;
     }
 
@@ -371,7 +372,9 @@ public class NewsDetailFragment extends BaseFragment {
                 likesIconLiked.setVisibility(View.VISIBLE);
             }
         }
-        if (pointerPin.getReferencedItemId() != null && !pointerPin.getReferencedItemId().isEmpty()) {
+        if (pointerPin != null
+                && pointerPin.getReferencedItemId() != null
+                && !pointerPin.getReferencedItemId().isEmpty()) {
             pinIcon.setColorFilter(
                     ContextCompat.getColor(getContext(), R.color.colorAccentSemiDark),
                     PorterDuff.Mode.MULTIPLY);
@@ -534,7 +537,7 @@ public class NewsDetailFragment extends BaseFragment {
     public void onDeleteComment(CommentDeleteEvent event) {
         BaseItem wallItem = event.getPost();
         if (wallItem != null) {
-            if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
+            if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getId().equals(item.getPostId())) {
                 Comment commentToDelete = null;
                 Comment deletedComment = event.getComment();
                 for (Comment comment : comments) {

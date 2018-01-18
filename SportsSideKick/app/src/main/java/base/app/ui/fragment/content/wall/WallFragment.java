@@ -205,7 +205,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         for (int i = 0; i < wallItems.size(); i++) {
             BaseItem wallItem = wallItems.get(i);
             if (item.getWallId().equals(wallItem.getWallId()) &&
-                    item.getPostId().equals(wallItem.getPostId())) {
+                    item.getId().equals(wallItem.getId())) {
                 wallItems.remove(wallItem);
                 wallItems.add(i, wallItem);
                 refreshAdapter();
@@ -236,7 +236,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (event.getWallId() != null) {
             for (BaseItem item : wallItems) {
                 if (event.getWallId().equals(item.getWallId())
-                        && event.getPostId().equals(item.getPostId())) {
+                        && event.getPostId().equals(item.getId())) {
                     item.setLikeCount(event.getCount());
                     refreshAdapter();
                     return;
@@ -250,7 +250,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (event.getWallItem() != null) {
             for (BaseItem item : wallItems) {
                 if (event.getWallItem().getWallId().equals(item.getWallId())
-                        && event.getWallItem().getPostId().equals(item.getPostId())) {
+                        && event.getWallItem().getId().equals(item.getId())) {
                     item.setCommentsCount(event.getWallItem().getCommentsCount());
                     refreshAdapter();
                     return;
@@ -277,7 +277,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onPostDeleted(PostDeletedEvent event) {
         Post deletedItem = event.getPost();
         for (BaseItem post : wallItems) {
-            if (post.getPostId().equals(deletedItem.getPostId())) {
+            if (post.getId().equals(deletedItem.getPostId())) {
                 wallItems.remove(post);
                 refreshAdapter();
                 return;
