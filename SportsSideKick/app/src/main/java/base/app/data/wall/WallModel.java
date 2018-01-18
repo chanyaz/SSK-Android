@@ -323,13 +323,10 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     /**
-     * get publishPost by its id (used for loading from notification)
-     *
-     * @param wallId the wall id
-     * @param postId the publishPost id
+     * get post by its id (used for loading from notification)
      */
-    private void getPostById(String wallId, String postId,
-                             @Nullable GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer) {
+    private void loadPost(String postId,
+                          @Nullable GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer) {
         if (consumer == null) {
             consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                 @Override
@@ -338,20 +335,17 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                         Post post = postFactory(object, mapper, true);
                         EventBus.getDefault().post(new GetPostByIdEvent(post));
-                    } else {
-                        EventBus.getDefault().post(new GetPostByIdEvent(null));
                     }
                 }
             };
         }
-        createRequest("wallGetPostById")
-                .setEventAttribute(GSConstants.WALL_ID, wallId)
+        createRequest("wallGetPost")
                 .setEventAttribute(GSConstants.POST_ID, postId)
                 .send(consumer);
     }
 
-    public void getPostById(String wallId, String postId) {
-        getPostById(wallId, postId, null);
+    public void loadPost(String postId) {
+        loadPost(postId, null);
     }
 
     public Task<Void> wallSetMuteValue(String value) {

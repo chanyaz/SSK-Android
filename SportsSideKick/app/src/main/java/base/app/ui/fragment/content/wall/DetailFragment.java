@@ -35,6 +35,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Collections;
@@ -157,8 +158,9 @@ public class DetailFragment extends BaseFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_news_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
 
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(
                 getContext(), LinearLayoutManager.VERTICAL, false);
@@ -180,21 +182,19 @@ public class DetailFragment extends BaseFragment {
         mPost = (Post) getCache().get(id);
         // Probably came here from Deeplink/Notification - if item is not in cache, fetch it
         if (mPost == null) {
-            String postId;
-            String wallId = null;
+            String postId = id;
             if (id.contains("$$$")) {
                 String[] parts = StringUtils.split(id, "$$$");
                 if (parts.length == 2) {
                     postId = parts[0];
-                    wallId = parts[1];
                 } else {
                     postId = StringUtils.remove(id, "$$$");
                 }
-                WallModel.getInstance().getPostById(postId, wallId);
             }
+            WallModel.getInstance().loadPost(postId);
             return view;
         } else {
-            initializeWithData(true, mPost);
+            initializeWithData(mPost, true);
         }
 
         String userId = Model.getInstance().getUserInfo().getUserId();
@@ -246,7 +246,7 @@ public class DetailFragment extends BaseFragment {
         return view;
     }
 
-    private void initializeWithData(boolean fetchComments, BaseItem item) {
+    private void initializeWithData(BaseItem item, boolean fetchComments) {
         if (fetchComments) {
             WallModel.getInstance().getCommentsForPost(item);
         }
@@ -412,7 +412,7 @@ public class DetailFragment extends BaseFragment {
     @Subscribe
     public void onPostById(GetPostByIdEvent event) {
         mPost = event.getPost();
-        initializeWithData(true, mPost);
+        initializeWithData(mPost, true);
     }
 
     @Subscribe
@@ -611,7 +611,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void updateWithTranslatedItem(BaseItem translatedPost) {
-        initializeWithData(false, translatedPost);
+        initializeWithData(translatedPost, false);
     }
 
     @Override

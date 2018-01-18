@@ -188,7 +188,7 @@ public class NewsDetailFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(
-                R.layout.fragment_news_detail,
+                R.layout.fragment_detail,
                 container,
                 false);
         ButterKnife.bind(this, view);
