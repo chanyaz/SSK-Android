@@ -50,23 +50,22 @@ object TypeMapper {
                 type = ItemType.valueOf(objectType)
             }
             when (type) {
-                ItemType.Post, ItemType.Comment, ItemType.Social -> typeReference = object : TypeReference<Post>() {
-
+                ItemType.Post,
+                ItemType.Social -> typeReference = object : TypeReference<Post>() {
                 }
-                ItemType.NewsShare -> typeReference = object : TypeReference<Pin>() {
-
+                ItemType.NewsOfficial,
+                ItemType.NewsUnofficial,
+                ItemType.Rumour -> typeReference = object : TypeReference<News>() {
+                }
+                ItemType.NewsShare,
+                ItemType.RumourShare,
+                ItemType.SocialShare -> typeReference = object : TypeReference<Pin>() {
                 }
                 ItemType.Betting -> typeReference = object : TypeReference<Betting>() {
-
                 }
                 ItemType.Stats -> typeReference = object : TypeReference<Stats>() {
-
                 }
                 ItemType.StoreOffer -> typeReference = object : TypeReference<StoreOffer>() {
-
-                }
-                ItemType.NewsOfficial, ItemType.Rumour -> typeReference = object : TypeReference<News>() {
-
                 }
                 else -> throw IllegalStateException("Unsupported item type: ${node.get("type")}")
             }
