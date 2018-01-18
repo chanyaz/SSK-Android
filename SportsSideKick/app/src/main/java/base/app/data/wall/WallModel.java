@@ -119,17 +119,16 @@ public class WallModel extends GSMessageHandlerAbstract {
                         if (!response.hasErrors()) {
                             Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                             postFactory(object, mapper, true);
-                            EventBus.getDefault().post(new ItemUpdateEvent(post));
                             emitter.onNext((Post) post);
                             emitter.onComplete();
                         } else {
-                            emitter.onError(new Throwable(response.toString()));
+                            emitter.onError(new Throwable(response.getBaseData().get("message").toString()));
                         }
                     }
                 };
                 Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
                 });
-                map.put("type", ItemType.Post);
+                map.put("type", ItemType.Post.ordinal()+1);
                 GSData data = new GSData(map);
                 createRequest("wallPostToWall")
                         .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
@@ -139,24 +138,26 @@ public class WallModel extends GSMessageHandlerAbstract {
         });
     }
 
-    public Task<Void> deletePost(final BaseItem post) {
+    public Task<Void> deletePost(final Post post) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                source.setResult(null);
+                if (!response.hasErrors()) {
+                    EventBus.getDefault().post(new PostDeletedEvent(post));
+                }
             }
         };
-
         Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
         });
-        map.put("type", ItemType.Post);
+        map.put("type", ItemType.Post.ordinal()+1);
         GSData data = new GSData(map);
 
         createRequest("wallDeletePost")
                 .setEventAttribute(GSConstants.POST, data)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
+
         return source.getTask();
     }
 
@@ -175,7 +176,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         };
         Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
         });
-        map.put("type", ItemType.Post);
+        map.put("type", ItemType.Post.ordinal()+1);
         GSData data = new GSData(map);
 
         createRequest("wallUpdatePost")
@@ -227,7 +228,6 @@ public class WallModel extends GSMessageHandlerAbstract {
     public void getCommentsForPost(BaseItem post, int fetchedCount) {
         int pageSize = DEFAULT_COMMENTS_PAGE;
         if (fetchedCount >= post.getCommentsCount()) {
-            EventBus.getDefault().post(new GetCommentsCompleteEvent(null));
             return;
         }
         int offset = 0;
@@ -240,8 +240,6 @@ public class WallModel extends GSMessageHandlerAbstract {
                     List<Comment> comments = mapper.convertValue(object, new TypeReference<List<Comment>>() {
                     });
                     EventBus.getDefault().post(new GetCommentsCompleteEvent(comments));
-                } else {
-                    EventBus.getDefault().post(new GetCommentsCompleteEvent(null));
                 }
             }
         };

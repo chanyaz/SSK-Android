@@ -1,8 +1,11 @@
 package base.app.data.wall
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import java.io.Serializable
 
+@JsonInclude(NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract class BaseItem : Serializable {
 

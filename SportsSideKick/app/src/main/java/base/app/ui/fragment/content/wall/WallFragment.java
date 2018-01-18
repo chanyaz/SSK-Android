@@ -114,6 +114,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
 
         loginStateReceiver = new LoginStateReceiver(this);
 
@@ -203,8 +204,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         final BaseItem item = event.getItem();
         for (int i = 0; i < wallItems.size(); i++) {
             BaseItem wallItem = wallItems.get(i);
-            if (wallItem.getWallId().equals(wallItem.getWallId()) &&
-                    wallItem.getPostId().equals(wallItem.getPostId())) {
+            if (item.getWallId().equals(wallItem.getWallId()) &&
+                    item.getPostId().equals(wallItem.getPostId())) {
                 wallItems.remove(wallItem);
                 wallItems.add(i, wallItem);
                 refreshAdapter();
@@ -333,6 +334,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         EventBus.getDefault().unregister(loginStateReceiver);
     }
 
