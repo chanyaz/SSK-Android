@@ -7,23 +7,23 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.util.*
 
-enum class PostType {
-    Post,
-    NewsShare,
-    Betting,
-    Stats,
-    Rumour,
-    StoreOffer,
-    NewsOfficial,
-    NewsUnofficial,
-    Comment,
-    RumourShare,
-    PostShare,
-    Social,
-    SocialShare
-}
-
 object TypeMapper {
+
+    private enum class PostType {
+        Post,
+        NewsShare,
+        Betting,
+        Stats,
+        Rumour,
+        StoreOffer,
+        NewsOfficial,
+        NewsUnofficial,
+        Comment,
+        RumourShare,
+        PostShare,
+        Social,
+        SocialShare
+    }
 
     private val TAG = "WALL BASE"
 
@@ -68,7 +68,8 @@ object TypeMapper {
                 PostType.NewsOfficial, PostType.Rumour -> typeReference = object : TypeReference<News>() {
 
                 }
-                else -> Log.e(TAG, "ERROR ----- unsupported post type " + node.get("type").textValue() + "\n\n" + node)
+                else ->
+                    Log.e(TAG, "ERROR ----- unsupported post type " + node.get("type").textValue() + "\n\n" + node)
             }
 
             var item = mapper.convertValue<WallBase>(wallItem, typeReference!!)

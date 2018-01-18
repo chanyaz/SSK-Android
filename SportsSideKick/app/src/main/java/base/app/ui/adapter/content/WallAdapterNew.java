@@ -298,7 +298,7 @@ public class WallAdapterNew extends RecyclerView.Adapter<WallAdapterNew.ViewHold
                     displayCaption(news.getTitle(), holder);
                     displayPostImage(news, holder);
                     displayCommentsAndLikes(news, holder);
-                    if (news.hasSharedComment()) {
+                    if (news.getSharedComment() != null) {
                         holder.textComment.setText(news.getSharedComment());
                         holder.commentContainer.setVisibility(View.VISIBLE);
                         holder.userImage.setVisibility(View.GONE);
@@ -349,7 +349,7 @@ public class WallAdapterNew extends RecyclerView.Adapter<WallAdapterNew.ViewHold
                     EventBus.getDefault().post(fe);
                 }
             });
-            if (isAutoTranslateEnabled() && item.isNotTranslated()) {
+            if (isAutoTranslateEnabled() && item.getTranslatedTo() == null) {
                 TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
                 task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
                     @Override

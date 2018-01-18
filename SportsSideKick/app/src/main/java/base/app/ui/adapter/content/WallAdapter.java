@@ -32,9 +32,10 @@ import java.util.List;
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.Translator;
+import base.app.data.TypeMapper;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
-import base.app.data.wall.WallBase.PostType;
+import base.app.data.wall.TypeMapper.PostType;
 import base.app.data.wall.NewsShare;
 import base.app.data.wall.Post;
 import base.app.data.wall.Stats;
@@ -46,6 +47,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static base.app.data.TypeMapper.*;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
@@ -303,7 +305,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     displayCaption(news.getTitle(), holder);
                     displayPostImage(news, holder);
                     displayCommentsAndLikes(news, holder);
-                    if (news.hasSharedComment()) {
+                    if (news.getSharedComment() != null) {
                         holder.textComment.setText(news.getSharedComment());
                         holder.commentContainer.setVisibility(View.VISIBLE);
                         holder.userImage.setVisibility(View.GONE);
@@ -354,7 +356,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     EventBus.getDefault().post(fe);
                 }
             });
-            if (isAutoTranslateEnabled() && item.isNotTranslated()) {
+            if (isAutoTranslateEnabled() && item.getTranslatedTo() == null) {
                 TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
                 task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
                     @Override

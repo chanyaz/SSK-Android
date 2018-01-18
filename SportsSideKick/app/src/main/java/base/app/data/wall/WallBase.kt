@@ -32,7 +32,7 @@ open class WallBase : Serializable {
     var referencedItemClub: String? = null
     var referencedItemId: String? = null
     val sharedComment: String? = null
-    private var translatedTo: String? = null
+    val translatedTo: String? = null
     var url: String? = null
     var vidUrl: String? = null
 
@@ -41,13 +41,6 @@ open class WallBase : Serializable {
     val typeAsInt: Int
         @JsonProperty("type")
         get() = type.ordinal + 1
-
-    val isNotTranslated: Boolean
-        get() = translatedTo == null
-
-    fun hasSharedComment(): Boolean {
-        return sharedComment != null && sharedComment.isNotBlank()
-    }
 
     fun toggleLike() {
         isLikedByUser = !isLikedByUser
