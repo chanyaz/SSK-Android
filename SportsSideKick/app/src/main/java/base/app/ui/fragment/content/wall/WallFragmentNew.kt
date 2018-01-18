@@ -16,7 +16,6 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class WallFragmentNew : Fragment() {
 
-    private lateinit var viewModel: WallViewModel
     val adapter by lazy { WallAdapter(context) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
@@ -24,18 +23,15 @@ class WallFragmentNew : Fragment() {
     }
 
     override fun onViewCreated(view: View, state: Bundle?) {
+        val viewModel = ViewModelProviders.of(this).get(WallViewModel::class.java)
+
         headerImage.show(R.drawable.header_background)
-        setClickListeners()
+        postButton.onClick { viewModel.onPostClicked() }
 
         recyclerView.adapter = adapter
-        viewModel = ViewModelProviders.of(this).get(WallViewModel::class.java)
         viewModel.getItems().observe(this, Observer {
             adapter.clear()
             adapter.addAll(it)
         })
-    }
-
-    private fun setClickListeners() {
-        postButton.onClick { viewModel.onPostClicked() }
     }
 }

@@ -321,7 +321,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     offset += pageSize;
                 }
                 if (withSpinner) {
-                    // Cache news for pinning TODO: Alex Sheiko - possibly not needed anymore
+                    // Cache news for pinning
                     NewsModel.getInstance().loadPage(NewsType.OFFICIAL);
                     NewsModel.getInstance().loadPage(NewsType.UNOFFICIAL);
                 }

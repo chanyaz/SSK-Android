@@ -11,9 +11,9 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.app.ui.fragment.content.wall.DetailFragment;
 import base.app.util.commons.Constant;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
-import base.app.ui.fragment.content.wall.WallItemFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.util.ui.NavigationDrawerItems;
@@ -102,7 +102,7 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         } else if (fragment.getClass().equals(JoinChatFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(1);
             return true;
-        } else if (fragment.getClass().equals(WallItemFragment.class)) {
+        } else if (fragment.getClass().equals(DetailFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(0);
             return true;
         } else if (fragment.getClass().equals(NewsDetailFragment.class)) {

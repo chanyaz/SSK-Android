@@ -6,11 +6,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.util.*
 
-
-
 object TypeMapper {
 
-    // TODO Alex Sheiko: make private
     enum class ItemType {
         Post,
         NewsShare,
@@ -39,16 +36,11 @@ object TypeMapper {
     fun <T : BaseItem> postFactory(wallItem: Any, mapper: ObjectMapper, putInCache: Boolean): T? {
         val node = mapper.valueToTree<JsonNode>(wallItem)
         if (node.has("type")) {
-            var typeReference: TypeReference<*>? = null
-            val type: ItemType
+            lateinit var typeReference: TypeReference<*>
 
-            if (node.get("type").canConvertToInt()) {
-                val typeValue = node.get("type").intValue()
-                type = ItemType.values()[typeValue - 1]
-            } else {
-                val objectType = node.get("type").textValue()
-                type = ItemType.valueOf(objectType)
-            }
+            val typeValue = node.get("type").intValue()
+            val type = ItemType.values()[typeValue - 1]
+
             when (type) {
                 ItemType.Post,
                 ItemType.Social -> typeReference = object : TypeReference<Post>() {
@@ -70,19 +62,19 @@ object TypeMapper {
                 else -> throw IllegalStateException("Unsupported item type: ${node.get("type")}")
             }
 
-            var item = mapper.convertValue<BaseItem>(wallItem, typeReference)
+            var item = mapper.convertValue<T>(wallItem, typeReference)
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
             if (putInCache) {
                 val cachedItem = cache[item.postId]
                 if (cachedItem != null) {
-                    item = cachedItem
+                    item = cachedItem as T
                 } else {
                     cache[item.postId] = item
                 }
             }
 
-            return item as T?
+            return item
         }
         return null
     }

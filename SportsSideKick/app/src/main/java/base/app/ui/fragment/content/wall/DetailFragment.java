@@ -2,6 +2,7 @@ package base.app.ui.fragment.content.wall;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -47,7 +48,9 @@ import base.app.data.sharing.ShareHelper;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.BaseItem;
 import base.app.data.wall.Comment;
+import base.app.data.wall.News;
 import base.app.data.wall.Post;
+import base.app.data.wall.StoreOffer;
 import base.app.data.wall.WallModel;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -61,6 +64,7 @@ import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
 import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
+import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,7 +82,7 @@ import static base.app.util.ui.TranslationView.TranslationType;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class WallItemFragment extends BaseFragment {
+public class DetailFragment extends BaseFragment {
 
     @BindView(R.id.contentImage)
     ImageView imageHeader;
@@ -246,76 +250,65 @@ public class WallItemFragment extends BaseFragment {
         if (fetchComments) {
             WallModel.getInstance().getCommentsForPost(item);
         }
-        /* TODO: Alex Sheiko
-        switch (item.getType()) {
-            case Post:
-                Post post = (Post) item;
-                ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
-                        R.drawable.wall_detail_header_placeholder);
-                title.setText(post.getTitle());
-                content.setText(post.getBodyText());
-                if (post.getVidUrl() != null) {
-                    videoView.setVisibility(View.VISIBLE);
-                    imageHeader.setVisibility(View.GONE);
-                    videoView.setVideoURI(Uri.parse(post.getVidUrl()));
-                    videoView.start();
+        if (item instanceof News) {
+            News news = (News) item;
+            ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader, null);
+            title.setText(news.getTitle());
+            content.setText(news.getBodyText());
+            if (commentsCount != null) {
+                commentsCount.setText(String.valueOf(news.getCommentsCount()));
+            }
+            if (likesCount != null) {
+                likesCount.setText(String.valueOf(news.getLikeCount()));
+            }
+            if (shareCount != null) {
+                shareCount.setText(String.valueOf(news.getShareCount()));
+            }
+            if (news.getLikedByUser()) {
+                if (likesIcon != null) {
+                    likesIcon.setVisibility(View.GONE);
                 }
-                postContainer.setVisibility(View.VISIBLE);
-                commentsList.setNestedScrollingEnabled(false);
+                if (likesIconLiked != null) {
+                    likesIconLiked.setVisibility(View.VISIBLE);
+                }
+            }
+        } else if (item instanceof StoreOffer) {
+            StoreOffer storeItem = (StoreOffer) item;
+            ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, null);
+            title.setText(storeItem.getTitle());
+        } else if (item instanceof Post) {
+            Post post = (Post) item;
+            ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
+                    R.drawable.wall_detail_header_placeholder);
+            title.setText(post.getTitle());
+            content.setText(post.getBodyText());
+            if (post.getVidUrl() != null) {
+                videoView.setVisibility(View.VISIBLE);
+                imageHeader.setVisibility(View.GONE);
+                videoView.setVideoURI(Uri.parse(post.getVidUrl()));
+                videoView.start();
+            }
+            postContainer.setVisibility(View.VISIBLE);
+            commentsList.setNestedScrollingEnabled(false);
 
-                if (commentsCount != null) {
-                    commentsCount.setText(String.valueOf(post.getCommentsCount()));
+            if (commentsCount != null) {
+                commentsCount.setText(String.valueOf(post.getCommentsCount()));
+            }
+            if (likesCount != null) {
+                likesCount.setText(String.valueOf(post.getLikeCount()));
+            }
+            if (shareCount != null) {
+                shareCount.setText(String.valueOf(post.getShareCount()));
+            }
+            if (post.getLikedByUser()) {
+                if (likesIcon != null) {
+                    likesIcon.setVisibility(View.GONE);
                 }
-                if (likesCount != null) {
-                    likesCount.setText(String.valueOf(post.getLikeCount()));
+                if (likesIconLiked != null) {
+                    likesIconLiked.setVisibility(View.VISIBLE);
                 }
-                if (shareCount != null) {
-                    shareCount.setText(String.valueOf(post.getShareCount()));
-                }
-                if (post.getLikedByUser()) {
-                    if (likesIcon != null) {
-                        likesIcon.setVisibility(View.GONE);
-                    }
-                    if (likesIconLiked != null) {
-                        likesIconLiked.setVisibility(View.VISIBLE);
-                    }
-                }
-                break;
-            case Rumour:
-            case NewsOfficial:
-                Pin news = (Pin) item;
-                ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader, null);
-                title.setText(news.getTitle());
-                content.setText(news.getBodyText());
-                if (commentsCount != null) {
-                    commentsCount.setText(String.valueOf(news.getCommentsCount()));
-                }
-                if (likesCount != null) {
-                    likesCount.setText(String.valueOf(news.getLikeCount()));
-                }
-                if (shareCount != null) {
-                    shareCount.setText(String.valueOf(news.getShareCount()));
-                }
-                if (news.getLikedByUser()) {
-                    if (likesIcon != null) {
-                        likesIcon.setVisibility(View.GONE);
-                    }
-                    if (likesIconLiked != null) {
-                        likesIconLiked.setVisibility(View.VISIBLE);
-                    }
-                }
-
-                break;
-            case Betting:
-                break;
-            case Stats:
-                break;
-            case StoreOffer:
-                StoreOffer storeItem = (StoreOffer) item;
-                ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, null);
-                title.setText(storeItem.getTitle());
-                break;
-        }*/
+            }
+        }
     }
 
     @Subscribe

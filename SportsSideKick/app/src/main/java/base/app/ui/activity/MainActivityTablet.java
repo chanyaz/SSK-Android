@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
+import base.app.ui.fragment.content.wall.DetailFragment;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.popup.ProfileFragment;
 import base.app.ui.fragment.stream.RadioFragment;
@@ -40,7 +41,6 @@ import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
 import base.app.ui.fragment.content.wall.WallFragment;
-import base.app.ui.fragment.content.wall.WallItemFragment;
 import base.app.ui.fragment.content.tv.VideoContainerFragment;
 import base.app.ui.fragment.popup.AddFriendFragment;
 import base.app.ui.fragment.popup.AlertDialogFragment;
@@ -194,7 +194,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         leftContainerFragments.add(RumoursFragment.class);
         leftContainerFragments.add(StoreFragment.class);
         leftContainerFragments.add(NewsDetailFragment.class);
-        leftContainerFragments.add(WallItemFragment.class);
+        leftContainerFragments.add(DetailFragment.class);
         leftContainerFragments.add(SignUpLoginVideoFragment.class);
         fragmentOrganizer.setUpContainer(R.id.tabs_container_1, leftContainerFragments); //WITH BACK STACK
 

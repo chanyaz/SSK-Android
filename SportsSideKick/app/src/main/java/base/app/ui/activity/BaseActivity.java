@@ -51,7 +51,7 @@ import base.app.data.videoChat.VideoChatModel;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.news.RumoursFragment;
-import base.app.ui.fragment.content.wall.WallItemFragment;
+import base.app.ui.fragment.content.wall.DetailFragment;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.other.ChatFragment;
@@ -154,7 +154,7 @@ abstract class BaseActivity extends AppCompatActivity {
                 String postType = parts[1];
                 String postId = parts[0];
 
-                FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
+                FragmentEvent wallItemFragmentEvent = new FragmentEvent(DetailFragment.class);
                 wallItemFragmentEvent.setId(postId + "$$$");
                 EventBus.getDefault().post(wallItemFragmentEvent);
             }
@@ -177,7 +177,7 @@ abstract class BaseActivity extends AppCompatActivity {
             } else if (notificationData.containsKey("wallId") && notificationData.containsKey("postId")) {
                 String postId = notificationData.get("postId");
                 String wallId = notificationData.get("wallId");
-                FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
+                FragmentEvent wallItemFragmentEvent = new FragmentEvent(DetailFragment.class);
                 wallItemFragmentEvent.setId(postId + "$$$" + wallId);
                 // TODO - Load wall item before displaying it ( or this is handled in fragment? )
                 EventBus.getDefault().post(wallItemFragmentEvent);
@@ -369,7 +369,7 @@ abstract class BaseActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String postId = event.getPostId();
                         if (postId != null) {
-                            FragmentEvent fe = new FragmentEvent(WallItemFragment.class);
+                            FragmentEvent fe = new FragmentEvent(DetailFragment.class);
                             fe.setId(postId);
                             EventBus.getDefault().post(fe);
                         }

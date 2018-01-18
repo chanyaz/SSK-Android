@@ -41,7 +41,7 @@ import base.app.data.wall.Stats;
 import base.app.data.wall.StoreOffer;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
-import base.app.ui.fragment.content.wall.WallItemFragment;
+import base.app.ui.fragment.content.wall.DetailFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -363,7 +363,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     fe.setId(((Pin) item).getReferencedItemId());
                     fe.setSecondaryId(item.getPostId());
                 } else {
-                    fe = new FragmentEvent(WallItemFragment.class);
+                    fe = new FragmentEvent(DetailFragment.class);
                     fe.setId(item.getPostId());
                 }
                 fe.setItem(item);
