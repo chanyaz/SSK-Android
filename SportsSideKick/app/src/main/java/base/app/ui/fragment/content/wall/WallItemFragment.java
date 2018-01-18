@@ -2,7 +2,6 @@ package base.app.ui.fragment.content.wall;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -48,9 +47,7 @@ import base.app.data.sharing.ShareHelper;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.BaseItem;
 import base.app.data.wall.Comment;
-import base.app.data.wall.Pin;
 import base.app.data.wall.Post;
-import base.app.data.wall.StoreOffer;
 import base.app.data.wall.WallModel;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -64,13 +61,14 @@ import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
 import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
-import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
+import static base.app.data.TypeMapper.ItemType;
+import static base.app.data.TypeMapper.getCache;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.ui.TranslationView.TranslationType;
@@ -151,7 +149,7 @@ public class WallItemFragment extends BaseFragment {
     SwipyRefreshLayout swipeRefreshLayout;
 
     CommentsAdapter commentsAdapter;
-    BaseItem mPost;
+    Post mPost;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -175,7 +173,7 @@ public class WallItemFragment extends BaseFragment {
             ButterKnife.findById(view, R.id.close_button).setVisibility(View.GONE);
         }
         String id = getPrimaryArgument();
-        mPost = BaseItem.getCache().get(id);
+        mPost = (Post) getCache().get(id);
         // Probably came here from Deeplink/Notification - if item is not in cache, fetch it
         if (mPost == null) {
             String postId;
@@ -238,8 +236,7 @@ public class WallItemFragment extends BaseFragment {
             Translator.getInstance().translatePost(
                     mPost.getPostId(),
                     Prefs.getString(CHOSEN_LANGUAGE, "en"),
-                    task,
-                    mPost.getType()
+                    task
             );
         }
         return view;
@@ -249,6 +246,7 @@ public class WallItemFragment extends BaseFragment {
         if (fetchComments) {
             WallModel.getInstance().getCommentsForPost(item);
         }
+        /* TODO: Alex Sheiko
         switch (item.getType()) {
             case Post:
                 Post post = (Post) item;
@@ -317,7 +315,7 @@ public class WallItemFragment extends BaseFragment {
                 ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, null);
                 title.setText(storeItem.getTitle());
                 break;
-        }
+        }*/
     }
 
     @Subscribe
@@ -421,9 +419,7 @@ public class WallItemFragment extends BaseFragment {
     @Subscribe
     public void onPostById(GetPostByIdEvent event) {
         mPost = event.getPost();
-        if (mPost != null) {
-            initializeWithData(true, mPost);
-        }
+        initializeWithData(true, mPost);
     }
 
     @Subscribe
@@ -533,15 +529,15 @@ public class WallItemFragment extends BaseFragment {
         boolean isLikedByUser = !item.getLikedByUser();
         item.setLikedByUser(isLikedByUser);
         if (isLikedByUser) {
-            item.setLikeCount(item.getLikeCount()+1);
+            item.setLikeCount(item.getLikeCount() + 1);
         } else {
-            item.setLikeCount(item.getLikeCount()-1);
+            item.setLikeCount(item.getLikeCount() - 1);
         }
     }
 
     @Subscribe
     public void onPostUpdate(ItemUpdateEvent event) {
-        BaseItem post = event.getPost();
+        BaseItem post = event.getItem();
         if ((post != null)) {
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
@@ -618,7 +614,7 @@ public class WallItemFragment extends BaseFragment {
             }
         });
         translationView.showTranslationPopup(view, mPost.getPostId(), source,
-                TranslationType.TRANSLATE_WALL, mPost.getType());
+                TranslationType.TRANSLATE_WALL, ItemType.Post);
     }
 
     private void updateWithTranslatedItem(BaseItem translatedPost) {

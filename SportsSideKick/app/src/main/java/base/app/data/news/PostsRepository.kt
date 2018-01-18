@@ -2,7 +2,6 @@ package base.app.data.news
 
 import base.app.data.Model
 import base.app.data.wall.Post
-import base.app.data.wall.BaseItem
 import base.app.data.wall.WallModel
 import base.app.util.commons.Utility
 import io.reactivex.Observable
@@ -19,7 +18,6 @@ class PostsRepository {
         val post = Post()
         post.title = title
         post.bodyText = bodyText
-        post.type = BaseItem.PostType.Post
         post.timestamp = Utility.getCurrentTime().toDouble()
         post.coverImageUrl = imageUrl
         return just(post)

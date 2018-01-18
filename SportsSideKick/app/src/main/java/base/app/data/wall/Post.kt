@@ -9,5 +9,7 @@ open class Post(
         var poster: UserInfo? = null,
         var coverImageUrl: String? = null,
         var coverAspectRatio: Float = 1.6F,
+        var url: String? = null,
+        val vidUrl: String? = null,
         val translatedTo: String? = null
-) : BaseItem(), Shareable
+) : BaseItem()

@@ -44,10 +44,11 @@ import base.app.data.Model;
 import base.app.data.news.NewsModel;
 import base.app.data.sharing.ShareHelper;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.Comment;
 import base.app.data.wall.BaseItem;
-import base.app.data.wall.WallModel;
+import base.app.data.wall.Comment;
 import base.app.data.wall.News;
+import base.app.data.wall.Pin;
+import base.app.data.wall.WallModel;
 import base.app.ui.activity.MainActivity;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -55,16 +56,15 @@ import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentDeleteEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
-import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.events.post.ItemUpdateEvent;
+import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static base.app.data.wall.BaseItem.PostType.NewsShare;
-import static base.app.data.wall.BaseItem.PostType.RumourShare;
+import static base.app.data.TypeMapper.*;
 import static base.app.util.commons.Utility.getCurrentTime;
 import static base.app.util.commons.Utility.hideKeyboard;
 import static base.app.util.commons.Utility.showKeyboard;
@@ -177,7 +177,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     CommentsAdapter commentsAdapter;
     News item;
-    private BaseItem sharedChildPost;
+    private Pin pointerPin;
     List<Comment> comments;
 
     public NewsDetailFragment() {
@@ -224,10 +224,10 @@ public class NewsDetailFragment extends BaseFragment {
 
         if (getSecondaryArgument() != null) {
             setSharedMessageBarVisible(true);
-            sharedChildPost = BaseItem.getCache().get(getSecondaryArgument());
-            if (sharedChildPost != null) {
+            pointerPin = (Pin) getCache().get(getSecondaryArgument());
+            if (pointerPin != null) {
                 showSharedMessageAvatar();
-                sharedMessageField.setText(sharedChildPost.getSharedComment());
+                sharedMessageField.setText(pointerPin.getSharedComment());
             }
         } else {
             setSharedMessageBarVisible(false);
@@ -236,7 +236,7 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     private void showSharedMessageAvatar() {
-        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(sharedChildPost.getWallId());
+        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(pointerPin.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
             public void onComplete(@NonNull Task<UserInfo> task) {
@@ -324,7 +324,7 @@ public class NewsDetailFragment extends BaseFragment {
         sharedMessageDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WallModel.getInstance().deletePost(sharedChildPost)
+                WallModel.getInstance().deletePost(pointerPin)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -339,9 +339,9 @@ public class NewsDetailFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if (!getPrimaryArgument().contains("UNOFFICIAL")) {
-                    pin(NewsShare);
+                    pin(ItemType.NewsShare);
                 } else {
-                    pin(RumourShare);
+                    pin(ItemType.RumourShare);
                 }
             }
         });
@@ -371,7 +371,7 @@ public class NewsDetailFragment extends BaseFragment {
                 likesIconLiked.setVisibility(View.VISIBLE);
             }
         }
-        if (item.getReferencedItemId() != null && !item.getReferencedItemId().isEmpty()) {
+        if (pointerPin.getReferencedItemId() != null && !pointerPin.getReferencedItemId().isEmpty()) {
             pinIcon.setColorFilter(
                     ContextCompat.getColor(getContext(), R.color.colorAccentSemiDark),
                     PorterDuff.Mode.MULTIPLY);
@@ -591,15 +591,15 @@ public class NewsDetailFragment extends BaseFragment {
         boolean isLikedByUser = !item.getLikedByUser();
         item.setLikedByUser(isLikedByUser);
         if (isLikedByUser) {
-            item.setLikeCount(item.getLikeCount()+1);
+            item.setLikeCount(item.getLikeCount() + 1);
         } else {
-            item.setLikeCount(item.getLikeCount()-1);
+            item.setLikeCount(item.getLikeCount() - 1);
         }
     }
 
     @Subscribe
     public void onPostUpdate(ItemUpdateEvent event) {
-        BaseItem post = event.getPost();
+        BaseItem post = event.getItem();
         if ((post != null)) {
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
@@ -644,24 +644,20 @@ public class NewsDetailFragment extends BaseFragment {
         }
     }
 
-    protected void pin(BaseItem.PostType type) {
+    protected void pin(ItemType type) {
         EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         String sharingMessage = sharedMessageField.getText().toString();
 
-        News itemToPost = new News();
+        Pin itemToPost = new Pin(
+                sharingMessage,
+                Utility.getClubConfig().get("ID"),
+                item.getPostId());
         itemToPost.setTimestamp((double) Utility.getCurrentTime());
-        if (sharingMessage.isEmpty()) {
-            itemToPost.setTitle(item.getTitle());
-            itemToPost.setBodyText(item.getBodyText());
-            itemToPost.setCoverAspectRatio(0.6f);
-            if (item.getCoverImageUrl() != null) {
-                itemToPost.setCoverImageUrl(item.getCoverImageUrl());
-            }
-        } else {
-            itemToPost.setType(type);
-            itemToPost.setReferencedItemClub(Utility.getClubConfig().get("ID"));
-            itemToPost.setReferencedItemId(item.getPostId());
-            itemToPost.setSharedComment(sharingMessage);
+        itemToPost.setTitle(item.getTitle());
+        itemToPost.setBodyText(item.getBodyText());
+        itemToPost.setCoverAspectRatio(0.6f);
+        if (item.getCoverImageUrl() != null) {
+            itemToPost.setCoverImageUrl(item.getCoverImageUrl());
         }
         WallModel.getInstance().createPost(itemToPost);
 
@@ -717,9 +713,9 @@ public class NewsDetailFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 String newSharedComment = sharedMessageField.getText().toString();
-                sharedChildPost.setSharedComment(newSharedComment);
-                sharedChildPost.setTimestamp((double) (getCurrentTime() / 1000));
-                WallModel.getInstance().updatePost(sharedChildPost)
+                pointerPin.setSharedComment(newSharedComment);
+                pointerPin.setTimestamp((double) (getCurrentTime() / 1000));
+                WallModel.getInstance().updatePost(pointerPin)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

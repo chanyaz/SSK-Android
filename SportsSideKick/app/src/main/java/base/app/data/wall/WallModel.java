@@ -24,6 +24,7 @@ import base.app.data.DateUtils;
 import base.app.data.FileUploader;
 import base.app.data.GSConstants;
 import base.app.data.Model;
+import base.app.data.TypeMapper;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
 import base.app.util.events.comment.CommentDeleteEvent;
@@ -83,11 +84,8 @@ public class WallModel extends GSMessageHandlerAbstract {
                     JSONArray jsonArrayOfPosts = (JSONArray) response.getScriptData().getBaseData().get(GSConstants.ITEMS);
                     if (jsonArrayOfPosts.size() > 0) {
                         for (Object postAsJson : jsonArrayOfPosts) {
-                            BaseItem post = BaseItem.postFactory(postAsJson, mapper, true);
-                            if (post != null) {
-                                post.setSubTitle(userInfo.getNicName());
-                                wallItems.add(post);
-                            }
+                            BaseItem post = TypeMapper.postFactory(postAsJson, mapper, true);
+                            wallItems.add(post);
                         }
                     }
                 }
@@ -118,7 +116,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
                         if (!response.hasErrors()) {
                             Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                            BaseItem.postFactory(object, mapper, true);
+                            TypeMapper.postFactory(object, mapper, true);
                             EventBus.getDefault().post(new ItemUpdateEvent(post));
                             emitter.onNext((Post) post);
                             emitter.onComplete();
@@ -129,7 +127,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 };
                 Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
                 });
-                map.put("type", post.getTypeAsInt());
+                // TODO: Alex Sheiko map.put("type", post.getTypeAsInt());
                 GSData data = new GSData(map);
                 createRequest("wallPostToWall")
                         .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
@@ -150,7 +148,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
         Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
         });
-        map.put("type", post.getTypeAsInt());
+        // TODO: Alex Sheiko map.put("type", post.getTypeAsInt());
         GSData data = new GSData(map);
 
         createRequest("wallDeletePost")
@@ -167,7 +165,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    BaseItem post = BaseItem.postFactory(object, mapper, true);
+                    Post post = TypeMapper.postFactory(object, mapper, true);
                     EventBus.getDefault().post(new ItemUpdateEvent(post));
                 }
                 source.setResult(null);
@@ -175,7 +173,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         };
         Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
         });
-        map.put("type", post.getTypeAsInt());
+        // TODO: Alex Sheiko map.put("type", post.getTypeAsInt());
         GSData data = new GSData(map);
 
         createRequest("wallUpdatePost")
@@ -187,7 +185,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     // user logged out so clearing all content.
     public void clear() {
-        BaseItem.clear();
+        // TODO: Alex Sheiko BaseItem.clear();
     }
 
     Task<Void> setLikeCount(final BaseItem post, final boolean val) {
@@ -198,7 +196,7 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    BaseItem post = BaseItem.postFactory(object, mapper, true);
+                    Post post = TypeMapper.postFactory(object, mapper, true);
                     EventBus.getDefault().post(new ItemUpdateEvent(post));
                 } else {
                     EventBus.getDefault().post(new ItemUpdateEvent(null));
@@ -256,7 +254,6 @@ public class WallModel extends GSMessageHandlerAbstract {
     /**
      * post the comment on the given post, once the comment is successfully stored in DB
      * the post comments count will be increased by 1
-     *
      */
     public void postComment(final Comment comment) {
         comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
@@ -268,7 +265,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     Comment comment = mapper.convertValue(commentObj, new TypeReference<Comment>() {
                     });
                     Object postObj = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    BaseItem post = BaseItem.postFactory(postObj, mapper, true);
+                    Post post = TypeMapper.postFactory(postObj, mapper, true);
 
                     EventBus.getDefault().post(new PostCommentCompleteEvent(comment, post));
                     EventBus.getDefault().post(new ItemUpdateEvent(post));
@@ -337,7 +334,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 public void onEvent(GSResponseBuilder.LogEventResponse response) {
                     if (!response.hasErrors()) {
                         Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                        BaseItem post = BaseItem.postFactory(object, mapper, true);
+                        Post post = TypeMapper.postFactory(object, mapper, true);
                         EventBus.getDefault().post(new GetPostByIdEvent(post));
                     } else {
                         EventBus.getDefault().post(new GetPostByIdEvent(null));
@@ -393,7 +390,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 case GSConstants.WALL_POST:
                 case GSConstants.NEWS:
                 case GSConstants.RUMOUR:
-                    BaseItem post = BaseItem.postFactory(data.get(GSConstants.ITEM), mapper, true);
+                    BaseItem post = TypeMapper.postFactory(data.get(GSConstants.ITEM), mapper, true);
                     if (post != null) {
                         EventBus.getDefault().post(new ItemUpdateEvent(post));
                     }
@@ -406,7 +403,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         String operation = (String) data.get(GSConstants.OPERATION);
         if (operation != null) {
             Object object = data.get(GSConstants.POST);
-            BaseItem post = BaseItem.postFactory(object, mapper, true);
+            Post post = TypeMapper.postFactory(object, mapper, true);
             if (post != null) {
                 switch (operation) {
                     case GSConstants.OPERATION_LIKE:

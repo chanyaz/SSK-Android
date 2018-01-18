@@ -11,6 +11,4 @@ abstract class BaseItem : Serializable {
     var commentsCount = 0
     var timestamp = 0.0
     var likedByUser = false
-    var url: String? = null
-    var vidUrl: String? = null
 }

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
-import base.app.ui.adapter.content.WallAdapterNew
+import base.app.ui.adapter.content.WallAdapter
 import base.app.util.ui.inflate
 import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_wall.*
@@ -17,7 +17,7 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 class WallFragmentNew : Fragment() {
 
     private lateinit var viewModel: WallViewModel
-    val adapter by lazy { WallAdapterNew(context) }
+    val adapter by lazy { WallAdapter(context) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         return container.inflate(R.layout.fragment_wall)

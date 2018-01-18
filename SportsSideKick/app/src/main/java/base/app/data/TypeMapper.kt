@@ -6,9 +6,12 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.util.*
 
+
+
 object TypeMapper {
 
-    private enum class PostType {
+    // TODO Alex Sheiko: make private
+    enum class ItemType {
         Post,
         NewsShare,
         Betting,
@@ -33,43 +36,42 @@ object TypeMapper {
     }
 
     @JvmStatic
-    fun postFactory(wallItem: Any, mapper: ObjectMapper, putInCache: Boolean): BaseItem? {
+    fun <T : BaseItem> postFactory(wallItem: Any, mapper: ObjectMapper, putInCache: Boolean): T? {
         val node = mapper.valueToTree<JsonNode>(wallItem)
         if (node.has("type")) {
             var typeReference: TypeReference<*>? = null
-            val type: PostType
+            val type: ItemType
 
             if (node.get("type").canConvertToInt()) {
                 val typeValue = node.get("type").intValue()
-                type = PostType.values()[typeValue - 1]
+                type = ItemType.values()[typeValue - 1]
             } else {
                 val objectType = node.get("type").textValue()
-                type = PostType.valueOf(objectType)
+                type = ItemType.valueOf(objectType)
             }
             when (type) {
-                PostType.Post, PostType.Comment, PostType.Social -> typeReference = object : TypeReference<Post>() {
+                ItemType.Post, ItemType.Comment, ItemType.Social -> typeReference = object : TypeReference<Post>() {
 
                 }
-                PostType.NewsShare -> typeReference = object : TypeReference<Pin>() {
+                ItemType.NewsShare -> typeReference = object : TypeReference<Pin>() {
 
                 }
-                PostType.Betting -> typeReference = object : TypeReference<Betting>() {
+                ItemType.Betting -> typeReference = object : TypeReference<Betting>() {
 
                 }
-                PostType.Stats -> typeReference = object : TypeReference<Stats>() {
+                ItemType.Stats -> typeReference = object : TypeReference<Stats>() {
 
                 }
-                PostType.StoreOffer -> typeReference = object : TypeReference<StoreOffer>() {
+                ItemType.StoreOffer -> typeReference = object : TypeReference<StoreOffer>() {
 
                 }
-                PostType.NewsOfficial, PostType.Rumour -> typeReference = object : TypeReference<News>() {
+                ItemType.NewsOfficial, ItemType.Rumour -> typeReference = object : TypeReference<News>() {
 
                 }
                 else -> throw IllegalStateException("Unsupported item type: ${node.get("type")}")
             }
 
             var item = mapper.convertValue<BaseItem>(wallItem, typeReference)
-            item.type = type
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
             if (putInCache) {
@@ -81,7 +83,7 @@ object TypeMapper {
                 }
             }
 
-            return item
+            return item as T?
         }
         return null
     }

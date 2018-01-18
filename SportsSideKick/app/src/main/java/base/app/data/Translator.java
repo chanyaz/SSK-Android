@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import base.app.R;
+import base.app.data.TypeMapper.ItemType;
 import base.app.data.im.ImsMessage;
 import base.app.data.wall.Comment;
 import base.app.data.wall.BaseItem;
@@ -100,7 +101,7 @@ public class Translator {
                 });
     }
 
-    public void translatePost(String itemId, String language, final TaskCompletionSource<BaseItem> completion, final BaseItem.PostType postType) {
+    public void translatePost(String itemId, String language, final TaskCompletionSource<BaseItem> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateWallPost")
                 .setEventAttribute(POST_ID, itemId)
@@ -112,8 +113,8 @@ public class Translator {
                             GSData itemObj = response.getScriptData().getObject("item");
                             if (itemObj == null) return;
                             Map<String, Object> data = itemObj.getBaseData();
-                            data.put(CLUB_ID_TAG, postType);
-                            BaseItem item = BaseItem.postFactory(data, mapper, false);
+                            data.put(CLUB_ID_TAG, ItemType.Post);
+                            BaseItem item = TypeMapper.postFactory(data, mapper, false);
                             completion.setResult(item);
                         }
                     }

@@ -33,6 +33,7 @@ import javax.annotation.Nullable;
 
 import base.app.R;
 import base.app.data.Model;
+import base.app.data.TypeMapper;
 import base.app.data.friendship.FriendsListChangedEvent;
 import base.app.data.news.NewsModel;
 import base.app.data.news.NewsModel.NewsType;
@@ -40,17 +41,17 @@ import base.app.data.ticker.NewsTickerInfo;
 import base.app.data.ticker.NextMatchModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.Post;
 import base.app.data.wall.BaseItem;
+import base.app.data.wall.Post;
 import base.app.data.wall.WallModel;
 import base.app.ui.adapter.content.WallAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
+import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.events.comment.CommentUpdateEvent;
 import base.app.util.events.post.ItemUpdateEvent;
@@ -117,7 +118,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         loginStateReceiver = new LoginStateReceiver(this);
 
         wallItems = new ArrayList<>();
-        wallItems.addAll(BaseItem.getCache().values());
+        wallItems.addAll(TypeMapper.getCache().values());
 
         adapter = new WallAdapter(getActivity());
         recyclerView.setAdapter(adapter);
@@ -199,31 +200,31 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Subscribe
     public void onItemUpdate(ItemUpdateEvent event) {
-        final BaseItem post = event.getPost();
+        final BaseItem item = event.getItem();
         for (int i = 0; i < wallItems.size(); i++) {
-            BaseItem item = wallItems.get(i);
-            if (item.getWallId().equals(post.getWallId()) &&
-                    item.getPostId().equals(post.getPostId())) {
-                wallItems.remove(item);
-                wallItems.add(i, post);
+            BaseItem wallItem = wallItems.get(i);
+            if (wallItem.getWallId().equals(wallItem.getWallId()) &&
+                    wallItem.getPostId().equals(wallItem.getPostId())) {
+                wallItems.remove(wallItem);
+                wallItems.add(i, wallItem);
                 refreshAdapter();
                 return;
             }
         }
-        if (post.getPoster() == null && post instanceof Post) {
-            Model.getInstance().getUserInfoById(post.getWallId())
+        if (item instanceof Post && ((Post)item).getPoster() == null) {
+            Model.getInstance().getUserInfoById(item.getWallId())
                     .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                         @Override
                         public void onComplete(@NonNull Task<UserInfo> task) {
                             if (task.isSuccessful()) {
-                                post.setPoster(task.getResult());
-                                wallItems.add(post);
+                                ((Post)item).setPoster(task.getResult());
+                                wallItems.add(item);
                             }
                             refreshAdapter();
                         }
                     });
         } else {
-            wallItems.add(post);
+            wallItems.add(item);
             refreshAdapter();
         }
         progressBar.setVisibility(View.GONE);
@@ -320,7 +321,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     offset += pageSize;
                 }
                 if (withSpinner) {
-                    // Cache news for pinning
+                    // Cache news for pinning TODO: Alex Sheiko - possibly not needed anymore
                     NewsModel.getInstance().loadPage(NewsType.OFFICIAL);
                     NewsModel.getInstance().loadPage(NewsType.UNOFFICIAL);
                 }

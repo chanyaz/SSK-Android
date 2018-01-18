@@ -23,9 +23,10 @@ import java.util.HashMap;
 
 import base.app.R;
 import base.app.data.Translator;
+import base.app.data.TypeMapper;
 import base.app.data.im.ImsMessage;
-import base.app.data.wall.Comment;
 import base.app.data.wall.BaseItem;
+import base.app.data.wall.Comment;
 import base.app.data.wall.News;
 
 /**
@@ -50,7 +51,7 @@ public class TranslationView extends RelativeLayout {
 
     String itemId;
     TranslationType type;
-    BaseItem.PostType postType;
+    TypeMapper.ItemType itemType;
 
     int[] referenceLocation;
     int referenceHeight, referenceWidth;
@@ -112,11 +113,11 @@ public class TranslationView extends RelativeLayout {
         showTranslationPopup(clickedView, id, completion, type, null);
     }
 
-    public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, BaseItem.PostType postType) {
+    public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, TypeMapper.ItemType itemType) {
         this.type = type;
         this.completion = completion;
         itemId = id;
-        this.postType = postType;
+        this.itemType = itemType;
         popupLayout.setVisibility(VISIBLE);
         progressBar.setVisibility(GONE);
         container.requestLayout();
@@ -203,7 +204,7 @@ public class TranslationView extends RelativeLayout {
                 progressBar.setVisibility(GONE);
             }
         });
-        Translator.getInstance().translatePost(itemId, getSelectedLanguageCode(), source, postType);
+        Translator.getInstance().translatePost(itemId, getSelectedLanguageCode(), source);
     }
 
     private void translatePostComment() {

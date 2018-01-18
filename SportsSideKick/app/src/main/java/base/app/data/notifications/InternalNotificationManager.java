@@ -8,13 +8,14 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-import base.app.util.events.notify.NotificationEvent;
 import base.app.data.GSConstants;
 import base.app.data.Model;
+import base.app.data.TypeMapper;
 import base.app.data.friendship.FriendsListChangedEvent;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.BaseItem;
+import base.app.util.events.notify.NotificationEvent;
 
 /**
  * Created by Filip on 4/19/2017.
@@ -90,7 +91,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                         String action = (String) data.get(GSConstants.ACTION);
                         if(action.equals(GSConstants.OPERATION_LIKE)){
                             if(data.containsKey(GSConstants.POST)){
-                                BaseItem post = BaseItem.postFactory(data.get(GSConstants.POST), mapper, true);
+                                BaseItem post = TypeMapper.postFactory(data.get(GSConstants.POST), mapper, true);
                                 if(post!=null){
                                     String postId = post.getPostId();
                                     event = new NotificationEvent(4, "New Like", "", NotificationEvent.Type.LIKES,postId);
