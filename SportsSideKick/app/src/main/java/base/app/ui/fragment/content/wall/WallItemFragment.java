@@ -48,7 +48,7 @@ import base.app.data.sharing.ShareHelper;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.Post;
 import base.app.data.wall.Comment;
-import base.app.data.wall.WallItem;
+import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.NewsShare;
 import base.app.data.wall.StoreOffer;
@@ -151,7 +151,7 @@ public class WallItemFragment extends BaseFragment {
     SwipyRefreshLayout swipeRefreshLayout;
 
     CommentsAdapter commentsAdapter;
-    WallItem mPost;
+    WallBase mPost;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -175,7 +175,7 @@ public class WallItemFragment extends BaseFragment {
             ButterKnife.findById(view, R.id.close_button).setVisibility(View.GONE);
         }
         String id = getPrimaryArgument();
-        mPost = WallItem.getCache().get(id);
+        mPost = WallBase.getCache().get(id);
         // Probably came here from Deeplink/Notification - if item is not in cache, fetch it
         if (mPost == null) {
             String postId;
@@ -225,12 +225,12 @@ public class WallItemFragment extends BaseFragment {
             });
         }
         if (isAutoTranslateEnabled()) {
-            TaskCompletionSource<WallItem> task = new TaskCompletionSource<>();
-            task.getTask().addOnCompleteListener(new OnCompleteListener<WallItem>() {
+            TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
+            task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
                 @Override
-                public void onComplete(@NonNull Task<WallItem> task) {
+                public void onComplete(@NonNull Task<WallBase> task) {
                     if (task.isSuccessful()) {
-                        WallItem translatedItem = task.getResult();
+                        WallBase translatedItem = task.getResult();
                         updateWithTranslatedItem(translatedItem);
                     }
                 }
@@ -245,7 +245,7 @@ public class WallItemFragment extends BaseFragment {
         return view;
     }
 
-    private void initializeWithData(boolean fetchComments, WallItem item) {
+    private void initializeWithData(boolean fetchComments, WallBase item) {
         if (fetchComments) {
             WallModel.getInstance().getCommentsForPost(item);
         }
@@ -428,7 +428,7 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentUpdated(final CommentUpdatedEvent event) {
-        WallItem wallItem = event.getWallItem();
+        WallBase wallItem = event.getWallItem();
         if (wallItem != null && wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getPostId().equals(mPost.getPostId())) {
             Comment receivedComment = event.getComment();
             Comment commentToUpdate = null;
@@ -449,7 +449,7 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentReceived(final CommentUpdateEvent event) {
-        WallItem wallItem = event.getWallItem();
+        WallBase wallItem = event.getWallItem();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(mPost.getWallId())
                     && wallItem.getPostId().equals(mPost.getPostId())) {
@@ -531,7 +531,7 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onPostUpdate(ItemUpdateEvent event) {
-        WallItem post = event.getPost();
+        WallBase post = event.getPost();
         if ((post != null)) {
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
@@ -597,12 +597,12 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.translate)
     public void onTranslateClick(View view) {
-        TaskCompletionSource<WallItem> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<WallItem>() {
+        TaskCompletionSource<WallBase> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
             @Override
-            public void onComplete(@NonNull Task<WallItem> task) {
+            public void onComplete(@NonNull Task<WallBase> task) {
                 if (task.isSuccessful()) {
-                    WallItem translatedPost = task.getResult();
+                    WallBase translatedPost = task.getResult();
                     updateWithTranslatedItem(translatedPost);
                 }
             }
@@ -611,7 +611,7 @@ public class WallItemFragment extends BaseFragment {
                 TranslationType.TRANSLATE_WALL, mPost.getType());
     }
 
-    private void updateWithTranslatedItem(WallItem translatedPost) {
+    private void updateWithTranslatedItem(WallBase translatedPost) {
         initializeWithData(false, translatedPost);
     }
 

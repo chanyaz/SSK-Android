@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class Stats extends WallItem {
+public class Stats extends WallBase {
 
     private String statName;
     private String subText;

@@ -85,5 +85,5 @@ class PostCreateFragment : Fragment(), IPostCreateView {
 }
 
 private fun Observable<Response<FragmentActivity?, FileData>>.getFile(): Observable<File> {
-    return this.map { it.data().file }
+    return map { it.data().file }
 }

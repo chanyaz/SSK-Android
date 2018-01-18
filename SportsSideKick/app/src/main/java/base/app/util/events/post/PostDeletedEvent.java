@@ -1,7 +1,7 @@
 package base.app.util.events.post;
 
 import base.app.util.events.BusEvent;
-import base.app.data.wall.WallItem;
+import base.app.data.wall.WallBase;
 
 /**
  * Created by v3 on 11/5/2017.
@@ -9,13 +9,13 @@ import base.app.data.wall.WallItem;
 
 public class PostDeletedEvent extends BusEvent {
 
-    public WallItem getPost() {
+    public WallBase getPost() {
         return post;
     }
 
-    private final WallItem post;
+    private final WallBase post;
 
-    public PostDeletedEvent(WallItem post) {
+    public PostDeletedEvent(WallBase post) {
         super("");
         this.post = post;
     }

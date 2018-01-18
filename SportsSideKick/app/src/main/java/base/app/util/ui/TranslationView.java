@@ -25,7 +25,7 @@ import base.app.R;
 import base.app.data.Translator;
 import base.app.data.im.ImsMessage;
 import base.app.data.wall.Comment;
-import base.app.data.wall.WallItem;
+import base.app.data.wall.WallBase;
 import base.app.data.wall.News;
 
 /**
@@ -50,7 +50,7 @@ public class TranslationView extends RelativeLayout {
 
     String itemId;
     TranslationType type;
-    WallItem.PostType postType;
+    WallBase.PostType postType;
 
     int[] referenceLocation;
     int referenceHeight, referenceWidth;
@@ -112,7 +112,7 @@ public class TranslationView extends RelativeLayout {
         showTranslationPopup(clickedView, id, completion, type, null);
     }
 
-    public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, WallItem.PostType postType) {
+    public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, WallBase.PostType postType) {
         this.type = type;
         this.completion = completion;
         itemId = id;
@@ -189,12 +189,12 @@ public class TranslationView extends RelativeLayout {
     }
 
     private void translateWallItem() {
-        TaskCompletionSource<WallItem> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<WallItem>() {
+        TaskCompletionSource<WallBase> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
             @Override
-            public void onComplete(@NonNull Task<WallItem> task) {
+            public void onComplete(@NonNull Task<WallBase> task) {
                 if (task.isSuccessful()) {
-                    WallItem translatedWallBaseItem = task.getResult();
+                    WallBase translatedWallBaseItem = task.getResult();
                     completion.setResult(translatedWallBaseItem);
                 } else {
                     Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();

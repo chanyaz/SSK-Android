@@ -14,7 +14,7 @@ import base.app.data.Model;
 import base.app.data.friendship.FriendsListChangedEvent;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.WallItem;
+import base.app.data.wall.WallBase;
 
 /**
  * Created by Filip on 4/19/2017.
@@ -90,7 +90,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                         String action = (String) data.get(GSConstants.ACTION);
                         if(action.equals(GSConstants.OPERATION_LIKE)){
                             if(data.containsKey(GSConstants.POST)){
-                                WallItem post = WallItem.postFactory(data.get(GSConstants.POST), mapper, true);
+                                WallBase post = WallBase.postFactory(data.get(GSConstants.POST), mapper, true);
                                 if(post!=null){
                                     String postId = post.getPostId();
                                     event = new NotificationEvent(4, "New Like", "", NotificationEvent.Type.LIKES,postId);

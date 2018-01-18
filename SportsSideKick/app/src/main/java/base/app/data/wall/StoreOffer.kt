@@ -1,3 +1,3 @@
 package base.app.data.wall
 
-class StoreOffer : WallItem()
+class StoreOffer : WallBase()

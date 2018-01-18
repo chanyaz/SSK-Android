@@ -10,11 +10,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import base.app.data.sharing.ShareHelper;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallBetting extends WallItem {
+public class WallBetting extends WallBase {
 
     @JsonProperty("betName")
     private String betName;

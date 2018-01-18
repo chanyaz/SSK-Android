@@ -1,6 +1,6 @@
 package base.app.util.events.comment
 
 import base.app.data.wall.Comment
-import base.app.data.wall.WallItem
+import base.app.data.wall.WallBase
 
-class CommentDeleteEvent(var post: WallItem, var comment: Comment)
+class CommentDeleteEvent(var post: WallBase, var comment: Comment)

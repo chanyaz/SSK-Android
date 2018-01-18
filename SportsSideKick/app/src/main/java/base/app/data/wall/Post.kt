@@ -1,3 +1,3 @@
 package base.app.data.wall
 
-class Post : WallItem()
+class Post : WallBase()

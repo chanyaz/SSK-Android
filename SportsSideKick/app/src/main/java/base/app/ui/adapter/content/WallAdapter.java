@@ -33,8 +33,8 @@ import base.app.R;
 import base.app.data.Model;
 import base.app.data.Translator;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.WallItem;
-import base.app.data.wall.WallItem.PostType;
+import base.app.data.wall.WallBase;
+import base.app.data.wall.WallBase.PostType;
 import base.app.data.wall.NewsShare;
 import base.app.data.wall.Post;
 import base.app.data.wall.Stats;
@@ -196,7 +196,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    static boolean displayPostImage(WallItem post, ViewHolder holder) {
+    static boolean displayPostImage(WallBase post, ViewHolder holder) {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
@@ -212,7 +212,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return false;
     }
 
-    static void displayUserInfo(final WallItem post, final ViewHolder holder) {
+    static void displayUserInfo(final WallBase post, final ViewHolder holder) {
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
@@ -241,7 +241,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         });
     }
 
-    static void displayCommentsAndLikes(WallItem post, final ViewHolder holder) {
+    static void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
         if (post.isLikedByUser()) {
@@ -277,7 +277,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             } else {
                 index = position;
             }
-            WallItem item = values.get(index);
+            WallBase item = values.get(index);
             switch (item.getType()) {
                 case Post:
                     Post post = (Post) item;
@@ -341,7 +341,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 public void onClick(View v) {
                     if (holder.getAdapterPosition() == -1) return;
                     FragmentEvent fe;
-                    WallItem item = values.get(holder.getAdapterPosition());
+                    WallBase item = values.get(holder.getAdapterPosition());
                     if (item.getReferencedItemId() == null || item.getReferencedItemId().isEmpty()) {
                         fe = new FragmentEvent(WallItemFragment.class);
                         fe.setId(item.getPostId());
@@ -355,13 +355,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 }
             });
             if (isAutoTranslateEnabled() && item.isNotTranslated()) {
-                TaskCompletionSource<WallItem> task = new TaskCompletionSource<>();
-                task.getTask().addOnCompleteListener(new OnCompleteListener<WallItem>() {
+                TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
+                task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
                     @Override
-                    public void onComplete(@NonNull Task<WallItem> task) {
+                    public void onComplete(@NonNull Task<WallBase> task) {
                         int position = holder.getAdapterPosition();
                         if (task.isSuccessful()) {
-                            WallItem translatedItem = task.getResult();
+                            WallBase translatedItem = task.getResult();
                             remove(position);
                             add(position, translatedItem);
                             notifyItemChanged(position);
@@ -408,21 +408,21 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         values.clear();
     }
 
-    private final List<WallItem> values = new ArrayList<>();
+    private final List<WallBase> values = new ArrayList<>();
 
-    public void add(WallItem model) {
+    public void add(WallBase model) {
         values.add(model);
     }
 
-    public void add(int position, WallItem model) {
+    public void add(int position, WallBase model) {
         values.add(position, model);
     }
 
-    public void addAll(List<WallItem> items) {
+    public void addAll(List<WallBase> items) {
         values.addAll(items);
     }
 
-    public void remove(WallItem model) {
+    public void remove(WallBase model) {
         values.remove(model);
     }
 
@@ -432,7 +432,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    public void removeAll(List<WallItem> models) {
+    public void removeAll(List<WallBase> models) {
         values.removeAll(models);
     }
 }

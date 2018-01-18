@@ -1,5 +1,5 @@
 package base.app.util.events.post
 
-import base.app.data.wall.WallItem
+import base.app.data.wall.WallBase
 
-class ItemUpdateEvent(val post: WallItem)
+class ItemUpdateEvent(val post: WallBase)

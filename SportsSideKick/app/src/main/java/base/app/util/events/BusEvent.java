@@ -1,6 +1,6 @@
 package base.app.util.events;
 
-import base.app.data.wall.WallItem;
+import base.app.data.wall.WallBase;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -12,7 +12,7 @@ public class BusEvent {
 
     protected String id;
     protected String secondaryId;
-    protected WallItem item;
+    protected WallBase item;
 
     public BusEvent(String id) {
         this.id = id;
@@ -34,11 +34,11 @@ public class BusEvent {
         this.secondaryId = secondaryId;
     }
 
-    public WallItem getItem() {
+    public WallBase getItem() {
         return item;
     }
 
-    public void setItem(WallItem item) {
+    public void setItem(WallBase item) {
         this.item = item;
     }
 }

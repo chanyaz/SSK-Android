@@ -1,3 +1,3 @@
 package base.app.data.wall
 
-class NewsShare : WallItem()
+class NewsShare : WallBase()

@@ -6,7 +6,7 @@ import base.app.data.Model
 import base.app.data.news.WallRepository
 import base.app.data.user.LoginStateReceiver.LoginListener
 import base.app.data.user.UserInfo
-import base.app.data.wall.WallItem
+import base.app.data.wall.WallBase
 import base.app.ui.fragment.base.FragmentEvent
 import base.app.ui.fragment.popup.post.PostCreateFragment
 import base.app.ui.fragment.popup.SignUpLoginFragment
@@ -15,7 +15,7 @@ import java.lang.Error
 
 class WallViewModel(private val wallRepo: WallRepository) : ViewModel(), LoginListener {
 
-    fun getItems(): LiveData<List<WallItem>> {
+    fun getItems(): LiveData<List<WallBase>> {
         return wallRepo.getItems()
     }
 

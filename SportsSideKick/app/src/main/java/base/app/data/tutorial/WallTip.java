@@ -6,7 +6,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.List;
 
-import base.app.data.wall.WallItem;
+import base.app.data.wall.WallBase;
 
 /**
  * Created by Filip on 3/30/2017.
@@ -16,7 +16,7 @@ import base.app.data.wall.WallItem;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallTip extends WallItem {
+public class WallTip extends WallBase {
 
     private int tipNumber;
     private String tipText;
