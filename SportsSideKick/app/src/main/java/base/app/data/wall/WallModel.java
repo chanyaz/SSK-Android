@@ -146,6 +146,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 if (!response.hasErrors()) {
                     EventBus.getDefault().post(new PostDeletedEvent(post));
                 }
+                source.setResult(null);
             }
         };
         Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
