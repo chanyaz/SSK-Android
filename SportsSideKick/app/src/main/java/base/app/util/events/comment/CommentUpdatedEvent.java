@@ -2,7 +2,7 @@ package base.app.util.events.comment;
 
 import base.app.util.events.BusEvent;
 import base.app.data.wall.Comment;
-import base.app.data.wall.WallBase;
+import base.app.data.wall.BaseItem;
 
 /**
  * Created by Filip on 6/27/2017.
@@ -14,20 +14,20 @@ public class CommentUpdatedEvent extends BusEvent {
 
     private Comment comment;
 
-    public CommentUpdatedEvent(WallBase wallItem) {
+    public CommentUpdatedEvent(BaseItem wallItem) {
         super("");
         this.wallItem = wallItem;
     }
 
-    public WallBase getWallItem() {
+    public BaseItem getWallItem() {
         return wallItem;
     }
 
-    public void setWallItem(WallBase wallItem) {
+    public void setWallItem(BaseItem wallItem) {
         this.wallItem = wallItem;
     }
 
-    WallBase wallItem;
+    BaseItem wallItem;
 
     public void setComment(Comment comment) {
         this.comment = comment;

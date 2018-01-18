@@ -20,12 +20,12 @@ object TypeMapper {
         Comment,
         RumourShare,
         PostShare,
-        Social,
-        SocialShare
+        SocialShare,
+        Social
     }
 
     @JvmStatic
-    val cache = HashMap<String, WallBase>()
+    val cache = HashMap<String, BaseItem>()
 
     @JvmStatic
     fun clear() {
@@ -33,7 +33,7 @@ object TypeMapper {
     }
 
     @JvmStatic
-    fun postFactory(wallItem: Any, mapper: ObjectMapper, putInCache: Boolean): WallBase? {
+    fun postFactory(wallItem: Any, mapper: ObjectMapper, putInCache: Boolean): BaseItem? {
         val node = mapper.valueToTree<JsonNode>(wallItem)
         if (node.has("type")) {
             var typeReference: TypeReference<*>? = null
@@ -50,10 +50,10 @@ object TypeMapper {
                 PostType.Post, PostType.Comment, PostType.Social -> typeReference = object : TypeReference<Post>() {
 
                 }
-                PostType.NewsShare -> typeReference = object : TypeReference<NewsShare>() {
+                PostType.NewsShare -> typeReference = object : TypeReference<Pin>() {
 
                 }
-                PostType.Betting -> typeReference = object : TypeReference<WallBetting>() {
+                PostType.Betting -> typeReference = object : TypeReference<Betting>() {
 
                 }
                 PostType.Stats -> typeReference = object : TypeReference<Stats>() {
@@ -68,7 +68,7 @@ object TypeMapper {
                 else -> throw IllegalStateException("Unsupported item type: ${node.get("type")}")
             }
 
-            var item = mapper.convertValue<WallBase>(wallItem, typeReference)
+            var item = mapper.convertValue<BaseItem>(wallItem, typeReference)
             item.type = type
 
             // TODO @Filip - Fix me - preventing cache of non-wall items

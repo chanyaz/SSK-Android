@@ -45,7 +45,7 @@ import base.app.data.news.NewsModel;
 import base.app.data.sharing.ShareHelper;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.Comment;
-import base.app.data.wall.WallBase;
+import base.app.data.wall.BaseItem;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.News;
 import base.app.ui.activity.MainActivity;
@@ -63,8 +63,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static base.app.data.wall.WallBase.PostType.NewsShare;
-import static base.app.data.wall.WallBase.PostType.RumourShare;
+import static base.app.data.wall.BaseItem.PostType.NewsShare;
+import static base.app.data.wall.BaseItem.PostType.RumourShare;
 import static base.app.util.commons.Utility.getCurrentTime;
 import static base.app.util.commons.Utility.hideKeyboard;
 import static base.app.util.commons.Utility.showKeyboard;
@@ -177,7 +177,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     CommentsAdapter commentsAdapter;
     News item;
-    private WallBase sharedChildPost;
+    private BaseItem sharedChildPost;
     List<Comment> comments;
 
     public NewsDetailFragment() {
@@ -224,7 +224,7 @@ public class NewsDetailFragment extends BaseFragment {
 
         if (getSecondaryArgument() != null) {
             setSharedMessageBarVisible(true);
-            sharedChildPost = WallBase.getCache().get(getSecondaryArgument());
+            sharedChildPost = BaseItem.getCache().get(getSecondaryArgument());
             if (sharedChildPost != null) {
                 showSharedMessageAvatar();
                 sharedMessageField.setText(sharedChildPost.getSharedComment());
@@ -532,7 +532,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @Subscribe
     public void onDeleteComment(CommentDeleteEvent event) {
-        WallBase wallItem = event.getPost();
+        BaseItem wallItem = event.getPost();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
                 Comment commentToDelete = null;
@@ -572,7 +572,7 @@ public class NewsDetailFragment extends BaseFragment {
                     }
                 }, 2000);
 
-                item.toggleLike();
+                toggleLike(item);
                 if (likesIconLiked != null) {
                     likesIconLiked.setEnabled(false);
                 }
@@ -587,9 +587,19 @@ public class NewsDetailFragment extends BaseFragment {
         }
     }
 
+    private void toggleLike(News item) {
+        boolean isLikedByUser = !item.getLikedByUser();
+        item.setLikedByUser(isLikedByUser);
+        if (isLikedByUser) {
+            item.setLikeCount(item.getLikeCount()+1);
+        } else {
+            item.setLikeCount(item.getLikeCount()-1);
+        }
+    }
+
     @Subscribe
     public void onPostUpdate(ItemUpdateEvent event) {
-        WallBase post = event.getPost();
+        BaseItem post = event.getPost();
         if ((post != null)) {
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
@@ -634,7 +644,7 @@ public class NewsDetailFragment extends BaseFragment {
         }
     }
 
-    protected void pin(WallBase.PostType type) {
+    protected void pin(BaseItem.PostType type) {
         EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         String sharingMessage = sharedMessageField.getText().toString();
 
@@ -644,7 +654,6 @@ public class NewsDetailFragment extends BaseFragment {
             itemToPost.setTitle(item.getTitle());
             itemToPost.setBodyText(item.getBodyText());
             itemToPost.setCoverAspectRatio(0.6f);
-            itemToPost.setSubTitle(item.getSource() != null ? item.getSource() : "");
             if (item.getCoverImageUrl() != null) {
                 itemToPost.setCoverImageUrl(item.getCoverImageUrl());
             }

@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class WallBetting extends WallBase {
+public class Betting extends BaseItem {
 
     @JsonProperty("betName")
     private String betName;
