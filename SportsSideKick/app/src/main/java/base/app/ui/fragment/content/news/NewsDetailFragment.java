@@ -363,7 +363,7 @@ public class NewsDetailFragment extends BaseFragment {
         if (shareCount != null) {
             shareCount.setText(String.valueOf(item.getShareCount()));
         }
-        if (item.isLikedByUser()) {
+        if (item.getLikedByUser()) {
             if (likesIcon != null) {
                 likesIcon.setVisibility(View.GONE);
             }
@@ -577,12 +577,12 @@ public class NewsDetailFragment extends BaseFragment {
                     likesIconLiked.setEnabled(false);
                 }
                 if (likesIcon != null) {
-                    likesIcon.setVisibility(item.isLikedByUser() ? View.GONE : View.VISIBLE);
+                    likesIcon.setVisibility(item.getLikedByUser() ? View.GONE : View.VISIBLE);
                 }
                 if (likesIconLiked != null) {
-                    likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+                    likesIconLiked.setVisibility(item.getLikedByUser() ? View.VISIBLE : View.GONE);
                 }
-                SoundEffects.getDefault().playSound(item.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
+                SoundEffects.getDefault().playSound(item.getLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }
         }
     }

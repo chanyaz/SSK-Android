@@ -274,7 +274,7 @@ public class WallItemFragment extends BaseFragment {
                 if (shareCount != null) {
                     shareCount.setText(String.valueOf(post.getShareCount()));
                 }
-                if (post.isLikedByUser()) {
+                if (post.getLikedByUser()) {
                     if (likesIcon != null) {
                         likesIcon.setVisibility(View.GONE);
                     }
@@ -298,7 +298,7 @@ public class WallItemFragment extends BaseFragment {
                 if (shareCount != null) {
                     shareCount.setText(String.valueOf(news.getShareCount()));
                 }
-                if (news.isLikedByUser()) {
+                if (news.getLikedByUser()) {
                     if (likesIcon != null) {
                         likesIcon.setVisibility(View.GONE);
                     }
@@ -519,12 +519,12 @@ public class WallItemFragment extends BaseFragment {
                     likesIconLiked.setEnabled(false);
                 }
                 if (likesIcon != null) {
-                    likesIcon.setVisibility(mPost.isLikedByUser() ? View.GONE : View.VISIBLE);
+                    likesIcon.setVisibility(mPost.getLikedByUser() ? View.GONE : View.VISIBLE);
                 }
                 if (likesIconLiked != null) {
-                    likesIconLiked.setVisibility(mPost.isLikedByUser() ? View.VISIBLE : View.GONE);
+                    likesIconLiked.setVisibility(mPost.getLikedByUser() ? View.VISIBLE : View.GONE);
                 }
-                SoundEffects.getDefault().playSound(mPost.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
+                SoundEffects.getDefault().playSound(mPost.getLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }
         }
     }

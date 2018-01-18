@@ -239,7 +239,7 @@ public class WallAdapterNew extends RecyclerView.Adapter<WallAdapterNew.ViewHold
     static void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
-        if (post.isLikedByUser()) {
+        if (post.getLikedByUser()) {
             holder.likedIcon.setVisibility(View.VISIBLE);
             holder.likesIcon.setVisibility(View.GONE);
         } else {

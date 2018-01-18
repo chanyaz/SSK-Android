@@ -1,6 +1,5 @@
 package base.app.data
 
-import android.util.Log
 import base.app.data.wall.*
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.JsonNode
@@ -24,8 +23,6 @@ object TypeMapper {
         Social,
         SocialShare
     }
-
-    private val TAG = "WALL BASE"
 
     @JvmStatic
     val cache = HashMap<String, WallBase>()
@@ -68,11 +65,10 @@ object TypeMapper {
                 PostType.NewsOfficial, PostType.Rumour -> typeReference = object : TypeReference<News>() {
 
                 }
-                else ->
-                    Log.e(TAG, "ERROR ----- unsupported post type " + node.get("type").textValue() + "\n\n" + node)
+                else -> throw IllegalStateException("Unsupported item type: ${node.get("type")}")
             }
 
-            var item = mapper.convertValue<WallBase>(wallItem, typeReference!!)
+            var item = mapper.convertValue<WallBase>(wallItem, typeReference)
             item.type = type
 
             // TODO @Filip - Fix me - preventing cache of non-wall items

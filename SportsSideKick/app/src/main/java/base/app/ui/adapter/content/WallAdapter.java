@@ -32,7 +32,6 @@ import java.util.List;
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.Translator;
-import base.app.data.TypeMapper;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.TypeMapper.PostType;
@@ -246,7 +245,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     static void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
-        if (post.isLikedByUser()) {
+        if (post.getLikedByUser()) {
             holder.likedIcon.setVisibility(View.VISIBLE);
             holder.likesIcon.setVisibility(View.GONE);
         } else {
