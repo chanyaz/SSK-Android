@@ -196,7 +196,7 @@
             android:layout_toEndOf="@id/search_friends_container_mid_line">
 
             <TextView
-                android:id="@+id/delete"
+                android:id="@+id/deleteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delete"

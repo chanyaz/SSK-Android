@@ -144,8 +144,8 @@ public class DetailFragment extends BaseFragment {
     @BindView(R.id.share_icon)
     ImageView shareButton;
     @Nullable
-    @BindView(R.id.delete)
-    TextView delete;
+    @BindView(R.id.deleteButton)
+    Button delete;
     @Nullable
     @BindView(R.id.share_buttons_container)
     View shareButtonsContainer;
@@ -545,7 +545,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     @Optional
-    @OnClick(R.id.delete)
+    @OnClick(R.id.deleteButton)
     public void deletePostOnClick(View view) {
         WallModel.getInstance().deletePost(mPost).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

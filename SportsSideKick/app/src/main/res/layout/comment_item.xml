@@ -55,7 +55,7 @@
 
 
         <TextView
-            android:id="@+id/delete"
+            android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/message_information"
