@@ -1,6 +1,5 @@
 package base.app.data;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -10,16 +9,13 @@ import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import base.app.R;
 import base.app.data.TypeMapper.ItemType;
 import base.app.data.im.ImsMessage;
 import base.app.data.wall.Comment;
 import base.app.data.wall.News;
 import base.app.data.wall.Post;
-import base.app.util.commons.XmlLanguageMapParser;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
@@ -32,16 +28,9 @@ import static base.app.data.GSConstants.TO_LANGUAGE;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
 public class Translator {
 
     private static Translator instance;
-    private static final String DEFAULT_LANGUAGE = "es";
-
-    private HashMap<String, String> languagesList;
-
-    private String selectedLanguage;
-    private String selectedLanguageCode;
 
     private final ObjectMapper mapper;
 
@@ -54,17 +43,6 @@ public class Translator {
             instance = new Translator();
         }
         return instance;
-    }
-
-    public void initialize(Context context) {
-        languagesList = XmlLanguageMapParser.parseLanguage(context, R.xml.languages);
-        //Set default language
-        if (selectedLanguage == null) {
-            if (languagesList.containsKey(DEFAULT_LANGUAGE)) {
-                selectedLanguage = languagesList.get(DEFAULT_LANGUAGE);
-                selectedLanguageCode = DEFAULT_LANGUAGE;
-            }
-        }
     }
 
     public void translateNews(String itemId, String language, final TaskCompletionSource<News> completion) {
@@ -194,9 +172,5 @@ public class Translator {
                     }
                 });
 
-    }
-
-    public HashMap<String, String> getLanguageList() {
-        return languagesList;
     }
 }

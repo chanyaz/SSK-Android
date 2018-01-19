@@ -21,7 +21,7 @@ object TypeMapper {
         RumourShare,
         PostShare,
         SocialShare,
-        Social
+        Social;
     }
 
     @JvmStatic
