@@ -3,7 +3,6 @@ package base.app.data.wall
 import base.app.data.user.UserInfo
 
 open class Post(
-        var postId: String = "",
         var title: String = "",
         var subTitle: String = "",
         var bodyText: String = "",

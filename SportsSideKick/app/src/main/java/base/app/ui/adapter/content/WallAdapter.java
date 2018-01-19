@@ -364,7 +364,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     fe.setSecondaryId(item.getId());
                 } else {
                     fe = new FragmentEvent(DetailFragment.class);
-                    fe.setId(item.getId());
+                    fe.setId(item.getPostId());
                 }
                 fe.setItem(item);
                 EventBus.getDefault().post(fe);

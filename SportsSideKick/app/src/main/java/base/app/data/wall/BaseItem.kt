@@ -12,6 +12,7 @@ abstract class BaseItem : Serializable {
 
     @JsonIgnore val id: String = "" // TODO: Make sure news and rumours have this ID
     var wallId: String = ""
+    var postId: String = ""
     var likeCount = 0
     var shareCount = 0
     var commentsCount = 0
