@@ -29,8 +29,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.TypeMapper;
@@ -97,7 +95,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     View wallTopInfoContainer;
     @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
-    @Nullable
     @BindView(R.id.login_holder)
     LinearLayout loginHolder;
     @BindView(R.id.swipeRefreshLayout)
@@ -106,7 +103,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     List<BaseItem> wallItems;
     private LoginStateReceiver loginStateReceiver;
 
-    int offset = 0;
     int pageSize = 30;
     boolean fetchingPageOfPosts = false;
 
@@ -212,13 +208,13 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 return;
             }
         }
-        if (item instanceof Post && ((Post)item).getPoster() == null) {
+        if (item instanceof Post && ((Post) item).getPoster() == null) {
             Model.getInstance().getUserInfoById(item.getWallId())
                     .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                         @Override
                         public void onComplete(@NonNull Task<UserInfo> task) {
                             if (task.isSuccessful()) {
-                                ((Post)item).setPoster(task.getResult());
+                                ((Post) item).setPoster(task.getResult());
                                 wallItems.add(item);
                             }
                             refreshAdapter();
@@ -289,7 +285,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         wallItems.clear();
         adapter.notifyDataSetChanged();
 
-        offset = 0;
         fetchingPageOfPosts = true;
         final TaskCompletionSource<List<BaseItem>> source = new TaskCompletionSource<>();
         source.getTask().addOnCompleteListener(new OnCompleteListener<List<BaseItem>>() {
@@ -316,7 +311,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     refreshAdapter();
                     swipeRefreshLayout.setRefreshing(false);
                     progressBar.setVisibility(View.GONE);
-                    offset += pageSize;
                 }
                 if (withSpinner) {
                     // Cache news for pinning
@@ -325,7 +319,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }
         });
-        WallModel.getInstance().loadWallPosts(offset, pageSize, getWallPostCompletion);
+        WallModel.getInstance().loadWallPosts(getWallPostCompletion);
     }
 
     @Override
@@ -355,18 +349,14 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Override
     public void onLogin(UserInfo user) {
-        if (Model.getInstance().isRealUser() && loginHolder != null) {
-            loginHolder.setVisibility(View.GONE);
-        }
+        loginHolder.setVisibility(View.GONE);
         reset();
         reloadWallFromModel();
     }
 
     @Override
     public void onLoginAnonymously() {
-        if (!Model.getInstance().isRealUser() && loginHolder != null) {
-            loginHolder.setVisibility(View.VISIBLE);
-        }
+        loginHolder.setVisibility(View.VISIBLE);
         reset();
         reloadWallFromModel();
     }

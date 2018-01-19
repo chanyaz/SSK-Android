@@ -74,14 +74,13 @@ public class WallModel extends GSMessageHandlerAbstract {
      * you need to listen to mbPostUpdate events which will return all old posts + new posts
      * + updated posts
      */
-    public void loadWallPosts(int offset, int entryCount, final TaskCompletionSource<List<BaseItem>> completion) {
+    public void loadWallPosts(final TaskCompletionSource<List<BaseItem>> completion) {
         final UserInfo userInfo = Model.getInstance().getUserInfo();
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 List<BaseItem> wallItems = new ArrayList<>();
-                // TODO: Display social post items in adapter (currently ignored)
                 if (!response.hasErrors()) {
                     JSONArray jsonArrayOfPosts = (JSONArray) response.getScriptData().getBaseData().get(GSConstants.ITEMS);
                     if (jsonArrayOfPosts.size() > 0) {
@@ -97,9 +96,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
         GSRequestBuilder.LogEventRequest request = createRequest("wallGetItems")
                 .setEventAttribute(GSConstants.USER_ID, userInfo.getUserId())
-                .setEventAttribute(GSConstants.LANGUAGE, "")
-                .setEventAttribute(GSConstants.OFFSET, offset)
-                .setEventAttribute(GSConstants.ENTRY_COUNT, entryCount);
+                .setEventAttribute(GSConstants.LANGUAGE, "");
         request.send(consumer);
     }
 

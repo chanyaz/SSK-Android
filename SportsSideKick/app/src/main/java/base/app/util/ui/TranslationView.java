@@ -28,6 +28,7 @@ import base.app.data.im.ImsMessage;
 import base.app.data.wall.Comment;
 import base.app.data.wall.News;
 import base.app.data.wall.Post;
+import base.app.util.commons.XmlLanguageMapParser;
 
 /**
  * Created by Filip on 9/27/2017.
@@ -94,7 +95,7 @@ public class TranslationView extends RelativeLayout {
         progressBar = findViewById(R.id.progress);
         container.setOnClickListener(onCloseClickListener);
 
-        HashMap<String, String> mapOfLanguages = Translator.getInstance().getLanguageList();
+        HashMap<String, String> mapOfLanguages = XmlLanguageMapParser.parseLanguage(getContext(), R.xml.languages);
         languagePicker.setMinValue(0);
         if (mapOfLanguages != null && mapOfLanguages.size() > 0) {
             languagesBiMap = HashBiMap.create(mapOfLanguages);

@@ -133,12 +133,7 @@ public class Translator {
     }
 
     /**
-     * translate - translate savePost comment
-     * itemId, itemType, language
-     *
-     * @param itemId     - the item to translate
-     * @param language   - ISO-639-1 two letter designation for each language
-     * @param completion - return translated item or fail
+     * translate post comment
      */
     public void translatePostComment(String itemId, String language, final TaskCompletionSource<Comment> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
@@ -171,6 +166,5 @@ public class Translator {
 
                     }
                 });
-
     }
 }

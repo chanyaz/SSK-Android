@@ -65,7 +65,7 @@ object TypeMapper {
             var item = mapper.convertValue<T>(wallItem, typeReference)
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
-            if (putInCache) {
+            if (putInCache && item.id.isNotEmpty()) {
                 val cachedItem = cache[item.id]
                 if (cachedItem != null) {
                     item = cachedItem as T

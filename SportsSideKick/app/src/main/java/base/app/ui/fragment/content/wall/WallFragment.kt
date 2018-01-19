@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
+import base.app.data.news.WallRepository
 import base.app.ui.adapter.content.WallAdapter
 import base.app.util.ui.inflate
 import base.app.util.ui.show
@@ -24,6 +25,7 @@ class WallFragmentNew : Fragment() {
 
     override fun onViewCreated(view: View, state: Bundle?) {
         val viewModel = ViewModelProviders.of(this).get(WallViewModel::class.java)
+        viewModel.wallRepo = WallRepository()
 
         headerImage.show(R.drawable.header_background)
         postButton.onClick { viewModel.onPostClicked() }
