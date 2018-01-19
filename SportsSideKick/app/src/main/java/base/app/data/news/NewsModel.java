@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import base.app.data.GSAndroidPlatform;
+import base.app.data.GSConstants;
 import base.app.data.wall.News;
 import base.app.util.commons.Utility;
 
@@ -119,10 +120,10 @@ public class NewsModel {
                             GSData data = response.getScriptData();
 
                             if (data == null
-                                    || data.getBaseData().get("items") == null) {
+                                    || data.getBaseData().get(GSConstants.ITEMS) == null) {
                                 return;
                             }
-                            List<News> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<News>>() {
+                            List<News> receivedItems = mapper.convertValue(data.getBaseData().get(GSConstants.ITEMS), new TypeReference<List<News>>() {
                             });
                             if (liveData != null) {
                                 liveData.postValue(receivedItems);

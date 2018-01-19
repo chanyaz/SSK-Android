@@ -189,15 +189,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-
     static void displayCaption(String value, ViewHolder holder) {
         if (holder.contentTextView != null) {
             holder.contentTextView.setText(value);
         }
     }
 
-    static boolean displayPostImage(Post post, ViewHolder holder) {
+    private static boolean displayPostImage(Post post, ViewHolder holder) {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
@@ -213,20 +211,17 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return false;
     }
 
-    static boolean displayNewsImage(News news, ViewHolder holder) {
+    static void displayNewsImage(News news, ViewHolder holder) {
         if (holder.imageView != null) {
             String coverImageUrl = news.getImage();
             if (coverImageUrl != null && !TextUtils.isEmpty(news.getImage())) {
                 Glide.with(holder.imageView.getContext())
                         .load(news.getImage())
                         .into(holder.imageView);
-                return true;
             } else {
                 holder.imageView.setVisibility(View.GONE);
-                return false;
             }
         }
-        return false;
     }
 
     static void displayUserInfo(final BaseItem post, final ViewHolder holder) {

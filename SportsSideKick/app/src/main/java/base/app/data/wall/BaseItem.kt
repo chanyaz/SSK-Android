@@ -9,9 +9,7 @@ import java.io.Serializable
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract class BaseItem : Serializable {
 
-    private lateinit var _id: Map<String, String>
-    open var id: String = ""
-        get() = _id.getValue("\$oid")
+    lateinit var id: String
     var wallId: String = ""
     var title: String = ""
     var likeCount = 0

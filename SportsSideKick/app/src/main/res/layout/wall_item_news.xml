@@ -39,7 +39,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="16dp"
-                android:text="@string/lorem_ipsum"
+                tools:text="@string/lorem_ipsum"
                 android:textColor="#1b1c1a"
                 android:textSize="18sp" />
 
@@ -147,7 +147,7 @@
             android:minLines="1"
             android:padding="@dimen/padding_8"
             android:scrollHorizontally="true"
-            android:text="@string/lorem_ipsum"
+            tools:text="@string/lorem_ipsum"
             android:textColor="#bd000000"
             android:textSize="@dimen/font_size_14" />
 

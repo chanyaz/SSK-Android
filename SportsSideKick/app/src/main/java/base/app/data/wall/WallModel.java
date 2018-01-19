@@ -12,6 +12,7 @@ import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.simple.JSONArray;
@@ -45,6 +46,7 @@ import static base.app.data.GSConstants.CLUB_ID_TAG;
 import static base.app.data.Model.createRequest;
 import static base.app.data.TypeMapper.ItemType;
 import static base.app.data.TypeMapper.postFactory;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -82,12 +84,11 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 List<BaseItem> wallItems = new ArrayList<>();
                 if (!response.hasErrors()) {
-                    JSONArray jsonArrayOfPosts = (JSONArray) response.getScriptData().getBaseData().get(GSConstants.ITEMS);
-                    if (jsonArrayOfPosts.size() > 0) {
-                        for (Object postAsJson : jsonArrayOfPosts) {
-                            BaseItem post = postFactory(postAsJson, mapper, true);
-                            wallItems.add(post);
-                        }
+                    JSONArray jsonArrayOfPosts = (JSONArray)
+                            response.getScriptData().getBaseData().get(GSConstants.ITEMS);
+                    for (Object postAsJson : jsonArrayOfPosts) {
+                        BaseItem post = postFactory(postAsJson, mapper, true);
+                        wallItems.add(post);
                     }
                 }
                 completion.setResult(wallItems);
@@ -96,7 +97,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
         GSRequestBuilder.LogEventRequest request = createRequest("wallGetItems")
                 .setEventAttribute(GSConstants.USER_ID, userInfo.getUserId())
-                .setEventAttribute(GSConstants.LANGUAGE, "");
+                .setEventAttribute(GSConstants.LANGUAGE, Prefs.getString(CHOSEN_LANGUAGE, "en"));
         request.send(consumer);
     }
 
@@ -125,7 +126,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 };
                 Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
                 });
-                map.put("type", ItemType.Post.ordinal()+1);
+                map.put("type", ItemType.Post.ordinal() + 1);
                 GSData data = new GSData(map);
                 createRequest("wallPostToWall")
                         .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
@@ -148,7 +149,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         };
         Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
         });
-        map.put("type", ItemType.Post.ordinal()+1);
+        map.put("type", ItemType.Post.ordinal() + 1);
         GSData data = new GSData(map);
 
         createRequest("wallDeletePost")
@@ -174,7 +175,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         };
         Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
         });
-        map.put("type", ItemType.Post.ordinal()+1);
+        map.put("type", ItemType.Post.ordinal() + 1);
         GSData data = new GSData(map);
 
         createRequest("wallUpdatePost")

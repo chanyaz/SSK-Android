@@ -62,6 +62,11 @@ object TypeMapper {
                 else -> throw IllegalStateException("Unsupported item type: ${node.get("type")}")
             }
             var item = mapper.convertValue<T>(wallItem, typeReference)
+            if (node.get("_id").has("\$oid")) {
+                item.id = node.get("_id").get("\$oid").asText()
+            } else {
+                item.id = node.get("_id").asText()
+            }
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
             if (putInCache && item.id.isNotEmpty()) {
