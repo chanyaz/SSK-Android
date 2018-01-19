@@ -34,6 +34,7 @@ import base.app.data.Model;
 import base.app.data.Translator;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.BaseItem;
+import base.app.data.wall.News;
 import base.app.data.wall.Pin;
 import base.app.data.wall.Post;
 import base.app.data.wall.Rumour;
@@ -213,6 +214,22 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return false;
     }
 
+    static boolean displayNewsImage(News news, ViewHolder holder) {
+        if (holder.imageView != null) {
+            String coverImageUrl = news.getImage();
+            if (coverImageUrl != null && !TextUtils.isEmpty(news.getImage())) {
+                Glide.with(holder.imageView.getContext())
+                        .load(news.getImage())
+                        .into(holder.imageView);
+                return true;
+            } else {
+                holder.imageView.setVisibility(View.GONE);
+                return false;
+            }
+        }
+        return false;
+    }
+
     static void displayUserInfo(final BaseItem post, final ViewHolder holder) {
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
@@ -364,7 +381,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     fe.setSecondaryId(item.getId());
                 } else {
                     fe = new FragmentEvent(DetailFragment.class);
-                    fe.setId(item.getPostId());
+                    fe.setId(item.getId());
                 }
                 fe.setItem(item);
                 EventBus.getDefault().post(fe);

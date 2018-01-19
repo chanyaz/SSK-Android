@@ -122,7 +122,6 @@ public class StatisticsFragment extends BaseFragment {
                         float imageAspectRatio = bitmap.getHeight() / bitmap.getWidth();
                         Stats wallPost = new Stats();
                         wallPost.setTitle("A stats post");
-                        wallPost.setSubTitle("Some subtitle");
                         wallPost.setTimestamp((double) Utility.getCurrentTime());
                         wallPost.setBodyText("...");
                         wallPost.setCoverAspectRatio(imageAspectRatio);

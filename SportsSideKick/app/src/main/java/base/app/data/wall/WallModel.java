@@ -107,8 +107,8 @@ public class WallModel extends GSMessageHandlerAbstract {
         return Observable.create(new ObservableOnSubscribe<Post>() {
             @Override
             public void subscribe(final ObservableEmitter<Post> emitter) throws Exception {
+                post.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
                 post.setWallId(getCurrentUser().getUserId());
-                post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
 
                 GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
@@ -116,7 +116,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                         if (!response.hasErrors()) {
                             Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                             postFactory(object, mapper, true);
-                            emitter.onNext((Post) post);
+                            emitter.onNext(post);
                             emitter.onComplete();
                         } else {
                             emitter.onError(new Throwable(response.getBaseData().get("message").toString()));
@@ -207,7 +207,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         };
         createRequest("wallUpdatePostLike")
                 .setEventAttribute(GSConstants.WALL_ID, post.getWallId())
-                .setEventAttribute(GSConstants.POST_ID, post.getPostId())
+                .setEventAttribute(GSConstants.POST_ID, post.getId())
                 .setEventAttribute(GSConstants.INCREASE, increase)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
@@ -223,7 +223,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         getCommentsForPost(post, 0);
     }
 
-    public void getCommentsForPost(Post post, int fetchedCount) {
+    public void getCommentsForPost(BaseItem post, int fetchedCount) {
         int pageSize = DEFAULT_COMMENTS_PAGE;
         if (fetchedCount >= post.getCommentsCount()) {
             return;
@@ -243,7 +243,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         };
         createRequest("wallGetPostComments")
                 .setEventAttribute(GSConstants.WALL_ID, post.getWallId())
-                .setEventAttribute(GSConstants.POST_ID, post.getPostId())
+                .setEventAttribute(GSConstants.POST_ID, post.getId())
                 .setEventAttribute(GSConstants.OFFSET, offset)
                 .setEventAttribute(GSConstants.ENTRY_COUNT, pageSize)
                 .send(consumer);
@@ -401,7 +401,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     case GSConstants.OPERATION_LIKE:
                         int likeCount = post.getLikeCount();
                         String wallId = post.getWallId();
-                        String postId = post.getPostId();
+                        String postId = post.getId();
                         EventBus.getDefault().post(new WallLikeUpdateEvent(wallId, postId, likeCount));
                         break;
                     case GSConstants.OPERATION_COMMENT:

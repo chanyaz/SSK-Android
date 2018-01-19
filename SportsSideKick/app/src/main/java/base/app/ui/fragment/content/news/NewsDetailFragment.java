@@ -259,12 +259,13 @@ public class NewsDetailFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.delete)
     public void deletePostOnClick(View view) {
+        /* TODO: Alex Sheiko
         WallModel.getInstance().deletePost(item).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 getActivity().onBackPressed();
             }
-        });
+        }); */
     }
 
     private void setSharedMessageBarVisible(boolean setVisible) {
@@ -350,7 +351,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     private void showCommentsLikesCount() {
         postContainer.setVisibility(View.VISIBLE);
-        WallModel.getInstance().getCommentsForPost(item);
+        // TODO: Alex Sheiko WallModel.getInstance().getCommentsForPost(item);
         commentsListView.setNestedScrollingEnabled(false);
 
         if (commentsCountHeader != null) {
@@ -392,19 +393,19 @@ public class NewsDetailFragment extends BaseFragment {
 
     private void showHeaderImage() {
         Glide.with(getContext())
-                .load(item.getCoverImageUrl())
+                .load(item.getImage())
                 .into(imageHeader);
     }
 
     private void showSharingPreviewImage() {
         Glide.with(getContext())
-                .load(item.getCoverImageUrl())
+                .load(item.getImage())
                 .into(image);
     }
 
     private void showTextContent(News item) {
         title.setText(item.getTitle());
-        content.setText(item.getBodyText());
+        content.setText(item.getContent());
         textContent.setText(item.getTitle());
     }
 
@@ -512,7 +513,7 @@ public class NewsDetailFragment extends BaseFragment {
             comment.setComment(inputFieldComment.getText().toString());
             comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
             comment.setWallId(item.getWallId());
-            comment.setPostId(item.getPostId());
+            comment.setPostId(item.getId());
             comment.setTimestamp((double) (getCurrentTime() / 1000));
             WallModel.getInstance().postComment(comment);
             inputFieldComment.getText().clear();
@@ -537,7 +538,7 @@ public class NewsDetailFragment extends BaseFragment {
     public void onDeleteComment(CommentDeleteEvent event) {
         BaseItem wallItem = event.getPost();
         if (wallItem != null) {
-            if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getId().equals(item.getPostId())) {
+            if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getId().equals(item.getId())) {
                 Comment commentToDelete = null;
                 Comment deletedComment = event.getComment();
                 for (Comment comment : comments) {
@@ -654,13 +655,13 @@ public class NewsDetailFragment extends BaseFragment {
         Pin itemToPost = new Pin(
                 sharingMessage,
                 Utility.getClubConfig().get("ID"),
-                item.getPostId());
+                item.getId());
         itemToPost.setTimestamp((double) Utility.getCurrentTime());
         itemToPost.setTitle(item.getTitle());
-        itemToPost.setBodyText(item.getBodyText());
+        itemToPost.setBodyText(item.getContent());
         itemToPost.setCoverAspectRatio(0.6f);
-        if (item.getCoverImageUrl() != null) {
-            itemToPost.setCoverImageUrl(item.getCoverImageUrl());
+        if (item.getImage() != null) {
+            itemToPost.setCoverImageUrl(item.getImage());
         }
         WallModel.getInstance().createPost(itemToPost);
 
@@ -757,7 +758,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick(R.id.translate)
     public void onTranslateClick(View view) {
-        String postId = item.getPostId();
+        String postId = item.getId();
         TaskCompletionSource<News> source = new TaskCompletionSource<>();
         source.getTask().addOnCompleteListener(new OnCompleteListener<News>() {
             @Override

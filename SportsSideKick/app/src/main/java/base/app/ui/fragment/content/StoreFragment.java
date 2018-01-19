@@ -181,7 +181,6 @@ public class StoreFragment extends BaseFragment {
             item = new StoreOffer();
             item.setPoster(Model.getInstance().getUserInfo());
             item.setTitle(webView.getTitle());
-            item.setSubTitle(price);
             item.setUrl(url);
             item.setCoverImageUrl(absoluteUrl);
             item.setTimestamp((double) Utility.getCurrentTime());

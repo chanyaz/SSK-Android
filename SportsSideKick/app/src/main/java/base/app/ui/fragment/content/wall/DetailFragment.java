@@ -238,7 +238,7 @@ public class DetailFragment extends BaseFragment {
                 }
             });
             Translator.getInstance().translatePost(
-                    mPost.getPostId(),
+                    mPost.getId(),
                     Prefs.getString(CHOSEN_LANGUAGE, "en"),
                     task
             );
@@ -246,15 +246,12 @@ public class DetailFragment extends BaseFragment {
         return view;
     }
 
-    private void initializeWithData(Post item, boolean fetchComments) {
-        if (fetchComments) {
-            WallModel.getInstance().getCommentsForPost(item);
-        }
+    private void initializeWithData(BaseItem item, boolean fetchComments) {
         if (item instanceof News) {
             News news = (News) item;
-            ImageLoader.displayImage(news.getCoverImageUrl(), imageHeader, null);
+            ImageLoader.displayImage(news.getImage(), imageHeader, null);
             title.setText(news.getTitle());
-            content.setText(news.getBodyText());
+            content.setText(news.getContent());
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(news.getCommentsCount()));
             }
@@ -277,6 +274,9 @@ public class DetailFragment extends BaseFragment {
             ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, null);
             title.setText(storeItem.getTitle());
         } else if (item instanceof Post) {
+            if (fetchComments) {
+                WallModel.getInstance().getCommentsForPost((Post) item);
+            }
             Post post = (Post) item;
             ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
                     R.drawable.wall_detail_header_placeholder);
@@ -377,7 +377,7 @@ public class DetailFragment extends BaseFragment {
         comment.setComment(post.getText().toString());
         comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
         comment.setWallId(mPost.getWallId());
-        comment.setPostId(mPost.getPostId());
+        comment.setPostId(mPost.getId());
         comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
         WallModel.getInstance().postComment(comment);
         post.getText().clear();
@@ -418,7 +418,7 @@ public class DetailFragment extends BaseFragment {
     @Subscribe
     public void onCommentUpdated(final CommentUpdatedEvent event) {
         BaseItem wallItem = event.getWallItem();
-        if (wallItem != null && wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getId().equals(mPost.getPostId())) {
+        if (wallItem != null && wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getId().equals(mPost.getId())) {
             Comment receivedComment = event.getComment();
             Comment commentToUpdate = null;
             List<Comment> commentsInAdapter = commentsAdapter.getComments();
@@ -441,7 +441,7 @@ public class DetailFragment extends BaseFragment {
         BaseItem wallItem = event.getWallItem();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(mPost.getWallId())
-                    && wallItem.getId().equals(mPost.getPostId())) {
+                    && wallItem.getId().equals(mPost.getId())) {
 
                 mPost.setCommentsCount(event.getWallItem().getCommentsCount());
                 final Comment comment = event.getComment();
@@ -531,7 +531,6 @@ public class DetailFragment extends BaseFragment {
     @Subscribe
     public void onPostUpdate(ItemUpdateEvent event) {
         BaseItem post = event.getItem();
-        if ((post != null)) {
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
             }
@@ -541,7 +540,6 @@ public class DetailFragment extends BaseFragment {
             if (shareCount != null) {
                 shareCount.setText(String.valueOf(post.getShareCount()));
             }
-        }
     }
 
     @Optional
@@ -606,7 +604,7 @@ public class DetailFragment extends BaseFragment {
                 }
             }
         });
-        translationView.showTranslationPopup(view, mPost.getPostId(), source,
+        translationView.showTranslationPopup(view, mPost.getId(), source,
                 TranslationType.TRANSLATE_POST, ItemType.Post);
     }
 

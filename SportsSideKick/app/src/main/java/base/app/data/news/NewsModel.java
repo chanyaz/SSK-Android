@@ -185,13 +185,13 @@ public class NewsModel {
     public News loadItemFromCache(String id, NewsType type) {
         if (type == NewsType.OFFICIAL) {
             for (News item : loadNewsFromCache(false)) {
-                if (item.getPostId().equals(id)) {
+                if (item.getId().equals(id)) {
                     return item;
                 }
             }
         } else {
             for (News item : loadNewsFromCache(true)) {
-                if (item.getPostId().equals(id)) {
+                if (item.getId().equals(id)) {
                     return item;
                 }
             }

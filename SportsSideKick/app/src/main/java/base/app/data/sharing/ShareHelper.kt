@@ -2,7 +2,7 @@ package base.app.data.sharing
 
 import android.content.Intent
 import android.content.Intent.*
-import base.app.data.wall.Post
+import base.app.data.wall.BaseItem
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.EventBus
 object ShareHelper {
 
     @JvmStatic
-    fun share(item: Post) {
+    fun share(item: BaseItem) {
         val intent = Intent(ACTION_SEND)
         intent.type = "text/plain"
         intent.putExtra(EXTRA_TEXT, item.url)

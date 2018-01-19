@@ -273,7 +273,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onPostDeleted(PostDeletedEvent event) {
         Post deletedItem = event.getPost();
         for (BaseItem post : wallItems) {
-            if (post.getId().equals(deletedItem.getPostId())) {
+            if (post.getId().equals(deletedItem.getId())) {
                 wallItems.remove(post);
                 refreshAdapter();
                 return;
