@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
@@ -14,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.simple.JSONArray;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -123,8 +125,15 @@ public class NewsModel {
                                     || data.getBaseData().get(GSConstants.ITEMS) == null) {
                                 return;
                             }
-                            List<News> receivedItems = mapper.convertValue(data.getBaseData().get(GSConstants.ITEMS), new TypeReference<List<News>>() {
-                            });
+                            JSONArray jsonArrayOfNews = (JSONArray)
+                                    response.getScriptData().getBaseData().get(GSConstants.ITEMS);
+                            List<News> receivedItems = new ArrayList<>();
+                            for (Object newsObject : jsonArrayOfNews) {
+                                News item = mapper.convertValue(newsObject, new TypeReference<News>(){});
+                                JsonNode node = mapper.valueToTree(newsObject);
+                                item.id = node.get("_id").asText();
+                                receivedItems.add(item);
+                            }
                             if (liveData != null) {
                                 liveData.postValue(receivedItems);
                             }
