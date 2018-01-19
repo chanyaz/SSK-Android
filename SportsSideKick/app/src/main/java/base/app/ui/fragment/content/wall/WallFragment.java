@@ -103,7 +103,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     List<BaseItem> wallItems;
     private LoginStateReceiver loginStateReceiver;
 
-    int pageSize = 30;
     boolean fetchingPageOfPosts = false;
 
     @Override
@@ -260,6 +259,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         Collections.sort(wallItems, new Comparator<BaseItem>() {
             @Override
             public int compare(BaseItem t1, BaseItem t2) {
+                if (t1 == null || t2 == null) {
+                    return 0;
+                }
                 return Double.compare(t2.getTimestamp(), t1.getTimestamp());
             }
         });

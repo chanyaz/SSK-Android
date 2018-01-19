@@ -63,9 +63,6 @@ object TypeMapper {
             }
             var item = mapper.convertValue<T>(wallItem, typeReference)
 
-            if (item is News) {
-                item.id = node.get("_id").get(0).toString()
-            }
             // TODO @Filip - Fix me - preventing cache of non-wall items
             if (putInCache && item.id.isNotEmpty()) {
                 val cachedItem = cache[item.id]
