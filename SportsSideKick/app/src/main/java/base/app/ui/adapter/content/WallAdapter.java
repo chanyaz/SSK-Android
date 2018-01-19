@@ -37,7 +37,6 @@ import base.app.data.wall.BaseItem;
 import base.app.data.wall.News;
 import base.app.data.wall.Pin;
 import base.app.data.wall.Post;
-import base.app.data.wall.Rumour;
 import base.app.data.wall.Stats;
 import base.app.data.wall.StoreOffer;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -296,7 +295,39 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 index = position;
             }
             BaseItem item = values.get(index);
-            if (item instanceof Post) {
+            if (item instanceof Pin) {
+                    Pin news = (Pin) item;
+                    displayUserInfo(news, holder);
+                    displayCaption(news.getTitle(), holder);
+                    displayPostImage(news, holder);
+                    displayCommentsAndLikes(news, holder);
+                    if (!news.getSharedComment().isEmpty()) {
+                        holder.textComment.setText(news.getSharedComment());
+                        holder.commentContainer.setVisibility(View.VISIBLE);
+                        holder.userImage.setVisibility(View.GONE);
+                    } else {
+                        holder.commentContainer.setVisibility(View.GONE);
+                        holder.userImage.setVisibility(View.VISIBLE);
+                    }
+                    if (holder.playButton != null) {
+                        holder.playButton.setVisibility(TextUtils.isEmpty(news.getVidUrl()) ? View.GONE : View.VISIBLE);
+                    }
+            } else if (item instanceof News) {
+                displayCaption(item.getTitle(), holder);
+                displayCommentsAndLikes(item, holder);
+            } else if (item instanceof StoreOffer) {
+                StoreOffer storeItem = (StoreOffer) item;
+                displayUserInfo(storeItem, holder);
+                displayCaption(storeItem.getTitle(), holder);
+                displayPostImage(storeItem, holder);
+                displayCommentsAndLikes(storeItem, holder);
+            } else if (item instanceof Stats) {
+                Stats statsItem = (Stats) item;
+                displayUserInfo(statsItem, holder);
+                displayCaption(statsItem.getTitle(), holder);
+                displayPostImage(statsItem, holder);
+                displayCommentsAndLikes(statsItem, holder);
+            } else if (item instanceof Post) {
                 Post post = (Post) item;
                 displayUserInfo(post, holder);
                 boolean hasImage = displayPostImage(post, holder);
@@ -334,39 +365,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                             task
                     );
                 }
-            } else if (item instanceof Pin) {
-                    /* TODO: Alex Sheiko
-                    Pin news = (Pin) item;
-                    displayUserInfo(news, holder);
-                    displayCaption(news.getTitle(), holder);
-                    displayPostImage(news, holder);
-                    displayCommentsAndLikes(news, holder);
-                    if (news.getSharedComment() != null) {
-                        holder.textComment.setText(news.getSharedComment());
-                        holder.commentContainer.setVisibility(View.VISIBLE);
-                        holder.userImage.setVisibility(View.GONE);
-                    } else {
-                        holder.commentContainer.setVisibility(View.GONE);
-                        holder.userImage.setVisibility(View.VISIBLE);
-                    }
-                    if (holder.playButton != null) {
-                        holder.playButton.setVisibility(TextUtils.isEmpty(news.getVidUrl()) ? View.GONE : View.VISIBLE);
-                    }*/
-            } else if (item instanceof Rumour) {
-                displayCaption(((Rumour) item).getTitle(), holder);
-                displayCommentsAndLikes(item, holder);
-            } else if (item instanceof StoreOffer) {
-                StoreOffer storeItem = (StoreOffer) item;
-                displayUserInfo(storeItem, holder);
-                displayCaption(storeItem.getTitle(), holder);
-                displayPostImage(storeItem, holder);
-                displayCommentsAndLikes(storeItem, holder);
-            } else if (item instanceof Stats) {
-                Stats statsItem = (Stats) item;
-                displayUserInfo(statsItem, holder);
-                displayCaption(statsItem.getTitle(), holder);
-                displayPostImage(statsItem, holder);
-                displayCommentsAndLikes(statsItem, holder);
             }
         }
         holder.view.setOnClickListener(new View.OnClickListener() {

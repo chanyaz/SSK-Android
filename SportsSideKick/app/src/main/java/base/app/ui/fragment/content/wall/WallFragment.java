@@ -109,7 +109,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wall, container, false);
         ButterKnife.bind(this, view);
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
 
         loginStateReceiver = new LoginStateReceiver(this);
 
