@@ -49,7 +49,7 @@ class TvPlaylistFragment : BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun displayPlaylist(event: ClubTVEvent) {
-        if (event.eventType == ClubTVEvent.Type.PLAYLIST_DOWNLOADED) {
+        if (event.eventType == ClubTVEvent.Type.VIDEOS_DOWNLOADED) {
             adapter.values.addAll(MediaModel.getPlaylistsVideos(event.id))
             adapter.notifyDataSetChanged()
         }

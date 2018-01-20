@@ -35,7 +35,7 @@ import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.menu.MenuAdapter;
 import base.app.ui.adapter.menu.SideMenuAdapter;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.news.RumoursFragment;
 import base.app.ui.fragment.content.StoreFragment;
@@ -289,12 +289,8 @@ public class MainActivity extends BaseActivity
 
     @Subscribe
     public void onFragmentEvent(FragmentEvent event) {
-        // play different sound on fragment transition
-        if (event.isReturning()) {
-            SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-        } else {
-            SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
-        }
+        // play sound on fragment transition
+        SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
 
         // stop playing radio when fragment is changed ( TODO Wrong place to do this? )
         if (fragmentOrganizer.getCurrentFragment().getClass() == RadioStationFragment.class) {

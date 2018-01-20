@@ -16,10 +16,10 @@ import android.widget.SeekBar
 import android.widget.Toast
 import base.app.Keys.YOUTUBE_API_KEY
 import base.app.R
-import base.app.data.club.MediaModel
+import base.app.data.tv.MediaModel
 import base.app.ui.fragment.base.BaseFragment
-import base.app.ui.fragment.base.FragmentEvent
-import base.app.util.events.stream.ClubTVEvent
+import base.app.data.FragmentEvent
+import base.app.data.ClubTVEvent
 import base.app.util.ui.inflate
 import butterknife.OnClick
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -223,7 +223,7 @@ class VideoContainerFragment : BaseFragment(),
     }
 
     fun goBackToPlaylist() {
-        val fragmentEvent = FragmentEvent(TvPlaylistFragment::class.java, true)
+        val fragmentEvent = FragmentEvent(TvPlaylistFragment::class.java)
         fragmentEvent.id = MediaModel.getPlaylistId(video!!)
         EventBus.getDefault().post(fragmentEvent)
     }

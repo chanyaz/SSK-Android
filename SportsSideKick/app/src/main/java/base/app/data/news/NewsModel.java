@@ -24,6 +24,7 @@ import java.util.List;
 
 import base.app.data.GSAndroidPlatform;
 import base.app.data.GSConstants;
+import base.app.data.NewsPageEvent;
 import base.app.data.wall.News;
 import base.app.util.commons.Utility;
 

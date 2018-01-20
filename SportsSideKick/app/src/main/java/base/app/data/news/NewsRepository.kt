@@ -11,7 +11,7 @@ class NewsRepository {
         val data = MutableLiveData<List<News>>()
 
         val cached = NewsModel.getInstance().getAllCachedItems(type)
-        if (cached.isNotEmpty() && !DEBUG /* TODO Alex: Remove */) {
+        if (cached.isNotEmpty() && !DEBUG) {
             data.value = cached
         } else {
             NewsModel.getInstance().loadPage(type, data)

@@ -39,14 +39,14 @@ import base.app.data.wall.Pin;
 import base.app.data.wall.Post;
 import base.app.data.wall.Stats;
 import base.app.data.wall.StoreOffer;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.wall.DetailFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static base.app.data.TypeMapper.ItemType;
+import static base.app.data.TypeConverter.ItemType;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.util.*
 
-object TypeMapper {
+object TypeConverter {
 
     enum class ItemType {
         Post,

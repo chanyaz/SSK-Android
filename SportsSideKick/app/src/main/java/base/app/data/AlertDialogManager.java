@@ -4,7 +4,6 @@ import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.popup.AlertDialogFragment;
 
 /**

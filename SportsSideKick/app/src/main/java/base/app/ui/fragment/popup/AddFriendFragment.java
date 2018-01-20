@@ -28,7 +28,7 @@ import base.app.R;
 import base.app.ui.adapter.stream.FindOfficialAdapter;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.data.Model;
 import base.app.data.friendship.PeopleSearchManager;
 import base.app.data.user.UserInfo;

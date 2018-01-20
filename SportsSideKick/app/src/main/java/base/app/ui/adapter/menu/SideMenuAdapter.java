@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.util.commons.Constant;
 import base.app.R;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.util.commons.Utility;
 import base.app.util.ui.NavigationDrawerItems;
 import butterknife.BindView;

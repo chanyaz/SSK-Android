@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.ui.fragment.popup.CreateChatFragment;
 import base.app.data.Model;
 import base.app.data.im.ChatInfo;

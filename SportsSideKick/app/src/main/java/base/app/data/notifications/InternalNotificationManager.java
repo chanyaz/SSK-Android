@@ -10,7 +10,7 @@ import java.util.Map;
 
 import base.app.data.GSConstants;
 import base.app.data.Model;
-import base.app.data.TypeMapper;
+import base.app.data.TypeConverter;
 import base.app.data.friendship.FriendsListChangedEvent;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
@@ -91,7 +91,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                         String action = (String) data.get(GSConstants.ACTION);
                         if(action.equals(GSConstants.OPERATION_LIKE)){
                             if(data.containsKey(GSConstants.POST)){
-                                BaseItem post = TypeMapper.postFactory(data.get(GSConstants.POST), mapper, true);
+                                BaseItem post = TypeConverter.postFactory(data.get(GSConstants.POST), mapper, true);
                                 if(post!=null){
                                     String postId = post.getId();
                                     event = new NotificationEvent(4, "New Like", "", NotificationEvent.Type.LIKES,postId);

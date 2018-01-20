@@ -34,7 +34,6 @@ public class Achievement {
 //        var earnedDate : Date
 //        var iconURL : URL
 
-
     @JsonProperty("description")
     private String description;
     @JsonProperty("earned")

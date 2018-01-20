@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
-import base.app.data.club.MediaModel.youtubeDataApi
-import base.app.data.club.MediaRepository
+import base.app.data.tv.MediaModel.youtubeDataApi
+import base.app.data.tv.MediaRepository
 import base.app.ui.adapter.stream.TvAdapter
 import base.app.ui.fragment.base.BaseFragment
-import base.app.ui.fragment.base.FragmentEvent
+import base.app.data.FragmentEvent
 import base.app.ui.fragment.base.IgnoreBackHandling
 import base.app.util.ui.inflate
 import kotlinx.android.synthetic.main.fragment_tv.*

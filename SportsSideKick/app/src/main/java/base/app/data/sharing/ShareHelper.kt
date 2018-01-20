@@ -2,6 +2,7 @@ package base.app.data.sharing
 
 import android.content.Intent
 import android.content.Intent.*
+import base.app.data.NativeShareEvent
 import base.app.data.wall.BaseItem
 import org.greenrobot.eventbus.EventBus
 

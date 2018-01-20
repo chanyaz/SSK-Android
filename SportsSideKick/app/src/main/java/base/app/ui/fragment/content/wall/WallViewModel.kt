@@ -7,7 +7,7 @@ import base.app.data.news.WallRepository
 import base.app.data.user.LoginStateReceiver.LoginListener
 import base.app.data.user.UserInfo
 import base.app.data.wall.BaseItem
-import base.app.ui.fragment.base.FragmentEvent
+import base.app.data.FragmentEvent
 import base.app.ui.fragment.popup.SignUpLoginFragment
 import base.app.ui.fragment.popup.post.PostCreateFragment
 import org.greenrobot.eventbus.EventBus

@@ -43,16 +43,16 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
+import base.app.data.AddFriendsEvent;
 import base.app.data.Model;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsManager;
-import base.app.data.user.AddFriendsEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
 import base.app.ui.adapter.friends.SelectableFriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;

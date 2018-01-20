@@ -34,12 +34,12 @@ import base.app.data.im.ImsManager;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
 import base.app.util.commons.Utility;
 import base.app.util.events.call.StartCallEvent;
-import base.app.util.events.chat.OpenChatEvent;
+import base.app.data.OpenChatEvent;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -368,7 +368,7 @@ public class FriendFragment extends BaseFragment {
     @OnClick({R.id.confirm_button, R.id.close})
     public void confirmOnClick() {
         getActivity().onBackPressed();
-        EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
+        EventBus.getDefault().post(new FragmentEvent(initiatorFragment));
     }
 
 

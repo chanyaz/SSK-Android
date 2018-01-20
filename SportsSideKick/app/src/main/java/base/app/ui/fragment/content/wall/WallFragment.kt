@@ -30,6 +30,10 @@ class WallFragmentNew : Fragment() {
         headerImage.show(R.drawable.header_background)
         postButton.onClick { viewModel.onPostClicked() }
 
+        // login
+        // wallgetitems
+        // listen for gs messages and add/update/remove
+
         recyclerView.adapter = adapter
         viewModel.getItems().observe(this, Observer {
             adapter.clear()

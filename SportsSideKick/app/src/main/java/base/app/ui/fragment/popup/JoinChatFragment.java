@@ -31,7 +31,7 @@ import base.app.ui.adapter.chat.ChatSearchExpandableAdapter;
 import base.app.ui.adapter.friends.FriendsInChatAdapter;
 import base.app.ui.adapter.chat.OfficialChatsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsManager;

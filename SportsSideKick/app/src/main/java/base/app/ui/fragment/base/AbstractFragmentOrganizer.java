@@ -15,6 +15,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import base.app.Application;
+import base.app.data.FragmentEvent;
 import base.app.util.commons.Utility;
 
 /**

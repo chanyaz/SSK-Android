@@ -1,4 +1,4 @@
-package base.app.data.club
+package base.app.data.tv
 
 import base.app.BuildConfig.APPLICATION_ID
 import com.fasterxml.jackson.databind.ObjectMapper

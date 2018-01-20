@@ -13,7 +13,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.wall.News;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 
 /**

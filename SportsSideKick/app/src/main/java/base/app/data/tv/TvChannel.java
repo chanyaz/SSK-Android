@@ -1,4 +1,4 @@
-package base.app.data.club;
+package base.app.data.tv;
 
 import java.util.Date;
 

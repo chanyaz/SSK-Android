@@ -11,7 +11,7 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.util.Map;
 
-import base.app.data.TypeMapper.ItemType;
+import base.app.data.TypeConverter.ItemType;
 import base.app.data.im.ImsMessage;
 import base.app.data.wall.Comment;
 import base.app.data.wall.News;
@@ -92,7 +92,7 @@ public class Translator {
                             if (itemObj == null) return;
                             Map<String, Object> data = itemObj.getBaseData();
                             data.put(CLUB_ID_TAG, ItemType.Post);
-                            Post item = TypeMapper.postFactory(data, mapper, false);
+                            Post item = TypeConverter.postFactory(data, mapper, false);
                             completion.setResult(item);
                         }
                     }

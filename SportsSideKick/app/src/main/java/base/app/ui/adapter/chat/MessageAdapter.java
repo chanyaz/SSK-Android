@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.util.events.chat.FullScreenImageEvent;
-import base.app.util.events.chat.MessageSelectedEvent;
-import base.app.util.events.stream.PlayVideoEvent;
+import base.app.data.FullScreenImageEvent;
+import base.app.data.MessageSelectedEvent;
+import base.app.data.PlayVideoEvent;
 import base.app.data.DateUtils;
 import base.app.data.GSConstants;
 import base.app.data.Model;

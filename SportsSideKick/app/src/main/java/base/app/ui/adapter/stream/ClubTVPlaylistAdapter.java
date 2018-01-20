@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.ui.fragment.content.tv.VideoContainerFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;

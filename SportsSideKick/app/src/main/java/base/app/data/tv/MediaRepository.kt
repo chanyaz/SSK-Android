@@ -1,4 +1,4 @@
-package base.app.data.club
+package base.app.data.tv
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData

@@ -23,7 +23,7 @@ import base.app.ui.activity.MainActivity;
 import base.app.ui.activity.MainActivityTablet;
 import base.app.ui.adapter.menu.LanguageAdapter;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +64,7 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
     @Optional
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
+        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         Model.getInstance().getUserInfo().setLanguage(selectedLanguage);
         Prefs.putString(CHOSEN_LANGUAGE, selectedLanguage);
         Intent intent;

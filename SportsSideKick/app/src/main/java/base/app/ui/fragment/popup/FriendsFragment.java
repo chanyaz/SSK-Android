@@ -29,7 +29,7 @@ import java.util.List;
 import base.app.R;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.data.Model;
 import base.app.data.friendship.FriendRequest;
 import base.app.data.friendship.FriendsListChangedEvent;

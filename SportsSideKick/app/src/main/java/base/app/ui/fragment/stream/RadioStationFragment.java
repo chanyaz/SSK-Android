@@ -19,9 +19,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.data.club.Station;
+import base.app.data.tv.Station;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.util.commons.Constant;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -109,7 +109,7 @@ public class RadioStationFragment extends BaseFragment implements MediaPlayer.On
 
     @OnClick(R.id.close_button)
     public void closeButtonOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(RadioFragment.class, true));
+        EventBus.getDefault().post(new FragmentEvent(RadioFragment.class));
     }
 
     MediaPlayer player;

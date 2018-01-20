@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 import base.app.R;
 import base.app.data.Translator;
-import base.app.data.TypeMapper;
+import base.app.data.TypeConverter;
 import base.app.data.im.ImsMessage;
 import base.app.data.wall.Comment;
 import base.app.data.wall.News;
@@ -52,7 +52,7 @@ public class TranslationView extends RelativeLayout {
 
     String itemId;
     TranslationType type;
-    TypeMapper.ItemType itemType;
+    TypeConverter.ItemType itemType;
 
     int[] referenceLocation;
     int referenceHeight, referenceWidth;
@@ -114,7 +114,7 @@ public class TranslationView extends RelativeLayout {
         showTranslationPopup(clickedView, id, completion, type, null);
     }
 
-    public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, TypeMapper.ItemType itemType) {
+    public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, TypeConverter.ItemType itemType) {
         this.type = type;
         this.completion = completion;
         itemId = id;

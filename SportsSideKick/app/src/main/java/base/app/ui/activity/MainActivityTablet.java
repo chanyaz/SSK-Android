@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.wall.DetailFragment;
 import base.app.ui.fragment.other.ChatFragment;
@@ -67,7 +67,7 @@ import base.app.ui.fragment.popup.YourStatementFragment;
 import base.app.data.Model;
 import base.app.data.ticker.NewsTickerInfo;
 import base.app.data.ticker.NextMatchModel;
-import base.app.data.ticker.NextMatchUpdateEvent;
+import base.app.data.NextMatchUpdateEvent;
 import base.app.data.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserEvent;
@@ -126,7 +126,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     TextView notificationNumber;
 
     ArrayList<Class> popupContainerFragments;
-    ArrayList<Class>  loginContainerFragments;
+    ArrayList<Class> loginContainerFragments;
     BiMap<Integer, Class> radioButtonsFragmentMap;
 
     @BindView(R.id.left_notification_container)
@@ -269,11 +269,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     @Subscribe
     public void onFragmentEvent(FragmentEvent event) {
         popupLoginHolder.setVisibility(View.GONE);
-        if (event.isReturning()) {
-            SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
-        } else {
-            SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
-        }
+        SoundEffects.getDefault().playSound(SoundEffects.SUBTLE);
 
         if (popupContainerFragments.contains(event.getType())) {
             // this is popup fragment, show blurred background
@@ -314,22 +310,22 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
         if (!fragmentOrganizer.handleBackNavigation()) {
             finish();
-        }else {
+        } else {
             popupLoginHolder.setVisibility(View.GONE);
         }
     }
 
     @Subscribe
-    public void update(NextMatchUpdateEvent event){
-        if(NextMatchModel.getInstance().isNextMatchUpcoming()){
+    public void update(NextMatchUpdateEvent event) {
+        if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
             NewsTickerInfo info = NextMatchModel.getInstance().getTickerInfo();
             // in case where there were no team images (first time initialisation)
-            if(logoOfFirstTeam.getDrawable()==null){
+            if (logoOfFirstTeam.getDrawable() == null) {
                 Glide.with(this).load(info.getFirstClubUrl()).into(logoOfFirstTeam);
                 Glide.with(this).load(info.getSecondClubUrl()).into(logoOfSecondTeam);
             }
             long timestamp = Long.parseLong(info.getMatchDate());
-            daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(),timestamp,true));
+            daysUntilMatchLabel.setText(NextMatchCountdown.getTextValue(getBaseContext(), timestamp, true));
             nextMatchContainer.setVisibility(View.VISIBLE);
         } else {
             nextMatchContainer.setVisibility(View.GONE);
@@ -368,7 +364,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
             public void run() {
                 splash.setVisibility(View.GONE);
             }
-        },3000);
+        }, 3000);
     }
 
     @Override
@@ -384,7 +380,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
-            yourLevel.setText(String.valueOf((int)user.getProgress()));
+            yourLevel.setText(String.valueOf((int) user.getProgress()));
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
             TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
 
@@ -408,7 +404,8 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     }
 
     @Override
-    public void onLoginError(Error error) {}
+    public void onLoginError(Error error) {
+    }
 
     @Subscribe
     public void updateUserName(UserEvent event) {
@@ -427,7 +424,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         }
     }
 
-    @OnClick({R.id.user_image_container, R.id.profile_name,R.id.user_info_container})
+    @OnClick({R.id.user_image_container, R.id.profile_name, R.id.user_info_container})
     public void onLoginClick() {
         if (Model.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
@@ -441,7 +438,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         switch (event.getType()) {
             case onInvitationRevoked:
             case onChatClosed:
-                if(fragmentOrganizer.getCurrentFragment() instanceof AlertDialogFragment){
+                if (fragmentOrganizer.getCurrentFragment() instanceof AlertDialogFragment) {
                     onBackPressed();
                 }
                 break;

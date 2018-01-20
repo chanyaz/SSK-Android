@@ -25,18 +25,18 @@ import base.app.data.DateUtils;
 import base.app.data.FileUploader;
 import base.app.data.GSConstants;
 import base.app.data.Model;
-import base.app.data.TypeMapper;
+import base.app.data.TypeConverter;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
-import base.app.util.events.comment.CommentDeleteEvent;
-import base.app.util.events.comment.CommentUpdateEvent;
-import base.app.util.events.comment.CommentUpdatedEvent;
-import base.app.util.events.comment.GetCommentsCompleteEvent;
-import base.app.util.events.post.GetPostByIdEvent;
-import base.app.util.events.post.ItemUpdateEvent;
-import base.app.util.events.post.PostCommentCompleteEvent;
-import base.app.util.events.post.PostDeletedEvent;
-import base.app.util.events.post.WallLikeUpdateEvent;
+import base.app.data.CommentDeleteEvent;
+import base.app.data.CommentUpdateEvent;
+import base.app.data.CommentUpdatedEvent;
+import base.app.data.GetCommentsCompleteEvent;
+import base.app.data.GetPostByIdEvent;
+import base.app.data.ItemUpdateEvent;
+import base.app.data.PostCommentCompleteEvent;
+import base.app.data.PostDeletedEvent;
+import base.app.data.WallLikeUpdateEvent;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -44,8 +44,8 @@ import io.reactivex.ObservableOnSubscribe;
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
 import static base.app.data.Model.createRequest;
-import static base.app.data.TypeMapper.ItemType;
-import static base.app.data.TypeMapper.postFactory;
+import static base.app.data.TypeConverter.ItemType;
+import static base.app.data.TypeConverter.postFactory;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
 /**
@@ -187,7 +187,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     // user logged out so clearing all content.
     public void clear() {
-        TypeMapper.getCache().clear();
+        TypeConverter.getCache().clear();
     }
 
     Task<Void> setLikeCount(final Post post, final boolean val) {
@@ -414,8 +414,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 //                                return; // Its our own comment, ignore it
 //                            }
 //                        }
-                        CommentUpdateEvent event = new CommentUpdateEvent(post);
-                        event.setComment(comment);
+                        CommentUpdateEvent event = new CommentUpdateEvent(post, comment);
                         EventBus.getDefault().post(event);
                         break;
                     case GSConstants.OPERATION_NEW_POST:
@@ -433,8 +432,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Object updatedCommentObject = data.get(GSConstants.COMMENT);
                         Comment updatedComment = mapper.convertValue(updatedCommentObject, new TypeReference<Comment>() {
                         });
-                        CommentUpdatedEvent updatedCommentEvent = new CommentUpdatedEvent(post);
-                        updatedCommentEvent.setComment(updatedComment);
+                        CommentUpdatedEvent updatedCommentEvent = new CommentUpdatedEvent(post, updatedComment);
                         EventBus.getDefault().post(updatedCommentEvent);
                         break;
                     case GSConstants.OPERATION_DELTE_POST:
