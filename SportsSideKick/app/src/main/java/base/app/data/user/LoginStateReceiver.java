@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class LoginStateReceiver {
 
     public interface LoginListener {
-        void onLogin(UserInfo user);
+        void onLogin(User user);
         void onLoginAnonymously();
         void onLoginError(Error error);
         void onLogout();
@@ -34,7 +34,7 @@ public class LoginStateReceiver {
                 listener.onLogout();
                 break;
             case onLogin:
-                listener.onLogin(event.getUserInfo());
+                listener.onLogin(event.getUser());
                 break;
             case onLoginAnonymously:
                 listener.onLoginAnonymously();

@@ -10,7 +10,7 @@ import base.app.util.commons.Model;
 
 public class UserEvent {
 
-    UserInfo userInfo;
+    User user;
     Error error;
     Model.UserState userState;
 
@@ -40,8 +40,8 @@ public class UserEvent {
         this.type = type;
     }
 
-    public UserEvent(Type type, UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public UserEvent(Type type, User user) {
+        this.user = user;
         this.type = type;
     }
 
@@ -58,8 +58,8 @@ public class UserEvent {
     public Type getType() {
         return type;
     }
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public User getUser() {
+        return user;
     }
 
     public Error getError() {

@@ -39,10 +39,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.ui.AlertDialogManager;
 import base.app.util.commons.Model;
 import base.app.data.user.UserEvent;
-import base.app.data.user.UserInfo;
 import base.app.data.chat.videochat.Slot;
 import base.app.data.chat.videochat.VideoChatEvent;
 import base.app.data.chat.videochat.VideoChatItem;
@@ -310,17 +310,17 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             case onSelfInvited:
                 VideoChatItem videoChatItem = event.getViewChatItem();
                 final String roomId = videoChatItem.getId().getOid();
-                Task<UserInfo> userInfoTask = Model.getInstance().getUserInfoById(videoChatItem.getOwnerId());
-                userInfoTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                Task<User> userInfoTask = Model.getInstance().getUserInfoById(videoChatItem.getOwnerId());
+                userInfoTask.addOnCompleteListener(new OnCompleteListener<User>() {
                     @Override
-                    public void onComplete(@NonNull Task<UserInfo> task) {
+                    public void onComplete(@NonNull Task<User> task) {
                         if (task.isSuccessful()) {
-                            UserInfo userInfo = task.getResult();
+                            User user = task.getResult();
                             String usersName = "";
-                            if (userInfo.getFirstName() != null && userInfo.getLastName() != null) {
-                                usersName = userInfo.getFirstName() + userInfo.getLastName();
-                            } else if (userInfo.getNicName() != null) {
-                                usersName = userInfo.getNicName();
+                            if (user.getFirstName() != null && user.getLastName() != null) {
+                                usersName = user.getFirstName() + user.getLastName();
+                            } else if (user.getNicName() != null) {
+                                usersName = user.getNicName();
                             }
                             AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.call_receive) + " \'" + usersName + " \'?", getContext().getResources().getString(R.string.accept_call),
                                     new View.OnClickListener() {// Cancel
@@ -391,9 +391,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @Subscribe
     public void startCallWithUsers(StartCallEvent event) {
-        List<UserInfo> users = event.getUsers();
+        List<User> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
-        for (UserInfo user : users) {
+        for (User user : users) {
             if (!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
@@ -416,9 +416,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @Subscribe
     public void addUsersToCall(AddUsersToCallEvent event) {
-        List<UserInfo> users = event.getUsers();
+        List<User> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
-        for (UserInfo user : users) {
+        for (User user : users) {
             if (!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
@@ -446,9 +446,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                             slot.setUserId(userId);
                             addSlotToLayout(slot);
                             if (Utility.isPhone(getActivity())) {
-                                Model.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                                Model.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<User>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<UserInfo> task) {
+                                    public void onComplete(@NonNull Task<User> task) {
                                         if (task.isSuccessful()) {
                                             userCounter++;
                                             String myNames = nickNameUsers.getText().toString();
@@ -598,11 +598,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         return users;
     }
 
-    private List<UserInfo> getUsersFromSlots() {
-        List<UserInfo> users = new ArrayList<>();
+    private List<User> getUsersFromSlots() {
+        List<User> users = new ArrayList<>();
         for (Slot slot : slots) {
-            if (slot.getUserInfo() != null) {
-                users.add(slot.getUserInfo());
+            if (slot.getUser() != null) {
+                users.add(slot.getUser());
             }
         }
         return users;

@@ -12,8 +12,8 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.app.data.user.User;
 import base.app.util.commons.GSConstants;
-import base.app.data.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
@@ -47,9 +47,9 @@ public class PeopleSearchManager {
      *
      */
 
-    public Task<List<UserInfo>> searchPeople(String searchString, int firstUserIndex){
-        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
-        final List<UserInfo> usersInfo = new ArrayList<>();
+    public Task<List<User>> searchPeople(String searchString, int firstUserIndex){
+        final TaskCompletionSource<List<User>> source = new TaskCompletionSource<>();
+        final List<User> usersInfo = new ArrayList<>();
 
         if(TextUtils.isEmpty(searchString)){
             source.setResult(usersInfo);
@@ -61,7 +61,7 @@ public class PeopleSearchManager {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.PLAYER);
-                    List<UserInfo> friends = mapper.convertValue(object, new TypeReference<List<UserInfo>>(){});
+                    List<User> friends = mapper.convertValue(object, new TypeReference<List<User>>(){});
                     while(friends.contains(null)){
                         friends.remove(null);
                     }

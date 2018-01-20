@@ -23,12 +23,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import base.app.data.user.User;
 import base.app.util.commons.Model;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.util.events.ChatUpdateEvent;
 import base.app.util.events.MessageUpdateEvent;
 import base.app.util.events.UserIsTypingEvent;
-import base.app.data.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
 
@@ -47,7 +47,7 @@ public class ChatInfo {
     private String chatId;
     private String name;
     @JsonIgnore
-    private ArrayList<UserInfo> chatUsers;
+    private ArrayList<User> chatUsers;
     private ArrayList<String> usersIds;
     private String avatarUrl;
     private String owner;
@@ -117,12 +117,12 @@ public class ChatInfo {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         if (chatUsers == null){
             chatUsers = new ArrayList<>();
-            final ArrayList<Task<UserInfo>> tasks = new ArrayList<>();
+            final ArrayList<Task<User>> tasks = new ArrayList<>();
             for(String uid : getUsersIds()){
-                Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
-                task.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                Task<User> task = Model.getInstance().getUserInfoById(uid);
+                task.addOnCompleteListener(new OnCompleteListener<User>() {
                     @Override
-                    public void onComplete(@NonNull Task<UserInfo> task) {
+                    public void onComplete(@NonNull Task<User> task) {
                         if(task.isSuccessful()){
                             chatUsers.add(task.getResult());
                         }
@@ -179,7 +179,7 @@ public class ChatInfo {
         if (getUsersIds().size() == 2){
             String firstUserId = getUsersIds().get(0);
             String secondUserId = getUsersIds().get(1);
-            UserInfo info;
+            User info;
             String currentUserId = Model.getInstance().getUserInfo().getUserId();
             if(currentUserId==null || !currentUserId.equals(firstUserId)){
                 info = Model.getInstance().getCachedUserInfoById(firstUserId);
@@ -318,7 +318,7 @@ public class ChatInfo {
         }
     }
 
-    public void addUser(UserInfo uinfo){
+    public void addUser(User uinfo){
         if(Model.getInstance().getUserInfo()==null){
             return;
         }
@@ -331,7 +331,7 @@ public class ChatInfo {
         }
     }
 
-    public void addUserIfChatIsGlobal(final UserInfo uinfo){
+    public void addUserIfChatIsGlobal(final User uinfo){
         Task<List<ChatInfo>> task = ImsManager.getInstance().getGlobalChats();
         task.addOnSuccessListener(new OnSuccessListener<List<ChatInfo>>() {
             @Override
@@ -461,17 +461,17 @@ public class ChatInfo {
         ImsManager.getInstance().setUserIsTypingValue(val, getChatId());
     }
 
-    private List<UserInfo> usersTypingInfo = new ArrayList<>();
+    private List<User> usersTypingInfo = new ArrayList<>();
     void updateUserIsTyping(String userId, boolean isTypingValue){
         if(isTypingValue){
-            UserInfo info = Model.getInstance().getCachedUserInfoById(userId);
+            User info = Model.getInstance().getCachedUserInfoById(userId);
             if(info!=null){
                 usersTypingInfo.add(info);
             } else {
                 Model.getInstance().getUserInfoById(userId);
             }
         } else {
-            for(UserInfo info : new ArrayList<>(usersTypingInfo)){
+            for(User info : new ArrayList<>(usersTypingInfo)){
                 if(info.getUserId().equals(userId)){
                     usersTypingInfo.remove(info);
                 }

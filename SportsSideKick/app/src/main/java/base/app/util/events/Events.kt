@@ -7,12 +7,12 @@ import base.app.data.content.wall.BaseItem
 import base.app.data.content.wall.Comment
 import base.app.data.content.wall.News
 import base.app.data.content.wall.Post
-import base.app.data.user.UserInfo
+import base.app.data.user.User
 import java.util.*
 
-class AddFriendsEvent(val userInfo: UserInfo, val isRemove: Boolean)
+class AddFriendsEvent(val user: User, val isRemove: Boolean)
 class FriendsListChangedEvent
-class AddUsersToCallEvent(val users: List<UserInfo>)
+class AddUsersToCallEvent(val users: List<User>)
 class ChatsInfoUpdatesEvent(val chats: List<ChatInfo>)
 
 class ChatUpdateEvent(val chatInfo: ChatInfo)
@@ -30,7 +30,7 @@ class CreateNewChatSuccessEvent(var chatInfo: ChatInfo)
 
 class MessageUpdateEvent(var message: ChatMessage)
 
-class UserIsTypingEvent(var chatId: String, var users: List<UserInfo>)
+class UserIsTypingEvent(var chatId: String, var users: List<User>)
 
 class FragmentEvent(var type: Class<*>?) {
     var itemId: String? = null
@@ -64,4 +64,4 @@ class PostCommentCompleteEvent(val comment: Comment, val post: Post)
 
 class PlayVideoEvent(var videoUrl: String)
 
-class StartCallEvent(var users: List<UserInfo>)
+class StartCallEvent(var users: List<User>)

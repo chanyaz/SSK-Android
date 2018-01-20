@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel
 import base.app.util.commons.Model
 import base.app.data.content.tv.inBackground
 import base.app.data.content.news.PostsRepository
-import base.app.data.user.UserInfo
+import base.app.data.user.User
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import java.io.File
@@ -19,9 +19,9 @@ class PostCreateViewModel : ViewModel() {
     private var selectedImage: File? = null
     private val disposables = CompositeDisposable()
 
-    fun loadUser() : LiveData<UserInfo> {
+    fun loadUser() : LiveData<User> {
         val user = Model.getInstance().userInfo
-        return MutableLiveData<UserInfo>().just(user)
+        return MutableLiveData<User>().just(user)
     }
 
     fun attachImage(fileObservable: Observable<File>) {

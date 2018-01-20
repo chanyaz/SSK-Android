@@ -36,8 +36,8 @@ import java.util.Map;
 import base.app.Keys;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.MessageHandler;
+import base.app.data.user.User;
 import base.app.data.user.UserEvent;
-import base.app.data.user.UserInfo;
 import base.app.data.user.purchases.PurchaseModel;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -82,11 +82,11 @@ public class Model {
     }
 
 
-    private UserInfo currentUserInfo;
+    private User currentUser;
 
-    public UserInfo getUserInfo() {
-        if (currentUserInfo != null) {
-            return currentUserInfo;
+    public User getUserInfo() {
+        if (currentUser != null) {
+            return currentUser;
         }
         return null;
     }
@@ -113,13 +113,13 @@ public class Model {
                 registerForPushNotifications();
                 break;
             case REAL:
-                EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogin, currentUserInfo));
+                EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogin, currentUser));
                 registerForPushNotifications();
                 break;
         }
     }
 
-    private HashMap<String, UserInfo> userCache;
+    private HashMap<String, User> userCache;
 
     private Model() {
         userCache = new HashMap<>();
@@ -172,7 +172,7 @@ public class Model {
     }
 
     public void markWallTipComplete(String tipId) {
-        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+        final TaskCompletionSource<User> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersMarkTipComplete");
         request.setEventAttribute("tipId", tipId);
@@ -182,13 +182,13 @@ public class Model {
                 if (response != null) {
                     if (!response.hasErrors() && response.getScriptData().getObject(GSConstants.USER_INFO) != null) {
                         Map<String, Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
-                        UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
-                        userCache.put(userInfo.getUserId(), userInfo);
-                        if (userInfo.getUserId().equals(currentUserInfo.getUserId())) {
-                            currentUserInfo = userInfo;
-                            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated,currentUserInfo));
+                        User user = mapper.convertValue(data, User.class);
+                        userCache.put(user.getUserId(), user);
+                        if (user.getUserId().equals(currentUser.getUserId())) {
+                            currentUser = user;
+                            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUser));
                         }
-                        source.setResult(userInfo);
+                        source.setResult(user);
                         return;
                     }
                 }
@@ -519,8 +519,8 @@ public class Model {
     /**
      * RETURN ALL THE OFFICIAL USER ACCOUNTS! (PLAYERS and SPECIALS)
      */
-    public Task<List<UserInfo>> getOfficialAccounts(int offset) {
-        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+    public Task<List<User>> getOfficialAccounts(int offset) {
+        final TaskCompletionSource<List<User>> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersGetSpecialUsers");
         request.setEventAttribute(GSConstants.OFFSET, offset);
@@ -532,7 +532,7 @@ public class Model {
                 if (!response.hasErrors()) {
                     // Parse response
                     Object object = response.getScriptData().getBaseData().get("usersInfo");
-                    List<UserInfo> officialAccounts = mapper.convertValue(object, new TypeReference<List<UserInfo>>() {
+                    List<User> officialAccounts = mapper.convertValue(object, new TypeReference<List<User>>() {
                     });
                     source.setResult(officialAccounts);
                 }
@@ -590,13 +590,13 @@ public class Model {
 
     public void setDetails(Map<String, String> details) {
         GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-        if (!details.get(GSConstants.EMAIL).equals(currentUserInfo.getEmail())) {
+        if (!details.get(GSConstants.EMAIL).equals(currentUser.getEmail())) {
             request.setUserName(details.get(GSConstants.EMAIL));
         }
 
         String newNicName = details.get(GSConstants.NICNAME);
         if (details.containsKey(GSConstants.NICNAME) && !TextUtils.isEmpty(newNicName)) {
-            if (!newNicName.equals(currentUserInfo.getNicName())) {
+            if (!newNicName.equals(currentUser.getNicName())) {
                 request.setDisplayName(details.get(GSConstants.NICNAME));
             }
         }
@@ -618,16 +618,16 @@ public class Model {
         }
         GSData scriptData = response.getScriptData();
         Map<String, Object> data;
-        UserInfo info;
+        User info;
         if (scriptData != null) {
             data = scriptData.getBaseData();
-            info = mapper.convertValue(data, UserInfo.class);
+            info = mapper.convertValue(data, User.class);
         } else {
-            info = mapper.convertValue(response, UserInfo.class);
+            info = mapper.convertValue(response, User.class);
         }
-        currentUserInfo = info;
+        currentUser = info;
         userCache.put(info.getUserId(), info);
-        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUserInfo));
+        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUser));
     }
 
     private GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> onDetailsUpdated = new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
@@ -662,13 +662,13 @@ public class Model {
                 Log.d(TAG, "GSModel.setState() -> No state data returned");
                 return;
             }
-            currentUserInfo.setUserState(UserState.valueOf(state));
-            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onStateUpdated, currentUserInfo.getUserState()));
+            currentUser.setUserState(UserState.valueOf(state));
+            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onStateUpdated, currentUser.getUserState()));
         }
     }
 
     private void clearUser() {
-        currentUserInfo = null;
+        currentUser = null;
     }
 
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
@@ -684,9 +684,9 @@ public class Model {
      * @param userId user id
      * @return Task<UserInfo> task that will be run on complete
      **/
-    public Task<UserInfo> getUserInfoById(String userId) {
-        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
-        UserInfo info = getCachedUserInfoById(userId);
+    public Task<User> getUserInfoById(String userId) {
+        final TaskCompletionSource<User> source = new TaskCompletionSource<>();
+        User info = getCachedUserInfoById(userId);
         if (info != null) {
             source.setResult(info);
             return source.getTask();
@@ -695,8 +695,8 @@ public class Model {
         }
     }
 
-    public Task<UserInfo> refreshUserInfo(String userId) {
-        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+    public Task<User> refreshUserInfo(String userId) {
+        final TaskCompletionSource<User> source = new TaskCompletionSource<>();
         GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
         request.setEventKey("getUserInfoById");
         request.setEventAttribute(GSConstants.USER_ID, userId);
@@ -705,9 +705,9 @@ public class Model {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors() && response.getScriptData().getObject(GSConstants.USER_INFO) != null) {
                     Map<String, Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
-                    UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
-                    userCache.put(userInfo.getUserId(), userInfo);
-                    source.setResult(userInfo);
+                    User user = mapper.convertValue(data, User.class);
+                    userCache.put(user.getUserId(), user);
+                    source.setResult(user);
                 } else {
                     Log.e(TAG, "There was an error at refreshUserInfo call");
                     source.setException(new Exception("GameSparks error!"));
@@ -717,18 +717,18 @@ public class Model {
         return source.getTask();
     }
 
-    public List<UserInfo> getCachedUserInfoById(Collection<String> userIds) {
-        List<UserInfo> userInfos = new ArrayList<>();
+    public List<User> getCachedUserInfoById(Collection<String> userIds) {
+        List<User> users = new ArrayList<>();
         for (String id : userIds) {
-            UserInfo info = getCachedUserInfoById(id);
+            User info = getCachedUserInfoById(id);
             if (info != null) {
-                userInfos.add(info);
+                users.add(info);
             }
         }
-        return userInfos;
+        return users;
     }
 
-    public UserInfo getCachedUserInfoById(String userId) {
+    public User getCachedUserInfoById(String userId) {
         if (userCache.containsKey(userId)) {
             return userCache.get(userId);
         } else {
@@ -744,8 +744,8 @@ public class Model {
      **/
 
     private String getUserIdForImageName() {
-        if (currentUserInfo != null) {
-            return currentUserInfo.getUserId();
+        if (currentUser != null) {
+            return currentUser.getUserId();
         } else {
             return "unknown";
         }
@@ -761,7 +761,7 @@ public class Model {
     }
 
     public void uploadChatVideoRecordingThumbnail(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
-        String filename = "video_thumb_" + currentUserInfo.getUserId() + System.currentTimeMillis() + ".jpg";
+        String filename = "video_thumb_" + currentUser.getUserId() + System.currentTimeMillis() + ".jpg";
         FileUploader.getInstance().uploadThumbnail(filename, filepath, filesDir, completion);
     }
 
@@ -828,7 +828,7 @@ public class Model {
     }
 
     public void uploadWallPostVideoRecordingThumbnail(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
-        String filename = "post_video_thumb_" + currentUserInfo.getUserId() + System.currentTimeMillis() + ".jpg";
+        String filename = "post_video_thumb_" + currentUser.getUserId() + System.currentTimeMillis() + ".jpg";
         FileUploader.getInstance().uploadThumbnail(filename, filepath, filesDir, completion);
     }
 

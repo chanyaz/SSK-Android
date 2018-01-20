@@ -31,7 +31,7 @@ import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Model;
 import base.app.data.user.friends.PeopleSearchManager;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -122,12 +122,12 @@ public class AddFriendFragment extends BaseFragment {
                 officialAccountsAdapter = new FindOfficialAdapter(getActivity(), this.getClass());
                 officialAccountsRecyclerView.setAdapter(officialAccountsAdapter);
             }
-            Task<List<UserInfo>> fetchOfficialAccountsTask = Model.getInstance().getOfficialAccounts(0);
-            fetchOfficialAccountsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+            Task<List<User>> fetchOfficialAccountsTask = Model.getInstance().getOfficialAccounts(0);
+            fetchOfficialAccountsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
                 @Override
-                public void onComplete(@NonNull Task<List<UserInfo>> task) {
+                public void onComplete(@NonNull Task<List<User>> task) {
                     progressBar.setVisibility(View.GONE);
-                    List<UserInfo> officialAccounts = task.getResult();
+                    List<User> officialAccounts = task.getResult();
                     if (task.isSuccessful() && officialAccounts.size() != 0) {
                         officialAccountsAdapter.setValues(officialAccounts);
                         officialAccountsAdapter.notifyDataSetChanged();
@@ -183,10 +183,10 @@ public class AddFriendFragment extends BaseFragment {
         noResultCaption.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         isSearchPeopleTaskCanceled = false;
-        Task<List<UserInfo>> searchPeopleTask = PeopleSearchManager.getInstance().searchPeople(text, 0);
-        searchPeopleTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+        Task<List<User>> searchPeopleTask = PeopleSearchManager.getInstance().searchPeople(text, 0);
+        searchPeopleTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
             @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
+            public void onComplete(@NonNull Task<List<User>> task) {
                 progressBar.setVisibility(View.GONE);
                 if(!isSearchPeopleTaskCanceled){
                     if (task.isSuccessful() && task.getResult().size() != 0) {

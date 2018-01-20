@@ -71,7 +71,7 @@ import base.app.util.events.NextMatchUpdateEvent;
 import base.app.data.user.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserEvent;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.data.chat.videochat.VideoChatEvent;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.SoundEffects;
@@ -366,7 +366,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     }
 
     @Override
-    public void onLogin(UserInfo user) {
+    public void onLogin(User user) {
         if (Model.getInstance().isRealUser()) {
             if (user.getAvatar() != null) {
                 ImageLoader.displayImage(user.getAvatar(), profileImage, null);
@@ -411,7 +411,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
             setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
         }
 
-        UserInfo user = event.getUserInfo();
+        User user = event.getUser();
         if (user != null) {
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());

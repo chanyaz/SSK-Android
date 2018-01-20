@@ -29,7 +29,7 @@ import base.app.util.events.ChatsInfoUpdatesEvent;
 import base.app.util.events.CreateNewChatSuccessEvent;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.LoginStateReceiver;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.util.commons.GSConstants.CHATS_INFO;
@@ -534,7 +534,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     }
 
     @Override
-    public void onLogin(UserInfo user) {
+    public void onLogin(User user) {
         reload();
     }
 
@@ -579,7 +579,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 chatId = (String) data.get(CHAT_ID);
                 String sender = (String) data.get(GSConstants.SENDER);
                 String isTyping = (String) data.get(IS_TYPING_VALUE);
-                UserInfo user = Model.getInstance().getUserInfo();
+                User user = Model.getInstance().getUserInfo();
                 if (chatId != null && sender != null && isTyping != null && user != null) {
                     if (!sender.equals(user.getUserId())) {
                         ChatInfo chatInfo = getChatInfoById(chatId);

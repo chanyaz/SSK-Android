@@ -39,7 +39,7 @@ import base.app.BuildConfig;
 import base.app.R;
 import base.app.util.commons.GSConstants;
 import base.app.util.commons.Model;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.data.content.wall.WallModel;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
@@ -70,7 +70,7 @@ import static base.app.util.commons.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PIC
 @RuntimePermissions
 public class EditProfileFragment extends BaseFragment {
 
-    UserInfo user;
+    User user;
     boolean isMuted;
 
     @BindView(R.id.profile_image)

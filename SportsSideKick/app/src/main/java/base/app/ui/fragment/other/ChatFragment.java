@@ -65,6 +65,7 @@ import java.util.TimerTask;
 import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.chat.ChatMessage;
+import base.app.data.user.User;
 import base.app.util.ui.AlertDialogManager;
 import base.app.util.commons.GSConstants;
 import base.app.util.commons.Model;
@@ -74,7 +75,6 @@ import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.util.events.ChatsInfoUpdatesEvent;
 import base.app.util.events.CreateNewChatSuccessEvent;
 import base.app.util.events.UserIsTypingEvent;
-import base.app.data.user.UserInfo;
 import base.app.ui.adapter.chat.ChatHeadsAdapter;
 import base.app.ui.adapter.chat.MessageAdapter;
 import base.app.util.ui.BaseFragment;
@@ -444,7 +444,7 @@ public class ChatFragment extends BaseFragment {
             int count = 0;
             for (String userId : currentlyActiveChat.getUsersIds()) {
                 count++;
-                UserInfo info = Model.getInstance().getCachedUserInfoById(userId);
+                User info = Model.getInstance().getCachedUserInfoById(userId);
                 if (info != null) {
                     String chatName = info.getNicName();
                     if (!TextUtils.isEmpty(chatName)) {
@@ -461,7 +461,7 @@ public class ChatFragment extends BaseFragment {
 
     private void setupEditChatButton() {
         if (currentlyActiveChat != null) {
-            UserInfo user = Model.getInstance().getUserInfo();
+            User user = Model.getInstance().getUserInfo();
             if (user != null) {
                 if(messageForEdit !=null){
                     chatMenuDeleteButton.setVisibility(View.VISIBLE);
@@ -687,7 +687,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
-        UserInfo user = Model.getInstance().getUserInfo();
+        User user = Model.getInstance().getUserInfo();
         if (currentlyActiveChat != null && user != null) {
             if(messageForEdit !=null){
                 Toast.makeText(getContext(),"Edit mode for chat message activated",Toast.LENGTH_SHORT).show();
@@ -1233,7 +1233,7 @@ public class ChatFragment extends BaseFragment {
     public void handleUserIsTypingEvent(UserIsTypingEvent event){
         if(currentlyActiveChat!=null){
             if(event.getChatId().equals(currentlyActiveChat.getChatId())){
-                List<UserInfo> users = event.getUsers();
+                List<User> users = event.getUsers();
                 if(users.size()==1){
                     String userName = users.get(0).getNicName();
                     infoLineTextView.setText(getString(R.string.single_user_is_typing,userName));

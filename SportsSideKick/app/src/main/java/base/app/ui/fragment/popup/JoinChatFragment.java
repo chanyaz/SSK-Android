@@ -27,6 +27,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.ui.adapter.chat.ChatSearchExpandableAdapter;
 import base.app.ui.adapter.friends.FriendsInChatAdapter;
 import base.app.ui.adapter.chat.OfficialChatsAdapter;
@@ -35,7 +36,6 @@ import base.app.util.events.FragmentEvent;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
-import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
 import butterknife.BindView;
@@ -122,17 +122,17 @@ public class JoinChatFragment extends BaseFragment {
     }
 
     private void setupFriendsChats(final List<ChatInfo> allPublicChats, final int cellHeight) {
-        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
+        Task<List<User>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
-                new OnSuccessListener<List<UserInfo>>() {
+                new OnSuccessListener<List<User>>() {
                     @Override
-                    public void onSuccess(List<UserInfo> userInfos) {
+                    public void onSuccess(List<User> users) {
                         // Other chats that friends are in:
                         List<ChatInfo> otherChats = new ArrayList<>();
 
                         for (ChatInfo publicChat : allPublicChats) {
                             if (!otherChats.contains(publicChat)) {
-                                for (UserInfo friend : userInfos) {
+                                for (User friend : users) {
                                     if (publicChat.getUsersIds().contains(friend.getUserId())) {
                                         otherChats.add(publicChat);
                                     }

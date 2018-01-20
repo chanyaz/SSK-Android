@@ -13,7 +13,7 @@ import base.app.util.commons.Model;
 import base.app.data.TypeConverter;
 import base.app.data.content.wall.BaseItem;
 import base.app.data.user.GSMessageHandlerAbstract;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.util.events.FriendsListChangedEvent;
 import base.app.util.events.NotificationEvent;
 
@@ -71,15 +71,15 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 break;
             case "UserInfo":
                 message = (String) data.get(GSConstants.MESSAGE);
-                UserInfo userInfo = mapper.convertValue(data.get(GSConstants.USER_INFO), UserInfo.class);
+                User user = mapper.convertValue(data.get(GSConstants.USER_INFO), User.class);
                 if(message!=null){
                     if(message.contains("stoped following")){
                         FriendsListChangedEvent eventToUpdateFriendsList = new FriendsListChangedEvent();
                         EventBus.getDefault().post(eventToUpdateFriendsList);
-                        event = new NotificationEvent(4, "Un-Followed", userInfo.getNicName(), NotificationEvent.Type.FOLLOWERS);
+                        event = new NotificationEvent(4, "Un-Followed", user.getNicName(), NotificationEvent.Type.FOLLOWERS);
                         EventBus.getDefault().post(event);
                     } else if(message.contains("following")){
-                        event = new NotificationEvent(4, "New Follower", userInfo.getNicName(), NotificationEvent.Type.FOLLOWERS);
+                        event = new NotificationEvent(4, "New Follower", user.getNicName(), NotificationEvent.Type.FOLLOWERS);
                         EventBus.getDefault().post(event);
                     }
                 }

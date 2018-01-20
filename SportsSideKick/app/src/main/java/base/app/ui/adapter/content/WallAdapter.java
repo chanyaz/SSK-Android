@@ -30,9 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.commons.Model;
 import base.app.data.content.Translator;
-import base.app.data.user.UserInfo;
 import base.app.data.content.wall.BaseItem;
 import base.app.data.content.wall.News;
 import base.app.data.content.wall.Pin;
@@ -225,12 +225,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     static void displayUserInfo(final BaseItem post, final ViewHolder holder) {
-        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
-        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+        Task<User> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
+        getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
-            public void onComplete(@NonNull Task<UserInfo> task) {
+            public void onComplete(@NonNull Task<User> task) {
                 if (task.isSuccessful()) {
-                    UserInfo user = task.getResult();
+                    User user = task.getResult();
                     if (user != null) {
                         if (holder.captionAvatar != null) {
                             Glide.with(holder.view)

@@ -14,7 +14,7 @@ import base.app.util.commons.Model;
  * www.hypercubesoft.com eliav
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserInfo {
+public class User {
 
     public enum UserType {
         fan, player, special
@@ -101,18 +101,18 @@ public class UserInfo {
         return result;
     }
 
-    public void setEqualsTo(UserInfo userInfo) {
-        setUserId(userInfo.getUserId());
-        setFirstName(userInfo.getFirstName());
-        setLastName(userInfo.getLastName());
-        setNicName(userInfo.getNicName());
-        setPhone(userInfo.getPhone());
-        setAvatarUrl(userInfo.getAvatarUrl());
-        setCircularAvatarUrl(userInfo.getAvatar());
-        setLanguage(userInfo.getLanguage());
-        setFantasyUUID(userInfo.getFantasyUUID());
-        setFantasyToken(userInfo.getFantasyToken());
-        setOnline(userInfo.getIsOnline());
+    public void setEqualsTo(User user) {
+        setUserId(user.getUserId());
+        setFirstName(user.getFirstName());
+        setLastName(user.getLastName());
+        setNicName(user.getNicName());
+        setPhone(user.getPhone());
+        setAvatarUrl(user.getAvatarUrl());
+        setCircularAvatarUrl(user.getAvatar());
+        setLanguage(user.getLanguage());
+        setFantasyUUID(user.getFantasyUUID());
+        setFantasyToken(user.getFantasyToken());
+        setOnline(user.getIsOnline());
     }
 
     public Location getLocation() {
@@ -207,14 +207,14 @@ public class UserInfo {
         isOnline = online;
     }
 
-    public UserInfo(String firstName, String lastName, String nicName, String phone) {
+    public User(String firstName, String lastName, String nicName, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nicName = nicName;
         this.phone = phone;
     }
 
-    public UserInfo() {
+    public User() {
     }
 
     public String getFirstName() {
@@ -462,29 +462,29 @@ public class UserInfo {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserInfo)) return false;
+        if (!(o instanceof User)) return false;
 
-        UserInfo userInfo = (UserInfo) o;
+        User user = (User) o;
 
-        if (isOnline != userInfo.isOnline) return false;
-        if (userId != null ? !userId.equals(userInfo.userId) : userInfo.userId != null)
+        if (isOnline != user.isOnline) return false;
+        if (userId != null ? !userId.equals(user.userId) : user.userId != null)
             return false;
-        if (firstName != null ? !firstName.equals(userInfo.firstName) : userInfo.firstName != null)
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null)
             return false;
-        if (lastName != null ? !lastName.equals(userInfo.lastName) : userInfo.lastName != null)
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null)
             return false;
-        if (nicName != null ? !nicName.equals(userInfo.nicName) : userInfo.nicName != null)
+        if (nicName != null ? !nicName.equals(user.nicName) : user.nicName != null)
             return false;
-        if (phone != null ? !phone.equals(userInfo.phone) : userInfo.phone != null) return false;
-        if (avatarUrl != null ? !avatarUrl.equals(userInfo.avatarUrl) : userInfo.avatarUrl != null)
+        if (phone != null ? !phone.equals(user.phone) : user.phone != null) return false;
+        if (avatarUrl != null ? !avatarUrl.equals(user.avatarUrl) : user.avatarUrl != null)
             return false;
-        if (circularAvatarUrl != null ? !circularAvatarUrl.equals(userInfo.circularAvatarUrl) : userInfo.circularAvatarUrl != null)
+        if (circularAvatarUrl != null ? !circularAvatarUrl.equals(user.circularAvatarUrl) : user.circularAvatarUrl != null)
             return false;
-        if (language != null ? !language.equals(userInfo.language) : userInfo.language != null)
+        if (language != null ? !language.equals(user.language) : user.language != null)
             return false;
-        if (fantasyUUID != null ? !fantasyUUID.equals(userInfo.fantasyUUID) : userInfo.fantasyUUID != null)
+        if (fantasyUUID != null ? !fantasyUUID.equals(user.fantasyUUID) : user.fantasyUUID != null)
             return false;
-        return fantasyToken != null ? fantasyToken.equals(userInfo.fantasyToken) : userInfo.fantasyToken == null;
+        return fantasyToken != null ? fantasyToken.equals(user.fantasyToken) : user.fantasyToken == null;
     }
 
     @Override

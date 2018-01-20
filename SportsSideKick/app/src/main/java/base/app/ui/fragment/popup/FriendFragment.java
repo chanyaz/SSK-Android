@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.ui.AlertDialogManager;
 import base.app.util.commons.Model;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
-import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
@@ -162,7 +162,7 @@ public class FriendFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    UserInfo user;
+    User user;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -187,14 +187,14 @@ public class FriendFragment extends BaseFragment {
 
         }
 
-        Task<UserInfo> getUserTask = Model.getInstance().refreshUserInfo(getPrimaryArgument());
+        Task<User> getUserTask = Model.getInstance().refreshUserInfo(getPrimaryArgument());
         getUserTask.addOnCompleteListener(onUserDataLoadedListener);
         return view;
     }
 
-    private OnCompleteListener<UserInfo> onUserDataLoadedListener = new OnCompleteListener<UserInfo>() {
+    private OnCompleteListener<User> onUserDataLoadedListener = new OnCompleteListener<User>() {
         @Override
-        public void onComplete(@NonNull Task<UserInfo> task) {
+        public void onComplete(@NonNull Task<User> task) {
             if (task.isSuccessful()) {
                 user = task.getResult();
                 setupUIWithUserInfo(user);
@@ -202,7 +202,7 @@ public class FriendFragment extends BaseFragment {
         }
     };
 
-    private void setupUIWithUserInfo(UserInfo user) {
+    private void setupUIWithUserInfo(User user) {
         profileName.setText(user.getFirstName() + " " + user.getLastName());
         //TODO @Filip refactoring Put this in a  string file
         onlineStatus.setText(user.isOnline() ? "online" : "offline");
@@ -303,11 +303,11 @@ public class FriendFragment extends BaseFragment {
         }
     }
 
-    private void getAllUserChats(final UserInfo user) {
-        Task<List<UserInfo>> taskAllChats = FriendsManager.getInstance().getFriendsForUser(user.getUserId(), 0,30);
-        taskAllChats.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+    private void getAllUserChats(final User user) {
+        Task<List<User>> taskAllChats = FriendsManager.getInstance().getFriendsForUser(user.getUserId(), 0,30);
+        taskAllChats.addOnCompleteListener(new OnCompleteListener<List<User>>() {
             @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
+            public void onComplete(@NonNull Task<List<User>> task) {
                 if (getActivity() == null) return;
                 if (task.isSuccessful()) {
                     if (task.getResult().size() > 0) {
@@ -335,12 +335,12 @@ public class FriendFragment extends BaseFragment {
         });
     }
 
-    private void getMutualFriendsListWithUser(final UserInfo user) {
+    private void getMutualFriendsListWithUser(final User user) {
 
-        Task<List<UserInfo>> task = FriendsManager.getInstance().getMutualFriendsListWithUser(user.getUserId(), 0);
-        task.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+        Task<List<User>> task = FriendsManager.getInstance().getMutualFriendsListWithUser(user.getUserId(), 0);
+        task.addOnCompleteListener(new OnCompleteListener<List<User>>() {
             @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
+            public void onComplete(@NonNull Task<List<User>> task) {
                 if (task.isSuccessful()) {
                     if (getActivity() == null) return;
                     if (task.getResult().size() > 0) {
@@ -389,7 +389,7 @@ public class FriendFragment extends BaseFragment {
             return;
         }
 
-        List<UserInfo> selectedUsers = new ArrayList<>();
+        List<User> selectedUsers = new ArrayList<>();
         selectedUsers.add(user);
         String chatName = user.getNicName() + " & " + Model.getInstance().getUserInfo().getNicName();
 
@@ -398,7 +398,7 @@ public class FriendFragment extends BaseFragment {
         newChatInfo.setIsPublic(true);
         newChatInfo.setName(chatName);
         ArrayList<String> userIds = new ArrayList<>();
-        for (UserInfo info : selectedUsers) {
+        for (User info : selectedUsers) {
             userIds.add(info.getUserId());
         }
 
@@ -437,9 +437,9 @@ public class FriendFragment extends BaseFragment {
                                 }
                             });
         } else {
-            FriendsManager.getInstance().sendFriendRequest(user.getUserId()).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+            FriendsManager.getInstance().sendFriendRequest(user.getUserId()).addOnCompleteListener(new OnCompleteListener<User>() {
                 @Override
-                public void onComplete(@NonNull Task<UserInfo> task) {
+                public void onComplete(@NonNull Task<User> task) {
                     if (task.isSuccessful()) {
                         user.setFriendPendingRequest(true);
                         setupUIWithUserInfo(user);
@@ -451,9 +451,9 @@ public class FriendFragment extends BaseFragment {
     }
 
     private void removeUser(){
-        FriendsManager.getInstance().deleteFriend(user.getUserId()).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+        FriendsManager.getInstance().deleteFriend(user.getUserId()).addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
-            public void onComplete(@NonNull Task<UserInfo> task) {
+            public void onComplete(@NonNull Task<User> task) {
                 if (task.isSuccessful()) {
                     user.setaFriend(false);
                     setupUIWithUserInfo(user);
@@ -468,7 +468,7 @@ public class FriendFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(VideoChatFragment.class));
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                ArrayList<UserInfo> usersToCall = new ArrayList<>();
+                ArrayList<User> usersToCall = new ArrayList<>();
                 usersToCall.add(user);
                 EventBus.getDefault().post(new StartCallEvent(usersToCall));
             }
@@ -485,15 +485,15 @@ public class FriendFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.follow_button_image)
     public void followButtonOnClick() {
-        Task<UserInfo> changeFollowTask;
+        Task<User> changeFollowTask;
         if (user.isiFollowHim()) { // I am friends this user, un-follow him
             changeFollowTask = FriendsManager.getInstance().unFollowUser(user.getUserId());
         } else { // not friends, start friends this user
             changeFollowTask = FriendsManager.getInstance().followUser(user.getUserId());
         }
-        changeFollowTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+        changeFollowTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
-            public void onComplete(@NonNull Task<UserInfo> task) {
+            public void onComplete(@NonNull Task<User> task) {
                 if (task.isSuccessful()) {
                     user.setiFollowHim(!user.isiFollowHim());
                     setupUIWithUserInfo(user);

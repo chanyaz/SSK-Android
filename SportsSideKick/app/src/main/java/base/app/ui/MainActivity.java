@@ -33,7 +33,7 @@ import base.app.util.commons.Model;
 import base.app.data.user.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserEvent;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.ui.adapter.menu.MenuAdapter;
 import base.app.ui.adapter.menu.SideMenuAdapter;
 import base.app.util.events.FragmentEvent;
@@ -591,7 +591,7 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onLogin(UserInfo user) {
+    public void onLogin(User user) {
         if (Model.getInstance().isRealUser()) {
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
             if (user.getAvatar() != null) {

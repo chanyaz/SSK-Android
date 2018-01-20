@@ -15,8 +15,8 @@ import com.twilio.video.VideoView;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.commons.Model;
-import base.app.data.user.UserInfo;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -42,7 +42,7 @@ public class Slot implements Participant.Listener{
 
     private Participant participant;
     private String userId;
-    private UserInfo userInfo;
+    private User user;
     private VideoTrack videoTrack;
 
     public Participant getParticipant() {
@@ -70,28 +70,28 @@ public class Slot implements Participant.Listener{
     public void setUserId(String userId) {
         this.userId = userId;
         if(userId == null){
-            setUserInfo(null);
+            setUser(null);
             return;
         }
-        Model.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+        Model.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
-            public void onComplete(@NonNull Task<UserInfo> task) {
+            public void onComplete(@NonNull Task<User> task) {
                 if (task.isSuccessful()) {
-                    setUserInfo(task.getResult());
+                    setUser(task.getResult());
                 }
             }
         });
     }
 
 
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-        if(this.userInfo!=null){
-            label.setText(userInfo.getNicName());
+    public void setUser(User user) {
+        this.user = user;
+        if(this.user !=null){
+            label.setText(user.getNicName());
         } else {
             label.setText("...");
         }

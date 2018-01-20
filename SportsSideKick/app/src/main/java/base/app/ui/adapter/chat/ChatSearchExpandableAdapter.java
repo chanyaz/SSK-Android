@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.util.commons.Model;
 import base.app.data.chat.ChatInfo;
-import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
 import base.app.util.ui.ImageLoader;
@@ -149,10 +149,10 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             chatExpandedItemAdapter = new ChatExpandedItemAdapter(context);
             expandedAdaptersMap.put(chat.getChatId(), chatExpandedItemAdapter);
             for (String uid : chat.getUsersIds()) {
-                Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
-                task.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                Task<User> task = Model.getInstance().getUserInfoById(uid);
+                task.addOnCompleteListener(new OnCompleteListener<User>() {
                     @Override
-                    public void onComplete(@NonNull Task<UserInfo> task) {
+                    public void onComplete(@NonNull Task<User> task) {
                         if (task.isSuccessful()) {
                             chatExpandedItemAdapter.addValue(task.getResult());
                         }

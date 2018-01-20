@@ -29,9 +29,9 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+import base.app.data.user.User;
 import base.app.util.commons.GSAndroidPlatform;
 import base.app.util.commons.Model;
-import base.app.data.user.UserInfo;
 
 /**
  * Created by Filip on 4/20/2017.
@@ -166,9 +166,9 @@ public class PurchaseModel {
             final boolean finalResult = result;
             final String finalError = error;
             Model.getInstance().refreshUserInfo(Model.getInstance().getUserInfo().getUserId()).addOnCompleteListener(
-                    new OnCompleteListener<UserInfo>() {
+                    new OnCompleteListener<User>() {
                         @Override
-                        public void onComplete(@NonNull Task<UserInfo> task) {
+                        public void onComplete(@NonNull Task<User> task) {
                             if(task.isSuccessful()){
                                 EventBus.getDefault().post(new PurchaseCompletedEvent(finalResult, finalError));
                                 canPurchase = true;
@@ -216,9 +216,9 @@ public class PurchaseModel {
             final boolean finalResult = result;
             final String finalError = error;
             Model.getInstance().refreshUserInfo(Model.getInstance().getUserInfo().getUserId()).addOnCompleteListener(
-                    new OnCompleteListener<UserInfo>() {
+                    new OnCompleteListener<User>() {
                         @Override
-                        public void onComplete(@NonNull Task<UserInfo> task) {
+                        public void onComplete(@NonNull Task<User> task) {
                             if(task.isSuccessful()){
                                 EventBus.getDefault().post(new ProductConsumedEvent(finalResult, finalError));
 

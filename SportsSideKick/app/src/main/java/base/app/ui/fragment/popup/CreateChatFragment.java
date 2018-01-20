@@ -43,12 +43,12 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.events.AddFriendsEvent;
 import base.app.util.commons.Model;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
-import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
 import base.app.ui.adapter.friends.SelectableFriendsAdapter;
 import base.app.util.ui.BaseFragment;
@@ -107,7 +107,7 @@ public class CreateChatFragment extends BaseFragment {
     RecyclerView addFriendsRecyclerView;
     @BindView(R.id.chat_friends_in_chat_headline)
     TextView headlineFriendsInChat;
-    List<UserInfo> userInfoList;
+    List<User> userList;
     AddFriendsAdapter addFriendsAdapter;
     String currentPath;
     String uploadedImageUrl;
@@ -147,14 +147,14 @@ public class CreateChatFragment extends BaseFragment {
         friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
 
-        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
+        Task<List<User>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
-                new OnSuccessListener<List<UserInfo>>() {
+                new OnSuccessListener<List<User>>() {
                     @Override
-                    public void onSuccess(List<UserInfo> userInfos) {
+                    public void onSuccess(List<User> users) {
                         chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
-                        chatFriendsAdapter.add(userInfos);
-                        userInfoList = userInfos;
+                        chatFriendsAdapter.add(users);
+                        userList = users;
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
                     }
                 });
@@ -196,9 +196,9 @@ public class CreateChatFragment extends BaseFragment {
     @Subscribe
     public void updateAddFriendsAdapter(AddFriendsEvent event) {
         if (event.isRemove()) {
-            addFriendsAdapter.remove(event.getUserInfo());
+            addFriendsAdapter.remove(event.getUser());
         } else {
-            addFriendsAdapter.add(event.getUserInfo());
+            addFriendsAdapter.add(event.getUser());
         }
         int friendCount = addFriendsAdapter.getItemCount();
         String friendsInchat = " " + getContext().getResources().getString(R.string.friends_in_chat);
@@ -245,7 +245,7 @@ public class CreateChatFragment extends BaseFragment {
             @Override
             public void run() {
                 if (chatFriendsAdapter != null) {
-                    final List<UserInfo> filteredModelList =Utility.filter(userInfoList, searchEditText.getText().toString());
+                    final List<User> filteredModelList =Utility.filter(userList, searchEditText.getText().toString());
                     chatFriendsAdapter.replaceAll(filteredModelList);
                     friendsRecyclerView.scrollToPosition(0);
                 }
@@ -286,7 +286,7 @@ public class CreateChatFragment extends BaseFragment {
 
     public void createNewChat() {
         if (chatFriendsAdapter != null) {
-            List<UserInfo> selectedUsers = chatFriendsAdapter.getSelectedValues();
+            List<User> selectedUsers = chatFriendsAdapter.getSelectedValues();
             String chatName = chatNameEditText.getText().toString();
             boolean isPrivate = privateChatSwitch.isChecked();
 
@@ -295,7 +295,7 @@ public class CreateChatFragment extends BaseFragment {
             newChatInfo.setIsPublic(!isPrivate);
             newChatInfo.setName(chatName);
             ArrayList<String> userIds = new ArrayList<>();
-            for (UserInfo info : selectedUsers) {
+            for (User info : selectedUsers) {
                 userIds.add(info.getUserId());
             }
             userIds.add(newChatInfo.getOwner());

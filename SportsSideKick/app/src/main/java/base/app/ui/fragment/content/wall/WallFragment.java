@@ -38,7 +38,7 @@ import base.app.data.content.news.NewsModel.NewsType;
 import base.app.data.content.wall.nextmatch.NewsTickerInfo;
 import base.app.data.content.wall.nextmatch.NextMatchModel;
 import base.app.data.user.LoginStateReceiver;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.data.content.wall.BaseItem;
 import base.app.data.content.wall.Post;
 import base.app.data.content.wall.WallModel;
@@ -211,9 +211,9 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
         }
         if (item instanceof Post && ((Post) item).getPoster() == null) {
             Model.getInstance().getUserInfoById(item.getWallId())
-                    .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                    .addOnCompleteListener(new OnCompleteListener<User>() {
                         @Override
-                        public void onComplete(@NonNull Task<UserInfo> task) {
+                        public void onComplete(@NonNull Task<User> task) {
                             if (task.isSuccessful()) {
                                 ((Post) item).setPoster(task.getResult());
                                 wallItems.add(item);
@@ -352,7 +352,7 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
     }
 
     @Override
-    public void onLogin(UserInfo user) {
+    public void onLogin(User user) {
         loginContainer.setVisibility(View.GONE);
         reset();
         reloadWallFromModel();

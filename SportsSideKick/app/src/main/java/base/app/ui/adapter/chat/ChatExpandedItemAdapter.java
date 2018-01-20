@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -50,19 +50,19 @@ public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedIt
         }
     }
 
-    private List<UserInfo> values;
+    private List<User> values;
 
     public ChatExpandedItemAdapter(Context context) {
         values = new ArrayList<>();
         this.context = context;
     }
 
-    public void setValues(List<UserInfo> values) {
+    public void setValues(List<User> values) {
         this.values = values;
         notifyDataSetChanged();
     }
 
-    public void addValue(UserInfo info){
+    public void addValue(User info){
         values.add(info);
         notifyDataSetChanged();
     }
@@ -89,7 +89,7 @@ public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedIt
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ChatExpandedItemAdapter.ViewHolder holder, final int position) {
-        UserInfo info =values.get(position);
+        User info =values.get(position);
         if (holder.rowImage != null) {
             holder.rowImage.getLayoutParams().height = image_size;
             holder.rowImage.getLayoutParams().width = image_size;

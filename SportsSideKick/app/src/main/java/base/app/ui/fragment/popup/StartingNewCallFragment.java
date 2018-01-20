@@ -27,10 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.ui.AlertDialogManager;
 import base.app.data.user.friends.FriendsManager;
 import base.app.util.events.AddFriendsEvent;
-import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
 import base.app.ui.adapter.friends.SelectableFriendsAdapter;
 import base.app.util.ui.BaseFragment;
@@ -82,7 +82,7 @@ public class StartingNewCallFragment extends BaseFragment {
     AddFriendsAdapter addFriendsAdapter;
     SelectableFriendsAdapter chatFriendsAdapter;
     int space;
-    List<UserInfo> users;
+    List<User> users;
     boolean addUsersToCall;
 
     public StartingNewCallFragment() {
@@ -114,26 +114,26 @@ public class StartingNewCallFragment extends BaseFragment {
         friendsRecyclerView.setHasFixedSize(true);
 
 
-        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
+        Task<List<User>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
-                new OnSuccessListener<List<UserInfo>>() {
+                new OnSuccessListener<List<User>>() {
                     @Override
-                    public void onSuccess(List<UserInfo> userInfos) {
+                    public void onSuccess(List<User> users) {
                         chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
                         List<String> presentUsers = getStringArrayArgument();
-                        users = userInfos;
+                        StartingNewCallFragment.this.users = users;
                         if (presentUsers != null) {
                             addUsersToCall = true;
-                            List<UserInfo> usersToRemove = new ArrayList<>();
-                            for (UserInfo userInfo : userInfos) {
-                                if (presentUsers.contains(userInfo.getUserId())) {
-                                    usersToRemove.add(userInfo);
+                            List<User> usersToRemove = new ArrayList<>();
+                            for (User user : users) {
+                                if (presentUsers.contains(user.getUserId())) {
+                                    usersToRemove.add(user);
                                 }
                             }
-                            userInfos.removeAll(usersToRemove);
+                            users.removeAll(usersToRemove);
                         }
 
-                        chatFriendsAdapter.add(userInfos);
+                        chatFriendsAdapter.add(users);
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
                         progressBar.setVisibility(View.GONE);
                         if (isTablet) {
@@ -185,9 +185,9 @@ public class StartingNewCallFragment extends BaseFragment {
     public void updateAddFriendsAdapter(AddFriendsEvent event) {
         if (!isTablet) {
             if (event.isRemove()) {
-                addFriendsAdapter.remove(event.getUserInfo());
+                addFriendsAdapter.remove(event.getUser());
             } else {
-                addFriendsAdapter.add(event.getUserInfo());
+                addFriendsAdapter.add(event.getUser());
             }
             int friendCount = addFriendsAdapter.getItemCount();
             String friendsInchat = " " + getContext().getResources().getString(R.string.friends_in_video_chat);
@@ -233,7 +233,7 @@ public class StartingNewCallFragment extends BaseFragment {
     private void findUsers(String sequence) {
         if (users != null) {
             noResult.setVisibility(View.GONE);
-            final List<UserInfo> filteredModelList = Utility.filter(users, sequence);
+            final List<User> filteredModelList = Utility.filter(users, sequence);
             if (filteredModelList.size() > 0) {
                 friendsRecyclerView.setVisibility(View.VISIBLE);
                 chatFriendsAdapter.replaceAll(filteredModelList);

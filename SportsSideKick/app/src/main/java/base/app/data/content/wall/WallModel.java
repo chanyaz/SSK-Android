@@ -21,13 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import base.app.data.user.User;
 import base.app.util.commons.DateUtils;
 import base.app.util.commons.FileUploader;
 import base.app.util.commons.GSConstants;
 import base.app.util.commons.Model;
 import base.app.data.TypeConverter;
 import base.app.data.user.GSMessageHandlerAbstract;
-import base.app.data.user.UserInfo;
 import base.app.util.events.CommentDeleteEvent;
 import base.app.util.events.CommentUpdateEvent;
 import base.app.util.events.CommentUpdatedEvent;
@@ -77,7 +77,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * + updated posts
      */
     public void loadFeed(final TaskCompletionSource<List<BaseItem>> completion) {
-        final UserInfo userInfo = Model.getInstance().getUserInfo();
+        final User user = Model.getInstance().getUserInfo();
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -96,7 +96,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         };
 
         GSRequestBuilder.LogEventRequest request = createRequest("wallGetItems")
-                .setEventAttribute(GSConstants.USER_ID, userInfo.getUserId())
+                .setEventAttribute(GSConstants.USER_ID, user.getUserId())
                 .setEventAttribute(GSConstants.LANGUAGE, Prefs.getString(CHOSEN_LANGUAGE, "en"));
         request.send(consumer);
     }
@@ -359,7 +359,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
-    private UserInfo getCurrentUser() {
+    private User getCurrentUser() {
         return Model.getInstance().getUserInfo();
     }
 
@@ -410,7 +410,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Comment comment = mapper.convertValue(commentObject, new TypeReference<Comment>() {
                         });
 //                        if (Model.getInstance().isRealUser()) {
-//                            if (comment.getPosterId().equals(Model.getInstance().getUserInfo().getUserId())) {
+//                            if (comment.getPosterId().equals(Model.getInstance().getUser().getUserId())) {
 //                                return; // Its our own comment, ignore it
 //                            }
 //                        }

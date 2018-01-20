@@ -12,9 +12,9 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.commons.Model;
 import base.app.data.user.LoginStateReceiver;
-import base.app.data.user.UserInfo;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.other.ChatFragment;
 import butterknife.BindView;
@@ -71,7 +71,7 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment
     }
 
     @Override
-    public void onLogin(UserInfo user) {
+    public void onLogin(User user) {
         if (Model.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         }

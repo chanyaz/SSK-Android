@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class UserDetailsReceiver {
 
     interface UserDetailsListener{
-        void onDetailsUpdated(UserInfo user);
+        void onDetailsUpdated(User user);
         void onDetailsUpdateError(Error error);
     }
 
@@ -28,7 +28,7 @@ public class UserDetailsReceiver {
     public void onEvent(UserEvent event){
         switch (event.getType()){
             case onDetailsUpdated:
-                listener.onDetailsUpdated(event.getUserInfo());
+                listener.onDetailsUpdated(event.getUser());
                 break;
             case onDetailsUpdateError:
                 listener.onDetailsUpdateError(event.getError());

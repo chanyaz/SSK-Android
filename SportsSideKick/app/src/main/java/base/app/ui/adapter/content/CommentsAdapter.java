@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.events.CommentSelectedEvent;
 import base.app.util.commons.Model;
-import base.app.data.user.UserInfo;
 import base.app.data.content.wall.Comment;
 import base.app.data.content.wall.WallModel;
 import base.app.util.commons.Utility;
@@ -97,13 +97,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Comment comment = comments.get(position);
-        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(comment.getPosterId());
+        Task<User> getUserTask = Model.getInstance().getUserInfoById(comment.getPosterId());
         holder.view.setTag(comment.getPosterId());
-        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+        getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
-            public void onComplete(@NonNull Task<UserInfo> task) {
+            public void onComplete(@NonNull Task<User> task) {
                 if (task.isSuccessful()) {
-                    UserInfo user = task.getResult();
+                    User user = task.getResult();
                     Object tag = holder.view.getTag();
                     if (tag != null) {
                         String holdersCurrentUser = (String) tag;
@@ -179,7 +179,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         comments.clear();
     }
 
-    private void setupWithUserInfo(Comment comment, ViewHolder holder, UserInfo user) {
+    private void setupWithUserInfo(Comment comment, ViewHolder holder, User user) {
         final String userImage = user.getAvatar();
         if (userImage != null) {
             ImageLoader.displayImage(userImage, holder.profileImage, null);

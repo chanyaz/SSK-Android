@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.View;
@@ -22,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import base.app.R;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 
 /**
  * Created by Djordje Krutil on 6.12.2016..
@@ -116,11 +115,11 @@ public class Utility {
         return true;
     }
 
-    public static List<UserInfo> filter(List<UserInfo> users, String query) {
+    public static List<User> filter(List<User> users, String query) {
         String lowerCaseQuery = query.toLowerCase();
-        List<UserInfo> filteredUserslList = new ArrayList<>();
+        List<User> filteredUserslList = new ArrayList<>();
         if (users != null) {
-            for (UserInfo user : users) {
+            for (User user : users) {
                 String text = (user.getFirstName() + user.getLastName() + user.getNicName()).toLowerCase();
                 if (text.contains(lowerCaseQuery)) {
                     filteredUserslList.add(user);

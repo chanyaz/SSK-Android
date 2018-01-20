@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,9 +27,9 @@ public class CallFriendsAdapter extends RecyclerView.Adapter<CallFriendsAdapter.
 
     private static final String TAG = "Call Friends Adapter";
 
-    private List<UserInfo> values;
+    private List<User> values;
 
-    public List<UserInfo> getValues() {
+    public List<User> getValues() {
         return values;
     }
 
@@ -70,7 +70,7 @@ public class CallFriendsAdapter extends RecyclerView.Adapter<CallFriendsAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final UserInfo info = values.get(position);
+        final User info = values.get(position);
         ImageLoader.displayImage(info.getAvatar(),holder.avatar, null);
         if (info.getIsOnline())
         {

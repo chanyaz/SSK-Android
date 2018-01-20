@@ -40,10 +40,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.commons.Model;
 import base.app.data.content.news.NewsModel;
 import base.app.data.content.share.ShareHelper;
-import base.app.data.user.UserInfo;
 import base.app.data.content.wall.BaseItem;
 import base.app.data.content.wall.Comment;
 import base.app.data.content.wall.News;
@@ -237,12 +237,12 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     private void showSharedMessageAvatar() {
-        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(pointerPin.getWallId());
-        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+        Task<User> getUserTask = Model.getInstance().getUserInfoById(pointerPin.getWallId());
+        getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
-            public void onComplete(@NonNull Task<UserInfo> task) {
+            public void onComplete(@NonNull Task<User> task) {
                 if (task.isSuccessful()) {
-                    UserInfo user = task.getResult();
+                    User user = task.getResult();
                     if (user != null) {
                         if (getContext() != null) {
                             Glide.with(getContext())
@@ -410,12 +410,12 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     private void showSharingAvatar() {
-        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(item.getWallId());
-        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+        Task<User> getUserTask = Model.getInstance().getUserInfoById(item.getWallId());
+        getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
-            public void onComplete(@NonNull Task<UserInfo> task) {
+            public void onComplete(@NonNull Task<User> task) {
                 if (task.isSuccessful()) {
-                    UserInfo user = task.getResult();
+                    User user = task.getResult();
                     if (user != null) {
                         Glide.with(getContext())
                                 .load(user.getAvatar())

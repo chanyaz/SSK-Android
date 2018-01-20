@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.popup.FriendFragment;
 import base.app.data.user.friends.FriendsManager;
-import base.app.data.user.UserInfo;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,11 +38,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     private static final String TAG = "Friends Adapter";
 
-    public void setValues(List<UserInfo> values) {
+    public void setValues(List<User> values) {
         this.values = values;
     }
 
-    private List<UserInfo> values;
+    private List<User> values;
 
     public void setInitiatorFragment(Class initiatorFragment) {
         this.initiatorFragment = initiatorFragment;
@@ -50,7 +50,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     private Class initiatorFragment;
 
-    public List<UserInfo> getValues() {
+    public List<User> getValues() {
         return values;
     }
 
@@ -121,13 +121,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             viewHolder.buttonAddFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final UserInfo user = values.get(viewHolder.getAdapterPosition());
+                    final User user = values.get(viewHolder.getAdapterPosition());
                     if (user.isaFriend()) { // this user is my friend, remove it from friends
                         // TODO - Add dialog to confirm!
                         FriendsManager.getInstance().deleteFriend(user.getUserId())
-                                .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                                .addOnCompleteListener(new OnCompleteListener<User>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<UserInfo> task) {
+                                    public void onComplete(@NonNull Task<User> task) {
                                         if (task.isSuccessful()) {
                                             user.setaFriend(!user.isaFriend());
                                             updateButtons(viewHolder);
@@ -136,9 +136,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
                                 });
                     } else { // send friend request
                         FriendsManager.getInstance().sendFriendRequest(user.getUserId())
-                                .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+                                .addOnCompleteListener(new OnCompleteListener<User>() {
                             @Override
-                            public void onComplete(@NonNull Task<UserInfo> task) {
+                            public void onComplete(@NonNull Task<User> task) {
                                 if (task.isSuccessful()) {
                                     user.setFriendPendingRequest(true);
                                     updateButtons(viewHolder);
@@ -154,7 +154,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final UserInfo info = values.get(position);
+        final User info = values.get(position);
 
         String avatarUrl = info.getAvatar();
 
@@ -201,7 +201,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     }
 
     private void updateButtons(ViewHolder holder){
-        final UserInfo user = values.get(holder.getAdapterPosition());
+        final User user = values.get(holder.getAdapterPosition());
         if (holder.pendingRequestLabel != null) {
             if (user.isFriendPendingRequest()) {
                 holder.pendingRequestLabel.setVisibility(View.VISIBLE);

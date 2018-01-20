@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.data.user.friends.FriendRequest;
 import base.app.data.user.friends.FriendsManager;
 import base.app.ui.adapter.friends.FriendsAdapter;
@@ -73,8 +73,8 @@ public class FriendsFragment extends BaseFragment {
     RecyclerView officialAccountRecyclerView;
     FriendsAdapter officialAccountAdapter;
 
-    List<UserInfo> friends;
-    List<UserInfo> officialAccounts;
+    List<User> friends;
+    List<User> officialAccounts;
 
     @Nullable
     @BindView(R.id.friend_requests_container)
@@ -116,10 +116,10 @@ public class FriendsFragment extends BaseFragment {
             officialAccountAdapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
         }
 
-        Task<List<UserInfo>> officialTask = Model.getInstance().getOfficialAccounts(0);
-        officialTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+        Task<List<User>> officialTask = Model.getInstance().getOfficialAccounts(0);
+        officialTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
             @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
+            public void onComplete(@NonNull Task<List<User>> task) {
                 if (task.isSuccessful()) {
                     noResultText.setVisibility(View.GONE);
                     friendsRecyclerView.setVisibility(View.VISIBLE);
@@ -219,10 +219,10 @@ public class FriendsFragment extends BaseFragment {
     }
 
     private void updateFriends(){
-        Task<List<UserInfo>> friendsTask = FriendsManager.getInstance().getFriends(0);
-        friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
+        Task<List<User>> friendsTask = FriendsManager.getInstance().getFriends(0);
+        friendsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
             @Override
-            public void onComplete(@NonNull Task<List<UserInfo>> task) {
+            public void onComplete(@NonNull Task<List<User>> task) {
                 if (task.isSuccessful()) {
                     noResultText.setVisibility(View.GONE);
                     friendsRecyclerView.setVisibility(View.VISIBLE);

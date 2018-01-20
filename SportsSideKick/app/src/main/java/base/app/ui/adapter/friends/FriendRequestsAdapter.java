@@ -25,7 +25,7 @@ import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.popup.FriendFragment;
 import base.app.data.user.friends.FriendRequest;
 import base.app.data.user.friends.FriendsManager;
-import base.app.data.user.UserInfo;
+import base.app.data.user.User;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -172,10 +172,10 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
     }
 
     private void acceptFriendRequest(final int position) {
-        Task<UserInfo> requestTask = FriendsManager.getInstance().acceptFriendRequest(values.get(position).getId());
-        requestTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
+        Task<User> requestTask = FriendsManager.getInstance().acceptFriendRequest(values.get(position).getId());
+        requestTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
-            public void onComplete(@NonNull Task<UserInfo> task) {
+            public void onComplete(@NonNull Task<User> task) {
                 if (task.isSuccessful()) {
                     getValues().remove(position);
                     notifyDataSetChanged();

@@ -36,13 +36,13 @@ import java.util.Arrays;
 
 import base.app.BuildConfig;
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.ui.AlertDialogManager;
 import base.app.util.commons.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.LoginStateReceiver.LoginListener;
 import base.app.data.user.PasswordResetReceiver;
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener;
-import base.app.data.user.UserInfo;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
@@ -319,7 +319,7 @@ public class LoginFragment extends BaseFragment
     public void onLoginAnonymously() {}
 
     @Override
-    public void onLogin(UserInfo user) {
+    public void onLogin(User user) {
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity

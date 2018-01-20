@@ -16,9 +16,9 @@ import com.pixplicity.easyprefs.library.Prefs;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.commons.Model;
 import base.app.data.user.UserEvent;
-import base.app.data.user.UserInfo;
 import base.app.ui.MainActivity;
 import base.app.util.ui.MainActivityTablet;
 import base.app.ui.adapter.menu.LanguageAdapter;
@@ -80,7 +80,7 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                UserInfo currentUser = Model.getInstance().getUserInfo();
+                User currentUser = Model.getInstance().getUserInfo();
                 EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogin, currentUser));
             }
         }, 300);

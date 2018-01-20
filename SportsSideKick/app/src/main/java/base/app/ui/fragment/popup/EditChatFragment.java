@@ -41,12 +41,12 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.commons.Model;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
 import base.app.util.events.AddFriendsEvent;
-import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
 import base.app.ui.adapter.friends.SelectableFriendsAdapter;
 import base.app.util.ui.BaseFragment;
@@ -101,7 +101,7 @@ public class EditChatFragment extends BaseFragment {
     @BindView(R.id.friends_in_chat_headline)
     TextView headlineFriendsInChat;
 
-    List<UserInfo> userInfoList;
+    List<User> userList;
     AddFriendsAdapter addFriendsAdapter;
 
     ChatInfo chatInfo;
@@ -147,16 +147,16 @@ public class EditChatFragment extends BaseFragment {
         friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
 
-        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
+        Task<List<User>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
-                new OnSuccessListener<List<UserInfo>>() {
+                new OnSuccessListener<List<User>>() {
                     @Override
-                    public void onSuccess(List<UserInfo> userInfos) {
+                    public void onSuccess(List<User> users) {
                         chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
-                        chatFriendsAdapter.add(userInfos);
-                        userInfoList = userInfos;
+                        chatFriendsAdapter.add(users);
+                        userList = users;
 
-                        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+                        List<User> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
                         chatFriendsAdapter.setSelectedUsers(chatMembers);
 
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
@@ -193,9 +193,9 @@ public class EditChatFragment extends BaseFragment {
     @Subscribe
     public void updateAddFriendsAdapter(AddFriendsEvent event) {
         if (event.isRemove()) {
-            addFriendsAdapter.remove(event.getUserInfo());
+            addFriendsAdapter.remove(event.getUser());
         } else {
-            addFriendsAdapter.add(event.getUserInfo());
+            addFriendsAdapter.add(event.getUser());
         }
         updateFirendsCountLabel();
     }
@@ -251,7 +251,7 @@ public class EditChatFragment extends BaseFragment {
             @Override
             public void run() {
                 if (chatFriendsAdapter != null) {
-                    final List<UserInfo> filteredModelList = filter(userInfoList, searchEditText.getText().toString());
+                    final List<User> filteredModelList = filter(userList, searchEditText.getText().toString());
                     chatFriendsAdapter.replaceAll(filteredModelList);
                     friendsRecyclerView.scrollToPosition(0);
                 }
@@ -288,11 +288,11 @@ public class EditChatFragment extends BaseFragment {
         }
     };
 
-    private static List<UserInfo> filter(List<UserInfo> models, String query) {
+    private static List<User> filter(List<User> models, String query) {
         final String lowerCaseQuery = query.toLowerCase();
-        final List<UserInfo> filteredModelList = new ArrayList<>();
+        final List<User> filteredModelList = new ArrayList<>();
         if (models != null) {
-            for (UserInfo model : models) {
+            for (User model : models) {
                 final String text = (model.getFirstName() + model.getLastName() + model.getNicName()).toLowerCase();
                 if (text.contains(lowerCaseQuery)) {
                     filteredModelList.add(model);
@@ -303,13 +303,13 @@ public class EditChatFragment extends BaseFragment {
     }
 
     private void submitChanges(){
-        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
-        List<UserInfo> selectedValues = chatFriendsAdapter.getSelectedValues();
+        List<User> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+        List<User> selectedValues = chatFriendsAdapter.getSelectedValues();
 
         boolean shouldUpdate = false;
          // Check users
         if(chatMembers.size() == selectedValues.size()){
-            for(UserInfo user : chatMembers){
+            for(User user : chatMembers){
                 if(!selectedValues.contains(user)){
                     shouldUpdate = true;
                     break;
@@ -321,8 +321,8 @@ public class EditChatFragment extends BaseFragment {
 
         if(shouldUpdate){
             ArrayList<String> newMembersIds = new ArrayList<>();
-            for(UserInfo userInfo : selectedValues){
-                newMembersIds.add(userInfo.getUserId());
+            for(User user : selectedValues){
+                newMembersIds.add(user.getUserId());
             }
             chatInfo.setUsersIds(newMembersIds);
         }

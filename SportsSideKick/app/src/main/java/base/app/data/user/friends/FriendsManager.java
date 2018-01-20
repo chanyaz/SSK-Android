@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.data.user.GSMessageHandlerAbstract;
+import base.app.data.user.User;
 import base.app.data.user.UserEvent;
-import base.app.data.user.UserInfo;
 import base.app.util.commons.DateUtils;
 import base.app.util.commons.GSAndroidPlatform;
 import base.app.util.commons.GSConstants;
@@ -78,14 +78,14 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      *
      * @return the user friends list
      */
-    public Task<List<UserInfo>> getFriends(int offset) {
-        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+    public Task<List<User>> getFriends(int offset) {
+        final TaskCompletionSource<List<User>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.FRIENDS);
-                    List<UserInfo> friends = mapper.convertValue(object, new TypeReference<List<UserInfo>>() { });
+                    List<User> friends = mapper.convertValue(object, new TypeReference<List<User>>() { });
                     while (friends.contains(null)) {
                         friends.remove(null);
                     }
@@ -107,14 +107,14 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      *
      * @return the user friends list
      */
-    public Task<List<UserInfo>> getFriendsForUser(String userId, int offset, int entryCount) {
-        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+    public Task<List<User>> getFriendsForUser(String userId, int offset, int entryCount) {
+        final TaskCompletionSource<List<User>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.FRIENDS);
-                    List<UserInfo> friends = mapper.convertValue(object, new TypeReference<List<UserInfo>>() { });
+                    List<User> friends = mapper.convertValue(object, new TypeReference<List<User>>() { });
                     while (friends.contains(null)) {
                         friends.remove(null);
                     }
@@ -137,14 +137,14 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      *
      * @return the user friends list
      */
-    public Task<List<UserInfo>> getMutualFriendsListWithUser(String userId, int offset) {
-        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+    public Task<List<User>> getMutualFriendsListWithUser(String userId, int offset) {
+        final TaskCompletionSource<List<User>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.FRIENDS);
-                    List<UserInfo> friends = mapper.convertValue(object, new TypeReference<List<UserInfo>>() {
+                    List<User> friends = mapper.convertValue(object, new TypeReference<List<User>>() {
                     });
                     while (friends.contains(null)) {
                         friends.remove(null);
@@ -168,8 +168,8 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      *
      * @param userId user Id
      */
-    public Task<UserInfo> sendFriendRequest(String userId) {
-        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+    public Task<User> sendFriendRequest(String userId) {
+        final TaskCompletionSource<User> source = new TaskCompletionSource<>();
         GSRequestBuilder.CreateChallengeRequest request = GSAndroidPlatform.gs().getRequestBuilder().createCreateChallengeRequest();
         GSEventConsumer<GSResponseBuilder.CreateChallengeResponse> consumer = new GSEventConsumer<GSResponseBuilder.CreateChallengeResponse>() {
             @Override
@@ -179,7 +179,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     if(gsData!=null){
                         if(gsData.getBaseData().containsKey(GSConstants.USER_INFO)){
                             Object object = gsData.getBaseData().get(GSConstants.USER_INFO);
-                            UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {});
+                            User user = mapper.convertValue(object, new TypeReference<User>() {});
                             source.setResult(user);
                             return;
                         }
@@ -215,14 +215,14 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      * @param friendRequestId user id
      * @return void
      */
-    public Task<UserInfo> acceptFriendRequest(String friendRequestId) {
-        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+    public Task<User> acceptFriendRequest(String friendRequestId) {
+        final TaskCompletionSource<User> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.USER_INFO);
-                    UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {});
+                    User user = mapper.convertValue(object, new TypeReference<User>() {});
                     FriendsListChangedEvent event = new FriendsListChangedEvent();
                     EventBus.getDefault().post(event);
                     source.setResult(user);
@@ -296,14 +296,14 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      * @param userId to un friend
      * @return void
      */
-    public Task<UserInfo> deleteFriend(String userId) {
-        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+    public Task<User> deleteFriend(String userId) {
+        final TaskCompletionSource<User> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.USER_INFO);
-                    UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {
+                    User user = mapper.convertValue(object, new TypeReference<User>() {
                     });
                     FriendsListChangedEvent event = new FriendsListChangedEvent();
                     EventBus.getDefault().post(event);
@@ -338,14 +338,14 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      * @param offset - for paging
      * @return Void
      */
-    public Task<List<UserInfo>> getUserFollowersList(String userId, int offset) {
-        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+    public Task<List<User>> getUserFollowersList(String userId, int offset) {
+        final TaskCompletionSource<List<User>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get("followers");
-                    List<UserInfo> followers = mapper.convertValue(object, new TypeReference<List<UserInfo>>() {
+                    List<User> followers = mapper.convertValue(object, new TypeReference<List<User>>() {
                     });
                     while (followers.contains(null)) {
                         followers.remove(null);
@@ -371,14 +371,14 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      * @param offset - for paging
      * @return Void
      */
-    public Task<List<UserInfo>> getUserFollowingList(String userId, int offset) {
-        final TaskCompletionSource<List<UserInfo>> source = new TaskCompletionSource<>();
+    public Task<List<User>> getUserFollowingList(String userId, int offset) {
+        final TaskCompletionSource<List<User>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get("following");
-                    List<UserInfo> followers = mapper.convertValue(object, new TypeReference<List<UserInfo>>() {
+                    List<User> followers = mapper.convertValue(object, new TypeReference<List<User>>() {
                     });
                     if (followers != null) {
                         while (followers.contains(null)) {
@@ -405,14 +405,14 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      * @param userId - the user to follow
      * @return Void
      */
-    public Task<UserInfo> followUser(String userId) {
-        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+    public Task<User> followUser(String userId) {
+        final TaskCompletionSource<User> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.USER_INFO);
-                    UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {
+                    User user = mapper.convertValue(object, new TypeReference<User>() {
                     });
                     source.setResult(user);
                 } else {
@@ -432,14 +432,14 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      * @param userId - the user to stop follow
      * @return Void
      */
-    public Task<UserInfo> unFollowUser(String userId) {
-        final TaskCompletionSource<UserInfo> source = new TaskCompletionSource<>();
+    public Task<User> unFollowUser(String userId) {
+        final TaskCompletionSource<User> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.USER_INFO);
-                    UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {
+                    User user = mapper.convertValue(object, new TypeReference<User>() {
                     });
                     source.setResult(user);
                 } else {
@@ -462,11 +462,11 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                 if (operation != null) {
                     if (!operation.equals(OPERATION_UPDATE)) {
                         if (data.containsKey(GSConstants.USER_INFO)) {
-                            UserInfo userInfo = mapper.convertValue(data.get(GSConstants.USER_INFO), UserInfo.class);
-                            UserInfo currentUserInfo = Model.getInstance().getUserInfo();
-                            if(userInfo!=null && currentUserInfo != null){
-                                if (userInfo.getUserId().equals(currentUserInfo.getUserId())) {
-                                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated,currentUserInfo));
+                            User user = mapper.convertValue(data.get(GSConstants.USER_INFO), User.class);
+                            User currentUser = Model.getInstance().getUserInfo();
+                            if(user !=null && currentUser != null){
+                                if (user.getUserId().equals(currentUser.getUserId())) {
+                                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUser));
                                 }
                             }
 

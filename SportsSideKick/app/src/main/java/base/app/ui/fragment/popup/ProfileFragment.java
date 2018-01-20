@@ -25,10 +25,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import base.app.R;
+import base.app.data.user.User;
 import base.app.util.ui.AlertDialogManager;
 import base.app.util.commons.Model;
 import base.app.data.user.LoginStateReceiver;
-import base.app.data.user.UserInfo;
 import base.app.ui.adapter.profile.UserStatsAdapter;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
@@ -218,7 +218,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     }
 
     private void setupFragment() {
-        UserInfo user = Model.getInstance().getUserInfo();
+        User user = Model.getInstance().getUserInfo();
         if (user != null && Model.getInstance().isRealUser()) {
             double subscribedAsDouble = user.getSubscribedDate();
             String daysUsingSSK = String.valueOf((int) ((Utility.getCurrentTime() - subscribedAsDouble) / (1000 * 60 * 60 * 24)));
@@ -284,7 +284,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     }
 
     @Override
-    public void onLogin(UserInfo user) {
+    public void onLogin(User user) {
     }
 
     @Override

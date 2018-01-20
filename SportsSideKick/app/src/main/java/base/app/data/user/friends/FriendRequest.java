@@ -3,8 +3,8 @@ package base.app.data.user.friends;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import base.app.data.user.User;
 import base.app.util.commons.GSConstants;
-import base.app.data.user.UserInfo;
 
 /**
  * Created by Djordje on 21/01/2017.
@@ -20,7 +20,7 @@ public class FriendRequest {
     @JsonProperty(GSConstants.TIMESTAMP_TAG)
     private String timestamp;
     @JsonProperty("sender")
-    private UserInfo sender;
+    private User sender;
 
     @JsonProperty("_id")
     public String getId() {
@@ -43,12 +43,12 @@ public class FriendRequest {
     }
 
     @JsonProperty(GSConstants.SENDER)
-    public UserInfo getSender() {
+    public User getSender() {
         return sender;
     }
 
     @JsonProperty(GSConstants.SENDER)
-    public void setSender(UserInfo sender) {
+    public void setSender(User sender) {
         this.sender = sender;
     }
 }
