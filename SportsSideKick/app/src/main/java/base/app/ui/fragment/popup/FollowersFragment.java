@@ -25,7 +25,7 @@ import base.app.R;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.events.FragmentEvent;
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;

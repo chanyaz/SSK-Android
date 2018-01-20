@@ -22,9 +22,9 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import base.app.R;
-import base.app.data.Translator;
+import base.app.data.chat.ChatMessage;
+import base.app.data.content.Translator;
 import base.app.data.TypeConverter;
-import base.app.data.chat.ImsMessage;
 import base.app.data.content.wall.Comment;
 import base.app.data.content.wall.News;
 import base.app.data.content.wall.Post;
@@ -172,12 +172,12 @@ public class TranslationView extends RelativeLayout {
     }
 
     private void translateMessage() {
-        TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
+        TaskCompletionSource<ChatMessage> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<ChatMessage>() {
             @Override
-            public void onComplete(@NonNull Task<ImsMessage> task) {
+            public void onComplete(@NonNull Task<ChatMessage> task) {
                 if (task.isSuccessful()) {
-                    ImsMessage translatedMessage = task.getResult();
+                    ChatMessage translatedMessage = task.getResult();
                     completion.setResult(translatedMessage);
                 } else {
                     Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();

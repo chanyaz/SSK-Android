@@ -12,7 +12,7 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
 import base.app.util.events.FragmentEvent;

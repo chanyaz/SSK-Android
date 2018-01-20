@@ -22,7 +22,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.util.events.CommentSelectedEvent;
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.content.wall.Comment;
 import base.app.data.content.wall.WallModel;

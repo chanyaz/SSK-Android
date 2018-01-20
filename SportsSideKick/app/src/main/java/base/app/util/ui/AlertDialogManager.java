@@ -1,4 +1,4 @@
-package base.app.data;
+package base.app.util.ui;
 
 import android.view.View;
 

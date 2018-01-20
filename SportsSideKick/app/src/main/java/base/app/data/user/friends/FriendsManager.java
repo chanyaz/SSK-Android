@@ -31,18 +31,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import base.app.data.GSAndroidPlatform;
-import base.app.data.DateUtils;
-import base.app.data.GSConstants;
-import base.app.data.Model;
+import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.DateUtils;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.GSConstants.OPERATION_UPDATE;
-import static base.app.data.Model.createRequest;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.GSConstants.OPERATION_UPDATE;
+import static base.app.util.commons.Model.createRequest;
 
 
 public class FriendsManager extends GSMessageHandlerAbstract {

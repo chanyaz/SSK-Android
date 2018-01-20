@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.Model;
-import base.app.data.Translator;
+import base.app.util.commons.Model;
+import base.app.data.content.Translator;
 import base.app.data.user.UserInfo;
 import base.app.data.content.wall.BaseItem;
 import base.app.data.content.wall.News;

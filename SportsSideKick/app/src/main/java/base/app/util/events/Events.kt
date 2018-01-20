@@ -2,7 +2,7 @@ package base.app.util.events
 
 import android.content.Intent
 import base.app.data.chat.ChatInfo
-import base.app.data.chat.ImsMessage
+import base.app.data.chat.ChatMessage
 import base.app.data.content.wall.BaseItem
 import base.app.data.content.wall.Comment
 import base.app.data.content.wall.News
@@ -28,7 +28,7 @@ class CommentUpdateEvent(val wallItem: BaseItem, val comment: Comment)
 
 class CreateNewChatSuccessEvent(var chatInfo: ChatInfo)
 
-class MessageUpdateEvent(var message: ImsMessage)
+class MessageUpdateEvent(var message: ChatMessage)
 
 class UserIsTypingEvent(var chatId: String, var users: List<UserInfo>)
 
@@ -41,7 +41,7 @@ class FragmentEvent(var type: Class<*>?) {
 
 class FullScreenImageEvent
 
-class MessageSelectedEvent(val selectedMessage: ImsMessage)
+class MessageSelectedEvent(val selectedMessage: ChatMessage)
 
 class OpenChatEvent(var chatInfo: ChatInfo)
 

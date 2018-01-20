@@ -35,8 +35,8 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.data.GSConstants;
-import base.app.data.Model;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
 import base.app.data.user.RegistrationStateReceiver;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.ui.fragment.base.BaseFragment;

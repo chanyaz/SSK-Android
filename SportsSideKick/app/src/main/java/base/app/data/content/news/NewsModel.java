@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import base.app.data.GSAndroidPlatform;
-import base.app.data.GSConstants;
+import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.GSConstants;
 import base.app.util.events.NewsPageEvent;
 import base.app.data.content.wall.News;
 import base.app.util.commons.Utility;

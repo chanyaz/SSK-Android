@@ -1,5 +1,5 @@
 
-package base.app.data.content.nextmatch;
+package base.app.data.content.wall.nextmatch;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

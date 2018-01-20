@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import base.app.data.GSAndroidPlatform;
+import base.app.util.commons.GSAndroidPlatform;
 
 /**
  * Created by Filip on 3/13/2017.

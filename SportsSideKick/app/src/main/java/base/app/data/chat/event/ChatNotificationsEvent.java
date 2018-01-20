@@ -1,7 +1,7 @@
 package base.app.data.chat.event;
 
 import base.app.data.chat.ChatInfo;
-import base.app.data.chat.ImsMessage;
+import base.app.data.chat.ChatMessage;
 
 /**
  * Created by Filip on 4/25/2017.
@@ -13,7 +13,7 @@ public class ChatNotificationsEvent {
 
     ChatInfo chatInfo;
     String chatInfoId;
-    ImsMessage message;
+    ChatMessage message;
     Key key;
 
     public enum Key {
@@ -34,7 +34,7 @@ public class ChatNotificationsEvent {
         this.key = key;
     }
 
-    public ChatNotificationsEvent(ImsMessage data, Key key) {
+    public ChatNotificationsEvent(ChatMessage data, Key key) {
         this.message = data;
         this.key = key;
     }
@@ -46,7 +46,7 @@ public class ChatNotificationsEvent {
         return chatInfo;
     }
 
-    public ImsMessage getMessage() {
+    public ChatMessage getMessage() {
         return message;
     }
 

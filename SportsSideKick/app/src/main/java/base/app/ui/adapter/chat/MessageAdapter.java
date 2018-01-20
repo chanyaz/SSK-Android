@@ -25,14 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.chat.ChatMessage;
 import base.app.util.events.FullScreenImageEvent;
 import base.app.util.events.MessageSelectedEvent;
 import base.app.util.events.PlayVideoEvent;
-import base.app.data.DateUtils;
-import base.app.data.GSConstants;
-import base.app.data.Model;
+import base.app.util.commons.DateUtils;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
 import base.app.data.chat.ChatInfo;
-import base.app.data.chat.ImsMessage;
 import base.app.data.user.UserInfo;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
@@ -40,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static base.app.data.GSConstants.UPLOADING;
+import static base.app.util.commons.GSConstants.UPLOADING;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -54,7 +54,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private static final String TAG = "Message Adapter";
 
     private TranslationView translationView;
-    private List<ImsMessage> translatedMessages;
+    private List<ChatMessage> translatedMessages;
 
     public void setChatInfo(ChatInfo chatInfo) {
         translatedMessages.clear();
@@ -110,7 +110,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
+        final ChatMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
         }
@@ -178,12 +178,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         public void onClick(View view) {
                             String messageId = (String) view.getTag();
 
-                            TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
-                            source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
+                            TaskCompletionSource<ChatMessage> source = new TaskCompletionSource<>();
+                            source.getTask().addOnCompleteListener(new OnCompleteListener<ChatMessage>() {
                                 @Override
-                                public void onComplete(@NonNull Task<ImsMessage> task) {
+                                public void onComplete(@NonNull Task<ChatMessage> task) {
                                 if(task.isSuccessful()){
-                                    ImsMessage translatedMessage = task.getResult();
+                                    ChatMessage translatedMessage = task.getResult();
                                     updateWithTranslatedMessage(translatedMessage,position);
                                 }
                                 }
@@ -208,7 +208,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.textView.setVisibility(View.VISIBLE);
 
                     String translatedValue = null;
-                    for(ImsMessage translated : translatedMessages){
+                    for(ChatMessage translated : translatedMessages){
                         if(message.getId().equals(translated.getId())){
                             translatedValue = translated.getText();
                         }
@@ -234,7 +234,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-    private void setupAvatarFromRemoteUser(ImsMessage message,final ViewHolder holder){
+    private void setupAvatarFromRemoteUser(ChatMessage message, final ViewHolder holder){
         holder.senderTextView.setText("New User");
         Model.getInstance().getUserInfoById(message.getSenderId()).addOnSuccessListener(new OnSuccessListener<UserInfo>() {
             @Override
@@ -315,7 +315,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public int getItemViewType(int position) {
         UserInfo info = Model.getInstance().getUserInfo();
         if(chatInfo!=null && info!=null){
-            ImsMessage message = chatInfo.getMessages().get(position);
+            ChatMessage message = chatInfo.getMessages().get(position);
             String userId = info.getUserId();
             if(userId!=null){
                 if(info.getUserId().equals(message.getSenderId())) {
@@ -326,7 +326,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return VIEW_TYPE_MESSAGE_OTHER_USERS;
     }
 
-    public void updateWithTranslatedMessage(ImsMessage message, int position){
+    public void updateWithTranslatedMessage(ChatMessage message, int position){
         translatedMessages.add(message);
         notifyItemChanged(position);
     }

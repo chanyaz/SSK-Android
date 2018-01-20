@@ -12,12 +12,12 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.app.data.GSConstants;
+import base.app.util.commons.GSConstants;
 import base.app.data.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.Model.createRequest;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.Model.createRequest;
 
 /**
  * Created by Filip on 12/27/2016.

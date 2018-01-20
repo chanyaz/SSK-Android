@@ -29,8 +29,8 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import base.app.data.GSAndroidPlatform;
-import base.app.data.Model;
+import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Model;
 import base.app.data.user.UserInfo;
 
 /**

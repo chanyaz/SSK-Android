@@ -1,4 +1,4 @@
-package base.app.data;
+package base.app.util.commons;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -34,19 +34,19 @@ import java.util.Locale;
 import java.util.Map;
 
 import base.app.Keys;
-import base.app.data.user.purchases.PurchaseModel;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.MessageHandler;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
+import base.app.data.user.purchases.PurchaseModel;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.Model.LoggedInUserType.NONE;
-import static base.app.data.Model.LoggedInUserType.REAL;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.Model.LoggedInUserType.NONE;
+import static base.app.util.commons.Model.LoggedInUserType.REAL;
 
 public class Model {
 

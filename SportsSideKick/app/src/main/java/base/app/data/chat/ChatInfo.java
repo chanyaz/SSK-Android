@@ -23,7 +23,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.util.events.ChatUpdateEvent;
 import base.app.util.events.MessageUpdateEvent;
@@ -53,7 +53,7 @@ public class ChatInfo {
     private String owner;
     private boolean isPublic = false;
     private ArrayList<String> blackList;  //only available for public chats
-    private ArrayList<ImsMessage> messages;
+    private ArrayList<ChatMessage> messages;
     private int unreadCount = 0;
     private boolean isMuted = false;
     private boolean isOfficial = false;
@@ -216,10 +216,10 @@ public class ChatInfo {
 
     @Subscribe
     public void onEvent(MessageUpdateEvent event){
-        ImsMessage message = event.getMessage();
+        ChatMessage message = event.getMessage();
         messages.add(message);
         for(int i = 0; i<messages.size();i++){
-            ImsMessage msg = messages.get(i);
+            ChatMessage msg = messages.get(i);
             if(msg.getId().equals(message.getId())){
                 messages.set(i,message);
             }
@@ -231,15 +231,15 @@ public class ChatInfo {
     /**
      * Load Message history, this func load the previusly archived messages in this chat
      */
-    public Task<List<ImsMessage>> loadPreviousMessagesPage(){
+    public Task<List<ChatMessage>> loadPreviousMessagesPage(){
        return ImsManager.getInstance().loadPreviousPageOfMessages(this);
     }
 
     // TODO - This code is not present on iOS!
     public void sortMessages(){
-        Collections.sort(messages, new Comparator<ImsMessage>() {
+        Collections.sort(messages, new Comparator<ChatMessage>() {
             @Override
-            public int compare(ImsMessage lhs, ImsMessage rhs) {
+            public int compare(ChatMessage lhs, ChatMessage rhs) {
                 return lhs.getTimestamp().compareTo(rhs.getTimestamp());
             }
         });
@@ -249,14 +249,14 @@ public class ChatInfo {
      * Send message to the chat
      * @param  message to send
      */
-    public Task<ChatInfo> sendMessage(ImsMessage message){
+    public Task<ChatInfo> sendMessage(ChatMessage message){
         Task<ChatInfo> chatInfoTask = ImsManager.getInstance().imsSendMessageToChat(this, message);
         messages.add(message);
         EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_MESSAGES));
         return chatInfoTask;
     }
 
-    public void updateMessage(final ImsMessage message, final TaskCompletionSource<ChatInfo> completion){
+    public void updateMessage(final ChatMessage message, final TaskCompletionSource<ChatInfo> completion){
         if(message.getId()==null){
             Log.e(TAG,"Message is not being updated - missing ID");
             if(completion!=null){
@@ -264,11 +264,11 @@ public class ChatInfo {
             }
             return;
         }
-        TaskCompletionSource<ImsMessage> updateMessageCompletion = new TaskCompletionSource<>();
+        TaskCompletionSource<ChatMessage> updateMessageCompletion = new TaskCompletionSource<>();
         message.imsUpdateMessage(this,String.valueOf(CLUB_ID),updateMessageCompletion);
-        updateMessageCompletion.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
+        updateMessageCompletion.getTask().addOnCompleteListener(new OnCompleteListener<ChatMessage>() {
             @Override
-            public void onComplete(@NonNull Task<ImsMessage> task) {
+            public void onComplete(@NonNull Task<ChatMessage> task) {
                 if(task.isSuccessful()){
                     if(completion!=null){
                         completion.setResult(ChatInfo.this);
@@ -299,7 +299,7 @@ public class ChatInfo {
             Log.e(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
             return -1;
         }
-        for(ImsMessage message : messages){
+        for(ChatMessage message : messages){
             if (!message.getSenderId().equals(uid) && !message.getReadFlag()){
                 count += 1;
             }
@@ -311,7 +311,7 @@ public class ChatInfo {
      * Mark this message status as read for this user
      * @param  message to update
      */
-    public void markMessageAsRead(ImsMessage message) {
+    public void markMessageAsRead(ChatMessage message) {
         message.setReadFlag(true);
         if (message.getId() != null) {
             ImsManager.getInstance().markMessageAsRead(this, message);
@@ -532,7 +532,7 @@ public class ChatInfo {
             return;
         }
 
-        for(ImsMessage message : messages){
+        for(ChatMessage message : messages){
             if(message.getLocid().equals(locid) || message.getId().equals(messageId)){
                 message.updateFrom(data);
                 EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
@@ -541,9 +541,9 @@ public class ChatInfo {
 
     }
 
-    public void addReceivedMessage(ImsMessage message){
+    public void addReceivedMessage(ChatMessage message){
         if (message.getLocid() != null){
-            for(ImsMessage m : messages){
+            for(ChatMessage m : messages){
                 if (message.getLocid().equals(m.getLocid())){
                     return;
                 }
@@ -561,11 +561,11 @@ public class ChatInfo {
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }
 
-    public  void addReceivedMessage(List<ImsMessage> messages){
+    public  void addReceivedMessage(List<ChatMessage> messages){
         if(messages==null) {
             messages = new ArrayList<>();
         }
-        for(ImsMessage message : messages) {
+        for(ChatMessage message : messages) {
             message.initializeTimestamp();
             message.determineSelfReadFlag();
         }
@@ -575,18 +575,18 @@ public class ChatInfo {
         EventBus.getDefault().post(new ChatUpdateEvent(ChatInfo.this));
     }
 
-    public void deleteMessage(final ImsMessage message, final TaskCompletionSource<ImsMessage> completion){
+    public void deleteMessage(final ChatMessage message, final TaskCompletionSource<ChatMessage> completion){
         if(message.getId() == null && completion == null) {
             completion.setResult(null);
         }
         deleteMessage(message);
-        TaskCompletionSource<ImsMessage> deleteMessageCompletion = new TaskCompletionSource<>();
+        TaskCompletionSource<ChatMessage> deleteMessageCompletion = new TaskCompletionSource<>();
         message.imsDeleteMessage(this, CLUB_ID,deleteMessageCompletion);
 
         //deleteMessage(message);
-        deleteMessageCompletion.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
+        deleteMessageCompletion.getTask().addOnCompleteListener(new OnCompleteListener<ChatMessage>() {
             @Override
-            public void onComplete(@NonNull Task<ImsMessage> task) {
+            public void onComplete(@NonNull Task<ChatMessage> task) {
                 if(task.isSuccessful()){
                     if(completion!=null){
                         completion.setResult(message);
@@ -601,7 +601,7 @@ public class ChatInfo {
         });
     }
 
-    public void deleteMessage(ImsMessage message) {
+    public void deleteMessage(ChatMessage message) {
         messages.remove(message);
         EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.DELETED_CHAT_MESSAGE));
     }
@@ -664,11 +664,11 @@ public class ChatInfo {
         this.blackList = blackList;
     }
 
-    public ArrayList<ImsMessage> getMessages() {
+    public ArrayList<ChatMessage> getMessages() {
         return messages;
     }
 
-    private void setMessages(ArrayList<ImsMessage> messages) {
+    private void setMessages(ArrayList<ChatMessage> messages) {
         this.messages = messages;
     }
 

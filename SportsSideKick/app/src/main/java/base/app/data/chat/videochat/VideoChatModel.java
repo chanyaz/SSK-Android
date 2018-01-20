@@ -19,13 +19,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import base.app.data.GSConstants;
-import base.app.data.Model;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
 
 
 public class VideoChatModel extends GSMessageHandlerAbstract {

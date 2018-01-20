@@ -17,14 +17,14 @@ import org.json.simple.JSONObject;
 import java.util.List;
 import java.util.Map;
 
-import base.app.data.GSAndroidPlatform;
-import base.app.data.DateUtils;
-import base.app.data.Model;
+import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.DateUtils;
+import base.app.util.commons.Model;
 
-import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.GSConstants.GROUP_ID;
-import static base.app.data.GSConstants.MESSAGE;
-import static base.app.data.GSConstants.MESSAGE_ID;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.GSConstants.GROUP_ID;
+import static base.app.util.commons.GSConstants.MESSAGE;
+import static base.app.util.commons.GSConstants.MESSAGE_ID;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -34,7 +34,7 @@ import static base.app.data.GSConstants.MESSAGE_ID;
 
 @JsonIgnoreProperties(ignoreUnknown = true,value={"imageAspectRatio","timestampEpoch","timeAgo"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ImsMessage {
+public class ChatMessage {
 
     private static final String TAG = "IMS MESSAGE";
 
@@ -61,11 +61,11 @@ public class ImsMessage {
     private String type;
 
 
-    public ImsMessage(){
+    public ChatMessage(){
         mapper = new ObjectMapper();
     }
 
-    public ImsMessage(String text, String senderId, String timestamp, String imageUrl) {
+    public ChatMessage(String text, String senderId, String timestamp, String imageUrl) {
         mapper = new ObjectMapper();
         this.text = text;
         this.senderId = senderId;
@@ -73,8 +73,8 @@ public class ImsMessage {
         this.imageUrl = imageUrl;
     }
 
-    public static ImsMessage getDefaultMessage() {
-        ImsMessage message = new ImsMessage();
+    public static ChatMessage getDefaultMessage() {
+        ChatMessage message = new ChatMessage();
         message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
         message.setTimestamp(DateUtils.currentTimeToFirebaseDate());
         message.initializeTimestamp();
@@ -98,7 +98,7 @@ public class ImsMessage {
         return senderId;
     }
 
-    public ImsMessage setSenderId(String senderId) {
+    public ChatMessage setSenderId(String senderId) {
         this.senderId = senderId;
         return this;
     }
@@ -107,7 +107,7 @@ public class ImsMessage {
         return imageAspectRatio;
     }
 
-    public ImsMessage setImageAspectRatio(float imageAspectRatio) {
+    public ChatMessage setImageAspectRatio(float imageAspectRatio) {
         this.imageAspectRatio = imageAspectRatio;
         return this;
     }
@@ -116,7 +116,7 @@ public class ImsMessage {
         return timestamp;
     }
 
-    public ImsMessage setTimestamp(String timestamp) {
+    public ChatMessage setTimestamp(String timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -125,7 +125,7 @@ public class ImsMessage {
         return wasReadBy;
     }
 
-    public ImsMessage setWasReadBy(List<String> wasReadBy) {
+    public ChatMessage setWasReadBy(List<String> wasReadBy) {
         this.wasReadBy = wasReadBy;
         return this;
     }
@@ -134,7 +134,7 @@ public class ImsMessage {
         return readFlag;
     }
 
-    public ImsMessage setReadFlag(boolean readFlag) {
+    public ChatMessage setReadFlag(boolean readFlag) {
         this.readFlag = readFlag;
         return this;
     }
@@ -143,7 +143,7 @@ public class ImsMessage {
         return imageUrl;
     }
 
-    public ImsMessage setImageUrl(String imageUrl) {
+    public ChatMessage setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
@@ -152,7 +152,7 @@ public class ImsMessage {
         return vidUrl;
     }
 
-    public ImsMessage setVidUrl(String vidUrl) {
+    public ChatMessage setVidUrl(String vidUrl) {
         this.vidUrl = vidUrl;
         return this;
     }
@@ -161,7 +161,7 @@ public class ImsMessage {
         return text;
     }
 
-    public ImsMessage setText(String text) {
+    public ChatMessage setText(String text) {
         this.text = text;
         return this;
     }
@@ -220,7 +220,7 @@ public class ImsMessage {
         this.locid = locid;
     }
 
-    void imsUpdateMessage(ChatInfo chatInfo, String clubId, final TaskCompletionSource<ImsMessage> source){
+    void imsUpdateMessage(ChatInfo chatInfo, String clubId, final TaskCompletionSource<ChatMessage> source){
         Map<String, Object> map = mapper.convertValue(this, new TypeReference<Map<String, Object>>() {});
         map.remove("_id");
         GSData data = new GSData(map);
@@ -236,11 +236,11 @@ public class ImsMessage {
                         if(!response.hasErrors()){
                             GSData messageInfo = response.getScriptData().getObject("message");
                             if(messageInfo!=null){
-                                ImsMessage.this.updateFrom(messageInfo.getBaseData());
+                                ChatMessage.this.updateFrom(messageInfo.getBaseData());
                             }
                             if(source!=null){
                                 // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
-                                source.setResult(ImsMessage.this);
+                                source.setResult(ChatMessage.this);
                             }
                         } else {
                             Log.e(TAG,"Failed to update message!");
@@ -306,7 +306,7 @@ public class ImsMessage {
     }
 
     // do not use this function, call the chat info one!
-    public void imsDeleteMessage(ChatInfo chatInfo, int clubId,  final TaskCompletionSource<ImsMessage> source){
+    public void imsDeleteMessage(ChatInfo chatInfo, int clubId,  final TaskCompletionSource<ChatMessage> source){
         Map<String, Object> map = mapper.convertValue(this, new TypeReference<Map<String, Object>>() {});
         map.remove("_id");
         GSData data = new GSData(map);
@@ -322,11 +322,11 @@ public class ImsMessage {
                         if(!response.hasErrors()){
                             GSData messageInfo = response.getScriptData().getObject("message");
                             if(messageInfo!=null){
-                                ImsMessage.this.updateFrom(messageInfo.getBaseData());
+                                ChatMessage.this.updateFrom(messageInfo.getBaseData());
                             }
                             if(source!=null){
                                 // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
-                                source.setResult(ImsMessage.this);
+                                source.setResult(ChatMessage.this);
                             }
                         } else {
                             Log.e(TAG,"Failed to delete message!");

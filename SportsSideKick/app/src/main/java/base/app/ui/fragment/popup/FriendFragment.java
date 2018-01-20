@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.AlertDialogManager;
-import base.app.data.Model;
+import base.app.util.ui.AlertDialogManager;
+import base.app.util.commons.Model;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;

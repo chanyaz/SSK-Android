@@ -3,7 +3,7 @@ package base.app.data.user.notifications;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import base.app.data.Model;
+import base.app.util.commons.Model;
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 

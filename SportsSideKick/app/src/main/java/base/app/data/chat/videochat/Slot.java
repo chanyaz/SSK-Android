@@ -15,7 +15,7 @@ import com.twilio.video.VideoView;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.data.user.UserInfo;
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -28,7 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.data.user.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserEvent;

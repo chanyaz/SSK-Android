@@ -1,4 +1,4 @@
-package base.app.data.content.nextmatch;
+package base.app.data.content.wall.nextmatch;
 
 import android.support.annotation.Nullable;
 
@@ -12,11 +12,11 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
-import base.app.data.GSAndroidPlatform;
+import base.app.util.commons.GSAndroidPlatform;
 import base.app.util.commons.Utility;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
 
 
 /**

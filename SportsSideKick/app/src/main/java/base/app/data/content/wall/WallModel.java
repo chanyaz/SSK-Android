@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import base.app.data.DateUtils;
-import base.app.data.FileUploader;
-import base.app.data.GSConstants;
-import base.app.data.Model;
+import base.app.util.commons.DateUtils;
+import base.app.util.commons.FileUploader;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
 import base.app.data.TypeConverter;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
@@ -42,8 +42,8 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.Model.createRequest;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.Model.createRequest;
 import static base.app.data.TypeConverter.ItemType;
 import static base.app.data.TypeConverter.postFactory;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;

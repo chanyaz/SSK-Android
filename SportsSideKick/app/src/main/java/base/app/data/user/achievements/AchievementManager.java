@@ -12,9 +12,9 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.app.data.GSConstants;
+import base.app.util.commons.GSConstants;
 
-import static base.app.data.Model.createRequest;
+import static base.app.util.commons.Model.createRequest;
 
 /**
  * Created by Filip on 3/26/2017.

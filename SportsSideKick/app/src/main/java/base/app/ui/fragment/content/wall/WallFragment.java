@@ -31,12 +31,12 @@ import java.util.List;
 
 import base.app.R;
 import base.app.util.events.FriendsListChangedEvent;
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.data.TypeConverter;
 import base.app.data.content.news.NewsModel;
 import base.app.data.content.news.NewsModel.NewsType;
-import base.app.data.content.nextmatch.NewsTickerInfo;
-import base.app.data.content.nextmatch.NextMatchModel;
+import base.app.data.content.wall.nextmatch.NewsTickerInfo;
+import base.app.data.content.wall.nextmatch.NextMatchModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
 import base.app.data.content.wall.BaseItem;

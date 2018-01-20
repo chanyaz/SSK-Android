@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import base.app.data.Id;
+import base.app.util.commons.Id;
 
 /**
  * Created by Filip on 1/30/2017.
@@ -15,8 +15,6 @@ import base.app.data.Id;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Station {
-
-
 
     @JsonProperty("_id")
     private Id id;

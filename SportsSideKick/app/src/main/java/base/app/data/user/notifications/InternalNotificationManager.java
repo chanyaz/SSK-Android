@@ -8,8 +8,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-import base.app.data.GSConstants;
-import base.app.data.Model;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
 import base.app.data.TypeConverter;
 import base.app.data.content.wall.BaseItem;
 import base.app.data.user.GSMessageHandlerAbstract;
@@ -64,7 +64,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
         String message;
         NotificationEvent event;
         switch (type){
-            case "ImsMessage":
+            case "ChatMessage":
                 String chatId = (String) data.get(GSConstants.CHAT_ID);
                 String text = (String) data.get(GSConstants.DESCRIPTION);
                 // TODO: @Filip to be implemented when done on iOS

@@ -1,6 +1,6 @@
 package base.app.data.content.news
 
-import base.app.data.Model
+import base.app.util.commons.Model
 import base.app.data.content.wall.Post
 import base.app.data.content.wall.WallModel
 import base.app.util.commons.Utility

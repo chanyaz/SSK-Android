@@ -1,4 +1,4 @@
-package base.app.data;
+package base.app.util.commons;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
 
-import base.app.util.commons.Utility;
 import base.app.util.ui.ExifUtil;
 
 /**
@@ -76,7 +75,7 @@ public class FileUploader {
         bucket = FileUploader.EUWest_Bucket;
     }
 
-    void upload(final String filename, String filepath, final TaskCompletionSource<String> completion) {
+    public void upload(final String filename, String filepath, final TaskCompletionSource<String> completion) {
         try {
             File file = new File(filepath);
             TransferObserver observer = transferUtility.upload(
@@ -141,7 +140,7 @@ public class FileUploader {
         }
     }
 
-    void uploadThumbnail(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
+    public void uploadThumbnail(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);  // TODO @Filip - Magic number
@@ -154,7 +153,7 @@ public class FileUploader {
         }
     }
 
-    void uploadCompressedImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion){
+    public void uploadCompressedImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion){
         File image = new File(filepath);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
@@ -184,11 +183,11 @@ public class FileUploader {
         }
     }
 
-    void uploadImage(File image, String filename, final TaskCompletionSource<String> completion){
+    public void uploadImage(File image, String filename, final TaskCompletionSource<String> completion){
         upload(image, filename, completion);
     }
 
-    void uploadCircularProfileImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
+    public void uploadCircularProfileImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         File image = new File(filepath);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);

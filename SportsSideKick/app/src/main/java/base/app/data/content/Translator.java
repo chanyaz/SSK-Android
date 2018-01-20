@@ -1,4 +1,4 @@
-package base.app.data;
+package base.app.data.content;
 
 import android.util.Log;
 
@@ -11,17 +11,19 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 
 import java.util.Map;
 
+import base.app.data.TypeConverter;
 import base.app.data.TypeConverter.ItemType;
-import base.app.data.chat.ImsMessage;
+import base.app.data.chat.ChatMessage;
 import base.app.data.content.wall.Comment;
 import base.app.data.content.wall.News;
 import base.app.data.content.wall.Post;
+import base.app.util.commons.GSAndroidPlatform;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.GSConstants.ID_SHORT;
-import static base.app.data.GSConstants.POST_ID;
-import static base.app.data.GSConstants.TO_LANGUAGE;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.GSConstants.ID_SHORT;
+import static base.app.util.commons.GSConstants.POST_ID;
+import static base.app.util.commons.GSConstants.TO_LANGUAGE;
 
 /**
  * Created by Filip on 9/12/2017.
@@ -99,7 +101,7 @@ public class Translator {
                 });
     }
 
-    public void translateMessage(String itemId, String language, final TaskCompletionSource<ImsMessage> completion) {
+    public void translateMessage(String itemId, String language, final TaskCompletionSource<ChatMessage> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateComment")
                 .setEventAttribute(ID_SHORT, itemId)
@@ -109,9 +111,9 @@ public class Translator {
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
                         if (!response.hasErrors()) {
                             GSData messageInfo = response.getScriptData().getObject("item");
-                            ImsMessage message = null;
+                            ChatMessage message = null;
                             if (messageInfo != null) {
-                                message = ImsMessage.getDefaultMessage();
+                                message = ChatMessage.getDefaultMessage();
                                 message.updateFrom(messageInfo.getBaseData());
                             }
                             if (completion != null) {

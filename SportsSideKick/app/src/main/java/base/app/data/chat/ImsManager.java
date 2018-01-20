@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import base.app.data.GSAndroidPlatform;
-import base.app.data.FileUploader;
-import base.app.data.GSConstants;
-import base.app.data.Model;
+import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.FileUploader;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.util.events.ChatsInfoUpdatesEvent;
 import base.app.util.events.CreateNewChatSuccessEvent;
@@ -32,25 +32,25 @@ import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CHATS_INFO;
-import static base.app.data.GSConstants.CHAT_ID;
-import static base.app.data.GSConstants.CHAT_INFO;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.GSConstants.ENTRY_COUNT;
-import static base.app.data.GSConstants.GROUP_ID;
-import static base.app.data.GSConstants.IMS_GET_CHAT_GROUPS_MESSAGES;
-import static base.app.data.GSConstants.IMS_GROUP_ID;
-import static base.app.data.GSConstants.IMS_JOIN_CHAT_GROUP;
-import static base.app.data.GSConstants.IS_TYPING_VALUE;
-import static base.app.data.GSConstants.MESSAGE;
-import static base.app.data.GSConstants.MESSAGES;
-import static base.app.data.GSConstants.MESSAGE_PAGE_SIZE;
-import static base.app.data.GSConstants.OFFSET;
-import static base.app.data.GSConstants.OPERATION_DELETE_MESSAGE;
-import static base.app.data.GSConstants.OPERATION_NEW;
-import static base.app.data.GSConstants.OPERATION_UPDATE;
-import static base.app.data.GSConstants.USER_ID;
-import static base.app.data.Model.createRequest;
+import static base.app.util.commons.GSConstants.CHATS_INFO;
+import static base.app.util.commons.GSConstants.CHAT_ID;
+import static base.app.util.commons.GSConstants.CHAT_INFO;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.GSConstants.ENTRY_COUNT;
+import static base.app.util.commons.GSConstants.GROUP_ID;
+import static base.app.util.commons.GSConstants.IMS_GET_CHAT_GROUPS_MESSAGES;
+import static base.app.util.commons.GSConstants.IMS_GROUP_ID;
+import static base.app.util.commons.GSConstants.IMS_JOIN_CHAT_GROUP;
+import static base.app.util.commons.GSConstants.IS_TYPING_VALUE;
+import static base.app.util.commons.GSConstants.MESSAGE;
+import static base.app.util.commons.GSConstants.MESSAGES;
+import static base.app.util.commons.GSConstants.MESSAGE_PAGE_SIZE;
+import static base.app.util.commons.GSConstants.OFFSET;
+import static base.app.util.commons.GSConstants.OPERATION_DELETE_MESSAGE;
+import static base.app.util.commons.GSConstants.OPERATION_NEW;
+import static base.app.util.commons.GSConstants.OPERATION_UPDATE;
+import static base.app.util.commons.GSConstants.USER_ID;
+import static base.app.util.commons.Model.createRequest;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -394,7 +394,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
      **/
 
     // do not use this function, call the chat info one!
-    Task<ChatInfo> imsSendMessageToChat(final ChatInfo chatInfo, final ImsMessage message) {
+    Task<ChatInfo> imsSendMessageToChat(final ChatInfo chatInfo, final ChatMessage message) {
         final TaskCompletionSource<ChatInfo> source = new TaskCompletionSource<>();
         String nic = Model.getInstance().getUserInfo().getNicName();
         if (TextUtils.isEmpty(nic)) {
@@ -432,7 +432,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 if (!response.hasErrors()) {
                     // Parse response
                     Object object = response.getScriptData().getBaseData().get(MESSAGES);
-                    List<ImsMessage> messages = mapper.convertValue(object, new TypeReference<List<ImsMessage>>() {
+                    List<ChatMessage> messages = mapper.convertValue(object, new TypeReference<List<ChatMessage>>() {
                     });
                     chatInfo.addReceivedMessage(messages);
                 }
@@ -446,18 +446,18 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     }
 
     // load next page of messages
-    Task<List<ImsMessage>> loadPreviousPageOfMessages(final ChatInfo chatInfo) {
-        final TaskCompletionSource<List<ImsMessage>> source = new TaskCompletionSource<>();
+    Task<List<ChatMessage>> loadPreviousPageOfMessages(final ChatInfo chatInfo) {
+        final TaskCompletionSource<List<ChatMessage>> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
                     Object object = response.getScriptData().getBaseData().get(MESSAGES);
-                    List<ImsMessage> messages = mapper.convertValue(object, new TypeReference<List<ImsMessage>>() {
+                    List<ChatMessage> messages = mapper.convertValue(object, new TypeReference<List<ChatMessage>>() {
                     });
                     // Go trough all messages objects and load users and messages
-                    for (ImsMessage message : messages) {
+                    for (ChatMessage message : messages) {
                         message.initializeTimestamp();
                         message.determineSelfReadFlag();
                     }
@@ -475,7 +475,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     }
 
     // do not use this function, call the chat info one!
-    void markMessageAsRead(final ChatInfo chatInfo, final ImsMessage message) {
+    void markMessageAsRead(final ChatInfo chatInfo, final ChatMessage message) {
         if(message.getId()==null){
             return; // its local message, not sent to backend yet, so no need to mark it as read.
         }
@@ -547,7 +547,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     public void onGSTeamChatMessage(GSMessageHandler.TeamChatMessage msg) {
         String data = (String) msg.getBaseData().get("imsGroups");
         try {
-            ImsMessage message = mapper.readValue(data, ImsMessage.class);
+            ChatMessage message = mapper.readValue(data, ChatMessage.class);
             String chatId = msg.getTeamId();
             String teamType = msg.getTeamType();
             if (teamType != null && chatId != null) {
@@ -589,22 +589,22 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                     }
                 }
                 break;
-            case "ImsMessage":
+            case "ChatMessage":
                 String operation = (String) data.get(GSConstants.OPERATION);
 
                 ChatInfo chatInfo = getChatInfoById((String) data.get(CHAT_ID));
                 if (chatInfo != null) {
                     if(OPERATION_NEW.equals(operation)){
-                        ImsMessage message = mapper.convertValue(data.get(MESSAGE), ImsMessage.class);
+                        ChatMessage message = mapper.convertValue(data.get(MESSAGE), ChatMessage.class);
                         chatInfo.addReceivedMessage(message);
                     } else if (OPERATION_UPDATE.equals(operation)) {
                         Map<String,Object> messageAsMap = (Map<String,Object>) data.get(MESSAGE);
                         chatInfo.updateMessageJson(messageAsMap);
                     } else if(OPERATION_DELETE_MESSAGE.equals(operation)) {
-                        ImsMessage message = mapper.convertValue(data.get(MESSAGE), ImsMessage.class);
+                        ChatMessage message = mapper.convertValue(data.get(MESSAGE), ChatMessage.class);
                         String messageId = message.getId();
-                        ImsMessage messageToDelete = null;
-                        for(ImsMessage m : chatInfo.getMessages()){
+                        ChatMessage messageToDelete = null;
+                        for(ChatMessage m : chatInfo.getMessages()){
                             if(m.getId().equals(messageId)){
                                 messageToDelete = m;
                             }
@@ -614,7 +614,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                         }
                     }
                 } else {
-                    Log.e(TAG, "UNHANDLED ImsMessage Error: chat not found with id:" + data.get(CHAT_ID));
+                    Log.e(TAG, "UNHANDLED ChatMessage Error: chat not found with id:" + data.get(CHAT_ID));
                 }
                 break;
         }

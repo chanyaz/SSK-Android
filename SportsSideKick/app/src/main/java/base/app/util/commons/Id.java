@@ -1,4 +1,4 @@
-package base.app.data;
+package base.app.util.commons;
 
 /**
  * Created by Filip on 3/22/2017.

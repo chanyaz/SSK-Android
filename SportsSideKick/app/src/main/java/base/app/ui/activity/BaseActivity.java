@@ -36,14 +36,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.app.R;
-import base.app.data.GSAndroidPlatform;
-import base.app.data.Model;
+import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Model;
 import base.app.data.user.notifications.ExternalNotificationEvent;
 import base.app.data.user.notifications.InternalNotificationManager;
 import base.app.data.user.purchases.PurchaseModel;
 import base.app.util.events.NativeShareEvent;
-import base.app.data.content.nextmatch.NewsTickerInfo;
-import base.app.data.content.nextmatch.NextMatchModel;
+import base.app.data.content.wall.nextmatch.NewsTickerInfo;
+import base.app.data.content.wall.nextmatch.NextMatchModel;
 import base.app.util.events.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.chat.videochat.VideoChatEvent;

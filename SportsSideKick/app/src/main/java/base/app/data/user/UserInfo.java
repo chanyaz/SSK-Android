@@ -6,7 +6,7 @@ import com.gamesparks.sdk.api.autogen.GSTypes;
 
 import java.util.List;
 
-import base.app.data.Model;
+import base.app.util.commons.Model;
 
 /**
  * Created by Djordje Krutil on 6.12.2016.

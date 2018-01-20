@@ -54,6 +54,7 @@ object MediaModel {
                 val receivedStations = mapper.convertValue<List<Station>>(`object`, object : TypeReference<List<Station>>() {
 
                 })
+                TODO: Insert _id field manually
                 while (receivedStations.contains(null)) {
                     receivedStations.remove(null)
                 }

@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.data.AlertDialogManager;
-import base.app.data.Model;
+import base.app.util.ui.AlertDialogManager;
+import base.app.util.commons.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.profile.UserStatsAdapter;

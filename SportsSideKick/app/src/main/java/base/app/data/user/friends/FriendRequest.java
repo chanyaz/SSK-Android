@@ -3,7 +3,7 @@ package base.app.data.user.friends;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import base.app.data.GSConstants;
+import base.app.util.commons.GSConstants;
 import base.app.data.user.UserInfo;
 
 /**

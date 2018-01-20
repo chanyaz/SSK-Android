@@ -2,7 +2,7 @@ package base.app.ui.fragment.content.wall
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import base.app.data.Model
+import base.app.util.commons.Model
 import base.app.data.content.news.WallRepository
 import base.app.data.user.LoginStateReceiver.LoginListener
 import base.app.data.user.UserInfo

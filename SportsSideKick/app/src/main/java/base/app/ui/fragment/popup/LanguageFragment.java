@@ -16,7 +16,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.activity.MainActivity;

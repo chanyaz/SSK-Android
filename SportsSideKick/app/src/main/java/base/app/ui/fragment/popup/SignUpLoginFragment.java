@@ -13,7 +13,7 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Utility;

@@ -1,6 +1,6 @@
 package base.app.data.user;
 
-import base.app.data.Model;
+import base.app.util.commons.Model;
 
 /**
  * Created by Filip on 4/25/2017.

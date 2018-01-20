@@ -64,12 +64,12 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.data.AlertDialogManager;
-import base.app.data.GSConstants;
-import base.app.data.Model;
+import base.app.data.chat.ChatMessage;
+import base.app.util.ui.AlertDialogManager;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
-import base.app.data.chat.ImsMessage;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.util.events.ChatsInfoUpdatesEvent;
 import base.app.util.events.CreateNewChatSuccessEvent;
@@ -249,12 +249,12 @@ public class ChatFragment extends BaseFragment {
             public void onRefresh() {
                 if (currentlyActiveChat != null) {
                     final ChatInfo refreshingChat = currentlyActiveChat;
-                    Task<List<ImsMessage>> nextPageTask = currentlyActiveChat.loadPreviousMessagesPage();
-                    nextPageTask.addOnCompleteListener(new OnCompleteListener<List<ImsMessage>>() {
+                    Task<List<ChatMessage>> nextPageTask = currentlyActiveChat.loadPreviousMessagesPage();
+                    nextPageTask.addOnCompleteListener(new OnCompleteListener<List<ChatMessage>>() {
                         @Override
-                        public void onComplete(@NonNull Task<List<ImsMessage>> task) {
+                        public void onComplete(@NonNull Task<List<ChatMessage>> task) {
                             if(task.isSuccessful()){
-                                List<ImsMessage> messages = task.getResult();
+                                List<ChatMessage> messages = task.getResult();
                                 if(messages!=null){
                                     if(messages.size()>0){
                                         refreshingChat.addReceivedMessage(messages);
@@ -542,7 +542,7 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    ImsMessage messageForEdit;
+    ChatMessage messageForEdit;
 
     @Subscribe
     public void setMessageForEdit(MessageSelectedEvent event){
@@ -644,7 +644,7 @@ public class ChatFragment extends BaseFragment {
             currentlyActiveChat.updateMessage(messageForEdit,null);
             messageForEdit = null;
         } else {
-            ImsMessage message = ImsMessage.getDefaultMessage();
+            ChatMessage message = ChatMessage.getDefaultMessage();
             message.setType(GSConstants.UPLOAD_TYPE_TEXT);
             message.setText(text);
             currentlyActiveChat.sendMessage(message);
@@ -742,7 +742,7 @@ public class ChatFragment extends BaseFragment {
     }
 
     private void sendAudioMessage(final String path){
-        final ImsMessage messageAudio = ImsMessage.getDefaultMessage();
+        final ChatMessage messageAudio = ChatMessage.getDefaultMessage();
         messageAudio.setType(GSConstants.UPLOAD_TYPE_AUDIO);
         messageAudio.setUploadStatus(GSConstants.UPLOADING);
         messageAudio.setImageUrl("");
@@ -775,7 +775,7 @@ public class ChatFragment extends BaseFragment {
     }
 
     private void sendImageMessage(final String path){
-        final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
+        final ChatMessage preppingImsObject = ChatMessage.getDefaultMessage();
         preppingImsObject.setType(GSConstants.UPLOAD_TYPE_IMAGE);
         preppingImsObject.setUploadStatus(GSConstants.UPLOADING);
         preppingImsObject.setText(null);
@@ -812,7 +812,7 @@ public class ChatFragment extends BaseFragment {
 
     private void sendVideoMessage(final String path){
 
-        final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
+        final ChatMessage preppingImsObject = ChatMessage.getDefaultMessage();
         preppingImsObject.setType(GSConstants.UPLOAD_TYPE_VIDEO);
         preppingImsObject.setUploadStatus(GSConstants.UPLOADING);
         preppingImsObject.setText(null);
@@ -893,8 +893,8 @@ public class ChatFragment extends BaseFragment {
                 break;
             case CHANGED_CHAT_MESSAGE:
                 if(currentlyActiveChat!=null){
-                   List<ImsMessage> messages = currentlyActiveChat.getMessages();
-                    ImsMessage messageToUpdate = event.getMessage();
+                   List<ChatMessage> messages = currentlyActiveChat.getMessages();
+                    ChatMessage messageToUpdate = event.getMessage();
                     if(messages!=null && messageToUpdate!=null){
                         if(messages.contains(messageToUpdate)){
                             messageAdapter.notifyItemChanged(messages.indexOf(messageToUpdate));

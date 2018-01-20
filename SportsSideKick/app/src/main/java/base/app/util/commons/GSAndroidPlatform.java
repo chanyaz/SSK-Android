@@ -1,4 +1,4 @@
-package base.app.data;
+package base.app.util.commons;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,7 +24,7 @@ public class GSAndroidPlatform implements IGSPlatform {
     private Handler mainHandler;
     private Context ctx;
 
-    static void initialise(final Context ctx, String apiKey, String secret) {
+    public static void initialise(final Context ctx, String apiKey, String secret) {
         if (gs == null) {
             GSAndroidPlatform gsAndroidPlatform = new GSAndroidPlatform(ctx);
             gs = new GS(apiKey, secret, null, false, true, gsAndroidPlatform);

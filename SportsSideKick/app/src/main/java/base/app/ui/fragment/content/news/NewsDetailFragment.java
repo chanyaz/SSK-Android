@@ -40,7 +40,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.Model;
+import base.app.util.commons.Model;
 import base.app.data.content.news.NewsModel;
 import base.app.data.content.share.ShareHelper;
 import base.app.data.user.UserInfo;

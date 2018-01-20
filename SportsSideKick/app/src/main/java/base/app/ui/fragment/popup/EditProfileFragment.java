@@ -37,8 +37,8 @@ import java.util.Map;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.data.GSConstants;
-import base.app.data.Model;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.content.wall.WallModel;
 import base.app.ui.fragment.base.BaseFragment;
