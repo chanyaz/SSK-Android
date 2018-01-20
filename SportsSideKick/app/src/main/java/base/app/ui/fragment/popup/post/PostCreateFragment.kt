@@ -17,7 +17,7 @@ import java.io.File
 
 class PostCreateFragment : BaseFragment(R.layout.fragment_post_create), IPostCreateView {
 
-    private val viewModel by lazy { injectViewModel<PostCreateViewModel>() }
+    private val viewModel by lazy { inject<PostCreateViewModel>() }
 
     override fun onViewCreated(view: View, state: Bundle?) {
         viewModel.view = this
@@ -43,21 +43,21 @@ class PostCreateFragment : BaseFragment(R.layout.fragment_post_create), IPostCre
     override fun showPostImage(image: File) {
         contentImage.show(image)
 
-        cameraButton.gone()
-        galleryButton.gone()
-        removeButton.visible()
+        cameraButton.setVisible(false)
+        galleryButton.setVisible(false)
+        removeButton.setVisible(true)
     }
 
     override fun clearPostImage() {
-        cameraButton.visible()
-        galleryButton.visible()
-        removeButton.gone()
+        cameraButton.setVisible(true)
+        galleryButton.setVisible(true)
+        removeButton.setVisible(false)
 
         contentImage.show(R.drawable.image_rumours_background)
     }
 
     override fun showLoading(loading: Boolean) {
-        if (loading) progressBar.visible() else progressBar.gone()
+        if (loading) progressBar.setVisible(true) else progressBar.setVisible(false)
     }
 
     override fun exit() {

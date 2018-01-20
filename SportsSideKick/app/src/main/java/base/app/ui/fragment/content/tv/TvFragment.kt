@@ -10,7 +10,7 @@ import base.app.ui.adapter.stream.TvAdapter
 import base.app.ui.fragment.base.IgnoreBackHandling
 import base.app.util.events.FragmentEvent
 import base.app.util.ui.BaseFragment
-import base.app.util.ui.injectViewModel
+import base.app.util.ui.inject
 import kotlinx.android.synthetic.main.fragment_tv.*
 import org.greenrobot.eventbus.EventBus
 
@@ -25,7 +25,7 @@ class TvFragment : BaseFragment(R.layout.fragment_tv) {
         recyclerView.adapter = adapter
 
         val channelId = getString(R.string.youtube_channel_id)
-        val viewModel = injectViewModel<TvViewModel>()
+        val viewModel = inject<TvViewModel>()
         viewModel.tvRepo = MediaRepository(youtubeDataApi)
         viewModel.loadPlaylists(channelId).observe(this, Observer {
             adapter.addAll(it)

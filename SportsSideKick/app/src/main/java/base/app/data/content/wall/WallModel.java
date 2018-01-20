@@ -76,7 +76,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * you need to listen to mbPostUpdate events which will return all old posts + new posts
      * + updated posts
      */
-    public void loadWallPosts(final TaskCompletionSource<List<BaseItem>> completion) {
+    public void loadFeed(final TaskCompletionSource<List<BaseItem>> completion) {
         final UserInfo userInfo = Model.getInstance().getUserInfo();
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {

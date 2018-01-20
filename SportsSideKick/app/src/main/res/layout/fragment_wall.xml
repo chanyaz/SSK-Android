@@ -158,7 +158,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/login_holder"
+                    android:id="@+id/loginContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/wall_top_image_container"
@@ -238,7 +238,7 @@
                     android:id="@+id/progressBar"
                     android:layout_width="@dimen/prodgres_bar"
                     android:layout_height="@dimen/prodgres_bar"
-                    android:layout_below="@id/login_holder"
+                    android:layout_below="@id/loginContainer"
                     android:layout_centerInParent="true"
                     android:elevation="@dimen/elevation_2"
                     app:indicatorName="LineSpinFadeLoaderIndicator" />
@@ -247,7 +247,7 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/login_holder"
+                    android:layout_below="@id/loginContainer"
                     android:nestedScrollingEnabled="false"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     android:layout_marginTop="?wallRecyclerListPhoneTopMargin"

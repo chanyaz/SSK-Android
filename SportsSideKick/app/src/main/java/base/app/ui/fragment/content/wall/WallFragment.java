@@ -67,7 +67,7 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 @IgnoreBackHandling
-public class WallFragment extends BaseFragment implements LoginStateReceiver.LoginListener {
+class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginListener {
 
     WallAdapter adapter;
 
@@ -95,8 +95,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     View wallTopInfoContainer;
     @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
-    @BindView(R.id.login_holder)
-    LinearLayout loginHolder;
+    @BindView(R.id.loginContainer)
+    LinearLayout loginContainer;
     @BindView(R.id.swipeRefreshLayout)
     SwipyRefreshLayout swipeRefreshLayout;
 
@@ -323,7 +323,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }
         });
-        WallModel.getInstance().loadWallPosts(getWallPostCompletion);
+        WallModel.getInstance().loadFeed(getWallPostCompletion);
     }
 
     @Override
@@ -336,8 +336,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @Override
     public void onResume() {
         super.onResume();
-        if (loginHolder != null) {
-            loginHolder.setVisibility(Model.getInstance().isRealUser() ? View.GONE : View.VISIBLE);
+        if (loginContainer != null) {
+            loginContainer.setVisibility(Model.getInstance().isRealUser() ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -353,14 +353,14 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @Override
     public void onLogin(UserInfo user) {
-        loginHolder.setVisibility(View.GONE);
+        loginContainer.setVisibility(View.GONE);
         reset();
         reloadWallFromModel();
     }
 
     @Override
     public void onLoginAnonymously() {
-        loginHolder.setVisibility(View.VISIBLE);
+        loginContainer.setVisibility(View.VISIBLE);
         reset();
         reloadWallFromModel();
     }
