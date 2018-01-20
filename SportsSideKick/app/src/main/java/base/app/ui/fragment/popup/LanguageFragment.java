@@ -20,7 +20,7 @@ import base.app.data.Model;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.activity.MainActivity;
-import base.app.ui.activity.MainActivityTablet;
+import base.app.util.ui.MainActivityTablet;
 import base.app.ui.adapter.menu.LanguageAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.events.FragmentEvent;

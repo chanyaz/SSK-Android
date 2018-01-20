@@ -69,7 +69,7 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 FragmentEvent fe = new FragmentEvent(NewsDetailFragment.class);
-                fe.setId(item.getId());
+                fe.setItemId(item.getId());
                 EventBus.getDefault().post(fe);
             }
         };

@@ -72,7 +72,7 @@ public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.View
             public void onClick(View view) {
                 FragmentEvent fragmentEvent = new FragmentEvent(RadioStationFragment.class);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setId(values.get(position).getName());
+                fragmentEvent.setItemId(values.get(position).getName());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });

@@ -696,7 +696,7 @@ public class ChatFragment extends BaseFragment {
             } else {
                 if (Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())) {
                     FragmentEvent fe = new FragmentEvent(EditChatFragment.class);
-                    fe.setId(currentlyActiveChat.getChatId());
+                    fe.setItemId(currentlyActiveChat.getChatId());
                     EventBus.getDefault().post(fe);
                 } else {
                     AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.chat_confirm_leave),

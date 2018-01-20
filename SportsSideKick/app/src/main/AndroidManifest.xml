@@ -43,7 +43,7 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.MainActivityTablet"
+            android:name=".util.ui.MainActivityTablet"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>

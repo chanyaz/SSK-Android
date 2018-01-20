@@ -370,11 +370,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 BaseItem item = values.get(holder.getAdapterPosition());
                 if (item instanceof Pin) {
                     fe = new FragmentEvent(NewsDetailFragment.class);
-                    fe.setId(((Pin) item).getReferencedItemId());
+                    fe.setItemId(((Pin) item).getReferencedItemId());
                     fe.setSecondaryId(item.getId());
                 } else {
                     fe = new FragmentEvent(DetailFragment.class);
-                    fe.setId(item.getId());
+                    fe.setItemId(item.getId());
                 }
                 fe.setItem(item);
                 EventBus.getDefault().post(fe);

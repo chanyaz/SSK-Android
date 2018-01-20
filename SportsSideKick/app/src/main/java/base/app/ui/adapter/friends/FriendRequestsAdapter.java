@@ -132,7 +132,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
                 FragmentEvent fragmentEvent = new FragmentEvent(FriendFragment.class);
                 fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setId(values.get(position).getSender().getUserId());
+                fragmentEvent.setItemId(values.get(position).getSender().getUserId());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });

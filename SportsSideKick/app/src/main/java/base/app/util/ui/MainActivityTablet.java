@@ -1,4 +1,4 @@
-package base.app.ui.activity;
+package base.app.util.ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,6 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
+import base.app.ui.activity.BaseActivity;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.wall.DetailFragment;
@@ -75,8 +76,6 @@ import base.app.data.user.UserInfo;
 import base.app.data.chat.videochat.VideoChatEvent;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.SoundEffects;
-import base.app.util.ui.BlurBuilder;
-import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

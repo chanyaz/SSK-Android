@@ -71,7 +71,7 @@ public class FindOfficialAdapter extends RecyclerView.Adapter<FindOfficialAdapte
                 FragmentEvent fragmentEvent = new FragmentEvent(FriendFragment.class);
                 fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setId(userInfoList.get(position).getUserId());
+                fragmentEvent.setItemId(userInfoList.get(position).getUserId());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });

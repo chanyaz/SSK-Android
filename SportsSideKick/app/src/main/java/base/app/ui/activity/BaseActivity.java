@@ -70,7 +70,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.checkIfBundlesAreEqual;
 
-abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public static final String TAG = "Base Activity";
     protected FragmentOrganizer fragmentOrganizer;
@@ -155,7 +155,7 @@ abstract class BaseActivity extends AppCompatActivity {
                 String postId = parts[0];
 
                 FragmentEvent wallItemFragmentEvent = new FragmentEvent(DetailFragment.class);
-                wallItemFragmentEvent.setId(postId + "$$$");
+                wallItemFragmentEvent.setItemId(postId + "$$$");
                 EventBus.getDefault().post(wallItemFragmentEvent);
             }
         }
@@ -178,7 +178,7 @@ abstract class BaseActivity extends AppCompatActivity {
                 String postId = notificationData.get("postId");
                 String wallId = notificationData.get("wallId");
                 FragmentEvent wallItemFragmentEvent = new FragmentEvent(DetailFragment.class);
-                wallItemFragmentEvent.setId(postId + "$$$" + wallId);
+                wallItemFragmentEvent.setItemId(postId + "$$$" + wallId);
                 // TODO - Load wall item before displaying it ( or this is handled in fragment? )
                 EventBus.getDefault().post(wallItemFragmentEvent);
             } else if (notificationData.containsKey("newsItem") && notificationData.containsKey("newsType")) {
@@ -191,9 +191,9 @@ abstract class BaseActivity extends AppCompatActivity {
                     FragmentEvent fe = new FragmentEvent(NewsDetailFragment.class);
                     String id = notificationData.get("newsItem");
                     if ("newsOfficial".equals(notificationData.get("newsType"))) {
-                        fe.setId("UNOFFICIAL$$$" + id);
+                        fe.setItemId("UNOFFICIAL$$$" + id);
                     } else {
-                        fe.setId(id);
+                        fe.setItemId(id);
                     }
                     // TODO - Load news item before displaying it
                     //EventBus.getDefault().savePost(fe);
@@ -204,7 +204,7 @@ abstract class BaseActivity extends AppCompatActivity {
             } else if (notificationData.containsKey("conferenceId")) {
                 String conferenceId = notificationData.get("conferenceId");
                 FragmentEvent fe = new FragmentEvent(VideoChatFragment.class);
-                fe.setId(conferenceId);
+                fe.setItemId(conferenceId);
                 EventBus.getDefault().post(fe);
             }
         } else {

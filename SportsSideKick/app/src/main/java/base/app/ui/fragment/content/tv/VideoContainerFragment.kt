@@ -224,7 +224,7 @@ class VideoContainerFragment : BaseFragment(),
 
     fun goBackToPlaylist() {
         val fragmentEvent = FragmentEvent(TvPlaylistFragment::class.java)
-        fragmentEvent.id = MediaModel.getPlaylistId(video!!)
+        fragmentEvent.itemId = MediaModel.getPlaylistId(video!!)
         EventBus.getDefault().post(fragmentEvent)
     }
 

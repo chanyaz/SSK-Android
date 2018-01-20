@@ -33,6 +33,7 @@ class MessageUpdateEvent(var message: ImsMessage)
 class UserIsTypingEvent(var chatId: String, var users: List<UserInfo>)
 
 class FragmentEvent(var type: Class<*>?) {
+    var itemId: String? = null
     var stringArrayList: ArrayList<String>? = null
     var item: BaseItem? = null
     var initiatorFragment: Class<*>? = null
@@ -61,4 +62,5 @@ class WallLikeUpdateEvent(var wallId: String, var postId: String, var count: Int
 class PostCommentCompleteEvent(val comment: Comment, val post: Post)
 
 class PlayVideoEvent
+
 class StartCallEvent(var users: List<UserInfo>)

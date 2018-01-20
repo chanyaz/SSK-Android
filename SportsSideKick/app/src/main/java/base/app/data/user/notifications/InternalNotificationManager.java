@@ -11,10 +11,10 @@ import java.util.Map;
 import base.app.data.GSConstants;
 import base.app.data.Model;
 import base.app.data.TypeConverter;
-import base.app.data.user.friends.FriendsListChangedEvent;
+import base.app.data.content.wall.BaseItem;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
-import base.app.data.content.wall.BaseItem;
+import base.app.util.events.FriendsListChangedEvent;
 import base.app.util.events.NotificationEvent;
 
 /**

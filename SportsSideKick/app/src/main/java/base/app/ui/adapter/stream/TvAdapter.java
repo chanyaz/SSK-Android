@@ -71,7 +71,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.ViewHolder> {
             public void onClick(View view) {
                 FragmentEvent fragmentEvent = new FragmentEvent(TvPlaylistFragment.class);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setId(values.get(position).getId());
+                fragmentEvent.setItemId(values.get(position).getId());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });

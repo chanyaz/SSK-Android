@@ -194,7 +194,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
                 FragmentEvent fragmentEvent = new FragmentEvent(FriendFragment.class);
                 fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setId(values.get(position).getUserId());
+                fragmentEvent.setItemId(values.get(position).getUserId());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });

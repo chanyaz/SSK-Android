@@ -83,7 +83,7 @@ public class ClubTVPlaylistAdapter extends RecyclerView.Adapter<ClubTVPlaylistAd
             public void onClick(View view) {
                 FragmentEvent fragmentEvent = new FragmentEvent(VideoContainerFragment.class);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setId(values.get(position).getId());
+                fragmentEvent.setItemId(values.get(position).getId());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });
