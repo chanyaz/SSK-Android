@@ -1,7 +1,6 @@
 package base.app.ui.fragment.content.tv
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +10,9 @@ import base.app.data.content.tv.MediaModel.youtubeDataApi
 import base.app.data.content.tv.MediaRepository
 import base.app.ui.adapter.stream.TvAdapter
 import base.app.ui.fragment.base.BaseFragment
-import base.app.util.events.FragmentEvent
 import base.app.ui.fragment.base.IgnoreBackHandling
+import base.app.ui.fragment.content.wall.injectViewModel
+import base.app.util.events.FragmentEvent
 import base.app.util.ui.inflate
 import kotlinx.android.synthetic.main.fragment_tv.*
 import org.greenrobot.eventbus.EventBus
@@ -20,10 +20,7 @@ import org.greenrobot.eventbus.EventBus
 @IgnoreBackHandling
 class TvFragment : BaseFragment() {
 
-    private val viewModel by lazy {
-            ViewModelProviders.of(activity!!)
-                .get(TvViewModel::class.java)
-    }
+    private val viewModel by lazy { injectViewModel<TvViewModel>() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         return container.inflate(R.layout.fragment_tv)

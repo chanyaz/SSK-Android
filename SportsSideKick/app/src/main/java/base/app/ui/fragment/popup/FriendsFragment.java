@@ -27,15 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.UserInfo;
+import base.app.data.user.friends.FriendRequest;
+import base.app.data.user.friends.FriendsManager;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Model;
-import base.app.data.user.friends.FriendRequest;
-import base.app.data.user.friends.FriendsListChangedEvent;
-import base.app.data.user.friends.FriendsManager;
-import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
+import base.app.util.events.FragmentEvent;
+import base.app.util.events.FriendsListChangedEvent;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
 import butterknife.BindView;
@@ -243,6 +243,4 @@ public class FriendsFragment extends BaseFragment {
     public void handleFriendsListChanged(FriendsListChangedEvent event){
         updateFriends();
     }
-
-
 }

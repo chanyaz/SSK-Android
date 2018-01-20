@@ -31,13 +31,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import base.app.util.commons.GSAndroidPlatform;
-import base.app.util.commons.DateUtils;
-import base.app.util.commons.GSConstants;
-import base.app.util.commons.Model;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
+import base.app.util.commons.DateUtils;
+import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.GSConstants;
+import base.app.util.commons.Model;
+import base.app.util.events.FriendsListChangedEvent;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;

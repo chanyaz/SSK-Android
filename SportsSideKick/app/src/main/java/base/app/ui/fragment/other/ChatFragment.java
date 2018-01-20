@@ -1002,7 +1002,7 @@ public class ChatFragment extends BaseFragment {
             mediaController.reset();
         }
         videoViewContainer.setVisibility(View.VISIBLE);
-        videoView.setVideoURI(Uri.parse(event.getId()));
+        videoView.setVideoURI(Uri.parse(event.getVideoUrl()));
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
@@ -1032,7 +1032,7 @@ public class ChatFragment extends BaseFragment {
         if (fullScreenContainer != null) {
             fullScreenContainer.setVisibility(View.VISIBLE);
         }
-        urlInFullscreen = event.getId();
+        urlInFullscreen = event.getImageUrl();
         if (imageViewFullScreen != null) {
             ImageLoader.displayImage(urlInFullscreen, imageViewFullScreen, null);
         }

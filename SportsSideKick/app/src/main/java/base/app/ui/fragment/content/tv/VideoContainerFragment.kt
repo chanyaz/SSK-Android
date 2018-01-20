@@ -18,6 +18,7 @@ import base.app.Keys.YOUTUBE_API_KEY
 import base.app.R
 import base.app.data.content.tv.MediaModel
 import base.app.ui.fragment.base.BaseFragment
+import base.app.ui.fragment.content.wall.injectViewModel
 import base.app.util.events.FragmentEvent
 import base.app.util.events.ClubTVEvent
 import base.app.util.ui.inflate
@@ -40,8 +41,7 @@ class VideoContainerFragment : BaseFragment(),
         PlayerStateChangeListener {
 
     private val viewModel by lazy {
-        ViewModelProviders.of(activity!!)
-                .get(TvViewModel::class.java)
+        activity.injectViewModel<TvViewModel>()
     }
     internal var fullScreen = false
     private val audioManager by lazy {

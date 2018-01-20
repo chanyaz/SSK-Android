@@ -17,7 +17,7 @@ class ChatsInfoUpdatesEvent(val chats: List<ChatInfo>)
 
 class ChatUpdateEvent(val chatInfo: ChatInfo)
 
-class ClubTVEvent(var eventType: Type) {
+class ClubTVEvent(var eventType: Type, var id: String) {
     enum class Type { FIRST_VIDEO_DATA_DOWNLOADED, VIDEOS_DOWNLOADED, PLAYLISTS_DOWNLOADED }
 }
 
@@ -34,12 +34,13 @@ class UserIsTypingEvent(var chatId: String, var users: List<UserInfo>)
 
 class FragmentEvent(var type: Class<*>?) {
     var itemId: String? = null
+    var secondaryId: String? = null
     var stringArrayList: ArrayList<String>? = null
     var item: BaseItem? = null
     var initiatorFragment: Class<*>? = null
 }
 
-class FullScreenImageEvent
+class FullScreenImageEvent(var imageUrl: String)
 
 class MessageSelectedEvent(val selectedMessage: ChatMessage)
 
@@ -61,6 +62,6 @@ class WallLikeUpdateEvent(var wallId: String, var postId: String, var count: Int
 
 class PostCommentCompleteEvent(val comment: Comment, val post: Post)
 
-class PlayVideoEvent
+class PlayVideoEvent(var videoUrl: String)
 
 class StartCallEvent(var users: List<UserInfo>)
