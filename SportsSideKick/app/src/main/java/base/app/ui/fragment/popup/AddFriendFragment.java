@@ -30,7 +30,7 @@ import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.data.FragmentEvent;
 import base.app.data.Model;
-import base.app.data.friendship.PeopleSearchManager;
+import base.app.data.user.friends.PeopleSearchManager;
 import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import butterknife.BindView;

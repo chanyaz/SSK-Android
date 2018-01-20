@@ -34,7 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import base.app.Keys;
-import base.app.data.purchases.PurchaseModel;
+import base.app.data.user.purchases.PurchaseModel;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.MessageHandler;
 import base.app.data.user.UserEvent;

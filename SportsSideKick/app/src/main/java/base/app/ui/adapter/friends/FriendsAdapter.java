@@ -22,7 +22,7 @@ import java.util.List;
 import base.app.R;
 import base.app.data.FragmentEvent;
 import base.app.ui.fragment.popup.FriendFragment;
-import base.app.data.friendship.FriendsManager;
+import base.app.data.user.friends.FriendsManager;
 import base.app.data.user.UserInfo;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;

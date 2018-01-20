@@ -108,7 +108,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         return Observable.create(new ObservableOnSubscribe<Post>() {
             @Override
             public void subscribe(final ObservableEmitter<Post> emitter) throws Exception {
-                post.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
+                post.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName());
                 post.setWallId(getCurrentUser().getUserId());
 
                 GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -255,7 +255,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * the post comments count will be increased by 1
      */
     public void postComment(final Comment comment) {
-        comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
+        comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName());
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -302,7 +302,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     public Task<Void> updatePostComment(Comment comment) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
-        comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
+        comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName());
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {

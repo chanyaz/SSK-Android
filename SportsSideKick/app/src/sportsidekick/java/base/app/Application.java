@@ -9,7 +9,7 @@ import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import base.app.data.FileUploader;
-import base.app.data.purchases.PurchaseModel;
+import base.app.data.user.purchases.PurchaseModel;
 import base.app.data.ticker.NextMatchModel;
 import base.app.util.commons.Connection;
 import base.app.util.commons.SoundEffects;

@@ -1,4 +1,4 @@
-package base.app.data.im;
+package base.app.data.chat;
 
 import android.util.Log;
 

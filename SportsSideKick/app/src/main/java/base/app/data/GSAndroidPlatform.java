@@ -24,7 +24,7 @@ public class GSAndroidPlatform implements IGSPlatform {
     private Handler mainHandler;
     private Context ctx;
 
-    public static void initialise(final Context ctx, String apiKey, String secret) {
+    static void initialise(final Context ctx, String apiKey, String secret) {
         if (gs == null) {
             GSAndroidPlatform gsAndroidPlatform = new GSAndroidPlatform(ctx);
             gs = new GS(apiKey, secret, null, false, true, gsAndroidPlatform);

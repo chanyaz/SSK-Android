@@ -1,4 +1,4 @@
-package base.app.data.achievements;
+package base.app.data.user.achievements;
 
 import android.util.Log;
 

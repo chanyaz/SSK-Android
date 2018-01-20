@@ -1,4 +1,4 @@
-package base.app.data.im;
+package base.app.data.chat;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,7 +24,7 @@ import base.app.data.GSAndroidPlatform;
 import base.app.data.FileUploader;
 import base.app.data.GSConstants;
 import base.app.data.Model;
-import base.app.data.im.event.ChatNotificationsEvent;
+import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.data.ChatsInfoUpdatesEvent;
 import base.app.data.CreateNewChatSuccessEvent;
 import base.app.data.user.GSMessageHandlerAbstract;

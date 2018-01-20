@@ -1,4 +1,4 @@
-package base.app.data.purchases;
+package base.app.data.user.purchases;
 
 import android.app.Activity;
 import android.content.Context;

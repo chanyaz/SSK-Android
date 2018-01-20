@@ -1,4 +1,4 @@
-package base.app.data.achievements;
+package base.app.data.user.achievements;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;

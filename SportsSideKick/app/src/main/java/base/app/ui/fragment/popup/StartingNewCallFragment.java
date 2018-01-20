@@ -28,7 +28,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.AlertDialogManager;
-import base.app.data.friendship.FriendsManager;
+import base.app.data.user.friends.FriendsManager;
 import base.app.data.AddFriendsEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;

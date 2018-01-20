@@ -17,7 +17,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.data.friendship.FriendsManager;
+import base.app.data.user.friends.FriendsManager;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.data.FragmentEvent;
 import butterknife.BindView;

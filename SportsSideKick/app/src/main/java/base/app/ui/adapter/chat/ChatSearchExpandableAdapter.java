@@ -22,7 +22,7 @@ import java.util.List;
 import base.app.R;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.data.Model;
-import base.app.data.im.ChatInfo;
+import base.app.data.chat.ChatInfo;
 import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AnimatedExpandableListView;

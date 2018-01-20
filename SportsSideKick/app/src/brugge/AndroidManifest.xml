@@ -30,14 +30,14 @@
 
         <!-- ** ** Notifications ** ** -->
         <service
-            android:name="base.app.data.notifications.SskFirebaseMessagingService">
+            android:name="base.app.data.user.notifications.SskFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name="base.app.data.notifications.FirebaseInstanceIDService">
+            android:name="base.app.data.user.notifications.FirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>

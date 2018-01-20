@@ -1,4 +1,4 @@
-package base.app.data.purchases;
+package base.app.data.user.purchases;
 
 /**
  * Created by Filip on 5/4/2017.

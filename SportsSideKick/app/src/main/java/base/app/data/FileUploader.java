@@ -109,7 +109,7 @@ public class FileUploader {
         }
     }
 
-    void upload(final File image, final String filename, final TaskCompletionSource<String> completion) {
+    private void upload(final File image, final String filename, final TaskCompletionSource<String> completion) {
         try {
             TransferObserver observer = transferUtility.upload(
                     bucket,     /* The bucket to upload to */
@@ -188,7 +188,7 @@ public class FileUploader {
         upload(image, filename, completion);
     }
 
-    public void uploadCircularProfileImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
+    void uploadCircularProfileImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         File image = new File(filepath);
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
@@ -235,16 +235,16 @@ public class FileUploader {
         return output;
     }
 
-    public static String generateRandName(int length) {
+    public static String generateRandName() {
         String letters = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        String randomString = "";
+        StringBuilder randomString = new StringBuilder();
         Random random = new Random();
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < 10; i++) {
             int rand = random.nextInt(letters.length());
             char nextChar = letters.charAt(rand);
-            randomString += nextChar;
+            randomString.append(nextChar);
         }
-        return randomString;
+        return randomString.toString();
     }
 
     public static String generateMongoOID() {

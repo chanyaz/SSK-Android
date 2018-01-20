@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.achievements.Achievement;
+import base.app.data.user.achievements.Achievement;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -1,4 +1,4 @@
-package base.app.data.friendship;
+package base.app.data.user.friends;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

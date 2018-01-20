@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.im.ChatInfo;
+import base.app.data.chat.ChatInfo;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package base.app.data.friendship;
+package base.app.data.user.friends;
 
 /**
  * Created by Filip on 12/27/2016.

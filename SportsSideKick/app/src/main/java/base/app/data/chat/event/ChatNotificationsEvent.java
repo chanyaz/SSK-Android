@@ -1,7 +1,7 @@
-package base.app.data.im.event;
+package base.app.data.chat.event;
 
-import base.app.data.im.ChatInfo;
-import base.app.data.im.ImsMessage;
+import base.app.data.chat.ChatInfo;
+import base.app.data.chat.ImsMessage;
 
 /**
  * Created by Filip on 4/25/2017.

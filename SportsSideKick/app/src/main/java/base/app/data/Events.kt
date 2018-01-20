@@ -1,8 +1,8 @@
 package base.app.data
 
 import android.content.Intent
-import base.app.data.im.ChatInfo
-import base.app.data.im.ImsMessage
+import base.app.data.chat.ChatInfo
+import base.app.data.chat.ImsMessage
 import base.app.data.user.UserInfo
 import base.app.data.wall.BaseItem
 import base.app.data.wall.Comment

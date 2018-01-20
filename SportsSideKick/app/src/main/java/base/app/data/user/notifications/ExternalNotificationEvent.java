@@ -1,4 +1,4 @@
-package base.app.data.notifications;
+package base.app.data.user.notifications;
 
 import java.util.Map;
 

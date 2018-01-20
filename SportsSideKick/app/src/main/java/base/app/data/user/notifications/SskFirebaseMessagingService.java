@@ -1,4 +1,4 @@
-package base.app.data.notifications;
+package base.app.data.user.notifications;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;

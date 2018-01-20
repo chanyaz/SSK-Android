@@ -1,4 +1,4 @@
-package base.app.data.friendship;
+package base.app.data.user.friends;
 
 import android.text.TextUtils;
 

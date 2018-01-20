@@ -12,7 +12,7 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import java.util.Map;
 
 import base.app.data.TypeConverter.ItemType;
-import base.app.data.im.ImsMessage;
+import base.app.data.chat.ImsMessage;
 import base.app.data.wall.Comment;
 import base.app.data.wall.News;
 import base.app.data.wall.Post;

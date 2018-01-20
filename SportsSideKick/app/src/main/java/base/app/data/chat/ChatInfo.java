@@ -1,4 +1,4 @@
-package base.app.data.im;
+package base.app.data.chat;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.data.Model;
-import base.app.data.im.event.ChatNotificationsEvent;
+import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.data.ChatUpdateEvent;
 import base.app.data.MessageUpdateEvent;
 import base.app.data.UserIsTypingEvent;
