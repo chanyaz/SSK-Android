@@ -540,7 +540,7 @@ public class MainActivity extends BaseActivity
     @Subscribe
     public void updateUserName(UserEvent event) {
         if (event.getType() == UserEvent.Type.onDetailsUpdated) {
-            setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
+            setYourCoinsValue(String.valueOf(Model.getInstance().getUser().getCurrency()));
         }
 
     }
@@ -597,13 +597,13 @@ public class MainActivity extends BaseActivity
             if (user.getAvatar() != null) {
                 ImageLoader.displayImage(user.getAvatar(), profileImage, null);
             }
-            setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
+            setYourCoinsValue(String.valueOf(Model.getInstance().getUser().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
             yourLevel.setText(String.valueOf((int) user.getProgress()));
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
-            TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
+            TutorialModel.getInstance().setUserId(Model.getInstance().getUser().getUserId());
         } else {
             resetUserDetails();
         }

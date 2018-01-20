@@ -3,7 +3,7 @@ package base.app.util.events
 import android.content.Intent
 import base.app.data.chat.ChatInfo
 import base.app.data.chat.ChatMessage
-import base.app.data.content.wall.BaseItem
+import base.app.data.content.wall.FeedItem
 import base.app.data.content.wall.Comment
 import base.app.data.content.wall.News
 import base.app.data.content.wall.Post
@@ -21,10 +21,10 @@ class ClubTVEvent(var eventType: Type, var id: String) {
     enum class Type { FIRST_VIDEO_DATA_DOWNLOADED, VIDEOS_DOWNLOADED, PLAYLISTS_DOWNLOADED }
 }
 
-class CommentDeleteEvent(var post: BaseItem, var comment: Comment)
+class CommentDeleteEvent(var post: FeedItem, var comment: Comment)
 class CommentSelectedEvent(var selectedComment: Comment)
-class CommentUpdatedEvent(val wallItem: BaseItem, val comment: Comment)
-class CommentUpdateEvent(val wallItem: BaseItem, val comment: Comment)
+class CommentUpdatedEvent(val wallItem: FeedItem, val comment: Comment)
+class CommentUpdateEvent(val wallItem: FeedItem, val comment: Comment)
 
 class CreateNewChatSuccessEvent(var chatInfo: ChatInfo)
 
@@ -36,7 +36,7 @@ class FragmentEvent(var type: Class<*>?) {
     var itemId: String? = null
     var secondaryId: String? = null
     var stringArrayList: ArrayList<String>? = null
-    var item: BaseItem? = null
+    var item: FeedItem? = null
     var initiatorFragment: Class<*>? = null
 }
 
@@ -48,7 +48,7 @@ class OpenChatEvent(var chatInfo: ChatInfo)
 
 class GetCommentsCompleteEvent(val commentList: List<Comment> )
 class GetPostByIdEvent(val post: Post)
-class ItemUpdateEvent(val item: BaseItem)
+class ItemUpdateEvent(val item: FeedItem)
 
 class NativeShareEvent(val intent: Intent)
 

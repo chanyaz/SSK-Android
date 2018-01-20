@@ -40,7 +40,7 @@ public class WalletFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.popup_your_wallet, container, false);
         ButterKnife.bind(this, view);
-        walletAmount.setText(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
+        walletAmount.setText(String.valueOf(Model.getInstance().getUser().getCurrency()));
         return view;
     }
 

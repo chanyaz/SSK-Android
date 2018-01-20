@@ -64,8 +64,8 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
 
     private String getUserId() {
-        if(Model.getInstance().getUserInfo()!=null) {
-            return Model.getInstance().getUserInfo().getUserId();
+        if(Model.getInstance().getUser()!=null) {
+            return Model.getInstance().getUser().getUserId();
         } else {
             return null;
         }
@@ -338,7 +338,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
     public void reset(){
         activeVideoChatItem = null;
         pendingInvitations.clear();
-        userId = Model.getInstance().getUserInfo().getUserId();
+        userId = Model.getInstance().getUser().getUserId();
     }
 
     public List<String> getInvitedUsers(){

@@ -25,7 +25,7 @@ object TypeConverter {
     }
 
     @JvmStatic
-    val cache = HashMap<String, BaseItem>()
+    val cache = HashMap<String, FeedItem>()
 
     @JvmStatic
     fun clear() {
@@ -33,7 +33,7 @@ object TypeConverter {
     }
 
     @JvmStatic
-    fun <T : BaseItem> postFactory(wallItem: Any, mapper: ObjectMapper, putInCache: Boolean): T? {
+    fun <T : FeedItem> postFactory(wallItem: Any, mapper: ObjectMapper, putInCache: Boolean): T? {
         val node = mapper.valueToTree<JsonNode>(wallItem)
         if (node.has("type")) {
             lateinit var typeReference: TypeReference<*>

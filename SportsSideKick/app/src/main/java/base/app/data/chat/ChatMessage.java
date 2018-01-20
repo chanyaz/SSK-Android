@@ -78,13 +78,13 @@ public class ChatMessage {
         message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
         message.setTimestamp(DateUtils.currentTimeToFirebaseDate());
         message.initializeTimestamp();
-        message.setSenderId(Model.getInstance().getUserInfo().getUserId());
+        message.setSenderId(Model.getInstance().getUser().getUserId());
         message.setReadFlag(false);
         return message;
     }
 
     public void determineSelfReadFlag(){
-        String userId = Model.getInstance().getUserInfo().getUserId();
+        String userId = Model.getInstance().getUser().getUserId();
         if(wasReadBy!=null){
             for(String key : wasReadBy){
                 if(userId.equals(key)){

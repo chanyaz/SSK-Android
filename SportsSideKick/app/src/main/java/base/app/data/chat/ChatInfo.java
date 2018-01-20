@@ -62,7 +62,7 @@ public class ChatInfo {
 
     public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial, String chatId, String clubId) {
         super();
-        owner = Model.getInstance().getUserInfo().getUserId();
+        owner = Model.getInstance().getUser().getUserId();
         this.chatId = chatId;
         this.name = name;
         if(usersIds!=null){
@@ -77,7 +77,7 @@ public class ChatInfo {
     }
     public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial) {
         super();
-        owner = Model.getInstance().getUserInfo().getUserId();
+        owner = Model.getInstance().getUser().getUserId();
         this.name = name;
         if(usersIds!=null){
             this.usersIds = usersIds;
@@ -180,7 +180,7 @@ public class ChatInfo {
             String firstUserId = getUsersIds().get(0);
             String secondUserId = getUsersIds().get(1);
             User info;
-            String currentUserId = Model.getInstance().getUserInfo().getUserId();
+            String currentUserId = Model.getInstance().getUser().getUserId();
             if(currentUserId==null || !currentUserId.equals(firstUserId)){
                 info = Model.getInstance().getCachedUserInfoById(firstUserId);
             } else {
@@ -290,11 +290,11 @@ public class ChatInfo {
      */
     public int unreadMessageCount(){
         int count = 0;
-        if(Model.getInstance().getUserInfo()==null){
+        if(Model.getInstance().getUser()==null){
             Log.e(TAG,"*** error - no user!");
             return -1;
         }
-        String uid = Model.getInstance().getUserInfo().getUserId();
+        String uid = Model.getInstance().getUser().getUserId();
         if (messages == null){
             Log.e(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
             return -1;
@@ -319,10 +319,10 @@ public class ChatInfo {
     }
 
     public void addUser(User uinfo){
-        if(Model.getInstance().getUserInfo()==null){
+        if(Model.getInstance().getUser()==null){
             return;
         }
-        String currentUserId = Model.getInstance().getUserInfo().getUserId();
+        String currentUserId = Model.getInstance().getUser().getUserId();
         if(owner.equals(currentUserId)){
             usersIds.add(uinfo.getUserId());
             updateChatInfo();
@@ -372,7 +372,7 @@ public class ChatInfo {
      * once deleted it will remove the chat from all user following this chat
      **/
     public void deleteChat(){
-        String currentUserId = Model.getInstance().getUserInfo().getUserId();
+        String currentUserId = Model.getInstance().getUser().getUserId();
         ImsManager.getInstance().removeChatFromChatList(this);
         if (owner.equals(currentUserId)){
             ImsManager.getInstance().deleteChat(this);
@@ -399,7 +399,7 @@ public class ChatInfo {
      * Remove a user from this chat, only available if you are the owner and you are not removing yourself
      */
     public void removeUserFromChat(String uid){
-        String currentUserId = Model.getInstance().getUserInfo().getUserId();
+        String currentUserId = Model.getInstance().getUser().getUserId();
         if (owner.equals(currentUserId) && !uid.equals(currentUserId)){
             boolean shouldRemove = false;
             for(String entry : getUsersIds()) {
@@ -419,7 +419,7 @@ public class ChatInfo {
      * Join a public chat, this func add the current user to this chat if this chat is a public chat.
      **/
     public void joinChat(){
-        String currentUserId = Model.getInstance().getUserInfo().getUserId();
+        String currentUserId = Model.getInstance().getUser().getUserId();
         if(isPublic && !isUserBlockedFromThisChat(currentUserId)){
             ImsManager.getInstance().joinChat(this).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
                 @Override
@@ -487,7 +487,7 @@ public class ChatInfo {
      * @param  userId  user ID to block
      */
     public void blockUserFromJoinningThisChat(String userId){
-        String currentUserId = Model.getInstance().getUserInfo().getUserId();
+        String currentUserId = Model.getInstance().getUser().getUserId();
         if(isPublic && owner.equals(currentUserId)){
             if(!blackList.contains(userId)){
                blackList.add(userId);
@@ -504,7 +504,7 @@ public class ChatInfo {
      * @param  userId user ID to unblock
      */
     public void unblockUserInThisChat(String userId){
-        String currentUserId = Model.getInstance().getUserInfo().getUserId();
+        String currentUserId = Model.getInstance().getUser().getUserId();
         if(isPublic && owner.equals(currentUserId)){
             //check if the user is actually blocked then unblock
             if (isUserBlockedFromThisChat(userId)){

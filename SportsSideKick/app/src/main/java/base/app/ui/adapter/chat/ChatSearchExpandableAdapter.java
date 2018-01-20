@@ -118,7 +118,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             holder.memberList.addItemDecoration(new LinearItemSpacing(space, true, true));
             convertView.setTag(holder);
         }
-        if (!info.getUsersIds().contains(Model.getInstance().getUserInfo().getUserId())) {
+        if (!info.getUsersIds().contains(Model.getInstance().getUser().getUserId())) {
             holder.joinButton.setVisibility(View.VISIBLE);
             holder.joinButton.setOnClickListener(new View.OnClickListener() {
                 @Override

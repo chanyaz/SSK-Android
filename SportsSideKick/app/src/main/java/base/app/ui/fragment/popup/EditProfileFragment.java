@@ -114,7 +114,7 @@ public class EditProfileFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_edit_profile, container, false);
         ButterKnife.bind(this, view);
 
-        user = Model.getInstance().getUserInfo();
+        user = Model.getInstance().getUser();
         if (user != null) {
             ImageLoader.displayImage(user.getAvatar(), profileImage, null);
             firstNameEditText.setText(user.getFirstName());

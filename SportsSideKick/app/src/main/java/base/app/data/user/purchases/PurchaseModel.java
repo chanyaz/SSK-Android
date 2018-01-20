@@ -159,13 +159,13 @@ public class PurchaseModel {
                 }
             }
 
-            if(Model.getInstance().getUserInfo() == null) {
+            if(Model.getInstance().getUser() == null) {
                 return;
             }
 
             final boolean finalResult = result;
             final String finalError = error;
-            Model.getInstance().refreshUserInfo(Model.getInstance().getUserInfo().getUserId()).addOnCompleteListener(
+            Model.getInstance().refreshUserInfo(Model.getInstance().getUser().getUserId()).addOnCompleteListener(
                     new OnCompleteListener<User>() {
                         @Override
                         public void onComplete(@NonNull Task<User> task) {
@@ -209,13 +209,13 @@ public class PurchaseModel {
                 }
             }
 
-            if(Model.getInstance().getUserInfo() == null) {
+            if(Model.getInstance().getUser() == null) {
                 return;
             }
 
             final boolean finalResult = result;
             final String finalError = error;
-            Model.getInstance().refreshUserInfo(Model.getInstance().getUserInfo().getUserId()).addOnCompleteListener(
+            Model.getInstance().refreshUserInfo(Model.getInstance().getUser().getUserId()).addOnCompleteListener(
                     new OnCompleteListener<User>() {
                         @Override
                         public void onComplete(@NonNull Task<User> task) {

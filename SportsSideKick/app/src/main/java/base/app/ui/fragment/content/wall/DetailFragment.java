@@ -47,7 +47,7 @@ import base.app.data.user.User;
 import base.app.util.commons.Model;
 import base.app.data.content.Translator;
 import base.app.data.content.share.ShareHelper;
-import base.app.data.content.wall.BaseItem;
+import base.app.data.content.wall.FeedItem;
 import base.app.data.content.wall.Comment;
 import base.app.data.content.wall.News;
 import base.app.data.content.wall.Post;
@@ -197,7 +197,7 @@ public class DetailFragment extends BaseFragment {
             initializeWithData(mPost, true);
         }
 
-        String userId = Model.getInstance().getUserInfo().getUserId();
+        String userId = Model.getInstance().getUser().getUserId();
         if (mPost.getWallId() != null) {
             if (mPost.getWallId().equals(userId)) {
                 delete.setVisibility(View.VISIBLE);
@@ -246,7 +246,7 @@ public class DetailFragment extends BaseFragment {
         return view;
     }
 
-    private void initializeWithData(BaseItem item, boolean fetchComments) {
+    private void initializeWithData(FeedItem item, boolean fetchComments) {
         if (item instanceof News) {
             News news = (News) item;
             ImageLoader.displayImage(news.getImage(), imageHeader, null);
@@ -375,7 +375,7 @@ public class DetailFragment extends BaseFragment {
     private void sendComment() {
         Comment comment = new Comment();
         comment.setComment(post.getText().toString());
-        comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
+        comment.setPosterId(Model.getInstance().getUser().getUserId());
         comment.setWallId(mPost.getWallId());
         comment.setPostId(mPost.getId());
         comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
@@ -417,7 +417,7 @@ public class DetailFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentUpdated(final CommentUpdatedEvent event) {
-        BaseItem wallItem = event.getWallItem();
+        FeedItem wallItem = event.getWallItem();
         if (wallItem != null && wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getId().equals(mPost.getId())) {
             Comment receivedComment = event.getComment();
             Comment commentToUpdate = null;
@@ -438,7 +438,7 @@ public class DetailFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentReceived(final CommentUpdateEvent event) {
-        BaseItem wallItem = event.getWallItem();
+        FeedItem wallItem = event.getWallItem();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(mPost.getWallId())
                     && wallItem.getId().equals(mPost.getId())) {
@@ -518,7 +518,7 @@ public class DetailFragment extends BaseFragment {
         }
     }
 
-    private void toggleLike(BaseItem item) {
+    private void toggleLike(FeedItem item) {
         boolean isLikedByUser = !item.getLikedByUser();
         item.setLikedByUser(isLikedByUser);
         if (isLikedByUser) {
@@ -530,7 +530,7 @@ public class DetailFragment extends BaseFragment {
 
     @Subscribe
     public void onPostUpdate(ItemUpdateEvent event) {
-        BaseItem post = event.getItem();
+        FeedItem post = event.getItem();
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));
             }

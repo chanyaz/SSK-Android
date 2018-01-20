@@ -322,7 +322,7 @@ public class LoginFragment extends BaseFragment
     public void onLogin(User user) {
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
-        EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
+        EventBus.getDefault().post(Model.getInstance().getUser()); //catch in Lounge Activity
         Utility.hideKeyboard(getActivity());
         if(Utility.isTablet(getActivity())) {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);

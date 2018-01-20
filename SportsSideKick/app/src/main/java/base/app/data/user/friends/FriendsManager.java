@@ -463,7 +463,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     if (!operation.equals(OPERATION_UPDATE)) {
                         if (data.containsKey(GSConstants.USER_INFO)) {
                             User user = mapper.convertValue(data.get(GSConstants.USER_INFO), User.class);
-                            User currentUser = Model.getInstance().getUserInfo();
+                            User currentUser = Model.getInstance().getUser();
                             if(user !=null && currentUser != null){
                                 if (user.getUserId().equals(currentUser.getUserId())) {
                                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUser));

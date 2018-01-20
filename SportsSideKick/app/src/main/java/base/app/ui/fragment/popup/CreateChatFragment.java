@@ -291,7 +291,7 @@ public class CreateChatFragment extends BaseFragment {
             boolean isPrivate = privateChatSwitch.isChecked();
 
             ChatInfo newChatInfo = new ChatInfo();
-            newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
+            newChatInfo.setOwner(Model.getInstance().getUser().getUserId());
             newChatInfo.setIsPublic(!isPrivate);
             newChatInfo.setName(chatName);
             ArrayList<String> userIds = new ArrayList<>();

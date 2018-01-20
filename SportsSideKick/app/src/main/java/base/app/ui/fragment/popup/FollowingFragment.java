@@ -71,7 +71,7 @@ public class FollowingFragment extends BaseFragment {
         final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
         adapter.setInitiatorFragment(this.getClass());
         followingRecyclerView.setAdapter(adapter);
-        User user = Model.getInstance().getUserInfo();
+        User user = Model.getInstance().getUser();
         if (user != null)
         {
             Task<List<User>> friendsTask = FriendsManager.getInstance().getUserFollowingList(user.getUserId(), 0);

@@ -391,10 +391,10 @@ public class FriendFragment extends BaseFragment {
 
         List<User> selectedUsers = new ArrayList<>();
         selectedUsers.add(user);
-        String chatName = user.getNicName() + " & " + Model.getInstance().getUserInfo().getNicName();
+        String chatName = user.getNicName() + " & " + Model.getInstance().getUser().getNicName();
 
         ChatInfo newChatInfo = new ChatInfo();
-        newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
+        newChatInfo.setOwner(Model.getInstance().getUser().getUserId());
         newChatInfo.setIsPublic(true);
         newChatInfo.setName(chatName);
         ArrayList<String> userIds = new ArrayList<>();

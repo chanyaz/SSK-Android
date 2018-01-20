@@ -394,7 +394,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         List<User> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
         for (User user : users) {
-            if (!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())) {
+            if (!user.getUserId().equals(Model.getInstance().getUser().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
         }
@@ -419,7 +419,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         List<User> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
         for (User user : users) {
-            if (!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())) {
+            if (!user.getUserId().equals(Model.getInstance().getUser().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
         }
@@ -438,7 +438,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         userCounter = 0;
         if (users != null) {
             for (String userId : users) {
-                if (!userId.equals(Model.getInstance().getUserInfo().getUserId())) {
+                if (!userId.equals(Model.getInstance().getUser().getUserId())) {
                     Slot slot = getSlotBy(userId);
                     if (slot == null) {
                         slot = getNextFreeSlot();
@@ -457,9 +457,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                                                     nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());
                                                     myNames = nickNameUsers.getText().toString();
                                                     myNames = myNames.substring(1);
-                                                    nickNameUsers.setText(myNames + " & " + Model.getInstance().getUserInfo().getFirstName() + " " + Model.getInstance().getUserInfo().getLastName());
+                                                    nickNameUsers.setText(myNames + " & " + Model.getInstance().getUser().getFirstName() + " " + Model.getInstance().getUser().getLastName());
                                                 } else {
-                                                    nickNameUsers.setText(Model.getInstance().getUserInfo().getFirstName() + " " + Model.getInstance().getUserInfo().getLastName());
+                                                    nickNameUsers.setText(Model.getInstance().getUser().getFirstName() + " " + Model.getInstance().getUser().getLastName());
                                                 }
                                             } else {
                                                 nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());

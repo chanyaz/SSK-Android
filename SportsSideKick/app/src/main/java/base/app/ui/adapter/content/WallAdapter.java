@@ -33,7 +33,7 @@ import base.app.R;
 import base.app.data.user.User;
 import base.app.util.commons.Model;
 import base.app.data.content.Translator;
-import base.app.data.content.wall.BaseItem;
+import base.app.data.content.wall.FeedItem;
 import base.app.data.content.wall.News;
 import base.app.data.content.wall.Pin;
 import base.app.data.content.wall.Post;
@@ -224,7 +224,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    static void displayUserInfo(final BaseItem post, final ViewHolder holder) {
+    static void displayUserInfo(final FeedItem post, final ViewHolder holder) {
         Task<User> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
@@ -253,7 +253,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         });
     }
 
-    static void displayCommentsAndLikes(BaseItem post, final ViewHolder holder) {
+    static void displayCommentsAndLikes(FeedItem post, final ViewHolder holder) {
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
         if (post.getLikedByUser()) {
@@ -289,7 +289,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             } else {
                 index = position;
             }
-            BaseItem item = values.get(index);
+            FeedItem item = values.get(index);
             if (item instanceof Pin) {
                     Pin news = (Pin) item;
                     displayUserInfo(news, holder);
@@ -367,7 +367,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             public void onClick(View v) {
                 if (holder.getAdapterPosition() == -1) return;
                 FragmentEvent fe;
-                BaseItem item = values.get(holder.getAdapterPosition());
+                FeedItem item = values.get(holder.getAdapterPosition());
                 if (item instanceof Pin) {
                     fe = new FragmentEvent(NewsDetailFragment.class);
                     fe.setItemId(((Pin) item).getReferencedItemId());
@@ -413,21 +413,21 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         values.clear();
     }
 
-    private final List<BaseItem> values = new ArrayList<>();
+    private final List<FeedItem> values = new ArrayList<>();
 
-    public void add(BaseItem model) {
+    public void add(FeedItem model) {
         values.add(model);
     }
 
-    public void add(int position, BaseItem model) {
+    public void add(int position, FeedItem model) {
         values.add(position, model);
     }
 
-    public void addAll(List<BaseItem> items) {
+    public void addAll(List<FeedItem> items) {
         values.addAll(items);
     }
 
-    public void remove(BaseItem model) {
+    public void remove(FeedItem model) {
         values.remove(model);
     }
 

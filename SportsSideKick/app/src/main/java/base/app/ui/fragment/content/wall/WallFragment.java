@@ -39,7 +39,7 @@ import base.app.data.content.wall.nextmatch.NewsTickerInfo;
 import base.app.data.content.wall.nextmatch.NextMatchModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.User;
-import base.app.data.content.wall.BaseItem;
+import base.app.data.content.wall.FeedItem;
 import base.app.data.content.wall.Post;
 import base.app.data.content.wall.WallModel;
 import base.app.ui.adapter.content.WallAdapter;
@@ -67,7 +67,7 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 @IgnoreBackHandling
-class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginListener {
+public class WallFragment extends BaseFragment implements LoginStateReceiver.LoginListener {
 
     WallAdapter adapter;
 
@@ -100,7 +100,7 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
     @BindView(R.id.swipeRefreshLayout)
     SwipyRefreshLayout swipeRefreshLayout;
 
-    List<BaseItem> wallItems;
+    List<FeedItem> wallItems;
     private LoginStateReceiver loginStateReceiver;
 
     boolean fetchingPageOfPosts = false;
@@ -127,14 +127,14 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
                 if (!fetchingPageOfPosts) {
                     fetchingPageOfPosts = true;
-                    TaskCompletionSource<List<BaseItem>> competition = new TaskCompletionSource<>();
-                    competition.getTask().addOnCompleteListener(new OnCompleteListener<List<BaseItem>>() {
+                    TaskCompletionSource<List<FeedItem>> competition = new TaskCompletionSource<>();
+                    competition.getTask().addOnCompleteListener(new OnCompleteListener<List<FeedItem>>() {
                         @Override
-                        public void onComplete(@NonNull Task<List<BaseItem>> task) {
+                        public void onComplete(@NonNull Task<List<FeedItem>> task) {
                             fetchingPageOfPosts = false;
                         }
                     });
-                    loadWallItemsPage(false, competition);
+                    loadFeed(false, competition, Model.getInstance().getUser());
                 }
             }
         });
@@ -198,9 +198,9 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
 
     @Subscribe
     public void onItemUpdate(ItemUpdateEvent event) {
-        final BaseItem item = event.getItem();
+        final FeedItem item = event.getItem();
         for (int i = 0; i < wallItems.size(); i++) {
-            BaseItem wallItem = wallItems.get(i);
+            FeedItem wallItem = wallItems.get(i);
             if (item.getWallId().equals(wallItem.getWallId()) &&
                     item.getId().equals(wallItem.getId())) {
                 wallItems.remove(wallItem);
@@ -231,7 +231,7 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
     @Subscribe
     public void onUpdateLikeCount(WallLikeUpdateEvent event) {
         if (event.getWallId() != null) {
-            for (BaseItem item : wallItems) {
+            for (FeedItem item : wallItems) {
                 if (event.getWallId().equals(item.getWallId())
                         && event.getPostId().equals(item.getId())) {
                     item.setLikeCount(event.getCount());
@@ -245,7 +245,7 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
     @Subscribe
     public void onUpdateComment(CommentUpdateEvent event) {
         if (event.getWallItem() != null) {
-            for (BaseItem item : wallItems) {
+            for (FeedItem item : wallItems) {
                 if (event.getWallItem().getWallId().equals(item.getWallId())
                         && event.getWallItem().getId().equals(item.getId())) {
                     item.setCommentsCount(event.getWallItem().getCommentsCount());
@@ -258,9 +258,9 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
 
     public void refreshAdapter() {
         adapter.clear();
-        Collections.sort(wallItems, new Comparator<BaseItem>() {
+        Collections.sort(wallItems, new Comparator<FeedItem>() {
             @Override
-            public int compare(BaseItem t1, BaseItem t2) {
+            public int compare(FeedItem t1, FeedItem t2) {
                 if (t1 == null || t2 == null) {
                     return 0;
                 }
@@ -276,7 +276,7 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
     @Subscribe
     public void onPostDeleted(PostDeletedEvent event) {
         Post deletedItem = event.getPost();
-        for (BaseItem post : wallItems) {
+        for (FeedItem post : wallItems) {
             if (post.getId().equals(deletedItem.getId())) {
                 wallItems.remove(post);
                 refreshAdapter();
@@ -290,26 +290,26 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
         adapter.notifyDataSetChanged();
 
         fetchingPageOfPosts = true;
-        final TaskCompletionSource<List<BaseItem>> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<List<BaseItem>>() {
+        final TaskCompletionSource<List<FeedItem>> callback = new TaskCompletionSource<>();
+        callback.getTask().addOnCompleteListener(new OnCompleteListener<List<FeedItem>>() {
             @Override
-            public void onComplete(@NonNull Task<List<BaseItem>> task) {
+            public void onComplete(@NonNull Task<List<FeedItem>> task) {
                 fetchingPageOfPosts = false;
             }
         });
-        loadWallItemsPage(true, source);
+        loadFeed(true, callback, Model.getInstance().getUser());
     }
 
-    private void loadWallItemsPage(final boolean withSpinner, final TaskCompletionSource<List<BaseItem>> completion) {
+    private void loadFeed(final boolean withSpinner, final TaskCompletionSource<List<FeedItem>> completion, User user) {
         if (withSpinner) {
             progressBar.setVisibility(View.VISIBLE);
         }
-        TaskCompletionSource<List<BaseItem>> getWallPostCompletion = new TaskCompletionSource<>();
-        getWallPostCompletion.getTask().addOnCompleteListener(new OnCompleteListener<List<BaseItem>>() {
+        TaskCompletionSource<List<FeedItem>> getWallPostCompletion = new TaskCompletionSource<>();
+        getWallPostCompletion.getTask().addOnCompleteListener(new OnCompleteListener<List<FeedItem>>() {
             @Override
-            public void onComplete(@NonNull Task<List<BaseItem>> task) {
+            public void onComplete(@NonNull Task<List<FeedItem>> task) {
                 if (task.isSuccessful()) {
-                    List<BaseItem> items = task.getResult();
+                    List<FeedItem> items = task.getResult();
                     wallItems.addAll(items);
                     completion.setResult(items);
                     refreshAdapter();
@@ -323,7 +323,7 @@ class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginLi
                 }
             }
         });
-        WallModel.getInstance().loadFeed(getWallPostCompletion);
+        WallModel.getInstance().loadFeed(getWallPostCompletion, user);
     }
 
     @Override

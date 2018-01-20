@@ -396,7 +396,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     // do not use this function, call the chat info one!
     Task<ChatInfo> imsSendMessageToChat(final ChatInfo chatInfo, final ChatMessage message) {
         final TaskCompletionSource<ChatInfo> source = new TaskCompletionSource<>();
-        String nic = Model.getInstance().getUserInfo().getNicName();
+        String nic = Model.getInstance().getUser().getNicName();
         if (TextUtils.isEmpty(nic)) {
             nic = "New User";
         }
@@ -579,7 +579,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 chatId = (String) data.get(CHAT_ID);
                 String sender = (String) data.get(GSConstants.SENDER);
                 String isTyping = (String) data.get(IS_TYPING_VALUE);
-                User user = Model.getInstance().getUserInfo();
+                User user = Model.getInstance().getUser();
                 if (chatId != null && sender != null && isTyping != null && user != null) {
                     if (!sender.equals(user.getUserId())) {
                         ChatInfo chatInfo = getChatInfoById(chatId);

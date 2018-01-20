@@ -44,7 +44,7 @@ import base.app.data.user.User;
 import base.app.util.commons.Model;
 import base.app.data.content.news.NewsModel;
 import base.app.data.content.share.ShareHelper;
-import base.app.data.content.wall.BaseItem;
+import base.app.data.content.wall.FeedItem;
 import base.app.data.content.wall.Comment;
 import base.app.data.content.wall.News;
 import base.app.data.content.wall.Pin;
@@ -511,7 +511,7 @@ public class NewsDetailFragment extends BaseFragment {
         if (Model.getInstance().isRealUser()) {
             Comment comment = new Comment();
             comment.setComment(inputFieldComment.getText().toString());
-            comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
+            comment.setPosterId(Model.getInstance().getUser().getUserId());
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getId());
             comment.setTimestamp((double) (getCurrentTime() / 1000));
@@ -536,7 +536,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @Subscribe
     public void onDeleteComment(CommentDeleteEvent event) {
-        BaseItem wallItem = event.getPost();
+        FeedItem wallItem = event.getPost();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getId().equals(item.getId())) {
                 Comment commentToDelete = null;
@@ -603,7 +603,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @Subscribe
     public void onPostUpdate(ItemUpdateEvent event) {
-        BaseItem post = event.getItem();
+        FeedItem post = event.getItem();
         if ((post != null)) {
             if (commentsCount != null) {
                 commentsCount.setText(String.valueOf(post.getCommentsCount()));

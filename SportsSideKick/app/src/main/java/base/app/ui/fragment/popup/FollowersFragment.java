@@ -63,7 +63,7 @@ public class FollowersFragment extends BaseFragment {
 
         final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
         followersRecyclerView.setAdapter(adapter);
-        Task<List<User>> friendsTask = FriendsManager.getInstance().getUserFollowersList(Model.getInstance().getUserInfo().getUserId(), 0);
+        Task<List<User>> friendsTask = FriendsManager.getInstance().getUserFollowersList(Model.getInstance().getUser().getUserId(), 0);
         friendsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
             @Override
             public void onComplete(@NonNull Task<List<User>> task) {

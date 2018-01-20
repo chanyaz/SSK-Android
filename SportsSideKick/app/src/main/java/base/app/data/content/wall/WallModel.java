@@ -76,18 +76,16 @@ public class WallModel extends GSMessageHandlerAbstract {
      * you need to listen to mbPostUpdate events which will return all old posts + new posts
      * + updated posts
      */
-    public void loadFeed(final TaskCompletionSource<List<BaseItem>> completion) {
-        final User user = Model.getInstance().getUserInfo();
-
+    public void loadFeed(final TaskCompletionSource<List<FeedItem>> completion, User user) {
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                List<BaseItem> wallItems = new ArrayList<>();
+                List<FeedItem> wallItems = new ArrayList<>();
                 if (!response.hasErrors()) {
                     JSONArray jsonArrayOfPosts = (JSONArray)
                             response.getScriptData().getBaseData().get(GSConstants.ITEMS);
                     for (Object postAsJson : jsonArrayOfPosts) {
-                        BaseItem post = postFactory(postAsJson, mapper, true);
+                        FeedItem post = postFactory(postAsJson, mapper, true);
                         wallItems.add(post);
                     }
                 }
@@ -160,7 +158,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
-    public Task<Void> updatePost(final BaseItem post) {
+    public Task<Void> updatePost(final FeedItem post) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -224,7 +222,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         getCommentsForPost(post, 0);
     }
 
-    public void getCommentsForPost(BaseItem post, int fetchedCount) {
+    public void getCommentsForPost(FeedItem post, int fetchedCount) {
         int pageSize = DEFAULT_COMMENTS_PAGE;
         if (fetchedCount >= post.getCommentsCount()) {
             return;
@@ -360,7 +358,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     private User getCurrentUser() {
-        return Model.getInstance().getUserInfo();
+        return Model.getInstance().getUser();
     }
 
     @Override
@@ -383,7 +381,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 case GSConstants.WALL_POST:
                 case GSConstants.NEWS:
                 case GSConstants.RUMOUR:
-                    BaseItem post = postFactory(data.get(GSConstants.ITEM), mapper, true);
+                    FeedItem post = postFactory(data.get(GSConstants.ITEM), mapper, true);
                     if (post != null) {
                         EventBus.getDefault().post(new ItemUpdateEvent(post));
                     }

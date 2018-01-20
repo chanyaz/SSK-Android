@@ -84,7 +84,7 @@ public class Model {
 
     private User currentUser;
 
-    public User getUserInfo() {
+    public User getUser() {
         if (currentUser != null) {
             return currentUser;
         }

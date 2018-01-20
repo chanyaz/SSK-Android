@@ -7,7 +7,7 @@ import java.io.Serializable
 
 @JsonInclude(NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-abstract class BaseItem : Serializable {
+abstract class FeedItem : Serializable {
 
     lateinit var id: String
     var wallId: String = ""

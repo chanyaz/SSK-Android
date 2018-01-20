@@ -20,7 +20,7 @@ class PostCreateViewModel : ViewModel() {
     private val disposables = CompositeDisposable()
 
     fun loadUser() : LiveData<User> {
-        val user = Model.getInstance().userInfo
+        val user = Model.getInstance().user
         return MutableLiveData<User>().just(user)
     }
 

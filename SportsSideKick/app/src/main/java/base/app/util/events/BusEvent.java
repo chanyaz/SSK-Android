@@ -1,6 +1,6 @@
 package base.app.util.events;
 
-import base.app.data.content.wall.BaseItem;
+import base.app.data.content.wall.FeedItem;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -11,7 +11,7 @@ import base.app.data.content.wall.BaseItem;
 public class BusEvent {
 
     protected String id;
-    protected BaseItem item;
+    protected FeedItem item;
 
     public BusEvent(String id) {
         this.id = id;
@@ -25,11 +25,11 @@ public class BusEvent {
         this.id = id;
     }
 
-    public BaseItem getItem() {
+    public FeedItem getItem() {
         return item;
     }
 
-    public void setItem(BaseItem item) {
+    public void setItem(FeedItem item) {
         this.item = item;
     }
 }

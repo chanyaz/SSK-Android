@@ -236,6 +236,7 @@
 
                 <com.wang.avi.AVLoadingIndicatorView
                     android:id="@+id/progressBar"
+                    android:visibility="gone"
                     android:layout_width="@dimen/prodgres_bar"
                     android:layout_height="@dimen/prodgres_bar"
                     android:layout_below="@id/loginContainer"

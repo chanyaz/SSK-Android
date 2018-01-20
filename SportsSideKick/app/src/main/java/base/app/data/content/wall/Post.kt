@@ -9,4 +9,4 @@ open class Post(
         var coverAspectRatio: Float = 1.6F,
         val vidUrl: String? = null,
         val translatedTo: String? = null
-) : BaseItem()
+) : FeedItem()

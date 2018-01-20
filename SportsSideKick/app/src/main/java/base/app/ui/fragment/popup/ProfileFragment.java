@@ -218,7 +218,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     }
 
     private void setupFragment() {
-        User user = Model.getInstance().getUserInfo();
+        User user = Model.getInstance().getUser();
         if (user != null && Model.getInstance().isRealUser()) {
             double subscribedAsDouble = user.getSubscribedDate();
             String daysUsingSSK = String.valueOf((int) ((Utility.getCurrentTime() - subscribedAsDouble) / (1000 * 60 * 60 * 24)));

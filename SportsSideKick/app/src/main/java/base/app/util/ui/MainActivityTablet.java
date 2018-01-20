@@ -374,13 +374,13 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
             }
-            setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
+            setYourCoinsValue(String.valueOf(Model.getInstance().getUser().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
             yourLevel.setText(String.valueOf((int) user.getProgress()));
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
-            TutorialModel.getInstance().setUserId(Model.getInstance().getUserInfo().getUserId());
+            TutorialModel.getInstance().setUserId(Model.getInstance().getUser().getUserId());
 
         } else {
             resetUserDetails();
@@ -408,7 +408,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     @Subscribe
     public void updateUserName(UserEvent event) {
         if (event.getType() == UserEvent.Type.onDetailsUpdated) {
-            setYourCoinsValue(String.valueOf(Model.getInstance().getUserInfo().getCurrency()));
+            setYourCoinsValue(String.valueOf(Model.getInstance().getUser().getCurrency()));
         }
 
         User user = event.getUser();

@@ -1,17 +1,16 @@
 package base.app.data.content.news
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import base.app.data.TypeConverter
-import base.app.data.content.wall.BaseItem
+import base.app.data.content.wall.FeedItem
+import io.reactivex.Observable
 
 class WallRepository {
 
-    fun getItems(): LiveData<List<BaseItem>> {
-        val data = MutableLiveData<List<BaseItem>>()
-
-        data.value = TypeConverter.cache.values.toList().sortedBy { it.timestamp }
-
-        return data
+    fun getFeedFromCache(): Observable<List<FeedItem>> {
+        return Observable.create<List<FeedItem>> {
+            val feedList = TypeConverter.cache.values.toList().sortedBy { it.timestamp }
+            it.onNext(feedList)
+            it.onComplete()
+        }
     }
 }

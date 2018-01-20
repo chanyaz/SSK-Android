@@ -179,7 +179,7 @@ public class StoreFragment extends BaseFragment {
                 }
             }
             item = new StoreOffer();
-            item.setPoster(Model.getInstance().getUserInfo());
+            item.setPoster(Model.getInstance().getUser());
             item.setTitle(webView.getTitle());
             item.setUrl(url);
             item.setCoverImageUrl(absoluteUrl);

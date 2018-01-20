@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true,value={"type"})
-public class Betting extends BaseItem {
+public class Betting extends FeedItem {
 
     @JsonProperty("betName")
     private String betName;

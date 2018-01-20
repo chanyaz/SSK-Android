@@ -461,7 +461,7 @@ public class ChatFragment extends BaseFragment {
 
     private void setupEditChatButton() {
         if (currentlyActiveChat != null) {
-            User user = Model.getInstance().getUserInfo();
+            User user = Model.getInstance().getUser();
             if (user != null) {
                 if(messageForEdit !=null){
                     chatMenuDeleteButton.setVisibility(View.VISIBLE);
@@ -687,14 +687,14 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
-        User user = Model.getInstance().getUserInfo();
+        User user = Model.getInstance().getUser();
         if (currentlyActiveChat != null && user != null) {
             if(messageForEdit !=null){
                 Toast.makeText(getContext(),"Edit mode for chat message activated",Toast.LENGTH_SHORT).show();
                 animateChatMenu();
                 inputEditText.setText(messageForEdit.getText());
             } else {
-                if (Model.getInstance().getUserInfo().getUserId().equals(currentlyActiveChat.getOwner())) {
+                if (Model.getInstance().getUser().getUserId().equals(currentlyActiveChat.getOwner())) {
                     FragmentEvent fe = new FragmentEvent(EditChatFragment.class);
                     fe.setItemId(currentlyActiveChat.getChatId());
                     EventBus.getDefault().post(fe);

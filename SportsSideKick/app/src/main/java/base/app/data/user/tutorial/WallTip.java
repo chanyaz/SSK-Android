@@ -4,7 +4,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.List;
 
-import base.app.data.content.wall.BaseItem;
+import base.app.data.content.wall.FeedItem;
 
 /**
  * Created by Filip on 3/30/2017.
@@ -12,7 +12,7 @@ import base.app.data.content.wall.BaseItem;
  * www.hypercubesoft.com
  */
 
-public class WallTip extends BaseItem {
+public class WallTip extends FeedItem {
 
     private int tipNumber;
     private String tipText;
