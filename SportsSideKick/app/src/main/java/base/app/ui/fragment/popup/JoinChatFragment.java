@@ -30,7 +30,7 @@ import base.app.R;
 import base.app.ui.adapter.chat.ChatSearchExpandableAdapter;
 import base.app.ui.adapter.friends.FriendsInChatAdapter;
 import base.app.ui.adapter.chat.OfficialChatsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;

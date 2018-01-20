@@ -77,7 +77,7 @@ import base.app.util.events.UserIsTypingEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.chat.ChatHeadsAdapter;
 import base.app.ui.adapter.chat.MessageAdapter;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
 import base.app.ui.fragment.popup.CreateChatFragment;

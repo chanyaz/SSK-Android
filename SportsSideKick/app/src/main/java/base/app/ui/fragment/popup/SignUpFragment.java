@@ -39,7 +39,7 @@ import base.app.util.commons.GSConstants;
 import base.app.util.commons.Model;
 import base.app.data.user.RegistrationStateReceiver;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;

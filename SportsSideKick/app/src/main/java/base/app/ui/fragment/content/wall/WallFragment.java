@@ -43,7 +43,7 @@ import base.app.data.content.wall.BaseItem;
 import base.app.data.content.wall.Post;
 import base.app.data.content.wall.WallModel;
 import base.app.ui.adapter.content.WallAdapter;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
 import base.app.ui.fragment.popup.LoginFragment;

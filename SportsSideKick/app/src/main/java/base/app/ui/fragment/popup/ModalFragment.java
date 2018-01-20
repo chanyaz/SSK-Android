@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import base.app.R;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 

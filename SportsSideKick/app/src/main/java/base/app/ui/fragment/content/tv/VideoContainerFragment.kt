@@ -1,7 +1,6 @@
 package base.app.ui.fragment.content.tv
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.graphics.PorterDuff
 import android.media.AudioManager
@@ -17,11 +16,10 @@ import android.widget.Toast
 import base.app.Keys.YOUTUBE_API_KEY
 import base.app.R
 import base.app.data.content.tv.MediaModel
-import base.app.ui.fragment.base.BaseFragment
-import base.app.ui.fragment.content.wall.injectViewModel
-import base.app.util.events.FragmentEvent
 import base.app.util.events.ClubTVEvent
-import base.app.util.ui.inflate
+import base.app.util.events.FragmentEvent
+import base.app.util.ui.BaseFragment
+import base.app.util.ui.injectViewModel
 import butterknife.OnClick
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -40,9 +38,7 @@ class VideoContainerFragment : BaseFragment(),
         OnFullscreenListener,
         PlayerStateChangeListener {
 
-    private val viewModel by lazy {
-        activity.injectViewModel<TvViewModel>()
-    }
+    private val viewModel by lazy { activity.injectViewModel<TvViewModel>() }
     internal var fullScreen = false
     private val audioManager by lazy {
         activity?.getSystemService(Context.AUDIO_SERVICE) as AudioManager

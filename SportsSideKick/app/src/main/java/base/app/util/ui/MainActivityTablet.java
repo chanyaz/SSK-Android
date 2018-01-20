@@ -23,7 +23,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.ui.activity.BaseActivity;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.wall.DetailFragment;

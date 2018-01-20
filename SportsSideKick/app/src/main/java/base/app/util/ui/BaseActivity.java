@@ -1,4 +1,4 @@
-package base.app.ui.activity;
+package base.app.util.ui;
 
 import android.content.Context;
 import android.content.Intent;

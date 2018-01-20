@@ -41,7 +41,7 @@ import base.app.util.commons.GSConstants;
 import base.app.util.commons.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.content.wall.WallModel;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;

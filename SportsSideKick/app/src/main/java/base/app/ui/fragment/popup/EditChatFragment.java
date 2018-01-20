@@ -49,7 +49,7 @@ import base.app.util.events.AddFriendsEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
 import base.app.ui.adapter.friends.SelectableFriendsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;

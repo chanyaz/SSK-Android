@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Map;
 
 import base.app.R;
-import base.app.ui.activity.MainActivity;
+import base.app.ui.MainActivity;
 
 import static base.app.util.commons.Constant.NOTIFICATION_DATA;
 

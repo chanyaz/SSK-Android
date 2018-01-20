@@ -44,7 +44,7 @@ import base.app.data.user.PasswordResetReceiver;
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Connection;
 import base.app.util.commons.KeyboardChangeListener;

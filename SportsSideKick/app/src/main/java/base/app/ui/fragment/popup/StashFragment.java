@@ -16,7 +16,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.ui.adapter.profile.StashAdapter;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.data.user.achievements.Achievement;
 import base.app.data.user.achievements.AchievementManager;

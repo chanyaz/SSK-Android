@@ -47,7 +47,7 @@ import base.app.data.chat.videochat.Slot;
 import base.app.data.chat.videochat.VideoChatEvent;
 import base.app.data.chat.videochat.VideoChatItem;
 import base.app.data.chat.videochat.VideoChatModel;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;

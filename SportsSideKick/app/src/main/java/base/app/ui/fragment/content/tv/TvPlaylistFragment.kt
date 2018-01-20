@@ -1,7 +1,7 @@
 package base.app.ui.fragment.content.tv
 
 
-import base.app.ui.fragment.base.BaseFragment
+import base.app.util.ui.BaseFragment
 
 class TvPlaylistFragment : BaseFragment() {
 

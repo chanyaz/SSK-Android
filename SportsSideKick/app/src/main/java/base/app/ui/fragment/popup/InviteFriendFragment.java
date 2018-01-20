@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
 import base.app.data.user.friends.FriendsManager;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;

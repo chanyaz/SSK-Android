@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import base.app.R;
 import base.app.util.ui.AlertDialogManager;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

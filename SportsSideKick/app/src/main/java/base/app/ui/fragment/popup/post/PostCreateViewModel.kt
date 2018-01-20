@@ -13,7 +13,7 @@ import java.io.File
 
 class PostCreateViewModel : ViewModel() {
 
-    lateinit var postsRepo: PostsRepository
+    val postsRepo: PostsRepository by lazy { PostsRepository() }
     lateinit var view: IPostCreateView
 
     private var selectedImage: File? = null

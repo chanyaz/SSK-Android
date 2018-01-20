@@ -27,7 +27,7 @@ import base.app.util.ui.AlertDialogManager;
 import base.app.util.commons.Model;
 import base.app.data.content.wall.WallModel;
 import base.app.data.content.wall.Stats;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import butterknife.BindView;

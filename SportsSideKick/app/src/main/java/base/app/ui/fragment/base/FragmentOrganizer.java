@@ -17,6 +17,7 @@ import base.app.util.commons.Constant;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.ui.NavigationDrawerItems;
 
 

@@ -54,7 +54,7 @@ import base.app.data.content.wall.Post;
 import base.app.data.content.wall.StoreOffer;
 import base.app.data.content.wall.WallModel;
 import base.app.ui.adapter.content.CommentsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.CommentDeleteEvent;

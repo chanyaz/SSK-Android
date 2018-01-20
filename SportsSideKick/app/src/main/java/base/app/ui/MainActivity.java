@@ -1,4 +1,4 @@
-package base.app.ui.activity;
+package base.app.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -28,6 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
+import base.app.util.ui.BaseActivity;
 import base.app.util.commons.Model;
 import base.app.data.user.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;

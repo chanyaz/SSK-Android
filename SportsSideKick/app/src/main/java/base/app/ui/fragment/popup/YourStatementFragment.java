@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import base.app.R;
 import base.app.ui.adapter.profile.StatementAdapter;
-import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
