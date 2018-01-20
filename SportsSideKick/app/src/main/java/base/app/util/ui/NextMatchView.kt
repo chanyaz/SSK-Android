@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import base.app.R
-import base.app.data.ticker.NextMatchModel
+import base.app.data.content.nextmatch.NextMatchModel
 import base.app.util.commons.NextMatchCountdown
 import kotlinx.android.synthetic.main.next_match_view.view.*
 import java.lang.Long.parseLong

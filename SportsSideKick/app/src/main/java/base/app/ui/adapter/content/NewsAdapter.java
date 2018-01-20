@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.wall.News;
-import base.app.data.FragmentEvent;
+import base.app.data.content.wall.News;
+import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 
 /**

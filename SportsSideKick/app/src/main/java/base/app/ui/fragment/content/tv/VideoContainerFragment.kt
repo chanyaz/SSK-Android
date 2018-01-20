@@ -16,10 +16,10 @@ import android.widget.SeekBar
 import android.widget.Toast
 import base.app.Keys.YOUTUBE_API_KEY
 import base.app.R
-import base.app.data.tv.MediaModel
+import base.app.data.content.tv.MediaModel
 import base.app.ui.fragment.base.BaseFragment
-import base.app.data.FragmentEvent
-import base.app.data.ClubTVEvent
+import base.app.util.events.FragmentEvent
+import base.app.util.events.ClubTVEvent
 import base.app.util.ui.inflate
 import butterknife.OnClick
 import com.google.android.youtube.player.YouTubeInitializationResult

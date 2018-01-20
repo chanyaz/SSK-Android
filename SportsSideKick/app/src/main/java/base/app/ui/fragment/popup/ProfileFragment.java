@@ -31,7 +31,7 @@ import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.profile.UserStatsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.data.FragmentEvent;
+import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;

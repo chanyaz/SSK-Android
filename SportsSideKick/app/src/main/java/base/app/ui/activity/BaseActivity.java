@@ -41,14 +41,14 @@ import base.app.data.Model;
 import base.app.data.user.notifications.ExternalNotificationEvent;
 import base.app.data.user.notifications.InternalNotificationManager;
 import base.app.data.user.purchases.PurchaseModel;
-import base.app.data.NativeShareEvent;
-import base.app.data.ticker.NewsTickerInfo;
-import base.app.data.ticker.NextMatchModel;
-import base.app.data.NextMatchUpdateEvent;
+import base.app.util.events.NativeShareEvent;
+import base.app.data.content.nextmatch.NewsTickerInfo;
+import base.app.data.content.nextmatch.NextMatchModel;
+import base.app.util.events.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
-import base.app.data.videoChat.VideoChatEvent;
-import base.app.data.videoChat.VideoChatModel;
-import base.app.data.FragmentEvent;
+import base.app.data.chat.videochat.VideoChatEvent;
+import base.app.data.chat.videochat.VideoChatModel;
+import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
@@ -62,7 +62,7 @@ import base.app.ui.fragment.stream.VideoChatFragment;
 import base.app.util.commons.Constant;
 import base.app.util.commons.ContextWrapper;
 import base.app.util.commons.Utility;
-import base.app.util.events.notify.NotificationEvent;
+import base.app.util.events.NotificationEvent;
 import butterknife.BindView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -359,19 +359,6 @@ abstract class BaseActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (Utility.isTablet(getApplicationContext())) {
                             EventBus.getDefault().post(new FragmentEvent(FollowersFragment.class));
-                        }
-                    }
-                });
-                break;
-            case LIKES:
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String postId = event.getPostId();
-                        if (postId != null) {
-                            FragmentEvent fe = new FragmentEvent(DetailFragment.class);
-                            fe.setId(postId);
-                            EventBus.getDefault().post(fe);
                         }
                     }
                 });

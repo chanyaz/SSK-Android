@@ -13,7 +13,7 @@ import base.app.R;
 import base.app.data.Model;
 import base.app.data.user.purchases.PurchaseModel;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.data.FragmentEvent;
+import base.app.util.events.FragmentEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

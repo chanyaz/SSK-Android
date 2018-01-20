@@ -2,8 +2,8 @@ package base.app.ui.fragment.content.tv
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import base.app.data.tv.MediaRepository
-import base.app.data.tv.inBackground
+import base.app.data.content.tv.MediaRepository
+import base.app.data.content.tv.inBackground
 import com.google.api.services.youtube.model.Playlist
 
 class TvViewModel : ViewModel() {

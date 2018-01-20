@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
-import base.app.data.news.WallRepository
+import base.app.data.content.news.WallRepository
 import base.app.ui.adapter.content.WallAdapter
 import base.app.util.ui.inflate
 import base.app.util.ui.show

@@ -17,7 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.AddFriendsEvent;
+import base.app.util.events.AddFriendsEvent;
 import base.app.data.user.UserInfo;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;

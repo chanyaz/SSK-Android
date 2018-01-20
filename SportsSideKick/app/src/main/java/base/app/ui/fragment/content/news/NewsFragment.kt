@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
-import base.app.data.news.NewsModel.NewsType.OFFICIAL
-import base.app.data.news.NewsRepository
+import base.app.data.content.news.NewsModel.NewsType.OFFICIAL
+import base.app.data.content.news.NewsRepository
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.ui.inflate

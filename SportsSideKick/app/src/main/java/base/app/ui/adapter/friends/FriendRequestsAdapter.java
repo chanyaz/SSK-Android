@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.data.FragmentEvent;
+import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.popup.FriendFragment;
 import base.app.data.user.friends.FriendRequest;
 import base.app.data.user.friends.FriendsManager;

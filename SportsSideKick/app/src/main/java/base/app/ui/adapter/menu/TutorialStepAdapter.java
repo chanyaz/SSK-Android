@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.data.tutorial.WallStep;
+import base.app.data.user.tutorial.WallStep;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

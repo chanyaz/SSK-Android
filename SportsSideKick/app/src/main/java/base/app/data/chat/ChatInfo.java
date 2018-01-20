@@ -25,9 +25,9 @@ import java.util.Map;
 
 import base.app.data.Model;
 import base.app.data.chat.event.ChatNotificationsEvent;
-import base.app.data.ChatUpdateEvent;
-import base.app.data.MessageUpdateEvent;
-import base.app.data.UserIsTypingEvent;
+import base.app.util.events.ChatUpdateEvent;
+import base.app.util.events.MessageUpdateEvent;
+import base.app.util.events.UserIsTypingEvent;
 import base.app.data.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;

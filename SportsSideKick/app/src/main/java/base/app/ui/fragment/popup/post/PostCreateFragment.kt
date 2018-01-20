@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
-import base.app.data.news.PostsRepository
+import base.app.data.content.news.PostsRepository
 import base.app.util.commons.Utility.hideKeyboard
 import base.app.util.ui.*
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo.single

@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import base.app.data.Model
-import base.app.data.tv.inBackground
-import base.app.data.news.PostsRepository
+import base.app.data.content.tv.inBackground
+import base.app.data.content.news.PostsRepository
 import base.app.data.user.UserInfo
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable

@@ -25,9 +25,9 @@ import base.app.R;
 import base.app.data.Translator;
 import base.app.data.TypeConverter;
 import base.app.data.chat.ImsMessage;
-import base.app.data.wall.Comment;
-import base.app.data.wall.News;
-import base.app.data.wall.Post;
+import base.app.data.content.wall.Comment;
+import base.app.data.content.wall.News;
+import base.app.data.content.wall.Post;
 import base.app.util.commons.XmlLanguageMapParser;
 
 /**

@@ -10,7 +10,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import base.app.data.FileUploader;
 import base.app.data.user.purchases.PurchaseModel;
-import base.app.data.ticker.NextMatchModel;
+import base.app.data.content.nextmatch.NextMatchModel;
 import base.app.util.commons.Connection;
 import base.app.util.commons.SoundEffects;
 import rx_activity_result2.RxActivityResult;

@@ -29,13 +29,13 @@ import java.util.ArrayList;
 
 import base.app.R;
 import base.app.data.Model;
-import base.app.data.tutorial.TutorialModel;
+import base.app.data.user.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.menu.MenuAdapter;
 import base.app.ui.adapter.menu.SideMenuAdapter;
-import base.app.data.FragmentEvent;
+import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.news.RumoursFragment;
 import base.app.ui.fragment.content.StoreFragment;

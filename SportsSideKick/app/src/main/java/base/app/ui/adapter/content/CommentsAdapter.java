@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.CommentSelectedEvent;
+import base.app.util.events.CommentSelectedEvent;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.Comment;
-import base.app.data.wall.WallModel;
+import base.app.data.content.wall.Comment;
+import base.app.data.content.wall.WallModel;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;

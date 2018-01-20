@@ -14,8 +14,8 @@ import base.app.data.TypeConverter;
 import base.app.data.user.friends.FriendsListChangedEvent;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
-import base.app.data.wall.BaseItem;
-import base.app.util.events.notify.NotificationEvent;
+import base.app.data.content.wall.BaseItem;
+import base.app.util.events.NotificationEvent;
 
 /**
  * Created by Filip on 4/19/2017.
@@ -94,7 +94,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                                 BaseItem post = TypeConverter.postFactory(data.get(GSConstants.POST), mapper, true);
                                 if(post!=null){
                                     String postId = post.getId();
-                                    event = new NotificationEvent(4, "New Like", "", NotificationEvent.Type.LIKES,postId);
+                                    event = new NotificationEvent(4, "New Like", "", NotificationEvent.Type.LIKES);
                                     EventBus.getDefault().post(event);
                                 }
                             }

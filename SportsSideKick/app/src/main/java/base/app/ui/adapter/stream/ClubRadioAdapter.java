@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.FragmentEvent;
+import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.stream.RadioStationFragment;
-import base.app.data.tv.Station;
+import base.app.data.content.tv.Station;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;

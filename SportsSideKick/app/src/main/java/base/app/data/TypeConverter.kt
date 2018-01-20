@@ -1,6 +1,6 @@
 package base.app.data
 
-import base.app.data.wall.*
+import base.app.data.content.wall.*
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper

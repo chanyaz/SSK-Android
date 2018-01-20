@@ -1,0 +1,17 @@
+package base.app.data.content.news
+
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import base.app.data.TypeConverter
+import base.app.data.content.wall.BaseItem
+
+class WallRepository {
+
+    fun getItems(): LiveData<List<BaseItem>> {
+        val data = MutableLiveData<List<BaseItem>>()
+
+        data.value = TypeConverter.cache.values.toList().sortedBy { it.timestamp }
+
+        return data
+    }
+}

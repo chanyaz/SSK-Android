@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.FullScreenImageEvent;
-import base.app.data.MessageSelectedEvent;
-import base.app.data.PlayVideoEvent;
+import base.app.util.events.FullScreenImageEvent;
+import base.app.util.events.MessageSelectedEvent;
+import base.app.util.events.PlayVideoEvent;
 import base.app.data.DateUtils;
 import base.app.data.GSConstants;
 import base.app.data.Model;

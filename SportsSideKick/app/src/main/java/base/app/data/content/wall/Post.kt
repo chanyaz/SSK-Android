@@ -1,0 +1,12 @@
+package base.app.data.content.wall
+
+import base.app.data.user.UserInfo
+
+open class Post(
+        var bodyText: String = "",
+        var poster: UserInfo? = null,
+        var coverImageUrl: String? = null,
+        var coverAspectRatio: Float = 1.6F,
+        val vidUrl: String? = null,
+        val translatedTo: String? = null
+) : BaseItem()

@@ -19,9 +19,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.data.tv.Station;
+import base.app.data.content.tv.Station;
 import base.app.ui.fragment.base.BaseFragment;
-import base.app.data.FragmentEvent;
+import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Constant;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;

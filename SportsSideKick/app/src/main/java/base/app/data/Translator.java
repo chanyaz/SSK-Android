@@ -13,9 +13,9 @@ import java.util.Map;
 
 import base.app.data.TypeConverter.ItemType;
 import base.app.data.chat.ImsMessage;
-import base.app.data.wall.Comment;
-import base.app.data.wall.News;
-import base.app.data.wall.Post;
+import base.app.data.content.wall.Comment;
+import base.app.data.content.wall.News;
+import base.app.data.content.wall.Post;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
