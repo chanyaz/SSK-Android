@@ -25,8 +25,6 @@ import base.app.util.commons.Utility;
  * <p>
  * Abstract fragment organizer
  */
-
-
 abstract class AbstractFragmentOrganizer {
 
     FragmentManager fragmentManager;

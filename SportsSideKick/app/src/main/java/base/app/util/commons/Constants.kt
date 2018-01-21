@@ -36,16 +36,4 @@ object Constants {
     const val IS_FIRST_TIME = "IS_FIRST_TIME"
 
     const val NOTIFICATION_DATA = "SSK_PUSH_NOTIFICATION_DATA"
-
-    @JvmStatic val SIDE_MENU_OPTIONS: List<Class<*>> = listOf(
-            WallFragment::class.java,
-            ChatFragment::class.java,
-            NewsFragment::class.java,
-            StatisticsFragment::class.java,
-            RumoursFragment::class.java,
-            RadioFragment::class.java,
-            StoreFragment::class.java,
-            TvFragment::class.java,
-            VideoChatFragment::class.java
-    )
 }

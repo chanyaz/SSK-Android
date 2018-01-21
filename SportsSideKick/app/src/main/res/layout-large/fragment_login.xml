@@ -122,7 +122,7 @@
                                             android:background="@drawable/text_login_selector"
                                             android:hint="@string/email"
                                             android:inputType="textEmailAddress"
-                                            android:nextFocusDown="@+id/login_password"
+                                            android:nextFocusDown="@+id/passwordField"
                                             android:padding="@dimen/padding_8"
                                             android:textAlignment="center"
                                             android:textColor="?white"
@@ -145,20 +145,20 @@
                                     android:orientation="vertical">
 
                                     <EditText
-                                        android:id="@+id/login_email"
+                                        android:id="@+id/emailField"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/standard_button_height"
                                         android:background="@drawable/text_login_selector"
                                         android:hint="@string/email"
                                         android:inputType="textEmailAddress"
-                                        android:nextFocusDown="@+id/login_password"
+                                        android:nextFocusDown="@+id/passwordField"
                                         android:padding="@dimen/padding_8"
                                         android:textAlignment="center"
                                         android:textColor="?white"
                                         android:textColorHint="?white" />
 
                                     <EditText
-                                        android:id="@+id/login_password"
+                                        android:id="@+id/passwordField"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/standard_button_height"
                                         android:layout_marginTop="@dimen/margin_10"
@@ -265,7 +265,7 @@
                                         android:textSize="@dimen/font_size_18" />
 
                                     <com.wang.avi.AVLoadingIndicatorView
-                                        android:id="@+id/login_progress_bar"
+                                        android:id="@+id/progressBar"
                                         android:layout_width="@dimen/prodgres_bar"
                                         android:layout_height="@dimen/prodgres_bar"
                                         android:layout_centerInParent="true"
