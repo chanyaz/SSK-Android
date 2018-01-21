@@ -28,8 +28,8 @@ class WallFragment : BaseFragment(R.layout.fragment_wall) {
         userViewModel
                 .getSession()
                 .doOnNext { loginContainer.setVisible(it.state == Anonymous) }
-                .map { feedViewModel.getFeedFromCache() }
-                .mer { feedViewModel.getFeedFromServer() }
+                .flatMap { feedViewModel.getFeedFromCache() }
+                .mergeWith { feedViewModel.getFeedFromServer() }
                 .doOnNext { feedViewModel.saveFeedToCache(it) }
                 .repeatWhen { userViewModel.getFriendListChanges() }
                 .inBackground()

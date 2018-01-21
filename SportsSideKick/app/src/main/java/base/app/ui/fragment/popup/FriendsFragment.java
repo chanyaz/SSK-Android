@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,16 +27,15 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.user.User;
-import base.app.data.user.friends.FriendRequest;
 import base.app.data.user.friends.FriendsManager;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.user.login.LoginApi;
-import base.app.util.ui.BaseFragment;
 import base.app.util.commons.Utility;
 import base.app.util.events.FragmentEvent;
 import base.app.util.events.FriendsListChangedEvent;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
+import base.app.util.ui.BaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -59,9 +57,6 @@ public class FriendsFragment extends BaseFragment {
 
     @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
-    @Nullable
-    @BindView(R.id.friend_requests_count)
-    TextView friendRequestCount;
 
     @BindView(R.id.no_result_text)
     TextView noResultText;
@@ -75,10 +70,6 @@ public class FriendsFragment extends BaseFragment {
 
     List<User> friends;
     List<User> officialAccounts;
-
-    @Nullable
-    @BindView(R.id.friend_requests_container)
-    RelativeLayout friendRequestsContainer;
 
     FriendsAdapter adapter;
 
@@ -134,31 +125,6 @@ public class FriendsFragment extends BaseFragment {
             }
         });
 
-        Task<List<FriendRequest>> task = FriendsManager.getInstance().getOpenFriendRequests(0);
-        task.addOnCompleteListener(new OnCompleteListener<List<FriendRequest>>() {
-            @Override
-            public void onComplete(@NonNull Task<List<FriendRequest>> task) {
-                if (task.isSuccessful()) {
-                    if (task.getResult() != null) {
-                        if (friendRequestCount != null) {
-                            friendRequestCount.setText(String.valueOf(task.getResult().size()));
-                        }
-                        if (task.getResult().size() > 0) {
-                            if (friendRequestsContainer != null) {
-                                friendRequestsContainer.setVisibility(View.VISIBLE);
-                            }
-                        }
-                        return;
-                    }
-                }
-                if (friendRequestCount != null) {
-                    friendRequestCount.setText("0");
-                }
-                if (friendRequestsContainer != null) {
-                    friendRequestsContainer.setVisibility(View.GONE);
-                }
-            }
-        });
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {}
@@ -193,12 +159,6 @@ public class FriendsFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.friend_requests)
     public void friendRequestsDialog() {
-        EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
-    }
-
-    @Optional
-    @OnClick(R.id.friend_requests_container)
-    public void displayFriendRequests() {
         EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
     }
 

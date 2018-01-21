@@ -3,17 +3,14 @@ package base.app.ui.fragment.user.login
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.text.Html
+import android.text.Html.fromHtml
 import android.util.Log
 import android.view.View
 import android.widget.EditText
 import base.app.BuildConfig
 import base.app.R
-import base.app.data.user.LoginStateReceiver
-import base.app.data.user.LoginStateReceiver.LoginListener
 import base.app.data.user.PasswordResetReceiver
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener
-import base.app.data.user.User
 import base.app.util.commons.Utility
 import base.app.util.events.FragmentEvent
 import base.app.util.ui.AlertDialogManager
@@ -41,7 +38,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
     private var passwordResetReceiver: PasswordResetReceiver? = null
 
     override fun onViewCreated(view: View, state: Bundle?) {
-        titleText.text = Html.fromHtml(getString(R.string.slogan))
+        titleText.text = fromHtml(getString(R.string.slogan))
         autoPopulateOnDebug()
         initFacebook()
 
@@ -69,7 +66,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
     }
 
     @Optional
-    @OnClick(R.id.reset_text)
+    // TODO @OnClick(R.id.reset_text)
     fun forgotPasswordOnClick() {
         val email = emailField.text.toString()
         LoginApi.getInstance().resetPassword(email)
@@ -132,7 +129,8 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
         callbackManager?.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onLoginError(error: Error) {
+    // TODO: Connect to Observable's onError in view model
+    fun onLoginError(error: Error) {
         progressBar.visibility = View.GONE
         submitButtonLabel.visibility = View.VISIBLE
         AlertDialogManager.getInstance().showAlertDialog(

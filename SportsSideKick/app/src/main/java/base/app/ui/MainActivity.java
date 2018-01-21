@@ -28,28 +28,27 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.ui.fragment.user.login.LoginApi;
-import base.app.util.ui.BaseActivity;
-import base.app.data.user.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;
-import base.app.data.user.UserEvent;
 import base.app.data.user.User;
+import base.app.data.user.UserEvent;
+import base.app.data.user.tutorial.TutorialModel;
 import base.app.ui.adapter.menu.MenuAdapter;
 import base.app.ui.adapter.menu.SideMenuAdapter;
-import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
-import base.app.ui.fragment.content.news.RumoursFragment;
 import base.app.ui.fragment.content.StoreFragment;
-import base.app.ui.fragment.content.wall.WallFragment;
-import base.app.ui.fragment.content.wall.DetailFragment;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
+import base.app.ui.fragment.content.news.RumoursFragment;
+import base.app.ui.fragment.content.tv.TvFragment;
+import base.app.ui.fragment.content.tv.TvPlaylistFragment;
+import base.app.ui.fragment.content.tv.VideoContainerFragment;
+import base.app.ui.fragment.content.wall.DetailFragment;
+import base.app.ui.fragment.content.wall.WallFragment;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.popup.AddFriendFragment;
 import base.app.ui.fragment.popup.AlertDialogFragment;
 import base.app.ui.fragment.popup.CreateChatFragment;
-import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.EditProfileFragment;
 import base.app.ui.fragment.popup.FollowersFragment;
@@ -60,7 +59,6 @@ import base.app.ui.fragment.popup.FriendsFragment;
 import base.app.ui.fragment.popup.InviteFriendFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LanguageFragment;
-import base.app.ui.fragment.user.login.LoginFragment;
 import base.app.ui.fragment.popup.ProfileFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
@@ -68,15 +66,16 @@ import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.ui.fragment.popup.StashFragment;
 import base.app.ui.fragment.popup.WalletFragment;
 import base.app.ui.fragment.popup.YourStatementFragment;
+import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.ui.fragment.stream.RadioFragment;
 import base.app.ui.fragment.stream.RadioStationFragment;
-import base.app.ui.fragment.content.tv.TvFragment;
-import base.app.ui.fragment.content.tv.TvPlaylistFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.ui.fragment.content.tv.VideoContainerFragment;
-import base.app.util.commons.Constants;
+import base.app.ui.fragment.user.login.LoginApi;
+import base.app.ui.fragment.user.login.LoginFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
+import base.app.util.events.FragmentEvent;
+import base.app.util.ui.BaseActivity;
 import base.app.util.ui.BlurBuilder;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.LinearItemDecoration;
@@ -85,6 +84,8 @@ import base.app.util.ui.NoScrollRecycler;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static base.app.ui.fragment.base.FragmentOrganizer.SIDE_MENU_OPTIONS;
 
 public class MainActivity extends BaseActivity
         implements LoginStateReceiver.LoginListener,
@@ -464,8 +465,8 @@ public class MainActivity extends BaseActivity
                     }
                     return;
                 }
-                for (int i = 0; i < Constants.SIDE_MENU_OPTIONS.size(); i++) {
-                    if (penultimateFragment.equals(Constants.SIDE_MENU_OPTIONS.get(i))) {
+                for (int i = 0; i < SIDE_MENU_OPTIONS.size(); i++) {
+                    if (penultimateFragment.equals(SIDE_MENU_OPTIONS.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
@@ -488,8 +489,8 @@ public class MainActivity extends BaseActivity
                         drawerLayout.closeDrawer(GravityCompat.END);
                     }
                 }
-                for (int i = 0; i < Constants.SIDE_MENU_OPTIONS.size(); i++) {
-                    if (penultimateFragment.equals(Constants.SIDE_MENU_OPTIONS.get(i))) {
+                for (int i = 0; i < SIDE_MENU_OPTIONS.size(); i++) {
+                    if (penultimateFragment.equals(SIDE_MENU_OPTIONS.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();

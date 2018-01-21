@@ -1,50 +1,6 @@
 package base.app.ui.fragment.popup;
 
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import base.app.R;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.login.LoginApi;
-import base.app.util.ui.AlertDialogManager;
-import base.app.data.user.friends.FriendsManager;
-import base.app.data.chat.ChatInfo;
-import base.app.data.chat.ImsManager;
-import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
-import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.util.commons.Utility;
-import base.app.util.events.StartCallEvent;
-import base.app.util.events.OpenChatEvent;
-import base.app.util.ui.ImageLoader;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Optional;
 
 /**
  * Created by Filip on 28/03/2017.
@@ -52,8 +8,9 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 
-public class FriendFragment extends BaseFragment {
 
+public class FriendFragment extends BaseFragment {
+/* TODO
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.18;
 
     @Nullable
@@ -79,15 +36,8 @@ public class FriendFragment extends BaseFragment {
     @BindView(R.id.in_common_recycler_view)
     RecyclerView inCommonRecyclerView;
 
-    @Nullable
     @BindView(R.id.chat_button_image)
     ImageView chatButtonImage;
-    @Nullable
-    @BindView(R.id.chat_button_phone_image)
-    ImageView chatButtonPhoneImage;
-
-
-
 
     @Nullable
     @BindView(R.id.follow_button_image)
@@ -217,14 +167,14 @@ public class FriendFragment extends BaseFragment {
                 videoButton.setVisibility(View.VISIBLE);
                 moreButton.setVisibility(View.VISIBLE);
                 chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.chat));
-                changeViewClickable(true,chatButtonPhoneImage);
+                changeViewClickable(true, chatButtonImage);
             } else {
                 if(user.isFriendPendingRequest()){
                     chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request_pending));
-                    changeViewClickable(false,chatButtonPhoneImage);
+                    changeViewClickable(false, chatButtonImage);
                 } else {
                     chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request_send));
-                    changeViewClickable(true,chatButtonPhoneImage);
+                    changeViewClickable(true, chatButtonImage);
                 }
             }
 
@@ -553,4 +503,5 @@ public class FriendFragment extends BaseFragment {
     private void reportAbuse() {
         //TODO @Filip add this api call
     }
+*/
 }

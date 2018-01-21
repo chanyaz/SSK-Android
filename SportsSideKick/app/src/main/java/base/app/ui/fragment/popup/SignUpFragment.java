@@ -95,7 +95,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     TextView policyText;
 
     @Nullable
-    @BindView(R.id.popupSignupContainer)
     RelativeLayout editTextContainer;
 
 
@@ -104,7 +103,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     Button facebookButton;
 
     @Nullable
-    @BindView(R.id.popupSignupJoinNowButton)
     RelativeLayout joinNowContainer;
 
 

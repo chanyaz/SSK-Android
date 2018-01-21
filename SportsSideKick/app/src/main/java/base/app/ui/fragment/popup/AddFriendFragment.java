@@ -98,12 +98,6 @@ public class AddFriendFragment extends BaseFragment {
         return view;
     }
 
-    @Optional
-    @OnClick(R.id.invite_friend_button)
-    public void onClickInviteFriend() {
-        EventBus.getDefault().post(new FragmentEvent(InviteFriendFragment.class));
-    }
-
     int defaultTopMargin;
 
 

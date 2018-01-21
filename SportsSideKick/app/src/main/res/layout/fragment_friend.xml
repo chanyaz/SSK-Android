@@ -316,7 +316,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/chat_button_phone_image"
+                android:id="@+id/chat_button_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerInside"

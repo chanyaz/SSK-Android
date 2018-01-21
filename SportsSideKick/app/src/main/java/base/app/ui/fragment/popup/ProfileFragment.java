@@ -194,24 +194,6 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     }
 
     @Optional
-    @OnClick(R.id.light_theme_button)
-    public void resetOnClick() {
-        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.reset_app),
-                new View.OnClickListener() {// Cancel
-                    @Override
-                    public void onClick(View v) {
-                        getActivity().onBackPressed();
-                        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
-                    }
-                }, new View.OnClickListener() { // Confirm
-                    @Override
-                    public void onClick(View v) {
-                        getActivity().onBackPressed();
-                    }
-                });
-    }
-
-    @Optional
     @OnClick(R.id.backButton)
     public void back() {
         getActivity().onBackPressed();
