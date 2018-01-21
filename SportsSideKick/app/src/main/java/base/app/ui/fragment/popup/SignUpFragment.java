@@ -158,7 +158,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (LoginApi.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
+        if (LoginApi.getInstance().isLoggedIn() && Utility.isPhone(getActivity())) {
             getActivity().onBackPressed();
             //EventBus.getDefault().composePost(new FragmentEvent(WallFragment.class, true));
         }

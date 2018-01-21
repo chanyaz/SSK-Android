@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.content.Context
 import base.app.data.toUser
 import base.app.data.user.User
-import base.app.ui.fragment.content.wall.UserViewModel.SessionType.Authenticated
+import base.app.ui.fragment.content.wall.UserViewModel.SessionType.Anonymous
 import base.app.ui.fragment.user.auth.LoginApi
 import base.app.util.commons.GSAndroidPlatform
 import io.reactivex.Observable
@@ -17,11 +17,11 @@ class UserViewModel : ViewModel() {
     fun getSession(context: Context): Observable<Session> {
         val loginApi = LoginApi.getInstance()
         return loginApi.initialize(context)
-                .map { Observable.just(GSAndroidPlatform.gs().isAuthenticated) }
-                .flatMap { loginApi.loginAnonymous() } // TODO: Check isAuthenticated and login with existing data IF needed
+                .flatMap { Observable.just(GSAndroidPlatform.gs().isAuthenticated) }
+                .flatMap { loginApi.loginAnonymous() }
                 .flatMap { loginApi.profileData }
                 .map { it.toUser() }
-                .map { Session(it, Authenticated) }
+                .map { Session(it, Anonymous) }
     }
 
     fun getChangesInFriends(): Observable<Any> {

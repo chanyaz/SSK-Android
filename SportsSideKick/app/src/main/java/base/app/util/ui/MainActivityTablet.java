@@ -367,7 +367,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
 
     @Override
     public void onLogin(User user) {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             if (user.getAvatar() != null) {
                 ImageLoader.displayImage(user.getAvatar(), profileImage, null);
             }
@@ -424,7 +424,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
 
     @OnClick({R.id.user_image_container, R.id.profile_name, R.id.user_info_container})
     public void onLoginClick() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));

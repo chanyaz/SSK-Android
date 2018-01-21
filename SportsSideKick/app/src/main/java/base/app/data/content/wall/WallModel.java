@@ -107,15 +107,13 @@ public class WallModel extends GSMessageHandlerAbstract {
                 GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                        List<FeedItem> feedItems = new ArrayList<>();
                         if (!response.hasErrors()) {
-                            List<FeedItem> feedItems = new ArrayList<>();
-                            if (!response.hasErrors()) {
-                                JSONArray jsonArrayOfPosts = (JSONArray)
-                                        response.getScriptData().getBaseData().get(GSConstants.ITEMS);
-                                for (Object postAsJson : jsonArrayOfPosts) {
-                                    FeedItem post = postFactory(postAsJson, mapper, true);
-                                    feedItems.add(post);
-                                }
+                            JSONArray jsonArrayOfPosts = (JSONArray)
+                                    response.getScriptData().getBaseData().get(GSConstants.ITEMS);
+                            for (Object postAsJson : jsonArrayOfPosts) {
+                                FeedItem post = postFactory(postAsJson, mapper, true);
+                                feedItems.add(post);
                             }
                             emitter.onNext(feedItems);
                         }

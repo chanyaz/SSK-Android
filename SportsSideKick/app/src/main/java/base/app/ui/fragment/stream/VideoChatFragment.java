@@ -232,7 +232,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         View view = inflater.inflate(R.layout.fragment_video_chat, container, false);
         ButterKnife.bind(this, view);
 
-        if(LoginApi.getInstance().isRealUser()){
+        if(LoginApi.getInstance().isLoggedIn()){
             model = VideoChatModel.getInstance();
 //        localMedia = LocalMedia.create(getContext());
             name.setText(getContext().getResources().getString(R.string.you));
@@ -740,13 +740,13 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
 
     @Optional
-    @OnClick(R.id.join_now_button)
+    @OnClick(R.id.registerButton)
     public void joinOnClick() {
         EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
     }
 
     @Optional
-    @OnClick(R.id.login_button)
+    @OnClick(R.id.loginButton)
     public void loginOnClick() {
         EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
@@ -754,7 +754,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     private void onLoginStateChange() {
 
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             cameraLogo.setVisibility(View.GONE);
             loginContainer.setVisibility(View.GONE);
             Logo.setVisibility(View.VISIBLE);

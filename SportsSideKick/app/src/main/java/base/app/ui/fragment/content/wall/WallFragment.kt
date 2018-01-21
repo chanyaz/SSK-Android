@@ -21,23 +21,21 @@ class WallFragment : BaseFragment(R.layout.fragment_wall) {
         val feedViewModel = inject<FeedViewModel>()
         val userViewModel = activity.inject<UserViewModel>()
 
-        // TODO: Add/fix caching
         val adapter = WallAdapter(context)
         recyclerView.adapter = adapter
-        userViewModel
+        progressBar.setVisible(true)
+
+        disposables.add(userViewModel
                 .getSession(context!!)
                 .doOnNext { loginContainer.setVisible(it.state == Anonymous) }
                 .flatMap { feedViewModel.getFeedFromServer(it.user) }
-                // TODO: .map { feedViewModel.getFeedFromCache() }
-                // TODO: .doOnNext { feedViewModel.saveFeedToCache(it) }
                 .repeatWhen { userViewModel.getChangesInFriends() }
                 .inBackground()
                 .subscribe {
                     adapter.clear()
                     adapter.addAll(it)
                     progressBar.setVisible(false)
-                }
-        progressBar.setVisible(true)
+                })
 
         postButton.onClick { feedViewModel.composePost() }
     }

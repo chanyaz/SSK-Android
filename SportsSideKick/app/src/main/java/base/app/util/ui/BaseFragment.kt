@@ -5,9 +5,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.reactivex.disposables.CompositeDisposable
 
 // TODO: After converting all fragments to Kotlin, make layoutId parameter not nullable and remove super() call in onCreateView
 abstract class BaseFragment (private val layoutId: Int? = null) : Fragment() {
+
+    val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         if (layoutId == null) {
@@ -42,5 +45,10 @@ abstract class BaseFragment (private val layoutId: Int? = null) : Fragment() {
         const val ITEM_ARG_TAG = "ITEM_ARG_TAG"
         const val STRING_ARRAY_ARG_TAG = "STRING_ARRAY_ARG_TAG"
         const val INITIATOR = "INITIATOR_ARG_TAG"
+    }
+
+    override fun onDestroy() {
+        disposables.clear()
+        super.onDestroy()
     }
 }

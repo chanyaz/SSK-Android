@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity
     }
 
     public void updateTopBar() {
-        int visibility = LoginApi.getInstance().isRealUser() ? View.VISIBLE : View.GONE;
+        int visibility = LoginApi.getInstance().isLoggedIn() ? View.VISIBLE : View.GONE;
         friendsIcon.setVisibility(visibility);
     }
 
@@ -530,7 +530,7 @@ public class MainActivity extends BaseActivity
 
     public void onProfileClicked(View view) {
         drawerLayout.closeDrawer(GravityCompat.END);
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
@@ -595,7 +595,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onLogin(User user) {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
             if (user.getAvatar() != null) {
                 ImageLoader.displayImage(user.getAvatar(), profileImage, null);

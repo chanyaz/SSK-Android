@@ -88,7 +88,7 @@ public class StatisticsFragment extends BaseFragment {
 
     @OnClick(R.id.pin_button)
     public void pinOnClick() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.pin_title), getContext().getResources().getString(R.string.pin_confirm),
                     new View.OnClickListener() {// Cancel
                         @Override

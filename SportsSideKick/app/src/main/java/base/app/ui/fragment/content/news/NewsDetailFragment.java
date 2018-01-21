@@ -438,7 +438,7 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     private void autoHideShowShareButton() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             if (shareContainer != null) {
                 shareContainer.setOnTouchListener(new View.OnTouchListener() {
 
@@ -508,7 +508,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick(R.id.post_comment_button)
     public void postComment() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             Comment comment = new Comment();
             comment.setComment(inputFieldComment.getText().toString());
             comment.setPosterId(LoginApi.getInstance().getUser().getUserId());
@@ -556,7 +556,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick({R.id.likes_container})
     public void togglePostLike() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             if (item != null) {
                 if (likesIconLiked != null) {
                     likesIconLiked.setEnabled(false);
@@ -621,7 +621,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             ShareHelper.share(item);
         } else {
             //TODO Notify user that need to login in order to SHARE
@@ -631,7 +631,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick(R.id.share_twitter)
     public void sharePostTwitter() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             PackageManager pkManager = getActivity().getPackageManager();
             try {
                 PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
@@ -672,7 +672,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick(R.id.pin_container)
     public void showSharedCommentOverlay() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             commentInputOverlay.setVisibility(View.VISIBLE);
 
             showKeyboard(getContext());

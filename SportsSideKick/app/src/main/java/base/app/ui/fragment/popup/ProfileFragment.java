@@ -201,7 +201,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     private void setupFragment() {
         User user = LoginApi.getInstance().getUser();
-        if (user != null && LoginApi.getInstance().isRealUser()) {
+        if (user != null && LoginApi.getInstance().isLoggedIn()) {
             double subscribedAsDouble = user.getSubscribedDate();
             String daysUsingSSK = String.valueOf((int) ((Utility.getCurrentTime() - subscribedAsDouble) / (1000 * 60 * 60 * 24)));
             ArrayList<Pair<String, String>> values = new ArrayList<>();
@@ -256,7 +256,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     @Override
     public void onLogout() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             setupFragment();
         }
     }

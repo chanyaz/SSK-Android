@@ -177,7 +177,7 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
 
     @OnClick(R.id.postButton)
     public void fabOnClick() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             EventBus.getDefault().post(new FragmentEvent(PostCreateFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
@@ -185,13 +185,13 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
     }
 
     @Optional
-    @OnClick(R.id.join_now_button)
+    @OnClick(R.id.registerButton)
     public void joinOnClick() {
         EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
     }
 
     @Optional
-    @OnClick(R.id.login_button)
+    @OnClick(R.id.loginButton)
     public void loginOnClick() {
         EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
@@ -337,7 +337,7 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
     public void onResume() {
         super.onResume();
         if (loginContainer != null) {
-            loginContainer.setVisibility(LoginApi.getInstance().isRealUser() ? View.GONE : View.VISIBLE);
+            loginContainer.setVisibility(LoginApi.getInstance().isLoggedIn() ? View.GONE : View.VISIBLE);
         }
     }
 

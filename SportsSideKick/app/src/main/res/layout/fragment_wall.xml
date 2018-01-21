@@ -51,19 +51,19 @@
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center"
-                        android:paddingTop="25dp"
                         android:gravity="center"
+                        android:paddingTop="25dp"
                         android:shadowColor="@color/black_transparent_154"
                         android:shadowDx="1"
                         android:shadowDy="1"
-                        tools:visibility="visible"
                         android:shadowRadius="2"
                         android:text="@string/wall"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_36"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                     <RelativeLayout
                         android:id="@+id/wall_top_info_container"
@@ -174,15 +174,15 @@
 
                     <TextView
                         android:id="@+id/textView2"
-                        android:lineSpacingMultiplier="0.8"
                         style="@style/fontTitilliumWebLight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="0.8"
                         android:padding="@dimen/padding_8"
                         android:text="@string/access_full"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -193,11 +193,12 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/join_now_button"
+                            android:id="@+id/registerButton"
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="150dp"
                             android:layout_height="@dimen/standard_button_height"
                             android:background="@drawable/gym_bag_button_background"
+                            android:foreground="?selectableItemBackground"
                             android:text="@string/join"
                             android:textAlignment="center"
                             android:textAllCaps="false"
@@ -217,12 +218,13 @@
                             android:textSize="@dimen/font_size_19" />
 
                         <Button
-                            android:id="@+id/login_button"
+                            android:id="@+id/loginButton"
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="150dp"
                             android:layout_height="@dimen/standard_button_height"
                             android:layout_gravity="center"
                             android:background="@drawable/light_button_edit_profile_image"
+                            android:foreground="?selectableItemBackground"
                             android:gravity="center"
                             android:text="@string/sign_in"
                             android:textAlignment="center"
@@ -236,12 +238,12 @@
 
                 <com.wang.avi.AVLoadingIndicatorView
                     android:id="@+id/progressBar"
-                    android:visibility="gone"
                     android:layout_width="@dimen/prodgres_bar"
                     android:layout_height="@dimen/prodgres_bar"
                     android:layout_below="@id/loginContainer"
                     android:layout_centerInParent="true"
                     android:elevation="@dimen/elevation_2"
+                    android:visibility="gone"
                     app:indicatorName="LineSpinFadeLoaderIndicator" />
 
                 <android.support.v7.widget.RecyclerView
@@ -249,11 +251,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/loginContainer"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     android:layout_marginTop="?wallRecyclerListPhoneTopMargin"
                     android:clipToPadding="false"
-                    android:paddingTop="8dp" />
+                    android:nestedScrollingEnabled="false"
+                    android:paddingTop="8dp"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
             </RelativeLayout>
 

@@ -112,7 +112,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(LoginApi.getInstance().isRealUser()) {
+                            if(LoginApi.getInstance().isLoggedIn()) {
                                 EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
                             }
                         }

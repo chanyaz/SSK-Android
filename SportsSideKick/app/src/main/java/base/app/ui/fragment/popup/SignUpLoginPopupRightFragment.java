@@ -72,7 +72,7 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment
 
     @Override
     public void onLogin(User user) {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         }
     }

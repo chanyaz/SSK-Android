@@ -358,7 +358,7 @@ public class ChatFragment extends BaseFragment {
 
 
     private void onLoginStateChange() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.GONE);
             }
@@ -366,13 +366,13 @@ public class ChatFragment extends BaseFragment {
     }
 
     @Optional
-    @OnClick(R.id.join_now_button)
+    @OnClick(R.id.registerButton)
     public void joinOnClick() {
         EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
     }
 
     @Optional
-    @OnClick(R.id.login_button)
+    @OnClick(R.id.loginButton)
     public void loginOnClick() {
         EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
@@ -389,7 +389,7 @@ public class ChatFragment extends BaseFragment {
     public void onResume(){
         super.onResume();
         if (inactiveContainer != null) {
-            if (LoginApi.getInstance().isRealUser()) {
+            if (LoginApi.getInstance().isLoggedIn()) {
                 inactiveContainer.setVisibility(View.GONE);
             } else {
                 inactiveContainer.setVisibility(View.VISIBLE);
@@ -499,7 +499,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.menu_button)
     public void chatButtonsMenuOnClick() {
-        if(!LoginApi.getInstance().isRealUser()){
+        if(!LoginApi.getInstance().isLoggedIn()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
@@ -513,7 +513,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_dots)
     public void chatMenuDotsContainerOnClick() {
-        if(!LoginApi.getInstance().isRealUser()){
+        if(!LoginApi.getInstance().isLoggedIn()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
@@ -620,13 +620,13 @@ public class ChatFragment extends BaseFragment {
     }
 
     public void sendButtonOnClick() {
-        if(!LoginApi.getInstance().isRealUser()){
+        if(!LoginApi.getInstance().isLoggedIn()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
             return;
         }
-        if(LoginApi.getInstance().isRealUser() && currentlyActiveChat != null) {
+        if(LoginApi.getInstance().isLoggedIn() && currentlyActiveChat != null) {
             String textMessage = inputEditText.getText().toString().trim();
             sendTextMessage(textMessage);
         } else {
@@ -655,7 +655,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_create)
     public void chatMenuCreateOnClick() {
-        if(LoginApi.getInstance().isRealUser()){
+        if(LoginApi.getInstance().isLoggedIn()){
             EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
         } else {
             if (inactiveContainer != null) {

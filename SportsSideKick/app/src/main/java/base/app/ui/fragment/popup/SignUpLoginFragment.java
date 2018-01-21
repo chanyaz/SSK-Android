@@ -52,19 +52,19 @@ public class SignUpLoginFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (LoginApi.getInstance().isRealUser() && Utility.isPhone(getActivity())){
+        if (LoginApi.getInstance().isLoggedIn() && Utility.isPhone(getActivity())){
             getActivity().onBackPressed();
         }
     }
 
     @Optional
-    @OnClick(R.id.join_now_button)
+    @OnClick(R.id.registerButton)
     public void joinOnClick() {
         EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
     }
 
     @Optional
-    @OnClick(R.id.login_button)
+    @OnClick(R.id.loginButton)
     public void loginOnClick() {
         EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }

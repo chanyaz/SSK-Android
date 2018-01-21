@@ -48,9 +48,9 @@ import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.TypeConverterKt.toUser;
-import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
 import static base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType.NONE;
 import static base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType.REAL;
+import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
 
 public class LoginApi {
 
@@ -95,7 +95,7 @@ public class LoginApi {
         return null;
     }
 
-    public boolean isRealUser() {
+    public boolean isLoggedIn() {
         return getLoggedInUserType() == LoginApi.LoggedInUserType.REAL;
     }
 
@@ -219,14 +219,8 @@ public class LoginApi {
 
                         if (available) {
 
-                            if (!GSAndroidPlatform.gs().isAuthenticated()) {
-                                Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
-                                loginAnonymous();
-                            } else {
-                                // Same entry point as onAuthenticationCheck - escaping from dead loop!
-                                Log.d(TAG, "isAuthenticated(): authenticated, do nothing.");
+                            if (GSAndroidPlatform.gs().isAuthenticated()) {
                                 getProfileData(completeLogin);
-
                                 PurchaseModel.getInstance().updateProductList();
                             }
                         }
@@ -255,7 +249,7 @@ public class LoginApi {
         public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
             if (response != null) {
                 if (!response.hasErrors()) {
-                    if (!isRealUser()) {
+                    if (!isLoggedIn()) {
                         toUser(response);
                         String dn = response.getDisplayName();
                         setLoggedInUserType(dn != null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);

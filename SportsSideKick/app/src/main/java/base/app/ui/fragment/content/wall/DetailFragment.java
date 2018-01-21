@@ -203,7 +203,7 @@ public class DetailFragment extends BaseFragment {
                 delete.setVisibility(View.VISIBLE);
             }
         }
-        post.setEnabled(LoginApi.getInstance().isRealUser());
+        post.setEnabled(LoginApi.getInstance().isLoggedIn());
         post.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -483,7 +483,7 @@ public class DetailFragment extends BaseFragment {
 
     @OnClick({R.id.likes_container})
     public void togglePostLike() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isLoggedIn()) {
             if (mPost != null) {
                 if (likesIconLiked != null) {
                     likesIconLiked.setEnabled(false);

@@ -212,7 +212,7 @@ public class StoreFragment extends BaseFragment {
     View.OnClickListener shareToWallOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(!LoginApi.getInstance().isRealUser()) {
+            if(!LoginApi.getInstance().isLoggedIn()) {
                 Toast.makeText(getContext(),"You have to be logged in in order to pin to wall",Toast.LENGTH_SHORT).show();
                 return;
             }
