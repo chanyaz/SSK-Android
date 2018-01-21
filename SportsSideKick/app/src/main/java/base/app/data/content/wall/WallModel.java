@@ -22,10 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.data.user.User;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.commons.DateUtils;
 import base.app.util.commons.FileUploader;
 import base.app.util.commons.GSConstants;
-import base.app.ui.fragment.user.auth.AuthApi;
 import base.app.data.TypeConverter;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.util.events.CommentDeleteEvent;
@@ -43,7 +43,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
-import static base.app.ui.fragment.user.auth.AuthApi.createRequest;
+import static base.app.ui.fragment.user.auth.LoginApi.createRequest;
 import static base.app.data.TypeConverter.ItemType;
 import static base.app.data.TypeConverter.postFactory;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
@@ -67,7 +67,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     private WallModel() {
         mapper = new ObjectMapper().registerModule(new KotlinModule());
-        AuthApi.getInstance().setMessageHandlerDelegate(this);
+        LoginApi.getInstance().setMessageHandlerDelegate(this);
     }
 
     /**
@@ -97,6 +97,38 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .setEventAttribute(GSConstants.USER_ID, user.getUserId())
                 .setEventAttribute(GSConstants.LANGUAGE, Prefs.getString(CHOSEN_LANGUAGE, "en"));
         request.send(consumer);
+    }
+
+    public Observable<List<FeedItem>> loadFeed(final User user) {
+        return Observable.create(new ObservableOnSubscribe<List<FeedItem>>() {
+            @Override
+            public void subscribe(final ObservableEmitter<List<FeedItem>> emitter) throws Exception {
+
+                GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                        if (!response.hasErrors()) {
+                            List<FeedItem> feedItems = new ArrayList<>();
+                            if (!response.hasErrors()) {
+                                JSONArray jsonArrayOfPosts = (JSONArray)
+                                        response.getScriptData().getBaseData().get(GSConstants.ITEMS);
+                                for (Object postAsJson : jsonArrayOfPosts) {
+                                    FeedItem post = postFactory(postAsJson, mapper, true);
+                                    feedItems.add(post);
+                                }
+                            }
+                            emitter.onNext(feedItems);
+                        }
+                        emitter.onComplete();
+                    }
+                };
+
+                GSRequestBuilder.LogEventRequest request = createRequest("wallGetItems")
+                        .setEventAttribute(GSConstants.USER_ID, user.getUserId())
+                        .setEventAttribute(GSConstants.LANGUAGE, Prefs.getString(CHOSEN_LANGUAGE, "en"));
+                request.send(consumer);
+            }
+        });
     }
 
     /**
@@ -358,7 +390,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     private User getCurrentUser() {
-        return AuthApi.getInstance().getUser();
+        return LoginApi.getInstance().getUser();
     }
 
     @Override
@@ -407,8 +439,8 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Object commentObject = data.get(GSConstants.COMMENT);
                         Comment comment = mapper.convertValue(commentObject, new TypeReference<Comment>() {
                         });
-//                        if (AuthApi.getInstance().isRealUser()) {
-//                            if (comment.getPosterId().equals(AuthApi.getInstance().getUser().getUserId())) {
+//                        if (LoginApi.getInstance().isRealUser()) {
+//                            if (comment.getPosterId().equals(LoginApi.getInstance().getUser().getUserId())) {
 //                                return; // Its our own comment, ignore it
 //                            }
 //                        }

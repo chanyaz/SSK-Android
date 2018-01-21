@@ -10,7 +10,7 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.data.user.purchases.PurchaseModel;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
@@ -40,7 +40,7 @@ public class WalletFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.popup_your_wallet, container, false);
         ButterKnife.bind(this, view);
-        walletAmount.setText(String.valueOf(AuthApi.getInstance().getUser().getCurrency()));
+        walletAmount.setText(String.valueOf(LoginApi.getInstance().getUser().getCurrency()));
         return view;
     }
 

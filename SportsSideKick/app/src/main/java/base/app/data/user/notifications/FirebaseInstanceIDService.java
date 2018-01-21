@@ -3,7 +3,7 @@ package base.app.data.user.notifications;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -18,7 +18,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        AuthApi.getInstance().setFirebaseToken(refreshedToken);
+        LoginApi.getInstance().setFirebaseToken(refreshedToken);
     }
 
 }

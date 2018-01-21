@@ -70,8 +70,8 @@ import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.ui.fragment.stream.RadioFragment;
 import base.app.ui.fragment.stream.RadioStationFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.ui.fragment.user.auth.AuthApi;
-import base.app.ui.fragment.user.auth.AuthFragment;
+import base.app.ui.fragment.user.auth.LoginApi;
+import base.app.ui.fragment.user.auth.LoginFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.FragmentEvent;
@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity
     }
 
     public void updateTopBar() {
-        int visibility = AuthApi.getInstance().isRealUser() ? View.VISIBLE : View.GONE;
+        int visibility = LoginApi.getInstance().isRealUser() ? View.VISIBLE : View.GONE;
         friendsIcon.setVisibility(visibility);
     }
 
@@ -247,7 +247,7 @@ public class MainActivity extends BaseActivity
         popupContainerFragments.add(FriendRequestsFragment.class);
         popupContainerFragments.add(StartingNewCallFragment.class);
         popupContainerFragments.add(EditProfileFragment.class);
-        popupContainerFragments.add(AuthFragment.class);
+        popupContainerFragments.add(LoginFragment.class);
         popupContainerFragments.add(SignUpFragment.class);
         popupContainerFragments.add(FriendFragment.class);
         popupContainerFragments.add(FollowersFragment.class);
@@ -530,7 +530,7 @@ public class MainActivity extends BaseActivity
 
     public void onProfileClicked(View view) {
         drawerLayout.closeDrawer(GravityCompat.END);
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
@@ -544,7 +544,7 @@ public class MainActivity extends BaseActivity
     @Subscribe
     public void updateUserName(UserEvent event) {
         if (event.getType() == UserEvent.Type.onDetailsUpdated) {
-            setYourCoinsValue(String.valueOf(AuthApi.getInstance().getUser().getCurrency()));
+            setYourCoinsValue(String.valueOf(LoginApi.getInstance().getUser().getCurrency()));
         }
     }
 
@@ -595,18 +595,18 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onLogin(User user) {
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
             if (user.getAvatar() != null) {
                 ImageLoader.displayImage(user.getAvatar(), profileImage, null);
             }
-            setYourCoinsValue(String.valueOf(AuthApi.getInstance().getUser().getCurrency()));
+            setYourCoinsValue(String.valueOf(LoginApi.getInstance().getUser().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
             yourLevel.setText(String.valueOf((int) user.getProgress()));
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
-            TutorialModel.getInstance().setUserId(AuthApi.getInstance().getUser().getUserId());
+            TutorialModel.getInstance().setUserId(LoginApi.getInstance().getUser().getUserId());
         } else {
             resetUserDetails();
         }

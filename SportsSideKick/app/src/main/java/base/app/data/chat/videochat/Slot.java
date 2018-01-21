@@ -16,7 +16,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -73,7 +73,7 @@ public class Slot implements Participant.Listener{
             setUser(null);
             return;
         }
-        AuthApi.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<User>() {
+        LoginApi.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
             public void onComplete(@NonNull Task<User> task) {
                 if (task.isSuccessful()) {

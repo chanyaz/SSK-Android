@@ -41,7 +41,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.data.content.news.NewsModel;
 import base.app.data.content.share.ShareHelper;
 import base.app.data.content.wall.FeedItem;
@@ -237,7 +237,7 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     private void showSharedMessageAvatar() {
-        Task<User> getUserTask = AuthApi.getInstance().getUserInfoById(pointerPin.getWallId());
+        Task<User> getUserTask = LoginApi.getInstance().getUserInfoById(pointerPin.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
             public void onComplete(@NonNull Task<User> task) {
@@ -410,7 +410,7 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     private void showSharingAvatar() {
-        Task<User> getUserTask = AuthApi.getInstance().getUserInfoById(item.getWallId());
+        Task<User> getUserTask = LoginApi.getInstance().getUserInfoById(item.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
             public void onComplete(@NonNull Task<User> task) {
@@ -438,7 +438,7 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     private void autoHideShowShareButton() {
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             if (shareContainer != null) {
                 shareContainer.setOnTouchListener(new View.OnTouchListener() {
 
@@ -508,10 +508,10 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick(R.id.post_comment_button)
     public void postComment() {
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             Comment comment = new Comment();
             comment.setComment(inputFieldComment.getText().toString());
-            comment.setPosterId(AuthApi.getInstance().getUser().getUserId());
+            comment.setPosterId(LoginApi.getInstance().getUser().getUserId());
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getId());
             comment.setTimestamp((double) (getCurrentTime() / 1000));
@@ -556,7 +556,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick({R.id.likes_container})
     public void togglePostLike() {
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             if (item != null) {
                 if (likesIconLiked != null) {
                     likesIconLiked.setEnabled(false);
@@ -621,7 +621,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick(R.id.share_facebook)
     public void sharePostFacebook() {
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             ShareHelper.share(item);
         } else {
             //TODO Notify user that need to login in order to SHARE
@@ -631,7 +631,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick(R.id.share_twitter)
     public void sharePostTwitter() {
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             PackageManager pkManager = getActivity().getPackageManager();
             try {
                 PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
@@ -672,7 +672,7 @@ public class NewsDetailFragment extends BaseFragment {
 
     @OnClick(R.id.pin_container)
     public void showSharedCommentOverlay() {
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             commentInputOverlay.setVisibility(View.VISIBLE);
 
             showKeyboard(getContext());

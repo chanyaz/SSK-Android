@@ -27,7 +27,7 @@ import java.util.List;
 import base.app.R;
 import base.app.ui.adapter.stream.FindOfficialAdapter;
 import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.data.user.friends.PeopleSearchManager;
@@ -116,7 +116,7 @@ public class AddFriendFragment extends BaseFragment {
                 officialAccountsAdapter = new FindOfficialAdapter(getActivity(), this.getClass());
                 officialAccountsRecyclerView.setAdapter(officialAccountsAdapter);
             }
-            Task<List<User>> fetchOfficialAccountsTask = AuthApi.getInstance().getOfficialAccounts(0);
+            Task<List<User>> fetchOfficialAccountsTask = LoginApi.getInstance().getOfficialAccounts(0);
             fetchOfficialAccountsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
                 @Override
                 public void onComplete(@NonNull Task<List<User>> task) {

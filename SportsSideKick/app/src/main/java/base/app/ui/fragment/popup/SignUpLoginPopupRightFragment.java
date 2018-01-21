@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
 import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.data.user.LoginStateReceiver;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.other.ChatFragment;
@@ -72,7 +72,7 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment
 
     @Override
     public void onLogin(User user) {
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         }
     }

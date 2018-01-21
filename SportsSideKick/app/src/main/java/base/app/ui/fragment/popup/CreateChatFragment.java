@@ -44,7 +44,7 @@ import java.util.TimerTask;
 import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.events.AddFriendsEvent;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
@@ -291,7 +291,7 @@ public class CreateChatFragment extends BaseFragment {
             boolean isPrivate = privateChatSwitch.isChecked();
 
             ChatInfo newChatInfo = new ChatInfo();
-            newChatInfo.setOwner(AuthApi.getInstance().getUser().getUserId());
+            newChatInfo.setOwner(LoginApi.getInstance().getUser().getUserId());
             newChatInfo.setIsPublic(!isPrivate);
             newChatInfo.setName(chatName);
             ArrayList<String> userIds = new ArrayList<>();
@@ -329,7 +329,7 @@ public class CreateChatFragment extends BaseFragment {
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = AuthApi.createImageFile(getContext());
+                photoFile = LoginApi.createImageFile(getContext());
                 currentPath = photoFile.getAbsolutePath();
             } catch (IOException ex) {
                 // Error occurred while creating the File
@@ -365,7 +365,7 @@ public class CreateChatFragment extends BaseFragment {
                     break;
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
-                    String realPath = AuthApi.getRealPathFromURI(getContext(), selectedImageURI);
+                    String realPath = LoginApi.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImage(realPath);
                     chatImageView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
@@ -377,7 +377,7 @@ public class CreateChatFragment extends BaseFragment {
 
     private void uploadImage(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        AuthApi.getInstance().uploadImageForCreateChat(path,getActivity().getFilesDir(),source);
+        LoginApi.getInstance().uploadImageForCreateChat(path,getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(final @NonNull Task<String> task) {

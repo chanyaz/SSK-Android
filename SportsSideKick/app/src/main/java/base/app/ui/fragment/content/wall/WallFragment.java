@@ -30,7 +30,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.events.FriendsListChangedEvent;
 import base.app.data.TypeConverter;
 import base.app.data.content.news.NewsModel;
@@ -46,7 +46,7 @@ import base.app.ui.adapter.content.WallAdapter;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.ui.fragment.user.auth.AuthFragment;
+import base.app.ui.fragment.user.auth.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.ui.fragment.popup.post.PostCreateFragment;
@@ -134,7 +134,7 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
                             fetchingPageOfPosts = false;
                         }
                     });
-                    loadFeed(false, competition, AuthApi.getInstance().getUser());
+                    loadFeed(false, competition, LoginApi.getInstance().getUser());
                 }
             }
         });
@@ -177,7 +177,7 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
 
     @OnClick(R.id.postButton)
     public void fabOnClick() {
-        if (AuthApi.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(PostCreateFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
@@ -193,7 +193,7 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
     @Optional
     @OnClick(R.id.login_button)
     public void loginOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(AuthFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
     @Subscribe
@@ -210,7 +210,7 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
             }
         }
         if (item instanceof Post && ((Post) item).getPoster() == null) {
-            AuthApi.getInstance().getUserInfoById(item.getWallId())
+            LoginApi.getInstance().getUserInfoById(item.getWallId())
                     .addOnCompleteListener(new OnCompleteListener<User>() {
                         @Override
                         public void onComplete(@NonNull Task<User> task) {
@@ -297,7 +297,7 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
                 fetchingPageOfPosts = false;
             }
         });
-        loadFeed(true, callback, AuthApi.getInstance().getUser());
+        loadFeed(true, callback, LoginApi.getInstance().getUser());
     }
 
     private void loadFeed(final boolean withSpinner, final TaskCompletionSource<List<FeedItem>> completion, User user) {
@@ -337,7 +337,7 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
     public void onResume() {
         super.onResume();
         if (loginContainer != null) {
-            loginContainer.setVisibility(AuthApi.getInstance().isRealUser() ? View.GONE : View.VISIBLE);
+            loginContainer.setVisibility(LoginApi.getInstance().isRealUser() ? View.GONE : View.VISIBLE);
         }
     }
 

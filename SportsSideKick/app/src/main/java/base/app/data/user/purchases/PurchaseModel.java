@@ -30,7 +30,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.commons.GSAndroidPlatform;
 
 /**
@@ -159,13 +159,13 @@ public class PurchaseModel {
                 }
             }
 
-            if(AuthApi.getInstance().getUser() == null) {
+            if(LoginApi.getInstance().getUser() == null) {
                 return;
             }
 
             final boolean finalResult = result;
             final String finalError = error;
-            AuthApi.getInstance().refreshUserInfo(AuthApi.getInstance().getUser().getUserId()).addOnCompleteListener(
+            LoginApi.getInstance().refreshUserInfo(LoginApi.getInstance().getUser().getUserId()).addOnCompleteListener(
                     new OnCompleteListener<User>() {
                         @Override
                         public void onComplete(@NonNull Task<User> task) {
@@ -209,13 +209,13 @@ public class PurchaseModel {
                 }
             }
 
-            if(AuthApi.getInstance().getUser() == null) {
+            if(LoginApi.getInstance().getUser() == null) {
                 return;
             }
 
             final boolean finalResult = result;
             final String finalError = error;
-            AuthApi.getInstance().refreshUserInfo(AuthApi.getInstance().getUser().getUserId()).addOnCompleteListener(
+            LoginApi.getInstance().refreshUserInfo(LoginApi.getInstance().getUser().getUserId()).addOnCompleteListener(
                     new OnCompleteListener<User>() {
                         @Override
                         public void onComplete(@NonNull Task<User> task) {

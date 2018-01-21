@@ -42,7 +42,7 @@ import java.util.TimerTask;
 import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
@@ -156,7 +156,7 @@ public class EditChatFragment extends BaseFragment {
                         chatFriendsAdapter.add(users);
                         userList = users;
 
-                        List<User> chatMembers = AuthApi.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+                        List<User> chatMembers = LoginApi.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
                         chatFriendsAdapter.setSelectedUsers(chatMembers);
 
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
@@ -303,7 +303,7 @@ public class EditChatFragment extends BaseFragment {
     }
 
     private void submitChanges(){
-        List<User> chatMembers = AuthApi.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+        List<User> chatMembers = LoginApi.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
         List<User> selectedValues = chatFriendsAdapter.getSelectedValues();
 
         boolean shouldUpdate = false;
@@ -367,7 +367,7 @@ public class EditChatFragment extends BaseFragment {
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = AuthApi.createImageFile(getContext());
+                photoFile = LoginApi.createImageFile(getContext());
                 currentPath = photoFile.getAbsolutePath();
             } catch (IOException ex) {
                 // Error occurred while creating the File
@@ -401,7 +401,7 @@ public class EditChatFragment extends BaseFragment {
                     break;
                 case REQUEST_CODE_CHAT_EDIT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
-                    String realPath = AuthApi.getRealPathFromURI(getContext(), selectedImageURI);
+                    String realPath = LoginApi.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImage(realPath);
                     ImageLoader.displayImage(realPath,chatImageView, null);
                     break;
@@ -411,7 +411,7 @@ public class EditChatFragment extends BaseFragment {
 
     private void uploadImage(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        AuthApi.getInstance().uploadImageForEditChat(path,getActivity().getFilesDir(),source);
+        LoginApi.getInstance().uploadImageForEditChat(path,getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {

@@ -17,7 +17,7 @@ import org.json.simple.JSONObject;
 import java.util.List;
 import java.util.Map;
 
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.commons.GSAndroidPlatform;
 import base.app.util.commons.DateUtils;
 
@@ -78,13 +78,13 @@ public class ChatMessage {
         message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
         message.setTimestamp(DateUtils.currentTimeToFirebaseDate());
         message.initializeTimestamp();
-        message.setSenderId(AuthApi.getInstance().getUser().getUserId());
+        message.setSenderId(LoginApi.getInstance().getUser().getUserId());
         message.setReadFlag(false);
         return message;
     }
 
     public void determineSelfReadFlag(){
-        String userId = AuthApi.getInstance().getUser().getUserId();
+        String userId = LoginApi.getInstance().getUser().getUserId();
         if(wasReadBy!=null){
             for(String key : wasReadBy){
                 if(userId.equals(key)){

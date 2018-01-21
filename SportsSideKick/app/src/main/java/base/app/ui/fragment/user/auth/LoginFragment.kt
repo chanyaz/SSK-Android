@@ -11,6 +11,7 @@ import base.app.BuildConfig
 import base.app.R
 import base.app.data.user.PasswordResetReceiver
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener
+import base.app.data.user.User
 import base.app.ui.fragment.content.wall.UserViewModel
 import base.app.util.commons.Utility
 import base.app.util.events.FragmentEvent
@@ -32,10 +33,10 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.json.JSONException
 import java.util.*
 
-class AuthFragment : BaseFragment(R.layout.fragment_login),
-        PasswordResetListener, IAuthView {
+class LoginFragment : BaseFragment(R.layout.fragment_login),
+        PasswordResetListener, ILoginView {
 
-    private val loginViewModel = inject<AuthViewModel>()
+    private val loginViewModel = inject<LoginViewModel>()
     private val userViewModel = inject<UserViewModel>()
     private var callbackManager: CallbackManager? = null
     private var passwordResetReceiver: PasswordResetReceiver? = null
@@ -71,7 +72,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_login),
     // TODO @OnClick(R.id.reset_text)
     fun forgotPasswordOnClick() {
         val email = emailField.text.toString()
-        AuthApi.getInstance().resetPassword(email)
+        LoginApi.getInstance().resetPassword(email)
         activity?.onBackPressed()
     }
 
@@ -140,7 +141,7 @@ class AuthFragment : BaseFragment(R.layout.fragment_login),
                 context!!.resources.getString(R.string.password_try_again), null,
                 View.OnClickListener {
                     activity?.onBackPressed()
-                    EventBus.getDefault().post(FragmentEvent(AuthFragment::class.java))
+                    EventBus.getDefault().post(FragmentEvent(LoginFragment::class.java))
                 }
         )
     }
@@ -182,9 +183,10 @@ class AuthFragment : BaseFragment(R.layout.fragment_login),
         submitButtonLabel.setVisible(!loading)
     }
 
-    override fun navigateToFeed(it: AuthViewModel.Session) {
-        userViewModel.currentSession.onNext(it)
-        userViewModel.currentSession.onComplete()
+    override fun navigateToFeed(user: User) {
+        userViewModel.currentUser.onNext(user)
+        userViewModel.currentUser.onComplete()
+
         activity?.onBackPressed()
     }
 

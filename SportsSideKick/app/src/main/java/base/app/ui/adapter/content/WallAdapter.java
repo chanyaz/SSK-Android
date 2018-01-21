@@ -31,7 +31,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.data.content.Translator;
 import base.app.data.content.wall.FeedItem;
 import base.app.data.content.wall.News;
@@ -225,7 +225,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     static void displayUserInfo(final FeedItem post, final ViewHolder holder) {
-        Task<User> getUserTask = AuthApi.getInstance().getUserInfoById(post.getWallId());
+        Task<User> getUserTask = LoginApi.getInstance().getUserInfoById(post.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
             public void onComplete(@NonNull Task<User> task) {

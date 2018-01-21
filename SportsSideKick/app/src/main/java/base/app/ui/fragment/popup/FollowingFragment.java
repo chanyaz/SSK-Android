@@ -26,7 +26,7 @@ import java.util.List;
 import base.app.R;
 import base.app.data.user.User;
 import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.data.user.friends.FriendsManager;
@@ -71,7 +71,7 @@ public class FollowingFragment extends BaseFragment {
         final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
         adapter.setInitiatorFragment(this.getClass());
         followingRecyclerView.setAdapter(adapter);
-        User user = AuthApi.getInstance().getUser();
+        User user = LoginApi.getInstance().getUser();
         if (user != null)
         {
             Task<List<User>> friendsTask = FriendsManager.getInstance().getUserFollowingList(user.getUserId(), 0);

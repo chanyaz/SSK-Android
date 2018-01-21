@@ -29,7 +29,7 @@ import base.app.R;
 import base.app.data.user.User;
 import base.app.data.user.friends.FriendsManager;
 import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.commons.Utility;
 import base.app.util.events.FragmentEvent;
 import base.app.util.events.FriendsListChangedEvent;
@@ -107,7 +107,7 @@ public class FriendsFragment extends BaseFragment {
             officialAccountAdapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
         }
 
-        Task<List<User>> officialTask = AuthApi.getInstance().getOfficialAccounts(0);
+        Task<List<User>> officialTask = LoginApi.getInstance().getOfficialAccounts(0);
         officialTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
             @Override
             public void onComplete(@NonNull Task<List<User>> task) {

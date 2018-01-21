@@ -49,10 +49,10 @@ import io.reactivex.ObservableOnSubscribe;
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.TypeConverterKt.toUser;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
-import static base.app.ui.fragment.user.auth.AuthApi.LoggedInUserType.NONE;
-import static base.app.ui.fragment.user.auth.AuthApi.LoggedInUserType.REAL;
+import static base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType.NONE;
+import static base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType.REAL;
 
-public class AuthApi {
+public class LoginApi {
 
     private static final String TAG = "MODEL";
     private final ObjectMapper mapper;
@@ -76,11 +76,11 @@ public class AuthApi {
     }
 
 
-    private static AuthApi instance;
+    private static LoginApi instance;
 
-    public static AuthApi getInstance() {
+    public static LoginApi getInstance() {
         if (instance == null) {
-            instance = new AuthApi();
+            instance = new LoginApi();
         }
         return instance;
     }
@@ -96,7 +96,7 @@ public class AuthApi {
     }
 
     public boolean isRealUser() {
-        return getLoggedInUserType() == AuthApi.LoggedInUserType.REAL;
+        return getLoggedInUserType() == LoginApi.LoggedInUserType.REAL;
     }
 
     public LoggedInUserType getLoggedInUserType() {
@@ -125,7 +125,7 @@ public class AuthApi {
 
     private HashMap<String, User> userCache;
 
-    private AuthApi() {
+    private LoginApi() {
         userCache = new HashMap<>();
         mapper = new ObjectMapper();
         loggedInUserType = NONE;
@@ -203,24 +203,35 @@ public class AuthApi {
 
     private String androidId;
 
-    public void initialize(final Context context) {
+    public Observable<Boolean> initialize(final Context context) {
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         GSAndroidPlatform.initialise(context, Keys.GS_API_KEY, Keys.GS_API_SECRET);
-        GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
+
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void onEvent(Boolean available) {
-                Log.d(TAG, "GS Available: " + available);
-                if (available) {
-                    if (!GSAndroidPlatform.gs().isAuthenticated()) {
-                        Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
-                        loginAnonymous();
-                    } else {
-                        PurchaseModel.getInstance().updateProductList();
-                        // Same entry point as onAuthenticationCheck - escaping from dead loop!
-                        Log.d(TAG, "isAuthenticated(): authenticated, do nothing.");
-                        getProfileData(completeLogin);
+            public void subscribe(final ObservableEmitter<Boolean> emitter) throws Exception {
+                GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
+                    @Override
+                    public void onEvent(Boolean available) {
+
+                        emitter.onNext(available);
+                        emitter.onComplete();
+
+                        if (available) {
+
+                            if (!GSAndroidPlatform.gs().isAuthenticated()) {
+                                Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
+                                loginAnonymous();
+                            } else {
+                                // Same entry point as onAuthenticationCheck - escaping from dead loop!
+                                Log.d(TAG, "isAuthenticated(): authenticated, do nothing.");
+                                getProfileData(completeLogin);
+
+                                PurchaseModel.getInstance().updateProductList();
+                            }
+                        }
                     }
-                }
+                });
             }
         });
     }
@@ -493,16 +504,31 @@ public class AuthApi {
         }
     };
 
-    public void loginAnonymous() {
-        GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
-        HashMap<String, Object> scriptData = new HashMap<>();
-        scriptData.put(CLUB_ID_TAG, CLUB_ID);
-        request.getBaseData().put("scriptData", scriptData);
-        request.setDeviceId(androidId);
-        request.setDeviceModel(Build.MANUFACTURER);
-        request.setDeviceName(Build.MODEL);
-        request.setDeviceOS("ANDROID");
-        request.send(onAuthenticated);
+    public Observable<GSResponseBuilder.AuthenticationResponse> loginAnonymous() {
+        return Observable.create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
+            @Override
+            public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
+                GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
+                HashMap<String, Object> scriptData = new HashMap<>();
+                scriptData.put(CLUB_ID_TAG, CLUB_ID);
+                request.getBaseData().put("scriptData", scriptData);
+                request.setDeviceId(androidId);
+                request.setDeviceModel(Build.MANUFACTURER);
+                request.setDeviceName(Build.MODEL);
+                request.setDeviceOS("ANDROID");
+                request.send(new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.AuthenticationResponse response) {
+                        if (!response.hasErrors()) {
+                            emitter.onNext(response);
+                            emitter.onComplete();
+                        } else {
+                            emitter.onError(new Throwable(response.toString()));
+                        }
+                    }
+                });
+            }
+        });
     }
 
     public Observable<GSResponseBuilder.AuthenticationResponse> authorize(final String email, final String password) {
@@ -533,7 +559,7 @@ public class AuthApi {
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
                 if (endSessionResponse != null) {
                     if (endSessionResponse.hasErrors()) {
-                        Log.d(TAG, "AuthApi.onSessionEnded() -> Error ending session!");
+                        Log.d(TAG, "LoginApi.onSessionEnded() -> Error ending session!");
                     } else {
                         clearUser();
                         setLoggedInUserType(NONE);

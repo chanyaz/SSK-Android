@@ -8,7 +8,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.commons.GSConstants;
 import base.app.data.TypeConverter;
 import base.app.data.content.wall.FeedItem;
@@ -37,7 +37,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
 
     private InternalNotificationManager(){
         mapper  = new ObjectMapper();
-        AuthApi.getInstance().setMessageHandlerDelegate(this);
+        LoginApi.getInstance().setMessageHandlerDelegate(this);
     }
 
     @Override

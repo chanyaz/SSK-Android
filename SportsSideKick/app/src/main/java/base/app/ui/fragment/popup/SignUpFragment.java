@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.ui.fragment.user.auth.AuthApi;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.commons.GSConstants;
 import base.app.data.user.RegistrationStateReceiver;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
@@ -158,7 +158,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (AuthApi.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
+        if (LoginApi.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
             getActivity().onBackPressed();
             //EventBus.getDefault().composePost(new FragmentEvent(WallFragment.class, true));
         }
@@ -341,13 +341,13 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             progressBar.setVisibility(View.VISIBLE);
 
             if (displayName != null) {
-                AuthApi.getInstance().registrationRequest(
+                LoginApi.getInstance().registrationRequest(
                         displayName.getText().toString(),
                         password.getText().toString(),
                         email.getText().toString(),
                         userDetails);
             } else {
-                AuthApi.getInstance().registrationRequest(
+                LoginApi.getInstance().registrationRequest(
                         firstName.getText().toString() + lastName.getText().toString(),
                         password.getText().toString(),
                         email.getText().toString(),

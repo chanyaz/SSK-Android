@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.data.user.User;
+import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.commons.GSConstants;
-import base.app.ui.fragment.user.auth.AuthApi;
 import base.app.data.user.GSMessageHandlerAbstract;
 
 import static base.app.ClubConfig.CLUB_ID;
@@ -52,7 +52,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
     private VideoChatModel() {
         mapper = new ObjectMapper();
         pendingInvitations = new HashMap<>();
-        AuthApi.getInstance().setMessageHandlerDelegate(this);
+        LoginApi.getInstance().setMessageHandlerDelegate(this);
     }
 
     public static VideoChatModel getInstance(){
@@ -64,8 +64,8 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
 
     private String getUserId() {
-        if(AuthApi.getInstance().getUser()!=null) {
-            return AuthApi.getInstance().getUser().getUserId();
+        if(LoginApi.getInstance().getUser()!=null) {
+            return LoginApi.getInstance().getUser().getUserId();
         } else {
             return null;
         }
@@ -128,7 +128,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
                 source.setException(new Exception("There was an error while trying to leave a video chat."));
             }
         };
-        AuthApi.createRequest(leaveType)
+        LoginApi.createRequest(leaveType)
             .setEventAttribute("conferenceId", conferenceId)
             .send(consumer);
         return source.getTask();
@@ -235,7 +235,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
        GSData participants = new GSData();
        participants.getBaseData().put("participants",users);
-       AuthApi.createRequest("vcCreate")
+       LoginApi.createRequest("vcCreate")
                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                .setEventAttribute("users",participants)
                 .send(consumer);
@@ -271,7 +271,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
         };
 
 
-        AuthApi.createRequest("vcJoin")
+        LoginApi.createRequest("vcJoin")
             .setEventAttribute("conferenceId",conferenceId)
             .send(consumer);
         return source.getTask();
@@ -307,7 +307,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
 
         GSData participants = new GSData();
         participants.getBaseData().put("participants",users);
-        AuthApi.createRequest("vcInvite")
+        LoginApi.createRequest("vcInvite")
                 .setEventAttribute("users",participants)
                 .setEventAttribute("conferenceId",conferenceId)
                 .send(consumer);
@@ -329,7 +329,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
                 source.setException(new Exception("There was an error while trying to get token for a video chat."));
             }
         };
-        AuthApi.createRequest("vcGetToken")
+        LoginApi.createRequest("vcGetToken")
                 .setEventAttribute("conferenceId",conferenceId)
                 .send(consumer);
         return source.getTask();
@@ -338,7 +338,7 @@ public class VideoChatModel extends GSMessageHandlerAbstract {
     public void reset(){
         activeVideoChatItem = null;
         pendingInvitations.clear();
-        userId = AuthApi.getInstance().getUser().getUserId();
+        userId = LoginApi.getInstance().getUser().getUserId();
     }
 
     public List<String> getInvitedUsers(){
