@@ -23,6 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
+import base.app.ui.fragment.popup.RegisterFragment;
 import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
@@ -57,7 +58,6 @@ import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LanguageFragment;
 import base.app.ui.fragment.user.auth.LoginFragment;
 import base.app.ui.fragment.popup.FriendFragment;
-import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.ui.fragment.popup.SignUpLoginPopupRightFragment;
 import base.app.ui.fragment.popup.SignUpLoginVideoFragment;
@@ -237,7 +237,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
 
         loginContainerFragments = new ArrayList<>();
         loginContainerFragments.add(SignUpLoginFragment.class);
-        loginContainerFragments.add(SignUpFragment.class);
+        loginContainerFragments.add(RegisterFragment.class);
         loginContainerFragments.add(LoginFragment.class);
 
         fragmentOrganizer.setUpContainer(R.id.popup_login_holder, loginContainerFragments);  //NO BACK STACK

@@ -60,7 +60,7 @@ public class SignUpLoginFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.registerButton)
     public void joinOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(RegisterFragment.class));
     }
 
     @Optional

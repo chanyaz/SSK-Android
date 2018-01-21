@@ -14,7 +14,7 @@ class UserViewModel : ViewModel() {
 
     val currentUser: PublishSubject<User> = PublishSubject.create()
 
-    fun getSession(context: Context): Observable<Session> {
+    fun getSession(context: Context?): Observable<Session> {
         val loginApi = LoginApi.getInstance()
         return loginApi.initialize(context)
                 .flatMap { Observable.just(GSAndroidPlatform.gs().isAuthenticated) }

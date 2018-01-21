@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import io.reactivex.disposables.CompositeDisposable
 
 // TODO: After converting all fragments to Kotlin, make layoutId parameter not nullable and remove super() call in onCreateView
-abstract class BaseFragment (private val layoutId: Int? = null) : Fragment() {
+abstract class BaseFragment(private val layoutId: Int? = null) : Fragment() {
 
     val disposables: CompositeDisposable = CompositeDisposable()
 

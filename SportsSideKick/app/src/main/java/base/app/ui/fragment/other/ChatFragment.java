@@ -66,6 +66,7 @@ import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.chat.ChatMessage;
 import base.app.data.user.User;
+import base.app.ui.fragment.popup.RegisterFragment;
 import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.ui.AlertDialogManager;
 import base.app.util.commons.GSConstants;
@@ -84,7 +85,6 @@ import base.app.ui.fragment.popup.CreateChatFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.user.auth.LoginFragment;
-import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.util.commons.Utility;
 import base.app.util.events.FullScreenImageEvent;
 import base.app.util.events.MessageSelectedEvent;
@@ -368,7 +368,7 @@ public class ChatFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.registerButton)
     public void joinOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(RegisterFragment.class));
     }
 
     @Optional

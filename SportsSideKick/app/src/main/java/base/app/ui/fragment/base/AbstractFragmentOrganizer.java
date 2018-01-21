@@ -15,8 +15,9 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import base.app.Application;
-import base.app.util.events.FragmentEvent;
+import base.app.ui.fragment.user.auth.LoginFragment;
 import base.app.util.commons.Utility;
+import base.app.util.events.FragmentEvent;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -42,6 +43,9 @@ abstract class AbstractFragmentOrganizer {
             Constructor constructor = fragmentClass.getConstructor();
             return (Fragment) constructor.newInstance();
         } catch (Exception e) {
+            if (fragmentClass == LoginFragment.class) {
+                return new LoginFragment();
+            }
             e.printStackTrace();
         }
         return null;
@@ -58,8 +62,8 @@ abstract class AbstractFragmentOrganizer {
 
 
     @Nullable
-    private String getFragmentTagAt(int position){
-        if(fragmentManager.getBackStackEntryCount()>=position){
+    private String getFragmentTagAt(int position) {
+        if (fragmentManager.getBackStackEntryCount() >= position) {
             return fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - position).getName();
         }
         return null;
@@ -76,7 +80,7 @@ abstract class AbstractFragmentOrganizer {
     @Nullable
     public Fragment getPreviousFragment() {
         Fragment fragment = fragmentManager.findFragmentByTag(getFragmentTagAt(2));
-        if(fragment==null){
+        if (fragment == null) {
             fragment = getCurrentFragment();
         }
         return fragment;
@@ -88,10 +92,10 @@ abstract class AbstractFragmentOrganizer {
     @Nullable
     public Fragment getPenultimateFragment() {
         Fragment fragment = fragmentManager.findFragmentByTag(getFragmentTagAt(3));
-        if(fragment==null){
+        if (fragment == null) {
             fragment = getPreviousFragment();
         }
-        if(fragment==null){
+        if (fragment == null) {
             fragment = getCurrentFragment();
         }
         return fragment;
@@ -160,6 +164,9 @@ abstract class AbstractFragmentOrganizer {
 
         String fragmentTag = createFragmentTag(fragment, true);
         transaction.addToBackStack(fragmentTag);
+        transaction.setCustomAnimations(
+                android.R.anim.fade_in, android.R.anim.fade_out,
+                android.R.anim.fade_out, android.R.anim.fade_in);
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.commit();
 

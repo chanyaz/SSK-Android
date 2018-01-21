@@ -50,7 +50,7 @@ import base.app.data.chat.videochat.VideoChatModel;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.user.auth.LoginFragment;
-import base.app.ui.fragment.popup.SignUpFragment;
+import base.app.ui.fragment.popup.RegisterFragment;
 import base.app.ui.fragment.popup.SignUpLoginVideoFragment;
 import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.util.commons.SoundEffects;
@@ -742,7 +742,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
     @Optional
     @OnClick(R.id.registerButton)
     public void joinOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(RegisterFragment.class));
     }
 
     @Optional

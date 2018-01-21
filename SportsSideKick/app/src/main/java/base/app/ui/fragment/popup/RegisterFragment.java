@@ -57,7 +57,7 @@ import me.atrox.haikunator.HaikunatorBuilder;
  * www.hypercubesoft.com
  */
 
-public class SignUpFragment extends BaseFragment implements RegistrationStateReceiver.RegistrationStateListener {
+public class RegisterFragment extends BaseFragment implements RegistrationStateReceiver.RegistrationStateListener {
 
     String url;
     @BindView(R.id.web_view)
@@ -110,7 +110,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
     private RegistrationStateReceiver registrationStateReceiver;
 
-    public SignUpFragment() {
+    public RegisterFragment() {
         // Required empty public constructor
     }
 

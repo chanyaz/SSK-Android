@@ -60,7 +60,7 @@ import base.app.ui.fragment.popup.InviteFriendFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LanguageFragment;
 import base.app.ui.fragment.popup.ProfileFragment;
-import base.app.ui.fragment.popup.SignUpFragment;
+import base.app.ui.fragment.popup.RegisterFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.ui.fragment.popup.StashFragment;
@@ -248,7 +248,7 @@ public class MainActivity extends BaseActivity
         popupContainerFragments.add(StartingNewCallFragment.class);
         popupContainerFragments.add(EditProfileFragment.class);
         popupContainerFragments.add(LoginFragment.class);
-        popupContainerFragments.add(SignUpFragment.class);
+        popupContainerFragments.add(RegisterFragment.class);
         popupContainerFragments.add(FriendFragment.class);
         popupContainerFragments.add(FollowersFragment.class);
         popupContainerFragments.add(FollowingFragment.class);
@@ -400,8 +400,8 @@ public class MainActivity extends BaseActivity
         }
 
         // Hiding terms on Sign up fragment - TODO Should be handled on fragment itself
-        if (currentFragment instanceof SignUpFragment) {
-            View termsHolder = ((SignUpFragment) currentFragment).getTermsHolder();
+        if (currentFragment instanceof RegisterFragment) {
+            View termsHolder = ((RegisterFragment) currentFragment).getTermsHolder();
             if (termsHolder.getVisibility() == View.VISIBLE) {
                 termsHolder.setVisibility(View.INVISIBLE);
                 return;

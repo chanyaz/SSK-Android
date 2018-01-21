@@ -30,6 +30,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
+import base.app.ui.fragment.popup.RegisterFragment;
 import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.events.FriendsListChangedEvent;
 import base.app.data.TypeConverter;
@@ -47,7 +48,6 @@ import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
 import base.app.ui.fragment.user.auth.LoginFragment;
-import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.util.commons.NextMatchCountdown;
@@ -187,7 +187,7 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
     @Optional
     @OnClick(R.id.registerButton)
     public void joinOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(RegisterFragment.class));
     }
 
     @Optional

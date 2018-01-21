@@ -38,7 +38,7 @@ class VideoContainerFragment : BaseFragment(),
         OnFullscreenListener,
         PlayerStateChangeListener {
 
-    private val viewModel by lazy { activity.inject<TvViewModel>() }
+    private val viewModel by lazy { inject<TvViewModel>() }
     internal var fullScreen = false
     private val audioManager by lazy {
         activity?.getSystemService(Context.AUDIO_SERVICE) as AudioManager
