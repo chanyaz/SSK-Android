@@ -13,8 +13,8 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.ui.fragment.user.login.LoginFragment;
-import base.app.ui.fragment.user.login.LoginApi;
+import base.app.ui.fragment.user.auth.AuthFragment;
+import base.app.ui.fragment.user.auth.AuthApi;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Utility;
@@ -52,7 +52,7 @@ public class SignUpLoginFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (LoginApi.getInstance().isRealUser() && Utility.isPhone(getActivity())){
+        if (AuthApi.getInstance().isRealUser() && Utility.isPhone(getActivity())){
             getActivity().onBackPressed();
         }
     }
@@ -66,7 +66,7 @@ public class SignUpLoginFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.login_button)
     public void loginOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(AuthFragment.class));
     }
 
     @Optional

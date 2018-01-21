@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel
 import base.app.data.content.news.PostsRepository
 import base.app.data.content.tv.inBackground
 import base.app.data.user.User
-import base.app.ui.fragment.user.login.LoginApi
+import base.app.ui.fragment.user.auth.AuthApi
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import java.io.File
@@ -20,7 +20,7 @@ class PostCreateViewModel : ViewModel() {
     private val disposables = CompositeDisposable()
 
     fun loadUser() : LiveData<User> {
-        val user = LoginApi.getInstance().user
+        val user = AuthApi.getInstance().user
         return MutableLiveData<User>().just(user)
     }
 

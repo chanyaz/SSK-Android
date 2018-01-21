@@ -17,7 +17,7 @@ import base.app.util.commons.GSConstants;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
-import static base.app.ui.fragment.user.login.LoginApi.createRequest;
+import static base.app.ui.fragment.user.auth.AuthApi.createRequest;
 
 /**
  * Created by Filip on 12/27/2016.

@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.data.user.User;
-import base.app.ui.fragment.user.login.LoginApi;
+import base.app.ui.fragment.user.auth.AuthApi;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.util.events.ChatUpdateEvent;
 import base.app.util.events.MessageUpdateEvent;
@@ -62,7 +62,7 @@ public class ChatInfo {
 
     public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial, String chatId, String clubId) {
         super();
-        owner = LoginApi.getInstance().getUser().getUserId();
+        owner = AuthApi.getInstance().getUser().getUserId();
         this.chatId = chatId;
         this.name = name;
         if(usersIds!=null){
@@ -77,7 +77,7 @@ public class ChatInfo {
     }
     public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial) {
         super();
-        owner = LoginApi.getInstance().getUser().getUserId();
+        owner = AuthApi.getInstance().getUser().getUserId();
         this.name = name;
         if(usersIds!=null){
             this.usersIds = usersIds;
@@ -119,7 +119,7 @@ public class ChatInfo {
             chatUsers = new ArrayList<>();
             final ArrayList<Task<User>> tasks = new ArrayList<>();
             for(String uid : getUsersIds()){
-                Task<User> task = LoginApi.getInstance().getUserInfoById(uid);
+                Task<User> task = AuthApi.getInstance().getUserInfoById(uid);
                 task.addOnCompleteListener(new OnCompleteListener<User>() {
                     @Override
                     public void onComplete(@NonNull Task<User> task) {
@@ -180,11 +180,11 @@ public class ChatInfo {
             String firstUserId = getUsersIds().get(0);
             String secondUserId = getUsersIds().get(1);
             User info;
-            String currentUserId = LoginApi.getInstance().getUser().getUserId();
+            String currentUserId = AuthApi.getInstance().getUser().getUserId();
             if(currentUserId==null || !currentUserId.equals(firstUserId)){
-                info = LoginApi.getInstance().getCachedUserInfoById(firstUserId);
+                info = AuthApi.getInstance().getCachedUserInfoById(firstUserId);
             } else {
-                info = LoginApi.getInstance().getCachedUserInfoById(secondUserId);
+                info = AuthApi.getInstance().getCachedUserInfoById(secondUserId);
             }
             if(info!=null){
                 String nic = info.getNicName();
@@ -290,11 +290,11 @@ public class ChatInfo {
      */
     public int unreadMessageCount(){
         int count = 0;
-        if(LoginApi.getInstance().getUser()==null){
+        if(AuthApi.getInstance().getUser()==null){
             Log.e(TAG,"*** error - no user!");
             return -1;
         }
-        String uid = LoginApi.getInstance().getUser().getUserId();
+        String uid = AuthApi.getInstance().getUser().getUserId();
         if (messages == null){
             Log.e(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
             return -1;
@@ -319,10 +319,10 @@ public class ChatInfo {
     }
 
     public void addUser(User uinfo){
-        if(LoginApi.getInstance().getUser()==null){
+        if(AuthApi.getInstance().getUser()==null){
             return;
         }
-        String currentUserId = LoginApi.getInstance().getUser().getUserId();
+        String currentUserId = AuthApi.getInstance().getUser().getUserId();
         if(owner.equals(currentUserId)){
             usersIds.add(uinfo.getUserId());
             updateChatInfo();
@@ -372,7 +372,7 @@ public class ChatInfo {
      * once deleted it will remove the chat from all user following this chat
      **/
     public void deleteChat(){
-        String currentUserId = LoginApi.getInstance().getUser().getUserId();
+        String currentUserId = AuthApi.getInstance().getUser().getUserId();
         ImsManager.getInstance().removeChatFromChatList(this);
         if (owner.equals(currentUserId)){
             ImsManager.getInstance().deleteChat(this);
@@ -399,7 +399,7 @@ public class ChatInfo {
      * Remove a user from this chat, only available if you are the owner and you are not removing yourself
      */
     public void removeUserFromChat(String uid){
-        String currentUserId = LoginApi.getInstance().getUser().getUserId();
+        String currentUserId = AuthApi.getInstance().getUser().getUserId();
         if (owner.equals(currentUserId) && !uid.equals(currentUserId)){
             boolean shouldRemove = false;
             for(String entry : getUsersIds()) {
@@ -419,7 +419,7 @@ public class ChatInfo {
      * Join a public chat, this func add the current user to this chat if this chat is a public chat.
      **/
     public void joinChat(){
-        String currentUserId = LoginApi.getInstance().getUser().getUserId();
+        String currentUserId = AuthApi.getInstance().getUser().getUserId();
         if(isPublic && !isUserBlockedFromThisChat(currentUserId)){
             ImsManager.getInstance().joinChat(this).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
                 @Override
@@ -464,11 +464,11 @@ public class ChatInfo {
     private List<User> usersTypingInfo = new ArrayList<>();
     void updateUserIsTyping(String userId, boolean isTypingValue){
         if(isTypingValue){
-            User info = LoginApi.getInstance().getCachedUserInfoById(userId);
+            User info = AuthApi.getInstance().getCachedUserInfoById(userId);
             if(info!=null){
                 usersTypingInfo.add(info);
             } else {
-                LoginApi.getInstance().getUserInfoById(userId);
+                AuthApi.getInstance().getUserInfoById(userId);
             }
         } else {
             for(User info : new ArrayList<>(usersTypingInfo)){
@@ -487,7 +487,7 @@ public class ChatInfo {
      * @param  userId  user ID to block
      */
     public void blockUserFromJoinningThisChat(String userId){
-        String currentUserId = LoginApi.getInstance().getUser().getUserId();
+        String currentUserId = AuthApi.getInstance().getUser().getUserId();
         if(isPublic && owner.equals(currentUserId)){
             if(!blackList.contains(userId)){
                blackList.add(userId);
@@ -504,7 +504,7 @@ public class ChatInfo {
      * @param  userId user ID to unblock
      */
     public void unblockUserInThisChat(String userId){
-        String currentUserId = LoginApi.getInstance().getUser().getUserId();
+        String currentUserId = AuthApi.getInstance().getUser().getUserId();
         if(isPublic && owner.equals(currentUserId)){
             //check if the user is actually blocked then unblock
             if (isUserBlockedFromThisChat(userId)){

@@ -14,7 +14,7 @@ import java.util.List;
 
 import base.app.util.commons.GSConstants;
 
-import static base.app.ui.fragment.user.login.LoginApi.createRequest;
+import static base.app.ui.fragment.user.auth.AuthApi.createRequest;
 
 /**
  * Created by Filip on 3/26/2017.

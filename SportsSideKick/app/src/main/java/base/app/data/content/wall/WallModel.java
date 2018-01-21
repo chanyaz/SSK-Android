@@ -25,7 +25,7 @@ import base.app.data.user.User;
 import base.app.util.commons.DateUtils;
 import base.app.util.commons.FileUploader;
 import base.app.util.commons.GSConstants;
-import base.app.ui.fragment.user.login.LoginApi;
+import base.app.ui.fragment.user.auth.AuthApi;
 import base.app.data.TypeConverter;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.util.events.CommentDeleteEvent;
@@ -43,7 +43,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
-import static base.app.ui.fragment.user.login.LoginApi.createRequest;
+import static base.app.ui.fragment.user.auth.AuthApi.createRequest;
 import static base.app.data.TypeConverter.ItemType;
 import static base.app.data.TypeConverter.postFactory;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
@@ -67,7 +67,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     private WallModel() {
         mapper = new ObjectMapper().registerModule(new KotlinModule());
-        LoginApi.getInstance().setMessageHandlerDelegate(this);
+        AuthApi.getInstance().setMessageHandlerDelegate(this);
     }
 
     /**
@@ -358,7 +358,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     private User getCurrentUser() {
-        return LoginApi.getInstance().getUser();
+        return AuthApi.getInstance().getUser();
     }
 
     @Override
@@ -407,8 +407,8 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Object commentObject = data.get(GSConstants.COMMENT);
                         Comment comment = mapper.convertValue(commentObject, new TypeReference<Comment>() {
                         });
-//                        if (LoginApi.getInstance().isRealUser()) {
-//                            if (comment.getPosterId().equals(LoginApi.getInstance().getUser().getUserId())) {
+//                        if (AuthApi.getInstance().isRealUser()) {
+//                            if (comment.getPosterId().equals(AuthApi.getInstance().getUser().getUserId())) {
 //                                return; // Its our own comment, ignore it
 //                            }
 //                        }

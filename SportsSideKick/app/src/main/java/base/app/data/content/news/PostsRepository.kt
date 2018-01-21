@@ -1,6 +1,6 @@
 package base.app.data.content.news
 
-import base.app.ui.fragment.user.login.LoginApi
+import base.app.ui.fragment.user.auth.AuthApi
 import base.app.data.content.wall.Post
 import base.app.data.content.wall.WallModel
 import base.app.util.commons.Utility
@@ -29,7 +29,7 @@ class PostsRepository {
 
     fun uploadImage(image: File?): Observable<String> {
         return if (image != null) {
-            LoginApi.getInstance().uploadImage(image)
+            AuthApi.getInstance().uploadImage(image)
         } else {
             just("")
         }

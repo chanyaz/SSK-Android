@@ -1,4 +1,4 @@
-package base.app.ui.fragment.user.login;
+package base.app.ui.fragment.user.auth;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -49,10 +49,10 @@ import io.reactivex.ObservableOnSubscribe;
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.TypeConverterKt.toUser;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
-import static base.app.ui.fragment.user.login.LoginApi.LoggedInUserType.NONE;
-import static base.app.ui.fragment.user.login.LoginApi.LoggedInUserType.REAL;
+import static base.app.ui.fragment.user.auth.AuthApi.LoggedInUserType.NONE;
+import static base.app.ui.fragment.user.auth.AuthApi.LoggedInUserType.REAL;
 
-public class LoginApi {
+public class AuthApi {
 
     private static final String TAG = "MODEL";
     private final ObjectMapper mapper;
@@ -76,11 +76,11 @@ public class LoginApi {
     }
 
 
-    private static LoginApi instance;
+    private static AuthApi instance;
 
-    public static LoginApi getInstance() {
+    public static AuthApi getInstance() {
         if (instance == null) {
-            instance = new LoginApi();
+            instance = new AuthApi();
         }
         return instance;
     }
@@ -96,7 +96,7 @@ public class LoginApi {
     }
 
     public boolean isRealUser() {
-        return getLoggedInUserType() == LoginApi.LoggedInUserType.REAL;
+        return getLoggedInUserType() == AuthApi.LoggedInUserType.REAL;
     }
 
     public LoggedInUserType getLoggedInUserType() {
@@ -125,7 +125,7 @@ public class LoginApi {
 
     private HashMap<String, User> userCache;
 
-    private LoginApi() {
+    private AuthApi() {
         userCache = new HashMap<>();
         mapper = new ObjectMapper();
         loggedInUserType = NONE;
@@ -533,7 +533,7 @@ public class LoginApi {
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
                 if (endSessionResponse != null) {
                     if (endSessionResponse.hasErrors()) {
-                        Log.d(TAG, "LoginApi.onSessionEnded() -> Error ending session!");
+                        Log.d(TAG, "AuthApi.onSessionEnded() -> Error ending session!");
                     } else {
                         clearUser();
                         setLoggedInUserType(NONE);

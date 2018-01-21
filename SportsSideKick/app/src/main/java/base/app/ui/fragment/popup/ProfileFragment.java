@@ -26,7 +26,7 @@ import java.util.Locale;
 
 import base.app.R;
 import base.app.data.user.User;
-import base.app.ui.fragment.user.login.LoginApi;
+import base.app.ui.fragment.user.auth.AuthApi;
 import base.app.util.ui.AlertDialogManager;
 import base.app.data.user.LoginStateReceiver;
 import base.app.ui.adapter.profile.UserStatsAdapter;
@@ -149,7 +149,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                 }, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
-                        LoginApi.getInstance().logout();
+                        AuthApi.getInstance().logout();
                         getActivity().onBackPressed();
                     }
                 });
@@ -200,8 +200,8 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     }
 
     private void setupFragment() {
-        User user = LoginApi.getInstance().getUser();
-        if (user != null && LoginApi.getInstance().isRealUser()) {
+        User user = AuthApi.getInstance().getUser();
+        if (user != null && AuthApi.getInstance().isRealUser()) {
             double subscribedAsDouble = user.getSubscribedDate();
             String daysUsingSSK = String.valueOf((int) ((Utility.getCurrentTime() - subscribedAsDouble) / (1000 * 60 * 60 * 24)));
             ArrayList<Pair<String, String>> values = new ArrayList<>();
@@ -256,7 +256,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     @Override
     public void onLogout() {
-        if (LoginApi.getInstance().isRealUser()) {
+        if (AuthApi.getInstance().isRealUser()) {
             setupFragment();
         }
     }

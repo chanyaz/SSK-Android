@@ -22,7 +22,7 @@ import java.util.List;
 import base.app.R;
 import base.app.data.user.User;
 import base.app.ui.fragment.popup.JoinChatFragment;
-import base.app.ui.fragment.user.login.LoginApi;
+import base.app.ui.fragment.user.auth.AuthApi;
 import base.app.data.chat.ChatInfo;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
@@ -118,7 +118,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             holder.memberList.addItemDecoration(new LinearItemSpacing(space, true, true));
             convertView.setTag(holder);
         }
-        if (!info.getUsersIds().contains(LoginApi.getInstance().getUser().getUserId())) {
+        if (!info.getUsersIds().contains(AuthApi.getInstance().getUser().getUserId())) {
             holder.joinButton.setVisibility(View.VISIBLE);
             holder.joinButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,7 +149,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             chatExpandedItemAdapter = new ChatExpandedItemAdapter(context);
             expandedAdaptersMap.put(chat.getChatId(), chatExpandedItemAdapter);
             for (String uid : chat.getUsersIds()) {
-                Task<User> task = LoginApi.getInstance().getUserInfoById(uid);
+                Task<User> task = AuthApi.getInstance().getUserInfoById(uid);
                 task.addOnCompleteListener(new OnCompleteListener<User>() {
                     @Override
                     public void onComplete(@NonNull Task<User> task) {

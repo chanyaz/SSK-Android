@@ -6,7 +6,7 @@ import android.view.View
 import base.app.R
 import base.app.data.content.tv.inBackground
 import base.app.ui.adapter.content.WallAdapter
-import base.app.ui.fragment.content.wall.UserViewModel.SessionState.Anonymous
+import base.app.ui.fragment.user.auth.AuthViewModel.SessionState.Anonymous
 import base.app.util.ui.BaseFragment
 import base.app.util.ui.inject
 import base.app.util.ui.setVisible
@@ -26,21 +26,20 @@ class WallFragment : BaseFragment(R.layout.fragment_wall) {
         val adapter = WallAdapter(context)
         recyclerView.adapter = adapter
         userViewModel
-                .getSession()
+                .getUser()
                 .doOnNext { loginContainer.setVisible(it.state == Anonymous) }
                 .flatMap { feedViewModel.getFeedFromCache() }
                 .mergeWith { feedViewModel.getFeedFromServer() }
                 .doOnNext { feedViewModel.saveFeedToCache(it) }
-                .repeatWhen { userViewModel.getFriendListChanges() }
+                .repeatWhen { userViewModel.getChangesInFriends() }
                 .inBackground()
                 .subscribe {
                     Log.d("tagx", "onNext")
                     adapter.clear()
-                     adapter.addAll(it)
+                    adapter.addAll(it)
                     progressBar.setVisible(false)
                 }
         progressBar.setVisible(true)
-
 
         postButton.onClick { feedViewModel.composePost() }
     }

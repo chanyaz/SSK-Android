@@ -1,4 +1,4 @@
-package base.app.ui.fragment.user.login
+package base.app.ui.fragment.user.auth
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,6 +11,7 @@ import base.app.BuildConfig
 import base.app.R
 import base.app.data.user.PasswordResetReceiver
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener
+import base.app.ui.fragment.content.wall.UserViewModel
 import base.app.util.commons.Utility
 import base.app.util.events.FragmentEvent
 import base.app.util.ui.AlertDialogManager
@@ -31,9 +32,11 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.json.JSONException
 import java.util.*
 
-class LoginFragment : BaseFragment(R.layout.fragment_login),
-        PasswordResetListener, ILoginView {
+class AuthFragment : BaseFragment(R.layout.fragment_login),
+        PasswordResetListener, IAuthView {
 
+    private val loginViewModel = inject<AuthViewModel>()
+    private val userViewModel = inject<UserViewModel>()
     private var callbackManager: CallbackManager? = null
     private var passwordResetReceiver: PasswordResetReceiver? = null
 
@@ -42,8 +45,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
         autoPopulateOnDebug()
         initFacebook()
 
-        val viewModel = inject<LoginViewModel>()
-        viewModel.view = this
+        loginViewModel.view = this
 
         passwordResetReceiver = PasswordResetReceiver(this)
 
@@ -51,7 +53,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
             val email = emailField.text.toString()
             val password = passwordField.text.toString()
             if (validate(email, password)) {
-                viewModel.onLoginSubmit(email, password)
+                loginViewModel.onLoginSubmit(email, password)
             }
         }
         cancelRestoreButton.setOnClickListener {
@@ -69,7 +71,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
     // TODO @OnClick(R.id.reset_text)
     fun forgotPasswordOnClick() {
         val email = emailField.text.toString()
-        LoginApi.getInstance().resetPassword(email)
+        AuthApi.getInstance().resetPassword(email)
         activity?.onBackPressed()
     }
 
@@ -138,7 +140,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
                 context!!.resources.getString(R.string.password_try_again), null,
                 View.OnClickListener {
                     activity?.onBackPressed()
-                    EventBus.getDefault().post(FragmentEvent(LoginFragment::class.java))
+                    EventBus.getDefault().post(FragmentEvent(AuthFragment::class.java))
                 }
         )
     }
@@ -180,7 +182,9 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
         submitButtonLabel.setVisible(!loading)
     }
 
-    override fun navigateToFeed() {
+    override fun navigateToFeed(it: AuthViewModel.Session) {
+        userViewModel.currentSession.onNext(it)
+        userViewModel.currentSession.onComplete()
         activity?.onBackPressed()
     }
 

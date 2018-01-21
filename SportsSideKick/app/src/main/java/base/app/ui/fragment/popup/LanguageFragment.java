@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
 import base.app.data.user.User;
-import base.app.ui.fragment.user.login.LoginApi;
+import base.app.ui.fragment.user.auth.AuthApi;
 import base.app.data.user.UserEvent;
 import base.app.ui.MainActivity;
 import base.app.util.ui.MainActivityTablet;
@@ -65,7 +65,7 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
         EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
-        LoginApi.getInstance().getUser().setLanguage(selectedLanguage);
+        AuthApi.getInstance().getUser().setLanguage(selectedLanguage);
         Prefs.putString(CHOSEN_LANGUAGE, selectedLanguage);
         Intent intent;
         if (Utility.isTablet(getContext())) {
@@ -80,7 +80,7 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                User currentUser = LoginApi.getInstance().getUser();
+                User currentUser = AuthApi.getInstance().getUser();
                 EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogin, currentUser));
             }
         }, 300);
