@@ -42,7 +42,7 @@ import java.util.TimerTask;
 import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.user.User;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
@@ -67,8 +67,8 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
+import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
+import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -156,7 +156,7 @@ public class EditChatFragment extends BaseFragment {
                         chatFriendsAdapter.add(users);
                         userList = users;
 
-                        List<User> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+                        List<User> chatMembers = UserRepository.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
                         chatFriendsAdapter.setSelectedUsers(chatMembers);
 
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
@@ -303,7 +303,7 @@ public class EditChatFragment extends BaseFragment {
     }
 
     private void submitChanges(){
-        List<User> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+        List<User> chatMembers = UserRepository.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
         List<User> selectedValues = chatFriendsAdapter.getSelectedValues();
 
         boolean shouldUpdate = false;
@@ -367,7 +367,7 @@ public class EditChatFragment extends BaseFragment {
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = Model.createImageFile(getContext());
+                photoFile = UserRepository.createImageFile(getContext());
                 currentPath = photoFile.getAbsolutePath();
             } catch (IOException ex) {
                 // Error occurred while creating the File
@@ -401,7 +401,7 @@ public class EditChatFragment extends BaseFragment {
                     break;
                 case REQUEST_CODE_CHAT_EDIT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
-                    String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
+                    String realPath = UserRepository.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImage(realPath);
                     ImageLoader.displayImage(realPath,chatImageView, null);
                     break;
@@ -411,7 +411,7 @@ public class EditChatFragment extends BaseFragment {
 
     private void uploadImage(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        Model.getInstance().uploadImageForEditChat(path,getActivity().getFilesDir(),source);
+        UserRepository.getInstance().uploadImageForEditChat(path,getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {

@@ -23,8 +23,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import base.app.R;
+import base.app.util.commons.UserRepository;
 import base.app.util.ui.AlertDialogManager;
-import base.app.util.commons.Model;
 import base.app.data.content.wall.WallModel;
 import base.app.data.content.wall.Stats;
 import base.app.util.ui.BaseFragment;
@@ -88,7 +88,7 @@ public class StatisticsFragment extends BaseFragment {
 
     @OnClick(R.id.pin_button)
     public void pinOnClick() {
-        if (Model.getInstance().isRealUser()) {
+        if (UserRepository.getInstance().isRealUser()) {
             AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.pin_title), getContext().getResources().getString(R.string.pin_confirm),
                     new View.OnClickListener() {// Cancel
                         @Override
@@ -114,7 +114,7 @@ public class StatisticsFragment extends BaseFragment {
             webView.setDrawingCacheEnabled(true);
             bitmap = webView.getDrawingCache();
             final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-            Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap), getActivity().getFilesDir(), source);
+            UserRepository.getInstance().uploadImageForStats(saveToInternalStorage(bitmap), getActivity().getFilesDir(), source);
             source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                 @Override
                 public void onComplete(@NonNull Task<String> task) {
@@ -151,7 +151,7 @@ public class StatisticsFragment extends BaseFragment {
     private String saveToInternalStorage(Bitmap bitmapImage) {
         File photoFile = null;
         try {
-            photoFile = Model.createImageFile(getContext());
+            photoFile = UserRepository.createImageFile(getContext());
         } catch (IOException e) {
             e.printStackTrace();
         }

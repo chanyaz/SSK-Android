@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 
 import base.app.data.user.User;
 import base.app.util.commons.GSAndroidPlatform;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 
 /**
  * Created by Filip on 4/20/2017.
@@ -159,13 +159,13 @@ public class PurchaseModel {
                 }
             }
 
-            if(Model.getInstance().getUser() == null) {
+            if(UserRepository.getInstance().getUser() == null) {
                 return;
             }
 
             final boolean finalResult = result;
             final String finalError = error;
-            Model.getInstance().refreshUserInfo(Model.getInstance().getUser().getUserId()).addOnCompleteListener(
+            UserRepository.getInstance().refreshUserInfo(UserRepository.getInstance().getUser().getUserId()).addOnCompleteListener(
                     new OnCompleteListener<User>() {
                         @Override
                         public void onComplete(@NonNull Task<User> task) {
@@ -209,13 +209,13 @@ public class PurchaseModel {
                 }
             }
 
-            if(Model.getInstance().getUser() == null) {
+            if(UserRepository.getInstance().getUser() == null) {
                 return;
             }
 
             final boolean finalResult = result;
             final String finalError = error;
-            Model.getInstance().refreshUserInfo(Model.getInstance().getUser().getUserId()).addOnCompleteListener(
+            UserRepository.getInstance().refreshUserInfo(UserRepository.getInstance().getUser().getUserId()).addOnCompleteListener(
                     new OnCompleteListener<User>() {
                         @Override
                         public void onComplete(@NonNull Task<User> task) {

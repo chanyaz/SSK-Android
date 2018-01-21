@@ -3,7 +3,7 @@ package base.app.ui.fragment.popup.post
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import base.app.util.commons.Model
+import base.app.util.commons.UserRepository
 import base.app.data.content.tv.inBackground
 import base.app.data.content.news.PostsRepository
 import base.app.data.user.User
@@ -20,7 +20,7 @@ class PostCreateViewModel : ViewModel() {
     private val disposables = CompositeDisposable()
 
     fun loadUser() : LiveData<User> {
-        val user = Model.getInstance().user
+        val user = UserRepository.getInstance().user
         return MutableLiveData<User>().just(user)
     }
 

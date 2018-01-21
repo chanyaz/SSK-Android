@@ -14,7 +14,7 @@ import java.util.List;
 
 import base.app.util.commons.GSConstants;
 
-import static base.app.util.commons.Model.createRequest;
+import static base.app.util.commons.UserRepository.createRequest;
 
 /**
  * Created by Filip on 3/26/2017.

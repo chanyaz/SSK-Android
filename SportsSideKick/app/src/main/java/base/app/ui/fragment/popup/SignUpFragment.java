@@ -36,7 +36,7 @@ import java.util.Locale;
 
 import base.app.R;
 import base.app.util.commons.GSConstants;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 import base.app.data.user.RegistrationStateReceiver;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.util.ui.BaseFragment;
@@ -160,7 +160,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
+        if (UserRepository.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
             getActivity().onBackPressed();
             //EventBus.getDefault().composePost(new FragmentEvent(WallFragment.class, true));
         }
@@ -343,13 +343,13 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             progressBar.setVisibility(View.VISIBLE);
 
             if (displayName != null) {
-                Model.getInstance().registrationRequest(
+                UserRepository.getInstance().registrationRequest(
                         displayName.getText().toString(),
                         password.getText().toString(),
                         email.getText().toString(),
                         userDetails);
             } else {
-                Model.getInstance().registrationRequest(
+                UserRepository.getInstance().registrationRequest(
                         firstName.getText().toString() + lastName.getText().toString(),
                         password.getText().toString(),
                         email.getText().toString(),

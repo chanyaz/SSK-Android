@@ -22,7 +22,7 @@ import base.app.R;
 import base.app.data.content.tv.Station;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
-import base.app.util.commons.Constant;
+import base.app.util.commons.Constants;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,7 +72,7 @@ public class RadioStationFragment extends BaseFragment implements MediaPlayer.On
         ImageLoader.displayImage(imageUrl, backgroundImage, null);
 
         initializeMediaPlayer();
-        float volume = Prefs.getFloat(Constant.RADIO_VOLUME, 0.5f);
+        float volume = Prefs.getFloat(Constants.RADIO_VOLUME, 0.5f);
 
         audioSeekBar.setMax(AUDIO_BAR_MAX);
         audioSeekBar.setProgress((int) (volume * AUDIO_BAR_MAX));
@@ -81,7 +81,7 @@ public class RadioStationFragment extends BaseFragment implements MediaPlayer.On
             public void onStopTrackingTouch(SeekBar seekBar) {
                 float percentage = ((float) seekBar.getProgress() / (float) seekBar.getMax());
                 if (player != null) {
-                    Prefs.putFloat(Constant.RADIO_VOLUME, percentage);
+                    Prefs.putFloat(Constants.RADIO_VOLUME, percentage);
                     player.setVolume(percentage, percentage);
                 }
             }
@@ -158,7 +158,7 @@ public class RadioStationFragment extends BaseFragment implements MediaPlayer.On
 
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
-        float volume = Prefs.getFloat(Constant.RADIO_VOLUME, 0.5f);
+        float volume = Prefs.getFloat(Constants.RADIO_VOLUME, 0.5f);
         player.setVolume(volume, volume);
         player.start();
         playButton.setSelected(true);

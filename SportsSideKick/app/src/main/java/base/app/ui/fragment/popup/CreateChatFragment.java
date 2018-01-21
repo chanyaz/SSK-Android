@@ -44,8 +44,8 @@ import java.util.TimerTask;
 import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.user.User;
+import base.app.util.commons.UserRepository;
 import base.app.util.events.AddFriendsEvent;
-import base.app.util.commons.Model;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
@@ -71,8 +71,8 @@ import permissions.dispatcher.RuntimePermissions;
 
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH_PHONE;
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE;
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_PICK;
+import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE;
+import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_CREATE_IMAGE_PICK;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -291,7 +291,7 @@ public class CreateChatFragment extends BaseFragment {
             boolean isPrivate = privateChatSwitch.isChecked();
 
             ChatInfo newChatInfo = new ChatInfo();
-            newChatInfo.setOwner(Model.getInstance().getUser().getUserId());
+            newChatInfo.setOwner(UserRepository.getInstance().getUser().getUserId());
             newChatInfo.setIsPublic(!isPrivate);
             newChatInfo.setName(chatName);
             ArrayList<String> userIds = new ArrayList<>();
@@ -329,7 +329,7 @@ public class CreateChatFragment extends BaseFragment {
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = Model.createImageFile(getContext());
+                photoFile = UserRepository.createImageFile(getContext());
                 currentPath = photoFile.getAbsolutePath();
             } catch (IOException ex) {
                 // Error occurred while creating the File
@@ -365,7 +365,7 @@ public class CreateChatFragment extends BaseFragment {
                     break;
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
-                    String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
+                    String realPath = UserRepository.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImage(realPath);
                     chatImageView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
@@ -377,7 +377,7 @@ public class CreateChatFragment extends BaseFragment {
 
     private void uploadImage(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        Model.getInstance().uploadImageForCreateChat(path,getActivity().getFilesDir(),source);
+        UserRepository.getInstance().uploadImageForCreateChat(path,getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(final @NonNull Task<String> task) {

@@ -28,8 +28,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
+import base.app.util.commons.UserRepository;
 import base.app.util.ui.BaseActivity;
-import base.app.util.commons.Model;
 import base.app.data.user.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserEvent;
@@ -74,7 +74,7 @@ import base.app.ui.fragment.content.tv.TvFragment;
 import base.app.ui.fragment.content.tv.TvPlaylistFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
 import base.app.ui.fragment.content.tv.VideoContainerFragment;
-import base.app.util.commons.Constant;
+import base.app.util.commons.Constants;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.ui.BlurBuilder;
@@ -177,7 +177,7 @@ public class MainActivity extends BaseActivity
     }
 
     public void updateTopBar() {
-        int visibility = Model.getInstance().isRealUser() ? View.VISIBLE : View.GONE;
+        int visibility = UserRepository.getInstance().isRealUser() ? View.VISIBLE : View.GONE;
         friendsIcon.setVisibility(visibility);
     }
 
@@ -464,8 +464,8 @@ public class MainActivity extends BaseActivity
                     }
                     return;
                 }
-                for (int i = 0; i < Constant.PHONE_MENU_OPTIONS.size(); i++) {
-                    if (penultimateFragment.equals(Constant.PHONE_MENU_OPTIONS.get(i))) {
+                for (int i = 0; i < Constants.SIDE_MENU_OPTIONS.size(); i++) {
+                    if (penultimateFragment.equals(Constants.SIDE_MENU_OPTIONS.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
@@ -488,8 +488,8 @@ public class MainActivity extends BaseActivity
                         drawerLayout.closeDrawer(GravityCompat.END);
                     }
                 }
-                for (int i = 0; i < Constant.PHONE_MENU_OPTIONS.size(); i++) {
-                    if (penultimateFragment.equals(Constant.PHONE_MENU_OPTIONS.get(i))) {
+                for (int i = 0; i < Constants.SIDE_MENU_OPTIONS.size(); i++) {
+                    if (penultimateFragment.equals(Constants.SIDE_MENU_OPTIONS.get(i))) {
                         NavigationDrawerItems.getInstance().setByPosition(i);
                         menuAdapter.notifyDataSetChanged();
                         sideMenuAdapter.notifyDataSetChanged();
@@ -526,7 +526,7 @@ public class MainActivity extends BaseActivity
 
     public void onProfileClicked(View view) {
         drawerLayout.closeDrawer(GravityCompat.END);
-        if (Model.getInstance().isRealUser()) {
+        if (UserRepository.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
@@ -540,7 +540,7 @@ public class MainActivity extends BaseActivity
     @Subscribe
     public void updateUserName(UserEvent event) {
         if (event.getType() == UserEvent.Type.onDetailsUpdated) {
-            setYourCoinsValue(String.valueOf(Model.getInstance().getUser().getCurrency()));
+            setYourCoinsValue(String.valueOf(UserRepository.getInstance().getUser().getCurrency()));
         }
 
     }
@@ -592,18 +592,18 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onLogin(User user) {
-        if (Model.getInstance().isRealUser()) {
+        if (UserRepository.getInstance().isRealUser()) {
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
             if (user.getAvatar() != null) {
                 ImageLoader.displayImage(user.getAvatar(), profileImage, null);
             }
-            setYourCoinsValue(String.valueOf(Model.getInstance().getUser().getCurrency()));
+            setYourCoinsValue(String.valueOf(UserRepository.getInstance().getUser().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
             yourLevel.setText(String.valueOf((int) user.getProgress()));
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
-            TutorialModel.getInstance().setUserId(Model.getInstance().getUser().getUserId());
+            TutorialModel.getInstance().setUserId(UserRepository.getInstance().getUser().getUserId());
         } else {
             resetUserDetails();
         }

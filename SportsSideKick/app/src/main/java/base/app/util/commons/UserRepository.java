@@ -45,10 +45,10 @@ import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
-import static base.app.util.commons.Model.LoggedInUserType.NONE;
-import static base.app.util.commons.Model.LoggedInUserType.REAL;
+import static base.app.util.commons.UserRepository.LoggedInUserType.NONE;
+import static base.app.util.commons.UserRepository.LoggedInUserType.REAL;
 
-public class Model {
+public class UserRepository {
 
     private static final String TAG = "MODEL";
     private final ObjectMapper mapper;
@@ -72,11 +72,11 @@ public class Model {
     }
 
 
-    private static Model instance;
+    private static UserRepository instance;
 
-    public static Model getInstance() {
+    public static UserRepository getInstance() {
         if (instance == null) {
-            instance = new Model();
+            instance = new UserRepository();
         }
         return instance;
     }
@@ -92,7 +92,7 @@ public class Model {
     }
 
     public boolean isRealUser() {
-        return getLoggedInUserType() == Model.LoggedInUserType.REAL;
+        return getLoggedInUserType() == UserRepository.LoggedInUserType.REAL;
     }
 
     public LoggedInUserType getLoggedInUserType() {
@@ -121,7 +121,7 @@ public class Model {
 
     private HashMap<String, User> userCache;
 
-    private Model() {
+    private UserRepository() {
         userCache = new HashMap<>();
         mapper = new ObjectMapper();
         loggedInUserType = NONE;
@@ -487,7 +487,7 @@ public class Model {
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
                 if (endSessionResponse != null) {
                     if (endSessionResponse.hasErrors()) {
-                        Log.d(TAG, "Model.onSessionEnded() -> Error ending session!");
+                        Log.d(TAG, "UserRepository.onSessionEnded() -> Error ending session!");
                     } else {
                         clearUser();
                         setLoggedInUserType(NONE);

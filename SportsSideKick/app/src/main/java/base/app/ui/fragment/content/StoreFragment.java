@@ -25,7 +25,7 @@ import java.io.IOException;
 
 import base.app.R;
 import base.app.util.ui.AlertDialogManager;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 import base.app.data.content.wall.StoreOffer;
 import base.app.data.content.wall.WallModel;
 import base.app.util.ui.BaseFragment;
@@ -179,7 +179,7 @@ public class StoreFragment extends BaseFragment {
                 }
             }
             item = new StoreOffer();
-            item.setPoster(Model.getInstance().getUser());
+            item.setPoster(UserRepository.getInstance().getUser());
             item.setTitle(webView.getTitle());
             item.setUrl(url);
             item.setCoverImageUrl(absoluteUrl);
@@ -212,7 +212,7 @@ public class StoreFragment extends BaseFragment {
     View.OnClickListener shareToWallOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(!Model.getInstance().isRealUser()) {
+            if(!UserRepository.getInstance().isRealUser()) {
                 Toast.makeText(getContext(),"You have to be logged in in order to pin to wall",Toast.LENGTH_SHORT).show();
                 return;
             }

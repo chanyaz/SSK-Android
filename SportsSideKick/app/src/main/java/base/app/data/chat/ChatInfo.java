@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.data.user.User;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.util.events.ChatUpdateEvent;
 import base.app.util.events.MessageUpdateEvent;
@@ -62,7 +62,7 @@ public class ChatInfo {
 
     public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial, String chatId, String clubId) {
         super();
-        owner = Model.getInstance().getUser().getUserId();
+        owner = UserRepository.getInstance().getUser().getUserId();
         this.chatId = chatId;
         this.name = name;
         if(usersIds!=null){
@@ -77,7 +77,7 @@ public class ChatInfo {
     }
     public ChatInfo(String name, ArrayList<String> usersIds, String avatarUrl, boolean isPublic, boolean isOfficial) {
         super();
-        owner = Model.getInstance().getUser().getUserId();
+        owner = UserRepository.getInstance().getUser().getUserId();
         this.name = name;
         if(usersIds!=null){
             this.usersIds = usersIds;
@@ -119,7 +119,7 @@ public class ChatInfo {
             chatUsers = new ArrayList<>();
             final ArrayList<Task<User>> tasks = new ArrayList<>();
             for(String uid : getUsersIds()){
-                Task<User> task = Model.getInstance().getUserInfoById(uid);
+                Task<User> task = UserRepository.getInstance().getUserInfoById(uid);
                 task.addOnCompleteListener(new OnCompleteListener<User>() {
                     @Override
                     public void onComplete(@NonNull Task<User> task) {
@@ -180,11 +180,11 @@ public class ChatInfo {
             String firstUserId = getUsersIds().get(0);
             String secondUserId = getUsersIds().get(1);
             User info;
-            String currentUserId = Model.getInstance().getUser().getUserId();
+            String currentUserId = UserRepository.getInstance().getUser().getUserId();
             if(currentUserId==null || !currentUserId.equals(firstUserId)){
-                info = Model.getInstance().getCachedUserInfoById(firstUserId);
+                info = UserRepository.getInstance().getCachedUserInfoById(firstUserId);
             } else {
-                info = Model.getInstance().getCachedUserInfoById(secondUserId);
+                info = UserRepository.getInstance().getCachedUserInfoById(secondUserId);
             }
             if(info!=null){
                 String nic = info.getNicName();
@@ -290,11 +290,11 @@ public class ChatInfo {
      */
     public int unreadMessageCount(){
         int count = 0;
-        if(Model.getInstance().getUser()==null){
+        if(UserRepository.getInstance().getUser()==null){
             Log.e(TAG,"*** error - no user!");
             return -1;
         }
-        String uid = Model.getInstance().getUser().getUserId();
+        String uid = UserRepository.getInstance().getUser().getUserId();
         if (messages == null){
             Log.e(TAG,"*** error need to load chat messages before asking for unreadMessageCount");
             return -1;
@@ -319,10 +319,10 @@ public class ChatInfo {
     }
 
     public void addUser(User uinfo){
-        if(Model.getInstance().getUser()==null){
+        if(UserRepository.getInstance().getUser()==null){
             return;
         }
-        String currentUserId = Model.getInstance().getUser().getUserId();
+        String currentUserId = UserRepository.getInstance().getUser().getUserId();
         if(owner.equals(currentUserId)){
             usersIds.add(uinfo.getUserId());
             updateChatInfo();
@@ -372,7 +372,7 @@ public class ChatInfo {
      * once deleted it will remove the chat from all user following this chat
      **/
     public void deleteChat(){
-        String currentUserId = Model.getInstance().getUser().getUserId();
+        String currentUserId = UserRepository.getInstance().getUser().getUserId();
         ImsManager.getInstance().removeChatFromChatList(this);
         if (owner.equals(currentUserId)){
             ImsManager.getInstance().deleteChat(this);
@@ -399,7 +399,7 @@ public class ChatInfo {
      * Remove a user from this chat, only available if you are the owner and you are not removing yourself
      */
     public void removeUserFromChat(String uid){
-        String currentUserId = Model.getInstance().getUser().getUserId();
+        String currentUserId = UserRepository.getInstance().getUser().getUserId();
         if (owner.equals(currentUserId) && !uid.equals(currentUserId)){
             boolean shouldRemove = false;
             for(String entry : getUsersIds()) {
@@ -419,7 +419,7 @@ public class ChatInfo {
      * Join a public chat, this func add the current user to this chat if this chat is a public chat.
      **/
     public void joinChat(){
-        String currentUserId = Model.getInstance().getUser().getUserId();
+        String currentUserId = UserRepository.getInstance().getUser().getUserId();
         if(isPublic && !isUserBlockedFromThisChat(currentUserId)){
             ImsManager.getInstance().joinChat(this).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
                 @Override
@@ -464,11 +464,11 @@ public class ChatInfo {
     private List<User> usersTypingInfo = new ArrayList<>();
     void updateUserIsTyping(String userId, boolean isTypingValue){
         if(isTypingValue){
-            User info = Model.getInstance().getCachedUserInfoById(userId);
+            User info = UserRepository.getInstance().getCachedUserInfoById(userId);
             if(info!=null){
                 usersTypingInfo.add(info);
             } else {
-                Model.getInstance().getUserInfoById(userId);
+                UserRepository.getInstance().getUserInfoById(userId);
             }
         } else {
             for(User info : new ArrayList<>(usersTypingInfo)){
@@ -487,7 +487,7 @@ public class ChatInfo {
      * @param  userId  user ID to block
      */
     public void blockUserFromJoinningThisChat(String userId){
-        String currentUserId = Model.getInstance().getUser().getUserId();
+        String currentUserId = UserRepository.getInstance().getUser().getUserId();
         if(isPublic && owner.equals(currentUserId)){
             if(!blackList.contains(userId)){
                blackList.add(userId);
@@ -504,7 +504,7 @@ public class ChatInfo {
      * @param  userId user ID to unblock
      */
     public void unblockUserInThisChat(String userId){
-        String currentUserId = Model.getInstance().getUser().getUserId();
+        String currentUserId = UserRepository.getInstance().getUser().getUserId();
         if(isPublic && owner.equals(currentUserId)){
             //check if the user is actually blocked then unblock
             if (isUserBlockedFromThisChat(userId)){

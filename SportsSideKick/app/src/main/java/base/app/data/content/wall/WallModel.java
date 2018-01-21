@@ -25,7 +25,7 @@ import base.app.data.user.User;
 import base.app.util.commons.DateUtils;
 import base.app.util.commons.FileUploader;
 import base.app.util.commons.GSConstants;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 import base.app.data.TypeConverter;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.util.events.CommentDeleteEvent;
@@ -43,7 +43,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
-import static base.app.util.commons.Model.createRequest;
+import static base.app.util.commons.UserRepository.createRequest;
 import static base.app.data.TypeConverter.ItemType;
 import static base.app.data.TypeConverter.postFactory;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
@@ -67,7 +67,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     private WallModel() {
         mapper = new ObjectMapper().registerModule(new KotlinModule());
-        Model.getInstance().setMessageHandlerDelegate(this);
+        UserRepository.getInstance().setMessageHandlerDelegate(this);
     }
 
     /**
@@ -358,7 +358,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     private User getCurrentUser() {
-        return Model.getInstance().getUser();
+        return UserRepository.getInstance().getUser();
     }
 
     @Override
@@ -407,8 +407,8 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Object commentObject = data.get(GSConstants.COMMENT);
                         Comment comment = mapper.convertValue(commentObject, new TypeReference<Comment>() {
                         });
-//                        if (Model.getInstance().isRealUser()) {
-//                            if (comment.getPosterId().equals(Model.getInstance().getUser().getUserId())) {
+//                        if (UserRepository.getInstance().isRealUser()) {
+//                            if (comment.getPosterId().equals(UserRepository.getInstance().getUser().getUserId())) {
 //                                return; // Its our own comment, ignore it
 //                            }
 //                        }

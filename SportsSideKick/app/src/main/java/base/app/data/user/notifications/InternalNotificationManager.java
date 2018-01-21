@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Map;
 
 import base.app.util.commons.GSConstants;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 import base.app.data.TypeConverter;
 import base.app.data.content.wall.FeedItem;
 import base.app.data.user.GSMessageHandlerAbstract;
@@ -37,7 +37,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
 
     private InternalNotificationManager(){
         mapper  = new ObjectMapper();
-        Model.getInstance().setMessageHandlerDelegate(this);
+        UserRepository.getInstance().setMessageHandlerDelegate(this);
     }
 
     @Override

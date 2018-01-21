@@ -37,7 +37,7 @@ import java.util.TimerTask;
 
 import base.app.R;
 import base.app.util.commons.GSAndroidPlatform;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 import base.app.data.user.notifications.ExternalNotificationEvent;
 import base.app.data.user.notifications.InternalNotificationManager;
 import base.app.data.user.purchases.PurchaseModel;
@@ -59,8 +59,8 @@ import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.popup.FollowersFragment;
 import base.app.ui.fragment.popup.FriendsFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.util.commons.Constant;
-import base.app.util.commons.ContextWrapper;
+import base.app.util.commons.Constants;
+import base.app.util.commons.LocalizableContext;
 import base.app.util.commons.Utility;
 import base.app.util.events.NotificationEvent;
 import butterknife.BindView;
@@ -83,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         String language = Prefs.getString(CHOSEN_LANGUAGE, "en");
         Locale newLocale = new Locale(language);
-        Context context = ContextWrapper.wrap(newBase, newLocale);
+        Context context = LocalizableContext.wrap(newBase, newLocale);
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 
@@ -95,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         callbackManager = CallbackManager.Factory.create();
-        Model.getInstance().initialize(this);
+        UserRepository.getInstance().initialize(this);
         VideoChatModel.getInstance();
         facebookShareDialog = new ShareDialog(this);
         // internal notifications initialization
@@ -113,11 +113,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Bundle savedIntentData = null;
 
     protected void handleStartingIntent(Intent intent) {
-        boolean isFistTimeStartingApp = Prefs.getBoolean(Constant.IS_FIRST_TIME, true);
+        boolean isFistTimeStartingApp = Prefs.getBoolean(Constants.IS_FIRST_TIME, true);
         Bundle extras = intent.getExtras();
         if (isFistTimeStartingApp) {
             // in case we are starting this app for first time, ignore intent's data
-            Prefs.putBoolean(Constant.IS_FIRST_TIME, false);
+            Prefs.putBoolean(Constants.IS_FIRST_TIME, false);
         } else if (extras != null && !extras.isEmpty()) {
             if (savedIntentData == null) {
                 savedIntentData = new Bundle();
@@ -125,7 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             // make sure we are not handling the same intent
             if (!checkIfBundlesAreEqual(savedIntentData, extras)) {
                 ObjectMapper mapper = new ObjectMapper();
-                String notificationData = extras.getString(Constant.NOTIFICATION_DATA, "");
+                String notificationData = extras.getString(Constants.NOTIFICATION_DATA, "");
                 try {
                     Map<String, String> dataMap = mapper.readValue(
                             notificationData, new TypeReference<Map<String, String>>() {
@@ -247,7 +247,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, Constant.LOGIN_TEXT_TIME);
+        }, 0, Constants.LOGIN_TEXT_TIME);
 
     }
 

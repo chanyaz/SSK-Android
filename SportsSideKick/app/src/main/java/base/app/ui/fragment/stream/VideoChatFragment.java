@@ -40,8 +40,8 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.user.User;
+import base.app.util.commons.UserRepository;
 import base.app.util.ui.AlertDialogManager;
-import base.app.util.commons.Model;
 import base.app.data.user.UserEvent;
 import base.app.data.chat.videochat.Slot;
 import base.app.data.chat.videochat.VideoChatEvent;
@@ -232,7 +232,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         View view = inflater.inflate(R.layout.fragment_video_chat, container, false);
         ButterKnife.bind(this, view);
 
-        if(Model.getInstance().isRealUser()){
+        if(UserRepository.getInstance().isRealUser()){
             model = VideoChatModel.getInstance();
 //        localMedia = LocalMedia.create(getContext());
             name.setText(getContext().getResources().getString(R.string.you));
@@ -310,7 +310,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             case onSelfInvited:
                 VideoChatItem videoChatItem = event.getViewChatItem();
                 final String roomId = videoChatItem.getId().getOid();
-                Task<User> userInfoTask = Model.getInstance().getUserInfoById(videoChatItem.getOwnerId());
+                Task<User> userInfoTask = UserRepository.getInstance().getUserInfoById(videoChatItem.getOwnerId());
                 userInfoTask.addOnCompleteListener(new OnCompleteListener<User>() {
                     @Override
                     public void onComplete(@NonNull Task<User> task) {
@@ -394,7 +394,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         List<User> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
         for (User user : users) {
-            if (!user.getUserId().equals(Model.getInstance().getUser().getUserId())) {
+            if (!user.getUserId().equals(UserRepository.getInstance().getUser().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
         }
@@ -419,7 +419,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         List<User> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
         for (User user : users) {
-            if (!user.getUserId().equals(Model.getInstance().getUser().getUserId())) {
+            if (!user.getUserId().equals(UserRepository.getInstance().getUser().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
         }
@@ -438,7 +438,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         userCounter = 0;
         if (users != null) {
             for (String userId : users) {
-                if (!userId.equals(Model.getInstance().getUser().getUserId())) {
+                if (!userId.equals(UserRepository.getInstance().getUser().getUserId())) {
                     Slot slot = getSlotBy(userId);
                     if (slot == null) {
                         slot = getNextFreeSlot();
@@ -446,7 +446,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                             slot.setUserId(userId);
                             addSlotToLayout(slot);
                             if (Utility.isPhone(getActivity())) {
-                                Model.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<User>() {
+                                UserRepository.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<User>() {
                                     @Override
                                     public void onComplete(@NonNull Task<User> task) {
                                         if (task.isSuccessful()) {
@@ -457,9 +457,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                                                     nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());
                                                     myNames = nickNameUsers.getText().toString();
                                                     myNames = myNames.substring(1);
-                                                    nickNameUsers.setText(myNames + " & " + Model.getInstance().getUser().getFirstName() + " " + Model.getInstance().getUser().getLastName());
+                                                    nickNameUsers.setText(myNames + " & " + UserRepository.getInstance().getUser().getFirstName() + " " + UserRepository.getInstance().getUser().getLastName());
                                                 } else {
-                                                    nickNameUsers.setText(Model.getInstance().getUser().getFirstName() + " " + Model.getInstance().getUser().getLastName());
+                                                    nickNameUsers.setText(UserRepository.getInstance().getUser().getFirstName() + " " + UserRepository.getInstance().getUser().getLastName());
                                                 }
                                             } else {
                                                 nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());
@@ -754,7 +754,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     private void onLoginStateChange() {
 
-        if (Model.getInstance().isRealUser()) {
+        if (UserRepository.getInstance().isRealUser()) {
             cameraLogo.setVisibility(View.GONE);
             loginContainer.setVisibility(View.GONE);
             Logo.setVisibility(View.VISIBLE);

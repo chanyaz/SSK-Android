@@ -37,13 +37,13 @@ import base.app.data.user.UserEvent;
 import base.app.util.commons.DateUtils;
 import base.app.util.commons.GSAndroidPlatform;
 import base.app.util.commons.GSConstants;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 import base.app.util.events.FriendsListChangedEvent;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
 import static base.app.util.commons.GSConstants.OPERATION_UPDATE;
-import static base.app.util.commons.Model.createRequest;
+import static base.app.util.commons.UserRepository.createRequest;
 
 
 public class FriendsManager extends GSMessageHandlerAbstract {
@@ -60,7 +60,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
 
     private FriendsManager() {
         mapper = new ObjectMapper();
-        Model.getInstance().setMessageHandlerDelegate(this);
+        UserRepository.getInstance().setMessageHandlerDelegate(this);
     }
 
     /**
@@ -463,7 +463,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     if (!operation.equals(OPERATION_UPDATE)) {
                         if (data.containsKey(GSConstants.USER_INFO)) {
                             User user = mapper.convertValue(data.get(GSConstants.USER_INFO), User.class);
-                            User currentUser = Model.getInstance().getUser();
+                            User currentUser = UserRepository.getInstance().getUser();
                             if(user !=null && currentUser != null){
                                 if (user.getUserId().equals(currentUser.getUserId())) {
                                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUser));

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Utility;
@@ -51,7 +51,7 @@ public class SignUpLoginFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())){
+        if (UserRepository.getInstance().isRealUser() && Utility.isPhone(getActivity())){
             getActivity().onBackPressed();
         }
     }

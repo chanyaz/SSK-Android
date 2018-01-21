@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import base.app.util.commons.Constant;
+import base.app.util.commons.Constants;
 import base.app.R;
 import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Utility;
@@ -87,7 +87,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                     drawerClose.closeDrawerMenu(viewHolder.getAdapterPosition(),true);
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                            Class fragmentToStart = Constant.PHONE_MENU_OPTIONS.get(viewHolder.getAdapterPosition());
+                            Class fragmentToStart = Constants.SIDE_MENU_OPTIONS.get(viewHolder.getAdapterPosition());
                             EventBus.getDefault().post(new FragmentEvent(fragmentToStart));
                         }
                     }, 200);

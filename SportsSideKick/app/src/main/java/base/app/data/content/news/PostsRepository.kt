@@ -1,6 +1,6 @@
 package base.app.data.content.news
 
-import base.app.util.commons.Model
+import base.app.util.commons.UserRepository
 import base.app.data.content.wall.Post
 import base.app.data.content.wall.WallModel
 import base.app.util.commons.Utility
@@ -29,7 +29,7 @@ class PostsRepository {
 
     fun uploadImage(image: File?): Observable<String> {
         return if (image != null) {
-            Model.getInstance().uploadImage(image)
+            UserRepository.getInstance().uploadImage(image)
         } else {
             just("")
         }

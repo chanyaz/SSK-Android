@@ -24,9 +24,9 @@ import java.util.List;
 import base.app.R;
 import base.app.data.user.User;
 import base.app.ui.adapter.friends.FriendsAdapter;
+import base.app.util.commons.UserRepository;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
-import base.app.util.commons.Model;
 import base.app.data.user.friends.FriendsManager;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
@@ -63,7 +63,7 @@ public class FollowersFragment extends BaseFragment {
 
         final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
         followersRecyclerView.setAdapter(adapter);
-        Task<List<User>> friendsTask = FriendsManager.getInstance().getUserFollowersList(Model.getInstance().getUser().getUserId(), 0);
+        Task<List<User>> friendsTask = FriendsManager.getInstance().getUserFollowersList(UserRepository.getInstance().getUser().getUserId(), 0);
         friendsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
             @Override
             public void onComplete(@NonNull Task<List<User>> task) {

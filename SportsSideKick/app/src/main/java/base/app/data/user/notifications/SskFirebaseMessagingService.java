@@ -20,7 +20,7 @@ import java.util.Map;
 import base.app.R;
 import base.app.ui.MainActivity;
 
-import static base.app.util.commons.Constant.NOTIFICATION_DATA;
+import static base.app.util.commons.Constants.NOTIFICATION_DATA;
 
 
 public class SskFirebaseMessagingService extends FirebaseMessagingService {

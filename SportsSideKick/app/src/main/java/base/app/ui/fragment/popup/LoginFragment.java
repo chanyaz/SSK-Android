@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -36,19 +35,18 @@ import java.util.Arrays;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.data.user.User;
-import base.app.util.ui.AlertDialogManager;
-import base.app.util.commons.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.LoginStateReceiver.LoginListener;
 import base.app.data.user.PasswordResetReceiver;
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener;
+import base.app.data.user.User;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
 import base.app.util.commons.Connection;
-import base.app.util.commons.KeyboardChangeListener;
+import base.app.util.commons.UserRepository;
 import base.app.util.commons.Utility;
+import base.app.util.events.FragmentEvent;
+import base.app.util.ui.AlertDialogManager;
+import base.app.util.ui.BaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -110,7 +108,7 @@ public class LoginFragment extends BaseFragment
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
+        if (UserRepository.getInstance().isRealUser() && Utility.isPhone(getActivity())) {
             getActivity().onBackPressed();
         }
         super.onCreate(savedInstanceState);
@@ -124,7 +122,6 @@ public class LoginFragment extends BaseFragment
         this.loginStateReceiver = new LoginStateReceiver(this);
         this.passwordResetReceiver = new PasswordResetReceiver(this);
         initFacebook();
-
 
         if (titleText != null) {
             titleText.setText(Html.fromHtml(getString(R.string.slogan)));
@@ -141,56 +138,6 @@ public class LoginFragment extends BaseFragment
                 forgotPasswordContainer.setVisibility(View.GONE);
             }
         });
-
-        if (Utility.isTablet(getActivity()))
-        {
-
-            if(Utility.isTablet(getContext())){
-                View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
-                emailEditText.setOnFocusChangeListener(focusChangeListener);
-                passwordEditText.setOnFocusChangeListener(focusChangeListener);
-                emailForgotPassword.setOnFocusChangeListener(focusChangeListener);
-            }
-
-            new KeyboardChangeListener(getActivity()).setKeyBoardListener(new KeyboardChangeListener.KeyBoardListener() {
-                @Override
-                public void onKeyboardChange(boolean isShow, int keyboardHeight) {
-                    if (isShow) {
-                        titleText.setVisibility(View.GONE);
-                        if (imageLogo != null) {
-                            imageLogo.setVisibility(View.GONE);
-                        }
-                        if (logoFqImage != null) {
-                            logoFqImage.setVisibility(View.GONE);
-                        }
-                        if (forgotButton != null) {
-                            forgotButton.setVisibility(View.GONE);
-                        }
-                        if (imagePlayer != null) {
-                            imagePlayer.setImageResource(R.drawable.background_kayboard_open);
-                        }
-
-
-                    } else {
-                        titleText.setVisibility(View.VISIBLE);
-                        if (imageLogo != null) {
-                            imageLogo.setVisibility(View.VISIBLE);
-                        }
-                        if (logoFqImage != null) {
-                            logoFqImage.setVisibility(View.VISIBLE);
-                        }
-                        if (forgotButton != null) {
-                            forgotButton.setVisibility(View.VISIBLE);
-                        }
-                        if (imagePlayer != null) {
-                            Glide.with(getContext())
-                                    .load(R.drawable.video_chat_background)
-                                    .into(imagePlayer);
-                        }
-                    }
-                }
-            });
-        }
         return view;
     }
 
@@ -281,7 +228,7 @@ public class LoginFragment extends BaseFragment
             ) {
             return;
         }
-        Model.getInstance().login(email, password);
+        UserRepository.getInstance().login(email, password);
         loginText.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
     }
@@ -290,7 +237,7 @@ public class LoginFragment extends BaseFragment
     @OnClick(R.id.reset_text)
     public void forgotPasswordOnClick() {
         String email = emailForgotPassword.getText().toString();
-        Model.getInstance().resetPassword(email);
+        UserRepository.getInstance().resetPassword(email);
         getActivity().onBackPressed();
     }
 
@@ -322,7 +269,7 @@ public class LoginFragment extends BaseFragment
     public void onLogin(User user) {
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
-        EventBus.getDefault().post(Model.getInstance().getUser()); //catch in Lounge Activity
+        EventBus.getDefault().post(UserRepository.getInstance().getUser()); //catch in Lounge Activity
         Utility.hideKeyboard(getActivity());
         if(Utility.isTablet(getActivity())) {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);

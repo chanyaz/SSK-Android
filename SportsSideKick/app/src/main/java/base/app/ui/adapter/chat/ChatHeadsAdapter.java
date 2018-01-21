@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.util.commons.UserRepository;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.popup.CreateChatFragment;
-import base.app.util.commons.Model;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.util.ui.ImageLoader;
@@ -112,7 +112,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(Model.getInstance().isRealUser()) {
+                            if(UserRepository.getInstance().isRealUser()) {
                                 EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
                             }
                         }

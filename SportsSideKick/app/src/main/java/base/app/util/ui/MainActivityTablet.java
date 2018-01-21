@@ -23,6 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
+import base.app.util.commons.UserRepository;
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.wall.DetailFragment;
@@ -64,7 +65,6 @@ import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.ui.fragment.popup.StashFragment;
 import base.app.ui.fragment.popup.WalletFragment;
 import base.app.ui.fragment.popup.YourStatementFragment;
-import base.app.util.commons.Model;
 import base.app.data.content.wall.nextmatch.NewsTickerInfo;
 import base.app.data.content.wall.nextmatch.NextMatchModel;
 import base.app.util.events.NextMatchUpdateEvent;
@@ -367,20 +367,20 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
 
     @Override
     public void onLogin(User user) {
-        if (Model.getInstance().isRealUser()) {
+        if (UserRepository.getInstance().isRealUser()) {
             if (user.getAvatar() != null) {
                 ImageLoader.displayImage(user.getAvatar(), profileImage, null);
             }
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
             }
-            setYourCoinsValue(String.valueOf(Model.getInstance().getUser().getCurrency()));
+            setYourCoinsValue(String.valueOf(UserRepository.getInstance().getUser().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
             yourLevel.setText(String.valueOf((int) user.getProgress()));
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
-            TutorialModel.getInstance().setUserId(Model.getInstance().getUser().getUserId());
+            TutorialModel.getInstance().setUserId(UserRepository.getInstance().getUser().getUserId());
 
         } else {
             resetUserDetails();
@@ -408,7 +408,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     @Subscribe
     public void updateUserName(UserEvent event) {
         if (event.getType() == UserEvent.Type.onDetailsUpdated) {
-            setYourCoinsValue(String.valueOf(Model.getInstance().getUser().getCurrency()));
+            setYourCoinsValue(String.valueOf(UserRepository.getInstance().getUser().getCurrency()));
         }
 
         User user = event.getUser();
@@ -424,7 +424,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
 
     @OnClick({R.id.user_image_container, R.id.profile_name, R.id.user_info_container})
     public void onLoginClick() {
-        if (Model.getInstance().isRealUser()) {
+        if (UserRepository.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));

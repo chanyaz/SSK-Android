@@ -30,8 +30,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
+import base.app.util.commons.UserRepository;
 import base.app.util.events.FriendsListChangedEvent;
-import base.app.util.commons.Model;
 import base.app.data.TypeConverter;
 import base.app.data.content.news.NewsModel;
 import base.app.data.content.news.NewsModel.NewsType;
@@ -67,7 +67,7 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 @IgnoreBackHandling
-public class WallFragment extends BaseFragment implements LoginStateReceiver.LoginListener {
+class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginListener {
 
     WallAdapter adapter;
 
@@ -134,7 +134,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                             fetchingPageOfPosts = false;
                         }
                     });
-                    loadFeed(false, competition, Model.getInstance().getUser());
+                    loadFeed(false, competition, UserRepository.getInstance().getUser());
                 }
             }
         });
@@ -177,7 +177,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     @OnClick(R.id.postButton)
     public void fabOnClick() {
-        if (Model.getInstance().isRealUser()) {
+        if (UserRepository.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(PostCreateFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
@@ -210,7 +210,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }
         }
         if (item instanceof Post && ((Post) item).getPoster() == null) {
-            Model.getInstance().getUserInfoById(item.getWallId())
+            UserRepository.getInstance().getUserInfoById(item.getWallId())
                     .addOnCompleteListener(new OnCompleteListener<User>() {
                         @Override
                         public void onComplete(@NonNull Task<User> task) {
@@ -297,7 +297,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 fetchingPageOfPosts = false;
             }
         });
-        loadFeed(true, callback, Model.getInstance().getUser());
+        loadFeed(true, callback, UserRepository.getInstance().getUser());
     }
 
     private void loadFeed(final boolean withSpinner, final TaskCompletionSource<List<FeedItem>> completion, User user) {
@@ -337,7 +337,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     public void onResume() {
         super.onResume();
         if (loginContainer != null) {
-            loginContainer.setVisibility(Model.getInstance().isRealUser() ? View.GONE : View.VISIBLE);
+            loginContainer.setVisibility(UserRepository.getInstance().isRealUser() ? View.GONE : View.VISIBLE);
         }
     }
 

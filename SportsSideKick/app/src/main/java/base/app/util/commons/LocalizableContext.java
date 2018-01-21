@@ -16,13 +16,13 @@ import static android.os.Build.VERSION_CODES.N;
  * www.hypercubesoft.com
  */
 
-public class ContextWrapper extends android.content.ContextWrapper {
+public class LocalizableContext extends android.content.ContextWrapper {
 
-    public ContextWrapper(Context base) {
+    public LocalizableContext(Context base) {
         super(base);
     }
 
-    public static ContextWrapper wrap(Context context, Locale newLocale) {
+    public static LocalizableContext wrap(Context context, Locale newLocale) {
 
         Resources res = context.getResources();
         Configuration configuration = res.getConfiguration();
@@ -40,6 +40,6 @@ public class ContextWrapper extends android.content.ContextWrapper {
             context = context.createConfigurationContext(configuration);
 
         }
-        return new ContextWrapper(context);
+        return new LocalizableContext(context);
     }
 }

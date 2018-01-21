@@ -13,7 +13,7 @@ import java.util.List;
 
 import base.app.util.events.FragmentEvent;
 import base.app.ui.fragment.content.wall.DetailFragment;
-import base.app.util.commons.Constant;
+import base.app.util.commons.Constants;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
@@ -91,8 +91,8 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         }
         fragmentManager.popBackStack();
         Fragment fragment = getPreviousFragment();
-        for (int i = 0; i < Constant.PHONE_MENU_OPTIONS.size(); i++) {
-            if (fragment.getClass().equals(Constant.PHONE_MENU_OPTIONS.get(i))) {
+        for (int i = 0; i < Constants.SIDE_MENU_OPTIONS.size(); i++) {
+            if (fragment.getClass().equals(Constants.SIDE_MENU_OPTIONS.get(i))) {
                 NavigationDrawerItems.getInstance().setByPosition(i);
                 return true;
             }

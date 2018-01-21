@@ -66,9 +66,9 @@ import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.chat.ChatMessage;
 import base.app.data.user.User;
+import base.app.util.commons.UserRepository;
 import base.app.util.ui.AlertDialogManager;
 import base.app.util.commons.GSConstants;
-import base.app.util.commons.Model;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
 import base.app.data.chat.event.ChatNotificationsEvent;
@@ -104,9 +104,9 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
+import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
+import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_IMAGE_PICK;
+import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
 
 /**
 
@@ -358,7 +358,7 @@ public class ChatFragment extends BaseFragment {
 
 
     private void onLoginStateChange() {
-        if (Model.getInstance().isRealUser()) {
+        if (UserRepository.getInstance().isRealUser()) {
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.GONE);
             }
@@ -389,7 +389,7 @@ public class ChatFragment extends BaseFragment {
     public void onResume(){
         super.onResume();
         if (inactiveContainer != null) {
-            if (Model.getInstance().isRealUser()) {
+            if (UserRepository.getInstance().isRealUser()) {
                 inactiveContainer.setVisibility(View.GONE);
             } else {
                 inactiveContainer.setVisibility(View.VISIBLE);
@@ -444,7 +444,7 @@ public class ChatFragment extends BaseFragment {
             int count = 0;
             for (String userId : currentlyActiveChat.getUsersIds()) {
                 count++;
-                User info = Model.getInstance().getCachedUserInfoById(userId);
+                User info = UserRepository.getInstance().getCachedUserInfoById(userId);
                 if (info != null) {
                     String chatName = info.getNicName();
                     if (!TextUtils.isEmpty(chatName)) {
@@ -461,7 +461,7 @@ public class ChatFragment extends BaseFragment {
 
     private void setupEditChatButton() {
         if (currentlyActiveChat != null) {
-            User user = Model.getInstance().getUser();
+            User user = UserRepository.getInstance().getUser();
             if (user != null) {
                 if(messageForEdit !=null){
                     chatMenuDeleteButton.setVisibility(View.VISIBLE);
@@ -499,7 +499,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.menu_button)
     public void chatButtonsMenuOnClick() {
-        if(!Model.getInstance().isRealUser()){
+        if(!UserRepository.getInstance().isRealUser()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
@@ -513,7 +513,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_dots)
     public void chatMenuDotsContainerOnClick() {
-        if(!Model.getInstance().isRealUser()){
+        if(!UserRepository.getInstance().isRealUser()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
@@ -620,13 +620,13 @@ public class ChatFragment extends BaseFragment {
     }
 
     public void sendButtonOnClick() {
-        if(!Model.getInstance().isRealUser()){
+        if(!UserRepository.getInstance().isRealUser()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
             return;
         }
-        if(Model.getInstance().isRealUser() && currentlyActiveChat != null) {
+        if(UserRepository.getInstance().isRealUser() && currentlyActiveChat != null) {
             String textMessage = inputEditText.getText().toString().trim();
             sendTextMessage(textMessage);
         } else {
@@ -655,7 +655,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_create)
     public void chatMenuCreateOnClick() {
-        if(Model.getInstance().isRealUser()){
+        if(UserRepository.getInstance().isRealUser()){
             EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
         } else {
             if (inactiveContainer != null) {
@@ -687,14 +687,14 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
-        User user = Model.getInstance().getUser();
+        User user = UserRepository.getInstance().getUser();
         if (currentlyActiveChat != null && user != null) {
             if(messageForEdit !=null){
                 Toast.makeText(getContext(),"Edit mode for chat message activated",Toast.LENGTH_SHORT).show();
                 animateChatMenu();
                 inputEditText.setText(messageForEdit.getText());
             } else {
-                if (Model.getInstance().getUser().getUserId().equals(currentlyActiveChat.getOwner())) {
+                if (UserRepository.getInstance().getUser().getUserId().equals(currentlyActiveChat.getOwner())) {
                     FragmentEvent fe = new FragmentEvent(EditChatFragment.class);
                     fe.setItemId(currentlyActiveChat.getChatId());
                     EventBus.getDefault().post(fe);
@@ -769,7 +769,7 @@ public class ChatFragment extends BaseFragment {
                         }
                     }
                 });
-                Model.getInstance().uploadAudioRecordingForChat(path, getActivity().getFilesDir(), source);
+                UserRepository.getInstance().uploadAudioRecordingForChat(path, getActivity().getFilesDir(), source);
             }
         });
     }
@@ -804,7 +804,7 @@ public class ChatFragment extends BaseFragment {
                             }
                         }
                     });
-                    Model.getInstance().uploadImageForChatMessage(path, getActivity().getFilesDir(),source);
+                    UserRepository.getInstance().uploadImageForChatMessage(path, getActivity().getFilesDir(),source);
                 }
             }
         });
@@ -846,7 +846,7 @@ public class ChatFragment extends BaseFragment {
                                         }
                                     }
                                 });
-                                Model.getInstance().uploadChatVideoRecording(currentPath,getActivity().getFilesDir(), source);
+                                UserRepository.getInstance().uploadChatVideoRecording(currentPath,getActivity().getFilesDir(), source);
                             } else {
                                 preppingImsObject.setImageUrl(null);
                                 preppingImsObject.setVidUrl(null);
@@ -855,7 +855,7 @@ public class ChatFragment extends BaseFragment {
                             }
                         }
                     });
-                    Model.getInstance().uploadChatVideoRecordingThumbnail(path,getActivity().getFilesDir(),source);
+                    UserRepository.getInstance().uploadChatVideoRecordingThumbnail(path,getActivity().getFilesDir(),source);
                 }
             }
         });
@@ -1071,7 +1071,7 @@ public class ChatFragment extends BaseFragment {
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     File photoFile = null;
                     try {
-                        photoFile = Model.createImageFile(getContext());
+                        photoFile = UserRepository.createImageFile(getContext());
                         currentPath = photoFile.getAbsolutePath();
                     } catch (IOException ex) {
                         // Error occurred while creating the File
@@ -1112,7 +1112,7 @@ public class ChatFragment extends BaseFragment {
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-            audioFilepath = Model.getAudioFileName();
+            audioFilepath = UserRepository.getAudioFileName();
             recorder.setOutputFile(audioFilepath);
             try {
                 recorder.prepare();
@@ -1220,7 +1220,7 @@ public class ChatFragment extends BaseFragment {
                 case REQUEST_CODE_CHAT_IMAGE_PICK:
                 case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
                     Uri uri = intent.getData();
-                    currentPath = Model.getRealPathFromURI(getContext(), uri);
+                    currentPath = UserRepository.getRealPathFromURI(getContext(), uri);
                 case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
                     resultFromPicker = requestCode;
                     break;

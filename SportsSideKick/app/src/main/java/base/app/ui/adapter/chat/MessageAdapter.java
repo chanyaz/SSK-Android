@@ -27,12 +27,12 @@ import java.util.List;
 import base.app.R;
 import base.app.data.chat.ChatMessage;
 import base.app.data.user.User;
+import base.app.util.commons.UserRepository;
 import base.app.util.events.FullScreenImageEvent;
 import base.app.util.events.MessageSelectedEvent;
 import base.app.util.events.PlayVideoEvent;
 import base.app.util.commons.DateUtils;
 import base.app.util.commons.GSConstants;
-import base.app.util.commons.Model;
 import base.app.data.chat.ChatInfo;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
@@ -236,7 +236,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private void setupAvatarFromRemoteUser(ChatMessage message, final ViewHolder holder){
         holder.senderTextView.setText("New User");
-        Model.getInstance().getUserInfoById(message.getSenderId()).addOnSuccessListener(new OnSuccessListener<User>() {
+        UserRepository.getInstance().getUserInfoById(message.getSenderId()).addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
             public void onSuccess(User user) {
                 String senderImageUrl=null;
@@ -313,7 +313,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        User info = Model.getInstance().getUser();
+        User info = UserRepository.getInstance().getUser();
         if(chatInfo!=null && info!=null){
             ChatMessage message = chatInfo.getMessages().get(position);
             String userId = info.getUserId();

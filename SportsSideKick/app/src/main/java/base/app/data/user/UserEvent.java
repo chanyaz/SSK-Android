@@ -1,6 +1,6 @@
 package base.app.data.user;
 
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 
 /**
  * Created by Filip on 4/25/2017.
@@ -12,7 +12,7 @@ public class UserEvent {
 
     User user;
     Error error;
-    Model.UserState userState;
+    UserRepository.UserState userState;
 
 
     Type type;
@@ -50,7 +50,7 @@ public class UserEvent {
         this.type = type;
     }
 
-    public UserEvent(Type type, Model.UserState userState) {
+    public UserEvent(Type type, UserRepository.UserState userState) {
         this.userState = userState;
         this.type = type;
     }
@@ -66,7 +66,7 @@ public class UserEvent {
         return error;
     }
 
-    public Model.UserState getUserState() {
+    public UserRepository.UserState getUserState() {
         return userState;
     }
 }

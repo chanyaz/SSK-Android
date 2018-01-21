@@ -6,7 +6,7 @@ import com.gamesparks.sdk.api.autogen.GSTypes;
 
 import java.util.List;
 
-import base.app.util.commons.Model;
+import base.app.util.commons.UserRepository;
 
 /**
  * Created by Djordje Krutil on 6.12.2016.
@@ -44,7 +44,7 @@ public class User {
 
     private boolean isOnline;
     private boolean wallMute = false;
-    private Model.UserState userState;
+    private UserRepository.UserState userState;
 
     //TODO @Filip Hook up with GS when backend is avaliable
     private int wallPosts=0;
@@ -77,19 +77,19 @@ public class User {
 
     List<String> messagingTokens;
 
-    public void setUserState(Model.UserState newState){
+    public void setUserState(UserRepository.UserState newState){
         this.userState = newState;
     }
 
-    public Model.UserState getUserState(){
+    public UserRepository.UserState getUserState(){
         if(isOnline){
             if(userState!=null){
                 return userState;
             } else {
-                return Model.UserState.online;
+                return UserRepository.UserState.online;
             }
         } else {
-            return Model.UserState.offline;
+            return UserRepository.UserState.offline;
         }
     }
 
