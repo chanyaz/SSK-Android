@@ -50,7 +50,7 @@ class NextMatchView(context: Context, attrs: AttributeSet)
     private fun updateCountdownTimer(timestamp: Long) {
         countdown.text = NextMatchCountdown.getCountdownValue(timestamp)
     }
-
-    fun ViewGroup.inflate(layoutId: Int) =
-            View.inflate(context, layoutId, this)
 }
+
+fun ViewGroup.inflate(layoutId: Int) =
+        View.inflate(context, layoutId, this)

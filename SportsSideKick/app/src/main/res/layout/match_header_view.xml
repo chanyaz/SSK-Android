@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wall_top_image_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/headerImage"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/header_background" />
+
+    <TextView
+        android:id="@+id/topCaption"
+        style="@style/semiBoldText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingTop="25dp"
+        android:shadowColor="@color/black_transparent_154"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="@string/wall"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_36"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/wallTopInfoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/headerImage"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="32dp">
+
+        <RelativeLayout
+            android:id="@+id/wall_top_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/wallLeftTeamName"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="-4dp"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/padding_2"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/wallLeftTeamImage"
+                android:layout_width="@dimen/width_70"
+                android:layout_height="@dimen/height_70"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/wallLeftTeamName" />
+
+            <TextView
+                android:id="@+id/wall_team_vs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/wallLeftTeamImage"
+                android:padding="@dimen/padding_8"
+                android:text="@string/vs"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/wallRightTeamImage"
+                android:layout_width="@dimen/width_70"
+                android:layout_height="@dimen/height_70"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/wall_team_vs" />
+
+            <TextView
+                android:id="@+id/wallRightTeamName"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-4dp"
+                android:layout_toEndOf="@id/wallRightTeamImage"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:padding="@dimen/padding_8"
+                android:paddingStart="@dimen/padding_2"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/wall_team_next_match"
+            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wall_top_info"
+            android:layout_centerHorizontal="true"
+            android:text="@string/match_next"
+            android:textColor="?nextMatchTextPhoneColor" />
+
+        <TextView
+            android:id="@+id/wallTeamTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wall_team_next_match"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -77,21 +77,21 @@ class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginLi
     RelativeLayout nextMatchContainer;
     @BindView(R.id.headerImage)
     ImageView headerImage;
-    @BindView(R.id.wall_team_left_name)
+    @BindView(R.id.wallLeftTeamName)
     TextView wallLeftTeamName;
-    @BindView(R.id.wall_team_left_image)
+    @BindView(R.id.wallLeftTeamImage)
     ImageView wallLeftTeamImage;
-    @BindView(R.id.wall_team_right_image)
+    @BindView(R.id.wallRightTeamImage)
     ImageView wallRightTeamImage;
-    @BindView(R.id.wall_team_right_name)
+    @BindView(R.id.wallRightTeamName)
     TextView wallRightTeamName;
-    @BindView(R.id.wall_team_time)
+    @BindView(R.id.wallTeamTime)
     TextView wallTeamTime;
     @BindView(R.id.scroll)
     NestedScrollView scroll;
     @BindView(R.id.topCaption)
     View topCaption;
-    @BindView(R.id.wall_top_info_container)
+    @BindView(R.id.wallTopInfoContainer)
     View wallTopInfoContainer;
     @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;

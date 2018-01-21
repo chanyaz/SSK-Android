@@ -9,15 +9,12 @@ import base.app.ui.fragment.content.wall.UserViewModel.SessionType.Anonymous
 import base.app.util.ui.BaseFragment
 import base.app.util.ui.inject
 import base.app.util.ui.setVisible
-import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_wall.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class WallFragment : BaseFragment(R.layout.fragment_wall) {
 
     override fun onViewCreated(view: View, state: Bundle?) {
-        headerImage.show(R.drawable.header_background)
-
         val feedViewModel = inject<FeedViewModel>()
         val userViewModel = activity.inject<UserViewModel>()
 
