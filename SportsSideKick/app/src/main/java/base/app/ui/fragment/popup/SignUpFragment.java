@@ -86,7 +86,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @BindView(R.id.sign_up_password)
     EditText password;
 
-    @BindView(R.id.sign_up_facebook)
+    @BindView(R.id.facebookButton)
     LoginButton loginButton;
     @BindView(R.id.web_view_holder)
     RelativeLayout termsHolder;
@@ -222,9 +222,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     }
 
     private void initFacebook() {
-//        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+//        facebookButton.setReadPermissions(Arrays.asList("public_profile", "email"));
 //        // Callback registration
-//        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//        facebookButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 //            @Override
 //            public void onSuccess(LoginResult loginResult) {
 //                // App code

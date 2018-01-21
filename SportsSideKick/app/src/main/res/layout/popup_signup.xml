@@ -102,7 +102,7 @@
                 android:textSize="@dimen/font_size_16"/>
 
             <com.facebook.login.widget.LoginButton
-                android:id="@+id/sign_up_facebook"
+                android:id="@+id/facebookButton"
                 style="@style/facebook_login_button_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
