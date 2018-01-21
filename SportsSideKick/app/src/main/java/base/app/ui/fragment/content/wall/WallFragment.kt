@@ -1,7 +1,6 @@
 package base.app.ui.fragment.content.wall
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import base.app.R
 import base.app.data.content.tv.inBackground
@@ -34,7 +33,6 @@ class WallFragment : BaseFragment(R.layout.fragment_wall) {
                 .repeatWhen { userViewModel.getChangesInFriends() }
                 .inBackground()
                 .subscribe {
-                    Log.d("tagx", "onNext")
                     adapter.clear()
                     adapter.addAll(it)
                     progressBar.setVisible(false)

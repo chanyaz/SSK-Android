@@ -425,6 +425,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     public void addAll(List<FeedItem> items) {
         values.addAll(items);
+        notifyDataSetChanged();
     }
 
     public void remove(FeedItem model) {
