@@ -37,7 +37,7 @@ import java.util.TimerTask;
 
 import base.app.R;
 import base.app.util.commons.GSAndroidPlatform;
-import base.app.util.commons.UserRepository;
+import base.app.ui.fragment.user.login.LoginApi;
 import base.app.data.user.notifications.ExternalNotificationEvent;
 import base.app.data.user.notifications.InternalNotificationManager;
 import base.app.data.user.purchases.PurchaseModel;
@@ -95,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         callbackManager = CallbackManager.Factory.create();
-        UserRepository.getInstance().initialize(this);
+        LoginApi.getInstance().initialize(this);
         VideoChatModel.getInstance();
         facebookShareDialog = new ShareDialog(this);
         // internal notifications initialization

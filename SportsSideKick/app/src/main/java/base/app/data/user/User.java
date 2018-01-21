@@ -6,7 +6,7 @@ import com.gamesparks.sdk.api.autogen.GSTypes;
 
 import java.util.List;
 
-import base.app.util.commons.UserRepository;
+import base.app.ui.fragment.user.login.LoginApi;
 
 /**
  * Created by Djordje Krutil on 6.12.2016.
@@ -44,7 +44,7 @@ public class User {
 
     private boolean isOnline;
     private boolean wallMute = false;
-    private UserRepository.UserState userState;
+    private LoginApi.UserState userState;
 
     //TODO @Filip Hook up with GS when backend is avaliable
     private int wallPosts=0;
@@ -77,19 +77,19 @@ public class User {
 
     List<String> messagingTokens;
 
-    public void setUserState(UserRepository.UserState newState){
+    public void setUserState(LoginApi.UserState newState){
         this.userState = newState;
     }
 
-    public UserRepository.UserState getUserState(){
+    public LoginApi.UserState getUserState(){
         if(isOnline){
             if(userState!=null){
                 return userState;
             } else {
-                return UserRepository.UserState.online;
+                return LoginApi.UserState.online;
             }
         } else {
-            return UserRepository.UserState.offline;
+            return LoginApi.UserState.offline;
         }
     }
 

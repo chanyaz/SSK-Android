@@ -27,9 +27,9 @@ import java.util.List;
 import base.app.R;
 import base.app.ui.adapter.stream.FindOfficialAdapter;
 import base.app.ui.adapter.friends.FriendsAdapter;
+import base.app.ui.fragment.user.login.LoginApi;
 import base.app.util.ui.BaseFragment;
 import base.app.util.events.FragmentEvent;
-import base.app.util.commons.UserRepository;
 import base.app.data.user.friends.PeopleSearchManager;
 import base.app.data.user.User;
 import base.app.util.commons.Utility;
@@ -122,7 +122,7 @@ public class AddFriendFragment extends BaseFragment {
                 officialAccountsAdapter = new FindOfficialAdapter(getActivity(), this.getClass());
                 officialAccountsRecyclerView.setAdapter(officialAccountsAdapter);
             }
-            Task<List<User>> fetchOfficialAccountsTask = UserRepository.getInstance().getOfficialAccounts(0);
+            Task<List<User>> fetchOfficialAccountsTask = LoginApi.getInstance().getOfficialAccounts(0);
             fetchOfficialAccountsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
                 @Override
                 public void onComplete(@NonNull Task<List<User>> task) {

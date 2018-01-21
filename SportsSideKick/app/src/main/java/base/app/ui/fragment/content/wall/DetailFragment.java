@@ -44,7 +44,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.user.User;
-import base.app.util.commons.UserRepository;
+import base.app.ui.fragment.user.login.LoginApi;
 import base.app.data.content.Translator;
 import base.app.data.content.share.ShareHelper;
 import base.app.data.content.wall.FeedItem;
@@ -197,13 +197,13 @@ public class DetailFragment extends BaseFragment {
             initializeWithData(mPost, true);
         }
 
-        String userId = UserRepository.getInstance().getUser().getUserId();
+        String userId = LoginApi.getInstance().getUser().getUserId();
         if (mPost.getWallId() != null) {
             if (mPost.getWallId().equals(userId)) {
                 delete.setVisibility(View.VISIBLE);
             }
         }
-        post.setEnabled(UserRepository.getInstance().isRealUser());
+        post.setEnabled(LoginApi.getInstance().isRealUser());
         post.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -375,7 +375,7 @@ public class DetailFragment extends BaseFragment {
     private void sendComment() {
         Comment comment = new Comment();
         comment.setComment(post.getText().toString());
-        comment.setPosterId(UserRepository.getInstance().getUser().getUserId());
+        comment.setPosterId(LoginApi.getInstance().getUser().getUserId());
         comment.setWallId(mPost.getWallId());
         comment.setPostId(mPost.getId());
         comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
@@ -447,7 +447,7 @@ public class DetailFragment extends BaseFragment {
                 final Comment comment = event.getComment();
 
                 if (event.getComment() != null) {
-                    UserRepository.getInstance().getUserInfoById(comment.getPosterId())
+                    LoginApi.getInstance().getUserInfoById(comment.getPosterId())
                             .addOnCompleteListener(new OnCompleteListener<User>() {
                                 @Override
                                 public void onComplete(@NonNull Task<User> task) {
@@ -483,7 +483,7 @@ public class DetailFragment extends BaseFragment {
 
     @OnClick({R.id.likes_container})
     public void togglePostLike() {
-        if (UserRepository.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             if (mPost != null) {
                 if (likesIconLiked != null) {
                     likesIconLiked.setEnabled(false);

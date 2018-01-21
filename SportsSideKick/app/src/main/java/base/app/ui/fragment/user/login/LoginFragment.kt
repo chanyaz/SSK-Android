@@ -1,4 +1,4 @@
-package base.app.ui.fragment.popup
+package base.app.ui.fragment.user.login
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import base.app.BuildConfig
 import base.app.R
 import base.app.data.user.LoginStateReceiver
@@ -13,12 +14,12 @@ import base.app.data.user.LoginStateReceiver.LoginListener
 import base.app.data.user.PasswordResetReceiver
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener
 import base.app.data.user.User
-import base.app.util.commons.UserRepository
 import base.app.util.commons.Utility
 import base.app.util.events.FragmentEvent
 import base.app.util.ui.AlertDialogManager
 import base.app.util.ui.BaseFragment
-import butterknife.ButterKnife
+import base.app.util.ui.inject
+import base.app.util.ui.setVisible
 import butterknife.OnClick
 import butterknife.Optional
 import com.facebook.CallbackManager
@@ -29,26 +30,33 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.json.JSONException
 import java.util.*
 
 class LoginFragment : BaseFragment(R.layout.fragment_login),
-        LoginListener, PasswordResetListener {
+        PasswordResetListener, ILoginView {
 
     private var callbackManager: CallbackManager? = null
-    private var loginStateReceiver: LoginStateReceiver? = null
     private var passwordResetReceiver: PasswordResetReceiver? = null
 
     override fun onViewCreated(view: View, state: Bundle?) {
+        titleText.text = Html.fromHtml(getString(R.string.slogan))
         autoPopulateOnDebug()
-
-        loginStateReceiver = LoginStateReceiver(this)
-        passwordResetReceiver = PasswordResetReceiver(this)
         initFacebook()
 
-        titleText.text = Html.fromHtml(getString(R.string.slogan))
+        val viewModel = inject<LoginViewModel>()
+        viewModel.view = this
 
+        passwordResetReceiver = PasswordResetReceiver(this)
+
+        submitButton.onClick {
+            val email = emailField.text.toString()
+            val password = passwordField.text.toString()
+            if (validate(email, password)) {
+                viewModel.onLoginSubmit(email, password)
+            }
+        }
         cancelRestoreButton.setOnClickListener {
             fieldsContainer.visibility = View.VISIBLE
             if (submitButton != null) {
@@ -60,32 +68,11 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun autoPopulateOnDebug() {
-        if (BuildConfig.DEBUG) {
-            emailField.setText("alexsheikodev3@gmail.com")
-            passwordField.setText("temppass")
-        }
-    }
-
-    @OnClick(R.id.submitButton)
-    fun loginOnClick() {
-        val email = emailField.text.toString()
-        val password = passwordField.text.toString()
-        if (email.isBlank() || password.isBlank()) {
-            toast(R.string.required_credentials)
-            return
-        }
-        UserRepository.getInstance().login(email, password)
-        submitButtonLabel.visibility = View.INVISIBLE
-        progressBar.visibility = View.VISIBLE
-    }
-
     @Optional
     @OnClick(R.id.reset_text)
     fun forgotPasswordOnClick() {
         val email = emailField.text.toString()
-        UserRepository.getInstance().resetPassword(email)
+        LoginApi.getInstance().resetPassword(email)
         activity?.onBackPressed()
     }
 
@@ -135,7 +122,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
                 }
 
                 override fun onError(error: FacebookException) {
-                    Log.e(TAG, "Facebook login error - error is:" + error.localizedMessage)
+                    Log.e("Login", "Facebook login error - error is:" + error.localizedMessage)
                 }
             })
         }
@@ -143,24 +130,6 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager?.onActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(loginStateReceiver)
-        EventBus.getDefault().unregister(passwordResetReceiver)
-    }
-
-    override fun onLogout() {}
-
-    override fun onLoginAnonymously() {}
-
-    override fun onLogin(user: User) {
-        progressBar.visibility = View.GONE
-        submitButtonLabel.visibility = View.VISIBLE
-        EventBus.getDefault().post(UserRepository.getInstance().user)
-        Utility.hideKeyboard(activity)
-        activity?.onBackPressed()
     }
 
     override fun onLoginError(error: Error) {
@@ -195,13 +164,49 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
         })
     }
 
+    fun validate(email: String, password: String): Boolean {
+        var isValid = true
+        if (email.isBlank()) {
+            emailField.askForInput()
+            isValid = false
+        }
+        if (password.isBlank()) {
+            passwordField.askForInput()
+            isValid = false
+        }
+        return isValid
+    }
+
+    override fun showLoading(loading: Boolean) {
+        progressBar.setVisible(loading)
+        submitButtonLabel.setVisible(!loading)
+    }
+
+    override fun navigateToFeed() {
+        activity?.onBackPressed()
+    }
+
     @Optional
     @OnClick(R.id.facebook_button)
     fun setLoginFacebook() {
         facebookButton.performClick()
     }
 
-    companion object {
-        private const val TAG = "LOGIN FRAGMENT"
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(passwordResetReceiver)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun autoPopulateOnDebug() {
+        if (BuildConfig.DEBUG) {
+            emailField.setText("alexsheikodev3@gmail.com")
+            passwordField.setText("temppass")
+        }
+    }
+
+    fun EditText.askForInput() {
+        error = getString(R.string.required_credentials)
+        requestFocus()
     }
 }

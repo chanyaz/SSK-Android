@@ -66,7 +66,7 @@ import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.chat.ChatMessage;
 import base.app.data.user.User;
-import base.app.util.commons.UserRepository;
+import base.app.ui.fragment.user.login.LoginApi;
 import base.app.util.ui.AlertDialogManager;
 import base.app.util.commons.GSConstants;
 import base.app.data.chat.ChatInfo;
@@ -83,7 +83,7 @@ import base.app.ui.fragment.base.IgnoreBackHandling;
 import base.app.ui.fragment.popup.CreateChatFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
-import base.app.ui.fragment.popup.LoginFragment;
+import base.app.ui.fragment.user.login.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.util.commons.Utility;
 import base.app.util.events.FullScreenImageEvent;
@@ -358,7 +358,7 @@ public class ChatFragment extends BaseFragment {
 
 
     private void onLoginStateChange() {
-        if (UserRepository.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.GONE);
             }
@@ -389,7 +389,7 @@ public class ChatFragment extends BaseFragment {
     public void onResume(){
         super.onResume();
         if (inactiveContainer != null) {
-            if (UserRepository.getInstance().isRealUser()) {
+            if (LoginApi.getInstance().isRealUser()) {
                 inactiveContainer.setVisibility(View.GONE);
             } else {
                 inactiveContainer.setVisibility(View.VISIBLE);
@@ -444,7 +444,7 @@ public class ChatFragment extends BaseFragment {
             int count = 0;
             for (String userId : currentlyActiveChat.getUsersIds()) {
                 count++;
-                User info = UserRepository.getInstance().getCachedUserInfoById(userId);
+                User info = LoginApi.getInstance().getCachedUserInfoById(userId);
                 if (info != null) {
                     String chatName = info.getNicName();
                     if (!TextUtils.isEmpty(chatName)) {
@@ -461,7 +461,7 @@ public class ChatFragment extends BaseFragment {
 
     private void setupEditChatButton() {
         if (currentlyActiveChat != null) {
-            User user = UserRepository.getInstance().getUser();
+            User user = LoginApi.getInstance().getUser();
             if (user != null) {
                 if(messageForEdit !=null){
                     chatMenuDeleteButton.setVisibility(View.VISIBLE);
@@ -499,7 +499,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.menu_button)
     public void chatButtonsMenuOnClick() {
-        if(!UserRepository.getInstance().isRealUser()){
+        if(!LoginApi.getInstance().isRealUser()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
@@ -513,7 +513,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_dots)
     public void chatMenuDotsContainerOnClick() {
-        if(!UserRepository.getInstance().isRealUser()){
+        if(!LoginApi.getInstance().isRealUser()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
@@ -620,13 +620,13 @@ public class ChatFragment extends BaseFragment {
     }
 
     public void sendButtonOnClick() {
-        if(!UserRepository.getInstance().isRealUser()){
+        if(!LoginApi.getInstance().isRealUser()){
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
             return;
         }
-        if(UserRepository.getInstance().isRealUser() && currentlyActiveChat != null) {
+        if(LoginApi.getInstance().isRealUser() && currentlyActiveChat != null) {
             String textMessage = inputEditText.getText().toString().trim();
             sendTextMessage(textMessage);
         } else {
@@ -655,7 +655,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_create)
     public void chatMenuCreateOnClick() {
-        if(UserRepository.getInstance().isRealUser()){
+        if(LoginApi.getInstance().isRealUser()){
             EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
         } else {
             if (inactiveContainer != null) {
@@ -687,14 +687,14 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
-        User user = UserRepository.getInstance().getUser();
+        User user = LoginApi.getInstance().getUser();
         if (currentlyActiveChat != null && user != null) {
             if(messageForEdit !=null){
                 Toast.makeText(getContext(),"Edit mode for chat message activated",Toast.LENGTH_SHORT).show();
                 animateChatMenu();
                 inputEditText.setText(messageForEdit.getText());
             } else {
-                if (UserRepository.getInstance().getUser().getUserId().equals(currentlyActiveChat.getOwner())) {
+                if (LoginApi.getInstance().getUser().getUserId().equals(currentlyActiveChat.getOwner())) {
                     FragmentEvent fe = new FragmentEvent(EditChatFragment.class);
                     fe.setItemId(currentlyActiveChat.getChatId());
                     EventBus.getDefault().post(fe);
@@ -769,7 +769,7 @@ public class ChatFragment extends BaseFragment {
                         }
                     }
                 });
-                UserRepository.getInstance().uploadAudioRecordingForChat(path, getActivity().getFilesDir(), source);
+                LoginApi.getInstance().uploadAudioRecordingForChat(path, getActivity().getFilesDir(), source);
             }
         });
     }
@@ -804,7 +804,7 @@ public class ChatFragment extends BaseFragment {
                             }
                         }
                     });
-                    UserRepository.getInstance().uploadImageForChatMessage(path, getActivity().getFilesDir(),source);
+                    LoginApi.getInstance().uploadImageForChatMessage(path, getActivity().getFilesDir(),source);
                 }
             }
         });
@@ -846,7 +846,7 @@ public class ChatFragment extends BaseFragment {
                                         }
                                     }
                                 });
-                                UserRepository.getInstance().uploadChatVideoRecording(currentPath,getActivity().getFilesDir(), source);
+                                LoginApi.getInstance().uploadChatVideoRecording(currentPath,getActivity().getFilesDir(), source);
                             } else {
                                 preppingImsObject.setImageUrl(null);
                                 preppingImsObject.setVidUrl(null);
@@ -855,7 +855,7 @@ public class ChatFragment extends BaseFragment {
                             }
                         }
                     });
-                    UserRepository.getInstance().uploadChatVideoRecordingThumbnail(path,getActivity().getFilesDir(),source);
+                    LoginApi.getInstance().uploadChatVideoRecordingThumbnail(path,getActivity().getFilesDir(),source);
                 }
             }
         });
@@ -1071,7 +1071,7 @@ public class ChatFragment extends BaseFragment {
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     File photoFile = null;
                     try {
-                        photoFile = UserRepository.createImageFile(getContext());
+                        photoFile = LoginApi.createImageFile(getContext());
                         currentPath = photoFile.getAbsolutePath();
                     } catch (IOException ex) {
                         // Error occurred while creating the File
@@ -1112,7 +1112,7 @@ public class ChatFragment extends BaseFragment {
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-            audioFilepath = UserRepository.getAudioFileName();
+            audioFilepath = LoginApi.getAudioFileName();
             recorder.setOutputFile(audioFilepath);
             try {
                 recorder.prepare();
@@ -1220,7 +1220,7 @@ public class ChatFragment extends BaseFragment {
                 case REQUEST_CODE_CHAT_IMAGE_PICK:
                 case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
                     Uri uri = intent.getData();
-                    currentPath = UserRepository.getRealPathFromURI(getContext(), uri);
+                    currentPath = LoginApi.getRealPathFromURI(getContext(), uri);
                 case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
                     resultFromPicker = requestCode;
                     break;

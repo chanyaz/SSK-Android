@@ -38,7 +38,7 @@ import java.util.Map;
 import base.app.BuildConfig;
 import base.app.R;
 import base.app.util.commons.GSConstants;
-import base.app.util.commons.UserRepository;
+import base.app.ui.fragment.user.login.LoginApi;
 import base.app.data.user.User;
 import base.app.data.content.wall.WallModel;
 import base.app.util.ui.BaseFragment;
@@ -114,7 +114,7 @@ public class EditProfileFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_edit_profile, container, false);
         ButterKnife.bind(this, view);
 
-        user = UserRepository.getInstance().getUser();
+        user = LoginApi.getInstance().getUser();
         if (user != null) {
             ImageLoader.displayImage(user.getAvatar(), profileImage, null);
             firstNameEditText.setText(user.getFirstName());
@@ -183,7 +183,7 @@ public class EditProfileFragment extends BaseFragment {
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = UserRepository.createImageFile(getContext());
+                photoFile = LoginApi.createImageFile(getContext());
                 currentPath = photoFile.getAbsolutePath();
             } catch (IOException ex) {
                 // Error occurred while creating the File
@@ -229,7 +229,7 @@ public class EditProfileFragment extends BaseFragment {
                 case REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
-                    String realPath = UserRepository.getRealPathFromURI(getContext(), selectedImageURI);
+                    String realPath = LoginApi.getRealPathFromURI(getContext(), selectedImageURI);
                     Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
                     uploadImage(realPath);
                     break;
@@ -297,7 +297,7 @@ public class EditProfileFragment extends BaseFragment {
         map.put(GSConstants.PHONE, phoneEditText.getText().toString());
         map.put(GSConstants.CLUB_ID_TAG, String.valueOf(CLUB_ID));
         //Todo @refactoring  put password and language
-        UserRepository.getInstance().setDetails(map);
+        LoginApi.getInstance().setDetails(map);
         if (Utility.isPhone(getContext())) {
             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         } else {
@@ -308,13 +308,13 @@ public class EditProfileFragment extends BaseFragment {
 
     private void uploadImage(String path) {
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        UserRepository.getInstance().uploadImageForProfile(path, getContext().getFilesDir(), source);
+        LoginApi.getInstance().uploadImageForProfile(path, getContext().getFilesDir(), source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if (task.isSuccessful()) {
                     String uploadedImageUrl = task.getResult();
-                    UserRepository.getInstance().setProfileImageUrl(uploadedImageUrl, true);
+                    LoginApi.getInstance().setProfileImageUrl(uploadedImageUrl, true);
                     ImageLoader.displayImage(uploadedImageUrl, profileImage, null);
                 } else {
                     // TODO @Filip Handle error!

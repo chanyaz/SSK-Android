@@ -3,24 +3,24 @@ package base.app.ui.fragment.popup.post
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import base.app.util.commons.UserRepository
-import base.app.data.content.tv.inBackground
 import base.app.data.content.news.PostsRepository
+import base.app.data.content.tv.inBackground
 import base.app.data.user.User
+import base.app.ui.fragment.user.login.LoginApi
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import java.io.File
 
 class PostCreateViewModel : ViewModel() {
 
-    val postsRepo: PostsRepository by lazy { PostsRepository() }
+    val postsRepo = PostsRepository()
     lateinit var view: IPostCreateView
 
     private var selectedImage: File? = null
     private val disposables = CompositeDisposable()
 
     fun loadUser() : LiveData<User> {
-        val user = UserRepository.getInstance().user
+        val user = LoginApi.getInstance().user
         return MutableLiveData<User>().just(user)
     }
 

@@ -28,7 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import base.app.R;
-import base.app.util.commons.UserRepository;
+import base.app.ui.fragment.user.login.LoginApi;
 import base.app.util.ui.BaseActivity;
 import base.app.data.user.tutorial.TutorialModel;
 import base.app.data.user.LoginStateReceiver;
@@ -60,7 +60,7 @@ import base.app.ui.fragment.popup.FriendsFragment;
 import base.app.ui.fragment.popup.InviteFriendFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LanguageFragment;
-import base.app.ui.fragment.popup.LoginFragment;
+import base.app.ui.fragment.user.login.LoginFragment;
 import base.app.ui.fragment.popup.ProfileFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
@@ -177,7 +177,7 @@ public class MainActivity extends BaseActivity
     }
 
     public void updateTopBar() {
-        int visibility = UserRepository.getInstance().isRealUser() ? View.VISIBLE : View.GONE;
+        int visibility = LoginApi.getInstance().isRealUser() ? View.VISIBLE : View.GONE;
         friendsIcon.setVisibility(visibility);
     }
 
@@ -526,7 +526,7 @@ public class MainActivity extends BaseActivity
 
     public void onProfileClicked(View view) {
         drawerLayout.closeDrawer(GravityCompat.END);
-        if (UserRepository.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
@@ -540,9 +540,8 @@ public class MainActivity extends BaseActivity
     @Subscribe
     public void updateUserName(UserEvent event) {
         if (event.getType() == UserEvent.Type.onDetailsUpdated) {
-            setYourCoinsValue(String.valueOf(UserRepository.getInstance().getUser().getCurrency()));
+            setYourCoinsValue(String.valueOf(LoginApi.getInstance().getUser().getCurrency()));
         }
-
     }
 
     @Override
@@ -592,18 +591,18 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onLogin(User user) {
-        if (UserRepository.getInstance().isRealUser()) {
+        if (LoginApi.getInstance().isRealUser()) {
             String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
             if (user.getAvatar() != null) {
                 ImageLoader.displayImage(user.getAvatar(), profileImage, null);
             }
-            setYourCoinsValue(String.valueOf(UserRepository.getInstance().getUser().getCurrency()));
+            setYourCoinsValue(String.valueOf(LoginApi.getInstance().getUser().getCurrency()));
             yourLevel.setVisibility(View.VISIBLE);
             yourLevel.setText(String.valueOf((int) user.getProgress()));
             userLevelBackground.setVisibility(View.VISIBLE);
             userLevelProgress.setVisibility(View.VISIBLE);
             userLevelProgress.setProgress((int) (user.getProgress() * userLevelProgress.getMax()));
-            TutorialModel.getInstance().setUserId(UserRepository.getInstance().getUser().getUserId());
+            TutorialModel.getInstance().setUserId(LoginApi.getInstance().getUser().getUserId());
         } else {
             resetUserDetails();
         }

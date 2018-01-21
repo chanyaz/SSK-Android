@@ -23,7 +23,7 @@ import java.util.Map;
 import base.app.util.commons.GSAndroidPlatform;
 import base.app.util.commons.FileUploader;
 import base.app.util.commons.GSConstants;
-import base.app.util.commons.UserRepository;
+import base.app.ui.fragment.user.login.LoginApi;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.util.events.ChatsInfoUpdatesEvent;
 import base.app.util.events.CreateNewChatSuccessEvent;
@@ -50,7 +50,7 @@ import static base.app.util.commons.GSConstants.OPERATION_DELETE_MESSAGE;
 import static base.app.util.commons.GSConstants.OPERATION_NEW;
 import static base.app.util.commons.GSConstants.OPERATION_UPDATE;
 import static base.app.util.commons.GSConstants.USER_ID;
-import static base.app.util.commons.UserRepository.createRequest;
+import static base.app.ui.fragment.user.login.LoginApi.createRequest;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -74,7 +74,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     private ImsManager() {
         mapper = new ObjectMapper();
         chatInfoCache = new HashMap<>();
-        UserRepository.getInstance().setMessageHandlerDelegate(this);
+        LoginApi.getInstance().setMessageHandlerDelegate(this);
         this.loginStateReceiver = new LoginStateReceiver(this);
     }
 
@@ -396,7 +396,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
     // do not use this function, call the chat info one!
     Task<ChatInfo> imsSendMessageToChat(final ChatInfo chatInfo, final ChatMessage message) {
         final TaskCompletionSource<ChatInfo> source = new TaskCompletionSource<>();
-        String nic = UserRepository.getInstance().getUser().getNicName();
+        String nic = LoginApi.getInstance().getUser().getNicName();
         if (TextUtils.isEmpty(nic)) {
             nic = "New User";
         }
@@ -579,7 +579,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 chatId = (String) data.get(CHAT_ID);
                 String sender = (String) data.get(GSConstants.SENDER);
                 String isTyping = (String) data.get(IS_TYPING_VALUE);
-                User user = UserRepository.getInstance().getUser();
+                User user = LoginApi.getInstance().getUser();
                 if (chatId != null && sender != null && isTyping != null && user != null) {
                     if (!sender.equals(user.getUserId())) {
                         ChatInfo chatInfo = getChatInfoById(chatId);

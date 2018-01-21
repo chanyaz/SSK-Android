@@ -1,6 +1,6 @@
 package base.app.data.user;
 
-import base.app.util.commons.UserRepository;
+import base.app.ui.fragment.user.login.LoginApi;
 
 /**
  * Created by Filip on 4/25/2017.
@@ -12,7 +12,7 @@ public class UserEvent {
 
     User user;
     Error error;
-    UserRepository.UserState userState;
+    LoginApi.UserState userState;
 
 
     Type type;
@@ -50,7 +50,7 @@ public class UserEvent {
         this.type = type;
     }
 
-    public UserEvent(Type type, UserRepository.UserState userState) {
+    public UserEvent(Type type, LoginApi.UserState userState) {
         this.userState = userState;
         this.type = type;
     }
@@ -66,7 +66,7 @@ public class UserEvent {
         return error;
     }
 
-    public UserRepository.UserState getUserState() {
+    public LoginApi.UserState getUserState() {
         return userState;
     }
 }

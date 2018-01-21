@@ -32,17 +32,6 @@
         android:layout_above="@id/submitButton"
         android:layout_below="@id/top_buttons_container">
 
-        <ImageButton
-            android:id="@+id/cancelRestoreButton"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:scaleType="fitCenter"
-            android:padding="16dp"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:src="@drawable/ic_arrow_back" />
-
         <RelativeLayout
             android:id="@+id/fieldsContainer"
             android:layout_width="match_parent"
@@ -146,7 +135,6 @@
                     android:background="@drawable/text_login_selector"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:nextFocusDown="@+id/passwordField"
                     android:padding="@dimen/padding_8"
                     android:textAlignment="center"
                     android:textColor="?white"
@@ -242,6 +230,16 @@
             android:textColor="?popupsCaptionColor"
             android:textSize="@dimen/font_size_16" />
 
+        <ImageButton
+            android:id="@+id/cancelRestoreButton"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:scaleType="fitCenter"
+            android:padding="16dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:src="@drawable/ic_arrow_back" />
 
     </RelativeLayout>
 

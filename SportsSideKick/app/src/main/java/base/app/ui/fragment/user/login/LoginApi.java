@@ -1,4 +1,4 @@
-package base.app.util.commons;
+package base.app.ui.fragment.user.login;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -39,16 +39,20 @@ import base.app.data.user.MessageHandler;
 import base.app.data.user.User;
 import base.app.data.user.UserEvent;
 import base.app.data.user.purchases.PurchaseModel;
+import base.app.util.commons.FileUploader;
+import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.GSConstants;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
+import static base.app.data.TypeConverterKt.toUser;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
-import static base.app.util.commons.UserRepository.LoggedInUserType.NONE;
-import static base.app.util.commons.UserRepository.LoggedInUserType.REAL;
+import static base.app.ui.fragment.user.login.LoginApi.LoggedInUserType.NONE;
+import static base.app.ui.fragment.user.login.LoginApi.LoggedInUserType.REAL;
 
-public class UserRepository {
+public class LoginApi {
 
     private static final String TAG = "MODEL";
     private final ObjectMapper mapper;
@@ -72,11 +76,11 @@ public class UserRepository {
     }
 
 
-    private static UserRepository instance;
+    private static LoginApi instance;
 
-    public static UserRepository getInstance() {
+    public static LoginApi getInstance() {
         if (instance == null) {
-            instance = new UserRepository();
+            instance = new LoginApi();
         }
         return instance;
     }
@@ -92,7 +96,7 @@ public class UserRepository {
     }
 
     public boolean isRealUser() {
-        return getLoggedInUserType() == UserRepository.LoggedInUserType.REAL;
+        return getLoggedInUserType() == LoginApi.LoggedInUserType.REAL;
     }
 
     public LoggedInUserType getLoggedInUserType() {
@@ -121,7 +125,7 @@ public class UserRepository {
 
     private HashMap<String, User> userCache;
 
-    private UserRepository() {
+    private LoginApi() {
         userCache = new HashMap<>();
         mapper = new ObjectMapper();
         loggedInUserType = NONE;
@@ -209,12 +213,12 @@ public class UserRepository {
                 if (available) {
                     if (!GSAndroidPlatform.gs().isAuthenticated()) {
                         Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
-                        login();
+                        loginAnonymous();
                     } else {
                         PurchaseModel.getInstance().updateProductList();
                         // Same entry point as onAuthenticationCheck - escaping from dead loop!
                         Log.d(TAG, "isAuthenticated(): authenticated, do nothing.");
-                        getAccountDetails(completeLogin);
+                        getProfileData(completeLogin);
                     }
                 }
             }
@@ -229,7 +233,7 @@ public class UserRepository {
                     Log.d(TAG, "AuthenticationResponse: " + authenticationResponse.toString());
                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
                 } else {
-                    getAccountDetails(completeLogin);
+                    getProfileData(completeLogin);
                 }
             }
         }
@@ -241,7 +245,7 @@ public class UserRepository {
             if (response != null) {
                 if (!response.hasErrors()) {
                     if (!isRealUser()) {
-                        setUser(response);
+                        toUser(response);
                         String dn = response.getDisplayName();
                         setLoggedInUserType(dn != null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
                     } else {
@@ -252,7 +256,7 @@ public class UserRepository {
         }
     };
 
-    private void getAccountDetails(GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completion) {
+    private void getProfileData(GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completion) {
         GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createAccountDetailsRequest();
         HashMap<String, Object> scriptData = new HashMap<>();
         scriptData.put(CLUB_ID_TAG, CLUB_ID);
@@ -270,12 +274,38 @@ public class UserRepository {
         }
     }
 
+    public Observable<GSResponseBuilder.AccountDetailsResponse> getProfileData() {
+        return Observable.create(new ObservableOnSubscribe<GSResponseBuilder.AccountDetailsResponse>() {
+            @Override
+            public void subscribe(final ObservableEmitter<GSResponseBuilder.AccountDetailsResponse> emitter) throws Exception {
+
+                GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createAccountDetailsRequest();
+                HashMap<String, Object> scriptData = new HashMap<>();
+                scriptData.put(CLUB_ID_TAG, CLUB_ID);
+                request.getBaseData().put("scriptData", scriptData);
+
+                GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> consumer = new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
+                        if (!response.hasErrors()) {
+                            emitter.onNext(response);
+                            emitter.onComplete();
+                        } else {
+                            emitter.onError(new Throwable(response.toString()));
+                        }
+                    }
+                };
+                request.send(consumer);
+            }
+        });
+    }
+
     private void onAccountDetails(GSResponseBuilder.AccountDetailsResponse response) {
         if (response != null) {
             if (response.hasErrors()) {
                 EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdateError));
             } else {
-                setUser(response);
+                toUser(response);
             }
         }
     }
@@ -302,14 +332,14 @@ public class UserRepository {
                         Map responseData = response.getBaseData();
                         Object errorObject = responseData.get("error");
                         Error error = new Error(errorObject.toString());
-                        UserEvent event = new UserEvent(errorType,error);
+                        UserEvent event = new UserEvent(errorType, error);
                         EventBus.getDefault().post(event);
                     } else {
-                        getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
+                        getProfileData(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
                             @Override
                             public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
                                 if (!response.hasErrors()) {
-                                    setUser(response);
+                                    toUser(response);
                                     setLoggedInUserType(REAL);
                                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onRegister));
                                 }
@@ -321,18 +351,18 @@ public class UserRepository {
         });
     }
 
-    public void registerFromFacebook(String token, String email, HashMap<String, Object> userData){
+    public void registerFromFacebook(String token, String email, HashMap<String, Object> userData) {
         final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest();
         if (userData != null) {
-            userData.put("initial_email",email);
+            userData.put("initial_email", email);
             userData.put(CLUB_ID_TAG, CLUB_ID);
             Map<String, Object> map = request.getBaseData();
             map.put("scriptData", userData);
         }
-      request.setAccessToken(token)
-              .setDoNotLinkToCurrentPlayer(false)
-              .setSwitchIfPossible(true)
-              .send(handleFBAuth);
+        request.setAccessToken(token)
+                .setDoNotLinkToCurrentPlayer(false)
+                .setSwitchIfPossible(true)
+                .send(handleFBAuth);
     }
 
     private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> handleFBAuth = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
@@ -344,7 +374,7 @@ public class UserRepository {
                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
                 } else {
                     boolean isNewPlayer = authenticationResponse.getNewPlayer();
-                    if(isNewPlayer){
+                    if (isNewPlayer) {
                         onRegisteredFB.onEvent(authenticationResponse);
                     } else {
                         onAuthenticatedFB.onEvent(authenticationResponse);
@@ -363,7 +393,7 @@ public class UserRepository {
                     Log.d(TAG, "Facebook onRegisteredFB AuthenticationResponse: " + authenticationResponse.toString());
                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
                 } else {
-                    getAccountDetails(completeLogin);
+                    getProfileData(completeLogin);
                 }
             }
         }
@@ -383,7 +413,7 @@ public class UserRepository {
 
                     GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
                     HashMap<String, Object> data = new HashMap<>();
-                    data.put("action","register");
+                    data.put("action", "register");
                     data.put(CLUB_ID_TAG, CLUB_ID);
 
                     String firstName = authenticationResponse.getScriptData().getString("firstName");
@@ -428,7 +458,8 @@ public class UserRepository {
 //                    }
                 }
             }
-    }};
+        }
+    };
 
     private GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> onRegisteredFBCompleted = new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
         @Override
@@ -438,21 +469,21 @@ public class UserRepository {
                     // We don't need to error if the request was successful, as that means we logged the user in!
                     GSData scriptData = response.getScriptData();
                     boolean successful = (boolean) scriptData.getBaseData().get("success");
-                    if(!successful){
+                    if (!successful) {
                         UserEvent.Type errorType = UserEvent.Type.onRegisterError;
                         Map responseData = response.getBaseData();
                         Object errorObject = responseData.get("error");
                         Error error = new Error(errorObject.toString());
-                        UserEvent event = new UserEvent(errorType,error);
+                        UserEvent event = new UserEvent(errorType, error);
                         EventBus.getDefault().post(event);
                         return;
                     }
                 }
-                getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
+                getProfileData(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.AccountDetailsResponse response) {
                         if (!response.hasErrors()) {
-                            setUser(response);
+                            toUser(response);
                             setLoggedInUserType(REAL);
                             EventBus.getDefault().post(new UserEvent(UserEvent.Type.onRegister));
                         }
@@ -462,7 +493,7 @@ public class UserRepository {
         }
     };
 
-    public void login() {
+    public void loginAnonymous() {
         GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
         HashMap<String, Object> scriptData = new HashMap<>();
         scriptData.put(CLUB_ID_TAG, CLUB_ID);
@@ -474,11 +505,26 @@ public class UserRepository {
         request.send(onAuthenticated);
     }
 
-    public void login(String email, String password) {
-        GSAndroidPlatform.gs().getRequestBuilder().createAuthenticationRequest()
-                .setUserName(email)
-                .setPassword(password)
-                .send(onAuthenticated);
+    public Observable<GSResponseBuilder.AuthenticationResponse> authorize(final String email, final String password) {
+        return Observable.create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
+            @Override
+            public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
+                GSAndroidPlatform.gs().getRequestBuilder().createAuthenticationRequest()
+                        .setUserName(email)
+                        .setPassword(password)
+                        .send(new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
+                            @Override
+                            public void onEvent(GSResponseBuilder.AuthenticationResponse response) {
+                                if (!response.hasErrors()) {
+                                    emitter.onNext(response);
+                                    emitter.onComplete();
+                                } else {
+                                    emitter.onError(new Throwable(response.toString()));
+                                }
+                            }
+                        });
+            }
+        });
     }
 
     public void logout() {
@@ -487,11 +533,11 @@ public class UserRepository {
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
                 if (endSessionResponse != null) {
                     if (endSessionResponse.hasErrors()) {
-                        Log.d(TAG, "UserRepository.onSessionEnded() -> Error ending session!");
+                        Log.d(TAG, "LoginApi.onSessionEnded() -> Error ending session!");
                     } else {
                         clearUser();
                         setLoggedInUserType(NONE);
-                        login();
+                        loginAnonymous();
                     }
                 }
             }
@@ -610,23 +656,8 @@ public class UserRepository {
         request.send(onDetailsUpdated);
     }
 
-    private void setUser(GSResponseBuilder.AccountDetailsResponse response) {
-        String userId = response.getUserId();
-        if (userId == null) {
-            Log.d(TAG, "GSModel.setUser() -> Couldn't retrieve User ID! Aborting!!");
-            return;
-        }
-        GSData scriptData = response.getScriptData();
-        Map<String, Object> data;
-        User info;
-        if (scriptData != null) {
-            data = scriptData.getBaseData();
-            info = mapper.convertValue(data, User.class);
-        } else {
-            info = mapper.convertValue(response, User.class);
-        }
-        currentUser = info;
-        userCache.put(info.getUserId(), info);
+    protected void setUser(User user) {
+        userCache.put(user.getUserId(), user);
         EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUser));
     }
 
@@ -637,7 +668,7 @@ public class UserRepository {
                 if (response.hasErrors()) {
                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdateError));
                 } else {
-                    getAccountDetails(null);
+                    getProfileData(null);
                 }
             }
         }
@@ -751,7 +782,7 @@ public class UserRepository {
         }
     }
 
-    public void uploadChatVideoRecording(String filepath,File filesDir, final TaskCompletionSource<String> completion) {
+    public void uploadChatVideoRecording(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "video_" +
                         getUserIdForImageName() +
@@ -788,9 +819,9 @@ public class UserRepository {
             @Override
             public void subscribe(final ObservableEmitter<String> emitter) throws Exception {
                 String filename = "post_photo_" +
-                                getUserIdForImageName() +
-                                System.currentTimeMillis() +
-                                ".jpg";
+                        getUserIdForImageName() +
+                        System.currentTimeMillis() +
+                        ".jpg";
                 TaskCompletionSource<String> source = new TaskCompletionSource<>();
                 source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override

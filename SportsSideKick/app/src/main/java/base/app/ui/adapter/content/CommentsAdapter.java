@@ -22,8 +22,8 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.user.User;
+import base.app.ui.fragment.user.login.LoginApi;
 import base.app.util.events.CommentSelectedEvent;
-import base.app.util.commons.UserRepository;
 import base.app.data.content.wall.Comment;
 import base.app.data.content.wall.WallModel;
 import base.app.util.commons.Utility;
@@ -97,7 +97,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Comment comment = comments.get(position);
-        Task<User> getUserTask = UserRepository.getInstance().getUserInfoById(comment.getPosterId());
+        Task<User> getUserTask = LoginApi.getInstance().getUserInfoById(comment.getPosterId());
         holder.view.setTag(comment.getPosterId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
             @Override
@@ -151,8 +151,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         holder.delete.setVisibility(View.GONE);
 
         // check if this comment belongs to this user
-        if (UserRepository.getInstance().getUser() != null) {
-            if (UserRepository.getInstance().getUser().getUserId().equals(comment.getPosterId())) {
+        if (LoginApi.getInstance().getUser() != null) {
+            if (LoginApi.getInstance().getUser().getUserId().equals(comment.getPosterId())) {
                 holder.edit.setVisibility(View.VISIBLE);
                 holder.delete.setVisibility(View.VISIBLE);
                 holder.edit.setOnClickListener(new View.OnClickListener() {

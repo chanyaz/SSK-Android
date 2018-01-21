@@ -27,7 +27,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.user.User;
-import base.app.util.commons.UserRepository;
+import base.app.ui.fragment.user.login.LoginApi;
 import base.app.util.ui.AlertDialogManager;
 import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
@@ -187,7 +187,7 @@ public class FriendFragment extends BaseFragment {
 
         }
 
-        Task<User> getUserTask = UserRepository.getInstance().refreshUserInfo(getPrimaryArgument());
+        Task<User> getUserTask = LoginApi.getInstance().refreshUserInfo(getPrimaryArgument());
         getUserTask.addOnCompleteListener(onUserDataLoadedListener);
         return view;
     }
@@ -391,10 +391,10 @@ public class FriendFragment extends BaseFragment {
 
         List<User> selectedUsers = new ArrayList<>();
         selectedUsers.add(user);
-        String chatName = user.getNicName() + " & " + UserRepository.getInstance().getUser().getNicName();
+        String chatName = user.getNicName() + " & " + LoginApi.getInstance().getUser().getNicName();
 
         ChatInfo newChatInfo = new ChatInfo();
-        newChatInfo.setOwner(UserRepository.getInstance().getUser().getUserId());
+        newChatInfo.setOwner(LoginApi.getInstance().getUser().getUserId());
         newChatInfo.setIsPublic(true);
         newChatInfo.setName(chatName);
         ArrayList<String> userIds = new ArrayList<>();

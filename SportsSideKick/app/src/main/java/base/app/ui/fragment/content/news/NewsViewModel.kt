@@ -8,7 +8,7 @@ import base.app.data.content.wall.News
 
 class NewsViewModel : ViewModel() {
 
-    lateinit var newsRepo: NewsRepository
+    val newsRepo = NewsRepository()
 
     fun loadNews(type: NewsType): LiveData<List<News>> {
         return newsRepo.getNews(type)

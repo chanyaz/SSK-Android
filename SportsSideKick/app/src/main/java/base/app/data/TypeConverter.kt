@@ -1,9 +1,12 @@
 package base.app.data
 
+import base.app.data.content.tv.MediaModel.mapper
 import base.app.data.content.wall.*
+import base.app.data.user.User
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder
 import java.util.*
 
 object TypeConverter {
@@ -82,4 +85,17 @@ object TypeConverter {
         }
         return null
     }
+}
+
+fun GSResponseBuilder.AccountDetailsResponse.toUser(): User {
+    val scriptData = scriptData
+
+    val user: User
+    user = if (scriptData != null) {
+        val data = scriptData.baseData
+        mapper.convertValue(data, User::class.java)
+    } else {
+        mapper.convertValue(this, User::class.java)
+    }
+    return user
 }
