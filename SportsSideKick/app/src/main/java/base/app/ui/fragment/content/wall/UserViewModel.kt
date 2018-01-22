@@ -17,7 +17,8 @@ class UserViewModel : ViewModel() {
         val loginApi = LoginApi.getInstance()
         var state: SessionType = Anonymous
 
-        return loginApi.sessionStatus
+        return loginApi.sessionState
+                .doOnNext { state = it }
                 .flatMap { loginApi.startSession(it) }
                 .flatMap { loginApi.profileData }
                 .map { it.toUser() }

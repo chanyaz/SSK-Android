@@ -90,7 +90,7 @@ public class LoginApi {
         return instance;
     }
 
-    public Observable<SessionType> getSessionStatus() {
+    public Observable<SessionType> getSessionState() {
         if (GSAndroidPlatform.getInstance().isAuthenticated()) {
             return just(Authenticated);
         } else {
