@@ -5,7 +5,7 @@ import android.view.View
 import base.app.R
 import base.app.data.content.tv.inBackground
 import base.app.ui.adapter.content.WallAdapter
-import base.app.ui.fragment.content.wall.UserViewModel.SessionType.Anonymous
+import base.app.ui.fragment.content.wall.SessionType.Anonymous
 import base.app.ui.fragment.popup.RegisterFragment
 import base.app.ui.fragment.user.auth.LoginApi
 import base.app.ui.fragment.user.auth.LoginFragment

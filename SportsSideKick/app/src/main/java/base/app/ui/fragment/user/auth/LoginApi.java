@@ -43,7 +43,6 @@ import base.app.ui.fragment.content.wall.SessionType;
 import base.app.util.commons.FileUploader;
 import base.app.util.commons.GSAndroidPlatform;
 import base.app.util.commons.GSConstants;
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -511,7 +510,10 @@ public class LoginApi {
         }
     };
 
-    public Observable<GSResponseBuilder.AuthenticationResponse> loginAnonymous() {
+    public Observable startSession(SessionType type) {
+        if (type == Authenticated) {
+            return Observable.just(true);
+        }
         return create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
@@ -570,7 +572,7 @@ public class LoginApi {
                     } else {
                         clearUser();
                         setLoggedInUserType(NONE);
-                        loginAnonymous();
+                        startSession(Anonymous);
                     }
                 }
             }
