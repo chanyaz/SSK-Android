@@ -106,10 +106,8 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
             R.drawable.menu_wall_selector,
             R.drawable.menu_chat_selector,
             R.drawable.menu_news_selector,
-            R.drawable.menu_stats_selector,
+            R.drawable.menu_social,
             R.drawable.drawer,
-
-
     };
 
     public interface IDrawerCloseSideMenu {
