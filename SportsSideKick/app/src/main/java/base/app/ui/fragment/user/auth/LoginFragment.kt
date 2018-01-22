@@ -36,8 +36,8 @@ import java.util.*
 class LoginFragment : BaseFragment(R.layout.fragment_login),
         PasswordResetListener, ILoginView {
 
-    private val loginViewModel = inject<LoginViewModel>()
-    private val userViewModel = inject<UserViewModel>()
+    private val loginViewModel by lazy { inject<LoginViewModel>() }
+    private val userViewModel by lazy { inject<UserViewModel>() }
     private var callbackManager: CallbackManager? = null
     private var passwordResetReceiver: PasswordResetReceiver? = null
 
@@ -47,7 +47,6 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
         initFacebook()
 
         loginViewModel.view = this
-
         passwordResetReceiver = PasswordResetReceiver(this)
 
         submitButton.onClick {
