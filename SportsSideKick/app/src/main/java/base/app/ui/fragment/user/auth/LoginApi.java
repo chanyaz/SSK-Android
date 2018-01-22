@@ -39,7 +39,7 @@ import base.app.data.user.MessageHandler;
 import base.app.data.user.User;
 import base.app.data.user.UserEvent;
 import base.app.data.user.purchases.PurchaseModel;
-import base.app.ui.fragment.content.wall.SessionType;
+import base.app.ui.fragment.content.wall.SessionState;
 import base.app.util.commons.FileUploader;
 import base.app.util.commons.Gamesparks;
 import base.app.util.commons.GSConstants;
@@ -49,8 +49,8 @@ import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.TypeConverterKt.toUser;
-import static base.app.ui.fragment.content.wall.SessionType.Anonymous;
-import static base.app.ui.fragment.content.wall.SessionType.Authenticated;
+import static base.app.ui.fragment.content.wall.SessionState.Anonymous;
+import static base.app.ui.fragment.content.wall.SessionState.Authenticated;
 import static base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType.NONE;
 import static base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType.REAL;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
@@ -90,7 +90,7 @@ public class LoginApi {
         return instance;
     }
 
-    public Observable<SessionType> getSessionState() {
+    public Observable<SessionState> getSessionState() {
         if (Gamesparks.getInstance().isAuthenticated()) {
             return just(Authenticated);
         } else {
@@ -509,7 +509,7 @@ public class LoginApi {
         }
     };
 
-    public Observable startSession(SessionType type) {
+    public Observable startSession(SessionState type) {
         if (type == Authenticated) {
             return Observable.just(true);
         }

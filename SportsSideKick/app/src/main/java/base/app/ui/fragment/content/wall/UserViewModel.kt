@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel
 import base.app.data.content.tv.inBackground
 import base.app.data.toUser
 import base.app.data.user.User
-import base.app.ui.fragment.content.wall.SessionType.Anonymous
+import base.app.ui.fragment.content.wall.SessionState.Anonymous
 import base.app.ui.fragment.user.auth.IUserView
 import base.app.ui.fragment.user.auth.LoginApi
 import base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType
@@ -16,16 +16,12 @@ class UserViewModel : ViewModel() {
 
     fun getSession(): Observable<Session> {
         val loginApi = LoginApi.getInstance()
-        var state: SessionType = Anonymous
+        var state: SessionState = Anonymous
 
         return loginApi.sessionState
                 .doOnNext { state = it }
-                .doOnNext { if (it == Anonymous) { // TODO: Remove this doOnNext block after fully migrating app to login viewmodel
-                    LoginApi.getInstance().loggedInUserType = LoggedInUserType.ANONYMOUS
-                } else {
-                    LoginApi.getInstance().loggedInUserType = LoggedInUserType.REAL
-                }}
-                .flatMap { loginApi.startSession(it) }
+                .notifyDeprecatedLogin(state)
+                .flatMap { loginApi.startSession(state) }
                 .flatMap { loginApi.profileData }
                 .map { it.toUser() }
                 .map { Session(it, state) }
@@ -46,7 +42,18 @@ class UserViewModel : ViewModel() {
     fun getChangesInFriends(): Observable<Any> {
         return Observable.never()
     }
+
+    // TODO: Remove after fully migrating app to login viewmodel
+    private fun Observable<*>.notifyDeprecatedLogin(state: SessionState): Observable<*> {
+        return doOnNext {
+            if (state == Anonymous) {
+                LoginApi.getInstance().loggedInUserType = LoggedInUserType.ANONYMOUS
+            } else {
+                LoginApi.getInstance().loggedInUserType = LoggedInUserType.REAL
+            }
+        }
+    }
 }
 
-class Session(val user: User, val state: SessionType)
-enum class SessionType { Anonymous, Authenticated }
+class Session(val user: User, val state: SessionState)
+enum class SessionState { Anonymous, Authenticated }

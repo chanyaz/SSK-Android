@@ -5,7 +5,7 @@ import android.view.View
 import base.app.R
 import base.app.data.content.tv.inBackground
 import base.app.ui.adapter.content.WallAdapter
-import base.app.ui.fragment.content.wall.SessionType.Anonymous
+import base.app.ui.fragment.content.wall.SessionState.Anonymous
 import base.app.ui.fragment.popup.RegisterFragment
 import base.app.ui.fragment.user.auth.LoginApi
 import base.app.ui.fragment.user.auth.LoginFragment
@@ -28,7 +28,8 @@ class WallFragment : BaseFragment(R.layout.fragment_wall) {
         progressBar.setVisible(true)
 
         LoginApi.getInstance().initialize(context)
-        disposables.add(userViewModel.getSession()
+        disposables.add(
+                userViewModel.getSession()
                 .doOnNext { loginContainer.setVisible(it.state == Anonymous) }
                 .flatMap { feedViewModel.getFeedFromServer(it.user) }
                 .repeatWhen { userViewModel.getChangesInFriends() }
