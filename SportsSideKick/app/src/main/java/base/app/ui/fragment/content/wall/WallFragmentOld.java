@@ -67,7 +67,7 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 @IgnoreBackHandling
-class WallFragmentNew extends BaseFragment implements LoginStateReceiver.LoginListener {
+public class WallFragmentOld extends BaseFragment implements LoginStateReceiver.LoginListener {
 
     WallAdapter adapter;
 

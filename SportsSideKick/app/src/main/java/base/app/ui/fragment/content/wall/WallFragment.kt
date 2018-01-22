@@ -3,6 +3,8 @@ package base.app.ui.fragment.content.wall
 import android.os.Bundle
 import android.view.View
 import base.app.R
+import base.app.data.content.news.NewsModel
+import base.app.data.content.news.NewsModel.NewsType
 import base.app.data.content.tv.inBackground
 import base.app.ui.adapter.content.WallAdapter
 import base.app.ui.fragment.content.wall.SessionState.Anonymous
@@ -28,11 +30,14 @@ class WallFragment : BaseFragment(R.layout.fragment_wall) {
         progressBar.setVisible(true)
 
         LoginApi.getInstance().initialize(context)
-        disposables.add(
-                userViewModel.getSession()
+        disposables.add(userViewModel.getSession()
                 .doOnNext { loginContainer.setVisible(it.state == Anonymous) }
                 .flatMap { feedViewModel.getFeedFromServer(it.user) }
                 .repeatWhen { userViewModel.getChangesInFriends() }
+                .doOnNext {
+                    NewsModel.getInstance().loadPage(NewsType.OFFICIAL)
+                    NewsModel.getInstance().loadPage(NewsType.UNOFFICIAL)
+                }
                 .inBackground()
                 .subscribe {
                     adapter.clear()

@@ -132,7 +132,7 @@ public class NewsModel {
                             for (Object newsObject : jsonArrayOfNews) {
                                 News item = mapper.convertValue(newsObject, new TypeReference<News>(){});
                                 JsonNode node = mapper.valueToTree(newsObject);
-                                item.id = node.get("_id").asText();
+                                item.setId(node.get("_id").get("$oid").asText());
                                 receivedItems.add(item);
                             }
                             if (liveData != null) {
