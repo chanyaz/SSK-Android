@@ -44,6 +44,11 @@ public class NewsModel {
             public String toString() {
                 return "webhose";
             }
+        },
+        SOCIAL {
+            public String toString() {
+                return "social";
+            }
         };
 
         NewsType() {

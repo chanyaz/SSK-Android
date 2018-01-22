@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
-import base.app.data.news.NewsModel.NewsType.UNOFFICIAL
+import base.app.data.news.NewsModel.NewsType
 import base.app.data.news.NewsModel.getInstance
 import base.app.data.news.NewsPageEvent
 import base.app.ui.adapter.content.RumoursAdapter
@@ -22,8 +22,8 @@ import org.greenrobot.eventbus.Subscribe
  */
 class SocialFragment : BaseFragment() {
 
-    private val type = UNOFFICIAL
-    private val rumoursAdapter: RumoursAdapter = RumoursAdapter()
+    private val type = NewsType.SOCIAL
+    private val adapter: RumoursAdapter = RumoursAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -38,7 +38,7 @@ class SocialFragment : BaseFragment() {
     private fun showRumours() {
         swipeRefreshLayout.isRefreshing = true
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = rumoursAdapter
+        recyclerView.adapter = adapter
 
         if (getInstance().getAllCachedItems(type).size > 0) {
             val event = NewsPageEvent(getInstance().getAllCachedItems(type))
@@ -53,15 +53,15 @@ class SocialFragment : BaseFragment() {
     }
 
     private fun showTitle() {
-        topCaption.text = getString(R.string.rumours)
+        topCaption.text = "Social"
         topImage.show(R.drawable.image_wall_background)
     }
 
     @Subscribe
     fun onNewsReceived(event: NewsPageEvent) {
         if (event.values.isNotEmpty()) {
-            rumoursAdapter.values.addAll(event.values)
-            rumoursAdapter.notifyDataSetChanged()
+            adapter.values.addAll(event.values)
+            adapter.notifyDataSetChanged()
         }
         swipeRefreshLayout.isRefreshing = false
     }

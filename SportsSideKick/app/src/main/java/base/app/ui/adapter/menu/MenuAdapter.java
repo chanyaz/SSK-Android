@@ -132,6 +132,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             R.drawable.menu_wall_selector,
             R.drawable.menu_chat_selector,
             R.drawable.menu_news_selector,
+            R.drawable.menu_social,
             R.drawable.menu_stats_selector,
             R.drawable.menu_rummours_selector,
             R.drawable.menu_club_radio_selector,

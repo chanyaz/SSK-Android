@@ -19,6 +19,7 @@
         <item>@string/wall</item>
         <item>@string/chat</item>
         <item>@string/news</item>
+        <item>Social</item>
         <item>@string/stats</item>
         <item>@string/rumours</item>
         <item>@string/radio</item>
