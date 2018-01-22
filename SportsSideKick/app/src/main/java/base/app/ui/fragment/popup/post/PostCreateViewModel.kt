@@ -7,8 +7,10 @@ import base.app.data.content.news.PostsRepository
 import base.app.data.content.tv.inBackground
 import base.app.data.user.User
 import base.app.ui.fragment.user.auth.LoginApi
+import base.app.util.events.ItemUpdateEvent
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 class PostCreateViewModel : ViewModel() {
@@ -37,7 +39,10 @@ class PostCreateViewModel : ViewModel() {
                 .flatMap { postsRepo.composePost(title, bodyText, imageUrl = it) }
                 .flatMap { postsRepo.savePost(it) }
                 .inBackground()
-                .subscribe { view.exit() })
+                .subscribe {
+                    view.exit()
+                    EventBus.getDefault().post(ItemUpdateEvent(it))
+                })
     }
 
     fun onRemoveImageClicked() {

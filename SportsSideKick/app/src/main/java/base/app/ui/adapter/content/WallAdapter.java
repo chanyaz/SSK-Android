@@ -413,7 +413,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         values.clear();
     }
 
-    private final List<FeedItem> values = new ArrayList<>();
+    public final List<FeedItem> values = new ArrayList<>();
 
     public void add(FeedItem model) {
         values.add(model);
