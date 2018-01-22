@@ -39,9 +39,9 @@ import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.content.news.RumoursFragment;
-import base.app.ui.fragment.content.tv.TvFragment;
-import base.app.ui.fragment.content.tv.TvPlaylistFragment;
-import base.app.ui.fragment.content.tv.VideoContainerFragment;
+import base.app.ui.fragment.content.tv.TvPlaylistsFragment;
+import base.app.ui.fragment.content.tv.TvVideosFragment;
+import base.app.ui.fragment.content.tv.TvPlayerFragment;
 import base.app.ui.fragment.content.wall.DetailFragment;
 import base.app.ui.fragment.content.wall.WallFragment;
 import base.app.ui.fragment.other.ChatFragment;
@@ -272,8 +272,8 @@ public class MainActivity extends BaseActivity
 
 
         youtubeList = new ArrayList<>();
-        youtubeList.add(TvFragment.class);
-        youtubeList.add(TvPlaylistFragment.class);
+        youtubeList.add(TvPlaylistsFragment.class);
+        youtubeList.add(TvVideosFragment.class);
         youtubeList.add(RadioFragment.class);
         fragmentOrganizer.setUpContainer(R.id.play_list_holder, youtubeList, false);
 
@@ -282,7 +282,7 @@ public class MainActivity extends BaseActivity
         fragmentOrganizer.setUpContainer(R.id.radio_list_holder, radioList, false);
 
         youtubePlayer = new ArrayList<>();
-        youtubePlayer.add(VideoContainerFragment.class);
+        youtubePlayer.add(TvPlayerFragment.class);
         fragmentOrganizer.setUpContainer(R.id.youtube_holder, youtubePlayer, true);
 
         radioPlayerList = new ArrayList<>();
@@ -395,7 +395,7 @@ public class MainActivity extends BaseActivity
             fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
         }
 
-        if (previousFragment == VideoContainerFragment.class) {
+        if (previousFragment == TvPlayerFragment.class) {
             fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
         }
 
@@ -433,9 +433,9 @@ public class MainActivity extends BaseActivity
             return;
         }
 
-        if (previousFragment == VideoContainerFragment.class
-                && penultimateFragment == TvFragment.class
-                && currentFragment instanceof VideoContainerFragment
+        if (previousFragment == TvPlayerFragment.class
+                && penultimateFragment == TvPlaylistsFragment.class
+                && currentFragment instanceof TvPlayerFragment
                 ) {
             NavigationDrawerItems.getInstance().setByPosition(7);
             menuAdapter.notifyDataSetChanged();
@@ -448,14 +448,14 @@ public class MainActivity extends BaseActivity
         }
 
 
-        if (currentFragment instanceof VideoContainerFragment) {
-            VideoContainerFragment videoContainerFragment = (VideoContainerFragment) currentFragment;
-            if (videoContainerFragment.isFullscreen()) {
-                videoContainerFragment.setFullscreen(false);
+        if (currentFragment instanceof TvPlayerFragment) {
+            TvPlayerFragment tvPlayerFragment = (TvPlayerFragment) currentFragment;
+            if (tvPlayerFragment.isFullscreen()) {
+                tvPlayerFragment.setFullscreen(false);
                 return;
             }
 
-            if (previousFragment == TvFragment.class) {
+            if (previousFragment == TvPlaylistsFragment.class) {
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 if (penultimateFragment == RadioStationFragment.class) {
@@ -483,7 +483,7 @@ public class MainActivity extends BaseActivity
             if (previousFragment == RadioFragment.class) {
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
                 fragmentOrganizer.getCurrentFragment().getFragmentManager().popBackStack();
-                if (penultimateFragment == VideoContainerFragment.class) {
+                if (penultimateFragment == TvPlayerFragment.class) {
                     tvContainer.setVisibility(View.VISIBLE);
                     NavigationDrawerItems.getInstance().setByPosition(7);
                     menuAdapter.notifyDataSetChanged();

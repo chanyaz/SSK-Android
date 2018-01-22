@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryMediumLight"
-    tools:context=".ui.fragment.content.tv.TvFragment"
+    tools:context=".ui.fragment.content.tv.TvPlaylistsFragment"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <android.support.percent.PercentRelativeLayout

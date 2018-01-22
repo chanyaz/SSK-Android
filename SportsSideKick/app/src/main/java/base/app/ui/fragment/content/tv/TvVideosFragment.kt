@@ -3,7 +3,7 @@ package base.app.ui.fragment.content.tv
 
 import base.app.util.ui.BaseFragment
 
-class TvPlaylistFragment : BaseFragment() {
+class TvVideosFragment : BaseFragment() {
 
     /*@BindView(R.id.recyclerView)
     internal var recyclerView: RecyclerView? = null
@@ -58,6 +58,6 @@ class TvPlaylistFragment : BaseFragment() {
     @Optional
     @OnClick(R.id.backButton)
     fun goBack() {
-        EventBus.getDefault().post(FragmentEvent(TvFragment::class.java, true))
+        EventBus.getDefault().post(FragmentEvent(TvPlaylistsFragment::class.java, true))
     }*/
 }// Required empty public constructor

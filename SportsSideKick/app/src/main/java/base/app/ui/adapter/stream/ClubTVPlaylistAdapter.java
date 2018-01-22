@@ -21,7 +21,7 @@ import java.util.Locale;
 
 import base.app.R;
 import base.app.util.events.FragmentEvent;
-import base.app.ui.fragment.content.tv.VideoContainerFragment;
+import base.app.ui.fragment.content.tv.TvPlayerFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,7 +81,7 @@ public class ClubTVPlaylistAdapter extends RecyclerView.Adapter<ClubTVPlaylistAd
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(VideoContainerFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(TvPlayerFragment.class);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setItemId(values.get(position).getId());
                 EventBus.getDefault().post(fragmentEvent);

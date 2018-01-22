@@ -16,7 +16,7 @@ import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.content.news.NewsDetailFragment;
 import base.app.ui.fragment.content.news.NewsFragment;
 import base.app.ui.fragment.content.news.RumoursFragment;
-import base.app.ui.fragment.content.tv.TvFragment;
+import base.app.ui.fragment.content.tv.TvPlaylistsFragment;
 import base.app.ui.fragment.content.wall.DetailFragment;
 import base.app.ui.fragment.content.wall.WallFragment;
 import base.app.ui.fragment.other.ChatFragment;
@@ -163,7 +163,7 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
                 add(RumoursFragment.class);
                 add(RadioFragment.class);
                 add(StoreFragment.class);
-                add(TvFragment.class);
+                add(TvPlaylistsFragment.class);
                 add(VideoChatFragment.class);
             }});
 }

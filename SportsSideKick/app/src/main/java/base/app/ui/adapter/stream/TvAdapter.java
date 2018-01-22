@@ -21,7 +21,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.util.events.FragmentEvent;
-import base.app.ui.fragment.content.tv.TvPlaylistFragment;
+import base.app.ui.fragment.content.tv.TvVideosFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,7 +69,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.ViewHolder> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(TvPlaylistFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(TvVideosFragment.class);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setItemId(values.get(position).getId());
                 EventBus.getDefault().post(fragmentEvent);

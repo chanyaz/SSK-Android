@@ -1,15 +1,5 @@
 package base.app.util.commons
 
-import base.app.ui.fragment.content.StoreFragment
-import base.app.ui.fragment.content.news.NewsFragment
-import base.app.ui.fragment.content.news.RumoursFragment
-import base.app.ui.fragment.content.tv.TvFragment
-import base.app.ui.fragment.content.wall.WallFragment
-import base.app.ui.fragment.other.ChatFragment
-import base.app.ui.fragment.other.StatisticsFragment
-import base.app.ui.fragment.stream.RadioFragment
-import base.app.ui.fragment.stream.VideoChatFragment
-
 /**
  * Created by Djordje Krutil on 6.12.2016..
  * Copyright by Hypercube d.o.o.
