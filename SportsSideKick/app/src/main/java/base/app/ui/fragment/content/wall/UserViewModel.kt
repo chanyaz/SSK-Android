@@ -7,6 +7,7 @@ import base.app.data.user.User
 import base.app.ui.fragment.content.wall.SessionType.Anonymous
 import base.app.ui.fragment.user.auth.IUserView
 import base.app.ui.fragment.user.auth.LoginApi
+import base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType
 import io.reactivex.Observable
 
 class UserViewModel : ViewModel() {
@@ -19,6 +20,11 @@ class UserViewModel : ViewModel() {
 
         return loginApi.sessionState
                 .doOnNext { state = it }
+                .doOnNext { if (it == Anonymous) { // TODO: Remove this doOnNext block after fully migrating app to login viewmodel
+                    LoginApi.getInstance().loggedInUserType = LoggedInUserType.ANONYMOUS
+                } else {
+                    LoginApi.getInstance().loggedInUserType = LoggedInUserType.REAL
+                }}
                 .flatMap { loginApi.startSession(it) }
                 .flatMap { loginApi.profileData }
                 .map { it.toUser() }

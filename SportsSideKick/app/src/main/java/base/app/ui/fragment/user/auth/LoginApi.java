@@ -262,7 +262,6 @@ public class LoginApi {
             if (response != null) {
                 if (!response.hasErrors()) {
                     if (!isLoggedIn()) {
-                        toUser(response);
                         String dn = response.getDisplayName();
                         setLoggedInUserType(dn != null && !"".equals(dn) && !" ".equals(dn) ? LoggedInUserType.REAL : LoggedInUserType.ANONYMOUS);
                     } else {

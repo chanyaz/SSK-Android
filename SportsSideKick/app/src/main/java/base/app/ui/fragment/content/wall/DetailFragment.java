@@ -465,6 +465,12 @@ public class DetailFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
     @Subscribe
     public void onDeleteComment(CommentDeleteEvent event) {
         if (event.getPost().getWallId().equals(mPost.getWallId())) {
