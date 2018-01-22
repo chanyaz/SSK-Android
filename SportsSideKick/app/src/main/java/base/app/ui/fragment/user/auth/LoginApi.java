@@ -39,18 +39,24 @@ import base.app.data.user.MessageHandler;
 import base.app.data.user.User;
 import base.app.data.user.UserEvent;
 import base.app.data.user.purchases.PurchaseModel;
+import base.app.ui.fragment.content.wall.SessionType;
 import base.app.util.commons.FileUploader;
 import base.app.util.commons.GSAndroidPlatform;
 import base.app.util.commons.GSConstants;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.TypeConverterKt.toUser;
+import static base.app.ui.fragment.content.wall.SessionType.Anonymous;
+import static base.app.ui.fragment.content.wall.SessionType.Authenticated;
 import static base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType.NONE;
 import static base.app.ui.fragment.user.auth.LoginApi.LoggedInUserType.REAL;
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
+import static io.reactivex.Observable.create;
+import static io.reactivex.Observable.just;
 
 public class LoginApi {
 
@@ -85,11 +91,11 @@ public class LoginApi {
         return instance;
     }
 
-    public Observable<Boolean> getSessionStatus() {
+    public Observable<SessionType> getSessionStatus() {
         if (GSAndroidPlatform.getInstance().isAuthenticated()) {
-            return Observable.just(true);
+            return just(Authenticated);
         } else {
-            return Observable.empty();
+            return just(Anonymous);
         }
     }
 
@@ -214,7 +220,7 @@ public class LoginApi {
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         GSAndroidPlatform.initialise(context, Keys.GS_API_KEY, Keys.GS_API_SECRET);
 
-        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+        return create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(final ObservableEmitter<Boolean> emitter) throws Exception {
                 GSAndroidPlatform.getInstance().setOnAvailable(new GSEventConsumer<Boolean>() {
@@ -287,7 +293,7 @@ public class LoginApi {
     }
 
     public Observable<GSResponseBuilder.AccountDetailsResponse> getProfileData() {
-        return Observable.create(new ObservableOnSubscribe<GSResponseBuilder.AccountDetailsResponse>() {
+        return create(new ObservableOnSubscribe<GSResponseBuilder.AccountDetailsResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AccountDetailsResponse> emitter) throws Exception {
 
@@ -506,7 +512,7 @@ public class LoginApi {
     };
 
     public Observable<GSResponseBuilder.AuthenticationResponse> loginAnonymous() {
-        return Observable.create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
+        return create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
                 GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createDeviceAuthenticationRequest();
@@ -533,7 +539,7 @@ public class LoginApi {
     }
 
     public Observable<GSResponseBuilder.AuthenticationResponse> authorize(final String email, final String password) {
-        return Observable.create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
+        return create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
                 GSAndroidPlatform.getInstance().getRequestBuilder().createAuthenticationRequest()
@@ -842,7 +848,7 @@ public class LoginApi {
     }
 
     public Observable<String> uploadImage(final File image) {
-        return Observable.create(new ObservableOnSubscribe<String>() {
+        return create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(final ObservableEmitter<String> emitter) throws Exception {
                 String filename = "post_photo_" +

@@ -1,14 +1,19 @@
 package base.app.ui.fragment.content.wall
 
 import android.arch.lifecycle.ViewModel
+import base.app.R.string.user
 import base.app.data.content.tv.inBackground
 import base.app.data.toUser
 import base.app.data.user.User
+import base.app.ui.fragment.content.wall.SessionType.Anonymous
+import base.app.ui.fragment.content.wall.UserViewModel.SessionType
 import base.app.ui.fragment.content.wall.UserViewModel.SessionType.Anonymous
 import base.app.ui.fragment.content.wall.UserViewModel.SessionType.Authenticated
 import base.app.ui.fragment.user.auth.IUserView
 import base.app.ui.fragment.user.auth.LoginApi
 import io.reactivex.Observable
+import io.reactivex.Observable.just
+import io.reactivex.functions.BiFunction
 
 class UserViewModel : ViewModel() {
 
@@ -16,12 +21,15 @@ class UserViewModel : ViewModel() {
 
     fun getSession(): Observable<Session> {
         val loginApi = LoginApi.getInstance()
-        var state = Authenticated
+        var state: SessionType
 
         return loginApi.sessionStatus
-                .switchIfEmpty {
-                    state = Anonymous
-                    loginApi.loginAnonymous()
+                .map {
+                    if (it == Anonymous) {
+                        loginApi.loginAnonymous()
+                    } else {
+                        just(true)
+                    }
                 }
                 .flatMap { loginApi.profileData }
                 .map { it.toUser() }
@@ -46,6 +54,7 @@ class UserViewModel : ViewModel() {
         return Observable.never()
     }
 
-    class Session(val user: User, val state: SessionType)
-    enum class SessionType { Anonymous, Authenticated }
 }
+
+class Session(val user: User, val state: SessionType)
+enum class SessionType { Anonymous, Authenticated }

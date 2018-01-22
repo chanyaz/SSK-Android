@@ -28,7 +28,7 @@ class WallFragment : BaseFragment(R.layout.fragment_wall) {
         progressBar.setVisible(true)
 
         LoginApi.getInstance().initialize(context)
-        disposables.add(userViewModel.getSession().hide()
+        disposables.add(userViewModel.getSession()
                 .doOnNext { loginContainer.setVisible(it.state == Anonymous) }
                 .flatMap { feedViewModel.getFeedFromServer(it.user) }
                 .repeatWhen { userViewModel.getChangesInFriends() }
