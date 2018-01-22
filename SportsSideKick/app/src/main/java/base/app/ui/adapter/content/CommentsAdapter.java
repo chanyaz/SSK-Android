@@ -65,12 +65,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         @Nullable
         @BindView(R.id.message_information)
         TextView messageInfo;
-        @BindView(R.id.translate)
+        @BindView(R.id.translateButton)
         TextView translate;
-        @BindView(R.id.edit)
-        TextView edit;
-        @BindView(R.id.delete)
-        TextView delete;
+        @BindView(R.id.editButton)
+        TextView editButton;
+        @BindView(R.id.deleteButton)
+        TextView deleteButton;
 
         ViewHolder(View v) {
             super(v);
@@ -147,21 +147,21 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             }
         });
 
-        holder.edit.setVisibility(View.GONE);
-        holder.delete.setVisibility(View.GONE);
+        holder.editButton.setVisibility(View.GONE);
+        holder.deleteButton.setVisibility(View.GONE);
 
         // check if this comment belongs to this user
         if (LoginApi.getInstance().getUser() != null) {
             if (LoginApi.getInstance().getUser().getUserId().equals(comment.getPosterId())) {
-                holder.edit.setVisibility(View.VISIBLE);
-                holder.delete.setVisibility(View.VISIBLE);
-                holder.edit.setOnClickListener(new View.OnClickListener() {
+                holder.editButton.setVisibility(View.VISIBLE);
+                holder.deleteButton.setVisibility(View.VISIBLE);
+                holder.editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         EventBus.getDefault().post(new CommentSelectedEvent(comment));
                     }
                 });
-                holder.delete.setOnClickListener(new View.OnClickListener() {
+                holder.deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         WallModel.getInstance().deletePostComment(comment);

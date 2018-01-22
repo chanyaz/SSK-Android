@@ -276,7 +276,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:paddingStart="@dimen/padding_16"
-                    android:layout_toEndOf="@+id/translate"
+                    android:layout_toEndOf="@+id/translateButton"
                     android:text="@string/read_more"
                     android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="@dimen/font_size_10"

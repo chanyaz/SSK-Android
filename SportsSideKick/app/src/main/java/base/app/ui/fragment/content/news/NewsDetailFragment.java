@@ -257,7 +257,7 @@ public class NewsDetailFragment extends BaseFragment {
     }
 
     @Optional
-    @OnClick(R.id.delete)
+    @OnClick(R.id.deleteButton)
     public void deletePostOnClick(View view) {
         /* TODO: Alex Sheiko
         WallModel.getInstance().deletePost(item).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -756,7 +756,7 @@ public class NewsDetailFragment extends BaseFragment {
     @BindView(R.id.translation_view)
     TranslationView translationView;
 
-    @OnClick(R.id.translate)
+    @OnClick(R.id.translateButton)
     public void onTranslateClick(View view) {
         String postId = item.getId();
         TaskCompletionSource<News> source = new TaskCompletionSource<>();

@@ -91,7 +91,7 @@ public class TranslationView extends RelativeLayout {
     private void initView() {
         inflate(getContext(), R.layout.view_translation, this);
         findViewById(R.id.close).setOnClickListener(onCloseClickListener);
-        findViewById(R.id.translate).setOnClickListener(onTranslateClickListener);
+        findViewById(R.id.translateButton).setOnClickListener(onTranslateClickListener);
         container = findViewById(R.id.root);
         popupLayout = findViewById(R.id.popup);
         languagePicker = findViewById(R.id.language_picker);

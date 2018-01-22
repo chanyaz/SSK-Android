@@ -213,7 +213,7 @@ public class EditChatFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.delete)
+    @OnClick(R.id.deleteButton)
     public void deleteChat(){
         chatInfo.deleteChat();
     }

@@ -592,7 +592,7 @@ public class DetailFragment extends BaseFragment {
     @BindView(R.id.translation_view)
     TranslationView translationView;
 
-    @OnClick(R.id.translate)
+    @OnClick(R.id.translateButton)
     public void onTranslateClick(View view) {
         TaskCompletionSource<Post> source = new TaskCompletionSource<>();
         source.getTask().addOnCompleteListener(new OnCompleteListener<Post>() {
