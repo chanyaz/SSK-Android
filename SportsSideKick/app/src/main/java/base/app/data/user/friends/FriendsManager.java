@@ -36,7 +36,7 @@ import base.app.data.user.User;
 import base.app.data.user.UserEvent;
 import base.app.ui.fragment.user.auth.LoginApi;
 import base.app.util.commons.DateUtils;
-import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Gamesparks;
 import base.app.util.commons.GSConstants;
 import base.app.util.events.FriendsListChangedEvent;
 
@@ -170,7 +170,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      */
     public Task<User> sendFriendRequest(String userId) {
         final TaskCompletionSource<User> source = new TaskCompletionSource<>();
-        GSRequestBuilder.CreateChallengeRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createCreateChallengeRequest();
+        GSRequestBuilder.CreateChallengeRequest request = Gamesparks.getInstance().getRequestBuilder().createCreateChallengeRequest();
         GSEventConsumer<GSResponseBuilder.CreateChallengeResponse> consumer = new GSEventConsumer<GSResponseBuilder.CreateChallengeResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.CreateChallengeResponse response) {

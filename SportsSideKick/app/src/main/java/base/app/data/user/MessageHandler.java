@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Gamesparks;
 
 /**
  * Created by Filip on 3/13/2017.
@@ -38,7 +38,7 @@ public class MessageHandler {
     }
 
     private void setupListeners(){
-        GSMessageHandler messageHandler = GSAndroidPlatform.getInstance().getMessageHandler();
+        GSMessageHandler messageHandler = Gamesparks.getInstance().getMessageHandler();
         messageHandler.setScriptMessageListener(new GSEventConsumer<GSMessageHandler.ScriptMessage>() {
             @Override
             public void onEvent(GSMessageHandler.ScriptMessage scriptMessage) {

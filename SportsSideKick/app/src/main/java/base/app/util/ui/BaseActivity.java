@@ -37,7 +37,7 @@ import java.util.TimerTask;
 
 import base.app.R;
 import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Gamesparks;
 import base.app.data.user.notifications.ExternalNotificationEvent;
 import base.app.data.user.notifications.InternalNotificationManager;
 import base.app.data.user.purchases.PurchaseModel;
@@ -254,7 +254,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        GSAndroidPlatform.getInstance().start();
+        Gamesparks.getInstance().start();
 
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);

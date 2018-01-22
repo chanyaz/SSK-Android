@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
-import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Gamesparks;
 import base.app.util.commons.Utility;
 
 import static base.app.ClubConfig.CLUB_ID;
@@ -53,7 +53,7 @@ public class NextMatchModel {
     }
 
     public void getNextMatchInfo() {
-        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
+        Gamesparks.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("tickerGetNextMatch")
                 .setEventAttribute("language", language)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)

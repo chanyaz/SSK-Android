@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Gamesparks;
 import base.app.util.commons.DateUtils;
 
 import static base.app.util.commons.GSConstants.CLUB_ID_TAG;
@@ -224,7 +224,7 @@ public class ChatMessage {
         Map<String, Object> map = mapper.convertValue(this, new TypeReference<Map<String, Object>>() {});
         map.remove("_id");
         GSData data = new GSData(map);
-        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
+        Gamesparks.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsMessageUpdate")
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())
                 .setEventAttribute(MESSAGE, data)
@@ -310,7 +310,7 @@ public class ChatMessage {
         Map<String, Object> map = mapper.convertValue(this, new TypeReference<Map<String, Object>>() {});
         map.remove("_id");
         GSData data = new GSData(map);
-        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
+        Gamesparks.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsMessageDelete")
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())
                 .setEventAttribute(MESSAGE, data)

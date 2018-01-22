@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Gamesparks;
 import base.app.util.commons.GSConstants;
 import base.app.util.events.NewsPageEvent;
 import base.app.data.content.wall.News;
@@ -109,7 +109,7 @@ public class NewsModel {
     }
 
     public void loadPage(final NewsType type, @Nullable final MutableLiveData<List<News>> liveData) {
-        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
+        Gamesparks.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("newsGetPage")
                 .setEventAttribute("language", language)
                 .setEventAttribute("country", country)

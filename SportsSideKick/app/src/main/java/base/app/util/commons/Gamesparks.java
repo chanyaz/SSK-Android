@@ -17,7 +17,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * @author Giuseppe Perniola
  */
-public class GSAndroidPlatform implements IGSPlatform {
+public class Gamesparks implements IGSPlatform {
 
     private static final String GS_CURR_STATUS = "GSCurrStatus";
 
@@ -27,12 +27,12 @@ public class GSAndroidPlatform implements IGSPlatform {
 
     public static void initialise(final Context ctx, String apiKey, String secret) {
         if (instance == null) {
-            GSAndroidPlatform gsAndroidPlatform = new GSAndroidPlatform(ctx);
-            instance = new GS(apiKey, secret, null, false, true, gsAndroidPlatform);
+            Gamesparks gamesparks = new Gamesparks(ctx);
+            instance = new GS(apiKey, secret, null, false, true, gamesparks);
         }
     }
 
-    private GSAndroidPlatform(Context context) {
+    private Gamesparks(Context context) {
         this.context = context;
         mainHandler = new Handler(context.getMainLooper());
     }

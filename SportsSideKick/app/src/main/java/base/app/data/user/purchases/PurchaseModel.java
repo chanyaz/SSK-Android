@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 
 import base.app.data.user.User;
 import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Gamesparks;
 
 /**
  * Created by Filip on 4/20/2017.
@@ -134,7 +134,7 @@ public class PurchaseModel {
             return;
         }
 
-        GSAndroidPlatform.getInstance().getRequestBuilder()
+        Gamesparks.getInstance().getRequestBuilder()
                 .createBuyVirtualGoodsRequest()
                 .setCurrencyType(currency)
                 .setQuantity(1)
@@ -186,7 +186,7 @@ public class PurchaseModel {
             return;
         }
 
-        GSAndroidPlatform.getInstance().getRequestBuilder()
+        Gamesparks.getInstance().getRequestBuilder()
                 .createConsumeVirtualGoodRequest()
                 .setQuantity(quantity)
                 .setShortCode(shortCode.name())
@@ -282,7 +282,7 @@ public class PurchaseModel {
 
     public void updateProductList(){
         canPurchase = false;
-        GSAndroidPlatform.getInstance().getRequestBuilder()
+        Gamesparks.getInstance().getRequestBuilder()
                 .createListVirtualGoodsRequest()
                 .send(new GSEventConsumer<GSResponseBuilder.ListVirtualGoodsResponse>() {
                     @Override
@@ -342,7 +342,7 @@ public class PurchaseModel {
         public void onSuccess(@Nonnull Purchase result) {
             super.onSuccess(result);
 
-            GSAndroidPlatform.getInstance().getRequestBuilder()
+            Gamesparks.getInstance().getRequestBuilder()
                     .createGooglePlayBuyGoodsRequest()
                     .setRequestId(result.orderId)
                     .setSignature(result.signature)

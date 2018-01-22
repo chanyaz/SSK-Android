@@ -41,7 +41,7 @@ import base.app.data.user.UserEvent;
 import base.app.data.user.purchases.PurchaseModel;
 import base.app.ui.fragment.content.wall.SessionType;
 import base.app.util.commons.FileUploader;
-import base.app.util.commons.GSAndroidPlatform;
+import base.app.util.commons.Gamesparks;
 import base.app.util.commons.GSConstants;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -91,7 +91,7 @@ public class LoginApi {
     }
 
     public Observable<SessionType> getSessionState() {
-        if (GSAndroidPlatform.getInstance().isAuthenticated()) {
+        if (Gamesparks.getInstance().isAuthenticated()) {
             return just(Authenticated);
         } else {
             return just(Anonymous);
@@ -150,7 +150,7 @@ public class LoginApi {
     public void registerForPushNotifications() {
         Log.d(TAG, "Registering for push notifications");
         firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        GSAndroidPlatform.getInstance().getRequestBuilder().createPushRegistrationRequest()
+        Gamesparks.getInstance().getRequestBuilder().createPushRegistrationRequest()
                 .setDeviceOS("ANDROID")
                 .setPushId(firebaseToken)
                 .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
@@ -169,7 +169,7 @@ public class LoginApi {
     }
 
     public void unRegisterFromPushNotifications() {
-        GSAndroidPlatform.getInstance().getRequestBuilder().createPushRegistrationRequest()
+        Gamesparks.getInstance().getRequestBuilder().createPushRegistrationRequest()
                 .setDeviceOS("ANDROID")
                 .setPushId(null)
                 .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
@@ -189,7 +189,7 @@ public class LoginApi {
 
     public void markWallTipComplete(String tipId) {
         final TaskCompletionSource<User> source = new TaskCompletionSource<>();
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = Gamesparks.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersMarkTipComplete");
         request.setEventAttribute("tipId", tipId);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -217,12 +217,12 @@ public class LoginApi {
 
     public Observable<Boolean> initialize(final Context context) {
         androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        GSAndroidPlatform.initialise(context, Keys.GS_API_KEY, Keys.GS_API_SECRET);
+        Gamesparks.initialise(context, Keys.GS_API_KEY, Keys.GS_API_SECRET);
 
         return create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(final ObservableEmitter<Boolean> emitter) throws Exception {
-                GSAndroidPlatform.getInstance().setOnAvailable(new GSEventConsumer<Boolean>() {
+                Gamesparks.getInstance().setOnAvailable(new GSEventConsumer<Boolean>() {
                     @Override
                     public void onEvent(Boolean available) {
 
@@ -231,7 +231,7 @@ public class LoginApi {
 
                         if (available) {
 
-                            if (GSAndroidPlatform.getInstance().isAuthenticated()) {
+                            if (Gamesparks.getInstance().isAuthenticated()) {
                                 getProfileData(completeLogin);
                                 PurchaseModel.getInstance().updateProductList();
                             }
@@ -274,7 +274,7 @@ public class LoginApi {
     };
 
     private void getProfileData(GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completion) {
-        GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createAccountDetailsRequest();
+        GSRequestBuilder.AccountDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createAccountDetailsRequest();
         HashMap<String, Object> scriptData = new HashMap<>();
         scriptData.put(CLUB_ID_TAG, CLUB_ID);
         request.getBaseData().put("scriptData", scriptData);
@@ -296,7 +296,7 @@ public class LoginApi {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AccountDetailsResponse> emitter) throws Exception {
 
-                GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createAccountDetailsRequest();
+                GSRequestBuilder.AccountDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createAccountDetailsRequest();
                 HashMap<String, Object> scriptData = new HashMap<>();
                 scriptData.put(CLUB_ID_TAG, CLUB_ID);
                 request.getBaseData().put("scriptData", scriptData);
@@ -328,7 +328,7 @@ public class LoginApi {
     }
 
     public void registrationRequest(String displayName, String password, String email, HashMap<String, Object> userDetails) {
-        final GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest()
+        final GSRequestBuilder.ChangeUserDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createChangeUserDetailsRequest()
                 .setDisplayName(displayName)
                 .setNewPassword(password)
                 .setLanguage(Locale.getDefault().getLanguage())
@@ -369,7 +369,7 @@ public class LoginApi {
     }
 
     public void registerFromFacebook(String token, String email, HashMap<String, Object> userData) {
-        final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createFacebookConnectRequest();
+        final GSRequestBuilder.FacebookConnectRequest request = Gamesparks.getInstance().getRequestBuilder().createFacebookConnectRequest();
         if (userData != null) {
             userData.put("initial_email", email);
             userData.put(CLUB_ID_TAG, CLUB_ID);
@@ -428,7 +428,7 @@ public class LoginApi {
                     // AT THIS STAGE, WE NEED TO COMPLETE THE TRADITIONAL REGISTRATION STAGE
                     // BUT WE SHOULD ALSO UPDATE THE USER DATA
 
-                    GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
+                    GSRequestBuilder.ChangeUserDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
                     HashMap<String, Object> data = new HashMap<>();
                     data.put("action", "register");
                     data.put(CLUB_ID_TAG, CLUB_ID);
@@ -517,7 +517,7 @@ public class LoginApi {
         return create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
-                GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createDeviceAuthenticationRequest();
+                GSRequestBuilder.DeviceAuthenticationRequest request = Gamesparks.getInstance().getRequestBuilder().createDeviceAuthenticationRequest();
                 HashMap<String, Object> scriptData = new HashMap<>();
                 scriptData.put(CLUB_ID_TAG, CLUB_ID);
                 request.getBaseData().put("scriptData", scriptData);
@@ -544,7 +544,7 @@ public class LoginApi {
         return create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
-                GSAndroidPlatform.getInstance().getRequestBuilder().createAuthenticationRequest()
+                Gamesparks.getInstance().getRequestBuilder().createAuthenticationRequest()
                         .setUserName(email)
                         .setPassword(password)
                         .send(new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
@@ -563,7 +563,7 @@ public class LoginApi {
     }
 
     public void logout() {
-        GSAndroidPlatform.getInstance().getRequestBuilder().createEndSessionRequest().send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
+        Gamesparks.getInstance().getRequestBuilder().createEndSessionRequest().send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
                 if (endSessionResponse != null) {
@@ -580,7 +580,7 @@ public class LoginApi {
     }
 
     public void resetPassword(String email) {
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = Gamesparks.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("passwordRecoveryRequest");
         request.setEventAttribute(GSConstants.EMAIL, email);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -602,7 +602,7 @@ public class LoginApi {
      */
     public Task<List<User>> getOfficialAccounts(int offset) {
         final TaskCompletionSource<List<User>> source = new TaskCompletionSource<>();
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = Gamesparks.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersGetSpecialUsers");
         request.setEventAttribute(GSConstants.OFFSET, offset);
         request.setEventAttribute(GSConstants.OFFSET, offset);
@@ -623,32 +623,32 @@ public class LoginApi {
     }
 
     public void setEmail(String email) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         request.setUserName(email);
         request.send(onDetailsUpdated);
     }
 
     public void setPassword(String password, String oldPassword) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         request.setNewPassword(password);
         request.setOldPassword(oldPassword);
         request.send(onDetailsUpdated);
     }
 
     public void setLanguage(String language) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         request.setLanguage(language);
         request.send(onDetailsUpdated);
     }
 
     public void setDisplayName(String displayName) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         request.setDisplayName(displayName);
         request.send(onDetailsUpdated);
     }
 
     public void setUserState(UserState state) {
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = Gamesparks.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("setUserState");
         request.setEventAttribute(GSConstants.STATE, state.toString());
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -661,7 +661,7 @@ public class LoginApi {
     }
 
     public void setProfileImageUrl(String profileImageUrl, boolean isCircular) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         String key = isCircular ? "circularAvatarUrl" : "avatarUrl";
         HashMap<String, Object> scriptData = new HashMap<>();
         scriptData.put(key, profileImageUrl);
@@ -670,7 +670,7 @@ public class LoginApi {
     }
 
     public void setDetails(Map<String, String> details) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = Gamesparks.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         if (!details.get(GSConstants.EMAIL).equals(currentUser.getEmail())) {
             request.setUserName(details.get(GSConstants.EMAIL));
         }
@@ -763,7 +763,7 @@ public class LoginApi {
 
     public Task<User> refreshUserInfo(String userId) {
         final TaskCompletionSource<User> source = new TaskCompletionSource<>();
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = Gamesparks.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("getUserInfoById");
         request.setEventAttribute(GSConstants.USER_ID, userId);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -967,6 +967,6 @@ public class LoginApi {
     }
 
     public static GSRequestBuilder.LogEventRequest createRequest(String key) {
-        return GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest().setEventKey(key);
+        return Gamesparks.getInstance().getRequestBuilder().createLogEventRequest().setEventKey(key);
     }
 }
