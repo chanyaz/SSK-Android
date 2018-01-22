@@ -20,8 +20,7 @@ class UserViewModel : ViewModel() {
         return loginApi.sessionState
                 .doOnNext { state = it }
                 .flatMap { loginApi.startSession(it) }
-                .flatMap { loginApi.profileData }
-                .map { it.toUser() }
+                .getUser()
                 .map { Session(it, state) }
     }
 
@@ -30,19 +29,21 @@ class UserViewModel : ViewModel() {
 
         val loginApi = LoginApi.getInstance()
         loginApi.authorize(email, password)
-                .flatMap { loginApi.profileData }
-                .map { it.toUser() }
-                .doOnNext { /* TODO: Clear user cache, then save this new user to cache */ }
+                .getUser()
                 .doOnNext { /* TODO: registerForPushNotifications() */ }
                 .inBackground()
                 .subscribe { view.navigateToFeed() }
     }
 
     fun getChangesInFriends(): Observable<Any> {
-        // TODO: Listen for friend updates (FriendsListChangedEvent in event bus)
         return Observable.never()
     }
 
+    fun Observable<*>.getUser(): Observable<User> {
+        val loginApi = LoginApi.getInstance()
+        return flatMap { loginApi.profileData }
+                .map { it.toUser() }
+    }
 }
 
 class Session(val user: User, val state: SessionType)
