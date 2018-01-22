@@ -152,14 +152,6 @@ public class CreatePostFragment extends BaseFragment {
     public void postPost() {
         String captionContent = captionText.getText().toString();
         String postContent = contentText.getText().toString();
-        if (TextUtils.isEmpty(captionContent)) {
-            Toast.makeText(getContext(),"Please fill in the caption in order to post this to your wall.",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(postContent)) {
-            Toast.makeText(getContext(),"Please fill in the content in order to post this to your wall.",Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (uploadProgressBar.getVisibility() == View.VISIBLE) {
             Utility.toast(getActivity(), getString(R.string.uploading));
             return;

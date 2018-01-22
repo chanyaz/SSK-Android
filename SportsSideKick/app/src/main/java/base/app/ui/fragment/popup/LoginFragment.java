@@ -199,6 +199,7 @@ public class LoginFragment extends BaseFragment
         super.onViewCreated(view, savedInstanceState);
         if (BuildConfig.DEBUG) {
             emailEditText.setText("alexsheikodev@gmail.com");
+            passwordEditText.setText("temppass");
         }
     }
 
