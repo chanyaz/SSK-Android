@@ -1,6 +1,5 @@
 package base.app.data.news;
 
-
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -25,7 +24,6 @@ import base.app.util.commons.Utility;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-
 /**
  * Created by Djordje Krutil on 27.12.2016..
  * Copyright by Hypercube d.o.o.
@@ -46,9 +44,7 @@ public class NewsModel {
             }
         },
         SOCIAL {
-            public String toString() {
-                return "social";
-            }
+            public String toString() { return "social"; }
         };
 
         NewsType() {
@@ -77,16 +73,15 @@ public class NewsModel {
     private HashMap<String, String> config;
 
     public void setLoading(boolean loading, NewsType type) {
-        if(type.equals(NewsType.OFFICIAL)){
+        if (type.equals(NewsType.OFFICIAL)) {
             isLoadingNews = loading;
         } else {
             isLoadingRumors = loading;
         }
     }
 
-
-    public static NewsModel getInstance(){
-        if(instance==null){
+    public static NewsModel getInstance() {
+        if (instance == null) {
             instance = new NewsModel();
         }
         return instance;
@@ -111,95 +106,118 @@ public class NewsModel {
     public void loadPage(final NewsType type) {
         final int page = 0;
         if (isLoadingNews && type.equals(NewsType.OFFICIAL)
-                || isLoadingRumors && type.equals(NewsType.UNOFFICIAL)){
+                || isLoadingRumors && type.equals(NewsType.UNOFFICIAL)) {
             return;
         }
-        if(type.equals(NewsType.OFFICIAL)){
+        if (type.equals(NewsType.OFFICIAL)) {
             isLoadingNews = true;
-        } else {
+        } else if (type.equals(NewsType.UNOFFICIAL)){
             isLoadingRumors = true;
         }
+        String eventKey = "";
+        switch (type) {
+            case OFFICIAL:
+                eventKey = "newsGetPage";
+                break;
+            case UNOFFICIAL:
+                eventKey = "getNewsRumours";
+                break;
+            case SOCIAL:
+                eventKey = "socialGetPage";
+                break;
+        }
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("newsGetPage")
+                .setEventKey(eventKey)
                 .setEventAttribute("language", language)
                 .setEventAttribute("country", country)
                 .setEventAttribute("id", ID)
                 .setEventAttribute("type", type.toString())
-                .setEventAttribute("page", page )
+                .setEventAttribute("skip", page)
                 .setEventAttribute("limit", itemsPerPage)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-            @Override
-            public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    GSData data = response.getScriptData();
+                    @Override
+                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                        if (!response.hasErrors()) {
+                            GSData data = response.getScriptData();
 
-                    if (data == null)
-                    {
-                        return;
-                    }
+                            if (data == null) {
+                                return;
+                            }
 
-                    if (data.getBaseData().get("items") == null)
-                    {
-                        return;
-                    }
+                            if (data.getBaseData().get("items") == null) {
+                                return;
+                            }
 
-                    List<WallNews> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<WallNews>>(){});
-                    if (receivedItems.size() == 0 && !"en".equals(language) && page == 0)
-                    {
-                        if(type.equals(NewsType.OFFICIAL)){
-                            isLoadingNews = false;
-                        } else {
-                            isLoadingRumors = false;
+                            List<WallNews> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<WallNews>>() {
+                            });
+                            if (receivedItems.size() == 0 && !"en".equals(language) && page == 0) {
+                                if (type.equals(NewsType.OFFICIAL)) {
+                                    isLoadingNews = false;
+                                } else {
+                                    isLoadingRumors = false;
+                                }
+                                language = "en";
+                                loadPage(type);
+                                return;
+                            } else {
+                                NewsPageEvent newsItemsEvent;
+                                if (type.equals(NewsType.OFFICIAL)) {
+                                    pageNews++;
+                                } else {
+                                    pageRumors++;
+                                }
+                                saveNewsToCache(receivedItems, type);
+
+                                newsItemsEvent = new NewsPageEvent(receivedItems);
+                                EventBus.getDefault().post(newsItemsEvent);
+                            }
                         }
-                        language = "en";
-                        loadPage(type);
-                        return;
                     }
-                    else {
-                        NewsPageEvent newsItemsEvent;
-                        if(type.equals(NewsType.OFFICIAL)){
-                            saveNewsToCache(receivedItems, false);
-                            pageNews++;
-                        } else {
-                            saveNewsToCache(receivedItems, true);
-                            pageRumors++;
-                        }
-                        newsItemsEvent = new NewsPageEvent(receivedItems);
-                        EventBus.getDefault().post(newsItemsEvent);
-                    }
-                }
-            }
-        });
+                });
     }
 
-    private void saveNewsToCache(List<WallNews> receivedItems, boolean isRumours) {
+    private void saveNewsToCache(List<WallNews> receivedItems, NewsType type) {
         // Memory cache
         newsItems.addAll(receivedItems);
 
         // Database cache
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Type listOfBecons = new TypeToken<List<WallNews>>() {}.getType();
+        Type listOfBecons = new TypeToken<List<WallNews>>() {
+        }.getType();
 
         String strBecons = new Gson().toJson(newsItems, listOfBecons);
-        String key;
-        if (isRumours) {
-            key = "RUMOUR_ITEMS";
-        } else {
-            key = "NEWS_ITEMS";
+        String key = "";
+        switch (type) {
+            case OFFICIAL:
+                key = "NEWS_ITEMS";
+                break;
+            case UNOFFICIAL:
+                key = "RUMOUR_ITEMS";
+                break;
+            case SOCIAL:
+                key = "SOCIAL_ITEMS";
+                break;
         }
         preferences.edit().putString(key, strBecons).apply();
     }
 
-    private List<WallNews> loadNewsFromCache(boolean isRumours) {
+    private List<WallNews> loadNewsFromCache(NewsType type) {
         SharedPreferences preferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
-        Type listOfBecons = new TypeToken<List<WallNews>>() {}.getType();
+        Type listOfBecons = new TypeToken<List<WallNews>>() {
+        }.getType();
 
-        String key;
-        if (isRumours) {
-            key = "RUMOUR_ITEMS";
-        } else {
-            key = "NEWS_ITEMS";
+        String key = "";
+        switch (type) {
+            case OFFICIAL:
+                key = "NEWS_ITEMS";
+                break;
+            case UNOFFICIAL:
+                key = "RUMOUR_ITEMS";
+                break;
+            case SOCIAL:
+                key = "SOCIAL_ITEMS";
+                break;
         }
 
         String savedString = preferences.getString(key, "");
@@ -212,23 +230,15 @@ public class NewsModel {
     }
 
     public WallNews loadItemFromCache(String id, NewsType type) {
-        if(type == NewsType.OFFICIAL){
-            for(WallNews item : loadNewsFromCache(false)){
-                if(item.getPostId().equals(id)){
-                    return item;
-                }
-            }
-        } else {
-            for(WallNews item : loadNewsFromCache(true)){
-                if(item.getPostId().equals(id)){
-                    return item;
-                }
+        for (WallNews item : loadNewsFromCache(type)) {
+            if (item.getPostId().equals(id)) {
+                return item;
             }
         }
         return null;
     }
 
     public List<WallNews> getAllCachedItems(NewsType type) {
-        return type == NewsType.OFFICIAL ? loadNewsFromCache(false) : loadNewsFromCache(true);
+        return loadNewsFromCache(type);
     }
 }

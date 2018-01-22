@@ -5,11 +5,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import base.app.BuildConfig
 import base.app.R
 import base.app.data.news.NewsModel.NewsType
 import base.app.data.news.NewsModel.getInstance
 import base.app.data.news.NewsPageEvent
-import base.app.ui.adapter.content.RumoursAdapter
+import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_news.*
@@ -23,7 +24,7 @@ import org.greenrobot.eventbus.Subscribe
 class SocialFragment : BaseFragment() {
 
     private val type = NewsType.SOCIAL
-    private val adapter: RumoursAdapter = RumoursAdapter()
+    private val adapter: NewsAdapter = NewsAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -32,15 +33,15 @@ class SocialFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         showTitle()
-        showRumours()
+        showItems()
     }
 
-    private fun showRumours() {
+    private fun showItems() {
         swipeRefreshLayout.isRefreshing = true
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        if (getInstance().getAllCachedItems(type).size > 0) {
+        if (getInstance().getAllCachedItems(type).size > 0 && !BuildConfig.DEBUG /*TODO: Remove*/) {
             val event = NewsPageEvent(getInstance().getAllCachedItems(type))
             onNewsReceived(event)
         } else {

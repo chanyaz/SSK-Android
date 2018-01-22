@@ -330,6 +330,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     // Cache news for pinning
                     NewsModel.getInstance().loadPage(NewsType.OFFICIAL);
                     NewsModel.getInstance().loadPage(NewsType.UNOFFICIAL);
+                    NewsModel.getInstance().loadPage(NewsType.SOCIAL);
                 }
             }
         });
