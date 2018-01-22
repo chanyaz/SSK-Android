@@ -17,7 +17,7 @@ fun View.setVisible(visible: Boolean) {
 }
 
 inline fun <reified T : ViewModel> Fragment.inject(): T {
-    return activity!!.inject()
+    return ViewModelProviders.of(this).get(T::class.java)
 }
 
 inline fun <reified T : ViewModel> FragmentActivity?.inject(): T {

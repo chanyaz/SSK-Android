@@ -7,6 +7,7 @@ import base.app.data.content.tv.inBackground
 import base.app.ui.adapter.content.WallAdapter
 import base.app.ui.fragment.content.wall.UserViewModel.SessionType.Anonymous
 import base.app.ui.fragment.popup.RegisterFragment
+import base.app.ui.fragment.user.auth.LoginApi
 import base.app.ui.fragment.user.auth.LoginFragment
 import base.app.util.events.FragmentEvent
 import base.app.util.ui.BaseFragment
@@ -20,14 +21,14 @@ class WallFragment : BaseFragment(R.layout.fragment_wall) {
 
     override fun onViewCreated(view: View, state: Bundle?) {
         val feedViewModel = inject<FeedViewModel>()
-        val userViewModel = inject<UserViewModel>()
+        val userViewModel = activity.inject<UserViewModel>()
 
         val adapter = WallAdapter(context)
         recyclerView.adapter = adapter
         progressBar.setVisible(true)
 
-        disposables.add(userViewModel
-                .getSession(context)
+        LoginApi.getInstance().initialize(context)
+        disposables.add(userViewModel.getSession().hide()
                 .doOnNext { loginContainer.setVisible(it.state == Anonymous) }
                 .flatMap { feedViewModel.getFeedFromServer(it.user) }
                 .repeatWhen { userViewModel.getChangesInFriends() }

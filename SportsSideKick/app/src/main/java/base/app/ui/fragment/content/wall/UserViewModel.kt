@@ -1,27 +1,44 @@
 package base.app.ui.fragment.content.wall
 
 import android.arch.lifecycle.ViewModel
-import android.content.Context
+import base.app.data.content.tv.inBackground
 import base.app.data.toUser
 import base.app.data.user.User
 import base.app.ui.fragment.content.wall.UserViewModel.SessionType.Anonymous
+import base.app.ui.fragment.content.wall.UserViewModel.SessionType.Authenticated
+import base.app.ui.fragment.user.auth.IUserView
 import base.app.ui.fragment.user.auth.LoginApi
-import base.app.util.commons.GSAndroidPlatform
 import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 
 class UserViewModel : ViewModel() {
 
-    val currentUser: PublishSubject<User> = PublishSubject.create()
+    internal lateinit var view: IUserView
 
-    fun getSession(context: Context?): Observable<Session> {
+    fun getSession(): Observable<Session> {
         val loginApi = LoginApi.getInstance()
-        return loginApi.initialize(context)
-                .flatMap { Observable.just(GSAndroidPlatform.gs().isAuthenticated) }
-                .flatMap { loginApi.loginAnonymous() }
+        var state = Authenticated
+
+        return loginApi.sessionStatus
+                .switchIfEmpty {
+                    state = Anonymous
+                    loginApi.loginAnonymous()
+                }
                 .flatMap { loginApi.profileData }
                 .map { it.toUser() }
-                .map { Session(it, Anonymous) }
+                .map { Session(it, state) }
+    }
+
+    fun onLoginSubmit(email: String, password: String) {
+        view.showLoading(true)
+
+        val loginApi = LoginApi.getInstance()
+        loginApi.authorize(email, password)
+                .flatMap { loginApi.profileData }
+                .map { it.toUser() }
+                .doOnNext { /* TODO: Clear user cache, then save this new user to cache */ }
+                .doOnNext { /* TODO: registerForPushNotifications() */ }
+                .inBackground()
+                .subscribe { view.navigateToFeed() }
     }
 
     fun getChangesInFriends(): Observable<Any> {

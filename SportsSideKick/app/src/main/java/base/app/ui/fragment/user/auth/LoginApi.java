@@ -85,6 +85,13 @@ public class LoginApi {
         return instance;
     }
 
+    public Observable<Boolean> getSessionStatus() {
+        if (GSAndroidPlatform.getInstance().isAuthenticated()) {
+            return Observable.just(true);
+        } else {
+            return Observable.empty();
+        }
+    }
 
     private User currentUser;
 
@@ -138,7 +145,7 @@ public class LoginApi {
     public void registerForPushNotifications() {
         Log.d(TAG, "Registering for push notifications");
         firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createPushRegistrationRequest()
                 .setDeviceOS("ANDROID")
                 .setPushId(firebaseToken)
                 .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
@@ -157,7 +164,7 @@ public class LoginApi {
     }
 
     public void unRegisterFromPushNotifications() {
-        GSAndroidPlatform.gs().getRequestBuilder().createPushRegistrationRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createPushRegistrationRequest()
                 .setDeviceOS("ANDROID")
                 .setPushId(null)
                 .send(new GSEventConsumer<GSResponseBuilder.PushRegistrationResponse>() {
@@ -177,7 +184,7 @@ public class LoginApi {
 
     public void markWallTipComplete(String tipId) {
         final TaskCompletionSource<User> source = new TaskCompletionSource<>();
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersMarkTipComplete");
         request.setEventAttribute("tipId", tipId);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -210,7 +217,7 @@ public class LoginApi {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(final ObservableEmitter<Boolean> emitter) throws Exception {
-                GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
+                GSAndroidPlatform.getInstance().setOnAvailable(new GSEventConsumer<Boolean>() {
                     @Override
                     public void onEvent(Boolean available) {
 
@@ -219,7 +226,7 @@ public class LoginApi {
 
                         if (available) {
 
-                            if (GSAndroidPlatform.gs().isAuthenticated()) {
+                            if (GSAndroidPlatform.getInstance().isAuthenticated()) {
                                 getProfileData(completeLogin);
                                 PurchaseModel.getInstance().updateProductList();
                             }
@@ -262,7 +269,7 @@ public class LoginApi {
     };
 
     private void getProfileData(GSEventConsumer<GSResponseBuilder.AccountDetailsResponse> completion) {
-        GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createAccountDetailsRequest();
+        GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createAccountDetailsRequest();
         HashMap<String, Object> scriptData = new HashMap<>();
         scriptData.put(CLUB_ID_TAG, CLUB_ID);
         request.getBaseData().put("scriptData", scriptData);
@@ -284,7 +291,7 @@ public class LoginApi {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AccountDetailsResponse> emitter) throws Exception {
 
-                GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createAccountDetailsRequest();
+                GSRequestBuilder.AccountDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createAccountDetailsRequest();
                 HashMap<String, Object> scriptData = new HashMap<>();
                 scriptData.put(CLUB_ID_TAG, CLUB_ID);
                 request.getBaseData().put("scriptData", scriptData);
@@ -316,7 +323,7 @@ public class LoginApi {
     }
 
     public void registrationRequest(String displayName, String password, String email, HashMap<String, Object> userDetails) {
-        final GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest()
+        final GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest()
                 .setDisplayName(displayName)
                 .setNewPassword(password)
                 .setLanguage(Locale.getDefault().getLanguage())
@@ -357,7 +364,7 @@ public class LoginApi {
     }
 
     public void registerFromFacebook(String token, String email, HashMap<String, Object> userData) {
-        final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest();
+        final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createFacebookConnectRequest();
         if (userData != null) {
             userData.put("initial_email", email);
             userData.put(CLUB_ID_TAG, CLUB_ID);
@@ -416,7 +423,7 @@ public class LoginApi {
                     // AT THIS STAGE, WE NEED TO COMPLETE THE TRADITIONAL REGISTRATION STAGE
                     // BUT WE SHOULD ALSO UPDATE THE USER DATA
 
-                    GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+                    GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
                     HashMap<String, Object> data = new HashMap<>();
                     data.put("action", "register");
                     data.put(CLUB_ID_TAG, CLUB_ID);
@@ -459,7 +466,7 @@ public class LoginApi {
 //                        request.setUserName(initialEmail)
 //                        request.setScriptData(_data)
 //                        request.setCallback(self.onRegisteredFBCompleted)
-//                        self.gs.send(request)
+//                        self.getInstance.send(request)
 //                    }
                 }
             }
@@ -502,7 +509,7 @@ public class LoginApi {
         return Observable.create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
-                GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
+                GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createDeviceAuthenticationRequest();
                 HashMap<String, Object> scriptData = new HashMap<>();
                 scriptData.put(CLUB_ID_TAG, CLUB_ID);
                 request.getBaseData().put("scriptData", scriptData);
@@ -529,7 +536,7 @@ public class LoginApi {
         return Observable.create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
-                GSAndroidPlatform.gs().getRequestBuilder().createAuthenticationRequest()
+                GSAndroidPlatform.getInstance().getRequestBuilder().createAuthenticationRequest()
                         .setUserName(email)
                         .setPassword(password)
                         .send(new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
@@ -548,7 +555,7 @@ public class LoginApi {
     }
 
     public void logout() {
-        GSAndroidPlatform.gs().getRequestBuilder().createEndSessionRequest().send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
+        GSAndroidPlatform.getInstance().getRequestBuilder().createEndSessionRequest().send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
                 if (endSessionResponse != null) {
@@ -565,7 +572,7 @@ public class LoginApi {
     }
 
     public void resetPassword(String email) {
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("passwordRecoveryRequest");
         request.setEventAttribute(GSConstants.EMAIL, email);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -587,7 +594,7 @@ public class LoginApi {
      */
     public Task<List<User>> getOfficialAccounts(int offset) {
         final TaskCompletionSource<List<User>> source = new TaskCompletionSource<>();
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("usersGetSpecialUsers");
         request.setEventAttribute(GSConstants.OFFSET, offset);
         request.setEventAttribute(GSConstants.OFFSET, offset);
@@ -608,32 +615,32 @@ public class LoginApi {
     }
 
     public void setEmail(String email) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         request.setUserName(email);
         request.send(onDetailsUpdated);
     }
 
     public void setPassword(String password, String oldPassword) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         request.setNewPassword(password);
         request.setOldPassword(oldPassword);
         request.send(onDetailsUpdated);
     }
 
     public void setLanguage(String language) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         request.setLanguage(language);
         request.send(onDetailsUpdated);
     }
 
     public void setDisplayName(String displayName) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         request.setDisplayName(displayName);
         request.send(onDetailsUpdated);
     }
 
     public void setUserState(UserState state) {
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("setUserState");
         request.setEventAttribute(GSConstants.STATE, state.toString());
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -646,7 +653,7 @@ public class LoginApi {
     }
 
     public void setProfileImageUrl(String profileImageUrl, boolean isCircular) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         String key = isCircular ? "circularAvatarUrl" : "avatarUrl";
         HashMap<String, Object> scriptData = new HashMap<>();
         scriptData.put(key, profileImageUrl);
@@ -655,7 +662,7 @@ public class LoginApi {
     }
 
     public void setDetails(Map<String, String> details) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createChangeUserDetailsRequest();
         if (!details.get(GSConstants.EMAIL).equals(currentUser.getEmail())) {
             request.setUserName(details.get(GSConstants.EMAIL));
         }
@@ -748,7 +755,7 @@ public class LoginApi {
 
     public Task<User> refreshUserInfo(String userId) {
         final TaskCompletionSource<User> source = new TaskCompletionSource<>();
-        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest();
+        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest();
         request.setEventKey("getUserInfoById");
         request.setEventAttribute(GSConstants.USER_ID, userId);
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -952,6 +959,6 @@ public class LoginApi {
     }
 
     public static GSRequestBuilder.LogEventRequest createRequest(String key) {
-        return GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest().setEventKey(key);
+        return GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest().setEventKey(key);
     }
 }

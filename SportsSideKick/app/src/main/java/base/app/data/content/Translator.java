@@ -48,7 +48,7 @@ public class Translator {
     }
 
     public void translateNews(String itemId, String language, final TaskCompletionSource<News> completion) {
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateNewsItem")
                 .setEventAttribute(POST_ID, itemId)
                 .setEventAttribute(TO_LANGUAGE, language)
@@ -82,7 +82,7 @@ public class Translator {
     }
 
     public void translatePost(String itemId, String language, final TaskCompletionSource<Post> completion) {
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateWallPost")
                 .setEventAttribute(POST_ID, itemId)
                 .setEventAttribute(TO_LANGUAGE, language)
@@ -102,7 +102,7 @@ public class Translator {
     }
 
     public void translateMessage(String itemId, String language, final TaskCompletionSource<ChatMessage> completion) {
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateComment")
                 .setEventAttribute(ID_SHORT, itemId)
                 .setEventAttribute(TO_LANGUAGE, language)
@@ -138,7 +138,7 @@ public class Translator {
      * translate post comment
      */
     public void translatePostComment(String itemId, String language, final TaskCompletionSource<Comment> completion) {
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateComment")
                 .setEventAttribute(ID_SHORT, itemId)
                 .setEventAttribute(TO_LANGUAGE, language)

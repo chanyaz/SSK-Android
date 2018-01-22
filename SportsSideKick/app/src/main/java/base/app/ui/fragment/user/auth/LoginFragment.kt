@@ -11,7 +11,6 @@ import base.app.BuildConfig
 import base.app.R
 import base.app.data.user.PasswordResetReceiver
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener
-import base.app.data.user.User
 import base.app.ui.fragment.content.wall.UserViewModel
 import base.app.util.commons.Utility
 import base.app.util.events.FragmentEvent
@@ -34,10 +33,9 @@ import org.json.JSONException
 import java.util.*
 
 class LoginFragment : BaseFragment(R.layout.fragment_login),
-        PasswordResetListener, ILoginView {
+        PasswordResetListener, IUserView {
 
-    private val loginViewModel by lazy { inject<LoginViewModel>() }
-    private val userViewModel by lazy { inject<UserViewModel>() }
+    private val userViewModel by lazy { activity.inject<UserViewModel>() }
     private var callbackManager: CallbackManager? = null
     private var passwordResetReceiver: PasswordResetReceiver? = null
 
@@ -46,14 +44,14 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
         autoPopulateOnDebug()
         initFacebook()
 
-        loginViewModel.view = this
+        userViewModel.view = this
         passwordResetReceiver = PasswordResetReceiver(this)
 
         submitButton.onClick {
             val email = emailField.text.toString()
             val password = passwordField.text.toString()
             if (validate(email, password)) {
-                loginViewModel.onLoginSubmit(email, password)
+                userViewModel.onLoginSubmit(email, password)
             }
         }
         cancelRestoreButton.setOnClickListener {
@@ -68,7 +66,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
     }
 
     @Optional
-    // TODO @OnClick(R.id.reset_text)
+            // TODO @OnClick(R.id.reset_text)
     fun forgotPasswordOnClick() {
         val email = emailField.text.toString()
         LoginApi.getInstance().resetPassword(email)
@@ -182,10 +180,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login),
         submitButtonLabel.setVisible(!loading)
     }
 
-    override fun navigateToFeed(user: User) {
-        userViewModel.currentUser.onNext(user)
-        userViewModel.currentUser.onComplete()
-
+    override fun navigateToFeed() {
         activity?.onBackPressed()
     }
 

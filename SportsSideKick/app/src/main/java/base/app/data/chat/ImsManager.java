@@ -141,7 +141,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 }
             }
         };
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsGetPublicChatGroupList")
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(ENTRY_COUNT, 50)
@@ -169,7 +169,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
             }
         };
 
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsGetGlobalChatGroupsList")
                 .setEventAttribute(OFFSET, 0)
                 .send(consumer);
@@ -192,7 +192,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 }
             }
         };
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsGetPublicChatGroupsListForUser")
                 .setEventAttribute(USER_ID, userId)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
@@ -221,7 +221,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
             }
         };
 
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsGetAllOfficialChatGroupsList")
                 .setEventAttribute(OFFSET, 0)
                 .setEventAttribute(ENTRY_COUNT, 50)
@@ -404,7 +404,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
         Map<String, Object> map = mapper.convertValue(message, new TypeReference<Map<String, Object>>() {});
         GSData data = new GSData(map);
 
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsSendMessage")
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())

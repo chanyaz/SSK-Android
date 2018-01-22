@@ -170,7 +170,7 @@ public class FriendsManager extends GSMessageHandlerAbstract {
      */
     public Task<User> sendFriendRequest(String userId) {
         final TaskCompletionSource<User> source = new TaskCompletionSource<>();
-        GSRequestBuilder.CreateChallengeRequest request = GSAndroidPlatform.gs().getRequestBuilder().createCreateChallengeRequest();
+        GSRequestBuilder.CreateChallengeRequest request = GSAndroidPlatform.getInstance().getRequestBuilder().createCreateChallengeRequest();
         GSEventConsumer<GSResponseBuilder.CreateChallengeResponse> consumer = new GSEventConsumer<GSResponseBuilder.CreateChallengeResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.CreateChallengeResponse response) {

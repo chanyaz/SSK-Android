@@ -18,35 +18,36 @@ import javax.crypto.spec.SecretKeySpec;
  * @author Giuseppe Perniola
  */
 public class GSAndroidPlatform implements IGSPlatform {
+
     private static final String GS_CURR_STATUS = "GSCurrStatus";
 
-    private static GS gs;
+    private static GS instance;
     private Handler mainHandler;
-    private Context ctx;
+    private Context context;
 
     public static void initialise(final Context ctx, String apiKey, String secret) {
-        if (gs == null) {
+        if (instance == null) {
             GSAndroidPlatform gsAndroidPlatform = new GSAndroidPlatform(ctx);
-            gs = new GS(apiKey, secret, null, false, true, gsAndroidPlatform);
+            instance = new GS(apiKey, secret, null, false, true, gsAndroidPlatform);
         }
     }
 
-    private GSAndroidPlatform(Context ctx) {
-        this.ctx = ctx;
-        mainHandler = new Handler(ctx.getMainLooper());
+    private GSAndroidPlatform(Context context) {
+        this.context = context;
+        mainHandler = new Handler(context.getMainLooper());
     }
 
-    public static GS gs() {
-        return gs;
+    public static GS getInstance() {
+        return instance;
     }
 
     @Override
     public File getWritableLocation() {
-        return ctx.getFilesDir();
+        return context.getFilesDir();
     }
 
     private void storeValue(String key, String value) {
-        SharedPreferences settings = ctx.getSharedPreferences(GS_CURR_STATUS, Context.MODE_PRIVATE);
+        SharedPreferences settings = context.getSharedPreferences(GS_CURR_STATUS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(key, value);
         editor.apply();
@@ -54,7 +55,7 @@ public class GSAndroidPlatform implements IGSPlatform {
 
     private String loadValue(String key) {
         try {
-            SharedPreferences settings = ctx.getSharedPreferences(GS_CURR_STATUS, Context.MODE_PRIVATE);
+            SharedPreferences settings = context.getSharedPreferences(GS_CURR_STATUS, Context.MODE_PRIVATE);
             return settings.getString(key, "");
         } catch (Exception e) {
             return "";

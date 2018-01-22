@@ -224,7 +224,7 @@ public class ChatMessage {
         Map<String, Object> map = mapper.convertValue(this, new TypeReference<Map<String, Object>>() {});
         map.remove("_id");
         GSData data = new GSData(map);
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsMessageUpdate")
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())
                 .setEventAttribute(MESSAGE, data)
@@ -310,7 +310,7 @@ public class ChatMessage {
         Map<String, Object> map = mapper.convertValue(this, new TypeReference<Map<String, Object>>() {});
         map.remove("_id");
         GSData data = new GSData(map);
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("imsMessageDelete")
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())
                 .setEventAttribute(MESSAGE, data)

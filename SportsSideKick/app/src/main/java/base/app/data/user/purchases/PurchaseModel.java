@@ -134,7 +134,7 @@ public class PurchaseModel {
             return;
         }
 
-        GSAndroidPlatform.gs().getRequestBuilder()
+        GSAndroidPlatform.getInstance().getRequestBuilder()
                 .createBuyVirtualGoodsRequest()
                 .setCurrencyType(currency)
                 .setQuantity(1)
@@ -186,7 +186,7 @@ public class PurchaseModel {
             return;
         }
 
-        GSAndroidPlatform.gs().getRequestBuilder()
+        GSAndroidPlatform.getInstance().getRequestBuilder()
                 .createConsumeVirtualGoodRequest()
                 .setQuantity(quantity)
                 .setShortCode(shortCode.name())
@@ -282,7 +282,7 @@ public class PurchaseModel {
 
     public void updateProductList(){
         canPurchase = false;
-        GSAndroidPlatform.gs().getRequestBuilder()
+        GSAndroidPlatform.getInstance().getRequestBuilder()
                 .createListVirtualGoodsRequest()
                 .send(new GSEventConsumer<GSResponseBuilder.ListVirtualGoodsResponse>() {
                     @Override
@@ -342,7 +342,7 @@ public class PurchaseModel {
         public void onSuccess(@Nonnull Purchase result) {
             super.onSuccess(result);
 
-            GSAndroidPlatform.gs().getRequestBuilder()
+            GSAndroidPlatform.getInstance().getRequestBuilder()
                     .createGooglePlayBuyGoodsRequest()
                     .setRequestId(result.orderId)
                     .setSignature(result.signature)

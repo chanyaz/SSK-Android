@@ -53,7 +53,7 @@ public class NextMatchModel {
     }
 
     public void getNextMatchInfo() {
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("tickerGetNextMatch")
                 .setEventAttribute("language", language)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)

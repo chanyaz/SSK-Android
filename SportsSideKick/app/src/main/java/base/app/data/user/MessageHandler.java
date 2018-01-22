@@ -38,7 +38,7 @@ public class MessageHandler {
     }
 
     private void setupListeners(){
-        GSMessageHandler messageHandler = GSAndroidPlatform.gs().getMessageHandler();
+        GSMessageHandler messageHandler = GSAndroidPlatform.getInstance().getMessageHandler();
         messageHandler.setScriptMessageListener(new GSEventConsumer<GSMessageHandler.ScriptMessage>() {
             @Override
             public void onEvent(GSMessageHandler.ScriptMessage scriptMessage) {

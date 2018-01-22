@@ -254,7 +254,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        GSAndroidPlatform.gs().start();
+        GSAndroidPlatform.getInstance().start();
 
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);

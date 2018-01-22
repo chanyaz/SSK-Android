@@ -109,7 +109,7 @@ public class NewsModel {
     }
 
     public void loadPage(final NewsType type, @Nullable final MutableLiveData<List<News>> liveData) {
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSAndroidPlatform.getInstance().getRequestBuilder().createLogEventRequest()
                 .setEventKey("newsGetPage")
                 .setEventAttribute("language", language)
                 .setEventAttribute("country", country)
