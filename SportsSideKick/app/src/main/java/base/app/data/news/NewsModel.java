@@ -37,7 +37,7 @@ public class NewsModel {
 
         OFFICIAL {
             public String toString() {
-                return "newsOfficial";
+                return "official";
             }
         },
         UNOFFICIAL {
