@@ -8,9 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
 import base.app.Keys.YOUTUBE_API_KEY
@@ -26,14 +24,13 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayer.*
 import com.google.android.youtube.player.YouTubePlayer.PlayerStyle.CHROMELESS
 import com.google.android.youtube.player.YouTubePlayer.PlayerStyle.DEFAULT
-import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import com.google.api.services.youtube.model.Video
-import kotlinx.android.synthetic.main.fragment_video_player.*
+import kotlinx.android.synthetic.main.fragment_tv_player.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class TvPlayerFragment : BaseFragment(),
+class TvPlayerFragment : BaseFragment(R.layout.fragment_tv_player),
         PlaybackEventListener,
         OnFullscreenListener,
         PlayerStateChangeListener {
@@ -50,15 +47,9 @@ class TvPlayerFragment : BaseFragment(),
     lateinit var player: YouTubePlayer
     internal val updatesHandler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
-        return container.inflate(R.layout.fragment_video_player)
-    }
-
     override fun onViewCreated(view: View, state: Bundle?) {
-        val playerFragment = childFragmentManager.findFragmentById(R.id.youtube_layout)
-                as YouTubePlayerSupportFragment
         val playerData = YoutubePlayerLiveData()
-        playerFragment.initialize(YOUTUBE_API_KEY, playerData)
+        playerView.initialize(YOUTUBE_API_KEY, playerData)
         playerData.observe(this, Observer {
             val player = it
             if (player != null) {

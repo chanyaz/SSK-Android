@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    tools:layout_height="200dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?playerBackground">
 
@@ -13,21 +14,19 @@
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/controls_container">
 
-        <FrameLayout
-            android:id="@+id/youtube_layout"
-            android:layout_centerHorizontal="true"
-            android:visibility="visible"
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/playerView"
             app:layout_aspectRatio="178%"
-            app:layout_widthPercent="100%" />
+            app:layout_widthPercent="100%"/>
 
         <SeekBar
             android:id="@+id/seekBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_16"
+            android:layout_alignParentBottom="true"
             android:layout_alignEnd="@id/youtube_layout"
             android:layout_alignStart="@id/youtube_layout"
-            android:layout_below="@id/youtube_layout"
             android:thumb="@drawable/radiothumb"
             android:layout_marginEnd="@dimen/margin_negative_18"
             android:layout_marginStart="@dimen/margin_negative_16"

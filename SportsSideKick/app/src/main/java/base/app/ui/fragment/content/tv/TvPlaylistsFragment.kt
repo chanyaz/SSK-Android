@@ -8,19 +8,14 @@ import base.app.data.content.tv.MediaModel.youtubeDataApi
 import base.app.data.content.tv.MediaRepository
 import base.app.ui.adapter.stream.TvAdapter
 import base.app.ui.fragment.base.IgnoreBackHandling
-import base.app.util.events.FragmentEvent
 import base.app.util.ui.BaseFragment
 import base.app.util.ui.inject
 import kotlinx.android.synthetic.main.fragment_tv.*
-import org.greenrobot.eventbus.EventBus
 
 @IgnoreBackHandling
 class TvPlaylistsFragment : BaseFragment(R.layout.fragment_tv) {
 
     override fun onViewCreated(view: View, state: Bundle?) {
-        EventBus.getDefault().post(
-                FragmentEvent(TvPlayerFragment::class.java))
-
         val adapter = TvAdapter()
         recyclerView.adapter = adapter
 
