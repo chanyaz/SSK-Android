@@ -3,6 +3,7 @@ package base.app.data
 import base.app.data.content.tv.MediaModel.mapper
 import base.app.data.content.wall.*
 import base.app.data.user.User
+import base.app.ui.fragment.user.auth.LoginApi
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -97,5 +98,7 @@ fun GSResponseBuilder.AccountDetailsResponse.toUser(): User {
     } else {
         mapper.convertValue(this, User::class.java)
     }
+
+    LoginApi.getInstance().currentUser = user // Remove this line after full migration to ViewModels
     return user
 }

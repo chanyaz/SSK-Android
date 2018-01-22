@@ -98,7 +98,7 @@ public class LoginApi {
         }
     }
 
-    private User currentUser;
+    public User currentUser;
 
     public User getUser() {
         if (currentUser != null) {
@@ -517,7 +517,8 @@ public class LoginApi {
         return create(new ObservableOnSubscribe<GSResponseBuilder.AuthenticationResponse>() {
             @Override
             public void subscribe(final ObservableEmitter<GSResponseBuilder.AuthenticationResponse> emitter) throws Exception {
-                GSRequestBuilder.DeviceAuthenticationRequest request = Gamesparks.getInstance().getRequestBuilder().createDeviceAuthenticationRequest();
+                GSRequestBuilder.DeviceAuthenticationRequest request =
+                        Gamesparks.getInstance().getRequestBuilder().createDeviceAuthenticationRequest();
                 HashMap<String, Object> scriptData = new HashMap<>();
                 scriptData.put(CLUB_ID_TAG, CLUB_ID);
                 request.getBaseData().put("scriptData", scriptData);
