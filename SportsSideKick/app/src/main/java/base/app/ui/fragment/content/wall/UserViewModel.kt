@@ -20,7 +20,8 @@ class UserViewModel : ViewModel() {
         return loginApi.sessionState
                 .doOnNext { state = it }
                 .flatMap { loginApi.startSession(it) }
-                .getUser()
+                .flatMap { loginApi.profileData }
+                .map { it.toUser() }
                 .map { Session(it, state) }
     }
 
@@ -29,7 +30,8 @@ class UserViewModel : ViewModel() {
 
         val loginApi = LoginApi.getInstance()
         loginApi.authorize(email, password)
-                .getUser()
+                .flatMap { loginApi.profileData }
+                .map { it.toUser() }
                 .doOnNext { /* TODO: registerForPushNotifications() */ }
                 .inBackground()
                 .subscribe { view.navigateToFeed() }
@@ -37,12 +39,6 @@ class UserViewModel : ViewModel() {
 
     fun getChangesInFriends(): Observable<Any> {
         return Observable.never()
-    }
-
-    fun Observable<*>.getUser(): Observable<User> {
-        val loginApi = LoginApi.getInstance()
-        return flatMap { loginApi.profileData }
-                .map { it.toUser() }
     }
 }
 
