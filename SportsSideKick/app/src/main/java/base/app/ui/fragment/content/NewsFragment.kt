@@ -9,8 +9,10 @@ import base.app.R
 import base.app.data.news.NewsModel
 import base.app.data.news.NewsModel.NewsType.OFFICIAL
 import base.app.data.news.NewsPageEvent
+import base.app.data.wall.WallNews
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
+import base.app.util.events.post.ItemUpdateEvent
 import base.app.util.ui.inflate
 import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_news.*
@@ -60,5 +62,18 @@ class NewsFragment : BaseFragment() {
         swipeRefreshLayout.isRefreshing = false
         adapter.values.addAll(event.values)
         adapter.notifyDataSetChanged()
+    }
+
+    @Subscribe
+    fun onItemUpdate(event: ItemUpdateEvent) {
+        val news = event.post as WallNews
+        adapter.values.forEachIndexed { index, item ->
+            if (item.postId == news.postId) {
+                adapter.values.remove(item)
+                adapter.values.add(index, news)
+                adapter.notifyDataSetChanged()
+                return
+            }
+        }
     }
 }
