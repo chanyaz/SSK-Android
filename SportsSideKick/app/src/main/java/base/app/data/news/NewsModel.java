@@ -23,6 +23,7 @@ import base.app.data.GSAndroidPlatform;
 import base.app.data.wall.WallNews;
 import base.app.util.commons.Utility;
 
+import static base.app.ClubConfig.CLUB_ID;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
@@ -128,15 +129,19 @@ public class NewsModel {
                 .setEventKey(eventKey)
                 .setEventAttribute("language", language)
                 .setEventAttribute("country", country)
-                .setEventAttribute("id", ID)
                 .setEventAttribute("type", type.toString())
                 .setEventAttribute("limit", itemsPerPage);
         switch (type) {
             case OFFICIAL:
-            case UNOFFICIAL:
+                request.setEventAttribute("id", ID);
                 request.setEventAttribute("page", page);
                 break;
+            case UNOFFICIAL:
+                request.setEventAttribute("clubId", CLUB_ID);
+                request.setEventAttribute("skip", page);
+            break;
             case SOCIAL:
+                request.setEventAttribute("id", ID);
                 request.setEventAttribute("skip", page);
                 break;
         }
