@@ -119,8 +119,11 @@ public abstract class WallBase implements Shareable, Serializable {
             switch (type) {
                 case post:
                 case wallComment:
-                case social:
                     typeReference = new TypeReference<WallPost>() {
+                    };
+                    break;
+                case social:
+                    typeReference = new TypeReference<WallSocial>() {
                     };
                     break;
                 case newsShare:
