@@ -216,22 +216,6 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return false;
     }
 
-    static boolean displayNewsImage(WallNews news, ViewHolder holder) {
-        if (holder.imageView != null) {
-            String imageUrl = news.getImage();
-            if (imageUrl != null && !TextUtils.isEmpty(news.getImage())) {
-                holder.imageView.setVisibility(View.VISIBLE);
-
-                ImageLoader.displayImage(news.getImage(), holder.imageView);
-                return true;
-            } else {
-                holder.imageView.setVisibility(View.GONE);
-                return false;
-            }
-        }
-        return false;
-    }
-
     static void displayUserInfo(final WallBase post, final ViewHolder holder) {
         Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
         getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {

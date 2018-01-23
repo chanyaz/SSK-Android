@@ -17,11 +17,17 @@ import base.app.data.sharing.SharingManager;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WallNews extends WallBase {
 
+    @JsonProperty("vidUrl")
     private String vidUrl;
+    @JsonProperty("url")
     private String url;
+    @JsonProperty("source")
     private String source;
+    @JsonProperty("content")
     private String content;
+    @JsonProperty("strap")
     private String strap;
+    @JsonProperty("image")
     private String image;
 
     @Override
@@ -79,22 +85,27 @@ public class WallNews extends WallBase {
 
     @JsonProperty("image")
     public void setImage(String image) {
+        this.image = image;
         this.coverImageUrl = image;
     }
 
     @JsonProperty("content")
     public void setContent(String content) {
         this.bodyText = content;
+        this.content = content;
     }
 
+    @JsonProperty("content")
     public String getContent() {
         return content;
     }
 
+    @JsonProperty("strap")
     public String getStrap() {
         return strap;
     }
 
+    @JsonProperty("image")
     public String getImage() {
         return image;
     }
