@@ -190,7 +190,7 @@ public class NewsModel {
         });
     }
 
-    private void saveNewsToCache(List<WallNews> receivedItems, NewsType type) {
+    public void saveNewsToCache(List<WallNews> receivedItems, NewsType type) {
         for (WallNews item : receivedItems) {
             switch (type) {
                 case OFFICIAL:

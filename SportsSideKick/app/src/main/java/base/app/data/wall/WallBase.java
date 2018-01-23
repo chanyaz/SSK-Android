@@ -12,7 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
+import base.app.data.news.NewsModel;
 import base.app.data.sharing.Shareable;
 import base.app.data.sharing.SharingManager;
 import base.app.data.user.UserInfo;
@@ -113,6 +115,7 @@ public abstract class WallBase implements Shareable, Serializable {
                 type = PostType.values()[typeValue - 1];
             } else {
                 String objectType = node.get("type").textValue();
+                objectType = objectType.replace("official", "newsOfficial");
                 type = PostType.valueOf(objectType);
             }
             switch (type) {
@@ -170,6 +173,25 @@ public abstract class WallBase implements Shareable, Serializable {
                 } else {
                     cache.put(item.getPostId(), item);
                 }
+
+                NewsModel.NewsType newsType = null;
+                if (item.getType() == PostType.newsOfficial) {
+                    newsType = NewsModel.NewsType.OFFICIAL;
+                } else if (item.getType() == PostType.newsUnOfficial) {
+                    newsType = NewsModel.NewsType.UNOFFICIAL;
+                } else if (item.getType() == PostType.social) {
+                    newsType = NewsModel.NewsType.SOCIAL;
+                }
+                if (newsType == null) return item;
+                List<WallNews> savedItems = NewsModel.getInstance().getAllCachedItems(newsType);
+                for (int i = 0; i < savedItems.size(); i++) {
+                    WallNews savedItem = savedItems.get(i);
+                    if (savedItem.postId.equals(item.postId)) {
+                        savedItems.remove(savedItem);
+                        savedItems.add(i, (WallNews) item);
+                    }
+                }
+                NewsModel.getInstance().saveNewsToCache(savedItems, newsType);
             }
 
             return item;
@@ -360,6 +382,5 @@ public abstract class WallBase implements Shareable, Serializable {
         this.coverImageUrl = item.coverImageUrl;
         this.coverAspectRatio = item.coverAspectRatio;
     }
-
 
 }

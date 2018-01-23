@@ -34,9 +34,9 @@ import base.app.util.events.comment.CommentUpdateEvent;
 import base.app.util.events.comment.CommentUpdatedEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
+import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.events.post.PostDeletedEvent;
-import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
 
 import static base.app.ClubConfig.CLUB_ID;
@@ -181,6 +181,27 @@ public class WallModel extends GSMessageHandlerAbstract {
     }
 
     void setLikeCount(final WallBase post, final boolean val) {
+        String itemType = "";
+        switch (post.getType()) {
+            case post:
+            case postShare:
+            case stats:
+            case wallStoreItem:
+            case socialShare:
+            case newsShare:
+            case rumourShare:
+                itemType = "wallPost";
+                break;
+            case newsOfficial:
+            case newsUnOfficial:
+            case rumor:
+                itemType = "news";
+                break;
+            case social:
+                itemType = "social";
+                break;
+        }
+
         int increase = val ? 1 : -1;
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -200,7 +221,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .setEventAttribute(GSConstants.WALL_ID, post.getWallId())
                 .setEventAttribute(GSConstants.POST_ID, post.getPostId())
                 .setEventAttribute(GSConstants.INCREASE, increase)
-                .setEventAttribute("type", post.getType().toString())
+                .setEventAttribute("type", itemType)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
     }
