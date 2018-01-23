@@ -153,6 +153,7 @@ public abstract class WallBase implements Shareable, Serializable {
                     };
                     break;
                 case newsOfficial:
+                case newsUnOfficial:
                     typeReference = new TypeReference<WallNews>() {
                     };
                     break;

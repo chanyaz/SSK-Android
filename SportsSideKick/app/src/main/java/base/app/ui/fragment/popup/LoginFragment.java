@@ -198,7 +198,7 @@ public class LoginFragment extends BaseFragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (BuildConfig.DEBUG) {
-            emailEditText.setText("alexsheikodev@gmail.com");
+            emailEditText.setText("alexsheikodev3@gmail.com");
             passwordEditText.setText("temppass");
         }
     }
