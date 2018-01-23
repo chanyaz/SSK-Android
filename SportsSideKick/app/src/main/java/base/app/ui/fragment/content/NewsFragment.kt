@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import base.app.BuildConfig
 import base.app.R
 import base.app.data.news.NewsModel
 import base.app.data.news.NewsModel.NewsType.OFFICIAL
@@ -43,7 +44,7 @@ class NewsFragment : BaseFragment() {
     private fun loadNews() {
         swipeRefreshLayout.isRefreshing = true
         val existingItems = NewsModel.getInstance().getAllCachedItems(type)
-        if (existingItems != null && existingItems.size > 0) {
+        if (existingItems != null && existingItems.size > 0 && !BuildConfig.DEBUG /*TODO: Remove*/) {
             adapter.values.addAll(existingItems)
             swipeRefreshLayout.isRefreshing = false
         } else {

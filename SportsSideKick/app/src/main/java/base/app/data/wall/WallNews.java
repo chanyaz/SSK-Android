@@ -17,12 +17,12 @@ import base.app.data.sharing.SharingManager;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WallNews extends WallBase {
 
-    @JsonProperty("vidUrl")
     private String vidUrl;
-    @JsonProperty("url")
     private String url;
-    @JsonProperty("source")
     private String source;
+    private String content;
+    private String strap;
+    private String image;
 
     @Override
     public void setEqualTo(WallBase item) {
@@ -85,6 +85,18 @@ public class WallNews extends WallBase {
     @JsonProperty("content")
     public void setContent(String content) {
         this.bodyText = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getStrap() {
+        return strap;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     @Override

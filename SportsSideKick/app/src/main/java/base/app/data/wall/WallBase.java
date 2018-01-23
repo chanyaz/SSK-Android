@@ -52,8 +52,8 @@ public abstract class WallBase implements Shareable, Serializable {
         wallComment,
         rumourShare,
         postShare,
-        social,
-        socialShare
+        socialShare,
+        social
     }
 
     @JsonProperty("timestamp")
@@ -124,6 +124,10 @@ public abstract class WallBase implements Shareable, Serializable {
                     break;
                 case social:
                     typeReference = new TypeReference<WallSocial>() {
+                    };
+                    break;
+                case socialShare:
+                    typeReference = new TypeReference<WallSocialShare>() {
                     };
                     break;
                 case newsShare:

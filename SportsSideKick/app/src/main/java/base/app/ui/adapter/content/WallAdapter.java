@@ -35,6 +35,7 @@ import base.app.data.Translator;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallBase.PostType;
+import base.app.data.wall.WallNews;
 import base.app.data.wall.WallNewsShare;
 import base.app.data.wall.WallPost;
 import base.app.data.wall.WallStats;
@@ -42,6 +43,7 @@ import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.ui.fragment.content.WallItemFragment;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -200,9 +202,27 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
+                holder.imageView.setVisibility(View.VISIBLE);
+
                 Glide.with(holder.imageView.getContext())
                         .load(post.getCoverImageUrl())
                         .into(holder.imageView);
+                return true;
+            } else {
+                holder.imageView.setVisibility(View.GONE);
+                return false;
+            }
+        }
+        return false;
+    }
+
+    static boolean displayNewsImage(WallNews news, ViewHolder holder) {
+        if (holder.imageView != null) {
+            String imageUrl = news.getImage();
+            if (imageUrl != null && !TextUtils.isEmpty(news.getImage())) {
+                holder.imageView.setVisibility(View.VISIBLE);
+
+                ImageLoader.displayImage(news.getImage(), holder.imageView);
                 return true;
             } else {
                 holder.imageView.setVisibility(View.GONE);

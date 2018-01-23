@@ -400,7 +400,7 @@ public class NewsItemFragment extends BaseFragment {
 
     private void showTextContent(WallNews item) {
         title.setText(item.getTitle());
-        content.setText(item.getBodyText());
+        content.setText(item.getContent());
         textContent.setText(item.getTitle());
     }
 

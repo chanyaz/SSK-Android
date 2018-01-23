@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
+import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -105,10 +106,7 @@ public class NewsModel {
 
     public void loadPage(final NewsType type) {
         final int page = 0;
-        if (isLoadingNews && type.equals(NewsType.OFFICIAL)
-                || isLoadingRumors && type.equals(NewsType.UNOFFICIAL)) {
-            return;
-        }
+
         if (type.equals(NewsType.OFFICIAL)) {
             isLoadingNews = true;
         } else if (type.equals(NewsType.UNOFFICIAL)){
@@ -126,15 +124,23 @@ public class NewsModel {
                 eventKey = "socialGetPage";
                 break;
         }
-        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+        GSRequestBuilder.LogEventRequest request = GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey(eventKey)
                 .setEventAttribute("language", language)
                 .setEventAttribute("country", country)
                 .setEventAttribute("id", ID)
                 .setEventAttribute("type", type.toString())
-                .setEventAttribute("skip", page)
-                .setEventAttribute("limit", itemsPerPage)
-                .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+                .setEventAttribute("limit", itemsPerPage);
+        switch (type) {
+            case OFFICIAL:
+            case UNOFFICIAL:
+                request.setEventAttribute("page", page);
+                break;
+            case SOCIAL:
+                request.setEventAttribute("skip", page);
+                break;
+        }
+        request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
                         if (!response.hasErrors()) {
