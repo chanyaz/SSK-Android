@@ -35,7 +35,7 @@ import base.app.data.Translator;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallBase.PostType;
-import base.app.data.wall.WallNewsShare;
+import base.app.data.wall.WallNews;
 import base.app.data.wall.WallPost;
 import base.app.data.wall.WallStats;
 import base.app.data.wall.WallStoreItem;
@@ -169,6 +169,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     viewResourceId = R.layout.wall_item_user_post;
                     break;
                 case newsShare:
+                case rumourShare:
+                case socialShare:
                     viewResourceId = R.layout.wall_item_news;
                     break;
                 case rumor:
@@ -299,7 +301,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     }
                     break;
                 case newsShare:
-                    WallNewsShare news = (WallNewsShare) item;
+                case rumourShare:
+                case socialShare:
+                    WallNews news = (WallNews) item;
                     displayUserInfo(news, holder);
                     displayCaption(news.getTitle(), holder);
                     displayPostImage(news, holder);

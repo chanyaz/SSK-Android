@@ -10,7 +10,7 @@ import base.app.data.sharing.SharingManager;
  * www.hypercubesoft.com
  */
 
-public class WallNewsShare extends WallNews{
+public class WallRumourShare extends WallNews{
 
     @JsonProperty("vidUrl")
     private String vidUrl;
@@ -18,7 +18,7 @@ public class WallNewsShare extends WallNews{
     @Override
     public void setEqualTo(WallBase item) {
         super.setEqualTo(item);
-        this.vidUrl = ((WallNewsShare)item).vidUrl;
+        this.vidUrl = ((WallRumourShare)item).vidUrl;
 
     }
 

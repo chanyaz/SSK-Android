@@ -106,7 +106,7 @@ public class WallModel extends GSMessageHandlerAbstract {
     /**
      * Posting a new blog on this user wall
      */
-    public void createPost(WallBase post) {
+    public void createPost(final WallBase post) {
         post.setWallId(getCurrentUser().getUserId());
         post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
 
@@ -116,6 +116,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                     WallBase.postFactory(object, mapper, true);
+                    EventBus.getDefault().post(new ItemUpdateEvent(post));
                 }
             }
         };

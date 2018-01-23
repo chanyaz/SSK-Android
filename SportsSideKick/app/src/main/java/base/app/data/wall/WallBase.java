@@ -150,6 +150,10 @@ public abstract class WallBase implements Shareable, Serializable {
                     typeReference = new TypeReference<WallRumor>() {
                     };
                     break;
+                case rumourShare:
+                    typeReference = new TypeReference<WallRumourShare>() {
+                    };
+                    break;
                 case wallStoreItem:
                     typeReference = new TypeReference<WallStoreItem>() {
                     };
@@ -167,7 +171,7 @@ public abstract class WallBase implements Shareable, Serializable {
             item.setType(type);
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
-            if (putInCache) {
+                if (putInCache) {
                 WallBase cachedItem = cache.get(item.getPostId());
                 if (cachedItem != null) {
                     cachedItem.setEqualTo(item);
