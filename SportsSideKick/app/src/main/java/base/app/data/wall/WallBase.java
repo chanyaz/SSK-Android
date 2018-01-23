@@ -88,6 +88,8 @@ public abstract class WallBase implements Shareable, Serializable {
     private String sharedComment;
     @JsonProperty("translatedTo")
     private String translatedTo;
+    @JsonProperty("message")
+    private String message;
 
     private UserInfo poster;
 
@@ -240,6 +242,9 @@ public abstract class WallBase implements Shareable, Serializable {
     }
 
     public String getTitle() {
+        if (message != null) {
+            return message;
+        }
         return title;
     }
 
