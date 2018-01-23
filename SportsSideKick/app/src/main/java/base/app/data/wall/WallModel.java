@@ -180,7 +180,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         WallBase.clear();
     }
 
-    Task<Void> setLikeCount(final WallBase post, final boolean val) {
+    void setLikeCount(final WallBase post, final boolean val) {
         int increase = val ? 1 : -1;
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
@@ -200,9 +200,9 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .setEventAttribute(GSConstants.WALL_ID, post.getWallId())
                 .setEventAttribute(GSConstants.POST_ID, post.getPostId())
                 .setEventAttribute(GSConstants.INCREASE, increase)
+                .setEventAttribute("type", post.getType().toString())
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
-        return source.getTask();
     }
 
     /**

@@ -1,6 +1,5 @@
 package base.app.data.wall;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,8 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -340,14 +337,7 @@ public abstract class WallBase implements Shareable, Serializable {
         } else {
             likeCount -= 1;
         }
-        WallModel.getInstance().setLikeCount(this, likedByUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.i(TAG, "Like set to value " + likedByUser);
-                }
-            }
-        });
+        WallModel.getInstance().setLikeCount(this, likedByUser);
     }
 
     @Override

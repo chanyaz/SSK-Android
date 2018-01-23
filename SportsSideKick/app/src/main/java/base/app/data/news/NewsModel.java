@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import base.app.data.GSAndroidPlatform;
+import base.app.data.wall.WallBase;
 import base.app.data.wall.WallNews;
 import base.app.util.commons.Utility;
 
@@ -190,6 +191,20 @@ public class NewsModel {
     }
 
     private void saveNewsToCache(List<WallNews> receivedItems, NewsType type) {
+        for (WallNews item : receivedItems) {
+            switch (type) {
+                case OFFICIAL:
+                    item.setType(WallBase.PostType.newsOfficial);
+                    break;
+                case UNOFFICIAL:
+                    item.setType(WallBase.PostType.newsUnOfficial);
+                    break;
+                case SOCIAL:
+                    item.setType(WallBase.PostType.social);
+                    break;
+            }
+        }
+
         // Memory cache
         newsItems.clear();
         newsItems.addAll(receivedItems);
