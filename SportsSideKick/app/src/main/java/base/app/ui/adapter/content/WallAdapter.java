@@ -35,7 +35,6 @@ import base.app.data.Translator;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallBase.PostType;
-import base.app.data.wall.WallNews;
 import base.app.data.wall.WallNewsShare;
 import base.app.data.wall.WallPost;
 import base.app.data.wall.WallStats;
@@ -204,9 +203,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
                 holder.imageView.setVisibility(View.VISIBLE);
 
-                Glide.with(holder.imageView.getContext())
-                        .load(post.getCoverImageUrl())
-                        .into(holder.imageView);
+                ImageLoader.displayImage(post.getCoverImageUrl(), holder.imageView, R.drawable.wall_detail_header_placeholder);
                 return true;
             } else {
                 holder.imageView.setVisibility(View.GONE);
