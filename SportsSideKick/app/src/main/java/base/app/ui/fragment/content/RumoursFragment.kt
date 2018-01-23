@@ -9,8 +9,10 @@ import base.app.R
 import base.app.data.news.NewsModel.NewsType.UNOFFICIAL
 import base.app.data.news.NewsModel.getInstance
 import base.app.data.news.NewsPageEvent
+import base.app.data.wall.WallNews
 import base.app.ui.adapter.content.RumoursAdapter
 import base.app.ui.fragment.base.BaseFragment
+import base.app.util.events.post.ItemUpdateEvent
 import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.greenrobot.eventbus.Subscribe
@@ -23,7 +25,7 @@ import org.greenrobot.eventbus.Subscribe
 class RumoursFragment : BaseFragment() {
 
     private val type = UNOFFICIAL
-    private val rumoursAdapter: RumoursAdapter = RumoursAdapter()
+    private val adapter: RumoursAdapter = RumoursAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -38,7 +40,7 @@ class RumoursFragment : BaseFragment() {
     private fun showRumours() {
         swipeRefreshLayout.isRefreshing = true
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = rumoursAdapter
+        recyclerView.adapter = adapter
 
         if (getInstance().getAllCachedItems(type).size > 0) {
             val event = NewsPageEvent(getInstance().getAllCachedItems(type))
@@ -59,10 +61,21 @@ class RumoursFragment : BaseFragment() {
 
     @Subscribe
     fun onNewsReceived(event: NewsPageEvent) {
-        if (event.values.isNotEmpty()) {
-            rumoursAdapter.values.addAll(event.values)
-            rumoursAdapter.notifyDataSetChanged()
-        }
         swipeRefreshLayout.isRefreshing = false
+        adapter.values.addAll(event.values)
+        adapter.notifyDataSetChanged()
+    }
+
+    @Subscribe
+    fun onItemUpdate(event: ItemUpdateEvent) {
+        val news = event.post as WallNews
+        adapter.values.forEachIndexed { index, item ->
+            if (item.postId == news.postId) {
+                adapter.values.remove(item)
+                adapter.values.add(index, news)
+                adapter.notifyDataSetChanged()
+                return
+            }
+        }
     }
 }

@@ -23,9 +23,9 @@ import org.greenrobot.eventbus.Subscribe
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-class NewsFragment : BaseFragment() {
+open class NewsFragment : BaseFragment() {
 
-    internal var type = OFFICIAL
+    internal val type = OFFICIAL
     internal var adapter: NewsAdapter = NewsAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {

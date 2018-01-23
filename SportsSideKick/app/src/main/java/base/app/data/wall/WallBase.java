@@ -115,7 +115,9 @@ public abstract class WallBase implements Shareable, Serializable {
                 type = PostType.values()[typeValue - 1];
             } else {
                 String objectType = node.get("type").textValue();
-                objectType = objectType.replace("official", "newsOfficial");
+                objectType = objectType
+                        .replace("official", "newsOfficial")
+                        .replace("webhose", "newsUnOfficial");
                 type = PostType.valueOf(objectType);
             }
             switch (type) {
