@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import base.app.BuildConfig
 import base.app.R
 import base.app.data.news.NewsModel.NewsType
 import base.app.data.news.NewsModel.getInstance
@@ -41,7 +40,7 @@ class SocialFragment : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        if (getInstance().getAllCachedItems(type).size > 0 && !BuildConfig.DEBUG /*TODO: Remove*/) {
+        if (getInstance().getAllCachedItems(type).size > 0) {
             val event = NewsPageEvent(getInstance().getAllCachedItems(type))
             onNewsReceived(event)
         } else {

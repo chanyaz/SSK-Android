@@ -46,7 +46,9 @@ public class NewsModel {
             }
         },
         SOCIAL {
-            public String toString() { return "social"; }
+            public String toString() {
+                return "social";
+            }
         };
 
         NewsType() {
@@ -110,7 +112,7 @@ public class NewsModel {
 
         if (type.equals(NewsType.OFFICIAL)) {
             isLoadingNews = true;
-        } else if (type.equals(NewsType.UNOFFICIAL)){
+        } else if (type.equals(NewsType.UNOFFICIAL)) {
             isLoadingRumors = true;
         }
         String eventKey = "";
@@ -139,56 +141,57 @@ public class NewsModel {
             case UNOFFICIAL:
                 request.setEventAttribute("clubId", CLUB_ID);
                 request.setEventAttribute("skip", page);
-            break;
+                break;
             case SOCIAL:
                 request.setEventAttribute("id", ID);
                 request.setEventAttribute("skip", page);
                 break;
         }
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-                    @Override
-                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                        if (!response.hasErrors()) {
-                            GSData data = response.getScriptData();
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    GSData data = response.getScriptData();
 
-                            if (data == null) {
-                                return;
-                            }
-
-                            if (data.getBaseData().get("items") == null) {
-                                return;
-                            }
-
-                            List<WallNews> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<WallNews>>() {
-                            });
-                            if (receivedItems.size() == 0 && !"en".equals(language) && page == 0) {
-                                if (type.equals(NewsType.OFFICIAL)) {
-                                    isLoadingNews = false;
-                                } else {
-                                    isLoadingRumors = false;
-                                }
-                                language = "en";
-                                loadPage(type);
-                                return;
-                            } else {
-                                NewsPageEvent newsItemsEvent;
-                                if (type.equals(NewsType.OFFICIAL)) {
-                                    pageNews++;
-                                } else {
-                                    pageRumors++;
-                                }
-                                saveNewsToCache(receivedItems, type);
-
-                                newsItemsEvent = new NewsPageEvent(receivedItems);
-                                EventBus.getDefault().post(newsItemsEvent);
-                            }
-                        }
+                    if (data == null) {
+                        return;
                     }
-                });
+
+                    if (data.getBaseData().get("items") == null) {
+                        return;
+                    }
+
+                    List<WallNews> receivedItems = mapper.convertValue(data.getBaseData().get("items"), new TypeReference<List<WallNews>>() {
+                    });
+                    if (receivedItems.size() == 0 && !"en".equals(language) && page == 0) {
+                        if (type.equals(NewsType.OFFICIAL)) {
+                            isLoadingNews = false;
+                        } else {
+                            isLoadingRumors = false;
+                        }
+                        language = "en";
+                        loadPage(type);
+                        return;
+                    } else {
+                        NewsPageEvent newsItemsEvent;
+                        if (type.equals(NewsType.OFFICIAL)) {
+                            pageNews++;
+                        } else {
+                            pageRumors++;
+                        }
+                        saveNewsToCache(receivedItems, type);
+
+                        newsItemsEvent = new NewsPageEvent(receivedItems);
+                        EventBus.getDefault().post(newsItemsEvent);
+                    }
+                }
+            }
+        });
     }
 
     private void saveNewsToCache(List<WallNews> receivedItems, NewsType type) {
         // Memory cache
+        newsItems.clear();
         newsItems.addAll(receivedItems);
 
         // Database cache
