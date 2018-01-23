@@ -256,7 +256,7 @@
                     android:lineSpacingMultiplier="0.7"
                     tools:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
                     android:textColor="@color/colorPrimaryVeryLight"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/content_text"
