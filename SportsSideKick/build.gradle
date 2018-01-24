@@ -20,9 +20,8 @@ allprojects {
         mavenCentral()
         jcenter()
         google()
-        maven {
-            url "http://repo.gamesparks.net/mvn"
-        }
+        maven { url "http://repo.gamesparks.net/mvn" }
+        maven { url "https://jitpack.io" }
     }
 }
 

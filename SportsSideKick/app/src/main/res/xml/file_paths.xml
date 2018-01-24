@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <external-path name="ssk_images" path="Android/data/tv.sportssidekick.sportssidekick/files/Pictures" />
+    <files-path name="RxPaparazzoImages" path="RxPaparazzo/"/>
 </paths>
