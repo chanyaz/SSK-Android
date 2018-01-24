@@ -270,7 +270,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * the post comments count will be increased by 1
      *
      */
-    public void postComment(final PostComment comment) {
+    public void postComment(final PostComment comment, final WallBase post) {
         comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -280,7 +280,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     PostComment comment = mapper.convertValue(commentObj, new TypeReference<PostComment>() {
                     });
                     Object postObj = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    WallBase post = WallBase.postFactory(postObj, mapper, true);
+                    WallBase.postFactory(postObj, mapper, true);
 
                     EventBus.getDefault().post(new PostCommentCompleteEvent(comment, post));
                     EventBus.getDefault().post(new ItemUpdateEvent(post));

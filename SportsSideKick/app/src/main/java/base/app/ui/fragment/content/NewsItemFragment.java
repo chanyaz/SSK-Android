@@ -517,7 +517,7 @@ public class NewsItemFragment extends BaseFragment {
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getPostId());
             comment.setTimestamp((double) (getCurrentTime() / 1000));
-            WallModel.getInstance().postComment(comment);
+            WallModel.getInstance().postComment(comment, item);
             inputFieldComment.getText().clear();
             postCommentProgressBar.setVisibility(View.VISIBLE);
         } else {

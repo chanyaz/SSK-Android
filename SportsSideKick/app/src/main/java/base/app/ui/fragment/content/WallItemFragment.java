@@ -388,14 +388,14 @@ public class WallItemFragment extends BaseFragment {
         comment.setWallId(mPost.getWallId());
         comment.setPostId(mPost.getPostId());
         comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
-        WallModel.getInstance().postComment(comment);
+        WallModel.getInstance().postComment(comment, mPost);
         post.getText().clear();
         postCommentProgressBar.setVisibility(View.VISIBLE);
     }
 
     private void updateComment() {
         commentForEdit.setComment(post.getText().toString());
-        WallModel.getInstance().postComment(commentForEdit);
+        WallModel.getInstance().postComment(commentForEdit, mPost);
         post.getText().clear();
         postCommentProgressBar.setVisibility(View.VISIBLE);
     }
