@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -55,8 +54,8 @@ import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentDeleteEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
-import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.events.post.ItemUpdateEvent;
+import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -440,20 +439,10 @@ public class NewsItemFragment extends BaseFragment {
     private void autoHideShowShareButton() {
         if (Model.getInstance().isRealUser()) {
             if (shareContainer != null) {
-                shareContainer.setOnTouchListener(new View.OnTouchListener() {
-
+                shareContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            if (shareButtons != null) {
-                                shareButtons.setVisibility(View.VISIBLE);
-                            }
-                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            if (shareButtons != null) {
-                                shareButtons.setVisibility(View.GONE);
-                            }
-                        }
-                        return false;
+                    public void onClick(View v) {
+                        shareButtons.setVisibility(View.VISIBLE);
                     }
                 });
             }
