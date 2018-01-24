@@ -197,6 +197,8 @@ public class NewsItemFragment extends BaseFragment {
         if (getSecondaryArgument() != null && getSecondaryArgument().contains("UNOFFICIAL$$$")) {
             id = "UNOFFICIAL$$$" + id;
         }
+        id = id.replace("UNOFFICIAL$$$UNOFFICIAL$$$", "UNOFFICIAL$$$");
+
         item = loadFromCacheBy(id);
         if (item == null) return view;
 
@@ -207,6 +209,7 @@ public class NewsItemFragment extends BaseFragment {
         showSharingPreviewImage();
         showSharingAvatar();
 
+        WallModel.getInstance().getCommentsForPost(item);
         showCommentsLikesCount();
         showComments(view);
 
@@ -352,7 +355,6 @@ public class NewsItemFragment extends BaseFragment {
 
     private void showCommentsLikesCount() {
         postContainer.setVisibility(View.VISIBLE);
-        WallModel.getInstance().getCommentsForPost(item);
         commentsListView.setNestedScrollingEnabled(false);
 
         if (commentsCountHeader != null) {
@@ -497,6 +499,8 @@ public class NewsItemFragment extends BaseFragment {
                     return Double.compare(rhs.getTimestamp(), lhs.getTimestamp());
                 }
             });
+            commentsAdapter.clear();
+            commentsAdapter.addAll(comments);
             commentsAdapter.notifyDataSetChanged();
         }
         if (swipeRefreshLayout != null) {

@@ -259,7 +259,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         };
         createRequest("wallGetPostComments")
                 .setEventAttribute(GSConstants.WALL_ID, post.getWallId())
-                .setEventAttribute(GSConstants.POST_ID, post.getPostId())
+                .setEventAttribute(GSConstants.POST_ID, post.getPostId().replace("UNOFFICIAL$$$", ""))
                 .setEventAttribute(GSConstants.OFFSET, offset)
                 .setEventAttribute(GSConstants.ENTRY_COUNT, pageSize)
                 .send(consumer);
