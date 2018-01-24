@@ -125,7 +125,6 @@ public class LoginFragment extends BaseFragment
         this.passwordResetReceiver = new PasswordResetReceiver(this);
         initFacebook();
 
-
         if (titleText != null) {
             titleText.setText(Html.fromHtml(getString(R.string.slogan)));
         }
@@ -142,10 +141,9 @@ public class LoginFragment extends BaseFragment
             }
         });
 
-        if (Utility.isTablet(getActivity()))
-        {
+        if (Utility.isTablet(getActivity())) {
 
-            if(Utility.isTablet(getContext())){
+            if (Utility.isTablet(getContext())) {
                 View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
                 emailEditText.setOnFocusChangeListener(focusChangeListener);
                 passwordEditText.setOnFocusChangeListener(focusChangeListener);
@@ -169,7 +167,6 @@ public class LoginFragment extends BaseFragment
                         if (imagePlayer != null) {
                             imagePlayer.setImageResource(R.drawable.background_kayboard_open);
                         }
-
 
                     } else {
                         titleText.setVisibility(View.VISIBLE);
@@ -210,7 +207,7 @@ public class LoginFragment extends BaseFragment
 
     public void initFacebook() {
         if (loginButton != null) {
-            loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends","user_birthday", "user_photos"));
+            loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends", "user_birthday", "user_photos"));
             callbackManager = CallbackManager.Factory.create();
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
@@ -238,12 +235,12 @@ public class LoginFragment extends BaseFragment
 
                 @Override
                 public void onCancel() {
-                    Log.d(TAG,"Facebook login canceled!");
+                    Log.d(TAG, "Facebook login canceled!");
                 }
 
                 @Override
                 public void onError(FacebookException error) {
-                    Log.d(TAG,"Facebook login error - error is:" + error.getLocalizedMessage());
+                    Log.d(TAG, "Facebook login error - error is:" + error.getLocalizedMessage());
                 }
             });
         }
@@ -269,7 +266,7 @@ public class LoginFragment extends BaseFragment
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.required_credentials), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!Connection.getInstance() .alertIfNotReachable
+        if (!Connection.getInstance().alertIfNotReachable
                 (getActivity(),
                         new View.OnClickListener() {
                             @Override
@@ -278,7 +275,7 @@ public class LoginFragment extends BaseFragment
                             }
                         }
                 )
-            ) {
+                ) {
             return;
         }
         Model.getInstance().login(email, password);
@@ -291,12 +288,15 @@ public class LoginFragment extends BaseFragment
     public void forgotPasswordOnClick() {
         String email = emailForgotPassword.getText().toString();
         Model.getInstance().resetPassword(email);
-        getActivity().onBackPressed();
     }
 
     @Optional
     @OnClick(R.id.forgot_button)
     public void forgotOnClick() {
+        showForgotUI();
+    }
+
+    protected void showForgotUI() {
         if (Utility.isTablet(getActivity())) {
             if (loginButtonContainer != null) {
                 loginButtonContainer.setVisibility(View.GONE);
@@ -310,13 +310,27 @@ public class LoginFragment extends BaseFragment
         }
         resetButtonContainer.setVisibility(View.VISIBLE);
         forgotPasswordContainer.setVisibility(View.VISIBLE);
+
+        emailForgotPassword.setText(emailEditText.getText());
+    }
+
+    protected void hideForgotUI() {
+        loginContainer.setVisibility(View.VISIBLE);
+        if (loginButtonContainer != null) {
+            loginButtonContainer.setVisibility(View.VISIBLE);
+        }
+
+        resetButtonContainer.setVisibility(View.GONE);
+        forgotPasswordContainer.setVisibility(View.GONE);
     }
 
     @Override
-    public void onLogout() {}
+    public void onLogout() {
+    }
 
     @Override
-    public void onLoginAnonymously() {}
+    public void onLoginAnonymously() {
+    }
 
     @Override
     public void onLogin(UserInfo user) {
@@ -324,11 +338,10 @@ public class LoginFragment extends BaseFragment
         loginText.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
         Utility.hideKeyboard(getActivity());
-        if(Utility.isTablet(getActivity())) {
+        if (Utility.isTablet(getActivity())) {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
-        }
-        else {
+        } else {
             getActivity().onBackPressed();
             //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class));
         }
@@ -357,24 +370,31 @@ public class LoginFragment extends BaseFragment
         AlertDialogManager.getInstance().showAlertDialog(
                 getContext().getResources().getString(R.string.password_reset),
                 getContext().getResources().getString(R.string.reset_check_email),
-                null, new View.OnClickListener() { // Confirm
+                new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
-                        getActivity().onBackPressed();
+                    }
+                }, new View.OnClickListener() { // Confirm
+                    @Override
+                    public void onClick(View v) {
+                        hideForgotUI();
                     }
                 });
     }
 
     @Override
     public void onPasswordResetRequestError(Error error) {
-        AlertDialogManager.getInstance().showAlertDialog(
+        final AlertDialogManager dialog = AlertDialogManager.getInstance();
+        dialog.showAlertDialog(
                 getContext().getResources().getString(R.string.error),
                 getContext().getResources().getString(R.string.email_enter_valid),
-                null, new View.OnClickListener() { // Confirm
+                new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
-                        getActivity().onBackPressed();
-                        forgotOnClick();
+                    }
+                }, new View.OnClickListener() { // Confirm
+                    @Override
+                    public void onClick(View v) {
                     }
                 });
     }
@@ -382,7 +402,7 @@ public class LoginFragment extends BaseFragment
     @Optional
     @OnClick(R.id.facebook_button)
     public void setLoginFacebook() {
-        if(loginButton!=null) {
+        if (loginButton != null) {
             loginButton.performClick();
         }
     }

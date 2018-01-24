@@ -71,7 +71,6 @@ public class Model {
         auto
     }
 
-
     private static Model instance;
 
     public static Model getInstance() {
@@ -80,7 +79,6 @@ public class Model {
         }
         return instance;
     }
-
 
     private UserInfo currentUserInfo;
 
@@ -186,7 +184,7 @@ public class Model {
                         userCache.put(userInfo.getUserId(), userInfo);
                         if (userInfo.getUserId().equals(currentUserInfo.getUserId())) {
                             currentUserInfo = userInfo;
-                            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated,currentUserInfo));
+                            EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUserInfo));
                         }
                         source.setResult(userInfo);
                         return;
@@ -302,7 +300,7 @@ public class Model {
                         Map responseData = response.getBaseData();
                         Object errorObject = responseData.get("error");
                         Error error = new Error(errorObject.toString());
-                        UserEvent event = new UserEvent(errorType,error);
+                        UserEvent event = new UserEvent(errorType, error);
                         EventBus.getDefault().post(event);
                     } else {
                         getAccountDetails(new GSEventConsumer<GSResponseBuilder.AccountDetailsResponse>() {
@@ -321,18 +319,18 @@ public class Model {
         });
     }
 
-    public void registerFromFacebook(String token, String email, HashMap<String, Object> userData){
+    public void registerFromFacebook(String token, String email, HashMap<String, Object> userData) {
         final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest();
         if (userData != null) {
-            userData.put("initial_email",email);
+            userData.put("initial_email", email);
             userData.put(CLUB_ID_TAG, CLUB_ID);
             Map<String, Object> map = request.getBaseData();
             map.put("scriptData", userData);
         }
-      request.setAccessToken(token)
-              .setDoNotLinkToCurrentPlayer(false)
-              .setSwitchIfPossible(true)
-              .send(handleFBAuth);
+        request.setAccessToken(token)
+                .setDoNotLinkToCurrentPlayer(false)
+                .setSwitchIfPossible(true)
+                .send(handleFBAuth);
     }
 
     private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> handleFBAuth = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
@@ -344,7 +342,7 @@ public class Model {
                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
                 } else {
                     boolean isNewPlayer = authenticationResponse.getNewPlayer();
-                    if(isNewPlayer){
+                    if (isNewPlayer) {
                         onRegisteredFB.onEvent(authenticationResponse);
                     } else {
                         onAuthenticatedFB.onEvent(authenticationResponse);
@@ -369,7 +367,6 @@ public class Model {
         }
     };
 
-
     private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> onRegisteredFB = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
         @Override
         public void onEvent(GSResponseBuilder.AuthenticationResponse authenticationResponse) {
@@ -383,11 +380,10 @@ public class Model {
 
                     GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
                     HashMap<String, Object> data = new HashMap<>();
-                    data.put("action","register");
+                    data.put("action", "register");
                     data.put(CLUB_ID_TAG, CLUB_ID);
 
                     String firstName = authenticationResponse.getScriptData().getString("firstName");
-
 
                     Map<String, Object> map = request.getBaseData();
                     map.put("scriptData", data);
@@ -428,7 +424,8 @@ public class Model {
 //                    }
                 }
             }
-    }};
+        }
+    };
 
     private GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> onRegisteredFBCompleted = new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
         @Override
@@ -438,12 +435,12 @@ public class Model {
                     // We don't need to error if the request was successful, as that means we logged the user in!
                     GSData scriptData = response.getScriptData();
                     boolean successful = (boolean) scriptData.getBaseData().get("success");
-                    if(!successful){
+                    if (!successful) {
                         UserEvent.Type errorType = UserEvent.Type.onRegisterError;
                         Map responseData = response.getBaseData();
                         Object errorObject = responseData.get("error");
                         Error error = new Error(errorObject.toString());
-                        UserEvent event = new UserEvent(errorType,error);
+                        UserEvent event = new UserEvent(errorType, error);
                         EventBus.getDefault().post(event);
                         return;
                     }
@@ -505,12 +502,10 @@ public class Model {
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (response != null) {
-                    if (response.hasErrors()) {
-                        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onPasswordResetRequestError));
-                    } else {
-                        EventBus.getDefault().post(new UserEvent(UserEvent.Type.onPasswordResetRequest));
-                    }
+                if (response.hasErrors()) {
+                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onPasswordResetRequestError));
+                } else {
+                    EventBus.getDefault().post(new UserEvent(UserEvent.Type.onPasswordResetRequest));
                 }
             }
         });
@@ -675,7 +670,6 @@ public class Model {
     /** --- --- --- --- --- --- --- -     USERS         --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
 
-
     /**
      * this func return the userInfo related to the given user ID, it first
      * tryes to retrieve the info from cache if not found it will be fetched from DB
@@ -736,7 +730,6 @@ public class Model {
         }
     }
 
-
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
     /** --- --- --- --- --- --- --- --            FILES                     --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
     /**
@@ -751,7 +744,7 @@ public class Model {
         }
     }
 
-    public void uploadChatVideoRecording(String filepath,File filesDir, final TaskCompletionSource<String> completion) {
+    public void uploadChatVideoRecording(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "video_" +
                         getUserIdForImageName() +
