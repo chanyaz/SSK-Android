@@ -177,8 +177,12 @@ public class NewsModel {
                         NewsPageEvent newsItemsEvent;
                         if (type.equals(NewsType.OFFICIAL)) {
                             pageNews++;
-                        } else {
+                        } else if (type.equals(NewsType.UNOFFICIAL)) {
                             pageRumors++;
+
+                            for (WallNews item : receivedItems) {
+                                item.setPostId("UNOFFICIAL$$$" + item.getPostId());
+                            }
                         }
                         saveNewsToCache(receivedItems, type);
 

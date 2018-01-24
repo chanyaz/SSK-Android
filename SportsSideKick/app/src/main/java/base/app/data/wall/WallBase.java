@@ -169,6 +169,9 @@ public abstract class WallBase implements Shareable, Serializable {
 
             WallBase item = mapper.convertValue(wallItem, typeReference);
             item.setType(type);
+            if (type == PostType.newsUnOfficial || type == PostType.rumourShare) {
+                item.setPostId("UNOFFICIAL$$$" + item.getPostId());
+            }
 
             // TODO @Filip - Fix me - preventing cache of non-wall items
                 if (putInCache) {

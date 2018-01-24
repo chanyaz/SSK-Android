@@ -194,6 +194,9 @@ public class NewsItemFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         String id = getPrimaryArgument();
+        if (getSecondaryArgument() != null && getSecondaryArgument().contains("UNOFFICIAL$$$")) {
+            id = "UNOFFICIAL$$$" + id;
+        }
         item = loadFromCacheBy(id);
 
         showHeaderImage();
@@ -380,7 +383,6 @@ public class NewsItemFragment extends BaseFragment {
     private WallNews loadFromCacheBy(String id) {
         NewsModel.NewsType type = NewsModel.NewsType.OFFICIAL;
         if (id.contains("UNOFFICIAL$$$")) {
-            id = id.replace("UNOFFICIAL$$$", "");
             type = NewsModel.NewsType.UNOFFICIAL;
         }
         return NewsModel.getInstance().loadItemFromCache(id, type);
