@@ -459,10 +459,6 @@ public class WallModel extends GSMessageHandlerAbstract {
                         event.setComment(comment);
                         EventBus.getDefault().post(event);
                         break;
-                    case GSConstants.OPERATION_NEW_POST:
-                    case GSConstants.OPERATION_UPDATE_POST:
-                        EventBus.getDefault().post(new ItemUpdateEvent(post));
-                        break;
                     case GSConstants.OPERATION_DELETE_COMMENT:
                         Object deletedCommentObject = data.get(GSConstants.COMMENT);
                         PostComment deletedComment = mapper.convertValue(deletedCommentObject, new TypeReference<PostComment>() {
