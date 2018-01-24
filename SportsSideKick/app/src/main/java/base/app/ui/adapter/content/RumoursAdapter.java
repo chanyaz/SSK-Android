@@ -40,7 +40,7 @@ public class RumoursAdapter extends NewsAdapter {
             @Override
             public void onClick(View view) {
                 FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                fe.setId("UNOFFICIAL$$$" + item.getPostId());
+                fe.setId(item.getPostId());
                 EventBus.getDefault().post(fe);
             }
         };

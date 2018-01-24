@@ -198,6 +198,7 @@ public class NewsItemFragment extends BaseFragment {
             id = "UNOFFICIAL$$$" + id;
         }
         item = loadFromCacheBy(id);
+        if (item == null) return view;
 
         showHeaderImage();
         showTextContent(item);
