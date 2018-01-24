@@ -50,7 +50,7 @@ import base.app.ui.adapter.content.WallAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.ui.fragment.popup.CreatePostFragment;
+import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
@@ -188,7 +188,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @OnClick(R.id.fab)
     public void fabOnClick() {
         if (Model.getInstance().isRealUser()){
-            EventBus.getDefault().post(new FragmentEvent(CreatePostFragment.class));
+            EventBus.getDefault().post(new FragmentEvent(PostCreateFragment.class));
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }

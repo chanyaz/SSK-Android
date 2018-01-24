@@ -38,6 +38,9 @@ import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
 import base.app.util.events.post.PostDeletedEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
@@ -106,28 +109,37 @@ public class WallModel extends GSMessageHandlerAbstract {
     /**
      * Posting a new blog on this user wall
      */
-    public void createPost(final WallBase post) {
-        post.setWallId(getCurrentUser().getUserId());
-        post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
-
-        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+    public Observable<WallPost> createPost(final WallBase post) {
+        return Observable.create(new ObservableOnSubscribe<WallPost>() {
             @Override
-            public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
-                    WallBase.postFactory(object, mapper, true);
-                    EventBus.getDefault().post(new ItemUpdateEvent(post));
-                }
+            public void subscribe(final ObservableEmitter<WallPost> emitter) throws Exception {
+                post.setWallId(getCurrentUser().getUserId());
+                post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
+
+                GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                        if (!response.hasErrors()) {
+                            Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
+                            WallBase.postFactory(object, mapper, true);
+                            EventBus.getDefault().post(new ItemUpdateEvent(post));
+                            emitter.onNext((WallPost) post);
+                            emitter.onComplete();
+                        } else {
+                            emitter.onError(new Throwable(response.toString()));
+                        }
+                    }
+                };
+                Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
+                });
+                map.put("type", post.getTypeAsInt());
+                GSData data = new GSData(map);
+                createRequest("wallPostToWall")
+                        .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                        .setEventAttribute(GSConstants.POST, data)
+                        .send(consumer);
             }
-        };
-        Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
         });
-        map.put("type", post.getTypeAsInt());
-        GSData data = new GSData(map);
-        createRequest("wallPostToWall")
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
-                .setEventAttribute(GSConstants.POST, data)
-                .send(consumer);
     }
 
     public Task<Void> deletePost(final WallBase post) {

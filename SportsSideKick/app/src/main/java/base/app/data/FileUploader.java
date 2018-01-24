@@ -108,6 +108,38 @@ public class FileUploader {
         }
     }
 
+    void upload(final File image, final String filename, final TaskCompletionSource<String> completion) {
+        try {
+            TransferObserver observer = transferUtility.upload(
+                    bucket,     /* The bucket to upload to */
+                    filename,    /* The key for the uploaded object */
+                    image /* The file where the data to upload exists */
+            );
+
+            observer.setTransferListener(new TransferListener() {
+                @Override
+                public void onStateChanged(int id, TransferState state) {
+                    if (TransferState.COMPLETED.equals(state)) {
+                        if(completion!=null){
+                            completion.setResult(baseUrl + filename);
+                        }
+                    }
+                }
+
+                @Override
+                public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {}
+
+                @Override
+                public void onError(int id, Exception ex) {
+                    // Notify about error
+                    completion.setException(new Exception("Something went wrong, file not uploaded!"));
+                }
+            });
+        } catch (Exception e) {
+            completion.setException(new Exception("Something went wrong, file not uploaded!"));
+        }
+    }
+
     void uploadThumbnail(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -149,6 +181,10 @@ public class FileUploader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    void uploadImage(File image, String filename, final TaskCompletionSource<String> completion){
+        upload(image, filename, completion);
     }
 
     public void uploadCircularProfileImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {

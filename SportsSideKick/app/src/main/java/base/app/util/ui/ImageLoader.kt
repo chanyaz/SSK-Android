@@ -4,8 +4,8 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-fun ImageView.show(uri: Any?) {
-    ImageLoader.displayImage(uri, this)
+fun ImageView.show(uri: Any?, error: Int? = null) {
+    ImageLoader.displayImage(uri, this, error)
 }
 
 object ImageLoader {

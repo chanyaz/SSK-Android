@@ -50,7 +50,7 @@ import base.app.ui.fragment.other.StatisticsFragment;
 import base.app.ui.fragment.popup.AddFriendFragment;
 import base.app.ui.fragment.popup.AlertDialogFragment;
 import base.app.ui.fragment.popup.CreateChatFragment;
-import base.app.ui.fragment.popup.CreatePostFragment;
+import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.EditProfileFragment;
 import base.app.ui.fragment.popup.FollowersFragment;
@@ -265,7 +265,7 @@ public class MainActivity extends BaseActivity
         popupLeftFragments.add(JoinChatFragment.class);
         popupLeftFragments.add(WallItemFragment.class);
         popupLeftFragments.add(NewsItemFragment.class);
-        popupLeftFragments.add(CreatePostFragment.class);
+        popupLeftFragments.add(PostCreateFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
 
 
