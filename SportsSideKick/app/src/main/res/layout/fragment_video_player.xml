@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="?playerBackground">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/youtube_layout_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_height="200dp"
         android:layout_toStartOf="@+id/controls_container">
 
         <FrameLayout
@@ -28,43 +27,48 @@
             android:layout_alignEnd="@+id/youtube_layout"
             android:layout_alignStart="@+id/youtube_layout"
             android:layout_below="@+id/youtube_layout"
-            android:thumb="@drawable/radiothumb"
             android:layout_marginEnd="@dimen/margin_negative_18"
             android:layout_marginStart="@dimen/margin_negative_16"
-            android:thumbOffset="@dimen/thumb_offset_0"
             android:progress="60"
-            android:progressDrawable="?seekBarShape" />
+            android:progressDrawable="?seekBarShape"
+            android:thumb="@drawable/radiothumb"
+            android:thumbOffset="@dimen/thumb_offset_0" />
 
     </android.support.percent.PercentRelativeLayout>
 
     <RelativeLayout
         android:id="@+id/controls_container"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/time_info"
-        android:layout_alignParentEnd="true">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/youtube_layout_container"
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/play_button"
             android:layout_width="@dimen/width_40"
             android:layout_height="@dimen/height_40"
-            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/padding_10"
             android:src="?playPauseSelector" />
 
-        <View
-            android:id="@+id/center"
-            android:layout_width="@dimen/space_0"
-            android:layout_height="@dimen/space_0"
-            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/time_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/play_button"
+            android:lines="1"
+            android:padding="@dimen/padding_8"
+            android:textColor="?colorGray"
+            android:textSize="@dimen/font_size_12"
+            tools:text="00:00 / 00:00" />
 
         <ImageView
             android:id="@+id/mute_button"
             android:layout_width="@dimen/width_40"
             android:layout_height="@dimen/height_40"
-            android:layout_below="@+id/play_button"
-            android:layout_toStartOf="@+id/center"
+            android:layout_toLeftOf="@id/fullscreen_button"
             android:button="@null"
             android:gravity="center"
             android:padding="@dimen/padding_10"
@@ -75,25 +79,11 @@
             android:id="@+id/fullscreen_button"
             android:layout_width="@dimen/width_40"
             android:layout_height="@dimen/height_40"
-            android:layout_below="@+id/play_button"
-            android:layout_toEndOf="@+id/center"
+            android:layout_alignParentRight="true"
             android:padding="@dimen/padding_10"
-            android:src="@drawable/full_screen_icon" />
-    </RelativeLayout>
+            android:src="@drawable/full_screen_icon"
+            android:tint="@color/white" />
 
-    <TextView
-        android:id="@+id/time_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/youtube_layout_container"
-        android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/controls_container"
-        android:background="?playerBackground"
-        android:gravity="center"
-        android:lines="1"
-        android:padding="@dimen/padding_8"
-        tools:text="00:00 / 00:00"
-        android:textColor="?colorGray"
-        android:textSize="@dimen/font_size_12" />
+    </RelativeLayout>
 
 </RelativeLayout>
