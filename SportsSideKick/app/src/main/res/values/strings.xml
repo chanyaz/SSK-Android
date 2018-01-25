@@ -21,11 +21,11 @@
         <item>@string/news</item>
         <item>Social</item>
         <item>@string/stats</item>
-        <item>@string/rumours</item>
-        <item>@string/radio</item>
+        <!--<item>@string/rumours</item>-->
+        <!--<item>@string/radio</item>-->
         <item>@string/shop</item>
         <item>@string/tv</item>
-        <item>@string/video_chat</item>
+        <!--<item>@string/video_chat</item>-->
     </string-array>
 
     <!-- Login & Register -->

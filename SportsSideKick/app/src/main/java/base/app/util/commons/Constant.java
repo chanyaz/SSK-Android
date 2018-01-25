@@ -5,15 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 import base.app.ui.fragment.content.NewsFragment;
-import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.content.SocialFragment;
 import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.content.WallFragment;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
-import base.app.ui.fragment.stream.ClubRadioFragment;
 import base.app.ui.fragment.stream.ClubTVFragment;
-import base.app.ui.fragment.stream.VideoChatFragment;
 
 /**
  * Created by Djordje Krutil on 6.12.2016..
@@ -53,11 +50,11 @@ public class Constant {
             add(NewsFragment.class);
             add(SocialFragment.class);
             add(StatisticsFragment.class);
-            add(RumoursFragment.class);
-            add(ClubRadioFragment.class);
+//            add(RumoursFragment.class);
+//            add(ClubRadioFragment.class);
             add(StoreFragment.class);
             add(ClubTVFragment.class);
-            add(VideoChatFragment.class);
+//            add(VideoChatFragment.class);
     }});
 
 
