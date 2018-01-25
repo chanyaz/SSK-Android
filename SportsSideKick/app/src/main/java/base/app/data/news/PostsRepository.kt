@@ -1,7 +1,9 @@
 package base.app.data.news
 
 import base.app.data.Model
-import base.app.data.wall.*
+import base.app.data.wall.WallBase
+import base.app.data.wall.WallModel
+import base.app.data.wall.WallPost
 import base.app.util.commons.Utility
 import io.reactivex.Observable
 import io.reactivex.Observable.just
@@ -24,7 +26,7 @@ class PostsRepository {
     }
 
     fun savePost(post: WallPost): Observable<WallPost> {
-        return WallModel.getInstance().createPost(post)
+        return WallModel.getInstance().createPostAndObserve(post)
     }
 
     fun uploadImage(image: File?): Observable<String> {

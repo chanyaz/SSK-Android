@@ -109,7 +109,31 @@ public class WallModel extends GSMessageHandlerAbstract {
     /**
      * Posting a new blog on this user wall
      */
-    public Observable<WallPost> createPost(final WallBase post) {
+    public void createPost(final WallBase post) {
+        post.setWallId(getCurrentUser().getUserId());
+        post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
+
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
+                    WallBase.postFactory(object, mapper, true);
+                    EventBus.getDefault().post(new ItemUpdateEvent(post));
+                }
+            }
+        };
+        Map<String, Object> map = mapper.convertValue(post, new TypeReference<Map<String, Object>>() {
+        });
+        map.put("type", post.getTypeAsInt());
+        GSData data = new GSData(map);
+        createRequest("wallPostToWall")
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .setEventAttribute(GSConstants.POST, data)
+                .send(consumer);
+    }
+
+    public Observable<WallPost> createPostAndObserve(final WallBase post) {
         return Observable.create(new ObservableOnSubscribe<WallPost>() {
             @Override
             public void subscribe(final ObservableEmitter<WallPost> emitter) throws Exception {
@@ -280,7 +304,6 @@ public class WallModel extends GSMessageHandlerAbstract {
     /**
      * post the comment on the given post, once the comment is successfully stored in DB
      * the post comments count will be increased by 1
-     *
      */
     public void postComment(final PostComment comment, final WallBase post) {
         comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));

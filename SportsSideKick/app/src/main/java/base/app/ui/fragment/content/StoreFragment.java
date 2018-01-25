@@ -1,6 +1,7 @@
 package base.app.ui.fragment.content;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -97,7 +98,7 @@ public class StoreFragment extends BaseFragment {
             view.setAlpha(1.0f);
             view.setEnabled(true);
         } else {
-            view.setAlpha(0.35f);
+            view.setAlpha(0.25f);
             view.setEnabled(false);
         }
     }
@@ -159,7 +160,7 @@ public class StoreFragment extends BaseFragment {
         }
 
         if (doc != null) {
-            imageDiv = doc.getElementsByClass("guideSize");
+            imageDiv = doc.getElementsByClass("boxImg");
             Element imageElement;
             String absoluteUrl = "";
             if (imageDiv != null) {
@@ -190,6 +191,7 @@ public class StoreFragment extends BaseFragment {
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     protected void setupFragment() {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSupportZoom(true);
