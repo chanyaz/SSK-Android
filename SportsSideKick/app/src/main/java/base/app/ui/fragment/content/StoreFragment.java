@@ -1,6 +1,5 @@
 package base.app.ui.fragment.content;
 
-
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -113,7 +112,7 @@ public class StoreFragment extends BaseFragment {
         }
 
         @Override
-        public void onPageFinished(WebView webView, String url) {
+        public void onPageFinished(final WebView webView, String url) {
             webContainer.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
 
@@ -154,13 +153,13 @@ public class StoreFragment extends BaseFragment {
         Elements imageDiv;
         Elements priceDiv;
         try {
-            doc = Jsoup.connect(url).get();
+            doc = Jsoup.connect(url).maxBodySize(0).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         if (doc != null) {
-            imageDiv = doc.getElementsByClass("boxImg");
+            imageDiv = doc.getElementsByClass("guideSize");
             Element imageElement;
             String absoluteUrl = "";
             if (imageDiv != null) {
@@ -179,6 +178,9 @@ public class StoreFragment extends BaseFragment {
                 if (priceElement != null) {
                     price = priceElement.text();
                 }
+            }
+            if (absoluteUrl.isEmpty()) {
+                absoluteUrl = "https://cdnlojaverde.scdn3.secure.raxcdn.com/sites/default/files/uma_loja_para_si/201611/exclusivo.png";
             }
             item = new WallStoreItem();
             item.setType(WallBase.PostType.wallStoreItem);
