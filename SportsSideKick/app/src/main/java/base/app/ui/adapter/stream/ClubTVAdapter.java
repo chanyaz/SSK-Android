@@ -22,7 +22,6 @@ import java.util.List;
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.stream.ClubTvPlaylistFragment;
-import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,10 +75,6 @@ public class ClubTVAdapter extends RecyclerView.Adapter<ClubTVAdapter.ViewHolder
         final ViewHolder viewHolder;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tv_category_item, parent, false);
         viewHolder = new ViewHolder(view);
-        if (Utility.isPhone(context)) {
-            int height = Utility.getDisplayHeight(context);
-            view.getLayoutParams().height = (int) (height * ITEM_HEIGHT);
-        }
         //setup click listener
         view.setOnClickListener(new View.OnClickListener() {
             @Override

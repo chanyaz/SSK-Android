@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    tools:layout_width="190dp"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/padding_4"
-    android:paddingTop="@dimen/padding_4"
-    android:layout_height="wrap_content">
+    android:paddingTop="@dimen/padding_4">
+
         <ImageView
-            android:id="@+id/image"
+            app:layout_aspectRatio="180%"
             app:layout_widthPercent="100%"
-            android:scaleType="centerCrop"/>
+            android:id="@+id/image"
+            android:scaleType="centerCrop" />
+
         <TextView
-            android:visibility="gone"
             android:id="@+id/caption"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?tvCategoryBackground"
+            android:layout_height="match_parent"
+            tools:layout_height="wrap_content"
             android:layout_below="@+id/image"
+            android:background="?tvCategoryBackground"
             android:bufferType="spannable"
-            android:lines="3"
+            android:maxLines="3"
             android:padding="@dimen/padding_8"
+            android:textColor="?channelItemCaption"
             android:textSize="@dimen/font_size_11"
-            android:textColor="?channelItemCaption"/>
+            tools:text="Some caption" />
+
 </android.support.percent.PercentRelativeLayout>

@@ -9,14 +9,16 @@
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/video_player_dummy_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/youtube_layout"
             android:layout_marginBottom="@dimen/margin_16"
-            android:visibility="invisible"
+            android:visibility="gone"
+            tools:visibility="visible"
             app:layout_aspectRatio="178%"
             app:layout_widthPercent="100%" />
+
     </android.support.percent.PercentRelativeLayout>
 
     <!-- Items -->
@@ -24,8 +26,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/video_player_dummy_container"
-        android:layout_below="@+id/caption"
+        android:layout_below="@id/video_player_dummy_container"
         />
 
 </RelativeLayout>
