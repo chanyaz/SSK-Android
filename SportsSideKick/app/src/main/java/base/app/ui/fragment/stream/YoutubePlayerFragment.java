@@ -159,7 +159,11 @@ public class YoutubePlayerFragment extends BaseFragment implements
     public void onInitializationFailure(Provider provider, YouTubeInitializationResult error) {
         // YouTube error
         String errorMessage = error.toString();
-        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+        if (errorMessage.equals("SERVICE_MISSING")) {
+            Toast.makeText(getActivity(), "Please install Youtube app to watch videos", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
+        }
         Log.d(TAG, "ErrorMessage:" + errorMessage);
     }
 

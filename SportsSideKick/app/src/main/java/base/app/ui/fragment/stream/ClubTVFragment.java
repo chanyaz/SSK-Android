@@ -86,7 +86,6 @@ public class ClubTVFragment extends BaseFragment {
         if (event.getEventType().equals(ClubTVEvent.Type.CHANNEL_PLAYLISTS_DOWNLOADED)) {
             adapter.getValues().addAll(ClubModel.getInstance().getPlaylists());
             adapter.notifyDataSetChanged();
-
         }
     }
 
