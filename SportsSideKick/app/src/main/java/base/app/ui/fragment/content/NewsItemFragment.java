@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -40,6 +41,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.Model;
+import base.app.data.Translator;
 import base.app.data.news.NewsModel;
 import base.app.data.sharing.SharingManager;
 import base.app.data.user.UserInfo;
@@ -64,6 +66,8 @@ import butterknife.Optional;
 
 import static base.app.data.wall.WallBase.PostType.newsShare;
 import static base.app.data.wall.WallBase.PostType.rumourShare;
+import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.getCurrentTime;
 import static base.app.util.commons.Utility.hideKeyboard;
 import static base.app.util.commons.Utility.showKeyboard;
@@ -237,7 +241,29 @@ public class NewsItemFragment extends BaseFragment {
         } else {
             setSharedMessageBarVisible(false);
         }
+        autoTranslateIfNeeded();
+
         return view;
+    }
+
+    private void autoTranslateIfNeeded() {
+        if (isAutoTranslateEnabled() && item.isNotTranslated()) {
+            TaskCompletionSource<WallNews> task = new TaskCompletionSource<>();
+            task.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+                @Override
+                public void onComplete(@NonNull Task<WallNews> task) {
+                    if (task.isSuccessful()) {
+                        WallNews translatedItem = task.getResult();
+                        updateWithTranslatedPost(translatedItem);
+                    }
+                }
+            });
+            Translator.getInstance().translateNews(
+                    item.getPostId(),
+                    Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                    task
+            );
+        }
     }
 
     private void showSharedMessageAvatar() {

@@ -11,7 +11,6 @@ import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -26,7 +25,6 @@ import base.app.data.wall.WallNews;
 import base.app.util.commons.Utility;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
@@ -112,8 +110,6 @@ public class NewsModel {
 
     public void loadPage(final NewsType type) {
         final int page = 0;
-
-        language = Prefs.getString(CHOSEN_LANGUAGE, "en");
 
         if (type.equals(NewsType.OFFICIAL)) {
             isLoadingNews = true;
