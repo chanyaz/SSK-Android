@@ -413,6 +413,9 @@ public class NewsItemFragment extends BaseFragment {
         if (id.contains("UNOFFICIAL$$$")) {
             type = NewsModel.NewsType.UNOFFICIAL;
         }
+        if (NewsModel.getInstance().loadItemFromCache(id, type) == null) {
+            return NewsModel.getInstance().loadItemFromCache(id, NewsModel.NewsType.SOCIAL);
+        }
         return NewsModel.getInstance().loadItemFromCache(id, type);
     }
 
