@@ -1,6 +1,5 @@
 package base.app.ui.fragment.other;
 
-
 import android.Manifest;
 import android.animation.LayoutTransition;
 import android.app.Activity;
@@ -18,7 +17,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,11 +56,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.TimerTask;
 
-import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.AlertDialogManager;
 import base.app.data.GSConstants;
@@ -102,6 +98,8 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
+import pl.aprilapps.easyphotopicker.DefaultCallback;
+import pl.aprilapps.easyphotopicker.EasyImage;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
@@ -164,7 +162,6 @@ public class ChatFragment extends BaseFragment {
     LinearLayout chatMenuDotsContainer;
     @BindView(R.id.chat_menu_dots)
     ImageView chatMenuDotsImageView;
-
 
     @BindView(R.id.chat_menu_alerts)
     TextView chatMenuAlertsButton;
@@ -253,13 +250,13 @@ public class ChatFragment extends BaseFragment {
                     nextPageTask.addOnCompleteListener(new OnCompleteListener<List<ImsMessage>>() {
                         @Override
                         public void onComplete(@NonNull Task<List<ImsMessage>> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 List<ImsMessage> messages = task.getResult();
-                                if(messages!=null){
-                                    if(messages.size()>0){
+                                if (messages != null) {
+                                    if (messages.size() > 0) {
                                         refreshingChat.addReceivedMessage(messages);
-                                        if(currentlyActiveChat!=null){
-                                            if(currentlyActiveChat.equals(refreshingChat)){
+                                        if (currentlyActiveChat != null) {
+                                            if (currentlyActiveChat.equals(refreshingChat)) {
                                                 messageAdapter.notifyDataSetChanged();
                                                 messageListView.smoothScrollToPosition(0);
                                             }
@@ -339,8 +336,7 @@ public class ChatFragment extends BaseFragment {
         });
         updateAllViews();
 
-        if (Utility.isPhone(getActivity()))
-        {
+        if (Utility.isPhone(getActivity())) {
             onLoginStateChange();
         }
 
@@ -355,7 +351,6 @@ public class ChatFragment extends BaseFragment {
 
         return view;
     }
-
 
     private void onLoginStateChange() {
         if (Model.getInstance().isRealUser()) {
@@ -386,7 +381,7 @@ public class ChatFragment extends BaseFragment {
         updateAllViews();
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         if (inactiveContainer != null) {
             if (Model.getInstance().isRealUser()) {
@@ -463,7 +458,7 @@ public class ChatFragment extends BaseFragment {
         if (currentlyActiveChat != null) {
             UserInfo user = Model.getInstance().getUserInfo();
             if (user != null) {
-                if(messageForEdit !=null){
+                if (messageForEdit != null) {
                     chatMenuDeleteButton.setVisibility(View.VISIBLE);
                     chatMenuSearchButton.setVisibility(View.GONE);
                     chatMenuCreateButton.setVisibility(View.GONE);
@@ -472,7 +467,7 @@ public class ChatFragment extends BaseFragment {
                 } else {
                     chatMenuDeleteButton.setVisibility(View.GONE);
                     chatMenuAlertsButton.setVisibility(View.VISIBLE);
-                    if(currentlyActiveChat.getIsMuted()){
+                    if (currentlyActiveChat.getIsMuted()) {
                         chatMenuAlertsButton.setText(R.string.alerts_off);
                     } else {
                         chatMenuAlertsButton.setText(R.string.alerts_on);
@@ -499,7 +494,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.menu_button)
     public void chatButtonsMenuOnClick() {
-        if(!Model.getInstance().isRealUser()){
+        if (!Model.getInstance().isRealUser()) {
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
@@ -513,7 +508,7 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_dots)
     public void chatMenuDotsContainerOnClick() {
-        if(!Model.getInstance().isRealUser()){
+        if (!Model.getInstance().isRealUser()) {
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
@@ -525,7 +520,7 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    private void animateChatMenu(){
+    private void animateChatMenu() {
         if (chatMenuDotsContainer.getVisibility() == View.GONE) {
             animate(chatMenuDotsContainer, View.VISIBLE, R.anim.slide_in_left);
             chatMenuDotsContainer.setVisibility(View.VISIBLE);
@@ -545,7 +540,7 @@ public class ChatFragment extends BaseFragment {
     ImsMessage messageForEdit;
 
     @Subscribe
-    public void setMessageForEdit(MessageSelectedEvent event){
+    public void setMessageForEdit(MessageSelectedEvent event) {
         this.messageForEdit = event.getSelectedMessage();
         animateChatMenu();
 //       HANDLE THIS BUTTONS
@@ -574,13 +569,14 @@ public class ChatFragment extends BaseFragment {
             fullScreenContainer.setVisibility(View.GONE);
         }
     }
+
     @Optional
     @OnClick(R.id.download_image_button)
     public void imageDownloadButtonOnClick() {
         ChatFragmentPermissionsDispatcher.invokeDownloadButtonWithPermissionCheck(this);
     }
 
-    @NeedsPermission( {Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeDownloadButton() {
         DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(urlInFullscreen);
@@ -589,7 +585,7 @@ public class ChatFragment extends BaseFragment {
         downloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         downloadRequest.setVisibleInDownloadsUi(true);
         downloadRequest.setTitle("SSK - Downloading a chat image");
-        downloadRequest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,fileName);
+        downloadRequest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
         if (downloadManager != null) {
             downloadManager.enqueue(downloadRequest);
         }
@@ -620,13 +616,13 @@ public class ChatFragment extends BaseFragment {
     }
 
     public void sendButtonOnClick() {
-        if(!Model.getInstance().isRealUser()){
+        if (!Model.getInstance().isRealUser()) {
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);
             }
             return;
         }
-        if(Model.getInstance().isRealUser() && currentlyActiveChat != null) {
+        if (Model.getInstance().isRealUser() && currentlyActiveChat != null) {
             String textMessage = inputEditText.getText().toString().trim();
             sendTextMessage(textMessage);
         } else {
@@ -638,10 +634,10 @@ public class ChatFragment extends BaseFragment {
         Utility.hideKeyboard(getActivity());
     }
 
-    private void sendTextMessage(String text){
-        if(messageForEdit!=null){
+    private void sendTextMessage(String text) {
+        if (messageForEdit != null) {
             messageForEdit.setText(text);
-            currentlyActiveChat.updateMessage(messageForEdit,null);
+            currentlyActiveChat.updateMessage(messageForEdit, null);
             messageForEdit = null;
         } else {
             ImsMessage message = ImsMessage.getDefaultMessage();
@@ -652,10 +648,9 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-
     @OnClick(R.id.chat_menu_create)
     public void chatMenuCreateOnClick() {
-        if(Model.getInstance().isRealUser()){
+        if (Model.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
         } else {
             if (inactiveContainer != null) {
@@ -666,9 +661,9 @@ public class ChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_menu_delete)
     public void chatMenuDeleteOnClick() {
-        if(messageForEdit !=null){
-            if(currentlyActiveChat!=null){
-                currentlyActiveChat.deleteMessage(messageForEdit,null);
+        if (messageForEdit != null) {
+            if (currentlyActiveChat != null) {
+                currentlyActiveChat.deleteMessage(messageForEdit, null);
                 animateChatMenu();
             }
         }
@@ -677,20 +672,19 @@ public class ChatFragment extends BaseFragment {
     @OnClick(R.id.chat_menu_alerts)
     public void chatMenuAlertsOnClick() {
         currentlyActiveChat.setMuteChat(!currentlyActiveChat.getIsMuted());
-        if(currentlyActiveChat.getIsMuted()){
+        if (currentlyActiveChat.getIsMuted()) {
             chatMenuAlertsButton.setText(R.string.alerts_off);
         } else {
             chatMenuAlertsButton.setText(R.string.alerts_on);
         }
     }
 
-
     @OnClick(R.id.chat_menu_edit)
     public void chatMenuEditOnClick() {
         UserInfo user = Model.getInstance().getUserInfo();
         if (currentlyActiveChat != null && user != null) {
-            if(messageForEdit !=null){
-                Toast.makeText(getContext(),"Edit mode for chat message activated",Toast.LENGTH_SHORT).show();
+            if (messageForEdit != null) {
+                Toast.makeText(getContext(), "Edit mode for chat message activated", Toast.LENGTH_SHORT).show();
                 animateChatMenu();
                 inputEditText.setText(messageForEdit.getText());
             } else {
@@ -741,7 +735,7 @@ public class ChatFragment extends BaseFragment {
         }
     }
 
-    private void sendAudioMessage(final String path){
+    private void sendAudioMessage(final String path) {
         final ImsMessage messageAudio = ImsMessage.getDefaultMessage();
         messageAudio.setType(GSConstants.UPLOAD_TYPE_AUDIO);
         messageAudio.setUploadStatus(GSConstants.UPLOADING);
@@ -755,16 +749,16 @@ public class ChatFragment extends BaseFragment {
                 source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             messageAudio.setLocalPath(null);
                             messageAudio.setImageUrl(task.getResult());
                             messageAudio.setUploadStatus(GSConstants.UPLOADED);
-                            currentlyActiveChat.updateMessage(messageAudio,null);
+                            currentlyActiveChat.updateMessage(messageAudio, null);
                             // TODO @Filip Hide waiting dialog ?
                         } else {
                             messageAudio.setImageUrl("");
                             messageAudio.setUploadStatus(GSConstants.FAILED);
-                            currentlyActiveChat.updateMessage(messageAudio,null);
+                            currentlyActiveChat.updateMessage(messageAudio, null);
                             // TODO @Filip Hide waiting dialog ? - show error?
                         }
                     }
@@ -774,7 +768,7 @@ public class ChatFragment extends BaseFragment {
         });
     }
 
-    private void sendImageMessage(final String path){
+    private void sendImageMessage(final String path) {
         final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
         preppingImsObject.setType(GSConstants.UPLOAD_TYPE_IMAGE);
         preppingImsObject.setUploadStatus(GSConstants.UPLOADING);
@@ -785,32 +779,32 @@ public class ChatFragment extends BaseFragment {
         currentlyActiveChat.sendMessage(preppingImsObject).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
             @Override
             public void onComplete(@NonNull Task<ChatInfo> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     final TaskCompletionSource<String> source = new TaskCompletionSource<>();
                     source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                         @Override
                         public void onComplete(@NonNull Task<String> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 preppingImsObject.setImageUrl(task.getResult());
                                 preppingImsObject.setUploadStatus(GSConstants.UPLOADED);
                                 preppingImsObject.setLocalPath(null);
-                                currentlyActiveChat.updateMessage(preppingImsObject,null);
+                                currentlyActiveChat.updateMessage(preppingImsObject, null);
                                 // TODO @Filip Update UI with image
                             } else {
                                 preppingImsObject.setImageUrl("");
                                 preppingImsObject.setUploadStatus(GSConstants.FAILED);
-                                currentlyActiveChat.updateMessage(preppingImsObject,null);
+                                currentlyActiveChat.updateMessage(preppingImsObject, null);
                                 // TODO @Filip Hide waiting dialog ? - show error?
                             }
                         }
                     });
-                    Model.getInstance().uploadImageForChatMessage(path, getActivity().getFilesDir(),source);
+                    Model.getInstance().uploadImageForChatMessage(path, getActivity().getFilesDir(), source);
                 }
             }
         });
     }
 
-    private void sendVideoMessage(final String path){
+    private void sendVideoMessage(final String path) {
 
         final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
         preppingImsObject.setType(GSConstants.UPLOAD_TYPE_VIDEO);
@@ -819,16 +813,15 @@ public class ChatFragment extends BaseFragment {
         preppingImsObject.setImageUrl(null);
         preppingImsObject.setLocalPath(path);
 
-
         currentlyActiveChat.sendMessage(preppingImsObject).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
             @Override
             public void onComplete(@NonNull Task<ChatInfo> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     final TaskCompletionSource<String> source = new TaskCompletionSource<>();
                     source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                         @Override
                         public void onComplete(@NonNull Task<String> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 preppingImsObject.setImageUrl(task.getResult());
                                 final TaskCompletionSource<String> source = new TaskCompletionSource<>();
                                 source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
@@ -838,24 +831,24 @@ public class ChatFragment extends BaseFragment {
                                             preppingImsObject.setVidUrl(task.getResult());
                                             preppingImsObject.setUploadStatus(GSConstants.UPLOADED);
                                             preppingImsObject.setLocalPath(null);
-                                            currentlyActiveChat.updateMessage(preppingImsObject,null);
+                                            currentlyActiveChat.updateMessage(preppingImsObject, null);
                                         } else {
                                             preppingImsObject.setVidUrl(null);
                                             preppingImsObject.setUploadStatus(GSConstants.FAILED);
-                                            currentlyActiveChat.updateMessage(preppingImsObject,null);
+                                            currentlyActiveChat.updateMessage(preppingImsObject, null);
                                         }
                                     }
                                 });
-                                Model.getInstance().uploadChatVideoRecording(currentPath,getActivity().getFilesDir(), source);
+                                Model.getInstance().uploadChatVideoRecording(currentPath, getActivity().getFilesDir(), source);
                             } else {
                                 preppingImsObject.setImageUrl(null);
                                 preppingImsObject.setVidUrl(null);
                                 preppingImsObject.setUploadStatus(GSConstants.FAILED);
-                                currentlyActiveChat.updateMessage(preppingImsObject,null);
+                                currentlyActiveChat.updateMessage(preppingImsObject, null);
                             }
                         }
                     });
-                    Model.getInstance().uploadChatVideoRecordingThumbnail(path,getActivity().getFilesDir(),source);
+                    Model.getInstance().uploadChatVideoRecordingThumbnail(path, getActivity().getFilesDir(), source);
                 }
             }
         });
@@ -891,17 +884,17 @@ public class ChatFragment extends BaseFragment {
                 messageAdapter.notifyDataSetChanged();
                 break;
             case CHANGED_CHAT_MESSAGE:
-                if(currentlyActiveChat!=null){
-                   List<ImsMessage> messages = currentlyActiveChat.getMessages();
+                if (currentlyActiveChat != null) {
+                    List<ImsMessage> messages = currentlyActiveChat.getMessages();
                     ImsMessage messageToUpdate = event.getMessage();
-                    if(messages!=null && messageToUpdate!=null){
-                        if(messages.contains(messageToUpdate)){
+                    if (messages != null && messageToUpdate != null) {
+                        if (messages.contains(messageToUpdate)) {
                             messageAdapter.notifyItemChanged(messages.indexOf(messageToUpdate));
                         } else {
-                            Log.e(TAG,"Active chat does not contain this message!");
+                            Log.e(TAG, "Active chat does not contain this message!");
                         }
                     } else {
-                        Log.e(TAG,"Message to be updated is not in active chat!");
+                        Log.e(TAG, "Message to be updated is not in active chat!");
                     }
                 }
                 break;
@@ -1043,7 +1036,6 @@ public class ChatFragment extends BaseFragment {
      * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
      **/
 
-
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -1066,45 +1058,25 @@ public class ChatFragment extends BaseFragment {
         chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.chat_image), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    File photoFile = null;
-                    try {
-                        photoFile = Model.createImageFile(getContext());
-                        currentPath = photoFile.getAbsolutePath();
-                    } catch (IOException ex) {
-                        // Error occurred while creating the File
-                    }
-                    if (photoFile != null) {
-                        if(Utility.isKitKat()){
-                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                        }
-                        if(Utility.isLollipopAndUp()){
-                            Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
-                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                        }
-                    }
-                    startActivityForResult(takePictureIntent, REQUEST_CODE_CHAT_IMAGE_CAPTURE);
-                }
+                EasyImage.openCamera(getActivity(), 0);
             }
         });
         chooseDialog.show();
     }
+
     Handler audioRecordHandler;
+
     @NeedsPermission({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void startRecording() {
         Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_hold), Toast.LENGTH_SHORT).show();
-        audioRecordHandler  = new Handler();
+        audioRecordHandler = new Handler();
         audioRecordHandler.postDelayed(audioRecordHandlerTask, 250);
     }
-
-
-
 
     TimerTask audioRecordHandlerTask = new TimerTask() {
         @Override
         public void run() {
-            if(!micButton.isPressed()){
+            if (!micButton.isPressed()) {
                 return;
             }
             recorder = new MediaRecorder();
@@ -1189,15 +1161,14 @@ public class ChatFragment extends BaseFragment {
         ChatFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
-
     /**
      * Since onStart is called after onActivity result, we have to store the code and delay
      * uploading and sending of the message in order to make sure fragment is subscribed to EvenBus
      */
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
-        switch (resultFromPicker){
+        switch (resultFromPicker) {
             case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
             case REQUEST_CODE_CHAT_IMAGE_PICK:
                 sendImageMessage(currentPath);
@@ -1211,32 +1182,42 @@ public class ChatFragment extends BaseFragment {
 
     private int resultFromPicker;
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
+    public void onActivityResult(final int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         resultFromPicker = -1;
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_CHAT_IMAGE_PICK:
                 case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
-                    Uri uri = intent.getData();
+                    Uri uri = data.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), uri);
-                case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
-                    resultFromPicker = requestCode;
-                    break;
             }
+            EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
+                @Override
+                public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                    Toast.makeText(getActivity(), "Failed to take photo", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                    currentPath = imageFile.getAbsolutePath();
+                    resultFromPicker = requestCode;
+                }
+            });
+
         }
     }
 
-
     @Subscribe
-    public void handleUserIsTypingEvent(UserIsTypingEvent event){
-        if(currentlyActiveChat!=null){
-            if(event.getChatId().equals(currentlyActiveChat.getChatId())){
+    public void handleUserIsTypingEvent(UserIsTypingEvent event) {
+        if (currentlyActiveChat != null) {
+            if (event.getChatId().equals(currentlyActiveChat.getChatId())) {
                 List<UserInfo> users = event.getUsers();
-                if(users.size()==1){
+                if (users.size() == 1) {
                     String userName = users.get(0).getNicName();
-                    infoLineTextView.setText(getString(R.string.single_user_is_typing,userName));
-                } else if (users.size()>1) {
+                    infoLineTextView.setText(getString(R.string.single_user_is_typing, userName));
+                } else if (users.size() > 1) {
                     infoLineTextView.setText(R.string.multiple_users_are_typing);
                 } else {
                     updateChatTitleText();
@@ -1246,13 +1227,14 @@ public class ChatFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void openChatEvent(OpenChatEvent event){
+    public void openChatEvent(OpenChatEvent event) {
         chatHeadsAdapter.notifyDataSetChanged();
     }
 
     View.OnClickListener disabledClick = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {}
+        public void onClick(View view) {
+        }
     };
 
     @Override
