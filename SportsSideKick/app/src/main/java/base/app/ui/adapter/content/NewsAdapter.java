@@ -6,15 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.pixplicity.easyprefs.library.Prefs;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.Translator;
+import base.app.data.wall.WallNews;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
-import base.app.data.wall.WallNews;
+
+import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Djordje on 12/29/2016.
@@ -56,13 +65,34 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(WallAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final WallAdapter.ViewHolder holder, final int position) {
         final WallNews news = values.get(position);
         WallAdapter.displayUserInfo(news, holder);
         WallAdapter.displayCaption(news.getTitle(), holder);
         WallAdapter.displayPostImage(news, holder);
         WallAdapter.displayCommentsAndLikes(news, holder);
         holder.view.setOnClickListener(getClickListener(news));
+
+        if (isAutoTranslateEnabled() && news.isNotTranslated()) {
+            TaskCompletionSource<WallNews> task = new TaskCompletionSource<>();
+            task.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+                @Override
+                public void onComplete(@NonNull Task<WallNews> task) {
+                    int position = holder.getAdapterPosition();
+                    if (task.isSuccessful() && position != -1) {
+                        WallNews translatedItem = task.getResult();
+                        remove(position);
+                        add(position, translatedItem);
+                        notifyItemChanged(position);
+                    }
+                }
+            });
+            Translator.getInstance().translateNews(
+                    news.getPostId(),
+                    Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                    task
+            );
+        }
     }
 
     @NonNull
@@ -83,5 +113,15 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             return 0;
         }
         return values.size();
+    }
+
+    public void add(int position, WallNews model) {
+        values.add(position, model);
+    }
+
+    public void remove(int position) {
+        if (values.get(position) != null) {
+            values.remove(position);
+        }
     }
 }

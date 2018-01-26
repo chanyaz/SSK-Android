@@ -71,7 +71,7 @@ public class Translator {
                 .setEventKey("translateNewsItem")
                 .setEventAttribute(POST_ID, itemId)
                 .setEventAttribute(TO_LANGUAGE, language)
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .setEventAttribute("clubId", CLUB_ID)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {

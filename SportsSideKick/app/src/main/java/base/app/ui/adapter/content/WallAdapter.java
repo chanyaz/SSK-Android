@@ -365,7 +365,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     @Override
                     public void onComplete(@NonNull Task<WallBase> task) {
                         int position = holder.getAdapterPosition();
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful() && position != -1) {
                             WallBase translatedItem = task.getResult();
                             remove(position);
                             add(position, translatedItem);
