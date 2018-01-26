@@ -298,7 +298,7 @@ public class ChatFragment extends BaseFragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND || actionId == R.id.action_send_message_id) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
                     sendButtonOnClick();
                     handled = true;
                 }
