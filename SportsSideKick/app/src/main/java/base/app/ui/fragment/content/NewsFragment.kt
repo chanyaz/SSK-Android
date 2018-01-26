@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.Subscribe
 open class NewsFragment : BaseFragment() {
 
     internal val type = OFFICIAL
-    internal var adapter: NewsAdapter = NewsAdapter()
+    internal var adapter: NewsAdapter = NewsAdapter(OFFICIAL)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         return container?.inflate(R.layout.fragment_news)

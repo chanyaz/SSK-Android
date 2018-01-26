@@ -18,6 +18,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.Translator;
+import base.app.data.news.NewsModel;
 import base.app.data.wall.WallNews;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
@@ -35,6 +36,7 @@ import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     private static final int VIEW_TYPE_ROW = 1;
+    private final NewsModel.NewsType type;
 
     protected List<WallNews> values;
 
@@ -42,7 +44,8 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return values;
     }
 
-    public NewsAdapter() {
+    public NewsAdapter(NewsModel.NewsType type) {
+        this.type = type;
         values = new ArrayList<>();
     }
 
@@ -87,11 +90,19 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     }
                 }
             });
-            Translator.getInstance().translateNews(
-                    news.getPostId(),
-                    Prefs.getString(CHOSEN_LANGUAGE, "en"),
-                    task
-            );
+            if (type == NewsModel.NewsType.SOCIAL) {
+                Translator.getInstance().translateSocial(
+                        news.getPostId(),
+                        Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                        task
+                );
+            } else {
+                Translator.getInstance().translateNews(
+                        news.getPostId(),
+                        Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                        task
+                );
+            }
         }
     }
 

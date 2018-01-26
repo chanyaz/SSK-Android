@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import base.app.R
 import base.app.data.news.NewsModel.NewsType
+import base.app.data.news.NewsModel.NewsType.OFFICIAL
 import base.app.data.news.NewsModel.getInstance
 import base.app.data.news.NewsPageEvent
 import base.app.ui.adapter.content.NewsAdapter
@@ -23,7 +24,7 @@ import org.greenrobot.eventbus.Subscribe
 class SocialFragment : BaseFragment() {
 
     private val type = NewsType.SOCIAL
-    private val adapter: NewsAdapter = NewsAdapter()
+    private val adapter: NewsAdapter = NewsAdapter(type)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {

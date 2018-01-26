@@ -100,6 +100,40 @@ public class Translator {
                 });
     }
 
+    public void translateSocial(String itemId, String language, final TaskCompletionSource<WallNews> completion) {
+        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+                .setEventKey("translateSocialItem")
+                .setEventAttribute(POST_ID, itemId)
+                .setEventAttribute(TO_LANGUAGE, language)
+                .setEventAttribute("clubId", CLUB_ID)
+                .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+                    @Override
+                    public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                        if (!response.hasErrors()) {
+                            GSData data = response.getScriptData().getObject("item");
+                            WallNews item = null;
+                            if (data != null) {
+                                item = mapper.convertValue(data.getBaseData(), new TypeReference<WallNews>() {
+                                });
+                            }
+                            if (completion != null) {
+                                if (item != null) {
+                                    completion.setResult(item);
+                                } else {
+                                    completion.setException(new Exception("Something went wrong with translation of News."));
+                                }
+                            }
+                        } else {
+                            Log.e("TAG", "Failed to translate Wall Post!");
+                            if (completion != null) {
+                                completion.setException(new Exception("Something went wrong with translation of News."));
+                            }
+                        }
+
+                    }
+                });
+    }
+
     public void translatePost(String itemId, String language, final TaskCompletionSource<WallBase> completion, final WallBase.PostType postType) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateWallPost")

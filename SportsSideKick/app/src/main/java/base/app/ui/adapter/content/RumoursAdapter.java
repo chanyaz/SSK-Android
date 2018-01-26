@@ -6,6 +6,7 @@ import android.view.View;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
+import base.app.data.news.NewsModel;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.data.wall.WallNews;
@@ -19,6 +20,10 @@ import static android.view.View.*;
  */
 
 public class RumoursAdapter extends NewsAdapter {
+
+    public RumoursAdapter() {
+        super(NewsModel.NewsType.OFFICIAL);
+    }
 
     @Override
     protected int getItemLayoutId() {
