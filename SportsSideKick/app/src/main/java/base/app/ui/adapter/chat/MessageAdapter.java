@@ -330,5 +330,4 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         translatedMessages.add(message);
         notifyItemChanged(position);
     }
-
 }

@@ -156,8 +156,8 @@ public class Translator {
 
     public void translateMessage(String itemId, String language, final TaskCompletionSource<ImsMessage> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
-                .setEventKey("translateComment")
-                .setEventAttribute(ID_SHORT, itemId)
+                .setEventKey("translateIM")
+                .setEventAttribute("msgId", itemId)
                 .setEventAttribute(TO_LANGUAGE, language)
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
