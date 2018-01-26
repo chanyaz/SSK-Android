@@ -16,12 +16,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import base.app.data.GSAndroidPlatform;
 import base.app.data.FileUploader;
+import base.app.data.GSAndroidPlatform;
 import base.app.data.GSConstants;
 import base.app.data.Model;
 import base.app.data.im.event.ChatNotificationsEvent;
@@ -107,7 +108,9 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
      */
 
     public List<ChatInfo> getUserChatsList() {
-        return new ArrayList<>(chatInfoCache.values());
+        ArrayList<ChatInfo> chatList = new ArrayList<>(chatInfoCache.values());
+        Collections.reverse(chatList);
+        return chatList;
     }
 
     public ChatInfo getChatInfoById(String chatId) {
