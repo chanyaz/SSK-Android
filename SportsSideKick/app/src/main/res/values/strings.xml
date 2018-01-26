@@ -5,6 +5,7 @@
     <string name="wall">Wall</string>
     <string name="news">News</string>
     <string name="rumours">Rumours</string>
+    <string name="social">Social</string>
     <string name="stats">Stats</string>
     <string name="shop">Shop</string>
     <string name="chat">Chat</string>
@@ -19,13 +20,13 @@
         <item>@string/wall</item>
         <item>@string/chat</item>
         <item>@string/news</item>
-        <item>Social</item>
+        <item>@string/social</item>
         <item>@string/stats</item>
-        <!--<item>@string/rumours</item>-->
-        <!--<item>@string/radio</item>-->
+        <item>@string/rumours</item>
+        <item>@string/radio</item>
         <item>@string/shop</item>
         <item>@string/tv</item>
-        <!--<item>@string/video_chat</item>-->
+        <item>@string/video_chat</item>
     </string-array>
 
     <!-- Login & Register -->
