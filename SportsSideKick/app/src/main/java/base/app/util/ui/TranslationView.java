@@ -185,7 +185,7 @@ public class TranslationView extends RelativeLayout {
 
             }
         });
-        Translator.getInstance().translateMessage(itemId, getSelectedLanguageCode(), source);
+        Translator.getInstance().translateMessage(itemId, source);
     }
 
     private void translateWallItem() {
@@ -203,7 +203,7 @@ public class TranslationView extends RelativeLayout {
                 progressBar.setVisibility(GONE);
             }
         });
-        Translator.getInstance().translatePost(itemId, getSelectedLanguageCode(), source, postType);
+        Translator.getInstance().translatePost(itemId, getSelectedLanguageCode(), source, WallBase.PostType.post);
     }
 
     private void translatePostComment() {

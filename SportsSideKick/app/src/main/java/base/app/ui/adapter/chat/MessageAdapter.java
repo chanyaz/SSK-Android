@@ -22,18 +22,21 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import base.app.R;
-import base.app.util.events.chat.FullScreenImageEvent;
-import base.app.util.events.chat.MessageSelectedEvent;
-import base.app.util.events.stream.PlayVideoEvent;
 import base.app.data.DateUtils;
 import base.app.data.GSConstants;
 import base.app.data.Model;
+import base.app.data.Translator;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsMessage;
 import base.app.data.user.UserInfo;
+import base.app.util.events.chat.FullScreenImageEvent;
+import base.app.util.events.chat.MessageSelectedEvent;
+import base.app.util.events.stream.PlayVideoEvent;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
@@ -41,6 +44,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static base.app.data.GSConstants.UPLOADING;
+import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -55,6 +59,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private TranslationView translationView;
     private List<ImsMessage> translatedMessages;
+    private Map<ImsMessage, Boolean> translatedMap = new HashMap<>();
 
     public void setChatInfo(ChatInfo chatInfo) {
         translatedMessages.clear();
@@ -109,7 +114,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
@@ -184,12 +189,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                                 public void onComplete(@NonNull Task<ImsMessage> task) {
                                 if(task.isSuccessful()){
                                     ImsMessage translatedMessage = task.getResult();
-                                    updateWithTranslatedMessage(translatedMessage,position);
+                                    updateWithTranslatedMessage(translatedMessage,holder.getAdapterPosition());
                                 }
                                 }
                             });
                             translationView.showTranslationPopup(holder.contentContainer,messageId, source, TranslationView.TranslationType.TRANSLATE_IMS);
-
                         }
                     });
 
@@ -217,6 +221,24 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         holder.textView.setText(translatedValue);
                     } else {
                         holder.textView.setText(message.getText());
+                    }
+
+                    if (isAutoTranslateEnabled() && translatedValue == null) {
+                        String messageId = (String) holder.view.getTag();
+
+                        TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
+                        source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
+                            @Override
+                            public void onComplete(@NonNull Task<ImsMessage> task) {
+                                if(task.isSuccessful()){
+                                    int position = holder.getAdapterPosition();
+                                    ImsMessage translatedMessage = task.getResult();
+                                    translatedMap.put(translatedMessage, true);
+                                    updateWithTranslatedMessage(translatedMessage,position);
+                                }
+                            }
+                        });
+                        Translator.getInstance().translateMessage(messageId,source);
                     }
                     break;
             }

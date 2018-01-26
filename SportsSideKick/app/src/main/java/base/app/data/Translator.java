@@ -9,6 +9,7 @@ import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ import static base.app.data.GSConstants.CLUB_ID_TAG;
 import static base.app.data.GSConstants.ID_SHORT;
 import static base.app.data.GSConstants.POST_ID;
 import static base.app.data.GSConstants.TO_LANGUAGE;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Filip on 9/12/2017.
@@ -154,11 +156,11 @@ public class Translator {
                 });
     }
 
-    public void translateMessage(String itemId, String language, final TaskCompletionSource<ImsMessage> completion) {
+    public void translateMessage(String itemId, final TaskCompletionSource<ImsMessage> completion) {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("translateIM")
                 .setEventAttribute("msgId", itemId)
-                .setEventAttribute(TO_LANGUAGE, language)
+                .setEventAttribute(TO_LANGUAGE, Prefs.getString(CHOSEN_LANGUAGE, "en"))
                 .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
                     public void onEvent(GSResponseBuilder.LogEventResponse response) {
