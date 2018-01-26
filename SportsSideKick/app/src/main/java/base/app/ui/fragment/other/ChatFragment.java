@@ -46,6 +46,9 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
+import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
+import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
 import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
@@ -92,19 +95,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-import pl.aprilapps.easyphotopicker.DefaultCallback;
-import pl.aprilapps.easyphotopicker.EasyImage;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
+import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
+import static io.reactivex.schedulers.Schedulers.io;
 
 /**
 
@@ -1058,7 +1064,36 @@ public class ChatFragment extends BaseFragment {
         chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.chat_image), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EasyImage.openCamera(getActivity(), 0);
+                RxPaparazzo.single(ChatFragment.this)
+                        .usingCamera()
+                        .map(new Function<Response<ChatFragment,FileData>, Object>() {
+                            @Override
+                            public Object apply(Response<ChatFragment, FileData> fileData) throws Exception {
+                                return fileData.data().getFile();
+                            }
+                        })
+                        .subscribeOn(io())
+                        .observeOn(mainThread())
+                        .subscribe(new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
+                                File imageFile = (File) o;
+                                currentPath = imageFile.getAbsolutePath();
+                                resultFromPicker = REQUEST_CODE_CHAT_IMAGE_CAPTURE;
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
             }
         });
         chooseDialog.show();
@@ -1192,19 +1227,6 @@ public class ChatFragment extends BaseFragment {
                     Uri uri = data.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), uri);
             }
-            EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
-                @Override
-                public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                    Toast.makeText(getActivity(), "Failed to take photo", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                    currentPath = imageFile.getAbsolutePath();
-                    resultFromPicker = requestCode;
-                }
-            });
 
         }
     }
