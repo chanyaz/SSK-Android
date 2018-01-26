@@ -870,7 +870,6 @@ public class ChatFragment extends BaseFragment {
     @Subscribe
     public void onEvent(ChatsInfoUpdatesEvent event) {
         findActiveChat();
-        //updateAllViews(); // TOTALLY NOT NEEDED!
         checkPushNotification();
     }
 

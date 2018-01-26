@@ -45,6 +45,7 @@ import base.app.data.Model;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsManager;
+import base.app.data.im.event.ChatsInfoUpdatesEvent;
 import base.app.data.user.AddFriendsEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
@@ -457,5 +458,10 @@ public class EditChatFragment extends BaseFragment {
                     }
                 })
                 .show();
+    }
+
+    @Subscribe
+    public void onEvent(ChatsInfoUpdatesEvent event) {
+        getActivity().onBackPressed();
     }
 }
