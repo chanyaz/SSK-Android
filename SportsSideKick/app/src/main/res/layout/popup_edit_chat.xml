@@ -12,6 +12,7 @@
         android:id="@+id/topSpacer"
         android:layout_width="match_parent"
         android:layout_height="24dp"
+        android:background="@drawable/phone_background"
         tools:visibility="gone" />
 
     <RelativeLayout
@@ -20,9 +21,7 @@
         android:layout_below="@id/topSpacer"
         android:layout_height="@dimen/standard_button_height"
         android:clickable="true"
-        android:background="@drawable/phone_background"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:background="@drawable/phone_background">
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/close"
