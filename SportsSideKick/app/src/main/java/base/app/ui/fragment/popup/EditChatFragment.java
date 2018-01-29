@@ -28,6 +28,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
+import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
+import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,7 +48,6 @@ import base.app.data.Model;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.ImsManager;
-import base.app.data.im.event.ChatsInfoUpdatesEvent;
 import base.app.data.user.AddFriendsEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
@@ -60,6 +62,9 @@ import base.app.util.ui.LinearItemSpacing;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -70,6 +75,8 @@ import permissions.dispatcher.RuntimePermissions;
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
+import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
+import static io.reactivex.schedulers.Schedulers.io;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -226,14 +233,73 @@ public class EditChatFragment extends BaseFragment {
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               EditChatFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(EditChatFragment.this);
+                RxPaparazzo.single(EditChatFragment.this)
+                        .usingGallery()
+                        .map(new Function<Response<EditChatFragment,FileData>, Object>() {
+                            @Override
+                            public Object apply(Response<EditChatFragment, FileData> fileData) throws Exception {
+                                return fileData.data().getFile();
+                            }
+                        })
+                        .subscribeOn(io())
+                        .observeOn(mainThread())
+                        .subscribe(new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
 
+                            @Override
+                            public void onNext(Object o) {
+                                File imageFile = (File) o;
+                                currentPath = imageFile.getAbsolutePath();
+                                uploadImage(currentPath);
+                                ImageLoader.displayImage(currentPath,chatImageView);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
             }
         });
         chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.use_camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EditChatFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(EditChatFragment.this);
+                RxPaparazzo.single(EditChatFragment.this)
+                        .usingCamera()
+                        .map(new Function<Response<EditChatFragment,FileData>, Object>() {
+                            @Override
+                            public Object apply(Response<EditChatFragment, FileData> fileData) throws Exception {
+                                return fileData.data().getFile();
+                            }
+                        })
+                        .subscribeOn(io())
+                        .observeOn(mainThread())
+                        .subscribe(new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
+                                File imageFile = (File) o;
+                                currentPath = imageFile.getAbsolutePath();
+                                uploadImage(currentPath);
+                                ImageLoader.displayImage(currentPath,chatImageView);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
             }
         });
         chooseDialog.show();
@@ -458,10 +524,5 @@ public class EditChatFragment extends BaseFragment {
                     }
                 })
                 .show();
-    }
-
-    @Subscribe
-    public void onEvent(ChatsInfoUpdatesEvent event) {
-        getActivity().onBackPressed();
     }
 }

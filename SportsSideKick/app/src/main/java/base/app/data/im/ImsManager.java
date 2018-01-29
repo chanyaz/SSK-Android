@@ -317,6 +317,8 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                     ChatInfo newChatInfo = mapper.convertValue(object, ChatInfo.class);
                     chatInfo.setEqualTo(newChatInfo);
                     source.setResult(chatInfo);
+
+                    EventBus.getDefault().post(new ChatNotificationsEvent(chatInfo.getChatId(), ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
                 } else {
                     source.setException(new Exception("There was an error while trying to update a chat."));
                 }
