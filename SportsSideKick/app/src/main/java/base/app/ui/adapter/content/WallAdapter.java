@@ -64,6 +64,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         public View view;
         // Content view bindings
         @Nullable
@@ -360,27 +361,57 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 }
             });
             if (isAutoTranslateEnabled() && item.isNotTranslated()) {
-                TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
-                task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
-                    @Override
-                    public void onComplete(@NonNull Task<WallBase> task) {
-                        int position = holder.getAdapterPosition();
-                        if (task.isSuccessful() && position != -1) {
-                            WallBase translatedItem = task.getResult();
-                            remove(position);
-                            add(position, translatedItem);
-                            notifyItemChanged(position);
-                        }
-                    }
-                });
-                Translator.getInstance().translatePost(
-                        item.getPostId(),
-                        Prefs.getString(CHOSEN_LANGUAGE, "en"),
-                        task,
-                        item.getType()
-                );
+                String itemToTranslateId = item.getPostId();
+                if (item.getReferencedItemId() != null) {
+                    itemToTranslateId = item.getReferencedItemId();
+                }
+                if (item.getType() == PostType.newsShare
+                        || item.getType() == PostType.rumourShare) {
+                    translateInternalNewsItem(holder, itemToTranslateId, item);
+                } else {
+//                    TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
+//                    task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<WallBase> task) {
+//                            int position = holder.getAdapterPosition();
+//                            if (task.isSuccessful() && position != -1) {
+//                                WallBase translatedItem = task.getResult();
+//                                remove(position);
+//                                add(position, translatedItem);
+//                                notifyItemChanged(position);
+//                            }
+//                        }
+//                    });
+//                    Translator.getInstance().translatePost(
+//                            itemToTranslateId,
+//                            Prefs.getString(CHOSEN_LANGUAGE, "en"),
+//                            task,
+//                            item.getType()
+//                    );
+                }
             }
         }
+    }
+
+    private void translateInternalNewsItem(final ViewHolder holder, String itemToTranslateId, final WallBase itemChildPointer) {
+        TaskCompletionSource<WallNews> task = new TaskCompletionSource<>();
+        task.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+            @Override
+            public void onComplete(@NonNull Task<WallNews> task) {
+                int position = holder.getAdapterPosition();
+                if (task.isSuccessful() && position != -1) {
+                    WallNews translatedParentItem = task.getResult();
+                    itemChildPointer.setTitle(translatedParentItem.getTitle());
+                    itemChildPointer.setBodyText(translatedParentItem.getBodyText());
+                    notifyItemChanged(position);
+                }
+            }
+        });
+        Translator.getInstance().translateNews(
+                itemToTranslateId,
+                Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                task
+        );
     }
 
     private boolean isAdvert(int position) {
@@ -396,7 +427,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             if (currentAdInterval > 0) {
                 index = position - (position / currentAdInterval);
             }
-            return values.get(index).getType().ordinal();
+            try {
+                return values.get(index).getType().ordinal();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 1;
         }
     }
 
