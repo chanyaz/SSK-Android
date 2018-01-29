@@ -187,7 +187,7 @@ public class EditChatFragment extends BaseFragment {
         super.onResume();
         chatNameEditText.setText(chatInfo.getChatTitle());
         if(chatInfo.getChatAvatarUrl()!=null){
-            ImageLoader.displayImage(chatInfo.getChatAvatarUrl(), chatImageView, null);
+            ImageLoader.displayImage(chatInfo.getChatAvatarUrl(), chatImageView, R.drawable.blank_profile_rounded);
             chatImageView.setVisibility(View.VISIBLE);
         }
     }
