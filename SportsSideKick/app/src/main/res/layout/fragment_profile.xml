@@ -51,6 +51,7 @@
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/top_toolbar">
 
@@ -98,6 +99,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
+        android:visibility="gone"
         android:layout_below="@+id/top_toolbar"
         android:orientation="horizontal">
 

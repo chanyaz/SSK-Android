@@ -366,7 +366,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     itemToTranslateId = item.getReferencedItemId();
                 }
                 if (item.getType() == PostType.newsShare
-                        || item.getType() == PostType.rumourShare) {
+                        || item.getType() == PostType.rumourShare
+                        || item.getType() == PostType.socialShare) {
                     translateInternalNewsItem(holder, itemToTranslateId, item);
                 } else {
                     TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
