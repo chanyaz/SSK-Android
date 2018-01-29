@@ -369,25 +369,27 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         || item.getType() == PostType.rumourShare) {
                     translateInternalNewsItem(holder, itemToTranslateId, item);
                 } else {
-//                    TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
-//                    task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<WallBase> task) {
-//                            int position = holder.getAdapterPosition();
-//                            if (task.isSuccessful() && position != -1) {
-//                                WallBase translatedItem = task.getResult();
-//                                remove(position);
-//                                add(position, translatedItem);
-//                                notifyItemChanged(position);
-//                            }
-//                        }
-//                    });
-//                    Translator.getInstance().translatePost(
-//                            itemToTranslateId,
-//                            Prefs.getString(CHOSEN_LANGUAGE, "en"),
-//                            task,
-//                            item.getType()
-//                    );
+                    TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
+                    task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
+                        @Override
+                        public void onComplete(@NonNull Task<WallBase> task) {
+                            int position = holder.getAdapterPosition();
+                            if (task.isSuccessful() && position != -1) {
+                                WallBase translatedItem = task.getResult();
+                                if (translatedItem != null) {
+                                    remove(position);
+                                    add(position, translatedItem);
+                                    notifyItemChanged(position);
+                                }
+                            }
+                        }
+                    });
+                    Translator.getInstance().translatePost(
+                            itemToTranslateId,
+                            Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                            task,
+                            item.getType()
+                    );
                 }
             }
         }
@@ -401,6 +403,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 int position = holder.getAdapterPosition();
                 if (task.isSuccessful() && position != -1) {
                     WallNews translatedParentItem = task.getResult();
+                    itemChildPointer.setTranslatedTo(Prefs.getString(CHOSEN_LANGUAGE, "en"));
                     itemChildPointer.setTitle(translatedParentItem.getTitle());
                     itemChildPointer.setBodyText(translatedParentItem.getBodyText());
                     notifyItemChanged(position);
@@ -427,12 +430,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             if (currentAdInterval > 0) {
                 index = position - (position / currentAdInterval);
             }
-            try {
-                return values.get(index).getType().ordinal();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return 1;
+            return values.get(index).getType().ordinal();
         }
     }
 

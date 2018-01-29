@@ -361,6 +361,10 @@ public abstract class WallBase implements Shareable, Serializable {
         return translatedTo == null;
     }
 
+    public void setTranslatedTo(String translatedTo) {
+        this.translatedTo = translatedTo;
+    }
+
     public void toggleLike() {
         likedByUser = !likedByUser;
         if (likedByUser) {
