@@ -182,6 +182,7 @@ public class CreateChatFragment extends BaseFragment {
                 privateChatTextView.setText(switchText);
             }
         });
+        tempDisablePublicChatCreation();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         addFriendsRecyclerView.setLayoutManager(linearLayoutManager);
@@ -191,6 +192,11 @@ public class CreateChatFragment extends BaseFragment {
         addFriendsRecyclerView.setAdapter(addFriendsAdapter);
 
         return view;
+    }
+
+    protected void tempDisablePublicChatCreation() {
+        privateChatSwitch.setChecked(true);
+        privateChatSwitch.setVisibility(View.GONE);
     }
 
     @Subscribe
