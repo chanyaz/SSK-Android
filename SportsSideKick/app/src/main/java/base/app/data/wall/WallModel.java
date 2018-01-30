@@ -25,6 +25,7 @@ import java.util.Map;
 import base.app.data.DateUtils;
 import base.app.data.FileUploader;
 import base.app.data.GSConstants;
+import base.app.data.Id;
 import base.app.data.Model;
 import base.app.data.sharing.SharingManager;
 import base.app.data.user.GSMessageHandlerAbstract;
@@ -306,7 +307,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * the post comments count will be increased by 1
      */
     public void postComment(final PostComment comment, final WallBase post) {
-        comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
+        comment.setId(new Id(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10)));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
@@ -353,7 +354,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 
     public Task<Void> updatePostComment(PostComment comment) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
-        comment.setId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
+        comment.setId(new Id(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10)));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {

@@ -148,7 +148,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_VIDEO:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.displayImage(imageUrl,holder.contentImage, null);
+                    ImageLoader.displayImage(imageUrl,holder.contentImage);
                     holder.playButton.setVisibility(View.VISIBLE);
                     holder.contentImage.setOnClickListener(
                             new View.OnClickListener() {

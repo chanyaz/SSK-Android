@@ -42,6 +42,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.Id;
 import base.app.data.Model;
 import base.app.data.Translator;
 import base.app.data.sharing.SharingManager;
@@ -384,7 +385,7 @@ public class WallItemFragment extends BaseFragment {
     private void sendComment() {
         PostComment comment = new PostComment();
         comment.setComment(post.getText().toString());
-        comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
+        comment.setPosterId(new Id(Model.getInstance().getUserInfo().getUserId()));
         comment.setWallId(mPost.getWallId());
         comment.setPostId(mPost.getPostId());
         comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
@@ -458,7 +459,7 @@ public class WallItemFragment extends BaseFragment {
                 final PostComment comment = event.getComment();
 
                 if (event.getComment() != null) {
-                    Model.getInstance().getUserInfoById(comment.getPosterId())
+                    Model.getInstance().getUserInfoById(comment.getPosterId().getOid())
                             .addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                                 @Override
                                 public void onComplete(@NonNull Task<UserInfo> task) {

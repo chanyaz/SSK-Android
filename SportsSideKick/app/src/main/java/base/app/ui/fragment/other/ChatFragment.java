@@ -819,7 +819,8 @@ public class ChatFragment extends BaseFragment {
         preppingImsObject.setImageUrl(null);
         preppingImsObject.setLocalPath(path);
 
-        currentlyActiveChat.sendMessage(preppingImsObject).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
+        currentlyActiveChat.sendMessage(preppingImsObject)
+                .addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
             @Override
             public void onComplete(@NonNull Task<ChatInfo> task) {
                 if (task.isSuccessful()) {

@@ -40,6 +40,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
+import base.app.data.Id;
 import base.app.data.Model;
 import base.app.data.Translator;
 import base.app.data.news.NewsModel;
@@ -544,7 +545,7 @@ public class NewsItemFragment extends BaseFragment {
         if (Model.getInstance().isRealUser()) {
             PostComment comment = new PostComment();
             comment.setComment(inputFieldComment.getText().toString());
-            comment.setPosterId(Model.getInstance().getUserInfo().getUserId());
+            comment.setPosterId(new Id(Model.getInstance().getUserInfo().getUserId()));
             comment.setWallId(item.getWallId());
             comment.setPostId(item.getPostId());
             comment.setTimestamp((double) (getCurrentTime() / 1000));

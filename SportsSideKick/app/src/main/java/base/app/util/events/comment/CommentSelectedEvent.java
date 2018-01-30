@@ -13,7 +13,7 @@ public class CommentSelectedEvent extends BusEvent {
     PostComment selectedComment;
 
     public CommentSelectedEvent(PostComment selectedComment) {
-        super(selectedComment.getId());
+        super(selectedComment.getId().getOid());
         this.selectedComment = selectedComment;
     }
 
