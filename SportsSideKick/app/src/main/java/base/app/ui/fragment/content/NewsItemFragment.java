@@ -681,14 +681,12 @@ public class NewsItemFragment extends BaseFragment {
 
         WallNews itemToPost = new WallNews();
         itemToPost.setTimestamp((double) Utility.getCurrentTime());
+        itemToPost.setTitle(item.getTitle() != null ? item.getTitle() : item.getMessage());
+        itemToPost.setCoverImageUrl(item.getCoverImageUrl() != null ? item.getCoverImageUrl() : item.getImage());
         if (sharingMessage.isEmpty()) {
-            itemToPost.setTitle(item.getTitle());
             itemToPost.setBodyText(item.getBodyText());
             itemToPost.setCoverAspectRatio(0.6f);
             itemToPost.setSubTitle(item.getSource() != null ? item.getSource() : "");
-            if (item.getCoverImageUrl() != null) {
-                itemToPost.setCoverImageUrl(item.getCoverImageUrl());
-            }
         } else {
             itemToPost.setType(type);
             itemToPost.setReferencedItemClub(Utility.getClubConfig().get("ID"));

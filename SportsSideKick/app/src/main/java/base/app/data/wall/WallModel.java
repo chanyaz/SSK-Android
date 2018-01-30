@@ -331,7 +331,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         GSData data = new GSData(map);
         String typeParam = post.getType().toString()
                 .replace("newsOfficial", "news")
-                .replace("newsUnofficial", "rumours");
+                .replace("newsUnofficial", "rumours")                ;
         createRequest("wallAddPostComment")
                 .setEventAttribute(GSConstants.COMMENT, data)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
