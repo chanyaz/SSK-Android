@@ -1209,7 +1209,6 @@ public class ChatFragment extends BaseFragment {
                 sendImageMessage(currentPath);
                 break;
             case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
-                sendVideoMessage(currentPath);
                 break;
         }
         resultFromPicker = -1; // Reset this value to prevent resending after onStart is triggered
@@ -1222,12 +1221,11 @@ public class ChatFragment extends BaseFragment {
         resultFromPicker = -1;
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case REQUEST_CODE_CHAT_IMAGE_PICK:
                 case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
                     Uri uri = data.getData();
                     currentPath = Model.getRealPathFromURI(getContext(), uri);
+                    sendVideoMessage(currentPath);
             }
-
         }
     }
 
