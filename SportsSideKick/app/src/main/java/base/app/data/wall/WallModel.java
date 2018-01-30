@@ -327,10 +327,15 @@ public class WallModel extends GSMessageHandlerAbstract {
         };
         Map<String, Object> map = mapper.convertValue(comment, new TypeReference<Map<String, Object>>() {
         });
+        map.put("_id", comment.getId().getOid());
         GSData data = new GSData(map);
+        String typeParam = post.getType().toString()
+                .replace("newsOfficial", "news")
+                .replace("newsUnofficial", "rumours");
         createRequest("wallAddPostComment")
                 .setEventAttribute(GSConstants.COMMENT, data)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .setEventAttribute("type", typeParam)
                 .send(consumer);
     }
 

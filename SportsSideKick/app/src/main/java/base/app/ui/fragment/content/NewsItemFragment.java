@@ -183,7 +183,6 @@ public class NewsItemFragment extends BaseFragment {
     WallNews item;
     private WallBase sharedChildPost;
     List<PostComment> comments;
-    private boolean isSocial = false;
 
     public NewsItemFragment() {
         // Required empty public constructor
@@ -260,7 +259,7 @@ public class NewsItemFragment extends BaseFragment {
                     }
                 }
             });
-            if (isSocial) {
+            if (item.getType() == WallBase.PostType.social) {
                 Translator.getInstance().translateSocial(
                         item.getPostId(),
                         Prefs.getString(CHOSEN_LANGUAGE, "en"),
@@ -424,11 +423,11 @@ public class NewsItemFragment extends BaseFragment {
             type = NewsModel.NewsType.UNOFFICIAL;
         }
         if (NewsModel.getInstance().loadItemFromCache(id, type) == null) {
-            WallNews socialItem = NewsModel.getInstance().loadItemFromCache(id, NewsModel.NewsType.SOCIAL);
-            if (socialItem != null) {
-                isSocial = true;
+            item = NewsModel.getInstance().loadItemFromCache(id, NewsModel.NewsType.SOCIAL);
+            if (item != null) {
+                item.setType(WallBase.PostType.social);
             }
-            return socialItem;
+            return item;
         }
         return NewsModel.getInstance().loadItemFromCache(id, type);
     }
