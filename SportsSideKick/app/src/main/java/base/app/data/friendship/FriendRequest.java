@@ -15,7 +15,7 @@ import base.app.data.user.UserInfo;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FriendRequest {
 
-    @JsonProperty("_id")
+    @JsonProperty("id")
     private String id;
     @JsonProperty(GSConstants.TIMESTAMP_TAG)
     private String timestamp;

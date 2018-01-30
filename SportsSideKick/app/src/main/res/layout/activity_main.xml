@@ -85,7 +85,6 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/notif_icon"
                 android:tint="?phoneLoungeIconsColor"
-                android:visibility="gone"
                 tools:layout_marginTop="0dp" />
 
             <ImageView

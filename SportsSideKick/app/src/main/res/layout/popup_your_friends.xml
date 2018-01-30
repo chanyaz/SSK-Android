@@ -13,6 +13,7 @@
 
     <View
         android:id="@+id/topSpacer"
+        android:background="@drawable/phone_background"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         tools:visibility="gone" />
