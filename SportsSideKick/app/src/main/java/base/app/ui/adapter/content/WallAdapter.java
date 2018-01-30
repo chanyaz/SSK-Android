@@ -366,10 +366,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     itemToTranslateId = item.getReferencedItemId();
                 }
                 if (item.getType() == PostType.newsShare
-                        || item.getType() == PostType.rumourShare
-                        || item.getType() == PostType.socialShare) {
+                        || item.getType() == PostType.rumourShare) {
                     translateInternalNewsItem(holder, itemToTranslateId, item);
-                } else {
+                } else if (item.getType() == PostType.socialShare) {
+                    translateInternalSocialItem(holder, itemToTranslateId, item);
+                }else {
                     TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
                     task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
                         @Override
@@ -412,6 +413,28 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             }
         });
         Translator.getInstance().translateNews(
+                itemToTranslateId,
+                Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                task
+        );
+    }
+
+    private void translateInternalSocialItem(final ViewHolder holder, String itemToTranslateId, final WallBase itemChildPointer) {
+        TaskCompletionSource<WallNews> task = new TaskCompletionSource<>();
+        task.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+            @Override
+            public void onComplete(@NonNull Task<WallNews> task) {
+                int position = holder.getAdapterPosition();
+                if (task.isSuccessful() && position != -1) {
+                    WallNews translatedParentItem = task.getResult();
+                    itemChildPointer.setTranslatedTo(Prefs.getString(CHOSEN_LANGUAGE, "en"));
+                    itemChildPointer.setTitle(translatedParentItem.getTitle());
+                    itemChildPointer.setBodyText(translatedParentItem.getBodyText());
+                    notifyItemChanged(position);
+                }
+            }
+        });
+        Translator.getInstance().translateSocial(
                 itemToTranslateId,
                 Prefs.getString(CHOSEN_LANGUAGE, "en"),
                 task

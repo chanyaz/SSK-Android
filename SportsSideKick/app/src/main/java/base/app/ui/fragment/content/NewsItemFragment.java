@@ -67,6 +67,8 @@ import butterknife.Optional;
 
 import static base.app.data.wall.WallBase.PostType.newsShare;
 import static base.app.data.wall.WallBase.PostType.rumourShare;
+import static base.app.data.wall.WallBase.PostType.social;
+import static base.app.data.wall.WallBase.PostType.socialShare;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.getCurrentTime;
@@ -378,10 +380,12 @@ public class NewsItemFragment extends BaseFragment {
         postButtonSharedComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!getPrimaryArgument().contains("UNOFFICIAL")) {
-                    pin(newsShare);
-                } else {
+                if (getPrimaryArgument().contains("UNOFFICIAL")) {
                     pin(rumourShare);
+                } else if (item.getType() == social) {
+                    pin(socialShare);
+                }else {
+                    pin(newsShare);
                 }
             }
         });
