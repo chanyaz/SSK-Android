@@ -14,19 +14,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.util.events.comment.CommentSelectedEvent;
+import base.app.data.Id;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallModel;
 import base.app.util.commons.Utility;
+import base.app.util.events.comment.CommentSelectedEvent;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
@@ -106,7 +106,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                     UserInfo user = task.getResult();
                     Object tag = holder.view.getTag();
                     if (tag != null) {
-                        String holdersCurrentUser = (String) tag;
+                        String holdersCurrentUser = ((Id) tag).getOid();
                         if (user.getUserId().equals(holdersCurrentUser)) {
                             setupWithUserInfo(comment, holder, user);
                         }
