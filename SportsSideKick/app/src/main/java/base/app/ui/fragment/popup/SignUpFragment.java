@@ -387,6 +387,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         if(error!=null && error.getMessage()!=null){
             if(error.getMessage().contains("TAKEN")){
                 errorMessage = getContext().getResources().getString(R.string.error_username_taken);
+            } else {
+                errorMessage += " " + error.getMessage();
             }
         }
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
