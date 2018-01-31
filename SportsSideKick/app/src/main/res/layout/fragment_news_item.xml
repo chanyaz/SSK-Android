@@ -19,7 +19,8 @@
         <RelativeLayout
             android:id="@+id/back_button_holder"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <TextView
                 style="@style/boldText"
@@ -371,9 +372,9 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/comments_wall"
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="48dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tutorial_container"
+                    android:layout_marginBottom="48dp"
                     android:layout_marginTop="@dimen/margin_20" />
 
                 <RelativeLayout
@@ -419,13 +420,17 @@
 
     <ImageButton
         android:id="@+id/close_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginLeft="-48dp"
-        android:layout_marginTop="-32dp"
-        android:background="@drawable/btn_back_gradient"
-        android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:background="@null"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="-8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_back_with_background"
+        tools:layout_marginTop="-8dp" />
 
     <LinearLayout
         android:id="@+id/sharedMessageBar"
@@ -563,7 +568,7 @@
             android:id="@+id/blurredContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#94000000"/>
+            android:background="#94000000" />
 
         <ImageButton
             android:id="@+id/closeButtonSharedComment"
