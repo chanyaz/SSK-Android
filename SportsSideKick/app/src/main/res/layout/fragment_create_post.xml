@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="24dp"
+    tools:paddingTop="0dp"
     android:background="@color/colorGrayMediumLight">
 
     <RelativeLayout
@@ -164,7 +165,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleField"
-        android:inputType="textCapSentences"
+        android:inputType="textCapSentences|textMultiLine"
         android:layout_marginBottom="@dimen/margin_5"
         android:layout_marginEnd="@dimen/margin_15"
         android:layout_marginStart="@dimen/margin_15"

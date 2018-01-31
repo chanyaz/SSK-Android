@@ -172,9 +172,6 @@ public class WallItemFragment extends BaseFragment {
         if (pinContainer != null) {
             pinContainer.setVisibility(View.GONE);
         }
-        if (Utility.isPhone(getContext())) {
-            ButterKnife.findById(view, R.id.close_button).setVisibility(View.GONE);
-        }
         String id = getPrimaryArgument();
         mPost = WallBase.getCache().get(id);
         // Probably came here from Deeplink/Notification - if item is not in cache, fetch it
