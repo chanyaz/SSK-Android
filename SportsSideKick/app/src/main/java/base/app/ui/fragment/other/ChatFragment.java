@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -30,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -156,6 +158,8 @@ public class ChatFragment extends BaseFragment {
     RelativeLayout fullScreenContainer;
     @BindView(R.id.input_edit_text)
     EditText inputEditText;
+    @BindView(R.id.lockIcon)
+    ImageView lockIcon;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -219,7 +223,7 @@ public class ChatFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        final View view = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -355,7 +359,27 @@ public class ChatFragment extends BaseFragment {
                 .load(R.drawable.phone_chat_background)
                 .into(backgroundImage);
 
+        showLockIconWhenKeyboardClosed(view);
+
         return view;
+    }
+
+    protected void showLockIconWhenKeyboardClosed(final View view) {
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                //r will be populated with the coordinates of your view that area still visible.
+                view.getWindowVisibleDisplayFrame(r);
+
+                int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
+                if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
+                    lockIcon.setVisibility(View.GONE);
+                } else {
+                    lockIcon.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void onLoginStateChange() {
