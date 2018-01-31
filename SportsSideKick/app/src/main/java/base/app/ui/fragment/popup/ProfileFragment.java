@@ -41,6 +41,9 @@ import butterknife.OnClick;
 import butterknife.Optional;
 
 import static base.app.util.commons.Utility.AUTO_TRANSLATE;
+import static base.app.util.commons.Utility.NEWS_NOTIFICATIOINS;
+import static base.app.util.commons.Utility.RUMOURS_NOTIFICATIONS;
+import static base.app.util.commons.Utility.SOCIAL_NOTIFICATIONS;
 import static base.app.util.commons.Utility.WALL_NOTIFICATIONS;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -98,6 +101,12 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     ToggleButton autoTranslateToggle;
     @BindView(R.id.wallNotificationsToggle)
     ToggleButton wallNotificationsToggle;
+    @BindView(R.id.newsNotificationsToggle)
+    ToggleButton newsNotificationsToggle;
+    @BindView(R.id.rumoursNotificationsToggle)
+    ToggleButton rumoursNotificationsToggle;
+    @BindView(R.id.socialNotificationsToggle)
+    ToggleButton socialNotificationsToggle;
 
     UserStatsAdapter adapter;
 
@@ -108,9 +117,12 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         ButterKnife.bind(this, view);
-        setClickListeners();
         autoTranslateToggle.setChecked(isAutoTranslateEnabled());
         wallNotificationsToggle.setChecked(!isWallNotificationsEnabled());
+        newsNotificationsToggle.setChecked(!isNewsNotificationsEnabled());
+        rumoursNotificationsToggle.setChecked(!isRumoursNotificationsEnabled());
+        socialNotificationsToggle.setChecked(!isSocialNotificationsEnabled());
+        setClickListeners();
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         statsRecyclerView.setLayoutManager(layoutManager);
@@ -128,7 +140,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         autoTranslateToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton toggle, boolean isEnabled) {
-                setGlobalAutoTranslate(isEnabled);
+                saveGlobalAutoTranslate(isEnabled);
             }
         });
         wallNotificationsToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -136,21 +148,61 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
             public void onCheckedChanged(CompoundButton toggle, boolean isMuted) {
                 boolean isEnabled = !isMuted;
 
-                setWallNotificationsEnabled(isEnabled);
+                saveWallNotificationsEnabled(isEnabled);
 
                 WallModel.getInstance().wallSetMuteValue(isEnabled ? "true" : "false");
             }
         });
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton toggle, boolean isChecked) {
+                String type = toggle.getTag().toString();
+                if (isChecked) {
+                    WallModel.getInstance().muteNotifications(type);
+                } else {
+                    WallModel.getInstance().unmuteNotifications(type);
+                }
+                switch (type) {
+                    case "News":
+                        saveNewsNotificationsEnabled(!isChecked);
+                        break;
+                    case "Rumours":
+                        saveRumoursNotificationsEnabled(!isChecked);
+                        break;
+                    case "Social":
+                        saveSocialNotificationsEnabled(!isChecked);
+                        break;
+                }
+            }
+        };
+        newsNotificationsToggle.setOnCheckedChangeListener(listener);
+        rumoursNotificationsToggle.setOnCheckedChangeListener(listener);
+        socialNotificationsToggle.setOnCheckedChangeListener(listener);
     }
 
-    private void setGlobalAutoTranslate(boolean isEnabled) {
+    private void saveGlobalAutoTranslate(boolean isEnabled) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         prefs.edit().putBoolean(AUTO_TRANSLATE, isEnabled).apply();
     }
 
-    private void setWallNotificationsEnabled(boolean isEnabled) {
+    private void saveWallNotificationsEnabled(boolean isEnabled) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         prefs.edit().putBoolean(WALL_NOTIFICATIONS, isEnabled).apply();
+    }
+
+    private void saveNewsNotificationsEnabled(boolean isEnabled) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs.edit().putBoolean(NEWS_NOTIFICATIOINS, isEnabled).apply();
+    }
+
+    private void saveRumoursNotificationsEnabled(boolean isEnabled) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs.edit().putBoolean(RUMOURS_NOTIFICATIONS, isEnabled).apply();
+    }
+
+    private void saveSocialNotificationsEnabled(boolean isEnabled) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs.edit().putBoolean(SOCIAL_NOTIFICATIONS, isEnabled).apply();
     }
 
     public static boolean isAutoTranslateEnabled() {
@@ -161,6 +213,21 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     public static boolean isWallNotificationsEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return prefs.getBoolean(WALL_NOTIFICATIONS, false);
+    }
+
+    public static boolean isNewsNotificationsEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return prefs.getBoolean(NEWS_NOTIFICATIOINS, false);
+    }
+
+    public static boolean isRumoursNotificationsEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return prefs.getBoolean(RUMOURS_NOTIFICATIONS, false);
+    }
+
+    public static boolean isSocialNotificationsEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return prefs.getBoolean(SOCIAL_NOTIFICATIONS, false);
     }
 
     @OnClick(R.id.logout_button)

@@ -441,6 +441,34 @@ public class WallModel extends GSMessageHandlerAbstract {
         return source.getTask();
     }
 
+    public Task<Void> muteNotifications(String type) {
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                source.setResult(null);
+            }
+        };
+        createRequest("mutePushNotifications")
+                .setEventAttribute("type", type)
+                .send(consumer);
+        return source.getTask();
+    }
+
+    public Task<Void> unmuteNotifications(String type) {
+        final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                source.setResult(null);
+            }
+        };
+        createRequest("unmutePushNotifications")
+                .setEventAttribute("type", type)
+                .send(consumer);
+        return source.getTask();
+    }
+
     private UserInfo getCurrentUser() {
         return Model.getInstance().getUserInfo();
     }

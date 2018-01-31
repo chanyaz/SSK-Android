@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.Display;
 import android.view.View;
@@ -34,6 +33,9 @@ public class Utility {
     public static final String CHOSEN_LANGUAGE = "CHOSEN_LANGUAGE";
     public static final String AUTO_TRANSLATE = "AUTO_TRANSLATE";
     public static final String WALL_NOTIFICATIONS = "WALL_NOTIFICATIONS";
+    public static final String NEWS_NOTIFICATIOINS = "NEWS_NOTIFICATIOINS";
+    public static final String RUMOURS_NOTIFICATIONS = "RUMOURS_NOTIFICATIONS";
+    public static final String SOCIAL_NOTIFICATIONS = "SOCIAL_NOTIFICATIONS";
 
     public static long getCurrentTime(){
         return System.currentTimeMillis();

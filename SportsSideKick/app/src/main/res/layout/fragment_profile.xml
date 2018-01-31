@@ -456,6 +456,7 @@
                         android:layout_width="56dp"
                         android:layout_marginLeft="18dp"
                         android:layout_marginBottom="8dp"
+                        android:tag="News"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/wallNotificationsToggle" />
 
@@ -474,6 +475,7 @@
                         android:id="@+id/rumoursNotificationsToggle"
                         android:layout_width="56dp"
                         android:layout_marginLeft="18dp"
+                        android:tag="Rumours"
                         android:layout_marginBottom="8dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/newsNotificationsToggle" />
@@ -493,6 +495,7 @@
                         android:id="@+id/socialNotificationsToggle"
                         android:layout_width="56dp"
                         android:layout_marginLeft="18dp"
+                        android:tag="Social"
                         android:layout_marginBottom="8dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/rumoursNotificationsToggle" />
