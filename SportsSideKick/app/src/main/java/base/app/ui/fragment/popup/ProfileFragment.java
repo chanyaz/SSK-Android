@@ -29,6 +29,7 @@ import base.app.data.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
+import base.app.data.wall.WallModel;
 import base.app.ui.adapter.profile.UserStatsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -40,6 +41,7 @@ import butterknife.OnClick;
 import butterknife.Optional;
 
 import static base.app.util.commons.Utility.AUTO_TRANSLATE;
+import static base.app.util.commons.Utility.WALL_NOTIFICATIONS;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
@@ -94,6 +96,8 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     @BindView(R.id.autoTranslateToggle)
     ToggleButton autoTranslateToggle;
+    @BindView(R.id.wallNotificationsToggle)
+    ToggleButton wallNotificationsToggle;
 
     UserStatsAdapter adapter;
 
@@ -106,6 +110,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         ButterKnife.bind(this, view);
         setClickListeners();
         autoTranslateToggle.setChecked(isAutoTranslateEnabled());
+        wallNotificationsToggle.setChecked(!isWallNotificationsEnabled());
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         statsRecyclerView.setLayoutManager(layoutManager);
@@ -126,6 +131,16 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                 setGlobalAutoTranslate(isEnabled);
             }
         });
+        wallNotificationsToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton toggle, boolean isMuted) {
+                boolean isEnabled = !isMuted;
+
+                setWallNotificationsEnabled(isEnabled);
+
+                WallModel.getInstance().wallSetMuteValue(isEnabled ? "true" : "false");
+            }
+        });
     }
 
     private void setGlobalAutoTranslate(boolean isEnabled) {
@@ -133,9 +148,19 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         prefs.edit().putBoolean(AUTO_TRANSLATE, isEnabled).apply();
     }
 
+    private void setWallNotificationsEnabled(boolean isEnabled) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs.edit().putBoolean(WALL_NOTIFICATIONS, isEnabled).apply();
+    }
+
     public static boolean isAutoTranslateEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return prefs.getBoolean(AUTO_TRANSLATE, false);
+    }
+
+    public static boolean isWallNotificationsEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return prefs.getBoolean(WALL_NOTIFICATIONS, false);
     }
 
     @OnClick(R.id.logout_button)

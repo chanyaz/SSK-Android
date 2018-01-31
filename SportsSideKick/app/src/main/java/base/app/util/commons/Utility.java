@@ -33,6 +33,7 @@ public class Utility {
 
     public static final String CHOSEN_LANGUAGE = "CHOSEN_LANGUAGE";
     public static final String AUTO_TRANSLATE = "AUTO_TRANSLATE";
+    public static final String WALL_NOTIFICATIONS = "WALL_NOTIFICATIONS";
 
     public static long getCurrentTime(){
         return System.currentTimeMillis();
