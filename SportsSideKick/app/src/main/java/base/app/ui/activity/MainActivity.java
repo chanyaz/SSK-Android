@@ -371,6 +371,8 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
+        if (fragmentOrganizer.getPreviousFragment() == null) return;
+
         Class<? extends Fragment> previousFragment = fragmentOrganizer.getPreviousFragment().getClass();
         Class<? extends Fragment> penultimateFragment = fragmentOrganizer.getPenultimateFragment().getClass();
         Fragment currentFragment = fragmentOrganizer.getCurrentFragment();
