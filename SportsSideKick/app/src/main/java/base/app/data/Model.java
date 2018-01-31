@@ -299,7 +299,12 @@ public class Model {
                         UserEvent.Type errorType = UserEvent.Type.onRegisterError;
                         Map responseData = response.getBaseData();
                         org.json.simple.JSONObject errorObject = (org.json.simple.JSONObject) responseData.get("error");
-                        Error error = new Error(errorObject.get("message").toString());
+                        Error error;
+                        if (errorObject.get("message") != null) {
+                            error = new Error(errorObject.get("message").toString());
+                        } else {
+                            error = new Error(errorObject.toString());
+                        }
                         UserEvent event = new UserEvent(errorType, error);
                         EventBus.getDefault().post(event);
                     } else {

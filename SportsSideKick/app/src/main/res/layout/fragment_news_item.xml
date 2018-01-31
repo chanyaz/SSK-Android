@@ -60,8 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:overScrollMode="always"
         android:layout_below="@+id/top_buttons_container"
+        android:overScrollMode="always"
         app:srl_direction="bottom">
 
         <android.support.v4.widget.NestedScrollView
@@ -115,18 +115,18 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:baselineAligned="false">
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/likes_container"
                             android:layout_width="match_parent"
                             android:layout_height="42dp"
+                            android:layout_marginEnd="@dimen/padding_8"
+                            android:layout_weight="1"
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="?selectableItemBackgroundBorderless"
-                            android:layout_marginEnd="@dimen/padding_8"
-                            android:layout_weight="1"
                             android:gravity="center">
 
                             <android.support.v7.widget.AppCompatImageView
@@ -158,12 +158,12 @@
                         <LinearLayout
                             android:id="@+id/share_container"
                             android:layout_width="match_parent"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="?selectableItemBackgroundBorderless"
                             android:layout_height="42dp"
                             android:layout_marginEnd="@dimen/padding_8"
                             android:layout_weight="1"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackgroundBorderless"
                             android:gravity="center">
 
                             <android.support.v7.widget.AppCompatImageView
@@ -209,12 +209,12 @@
                         <LinearLayout
                             android:id="@+id/pin_container"
                             android:layout_width="match_parent"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="?selectableItemBackgroundBorderless"
                             android:layout_height="42dp"
                             android:layout_marginEnd="@dimen/padding_8"
                             android:layout_weight="1"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackgroundBorderless"
                             android:gravity="center">
 
                             <android.support.v7.widget.AppCompatImageView
@@ -249,27 +249,27 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/social_buttons_container"
                     android:layout_marginBottom="4dp"
-                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="@dimen/margin_5"
-                    android:autoLink="all"
                     android:layout_marginStart="@dimen/margin_15"
+                    android:layout_marginTop="12dp"
+                    android:autoLink="all"
                     android:ellipsize="end"
                     android:lineSpacingMultiplier="0.7"
-                    tools:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam."
                     android:textColor="@color/colorPrimaryVeryLight"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    tools:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam." />
 
                 <TextView
                     android:id="@+id/content_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/title"
-                    android:autoLink="all"
                     android:layout_marginBottom="@dimen/margin_5"
                     android:layout_marginEnd="@dimen/margin_15"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_5"
                     android:animateLayoutChanges="true"
+                    android:autoLink="all"
                     android:lineSpacingMultiplier="0.9"
                     android:maxLines="3"
                     android:text="@string/lorem_ipsum"
@@ -327,13 +327,13 @@
                     android:id="@+id/bottom_horizontal_split_line"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:visibility="invisible"
-                    android:layout_marginBottom="-16dp"
                     android:layout_below="@+id/read_more_holder"
+                    android:layout_marginBottom="-16dp"
                     android:layout_marginEnd="@dimen/padding_10"
                     android:layout_marginStart="@dimen/padding_10"
                     android:alpha="0.5"
-                    android:background="@color/colorPrimaryVeryLight" />
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:visibility="invisible" />
 
                 <LinearLayout
                     android:id="@+id/tutorial_container"
@@ -432,8 +432,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#f7ffffff"
-        android:orientation="vertical"
         android:elevation="6dp"
+        android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -461,28 +461,28 @@
                 android:id="@+id/sharedMessageAvatar"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginRight="4dp"
                 android:layout_marginTop="14dp"
                 tools:src="?profileImageIcon" />
 
             <EditText
                 android:id="@+id/sharedMessageField"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:paddingTop="14dp"
-                android:inputType="textCapSentences"
-                android:gravity="top"
-                android:paddingBottom="15dp"
-                android:paddingRight="8dp"
-                android:singleLine="true"
-                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                 android:layout_weight="1"
                 android:background="@null"
-                tools:text="Check out this awesome article! I guarantee you are going to like it"
+                android:gravity="top"
+                android:inputType="textCapSentences"
+                android:paddingBottom="15dp"
+                android:paddingRight="8dp"
+                android:paddingTop="14dp"
+                android:singleLine="true"
                 android:textColor="#cd008643"
                 android:textSize="16sp"
+                tools:text="Check out this awesome article! I guarantee you are going to like it"
                 tools:textStyle="bold" />
 
             <View
@@ -504,9 +504,9 @@
             <LinearLayout
                 android:id="@+id/sharedMessageDeleteEditContainer"
                 android:layout_width="60dp"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:visibility="gone"
                 tools:visibility="gone">
@@ -516,24 +516,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:background="@color/colorPrimaryVeryLight"
-                    android:text="@string/edit"
                     android:foreground="?selectableItemBackground"
+                    android:text="@string/edit"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#4300a352"/>
+                    android:background="#4300a352" />
 
                 <Button
                     android:id="@+id/sharedMessageDeleteButton"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:background="@color/colorPrimaryVeryLight"
+                    android:foreground="?selectableItemBackground"
                     android:text="@string/delete"
                     android:textAllCaps="false"
-                    android:foreground="?selectableItemBackground"
                     android:textColor="@color/white" />
 
             </LinearLayout>
@@ -551,19 +551,26 @@
         android:visibility="gone"
         tools:layout_height="0dp" />
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/commentInputOverlay"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        tools:visibility="gone"
         android:layout_height="match_parent"
-        android:background="#94000000">
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <View
+            android:id="@+id/blurredContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#94000000"/>
 
         <ImageButton
             android:id="@+id/closeButtonSharedComment"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="48dp"
             android:layout_height="56dp"
+            android:layout_above="@id/post_container"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
@@ -572,36 +579,36 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_above="@id/post_container"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
             android:text="@string/post"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/post_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
+            android:layout_alignParentBottom="true">
 
-            <include
-                layout="@layout/wall_item_news"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp" />
+                android:orientation="vertical">
 
-            <include layout="@layout/include_input_field" />
+                <include
+                    layout="@layout/wall_item_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp" />
 
-        </LinearLayout>
+                <include layout="@layout/include_input_field" />
 
-        <View
-            android:id="@+id/blurredContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#83000000"
-            android:visibility="gone" />
+            </LinearLayout>
 
-    </FrameLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
