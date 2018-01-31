@@ -372,7 +372,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/comments_wall"
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="80dp"
+                    android:layout_marginBottom="48dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tutorial_container"
                     android:layout_marginTop="@dimen/margin_20" />
