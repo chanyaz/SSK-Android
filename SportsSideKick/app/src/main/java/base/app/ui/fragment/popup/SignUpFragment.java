@@ -34,6 +34,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.HashMap;
 import java.util.Locale;
 
+import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.GSConstants;
 import base.app.data.Model;
@@ -153,6 +154,14 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             password.setOnFocusChangeListener(focusChangeListener);
             displayName.setOnFocusChangeListener(focusChangeListener);
             phone.setOnFocusChangeListener(focusChangeListener);
+        }
+            if (BuildConfig.DEBUG) {
+            firstName.setText("A");
+            lastName.setText("B");
+            displayName.setText("A B");
+            email.setText("alexsheikodev5@gmail.com");
+            password.setText("temppass");
+            phone.setText("123");
         }
         return view;
     }
@@ -388,7 +397,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             if(error.getMessage().contains("TAKEN")){
                 errorMessage = getContext().getResources().getString(R.string.error_username_taken);
             } else {
-                errorMessage += " " + error.getMessage();
+                errorMessage += "\n\n" + error.getMessage();
             }
         }
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();

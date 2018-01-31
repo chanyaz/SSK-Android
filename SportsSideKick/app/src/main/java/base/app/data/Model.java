@@ -287,7 +287,7 @@ public class Model {
 
         if (userDetails != null) {
             userDetails.put("action", "register");
-            userDetails.put(CLUB_ID_TAG, CLUB_ID);
+            userDetails.put(CLUB_ID_TAG, CLUB_ID_TAG);
             Map<String, Object> map = request.getBaseData();
             map.put("scriptData", userDetails);
         }
@@ -298,8 +298,8 @@ public class Model {
                     if (response.hasErrors()) {
                         UserEvent.Type errorType = UserEvent.Type.onRegisterError;
                         Map responseData = response.getBaseData();
-                        Object errorObject = responseData.get("error");
-                        Error error = new Error(errorObject.toString());
+                        org.json.simple.JSONObject errorObject = (org.json.simple.JSONObject) responseData.get("error");
+                        Error error = new Error(errorObject.get("message").toString());
                         UserEvent event = new UserEvent(errorType, error);
                         EventBus.getDefault().post(event);
                     } else {
