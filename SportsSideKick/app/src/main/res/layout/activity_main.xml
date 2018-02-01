@@ -5,7 +5,9 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity">
+    android:layout_marginBottom="48dp"
+    tools:context=".ui.activity.MainActivity"
+    tools:layout_marginBottom="0dp">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/activity_main"
@@ -172,9 +174,9 @@
 
         <FrameLayout
             android:id="@+id/splash"
-            android:background="@color/colorPrimarySlightlyLight"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimarySlightlyLight">
 
             <ImageView
                 android:id="@+id/splashBackgroundImage"
@@ -182,7 +184,7 @@
                 android:layout_height="match_parent"
                 android:alpha="0.4"
                 android:scaleType="centerCrop"
-                android:src="@drawable/video_chat_background"/>
+                android:src="@drawable/video_chat_background" />
 
             <base.app.util.ui.NextMatchView
                 android:layout_width="match_parent"
@@ -381,9 +383,9 @@
                             android:layout_marginTop="@dimen/margin_4"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textAllCaps="true"
                             android:text="@string/you_have"
                             android:textAlignment="center"
+                            android:textAllCaps="true"
                             android:textColor="@color/colorPrimaryVeryDark"
                             android:textSize="@dimen/font_size_8" />
 
