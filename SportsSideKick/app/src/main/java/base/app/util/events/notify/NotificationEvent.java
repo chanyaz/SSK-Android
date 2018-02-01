@@ -19,6 +19,7 @@ public class NotificationEvent extends BusEvent {
         FRIEND_REQUESTS,
         FOLLOWERS,
         LIKES,
+        IMS_MESSAGES,
     }
 
     public NotificationEvent(int closeTime, String title, String description, Type type, String postId) {

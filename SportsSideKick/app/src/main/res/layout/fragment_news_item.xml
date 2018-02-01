@@ -378,9 +378,9 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/comments_wall"
                     android:layout_width="match_parent"
+                    tools:paddingLeft="16dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tutorial_container"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginTop="@dimen/margin_20" />
 
                 <RelativeLayout

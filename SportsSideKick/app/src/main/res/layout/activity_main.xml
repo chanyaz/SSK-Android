@@ -249,8 +249,6 @@
             android:layout_alignParentTop="true"
             android:background="@color/colorGraySemiLight">
 
-            <!--fragment manager: destroy wall item or news item fragment on back pressed (current behaviour causes visisble redraw on reopen)-->
-
             <android.support.percent.PercentRelativeLayout
                 android:id="@+id/profile"
                 android:layout_width="match_parent"

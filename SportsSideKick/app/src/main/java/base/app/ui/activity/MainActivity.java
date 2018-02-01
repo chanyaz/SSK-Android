@@ -40,6 +40,7 @@ import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.NewsFragment;
 import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.content.SocialFragment;
 import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.content.WallFragment;
@@ -229,7 +230,7 @@ public class MainActivity extends BaseActivity
         mainContainerFragments.add(NewsFragment.class);
         mainContainerFragments.add(SocialFragment.class);
         mainContainerFragments.add(StatisticsFragment.class);
-//        mainContainerFragments.add(RumoursFragment.class);
+        mainContainerFragments.add(RumoursFragment.class);
         mainContainerFragments.add(StoreFragment.class);
         mainContainerFragments.add(VideoChatFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
@@ -271,11 +272,11 @@ public class MainActivity extends BaseActivity
         youtubeList = new ArrayList<>();
         youtubeList.add(ClubTVFragment.class);
         youtubeList.add(ClubTvPlaylistFragment.class);
-//        youtubeList.add(ClubRadioFragment.class);
+        youtubeList.add(ClubRadioFragment.class);
         fragmentOrganizer.setUpContainer(R.id.play_list_holder, youtubeList, false);
 
         radioList = new ArrayList<>();
-//        radioList.add(ClubRadioFragment.class);
+        radioList.add(ClubRadioFragment.class);
         fragmentOrganizer.setUpContainer(R.id.radio_list_holder, radioList, false);
 
         youtubePlayer = new ArrayList<>();
