@@ -95,8 +95,8 @@
                             android:layout_height="250dp"
                             android:adjustViewBounds="true"
                             android:background="@color/colorPrimaryVeryLight"
-                            tools:src="@drawable/wall_detail_header_placeholder"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            tools:src="@drawable/wall_detail_header_placeholder" />
 
                         <VideoView
                             android:id="@+id/content_video"
@@ -106,137 +106,144 @@
                     </RelativeLayout>
                 </RelativeLayout>
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:id="@+id/social_buttons_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/header_container"
-                    android:background="@color/colorPrimaryVeryLight">
+                    app:elevation="2dp"
+                    android:layout_below="@id/header_container">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal">
+                        android:background="@color/colorPrimaryVeryLight">
 
                         <LinearLayout
-                            android:id="@+id/likes_container"
                             android:layout_width="match_parent"
-                            android:layout_height="42dp"
-                            android:layout_marginEnd="@dimen/padding_8"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="?selectableItemBackgroundBorderless"
-                            android:gravity="center">
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
 
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/likes_icon"
-                                android:layout_width="@dimen/width_26"
-                                android:layout_height="@dimen/height_26"
-                                android:layout_marginEnd="@dimen/margin_5"
-                                android:background="@drawable/ic_like_count"
-                                app:backgroundTint="@color/white" />
+                            <LinearLayout
+                                android:id="@+id/likes_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="42dp"
+                                android:layout_marginEnd="@dimen/padding_8"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?selectableItemBackgroundBorderless"
+                                android:gravity="center">
 
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/likes_icon_liked"
-                                android:layout_width="@dimen/width_26"
-                                android:layout_height="@dimen/height_26"
-                                android:layout_marginEnd="@dimen/margin_5"
-                                android:background="@drawable/ic_like_count_liked"
-                                android:visibility="gone"
-                                app:backgroundTint="@color/colorAccent" />
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/likes_icon"
+                                    android:layout_width="@dimen/width_26"
+                                    android:layout_height="@dimen/height_26"
+                                    android:layout_marginEnd="@dimen/margin_5"
+                                    android:background="@drawable/ic_like_count"
+                                    app:backgroundTint="@color/white" />
 
-                            <TextView
-                                android:id="@+id/likes_count_header"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                tools:text="0" />
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/likes_icon_liked"
+                                    android:layout_width="@dimen/width_26"
+                                    android:layout_height="@dimen/height_26"
+                                    android:layout_marginEnd="@dimen/margin_5"
+                                    android:background="@drawable/ic_like_count_liked"
+                                    android:visibility="gone"
+                                    app:backgroundTint="@color/colorAccent" />
+
+                                <TextView
+                                    android:id="@+id/likes_count_header"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    tools:text="0" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/share_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="42dp"
+                                android:layout_marginEnd="@dimen/padding_8"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?selectableItemBackgroundBorderless"
+                                android:gravity="center">
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/share_icon"
+                                    android:layout_width="@dimen/width_26"
+                                    android:layout_height="@dimen/height_26"
+                                    android:layout_marginEnd="@dimen/margin_5"
+                                    android:background="@drawable/ic_share"
+                                    app:backgroundTint="@color/white" />
+
+                                <TextView
+                                    android:id="@+id/share_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    tools:text="0" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/comments_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="42dp"
+                                android:layout_marginEnd="@dimen/padding_8"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/comments_icon"
+                                    android:layout_width="@dimen/width_26"
+                                    android:layout_height="@dimen/height_26"
+                                    android:layout_marginEnd="@dimen/margin_5"
+                                    android:background="@drawable/ic_comment"
+                                    app:backgroundTint="@color/white" />
+
+                                <TextView
+                                    android:id="@+id/comments_count_header"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    tools:text="0" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/pin_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="42dp"
+                                android:layout_marginEnd="@dimen/padding_8"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?selectableItemBackgroundBorderless"
+                                android:gravity="center">
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:id="@+id/pin_icon"
+                                    android:layout_width="@dimen/width_26"
+                                    android:layout_height="@dimen/height_26"
+                                    android:layout_marginEnd="@dimen/margin_5"
+                                    android:background="@drawable/ic_pin"
+                                    app:backgroundTint="@color/white" />
+
+                                <TextView
+                                    android:id="@+id/pin_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:visibility="gone"
+                                    tools:text="0" />
+                            </LinearLayout>
 
                         </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/share_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="42dp"
-                            android:layout_marginEnd="@dimen/padding_8"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="?selectableItemBackgroundBorderless"
-                            android:gravity="center">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/share_icon"
-                                android:layout_width="@dimen/width_26"
-                                android:layout_height="@dimen/height_26"
-                                android:layout_marginEnd="@dimen/margin_5"
-                                android:background="@drawable/ic_share"
-                                app:backgroundTint="@color/white" />
-
-                            <TextView
-                                android:id="@+id/share_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                tools:text="0" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/comments_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="42dp"
-                            android:layout_marginEnd="@dimen/padding_8"
-                            android:layout_weight="1"
-                            android:gravity="center">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/comments_icon"
-                                android:layout_width="@dimen/width_26"
-                                android:layout_height="@dimen/height_26"
-                                android:layout_marginEnd="@dimen/margin_5"
-                                android:background="@drawable/ic_comment"
-                                app:backgroundTint="@color/white" />
-
-                            <TextView
-                                android:id="@+id/comments_count_header"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                tools:text="0" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/pin_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="42dp"
-                            android:layout_marginEnd="@dimen/padding_8"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="?selectableItemBackgroundBorderless"
-                            android:gravity="center">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/pin_icon"
-                                android:layout_width="@dimen/width_26"
-                                android:layout_height="@dimen/height_26"
-                                android:layout_marginEnd="@dimen/margin_5"
-                                android:background="@drawable/ic_pin"
-                                app:backgroundTint="@color/white" />
-
-                            <TextView
-                                android:id="@+id/pin_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:visibility="gone"
-                                tools:text="0" />
-                        </LinearLayout>
-
                     </LinearLayout>
-                </LinearLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <View
                     android:layout_width="match_parent"
@@ -273,9 +280,9 @@
                     android:autoLink="all"
                     android:lineSpacingMultiplier="0.9"
                     android:maxLines="3"
-                    tools:text="@string/lorem_ipsum"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="@string/lorem_ipsum" />
 
                 <RelativeLayout
                     android:id="@+id/read_more_holder"
@@ -423,12 +430,12 @@
         android:id="@+id/close_button"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:foreground="?selectableItemBackgroundBorderless"
-        android:background="@null"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="-8dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:scaleType="fitCenter"
         android:src="@drawable/btn_back_with_background"
         tools:layout_marginTop="-8dp" />
