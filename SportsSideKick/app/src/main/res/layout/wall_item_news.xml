@@ -81,21 +81,6 @@
                     android:layout_weight="1" />
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/comments_icon"
-                    android:layout_width="@dimen/width_15"
-                    android:layout_height="@dimen/width_15"
-                    android:layout_marginEnd="@dimen/margin_2"
-                    android:background="@drawable/ic_comments_count" />
-
-                <TextView
-                    android:id="@+id/comments_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:textSize="@dimen/font_size_10"
-                    tools:text="204" />
-
-                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/likes_icon"
                     android:layout_width="@dimen/width_15"
                     android:layout_height="@dimen/height_15"
@@ -115,8 +100,23 @@
                     android:id="@+id/likes_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
                     android:textSize="@dimen/font_size_10"
                     tools:text="6901" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/comments_icon"
+                    android:layout_width="@dimen/width_15"
+                    android:layout_height="@dimen/width_15"
+                    android:layout_marginEnd="@dimen/margin_2"
+                    android:background="@drawable/ic_comments_count" />
+
+                <TextView
+                    android:id="@+id/comments_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_10"
+                    tools:text="204" />
 
             </LinearLayout>
 
