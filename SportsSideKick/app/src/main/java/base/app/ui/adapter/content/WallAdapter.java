@@ -114,6 +114,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.captionAvatar)
         ImageView captionAvatar;
+        @Nullable
+        @BindView(R.id.socialSource)
+        ImageView socialSource;
 
         ViewHolder(View v) {
             super(v);
@@ -254,6 +257,21 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         } else {
             holder.likedIcon.setVisibility(View.GONE);
             holder.likesIcon.setVisibility(View.VISIBLE);
+        }
+        if (post instanceof WallNews && ((WallNews) post).getSource() != null) {
+            int sourceImageResource = 0;
+            switch (((WallNews) post).getSource()) {
+                case "facebook":
+                    sourceImageResource = R.drawable.ic_social_source_facebook;
+                    break;
+                case "twitter":
+                    sourceImageResource = R.drawable.ic_social_source_twitter;
+                    break;
+                case "instagram":
+                    sourceImageResource = R.drawable.ic_social_source_instagram;
+                    break;
+            }
+            ImageLoader.displayImage(sourceImageResource, holder.socialSource);
         }
     }
 

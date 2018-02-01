@@ -66,6 +66,13 @@
                     android:src="?profileImageIcon"
                     android:visibility="gone" />
 
+                <ImageView
+                    android:id="@+id/socialSource"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginLeft="8dp"
+                    tools:src="@drawable/ic_social_source_facebook"/>
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -83,8 +90,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    tools:text="204"
-                    android:textSize="@dimen/font_size_10" />
+                    android:textSize="@dimen/font_size_10"
+                    tools:text="204" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/likes_icon"
@@ -106,8 +113,8 @@
                     android:id="@+id/likes_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="6901"
-                    android:textSize="@dimen/font_size_10" />
+                    android:textSize="@dimen/font_size_10"
+                    tools:text="6901" />
 
             </LinearLayout>
 
