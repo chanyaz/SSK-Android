@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryMediumLight">
@@ -52,324 +53,323 @@
         android:layout_alignParentEnd="true"
         android:background="@drawable/share_to_wall"
         android:visibility="gone" />
+
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/rumours_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        app:srl_direction="bottom"
         android:layout_above="@+id/post_container"
-        android:layout_below="@+id/top_buttons_container">
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/top_buttons_container"
+        app:srl_direction="bottom">
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/newsItemScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-        <RelativeLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/newsItemScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:id="@+id/header_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true">
+                android:layout_height="match_parent">
 
                 <RelativeLayout
-                    android:id="@+id/media_container"
+                    android:id="@+id/header_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true">
 
-                    <ImageView
-                        android:id="@+id/content_image"
+                    <RelativeLayout
+                        android:id="@+id/media_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitXY" />
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true">
 
-                    <VideoView
-                        android:id="@+id/content_video"
+                        <ImageView
+                            android:id="@+id/content_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitXY" />
+
+                        <VideoView
+                            android:id="@+id/content_video"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_500"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/strap_and_title_container"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/height_500"
-                        android:visibility="gone" />
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/white_semitransparent">
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_5"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_15"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/strap"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/title"
+                            android:layout_marginBottom="@dimen/margin_5"
+                            android:layout_marginEnd="@dimen/margin_10"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:textColor="@color/colorGrayDark"
+                            android:textSize="@dimen/font_size_12" />
+
+                    </RelativeLayout>
+
                 </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/strap_and_title_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white_semitransparent"
-                    android:layout_alignParentBottom="true">
-
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_10"
-                        android:layout_marginEnd="@dimen/margin_5"
-                        android:layout_marginTop="@dimen/margin_10"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_15"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/strap"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/title"
-                        android:layout_marginBottom="@dimen/margin_5"
-                        android:layout_marginStart="@dimen/margin_10"
-                        android:layout_marginEnd="@dimen/margin_10"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:textColor="@color/colorGrayDark"
-                        android:textSize="@dimen/font_size_12" />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/top_buttons_contaniner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/header_container"
-                android:background="@color/colorPrimary">
 
                 <LinearLayout
+                    android:id="@+id/top_buttons_contaniner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_15"
-                    android:layout_marginTop="@dimen/margin_15"
-                    android:orientation="horizontal">
+                    android:layout_below="@id/header_container"
+                    android:background="@color/colorPrimary">
 
                     <LinearLayout
-                        android:id="@+id/likes_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/padding_8"
-                        android:layout_weight="1"
-                        android:gravity="center">
+                        android:layout_marginBottom="@dimen/margin_15"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:orientation="horizontal">
 
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/likes_icon"
-                            android:layout_width="@dimen/width_26"
-                            android:layout_height="@dimen/height_26"
-                            android:layout_marginEnd="@dimen/margin_5"
-                            android:background="@drawable/ic_like"
-                            app:backgroundTint="@color/white" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/likes_icon_liked"
-                            android:layout_width="@dimen/width_26"
-                            android:layout_height="@dimen/height_26"
-                            android:layout_marginEnd="@dimen/margin_5"
-                            android:background="@drawable/ic_liked"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/likes_count"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/likes_container"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+                            android:layout_marginEnd="@dimen/padding_8"
+                            android:layout_weight="1"
+                            android:gravity="center">
 
-                    <LinearLayout
-                        android:id="@+id/share_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/padding_8"
-                        android:layout_weight="1"
-                        android:gravity="center">
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/likes_icon"
+                                android:layout_width="@dimen/width_26"
+                                android:layout_height="@dimen/height_26"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:background="@drawable/ic_like"
+                                app:backgroundTint="@color/white" />
 
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/share_icon"
-                            android:layout_width="@dimen/width_26"
-                            android:layout_height="@dimen/height_26"
-                            android:layout_marginEnd="@dimen/margin_5"
-                            android:background="@drawable/ic_share"
-                            app:backgroundTint="@color/white" />
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/likes_icon_liked"
+                                android:layout_width="@dimen/width_26"
+                                android:layout_height="@dimen/height_26"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:background="@drawable/ic_liked"
+                                android:visibility="gone" />
 
+                            <TextView
+                                android:id="@+id/likes_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/share_count"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/share_container"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+                            android:layout_marginEnd="@dimen/padding_8"
+                            android:layout_weight="1"
+                            android:gravity="center">
 
-                    <LinearLayout
-                        android:id="@+id/comments_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/padding_8"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/comments_icon"
-                            android:layout_width="@dimen/width_26"
-                            android:layout_height="@dimen/height_26"
-                            android:layout_marginEnd="@dimen/margin_5"
-                            android:background="@drawable/ic_comment"
-                            app:backgroundTint="@color/white" />
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/share_icon"
+                                android:layout_width="@dimen/width_26"
+                                android:layout_height="@dimen/height_26"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:background="@drawable/ic_share"
+                                app:backgroundTint="@color/white" />
 
 
-                        <TextView
-                            android:id="@+id/comments_count"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/share_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/comments_container"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+                            android:layout_marginEnd="@dimen/padding_8"
+                            android:layout_weight="1"
+                            android:gravity="center">
 
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/comments_icon"
+                                android:layout_width="@dimen/width_26"
+                                android:layout_height="@dimen/height_26"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:background="@drawable/ic_comment"
+                                app:backgroundTint="@color/white" />
+
+
+                            <TextView
+                                android:id="@+id/comments_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/top_horizontal_split_line"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_1"
-                android:layout_below="@id/top_buttons_contaniner"
-                android:background="@android:color/transparent" />
-
-            <TextView
-                android:id="@+id/content_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/top_horizontal_split_line"
-                android:layout_margin="@dimen/margin_15"
-                android:animateLayoutChanges="true"
-                android:maxLines="3"
-                android:textColor="@color/colorGrayDark" />
-
-            <RelativeLayout
-                android:id="@+id/read_more_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/content_text"
-                android:layout_centerHorizontal="true"
-                android:animateLayoutChanges="true"
-                android:layout_marginBottom="@dimen/margin_10"
-                android:animationCache="true">
-
-                <TextView
-                    android:id="@+id/translate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/padding_16"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:text="Translate post >"
-                    android:textColor="@color/colorPrimaryVeryLight"
-                    android:textSize="@dimen/font_size_10"
-                    />
-
-                <TextView
-                    android:id="@+id/read_more_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingStart="@dimen/padding_16"
-                    android:layout_toEndOf="@+id/translate"
-                    android:text="@string/read_more"
-                    android:textColor="@color/colorPrimaryVeryLight"
-                    android:textSize="@dimen/font_size_10"
-                    />
-            </RelativeLayout>
-
-            <View
-                android:id="@+id/bottom_horizontal_split_line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/read_more_holder"
-                android:background="@color/colorPrimaryAbsoluteDark" />
-
-            <LinearLayout
-                android:id="@+id/tutorial_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/bottom_horizontal_split_line"
-                android:layout_marginBottom="@dimen/margin_negative_20"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/tutorial_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_10"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="?colorAccent"
-                    android:textSize="@dimen/font_size_18" />
 
                 <View
+                    android:id="@+id/top_horizontal_split_line"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="@color/colorPrimary" />
+                    android:layout_below="@id/top_buttons_contaniner"
+                    android:background="@android:color/transparent" />
 
                 <TextView
-                    android:id="@+id/tutorial_description"
+                    android:id="@+id/content_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/top_horizontal_split_line"
                     android:layout_margin="@dimen/margin_15"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
+                    android:animateLayoutChanges="true"
+                    android:maxLines="3"
+                    android:textColor="@color/colorGrayDark" />
 
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/comments_wall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tutorial_container"
-                android:layout_marginTop="@dimen/margin_20" />
-
-
-            <RelativeLayout
-                android:id="@+id/share_buttons_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/header_container"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="@dimen/margin_35"
-                android:animateLayoutChanges="true"
-                android:background="@drawable/share_bubble"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/share_facebook"
-                    android:layout_width="@dimen/width_35"
-                    android:layout_height="@dimen/height_35"
-                    android:layout_alignParentStart="true"
+                <RelativeLayout
+                    android:id="@+id/read_more_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/content_text"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_30"
-                    android:layout_marginStart="@dimen/margin_30"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:src="@drawable/ic_share_facebook" />
+                    android:animateLayoutChanges="true"
+                    android:animationCache="true">
 
-                <ImageView
-                    android:id="@+id/share_twitter"
-                    android:layout_width="@dimen/width_35"
-                    android:layout_height="@dimen/height_35"
-                    android:layout_marginBottom="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:layout_toEndOf="@+id/share_facebook"
-                    android:src="@drawable/ic_shate_twitter" />
+                    <TextView
+                        android:id="@+id/translate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:paddingStart="@dimen/padding_16"
+                        android:text="Translate post >"
+                        android:textColor="@color/colorPrimaryVeryLight"
+                        android:textSize="@dimen/font_size_10" />
+
+                    <TextView
+                        android:id="@+id/read_more_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/translate"
+                        android:paddingStart="@dimen/padding_16"
+                        android:text="@string/read_more"
+                        android:textColor="@color/colorPrimaryVeryLight"
+                        android:textSize="@dimen/font_size_10" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/bottom_horizontal_split_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/read_more_holder"
+                    android:background="@color/colorPrimaryAbsoluteDark" />
+
+                <LinearLayout
+                    android:id="@+id/tutorial_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bottom_horizontal_split_line"
+                    android:layout_marginBottom="@dimen/margin_negative_20"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tutorial_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_10"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="?colorAccent"
+                        android:textSize="@dimen/font_size_18" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_1"
+                        android:background="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tutorial_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_15"
+                        android:textAlignment="center"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/comments_wall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tutorial_container"
+                    android:layout_marginTop="@dimen/margin_20" />
+
+
+                <RelativeLayout
+                    android:id="@+id/share_buttons_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/header_container"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="@dimen/margin_35"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/share_bubble"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/share_facebook"
+                        android:layout_width="@dimen/width_35"
+                        android:layout_height="@dimen/height_35"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_30"
+                        android:layout_marginStart="@dimen/margin_30"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:src="@drawable/ic_share_facebook" />
+
+                    <ImageView
+                        android:id="@+id/share_twitter"
+                        android:layout_width="@dimen/width_35"
+                        android:layout_height="@dimen/height_35"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_toEndOf="@+id/share_facebook"
+                        android:src="@drawable/ic_shate_twitter" />
+                </RelativeLayout>
+
             </RelativeLayout>
-
-        </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+
     <RelativeLayout
         android:id="@+id/post_container"
         android:layout_width="match_parent"
@@ -380,16 +380,17 @@
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/post_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/margin_5"
-            android:layout_marginEnd="@dimen/margin_15"
-            android:textSize="16sp"
-            android:layout_marginStart="@dimen/margin_15"
-            android:layout_marginTop="@dimen/margin_5"
             android:hint="@string/comment_hint"
+            android:paddingEnd="@dimen/margin_15"
+            android:inputType="textCapSentences"
+            android:paddingStart="@dimen/margin_15"
             android:textColor="@color/colorGrayDark"
             android:textColorHint="@color/colorGray"
+            android:textSize="16sp"
             app:backgroundTint="?white" />
 
         <android.support.v7.widget.AppCompatImageView
@@ -416,9 +417,9 @@
             android:layout_marginEnd="@dimen/margin_20"
             android:layout_marginTop="@dimen/margin_5"
             android:adjustViewBounds="true"
+            android:visibility="gone"
             app:indicatorColor="@color/colorPrimary"
-            app:indicatorName="LineSpinFadeLoaderIndicator"
-            android:visibility="gone" />
+            app:indicatorName="LineSpinFadeLoaderIndicator" />
     </RelativeLayout>
 
     <Button
@@ -433,5 +434,6 @@
         android:id="@+id/translation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        tools:layout_height="0dp" />
 </RelativeLayout>
