@@ -25,7 +25,6 @@ import base.app.util.commons.Utility;
  * Abstract fragment organizer
  */
 
-
 abstract class AbstractFragmentOrganizer {
 
     FragmentManager fragmentManager;
@@ -57,10 +56,9 @@ abstract class AbstractFragmentOrganizer {
         EventBus.getDefault().unregister(this);
     }
 
-
     @Nullable
-    private String getFragmentTagAt(int position){
-        if(fragmentManager.getBackStackEntryCount()>=position){
+    private String getFragmentTagAt(int position) {
+        if (fragmentManager.getBackStackEntryCount() >= position) {
             return fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - position).getName();
         }
         return null;
@@ -77,7 +75,7 @@ abstract class AbstractFragmentOrganizer {
     @Nullable
     public Fragment getPreviousFragment() {
         Fragment fragment = fragmentManager.findFragmentByTag(getFragmentTagAt(2));
-        if(fragment==null){
+        if (fragment == null) {
             fragment = getCurrentFragment();
         }
         return fragment;
@@ -89,10 +87,10 @@ abstract class AbstractFragmentOrganizer {
     @Nullable
     public Fragment getPenultimateFragment() {
         Fragment fragment = fragmentManager.findFragmentByTag(getFragmentTagAt(3));
-        if(fragment==null){
+        if (fragment == null) {
             fragment = getPreviousFragment();
         }
-        if(fragment==null){
+        if (fragment == null) {
             fragment = getCurrentFragment();
         }
         return fragment;
@@ -133,9 +131,7 @@ abstract class AbstractFragmentOrganizer {
         return openFragment(fragment, containerId);
     }
 
-
     protected abstract int getFragmentContainer(Class fragment);
-
 
     private String openFragment(Fragment fragment, int containerId) {
         if (isFragmentOpen(fragment) || containerId <= 0) {
@@ -161,6 +157,9 @@ abstract class AbstractFragmentOrganizer {
 
         String fragmentTag = createFragmentTag(fragment, true);
         transaction.addToBackStack(fragmentTag);
+        transaction.setCustomAnimations(
+                android.R.anim.fade_in, android.R.anim.fade_out,
+                android.R.anim.fade_out, android.R.anim.fade_in);
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.commit();
 
