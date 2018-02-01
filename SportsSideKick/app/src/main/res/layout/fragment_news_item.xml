@@ -110,8 +110,8 @@
                     android:id="@+id/social_buttons_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:elevation="2dp"
-                    android:layout_below="@id/header_container">
+                    android:layout_below="@id/header_container"
+                    app:elevation="2dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"

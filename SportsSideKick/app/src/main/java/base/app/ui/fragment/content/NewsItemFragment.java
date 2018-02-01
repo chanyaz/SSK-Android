@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,7 +98,7 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.comments_wall)
     RecyclerView commentsListView;
     @BindView(R.id.post_container)
-    RelativeLayout postContainer;
+    View postContainer;
     @BindView(R.id.post_text)
     EditText inputFieldComment;
     @BindView(R.id.post_comment_button)

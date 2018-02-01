@@ -77,6 +77,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      */
     public void loadWallPosts(int offset, int entryCount, final TaskCompletionSource<List<WallBase>> completion) {
         final UserInfo userInfo = Model.getInstance().getUserInfo();
+        if (userInfo == null) return;
 
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
