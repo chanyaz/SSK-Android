@@ -702,11 +702,13 @@ public class Model {
         request.send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors() && response.getScriptData().getObject(GSConstants.USER_INFO) != null) {
-                    Map<String, Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
-                    UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
-                    userCache.put(userInfo.getUserId(), userInfo);
-                    source.setResult(userInfo);
+                if (!response.hasErrors()) {
+                    if (response.getScriptData().getObject(GSConstants.USER_INFO) != null) {
+                        Map<String, Object> data = response.getScriptData().getObject(GSConstants.USER_INFO).getBaseData();
+                        UserInfo userInfo = mapper.convertValue(data, UserInfo.class);
+                        userCache.put(userInfo.getUserId(), userInfo);
+                        source.setResult(userInfo);
+                    }
                 } else {
                     Log.e(TAG, "There was an error at refreshUserInfo call");
                     source.setException(new Exception("GameSparks error!"));
