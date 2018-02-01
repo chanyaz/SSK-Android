@@ -59,7 +59,7 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
+        android:layout_above="@id/post_container"
         android:layout_below="@+id/top_buttons_container"
         android:overScrollMode="always"
         app:srl_direction="bottom">
@@ -68,9 +68,7 @@
             android:id="@+id/newsItemScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="56dp"
-            tools:paddingBottom="0dp">
+            android:clipToPadding="false">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -382,7 +380,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tutorial_container"
-                    android:layout_marginBottom="48dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginTop="@dimen/margin_20" />
 
                 <RelativeLayout
