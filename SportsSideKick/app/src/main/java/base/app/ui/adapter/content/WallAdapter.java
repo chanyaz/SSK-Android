@@ -198,8 +198,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
 
     static void displayCaption(String value, ViewHolder holder) {
-        if (holder.contentTextView != null) {
-            holder.contentTextView.setText(value);
+        if (holder.contentTextView != null && value != null) {
+            holder.contentTextView.setText(value.replace("\n\n", "\n"));
         }
     }
 
