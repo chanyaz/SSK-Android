@@ -211,7 +211,6 @@ public class NewsItemFragment extends BaseFragment {
         showHeaderImage();
         showTextContent(item);
 
-        setSharedMessageBarVisible(true);
         showSharingPreviewImage();
         showSharingAvatar();
 
@@ -314,7 +313,7 @@ public class NewsItemFragment extends BaseFragment {
             closeButton.setVisibility(View.GONE);
         } else {
             sharedMessageBar.setVisibility(View.GONE);
-            closeButton.setVisibility(View.GONE);
+            closeButton.setVisibility(View.VISIBLE);
         }
     }
 
