@@ -19,7 +19,9 @@ object ImageLoader {
                     .apply(optionsWith(error))
                     .into(view)
         } else {
-            displayImage(error, view)
+            if (error != null) {
+                displayImage(error, view)
+            }
         }
     }
 

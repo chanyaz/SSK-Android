@@ -177,7 +177,9 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             @Override
             public void onComplete(@NonNull Task<UserInfo> task) {
                 if (task.isSuccessful()) {
-                    getValues().remove(position);
+                    if (getValues().get(position) != null) {
+                        getValues().remove(position);
+                    }
                     notifyDataSetChanged();
                 }
             }
