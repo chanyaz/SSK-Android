@@ -122,7 +122,7 @@ public class WallItemFragment extends BaseFragment {
     LinearLayout pinContainer;
     @Nullable
     @BindView(R.id.social_buttons_container)
-    LinearLayout buttonsContainer;
+    View buttonsContainer;
     @Nullable
     @BindView(R.id.header_container)
     RelativeLayout headerContainer;

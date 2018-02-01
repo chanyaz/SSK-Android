@@ -270,6 +270,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case "instagram":
                     sourceImageResource = R.drawable.ic_social_source_instagram;
                     break;
+                case "gplus":
+                    sourceImageResource = R.drawable.ic_social_source_gplus;
+                    break;
             }
             ImageLoader.displayImage(sourceImageResource, holder.socialSource);
         }
