@@ -147,6 +147,8 @@ dependencies {
     implementation "org.jetbrains.anko:anko:0.10.4"
     // Architecture components
     implementation "android.arch.lifecycle:extensions:1.0.0"
+
+    implementation 'com.jaeger.statusbarutil:library:1.4.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

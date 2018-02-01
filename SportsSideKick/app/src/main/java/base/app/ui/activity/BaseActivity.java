@@ -22,6 +22,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jaeger.library.StatusBarUtil;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,21 +36,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import base.app.util.commons.Constant;
-import base.app.data.GSAndroidPlatform;
 import base.app.R;
-import base.app.util.events.notify.NotificationEvent;
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.base.FragmentOrganizer;
-import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.content.NewsFragment;
-import base.app.ui.fragment.content.NewsItemFragment;
-import base.app.ui.fragment.content.RumoursFragment;
-import base.app.ui.fragment.other.StatisticsFragment;
-import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.ui.fragment.content.WallItemFragment;
-import base.app.ui.fragment.popup.FollowersFragment;
-import base.app.ui.fragment.popup.FriendsFragment;
+import base.app.data.GSAndroidPlatform;
 import base.app.data.Model;
 import base.app.data.notifications.ExternalNotificationEvent;
 import base.app.data.notifications.InternalNotificationManager;
@@ -62,12 +50,24 @@ import base.app.data.ticker.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.videoChat.VideoChatEvent;
 import base.app.data.videoChat.VideoChatModel;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.base.FragmentOrganizer;
+import base.app.ui.fragment.content.NewsFragment;
+import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.RumoursFragment;
+import base.app.ui.fragment.content.WallItemFragment;
+import base.app.ui.fragment.other.ChatFragment;
+import base.app.ui.fragment.other.StatisticsFragment;
+import base.app.ui.fragment.popup.FollowersFragment;
+import base.app.ui.fragment.popup.FriendsFragment;
+import base.app.ui.fragment.stream.VideoChatFragment;
+import base.app.util.commons.Constant;
 import base.app.util.commons.ContextWrapper;
 import base.app.util.commons.Utility;
+import base.app.util.events.notify.NotificationEvent;
 import butterknife.BindView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.checkIfBundlesAreEqual;
 
@@ -110,7 +110,7 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void makeStatusBarTransparent() {
-        getWindow().addFlags(FLAG_TRANSLUCENT_STATUS);
+        StatusBarUtil.setTransparent(this);
     }
 
     protected Bundle savedIntentData = null;
