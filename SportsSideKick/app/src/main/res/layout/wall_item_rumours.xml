@@ -37,14 +37,14 @@
                 android:ellipsize="end"
                 android:maxLines="4"
                 android:layout_marginTop="-4dp"
-                android:lineSpacingMultiplier="0.7"
+                android:lineSpacingMultiplier="0.8"
                 android:paddingTop="16dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="8dp"
                 android:text="@string/lorem_ipsum"
                 android:textColor="#1b1c1a"
-                android:textSize="15sp"/>
+                android:textSize="@dimen/list_item_text_size"/>
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"

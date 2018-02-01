@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:scaleType="centerCrop"
             tools:src="@drawable/news_holder_image" />
 
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-4dp"
                 android:ellipsize="end"
-                android:lineSpacingMultiplier="0.7"
+                android:lineSpacingMultiplier="0.8"
                 android:maxLines="4"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
@@ -41,7 +41,7 @@
                 android:paddingTop="16dp"
                 android:text="@string/lorem_ipsum"
                 android:textColor="#1b1c1a"
-                android:textSize="15sp" />
+                android:textSize="@dimen/list_item_text_size" />
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     android:id="@+id/socialSource"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="16dp"
                     tools:src="@drawable/ic_social_source_facebook"/>
 
                 <Space

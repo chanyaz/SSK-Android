@@ -69,7 +69,7 @@
         android:scrollHorizontally="true"
         android:text="@string/lorem_ipsum"
         android:textColor="?black"
-        android:textSize="@dimen/font_size_16" />
+        android:textSize="@dimen/list_item_text_size" />
 
     <RelativeLayout
         android:id="@+id/likes_and_comments"

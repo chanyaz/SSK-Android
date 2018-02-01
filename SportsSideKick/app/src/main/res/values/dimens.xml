@@ -227,4 +227,5 @@
     <dimen name="translation_popup_picker_height">90dp</dimen>
     <dimen name="height_145">135dp</dimen>
     <dimen name="width_30">30dp</dimen>
+    <dimen name="list_item_text_size">16sp</dimen>
 </resources>
