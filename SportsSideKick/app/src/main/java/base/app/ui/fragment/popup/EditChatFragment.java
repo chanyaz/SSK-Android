@@ -225,6 +225,7 @@ public class EditChatFragment extends BaseFragment {
     @OnClick(R.id.delete)
     public void deleteChat(){
         chatInfo.deleteChat();
+        getActivity().onBackPressed();
     }
 
     @OnClick(R.id.popup_image_button)

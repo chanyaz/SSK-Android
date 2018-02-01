@@ -66,9 +66,12 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
             case "ImsMessage":
                 String chatId = (String) data.get(GSConstants.CHAT_ID);
                 String description = (String) data.get(GSConstants.DESCRIPTION);
+                String operation = (String) data.get(GSConstants.OPERATION);
 
-                event = new NotificationEvent(4, "New chat message", description, NotificationEvent.Type.IMS_MESSAGES);
-                EventBus.getDefault().post(event);
+                if (operation.equals("update")) {
+                    event = new NotificationEvent(4, "New chat message", description, NotificationEvent.Type.IMS_MESSAGES);
+                    EventBus.getDefault().post(event);
+                }
                 break;
             case "UserInfo":
                 message = (String) data.get(GSConstants.MESSAGE);
@@ -86,7 +89,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 }
                 break;
             case "Wall":
-                String operation = (String) data.get(GSConstants.OPERATION);
+                operation = (String) data.get(GSConstants.OPERATION);
                 switch (operation){
                     case GSConstants.OPERATION_LIKE:
                         String action = (String) data.get(GSConstants.ACTION);
