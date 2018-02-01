@@ -59,6 +59,7 @@ import base.app.util.events.comment.CommentDeleteEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
+import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -436,9 +437,8 @@ public class NewsItemFragment extends BaseFragment {
     }
 
     private void showHeaderImage() {
-        Glide.with(getContext())
-                .load(item.getCoverImageUrl())
-                .into(imageHeader);
+        ImageLoader.displayImage(item.getCoverImageUrl(), imageHeader,
+                R.drawable.wall_detail_header_placeholder);
     }
 
     private void showSharingPreviewImage() {

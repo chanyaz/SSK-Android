@@ -67,7 +67,7 @@
         android:minLines="1"
         android:padding="@dimen/padding_12"
         android:scrollHorizontally="true"
-        android:text="@string/lorem_ipsum"
+        tools:text="@string/lorem_ipsum"
         android:textColor="?black"
         android:textSize="@dimen/list_item_text_size" />
 
