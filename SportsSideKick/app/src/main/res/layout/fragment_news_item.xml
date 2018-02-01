@@ -437,11 +437,11 @@
         android:id="@+id/sharedMessageBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f7ffffff"
+        android:background="#deffffff"
         android:elevation="6dp"
         android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <!--Status bar background-->
         <View
