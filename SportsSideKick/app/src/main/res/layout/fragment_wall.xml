@@ -28,7 +28,7 @@
                 <View
                     android:id="@+id/topSpacer"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp" />
+                    android:layout_height="@dimen/wall_top_spacer_height" />
 
                 <RelativeLayout
                     android:id="@+id/wall_top_image_container"

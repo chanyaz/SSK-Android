@@ -230,4 +230,5 @@
     <dimen name="list_item_text_size">16sp</dimen>
     <dimen name="wall_image_size">130dp</dimen>
     <dimen name="navigation_bar_margin_bottom">0dp</dimen>
+    <dimen name="wall_top_spacer_height">80dp</dimen>
 </resources>
