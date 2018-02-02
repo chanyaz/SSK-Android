@@ -146,6 +146,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 //            R.drawable.menu_club_radio_selector,
             R.drawable.menu_shop_selector,
             R.drawable.menu_club_tv_selector,
-//            R.drawable.menu_video_chat_selector
+//            R.drawable.menu_video_chat_selector,
+            R.drawable.menu_tickets_selector
     };
 }

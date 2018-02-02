@@ -82,8 +82,19 @@ abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        String language = Prefs.getString(CHOSEN_LANGUAGE, "en");
-        Locale newLocale = new Locale(language);
+        String savedLanguage = Prefs.getString(CHOSEN_LANGUAGE, null);
+
+        String systemLanguage = newBase.getResources().getConfiguration().locale.toString();
+        if (systemLanguage.contains("_")) {
+            systemLanguage = systemLanguage.split("_")[0];
+        }
+
+        if (savedLanguage == null || !systemLanguage.equals("en")) {
+            savedLanguage = systemLanguage;
+            Prefs.putString(CHOSEN_LANGUAGE, systemLanguage);
+        }
+
+        Locale newLocale = new Locale(savedLanguage);
         Context context = ContextWrapper.wrap(newBase, newLocale);
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }

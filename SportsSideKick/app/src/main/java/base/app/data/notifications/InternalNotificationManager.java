@@ -46,7 +46,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
             NotificationEvent event;
             switch (extCode){
                 case "FriendRequestAcceptedMessage":
-                    event = new NotificationEvent(2, "Accepted Friend Request", "", NotificationEvent.Type.FRIEND_REQUESTS);
+                    event = new NotificationEvent(4, "Accepted Friend Request", "", NotificationEvent.Type.FRIEND_REQUESTS);
                     EventBus.getDefault().post(event);
                     break;
                 case "FriendRequestMessage":

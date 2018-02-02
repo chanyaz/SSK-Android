@@ -228,4 +228,5 @@
     <dimen name="height_145">135dp</dimen>
     <dimen name="width_30">30dp</dimen>
     <dimen name="list_item_text_size">16sp</dimen>
+    <dimen name="wall_image_size">130dp</dimen>
 </resources>

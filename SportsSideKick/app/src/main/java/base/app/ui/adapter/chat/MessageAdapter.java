@@ -268,7 +268,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     nicName = userInfo.getNicName();
                 }
                 if (holder.senderImageView != null) {
-                    ImageLoader.displayImage(senderImageUrl,holder.senderImageView, null);
+                    ImageLoader.displayImage(senderImageUrl,holder.senderImageView, R.drawable.blank_profile_rounded);
                 }
                 holder.senderTextView.setText(nicName);
             }

@@ -26,6 +26,7 @@
         <item>@string/shop</item>
         <item>@string/tv</item>
         <item>@string/video_chat</item>
+        <item>@string/tickets</item>
     </string-array>
 
     <!-- Login & Register -->
