@@ -197,6 +197,7 @@ public class MainActivity extends BaseActivity
     public void updateTopBar() {
         int visibility = Model.getInstance().isRealUser() ? View.VISIBLE : View.GONE;
         friendsIcon.setVisibility(visibility);
+        notificationIcon.setVisibility(visibility);
     }
 
     private void setToolbar() {
