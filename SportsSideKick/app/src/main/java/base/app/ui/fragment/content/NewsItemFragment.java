@@ -801,7 +801,13 @@ public class NewsItemFragment extends BaseFragment {
                 }
             }
         });
-        translationView.showTranslationPopup(view, postId, source, TranslationView.TranslationType.TRANSLATE_NEWS);
+        if (item.getType() == WallBase.PostType.social) {
+            translationView.showTranslationPopup(
+                    view, postId, source, TranslationView.TranslationType.TRANSLATE_SOCIAL);
+        } else {
+            translationView.showTranslationPopup(
+                    view, postId, source, TranslationView.TranslationType.TRANSLATE_NEWS);
+        }
     }
 
     private void updateWithTranslatedPost(WallNews translatedNews) {

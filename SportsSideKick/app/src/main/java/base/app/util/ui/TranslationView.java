@@ -63,6 +63,7 @@ public class TranslationView extends RelativeLayout {
     public enum TranslationType {
         TRANSLATE_WALL,
         TRANSLATE_NEWS,
+        TRANSLATE_SOCIAL,
         TRANSLATE_IMS,
         TRANSLATE_COMMENT
     }
@@ -242,6 +243,24 @@ public class TranslationView extends RelativeLayout {
         Translator.getInstance().translateNews(itemId, getSelectedLanguageCode(), source);
     }
 
+    private void translateSocial() {
+        TaskCompletionSource<WallNews> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+            @Override
+            public void onComplete(@NonNull Task<WallNews> task) {
+                if (task.isSuccessful()) {
+                    WallNews translatedWallNews = task.getResult();
+                    completion.setResult(translatedWallNews);
+                } else {
+                    Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();
+                }
+                TranslationView.this.setVisibility(GONE);
+                progressBar.setVisibility(GONE);
+            }
+        });
+        Translator.getInstance().translateSocial(itemId, getSelectedLanguageCode(), source);
+    }
+
     OnClickListener onTranslateClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -260,6 +279,9 @@ public class TranslationView extends RelativeLayout {
                     break;
                 case TRANSLATE_NEWS:
                     translateWallNews();
+                    break;
+                case TRANSLATE_SOCIAL:
+                    translateSocial();
                     break;
             }
         }
