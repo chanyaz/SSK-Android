@@ -2,6 +2,7 @@ package base.app.util.ui
 
 import android.content.Context
 import android.os.Handler
+import android.text.Html
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +50,8 @@ class NextMatchView(context: Context, attrs: AttributeSet)
         } else {
             nextMatchContainer.hide()
         }
+
+        label.text = Html.fromHtml(context.getString(R.string.slogan))
     }
 
     private fun updateCountdownTimer(timestamp: Long) {
