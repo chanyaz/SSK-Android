@@ -17,6 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+import com.pixplicity.easyprefs.library.Prefs;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.DateFormat;
@@ -40,7 +43,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
+import static base.app.ui.adapter.menu.LanguageAdapter.languageIcons;
+import static base.app.ui.adapter.menu.LanguageAdapter.languageShortName;
 import static base.app.util.commons.Utility.AUTO_TRANSLATE;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.NEWS_NOTIFICATIOINS;
 import static base.app.util.commons.Utility.RUMOURS_NOTIFICATIONS;
 import static base.app.util.commons.Utility.SOCIAL_NOTIFICATIONS;
@@ -133,7 +139,17 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         setupFragment();
         loginStateReceiver = new LoginStateReceiver(this);
 
+        showLanguageIcon();
+
         return view;
+    }
+
+    private void showLanguageIcon() {
+        String currentLanguage = Prefs.getString(CHOSEN_LANGUAGE, "en");
+
+        int languageIndex = languageShortName.indexOf(currentLanguage);
+
+        Glide.with(this).load(languageIcons.get(languageIndex)).into(languageIcon);
     }
 
     private void setClickListeners() {
