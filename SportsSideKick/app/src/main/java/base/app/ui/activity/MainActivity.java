@@ -21,12 +21,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.tutorial.TutorialModel;
@@ -87,6 +90,7 @@ import base.app.util.ui.NoScrollRecycler;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends BaseActivity
         implements LoginStateReceiver.LoginStateListener,
@@ -164,6 +168,9 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
+        Fabric.with(this, new Crashlytics.Builder().core(core).build());
+
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
@@ -270,7 +277,6 @@ public class MainActivity extends BaseActivity
         popupLeftFragments.add(PostCreateFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true);
 
-
         youtubeList = new ArrayList<>();
         youtubeList.add(ClubTVFragment.class);
         youtubeList.add(ClubTvPlaylistFragment.class);
@@ -319,7 +325,6 @@ public class MainActivity extends BaseActivity
         } else {
             radioContainer.setVisibility(View.GONE);
         }
-
 
         if (popupLeftFragments.contains(event.getType())) {
             // this is popup event - coming from left
@@ -458,7 +463,6 @@ public class MainActivity extends BaseActivity
             tvContainer.setVisibility(View.VISIBLE);
             return;
         }
-
 
         if (currentFragment instanceof YoutubePlayerFragment) {
             YoutubePlayerFragment youtubePlayerFragment = (YoutubePlayerFragment) currentFragment;

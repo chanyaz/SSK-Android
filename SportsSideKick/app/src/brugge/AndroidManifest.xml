@@ -57,8 +57,7 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-        <!-- 6.2. Ch
-        ange Value in this object to correct Facebook app Id -->
+        <!-- 6.2. Change Value in this object to correct Facebook app Id -->
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider102782376855276-TODO-CHANGE"
@@ -70,7 +69,7 @@
         <!-- 6.3. Change Value in this object to correct Fabric API Key -->
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="5fe478e83aeb04e30a3f64c0c242b2d54e7c2216" />
+            android:value="37603fd544c2349d3453ebc172ed3673360bae53" />
     </application>
 
 </manifest>

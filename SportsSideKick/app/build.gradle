@@ -1,4 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
@@ -53,6 +68,7 @@ dependencies {
     // Push notifications
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    implementation 'com.google.firebase:firebase-crash:11.8.0'
     // Youtube
     implementation fileTree(include: ['YouTubeAndroidPlayerApi.jar'], dir: 'libs')
     implementation('com.google.http-client:google-http-client-android:1.20.0')
@@ -149,6 +165,9 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.0.0"
 
     implementation 'com.jaeger.statusbarutil:library:1.4.0'
+    compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+        transitive = true;
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'
