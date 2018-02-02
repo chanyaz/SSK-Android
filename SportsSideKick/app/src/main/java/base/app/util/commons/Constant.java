@@ -7,6 +7,7 @@ import java.util.List;
 import base.app.ui.fragment.content.NewsFragment;
 import base.app.ui.fragment.content.SocialFragment;
 import base.app.ui.fragment.content.StoreFragment;
+import base.app.ui.fragment.content.TicketsFragment;
 import base.app.ui.fragment.content.WallFragment;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.other.StatisticsFragment;
@@ -55,6 +56,7 @@ public class Constant {
             add(StoreFragment.class);
             add(ClubTVFragment.class);
 //            add(VideoChatFragment.class);
+            add(TicketsFragment.class);
     }});
 
 

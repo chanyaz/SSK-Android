@@ -43,6 +43,7 @@ import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.content.SocialFragment;
 import base.app.ui.fragment.content.StoreFragment;
+import base.app.ui.fragment.content.TicketsFragment;
 import base.app.ui.fragment.content.WallFragment;
 import base.app.ui.fragment.content.WallItemFragment;
 import base.app.ui.fragment.other.ChatFragment;
@@ -233,6 +234,7 @@ public class MainActivity extends BaseActivity
         mainContainerFragments.add(RumoursFragment.class);
         mainContainerFragments.add(StoreFragment.class);
         mainContainerFragments.add(VideoChatFragment.class);
+        mainContainerFragments.add(TicketsFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
 
         popupContainerFragments = new ArrayList<>();
