@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="48dp"
+    android:layout_marginBottom="@dimen/navigation_bar_margin_bottom"
     tools:context=".ui.activity.MainActivity"
     tools:layout_marginBottom="0dp">
 

@@ -1,6 +1,7 @@
 package base.app;
 
 import android.content.ContextWrapper;
+import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -22,7 +23,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class Application extends android.app.Application{
+public class Application extends MultiDexApplication{
 
     private static Application instance;
 
