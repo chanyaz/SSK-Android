@@ -109,6 +109,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/header_container"
+                    app:cardCornerRadius="0dp"
+                    app:contentPadding="-4dp"
+                    app:cardUseCompatPadding="true"
                     app:elevation="2dp">
 
                     <LinearLayout
@@ -247,7 +250,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@id/header_container"
-                    android:background="@color/white" />
+                    android:background="#46ffffff" />
 
                 <TextView
                     android:id="@+id/title"
