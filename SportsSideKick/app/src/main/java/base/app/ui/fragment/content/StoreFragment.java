@@ -119,7 +119,7 @@ public class StoreFragment extends BaseFragment {
             setViewEnabled(webView.canGoBack(), backButton);
             setViewEnabled(webView.canGoForward(), forwardButton);
 
-            if (webView.getUrl().equals(getResources().getString(R.string.store_url))) {
+            if (webView.getUrl().equals(getUrl())) {
                 Log.d("WEB VIEW", "Home page!");
                 setViewEnabled(false, homeButton);
                 setViewEnabled(false, shareToWallButton);
@@ -198,9 +198,14 @@ public class StoreFragment extends BaseFragment {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
-        url = getResources().getString(R.string.store_url);
+        url = getUrl();
         withNavigation = true;
         webView.loadUrl(url);
+    }
+
+    @NonNull
+    protected String getUrl() {
+        return getResources().getString(R.string.store_url);
     }
 
     View.OnClickListener goBackClickListener = new View.OnClickListener() {
