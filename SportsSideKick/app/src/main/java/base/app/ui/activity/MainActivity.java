@@ -168,8 +168,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
-        Fabric.with(this, new Crashlytics.Builder().core(core).build());
+        initCrashlytics();
 
         setContentView(R.layout.activity_main);
 
@@ -183,6 +182,16 @@ public class MainActivity extends BaseActivity
 
         Glide.with(this).load(R.drawable.sportingportugal).into(logoImageView);
         Glide.with(this).load(R.drawable.video_chat_background).into(splashBackgroundImage);
+    }
+
+    private void initCrashlytics() {
+        // Set up Crashlytics, disabled for debug builds
+        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                .build();
+
+        // Initialize Fabric with the debug-disabled crashlytics.
+        Fabric.with(this, crashlyticsKit);
     }
 
     public void updateTopBar() {
