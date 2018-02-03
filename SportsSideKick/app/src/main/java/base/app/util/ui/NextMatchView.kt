@@ -50,7 +50,6 @@ class NextMatchView(context: Context, attrs: AttributeSet)
         } else {
             nextMatchContainer.hide()
         }
-
         label.text = Html.fromHtml(context.getString(R.string.slogan))
     }
 
