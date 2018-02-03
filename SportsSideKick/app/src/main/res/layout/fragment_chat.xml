@@ -71,6 +71,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/message_container"
+            android:paddingBottom="32dp"
+            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
@@ -176,8 +178,6 @@
                 android:background="@color/colorGrayLight"
                 android:gravity="start|center_vertical"
                 android:hint="@string/message_hint"
-                android:imeActionId="@+id/action_send_message_id"
-                android:imeActionLabel="Send"
                 android:imeOptions="actionSend"
                 android:inputType="textCapSentences"
                 android:maxLines="1"
@@ -189,6 +189,16 @@
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="?chatEditTextHintColor"
                 android:textSize="@dimen/font_size_16" />
+
+            <ImageView
+                android:id="@+id/lockIcon"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:alpha="0.5"
+                android:layout_width="24dp"
+                android:layout_marginRight="8dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_lock_outline_black_24dp"/>
 
         </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package base.app.data.content.wall
 
+import base.app.data.Id
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -7,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 class Comment {
 
     @JsonProperty("_id")
-    lateinit var id: String
+    lateinit var id: Id
     lateinit var comment: String
-    lateinit var posterId: String
+    var posterId: Id = Id()
     lateinit var wallId: String
     lateinit var postId: String
     var timestamp: Double = 0.0

@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="130dp"
-            android:layout_height="110dp"
+            android:layout_width="@dimen/wall_image_size"
+            android:layout_height="@dimen/wall_image_size"
             android:scaleType="centerCrop"
             tools:src="@drawable/news_holder_image" />
 
@@ -34,14 +34,15 @@
                 android:layout_marginTop="-4dp"
                 android:ellipsize="end"
                 android:lineSpacingMultiplier="0.8"
-                android:maxLines="3"
+                android:maxLines="4"
+                android:hyphenationFrequency="full"
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="16dp"
                 tools:text="@string/lorem_ipsum"
                 android:textColor="#1b1c1a"
-                android:textSize="18sp" />
+                android:textSize="@dimen/list_item_text_size" />
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
@@ -66,25 +67,18 @@
                     android:src="?profileImageIcon"
                     android:visibility="gone" />
 
+                <ImageView
+                    android:id="@+id/socialSource"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="16dp"
+                    tools:src="@drawable/ic_social_source_facebook"/>
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/comments_icon"
-                    android:layout_width="@dimen/width_15"
-                    android:layout_height="@dimen/width_15"
-                    android:layout_marginEnd="@dimen/margin_2"
-                    android:background="@drawable/ic_comments_count" />
-
-                <TextView
-                    android:id="@+id/comments_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    tools:text="204"
-                    android:textSize="@dimen/font_size_10" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/likes_icon"
@@ -106,8 +100,23 @@
                     android:id="@+id/likes_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="6901"
-                    android:textSize="@dimen/font_size_10" />
+                    android:layout_marginRight="8dp"
+                    android:textSize="@dimen/font_size_10"
+                    tools:text="6901" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/comments_icon"
+                    android:layout_width="@dimen/width_15"
+                    android:layout_height="@dimen/width_15"
+                    android:layout_marginEnd="@dimen/margin_2"
+                    android:background="@drawable/ic_comments_count" />
+
+                <TextView
+                    android:id="@+id/comments_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_10"
+                    tools:text="204" />
 
             </LinearLayout>
 
