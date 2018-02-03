@@ -23,7 +23,7 @@
         android:scaleType="centerCrop"
         tools:src="@drawable/video_chat_background"/>
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/waiting_connection"

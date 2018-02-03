@@ -42,9 +42,9 @@ class NextMatchView(context: Context, attrs: AttributeSet)
             Handler().postDelayed(object : Runnable {
                 override fun run() {
                     updateCountdownTimer(timestamp)
-                    postDelayed(this, 1000L)
+                    postDelayed(this, 500L)
                 }
-            }, 1000L)
+            }, 500L)
 
             nextMatchContainer.visible()
         } else {
