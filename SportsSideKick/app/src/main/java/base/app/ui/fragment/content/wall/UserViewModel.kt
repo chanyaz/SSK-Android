@@ -20,12 +20,8 @@ class UserViewModel : ViewModel() {
 
         return loginApi.sessionState
                 .doOnNext { state = it }
-                .doOnNext { if (it == Anonymous) { // TODO: Remove this doOnNext block after fully migrating app to login viewmodel
-                    LoginApi.getInstance().loggedInUserType = LoggedInUserType.ANONYMOUS
-                } else {
-                    LoginApi.getInstance().loggedInUserType = LoggedInUserType.REAL
-                }}
-                .flatMap { loginApi.startSession(it) }
+                .notifyDeprecatedLogin(state)
+                .flatMap { loginApi.startSession(state) }
                 .flatMap { loginApi.profileData }
                 .map { it.toUser() }
                 .map { Session(it, state) }
@@ -45,6 +41,17 @@ class UserViewModel : ViewModel() {
 
     fun getChangesInFriends(): Observable<Any> {
         return Observable.never()
+    }
+
+    // TODO: Remove after fully migrating app to login viewmodel
+    private fun Observable<*>.notifyDeprecatedLogin(state: SessionState): Observable<*> {
+        return doOnNext {
+            if (state == Anonymous) {
+                LoginApi.getInstance().loggedInUserType = LoggedInUserType.ANONYMOUS
+            } else {
+                LoginApi.getInstance().loggedInUserType = LoggedInUserType.REAL
+            }
+        }
     }
 }
 
