@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="navigation_bar_margin_bottom">48dp</dimen>
-    <dimen name="wall_top_spacer_height">75dp</dimen>
-    <dimen name="header_image_title_margin_top">25dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-</resources>

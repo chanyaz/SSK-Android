@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="4"
+                android:maxLines="3"
                 android:layout_marginTop="-4dp"
                 android:lineSpacingMultiplier="0.8"
                 android:paddingTop="16dp"
@@ -44,7 +44,7 @@
                 android:paddingBottom="8dp"
                 tools:text="@string/lorem_ipsum"
                 android:textColor="#1b1c1a"
-                android:textSize="@dimen/list_item_text_size"/>
+                android:textSize="18sp"/>
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"

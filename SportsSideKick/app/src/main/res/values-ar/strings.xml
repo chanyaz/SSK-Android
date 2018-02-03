@@ -19,14 +19,12 @@
         <item>@string/wall</item>
         <item>@string/chat</item>
         <item>@string/news</item>
-        <item>@string/social</item>
         <item>@string/stats</item>
         <item>@string/rumours</item>
         <item>@string/radio</item>
         <item>@string/shop</item>
         <item>@string/tv</item>
         <item>@string/video_chat</item>
-        <item>@string/tickets</item>
     </string-array>
 
     <!-- Login & Register -->

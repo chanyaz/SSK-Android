@@ -64,7 +64,7 @@
         android:layout_centerVertical="true"
         android:layout_marginBottom="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"
-        android:background="?selectableItemBackgroundBorderless"
+        android:background="@null"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/friend_request_accept" />
 
@@ -76,7 +76,7 @@
         android:layout_marginBottom="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"
         android:layout_toStartOf="@+id/confirm_button"
-        android:background="?selectableItemBackgroundBorderless"
+        android:background="@null"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/friend_request_clear" />
 

@@ -98,7 +98,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     }
 
 
-    public static final List<Integer> languageIcons = Collections.unmodifiableList(
+    private static final List<Integer> languageIcons = Collections.unmodifiableList(
         new ArrayList<Integer>() {{
             add(R.drawable.bengali);
             add(R.drawable.chinese);
@@ -120,7 +120,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.ViewHo
     }
 
 
-    public static final List<String> languageShortName = Collections.unmodifiableList(
+    private static final List<String> languageShortName = Collections.unmodifiableList(
             new ArrayList<String>() {{
                 add("bh");
                 add("zh");

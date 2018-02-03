@@ -3,23 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimaryMediumLight"
     android:clickable="true"
     android:orientation="vertical">
-
-    <View
-        android:id="@+id/topSpacer"
-        android:layout_width="match_parent"
-        android:background="@drawable/phone_background"
-        android:layout_height="24dp"
-        tools:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:layout_below="@id/topSpacer"
+        android:layout_alignParentTop="true"
         android:background="@drawable/phone_background"
         android:orientation="horizontal"
         android:tileMode="repeat">

@@ -364,6 +364,7 @@ public class ChatInfo {
      **/
     public void updateChatInfo(){
         ImsManager.getInstance().updateChat(this);
+        EventBus.getDefault().post(new ChatNotificationsEvent(getChatId(), ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
     }
 
     /**

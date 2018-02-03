@@ -13,13 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Id {
 
-    public Id() {
-    }
-
-    public Id(String oid) {
-        this.oid = oid;
-    }
-
     @JsonProperty("$oid")
     private String oid;
 

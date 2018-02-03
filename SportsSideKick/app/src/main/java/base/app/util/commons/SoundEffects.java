@@ -60,6 +60,7 @@ public class SoundEffects {
         volume = audioManager != null ? audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM) : 0;
     }
     public void playSound(int soundId) {
+        Log.d(TAG, "Playing sound with id:" + soundPoolMap.get(soundId));
         soundPool.play(soundPoolMap.get(soundId), volume, volume, PRIORITY, NO_LOOP, NORMAL_PLAYBACK_RATE);
     }
 }

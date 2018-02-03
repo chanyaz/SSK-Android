@@ -47,7 +47,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
             NotificationEvent event;
             switch (extCode){
                 case "FriendRequestAcceptedMessage":
-                    event = new NotificationEvent(4, "Accepted Friend Request", "", NotificationEvent.Type.FRIEND_REQUESTS);
+                    event = new NotificationEvent(2, "Accepted Friend Request", "", NotificationEvent.Type.FRIEND_REQUESTS);
                     EventBus.getDefault().post(event);
                     break;
                 case "FriendRequestMessage":
@@ -66,13 +66,8 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
         switch (type){
             case "ChatMessage":
                 String chatId = (String) data.get(GSConstants.CHAT_ID);
-                String description = (String) data.get(GSConstants.DESCRIPTION);
-                String operation = (String) data.get(GSConstants.OPERATION);
-
-                if (operation.equals("update")) {
-                    event = new NotificationEvent(4, "New chat message", description, NotificationEvent.Type.IMS_MESSAGES);
-                    EventBus.getDefault().post(event);
-                }
+                String text = (String) data.get(GSConstants.DESCRIPTION);
+                // TODO: @Filip to be implemented when done on iOS
                 break;
             case "UserInfo":
                 message = (String) data.get(GSConstants.MESSAGE);
@@ -90,7 +85,7 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 }
                 break;
             case "Wall":
-                operation = (String) data.get(GSConstants.OPERATION);
+                String operation = (String) data.get(GSConstants.OPERATION);
                 switch (operation){
                     case GSConstants.OPERATION_LIKE:
                         String action = (String) data.get(GSConstants.ACTION);

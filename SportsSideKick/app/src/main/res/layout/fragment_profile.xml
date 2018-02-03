@@ -51,7 +51,6 @@
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/top_toolbar">
 
@@ -99,7 +98,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
-        android:visibility="gone"
         android:layout_below="@+id/top_toolbar"
         android:orientation="horizontal">
 
@@ -449,66 +447,6 @@
                         android:layout_toEndOf="@+id/wallNotificationsToggle"
                         android:layout_height="wrap_content"
                         android:text="@string/notify_wall"
-                        android:textColor="@color/white" />
-
-                    <ToggleButton
-                        android:id="@+id/newsNotificationsToggle"
-                        android:layout_width="56dp"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginBottom="8dp"
-                        android:tag="News"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/wallNotificationsToggle" />
-
-                    <TextView
-                        android:id="@+id/newsNotificationsLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_alignBaseline="@+id/newsNotificationsToggle"
-                        android:layout_alignBottom="@+id/newsNotificationsToggle"
-                        android:layout_toEndOf="@+id/newsNotificationsToggle"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notify_news"
-                        android:textColor="@color/white" />
-
-                    <ToggleButton
-                        android:id="@+id/rumoursNotificationsToggle"
-                        android:layout_width="56dp"
-                        android:layout_marginLeft="18dp"
-                        android:tag="Rumours"
-                        android:layout_marginBottom="8dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/newsNotificationsToggle" />
-
-                    <TextView
-                        android:id="@+id/rumoursNotificationsLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_alignBaseline="@+id/rumoursNotificationsToggle"
-                        android:layout_alignBottom="@+id/rumoursNotificationsToggle"
-                        android:layout_toEndOf="@+id/rumoursNotificationsToggle"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notify_rumours"
-                        android:textColor="@color/white" />
-
-                    <ToggleButton
-                        android:id="@+id/socialNotificationsToggle"
-                        android:layout_width="56dp"
-                        android:layout_marginLeft="18dp"
-                        android:tag="Social"
-                        android:layout_marginBottom="8dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/rumoursNotificationsToggle" />
-
-                    <TextView
-                        android:id="@+id/socialNotificationsLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_alignBaseline="@+id/socialNotificationsToggle"
-                        android:layout_alignBottom="@+id/socialNotificationsToggle"
-                        android:layout_toEndOf="@+id/socialNotificationsToggle"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notify_social"
                         android:textColor="@color/white" />
 
                 </RelativeLayout>

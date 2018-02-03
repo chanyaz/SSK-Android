@@ -23,7 +23,7 @@
         android:scaleType="centerCrop"
         tools:src="@drawable/video_chat_background"/>
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         <TextView
             android:id="@+id/label"
             style="@style/shadow_text_login"
-            fontPath="fonts/TitilliumWeb-Regular.ttf"
+            fontPath="fonts/TitilliumWeb-SemiLight.ttf"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_below="@+id/club_logo"
@@ -56,7 +56,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
             android:gravity="center"
-            tools:text="@string/slogan"
+            android:text="@string/slogan"
             android:textColor="@color/white"
             app:autoSizeMaxTextSize="70sp"
             app:autoSizeMinTextSize="20sp"
@@ -213,7 +213,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <TextView
         android:id="@+id/waiting_connection"

@@ -7,18 +7,11 @@
     android:background="@color/colorPrimaryMediumLight"
     android:clickable="true">
 
-    <View
-        android:id="@+id/topSpacer"
-        android:background="@drawable/phone_background"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        tools:visibility="gone" />
-
     <RelativeLayout
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:layout_below="@id/topSpacer"
+        android:layout_alignParentTop="true"
         android:orientation="horizontal"
         android:tileMode="repeat">
 
@@ -55,7 +48,6 @@
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:visibility="gone"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/top_toolbar"
         android:background="@color/colorPrimaryAbsoluteDark"
@@ -97,7 +89,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
-        android:visibility="gone"
         android:layout_below="@+id/top_toolbar"
         android:orientation="horizontal">
 
@@ -551,7 +542,6 @@
                     android:id="@+id/wall_notifications"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:background="@android:color/transparent"
@@ -562,7 +552,6 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:visibility="gone"
                     android:layout_height="@dimen/height_1"
                     android:background="@color/colorPrimaryVeryDark" />
 

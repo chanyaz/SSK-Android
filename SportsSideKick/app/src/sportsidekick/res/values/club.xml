@@ -8,7 +8,6 @@
     <string name="terms_and_privacy_url" translatable="false">http://sportssidekick.tv/terms?lang=</string>
 
     <string name="store_url" translatable="false">https://lojaverde.sporting.pt/en</string>
-    <string name="tickets_url" translatable="false">http://www.sporting.pt/%s/tickets-and-gamebox/tickets</string>
     <!-- Following urls are to distinguish different sections of store website and show UI on pages where there are products -->
     <string name="store_url_item" translatable="false">https://lojaverde.sporting.pt/en/equipments</string>
     <string name="store_url_item2" translatable="false">https://lojaverde.sporting.pt/en/lifestyle</string>
