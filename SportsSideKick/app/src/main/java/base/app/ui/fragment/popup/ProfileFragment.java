@@ -17,6 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+import com.pixplicity.easyprefs.library.Prefs;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.DateFormat;
@@ -25,13 +28,14 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.ui.AlertDialogManager;
+import base.app.data.AlertDialogManager;
+import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
+import base.app.data.user.UserInfo;
+import base.app.data.wall.WallModel;
 import base.app.ui.adapter.profile.UserStatsAdapter;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -39,7 +43,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
+import static base.app.ui.adapter.menu.LanguageAdapter.languageIcons;
+import static base.app.ui.adapter.menu.LanguageAdapter.languageShortName;
 import static base.app.util.commons.Utility.AUTO_TRANSLATE;
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
+import static base.app.util.commons.Utility.NEWS_NOTIFICATIOINS;
+import static base.app.util.commons.Utility.RUMOURS_NOTIFICATIONS;
+import static base.app.util.commons.Utility.SOCIAL_NOTIFICATIONS;
+import static base.app.util.commons.Utility.WALL_NOTIFICATIONS;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
@@ -47,7 +58,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class ProfileFragment extends BaseFragment implements LoginStateReceiver.LoginListener {
+public class ProfileFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
 
     @BindView(R.id.profile_stats_recycler_view)
     RecyclerView statsRecyclerView;
@@ -94,6 +105,14 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     @BindView(R.id.autoTranslateToggle)
     ToggleButton autoTranslateToggle;
+    @BindView(R.id.wallNotificationsToggle)
+    ToggleButton wallNotificationsToggle;
+    @BindView(R.id.newsNotificationsToggle)
+    ToggleButton newsNotificationsToggle;
+    @BindView(R.id.rumoursNotificationsToggle)
+    ToggleButton rumoursNotificationsToggle;
+    @BindView(R.id.socialNotificationsToggle)
+    ToggleButton socialNotificationsToggle;
 
     UserStatsAdapter adapter;
 
@@ -104,8 +123,12 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         ButterKnife.bind(this, view);
-        setClickListeners();
         autoTranslateToggle.setChecked(isAutoTranslateEnabled());
+        wallNotificationsToggle.setChecked(!isWallNotificationsEnabled());
+        newsNotificationsToggle.setChecked(!isNewsNotificationsEnabled());
+        rumoursNotificationsToggle.setChecked(!isRumoursNotificationsEnabled());
+        socialNotificationsToggle.setChecked(!isSocialNotificationsEnabled());
+        setClickListeners();
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         statsRecyclerView.setLayoutManager(layoutManager);
@@ -116,26 +139,111 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
         setupFragment();
         loginStateReceiver = new LoginStateReceiver(this);
 
+        showLanguageIcon();
+
         return view;
+    }
+
+    private void showLanguageIcon() {
+        String currentLanguage = Prefs.getString(CHOSEN_LANGUAGE, "en");
+
+        int languageIndex = languageShortName.indexOf(currentLanguage);
+
+        Glide.with(this).load(languageIcons.get(languageIndex)).into(languageIcon);
     }
 
     private void setClickListeners() {
         autoTranslateToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton toggle, boolean isEnabled) {
-                setGlobalAutoTranslate(isEnabled);
+                saveGlobalAutoTranslate(isEnabled);
             }
         });
+        wallNotificationsToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton toggle, boolean isMuted) {
+                boolean isEnabled = !isMuted;
+
+                saveWallNotificationsEnabled(isEnabled);
+
+                WallModel.getInstance().wallSetMuteValue(isEnabled ? "true" : "false");
+            }
+        });
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton toggle, boolean isChecked) {
+                String type = toggle.getTag().toString();
+                if (isChecked) {
+                    WallModel.getInstance().muteNotifications(type);
+                } else {
+                    WallModel.getInstance().unmuteNotifications(type);
+                }
+                switch (type) {
+                    case "News":
+                        saveNewsNotificationsEnabled(!isChecked);
+                        break;
+                    case "Rumours":
+                        saveRumoursNotificationsEnabled(!isChecked);
+                        break;
+                    case "Social":
+                        saveSocialNotificationsEnabled(!isChecked);
+                        break;
+                }
+            }
+        };
+        newsNotificationsToggle.setOnCheckedChangeListener(listener);
+        rumoursNotificationsToggle.setOnCheckedChangeListener(listener);
+        socialNotificationsToggle.setOnCheckedChangeListener(listener);
     }
 
-    private void setGlobalAutoTranslate(boolean isEnabled) {
+    private void saveGlobalAutoTranslate(boolean isEnabled) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         prefs.edit().putBoolean(AUTO_TRANSLATE, isEnabled).apply();
+    }
+
+    private void saveWallNotificationsEnabled(boolean isEnabled) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs.edit().putBoolean(WALL_NOTIFICATIONS, isEnabled).apply();
+    }
+
+    private void saveNewsNotificationsEnabled(boolean isEnabled) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs.edit().putBoolean(NEWS_NOTIFICATIOINS, isEnabled).apply();
+    }
+
+    private void saveRumoursNotificationsEnabled(boolean isEnabled) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs.edit().putBoolean(RUMOURS_NOTIFICATIONS, isEnabled).apply();
+    }
+
+    private void saveSocialNotificationsEnabled(boolean isEnabled) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs.edit().putBoolean(SOCIAL_NOTIFICATIONS, isEnabled).apply();
     }
 
     public static boolean isAutoTranslateEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return prefs.getBoolean(AUTO_TRANSLATE, false);
+    }
+
+    public static boolean isWallNotificationsEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return prefs.getBoolean(WALL_NOTIFICATIONS, false);
+    }
+
+    public static boolean isNewsNotificationsEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return prefs.getBoolean(NEWS_NOTIFICATIOINS, false);
+    }
+
+    public static boolean isRumoursNotificationsEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return prefs.getBoolean(RUMOURS_NOTIFICATIONS, false);
+    }
+
+    public static boolean isSocialNotificationsEnabled() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return prefs.getBoolean(SOCIAL_NOTIFICATIONS, false);
     }
 
     @OnClick(R.id.logout_button)
@@ -149,7 +257,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                 }, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
-                        LoginApi.getInstance().logout();
+                        Model.getInstance().logout();
                         getActivity().onBackPressed();
                     }
                 });
@@ -194,14 +302,32 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     }
 
     @Optional
-    @OnClick(R.id.backButton)
+    @OnClick(R.id.light_theme_button)
+    public void resetOnClick() {
+        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.reset_app),
+                new View.OnClickListener() {// Cancel
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
+                    }
+                }, new View.OnClickListener() { // Confirm
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().onBackPressed();
+                    }
+                });
+    }
+
+    @Optional
+    @OnClick(R.id.close_dialog_button)
     public void back() {
         getActivity().onBackPressed();
     }
 
     private void setupFragment() {
-        User user = LoginApi.getInstance().getUser();
-        if (user != null && LoginApi.getInstance().isLoggedIn()) {
+        UserInfo user = Model.getInstance().getUserInfo();
+        if (user != null && Model.getInstance().isRealUser()) {
             double subscribedAsDouble = user.getSubscribedDate();
             String daysUsingSSK = String.valueOf((int) ((Utility.getCurrentTime() - subscribedAsDouble) / (1000 * 60 * 60 * 24)));
             ArrayList<Pair<String, String>> values = new ArrayList<>();
@@ -222,7 +348,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
             adapter.getValues().addAll(values);
 
             // TODO: Refresh profile image if updated on server (currently requires app restart)
-            ImageLoader.displayImage(user.getAvatar(), profileImage, null);
+            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, null);
             profileName.setText(user.getFirstName() + " " + user.getLastName());
             profileEmail.setText(user.getEmail());
             profilePhone.setText(user.getPhone());
@@ -256,7 +382,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     @Override
     public void onLogout() {
-        if (LoginApi.getInstance().isLoggedIn()) {
+        if (Model.getInstance().isRealUser()) {
             setupFragment();
         }
     }
@@ -266,7 +392,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     }
 
     @Override
-    public void onLogin(User user) {
+    public void onLogin(UserInfo user) {
     }
 
     @Override

@@ -1,6 +1,6 @@
 package base.app.util.events;
 
-import base.app.data.content.wall.FeedItem;
+import base.app.data.wall.WallBase;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -11,7 +11,8 @@ import base.app.data.content.wall.FeedItem;
 public class BusEvent {
 
     protected String id;
-    protected FeedItem item;
+    protected String secondaryId;
+    protected WallBase item;
 
     public BusEvent(String id) {
         this.id = id;
@@ -25,11 +26,19 @@ public class BusEvent {
         this.id = id;
     }
 
-    public FeedItem getItem() {
+    public String getSecondaryId() {
+        return secondaryId;
+    }
+
+    public void setSecondaryId(String secondaryId) {
+        this.secondaryId = secondaryId;
+    }
+
+    public WallBase getItem() {
         return item;
     }
 
-    public void setItem(FeedItem item) {
+    public void setItem(WallBase item) {
         this.item = item;
     }
 }

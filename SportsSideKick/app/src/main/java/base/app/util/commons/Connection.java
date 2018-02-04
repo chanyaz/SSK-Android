@@ -11,7 +11,7 @@ import com.keiferstone.nonet.NoNet;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.util.ui.AlertDialogManager;
+import base.app.data.AlertDialogManager;
 
 /**
  * Created by Filip on 5/9/2017.

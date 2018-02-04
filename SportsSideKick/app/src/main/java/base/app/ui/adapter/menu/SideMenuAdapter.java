@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.ui.fragment.base.FragmentOrganizer;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.util.commons.Constant;
 import base.app.util.commons.Utility;
-import base.app.util.events.FragmentEvent;
 import base.app.util.ui.NavigationDrawerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,7 +72,7 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
                     iDrawerCloseSideMenu.closeDrawerSideMenu(viewHolder.getAdapterPosition(), false);
                     oldPosition = viewHolder.getAdapterPosition();
                     viewHolder.itemView.setSelected(true);
-                    EventBus.getDefault().post(new FragmentEvent(FragmentOrganizer.SIDE_MENU_OPTIONS.get(viewHolder.getAdapterPosition())));
+                    EventBus.getDefault().post(new FragmentEvent(Constant.PHONE_MENU_OPTIONS.get(viewHolder.getAdapterPosition())));
                 } else {
                     iDrawerCloseSideMenu.closeDrawerSideMenu(viewHolder.getAdapterPosition(), true);
                 }
@@ -106,10 +106,8 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
             R.drawable.menu_wall_selector,
             R.drawable.menu_chat_selector,
             R.drawable.menu_news_selector,
-            R.drawable.menu_stats_selector,
+            R.drawable.menu_social_selector,
             R.drawable.drawer,
-
-
     };
 
     public interface IDrawerCloseSideMenu {

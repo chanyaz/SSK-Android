@@ -22,12 +22,12 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
 import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
-import base.app.data.user.friends.FriendsManager;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.Model;
+import base.app.data.friendship.FriendsManager;
+import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +51,7 @@ public class FollowersFragment extends BaseFragment {
 
     @BindView(R.id.search_edit_text)
     EditText searchText;
-    List<User> folowers;
+    List<UserInfo> folowers;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,10 +63,10 @@ public class FollowersFragment extends BaseFragment {
 
         final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
         followersRecyclerView.setAdapter(adapter);
-        Task<List<User>> friendsTask = FriendsManager.getInstance().getUserFollowersList(LoginApi.getInstance().getUser().getUserId(), 0);
-        friendsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
+        Task<List<UserInfo>> friendsTask = FriendsManager.getInstance().getUserFollowersList(Model.getInstance().getUserInfo().getUserId(), 0);
+        friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
-            public void onComplete(@NonNull Task<List<User>> task) {
+            public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if (task.isSuccessful()) {
                     folowers = task.getResult();
                     adapter.getValues().clear();

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import base.app.R;
-import base.app.util.ui.BaseFragment;
+import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;

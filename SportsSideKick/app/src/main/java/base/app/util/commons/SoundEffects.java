@@ -18,9 +18,9 @@ import base.app.R;
 public class SoundEffects {
 
     private static final int ERROR = 1; // for "errors"
-    public static final int ROLL_OVER = 2; // "close" states (closing a popup / coming back from a wall savePost etc
+    public static final int ROLL_OVER = 2; // "close" states (closing a popup / coming back from a wall createPost etc
     public static final int SOFT = 3; // in any instances where selecting a users profile
-    public static final int SUBTLE = 4; //  "open" states (opening a popup / opening a wall savePost / pressing a button)
+    public static final int SUBTLE = 4; //  "open" states (opening a popup / opening a wall createPost / pressing a button)
     public static final int AUDIO_CALL = 5; //  play a sound for a video call
 
     private static final int PRIORITY = 1;
@@ -60,7 +60,6 @@ public class SoundEffects {
         volume = audioManager != null ? audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM) : 0;
     }
     public void playSound(int soundId) {
-        Log.d(TAG, "Playing sound with id:" + soundPoolMap.get(soundId));
         soundPool.play(soundPoolMap.get(soundId), volume, volume, PRIORITY, NO_LOOP, NORMAL_PLAYBACK_RATE);
     }
 }

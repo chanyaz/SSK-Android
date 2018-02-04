@@ -12,9 +12,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 import base.app.R;
-import base.app.util.events.FragmentEvent;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.popup.FriendFragment;
-import base.app.data.user.User;
+import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -32,7 +32,7 @@ public class FindOfficialAdapter extends RecyclerView.Adapter<FindOfficialAdapte
     private float halfWidthScreen = 0.5f;
     private Context context;
     private int imageSize;
-    List<User> userList;
+    List<UserInfo> userInfoList;
 
 
     public FindOfficialAdapter(Context context, Class initiatorFragment) {
@@ -71,7 +71,7 @@ public class FindOfficialAdapter extends RecyclerView.Adapter<FindOfficialAdapte
                 FragmentEvent fragmentEvent = new FragmentEvent(FriendFragment.class);
                 fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setItemId(userList.get(position).getUserId());
+                fragmentEvent.setId(userInfoList.get(position).getUserId());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });
@@ -81,8 +81,8 @@ public class FindOfficialAdapter extends RecyclerView.Adapter<FindOfficialAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        User user = userList.get(position);
-        String avatarUrl = user.getAvatarUrl();
+        UserInfo userInfo = userInfoList.get(position);
+        String avatarUrl = userInfo.getAvatarUrl();
         if (avatarUrl != null) {
             ImageLoader.displayImage(avatarUrl, holder.profileImage, null);
         }
@@ -92,16 +92,16 @@ public class FindOfficialAdapter extends RecyclerView.Adapter<FindOfficialAdapte
 
     @Override
     public int getItemCount() {
-        if (userList == null)
+        if (userInfoList == null)
             return 0;
-        else return userList.size();
+        else return userInfoList.size();
     }
 
 
 
-    public void setValues(List<User> values)
+    public void setValues(List<UserInfo> values)
     {
-      this.userList =values;
+      this.userInfoList=values;
       notifyDataSetChanged();
   }
 

@@ -16,22 +16,17 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
 import base.app.R;
-import base.app.data.TypeConverter;
-import base.app.data.chat.ChatMessage;
-import base.app.data.content.Translator;
-import base.app.data.content.wall.Comment;
-import base.app.data.content.wall.News;
-import base.app.data.content.wall.Post;
+import base.app.data.Translator;
+import base.app.data.im.ImsMessage;
+import base.app.data.wall.PostComment;
+import base.app.data.wall.WallBase;
+import base.app.data.wall.WallNews;
 
 /**
  * Created by Filip on 9/27/2017.
@@ -55,7 +50,7 @@ public class TranslationView extends RelativeLayout {
 
     String itemId;
     TranslationType type;
-    TypeConverter.ItemType itemType;
+    WallBase.PostType postType;
 
     int[] referenceLocation;
     int referenceHeight, referenceWidth;
@@ -66,8 +61,9 @@ public class TranslationView extends RelativeLayout {
     }
 
     public enum TranslationType {
-        TRANSLATE_POST,
+        TRANSLATE_WALL,
         TRANSLATE_NEWS,
+        TRANSLATE_SOCIAL,
         TRANSLATE_IMS,
         TRANSLATE_COMMENT
     }
@@ -91,14 +87,14 @@ public class TranslationView extends RelativeLayout {
     private void initView() {
         inflate(getContext(), R.layout.view_translation, this);
         findViewById(R.id.close).setOnClickListener(onCloseClickListener);
-        findViewById(R.id.translateButton).setOnClickListener(onTranslateClickListener);
+        findViewById(R.id.translate).setOnClickListener(onTranslateClickListener);
         container = findViewById(R.id.root);
         popupLayout = findViewById(R.id.popup);
         languagePicker = findViewById(R.id.language_picker);
         progressBar = findViewById(R.id.progress);
         container.setOnClickListener(onCloseClickListener);
 
-        HashMap<String, String> mapOfLanguages = new XmlLanguageMapParser().parseLanguage(getContext(), R.xml.languages);
+        HashMap<String, String> mapOfLanguages = Translator.getInstance().getLanguageList();
         languagePicker.setMinValue(0);
         if (mapOfLanguages != null && mapOfLanguages.size() > 0) {
             languagesBiMap = HashBiMap.create(mapOfLanguages);
@@ -117,11 +113,11 @@ public class TranslationView extends RelativeLayout {
         showTranslationPopup(clickedView, id, completion, type, null);
     }
 
-    public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, TypeConverter.ItemType itemType) {
+    public void showTranslationPopup(View referenceView, String id, TaskCompletionSource completion, TranslationType type, WallBase.PostType postType) {
         this.type = type;
         this.completion = completion;
         itemId = id;
-        this.itemType = itemType;
+        this.postType = postType;
         popupLayout.setVisibility(VISIBLE);
         progressBar.setVisibility(GONE);
         container.requestLayout();
@@ -175,12 +171,12 @@ public class TranslationView extends RelativeLayout {
     }
 
     private void translateMessage() {
-        TaskCompletionSource<ChatMessage> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<ChatMessage>() {
+        TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
             @Override
-            public void onComplete(@NonNull Task<ChatMessage> task) {
+            public void onComplete(@NonNull Task<ImsMessage> task) {
                 if (task.isSuccessful()) {
-                    ChatMessage translatedMessage = task.getResult();
+                    ImsMessage translatedMessage = task.getResult();
                     completion.setResult(translatedMessage);
                 } else {
                     Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();
@@ -190,17 +186,17 @@ public class TranslationView extends RelativeLayout {
 
             }
         });
-        Translator.getInstance().translateMessage(itemId, getSelectedLanguageCode(), source);
+        Translator.getInstance().translateMessage(itemId, source);
     }
 
-    private void translatePost() {
-        TaskCompletionSource<Post> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<Post>() {
+    private void translateWallItem() {
+        TaskCompletionSource<WallBase> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
             @Override
-            public void onComplete(@NonNull Task<Post> task) {
+            public void onComplete(@NonNull Task<WallBase> task) {
                 if (task.isSuccessful()) {
-                    Post translatedWallPost = task.getResult();
-                    completion.setResult(translatedWallPost);
+                    WallBase translatedWallBaseItem = task.getResult();
+                    completion.setResult(translatedWallBaseItem);
                 } else {
                     Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();
                 }
@@ -208,17 +204,17 @@ public class TranslationView extends RelativeLayout {
                 progressBar.setVisibility(GONE);
             }
         });
-        Translator.getInstance().translatePost(itemId, getSelectedLanguageCode(), source);
+        Translator.getInstance().translatePost(itemId, getSelectedLanguageCode(), source, WallBase.PostType.post);
     }
 
     private void translatePostComment() {
-        TaskCompletionSource<Comment> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<Comment>() {
+        TaskCompletionSource<PostComment> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<PostComment>() {
             @Override
-            public void onComplete(@NonNull Task<Comment> task) {
+            public void onComplete(@NonNull Task<PostComment> task) {
                 if (task.isSuccessful()) {
-                    Comment translatedCommentItem = task.getResult();
-                    completion.setResult(translatedCommentItem);
+                    PostComment translatedPostCommentItem = task.getResult();
+                    completion.setResult(translatedPostCommentItem);
                 } else {
                     Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();
                 }
@@ -230,13 +226,13 @@ public class TranslationView extends RelativeLayout {
     }
 
     private void translateWallNews() {
-        TaskCompletionSource<News> source = new TaskCompletionSource<>();
-        source.getTask().addOnCompleteListener(new OnCompleteListener<News>() {
+        TaskCompletionSource<WallNews> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
             @Override
-            public void onComplete(@NonNull Task<News> task) {
+            public void onComplete(@NonNull Task<WallNews> task) {
                 if (task.isSuccessful()) {
-                    News translatedNews = task.getResult();
-                    completion.setResult(translatedNews);
+                    WallNews translatedWallNews = task.getResult();
+                    completion.setResult(translatedWallNews);
                 } else {
                     Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();
                 }
@@ -247,6 +243,24 @@ public class TranslationView extends RelativeLayout {
         Translator.getInstance().translateNews(itemId, getSelectedLanguageCode(), source);
     }
 
+    private void translateSocial() {
+        TaskCompletionSource<WallNews> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+            @Override
+            public void onComplete(@NonNull Task<WallNews> task) {
+                if (task.isSuccessful()) {
+                    WallNews translatedWallNews = task.getResult();
+                    completion.setResult(translatedWallNews);
+                } else {
+                    Toast.makeText(getContext(), "Translation failed.", Toast.LENGTH_SHORT).show();
+                }
+                TranslationView.this.setVisibility(GONE);
+                progressBar.setVisibility(GONE);
+            }
+        });
+        Translator.getInstance().translateSocial(itemId, getSelectedLanguageCode(), source);
+    }
+
     OnClickListener onTranslateClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -254,8 +268,8 @@ public class TranslationView extends RelativeLayout {
             popupLayout.setVisibility(GONE);
             progressBar.setVisibility(VISIBLE);
             switch (type) {
-                case TRANSLATE_POST:
-                    translatePost();
+                case TRANSLATE_WALL:
+                    translateWallItem();
                     break;
                 case TRANSLATE_IMS:
                     translateMessage();
@@ -265,6 +279,9 @@ public class TranslationView extends RelativeLayout {
                     break;
                 case TRANSLATE_NEWS:
                     translateWallNews();
+                    break;
+                case TRANSLATE_SOCIAL:
+                    translateSocial();
                     break;
             }
         }
@@ -296,64 +313,6 @@ public class TranslationView extends RelativeLayout {
         }
         if (visibility == VISIBLE) {
             positionPopup(referenceLocation, referenceHeight, referenceWidth);
-        }
-    }
-
-    private class XmlLanguageMapParser {
-
-        private final static String KEY = "key", STRING = "string", DICT = "dict";
-        private final static String LANGUAGE_TAG = "language", NAME_TAG = "name";
-
-        /**
-         * This class parses an iOS plist with a dict element of language details into a hash map.
-         * Map contains a list of pairs where languageShortCode is key, and full language name is a value
-         */
-        HashMap<String, String> parseLanguage(Context context, int xmlId) {
-
-            XmlPullParser parser = context.getResources().getXml(xmlId);
-
-            HashMap<String,String> map = new HashMap<>();
-
-            try {
-                parser.next();
-                int eventType = parser.getEventType();
-                String lastTag = null;
-                String lastKey = null;
-                String languageName = null;
-                String languageShortCode = null;
-                while (eventType != XmlPullParser.END_DOCUMENT) {
-                    if (eventType == XmlPullParser.START_TAG) {
-                        lastTag = parser.getName();
-                        if(DICT.equalsIgnoreCase(lastTag)){
-                            languageName = null;
-                            languageShortCode = null;
-                        }
-                    }
-                    else if (eventType == XmlPullParser.TEXT) {
-                        // some text
-                        if (KEY.equalsIgnoreCase(lastTag)) {
-                            // start tracking a new key
-                            lastKey = parser.getText();
-                        }
-                        else if (STRING.equalsIgnoreCase(lastTag)) {
-                            // a new string for the last encountered key
-                            if(LANGUAGE_TAG.equals(lastKey)){
-                                languageShortCode = parser.getText();
-                            }
-                            else if(NAME_TAG.equals(lastKey)){
-                                languageName = parser.getText();
-                            }
-                            if(languageName!=null && languageShortCode!=null){
-                                map.put(languageShortCode,languageName);
-                            }
-                        }
-                    }
-                    eventType = parser.next();
-                }
-            } catch (XmlPullParserException | IOException e) {
-                e.printStackTrace();
-            }
-            return map;
         }
     }
 }

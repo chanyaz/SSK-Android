@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryMediumLight"
-    tools:context=".ui.fragment.stream.RadioFragment">
+    tools:context=".ui.fragment.stream.ClubRadioFragment">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progressBar"
@@ -33,10 +33,9 @@
 
     <!-- Items -->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        app:spanCount="2"/>
 
+        />
 </RelativeLayout>

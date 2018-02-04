@@ -5,12 +5,14 @@
     <string name="wall">Wall</string>
     <string name="news">News</string>
     <string name="rumours">Rumours</string>
+    <string name="social">Social</string>
     <string name="stats">Stats</string>
     <string name="shop">Shop</string>
     <string name="chat">Chat</string>
     <string name="video_chat">Video Chat</string>
     <string name="radio">Club Radio</string>
     <string name="tv">Club TV</string>
+    <string name="tickets">Tickets</string>
     <string name="store">Store</string>
     <string name="quiz">Quiz</string>
     <string name="fantasy">Fantasy</string>
@@ -19,12 +21,14 @@
         <item>@string/wall</item>
         <item>@string/chat</item>
         <item>@string/news</item>
+        <item>@string/social</item>
         <item>@string/stats</item>
         <item>@string/rumours</item>
         <item>@string/radio</item>
         <item>@string/shop</item>
         <item>@string/tv</item>
         <item>@string/video_chat</item>
+        <item>@string/tickets</item>
     </string-array>
 
     <!-- Login & Register -->
@@ -55,7 +59,7 @@
     <string name="required_last_name">Please fill in your last name.</string>
     <string name="required_nickname">Please fill in your nickname.</string>
     <string name="required_phone">Please fill in your phone number.</string>
-    <string name="required_credentials">Please enter credentials</string>
+    <string name="required_credentials">Please enter valid credentials</string>
     <string name="password_try_again">Please re-enter your password and try again</string>
     <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
     <string name="logout_from_app">This will log you out of the app!</string>

@@ -37,12 +37,12 @@ import java.util.Map;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.commons.GSConstants;
-import base.app.data.user.User;
-import base.app.data.content.wall.WallModel;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
+import base.app.data.GSConstants;
+import base.app.data.Model;
+import base.app.data.user.UserInfo;
+import base.app.data.wall.WallModel;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
@@ -58,8 +58,8 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.util.commons.Constants.REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE;
-import static base.app.util.commons.Constants.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
+import static base.app.util.commons.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK;
 
 /**
  * Created by Filip on 1/19/2017.
@@ -70,7 +70,7 @@ import static base.app.util.commons.Constants.REQUEST_CODE_EDIT_PROFILE_IMAGE_PI
 @RuntimePermissions
 public class EditProfileFragment extends BaseFragment {
 
-    User user;
+    UserInfo user;
     boolean isMuted;
 
     @BindView(R.id.profile_image)
@@ -114,9 +114,9 @@ public class EditProfileFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.popup_edit_profile, container, false);
         ButterKnife.bind(this, view);
 
-        user = LoginApi.getInstance().getUser();
+        user = Model.getInstance().getUserInfo();
         if (user != null) {
-            ImageLoader.displayImage(user.getAvatar(), profileImage, null);
+            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, null);
             firstNameEditText.setText(user.getFirstName());
             lastNameEditText.setText(user.getLastName());
             nicNameEditText.setText(user.getNicName());
@@ -183,7 +183,7 @@ public class EditProfileFragment extends BaseFragment {
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = LoginApi.createImageFile(getContext());
+                photoFile = Model.createImageFile(getContext());
                 currentPath = photoFile.getAbsolutePath();
             } catch (IOException ex) {
                 // Error occurred while creating the File
@@ -215,7 +215,7 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.close)
     public void closeOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -229,7 +229,7 @@ public class EditProfileFragment extends BaseFragment {
                 case REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
                     Log.d(TAG, "SELECTED IMAGE URI IS: " + selectedImageURI.toString());
-                    String realPath = LoginApi.getRealPathFromURI(getContext(), selectedImageURI);
+                    String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     Log.d(TAG, "SELECTED IMAGE REAL PATH IS: " + realPath);
                     uploadImage(realPath);
                     break;
@@ -279,7 +279,7 @@ public class EditProfileFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         if (Utility.isPhone(getContext())) {
-                            EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
+                            EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
                         } else {
                             getActivity().onBackPressed();
                         }
@@ -297,9 +297,9 @@ public class EditProfileFragment extends BaseFragment {
         map.put(GSConstants.PHONE, phoneEditText.getText().toString());
         map.put(GSConstants.CLUB_ID_TAG, String.valueOf(CLUB_ID));
         //Todo @refactoring  put password and language
-        LoginApi.getInstance().setDetails(map);
+        Model.getInstance().setDetails(map);
         if (Utility.isPhone(getContext())) {
-            EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
+            EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
         } else {
             getActivity().onBackPressed();
         }
@@ -308,13 +308,13 @@ public class EditProfileFragment extends BaseFragment {
 
     private void uploadImage(String path) {
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        LoginApi.getInstance().uploadImageForProfile(path, getContext().getFilesDir(), source);
+        Model.getInstance().uploadImageForProfile(path, getContext().getFilesDir(), source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if (task.isSuccessful()) {
                     String uploadedImageUrl = task.getResult();
-                    LoginApi.getInstance().setProfileImageUrl(uploadedImageUrl, true);
+                    Model.getInstance().setProfileImageUrl(uploadedImageUrl, true);
                     ImageLoader.displayImage(uploadedImageUrl, profileImage, null);
                 } else {
                     // TODO @Filip Handle error!

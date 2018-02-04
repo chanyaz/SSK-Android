@@ -1,32 +1,49 @@
 package base.app.ui.fragment.popup.post
 
-import android.arch.lifecycle.Observer
+import android.annotation.SuppressLint
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import base.app.R
+import base.app.data.Model
+import base.app.data.news.PostsRepository
 import base.app.util.commons.Utility.hideKeyboard
-import base.app.util.ui.*
+import base.app.util.ui.hide
+import base.app.util.ui.inflate
+import base.app.util.ui.show
+import base.app.util.ui.visible
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo.single
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData
 import com.miguelbcr.ui.rx_paparazzo2.entities.Response
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_post_create.*
+import kotlinx.android.synthetic.main.fragment_create_post.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.io.File
 
-class PostCreateFragment : BaseFragment(R.layout.fragment_post_create), IPostCreateView {
+/**
+ * Created by Filip on 11/21/2017.
+ * Copyright by Hypercube d.o.o.
+ * www.hypercubesoft.com
+ */
+class PostCreateFragment : Fragment(), IPostCreateView {
 
-    private val viewModel by lazy { inject<PostCreateViewModel>() }
+    private val viewModel by lazy {
+        ViewModelProviders.of(this)
+                .get(PostCreateViewModel::class.java)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
+        return container?.inflate(R.layout.fragment_create_post)
+    }
 
     override fun onViewCreated(view: View, state: Bundle?) {
+        viewModel.postsRepo = PostsRepository()
         viewModel.view = this
-        viewModel.loadUser().observe(this, Observer {
-            if (it != null) {
-                authorName.text = "${it.firstName} ${it.lastName}"
-                authorImage.showAvatar(it.avatar)
-            }
-        })
+        viewModel.onViewCreated()
         contentImage.show(R.drawable.image_rumours_background)
         setClickListeners()
     }
@@ -40,24 +57,27 @@ class PostCreateFragment : BaseFragment(R.layout.fragment_post_create), IPostCre
         backButton.onClick { exit() }
     }
 
+    @SuppressLint("SetTextI18n")
+    override fun showUser() {
+        val info = Model.getInstance().userInfo
+        authorName.text = "${info.firstName} ${info.lastName}"
+        authorImage.show(info.avatarUrl, R.drawable.blank_profile_rounded)
+    }
+
     override fun showPostImage(image: File) {
         contentImage.show(image)
 
-        cameraButton.setVisible(false)
-        galleryButton.setVisible(false)
-        removeButton.setVisible(true)
+        cameraButton.hide()
+        galleryButton.hide()
+        removeButton.visible()
     }
 
     override fun clearPostImage() {
-        cameraButton.setVisible(true)
-        galleryButton.setVisible(true)
-        removeButton.setVisible(false)
+        cameraButton.visible()
+        galleryButton.visible()
+        removeButton.hide()
 
         contentImage.show(R.drawable.image_rumours_background)
-    }
-
-    override fun showLoading(loading: Boolean) {
-        if (loading) progressBar.setVisible(true) else progressBar.setVisible(false)
     }
 
     override fun exit() {
@@ -72,5 +92,5 @@ class PostCreateFragment : BaseFragment(R.layout.fragment_post_create), IPostCre
 }
 
 private fun Observable<Response<FragmentActivity?, FileData>>.getFile(): Observable<File> {
-    return map { it.data().file }
+    return this.map { it.data().file }
 }

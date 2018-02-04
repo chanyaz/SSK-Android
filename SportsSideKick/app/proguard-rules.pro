@@ -60,7 +60,7 @@
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 # Only required if you use AsyncExecutor
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <loadUser>(java.lang.Throwable);
+    <init>(java.lang.Throwable);
 }
 
 # Add project specific ProGuard rules here.
@@ -106,13 +106,13 @@
 -keep public class * extends android.view.View{
     *** get*();
     void set*(***);
-    public <loadUser>(android.content.Context);
-    public <loadUser>(android.content.Context, android.util.AttributeSet);
-    public <loadUser>(android.content.Context, android.util.AttributeSet, int);
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
 }
 -keepclasseswithmembers class * {
-    public <loadUser>(android.content.Context, android.util.AttributeSet);
-    public <loadUser>(android.content.Context, android.util.AttributeSet, int);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
 }
 -keepclassmembers class * extends android.app.Activity {
    public void *(android.view.View);
@@ -305,7 +305,7 @@
 -keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
 
 -keepclassmembers class * {
-   public <loadUser> (org.json.JSONObject);
+   public <init> (org.json.JSONObject);
 }
 -keepclassmembers enum * {
     public static **[] values();
@@ -344,7 +344,7 @@
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <loadUser>(java.lang.Throwable);
+    <init>(java.lang.Throwable);
 }
 
 
@@ -526,14 +526,16 @@ public void xxxxxx(**);
 
 -dontwarn kotlin.**
 
-# Rxjava rules
--dontwarn rx.internal.util.**
+-dontwarn kotlin.**
 
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-    long producerIndex;
-    long consumerIndex;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-    long producerNode;
-    long consumerNode;
-}
+ # Rxjava rules
+ -dontwarn rx.internal.util.**
+
+ -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+     long producerIndex;
+     long consumerIndex;
+ }
+ -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+     long producerNode;
+     long consumerNode;
+ }

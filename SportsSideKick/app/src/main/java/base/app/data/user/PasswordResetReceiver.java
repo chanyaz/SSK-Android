@@ -35,4 +35,5 @@ public class PasswordResetReceiver {
                 break;
         }
     }
+
 }

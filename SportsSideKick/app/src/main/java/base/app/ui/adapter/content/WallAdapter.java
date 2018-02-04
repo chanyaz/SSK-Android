@@ -30,23 +30,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.data.content.Translator;
-import base.app.data.content.wall.FeedItem;
-import base.app.data.content.wall.News;
-import base.app.data.content.wall.Pin;
-import base.app.data.content.wall.Post;
-import base.app.data.content.wall.Stats;
-import base.app.data.content.wall.StoreOffer;
-import base.app.util.events.FragmentEvent;
-import base.app.ui.fragment.content.news.NewsDetailFragment;
-import base.app.ui.fragment.content.wall.DetailFragment;
+import base.app.data.Model;
+import base.app.data.Translator;
+import base.app.data.user.UserInfo;
+import base.app.data.wall.WallBase;
+import base.app.data.wall.WallBase.PostType;
+import base.app.data.wall.WallNews;
+import base.app.data.wall.WallPost;
+import base.app.data.wall.WallStats;
+import base.app.data.wall.WallStoreItem;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.WallItemFragment;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static base.app.data.TypeConverter.ItemType;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
@@ -64,13 +64,14 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         public View view;
         // Content view bindings
         @Nullable
         @BindView(R.id.text_content)
         TextView contentTextView;
         @Nullable
-        @BindView(R.id.playButton)
+        @BindView(R.id.play_button)
         ImageView playButton;
         @Nullable
         @BindView(R.id.image)
@@ -113,6 +114,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.captionAvatar)
         ImageView captionAvatar;
+        @Nullable
+        @BindView(R.id.socialSource)
+        ImageView socialSource;
 
         ViewHolder(View v) {
             super(v);
@@ -121,13 +125,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
     }
 
-    private ItemType[] itemTypeValues;
+    private PostType[] postTypeValues;
 
     private int currentAdInterval;
 
     public WallAdapter(Context context) {
         this.context = context;
-        itemTypeValues = ItemType.values();
+        postTypeValues = PostType.values();
         initializeNativeAdManagerAndRequestAds(ADS_COUNT);
         currentAdInterval = 0;
     }
@@ -164,20 +168,22 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         if (viewType == WALL_ADVERT_VIEW_TYPE) {
             viewResourceId = R.layout.wall_native_ad;
         } else {
-            switch (itemTypeValues[viewType]) {
-                case Post:
+            switch (postTypeValues[viewType]) {
+                case post:
                     viewResourceId = R.layout.wall_item_user_post;
                     break;
-                case NewsShare:
+                case newsShare:
+                case rumourShare:
+                case socialShare:
                     viewResourceId = R.layout.wall_item_news;
                     break;
-                case Rumour:
+                case rumor:
                     viewResourceId = R.layout.wall_item_rumour;
                     break;
-                case StoreOffer:
+                case wallStoreItem:
                     viewResourceId = R.layout.wall_item_shop;
                     break;
-                case Stats:
+                case stats:
                     viewResourceId = R.layout.wall_item_stats;
                     break;
             }
@@ -189,19 +195,21 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+    // Replace the contents of a view (invoked by the layout manager)
+
     static void displayCaption(String value, ViewHolder holder) {
-        if (holder.contentTextView != null) {
-            holder.contentTextView.setText(value);
+        if (holder.contentTextView != null && value != null) {
+            holder.contentTextView.setText(value.replace("\n\n", "\n"));
         }
     }
 
-    private static boolean displayPostImage(Post post, ViewHolder holder) {
+    static boolean displayPostImage(WallBase post, ViewHolder holder) {
         if (holder.imageView != null) {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
-                Glide.with(holder.imageView.getContext())
-                        .load(post.getCoverImageUrl())
-                        .into(holder.imageView);
+                holder.imageView.setVisibility(View.VISIBLE);
+
+                ImageLoader.displayImage(post.getCoverImageUrl(), holder.imageView, R.drawable.wall_detail_header_placeholder);
                 return true;
             } else {
                 holder.imageView.setVisibility(View.GONE);
@@ -211,37 +219,24 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return false;
     }
 
-    static void displayNewsImage(News news, ViewHolder holder) {
-        if (holder.imageView != null) {
-            String coverImageUrl = news.getImage();
-            if (coverImageUrl != null && !TextUtils.isEmpty(news.getImage())) {
-                Glide.with(holder.imageView.getContext())
-                        .load(news.getImage())
-                        .into(holder.imageView);
-            } else {
-                holder.imageView.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    static void displayUserInfo(final FeedItem post, final ViewHolder holder) {
-        Task<User> getUserTask = LoginApi.getInstance().getUserInfoById(post.getWallId());
-        getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
+    static void displayUserInfo(final WallBase post, final ViewHolder holder) {
+        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(post.getWallId());
+        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
-            public void onComplete(@NonNull Task<User> task) {
+            public void onComplete(@NonNull Task<UserInfo> task) {
                 if (task.isSuccessful()) {
-                    User user = task.getResult();
+                    UserInfo user = task.getResult();
                     if (user != null) {
                         if (holder.captionAvatar != null) {
                             Glide.with(holder.view)
-                                    .load(user.getAvatar())
-                                    .apply(new RequestOptions().placeholder(R.drawable.avatar_placeholder))
+                                    .load(user.getCircularAvatarUrl())
+                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
                                     .into(holder.captionAvatar);
                         }
                         if (holder.userImage != null) {
                             Glide.with(holder.view)
-                                    .load(user.getAvatar())
-                                    .apply(new RequestOptions().placeholder(R.drawable.avatar_placeholder))
+                                    .load(user.getCircularAvatarUrl())
+                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
                                     .into(holder.userImage);
                         }
                         if (user.getNicName() != null && holder.author != null) {
@@ -253,15 +248,33 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         });
     }
 
-    static void displayCommentsAndLikes(FeedItem post, final ViewHolder holder) {
+    static void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
-        if (post.getLikedByUser()) {
+        if (post.isLikedByUser()) {
             holder.likedIcon.setVisibility(View.VISIBLE);
             holder.likesIcon.setVisibility(View.GONE);
         } else {
             holder.likedIcon.setVisibility(View.GONE);
             holder.likesIcon.setVisibility(View.VISIBLE);
+        }
+        if (post instanceof WallNews && ((WallNews) post).getSource() != null) {
+            int sourceImageResource = 0;
+            switch (((WallNews) post).getSource()) {
+                case "facebook":
+                    sourceImageResource = R.drawable.ic_social_source_facebook;
+                    break;
+                case "twitter":
+                    sourceImageResource = R.drawable.ic_social_source_twitter;
+                    break;
+                case "instagram":
+                    sourceImageResource = R.drawable.ic_social_source_instagram;
+                    break;
+                case "gplus":
+                    sourceImageResource = R.drawable.ic_social_source_gplus;
+                    break;
+            }
+            ImageLoader.displayImage(sourceImageResource, holder.socialSource);
         }
     }
 
@@ -289,14 +302,35 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             } else {
                 index = position;
             }
-            FeedItem item = values.get(index);
-            if (item instanceof Pin) {
-                    Pin news = (Pin) item;
+            WallBase item = values.get(index);
+            switch (item.getType()) {
+                case post:
+                    WallPost post = (WallPost) item;
+                    displayUserInfo(post, holder);
+                    boolean hasImage = displayPostImage(post, holder);
+                    if (holder.contentTextView != null) {
+                        if (hasImage) {
+                            holder.contentTextView.setMaxLines(3);
+                        } else {
+                            holder.contentTextView.setMaxLines(6);
+                        }
+                    }
+                    displayCaption(post.getTitle(), holder);
+                    displayCommentsAndLikes(post, holder);
+
+                    if (holder.playButton != null) {
+                        holder.playButton.setVisibility(TextUtils.isEmpty(post.getVidUrl()) ? View.GONE : View.VISIBLE);
+                    }
+                    break;
+                case newsShare:
+                case rumourShare:
+                case socialShare:
+                    WallNews news = (WallNews) item;
                     displayUserInfo(news, holder);
                     displayCaption(news.getTitle(), holder);
                     displayPostImage(news, holder);
                     displayCommentsAndLikes(news, holder);
-                    if (!news.getSharedComment().isEmpty()) {
+                    if (news.hasSharedComment()) {
                         holder.textComment.setText(news.getSharedComment());
                         holder.commentContainer.setVisibility(View.VISIBLE);
                         holder.userImage.setVisibility(View.GONE);
@@ -307,79 +341,125 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     if (holder.playButton != null) {
                         holder.playButton.setVisibility(TextUtils.isEmpty(news.getVidUrl()) ? View.GONE : View.VISIBLE);
                     }
-            } else if (item instanceof News) {
-                displayCaption(item.getTitle(), holder);
-                displayCommentsAndLikes(item, holder);
-            } else if (item instanceof StoreOffer) {
-                StoreOffer storeItem = (StoreOffer) item;
-                displayUserInfo(storeItem, holder);
-                displayCaption(storeItem.getTitle(), holder);
-                displayPostImage(storeItem, holder);
-                displayCommentsAndLikes(storeItem, holder);
-            } else if (item instanceof Stats) {
-                Stats statsItem = (Stats) item;
-                displayUserInfo(statsItem, holder);
-                displayCaption(statsItem.getTitle(), holder);
-                displayPostImage(statsItem, holder);
-                displayCommentsAndLikes(statsItem, holder);
-            } else if (item instanceof Post) {
-                Post post = (Post) item;
-                displayUserInfo(post, holder);
-                boolean hasImage = displayPostImage(post, holder);
-                if (holder.contentTextView != null) {
-                    if (hasImage) {
-                        holder.contentTextView.setMaxLines(3);
+                    break;
+                case rumor:
+                    displayCaption(item.getTitle(), holder);
+                    displayCommentsAndLikes(item, holder);
+                    break;
+                case wallStoreItem:
+                    WallStoreItem storeItem = (WallStoreItem) item;
+                    displayUserInfo(storeItem, holder);
+                    displayCaption(storeItem.getTitle(), holder);
+                    displayPostImage(storeItem, holder);
+                    displayCommentsAndLikes(storeItem, holder);
+                    break;
+                case stats:
+                    WallStats statsItem = (WallStats) item;
+                    displayUserInfo(statsItem, holder);
+                    displayCaption(statsItem.getTitle(), holder);
+                    displayPostImage(statsItem, holder);
+                    displayCommentsAndLikes(statsItem, holder);
+                    break;
+                case betting:
+                    break;
+            }
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (holder.getAdapterPosition() == -1) return;
+                    FragmentEvent fe;
+                    WallBase item = values.get(holder.getAdapterPosition());
+                    if (item.getReferencedItemId() == null || item.getReferencedItemId().isEmpty()) {
+                        fe = new FragmentEvent(WallItemFragment.class);
+                        fe.setId(item.getPostId());
                     } else {
-                        holder.contentTextView.setMaxLines(6);
+                        fe = new FragmentEvent(NewsItemFragment.class);
+                        fe.setId(item.getReferencedItemId());
+                        fe.setSecondaryId(item.getPostId());
                     }
+                    fe.setItem(item);
+                    EventBus.getDefault().post(fe);
                 }
-                displayCaption(post.getTitle(), holder);
-                displayCommentsAndLikes(post, holder);
-
-                if (holder.playButton != null) {
-                    holder.playButton.setVisibility(TextUtils.isEmpty(post.getVidUrl()) ? View.GONE : View.VISIBLE);
+            });
+            if (isAutoTranslateEnabled() && item.isNotTranslated()) {
+                String itemToTranslateId = item.getPostId();
+                if (item.getReferencedItemId() != null) {
+                    itemToTranslateId = item.getReferencedItemId();
                 }
-
-                if (isAutoTranslateEnabled() && ((Post) item).getTranslatedTo() == null) {
-                    TaskCompletionSource<Post> task = new TaskCompletionSource<>();
-                    task.getTask().addOnCompleteListener(new OnCompleteListener<Post>() {
+                if (item.getType() == PostType.newsShare
+                        || item.getType() == PostType.rumourShare) {
+                    translateInternalNewsItem(holder, itemToTranslateId, item);
+                } else if (item.getType() == PostType.socialShare) {
+                    translateInternalSocialItem(holder, itemToTranslateId, item);
+                }else {
+                    TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
+                    task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
                         @Override
-                        public void onComplete(@NonNull Task<Post> task) {
+                        public void onComplete(@NonNull Task<WallBase> task) {
                             int position = holder.getAdapterPosition();
-                            if (task.isSuccessful()) {
-                                Post translatedItem = task.getResult();
-                                remove(position);
-                                add(position, translatedItem);
-                                notifyItemChanged(position);
+                            if (task.isSuccessful() && position != -1) {
+                                WallBase translatedItem = task.getResult();
+                                if (translatedItem != null) {
+                                    remove(position);
+                                    add(position, translatedItem);
+                                    notifyItemChanged(position);
+                                }
                             }
                         }
                     });
                     Translator.getInstance().translatePost(
-                            item.getId(),
+                            itemToTranslateId,
                             Prefs.getString(CHOSEN_LANGUAGE, "en"),
-                            task
+                            task,
+                            item.getType()
                     );
                 }
             }
         }
-        holder.view.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void translateInternalNewsItem(final ViewHolder holder, String itemToTranslateId, final WallBase itemChildPointer) {
+        TaskCompletionSource<WallNews> task = new TaskCompletionSource<>();
+        task.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
             @Override
-            public void onClick(View v) {
-                if (holder.getAdapterPosition() == -1) return;
-                FragmentEvent fe;
-                FeedItem item = values.get(holder.getAdapterPosition());
-                if (item instanceof Pin) {
-                    fe = new FragmentEvent(NewsDetailFragment.class);
-                    fe.setItemId(((Pin) item).getReferencedItemId());
-                    fe.setSecondaryId(item.getId());
-                } else {
-                    fe = new FragmentEvent(DetailFragment.class);
-                    fe.setItemId(item.getId());
+            public void onComplete(@NonNull Task<WallNews> task) {
+                int position = holder.getAdapterPosition();
+                if (task.isSuccessful() && position != -1) {
+                    WallNews translatedParentItem = task.getResult();
+                    itemChildPointer.setTranslatedTo(Prefs.getString(CHOSEN_LANGUAGE, "en"));
+                    itemChildPointer.setTitle(translatedParentItem.getTitle());
+                    itemChildPointer.setBodyText(translatedParentItem.getBodyText());
+                    notifyItemChanged(position);
                 }
-                fe.setItem(item);
-                EventBus.getDefault().post(fe);
             }
         });
+        Translator.getInstance().translateNews(
+                itemToTranslateId,
+                Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                task
+        );
+    }
+
+    private void translateInternalSocialItem(final ViewHolder holder, String itemToTranslateId, final WallBase itemChildPointer) {
+        TaskCompletionSource<WallNews> task = new TaskCompletionSource<>();
+        task.getTask().addOnCompleteListener(new OnCompleteListener<WallNews>() {
+            @Override
+            public void onComplete(@NonNull Task<WallNews> task) {
+                int position = holder.getAdapterPosition();
+                if (task.isSuccessful() && position != -1) {
+                    WallNews translatedParentItem = task.getResult();
+                    itemChildPointer.setTranslatedTo(Prefs.getString(CHOSEN_LANGUAGE, "en"));
+                    itemChildPointer.setTitle(translatedParentItem.getTitle());
+                    itemChildPointer.setBodyText(translatedParentItem.getBodyText());
+                    notifyItemChanged(position);
+                }
+            }
+        });
+        Translator.getInstance().translateSocial(
+                itemToTranslateId,
+                Prefs.getString(CHOSEN_LANGUAGE, "en"),
+                task
+        );
     }
 
     private boolean isAdvert(int position) {
@@ -395,8 +475,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             if (currentAdInterval > 0) {
                 index = position - (position / currentAdInterval);
             }
-            // TODO: Alex Sheiko return values.get(index).getType().ordinal();
-            return 1; // TODO: Remove this line
+            return values.get(index).getType().ordinal();
         }
     }
 
@@ -413,22 +492,21 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         values.clear();
     }
 
-    private final List<FeedItem> values = new ArrayList<>();
+    private final List<WallBase> values = new ArrayList<>();
 
-    public void add(FeedItem model) {
+    public void add(WallBase model) {
         values.add(model);
     }
 
-    public void add(int position, FeedItem model) {
+    public void add(int position, WallBase model) {
         values.add(position, model);
     }
 
-    public void addAll(List<FeedItem> items) {
+    public void addAll(List<WallBase> items) {
         values.addAll(items);
-        notifyDataSetChanged();
     }
 
-    public void remove(FeedItem model) {
+    public void remove(WallBase model) {
         values.remove(model);
     }
 
@@ -436,5 +514,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         if (values.get(position) != null) {
             values.remove(position);
         }
+    }
+
+    public void removeAll(List<WallBase> models) {
+        values.removeAll(models);
     }
 }

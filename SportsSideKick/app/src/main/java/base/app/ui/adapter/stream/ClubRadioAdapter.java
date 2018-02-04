@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.util.events.FragmentEvent;
-import base.app.ui.fragment.stream.RadioStationFragment;
-import base.app.data.content.tv.Station;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.stream.ClubRadioStationFragment;
+import base.app.data.club.Station;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,9 +70,9 @@ public class ClubRadioAdapter extends RecyclerView.Adapter<ClubRadioAdapter.View
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentEvent fragmentEvent = new FragmentEvent(RadioStationFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(ClubRadioStationFragment.class);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setItemId(values.get(position).getName());
+                fragmentEvent.setId(values.get(position).getName());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });

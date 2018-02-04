@@ -16,14 +16,14 @@ import com.pixplicity.easyprefs.library.Prefs;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.LoginApi;
+import base.app.data.Model;
 import base.app.data.user.UserEvent;
-import base.app.ui.MainActivity;
-import base.app.util.ui.MainActivityTablet;
+import base.app.data.user.UserInfo;
+import base.app.ui.activity.MainActivity;
+import base.app.ui.activity.MainActivityTablet;
 import base.app.ui.adapter.menu.LanguageAdapter;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,8 +64,8 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
     @Optional
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class));
-        LoginApi.getInstance().getUser().setLanguage(selectedLanguage);
+        EventBus.getDefault().post(new FragmentEvent(ProfileFragment.class, true));
+        Model.getInstance().getUserInfo().setLanguage(selectedLanguage);
         Prefs.putString(CHOSEN_LANGUAGE, selectedLanguage);
         Intent intent;
         if (Utility.isTablet(getContext())) {
@@ -80,7 +80,7 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                User currentUser = LoginApi.getInstance().getUser();
+                UserInfo currentUser = Model.getInstance().getUserInfo();
                 EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogin, currentUser));
             }
         }, 300);

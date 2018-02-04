@@ -1,6 +1,6 @@
 package base.app.ui.fragment.content;
 
-
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -24,11 +24,12 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.ui.AlertDialogManager;
-import base.app.data.content.wall.StoreOffer;
-import base.app.data.content.wall.WallModel;
-import base.app.util.ui.BaseFragment;
+import base.app.data.AlertDialogManager;
+import base.app.data.Model;
+import base.app.data.wall.WallBase;
+import base.app.data.wall.WallModel;
+import base.app.data.wall.WallStoreItem;
+import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.Utility;
 
 /**
@@ -51,7 +52,7 @@ public class StoreFragment extends BaseFragment {
     AVLoadingIndicatorView progressBar;
     View webContainer;
     boolean withNavigation;
-    StoreOffer item;
+    WallStoreItem item;
     Document doc;
 
     public StoreFragment() {
@@ -77,7 +78,7 @@ public class StoreFragment extends BaseFragment {
         webContainer = view.findViewById(R.id.navigation_web_container);
         webView = view.findViewById(R.id.web_view);
         progressBar = view.findViewById(R.id.progressBar);
-        backButton = view.findViewById(R.id.backButton);
+        backButton = view.findViewById(R.id.back_button);
         forwardButton = view.findViewById(R.id.forward_button);
         shareToWallButton = view.findViewById(R.id.share_to_wall_button);
         homeButton =  view.findViewById(R.id.home_button);
@@ -96,7 +97,7 @@ public class StoreFragment extends BaseFragment {
             view.setAlpha(1.0f);
             view.setEnabled(true);
         } else {
-            view.setAlpha(0.35f);
+            view.setAlpha(0.25f);
             view.setEnabled(false);
         }
     }
@@ -111,14 +112,14 @@ public class StoreFragment extends BaseFragment {
         }
 
         @Override
-        public void onPageFinished(WebView webView, String url) {
+        public void onPageFinished(final WebView webView, String url) {
             webContainer.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
 
             setViewEnabled(webView.canGoBack(), backButton);
             setViewEnabled(webView.canGoForward(), forwardButton);
 
-            if (webView.getUrl().equals(getResources().getString(R.string.store_url))) {
+            if (webView.getUrl().equals(getUrl())) {
                 Log.d("WEB VIEW", "Home page!");
                 setViewEnabled(false, homeButton);
                 setViewEnabled(false, shareToWallButton);
@@ -152,7 +153,7 @@ public class StoreFragment extends BaseFragment {
         Elements imageDiv;
         Elements priceDiv;
         try {
-            doc = Jsoup.connect(url).get();
+            doc = Jsoup.connect(url).maxBodySize(0).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -178,22 +179,33 @@ public class StoreFragment extends BaseFragment {
                     price = priceElement.text();
                 }
             }
-            item = new StoreOffer();
-            item.setPoster(LoginApi.getInstance().getUser());
+            if (absoluteUrl.isEmpty()) {
+                absoluteUrl = "https://cdnlojaverde.scdn3.secure.raxcdn.com/sites/default/files/uma_loja_para_si/201611/exclusivo.png";
+            }
+            item = new WallStoreItem();
+            item.setType(WallBase.PostType.wallStoreItem);
+            item.setPoster(Model.getInstance().getUserInfo());
             item.setTitle(webView.getTitle());
+            item.setSubTitle(price);
             item.setUrl(url);
             item.setCoverImageUrl(absoluteUrl);
             item.setTimestamp((double) Utility.getCurrentTime());
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     protected void setupFragment() {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
-        url = getResources().getString(R.string.store_url);
+        url = getUrl();
         withNavigation = true;
         webView.loadUrl(url);
+    }
+
+    @NonNull
+    protected String getUrl() {
+        return getResources().getString(R.string.store_url);
     }
 
     View.OnClickListener goBackClickListener = new View.OnClickListener() {
@@ -212,7 +224,7 @@ public class StoreFragment extends BaseFragment {
     View.OnClickListener shareToWallOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(!LoginApi.getInstance().isLoggedIn()) {
+            if(!Model.getInstance().isRealUser()) {
                 Toast.makeText(getContext(),"You have to be logged in in order to pin to wall",Toast.LENGTH_SHORT).show();
                 return;
             }

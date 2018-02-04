@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
+import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -87,14 +87,14 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(AddFriendsAdapter.ViewHolder holder, final int position) {
-        final User info = values.get(position);
+        final UserInfo info = values.get(position);
         if (holder.image != null) {
-            ImageLoader.displayImage(info.getAvatar(), holder.image, null);
+            ImageLoader.displayImage(info.getCircularAvatarUrl(), holder.image, null);
         }
         holder.view.setTag(position);
     }
 
-    List<User> values = new ArrayList<>();
+    List<UserInfo> values = new ArrayList<>();
 
 
     @Override
@@ -102,7 +102,7 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
         return values.size();
     }
 
-    public void add(User model) {
+    public void add(UserInfo model) {
         values.add(model);
         if (getItemCount() == 0) {
             notifyItemInserted(0);
@@ -111,7 +111,7 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
         }
     }
 
-    public void remove(User model) {
+    public void remove(UserInfo model) {
         int position = getItemPosition(model);
         values.remove(model);
         notifyItemRemoved(position);
@@ -119,11 +119,11 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Vi
 
 
 
-    public void add(List<User> models) {
+    public void add(List<UserInfo> models) {
         values.addAll(models);
     }
 
-    private int getItemPosition(User info) {
+    private int getItemPosition(UserInfo info) {
         for (int position = 0; position < getItemCount(); position++)
             if (values.get(position).equals(info))
                 return position;

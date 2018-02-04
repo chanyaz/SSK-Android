@@ -9,24 +9,13 @@ import android.util.SparseArray;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import base.app.ui.fragment.content.StoreFragment;
-import base.app.ui.fragment.content.news.NewsDetailFragment;
-import base.app.ui.fragment.content.news.NewsFragment;
-import base.app.ui.fragment.content.news.RumoursFragment;
-import base.app.ui.fragment.content.tv.TvPlaylistsFragment;
-import base.app.ui.fragment.content.wall.DetailFragment;
-import base.app.ui.fragment.content.wall.WallFragment;
-import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.other.StatisticsFragment;
+import base.app.util.commons.Constant;
+import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.WallItemFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
-import base.app.ui.fragment.stream.RadioFragment;
-import base.app.ui.fragment.stream.VideoChatFragment;
-import base.app.util.events.FragmentEvent;
-import base.app.util.ui.BaseFragment;
 import base.app.util.ui.NavigationDrawerItems;
 
 
@@ -56,7 +45,8 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
     @Override
     public void onEvent(FragmentEvent event) {
         Bundle arguments = new Bundle();
-        arguments.putString(BaseFragment.PRIMARY_ARG_TAG, event.getItemId());
+        arguments.putString(BaseFragment.PRIMARY_ARG_TAG, event.getId());
+        arguments.putString(BaseFragment.SECONDARY_ARG_TAG, event.getSecondaryId());
         arguments.putSerializable(BaseFragment.ITEM_ARG_TAG, event.getItem());
 
         if (event.getInitiatorFragment() != null) {
@@ -70,7 +60,6 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
 
     /**
      * Handles system back button and returns
-     *
      * @return true in case this is the last fragment
      */
     @Override
@@ -84,7 +73,7 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         // in order to close the app
         if (currentFragment.getClass().equals(initialFragment)) {
             return false;
-            // This is a fragment that should be closed
+        // This is a fragment that should be closed
         } else {
             fragmentManager.popBackStack();
             return true;
@@ -101,8 +90,8 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         }
         fragmentManager.popBackStack();
         Fragment fragment = getPreviousFragment();
-        for (int i = 0; i < SIDE_MENU_OPTIONS.size(); i++) {
-            if (fragment.getClass().equals(SIDE_MENU_OPTIONS.get(i))) {
+        for (int i = 0; i < Constant.PHONE_MENU_OPTIONS.size(); i++) {
+            if (fragment.getClass().equals(Constant.PHONE_MENU_OPTIONS.get(i))) {
                 NavigationDrawerItems.getInstance().setByPosition(i);
                 return true;
             }
@@ -113,10 +102,10 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         } else if (fragment.getClass().equals(JoinChatFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(1);
             return true;
-        } else if (fragment.getClass().equals(DetailFragment.class)) {
+        } else if (fragment.getClass().equals(WallItemFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(0);
             return true;
-        } else if (fragment.getClass().equals(NewsDetailFragment.class)) {
+        } else if (fragment.getClass().equals(NewsItemFragment.class)) {
             NavigationDrawerItems.getInstance().setByPosition(2);
             return true;
         }
@@ -153,17 +142,4 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
             currentFragment.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-    public static final List<Class> SIDE_MENU_OPTIONS = Collections.unmodifiableList(
-            new ArrayList<Class>() {{
-                add(WallFragment.class);
-                add(ChatFragment.class);
-                add(NewsFragment.class);
-                add(StatisticsFragment.class);
-                add(RumoursFragment.class);
-                add(RadioFragment.class);
-                add(StoreFragment.class);
-                add(TvPlaylistsFragment.class);
-                add(VideoChatFragment.class);
-            }});
 }

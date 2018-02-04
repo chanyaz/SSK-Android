@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/login_background"
-    tools:context=".ui.fragment.content.wall.WallFragment"
+    tools:context=".ui.fragment.content.WallFragment"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
@@ -24,22 +24,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/headerImage"
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/topImage"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/header_background" />
+                    tools:src="@drawable/image_wall_background" />
 
                 <TextView
                     android:id="@+id/topCaption"
                     style="@style/semiBoldText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/headerImage"
-                    android:layout_alignTop="@id/headerImage"
+                    android:layout_alignBottom="@id/topImage"
+                    android:layout_alignTop="@id/topImage"
                     android:layout_gravity="center"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="@dimen/header_image_title_margin_top"
                     android:gravity="center"
                     android:shadowColor="@color/black_transparent_154"
                     android:shadowDx="1"
@@ -55,12 +55,10 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/headerImage"
+                    android:layout_below="@id/topImage"
                     android:layout_marginTop="?newsRecyclerListPhoneTopMargin"
                     android:clipToPadding="false"
-                    android:paddingTop="4dp"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                    android:paddingTop="4dp" />
 
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>

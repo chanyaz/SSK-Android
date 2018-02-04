@@ -19,10 +19,10 @@ import java.util.List;
 
 import base.app.R;
 import base.app.ui.adapter.friends.FriendRequestsAdapter;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
-import base.app.data.user.friends.FriendRequest;
-import base.app.data.user.friends.FriendsManager;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.friendship.FriendRequest;
+import base.app.data.friendship.FriendsManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -88,7 +88,7 @@ public class FriendRequestsFragment extends BaseFragment {
     @OnClick(R.id.confirm_button)
     public void confirmOnClick() {
         getActivity().onBackPressed();
-        EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class, true));
     }
 
 

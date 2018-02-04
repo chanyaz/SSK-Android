@@ -17,8 +17,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
-import base.app.util.events.AddFriendsEvent;
+import base.app.data.user.AddFriendsEvent;
+import base.app.data.user.UserInfo;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
@@ -37,20 +37,20 @@ import butterknife.ButterKnife;
 public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFriendsAdapter.ViewHolder> {
     private static final String TAG = "Selectable Friends Adapter";
 
-    public List<User> getSelectedValues() {
+    public List<UserInfo> getSelectedValues() {
         return selectedValues;
     }
 
-    public void setValues(List<User> values) {
+    public void setValues(List<UserInfo> values) {
         this.selectedValues = values;
         notifyDataSetChanged();
     }
 
     private boolean isTablet = false;
-    private List<User> selectedValues;
+    private List<UserInfo> selectedValues;
     int screenWidth;
 
-    public void setSelectedUsers(List<User> selectedUsers) {
+    public void setSelectedUsers(List<UserInfo> selectedUsers) {
         this.selectedValues = selectedUsers;
     }
 
@@ -111,7 +111,7 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
     }
 
     private void updateUser(int position) {
-        User info = values.get(position);
+        UserInfo info = values.get(position);
         boolean remove;
         if (selectedValues.contains(info)) {
             selectedValues.remove(info);
@@ -126,10 +126,10 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final User info = values.get(position);
+        final UserInfo info = values.get(position);
 
         if (holder.image != null) {
-            ImageLoader.displayImage(info.getAvatar(), holder.image, null);
+            ImageLoader.displayImage(info.getCircularAvatarUrl(), holder.image, null);
             holder.name.setText(info.getFirstName() + " " + info.getLastName());
             if (selectedValues.contains(info)) {
                 if (holder.selectedRingView != null) {
@@ -156,15 +156,15 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
     }
 
 
-    private static final Comparator<User> ALPHABETICAL_COMPARATOR = new Comparator<User>() {
+    private static final Comparator<UserInfo> ALPHABETICAL_COMPARATOR = new Comparator<UserInfo>() {
         @Override
-        public int compare(User a, User b) {
+        public int compare(UserInfo a, UserInfo b) {
             return (a.getFirstName() + a.getLastName() + a.getNicName()).compareTo
                     (b.getFirstName() + b.getLastName() + b.getNicName());
         }
     };
 
-    private final SortedList.Callback<User> callback = new SortedList.Callback<User>() {
+    private final SortedList.Callback<UserInfo> callback = new SortedList.Callback<UserInfo>() {
 
         @Override
         public void onInserted(int position, int count) {
@@ -187,47 +187,47 @@ public class SelectableFriendsAdapter extends RecyclerView.Adapter<SelectableFri
         }
 
         @Override
-        public int compare(User a, User b) {
+        public int compare(UserInfo a, UserInfo b) {
             return ALPHABETICAL_COMPARATOR.compare(a, b);
         }
 
         @Override
-        public boolean areContentsTheSame(User oldItem, User newItem) {
+        public boolean areContentsTheSame(UserInfo oldItem, UserInfo newItem) {
             return oldItem.equals(newItem);
         }
 
         @Override
-        public boolean areItemsTheSame(User item1, User item2) {
+        public boolean areItemsTheSame(UserInfo item1, UserInfo item2) {
             return item1.getUserId() == item2.getUserId();
         }
     };
 
-    private final SortedList<User> values = new SortedList<>(User.class, callback);
+    private final SortedList<UserInfo> values = new SortedList<>(UserInfo.class, callback);
 
-    public void add(User model) {
+    public void add(UserInfo model) {
         values.add(model);
     }
 
-    public void remove(User model) {
+    public void remove(UserInfo model) {
         values.remove(model);
     }
 
-    public void add(List<User> models) {
+    public void add(List<UserInfo> models) {
         values.addAll(models);
     }
 
-    public void remove(List<User> models) {
+    public void remove(List<UserInfo> models) {
         values.beginBatchedUpdates();
-        for (User model : models) {
+        for (UserInfo model : models) {
             values.remove(model);
         }
         values.endBatchedUpdates();
     }
 
-    public void replaceAll(List<User> models) {
+    public void replaceAll(List<UserInfo> models) {
         values.beginBatchedUpdates();
         for (int i = values.size() - 1; i >= 0; i--) {
-            final User model = values.get(i);
+            final UserInfo model = values.get(i);
             if (!models.contains(model)) {
                 values.remove(model);
             }

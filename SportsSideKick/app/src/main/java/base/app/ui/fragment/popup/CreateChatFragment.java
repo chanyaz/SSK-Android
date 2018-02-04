@@ -43,16 +43,16 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.events.AddFriendsEvent;
-import base.app.data.user.friends.FriendsManager;
-import base.app.data.chat.ChatInfo;
-import base.app.data.chat.ImsManager;
+import base.app.data.Model;
+import base.app.data.friendship.FriendsManager;
+import base.app.data.im.ChatInfo;
+import base.app.data.im.ImsManager;
+import base.app.data.user.AddFriendsEvent;
+import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
 import base.app.ui.adapter.friends.SelectableFriendsAdapter;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;
@@ -71,8 +71,8 @@ import permissions.dispatcher.RuntimePermissions;
 
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH_PHONE;
-import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE;
-import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_CREATE_IMAGE_PICK;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_PICK;
 
 /**
  * Created by Filip on 12/26/2016.
@@ -107,7 +107,7 @@ public class CreateChatFragment extends BaseFragment {
     RecyclerView addFriendsRecyclerView;
     @BindView(R.id.chat_friends_in_chat_headline)
     TextView headlineFriendsInChat;
-    List<User> userList;
+    List<UserInfo> userInfoList;
     AddFriendsAdapter addFriendsAdapter;
     String currentPath;
     String uploadedImageUrl;
@@ -147,14 +147,14 @@ public class CreateChatFragment extends BaseFragment {
         friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
 
-        Task<List<User>> task = FriendsManager.getInstance().getFriends(0);
+        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
-                new OnSuccessListener<List<User>>() {
+                new OnSuccessListener<List<UserInfo>>() {
                     @Override
-                    public void onSuccess(List<User> users) {
+                    public void onSuccess(List<UserInfo> userInfos) {
                         chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
-                        chatFriendsAdapter.add(users);
-                        userList = users;
+                        chatFriendsAdapter.add(userInfos);
+                        userInfoList = userInfos;
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
                     }
                 });
@@ -182,6 +182,7 @@ public class CreateChatFragment extends BaseFragment {
                 privateChatTextView.setText(switchText);
             }
         });
+        tempDisablePublicChatCreation();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         addFriendsRecyclerView.setLayoutManager(linearLayoutManager);
@@ -193,12 +194,17 @@ public class CreateChatFragment extends BaseFragment {
         return view;
     }
 
+    protected void tempDisablePublicChatCreation() {
+        privateChatSwitch.setChecked(true);
+        privateChatSwitch.setVisibility(View.GONE);
+    }
+
     @Subscribe
     public void updateAddFriendsAdapter(AddFriendsEvent event) {
         if (event.isRemove()) {
-            addFriendsAdapter.remove(event.getUser());
+            addFriendsAdapter.remove(event.getUserInfo());
         } else {
-            addFriendsAdapter.add(event.getUser());
+            addFriendsAdapter.add(event.getUserInfo());
         }
         int friendCount = addFriendsAdapter.getItemCount();
         String friendsInchat = " " + getContext().getResources().getString(R.string.friends_in_chat);
@@ -245,7 +251,7 @@ public class CreateChatFragment extends BaseFragment {
             @Override
             public void run() {
                 if (chatFriendsAdapter != null) {
-                    final List<User> filteredModelList =Utility.filter(userList, searchEditText.getText().toString());
+                    final List<UserInfo> filteredModelList =Utility.filter(userInfoList, searchEditText.getText().toString());
                     chatFriendsAdapter.replaceAll(filteredModelList);
                     friendsRecyclerView.scrollToPosition(0);
                 }
@@ -286,16 +292,16 @@ public class CreateChatFragment extends BaseFragment {
 
     public void createNewChat() {
         if (chatFriendsAdapter != null) {
-            List<User> selectedUsers = chatFriendsAdapter.getSelectedValues();
+            List<UserInfo> selectedUsers = chatFriendsAdapter.getSelectedValues();
             String chatName = chatNameEditText.getText().toString();
             boolean isPrivate = privateChatSwitch.isChecked();
 
             ChatInfo newChatInfo = new ChatInfo();
-            newChatInfo.setOwner(LoginApi.getInstance().getUser().getUserId());
+            newChatInfo.setOwner(Model.getInstance().getUserInfo().getUserId());
             newChatInfo.setIsPublic(!isPrivate);
             newChatInfo.setName(chatName);
             ArrayList<String> userIds = new ArrayList<>();
-            for (User info : selectedUsers) {
+            for (UserInfo info : selectedUsers) {
                 userIds.add(info.getUserId());
             }
             userIds.add(newChatInfo.getOwner());
@@ -329,7 +335,7 @@ public class CreateChatFragment extends BaseFragment {
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = LoginApi.createImageFile(getContext());
+                photoFile = Model.createImageFile(getContext());
                 currentPath = photoFile.getAbsolutePath();
             } catch (IOException ex) {
                 // Error occurred while creating the File
@@ -365,7 +371,7 @@ public class CreateChatFragment extends BaseFragment {
                     break;
                 case REQUEST_CODE_CHAT_CREATE_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
-                    String realPath = LoginApi.getRealPathFromURI(getContext(), selectedImageURI);
+                    String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImage(realPath);
                     chatImageView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
@@ -377,7 +383,7 @@ public class CreateChatFragment extends BaseFragment {
 
     private void uploadImage(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        LoginApi.getInstance().uploadImageForCreateChat(path,getActivity().getFilesDir(),source);
+        Model.getInstance().uploadImageForCreateChat(path,getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(final @NonNull Task<String> task) {

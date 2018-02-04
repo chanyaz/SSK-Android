@@ -23,11 +23,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.ui.AlertDialogManager;
-import base.app.data.content.wall.WallModel;
-import base.app.data.content.wall.Stats;
-import base.app.util.ui.BaseFragment;
+import base.app.data.AlertDialogManager;
+import base.app.data.Model;
+import base.app.data.wall.WallModel;
+import base.app.data.wall.WallStats;
+import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
@@ -88,7 +88,7 @@ public class StatisticsFragment extends BaseFragment {
 
     @OnClick(R.id.pin_button)
     public void pinOnClick() {
-        if (LoginApi.getInstance().isLoggedIn()) {
+        if (Model.getInstance().isRealUser()) {
             AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.pin_title), getContext().getResources().getString(R.string.pin_confirm),
                     new View.OnClickListener() {// Cancel
                         @Override
@@ -114,14 +114,15 @@ public class StatisticsFragment extends BaseFragment {
             webView.setDrawingCacheEnabled(true);
             bitmap = webView.getDrawingCache();
             final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-            LoginApi.getInstance().uploadImageForStats(saveToInternalStorage(bitmap), getActivity().getFilesDir(), source);
+            Model.getInstance().uploadImageForStats(saveToInternalStorage(bitmap), getActivity().getFilesDir(), source);
             source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
                 @Override
                 public void onComplete(@NonNull Task<String> task) {
                     if (task.isSuccessful()) {
                         float imageAspectRatio = bitmap.getHeight() / bitmap.getWidth();
-                        Stats wallPost = new Stats();
+                        WallStats wallPost = new WallStats();
                         wallPost.setTitle("A stats post");
+                        wallPost.setSubTitle("Some subtitle");
                         wallPost.setTimestamp((double) Utility.getCurrentTime());
                         wallPost.setBodyText("...");
                         wallPost.setCoverAspectRatio(imageAspectRatio);
@@ -151,7 +152,7 @@ public class StatisticsFragment extends BaseFragment {
     private String saveToInternalStorage(Bitmap bitmapImage) {
         File photoFile = null;
         try {
-            photoFile = LoginApi.createImageFile(getContext());
+            photoFile = Model.createImageFile(getContext());
         } catch (IOException e) {
             e.printStackTrace();
         }

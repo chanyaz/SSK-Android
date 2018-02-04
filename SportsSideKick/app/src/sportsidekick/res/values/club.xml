@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="youtube_channel_id" translatable="false">UCnJj6L93JX3Jrhzv81ayywA</string>
+    <string name="club_tv_channel_id" translatable="false">UCnJj6L93JX3Jrhzv81ayywA</string>
 
     <string name="stats_url" translatable="false">http://hosted.stats.com/port</string>
     <string name="fantasy_url" translatable="false">https://s3-eu-west-1.amazonaws.com/sskirbucket/graphics/fantasy.png</string>
@@ -8,6 +8,7 @@
     <string name="terms_and_privacy_url" translatable="false">http://sportssidekick.tv/terms?lang=</string>
 
     <string name="store_url" translatable="false">https://lojaverde.sporting.pt/en</string>
+    <string name="tickets_url" translatable="false">http://www.sporting.pt/%s/tickets-and-gamebox/tickets</string>
     <!-- Following urls are to distinguish different sections of store website and show UI on pages where there are products -->
     <string name="store_url_item" translatable="false">https://lojaverde.sporting.pt/en/equipments</string>
     <string name="store_url_item2" translatable="false">https://lojaverde.sporting.pt/en/lifestyle</string>

@@ -1,25 +1,31 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 27
-
+    buildToolsVersion '27.0.3'
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 27
         renderscriptTargetApi 17
         renderscriptSupportModeEnabled true
         multiDexEnabled true
-    }
-    buildTypes {
-        release {
-            minifyEnabled false // TODO: Use *keep attribute on required resources and re-enable
-            shrinkResources false
-            proguardFiles getDefaultProguardFile(
-                    'proguard-android.txt'),
-                    'proguard-rules.pro'
-        }
     }
     flavorDimensions "main"
     productFlavors {
@@ -34,20 +40,22 @@ android {
             versionName "5.0.0.6"
         }
     }
-    sourceSets {
-        test.java.srcDirs += 'src/test/java'
-        androidTest.java.srcDirs += 'src/androidTest/java'
-    }
     lintOptions {
-        quiet true
+        checkReleaseBuilds false
         abortOnError false
-        ignoreWarnings true
     }
-}
-
-kotlin {
-    experimental {
-        coroutines "enable"
+    buildTypes {
+        release {
+            minifyEnabled false // TODO: Use *keep attribute on required resources and re-enable
+            shrinkResources false
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android.txt'),
+                    'proguard-rules.pro'
+        }
+        debug {
+            // Disable fabric build ID generation for debug builds
+            ext.enableCrashlytics = false
+        }
     }
 }
 
@@ -64,6 +72,7 @@ dependencies {
     // Push notifications
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    implementation 'com.google.firebase:firebase-crash:11.8.0'
     // Youtube
     implementation fileTree(include: ['YouTubeAndroidPlayerApi.jar'], dir: 'libs')
     implementation('com.google.http-client:google-http-client-android:1.20.0')
@@ -86,9 +95,9 @@ dependencies {
     // Gamesparks backend
     implementation 'com.gamesparks.sdk:gamesparks-java-sdk:0.4.4-SNAPSHOT'
     // JSON parsing
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.0'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
-    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.0'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
     // Event Bus
     implementation 'org.greenrobot:eventbus:3.0.0'
     // Video chat
@@ -130,7 +139,7 @@ dependencies {
     // SnappySmoothScroller - used for message scrolling
     implementation 'com.nshmura:snappysmoothscroller:1.0.0'
     // Java library for working with real-world HTML used for share of content from webview
-    implementation 'org.jsoup:jsoup:1.10.2'
+    implementation 'org.jsoup:jsoup:1.11.2'
     // library for monitoring network connectivity, relies on rxJava
     implementation 'com.keiferstone:nonet:2.0.0'
     // RxJava
@@ -157,20 +166,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation "org.jetbrains.anko:anko:0.10.4"
     // Architecture components
-    implementation "android.arch.lifecycle:extensions:1.0.0"
-    implementation "android.arch.lifecycle:reactivestreams:1.0.0"
-    // Testing
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.robolectric:robolectric:3.2.2"
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.1.0'
-    testImplementation "com.nhaarman:mockito-kotlin:1.1.0"
-    testImplementation 'org.amshove.kluent:kluent:1.14'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test:rules:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
-    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.0.1')
-    androidTestImplementation 'com.android.support:support-annotations:27.0.2'
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+
+    implementation 'com.jaeger.statusbarutil:library:1.4.0'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+        transitive = true
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'

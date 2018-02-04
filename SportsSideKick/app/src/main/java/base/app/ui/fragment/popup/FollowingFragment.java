@@ -24,12 +24,12 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
 import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
-import base.app.data.user.friends.FriendsManager;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.Model;
+import base.app.data.friendship.FriendsManager;
+import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +57,7 @@ public class FollowingFragment extends BaseFragment {
     @BindView(R.id.search_text)
     EditText searchText;
 
-    List<User> following;
+    List<UserInfo> following;
 
     @Nullable
     @Override
@@ -71,13 +71,13 @@ public class FollowingFragment extends BaseFragment {
         final FriendsAdapter adapter = new FriendsAdapter(this.getClass());
         adapter.setInitiatorFragment(this.getClass());
         followingRecyclerView.setAdapter(adapter);
-        User user = LoginApi.getInstance().getUser();
-        if (user != null)
+        UserInfo userInfo = Model.getInstance().getUserInfo();
+        if (userInfo != null)
         {
-            Task<List<User>> friendsTask = FriendsManager.getInstance().getUserFollowingList(user.getUserId(), 0);
-            friendsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
+            Task<List<UserInfo>> friendsTask = FriendsManager.getInstance().getUserFollowingList(userInfo.getUserId(), 0);
+            friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
                 @Override
-                public void onComplete(@NonNull Task<List<User>> task) {
+                public void onComplete(@NonNull Task<List<UserInfo>> task) {
                     if (task.isSuccessful()) {
                         following = task.getResult();
                         adapter.getValues().clear();

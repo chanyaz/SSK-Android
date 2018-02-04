@@ -39,24 +39,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.ui.AlertDialogManager;
+import base.app.data.AlertDialogManager;
+import base.app.data.Model;
 import base.app.data.user.UserEvent;
-import base.app.data.chat.videochat.Slot;
-import base.app.data.chat.videochat.VideoChatEvent;
-import base.app.data.chat.videochat.VideoChatItem;
-import base.app.data.chat.videochat.VideoChatModel;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
-import base.app.ui.fragment.user.auth.LoginFragment;
-import base.app.ui.fragment.popup.RegisterFragment;
+import base.app.data.user.UserInfo;
+import base.app.data.videoChat.Slot;
+import base.app.data.videoChat.VideoChatEvent;
+import base.app.data.videoChat.VideoChatItem;
+import base.app.data.videoChat.VideoChatModel;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.popup.LoginFragment;
+import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginVideoFragment;
 import base.app.ui.fragment.popup.StartingNewCallFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
-import base.app.util.events.AddUsersToCallEvent;
-import base.app.util.events.StartCallEvent;
+import base.app.util.events.call.AddUsersToCallEvent;
+import base.app.util.events.call.StartCallEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -232,7 +232,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         View view = inflater.inflate(R.layout.fragment_video_chat, container, false);
         ButterKnife.bind(this, view);
 
-        if(LoginApi.getInstance().isLoggedIn()){
+        if(Model.getInstance().isRealUser()){
             model = VideoChatModel.getInstance();
 //        localMedia = LocalMedia.create(getContext());
             name.setText(getContext().getResources().getString(R.string.you));
@@ -310,17 +310,17 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
             case onSelfInvited:
                 VideoChatItem videoChatItem = event.getViewChatItem();
                 final String roomId = videoChatItem.getId().getOid();
-                Task<User> userInfoTask = LoginApi.getInstance().getUserInfoById(videoChatItem.getOwnerId());
-                userInfoTask.addOnCompleteListener(new OnCompleteListener<User>() {
+                Task<UserInfo> userInfoTask = Model.getInstance().getUserInfoById(videoChatItem.getOwnerId());
+                userInfoTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                     @Override
-                    public void onComplete(@NonNull Task<User> task) {
+                    public void onComplete(@NonNull Task<UserInfo> task) {
                         if (task.isSuccessful()) {
-                            User user = task.getResult();
+                            UserInfo userInfo = task.getResult();
                             String usersName = "";
-                            if (user.getFirstName() != null && user.getLastName() != null) {
-                                usersName = user.getFirstName() + user.getLastName();
-                            } else if (user.getNicName() != null) {
-                                usersName = user.getNicName();
+                            if (userInfo.getFirstName() != null && userInfo.getLastName() != null) {
+                                usersName = userInfo.getFirstName() + userInfo.getLastName();
+                            } else if (userInfo.getNicName() != null) {
+                                usersName = userInfo.getNicName();
                             }
                             AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.call_receive) + " \'" + usersName + " \'?", getContext().getResources().getString(R.string.accept_call),
                                     new View.OnClickListener() {// Cancel
@@ -391,10 +391,10 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @Subscribe
     public void startCallWithUsers(StartCallEvent event) {
-        List<User> users = event.getUsers();
+        List<UserInfo> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
-        for (User user : users) {
-            if (!user.getUserId().equals(LoginApi.getInstance().getUser().getUserId())) {
+        for (UserInfo user : users) {
+            if (!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
         }
@@ -416,10 +416,10 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     @Subscribe
     public void addUsersToCall(AddUsersToCallEvent event) {
-        List<User> users = event.getUsers();
+        List<UserInfo> users = event.getUsers();
         final ArrayList<String> opponentIds = new ArrayList<>();
-        for (User user : users) {
-            if (!user.getUserId().equals(LoginApi.getInstance().getUser().getUserId())) {
+        for (UserInfo user : users) {
+            if (!user.getUserId().equals(Model.getInstance().getUserInfo().getUserId())) {
                 opponentIds.add(user.getUserId());
             }
         }
@@ -438,7 +438,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         userCounter = 0;
         if (users != null) {
             for (String userId : users) {
-                if (!userId.equals(LoginApi.getInstance().getUser().getUserId())) {
+                if (!userId.equals(Model.getInstance().getUserInfo().getUserId())) {
                     Slot slot = getSlotBy(userId);
                     if (slot == null) {
                         slot = getNextFreeSlot();
@@ -446,9 +446,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                             slot.setUserId(userId);
                             addSlotToLayout(slot);
                             if (Utility.isPhone(getActivity())) {
-                                LoginApi.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<User>() {
+                                Model.getInstance().getUserInfoById(userId).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<User> task) {
+                                    public void onComplete(@NonNull Task<UserInfo> task) {
                                         if (task.isSuccessful()) {
                                             userCounter++;
                                             String myNames = nickNameUsers.getText().toString();
@@ -457,9 +457,9 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
                                                     nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());
                                                     myNames = nickNameUsers.getText().toString();
                                                     myNames = myNames.substring(1);
-                                                    nickNameUsers.setText(myNames + " & " + LoginApi.getInstance().getUser().getFirstName() + " " + LoginApi.getInstance().getUser().getLastName());
+                                                    nickNameUsers.setText(myNames + " & " + Model.getInstance().getUserInfo().getFirstName() + " " + Model.getInstance().getUserInfo().getLastName());
                                                 } else {
-                                                    nickNameUsers.setText(LoginApi.getInstance().getUser().getFirstName() + " " + LoginApi.getInstance().getUser().getLastName());
+                                                    nickNameUsers.setText(Model.getInstance().getUserInfo().getFirstName() + " " + Model.getInstance().getUserInfo().getLastName());
                                                 }
                                             } else {
                                                 nickNameUsers.setText(myNames + ", " + task.getResult().getFirstName() + " " + task.getResult().getFirstName());
@@ -598,11 +598,11 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         return users;
     }
 
-    private List<User> getUsersFromSlots() {
-        List<User> users = new ArrayList<>();
+    private List<UserInfo> getUsersFromSlots() {
+        List<UserInfo> users = new ArrayList<>();
         for (Slot slot : slots) {
-            if (slot.getUser() != null) {
-                users.add(slot.getUser());
+            if (slot.getUserInfo() != null) {
+                users.add(slot.getUserInfo());
             }
         }
         return users;
@@ -740,13 +740,13 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
 
     @Optional
-    @OnClick(R.id.registerButton)
+    @OnClick(R.id.join_now_button)
     public void joinOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(RegisterFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
     }
 
     @Optional
-    @OnClick(R.id.loginButton)
+    @OnClick(R.id.login_button)
     public void loginOnClick() {
         EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
@@ -754,7 +754,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
 
     private void onLoginStateChange() {
 
-        if (LoginApi.getInstance().isLoggedIn()) {
+        if (Model.getInstance().isRealUser()) {
             cameraLogo.setVisibility(View.GONE);
             loginContainer.setVisibility(View.GONE);
             Logo.setVisibility(View.VISIBLE);

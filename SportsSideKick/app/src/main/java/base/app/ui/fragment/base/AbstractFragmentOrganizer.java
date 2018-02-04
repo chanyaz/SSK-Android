@@ -15,9 +15,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import base.app.Application;
-import base.app.ui.fragment.user.auth.LoginFragment;
 import base.app.util.commons.Utility;
-import base.app.util.events.FragmentEvent;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -26,6 +24,7 @@ import base.app.util.events.FragmentEvent;
  * <p>
  * Abstract fragment organizer
  */
+
 abstract class AbstractFragmentOrganizer {
 
     FragmentManager fragmentManager;
@@ -43,9 +42,6 @@ abstract class AbstractFragmentOrganizer {
             Constructor constructor = fragmentClass.getConstructor();
             return (Fragment) constructor.newInstance();
         } catch (Exception e) {
-            if (fragmentClass == LoginFragment.class) {
-                return new LoginFragment();
-            }
             e.printStackTrace();
         }
         return null;
@@ -59,7 +55,6 @@ abstract class AbstractFragmentOrganizer {
     public void freeUpResources() {
         EventBus.getDefault().unregister(this);
     }
-
 
     @Nullable
     private String getFragmentTagAt(int position) {
@@ -136,9 +131,7 @@ abstract class AbstractFragmentOrganizer {
         return openFragment(fragment, containerId);
     }
 
-
     protected abstract int getFragmentContainer(Class fragment);
-
 
     private String openFragment(Fragment fragment, int containerId) {
         if (isFragmentOpen(fragment) || containerId <= 0) {

@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.util.events.FragmentEvent;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.popup.FriendFragment;
-import base.app.data.user.friends.FriendRequest;
-import base.app.data.user.friends.FriendsManager;
-import base.app.data.user.User;
+import base.app.data.friendship.FriendRequest;
+import base.app.data.friendship.FriendsManager;
+import base.app.data.user.UserInfo;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,7 +109,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             holder.date.setVisibility(View.GONE);
         }
 
-        String avatarUrl = info.getSender().getAvatar();
+        String avatarUrl = info.getSender().getCircularAvatarUrl();
         if (avatarUrl == null) {
             avatarUrl = info.getSender().getAvatarUrl();
         }
@@ -132,7 +132,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
                 FragmentEvent fragmentEvent = new FragmentEvent(FriendFragment.class);
                 fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
-                fragmentEvent.setItemId(values.get(position).getSender().getUserId());
+                fragmentEvent.setId(values.get(position).getSender().getUserId());
                 EventBus.getDefault().post(fragmentEvent);
             }
         });
@@ -172,12 +172,14 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
     }
 
     private void acceptFriendRequest(final int position) {
-        Task<User> requestTask = FriendsManager.getInstance().acceptFriendRequest(values.get(position).getId());
-        requestTask.addOnCompleteListener(new OnCompleteListener<User>() {
+        Task<UserInfo> requestTask = FriendsManager.getInstance().acceptFriendRequest(values.get(position).getId());
+        requestTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
-            public void onComplete(@NonNull Task<User> task) {
+            public void onComplete(@NonNull Task<UserInfo> task) {
                 if (task.isSuccessful()) {
-                    getValues().remove(position);
+                    if (getValues().get(position) != null) {
+                        getValues().remove(position);
+                    }
                     notifyDataSetChanged();
                 }
             }

@@ -8,24 +8,24 @@
     android:paddingBottom="@dimen/padding_4"
     android:paddingTop="@dimen/padding_4">
 
-    <ImageView
-        app:layout_aspectRatio="180%"
-        app:layout_widthPercent="100%"
-        android:id="@+id/image"
-        android:scaleType="centerCrop" />
+        <ImageView
+            app:layout_aspectRatio="180%"
+            app:layout_widthPercent="100%"
+            android:id="@+id/image"
+            android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/caption"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_height="wrap_content"
-        android:layout_below="@+id/image"
-        android:background="?tvCategoryBackground"
-        android:bufferType="spannable"
-        android:maxLines="3"
-        android:padding="@dimen/padding_8"
-        android:textColor="?channelItemCaption"
-        android:textSize="@dimen/font_size_11"
-        tools:text="Some caption" />
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:background="?tvCategoryBackground"
+            android:bufferType="spannable"
+            android:maxLines="3"
+            android:padding="@dimen/padding_8"
+            android:textColor="?channelItemCaption"
+            android:textSize="@dimen/font_size_11"
+            tools:text="Some caption" />
 
 </android.support.percent.PercentRelativeLayout>

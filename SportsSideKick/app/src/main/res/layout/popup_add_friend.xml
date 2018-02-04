@@ -3,15 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimaryMediumLight"
     android:clickable="true">
+
+    <View
+        android:id="@+id/topSpacer"
+        android:background="@drawable/phone_background"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        tools:visibility="gone" />
 
     <!-- TOP BUTTONS CONTAINER -->
     <RelativeLayout
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/topSpacer"
         android:background="@drawable/phone_background"
         android:orientation="horizontal"
         android:tileMode="repeat">
@@ -28,7 +36,7 @@
             android:textSize="@dimen/font_size_18" />
 
         <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/backButton"
+            android:id="@+id/close_dialog_button"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentStart="true"

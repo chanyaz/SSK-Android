@@ -29,13 +29,13 @@
             android:layout_height="@dimen/translation_popup_picker_height"
             android:layout_alignEnd="@+id/close"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/translateButton"
+            android:layout_alignStart="@+id/translate"
             android:layout_marginBottom="@dimen/margin_5"
             android:background="@drawable/button_translate_close"
             android:minHeight="@dimen/translation_popup_picker_height" />
 
         <Button
-            android:id="@+id/translateButton"
+            android:id="@+id/translate"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/chat_button_size"
             android:layout_below="@+id/language_picker"
@@ -56,7 +56,7 @@
             android:layout_below="@+id/language_picker"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/margin_10"
-            android:layout_toEndOf="@+id/translateButton"
+            android:layout_toEndOf="@+id/translate"
             android:background="@drawable/button_translate_close"
             android:minHeight="@dimen/chat_button_size"
             android:paddingEnd="@dimen/padding_16"

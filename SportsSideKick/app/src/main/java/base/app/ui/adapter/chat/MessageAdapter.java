@@ -22,25 +22,29 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import base.app.R;
-import base.app.data.chat.ChatMessage;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.events.FullScreenImageEvent;
-import base.app.util.events.MessageSelectedEvent;
-import base.app.util.events.PlayVideoEvent;
-import base.app.util.commons.DateUtils;
-import base.app.util.commons.GSConstants;
-import base.app.data.chat.ChatInfo;
+import base.app.data.DateUtils;
+import base.app.data.GSConstants;
+import base.app.data.Model;
+import base.app.data.Translator;
+import base.app.data.im.ChatInfo;
+import base.app.data.im.ImsMessage;
+import base.app.data.user.UserInfo;
+import base.app.util.events.chat.FullScreenImageEvent;
+import base.app.util.events.chat.MessageSelectedEvent;
+import base.app.util.events.stream.PlayVideoEvent;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static base.app.util.commons.GSConstants.UPLOADING;
+import static base.app.data.GSConstants.UPLOADING;
+import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -54,7 +58,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private static final String TAG = "Message Adapter";
 
     private TranslationView translationView;
-    private List<ChatMessage> translatedMessages;
+    private List<ImsMessage> translatedMessages;
+    private Map<ImsMessage, Boolean> translatedMap = new HashMap<>();
 
     public void setChatInfo(ChatInfo chatInfo) {
         translatedMessages.clear();
@@ -79,7 +84,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         @BindView(R.id.sender) TextView senderTextView;
         @Nullable @BindView(R.id.profile_image) CircleImageView senderImageView;
         @BindView(R.id.contentImage) ImageView contentImage;
-        @BindView(R.id.playButton) ImageView playButton;
+        @BindView(R.id.play_button) ImageView playButton;
         @BindView(R.id.content_container) View contentContainer;
         @Nullable @BindView(R.id.progressBar) AVLoadingIndicatorView progressBar;
         ViewHolder(View view) {
@@ -109,8 +114,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final ChatMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
         if(!message.getReadFlag()){
             chatInfo.markMessageAsRead(message);
         }
@@ -143,7 +148,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_VIDEO:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.displayImage(imageUrl,holder.contentImage, null);
+                    ImageLoader.displayImage(imageUrl,holder.contentImage);
                     holder.playButton.setVisibility(View.VISIBLE);
                     holder.contentImage.setOnClickListener(
                             new View.OnClickListener() {
@@ -178,18 +183,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         public void onClick(View view) {
                             String messageId = (String) view.getTag();
 
-                            TaskCompletionSource<ChatMessage> source = new TaskCompletionSource<>();
-                            source.getTask().addOnCompleteListener(new OnCompleteListener<ChatMessage>() {
+                            TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
+                            source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
                                 @Override
-                                public void onComplete(@NonNull Task<ChatMessage> task) {
+                                public void onComplete(@NonNull Task<ImsMessage> task) {
                                 if(task.isSuccessful()){
-                                    ChatMessage translatedMessage = task.getResult();
-                                    updateWithTranslatedMessage(translatedMessage,position);
+                                    ImsMessage translatedMessage = task.getResult();
+                                    updateWithTranslatedMessage(translatedMessage,holder.getAdapterPosition());
                                 }
                                 }
                             });
                             translationView.showTranslationPopup(holder.contentContainer,messageId, source, TranslationView.TranslationType.TRANSLATE_IMS);
-
                         }
                     });
 
@@ -208,7 +212,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.textView.setVisibility(View.VISIBLE);
 
                     String translatedValue = null;
-                    for(ChatMessage translated : translatedMessages){
+                    for(ImsMessage translated : translatedMessages){
                         if(message.getId().equals(translated.getId())){
                             translatedValue = translated.getText();
                         }
@@ -217,6 +221,24 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         holder.textView.setText(translatedValue);
                     } else {
                         holder.textView.setText(message.getText());
+                    }
+
+                    if (isAutoTranslateEnabled() && translatedValue == null) {
+                        String messageId = (String) holder.view.getTag();
+
+                        TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
+                        source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
+                            @Override
+                            public void onComplete(@NonNull Task<ImsMessage> task) {
+                                if(task.isSuccessful()){
+                                    int position = holder.getAdapterPosition();
+                                    ImsMessage translatedMessage = task.getResult();
+                                    translatedMap.put(translatedMessage, true);
+                                    updateWithTranslatedMessage(translatedMessage,position);
+                                }
+                            }
+                        });
+                        Translator.getInstance().translateMessage(messageId,source);
                     }
                     break;
             }
@@ -234,19 +256,19 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-    private void setupAvatarFromRemoteUser(ChatMessage message, final ViewHolder holder){
+    private void setupAvatarFromRemoteUser(ImsMessage message,final ViewHolder holder){
         holder.senderTextView.setText("New User");
-        LoginApi.getInstance().getUserInfoById(message.getSenderId()).addOnSuccessListener(new OnSuccessListener<User>() {
+        Model.getInstance().getUserInfoById(message.getSenderId()).addOnSuccessListener(new OnSuccessListener<UserInfo>() {
             @Override
-            public void onSuccess(User user) {
+            public void onSuccess(UserInfo userInfo) {
                 String senderImageUrl=null;
                 String nicName="New User";
-                if(user !=null){
-                    senderImageUrl = user.getAvatar();
-                    nicName = user.getNicName();
+                if(userInfo!=null){
+                    senderImageUrl = userInfo.getCircularAvatarUrl();
+                    nicName = userInfo.getNicName();
                 }
                 if (holder.senderImageView != null) {
-                    ImageLoader.displayImage(senderImageUrl,holder.senderImageView, null);
+                    ImageLoader.displayImage(senderImageUrl,holder.senderImageView, R.drawable.blank_profile_rounded);
                 }
                 holder.senderTextView.setText(nicName);
             }
@@ -313,9 +335,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        User info = LoginApi.getInstance().getUser();
+        UserInfo info = Model.getInstance().getUserInfo();
         if(chatInfo!=null && info!=null){
-            ChatMessage message = chatInfo.getMessages().get(position);
+            ImsMessage message = chatInfo.getMessages().get(position);
             String userId = info.getUserId();
             if(userId!=null){
                 if(info.getUserId().equals(message.getSenderId())) {
@@ -326,9 +348,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return VIEW_TYPE_MESSAGE_OTHER_USERS;
     }
 
-    public void updateWithTranslatedMessage(ChatMessage message, int position){
+    public void updateWithTranslatedMessage(ImsMessage message, int position){
         translatedMessages.add(message);
         notifyItemChanged(position);
     }
-
 }

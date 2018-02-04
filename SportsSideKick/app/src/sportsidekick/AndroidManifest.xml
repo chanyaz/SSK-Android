@@ -29,14 +29,14 @@
 
         <!-- ** ** Notifications ** ** -->
         <service
-            android:name="base.app.data.user.notifications.SskFirebaseMessagingService">
+            android:name="base.app.data.notifications.SskFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name="base.app.data.user.notifications.FirebaseInstanceIDService">
+            android:name="base.app.data.notifications.FirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
@@ -66,7 +66,8 @@
             android:enabled="true" />
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="5fe478e83aeb04e30a3f64c0c242b2d54e7c2216" />
+            android:value="37603fd544c2349d3453ebc172ed3673360bae53" />
+
     </application>
 
 </manifest>

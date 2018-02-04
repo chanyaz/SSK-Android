@@ -45,8 +45,8 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="@dimen/height_145"
-        android:layout_height="@dimen/height_145"
+        android:layout_width="@dimen/wall_image_size"
+        android:layout_height="@dimen/wall_image_size"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
@@ -69,7 +69,7 @@
         android:scrollHorizontally="true"
         tools:text="@string/lorem_ipsum"
         android:textColor="?black"
-        android:textSize="@dimen/font_size_16" />
+        android:textSize="@dimen/list_item_text_size" />
 
     <RelativeLayout
         android:id="@+id/likes_and_comments"

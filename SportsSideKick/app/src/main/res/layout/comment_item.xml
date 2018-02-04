@@ -42,7 +42,7 @@
             android:textSize="@dimen/font_size_10" />
 
         <TextView
-            android:id="@+id/translateButton"
+            android:id="@+id/translate"
             android:layout_below="@id/message_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,12 +55,12 @@
 
 
         <TextView
-            android:id="@+id/deleteButton"
+            android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/message_information"
             android:padding="@dimen/margin_5"
-            android:layout_toEndOf="@+id/translateButton"
+            android:layout_toEndOf="@+id/translate"
             android:paddingEnd="@dimen/padding_10"
             android:text="@string/delete"
             android:visibility="gone"
@@ -69,12 +69,12 @@
             />
 
         <TextView
-            android:id="@+id/editButton"
+            android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/message_information"
             android:paddingEnd="@dimen/padding_10"
-            android:layout_toEndOf="@+id/deleteButton"
+            android:layout_toEndOf="@+id/delete"
             android:text="@string/edit"
             android:textColor="@color/colorPrimaryVeryLight"
             android:visibility="gone"

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import base.app.R;
-import base.app.data.user.User;
+import base.app.data.user.UserInfo;
 
 /**
  * Created by Djordje Krutil on 6.12.2016..
@@ -32,6 +32,10 @@ public class Utility {
 
     public static final String CHOSEN_LANGUAGE = "CHOSEN_LANGUAGE";
     public static final String AUTO_TRANSLATE = "AUTO_TRANSLATE";
+    public static final String WALL_NOTIFICATIONS = "WALL_NOTIFICATIONS";
+    public static final String NEWS_NOTIFICATIOINS = "NEWS_NOTIFICATIOINS";
+    public static final String RUMOURS_NOTIFICATIONS = "RUMOURS_NOTIFICATIONS";
+    public static final String SOCIAL_NOTIFICATIONS = "SOCIAL_NOTIFICATIONS";
 
     public static long getCurrentTime(){
         return System.currentTimeMillis();
@@ -115,11 +119,11 @@ public class Utility {
         return true;
     }
 
-    public static List<User> filter(List<User> users, String query) {
+    public static List<UserInfo> filter(List<UserInfo> users, String query) {
         String lowerCaseQuery = query.toLowerCase();
-        List<User> filteredUserslList = new ArrayList<>();
+        List<UserInfo> filteredUserslList = new ArrayList<>();
         if (users != null) {
-            for (User user : users) {
+            for (UserInfo user : users) {
                 String text = (user.getFirstName() + user.getLastName() + user.getNicName()).toLowerCase();
                 if (text.contains(lowerCaseQuery)) {
                     filteredUserslList.add(user);

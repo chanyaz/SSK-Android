@@ -27,17 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
-import base.app.util.ui.AlertDialogManager;
-import base.app.data.user.friends.FriendsManager;
-import base.app.util.events.AddFriendsEvent;
+import base.app.data.AlertDialogManager;
+import base.app.data.friendship.FriendsManager;
+import base.app.data.user.AddFriendsEvent;
+import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
 import base.app.ui.adapter.friends.SelectableFriendsAdapter;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
-import base.app.util.events.AddUsersToCallEvent;
-import base.app.util.events.StartCallEvent;
+import base.app.util.events.call.AddUsersToCallEvent;
+import base.app.util.events.call.StartCallEvent;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
 import butterknife.BindView;
@@ -82,7 +82,7 @@ public class StartingNewCallFragment extends BaseFragment {
     AddFriendsAdapter addFriendsAdapter;
     SelectableFriendsAdapter chatFriendsAdapter;
     int space;
-    List<User> users;
+    List<UserInfo> users;
     boolean addUsersToCall;
 
     public StartingNewCallFragment() {
@@ -114,26 +114,26 @@ public class StartingNewCallFragment extends BaseFragment {
         friendsRecyclerView.setHasFixedSize(true);
 
 
-        Task<List<User>> task = FriendsManager.getInstance().getFriends(0);
+        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
-                new OnSuccessListener<List<User>>() {
+                new OnSuccessListener<List<UserInfo>>() {
                     @Override
-                    public void onSuccess(List<User> users) {
+                    public void onSuccess(List<UserInfo> userInfos) {
                         chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
-                        List<String> presentUsers = getStringArrayArgument();
-                        StartingNewCallFragment.this.users = users;
+                        List<String> presentUsers = getStringArrayArguement();
+                        users = userInfos;
                         if (presentUsers != null) {
                             addUsersToCall = true;
-                            List<User> usersToRemove = new ArrayList<>();
-                            for (User user : users) {
-                                if (presentUsers.contains(user.getUserId())) {
-                                    usersToRemove.add(user);
+                            List<UserInfo> usersToRemove = new ArrayList<>();
+                            for (UserInfo userInfo : userInfos) {
+                                if (presentUsers.contains(userInfo.getUserId())) {
+                                    usersToRemove.add(userInfo);
                                 }
                             }
-                            users.removeAll(usersToRemove);
+                            userInfos.removeAll(usersToRemove);
                         }
 
-                        chatFriendsAdapter.add(users);
+                        chatFriendsAdapter.add(userInfos);
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
                         progressBar.setVisibility(View.GONE);
                         if (isTablet) {
@@ -185,9 +185,9 @@ public class StartingNewCallFragment extends BaseFragment {
     public void updateAddFriendsAdapter(AddFriendsEvent event) {
         if (!isTablet) {
             if (event.isRemove()) {
-                addFriendsAdapter.remove(event.getUser());
+                addFriendsAdapter.remove(event.getUserInfo());
             } else {
-                addFriendsAdapter.add(event.getUser());
+                addFriendsAdapter.add(event.getUserInfo());
             }
             int friendCount = addFriendsAdapter.getItemCount();
             String friendsInchat = " " + getContext().getResources().getString(R.string.friends_in_video_chat);
@@ -233,7 +233,7 @@ public class StartingNewCallFragment extends BaseFragment {
     private void findUsers(String sequence) {
         if (users != null) {
             noResult.setVisibility(View.GONE);
-            final List<User> filteredModelList = Utility.filter(users, sequence);
+            final List<UserInfo> filteredModelList = Utility.filter(users, sequence);
             if (filteredModelList.size() > 0) {
                 friendsRecyclerView.setVisibility(View.VISIBLE);
                 chatFriendsAdapter.replaceAll(filteredModelList);

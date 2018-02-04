@@ -12,10 +12,10 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.LoginApi;
+import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
-import base.app.util.events.FragmentEvent;
+import base.app.data.user.UserInfo;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.other.ChatFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +30,7 @@ import static base.app.data.user.LoginStateReceiver.*;
  * www.hypercubesoft.com
  */
 public class SignUpLoginPopupRightFragment extends SignUpLoginFragment
-        implements LoginListener {
+        implements LoginStateListener {
 
     @Nullable
     @BindView(R.id.description)
@@ -71,8 +71,8 @@ public class SignUpLoginPopupRightFragment extends SignUpLoginFragment
     }
 
     @Override
-    public void onLogin(User user) {
-        if (LoginApi.getInstance().isLoggedIn()) {
+    public void onLogin(UserInfo user) {
+        if (Model.getInstance().isRealUser()) {
             EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         }
     }

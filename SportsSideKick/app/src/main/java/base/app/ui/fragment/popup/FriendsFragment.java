@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,16 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
-import base.app.data.user.friends.FriendsManager;
 import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.fragment.user.auth.LoginApi;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.Model;
+import base.app.data.friendship.FriendRequest;
+import base.app.data.friendship.FriendsListChangedEvent;
+import base.app.data.friendship.FriendsManager;
+import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
-import base.app.util.events.FragmentEvent;
-import base.app.util.events.FriendsListChangedEvent;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
-import base.app.util.ui.BaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -57,6 +59,9 @@ public class FriendsFragment extends BaseFragment {
 
     @BindView(R.id.progressBar)
     AVLoadingIndicatorView progressBar;
+    @Nullable
+    @BindView(R.id.friend_requests_count)
+    TextView friendRequestCount;
 
     @BindView(R.id.no_result_text)
     TextView noResultText;
@@ -68,8 +73,12 @@ public class FriendsFragment extends BaseFragment {
     RecyclerView officialAccountRecyclerView;
     FriendsAdapter officialAccountAdapter;
 
-    List<User> friends;
-    List<User> officialAccounts;
+    List<UserInfo> friends;
+    List<UserInfo> officialAccounts;
+
+    @Nullable
+    @BindView(R.id.friend_requests_container)
+    RelativeLayout friendRequestsContainer;
 
     FriendsAdapter adapter;
 
@@ -107,10 +116,10 @@ public class FriendsFragment extends BaseFragment {
             officialAccountAdapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
         }
 
-        Task<List<User>> officialTask = LoginApi.getInstance().getOfficialAccounts(0);
-        officialTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
+        Task<List<UserInfo>> officialTask = Model.getInstance().getOfficialAccounts(0);
+        officialTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
-            public void onComplete(@NonNull Task<List<User>> task) {
+            public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if (task.isSuccessful()) {
                     noResultText.setVisibility(View.GONE);
                     friendsRecyclerView.setVisibility(View.VISIBLE);
@@ -125,6 +134,31 @@ public class FriendsFragment extends BaseFragment {
             }
         });
 
+        Task<List<FriendRequest>> task = FriendsManager.getInstance().getOpenFriendRequests(0);
+        task.addOnCompleteListener(new OnCompleteListener<List<FriendRequest>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<FriendRequest>> task) {
+                if (task.isSuccessful()) {
+                    if (task.getResult() != null) {
+                        if (friendRequestCount != null) {
+                            friendRequestCount.setText(String.valueOf(task.getResult().size()));
+                        }
+                        if (task.getResult().size() > 0) {
+                            if (friendRequestsContainer != null) {
+                                friendRequestsContainer.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        return;
+                    }
+                }
+                if (friendRequestCount != null) {
+                    friendRequestCount.setText("0");
+                }
+                if (friendRequestsContainer != null) {
+                    friendRequestsContainer.setVisibility(View.GONE);
+                }
+            }
+        });
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {}
@@ -151,7 +185,7 @@ public class FriendsFragment extends BaseFragment {
     }
 
     @Optional
-    @OnClick(R.id.backButton)
+    @OnClick(R.id.close_dialog_button)
     public void closeDialog() {
         getActivity().onBackPressed();
     }
@@ -159,6 +193,12 @@ public class FriendsFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.friend_requests)
     public void friendRequestsDialog() {
+        EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
+    }
+
+    @Optional
+    @OnClick(R.id.friend_requests_container)
+    public void displayFriendRequests() {
         EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
     }
 
@@ -179,10 +219,10 @@ public class FriendsFragment extends BaseFragment {
     }
 
     private void updateFriends(){
-        Task<List<User>> friendsTask = FriendsManager.getInstance().getFriends(0);
-        friendsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
+        Task<List<UserInfo>> friendsTask = FriendsManager.getInstance().getFriends(0);
+        friendsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
-            public void onComplete(@NonNull Task<List<User>> task) {
+            public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 if (task.isSuccessful()) {
                     noResultText.setVisibility(View.GONE);
                     friendsRecyclerView.setVisibility(View.VISIBLE);
@@ -203,4 +243,6 @@ public class FriendsFragment extends BaseFragment {
     public void handleFriendsListChanged(FriendsListChangedEvent event){
         updateFriends();
     }
+
+
 }

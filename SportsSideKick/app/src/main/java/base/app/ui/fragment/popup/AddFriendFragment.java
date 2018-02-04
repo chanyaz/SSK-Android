@@ -27,11 +27,11 @@ import java.util.List;
 import base.app.R;
 import base.app.ui.adapter.stream.FindOfficialAdapter;
 import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
-import base.app.data.user.friends.PeopleSearchManager;
-import base.app.data.user.User;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.data.Model;
+import base.app.data.friendship.PeopleSearchManager;
+import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,6 +98,12 @@ public class AddFriendFragment extends BaseFragment {
         return view;
     }
 
+    @Optional
+    @OnClick(R.id.invite_friend_button)
+    public void onClickInviteFriend() {
+        EventBus.getDefault().post(new FragmentEvent(InviteFriendFragment.class));
+    }
+
     int defaultTopMargin;
 
 
@@ -116,12 +122,12 @@ public class AddFriendFragment extends BaseFragment {
                 officialAccountsAdapter = new FindOfficialAdapter(getActivity(), this.getClass());
                 officialAccountsRecyclerView.setAdapter(officialAccountsAdapter);
             }
-            Task<List<User>> fetchOfficialAccountsTask = LoginApi.getInstance().getOfficialAccounts(0);
-            fetchOfficialAccountsTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
+            Task<List<UserInfo>> fetchOfficialAccountsTask = Model.getInstance().getOfficialAccounts(0);
+            fetchOfficialAccountsTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
                 @Override
-                public void onComplete(@NonNull Task<List<User>> task) {
+                public void onComplete(@NonNull Task<List<UserInfo>> task) {
                     progressBar.setVisibility(View.GONE);
-                    List<User> officialAccounts = task.getResult();
+                    List<UserInfo> officialAccounts = task.getResult();
                     if (task.isSuccessful() && officialAccounts.size() != 0) {
                         officialAccountsAdapter.setValues(officialAccounts);
                         officialAccountsAdapter.notifyDataSetChanged();
@@ -177,10 +183,10 @@ public class AddFriendFragment extends BaseFragment {
         noResultCaption.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         isSearchPeopleTaskCanceled = false;
-        Task<List<User>> searchPeopleTask = PeopleSearchManager.getInstance().searchPeople(text, 0);
-        searchPeopleTask.addOnCompleteListener(new OnCompleteListener<List<User>>() {
+        Task<List<UserInfo>> searchPeopleTask = PeopleSearchManager.getInstance().searchPeople(text, 0);
+        searchPeopleTask.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
-            public void onComplete(@NonNull Task<List<User>> task) {
+            public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 progressBar.setVisibility(View.GONE);
                 if(!isSearchPeopleTaskCanceled){
                     if (task.isSuccessful() && task.getResult().size() != 0) {

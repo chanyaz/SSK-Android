@@ -13,10 +13,9 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
-import base.app.ui.fragment.user.auth.LoginFragment;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
+import base.app.data.Model;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,25 +51,25 @@ public class SignUpLoginFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (LoginApi.getInstance().isLoggedIn() && Utility.isPhone(getActivity())){
+        if (Model.getInstance().isRealUser() && Utility.isPhone(getActivity())){
             getActivity().onBackPressed();
         }
     }
 
     @Optional
-    @OnClick(R.id.registerButton)
+    @OnClick(R.id.join_now_button)
     public void joinOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(RegisterFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
     }
 
     @Optional
-    @OnClick(R.id.loginButton)
+    @OnClick(R.id.login_button)
     public void loginOnClick() {
         EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
     @Optional
-    @OnClick(R.id.backButton)
+    @OnClick(R.id.close_dialog_button)
     public void closeDialogButton() {
        getActivity().onBackPressed();
     }

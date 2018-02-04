@@ -28,6 +28,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
+import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
+import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -41,16 +44,16 @@ import java.util.TimerTask;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.data.user.friends.FriendsManager;
-import base.app.data.chat.ChatInfo;
-import base.app.data.chat.ImsManager;
-import base.app.util.events.AddFriendsEvent;
+import base.app.data.Model;
+import base.app.data.friendship.FriendsManager;
+import base.app.data.im.ChatInfo;
+import base.app.data.im.ImsManager;
+import base.app.data.user.AddFriendsEvent;
+import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
 import base.app.ui.adapter.friends.SelectableFriendsAdapter;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
@@ -59,6 +62,9 @@ import base.app.util.ui.LinearItemSpacing;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -67,14 +73,17 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
-import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
-import static base.app.util.commons.Constants.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_CAPTURE;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_EDIT_IMAGE_PICK;
+import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
+import static io.reactivex.schedulers.Schedulers.io;
 
 /**
  * Created by Filip on 12/26/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
+
 @RuntimePermissions
 public class EditChatFragment extends BaseFragment {
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.24;
@@ -101,7 +110,7 @@ public class EditChatFragment extends BaseFragment {
     @BindView(R.id.friends_in_chat_headline)
     TextView headlineFriendsInChat;
 
-    List<User> userList;
+    List<UserInfo> userInfoList;
     AddFriendsAdapter addFriendsAdapter;
 
     ChatInfo chatInfo;
@@ -147,16 +156,16 @@ public class EditChatFragment extends BaseFragment {
         friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
 
-        Task<List<User>> task = FriendsManager.getInstance().getFriends(0);
+        Task<List<UserInfo>> task = FriendsManager.getInstance().getFriends(0);
         task.addOnSuccessListener(
-                new OnSuccessListener<List<User>>() {
+                new OnSuccessListener<List<UserInfo>>() {
                     @Override
-                    public void onSuccess(List<User> users) {
+                    public void onSuccess(List<UserInfo> userInfos) {
                         chatFriendsAdapter = new SelectableFriendsAdapter(getContext());
-                        chatFriendsAdapter.add(users);
-                        userList = users;
+                        chatFriendsAdapter.add(userInfos);
+                        userInfoList = userInfos;
 
-                        List<User> chatMembers = LoginApi.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+                        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
                         chatFriendsAdapter.setSelectedUsers(chatMembers);
 
                         friendsRecyclerView.setAdapter(chatFriendsAdapter);
@@ -185,7 +194,7 @@ public class EditChatFragment extends BaseFragment {
         super.onResume();
         chatNameEditText.setText(chatInfo.getChatTitle());
         if(chatInfo.getChatAvatarUrl()!=null){
-            ImageLoader.displayImage(chatInfo.getChatAvatarUrl(), chatImageView, null);
+            ImageLoader.displayImage(chatInfo.getChatAvatarUrl(), chatImageView, R.drawable.blank_profile_rounded);
             chatImageView.setVisibility(View.VISIBLE);
         }
     }
@@ -193,9 +202,9 @@ public class EditChatFragment extends BaseFragment {
     @Subscribe
     public void updateAddFriendsAdapter(AddFriendsEvent event) {
         if (event.isRemove()) {
-            addFriendsAdapter.remove(event.getUser());
+            addFriendsAdapter.remove(event.getUserInfo());
         } else {
-            addFriendsAdapter.add(event.getUser());
+            addFriendsAdapter.add(event.getUserInfo());
         }
         updateFirendsCountLabel();
     }
@@ -213,9 +222,10 @@ public class EditChatFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.deleteButton)
+    @OnClick(R.id.delete)
     public void deleteChat(){
         chatInfo.deleteChat();
+        getActivity().onBackPressed();
     }
 
     @OnClick(R.id.popup_image_button)
@@ -224,14 +234,73 @@ public class EditChatFragment extends BaseFragment {
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               EditChatFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(EditChatFragment.this);
+                RxPaparazzo.single(EditChatFragment.this)
+                        .usingGallery()
+                        .map(new Function<Response<EditChatFragment,FileData>, Object>() {
+                            @Override
+                            public Object apply(Response<EditChatFragment, FileData> fileData) throws Exception {
+                                return fileData.data().getFile();
+                            }
+                        })
+                        .subscribeOn(io())
+                        .observeOn(mainThread())
+                        .subscribe(new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
 
+                            @Override
+                            public void onNext(Object o) {
+                                File imageFile = (File) o;
+                                currentPath = imageFile.getAbsolutePath();
+                                uploadImage(currentPath);
+                                ImageLoader.displayImage(currentPath,chatImageView);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
             }
         });
         chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.use_camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EditChatFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(EditChatFragment.this);
+                RxPaparazzo.single(EditChatFragment.this)
+                        .usingCamera()
+                        .map(new Function<Response<EditChatFragment,FileData>, Object>() {
+                            @Override
+                            public Object apply(Response<EditChatFragment, FileData> fileData) throws Exception {
+                                return fileData.data().getFile();
+                            }
+                        })
+                        .subscribeOn(io())
+                        .observeOn(mainThread())
+                        .subscribe(new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
+                                File imageFile = (File) o;
+                                currentPath = imageFile.getAbsolutePath();
+                                uploadImage(currentPath);
+                                ImageLoader.displayImage(currentPath,chatImageView);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
             }
         });
         chooseDialog.show();
@@ -251,7 +320,7 @@ public class EditChatFragment extends BaseFragment {
             @Override
             public void run() {
                 if (chatFriendsAdapter != null) {
-                    final List<User> filteredModelList = filter(userList, searchEditText.getText().toString());
+                    final List<UserInfo> filteredModelList = filter(userInfoList, searchEditText.getText().toString());
                     chatFriendsAdapter.replaceAll(filteredModelList);
                     friendsRecyclerView.scrollToPosition(0);
                 }
@@ -288,11 +357,11 @@ public class EditChatFragment extends BaseFragment {
         }
     };
 
-    private static List<User> filter(List<User> models, String query) {
+    private static List<UserInfo> filter(List<UserInfo> models, String query) {
         final String lowerCaseQuery = query.toLowerCase();
-        final List<User> filteredModelList = new ArrayList<>();
+        final List<UserInfo> filteredModelList = new ArrayList<>();
         if (models != null) {
-            for (User model : models) {
+            for (UserInfo model : models) {
                 final String text = (model.getFirstName() + model.getLastName() + model.getNicName()).toLowerCase();
                 if (text.contains(lowerCaseQuery)) {
                     filteredModelList.add(model);
@@ -303,13 +372,13 @@ public class EditChatFragment extends BaseFragment {
     }
 
     private void submitChanges(){
-        List<User> chatMembers = LoginApi.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
-        List<User> selectedValues = chatFriendsAdapter.getSelectedValues();
+        List<UserInfo> chatMembers = Model.getInstance().getCachedUserInfoById(chatInfo.getUsersIds());
+        List<UserInfo> selectedValues = chatFriendsAdapter.getSelectedValues();
 
         boolean shouldUpdate = false;
          // Check users
         if(chatMembers.size() == selectedValues.size()){
-            for(User user : chatMembers){
+            for(UserInfo user : chatMembers){
                 if(!selectedValues.contains(user)){
                     shouldUpdate = true;
                     break;
@@ -321,8 +390,8 @@ public class EditChatFragment extends BaseFragment {
 
         if(shouldUpdate){
             ArrayList<String> newMembersIds = new ArrayList<>();
-            for(User user : selectedValues){
-                newMembersIds.add(user.getUserId());
+            for(UserInfo userInfo : selectedValues){
+                newMembersIds.add(userInfo.getUserId());
             }
             chatInfo.setUsersIds(newMembersIds);
         }
@@ -367,7 +436,7 @@ public class EditChatFragment extends BaseFragment {
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = LoginApi.createImageFile(getContext());
+                photoFile = Model.createImageFile(getContext());
                 currentPath = photoFile.getAbsolutePath();
             } catch (IOException ex) {
                 // Error occurred while creating the File
@@ -401,7 +470,7 @@ public class EditChatFragment extends BaseFragment {
                     break;
                 case REQUEST_CODE_CHAT_EDIT_IMAGE_PICK:
                     Uri selectedImageURI = intent.getData();
-                    String realPath = LoginApi.getRealPathFromURI(getContext(), selectedImageURI);
+                    String realPath = Model.getRealPathFromURI(getContext(), selectedImageURI);
                     uploadImage(realPath);
                     ImageLoader.displayImage(realPath,chatImageView, null);
                     break;
@@ -411,7 +480,7 @@ public class EditChatFragment extends BaseFragment {
 
     private void uploadImage(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        LoginApi.getInstance().uploadImageForEditChat(path,getActivity().getFilesDir(),source);
+        Model.getInstance().uploadImageForEditChat(path,getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {

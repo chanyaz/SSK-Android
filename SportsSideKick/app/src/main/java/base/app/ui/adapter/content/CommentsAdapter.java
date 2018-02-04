@@ -14,19 +14,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.util.events.CommentSelectedEvent;
-import base.app.data.content.wall.Comment;
-import base.app.data.content.wall.WallModel;
+import base.app.data.Id;
+import base.app.data.Model;
+import base.app.data.user.UserInfo;
+import base.app.data.wall.PostComment;
+import base.app.data.wall.WallModel;
 import base.app.util.commons.Utility;
+import base.app.util.events.comment.CommentSelectedEvent;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
@@ -39,18 +39,18 @@ import butterknife.ButterKnife;
  */
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
-    private List<Comment> comments;
+    private List<PostComment> comments;
 
     private TranslationView translationView;
-    private List<Comment> translatedComments;
+    private List<PostComment> translatedComments;
 
     private String defaultImageForUserUrl;
 
-    public List<Comment> getComments() {
+    public List<PostComment> getComments() {
         return comments;
     }
 
-    public void remove(Comment comment) {
+    public void remove(PostComment comment) {
         comments.remove(comment);
     }
 
@@ -65,12 +65,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         @Nullable
         @BindView(R.id.message_information)
         TextView messageInfo;
-        @BindView(R.id.translateButton)
+        @BindView(R.id.translate)
         TextView translate;
-        @BindView(R.id.editButton)
-        TextView editButton;
-        @BindView(R.id.deleteButton)
-        TextView deleteButton;
+        @BindView(R.id.edit)
+        TextView edit;
+        @BindView(R.id.delete)
+        TextView delete;
 
         ViewHolder(View v) {
             super(v);
@@ -96,17 +96,17 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final Comment comment = comments.get(position);
-        Task<User> getUserTask = LoginApi.getInstance().getUserInfoById(comment.getPosterId());
+        final PostComment comment = comments.get(position);
+        Task<UserInfo> getUserTask = Model.getInstance().getUserInfoById(comment.getPosterId().getOid());
         holder.view.setTag(comment.getPosterId());
-        getUserTask.addOnCompleteListener(new OnCompleteListener<User>() {
+        getUserTask.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
-            public void onComplete(@NonNull Task<User> task) {
+            public void onComplete(@NonNull Task<UserInfo> task) {
                 if (task.isSuccessful()) {
-                    User user = task.getResult();
+                    UserInfo user = task.getResult();
                     Object tag = holder.view.getTag();
                     if (tag != null) {
-                        String holdersCurrentUser = (String) tag;
+                        String holdersCurrentUser = ((Id) tag).getOid();
                         if (user.getUserId().equals(holdersCurrentUser)) {
                             setupWithUserInfo(comment, holder, user);
                         }
@@ -116,7 +116,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         });
 
         String translatedValue = null;
-        for (Comment translated : translatedComments) {
+        for (PostComment translated : translatedComments) {
             if (comment.getId().equals(translated.getId())) {
                 translatedValue = translated.getComment();
             }
@@ -132,13 +132,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         holder.translate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String commentId = comment.getId();
-                TaskCompletionSource<Comment> source = new TaskCompletionSource<>();
-                source.getTask().addOnCompleteListener(new OnCompleteListener<Comment>() {
+                String commentId = comment.getId().getOid();
+                TaskCompletionSource<PostComment> source = new TaskCompletionSource<>();
+                source.getTask().addOnCompleteListener(new OnCompleteListener<PostComment>() {
                     @Override
-                    public void onComplete(@NonNull Task<Comment> task) {
+                    public void onComplete(@NonNull Task<PostComment> task) {
                         if (task.isSuccessful()) {
-                            Comment translatedComment = task.getResult();
+                            PostComment translatedComment = task.getResult();
                             updateWithTranslatedComment(translatedComment, holder.getAdapterPosition());
                         }
                     }
@@ -147,21 +147,21 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             }
         });
 
-        holder.editButton.setVisibility(View.GONE);
-        holder.deleteButton.setVisibility(View.GONE);
+        holder.edit.setVisibility(View.GONE);
+        holder.delete.setVisibility(View.GONE);
 
         // check if this comment belongs to this user
-        if (LoginApi.getInstance().getUser() != null) {
-            if (LoginApi.getInstance().getUser().getUserId().equals(comment.getPosterId())) {
-                holder.editButton.setVisibility(View.VISIBLE);
-                holder.deleteButton.setVisibility(View.VISIBLE);
-                holder.editButton.setOnClickListener(new View.OnClickListener() {
+        if (Model.getInstance().getUserInfo() != null) {
+            if (Model.getInstance().getUserInfo().getUserId().equals(comment.getPosterId())) {
+                holder.edit.setVisibility(View.VISIBLE);
+                holder.delete.setVisibility(View.VISIBLE);
+                holder.edit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         EventBus.getDefault().post(new CommentSelectedEvent(comment));
                     }
                 });
-                holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         WallModel.getInstance().deletePostComment(comment);
@@ -171,7 +171,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         }
     }
 
-    public void addAll(List<Comment> items) {
+    public void addAll(List<PostComment> items) {
         comments.addAll(items);
     }
 
@@ -179,12 +179,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         comments.clear();
     }
 
-    private void setupWithUserInfo(Comment comment, ViewHolder holder, User user) {
-        final String userImage = user.getAvatar();
+    private void setupWithUserInfo(PostComment comment, ViewHolder holder, UserInfo user) {
+        final String userImage = user.getCircularAvatarUrl();
         if (userImage != null) {
-            ImageLoader.displayImage(userImage, holder.profileImage, null);
+            ImageLoader.displayImage(userImage, holder.profileImage, R.drawable.blank_profile_rounded);
         } else if (defaultImageForUserUrl != null) {
-            ImageLoader.displayImage(defaultImageForUserUrl, holder.profileImage, null);
+            ImageLoader.displayImage(defaultImageForUserUrl, holder.profileImage, R.drawable.blank_profile_rounded);
         }
         String time = "" + DateUtils.getRelativeTimeSpanString(
                 (long) (comment.getTimestamp() * 1000),
@@ -207,7 +207,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         this.translationView = translationView;
     }
 
-    private void updateWithTranslatedComment(Comment translated, int position) {
+    private void updateWithTranslatedComment(PostComment translated, int position) {
         translatedComments.add(translated);
         notifyItemChanged(position);
     }

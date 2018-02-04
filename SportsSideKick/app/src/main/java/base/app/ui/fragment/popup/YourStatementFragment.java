@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 import base.app.R;
 import base.app.ui.adapter.profile.StatementAdapter;
-import base.app.util.ui.BaseFragment;
-import base.app.util.events.FragmentEvent;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,7 +58,7 @@ public class YourStatementFragment extends BaseFragment {
 
     @OnClick(R.id.close)
     public void closeOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(WalletFragment.class, true));
     }
 
 }

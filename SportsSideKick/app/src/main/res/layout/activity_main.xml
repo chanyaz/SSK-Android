@@ -5,7 +5,9 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    android:layout_marginBottom="@dimen/navigation_bar_margin_bottom"
+    tools:context=".ui.activity.MainActivity"
+    tools:layout_marginBottom="0dp">
 
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/activity_main"
@@ -85,7 +87,6 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/notif_icon"
                 android:tint="?phoneLoungeIconsColor"
-                android:visibility="gone"
                 tools:layout_marginTop="0dp" />
 
             <ImageView
@@ -111,14 +112,15 @@
                 android:textStyle="bold"
                 android:visibility="gone" />
 
-            <RelativeLayout
-                android:id="@+id/left_notification_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true" />
-
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/left_notification_container"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
 
         <View
             android:id="@+id/shadow"
@@ -173,9 +175,9 @@
 
         <FrameLayout
             android:id="@+id/splash"
-            android:background="@color/colorPrimarySlightlyLight"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimarySlightlyLight">
 
             <ImageView
                 android:id="@+id/splashBackgroundImage"
@@ -183,7 +185,7 @@
                 android:layout_height="match_parent"
                 android:alpha="0.4"
                 android:scaleType="centerCrop"
-                android:src="@drawable/video_chat_background"/>
+                android:src="@drawable/video_chat_background" />
 
             <base.app.util.ui.NextMatchView
                 android:layout_width="match_parent"
@@ -256,8 +258,7 @@
                 android:layout_alignParentTop="true"
                 android:background="@color/white"
                 android:onClick="onProfileClicked"
-                android:paddingTop="24dp"
-                app:layout_heightPercent="17.5%">
+                app:layout_heightPercent="15.5%">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -382,9 +383,9 @@
                             android:layout_marginTop="@dimen/margin_4"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textAllCaps="true"
                             android:text="@string/you_have"
                             android:textAlignment="center"
+                            android:textAllCaps="true"
                             android:textColor="@color/colorPrimaryVeryDark"
                             android:textSize="@dimen/font_size_8" />
 

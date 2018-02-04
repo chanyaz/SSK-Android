@@ -12,10 +12,14 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import base.app.R;
-import base.app.ui.fragment.base.FragmentOrganizer;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.util.commons.Constant;
 import base.app.util.commons.Utility;
-import base.app.util.events.FragmentEvent;
 import base.app.util.ui.NavigationDrawerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,11 +34,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     private static final String TAG = "Menu Adapter";
     private int oldPosition;
-    private String[] values;
+    private ArrayList<String> values;
     private int screenWidth;
     private IDrawerClose drawerClose;
 
-    public String[] getValues() {
+    public List<String> getValues() {
         return values;
     }
 
@@ -54,7 +58,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     }
 
     public MenuAdapter(Context context, IDrawerClose drawerClose) {
-        values = context.getResources().getStringArray(R.array.menu_navigation);
+        values = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.menu_navigation)));
+        values.remove(9); // Hide rumours
+        values.remove(6); // Hide radio
+        values.remove(5); // Hide video chat
         NavigationDrawerItems.getInstance().generateList(icons.length);
         this.drawerClose = drawerClose;
         screenWidth = Utility.getDisplayWidth(context);
@@ -87,7 +94,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                     drawerClose.closeDrawerMenu(viewHolder.getAdapterPosition(),true);
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                            Class fragmentToStart = FragmentOrganizer.SIDE_MENU_OPTIONS.get(viewHolder.getAdapterPosition());
+                            Class fragmentToStart = Constant.PHONE_MENU_OPTIONS.get(viewHolder.getAdapterPosition());
                             EventBus.getDefault().post(new FragmentEvent(fragmentToStart));
                         }
                     }, 200);
@@ -110,13 +117,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int staticPosition) {
+        int position = holder.getAdapterPosition();
         holder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
         if (holder.itemView.isSelected())
             oldPosition = position;
         assert holder.image != null;
         holder.image.setImageResource(icons[position]);
-        holder.menu_text.setText(values[position]);
+        holder.menu_text.setText(values.get(position));
 
     }
 
@@ -132,11 +140,13 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             R.drawable.menu_wall_selector,
             R.drawable.menu_chat_selector,
             R.drawable.menu_news_selector,
+            R.drawable.menu_social_selector,
             R.drawable.menu_stats_selector,
-            R.drawable.menu_rummours_selector,
-            R.drawable.menu_club_radio_selector,
+//            R.drawable.menu_rummours_selector,
+//            R.drawable.menu_club_radio_selector,
             R.drawable.menu_shop_selector,
             R.drawable.menu_club_tv_selector,
-            R.drawable.menu_video_chat_selector
+//            R.drawable.menu_video_chat_selector,
+            R.drawable.menu_tickets_selector
     };
 }

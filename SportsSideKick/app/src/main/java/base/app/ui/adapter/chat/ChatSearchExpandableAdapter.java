@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import base.app.R;
-import base.app.data.user.User;
 import base.app.ui.fragment.popup.JoinChatFragment;
-import base.app.ui.fragment.user.auth.LoginApi;
-import base.app.data.chat.ChatInfo;
+import base.app.data.Model;
+import base.app.data.im.ChatInfo;
+import base.app.data.user.UserInfo;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
 import base.app.util.ui.ImageLoader;
@@ -118,7 +118,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             holder.memberList.addItemDecoration(new LinearItemSpacing(space, true, true));
             convertView.setTag(holder);
         }
-        if (!info.getUsersIds().contains(LoginApi.getInstance().getUser().getUserId())) {
+        if (!info.getUsersIds().contains(Model.getInstance().getUserInfo().getUserId())) {
             holder.joinButton.setVisibility(View.VISIBLE);
             holder.joinButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,10 +149,10 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
             chatExpandedItemAdapter = new ChatExpandedItemAdapter(context);
             expandedAdaptersMap.put(chat.getChatId(), chatExpandedItemAdapter);
             for (String uid : chat.getUsersIds()) {
-                Task<User> task = LoginApi.getInstance().getUserInfoById(uid);
-                task.addOnCompleteListener(new OnCompleteListener<User>() {
+                Task<UserInfo> task = Model.getInstance().getUserInfoById(uid);
+                task.addOnCompleteListener(new OnCompleteListener<UserInfo>() {
                     @Override
-                    public void onComplete(@NonNull Task<User> task) {
+                    public void onComplete(@NonNull Task<UserInfo> task) {
                         if (task.isSuccessful()) {
                             chatExpandedItemAdapter.addValue(task.getResult());
                         }
