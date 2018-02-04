@@ -23,6 +23,14 @@ fun View.hide() {
     visibility = GONE
 }
 
+fun View.setVisible(isVisible: Boolean) {
+    visibility = if (isVisible) {
+        VISIBLE
+    } else {
+        GONE
+    }
+}
+
 inline fun <reified T : ViewModel> Fragment.inject(): T {
     return ViewModelProviders.of(this).get(T::class.java)
 }
