@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity
     MenuAdapter menuAdapter;
     int screenWidth;
 
-    ArrayList<Class> popupContainerFragments;
+    ArrayList<Class> mainContainerFragments = new ArrayList<>();
     ArrayList<Class> popupLeftFragments;
     ArrayList<Class> popupDialogFragments;
     ArrayList<Class> youtubePlayer;
@@ -242,7 +242,6 @@ public class MainActivity extends BaseActivity
     private void setupFragments() {
         fragmentOrganizer = new FragmentOrganizer(getSupportFragmentManager(), WallFragment.class);
 
-        ArrayList<Class> mainContainerFragments = new ArrayList<>();
         mainContainerFragments.add(WallFragment.class);
         mainContainerFragments.add(ChatFragment.class);
         mainContainerFragments.add(NewsFragment.class);
@@ -252,28 +251,27 @@ public class MainActivity extends BaseActivity
         mainContainerFragments.add(StoreFragment.class);
         mainContainerFragments.add(VideoChatFragment.class);
         mainContainerFragments.add(TicketsFragment.class);
+        mainContainerFragments.add(ProfileFragment.class);
         fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments);
 
-        popupContainerFragments = new ArrayList<>();
-        popupContainerFragments.add(ProfileFragment.class);
-        popupContainerFragments.add(StashFragment.class);
-        popupContainerFragments.add(YourStatementFragment.class);
-        popupContainerFragments.add(WalletFragment.class);
-        popupContainerFragments.add(LanguageFragment.class);
-        popupContainerFragments.add(FriendsFragment.class);
-        popupContainerFragments.add(FriendRequestsFragment.class);
-        popupContainerFragments.add(StartingNewCallFragment.class);
-        popupContainerFragments.add(EditProfileFragment.class);
-        popupContainerFragments.add(LoginFragment.class);
-        popupContainerFragments.add(SignUpFragment.class);
-        popupContainerFragments.add(FriendFragment.class);
-        popupContainerFragments.add(FollowersFragment.class);
-        popupContainerFragments.add(FollowingFragment.class);
-        popupContainerFragments.add(AddFriendFragment.class);
-        popupContainerFragments.add(InviteFriendFragment.class);
-        popupContainerFragments.add(SignUpLoginFragment.class);
-        popupContainerFragments.add(CreateChatFragment.class);
-        fragmentOrganizer.setUpContainer(R.id.fragment_popup_holder, popupContainerFragments, true);
+        mainContainerFragments.add(StashFragment.class);
+        mainContainerFragments.add(YourStatementFragment.class);
+        mainContainerFragments.add(WalletFragment.class);
+        mainContainerFragments.add(LanguageFragment.class);
+        mainContainerFragments.add(FriendsFragment.class);
+        mainContainerFragments.add(FriendRequestsFragment.class);
+        mainContainerFragments.add(StartingNewCallFragment.class);
+        mainContainerFragments.add(EditProfileFragment.class);
+        mainContainerFragments.add(LoginFragment.class);
+        mainContainerFragments.add(SignUpFragment.class);
+        mainContainerFragments.add(FriendFragment.class);
+        mainContainerFragments.add(FollowersFragment.class);
+        mainContainerFragments.add(FollowingFragment.class);
+        mainContainerFragments.add(AddFriendFragment.class);
+        mainContainerFragments.add(InviteFriendFragment.class);
+        mainContainerFragments.add(SignUpLoginFragment.class);
+        mainContainerFragments.add(CreateChatFragment.class);
+        fragmentOrganizer.setUpContainer(R.id.fragment_popup_holder, mainContainerFragments, true);
 
         popupDialogFragments = new ArrayList<>();
         popupDialogFragments.add(AlertDialogFragment.class);
@@ -341,7 +339,7 @@ public class MainActivity extends BaseActivity
             fragmentLeftPopupHolder.setVisibility(View.VISIBLE);
             barContainer.setVisibility(View.INVISIBLE);
             popupHolder.setVisibility(View.INVISIBLE);
-        } else if (popupContainerFragments.contains(event.getType())) {
+        } else if (mainContainerFragments.contains(event.getType())) {
             // this is popup event
             fragmentLeftPopupHolder.setVisibility(View.INVISIBLE);
             barContainer.setVisibility(View.VISIBLE);
