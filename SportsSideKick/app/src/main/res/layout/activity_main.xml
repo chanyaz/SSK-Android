@@ -9,7 +9,7 @@
     tools:context=".ui.activity.MainActivity"
     tools:layout_marginBottom="0dp">
 
-    <android.support.percent.PercentRelativeLayout
+    <RelativeLayout
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,8 +19,7 @@
             android:id="@+id/fragment_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_menu_recycler_view"
-            android:background="@color/colorPrimaryMediumLight" />
+            android:layout_above="@+id/bottom_menu_recycler_view"/>
 
         <RelativeLayout
             android:id="@+id/left_top_bar_container"
@@ -141,9 +140,6 @@
             android:id="@+id/fragment_popup_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@color/transparent"
             tools:layout_height="0dp" />
 
         <RelativeLayout
@@ -233,7 +229,7 @@
                 android:baselineAligned="false" />
         </LinearLayout>
 
-    </android.support.percent.PercentRelativeLayout>
+    </RelativeLayout>
 
     <android.support.percent.PercentRelativeLayout
         android:layout_width="wrap_content"
