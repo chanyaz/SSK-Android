@@ -23,6 +23,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -187,6 +188,8 @@ public class ChatFragment extends BaseFragment {
 
     @BindView(R.id.chat_menu_create)
     TextView chatMenuCreateButton;
+    @BindView(R.id.description)
+    TextView description;
 
     @Nullable
     @BindView(R.id.logo)
@@ -360,6 +363,8 @@ public class ChatFragment extends BaseFragment {
                 .into(backgroundImage);
 
         showLockIconWhenKeyboardClosed(view);
+
+        description.setText(Html.fromHtml(getString(R.string.login_slider_chat)));
 
         return view;
     }
