@@ -233,4 +233,5 @@
     <dimen name="wall_top_spacer_height">80dp</dimen>
     <dimen name="header_image_title_margin_top">120dp</dimen>
     <dimen name="fab_margin">0dp</dimen>
+    <dimen name="card_negative_padding">-4dp</dimen>
 </resources>

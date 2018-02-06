@@ -234,6 +234,12 @@ public class WallItemFragment extends BaseFragment {
                     mPost.getType()
             );
         }
+        if (mPost instanceof WallStoreItem) {
+            imageHeader.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageHeader.setBackgroundResource(R.color.white);
+        } else {
+            imageHeader.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
         return view;
     }
 

@@ -91,9 +91,7 @@
                             android:id="@+id/contentImage"
                             android:layout_width="match_parent"
                             android:layout_height="250dp"
-                            android:adjustViewBounds="true"
                             android:background="@color/colorPrimaryVeryLight"
-                            android:scaleType="centerCrop"
                             tools:src="@drawable/wall_detail_header_placeholder" />
 
                         <VideoView
@@ -110,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/header_container"
                     app:cardCornerRadius="0dp"
-                    app:contentPadding="-4dp"
+                    app:contentPadding="@dimen/card_negative_padding"
                     app:elevation="2dp">
 
                     <LinearLayout
