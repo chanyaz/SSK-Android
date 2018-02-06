@@ -233,7 +233,7 @@
     <string name="post_title_hint">Click here to enter your post\'s title</string>
     <string name="post_body_hint">Click here to start writing your post…</string>
     <string name="post_create_tip_header">To create a new post:</string>
-    <string name="post_create_tip_body"><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n<b>2.</b> Create a title by selecting the title and typing.\n<b>3.</b> Create content by selecting the content text and typing.</string>
+    <string name="post_create_tip_body"><p><b>1.</b> Choose an image from your media library or take a new image by selecting one of the two icons in the image area at the top (optional)\n</p><p><b>2.</b> Create a title by selecting the title and typing.\n<br/></p><p><b>3.</b> Create content by selecting the content text and typing.</p></string>
     <string name="pin_title">Post this to your wall?</string>
     <string name="pin_confirm">Would you like to post this on your wall?</string>
     <string name="pin_message_hint">Enter a message with your shared post…</string>

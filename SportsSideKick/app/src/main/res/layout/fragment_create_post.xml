@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
     android:paddingTop="24dp"
-    tools:paddingTop="0dp"
-    android:background="@color/colorGrayMediumLight">
+    tools:paddingTop="0dp">
 
     <RelativeLayout
         android:id="@+id/top_buttons_container"
@@ -56,22 +56,22 @@
         android:id="@+id/contentImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_150"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:alpha="0.5"
-        android:src="@drawable/image_rumours_background"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_buttons_container"/>
+        android:layout_below="@+id/top_buttons_container"
+        android:adjustViewBounds="true"
+        android:alpha="0.5"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_rumours_background" />
 
     <TextView
         android:id="@+id/removeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignBottom="@+id/contentImage"
+        android:layout_alignParentEnd="true"
         android:padding="@dimen/padding_10"
-        android:visibility="gone"
-        android:text="@string/delete" />
+        android:text="@string/delete"
+        android:visibility="gone" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/authorImage"
@@ -79,8 +79,8 @@
         android:layout_height="@dimen/height_26"
         android:layout_alignParentStart="true"
         android:layout_below="@id/contentImage"
-        android:layout_marginTop="@dimen/margin_10"
         android:layout_marginStart="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_10"
         android:src="?profileImageIcon"
         android:visibility="visible" />
 
@@ -88,9 +88,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foregroundGravity="center"
+        android:layout_alignBottom="@+id/contentImage"
         android:layout_alignTop="@+id/contentImage"
-        android:layout_alignBottom="@+id/contentImage">
+        android:foregroundGravity="center">
 
         <ImageView
             android:id="@+id/cameraButton"
@@ -99,8 +99,8 @@
             android:background="@drawable/black_circle"
             android:src="@drawable/camera_button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/progressBar" />
+            app:layout_constraintEnd_toStartOf="@+id/progressBar"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/galleryButton"
@@ -133,28 +133,28 @@
         android:id="@+id/authorName"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/contentImage"
-        android:layout_alignTop="@+id/authorImage"
         android:layout_alignBottom="@+id/authorImage"
+        android:layout_alignTop="@+id/authorImage"
+        android:layout_below="@id/contentImage"
         android:layout_marginStart="@dimen/margin_5"
-        android:gravity="center_vertical"
         android:layout_toEndOf="@+id/authorImage"
         android:ellipsize="end"
-        tools:text="Chris Reeves"
+        android:gravity="center_vertical"
         android:textColor="@color/colorGray"
-        android:textSize="@dimen/font_size_12" />
+        android:textSize="@dimen/font_size_12"
+        tools:text="Chris Reeves" />
 
     <EditText
         android:id="@+id/titleField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textCapSentences"
         android:layout_below="@id/authorImage"
         android:layout_marginEnd="@dimen/margin_5"
         android:layout_marginStart="@dimen/margin_15"
         android:layout_marginTop="@dimen/margin_5"
         android:background="@null"
         android:hint="@string/post_title_hint"
+        android:inputType="textCapSentences"
         android:textColor="@color/colorPrimaryVeryLight"
         android:textColorHint="@color/colorPrimaryVeryLight"
         android:textSize="@dimen/font_size_18"
@@ -165,16 +165,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleField"
-        android:inputType="textCapSentences|textMultiLine"
-        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="@dimen/margin_15"
         android:layout_marginStart="@dimen/margin_15"
         android:layout_marginTop="@dimen/margin_5"
         android:animateLayoutChanges="true"
         android:background="@null"
-        android:textSize="@dimen/font_size_16"
         android:hint="@string/post_body_hint"
+        android:inputType="textCapSentences|textMultiLine"
+        android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:textColor="@color/black" />
+        android:textSize="@dimen/font_size_16" />
+
+    <android.support.v7.widget.CardView
+        android:layout_below="@id/bodyTextField"
+        android:layout_margin="13dp"
+        app:cardCornerRadius="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/tutorial_create_post"
+            android:padding="16dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                tools:textStyle="bold"
+                android:textColor="#4d4e4c"
+                style="@style/boldText"
+                android:text="@string/post_create_tip_header"/>
+
+            <TextView
+                android:id="@+id/tutorialBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/post_create_tip_body"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

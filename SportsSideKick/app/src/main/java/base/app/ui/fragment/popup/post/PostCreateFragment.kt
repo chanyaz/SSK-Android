@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.text.Html.fromHtml
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +46,7 @@ class PostCreateFragment : Fragment(), IPostCreateView {
         viewModel.view = this
         viewModel.onViewCreated()
         contentImage.show(R.drawable.image_rumours_background)
+        tutorialBody.text = fromHtml(getString(R.string.post_create_tip_body))
         setClickListeners()
     }
 
