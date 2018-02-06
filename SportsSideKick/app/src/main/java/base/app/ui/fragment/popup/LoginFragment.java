@@ -214,6 +214,7 @@ public class LoginFragment extends BaseFragment
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
+                    Toast.makeText(getContext(), "Signing in...", Toast.LENGTH_LONG).show();
                     // App code
                     GraphRequest request = GraphRequest.newMeRequest(
                             loginResult.getAccessToken(),

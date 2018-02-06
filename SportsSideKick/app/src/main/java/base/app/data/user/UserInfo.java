@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gamesparks.sdk.api.autogen.GSTypes;
 
+import java.util.Date;
 import java.util.List;
 
 import base.app.data.Model;
@@ -143,6 +144,7 @@ public class UserInfo {
 
     @JsonProperty("subscribed")
     public Double getSubscribedDate() {
+        if (subscribedDate == null) return Double.parseDouble(String.valueOf(new Date().getTime()).substring(0,9) + ".0");
         return subscribedDate;
     }
 
