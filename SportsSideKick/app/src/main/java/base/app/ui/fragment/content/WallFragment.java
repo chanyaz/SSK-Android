@@ -319,7 +319,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             public void onComplete(@NonNull Task<List<WallBase>> task) {
                 if(task.isSuccessful()){
                     List<WallBase> items = task.getResult();
-                    wallItems.clear();
+                    if (items.size() > 0) {
+                        wallItems.clear();
+                    }
                     wallItems.addAll(items);
                     completion.setResult(items);
                     refreshAdapter();
