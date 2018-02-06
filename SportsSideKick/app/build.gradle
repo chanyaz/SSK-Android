@@ -110,9 +110,8 @@ dependencies {
     // Amazon web services are used for uploading of user generated media content
     implementation 'com.amazonaws:aws-android-sdk-core:2.4.2'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.4.2'
-    // TODO @All - it should be replaced with more stable up to date library
     // Circle Progress UI element used for Profile icon
-    implementation 'com.github.lzyzsd:circleprogress:1.1.0'
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
     // Swipe refresh layout used in Wall, News, Rumours and Chat fragments
     implementation 'com.github.orangegangsters:swipy:1.2.3@aar'
     // Expandable layout used in Join Chat fragment
