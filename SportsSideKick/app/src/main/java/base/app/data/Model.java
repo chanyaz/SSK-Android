@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
@@ -498,6 +500,9 @@ public class Model {
                 }
             }
         });
+        if (AccessToken.getCurrentAccessToken() != null) {
+            LoginManager.getInstance().logOut(); // Facebook logout
+        }
     }
 
     public void resetPassword(String email) {

@@ -269,6 +269,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         Collections.sort(wallItems, new Comparator<WallBase>() {
             @Override
             public int compare(WallBase t1, WallBase t2) {
+                if (t1 == null || t2 == null) return 0;
                 return t2.getTimestamp().compareTo(t1.getTimestamp());
             }
         });
