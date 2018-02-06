@@ -1,7 +1,5 @@
 package base.app.ui.fragment.content;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
@@ -648,32 +646,15 @@ public class NewsItemFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.share_facebook)
-    public void sharePostFacebook(View view) {
+    @Optional
+    @OnClick(R.id.share_container)
+    public void sharePost(View view) {
         if (Model.getInstance().isRealUser()) {
-            SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.facebook, view);
+            SharingManager.getInstance().share(getContext(), item, SharingManager.ShareTarget.facebook, view);
         } else {
-            //TODO Notify user that need to login in order to SHARE
-        }
-
-    }
-
-    @OnClick(R.id.share_twitter)
-    public void sharePostTwitter(View view) {
-        if (Model.getInstance().isRealUser()) {
-            PackageManager pkManager = getActivity().getPackageManager();
-            try {
-                PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
-                String getPkgInfo = pkgInfo.toString();
-
-                if (getPkgInfo.contains("com.twitter.android")) {
-                    SharingManager.getInstance().share(getContext(), item, false, SharingManager.ShareTarget.twitter, view);
-                }
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else {
-            //TODO Notify user that need to login in order to SHARE
+            Toast.makeText(getContext(),
+                    "Please login to share news",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 

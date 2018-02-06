@@ -1,7 +1,5 @@
 package base.app.ui.fragment.content;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,17 +12,13 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -342,34 +336,6 @@ public class WallItemFragment extends BaseFragment {
         getActivity().onBackPressed();
     }
 
-    @OnClick(R.id.share_container)
-    public void onShareClick() {
-        if (shareButtonsContainer != null) {
-            shareButtonsContainer.setVisibility(View.VISIBLE);
-        }
-        Animation fadeIn = new AlphaAnimation(0, 1);
-        fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
-        fadeIn.setDuration(250);
-
-        Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
-        fadeOut.setStartOffset(1700);
-        fadeOut.setDuration(250);
-
-        AnimationSet animation = new AnimationSet(false); //change to false
-        animation.addAnimation(fadeIn);
-        animation.addAnimation(fadeOut);
-        shareButtonsContainer.setAnimation(animation);
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                shareButtonsContainer.setVisibility(View.GONE);
-            }
-        }, 1900);
-    }
-
     @OnClick(R.id.post_comment_button)
     public void postComment() {
         if (commentForEdit == null) {
@@ -555,24 +521,14 @@ public class WallItemFragment extends BaseFragment {
     }
 
     @Optional
-    @OnClick(R.id.share_facebook)
-    public void sharePostFacebook(View view) {
-        SharingManager.getInstance().share(getContext(), mPost, false, SharingManager.ShareTarget.facebook, view);
-    }
-
-    @Optional
-    @OnClick(R.id.share_twitter)
-    public void sharePostTwitter(View view) {
-        PackageManager pkManager = getActivity().getPackageManager();
-        try {
-            PackageInfo pkgInfo = pkManager.getPackageInfo("com.twitter.android", 0);
-            String getPkgInfo = pkgInfo.toString();
-
-            if (getPkgInfo.contains("com.twitter.android")) {
-                SharingManager.getInstance().share(getContext(), mPost, false, SharingManager.ShareTarget.twitter, view);
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+    @OnClick(R.id.share_container)
+    public void sharePost(View view) {
+        if (Model.getInstance().isRealUser()) {
+            SharingManager.getInstance().share(getContext(), mPost, SharingManager.ShareTarget.facebook, view);
+        } else {
+            Toast.makeText(getContext(),
+                    "Please login to share posts",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 

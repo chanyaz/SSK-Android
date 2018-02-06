@@ -111,7 +111,6 @@
                     android:layout_below="@id/header_container"
                     app:cardCornerRadius="0dp"
                     app:contentPadding="-4dp"
-                    app:cardUseCompatPadding="true"
                     app:elevation="2dp">
 
                     <LinearLayout

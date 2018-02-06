@@ -113,11 +113,11 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
         return source.getTask();
     }
 
-    public void share(final Shareable item, final boolean isNative, final ShareTarget shareTarget, final View sender) {
-        share(null, item, isNative, shareTarget, sender);
+    public void share(final Shareable item, final ShareTarget shareTarget, final View sender) {
+        share(null, item, shareTarget, sender);
     }
 
-    public void share(final Context context, final Shareable item, final boolean isNative, final ShareTarget shareTarget, final View sender) {
+    public void share(final Context context, final Shareable item, final ShareTarget shareTarget, final View sender) {
         Map<String, Object> itemAsMap = mapper.convertValue(item, new TypeReference<Map<String, Object>>() {
         });
        //TODO Temporarily fix
@@ -140,15 +140,8 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                         return;
                     }
                     itemToShare = item;
-                    // probably going to be a user on an iPhone
-                    if (isNative && sender != null) {
-                        presentNative(response);
-                        return;
-                    }
-                    if (shareTarget == null) {
-                        return;
-                    }
-                    socialNetworkSelector(context, response, shareTarget);
+
+                    presentNative(response);
                 } else {
                     //TODO @Filip NOT SUCCESSFUL - What we can do with this?
                 }
