@@ -381,6 +381,8 @@
                     tools:paddingLeft="16dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tutorial_container"
+                    android:paddingBottom="16dp"
+                    android:clipToPadding="false"
                     android:layout_marginTop="@dimen/margin_20" />
 
                 <RelativeLayout
