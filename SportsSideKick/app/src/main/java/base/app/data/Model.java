@@ -324,20 +324,6 @@ public class Model {
         });
     }
 
-    public void registerFromFacebook(String token, String email, HashMap<String, Object> userData) {
-        final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest();
-        if (userData != null) {
-            userData.put("initial_email", email);
-            userData.put(CLUB_ID_TAG, CLUB_ID);
-            Map<String, Object> map = request.getBaseData();
-            map.put("scriptData", userData);
-        }
-        request.setAccessToken(token)
-                .setDoNotLinkToCurrentPlayer(false)
-                .setSwitchIfPossible(true)
-                .send(handleFBAuth);
-    }
-
     private GSEventConsumer<GSResponseBuilder.AuthenticationResponse> handleFBAuth = new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
         @Override
         public void onEvent(GSResponseBuilder.AuthenticationResponse authenticationResponse) {
@@ -481,6 +467,20 @@ public class Model {
                 .setUserName(email)
                 .setPassword(password)
                 .send(onAuthenticated);
+    }
+
+    public void loginFromFacebook(String token, String email, HashMap<String, Object> userData) {
+        final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest();
+        if (userData != null) {
+            userData.put("initial_email", email);
+            userData.put(CLUB_ID_TAG, CLUB_ID);
+            Map<String, Object> map = request.getBaseData();
+            map.put("scriptData", userData);
+        }
+        request.setAccessToken(token)
+                .setDoNotLinkToCurrentPlayer(false)
+                .setSwitchIfPossible(true)
+                .send(handleFBAuth);
     }
 
     public void logout() {

@@ -23,9 +23,10 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 import base.app.BuildConfig;
 import base.app.R;
@@ -211,17 +213,23 @@ public class LoginFragment extends BaseFragment
             callbackManager = CallbackManager.Factory.create();
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
-                public void onSuccess(LoginResult loginResult) {
+                public void onSuccess(final LoginResult loginResult) {
                     // App code
                     GraphRequest request = GraphRequest.newMeRequest(
                             loginResult.getAccessToken(),
                             new GraphRequest.GraphJSONObjectCallback() {
                                 @Override
                                 public void onCompleted(JSONObject object, GraphResponse response) {
-                                    // Application code
+                                    HashMap<String, Object> userData = new Gson().fromJson(
+                                            object.toString(), new TypeToken<HashMap<String, Object>>() {}.getType()
+                                    );
+
                                     try {
-                                        emailEditText.setText(object.getString("email"));
-                                        LoginManager.getInstance().logOut();
+                                         Model.getInstance().loginFromFacebook(
+                                                 loginResult.getAccessToken().getToken(),
+                                                 object.getString("email"),
+                                                 userData);
+
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
