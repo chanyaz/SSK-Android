@@ -249,15 +249,16 @@ public class WallItemFragment extends BaseFragment {
         }
         switch (item.getType()) {
             case post:
-                WallPost post = (WallPost) item;
+            case wallStoreItem:
+                WallBase post = item;
                 ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
                         R.drawable.wall_detail_header_placeholder);
                 title.setText(post.getTitle());
                 content.setText(post.getBodyText());
-                if (post.getVidUrl() != null) {
+                if (post instanceof WallPost && ((WallPost)post).getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
                     imageHeader.setVisibility(View.GONE);
-                    videoView.setVideoURI(Uri.parse(post.getVidUrl()));
+                    videoView.setVideoURI(Uri.parse(((WallPost)post).getVidUrl()));
                     videoView.start();
                 }
                 postContainer.setVisibility(View.VISIBLE);
@@ -309,11 +310,6 @@ public class WallItemFragment extends BaseFragment {
             case betting:
                 break;
             case stats:
-                break;
-            case wallStoreItem:
-                WallStoreItem storeItem = (WallStoreItem) item;
-                ImageLoader.displayImage(storeItem.getCoverImageUrl(), imageHeader, null);
-                title.setText(storeItem.getTitle());
                 break;
         }
     }
