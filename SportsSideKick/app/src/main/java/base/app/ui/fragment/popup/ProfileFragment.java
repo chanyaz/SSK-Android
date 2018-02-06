@@ -15,7 +15,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -104,15 +103,15 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     TextView nextCapsValue;
 
     @BindView(R.id.autoTranslateToggle)
-    ToggleButton autoTranslateToggle;
+    CompoundButton autoTranslateToggle;
     @BindView(R.id.wallNotificationsToggle)
-    ToggleButton wallNotificationsToggle;
+    CompoundButton wallNotificationsToggle;
     @BindView(R.id.newsNotificationsToggle)
-    ToggleButton newsNotificationsToggle;
+    CompoundButton newsNotificationsToggle;
     @BindView(R.id.rumoursNotificationsToggle)
-    ToggleButton rumoursNotificationsToggle;
+    CompoundButton rumoursNotificationsToggle;
     @BindView(R.id.socialNotificationsToggle)
-    ToggleButton socialNotificationsToggle;
+    CompoundButton socialNotificationsToggle;
 
     UserStatsAdapter adapter;
 

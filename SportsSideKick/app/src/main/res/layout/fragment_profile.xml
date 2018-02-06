@@ -414,14 +414,22 @@
                         android:scaleType="centerInside"
                         android:src="@drawable/edit_button" />
 
-                    <ToggleButton
+                    <View
+                        android:id="@+id/infoDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_1"
+                        android:layout_marginTop="8dp"
+                        android:layout_below="@id/chosen_language_value"
+                        android:background="#2f000000" />
+
+                    <android.support.v7.widget.SwitchCompat
                         android:id="@+id/autoTranslateToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="18dp"
+                        android:layout_marginLeft="4dp"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/chosen_language_value" />
+                        android:layout_below="@id/infoDivider" />
 
                     <TextView
                         android:id="@+id/autoTranslateLabel"
@@ -434,10 +442,10 @@
                         android:text="@string/auto_translation"
                         android:textColor="@color/white" />
 
-                    <ToggleButton
+                    <android.support.v7.widget.SwitchCompat
                         android:id="@+id/wallNotificationsToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="18dp"
+                        android:layout_marginLeft="4dp"
                         android:layout_marginBottom="8dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/autoTranslateToggle" />
@@ -453,10 +461,10 @@
                         android:text="@string/notify_wall"
                         android:textColor="@color/white" />
 
-                    <ToggleButton
+                    <android.support.v7.widget.SwitchCompat
                         android:id="@+id/newsNotificationsToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="18dp"
+                        android:layout_marginLeft="4dp"
                         android:layout_marginBottom="8dp"
                         android:tag="News"
                         android:layout_height="wrap_content"
@@ -473,10 +481,10 @@
                         android:text="@string/notify_news"
                         android:textColor="@color/white" />
 
-                    <ToggleButton
+                    <android.support.v7.widget.SwitchCompat
                         android:id="@+id/rumoursNotificationsToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="18dp"
+                        android:layout_marginLeft="4dp"
                         android:tag="Rumours"
                         android:layout_marginBottom="8dp"
                         android:layout_height="wrap_content"
@@ -493,10 +501,10 @@
                         android:text="@string/notify_rumours"
                         android:textColor="@color/white" />
 
-                    <ToggleButton
+                    <android.support.v7.widget.SwitchCompat
                         android:id="@+id/socialNotificationsToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="18dp"
+                        android:layout_marginLeft="4dp"
                         android:tag="Social"
                         android:layout_marginBottom="8dp"
                         android:layout_height="wrap_content"
