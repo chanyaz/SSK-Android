@@ -366,8 +366,8 @@ public class Model {
                     Log.d(TAG, "Facebook onRegisteredFB AuthenticationResponse: " + authenticationResponse.toString());
                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
                 } else {
-                    // AT THIS STAGE, WE NEED TO COMPLETE THE TRADITIONAL REGISTRATION STAGE
-                    // BUT WE SHOULD ALSO UPDATE THE USER DATA
+                    // At this stage, we need to complete the traditional registration stage
+                    // but we should also update the user data
 
                     GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
                     HashMap<String, Object> data = new HashMap<>();
@@ -469,7 +469,7 @@ public class Model {
                 .send(onAuthenticated);
     }
 
-    public void loginFromFacebook(String token, String email, HashMap<String, Object> userData) {
+    public void loginWithFacebook(String token, String email, HashMap<String, Object> userData) {
         final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest();
         if (userData != null) {
             userData.put("initial_email", email);

@@ -539,3 +539,5 @@ public void xxxxxx(**);
      long producerNode;
      long consumerNode;
  }
+ -keep class com.crashlytics.** { *; }
+ -dontwarn com.crashlytics.**

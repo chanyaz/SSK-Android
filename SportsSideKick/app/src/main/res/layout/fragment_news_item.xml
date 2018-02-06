@@ -92,6 +92,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="250dp"
                             android:background="@color/colorPrimaryVeryLight"
+                            tools:scaleType="centerCrop"
                             tools:src="@drawable/wall_detail_header_placeholder" />
 
                         <VideoView
@@ -378,12 +379,12 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/comments_wall"
                     android:layout_width="match_parent"
-                    tools:paddingLeft="16dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tutorial_container"
-                    android:paddingBottom="16dp"
+                    android:layout_marginTop="@dimen/margin_20"
                     android:clipToPadding="false"
-                    android:layout_marginTop="@dimen/margin_20" />
+                    android:paddingBottom="16dp"
+                    tools:paddingLeft="16dp" />
 
                 <RelativeLayout
                     android:id="@+id/share_buttons_container"

@@ -46,7 +46,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false // TODO: Use *keep attribute on required resources and re-enable
+            minifyEnabled true
             shrinkResources false
             proguardFiles getDefaultProguardFile(
                     'proguard-android.txt'),

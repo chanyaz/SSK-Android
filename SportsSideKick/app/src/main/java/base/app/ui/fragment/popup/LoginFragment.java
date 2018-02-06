@@ -226,7 +226,7 @@ public class LoginFragment extends BaseFragment
                                     );
 
                                     try {
-                                         Model.getInstance().loginFromFacebook(
+                                         Model.getInstance().loginWithFacebook(
                                                  loginResult.getAccessToken().getToken(),
                                                  object.getString("email"),
                                                  userData);
