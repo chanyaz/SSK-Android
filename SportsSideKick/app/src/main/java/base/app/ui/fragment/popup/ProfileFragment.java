@@ -227,22 +227,22 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     public static boolean isWallNotificationsEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return prefs.getBoolean(WALL_NOTIFICATIONS, false);
+        return prefs.getBoolean(WALL_NOTIFICATIONS, true);
     }
 
     public static boolean isNewsNotificationsEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return prefs.getBoolean(NEWS_NOTIFICATIOINS, false);
+        return prefs.getBoolean(NEWS_NOTIFICATIOINS, true);
     }
 
     public static boolean isRumoursNotificationsEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return prefs.getBoolean(RUMOURS_NOTIFICATIONS, false);
+        return prefs.getBoolean(RUMOURS_NOTIFICATIONS, true);
     }
 
     public static boolean isSocialNotificationsEnabled() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return prefs.getBoolean(SOCIAL_NOTIFICATIONS, false);
+        return prefs.getBoolean(SOCIAL_NOTIFICATIONS, true);
     }
 
     @OnClick(R.id.logout_button)
