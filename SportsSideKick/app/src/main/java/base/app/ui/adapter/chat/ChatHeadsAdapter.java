@@ -1,7 +1,6 @@
 package base.app.ui.adapter.chat;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -16,15 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.popup.CreateChatFragment;
 import base.app.data.Model;
 import base.app.data.im.ChatInfo;
 import base.app.data.im.event.ChatNotificationsEvent;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.popup.CreateChatFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -35,6 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.ViewHolder> {
+
     private static final int VIEW_TYPE_FOOTER = 1;
     private static final int VIEW_TYPE_CELL = 2;
     private static final String TAG = "Chat Heads Adapter";
@@ -54,11 +53,12 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
     private List<ChatInfo> values;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         // each data item is just a string in this case
         public View view;
         @Nullable
         @BindView(R.id.chat_head_image_view)
-        CircleImageView imageView;
+        ImageView imageView;
         @Nullable
         @BindView(R.id.notification_icon)
         ImageView notificationView;
@@ -72,17 +72,17 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             ButterKnife.bind(this, view);
         }
     }
+
     Context context;
     int selectedChatColor;
 
     public ChatHeadsAdapter(Context context) {
         values = new ArrayList<>();
         this.context = context;
-        if(context!=null){
-            selectedChatColor = ContextCompat.getColor(context,(R.color.colorAccent));
+        if (context != null) {
+            selectedChatColor = ContextCompat.getColor(context, (R.color.colorAccent));
         }
     }
-
 
     @Override
     public int getItemViewType(int position) {
@@ -99,7 +99,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(values.size()>0){
+                    if (values.size() > 0) {
                         selectChat(values.get(viewHolder.getLayoutPosition()), true);
                     }
                 }
@@ -112,7 +112,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(Model.getInstance().isRealUser()) {
+                            if (Model.getInstance().isRealUser()) {
                                 EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
                             }
                         }
@@ -121,18 +121,18 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
         }
     }
 
-    public void selectChat(ChatInfo chatInfo, boolean emitEvent){
+    public void selectChat(ChatInfo chatInfo, boolean emitEvent) {
         notifyItemChanged(focusedItem);  // notify previous item!
         int position = 0;
-        for(ChatInfo chat : values){
-            if(chat.getChatId().equals(chatInfo.getChatId())){
-               break;
+        for (ChatInfo chat : values) {
+            if (chat.getChatId().equals(chatInfo.getChatId())) {
+                break;
             }
             position++;
         }
         focusedItem = position;
         notifyItemChanged(focusedItem); // notify new item
-        if(emitEvent){
+        if (emitEvent) {
             EventBus.getDefault().post(new ChatNotificationsEvent(chatInfo, ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
         }
     }
@@ -143,9 +143,8 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
         if (position < values.size()) { // don't take the last element!
             final ChatInfo info = values.get(position);
 
-            if (holder.imageView != null) {
-                ImageLoader.displayImage(info.getChatAvatarUrl(), holder.imageView, R.drawable.blank_profile_rounded);
-            }
+            ImageLoader.displayRoundImage(info.getChatAvatarUrl(), holder.imageView);
+
             holder.view.setTag(position);
             int unreadMessageCount = info.unreadMessageCount();
             //Log.d(TAG, " *** Unread Message Count for chat" + info.getName() + " : " + unreadMessageCount);
@@ -157,12 +156,6 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                     holder.notificationView.setVisibility(View.GONE);
                 }
             }
-            if (focusedItem == position) {
-                holder.imageView.setBorderColor(selectedChatColor);
-            } else {
-                holder.imageView.setBorderColor(Color.TRANSPARENT);
-            }
-
         }
     }
 

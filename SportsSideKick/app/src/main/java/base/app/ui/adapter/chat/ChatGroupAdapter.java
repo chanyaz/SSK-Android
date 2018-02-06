@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,7 +18,6 @@ import base.app.data.im.ChatInfo;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Aleksandar Marinkovic on 02/06/2017.
@@ -48,7 +48,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.View
         public View view;
         @Nullable
         @BindView(R.id.chat_head_image_view)
-        CircleImageView imageView;
+        ImageView imageView;
         @Nullable
         @BindView(R.id.chat_name)
         TextView chatName;
@@ -97,7 +97,7 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.View
 
         ChatInfo info = values.get(position);
         if (holder.imageView != null) {
-            ImageLoader.displayImage(info.getChatAvatarUrl(), holder.imageView, null);
+            ImageLoader.displayRoundImage(info.getChatAvatarUrl(), holder.imageView);
         }
         assert holder.chatName != null;
         holder.chatName.setText(info.getName());

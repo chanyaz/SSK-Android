@@ -59,8 +59,7 @@
                 android:layout_marginLeft="8dp"
                 android:orientation="horizontal">
 
-                <!--TODO: Show author image if this is a pinned item, not official news-->
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/authorImage"
                     android:layout_width="@dimen/width_20"
                     android:layout_height="@dimen/height_20"
@@ -135,7 +134,7 @@ android:layout_height="wrap_content"
 android:background="@color/colorGrayMediumLight"
 android:visibility="gone">
 
-<de.hdodenhof.circleimageview.CircleImageView
+<ImageView
     android:id="@+id/captionAvatar"
     android:layout_width="24dp"
     android:layout_height="24dp"

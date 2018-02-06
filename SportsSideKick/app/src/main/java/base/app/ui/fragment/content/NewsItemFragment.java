@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -283,10 +282,7 @@ public class NewsItemFragment extends BaseFragment {
                     UserInfo user = task.getResult();
                     if (user != null) {
                         if (getContext() != null) {
-                            Glide.with(getContext())
-                                    .load(user.getCircularAvatarUrl())
-                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
-                                    .into(sharedMessageAvatar);
+                            ImageLoader.displayRoundImage(user.getCircularAvatarUrl(), sharedMessageAvatar);
                         }
                     }
                 }
@@ -458,9 +454,7 @@ public class NewsItemFragment extends BaseFragment {
                 if (task.isSuccessful()) {
                     UserInfo user = task.getResult();
                     if (user != null) {
-                        Glide.with(getContext())
-                                .load(user.getCircularAvatarUrl())
-                                .into(authorUserImage);
+                        ImageLoader.displayRoundImage(user.getCircularAvatarUrl(), authorUserImage);
                     }
                 }
             }

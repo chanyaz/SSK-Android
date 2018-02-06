@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Nemanja Jovanovic on 12/04/2017.
@@ -38,7 +38,7 @@ public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedIt
         public View view;
         @Nullable
         @BindView(R.id.row_chat_expanded_item_image)
-        CircleImageView rowImage;
+        ImageView rowImage;
         @Nullable
         @BindView(R.id.row_chat_expanded_item_name)
         TextView rowName;
@@ -93,7 +93,7 @@ public class ChatExpandedItemAdapter extends RecyclerView.Adapter<ChatExpandedIt
         if (holder.rowImage != null) {
             holder.rowImage.getLayoutParams().height = image_size;
             holder.rowImage.getLayoutParams().width = image_size;
-            ImageLoader.displayImage(info.getAvatarUrl(), holder.rowImage, null);
+            ImageLoader.displayRoundImage(info.getAvatarUrl(), holder.rowImage);
         }
         if (holder.rowName != null) {
             holder.rowName.setText(info.getNicName());

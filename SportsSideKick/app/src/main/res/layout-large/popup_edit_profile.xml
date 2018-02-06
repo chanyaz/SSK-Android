@@ -65,7 +65,7 @@
                 android:text="@string/edit_photo"
                 android:textColor="?white_semitransparent" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/profile_image"
                 android:layout_width="@dimen/width_80"
                 android:layout_height="@dimen/height_80"

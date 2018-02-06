@@ -53,7 +53,7 @@
         android:paddingBottom="@dimen/margin_5">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/authorImage"
             android:layout_width="@dimen/width_20"
             android:layout_height="@dimen/height_20"
@@ -149,7 +149,7 @@
 
             />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/captionAvatar"
             android:layout_width="@dimen/width_26"
             android:layout_height="@dimen/height_26"

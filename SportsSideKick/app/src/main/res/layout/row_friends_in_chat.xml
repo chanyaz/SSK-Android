@@ -11,7 +11,7 @@
         android:layout_above="@+id/row_friends_in_chat_name"
         android:layout_alignParentTop="true">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/row_friends_in_chat_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

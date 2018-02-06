@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,17 +21,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.data.Model;
 import base.app.data.im.ChatInfo;
 import base.app.data.user.UserInfo;
+import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.LinearItemSpacing;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Nemanja Jovanovic on 12/04/2017.
@@ -71,7 +71,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
 
     static class ParentViewHolder {
         @BindView(R.id.row_join_chat_search_image)
-        CircleImageView rowImage;
+        ImageView rowImage;
         @BindView(R.id.row_join_chat_search_name)
         TextView rowName;
         @BindView(R.id.row_join_chat_search_members_count)
@@ -183,7 +183,7 @@ public class ChatSearchExpandableAdapter extends AnimatedExpandableListView.Anim
         } else {
             holder.rowMemberCount.setText(" - " + info.getUsersIds().size() + " " + context.getResources().getString(R.string.members));
         }
-        ImageLoader.displayImage(info.getChatAvatarUrl(), holder.rowImage, null);
+        ImageLoader.displayRoundImage(info.getChatAvatarUrl(), holder.rowImage);
         holder.rowImage.getLayoutParams().height = (int) (screenHeight * IMAGE_SIZE);
         holder.rowImage.getLayoutParams().width = (int) (screenHeight * IMAGE_SIZE);
 

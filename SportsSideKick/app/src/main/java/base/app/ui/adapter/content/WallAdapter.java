@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.MediaView;
@@ -45,7 +43,6 @@ import base.app.ui.fragment.content.WallItemFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
@@ -78,7 +75,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         ImageView imageView;
         @Nullable
         @BindView(R.id.authorImage)
-        CircleImageView userImage;
+        ImageView userImage;
         @Nullable
         @BindView(R.id.authorName)
         TextView author;
@@ -209,7 +206,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
                 holder.imageView.setVisibility(View.VISIBLE);
 
-                ImageLoader.displayImage(post.getCoverImageUrl(), holder.imageView, R.drawable.wall_detail_header_placeholder);
+                ImageLoader.displayRoundImage(post.getCoverImageUrl(), holder.imageView);
                 return true;
             } else {
                 holder.imageView.setVisibility(View.GONE);
@@ -228,17 +225,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     UserInfo user = task.getResult();
                     if (user != null) {
                         if (holder.captionAvatar != null) {
-                            Glide.with(holder.view)
-                                    .load(user.getCircularAvatarUrl())
-                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
-                                    .into(holder.captionAvatar);
+                            ImageLoader.displayRoundImage(
+                                    user.getCircularAvatarUrl(),
+                                    holder.captionAvatar
+                            );
                         }
-                        if (holder.userImage != null) {
-                            Glide.with(holder.view)
-                                    .load(user.getCircularAvatarUrl())
-                                    .apply(new RequestOptions().placeholder(R.drawable.blank_profile_rounded))
-                                    .into(holder.userImage);
-                        }
+                        ImageLoader.displayRoundImage(user.getCircularAvatarUrl(), holder.userImage);
                         if (user.getNicName() != null && holder.author != null) {
                             holder.author.setText(user.getFirstName() + " " + user.getLastName());
                         }

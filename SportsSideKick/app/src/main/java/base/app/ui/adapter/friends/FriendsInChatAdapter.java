@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,7 +18,6 @@ import base.app.data.im.ChatInfo;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Nemanja Jovanovic on 10/04/2017.
@@ -36,7 +36,7 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
         public View view;
         @Nullable
         @BindView(R.id.row_friends_in_chat_image)
-        CircleImageView rowImage;
+        ImageView rowImage;
         @Nullable
         @BindView(R.id.row_friends_in_chat_notification_count)
         TextView rowFriendsCount;
@@ -96,7 +96,7 @@ public class FriendsInChatAdapter extends RecyclerView.Adapter<FriendsInChatAdap
 
         ChatInfo chat = values.get(position);
         if (holder.rowImage != null) {
-            ImageLoader.displayImage(chat.getChatAvatarUrl(), holder.rowImage, null);
+            ImageLoader.displayRoundImage(chat.getChatAvatarUrl(), holder.rowImage);
             holder.rowImage.getLayoutParams().height = (int) (cellSize * 0.5);
             holder.rowImage.getLayoutParams().width = (int) (cellSize * 0.5);
         }

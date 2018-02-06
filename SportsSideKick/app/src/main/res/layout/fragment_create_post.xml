@@ -73,7 +73,7 @@
         android:text="@string/delete"
         android:visibility="gone" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/authorImage"
         android:layout_width="@dimen/width_26"
         android:layout_height="@dimen/height_26"

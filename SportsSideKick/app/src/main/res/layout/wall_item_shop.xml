@@ -47,7 +47,7 @@
         android:textSize="@dimen/list_item_text_size" />
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/user_image"
         android:layout_width="@dimen/width_26"
         android:layout_height="@dimen/height_26"

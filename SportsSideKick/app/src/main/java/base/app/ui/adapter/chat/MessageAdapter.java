@@ -41,7 +41,6 @@ import base.app.util.ui.ImageLoader;
 import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static base.app.data.GSConstants.UPLOADING;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
@@ -82,7 +81,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         @BindView(R.id.text) TextView textView;
         @BindView(R.id.timestamp) TextView timeTextView;
         @BindView(R.id.sender) TextView senderTextView;
-        @Nullable @BindView(R.id.profile_image) CircleImageView senderImageView;
+        @Nullable @BindView(R.id.profile_image) ImageView senderImageView;
         @BindView(R.id.contentImage) ImageView contentImage;
         @BindView(R.id.play_button) ImageView playButton;
         @BindView(R.id.content_container) View contentContainer;
@@ -268,7 +267,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     nicName = userInfo.getNicName();
                 }
                 if (holder.senderImageView != null) {
-                    ImageLoader.displayImage(senderImageUrl,holder.senderImageView, R.drawable.blank_profile_rounded);
+                    ImageLoader.displayRoundImage(senderImageUrl,holder.senderImageView);
                 }
                 holder.senderTextView.setText(nicName);
             }

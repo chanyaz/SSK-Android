@@ -375,7 +375,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     public void onLogin(UserInfo user) {
         if (Model.getInstance().isRealUser()) {
             if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, null);
+                ImageLoader.displayRoundImage(user.getCircularAvatarUrl(), profileImage);
             }
             if (user.getFirstName() != null && user.getLastName() != null) {
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
@@ -422,7 +422,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
                 profileName.setText(user.getFirstName() + " " + user.getLastName());
             }
             if (user.getCircularAvatarUrl() != null) {
-                ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, null);
+                ImageLoader.displayRoundImage(user.getCircularAvatarUrl(), profileImage);
             }
         }
     }

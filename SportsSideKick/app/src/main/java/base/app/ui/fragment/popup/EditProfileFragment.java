@@ -116,7 +116,7 @@ public class EditProfileFragment extends BaseFragment {
 
         user = Model.getInstance().getUserInfo();
         if (user != null) {
-            ImageLoader.displayImage(user.getCircularAvatarUrl(), profileImage, null);
+            ImageLoader.displayRoundImage(user.getCircularAvatarUrl(), profileImage);
             firstNameEditText.setText(user.getFirstName());
             lastNameEditText.setText(user.getLastName());
             nicNameEditText.setText(user.getNicName());

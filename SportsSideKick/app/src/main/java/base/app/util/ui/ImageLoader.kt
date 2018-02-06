@@ -1,6 +1,7 @@
 package base.app.util.ui
 
 import android.widget.ImageView
+import base.app.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -11,13 +12,18 @@ fun ImageView.show(uri: Any?, error: Int? = null) {
 object ImageLoader {
 
     @JvmStatic
+    fun displayRoundImage(uri: Any?, view: ImageView?) {
+        displayImage(uri, view, R.drawable.blank_profile_rounded, true)
+    }
+
+    @JvmStatic
     @JvmOverloads
-    fun displayImage(uri: Any?, view: ImageView, error: Int? = null) {
+    fun displayImage(uri: Any?, view: ImageView?, error: Int? = null, isRound: Boolean = false) {
         if (uri != null) {
-            if (view.context != null) {
+            if (view != null && view.context != null) {
                 Glide.with(view.context)
                         .load(uri)
-                        .apply(optionsWith(error))
+                        .apply(optionsWith(error, isRound))
                         .into(view)
             }
         } else {
@@ -27,10 +33,13 @@ object ImageLoader {
         }
     }
 
-    private fun optionsWith(errorRes: Int?): RequestOptions {
+    private fun optionsWith(errorRes: Int?, isRound: Boolean): RequestOptions {
         var options = RequestOptions()
         if (errorRes != null) {
             options = options.error(errorRes)
+        }
+        if (isRound) {
+            options = options.circleCrop()
         }
         return options
     }

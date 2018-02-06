@@ -130,9 +130,6 @@ dependencies {
     // Bind Android views and callbacks to fields and methods
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    // TODO @All - there should be an implementation of this in android, check if this library can be removed
-    // Circular ImageView for profile images
-    implementation 'de.hdodenhof:circleimageview:2.1.0'
     // Checkout (Android In-App Billing Library) used for billing
     implementation 'org.solovyev.android:checkout:1.0.0'
     // SnappySmoothScroller - used for message scrolling
