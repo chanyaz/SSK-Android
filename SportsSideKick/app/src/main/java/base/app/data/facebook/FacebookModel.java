@@ -9,13 +9,19 @@ import com.facebook.AccessToken;
 import com.facebook.FacebookRequestError;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
+import com.gamesparks.sdk.GSEventConsumer;
+import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
+import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
+
+import base.app.data.GSAndroidPlatform;
 
 /**
  * Created by Filip on 11/14/2017.
@@ -46,6 +52,20 @@ public class FacebookModel {
 
     public void logout(){
         LoginManager.getInstance().logOut();
+        GSRequestBuilder.SocialDisconnectRequest request
+                = GSAndroidPlatform.gs().getRequestBuilder().createSocialDisconnectRequest();
+        request.setSystemId("FB");
+        request.send(new GSEventConsumer<GSResponseBuilder.SocialDisconnectResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.SocialDisconnectResponse response) {
+                if (response.hasErrors()) {
+                    Log.e("FacebookModel", "Failed to logout from social");
+                }
+            }
+        });
+
+        AccessToken.setCurrentAccessToken(null);
+        Profile.setCurrentProfile(null);
     }
 
     public void loadProfile(final TaskCompletionSource<Pair<JSONObject,FacebookRequestError>> completion){

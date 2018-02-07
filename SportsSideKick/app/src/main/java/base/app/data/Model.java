@@ -11,8 +11,6 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.facebook.AccessToken;
-import com.facebook.Profile;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
@@ -86,10 +84,7 @@ public class Model {
     private UserInfo currentUserInfo;
 
     public UserInfo getUserInfo() {
-        if (currentUserInfo != null) {
-            return currentUserInfo;
-        }
-        return null;
+        return currentUserInfo;
     }
 
     public boolean isRealUser() {
@@ -385,7 +380,6 @@ public class Model {
                     request.setUserName("");
                     request.send(onRegisteredFBCompleted);
                     //TODO - from swift to java
-//                    print(self.userData)
 //                    let request:GSChangeUserDetailsRequest = GSChangeUserDetailsRequest()
 //                    request.timeout = 60
 //                    var _data = [AnyHashable:Any]()
@@ -454,7 +448,8 @@ public class Model {
     };
 
     public void login() {
-        GSRequestBuilder.DeviceAuthenticationRequest request = GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
+        GSRequestBuilder.DeviceAuthenticationRequest request =
+                GSAndroidPlatform.gs().getRequestBuilder().createDeviceAuthenticationRequest();
         HashMap<String, Object> scriptData = new HashMap<>();
         scriptData.put(CLUB_ID_TAG, CLUB_ID);
         request.getBaseData().put("scriptData", scriptData);
@@ -491,19 +486,19 @@ public class Model {
 
         GSAndroidPlatform.gs().getRequestBuilder().createEndSessionRequest()
                 .send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
-            @Override
-            public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
-                if (endSessionResponse != null) {
-                    if (endSessionResponse.hasErrors()) {
-                        Log.d(TAG, "Model.onSessionEnded() -> Error ending session!");
-                    } else {
-                        clearUser();
-                        setLoggedInUserType(NONE);
-                        login();
+                    @Override
+                    public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
+                        if (endSessionResponse != null) {
+                            if (endSessionResponse.hasErrors()) {
+                                Log.d(TAG, "Model.onSessionEnded() -> Error ending session!");
+                            } else {
+                                clearUser();
+                                setLoggedInUserType(NONE);
+                                login();
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
     }
 
     public void resetPassword(String email) {

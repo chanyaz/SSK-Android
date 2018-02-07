@@ -40,6 +40,12 @@ import base.app.util.ui.ExifUtil;
 
 public class FileUploader {
 
+    public static final int COMPRESSED_IMAGE_QUALITY = 70;
+    public static final long MILLIS_IN_SECOND = 1000L;
+    public static final int IMAGE_DIAMETER = 250;
+    public static final int NUM_BITS = 256;
+    public static final int BEGIN_INDEX = 0;
+    public static final int END_INDEX = 8;
     private static String EUWest_PoolId = "eu-west-1:8a0d240e-2ebb-4b62-b66b-2288bc88ce1f";
     private static String EUWest_BaseUrl = "https://s3-eu-west-1.amazonaws.com/sskirbucket/";
     private static String EUWest_Bucket = "sskirbucket";
@@ -143,7 +149,7 @@ public class FileUploader {
     void uploadThumbnail(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 70, bos);  // TODO @Filip - Magic number
+        bmThumbnail.compress(Bitmap.CompressFormat.JPEG, COMPRESSED_IMAGE_QUALITY, bos);
         try {
             File file = new File(filesDir, "temp_thumbnail_video.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
@@ -173,7 +179,7 @@ public class FileUploader {
 
         Bitmap resizedBitmap  = Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, true);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 70, bos);  // TODO @Filip - Magic number
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, COMPRESSED_IMAGE_QUALITY, bos);
         try {
             File file = new File(filesDir, filename);
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
@@ -198,10 +204,10 @@ public class FileUploader {
         } else {
             outputBitmap = Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2 - bitmap.getWidth() / 2, bitmap.getWidth(), bitmap.getWidth());
         }
-        outputBitmap = Bitmap.createScaledBitmap(outputBitmap, 250, 250, true);  // TODO @Filip - Magic number
+        outputBitmap = Bitmap.createScaledBitmap(outputBitmap, IMAGE_DIAMETER, IMAGE_DIAMETER, true);
         outputBitmap = getCircleBitmap(outputBitmap);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        outputBitmap.compress(Bitmap.CompressFormat.PNG, 70, bos);  // TODO @Filip - Magic number
+        outputBitmap.compress(Bitmap.CompressFormat.PNG, COMPRESSED_IMAGE_QUALITY, bos);
         try {
             File file = new File(filesDir, "temp_profile_circled.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
@@ -247,18 +253,18 @@ public class FileUploader {
     }
 
     public static String generateMongoOID() {
-        Long tsLong = Utility.getCurrentTime() / 1000L; // TODO @Filip - Magic number
+        Long tsLong = Utility.getCurrentTime() / MILLIS_IN_SECOND;
         return (getFirst8(Long.toHexString(tsLong)) + generateRandom() + generateRandom());
 
     }
 
     private static String generateRandom() {
-        BigInteger b = new BigInteger(256, new Random());  // TODO @Filip - Magic number
+        BigInteger b = new BigInteger(NUM_BITS, new Random());
         long number = b.longValue();
         return getFirst8(Long.toHexString((number)));
     }
 
     private static String getFirst8(String str) {
-        return str.substring(0, Math.min(str.length(), 8));  // TODO @Filip - Magic number
+        return str.substring(BEGIN_INDEX, Math.min(str.length(), END_INDEX));
     }
 }
