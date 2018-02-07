@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import base.app.data.Id;
+
+import static base.app.data.DateUtils.timestampToFirebaseDate;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -63,7 +66,7 @@ public class VideoChatItem {
             {
                 if(uid != ownerId)
                 {
-                    this.participants.put(uid, "");// TODO @Djordje change this! self.participants[uid] = Date().toFirebase()
+                    this.participants.put(uid, timestampToFirebaseDate(new Date().getTime()));
                 }
                 else {
                     this.participants.put(uid, "accepted");

@@ -47,7 +47,6 @@ public class UserInfo {
     private boolean wallMute = false;
     private Model.UserState userState;
 
-    //TODO @Filip Hook up with GS when backend is avaliable
     private int wallPosts=0;
     private int comments=0;
     private int likes=0;
