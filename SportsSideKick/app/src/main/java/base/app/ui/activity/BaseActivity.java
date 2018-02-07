@@ -200,7 +200,6 @@ abstract class BaseActivity extends AppCompatActivity {
                 String wallId = notificationData.get("wallId");
                 FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
                 wallItemFragmentEvent.setId(postId + "$$$" + wallId);
-                // TODO - Load wall item before displaying it ( or this is handled in fragment? )
                 EventBus.getDefault().post(wallItemFragmentEvent);
             } else if (notificationData.containsKey("newsItem") && notificationData.containsKey("newsType")) {
                 if ("newsOfficial".equals(notificationData.get("newsType"))) {
@@ -216,8 +215,6 @@ abstract class BaseActivity extends AppCompatActivity {
                     } else {
                         fe.setId(id);
                     }
-                    // TODO - Load news item before displaying it
-                    //EventBus.getDefault().createPost(fe);
                 }
 
             } else if (notificationData.containsKey("statsItem")) {
@@ -228,8 +225,6 @@ abstract class BaseActivity extends AppCompatActivity {
                 fe.setId(conferenceId);
                 EventBus.getDefault().post(fe);
             }
-        } else {
-            // TODO Handle Push notifications while app is active
         }
     }
 

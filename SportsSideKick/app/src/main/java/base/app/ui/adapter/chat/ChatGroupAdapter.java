@@ -81,12 +81,6 @@ public class ChatGroupAdapter extends RecyclerView.Adapter<ChatGroupAdapter.View
 
             view.getLayoutParams().width = screenWidth;
         }
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO @Aleksandar add on click
-            }
-        });
         return viewHolder;
 
     }

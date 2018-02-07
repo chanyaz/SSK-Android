@@ -547,7 +547,7 @@ public class NewsItemFragment extends BaseFragment {
             inputFieldComment.getText().clear();
             postCommentProgressBar.setVisibility(View.VISIBLE);
         } else {
-            //TODO Notify user that need to login
+            Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -687,10 +687,6 @@ public class NewsItemFragment extends BaseFragment {
 
             EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
             sharedMessageField.requestFocus();
-
-            // Blur background
-            // MainActivity activity = (MainActivity) getActivity();
-            // TODO: activity.toggleBlur(true, blurredContainer);
         } else {
             Toast.makeText(getContext(),
                     "Please login to pin news articles",

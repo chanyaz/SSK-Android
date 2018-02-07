@@ -276,7 +276,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         adapter.addAll(wallItems);
         adapter.notifyDataSetChanged();
 
-        scrollUp(); // TODO: Do this only on startup, logout or login
+        scrollUp();
     }
 
     @Subscribe
