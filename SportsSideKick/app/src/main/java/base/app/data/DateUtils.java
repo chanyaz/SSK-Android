@@ -50,24 +50,6 @@ public class DateUtils {
         return timestampToFirebaseDate(date.getTime());
     }
 
-
-//    public static String getTimeAgo(long timeStamp) {
-//        //milliseconds
-//        Date date = new Date();
-//        long different = date.getTime() - timeStamp * 1000;
-//
-//        long secondsInMilli = 1000;
-//        long minutesInMilli = secondsInMilli * 60;
-//        long hoursInMilli = minutesInMilli * 60;
-//        long daysInMilli = hoursInMilli * 24;
-//
-//        long elapsedDays = different / daysInMilli;
-//        different = different % daysInMilli;
-//
-//        long elapsedHours = different / hoursInMilli;
-//        return elapsedDays + " Days " + elapsedHours + " Hours ago"; // TODO Hardcoded strings!
-//    }
-
     public static long getTimeDifference(long timeStamp) {
         try {
             Date netDate = (new Date(timeStamp * 1000));

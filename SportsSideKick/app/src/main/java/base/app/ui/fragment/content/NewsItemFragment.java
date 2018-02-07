@@ -430,6 +430,7 @@ public class NewsItemFragment extends BaseFragment {
     }
 
     private void showHeaderImage() {
+        imageHeader.setScaleType(ImageView.ScaleType.CENTER_CROP);
         ImageLoader.displayImage(item.getCoverImageUrl(), imageHeader,
                 R.drawable.wall_detail_header_placeholder);
     }

@@ -236,7 +236,7 @@ public class ChatInfo {
     }
 
     // TODO - This code is not present on iOS!
-    public void sortMessages(){
+    private void sortMessages(){
         Collections.sort(messages, new Comparator<ImsMessage>() {
             @Override
             public int compare(ImsMessage lhs, ImsMessage rhs) {

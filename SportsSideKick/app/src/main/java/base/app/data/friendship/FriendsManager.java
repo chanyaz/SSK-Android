@@ -320,7 +320,6 @@ public class FriendsManager extends GSMessageHandlerAbstract {
 
     private void clear() {
         // TODO @Filip - check if there is implementation on iOS ("*** clear FriendsManager")
-
     }
 
     public void logout() {
