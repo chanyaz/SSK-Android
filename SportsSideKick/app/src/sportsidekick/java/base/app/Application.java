@@ -3,7 +3,6 @@ package base.app;
 import android.content.ContextWrapper;
 import android.support.multidex.MultiDexApplication;
 
-import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.keiferstone.nonet.NoNet;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
@@ -40,10 +39,6 @@ public class Application extends MultiDexApplication{
         instance = this;
         Connection.getInstance().initialize(this);
 
-        // TODO @Djordje - update according to recommended approach (this one is deprecated)
-        // TODO @Djordje - It should be called automatically, test and remove it is like that
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        FacebookSdk.isInitialized();
         AppEventsLogger.activateApp(this);
 
         // Shared prefs initialization

@@ -36,12 +36,12 @@ public class FacebookModel {
     }
 
     private static final String PROFILE_PARAMETERS= "id, name, first_name, last_name, picture.type(large), email, friends, birthday, age_range, location, gender";
-    private static final List<String> LOGIN_PERIMISSIONS  = Arrays.asList("public_profile", "email", "user_friends","user_birthday", "user_photos");
+    private static final List<String> LOGIN_PERMISSIONS = Arrays.asList("public_profile", "email", "user_friends","user_birthday", "user_photos");
     private static final String IMAGE_PREFIX = "https://graph.facebook.com/";
-    private static final String IMAGE_SUFIX = "/picture?width=512&height=512";
+    private static final String IMAGE_SUFFIX = "/picture?width=512&height=512";
 
     public void login(Fragment fragment){
-        LoginManager.getInstance().logInWithReadPermissions(fragment,LOGIN_PERIMISSIONS);
+        LoginManager.getInstance().logInWithReadPermissions(fragment, LOGIN_PERMISSIONS);
     }
 
     public void logout(){
@@ -70,6 +70,6 @@ public class FacebookModel {
     }
 
     public String profileUrl(String id){
-        return IMAGE_PREFIX + id + IMAGE_SUFIX;
+        return IMAGE_PREFIX + id + IMAGE_SUFFIX;
     }
 }
