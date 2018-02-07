@@ -129,7 +129,7 @@ public class StatisticsFragment extends BaseFragment {
                         wallPost.setCoverImageUrl(task.getResult());
                         WallModel.getInstance().createPost(wallPost);
                     } else {
-                        //TODO @Filip Handle error
+                        Toast.makeText(getContext(), "Failed to create post", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

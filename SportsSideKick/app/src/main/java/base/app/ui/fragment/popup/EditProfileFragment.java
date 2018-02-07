@@ -317,7 +317,7 @@ public class EditProfileFragment extends BaseFragment {
                     Model.getInstance().setProfileImageUrl(uploadedImageUrl, true);
                     ImageLoader.displayImage(uploadedImageUrl, profileImage, null);
                 } else {
-                    // TODO @Filip Handle error!
+                    Toast.makeText(getContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();
                 }
             }
         });

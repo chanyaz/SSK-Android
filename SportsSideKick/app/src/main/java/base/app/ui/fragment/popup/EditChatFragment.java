@@ -491,7 +491,7 @@ public class EditChatFragment extends BaseFragment {
                         ImageLoader.displayImage(uploadedImageUrl, chatImageView, null);
                     }
                 } else {
-                    // TODO @Filip Handle error!
+                    Toast.makeText(getContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();
                 }
             }
         });

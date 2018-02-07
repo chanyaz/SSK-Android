@@ -421,7 +421,6 @@ public class FriendFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.friend_button_image)
     public void friendOnClick() {
-        // TODO: Prevent duplication of default posts after removing a friend and going back to wall
         if (user.isaFriend()) { // this user is my friend, remove it from friends
             AlertDialogManager.getInstance()
                     .showAlertDialog(
