@@ -83,7 +83,6 @@ public class WallModel extends GSMessageHandlerAbstract {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 List<WallBase> wallItems = new ArrayList<>();
-                // TODO: Display social post items in adapter (currently ignored)
                 if (!response.hasErrors()) {
                     JSONArray jsonArrayOfPosts = (JSONArray) response.getScriptData().getBaseData().get(GSConstants.ITEMS);
                     if (jsonArrayOfPosts.size() > 0) {
