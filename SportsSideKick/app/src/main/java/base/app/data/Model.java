@@ -11,7 +11,8 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.facebook.login.LoginManager;
+import com.facebook.AccessToken;
+import com.facebook.Profile;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
@@ -486,7 +487,10 @@ public class Model {
     }
 
     public void logout() {
-        GSAndroidPlatform.gs().getRequestBuilder().createEndSessionRequest().send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
+        FacebookModel.getInstance().logout(); // Facebook logout
+
+        GSAndroidPlatform.gs().getRequestBuilder().createEndSessionRequest()
+                .send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
                 if (endSessionResponse != null) {
@@ -500,7 +504,6 @@ public class Model {
                 }
             }
         });
-        FacebookModel.getInstance().logout(); // Facebook logout
     }
 
     public void resetPassword(String email) {
@@ -672,6 +675,7 @@ public class Model {
 
     private void clearUser() {
         currentUserInfo = null;
+        userCache.clear();
     }
 
     /** --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- **/
