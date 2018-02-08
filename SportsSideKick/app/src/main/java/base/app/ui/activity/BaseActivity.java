@@ -7,13 +7,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -66,19 +65,20 @@ import base.app.util.commons.ContextWrapper;
 import base.app.util.commons.Utility;
 import base.app.util.events.notify.NotificationEvent;
 import butterknife.BindView;
+import me.yokeyword.swipebackfragment.SwipeBackActivity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.checkIfBundlesAreEqual;
 
-abstract class BaseActivity extends AppCompatActivity {
+abstract class BaseActivity extends SwipeBackActivity {
 
     public static final String TAG = "Base Activity";
     protected FragmentOrganizer fragmentOrganizer;
     protected LoginStateReceiver loginStateReceiver;
     protected CallbackManager callbackManager;
     protected ShareDialog facebookShareDialog;
-    RelativeLayout notificationContainer;
+    ViewGroup notificationContainer;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -114,7 +114,7 @@ abstract class BaseActivity extends AppCompatActivity {
         InternalNotificationManager.getInstance();
         // this part is optional
         facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
-        notificationContainer = findViewById(R.id.left_notification_container);
+        notificationContainer = (ViewGroup) findViewById(R.id.left_notification_container);
         PurchaseModel.getInstance().onCreate(this);
 
         makeStatusBarTransparent();
@@ -321,7 +321,7 @@ abstract class BaseActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                notificationContainer = findViewById(R.id.left_notification_container);
+                notificationContainer = (ViewGroup) findViewById(R.id.left_notification_container);
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -335,7 +335,7 @@ abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void showNotification(final View v, int time) {
-        notificationContainer = findViewById(R.id.left_notification_container);
+        notificationContainer = (ViewGroup) findViewById(R.id.left_notification_container);
         notificationContainer.addView(v, 0);
 
         Animation animationShow = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_left);

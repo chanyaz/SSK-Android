@@ -61,6 +61,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+import me.yokeyword.swipebackfragment.SwipeBackLayout;
 
 import static base.app.data.wall.WallBase.PostType.newsShare;
 import static base.app.data.wall.WallBase.PostType.rumourShare;
@@ -242,7 +243,10 @@ public class NewsItemFragment extends BaseFragment {
         }
         autoTranslateIfNeeded();
 
-        return view;
+        getSwipeBackLayout().setEdgeOrientation(SwipeBackLayout.EDGE_RIGHT);
+        setEdgeLevel(SwipeBackLayout.EdgeLevel.MAX);
+
+        return attachToSwipeBack(view);
     }
 
     private void autoTranslateIfNeeded() {
