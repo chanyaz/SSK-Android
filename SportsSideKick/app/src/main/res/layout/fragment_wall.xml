@@ -182,20 +182,24 @@
                         android:text="@string/access_full"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="24sp" />
+                        android:textSize="22sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_20"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
                         <Button
                             android:id="@+id/join_now_button"
                             style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="150dp"
+                            android:layout_width="wrap_content"
+                            android:paddingLeft="32dp"
+                            android:paddingRight="32dp"
                             android:layout_height="@dimen/standard_button_height"
                             android:background="@drawable/gym_bag_button_background"
                             android:text="@string/join"
@@ -219,7 +223,9 @@
                         <Button
                             android:id="@+id/login_button"
                             style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="150dp"
+                            android:paddingLeft="32dp"
+                            android:paddingRight="32dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/standard_button_height"
                             android:layout_gravity="center"
                             android:background="@drawable/light_button_edit_profile_image"
