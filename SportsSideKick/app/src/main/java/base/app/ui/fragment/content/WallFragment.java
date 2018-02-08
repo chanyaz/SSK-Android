@@ -1,6 +1,5 @@
 package base.app.ui.fragment.content;
 
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
@@ -50,10 +49,10 @@ import base.app.ui.adapter.content.WallAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
+import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentUpdateEvent;

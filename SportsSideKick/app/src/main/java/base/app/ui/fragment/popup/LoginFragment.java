@@ -23,6 +23,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
@@ -221,19 +222,26 @@ public class LoginFragment extends BaseFragment
                             new GraphRequest.GraphJSONObjectCallback() {
                                 @Override
                                 public void onCompleted(JSONObject object, GraphResponse response) {
-                                    HashMap<String, Object> userData = new Gson().fromJson(
-                                            object.toString(), new TypeToken<HashMap<String, Object>>() {}.getType()
+                                    final HashMap<String, Object> userData = new Gson().fromJson(
+                                            object.toString(), new TypeToken<HashMap<String, Object>>() {
+                                            }.getType()
                                     );
 
+                                    String email = null;
                                     try {
-                                         Model.getInstance().loginWithFacebook(
-                                                 loginResult.getAccessToken().getToken(),
-                                                 object.getString("email"),
-                                                 userData);
-
+                                        email = object.getString("email");
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    final String token = loginResult.getAccessToken().getToken();
+
+                                    emailEditText.setText(email);
+                                    LoginManager.getInstance().logOut();
+
+                                    Model.getInstance().loginFromFacebook(
+                                            token,
+                                            email,
+                                            userData);
                                 }
                             });
                     Bundle parameters = new Bundle();

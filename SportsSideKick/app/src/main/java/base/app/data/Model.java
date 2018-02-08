@@ -336,7 +336,6 @@ public class Model {
                     } else {
                         onAuthenticatedFB.onEvent(authenticationResponse);
                     }
-
                 }
             }
         }
@@ -467,8 +466,9 @@ public class Model {
                 .send(onAuthenticated);
     }
 
-    public void loginWithFacebook(String token, String email, HashMap<String, Object> userData) {
-        final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder().createFacebookConnectRequest();
+    public void loginFromFacebook(String token, String email, HashMap<String, Object> userData) {
+        final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder()
+                .createFacebookConnectRequest();
         if (userData != null) {
             userData.put("initial_email", email);
             userData.put(CLUB_ID_TAG, CLUB_ID);
@@ -476,8 +476,8 @@ public class Model {
             map.put("scriptData", userData);
         }
         request.setAccessToken(token)
-                .setDoNotLinkToCurrentPlayer(false)
-                .setSwitchIfPossible(true)
+                .setDoNotLinkToCurrentPlayer(true)
+                .setSwitchIfPossible(false)
                 .send(handleFBAuth);
     }
 

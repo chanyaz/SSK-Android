@@ -21,10 +21,14 @@ object ImageLoader {
     fun displayImage(uri: Any?, view: ImageView?, error: Int? = null, isRound: Boolean = false) {
         if (uri != null) {
             if (view != null && view.context != null) {
-                Glide.with(view.context)
-                        .load(uri)
-                        .apply(optionsWith(error, isRound))
-                        .into(view)
+                try {
+                    Glide.with(view.context)
+                            .load(uri)
+                            .apply(optionsWith(error, isRound))
+                            .into(view)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         } else {
             if (error != null) {
