@@ -11,6 +11,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +24,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -42,6 +55,7 @@ import base.app.data.user.RegistrationStateReceiver;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.content.WallFragment;
 import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
@@ -94,19 +108,17 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @Nullable
     @BindView(R.id.politic_and_privacy_android)
     TextView policyText;
-
     @Nullable
     @BindView(R.id.popupSignupContainer)
     RelativeLayout editTextContainer;
-
-
     @Nullable
     @BindView(R.id.facebook_button)
     Button facebookButton;
-
     @Nullable
     @BindView(R.id.popupSignupJoinNowButton)
     RelativeLayout joinNowContainer;
+    @BindView(R.id.loadingOverlay)
+    View loadingOverlay;
 
 
     private CallbackManager callbackManager;
@@ -231,43 +243,57 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     }
 
     private void initFacebook() {
-//        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-//        // Callback registration
-//        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                // App code
-//                GraphRequest request = GraphRequest.newMeRequest(
-//                        loginResult.getAccessToken(),
-//                        new GraphRequest.GraphJSONObjectCallback() {
-//                            @Override
-//                            public void onCompleted(JSONObject object, GraphResponse response) {
-//                                // Application code
-//                                try {
-//                                    email.setText(object.getString("email"));
-//                                    firstName.setText(object.getString("first_name"));
-//                                    lastName.setText(object.getString("last_name"));
-//                                    if (displayName != null) {
-//                                        displayName.setText(object.getString("first_name") + " " + object.getString("last_name"));
-//                                    }
-//                                    LoginManager.getInstance().logOut();
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        });
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "name,email,first_name,last_name");
-//                request.setParameters(parameters);
-//                request.executeAsync();
-//            }
-//
-//            @Override
-//            public void onCancel() { }
-//
-//            @Override
-//            public void onError(FacebookException error) { }
-//        });
+        if (loginButton != null) {
+            loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends", "user_birthday", "user_photos"));
+            callbackManager = CallbackManager.Factory.create();
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(final LoginResult loginResult) {
+                    loadingOverlay.setVisibility(View.VISIBLE);
+
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            loginResult.getAccessToken(),
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(JSONObject object, GraphResponse response) {
+                                    final HashMap<String, Object> userData = new Gson().fromJson(
+                                            object.toString(), new TypeToken<HashMap<String, Object>>() {
+                                            }.getType()
+                                    );
+
+                                    String email = null;
+                                    try {
+                                        email = object.getString("email");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    final AccessToken token = loginResult.getAccessToken();
+
+                                    LoginManager.getInstance().logOut();
+
+                                    Model.getInstance().loginFromFacebook(
+                                            token,
+                                            email,
+                                            userData);
+                                }
+                            });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id, name, first_name, last_name, picture.type(large), email, friends, birthday, age_range, location, gender");
+                    request.setParameters(parameters);
+                    request.executeAsync();
+                }
+
+                @Override
+                public void onCancel() {
+                    Log.d("SignUpFragment", "Facebook login canceled!");
+                }
+
+                @Override
+                public void onError(FacebookException error) {
+                    Log.d("SignUpFragment", "Facebook login error - error is:" + error.getLocalizedMessage());
+                }
+            });
+        }
     }
 
     @Override
@@ -383,8 +409,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         } else {
-            getActivity().onBackPressed();
-            //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class));
+            EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
         }
     }
 

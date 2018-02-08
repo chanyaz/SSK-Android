@@ -239,7 +239,6 @@ public class LoginFragment extends BaseFragment
                                     }
                                     final AccessToken token = loginResult.getAccessToken();
 
-                                    emailEditText.setText(email);
                                     LoginManager.getInstance().logOut();
 
                                     Model.getInstance().loginFromFacebook(
