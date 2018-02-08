@@ -112,6 +112,8 @@ public class LoginFragment extends BaseFragment
     @Nullable
     @BindView(R.id.sign_up_facebook)
     LoginButton loginButton;
+    @BindView(R.id.loadingOverlay)
+    View loadingOverlay;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -217,8 +219,8 @@ public class LoginFragment extends BaseFragment
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
-                    Toast.makeText(getContext(), "Signing in...", Toast.LENGTH_LONG).show();
-                    // App code
+                    loadingOverlay.setVisibility(View.VISIBLE);
+
                     GraphRequest request = GraphRequest.newMeRequest(
                             loginResult.getAccessToken(),
                             new GraphRequest.GraphJSONObjectCallback() {
@@ -369,6 +371,7 @@ public class LoginFragment extends BaseFragment
     public void onLoginError(Error error) {
         progressBar.setVisibility(View.GONE);
         loginText.setVisibility(View.VISIBLE);
+        loadingOverlay.setVisibility(View.GONE);
         AlertDialogManager.getInstance().showAlertDialog(
                 getContext().getResources().getString(R.string.login_failed),
                 getContext().getResources().getString(R.string.password_try_again),
