@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -234,7 +235,7 @@ public class LoginFragment extends BaseFragment
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    final String token = loginResult.getAccessToken().getToken();
+                                    final AccessToken token = loginResult.getAccessToken();
 
                                     emailEditText.setText(email);
                                     LoginManager.getInstance().logOut();

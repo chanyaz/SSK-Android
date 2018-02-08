@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -11,6 +12,9 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamesparks.sdk.GSEventConsumer;
@@ -21,8 +25,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +61,7 @@ public class Model {
     private static final String TAG = "MODEL";
     private final ObjectMapper mapper; // jackson's object mapper
     private String firebaseToken;
+    private AccessToken mFacebookToken;
 
     public void setFirebaseToken(String firebaseToken) {
         this.firebaseToken = firebaseToken;
@@ -349,7 +357,16 @@ public class Model {
                     Log.d(TAG, "Facebook onRegisteredFB AuthenticationResponse: " + authenticationResponse.toString());
                     EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginError));
                 } else {
-                    getAccountDetails(completeLogin);
+                    pullFreshFacebookProfile(authenticationResponse, new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
+                        @Override
+                        public void onEvent(GSResponseBuilder.ChangeUserDetailsResponse changeUserDetailsResponse) {
+                            if (!changeUserDetailsResponse.hasErrors()) {
+                                getAccountDetails(completeLogin);
+                            } else {
+                                Log.e("Model", "Failed to update user details");
+                            }
+                        }
+                    });
                 }
             }
         }
@@ -365,54 +382,70 @@ public class Model {
                 } else {
                     // At this stage, we need to complete the traditional registration stage
                     // but we should also update the user data
-
-                    GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
-                    HashMap<String, Object> data = new HashMap<>();
-                    data.put("action", "register");
-                    data.put(CLUB_ID_TAG, CLUB_ID);
-
-                    String firstName = authenticationResponse.getScriptData().getString("firstName");
-
-                    Map<String, Object> map = request.getBaseData();
-                    map.put("scriptData", data);
-
-                    request.setUserName("");
-                    request.send(onRegisteredFBCompleted);
-                    //TODO - from swift to java
-//                    let request:GSChangeUserDetailsRequest = GSChangeUserDetailsRequest()
-//                    request.timeout = 60
-//                    var _data = [AnyHashable:Any]()
-//                    _data["action"] = "register"
-//                    _data["club_id"] = self.clubId
-//
-//                    if let firstName = self.userData["firstName"] {
-//                        _data["firstName"] = firstName
-//                    }
-//                    if let lastName = self.userData["lastName"] {
-//                        _data["lastName"] = lastName
-//                    }
-//                    if let phone = self.userData["phone"] {
-//                        _data["phone"] = phone
-//                    }
-//                    if let avatarUrl = self.userData["avatarUrl"] {
-//                        _data["avatarUrl"] = avatarUrl
-//                    }
-//
-//                    var initialEmail:String = ""
-//
-//                    let scriptData = response!.getScriptData()
-//                    if let email = scriptData?["initial_email"] as? String{
-//                        initialEmail = email
-//
-//                        request.setUserName(initialEmail)
-//                        request.setScriptData(_data)
-//                        request.setCallback(self.onRegisteredFBCompleted)
-//                        self.gs.send(request)
-//                    }
+                    pullFreshFacebookProfile(authenticationResponse, null);
                 }
             }
         }
     };
+
+    private void pullFreshFacebookProfile(
+            final GSResponseBuilder.AuthenticationResponse authenticationResponse,
+            final GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> consumerFromLogin) {
+
+        GraphRequest graphRequest = GraphRequest.newMeRequest(
+                mFacebookToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        final HashMap<String, Object> userData = new Gson().fromJson(
+                                object.toString(), new TypeToken<HashMap<String, Object>>() {
+                                }.getType()
+                        );
+
+                        GSRequestBuilder.ChangeUserDetailsRequest request
+                                = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+                        HashMap<String, Object> data = new HashMap<>();
+                        if (consumerFromLogin == null) {
+                            data.put("action", "register");
+                        }
+                        data.put(CLUB_ID_TAG, CLUB_ID);
+
+                        GSData responseData = authenticationResponse.getScriptData();
+                        String initialEmail = responseData.getString("initial_email");
+
+                        data.put(GSConstants.FIRST_NAME, userData.get("first_name"));
+                        data.put(GSConstants.LAST_NAME, userData.get("last_name"));
+                        data.put(GSConstants.PHONE, userData.get("phone"));
+                        data.put(GSConstants.EMAIL, initialEmail);
+                        if (userData.get("picture") != null) {
+                            try {
+                                String imageInfo = userData.get("picture").toString();
+                                int indexStart = imageInfo.indexOf("url=") + 4;
+                                int indexEnd = imageInfo.indexOf("width=") - 2;
+                                String avatarUrl = imageInfo.substring(indexStart, indexEnd);
+                                data.put("avatarUrl", avatarUrl);
+                                data.put("circularAvatarUrl", avatarUrl);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        Map<String, Object> map = request.getBaseData();
+                        map.put("scriptData", data);
+
+                        if (consumerFromLogin == null) {
+                            request.setUserName(initialEmail);
+                            request.send(onRegisteredFBCompleted);
+                        } else {
+                            request.send(consumerFromLogin);
+                        }
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id, name, first_name, last_name, picture.type(large), email, friends, birthday, age_range, location, gender");
+        graphRequest.setParameters(parameters);
+        graphRequest.executeAsync();
+    }
 
     private GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse> onRegisteredFBCompleted = new GSEventConsumer<GSResponseBuilder.ChangeUserDetailsResponse>() {
         @Override
@@ -466,7 +499,9 @@ public class Model {
                 .send(onAuthenticated);
     }
 
-    public void loginFromFacebook(String token, String email, HashMap<String, Object> userData) {
+    public void loginFromFacebook(AccessToken token, String email, HashMap<String, Object> userData) {
+        mFacebookToken = token;
+
         final GSRequestBuilder.FacebookConnectRequest request = GSAndroidPlatform.gs().getRequestBuilder()
                 .createFacebookConnectRequest();
         if (userData != null) {
@@ -475,7 +510,7 @@ public class Model {
             Map<String, Object> map = request.getBaseData();
             map.put("scriptData", userData);
         }
-        request.setAccessToken(token)
+        request.setAccessToken(token.getToken())
                 .setDoNotLinkToCurrentPlayer(true)
                 .setSwitchIfPossible(false)
                 .send(handleFBAuth);
@@ -581,7 +616,8 @@ public class Model {
     }
 
     public void setProfileImageUrl(String profileImageUrl, boolean isCircular) {
-        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder().createChangeUserDetailsRequest();
+        GSRequestBuilder.ChangeUserDetailsRequest request = GSAndroidPlatform.gs().getRequestBuilder()
+                .createChangeUserDetailsRequest();
         String key = isCircular ? "circularAvatarUrl" : "avatarUrl";
         HashMap<String, Object> scriptData = new HashMap<>();
         scriptData.put(key, profileImageUrl);
