@@ -386,7 +386,6 @@ public class NewsItemFragment extends BaseFragment {
 
     private void showCommentsLikesCount() {
         postContainer.setVisibility(View.VISIBLE);
-        commentsListView.setNestedScrollingEnabled(false);
 
         if (commentsCountHeader != null) {
             commentsCountHeader.setText(String.valueOf(item.getCommentsCount()));

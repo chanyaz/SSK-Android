@@ -126,7 +126,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (recyclerView != null) {
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setNestedScrollingEnabled(false);
             refreshAdapter();
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {

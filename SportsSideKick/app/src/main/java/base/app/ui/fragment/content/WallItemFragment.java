@@ -262,7 +262,6 @@ public class WallItemFragment extends BaseFragment {
                     videoView.start();
                 }
                 postContainer.setVisibility(View.VISIBLE);
-                commentsList.setNestedScrollingEnabled(false);
 
                 if (commentsCount != null) {
                     commentsCount.setText(String.valueOf(post.getCommentsCount()));
