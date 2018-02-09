@@ -156,6 +156,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                     holder.notificationView.setVisibility(View.GONE);
                 }
             }
+            holder.imageView.setSelected(focusedItem == position);
         }
     }
 
