@@ -26,6 +26,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/profile"
             android:textColor="?popupsCaptionColor"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -33,17 +34,17 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.AppCompatImageButton
+            <ImageButton
                 android:id="@+id/close_dialog_button"
                 android:layout_width="@dimen/standard_button_height"
                 android:layout_height="@dimen/standard_button_height"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"
                 android:adjustViewBounds="true"
-                android:background="#2f000000"
+                android:padding="8dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                android:tint="@color/colorPrimaryVeryLight"
-                android:visibility="gone" />
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
         </RelativeLayout>
     </RelativeLayout>
     <!-- TOP BUTTONS CONTAINER -->
@@ -51,9 +52,9 @@
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_toolbar">
+        android:layout_below="@+id/top_toolbar"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,9 +100,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
-        android:visibility="gone"
         android:layout_below="@+id/top_toolbar"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <View
             android:layout_width="match_parent"
@@ -282,9 +283,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_toLeftOf="@id/location_value"
                         android:layout_below="@+id/contact_info_caption"
                         android:layout_marginStart="@dimen/margin_20"
+                        android:layout_toLeftOf="@id/location_value"
                         android:ellipsize="end"
                         android:paddingRight="16dp"
                         android:textColor="?popupsCaptionColor"
@@ -337,10 +338,10 @@
                         android:id="@+id/location_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/subscribed_since_value"
                         android:layout_alignStart="@+id/location_caption"
                         android:layout_below="@+id/location_caption"
                         android:layout_centerHorizontal="true"
+                        android:layout_toLeftOf="@id/subscribed_since_value"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_12"
                         tools:text="SportsSideKick" />
@@ -418,106 +419,106 @@
                         android:id="@+id/infoDivider"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/height_1"
-                        android:layout_marginTop="8dp"
                         android:layout_below="@id/chosen_language_value"
+                        android:layout_marginTop="8dp"
                         android:background="#2f000000" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/autoTranslateToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="16dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/infoDivider" />
+                        android:layout_below="@id/infoDivider"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="16dp" />
 
                     <TextView
                         android:id="@+id/autoTranslateLabel"
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/autoTranslateToggle"
                         android:layout_alignBottom="@+id/autoTranslateToggle"
+                        android:layout_marginLeft="8dp"
                         android:layout_toEndOf="@+id/autoTranslateToggle"
-                        android:layout_height="wrap_content"
                         android:text="@string/auto_translation"
                         android:textColor="@color/white" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/wallNotificationsToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/autoTranslateToggle" />
+                        android:layout_below="@id/autoTranslateToggle"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="4dp" />
 
                     <TextView
                         android:id="@+id/wallNotificationsLabel"
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/wallNotificationsToggle"
                         android:layout_alignBottom="@+id/wallNotificationsToggle"
+                        android:layout_marginLeft="8dp"
                         android:layout_toEndOf="@+id/wallNotificationsToggle"
-                        android:layout_height="wrap_content"
                         android:text="@string/notify_wall"
                         android:textColor="@color/white" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/newsNotificationsToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginBottom="8dp"
-                        android:tag="News"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/wallNotificationsToggle" />
+                        android:layout_below="@id/wallNotificationsToggle"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="4dp"
+                        android:tag="News" />
 
                     <TextView
                         android:id="@+id/newsNotificationsLabel"
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/newsNotificationsToggle"
                         android:layout_alignBottom="@+id/newsNotificationsToggle"
+                        android:layout_marginLeft="8dp"
                         android:layout_toEndOf="@+id/newsNotificationsToggle"
-                        android:layout_height="wrap_content"
                         android:text="@string/notify_news"
                         android:textColor="@color/white" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/rumoursNotificationsToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="4dp"
-                        android:tag="Rumours"
-                        android:layout_marginBottom="8dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/newsNotificationsToggle" />
+                        android:layout_below="@id/newsNotificationsToggle"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="4dp"
+                        android:tag="Rumours" />
 
                     <TextView
                         android:id="@+id/rumoursNotificationsLabel"
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/rumoursNotificationsToggle"
                         android:layout_alignBottom="@+id/rumoursNotificationsToggle"
+                        android:layout_marginLeft="8dp"
                         android:layout_toEndOf="@+id/rumoursNotificationsToggle"
-                        android:layout_height="wrap_content"
                         android:text="@string/notify_rumours"
                         android:textColor="@color/white" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/socialNotificationsToggle"
                         android:layout_width="56dp"
-                        android:layout_marginLeft="4dp"
-                        android:tag="Social"
-                        android:layout_marginBottom="8dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/rumoursNotificationsToggle" />
+                        android:layout_below="@id/rumoursNotificationsToggle"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="4dp"
+                        android:tag="Social" />
 
                     <TextView
                         android:id="@+id/socialNotificationsLabel"
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/socialNotificationsToggle"
                         android:layout_alignBottom="@+id/socialNotificationsToggle"
+                        android:layout_marginLeft="8dp"
                         android:layout_toEndOf="@+id/socialNotificationsToggle"
-                        android:layout_height="wrap_content"
                         android:text="@string/notify_social"
                         android:textColor="@color/white" />
 
@@ -580,8 +581,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_negative_5"
                                 android:gravity="center"
-                                android:textAllCaps="true"
                                 android:text="@string/caps"
+                                android:textAllCaps="true"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/font_size_10" />
 
@@ -645,10 +646,10 @@
                 android:id="@+id/profile_stats_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:nestedScrollingEnabled="false"
                 android:layout_below="@+id/holder_progress_bar"
                 android:layout_marginBottom="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_10" />
+                android:layout_marginTop="@dimen/margin_10"
+                android:nestedScrollingEnabled="false" />
 
             <ImageButton
                 android:id="@+id/logout_button"

@@ -306,7 +306,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     private void loadWallItemsPage(final boolean withSpinner, final TaskCompletionSource<List<WallBase>> completion){
-        if(withSpinner){
+        if(withSpinner && wallItems.isEmpty()){
             swipeRefreshLayout.setRefreshing(true);
         }
         TaskCompletionSource<List<WallBase>> getWallPostCompletion = new TaskCompletionSource<>();
