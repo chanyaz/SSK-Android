@@ -241,15 +241,6 @@
 
                 </LinearLayout>
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyle"
-                    android:id="@+id/progressBar"
-                    android:layout_width="@dimen/prodgres_bar"
-                    android:layout_height="@dimen/prodgres_bar"
-                    android:layout_below="@id/login_holder"
-                    android:layout_centerInParent="true"
-                    android:elevation="@dimen/elevation_2" />
-
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fragment_wall_recycler_view"
                     android:layout_width="match_parent"

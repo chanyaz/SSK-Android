@@ -96,8 +96,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     View topCaption;
     @BindView(R.id.wall_top_info_container)
     View wallTopInfoContainer;
-    @BindView(R.id.progressBar)
-    View progressBar;
     @Nullable
     @BindView(R.id.login_holder)
     LinearLayout loginHolder;
@@ -144,7 +142,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }
         });
         if (wallItems.size() > 0) {
-            progressBar.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
         }
         Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
 
@@ -230,7 +228,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             wallItems.add(post);
             refreshAdapter();
         }
-        progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe
@@ -309,7 +307,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
 
     private void loadWallItemsPage(final boolean withSpinner, final TaskCompletionSource<List<WallBase>> completion){
         if(withSpinner){
-            progressBar.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setRefreshing(true);
         }
         TaskCompletionSource<List<WallBase>> getWallPostCompletion = new TaskCompletionSource<>();
         getWallPostCompletion.getTask().addOnCompleteListener(new OnCompleteListener<List<WallBase>>() {
@@ -324,7 +322,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     completion.setResult(items);
                     refreshAdapter();
                     swipeRefreshLayout.setRefreshing(false);
-                    progressBar.setVisibility(View.GONE);
                     offset +=pageSize;
                 }
                 if (withSpinner) {
