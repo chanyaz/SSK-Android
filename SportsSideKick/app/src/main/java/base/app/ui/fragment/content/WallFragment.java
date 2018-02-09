@@ -290,9 +290,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     private void reloadWallFromModel() {
-        wallItems.clear();
-        adapter.notifyDataSetChanged();
-
         offset = 0;
         fetchingPageOfPosts = true;
         final TaskCompletionSource<List<WallBase>> source = new TaskCompletionSource<>();
@@ -300,6 +297,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             @Override
             public void onComplete(@NonNull Task<List<WallBase>> task) {
                 fetchingPageOfPosts = false;
+                scrollUp();
             }
         });
         loadWallItemsPage(true,source);
@@ -317,8 +315,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     List<WallBase> items = task.getResult();
                     if (items.size() > 0) {
                         wallItems.clear();
+                        wallItems.addAll(items);
                     }
-                    wallItems.addAll(items);
                     completion.setResult(items);
                     refreshAdapter();
                     swipeRefreshLayout.setRefreshing(false);
