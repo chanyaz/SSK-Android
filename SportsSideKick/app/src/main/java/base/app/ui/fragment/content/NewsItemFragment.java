@@ -197,6 +197,8 @@ public class NewsItemFragment extends BaseFragment {
                 false);
         ButterKnife.bind(this, view);
 
+        setClickListeners();
+
         String id = getPrimaryArgument();
         if (getSecondaryArgument() != null && getSecondaryArgument().contains("UNOFFICIAL$$$")) {
             id = "UNOFFICIAL$$$" + id;
@@ -227,7 +229,6 @@ public class NewsItemFragment extends BaseFragment {
                 }
             });
         }
-        setClickListeners();
 
         sharedMessageField.setHint(R.string.pin_message_hint);
 
@@ -646,9 +647,9 @@ public class NewsItemFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.share_container)
-    public void sharePost(View view) {
+    public void sharePost() {
         if (Model.getInstance().isRealUser()) {
-            SharingManager.getInstance().share(getContext(), item, SharingManager.ShareTarget.facebook, view);
+            SharingManager.getInstance().share(getContext(), item);
         } else {
             Toast.makeText(getContext(),
                     "Please login to share news",

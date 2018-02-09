@@ -523,9 +523,9 @@ public class WallItemFragment extends BaseFragment {
 
     @Optional
     @OnClick(R.id.share_container)
-    public void sharePost(View view) {
+    public void sharePost() {
         if (Model.getInstance().isRealUser()) {
-            SharingManager.getInstance().share(getContext(), mPost, SharingManager.ShareTarget.facebook, view);
+            SharingManager.getInstance().share(getContext(), mPost);
         } else {
             Toast.makeText(getContext(),
                     "Please login to share posts",

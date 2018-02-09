@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -21,8 +21,6 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
-
-import base.app.data.wall.WallNews;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
@@ -113,23 +111,16 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
         return source.getTask();
     }
 
-    public void share(final Shareable item, final ShareTarget shareTarget, final View sender) {
-        share(null, item, shareTarget, sender);
+    public void share(final Shareable item) {
+        share(null, item);
     }
 
-    public void share(final Context context, final Shareable item, final ShareTarget shareTarget, final View sender) {
+    public void share(final Context context, final Shareable item) {
         Map<String, Object> itemAsMap = mapper.convertValue(item, new TypeReference<Map<String, Object>>() {
         });
-       //TODO Temporarily fix
-        if (item instanceof WallNews)
-            if (((WallNews) item).getUrl() != null)
-                if (!((WallNews) item).getUrl().equals("") && ((WallNews) item).getWallId().equals("")) {
-                    socialNetworkSelector(context, itemAsMap, shareTarget);
-                    return;
-                }
         itemToShare = null;
         if (item.getItemType() == null) {
-            Log.e(TAG, "This item is not inteded for sharing, yet!");
+            Log.e(TAG, "This item is not intended for sharing yet!");
         }
         getUrl(itemAsMap, item.getItemType()).addOnCompleteListener(new OnCompleteListener<Map<String, Object>>() {
             @Override
@@ -143,7 +134,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
 
                     presentNative(response);
                 } else {
-                    //TODO @Filip NOT SUCCESSFUL - What we can do with this?
+                    Toast.makeText(context, "Failed to share item", Toast.LENGTH_SHORT).show();
                 }
             }
         });
