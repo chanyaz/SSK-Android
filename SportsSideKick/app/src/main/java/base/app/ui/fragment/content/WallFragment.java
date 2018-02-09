@@ -106,7 +106,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     private LoginStateReceiver loginStateReceiver;
 
     int offset = 0;
-    int pageSize = 30;
+    int pageSize = 100;
     boolean fetchingPageOfPosts = false;
 
     @Override
