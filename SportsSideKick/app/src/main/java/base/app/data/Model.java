@@ -803,15 +803,6 @@ public class Model {
         FileUploader.getInstance().uploadThumbnail(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForProfile(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
-        String filename =
-                "photo_" +
-                        getUserIdForImageName() +
-                        System.currentTimeMillis() +
-                        ".png";
-        FileUploader.getInstance().uploadCircularProfileImage(filename, filepath, filesDir, completion);
-    }
-
     public void uploadImageForWallPost(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "post_photo_" +
@@ -888,7 +879,7 @@ public class Model {
         FileUploader.getInstance().uploadCompressedImage(filename, filepath, filesDir, completion);
     }
 
-    public void uploadImageForEditChat(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
+    public void uploadImage(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename =
                 "photo_" +
                         getUserIdForImageName() +

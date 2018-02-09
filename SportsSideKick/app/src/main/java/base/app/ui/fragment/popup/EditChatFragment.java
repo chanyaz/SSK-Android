@@ -254,7 +254,7 @@ public class EditChatFragment extends BaseFragment {
                                 File imageFile = (File) o;
                                 currentPath = imageFile.getAbsolutePath();
                                 uploadImage(currentPath);
-                                ImageLoader.displayImage(currentPath,chatImageView);
+                                ImageLoader.displayRoundImage(currentPath,chatImageView);
                             }
 
                             @Override
@@ -290,7 +290,7 @@ public class EditChatFragment extends BaseFragment {
                                 File imageFile = (File) o;
                                 currentPath = imageFile.getAbsolutePath();
                                 uploadImage(currentPath);
-                                ImageLoader.displayImage(currentPath,chatImageView);
+                                ImageLoader.displayRoundImage(currentPath,chatImageView);
                             }
 
                             @Override
@@ -480,7 +480,7 @@ public class EditChatFragment extends BaseFragment {
 
     private void uploadImage(String path){
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        Model.getInstance().uploadImageForEditChat(path,getActivity().getFilesDir(),source);
+        Model.getInstance().uploadImage(path,getActivity().getFilesDir(),source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
